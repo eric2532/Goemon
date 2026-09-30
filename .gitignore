@@ -1,0 +1,27 @@
+# Godot-generated cache and local exports.
+.godot/
+/build/
+/backups/
+.DS_Store
+
+# Local credentials and editor/runtime caches.
+.env
+.env.*
+!.env.example
+.godot/export_credentials.cfg
+__pycache__/
+*.py[cod]
+*.log
+
+# Blender recovery files and the archived visual-development ZIP.
+*.blend[0-9]*
+/assets/blender/enemies/musashi/Archive/*.zip
+
+# Generated test captures/reports; keep test source and validation notes.
+/tests/**/*.png
+/tests/**/*.jpg
+/tests/**/*.jpeg
+/tests/**/*.mp4
+/tests/**/*.import
+/tests/**/*.json
+/tests/**/*.txt

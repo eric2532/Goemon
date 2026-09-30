@@ -1,0 +1,537 @@
+class_name Hero
+extends CharacterBody3D
+
+var game: Node
+var character_id=1
+var character_models: Dictionary={}
+var character_abilities: Dictionary={}
+var musashi: MusashiCombat
+var active_ability: Node
+const ROSTER={1: {"name":"Goemon", "model":preload("res://scripts/hero_model.gd")},2: {"name":"Edo", "model":preload("res://assets/characters/musashi/model/musashi_model.gd"),"combat":preload("res://assets/characters/musashi/combat/musashi_combat.gd")}}
+var model: HeroModel
+var hp=100.0
+var max_hp=100.0
+var facing=Vector3.FORWARD
+var attack_left=0.0
+var attack_duration=0.42
+var attack_heavy=false
+var hit_done=false
+var combo=0
+var combo_window=0.0
+var queued=false
+var invuln=0.0
+var dodge_time=0.0
+var dodge_cooldown=0.0
+var coyote=0.0
+var jump_buffer=0.0
+var trail_time=0.0
+var foot_time=0.0
+var last_foot_events=0
+var soft_target=true
+var was_floor=false
+var last_vertical=0.0
+var weapon_slot=1
+var jumps_used=0
+var air_turn=0.0
+var primary_down=false
+var charge_elapsed=0.0
+var attack_charged=false
+var charge_power=1.0
+var surge_left=0.0
+var aura: SurgeAura
+var charge_ring: Node3D
+var impact_pause=0.0
+var jump_windup=0.0
+var struck_targets: Dictionary={}
+var swing_played=false
+var heavy_buffer=0.0
+var combo_step_done=false
+var sky_strike: SkyStrike
+var chain_pipe_combat: ChainPipeCombat
+var forward_dash: GoemonDash
+var scarf_equipped=false
+var quick_attacks
+var wide_swing=false
+const MAX_ATTACK_SPEED_STACKS=4
+var attack_speed_stacks=0
+var elemental_orbs={"ice":0,"fire":0}
+var powerups={"damage":0.0,"range":0.0,"attack_speed":0.0}
+var smoke_mode=false
+var smoke_move=Vector2.ZERO
+
+func _ready():
+	quick_attacks=preload("res://scripts/goemon_quick_attacks.gd").new(self)
+	sky_strike=SkyStrike.new(self)
+	chain_pipe_combat=ChainPipeCombat.new(self)
+	forward_dash=GoemonDash.new(self)
+	collision_layer=2
+	collision_mask=1
+	floor_snap_length=0.55
+	floor_max_angle=deg_to_rad(48)
+	var shape=CollisionShape3D.new()
+	var capsule=CapsuleShape3D.new()
+	capsule.radius=0.38
+	capsule.height=1.85
+	shape.shape=capsule
+	shape.position.y=0.95
+	add_child(shape)
+	model=HeroModel.new()
+	add_child(model)
+	character_models[1]=model
+	aura=SurgeAura.new()
+	add_child(aura)
+	aura.hide()
+	charge_ring=Node3D.new();add_child(charge_ring)
+	charge_ring.hide()
+	max_hp=game.tuning.max_hp
+	hp=max_hp
+	# Load registered visuals during startup so selection does not load a GLB mid-fight.
+	for id in ROSTER:ensure_character(id)
+
+func _unhandled_input(event):
+	if not game.playing or game.paused or game.transitioning: return
+	if forward_dash.active and not event.is_action_pressed("character_toggle"):return
+	if event.is_action_pressed("sky_strike") and not event.is_echo() and character_id==1:
+		sky_strike.request();return
+	if sky_strike.active and not event.is_action_pressed("character_toggle"):return
+	if event.is_action_pressed("jump") and not event.is_echo() and not (character_id==2 and musashi.is_casting_meteors()): jump_buffer=0.15
+	if event.is_action_pressed("character_toggle") and not event.is_echo():
+		var ids=ROSTER.keys();select_character(ids[(ids.find(character_id)+1)%ids.size()])
+	if active_ability!=null:
+		active_ability.input(event)
+		if active_ability.blocks_movement():return
+		if event.is_action_pressed("assist"):soft_target=not soft_target
+		if event.is_action_pressed("dodge") and dodge_cooldown<=0:
+			active_ability.interrupt_for_dodge();attack_left=0
+			dodge_time=.28;dodge_cooldown=.75;invuln=.32;game.sound("dash")
+		return
+	for number in [1,2,3]:
+		if event.is_action_pressed({1:"weapon_pipe",2:"weapon_coin",3:"weapon_chain"}[number]) and not event.is_echo():
+			quick_attacks.request(number);return
+	if event.is_action_pressed("scarf_toggle") and not event.is_echo():set_scarf_equipped(not scarf_equipped)
+	if event.is_action_pressed("surge") and not event.is_echo(): activate_surge()
+	if quick_attacks.active and (event.is_action_pressed("light_attack") or event.is_action_pressed("heavy_attack")):return
+	if weapon_slot==3:
+		if event.is_action_pressed("light_attack") and not event.is_echo():chain_pipe_combat.start("throw")
+		if event.is_action_pressed("heavy_attack") and not event.is_echo():chain_pipe_combat.start("sweep")
+	if event.is_action_pressed("light_attack") and not event.is_echo():
+		if attack_left<=0 and weapon_slot!=3:
+			# Primary attacks start on press. R swaps the moveset; no hold charge.
+			start_attack(surge_left>0,1,surge_left>0,1.0)
+		elif weapon_slot==1 and not attack_heavy and combo<3:
+			if 1.0-attack_left/attack_duration>=0.10:queued=true
+	if event.is_action_pressed("heavy_attack") and not primary_down and weapon_slot!=3:
+		if attack_left<=0: start_attack(true)
+		elif attack_left<0.16: heavy_buffer=0.18
+	if event.is_action_pressed("equip") and not event.is_echo():forward_dash.start()
+	if event.is_action_pressed("assist"):
+		soft_target=not soft_target
+		game.toast("Soft targeting ON" if soft_target else "Soft targeting OFF")
+	if event.is_action_pressed("dodge") and dodge_cooldown<=0:
+		attack_left=0
+		heavy_buffer=0
+		combo=0
+		cancel_charge()
+		dodge_time=0.28
+		dodge_cooldown=0.75
+		invuln=0.32
+		game.sound("dash")
+
+func start_attack(heavy: bool, stage: int=1, charged: bool=false, power: float=1.0):
+	wide_swing=false
+	if weapon_slot==1 and not model.equipped: model.equipped=true
+	attack_heavy=heavy
+	attack_charged=charged and surge_left>0
+	charge_power=power
+	combo=stage
+	attack_duration=0.74 if heavy else PipeCombo.DURATIONS[clampi(combo-1,0,2)]
+	if weapon_slot==2: attack_duration=0.64 if heavy else 0.32
+	attack_left=attack_duration
+	hit_done=false
+	struck_targets.clear()
+	swing_played=false
+	combo_step_done=false
+	queued=false
+	combo_window=0.8
+	if attack_charged and weapon_slot==1:
+		var wind=SpinWind.new();wind.hero=self;add_child(wind)
+	if weapon_slot==2:
+		facing=Vector3.FORWARD.rotated(Vector3.UP,game.camera_rig.yaw)
+	if soft_target and weapon_slot==1:
+		var best: Node3D=null
+		var dist=game.tuning.pipe_range*range_multiplier()+1.5
+		for e in game.enemies:
+			if not is_instance_valid(e) or e.dead: continue
+			var dif=e.global_position-global_position
+			if dif.length()<dist and facing.dot(dif.normalized())>-0.3:
+				best=e
+				dist=dif.length()
+		if best:
+			facing=(best.global_position-global_position).normalized()
+			facing.y=0
+
+func strike():
+	var first_sample=not hit_done
+	hit_done=true
+	if first_sample:emit_robe_coins(attack_charged and weapon_slot==1)
+	if weapon_slot==2:
+		game.throw_coin(attack_heavy,attack_charged,charge_power)
+		return
+	var center=global_position+Vector3.UP*1.1+facing*1.1
+	if first_sample and attack_charged:
+		game.sound("dash",.45)
+	elif first_sample:
+		if wide_swing:game.combo_slash(center,facing,2,range_multiplier()*game.tuning.pipe_range*1.26/3.5)
+		elif attack_heavy: game.slash(center,facing,true,combo,Color("ffdf83"),range_multiplier()*game.tuning.pipe_range/3.5)
+		else: game.combo_slash(center,facing,combo,range_multiplier()*game.tuning.pipe_range/3.5)
+	var any_hit=false
+	for e in game.enemies:
+		if not is_instance_valid(e) or e.dead or struck_targets.has(e.get_instance_id()): continue
+		var dif=e.global_position-global_position
+		var reach=game.tuning.pipe_range*(1.65 if attack_charged else (1.26 if attack_heavy else 1.0))*range_multiplier()
+		if dif.length()<reach+e.body_radius and absf(dif.y)<3.5 and (attack_charged or facing.dot(dif.normalized())>-0.12):
+			var ray=PhysicsRayQueryParameters3D.create(global_position+Vector3.UP,e.global_position+Vector3.UP,1)
+			if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty(): continue
+			var damage=game.tuning.charged_damage*charge_power if attack_charged else (48 if attack_heavy else (30 if combo==3 else 22))
+			struck_targets[e.get_instance_id()]=true
+			var hit_dir=(dif.normalized()+facing.cross(Vector3.UP)*(0.32 if combo!=2 else -0.32)).normalized()
+			e.take_hit(damage*damage_multiplier(),hit_dir,attack_heavy or (weapon_slot==1 and combo==3))
+			var contact=e.global_position+Vector3.UP*(1.5 if e.boss else 1.1)-dif.normalized()*e.body_radius
+			game.confirm_impact(e,contact,hit_dir,2 if attack_heavy or combo==3 else (1 if combo==2 else 0),false)
+			any_hit=true
+	if first_sample and not any_hit:
+		var environment_ray=PhysicsRayQueryParameters3D.create(global_position+Vector3.UP,center+facing*1.2,1)
+		var surface=get_world_3d().direct_space_state.intersect_ray(environment_ray)
+		if not surface.is_empty():
+			game.impact_effect(surface.position,-facing,0)
+			game.sound("environment_hit",0.35)
+	if any_hit:
+		game.chain+=1
+		game.chain_timer=3.0
+
+func take_hit(amount: float, direction: Vector3):
+	if sky_strike.active or forward_dash.immunity_left>0 or invuln>0 or hp<=0 or game.tuning.invincible or (active_ability!=null and active_ability.protects_player()): return
+	if active_ability!=null:active_ability.hit()
+	hp=maxf(0,hp-amount*game.tuning.enemy_damage)
+	invuln=0.85
+	velocity+=direction*7+Vector3.UP*3
+	game.camera_rig.impulse=0.18
+	game.burst(global_position+Vector3.UP,Color("ff6a55"),12)
+	game.sound("hurt")
+	if hp<=0: game.defeat()
+
+func _physics_process(delta):
+	if not game.playing or game.paused or game.transitioning or hp<=0: return
+	forward_dash.immunity_left=maxf(0,forward_dash.immunity_left-delta)
+	for kind in powerups:powerups[kind]=maxf(0,powerups[kind]-delta)
+	if powerups.attack_speed<=0:attack_speed_stacks=0
+	var attack_delta=delta*attack_speed_multiplier()
+	if surge_left>0:
+		surge_left=maxf(0,surge_left-delta)
+		if surge_left==0:end_surge()
+	if sky_strike.active:
+		sky_strike.tick(delta);return
+	if active_ability!=null:active_ability.tick_timers(delta)
+	if impact_pause>0:
+		impact_pause=maxf(0,impact_pause-attack_delta)
+		return
+	if character_id==1 and chain_pipe_combat.active:chain_pipe_combat.tick(delta)
+	if active_ability!=null:
+		active_ability.tick(delta,false)
+		if active_ability.blocks_movement():return
+	heavy_buffer=maxf(0,heavy_buffer-attack_delta)
+	charge_ring.hide()
+	invuln=maxf(0,invuln-delta)
+	dodge_time=maxf(0,dodge_time-delta)
+	dodge_cooldown=maxf(0,dodge_cooldown-delta)
+	combo_window=maxf(0,combo_window-delta)
+	jump_buffer=maxf(0,jump_buffer-delta)
+	if is_on_floor():
+		coyote=0.13
+		jumps_used=0
+		air_turn=0
+	else: coyote-=delta
+	var input=smoke_move if smoke_mode else Input.get_vector("move_left","move_right","move_forward","move_back")
+	if character_id==2 and musashi.is_casting_meteors():input=Vector2.ZERO
+	var yaw=game.camera_rig.yaw
+	var dir=Vector3(input.x,0,input.y).rotated(Vector3.UP,yaw)
+	var boosting=Input.is_action_pressed("sprint")
+	var walking=Input.is_action_pressed("walk_modifier")
+	var speed=game.tuning.sprint_speed if boosting else game.tuning.walk_speed
+	if walking: speed=minf(speed,2.2)
+	speed*=movement_multiplier()
+	if attack_left>0: speed*=0.42
+	var reversing=dir.length()>0.1 and Vector3(velocity.x,0,velocity.z).normalized().dot(dir.normalized())< -0.45
+	var accel=((58.0 if reversing else (48.0 if dir.length()<0.1 else 38.0)) if is_on_floor() else (40.0 if jumps_used>=2 else 24.0))*movement_multiplier()
+	if forward_dash.active:
+		var dash_speed=GoemonDash.SPEED*minf(1.0,forward_dash.remaining/delta)
+		velocity.x=forward_dash.direction.x*dash_speed
+		velocity.z=forward_dash.direction.z*dash_speed
+	elif dodge_time>0:
+		velocity.x=facing.x*23
+		velocity.z=facing.z*23
+	else:
+		var horizontal_velocity=Vector2(velocity.x,velocity.z).move_toward(Vector2(dir.x,dir.z)*speed,accel*delta)
+		velocity.x=horizontal_velocity.x
+		velocity.z=horizontal_velocity.y
+	if not forward_dash.active and dir.length()>0.1 and (attack_left<=0 or jumps_used>=2):
+		# Forward travel turns into the path. S backpedals and A/D strafe with
+		# camera-facing shoulders, so directional locomotion is actually reachable.
+		facing=dir.normalized() if input.y< -0.1 or jumps_used>=2 else Vector3.FORWARD.rotated(Vector3.UP,yaw)
+	model.rotation.y=lerp_angle(model.rotation.y,atan2(-facing.x,-facing.z),1-exp(-delta*(24 if attack_left>0 else 14)))
+	if jump_buffer>0:
+		if coyote>0 and jumps_used==0 and jump_windup<=0:
+			jump_windup=0.035
+			jump_buffer=0
+		elif not is_on_floor() and jumps_used<maximum_jumps() and jump_windup<=0:
+			# Leaving a ledge already spends the grounded jump; equipment toggles
+			# never reset this counter or grant unlimited extra jumps in midair.
+			jumps_used=maxi(2,jumps_used+1)
+			velocity.y=game.tuning.second_jump_speed
+			jump_buffer=0
+			air_turn=0.42
+			if dir.length()>0.1:
+				facing=dir.normalized()
+				var air_speed=maxf(10.2*movement_multiplier(),Vector2(velocity.x,velocity.z).length())
+				velocity.x=dir.x*air_speed
+				velocity.z=dir.z*air_speed
+			game.burst(global_position,Color("a6eff2"),14)
+			game.sound("jump")
+	model.locomotion.jump_compression=clampf(jump_windup/0.035,0,1)
+	if jump_windup>0:
+		jump_windup=maxf(0,jump_windup-delta)
+		if jump_windup<=0:
+			jumps_used=1
+			velocity.y=game.tuning.jump_speed
+			coyote=0
+			game.burst(global_position,Color("e8dab0"),7)
+			game.sound("jump")
+	if not is_on_floor(): velocity.y-=30*delta
+	if character_id==1 and weapon_slot!=3 and attack_left>0:
+		var previous_progress=1-attack_left/attack_duration
+		attack_left=maxf(0,attack_left-attack_delta)
+		var progress=1-attack_left/attack_duration
+		var contact_phase=0.47 if attack_heavy else (PipeCombo.CONTACT[combo-1] if weapon_slot==1 else 0.36)
+		if not swing_played and progress>contact_phase-0.13:
+			swing_played=true
+			game.sound("spin_swing" if attack_charged and weapon_slot==1 else ("heavy_swing" if attack_heavy or (weapon_slot==1 and combo==3) else "swing"))
+		if not combo_step_done and progress>0.18 and weapon_slot==1 and not attack_heavy:
+			combo_step_done=true
+			velocity+=facing*(4.2 if combo==1 else (3.0 if combo==2 else 5.4))
+		if progress>=contact_phase and previous_progress<contact_phase+(PipeCombo.ACTIVE[combo-1] if weapon_slot==1 and not attack_heavy else 0.16):
+			if not hit_done:
+				if weapon_slot==1: velocity+=facing*(4.5 if attack_heavy else 2.5)
+				strike()
+			elif weapon_slot==1: strike()
+		if attack_left<=0:
+			if heavy_buffer>0:
+				heavy_buffer=0
+				start_attack(true)
+			elif weapon_slot==1 and not attack_heavy and combo<3: start_attack(false,combo+1)
+	if character_id==1:quick_attacks.tick()
+	last_vertical=velocity.y
+	# Step across tiny risers and deck joints without losing momentum.
+	if is_on_floor() and dir.length()>0.1:
+		var motion=Vector3(velocity.x,0,velocity.z)*delta
+		if test_move(global_transform,motion):
+			var raised=global_transform
+			raised.origin.y+=0.32
+			if not test_move(raised,motion): position.y+=0.32
+	var before_move=global_position
+	move_and_slide()
+	forward_dash.after_move(before_move,delta)
+	model.locomotion_velocity=(global_position-before_move)/maxf(delta,0.0001)
+	if is_on_floor() and not was_floor and last_vertical<-5:
+		model.landing=minf(1,abs(last_vertical)/16)
+		game.camera_rig.kick(Vector3.DOWN,0.035+model.landing*0.045)
+		game.burst(global_position,Color("e7d3a3"),10)
+		game.sound("land")
+	was_floor=is_on_floor()
+	var horizontal=Vector2(velocity.x,velocity.z).length()
+	model.locomotion.free_feet=air_turn>0 or (attack_charged and attack_left>0 and weapon_slot==1)
+	model.charge_requested=false
+	model.charge_release=1.0-attack_left/attack_duration if attack_charged and attack_left>0 else -1.0
+	model.charge_slot=weapon_slot
+	model.pipe_combo_active=character_id==1 and weapon_slot==1 and not attack_heavy and attack_left>0
+	model.wide_swing_active=wide_swing and attack_left>0
+	model.animate(delta,horizontal,is_on_floor(),velocity.y,attack_left/attack_duration,attack_heavy,combo,dodge_time>0 or forward_dash.active)
+	air_turn=maxf(0,air_turn-delta)
+	if air_turn>0:
+		if scarf_equipped and character_id==1:
+			var progress=clampf(1-air_turn/.42,0,1)
+			var tuck=sin(PI*progress)
+			if jumps_used in [2,3]:
+				# Rising turns alternate direction on the second and third jumps.
+				model.body.rotation.y=TAU*(-1.0 if jumps_used==2 else 1.0)*smoothstep(0,1,progress)
+				model.body.rotation.x=-.10*tuck
+			elif jumps_used==4:
+				# One forward somersault around the torso, not around the feet.
+				var angle=-TAU*smoothstep(0,1,progress)
+				model.body.rotation.x=angle
+				model.body.rotation.y=0
+				var pivot=Vector3(0,1.4,0)
+				model.body.position+=pivot-Basis(Vector3.RIGHT,angle)*pivot
+			else:model.body.rotation.x=-.10*tuck
+			for leg in model.legs:leg.rotation.x=-(.65 if jumps_used==4 else .28)*tuck
+		else:
+			var angle=-TAU*(1-air_turn/0.42)
+			model.body.rotation.x=angle
+			model.body.rotation.y=0
+			var pivot=Vector3(0,1.4,0)
+			model.body.position+=pivot-Basis(Vector3.RIGHT,angle)*pivot
+			for leg in model.legs: leg.rotation.x=-0.65
+	elif character_id==1 and attack_charged and attack_left>0 and weapon_slot==1:
+		model.body.rotation.y=TAU*smoothstep(0.12,0.82,1-attack_left/attack_duration)
+	if character_id==1 and weapon_slot==2 and attack_left>0 and not attack_charged:
+		model.arms[1].rotation.x=-1.5-sin((1-attack_left/attack_duration)*PI)*0.6
+		model.arms[1].rotation.y=-0.4
+	model.coin.scale=Vector3.ONE*0.78*(game.tuning.surge_coin_size if surge_left>0 else 1.0)
+	model.visible=not (invuln>0 and int(invuln*20)%2==0)
+	if model.locomotion.step_events!=last_foot_events:
+		last_foot_events=model.locomotion.step_events
+		if is_on_floor() and horizontal>1.0:
+			game.burst(global_position,Color("e0d2a4"),2,0.55)
+			game.sound("step",0.22)
+	trail_time-=delta
+	if horizontal>14 and trail_time<=0:
+		trail_time=0.065
+		game.wind(global_position+Vector3(0,0.8,0),-facing)
+	if global_position.y<-5 or not game.world.playable_bounds.grow(3).has_point(Vector2(global_position.x,global_position.z)):
+		hp=maxf(1,hp-10)
+		global_position=game.checkpoint
+		velocity=Vector3.ZERO
+		jumps_used=0
+		game.camera_rig.reset_follow()
+		game.toast("Returned to the last sanctuary · −10 vitality")
+
+func select_weapon(slot: int):
+	if slot not in [1,2,3]:return
+	if character_id==2:
+		musashi.select_weapon(true)
+		return
+	cancel_charge()
+	heavy_buffer=0
+	weapon_slot=slot
+	attack_left=0
+	queued=false
+	combo_window=0
+	set_weapon_visual(slot)
+	game.toast({1:"Golden pipe",2:"Gold cash coins",3:"Chain pipe"}[slot])
+
+func set_weapon_visual(slot: int):
+	model.equipped=slot in [1,3]
+	model.chain_selected=slot==3
+	model.chain_pipe.visible=slot==3
+	model.pipe.visible=slot==1
+	model.coin.visible=slot==2
+
+
+func cancel_charge(preserve_power: bool=false):
+	if forward_dash!=null:forward_dash.cancel()
+	if chain_pipe_combat!=null:chain_pipe_combat.cancel()
+	if quick_attacks!=null:quick_attacks.cancel()
+	if sky_strike!=null:sky_strike.cancel()
+	if active_ability!=null:active_ability.cancel(preserve_power)
+	primary_down=false
+	charge_elapsed=0
+	if is_instance_valid(charge_ring): charge_ring.hide()
+
+func range_multiplier()->float:
+	return (game.tuning.surge_range if surge_left>0 else 1.0)*pickup_multiplier("range")
+
+func emit_robe_coins(radial: bool=false):
+	if character_id!=1 or not scarf_equipped:return
+	game.throw_robe_coins(facing,radial,weapon_slot==2)
+
+func movement_multiplier()->float:
+	return 3.0 if scarf_equipped and character_id==1 else 1.0
+
+func maximum_jumps()->int:
+	return 4 if scarf_equipped and character_id==1 else 2
+
+func set_scarf_equipped(value: bool):
+	scarf_equipped=value
+	character_models[1].ronin_scarf.set_equipped(value)
+	# Remove excess momentum immediately when taking the scarf off.
+	if not value and character_id==1:
+		air_turn=0
+		var speed_limit=game.tuning.sprint_speed if Input.is_action_pressed("sprint") else game.tuning.walk_speed
+		var horizontal=Vector2(velocity.x,velocity.z).limit_length(speed_limit)
+		velocity.x=horizontal.x;velocity.z=horizontal.y
+	game.toast("RONIN CLOAK · 3× movement · Quad jump · Bonus coins" if value else "Ronin cloak removed · Normal speed · Double jump")
+
+func activate_surge():
+	if surge_left>0: return
+	surge_left=game.tuning.surge_duration
+	model.set_surge(true)
+	if is_instance_valid(model.chain_pipe):model.chain_pipe.powered=true
+	aura.show()
+	game.burst(global_position+Vector3.UP,Color("ffe69b"),24)
+	game.sound("spark")
+	game.toast("GOLDEN SURGE · Wind spin / Giant toss / Explosive chain + Fire sweep")
+
+func end_surge():
+	surge_left=0
+	model.set_surge(false)
+	if is_instance_valid(model.chain_pipe):model.chain_pipe.powered=false
+	aura.hide()
+
+func select_character(id: int):
+	if id==character_id or not ROSTER.has(id):return
+	cancel_charge()
+	if surge_left>0:end_surge()
+	if character_abilities.has(character_id):character_abilities[character_id].active=false
+	var rotation_before=model.rotation
+	model.hide();model.set_process(false)
+	attack_left=0;attack_charged=false;heavy_buffer=0;combo=0;queued=false;impact_pause=0;air_turn=0
+	ensure_character(id)
+	character_id=id;model=character_models[id];model.rotation=rotation_before;model.show();model.set_process(true)
+	if id==2:
+		var horizontal=Vector2(velocity.x,velocity.z).limit_length(game.tuning.sprint_speed)
+		velocity.x=horizontal.x;velocity.z=horizontal.y
+	active_ability=character_abilities.get(id)
+	if active_ability!=null:
+		active_ability.active=true;active_ability.cancel()
+		if id==2:musashi=active_ability
+	last_foot_events=model.locomotion.step_events
+	game.toast(ROSTER[id].name+" · Q Switch character · "+("LMB Triple fireball · RMB Giant fireball · T Meteor rain · R Beam" if id==2 else "1 Wide swing · 2 Coin throw · 3 Long sweep · C Evade"))
+
+func ensure_character(id: int):
+	if character_models.has(id):return
+	var entry=ROSTER[id]
+	var visual=entry.model.new();add_child(visual);character_models[id]=visual
+	if entry.has("combat"):
+		var ability=entry.combat.new();ability.hero=self;ability.game=game;add_child(ability)
+		character_abilities[id]=ability;visual.combat=ability
+	character_models[id].hide()
+	character_models[id].set_process(false)
+
+func pickup_multiplier(kind: String)->float:
+	if powerups.get(kind,0.0)<=0:return 1.0
+	if kind=="attack_speed":return 1.0+.5*maxi(1,attack_speed_stacks)
+	return {"damage":1.5,"range":1.5,"attack_speed":1.5}.get(kind,1.0)
+func damage_multiplier()->float:
+	return game.tuning.damage_mult*pickup_multiplier("damage")
+func attack_speed_multiplier()->float:
+	return pickup_multiplier("attack_speed")
+
+func collect_powerup(kind: String):
+	if elemental_orbs.has(kind):
+		elemental_orbs[kind]+=1
+		if elemental_orbs[kind]>=5:
+			elemental_orbs[kind]-=5
+			game.orb_system.queue_burst(kind)
+		return
+	if not powerups.has(kind):return
+	if kind=="attack_speed":
+		attack_speed_stacks=mini(MAX_ATTACK_SPEED_STACKS,(attack_speed_stacks if powerups.attack_speed>0 else 0)+1)
+	powerups[kind]=EnergyPickup.DURATION
+	if kind=="attack_speed":
+		game.toast("ATTACK SPEED ×%.1f · %d / %d stacks · 20 seconds" % [attack_speed_multiplier(),attack_speed_stacks,MAX_ATTACK_SPEED_STACKS])
+		return
+	game.toast(EnergyPickup.LABELS[kind]+" · 20 seconds")
+func clear_powerups():
+	for kind in elemental_orbs:elemental_orbs[kind]=0
+	if is_instance_valid(game.orb_system):game.orb_system.pending.clear()
+	attack_speed_stacks=0
+	for kind in powerups:powerups[kind]=0.0

@@ -1,0 +1,26 @@
+class_name MusashiFireball
+extends GoldCoin
+var balance: MusashiBalance
+var owner_character=2
+func _ready():
+	process_mode=Node.PROCESS_MODE_PAUSABLE
+	add_to_group("edo_fireballs");add_to_group("projectiles");add_to_group("musashi_projectiles")
+	ornament=FireEnergy.new();ornament.charged=heavy;add_child(ornament);ornament.scale=Vector3.ONE*(3.2 if heavy else 1.2)
+func update_visual(delta: float):
+	trail_clock-=delta
+	if trail_clock<=0:
+		trail_clock=.045
+		game.burst(global_position,Color("ff7827"),2 if heavy else 1,.45)
+func impact(point: Vector3):
+	game.burst(point,Color("ff732c"),24 if heavy else 10,1.2 if heavy else .7)
+	if not heavy:game.sound("fire_impact",.7)
+	if heavy:
+		EdoFireExplosion.emit(game,point,true)
+		for e in game.enemies:
+			if not is_instance_valid(e) or e.dead or hit_enemies.has(e.get_instance_id()):continue
+			var center=e.global_position+Vector3.UP
+			if center.distance_to(point)>balance.explosion_radius+e.body_radius:continue
+			var ray=PhysicsRayQueryParameters3D.create(point,center,1)
+			if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty():continue
+			e.take_hit(damage,(center-point).normalized(),true)
+			game.confirm_impact(e,center,(center-point).normalized(),2,true)

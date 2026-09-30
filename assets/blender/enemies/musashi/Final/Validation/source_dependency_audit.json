@@ -1,0 +1,4828 @@
+{
+  "source": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/blender/enemies/musashi/Phase 1 Painted Materials/Musashi_Painted_Materials.blend",
+  "objects": [
+    {
+      "name": "Camera \u2022 reference three quarter",
+      "type": "CAMERA",
+      "users": 1,
+      "collections": [
+        "00 \u2022 Presentation"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          0.8944271206855774,
+          -0.12098100781440735,
+          0.43053871393203735,
+          12.0
+        ],
+        [
+          0.4472135603427887,
+          0.24196210503578186,
+          -0.8610774278640747,
+          -24.0
+        ],
+        [
+          -3.487934918666724e-08,
+          0.9627138376235962,
+          0.2705218493938446,
+          11.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": []
+    },
+    {
+      "name": "Closure rivet 00",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "04 \u2022 Vest & shirt"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 52,
+      "faces": 60,
+      "edges": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 1.0838580709666247e-05,
+      "materials": [
+        "Closure rivets"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Closure rivet 01",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "04 \u2022 Vest & shirt"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 52,
+      "faces": 60,
+      "edges": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 1.11085934996021e-05,
+      "materials": [
+        "Closure rivets"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Closure rivet 02",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "04 \u2022 Vest & shirt"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 52,
+      "faces": 60,
+      "edges": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 1.1709840687536908e-05,
+      "materials": [
+        "Closure rivets"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Collar \u2022 single old gold stud",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 86,
+      "faces": 96,
+      "edges": 180,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0001374604037455039,
+      "materials": [
+        "Flames \u2022 warm orange"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Far eye \u2022 reference white triangle",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 30,
+      "faces": 27,
+      "edges": 54,
+      "boundary_edges": 27,
+      "nonmanifold_edges": 27,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0002825240391666653,
+      "materials": [
+        "Face graphics \u2022 warm ivory"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 8,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Far eyebrow \u2022 fine separate accent",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 40,
+      "faces": 36,
+      "edges": 72,
+      "boundary_edges": 36,
+      "nonmanifold_edges": 36,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0001693939469256422,
+      "materials": [
+        "Face graphics \u2022 dark olive ink"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 12,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Far iris \u2022 narrow offset",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 20,
+      "faces": 18,
+      "edges": 36,
+      "boundary_edges": 18,
+      "nonmanifold_edges": 18,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": -0.00012319021698841147,
+      "materials": [
+        "Face graphics \u2022 blue charcoal iris"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 4,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Far lower corner \u2022 restrained",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 40,
+      "faces": 36,
+      "edges": 72,
+      "boundary_edges": 36,
+      "nonmanifold_edges": 36,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 4.202735112539238e-06,
+      "materials": [
+        "Precision \u2022 muted lower contour"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 12,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Far pupil \u2022 vertical offset",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 20,
+      "faces": 18,
+      "edges": 36,
+      "boundary_edges": 18,
+      "nonmanifold_edges": 18,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": -6.146482459864365e-05,
+      "materials": [
+        "Face graphics \u2022 pupil"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 4,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Far under-eye \u2022 small accent",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 20,
+      "faces": 18,
+      "edges": 36,
+      "boundary_edges": 18,
+      "nonmanifold_edges": 18,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": -3.503292687396585e-05,
+      "materials": [
+        "Precision \u2022 muted lower contour"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 4,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Far upper lid \u2022 thin reference diagonal",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 60,
+      "faces": 54,
+      "edges": 108,
+      "boundary_edges": 54,
+      "nonmanifold_edges": 54,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0005047605447645466,
+      "materials": [
+        "Face graphics \u2022 dark olive ink"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 20,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Fill \u2022 face",
+      "type": "LIGHT",
+      "users": 1,
+      "collections": [
+        "00 \u2022 Presentation"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          0.7071067094802856,
+          -0.27617231011390686,
+          0.650944709777832,
+          5.0
+        ],
+        [
+          0.70710688829422,
+          0.2761722505092621,
+          -0.6509445309638977,
+          -5.0
+        ],
+        [
+          5.790415258388748e-09,
+          0.9205746650695801,
+          0.3905665874481201,
+          7.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "energy": 330.0
+    },
+    {
+      "name": "Frog knot 00",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "04 \u2022 Vest & shirt"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 86,
+      "faces": 96,
+      "edges": 180,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.00022596436151191694,
+      "materials": [
+        "Closures \u2022 black leather"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Frog knot 00.001",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "04 \u2022 Vest & shirt"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 86,
+      "faces": 96,
+      "edges": 180,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.00022418618815832925,
+      "materials": [
+        "Closures \u2022 black leather"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Frog knot 01",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "04 \u2022 Vest & shirt"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 86,
+      "faces": 96,
+      "edges": 180,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.00023843660567260635,
+      "materials": [
+        "Closures \u2022 black leather"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Frog knot 01.001",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "04 \u2022 Vest & shirt"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 86,
+      "faces": 96,
+      "edges": 180,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.00022829438077016912,
+      "materials": [
+        "Closures \u2022 black leather"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Frog knot 02",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "04 \u2022 Vest & shirt"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 86,
+      "faces": 96,
+      "edges": 180,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0002414061308052957,
+      "materials": [
+        "Closures \u2022 black leather"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Frog knot 02.001",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "04 \u2022 Vest & shirt"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 86,
+      "faces": 96,
+      "edges": 180,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.00024146649625538243,
+      "materials": [
+        "Closures \u2022 black leather"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Hair \u2022 layered continuous sculpt",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "02 \u2022 Sculpted hair"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 12018,
+      "faces": 22846,
+      "edges": 34846,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 3.3222083955456605,
+      "materials": [
+        "Hair only \u2022 muted green black",
+        "Hair only \u2022 quiet middle planes",
+        "Hair only \u2022 front clumps"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 12
+    },
+    {
+      "name": "Hair \u2022 local ear overlap",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "02 \u2022 Sculpted hair"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 110,
+      "faces": 102,
+      "edges": 210,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.005201238423428144,
+      "materials": [
+        "Hair only \u2022 muted green black"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Head \u2022 tapered angular cheeks",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 15402,
+      "faces": 20177,
+      "edges": 35577,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 1.519976373524109,
+      "materials": [
+        "Face only \u2022 broad warm graphic planes"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Jacket \u2022 dark open edging",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 48,
+      "faces": 40,
+      "edges": 88,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.00614271619827375,
+      "materials": [
+        "Jacket \u2022 charcoal burgundy edging"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Jacket \u2022 dark open edging.001",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 48,
+      "faces": 40,
+      "edges": 88,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.007824726475395104,
+      "materials": [
+        "Jacket \u2022 charcoal burgundy edging"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Jacket \u2022 diagonal right lapel",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 16,
+      "faces": 10,
+      "edges": 24,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.021471854499975223,
+      "materials": [
+        "Jacket \u2022 muted crimson"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Jacket \u2022 open crimson body",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 240,
+      "faces": 238,
+      "edges": 476,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.18996743849481834,
+      "materials": [
+        "Jacket \u2022 muted crimson"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Jacket \u2022 oversized raised collar with inner shirt",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "04 \u2022 Vest & shirt"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 36,
+      "faces": 26,
+      "edges": 60,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.10916450988955662,
+      "materials": [
+        "Shirt & wraps \u2022 aged ivory",
+        "Jacket \u2022 muted crimson"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Key \u2022 broad warm softbox",
+      "type": "LIGHT",
+      "users": 1,
+      "collections": [
+        "00 \u2022 Presentation"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          0.847998321056366,
+          0.3427829146385193,
+          -0.40422600507736206,
+          -5.0
+        ],
+        [
+          -0.5299988985061646,
+          0.5484528541564941,
+          -0.6467616558074951,
+          -8.0
+        ],
+        [
+          4.5470962106719526e-08,
+          0.7626921534538269,
+          0.6467616558074951,
+          12.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "energy": 850.0
+    },
+    {
+      "name": "L ankle \u2022 wrapped cloth",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 48,
+      "faces": 38,
+      "edges": 84,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.03883557639830382,
+      "materials": [
+        "Shirt & wraps \u2022 aged ivory"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L ear",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 178,
+      "faces": 192,
+      "edges": 368,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0064856862158848005,
+      "materials": [
+        "Face only \u2022 flat warm ochre"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L ear inset",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 178,
+      "faces": 192,
+      "edges": 368,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.00041237830139975636,
+      "materials": [
+        "Face only \u2022 muted ear shadow"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L flame \u2022 inner fork",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 396,
+      "faces": 700,
+      "edges": 1095,
+      "boundary_edges": 90,
+      "nonmanifold_edges": 90,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0043225198131756305,
+      "materials": [
+        "Flames \u2022 warm orange"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L flame \u2022 large fork",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 1056,
+      "faces": 1900,
+      "edges": 2955,
+      "boundary_edges": 210,
+      "nonmanifold_edges": 210,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.11478823856532273,
+      "materials": [
+        "Flames \u2022 old gold"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L flame \u2022 outer side lick",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 451,
+      "faces": 800,
+      "edges": 1250,
+      "boundary_edges": 100,
+      "nonmanifold_edges": 100,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.09710851777549873,
+      "materials": [
+        "Flames \u2022 warm orange"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L hand \u2022 simplified soft mitten",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "06 \u2022 Hands"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 648,
+      "faces": 1060,
+      "edges": 1706,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.07830415405904129,
+      "materials": [
+        "Skin \u2022 warm peach"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L shoe \u2022 broad toe box",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 56,
+      "faces": 54,
+      "edges": 108,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.2522558190590244,
+      "materials": [
+        "Shoes \u2022 charcoal"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L shoe \u2022 indigo instep",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 146,
+      "faces": 160,
+      "edges": 304,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.16730370651338755,
+      "materials": [
+        "Shoes \u2022 indigo panels"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L shoe \u2022 sole welt",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 392,
+      "faces": 384,
+      "edges": 776,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.003707101561909709,
+      "materials": [
+        "Shoes \u2022 charcoal"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 2,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L shoe \u2022 thick rounded sole",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 56,
+      "faces": 54,
+      "edges": 108,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.22625528258125455,
+      "materials": [
+        "Soles \u2022 warm black"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L shoe \u2022 toe stitch",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 24,
+      "faces": 16,
+      "edges": 40,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.00027991745711514985,
+      "materials": [
+        "Jacket \u2022 charcoal burgundy edging"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L sleeve \u2022 cuff edging",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 264,
+      "faces": 256,
+      "edges": 520,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.014330565723283433,
+      "materials": [
+        "Jacket \u2022 charcoal burgundy edging"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 2,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L sleeve \u2022 long fold",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 24,
+      "faces": 16,
+      "edges": 40,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.00030239421943466314,
+      "materials": [
+        "Jacket \u2022 creases"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L sleeve \u2022 oversized hanging shape",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 112,
+      "faces": 98,
+      "edges": 208,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.7020827659400339,
+      "materials": [
+        "Jacket \u2022 muted crimson"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L wrap \u2022 overlap 1",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 328,
+      "faces": 320,
+      "edges": 648,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0007102737533673689,
+      "materials": [
+        "Cloth highlights"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L wrap \u2022 overlap 2",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 328,
+      "faces": 320,
+      "edges": 648,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.000586958047777063,
+      "materials": [
+        "Cloth highlights"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L wrap \u2022 overlap 3",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 328,
+      "faces": 320,
+      "edges": 648,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0006837455225951939,
+      "materials": [
+        "Cloth highlights"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L wrap \u2022 overlap 4",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 328,
+      "faces": 320,
+      "edges": 648,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0006190064517682643,
+      "materials": [
+        "Cloth highlights"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L wrap \u2022 overlap 5",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 328,
+      "faces": 320,
+      "edges": 648,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0007411816571672812,
+      "materials": [
+        "Cloth highlights"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "L wrap \u2022 overlap 6",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 328,
+      "faces": 320,
+      "edges": 648,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0006443057701267961,
+      "materials": [
+        "Cloth highlights"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Lapel \u2022 tailored seam",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 32,
+      "faces": 24,
+      "edges": 56,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.00045174086082388717,
+      "materials": [
+        "Jacket \u2022 creases"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Mouth \u2022 lifted asymmetric smirk",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 80,
+      "faces": 72,
+      "edges": 144,
+      "boundary_edges": 72,
+      "nonmanifold_edges": 72,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": -0.001753505667709588,
+      "materials": [
+        "Face graphics \u2022 dark olive ink"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 28,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Near eye \u2022 reference white trapezoid",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 40,
+      "faces": 36,
+      "edges": 72,
+      "boundary_edges": 36,
+      "nonmanifold_edges": 36,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": -0.0015288341484548528,
+      "materials": [
+        "Face graphics \u2022 warm ivory"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 12,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Near eyebrow \u2022 fine separate accent",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 40,
+      "faces": 36,
+      "edges": 72,
+      "boundary_edges": 36,
+      "nonmanifold_edges": 36,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0002584017511453562,
+      "materials": [
+        "Face graphics \u2022 dark olive ink"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 12,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Near iris \u2022 narrow offset",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 30,
+      "faces": 27,
+      "edges": 54,
+      "boundary_edges": 27,
+      "nonmanifold_edges": 27,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": -0.00016359356393569652,
+      "materials": [
+        "Face graphics \u2022 blue charcoal iris"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 8,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Near lower corner \u2022 reference angle",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 60,
+      "faces": 54,
+      "edges": 108,
+      "boundary_edges": 54,
+      "nonmanifold_edges": 54,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": -3.927643234292461e-05,
+      "materials": [
+        "Precision \u2022 muted lower contour"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 20,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Near pupil \u2022 vertical offset",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 30,
+      "faces": 27,
+      "edges": 54,
+      "boundary_edges": 27,
+      "nonmanifold_edges": 27,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": -7.414492451901163e-05,
+      "materials": [
+        "Face graphics \u2022 pupil"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 8,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Near under-eye \u2022 horizontal lower mark",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 40,
+      "faces": 36,
+      "edges": 72,
+      "boundary_edges": 36,
+      "nonmanifold_edges": 36,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": -0.00016017229791243765,
+      "materials": [
+        "Precision \u2022 small olive cheek marks"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 12,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Near under-eye \u2022 horizontal upper mark",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 40,
+      "faces": 36,
+      "edges": 72,
+      "boundary_edges": 36,
+      "nonmanifold_edges": 36,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": -0.00014173175230010264,
+      "materials": [
+        "Precision \u2022 small olive cheek marks"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 12,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Near upper lid \u2022 thin reference diagonal",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 100,
+      "faces": 90,
+      "edges": 180,
+      "boundary_edges": 90,
+      "nonmanifold_edges": 90,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0009809821933887588,
+      "materials": [
+        "Face graphics \u2022 dark olive ink"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 36,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Neck",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 178,
+      "faces": 192,
+      "edges": 368,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.06079989687756856,
+      "materials": [
+        "Skin \u2022 warm peach"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Nose \u2022 tiny warm plane",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 21,
+      "faces": 25,
+      "edges": 45,
+      "boundary_edges": 15,
+      "nonmanifold_edges": 15,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": -3.221388893981699e-06,
+      "materials": [
+        "Face only \u2022 tiny nose plane"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "PRIMARY REFERENCE \u2022 supplied sprite",
+      "type": "EMPTY",
+      "users": 1,
+      "collections": [
+        "08 \u2022 Reference"
+      ],
+      "hide_render": true,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -4.0
+        ],
+        [
+          0.0,
+          -4.371138828673793e-08,
+          -1.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          -4.371138828673793e-08,
+          4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": []
+    },
+    {
+      "name": "R ankle \u2022 wrapped cloth",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 48,
+      "faces": 38,
+      "edges": 84,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.04030074179429052,
+      "materials": [
+        "Shirt & wraps \u2022 aged ivory"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R ear",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 80,
+      "faces": 62,
+      "edges": 140,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0003661269593682702,
+      "materials": [
+        "Ear only \u2022 soft warm planes"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R ear inset",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "01 \u2022 Head & expression"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 88,
+      "faces": 126,
+      "edges": 213,
+      "boundary_edges": 48,
+      "nonmanifold_edges": 48,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0023586427404989068,
+      "materials": [
+        "Ear only \u2022 simple muted rose accent"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R flame \u2022 inner fork",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 396,
+      "faces": 700,
+      "edges": 1095,
+      "boundary_edges": 90,
+      "nonmanifold_edges": 90,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": -0.008707925796672185,
+      "materials": [
+        "Flames \u2022 warm orange"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R flame \u2022 large fork",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 1056,
+      "faces": 1900,
+      "edges": 2955,
+      "boundary_edges": 210,
+      "nonmanifold_edges": 210,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.10144411729581149,
+      "materials": [
+        "Flames \u2022 old gold"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R flame \u2022 outer side lick",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 451,
+      "faces": 800,
+      "edges": 1250,
+      "boundary_edges": 100,
+      "nonmanifold_edges": 100,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.07503269179922663,
+      "materials": [
+        "Flames \u2022 warm orange"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R hand \u2022 simplified soft mitten",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "06 \u2022 Hands"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 578,
+      "faces": 929,
+      "edges": 1505,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.07098273047943796,
+      "materials": [
+        "Skin \u2022 warm peach"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R shoe \u2022 broad toe box",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 56,
+      "faces": 54,
+      "edges": 108,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.16610758058323521,
+      "materials": [
+        "Shoes \u2022 charcoal"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R shoe \u2022 indigo instep",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 146,
+      "faces": 160,
+      "edges": 304,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.11448194574991792,
+      "materials": [
+        "Shoes \u2022 indigo panels"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R shoe \u2022 sole welt",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 392,
+      "faces": 384,
+      "edges": 776,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.002564922471042227,
+      "materials": [
+        "Shoes \u2022 charcoal"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 2,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R shoe \u2022 thick rounded sole",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 56,
+      "faces": 54,
+      "edges": 108,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.1691314799320249,
+      "materials": [
+        "Soles \u2022 warm black"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R shoe \u2022 toe stitch",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 24,
+      "faces": 16,
+      "edges": 40,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.00023519006427794031,
+      "materials": [
+        "Jacket \u2022 charcoal burgundy edging"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R sleeve \u2022 cuff edging",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 264,
+      "faces": 256,
+      "edges": 520,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.015170615089328293,
+      "materials": [
+        "Jacket \u2022 charcoal burgundy edging"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 2,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R sleeve \u2022 long fold",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 24,
+      "faces": 16,
+      "edges": 40,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0003855067175276883,
+      "materials": [
+        "Jacket \u2022 creases"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R sleeve \u2022 oversized hanging shape",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "03 \u2022 Jacket & flame appliqu\u00e9s"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 112,
+      "faces": 98,
+      "edges": 208,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.7269938656799653,
+      "materials": [
+        "Jacket \u2022 muted crimson"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R wrap \u2022 overlap 1",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 328,
+      "faces": 320,
+      "edges": 648,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0007358646246402003,
+      "materials": [
+        "Cloth highlights"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R wrap \u2022 overlap 2",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 328,
+      "faces": 320,
+      "edges": 648,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0006071306254842951,
+      "materials": [
+        "Cloth highlights"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R wrap \u2022 overlap 3",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 328,
+      "faces": 320,
+      "edges": 648,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0007082109742419126,
+      "materials": [
+        "Cloth highlights"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R wrap \u2022 overlap 4",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 328,
+      "faces": 320,
+      "edges": 648,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0006403472705730036,
+      "materials": [
+        "Cloth highlights"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R wrap \u2022 overlap 5",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 328,
+      "faces": 320,
+      "edges": 648,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0007682294581081794,
+      "materials": [
+        "Cloth highlights"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "R wrap \u2022 overlap 6",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "07 \u2022 Wraps & shoes"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 328,
+      "faces": 320,
+      "edges": 648,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0006668216056927053,
+      "materials": [
+        "Cloth highlights"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Rim \u2022 upper hair",
+      "type": "LIGHT",
+      "users": 1,
+      "collections": [
+        "00 \u2022 Presentation"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          -0.8574929237365723,
+          -0.3689640760421753,
+          0.3585685193538666,
+          3.0
+        ],
+        [
+          0.5144957304000854,
+          -0.6149401068687439,
+          0.5976142287254333,
+          5.0
+        ],
+        [
+          -2.2675910926750475e-08,
+          0.6969319581985474,
+          0.7171372771263123,
+          10.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "energy": 0.0
+    },
+    {
+      "name": "Shirt \u2022 lower irregular hem",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "04 \u2022 Vest & shirt"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 64,
+      "faces": 50,
+      "edges": 112,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.8120272479357851,
+      "materials": [
+        "Shirt & wraps \u2022 aged ivory"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Studio ground",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "00 \u2022 Presentation"
+      ],
+      "hide_render": true,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.10000000149011612
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 8,
+      "faces": 6,
+      "edges": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 4000.000059604644,
+      "materials": [
+        "Studio \u2022 warm neutral"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Trousers \u2022 revised continuous balloon mass",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "05 \u2022 Trousers"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 4608,
+      "faces": 7543,
+      "edges": 12149,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 2.0753183497757806,
+      "materials": [
+        "Trousers \u2022 burgundy"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Vest closure 01 \u2022 strap",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "04 \u2022 Vest & shirt"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 24,
+      "faces": 16,
+      "edges": 40,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.00030499083426869297,
+      "materials": [
+        "Closures \u2022 black leather"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Vest closure 02 \u2022 strap",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "04 \u2022 Vest & shirt"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 24,
+      "faces": 16,
+      "edges": 40,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0011129864716857433,
+      "materials": [
+        "Closures \u2022 black leather"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Vest closure 03 \u2022 strap",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "04 \u2022 Vest & shirt"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 24,
+      "faces": 16,
+      "edges": 40,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0009726191312115513,
+      "materials": [
+        "Closures \u2022 black leather"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Vest \u2022 lower piping",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "04 \u2022 Vest & shirt"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 40,
+      "faces": 32,
+      "edges": 72,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 16,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.0005868012064825746,
+      "materials": [
+        "Jacket \u2022 charcoal burgundy edging"
+      ],
+      "uv_layers": [
+        "UVMap"
+      ],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    },
+    {
+      "name": "Vest \u2022 sculpted padded torso",
+      "type": "MESH",
+      "users": 1,
+      "collections": [
+        "04 \u2022 Vest & shirt"
+      ],
+      "hide_render": false,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "vertices": 96,
+      "faces": 82,
+      "edges": 176,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "signed_volume": 0.933416861653212,
+      "materials": [
+        "Vest \u2022 warm charcoal"
+      ],
+      "uv_layers": [],
+      "duplicate_vertex_positions": 0,
+      "duplicate_faces": 0
+    }
+  ],
+  "materials": [
+    {
+      "name": "Closure rivets",
+      "users": 3,
+      "fake_user": false
+    },
+    {
+      "name": "Closures \u2022 black leather",
+      "users": 9,
+      "fake_user": false
+    },
+    {
+      "name": "Cloth highlights",
+      "users": 12,
+      "fake_user": false
+    },
+    {
+      "name": "Ear only \u2022 simple muted rose accent",
+      "users": 1,
+      "fake_user": false
+    },
+    {
+      "name": "Ear only \u2022 soft warm planes",
+      "users": 1,
+      "fake_user": false
+    },
+    {
+      "name": "Face graphics \u2022 blue charcoal iris",
+      "users": 2,
+      "fake_user": false
+    },
+    {
+      "name": "Face graphics \u2022 dark olive ink",
+      "users": 5,
+      "fake_user": false
+    },
+    {
+      "name": "Face graphics \u2022 pupil",
+      "users": 2,
+      "fake_user": false
+    },
+    {
+      "name": "Face graphics \u2022 warm ivory",
+      "users": 2,
+      "fake_user": false
+    },
+    {
+      "name": "Face only \u2022 broad warm graphic planes",
+      "users": 1,
+      "fake_user": false
+    },
+    {
+      "name": "Face only \u2022 flat warm ochre",
+      "users": 1,
+      "fake_user": false
+    },
+    {
+      "name": "Face only \u2022 muted ear shadow",
+      "users": 1,
+      "fake_user": false
+    },
+    {
+      "name": "Face only \u2022 tiny nose plane",
+      "users": 1,
+      "fake_user": false
+    },
+    {
+      "name": "Flames \u2022 old gold",
+      "users": 2,
+      "fake_user": false
+    },
+    {
+      "name": "Flames \u2022 warm orange",
+      "users": 5,
+      "fake_user": false
+    },
+    {
+      "name": "Hair only \u2022 front clumps",
+      "users": 1,
+      "fake_user": false
+    },
+    {
+      "name": "Hair only \u2022 muted green black",
+      "users": 2,
+      "fake_user": false
+    },
+    {
+      "name": "Hair only \u2022 quiet middle planes",
+      "users": 1,
+      "fake_user": false
+    },
+    {
+      "name": "Jacket \u2022 charcoal burgundy edging",
+      "users": 7,
+      "fake_user": false
+    },
+    {
+      "name": "Jacket \u2022 creases",
+      "users": 3,
+      "fake_user": false
+    },
+    {
+      "name": "Jacket \u2022 muted crimson",
+      "users": 5,
+      "fake_user": false
+    },
+    {
+      "name": "Precision \u2022 muted lower contour",
+      "users": 3,
+      "fake_user": false
+    },
+    {
+      "name": "Precision \u2022 small olive cheek marks",
+      "users": 2,
+      "fake_user": false
+    },
+    {
+      "name": "Shirt & wraps \u2022 aged ivory",
+      "users": 4,
+      "fake_user": false
+    },
+    {
+      "name": "Shoes \u2022 charcoal",
+      "users": 4,
+      "fake_user": false
+    },
+    {
+      "name": "Shoes \u2022 indigo panels",
+      "users": 2,
+      "fake_user": false
+    },
+    {
+      "name": "Silhouette \u2022 absolute black",
+      "users": 1,
+      "fake_user": true
+    },
+    {
+      "name": "Skin \u2022 warm peach",
+      "users": 3,
+      "fake_user": false
+    },
+    {
+      "name": "Soles \u2022 warm black",
+      "users": 2,
+      "fake_user": false
+    },
+    {
+      "name": "Studio \u2022 warm neutral",
+      "users": 1,
+      "fake_user": false
+    },
+    {
+      "name": "Trousers \u2022 burgundy",
+      "users": 1,
+      "fake_user": false
+    },
+    {
+      "name": "Vest \u2022 warm charcoal",
+      "users": 1,
+      "fake_user": false
+    }
+  ],
+  "images": [
+    {
+      "name": "Render Result",
+      "filepath": "",
+      "resolved": "",
+      "packed": false,
+      "source": "VIEWER",
+      "users": 1,
+      "exists": null
+    },
+    {
+      "name": "sprite-1790149773397.png",
+      "filepath": "//../Sprite/sprite-1790149773397.png",
+      "resolved": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/blender/enemies/musashi/Phase 1 Painted Materials/../Sprite/sprite-1790149773397.png",
+      "packed": true,
+      "source": "FILE",
+      "users": 1,
+      "exists": true
+    },
+    {
+      "name": "Viewer Node",
+      "filepath": "",
+      "resolved": "",
+      "packed": false,
+      "source": "VIEWER",
+      "users": 1,
+      "exists": null
+    }
+  ],
+  "node_groups": [],
+  "libraries": []
+}

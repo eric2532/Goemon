@@ -1,0 +1,29 @@
+{
+  "pre_cleanup_vs_cleaned_alpha_identical": true,
+  "rgba_pixel_identical": false,
+  "rgb_channel_mean_abs_difference_8bit": [
+    3.4722222222222224e-06,
+    7.716049382716049e-07,
+    1.1574074074074074e-06
+  ],
+  "rgb_channel_extrema_abs_difference_8bit": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      1
+    ]
+  ],
+  "changed_pixel_count": 14,
+  "image_pixels": 2592000,
+  "technical_cleanup": "12 isolated zero-volume double-sided triangle scraps removed; no other character geometry changed.",
+  "visible_appearance_preserved": true,
+  "pre_cleanup_image": "precleanup_full.png",
+  "cleaned_master_image": "final_full.png"
+}

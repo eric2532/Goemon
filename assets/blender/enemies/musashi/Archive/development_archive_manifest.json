@@ -1,0 +1,1297 @@
+{
+  "archive": "Archive/Musashi_Visual_Development.zip",
+  "archive_sha256": "ae4ebed3a91589fa3009168e11bbee062464951d047f37841c5e6624940e33d9",
+  "verified_file_count": 255,
+  "original_total_bytes": 101301831,
+  "archive_bytes": 100705120,
+  "archived_development_folders": [
+    "Phase 1 Ear Transition",
+    "Phase 1 Face Likeness",
+    "Phase 1 Final Body",
+    "Phase 1 Full Character Review",
+    "Phase 1 Hair Revision",
+    "Phase 1 Painted Materials",
+    "Phase 1 Precision Face",
+    "Phase 1 Review",
+    "Phase 1 Silhouette Revision"
+  ],
+  "reference_moved_to": "Final/Reference/Musashi_Original_Reference.png",
+  "verification": "ZIP CRC plus SHA-256 of every archived file, completed before removing active development folders.",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "size": 5247,
+      "sha256": "4f9cd7637f8122dc969746c08a391ee6c68d85f26b52eb86450d51bff09ea8e5"
+    },
+    {
+      "path": "Final/Tools/check_hair_duplicates.py",
+      "size": 728,
+      "sha256": "d556adb4605643ecd0c4500de39a5123b75d1388afc8a7219f23cddd9b9582f8"
+    },
+    {
+      "path": "Final/Tools/clean_final.py",
+      "size": 8401,
+      "sha256": "005d1a589c85d5bfb59472ed5d6587e1bd2eef767758043a1bd1e837610104bd"
+    },
+    {
+      "path": "Final/Tools/final_art_direction.py",
+      "size": 6927,
+      "sha256": "8543f746bf20228e15da5b63ba5bf0d87cac3f98d42a8cc1ed4f5a6c2262534d"
+    },
+    {
+      "path": "Final/Tools/fix_final_paths.py",
+      "size": 584,
+      "sha256": "fb711e599875f2d5481e868018e22995b7787bd464b7371a6d3f49d02907fb9e"
+    },
+    {
+      "path": "Final/Tools/inspect_slivers.py",
+      "size": 571,
+      "sha256": "f9b9dc4a8a7005dfb4686d0cba322680370ca5ccb45866348dafb35120672865"
+    },
+    {
+      "path": "Final/Tools/inspect_source.py",
+      "size": 2712,
+      "sha256": "76d78a3a4249b473c21e52ab6d08b440d053eba5f7d3d12df2b7d3173f73904f"
+    },
+    {
+      "path": "Final/Tools/paint_nodes.py",
+      "size": 7700,
+      "sha256": "f8f2817be3bc9a71542dae31842dff84c57d6fb4a0d2db9ed2a0d54d477c3fb0"
+    },
+    {
+      "path": "Final/Tools/remove_isolated_hair_slivers.py",
+      "size": 2949,
+      "sha256": "8c8ccebd4ddad7cc8f1f53114871f2632338b2562366ee681c7c47381c4fe9ae"
+    },
+    {
+      "path": "Final/Validation/Final_PreCleanup.blend",
+      "size": 2749489,
+      "sha256": "aeb0c3a11edba1df244c1df40132a70bea01bdfedbd670ac598101790de08bd0"
+    },
+    {
+      "path": "Final/Validation/Final_PreCleanup.blend1",
+      "size": 2657573,
+      "sha256": "49b7fead0bfef74be1fc761c342a4ad213f0f4de2ed05308f82a7e7b99bed8cc"
+    },
+    {
+      "path": "Phase 1 Ear Transition/01_original_ear.png",
+      "size": 415389,
+      "sha256": "ddf0c61e47122827a814fe1d8ced0d2fa4aeb0a6bb645c2434d6d4652992104f"
+    },
+    {
+      "path": "Phase 1 Ear Transition/02_current_ear.png",
+      "size": 908222,
+      "sha256": "d37fb9c945043bcbcf412094066253ffb6f4a8bd56bf582ea05d5434a0609f12"
+    },
+    {
+      "path": "Phase 1 Ear Transition/03_revised_ear.png",
+      "size": 910119,
+      "sha256": "49f05b37ac99aa36b9f894e9534de8a9d7c171a2d0ac829fd96a462e23b22928"
+    },
+    {
+      "path": "Phase 1 Ear Transition/04_reference_overlay.png",
+      "size": 454813,
+      "sha256": "e31d9996486c39aa13e27a2c16d8f3b4ff7d728d9c81c59b6fd8c483507ea5de"
+    },
+    {
+      "path": "Phase 1 Ear Transition/05_ear_comparison.png",
+      "size": 1766421,
+      "sha256": "0b02b765ad1b062594ee199f5b215da8ed3833a970bb10cfb1d86f25946f8968"
+    },
+    {
+      "path": "Phase 1 Ear Transition/06_full_character_comparison.png",
+      "size": 437553,
+      "sha256": "26259fe7e3b270d62f49d4a5a8382e2604f2ced3f0def50bc4434b611337513d"
+    },
+    {
+      "path": "Phase 1 Ear Transition/Musashi_Ear_Transition.blend",
+      "size": 2040734,
+      "sha256": "3a91701878e24b65578d5fdfedc548be73abab15eb0bc14bf5fff9e8a8fa3f8f"
+    },
+    {
+      "path": "Phase 1 Ear Transition/README.md",
+      "size": 3596,
+      "sha256": "befbe01ce3199f19de91004d82014e66477b04c27f7da14e8ff990a0ef5668ec"
+    },
+    {
+      "path": "Phase 1 Ear Transition/__pycache__/lock_helpers.cpython-313.pyc",
+      "size": 4858,
+      "sha256": "9e49b403d92c5a2c89ac5c65bb12753f1b4b41f30f85b872d8b4ad15cda74eb4"
+    },
+    {
+      "path": "Phase 1 Ear Transition/approved_component_lock.json",
+      "size": 13488,
+      "sha256": "ecee69a23c74310d9b97ea5c720328e11ac6bfa6f5044a0ccb805f8df317e3d8"
+    },
+    {
+      "path": "Phase 1 Ear Transition/comparison.log",
+      "size": 2326,
+      "sha256": "3aa80c268325b0c2089192d0e922a130657739d30f9a396d8598bd055e5ddf7e"
+    },
+    {
+      "path": "Phase 1 Ear Transition/current_ear_aligned.png",
+      "size": 519927,
+      "sha256": "c5761ed978b648b22babc29e8f1acf168260a818f679d18aee534c3cfdc0ed1e"
+    },
+    {
+      "path": "Phase 1 Ear Transition/ear_angle_check.png",
+      "size": 638409,
+      "sha256": "cecf065e79dbdd16a3dbd368d57f7cd7873bbf950209c9235c22d6373cb69bc8"
+    },
+    {
+      "path": "Phase 1 Ear Transition/ear_comparison_metrics.json",
+      "size": 2325,
+      "sha256": "92f665fbf21d76471e001323e30d18aee874b5ad3ea4709950849e8994e66a85"
+    },
+    {
+      "path": "Phase 1 Ear Transition/ear_only_validation.json",
+      "size": 1782,
+      "sha256": "40b7ea2d5cd8dcd28bbf82e5eabc57279f4e28e68c26248028c5bb85998d95a6"
+    },
+    {
+      "path": "Phase 1 Ear Transition/lock_helpers.py",
+      "size": 1366,
+      "sha256": "23c468503c46bbb140dc3616b529ed2c1e8c77b09c29ea7c12b84cc2d92a9dc4"
+    },
+    {
+      "path": "Phase 1 Ear Transition/reference_ear_grid.png",
+      "size": 11658,
+      "sha256": "5bea72fd87cefed2b61d583a12c1361a322c9c8343f160217dc610f1d101d2e9"
+    },
+    {
+      "path": "Phase 1 Ear Transition/render.log",
+      "size": 3277,
+      "sha256": "faf91195d09a45b343e104ef2ed6fc7f0dc0197b831d2eb677539d2522f0ad1a"
+    },
+    {
+      "path": "Phase 1 Ear Transition/render_review_crops.py",
+      "size": 830,
+      "sha256": "7df40a7da374f4cfd74ea9d2274474f7f79ba3679a370943eb89547811848b5a"
+    },
+    {
+      "path": "Phase 1 Ear Transition/review_ear.py",
+      "size": 6149,
+      "sha256": "9989b7207da461e66d9569006180e32b93321918be76d000328e100b7f0db809"
+    },
+    {
+      "path": "Phase 1 Ear Transition/review_render.log",
+      "size": 775,
+      "sha256": "be743f62277a13d304c4ca9fd7d6d55dcc326f0572c2af09f1125c077f3d8d28"
+    },
+    {
+      "path": "Phase 1 Ear Transition/revise_ear.py",
+      "size": 11002,
+      "sha256": "aaa26446fbfb3741da2c3243842a7e7a49543bf77a7de540fc84225fc42c4ca2"
+    },
+    {
+      "path": "Phase 1 Ear Transition/revised_ear_aligned.png",
+      "size": 521689,
+      "sha256": "69e2995d45c89e84d68b76692c56ae35e56c14f69a2350b52f8e1f6fe3329aae"
+    },
+    {
+      "path": "Phase 1 Ear Transition/revised_full_view.png",
+      "size": 778447,
+      "sha256": "64acdefa8cc54d7df2ea9b74953bf4c59d0255bd27137ce6c0a5f4d61ab637ac"
+    },
+    {
+      "path": "Phase 1 Ear Transition/revised_visible_ear_mask.png",
+      "size": 251987,
+      "sha256": "7acb21fb0cce02c44931e2436b4479450dc61a1d6dd6b9e19586a40b3617f330"
+    },
+    {
+      "path": "Phase 1 Ear Transition/revised_visible_hair_mask.png",
+      "size": 324261,
+      "sha256": "02f2911a9b6a1477efcf6307e4fc829f5ca1860e0028e0e5c1d7f0a6d8957fcb"
+    },
+    {
+      "path": "Phase 1 Ear Transition/verify_component_lock.py",
+      "size": 1971,
+      "sha256": "39d640ccaac9e711dd0830e86168478c7e3dd197e04cdf5ae943fe34817a0982"
+    },
+    {
+      "path": "Phase 1 Face Likeness/01_current_face.png",
+      "size": 799485,
+      "sha256": "0fec66d1475ee4b87818d9406a1a60bf9a2e806a45dabd341e5b49e89b761bb9"
+    },
+    {
+      "path": "Phase 1 Face Likeness/02_revised_face.png",
+      "size": 753762,
+      "sha256": "e925fd6ff97351c1a42661e1f2da5500790da28786392757d301a762f1f88354"
+    },
+    {
+      "path": "Phase 1 Face Likeness/03_face_comparison.png",
+      "size": 1581755,
+      "sha256": "997e1776fddfea95294a67c628873944d00987c5853eec3e25c69064b6ae707c"
+    },
+    {
+      "path": "Phase 1 Face Likeness/04_equal_scale_overlay.png",
+      "size": 1073950,
+      "sha256": "d8a4265bf62aff88581b8a585b5bd64597dee4556162d2ca22f3f9c56d56f7cc"
+    },
+    {
+      "path": "Phase 1 Face Likeness/05_full_character_comparison.png",
+      "size": 744334,
+      "sha256": "5ad103a00a6b1ef10c073aa5266b802bd8752949126d54ace7df0da10e3f615b"
+    },
+    {
+      "path": "Phase 1 Face Likeness/06_profile_check.png",
+      "size": 386307,
+      "sha256": "247aea7e17eb4dbf95d34230318c0a3e81e72dab3ec6a9bec3075bb65f289857"
+    },
+    {
+      "path": "Phase 1 Face Likeness/Musashi_Face_Likeness.blend",
+      "size": 3483756,
+      "sha256": "6ae615189debfc3ce0146c89a67f441c90322f38095e3059294012b9df2acfb2"
+    },
+    {
+      "path": "Phase 1 Face Likeness/README.md",
+      "size": 2348,
+      "sha256": "c7e3ae2f0acd5b0676c2fc0a0c6bd402bd5765922e9b5111fe14a7001e84262d"
+    },
+    {
+      "path": "Phase 1 Face Likeness/approved_body_hashes.json",
+      "size": 7041,
+      "sha256": "7b01352f018e79ba0afa892764e43524bfae9eab8a9c207706075ccd1f5f0e08"
+    },
+    {
+      "path": "Phase 1 Face Likeness/body_lock_validation.json",
+      "size": 130,
+      "sha256": "858486af99e8becb6ba8da6345e64bb8282c1cda1792fd3a51a83c1064ecc168"
+    },
+    {
+      "path": "Phase 1 Face Likeness/body_silhouette_validation.json",
+      "size": 228,
+      "sha256": "be42f454c73a6f3c63430e9ab959f5d050130b7ea7d0c9f6e78fd0037ced044a"
+    },
+    {
+      "path": "Phase 1 Face Likeness/clean_head_volume.py",
+      "size": 4430,
+      "sha256": "c28638799b855f788cbf5e3d2312fb622a2cbc9a0b33a31627ee7817d3e6e1fc"
+    },
+    {
+      "path": "Phase 1 Face Likeness/cleanup.log",
+      "size": 587,
+      "sha256": "b1e185f01f09ad89f99ac38769abb95648e10c02af8c0585914e454e2b064d8a"
+    },
+    {
+      "path": "Phase 1 Face Likeness/current_closeup.log",
+      "size": 379,
+      "sha256": "86cfb58715d397ceed45b20205484115c5780f0c76f567a97d2e9d74179342db"
+    },
+    {
+      "path": "Phase 1 Face Likeness/current_closeup.py",
+      "size": 626,
+      "sha256": "62598e8e5f081ad15367d808c672e75f6b50abd75670155ac65a5ba51d46abcb"
+    },
+    {
+      "path": "Phase 1 Face Likeness/current_face_grid.png",
+      "size": 63432,
+      "sha256": "1a4920c2df3e6a841533be9ff5022f920ba9de29571c3997118b592121c9addf"
+    },
+    {
+      "path": "Phase 1 Face Likeness/current_face_landmarks.json",
+      "size": 2199,
+      "sha256": "a5ba6fed973178290aa7e58031318172a5cdeb17e7f0510dfecf18b950e0ade2"
+    },
+    {
+      "path": "Phase 1 Face Likeness/current_normalized.png",
+      "size": 196367,
+      "sha256": "d37d994f8692e3cb45fa75db4fc2397683252980db4206b699d650f45b5d791c"
+    },
+    {
+      "path": "Phase 1 Face Likeness/depth.log",
+      "size": 691,
+      "sha256": "61f36bba60177b0333cfabb6d34e33a952f0441808cb51584a0345ee9bf80051"
+    },
+    {
+      "path": "Phase 1 Face Likeness/face_before_temple_fix.blend",
+      "size": 1067736,
+      "sha256": "ee07deeb15fe946da56aa614642f3077ace1af24b1a00fa3ce223dd2fe25f160"
+    },
+    {
+      "path": "Phase 1 Face Likeness/final_face_cleanup.py",
+      "size": 3030,
+      "sha256": "e2007038eecdde63d26ffb2d5bf1e1b88bda959a2f37593bcb72f6b53223ed53"
+    },
+    {
+      "path": "Phase 1 Face Likeness/final_validation.json",
+      "size": 407,
+      "sha256": "9e4e627ed0b2852c66e9863edc68dc4fe7b1cb5a0c9dc519be05720f474fd588"
+    },
+    {
+      "path": "Phase 1 Face Likeness/initial_face_comparison.png",
+      "size": 253829,
+      "sha256": "43e9d09091bf2b30f0a06b83bc968b0bd8689c05989e03444b69f1a7453d5e7d"
+    },
+    {
+      "path": "Phase 1 Face Likeness/inspect_face.py",
+      "size": 1119,
+      "sha256": "8b85ce7d91efb61f01b77d8215836f933964615a6652ce103625634858e6bba4"
+    },
+    {
+      "path": "Phase 1 Face Likeness/profile_on_neutral.png",
+      "size": 202304,
+      "sha256": "1ecaf2957c1d953458b728f2e2940744bbbe2381024c759e1460839cdff69956"
+    },
+    {
+      "path": "Phase 1 Face Likeness/reference_face_grid.png",
+      "size": 34510,
+      "sha256": "ba0a0b57f506fb39f9b0d5475b24bbb8767503fd1225d3499ba56c138c178a95"
+    },
+    {
+      "path": "Phase 1 Face Likeness/refine_face.py",
+      "size": 2843,
+      "sha256": "214e1c664caffc3da6c1e9e51054bb23ffe6952a7d6b852c45f88823998231eb"
+    },
+    {
+      "path": "Phase 1 Face Likeness/refinement.log",
+      "size": 552,
+      "sha256": "0dd49745018714c990928c5d4465b935bca381e80a6f8df5b50eab804aa80750"
+    },
+    {
+      "path": "Phase 1 Face Likeness/render_closeup.py",
+      "size": 624,
+      "sha256": "7718997b5d6ee38d988a2991b6ab61f9b2924b47271673ef635dfc5be012a8bc"
+    },
+    {
+      "path": "Phase 1 Face Likeness/repair_graphic_depth.py",
+      "size": 2481,
+      "sha256": "0b5016e7ba9ab34f33d4ed2ac0ff6ca60b2d3fe9efcad78a212099f38d56bdf0"
+    },
+    {
+      "path": "Phase 1 Face Likeness/review_sheets.py",
+      "size": 2917,
+      "sha256": "22b7b21c2e129b2845ab46a55b46eb59035ba953d08d0b627cfb151b62120dd0"
+    },
+    {
+      "path": "Phase 1 Face Likeness/revise_face.py",
+      "size": 12163,
+      "sha256": "d75a8337ee2617175cf859a9b9ab13f98c6586cbbf7a790fbe8438aacfdf5165"
+    },
+    {
+      "path": "Phase 1 Face Likeness/revised_closeup.log",
+      "size": 367,
+      "sha256": "762490f783678964f118f5b73c6cd37b558c761f6cb7c15eed0f53f1ca480863"
+    },
+    {
+      "path": "Phase 1 Face Likeness/revised_full_view.png",
+      "size": 772012,
+      "sha256": "5208309d2739e0b904b902d247ca3c7fbf82c65ab3c0e6364553b02a7ecce6ea"
+    },
+    {
+      "path": "Phase 1 Face Likeness/revision.log",
+      "size": 1922,
+      "sha256": "9cfffea43ee4fe5376af68884b87a82bf41b24a2d74fdf1bc928390f88c4907a"
+    },
+    {
+      "path": "Phase 1 Face Likeness/verify_final_face.py",
+      "size": 1264,
+      "sha256": "581c4dddb933d96314343f01529ba1ab2c62d59d4936710193923a0aee3f567f"
+    },
+    {
+      "path": "Phase 1 Face Likeness/volume.log",
+      "size": 691,
+      "sha256": "13b8cbdf1ed882e58e31efe3916c0798db51abc0883acf5c4c8354e33f577dba"
+    },
+    {
+      "path": "Phase 1 Final Body/00_full_character_review.png",
+      "size": 1596157,
+      "sha256": "fc011976ba1402dc397eb3bedcbb0bbb3318ff8170184c8d6c7449efa3c08d12"
+    },
+    {
+      "path": "Phase 1 Final Body/01_original_reference.png",
+      "size": 517280,
+      "sha256": "af92674c65322f0b2eb3900f61b5ac0a1c1fb16500d4960648dcf57803402366"
+    },
+    {
+      "path": "Phase 1 Final Body/02_revised_model.png",
+      "size": 427367,
+      "sha256": "a40638b1fa7d8592d0553545670c0552d6ab8041796235ba803f0bd00d389d14"
+    },
+    {
+      "path": "Phase 1 Final Body/03_black_silhouette.png",
+      "size": 54791,
+      "sha256": "ce0ee22587652c2b488a33b0bee180024fd0fba5efb9a62e653cd0a2f25c6e3d"
+    },
+    {
+      "path": "Phase 1 Final Body/04_50_percent_overlay.png",
+      "size": 505408,
+      "sha256": "625d5049f06841628773c21fdc4e85e8d3fc8873725d02382996ea78a4f53f0a"
+    },
+    {
+      "path": "Phase 1 Final Body/05_before_after_reference.png",
+      "size": 1438652,
+      "sha256": "2f08308646386ee6986e92ba368dcb75313d30420103989bf92729f40ea7a88c"
+    },
+    {
+      "path": "Phase 1 Final Body/06_silhouette_before_after.png",
+      "size": 191926,
+      "sha256": "5a739c421e17e14359f52471b60eb14f6ba97638737db9217073fa5fee6db656"
+    },
+    {
+      "path": "Phase 1 Final Body/Musashi_Final_Body.blend",
+      "size": 2070134,
+      "sha256": "504121de4e10ae52a39d40a18adfb2632f3cb1e3f30a6255f14e8ea9bce5a54d"
+    },
+    {
+      "path": "Phase 1 Final Body/Musashi_Final_Body.blend1",
+      "size": 2070173,
+      "sha256": "9ccd745aa525a6a0a17ded73a5e23a38e83a09c2db92cfe27ace304b137348fa"
+    },
+    {
+      "path": "Phase 1 Final Body/README.md",
+      "size": 3108,
+      "sha256": "427f35e7af1a380596df3ddf8e3efa22760067d536de5f211b6dfb94f89809b8"
+    },
+    {
+      "path": "Phase 1 Final Body/SHADING_HANDOFF.md",
+      "size": 1868,
+      "sha256": "bae6df5956ca6ce37b46eadcbbebf3c7dbc084df5c085e4d56e1c522a08a5dc9"
+    },
+    {
+      "path": "Phase 1 Final Body/approved_head_and_scene_lock.json",
+      "size": 6908,
+      "sha256": "21b4373546d517bc8cb1d44c5308db042e3381e63da6f8f531816c93d1f767e1"
+    },
+    {
+      "path": "Phase 1 Final Body/assemble_review.py",
+      "size": 3774,
+      "sha256": "37ca8b5e676f346e5be208d80cca79924f782443b63cbacc38e241293784b91a"
+    },
+    {
+      "path": "Phase 1 Final Body/body_change_record.json",
+      "size": 3032,
+      "sha256": "fc0042dfbee2bd2ec1fde89f105450c5444f97c9481e169f61988a979851714a"
+    },
+    {
+      "path": "Phase 1 Final Body/body_measurements.json",
+      "size": 6161,
+      "sha256": "888a0bc1d6b57c686362fed7cff8a84cf0f93023159838110bedc1e70bce19da"
+    },
+    {
+      "path": "Phase 1 Final Body/comparison_alignment.json",
+      "size": 1443,
+      "sha256": "33b17999d685321860f1976499ebce90cb4e9529e6a3035f4e885451273dfaff"
+    },
+    {
+      "path": "Phase 1 Final Body/inspect_body.py",
+      "size": 1026,
+      "sha256": "ae1a516df0f4b8331548392bfe2a2a1d09a07736848d64e1f2fe44c4248b4fcb"
+    },
+    {
+      "path": "Phase 1 Final Body/measure_body.py",
+      "size": 1811,
+      "sha256": "85e78b6d6e82b0c347c6546cdebfcb370d9e4c198c901e9740314cbd33aa02c2"
+    },
+    {
+      "path": "Phase 1 Final Body/measurement.log",
+      "size": 441,
+      "sha256": "d03d1a45c314547af0bd13058541cce3b5bba25844549f1fe90c6589dd36165b"
+    },
+    {
+      "path": "Phase 1 Final Body/qa_back.png",
+      "size": 415106,
+      "sha256": "a57a21124d6b8af691b7428edb6f0a5ef6e4d3ce688e3fdf34f43565e4bfbe6b"
+    },
+    {
+      "path": "Phase 1 Final Body/qa_side.png",
+      "size": 390957,
+      "sha256": "05d6bff3c4945b24e63a7bb9cd5cbf5a37dc93fa7a7c307e57fce20d94b0639d"
+    },
+    {
+      "path": "Phase 1 Final Body/revise_body.py",
+      "size": 9379,
+      "sha256": "08516d5731159d7f470c5dd3b5db1b139ac2ecaaaceab101572ec2d412865581"
+    },
+    {
+      "path": "Phase 1 Final Body/revised_complete_character.png",
+      "size": 1603452,
+      "sha256": "1af123b5a406f98dfaa747f29a3cff62601fa6b20138ac655dc1f2369fc05303"
+    },
+    {
+      "path": "Phase 1 Final Body/revision.log",
+      "size": 545,
+      "sha256": "56f0c926ea0aeae212ea3fc53fededce3ad679e7143f87c5cc0ed0b7f59719bf"
+    },
+    {
+      "path": "Phase 1 Final Body/saved_validation.json",
+      "size": 2121,
+      "sha256": "db9ab11e0c348686e8694024caea94b125150320309a854f059aee8ac374aade"
+    },
+    {
+      "path": "Phase 1 Final Body/source_body_inventory.json",
+      "size": 23041,
+      "sha256": "ef25cc1f82c5476a0ab576718c1687636e60145fea78bfaec384e6f70db35928"
+    },
+    {
+      "path": "Phase 1 Final Body/verification.log",
+      "size": 2725,
+      "sha256": "4b1bf08dd09ad2a8b0a5d1dc46cef08802fdf74b1c7271be578a4b4e5ff6eb50"
+    },
+    {
+      "path": "Phase 1 Final Body/verify_saved.py",
+      "size": 2947,
+      "sha256": "0efe18810720c0845e44eca48c724683a631e6077ef2a160c0dd228b29313330"
+    },
+    {
+      "path": "Phase 1 Full Character Review/00_full_character_review.png",
+      "size": 1597107,
+      "sha256": "33e9c007cb543209a59d55787a5067f8c2e5c1dbf6763e27a4fb6622ce80cb1d"
+    },
+    {
+      "path": "Phase 1 Full Character Review/01_original_reference.png",
+      "size": 517280,
+      "sha256": "af92674c65322f0b2eb3900f61b5ac0a1c1fb16500d4960648dcf57803402366"
+    },
+    {
+      "path": "Phase 1 Full Character Review/02_current_model.png",
+      "size": 430670,
+      "sha256": "422e07e762c1dcc5d74030bfff3ab687ca203eb1d40447aa5f41792ffa461eaa"
+    },
+    {
+      "path": "Phase 1 Full Character Review/03_black_silhouette.png",
+      "size": 55026,
+      "sha256": "4b2c9b2d2aedff46be07d79c9acbe7f4c7b1c9622b3d79160521cfe13ac2891f"
+    },
+    {
+      "path": "Phase 1 Full Character Review/04_50_percent_overlay.png",
+      "size": 505215,
+      "sha256": "fc3d9f04b9154b07bdf9d7081a04f1730b819ec5fbc8d982dcec36b69075a369"
+    },
+    {
+      "path": "Phase 1 Full Character Review/05_reference_beside_current.png",
+      "size": 999737,
+      "sha256": "cb43dae1e59f68537cb71828327c2c01c332cc804121cac9d1e626ca715d7c91"
+    },
+    {
+      "path": "Phase 1 Full Character Review/06_silhouette_comparison.png",
+      "size": 131071,
+      "sha256": "bbf885f147d3ab63d2aac80195b2cd9418d350aa72fd25dc09ed180e39d9329c"
+    },
+    {
+      "path": "Phase 1 Full Character Review/README.md",
+      "size": 1355,
+      "sha256": "5076ebed431533ba15d5287de239870061455ab28bac95ff83f5f434c5f6a821"
+    },
+    {
+      "path": "Phase 1 Full Character Review/assemble_review.py",
+      "size": 5259,
+      "sha256": "777ddc061d175d683cac206a819928f6053b0432284f53e3a7443c2d32f04507"
+    },
+    {
+      "path": "Phase 1 Full Character Review/comparison_alignment.json",
+      "size": 1086,
+      "sha256": "0daeab7d7342ac73fa315dc95c3c0ed87ac337aca07d4e004820f5608c686083"
+    },
+    {
+      "path": "Phase 1 Full Character Review/current_complete_character.png",
+      "size": 1614548,
+      "sha256": "80cd8591ba2ba80e033d8408f791e04e646f50eabbfa3583b06d3bb24f002596"
+    },
+    {
+      "path": "Phase 1 Full Character Review/render.log",
+      "size": 514,
+      "sha256": "e3f144823eea74a32a94c23b1864377416805541c77e93cbb6001d8b52671a63"
+    },
+    {
+      "path": "Phase 1 Full Character Review/render_current.py",
+      "size": 1858,
+      "sha256": "1304edc57f6de7fdb19412aeb6a0826505b1344c2375028e33957cc877f7f53f"
+    },
+    {
+      "path": "Phase 1 Full Character Review/review_validation.json",
+      "size": 14924,
+      "sha256": "cd5cc0ee93820bfda0157fb18569131b58e162f15e6164dabcf0b5c21e4a4f23"
+    },
+    {
+      "path": "Phase 1 Hair Revision/01_original_hair.png",
+      "size": 633426,
+      "sha256": "edf012b02fdc33499464c2a30d6f4445facb772e3e7aef4bcc17298e1e0f82f7"
+    },
+    {
+      "path": "Phase 1 Hair Revision/02_current_hair.png",
+      "size": 871269,
+      "sha256": "51f4c0bfbe2cc9a102a61c3dcafa6953e63aaa7da5dc5e9ab175bbd0fe33f222"
+    },
+    {
+      "path": "Phase 1 Hair Revision/03_revised_hair.png",
+      "size": 892265,
+      "sha256": "628e9f609f3654e4e9a61f643a9bf8d68d4641041820b178527c8c45612756d7"
+    },
+    {
+      "path": "Phase 1 Hair Revision/04_black_silhouette_comparison.png",
+      "size": 32319,
+      "sha256": "c1c47d2851a1602ccf3b7e59de8533a5c2de5074bbbeb26c6e7a0467e8a1fc4c"
+    },
+    {
+      "path": "Phase 1 Hair Revision/05_reference_overlay.png",
+      "size": 579706,
+      "sha256": "726e9a18abf05b52360c1de72af82a21f88caaa1ba6888e665a801576c3759bd"
+    },
+    {
+      "path": "Phase 1 Hair Revision/06_hair_comparison.png",
+      "size": 2339419,
+      "sha256": "22f7c5f57e1674382008424459c9f9956fd650cf4650cdc7ccf0a40fe2e64086"
+    },
+    {
+      "path": "Phase 1 Hair Revision/07_full_character_comparison.png",
+      "size": 599986,
+      "sha256": "093b17f35a0a73fe984a787a8203044bb89266954e4cdc3d2ff96e52214e20ed"
+    },
+    {
+      "path": "Phase 1 Hair Revision/Musashi_Hair_Revision.blend",
+      "size": 2039925,
+      "sha256": "85d28198fa1dfb3c36bb4acfd75439987370be06dec131733d647e0db39d3093"
+    },
+    {
+      "path": "Phase 1 Hair Revision/README.md",
+      "size": 3556,
+      "sha256": "1439b0db7f7f9173a419e7950ce42e1282682f3719f7f66e0bc711d4f49d7fab"
+    },
+    {
+      "path": "Phase 1 Hair Revision/approved_appearance_lock.json",
+      "size": 13166,
+      "sha256": "936e65667a765be1bce930110438db2fb082b00115370fb1dcc58600d975f3e3"
+    },
+    {
+      "path": "Phase 1 Hair Revision/comparison.log",
+      "size": 6136,
+      "sha256": "c1c34337afce83149e265cb6aaa22977609676f1a74b14c1ab1e30a841e4bbf6"
+    },
+    {
+      "path": "Phase 1 Hair Revision/current_face_width_normalized.png",
+      "size": 581895,
+      "sha256": "3abf58542f8ed22c29b62cc0f729b9441e3908d02316ac8d52bbd0d0a833d6a5"
+    },
+    {
+      "path": "Phase 1 Hair Revision/current_visible_ear_mask.png",
+      "size": 253153,
+      "sha256": "82341ffdafd882b8283722045dea8f7bded0f80321555e60d6e1a71f77de5718"
+    },
+    {
+      "path": "Phase 1 Hair Revision/current_visible_face_mask.png",
+      "size": 294800,
+      "sha256": "17d29423ad6cf4ca232ac12c9e4cf1ab1894268a24ed51aaa80e3be156e507a9"
+    },
+    {
+      "path": "Phase 1 Hair Revision/current_visible_hair_mask.png",
+      "size": 321379,
+      "sha256": "4a7cdbb89c1df82da3169d3503b407cd2bb411f2f5d6af960824e2cbc1d9a822"
+    },
+    {
+      "path": "Phase 1 Hair Revision/hair_clump_landmarks.json",
+      "size": 10315,
+      "sha256": "b0a35d6398607cba8fd793d06d9cccc8e4a541071aba0ab7009cd91b19afd569"
+    },
+    {
+      "path": "Phase 1 Hair Revision/hair_comparison_metrics.json",
+      "size": 6135,
+      "sha256": "9d20262046f93c400d4256f8809c3719f0c7fb6e46756036e1278c80e733f837"
+    },
+    {
+      "path": "Phase 1 Hair Revision/hair_only_validation.json",
+      "size": 485,
+      "sha256": "709b42768a1220ff155b0c961981f1bc5d82a6a1e63fbbf29aa04161b4d600bc"
+    },
+    {
+      "path": "Phase 1 Hair Revision/locked_ear_mask.png",
+      "size": 258399,
+      "sha256": "60dfc5cce9ec050e317047a3bc6648dd8237e659ad2b31393c5e835fb97bbf39"
+    },
+    {
+      "path": "Phase 1 Hair Revision/locked_face_mask.png",
+      "size": 298353,
+      "sha256": "76b2ba8efd284eca5ae224f213ae15fc97eee8d99b770d0b491115de1cc50857"
+    },
+    {
+      "path": "Phase 1 Hair Revision/profile_volume_check.png",
+      "size": 442822,
+      "sha256": "594fc11bde09b7c59c0204c96783ca52f58ebd9b78cfc8bb611e7d143dda4b27"
+    },
+    {
+      "path": "Phase 1 Hair Revision/rear_volume_check.png",
+      "size": 423873,
+      "sha256": "b072701b340ef99c8b67bb77f7eef2162be60cbe0fedba299b6e07e46f780768"
+    },
+    {
+      "path": "Phase 1 Hair Revision/reference_hair_grid.png",
+      "size": 51328,
+      "sha256": "7660e724518725db0b42c5c27089119533ee4eed5b7d516717cf5ae3cde3ec89"
+    },
+    {
+      "path": "Phase 1 Hair Revision/reference_hair_trace.json",
+      "size": 4226,
+      "sha256": "a6b7baffb59c64ac40ff9c600aef7f05573d99c60eefc9d1e8577d5d4322558b"
+    },
+    {
+      "path": "Phase 1 Hair Revision/render.log",
+      "size": 2969,
+      "sha256": "7e0df052ddbf78ce7f55aca4c04eb443221d5c4300c8c74ecfe037293b686eca"
+    },
+    {
+      "path": "Phase 1 Hair Revision/review_hair.py",
+      "size": 9263,
+      "sha256": "0ea54bf047aa2e5a8e1347a1f6cf43ab26897c0faaf9989b0a891805818a59d3"
+    },
+    {
+      "path": "Phase 1 Hair Revision/revise_hair.py",
+      "size": 18015,
+      "sha256": "2c081dc934a4e82049ebc30e876b15f5883941c7628771f31542cd74ea5166e2"
+    },
+    {
+      "path": "Phase 1 Hair Revision/revised_face_width_normalized.png",
+      "size": 598707,
+      "sha256": "0d07d68ce6d479009a5ac2b7e6bd8ad81429a2541a8e2750a89f22dbceb82f16"
+    },
+    {
+      "path": "Phase 1 Hair Revision/revised_full_view.png",
+      "size": 777796,
+      "sha256": "a42da15dfb691433d7f8b67d752f80b2a93285b9bc59e0aa554f35084c0f3519"
+    },
+    {
+      "path": "Phase 1 Hair Revision/revised_visible_ear_mask.png",
+      "size": 253151,
+      "sha256": "4e6883676296db4ebb0f8cd7f2af72080d2183ffbe618ba899fad385c0c006a9"
+    },
+    {
+      "path": "Phase 1 Hair Revision/revised_visible_hair_mask.png",
+      "size": 322836,
+      "sha256": "87bf2a12b27f4412e5e7fd847bee1609a0b8ed2cd8862fd39a3454e86bd519bf"
+    },
+    {
+      "path": "Phase 1 Hair Revision/verify_locked_appearance.py",
+      "size": 2762,
+      "sha256": "22696d63fdc47ddae17ddd29c94fea2b4306a4377fcae6c713021c4100c80eda"
+    },
+    {
+      "path": "Phase 1 Painted Materials/00_material_comparison.png",
+      "size": 1921146,
+      "sha256": "3ec7b17414e824653d37f0b46a807fd0de2bb2b6e78d37cc360c4df524606fcd"
+    },
+    {
+      "path": "Phase 1 Painted Materials/01_original_reference.png",
+      "size": 517280,
+      "sha256": "af92674c65322f0b2eb3900f61b5ac0a1c1fb16500d4960648dcf57803402366"
+    },
+    {
+      "path": "Phase 1 Painted Materials/02_clean_material_version.png",
+      "size": 408774,
+      "sha256": "a2ef7ec70cb6ec81d7da658ee043934994897f21aaef081e38d90c66afb00ee9"
+    },
+    {
+      "path": "Phase 1 Painted Materials/03_stylized_material_version.png",
+      "size": 422586,
+      "sha256": "f5b4d8d8409cb5ed2e8a44900f9aa0ba9c01a82a49baa0563ba8481932ad4d68"
+    },
+    {
+      "path": "Phase 1 Painted Materials/04_reference_overlay.png",
+      "size": 503540,
+      "sha256": "ae057b0a06c4de37cef6cec9d078bca14b9fc956916e019fcc02d32465ecdc7f"
+    },
+    {
+      "path": "Phase 1 Painted Materials/05_face_closeup.png",
+      "size": 614620,
+      "sha256": "f34a32cee673af83736d39c53dd4d713dec49f61a73e61cf020cbc0e4ab2822f"
+    },
+    {
+      "path": "Phase 1 Painted Materials/06_hair_closeup.png",
+      "size": 647990,
+      "sha256": "6779d2a228866a22811c12201d2981e2e9a67c21048d664e80568e5a36cc9f33"
+    },
+    {
+      "path": "Phase 1 Painted Materials/07_jacket_vest_closeup.png",
+      "size": 1001958,
+      "sha256": "7b053ca7c28e2513dc625105c1453d25fa31c3eb46db12431bc9410117a788ae"
+    },
+    {
+      "path": "Phase 1 Painted Materials/08_pants_closeup.png",
+      "size": 977038,
+      "sha256": "7ba0287a2967616208a8bd6e5148b1ebf39ef4b911f0c70841fd907a0fa3b930"
+    },
+    {
+      "path": "Phase 1 Painted Materials/09_shoes_closeup.png",
+      "size": 571238,
+      "sha256": "32923041c1105fddb5fd44ef7b7d870b4996eb6d8b36527df1ae0a3f3ed28615"
+    },
+    {
+      "path": "Phase 1 Painted Materials/10_selective_edge_test.png",
+      "size": 291743,
+      "sha256": "9fc042d4a2be7cf871339a030f45669ab9a86f364339df43cb282880e9b8566b"
+    },
+    {
+      "path": "Phase 1 Painted Materials/Musashi_Painted_Materials.blend",
+      "size": 2366968,
+      "sha256": "e66de6f044963805c1ba4b358700786e982d94f392cdc3de1bfd166b6cff66a6"
+    },
+    {
+      "path": "Phase 1 Painted Materials/Musashi_Painted_Materials.blend1",
+      "size": 2366152,
+      "sha256": "c4bcce9a6df5edfb0986e747bea1b706860a234740233c25b4d020e8e54b1c5b"
+    },
+    {
+      "path": "Phase 1 Painted Materials/README.md",
+      "size": 4620,
+      "sha256": "ef089885bed76161288ea6f98543fc6ff279e200e921c43612be8734cbf30b63"
+    },
+    {
+      "path": "Phase 1 Painted Materials/VISUAL_REVIEW.md",
+      "size": 1599,
+      "sha256": "79b43f0d5522cf0822e148c0a80bc64103e0843c2c56aa91b8fbc8851437b34f"
+    },
+    {
+      "path": "Phase 1 Painted Materials/approved_geometry_lock.json",
+      "size": 9946,
+      "sha256": "0aa0c00be837021910175f5b39718fc500313e1cec8223be3354d06626e59007"
+    },
+    {
+      "path": "Phase 1 Painted Materials/assemble_review.py",
+      "size": 4701,
+      "sha256": "db27242690f15deb7ca3e750a3955a30345362e2daa5b6bfe3dbf6871c873ad0"
+    },
+    {
+      "path": "Phase 1 Painted Materials/clean_neutral_full.png",
+      "size": 1561356,
+      "sha256": "e21a7f6d9c6f9dcdb0dcfeb7e7e5d38f913ef97de430ef52c5b405d01daf22a4"
+    },
+    {
+      "path": "Phase 1 Painted Materials/comparison_alignment.json",
+      "size": 1497,
+      "sha256": "832d6ad6a7b54dd406ea8c4488fec125965a314c9fb3dd90daff159f576cee21"
+    },
+    {
+      "path": "Phase 1 Painted Materials/edge_test.log",
+      "size": 854,
+      "sha256": "cf41e5b4f813d64f3547dc90c986dac806b42b6a9997b2a23e80afaacbc09d0a"
+    },
+    {
+      "path": "Phase 1 Painted Materials/edge_test.py",
+      "size": 1167,
+      "sha256": "4a2c9ec1e4d33bbc4ab1ae21b51904f866e1a691e77140698c4dc7f952172b68"
+    },
+    {
+      "path": "Phase 1 Painted Materials/edge_test_none.png",
+      "size": 458385,
+      "sha256": "c0949312e77d9ebb4553099215aa7c579825e3f843d9e27da20452791165e219"
+    },
+    {
+      "path": "Phase 1 Painted Materials/edge_test_record.json",
+      "size": 479,
+      "sha256": "ad1a26480c040ba4f363b6d8d348b4bec706eb017b634bb9d1e6faa973121c0b"
+    },
+    {
+      "path": "Phase 1 Painted Materials/edge_test_subtle.png",
+      "size": 458194,
+      "sha256": "2840196ecb8e7e01f4cd1410cab3a9c51761fe785aa22a0cfa78a9ef1caf4c08"
+    },
+    {
+      "path": "Phase 1 Painted Materials/inspect_materials.py",
+      "size": 1078,
+      "sha256": "d4ce01dd62bd216a3d348028c718f27433771b06341438bec4ed74b494fd8ab0"
+    },
+    {
+      "path": "Phase 1 Painted Materials/material_change_record.json",
+      "size": 4972,
+      "sha256": "329098c38245c0c4ee33f18fe3534b4e288306eb71480f455dc62a2ce8d9d839"
+    },
+    {
+      "path": "Phase 1 Painted Materials/paint.log",
+      "size": 1622,
+      "sha256": "97aa9974e548a728589c5d0728a7e1bdda8e48fc4a33a0a7b1864cf0c2653fd9"
+    },
+    {
+      "path": "Phase 1 Painted Materials/paint_materials.py",
+      "size": 15010,
+      "sha256": "a87a4f53373c8bd36f9ff25fa13a2b1bf59373c5ec23944edcf03d35c52ee7f5"
+    },
+    {
+      "path": "Phase 1 Painted Materials/reference_palette_samples.json",
+      "size": 4276,
+      "sha256": "8f40bbd7cc3ed16bd475dba371f8227133eef087eeaf38590fb0843bd464a51f"
+    },
+    {
+      "path": "Phase 1 Painted Materials/saved_validation.json",
+      "size": 746,
+      "sha256": "41c7e5a3be559e85915d957abee40bc530f9400e86310652b3bc38289fe4028f"
+    },
+    {
+      "path": "Phase 1 Painted Materials/source_material_inventory.txt",
+      "size": 17336,
+      "sha256": "86881d611403bdb0f32b01a1799422bd7e6915886905aecdbc8006c0c56afcc8"
+    },
+    {
+      "path": "Phase 1 Painted Materials/stylized_full.png",
+      "size": 1585542,
+      "sha256": "fc07ec02a4b474b6c1ae62a52f983f2b7dac280993101bacfa83b5084c0a2aa1"
+    },
+    {
+      "path": "Phase 1 Painted Materials/verification.log",
+      "size": 1159,
+      "sha256": "67840cd3a4b5fd700b8d844115023a56f1d1e9640d90baf71efa7b560521b47f"
+    },
+    {
+      "path": "Phase 1 Painted Materials/verify_saved.py",
+      "size": 2710,
+      "sha256": "985183945ae056978a6beaa75c55f3685811c76538ec69d5b3bb7998da01810f"
+    },
+    {
+      "path": "Phase 1 Precision Face/01_original_reference_face.png",
+      "size": 589686,
+      "sha256": "0f4e897d992982700d4a5e476997d6735cd0b14bd30dda42f55948b34e3b63f5"
+    },
+    {
+      "path": "Phase 1 Precision Face/02_current_revised_face.png",
+      "size": 753762,
+      "sha256": "e925fd6ff97351c1a42661e1f2da5500790da28786392757d301a762f1f88354"
+    },
+    {
+      "path": "Phase 1 Precision Face/03_precision_face.png",
+      "size": 756597,
+      "sha256": "e546013bbe5e7f58138664a7da05699c62a8020c6023349e872401bc1ee2a60d"
+    },
+    {
+      "path": "Phase 1 Precision Face/04_reference_overlay.png",
+      "size": 513574,
+      "sha256": "cbfd8ad33ee6f09b09ff0a546609bd623b01726429b7fdf05f6924c7a5b1395c"
+    },
+    {
+      "path": "Phase 1 Precision Face/05_four_panel_comparison.png",
+      "size": 2074926,
+      "sha256": "4abf6ee7dd468b19e4e384445e05fbff69a661c0025a8caf718c2d6afc67d018"
+    },
+    {
+      "path": "Phase 1 Precision Face/06_four_panel_horizontal.png",
+      "size": 1888400,
+      "sha256": "d2cb6576e49217a33d55428926c6365269e878ac92b6ea3e60d24b56b9f7a171"
+    },
+    {
+      "path": "Phase 1 Precision Face/07_full_character_comparison.png",
+      "size": 536060,
+      "sha256": "f4a6e3c7392e2acd162784ec15a953aceb9283d0606110c3d106e000b3d3702c"
+    },
+    {
+      "path": "Phase 1 Precision Face/Musashi_Precision_Face.blend",
+      "size": 3488294,
+      "sha256": "35f0df80b8a329e18d9edfa0b6245c6a4e46b1b2a3b9ec4ab91063dcdedfea58"
+    },
+    {
+      "path": "Phase 1 Precision Face/README.md",
+      "size": 3426,
+      "sha256": "72aab7a1978a2409ce0f17bb70fac4be392ba57cb8ae19b732b105a47b634db5"
+    },
+    {
+      "path": "Phase 1 Precision Face/normalized_precision_face.png",
+      "size": 472351,
+      "sha256": "1216613539625d21bc7b7c0ff51ded70a85194f8f713501dcc6b063f67ecdb53"
+    },
+    {
+      "path": "Phase 1 Precision Face/overlay_and_silhouette_validation.json",
+      "size": 745,
+      "sha256": "d5a1abd62b0106dd0f7768cb2a584508f9ce9134c7dbc7dd7c8e2c69fc344f69"
+    },
+    {
+      "path": "Phase 1 Precision Face/precision_face.py",
+      "size": 9896,
+      "sha256": "10145766c111731c2e796cd66c1896a385803d8e7318af500e60adc9996caa5e"
+    },
+    {
+      "path": "Phase 1 Precision Face/precision_full_view.png",
+      "size": 771311,
+      "sha256": "8ecf79cdccee6a5852c05e0742cfe809e9e2cbb2b316e94a8d1fa8c758e550de"
+    },
+    {
+      "path": "Phase 1 Precision Face/precision_head_only.png",
+      "size": 383313,
+      "sha256": "29bedee18f3b6466c7b9ab8f28a7cfee2c3a68becd74a8c75da67f3e5ef94bbb"
+    },
+    {
+      "path": "Phase 1 Precision Face/reference_pixel_landmarks.json",
+      "size": 6365,
+      "sha256": "0c889ca84821ccbb4c8cce380726808bf9dd9baa8520dc3c91fb9c7b9988daf0"
+    },
+    {
+      "path": "Phase 1 Precision Face/render.log",
+      "size": 1837,
+      "sha256": "73801e99ee3f57114b7b9e11ee5f4db324bbd4da8c387574802f0448c5468772"
+    },
+    {
+      "path": "Phase 1 Precision Face/review_sheets.py",
+      "size": 4514,
+      "sha256": "35ab341245ecdd5beb2e5d170dc61c3b4ad4a840513887aef87bfb0da6f3a3ab"
+    },
+    {
+      "path": "Phase 1 Precision Face/validation.json",
+      "size": 746,
+      "sha256": "3d91a4cc16b30c9cce9cec34f3aac280b0fa2d5c8e18e1e890357f46181843a5"
+    },
+    {
+      "path": "Phase 1 Precision Face/verify_saved.py",
+      "size": 1328,
+      "sha256": "ca7b014e80f2bc54917aed61765f77e77c254668d2b694e98a7a49426c8be0e0"
+    },
+    {
+      "path": "Phase 1 Review/00_reference_comparison.png",
+      "size": 1395710,
+      "sha256": "9e52df298b68f3da172b5fd37633289e359df95b2813992ed40ad85c6f9d32f7"
+    },
+    {
+      "path": "Phase 1 Review/01_reference_view.png",
+      "size": 1293628,
+      "sha256": "d03da764860377263903c32f6f07b6475f3ff1527f9f0f64061b0dc651234636"
+    },
+    {
+      "path": "Phase 1 Review/02_front.png",
+      "size": 1098787,
+      "sha256": "dc0e5c449f2cb5b987a4b19df3a67575a519a679830a754a5470d726f2d10103"
+    },
+    {
+      "path": "Phase 1 Review/03_side.png",
+      "size": 1014135,
+      "sha256": "4585a2b5fcacada30ebbfca0a554bb0bafb11455f106a97367f8a31c2793bd62"
+    },
+    {
+      "path": "Phase 1 Review/04_back.png",
+      "size": 1041790,
+      "sha256": "1a9c76de9df90a0e63eea2b441056b0d83153c7846158ccd88f23c378bfbadf0"
+    },
+    {
+      "path": "Phase 1 Review/05_turnaround_sheet.png",
+      "size": 936419,
+      "sha256": "67449de2ab9b3e2e17a43931f44b48b7fbe11d4c449960d82ced834abd69af13"
+    },
+    {
+      "path": "Phase 1 Review/Musashi_Phase1.blend",
+      "size": 882840,
+      "sha256": "3ede1e64d109e74706ba0549bf1b5ee846132bfd8cce718e934bfb2f930fd4e8"
+    },
+    {
+      "path": "Phase 1 Review/README.md",
+      "size": 1594,
+      "sha256": "4a02a978b7d047db41659aaf9846447286854cee1b2d5405ac58ffab3372d5f5"
+    },
+    {
+      "path": "Phase 1 Review/build.log",
+      "size": 1352,
+      "sha256": "b2bdf65f2572f1a3397aa82ed61bec08a5e2f60c75f2786fb2468757c8aee453"
+    },
+    {
+      "path": "Phase 1 Review/build_character.py",
+      "size": 26041,
+      "sha256": "1aa74410b1b2010bc0adbd11d30fe2459452a31bd2ce49ba751eb12e1093b01b"
+    },
+    {
+      "path": "Phase 1 Review/make_review_sheets.py",
+      "size": 1515,
+      "sha256": "c797a9723394e5fca7c0f495ae725e832ce7078a2241b80f222290dc620c31d2"
+    },
+    {
+      "path": "Phase 1 Review/scene_validation.json",
+      "size": 471,
+      "sha256": "c6d79bc266d425acdaefb3d8a2f56f3a04621bf88bd00d2d9d8aab8c092b8329"
+    },
+    {
+      "path": "Phase 1 Review/verify_scene.py",
+      "size": 1036,
+      "sha256": "8987bab85102f92b57138222d6e6ac384b5cf237e4a6f19762cdde6a493a7411"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/00_four_panel_review.png",
+      "size": 325292,
+      "sha256": "43538dfe47922fa9da8d1e439c3af9d0baa77a0b53cbc41aa4ad9f5db56615a7"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/06_revised_turnaround.png",
+      "size": 680311,
+      "sha256": "18338288ce03438a06cede8618d66cde2fefd06b18b6e6c64c5c86a1ecff930f"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/Musashi_Silhouette_Revision.blend",
+      "size": 1056362,
+      "sha256": "07cded972f187e735701aa9385e38f8e251293bb299cc2efbd63147947cb0f1e"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/README.md",
+      "size": 2864,
+      "sha256": "e26bc27781c234c524d65de15392bb7b732c7ebc6eb878fd1a1dabeff9dfbe39"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/baseline.log",
+      "size": 837,
+      "sha256": "9a03237513a9bc8a9e9fc07cd63497827727d73ebb17a2b5db00f2aa5751cfc9"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/baseline.py",
+      "size": 1107,
+      "sha256": "5263f10439dbd2ef43604fa92894b489ff4d5278bc6cbf78deacbd88fdd7adc8"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/baseline_bounds.json",
+      "size": 14770,
+      "sha256": "5aee02ebf818f16081d51134ff604a4234bd9a823e558fade7303e0fa46b30c3"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/baseline_mask.png",
+      "size": 308003,
+      "sha256": "348fb9bbc6a860534ac1aeafab500f95e292ad4e338d31d6e592004d790b6e8c"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/contour_corrections.json",
+      "size": 3905,
+      "sha256": "91956ec9de762e2707820559a4b37480d2e2e5b6f97af94eca56e15ded435256"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/final.log",
+      "size": 988,
+      "sha256": "51ae74c9d2074fb502f9b858f51ad1374f6d3221d676da4a7d7ad5fb4a4d5ee6"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/final_mask.png",
+      "size": 302350,
+      "sha256": "8366c0d5bca2a77e02c934253f44b608ad023c68f477c29c2bc15217a6306a20"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/final_views.log",
+      "size": 1565,
+      "sha256": "4c312ff4f176583f3a4fd1fd9ca4ffec6e1da033a6c0e298dd01eb988f7d8258"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/finish.py",
+      "size": 4359,
+      "sha256": "aa0e08c0f2831e3866d0717d1c086704295f59a2b61b8bf3522cd9c7a5a24940"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/measure.py",
+      "size": 2393,
+      "sha256": "90e314acf434c424ee9499f0f582a4e9883bf45e4f353198a68a44712582994f"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/metrics_baseline.json",
+      "size": 618,
+      "sha256": "012d1123a6415cb50a9f7f83979bd9ccf509471efbc63605d97c0d74116bc350"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/metrics_final_mask.json",
+      "size": 1235,
+      "sha256": "102a8cd230dc5a11576dcb736440aceff2420b714e917e9efd80d289c0e4de21"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/metrics_revision_mask.json",
+      "size": 1235,
+      "sha256": "eca5e75f6efdba91e036689fae866f626215fd50359ad6b032e5c78e6501e5a0"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/pass1_metrics_revision_mask.json",
+      "size": 1235,
+      "sha256": "b82338aefecf06c3fa40cbb3fbbec15d09072ed9b5a5dc3f128c473e8cc5355a"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/pass1_revision_mask.png",
+      "size": 302951,
+      "sha256": "cc137aedf2deb2bbd2bee65dd4f9a9eae950fe06c860f3778909c52cefad034e"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/pass1_revision_preview.png",
+      "size": 764561,
+      "sha256": "9e988470cdd045204814f511329f5cfb0692b439655e316d78ad51633c24a3cd"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/pass1_test_revision_mask.png",
+      "size": 25614,
+      "sha256": "08f480ebadfe4ddd60f6beaae00e7142386d0b43a8f7e7b269782bc748b1ab25"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/preview_white.png",
+      "size": 385531,
+      "sha256": "1900e78120ed98e1aaf9d33be5f1574b4f3a99e263d252b9453388a144a662b5"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/reference_silhouette.png",
+      "size": 4665,
+      "sha256": "9bcc171cde821043d72f66a71817be4f39337d8dedbc0545476c618513c05742"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/render_final_views.py",
+      "size": 1383,
+      "sha256": "707846ae557d990f214ad04a439726be09a1836b5b5a0a604dc8bd71c4b98805"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/review_sheets.py",
+      "size": 2097,
+      "sha256": "985b4b8152a78af4445e7831d654221ee0001947effe7ffad96ce6a10009c74a"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/revise.py",
+      "size": 9716,
+      "sha256": "390ce48f13f9e9976edc13061962291589f50f260658fd200188d22d2e2faa57"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/revised_back.png",
+      "size": 414260,
+      "sha256": "9018003f1b19cb309264b32f3183f1836e10d69cfbc3ce7c6f5ffa8683a1d560"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/revised_front.png",
+      "size": 452880,
+      "sha256": "add0e1db303e15e7c2c604939cce5c2ad9a91411930e438530910f1faf2ae560"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/revised_reference_view.png",
+      "size": 779410,
+      "sha256": "613304cdf41dfbe760177b5b559772bbd3fa62135711e185b3aa52d3f4946d5e"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/revised_side.png",
+      "size": 376580,
+      "sha256": "3c4306480bc2a0d2bfe3117ece289ebeca9c0bbda2830af83fa701a743da2b64"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/revision.log",
+      "size": 1192,
+      "sha256": "adefcc1ba9006860932cde982f82b9f7fb83efa863913ad20f52e7775121f15a"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/revision_mask.png",
+      "size": 301812,
+      "sha256": "b28cc1074a65572942de1acb02957afdea3646003e75bd56c4b31be52de9750a"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/revision_preview.png",
+      "size": 776709,
+      "sha256": "0982fce7b666b2db8c4cf6f2763a177b0c3a6aac6d80f81cad774f2017abe227"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/scene_validation.json",
+      "size": 413,
+      "sha256": "cc8a13d35ade0fc191182b1d7ad605c89877bd809ea1937285e9979739585dbc"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/test_baseline.png",
+      "size": 19099,
+      "sha256": "4d28f158a272e60d7ac32fd201bc5aac7f9a8571bd9a84961425204ffcf7ef36"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/test_final_mask.png",
+      "size": 25454,
+      "sha256": "ab9e05b3a2b72a8842a8f12fd37aad60d0a9793246b35240aa55908423339898"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/test_revision_mask.png",
+      "size": 25457,
+      "sha256": "f369174e60bba0c8e787dec7ce7c6cf551563ed0989d4e2ee712cab8fc02851e"
+    },
+    {
+      "path": "Phase 1 Silhouette Revision/verify_final.py",
+      "size": 1089,
+      "sha256": "8c7f209a1ed0bd4a79b46339033f858b962dc812b0ea82159bf2b7f13c13fdd4"
+    },
+    {
+      "path": "README.md",
+      "size": 938,
+      "sha256": "ad6d7a8fb5a9c8206c2ee86c2d58dffb92056bb053a7b13c763ef0172067502f"
+    },
+    {
+      "path": "Sprite/sprite-1790149773397.png",
+      "size": 109809,
+      "sha256": "35e2755cccadf5f385f6fa698bedf2d1ae111f6dff973fc76bd19910d828fb6a"
+    }
+  ]
+}

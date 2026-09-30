@@ -1,0 +1,51 @@
+{
+  "reference": {
+    "source": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/blender/enemies/musashi/Final/Reference/Musashi_Original_Reference.png",
+    "alpha_threshold": 128,
+    "source_bbox": [
+      0,
+      0,
+      256,
+      800
+    ],
+    "uniform_scale": 1.75,
+    "normalized_height_px": 1400,
+    "normalized_width_px": 448,
+    "canvas_x": 26,
+    "canvas_y": 0
+  },
+  "clean": {
+    "source": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/blender/enemies/musashi/Final/Validation/previous_approved_full.png",
+    "alpha_threshold": 128,
+    "source_bbox": [
+      276,
+      130,
+      915,
+      2104
+    ],
+    "uniform_scale": 0.7092198581560284,
+    "normalized_height_px": 1400,
+    "normalized_width_px": 453,
+    "canvas_x": 23,
+    "canvas_y": 0
+  },
+  "stylized": {
+    "source": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/blender/enemies/musashi/Final/Validation/final_full.png",
+    "alpha_threshold": 128,
+    "source_bbox": [
+      276,
+      130,
+      915,
+      2104
+    ],
+    "uniform_scale": 0.7092198581560284,
+    "normalized_height_px": 1400,
+    "normalized_width_px": 453,
+    "canvas_x": 23,
+    "canvas_y": 0
+  },
+  "alignment": "Same whole-character normalization as prior review: alpha > 128 bounding box, uniform 1400 px character height, shared baseline, centered bounds. No warping.",
+  "same_lighting_clean_and_stylized": true,
+  "alpha_identical": true,
+  "overlay": "50% original + 50% stylized over identical neutral background."
+}

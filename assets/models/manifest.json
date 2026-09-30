@@ -1,0 +1,107 @@
+[
+  {
+    "asset": "architecture/temple_roof",
+    "triangles": 5164,
+    "meshes": 1,
+    "surfaces": 2,
+    "bytes": 418416
+  },
+  {
+    "asset": "architecture/torii",
+    "triangles": 1444,
+    "meshes": 1,
+    "surfaces": 2,
+    "bytes": 120092
+  },
+  {
+    "asset": "characters/kai",
+    "triangles": 650,
+    "meshes": 3,
+    "surfaces": 3,
+    "bytes": 586060
+  },
+  {
+    "asset": "enemies/guardian_0",
+    "triangles": 9664,
+    "meshes": 2,
+    "surfaces": 3,
+    "bytes": 737172
+  },
+  {
+    "asset": "enemies/guardian_1",
+    "triangles": 9664,
+    "meshes": 2,
+    "surfaces": 3,
+    "bytes": 737172
+  },
+  {
+    "asset": "enemies/guardian_2",
+    "triangles": 9664,
+    "meshes": 2,
+    "surfaces": 3,
+    "bytes": 737172
+  },
+  {
+    "asset": "enemies/guardian_3",
+    "triangles": 9664,
+    "meshes": 2,
+    "surfaces": 3,
+    "bytes": 737172
+  },
+  {
+    "asset": "enemies/ninja",
+    "triangles": 9648,
+    "meshes": 2,
+    "surfaces": 3,
+    "bytes": 734260
+  },
+  {
+    "asset": "environments/cherry_tree",
+    "triangles": 1992,
+    "meshes": 2,
+    "surfaces": 2,
+    "bytes": 253964
+  },
+  {
+    "asset": "environments/green_tree",
+    "triangles": 1992,
+    "meshes": 2,
+    "surfaces": 2,
+    "bytes": 253964
+  },
+  {
+    "asset": "environments/moss_rock",
+    "triangles": 80,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 10408
+  },
+  {
+    "asset": "environments/palm",
+    "triangles": 784,
+    "meshes": 2,
+    "surfaces": 2,
+    "bytes": 73524
+  },
+  {
+    "asset": "props/paper_lantern",
+    "triangles": 4104,
+    "meshes": 1,
+    "surfaces": 2,
+    "bytes": 304488
+  },
+  {
+    "asset": "weapons/golden_pipe",
+    "triangles": 1368,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 796760
+  },
+  {
+    "asset": "weapons/koban",
+    "triangles": 1024,
+    "meshes": 1,
+    "surfaces": 2,
+    "bytes": 119256
+  }
+]
