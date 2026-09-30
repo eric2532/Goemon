@@ -18,11 +18,11 @@ The application is a universal Apple Silicon / Intel macOS build. The project us
 
 - **One map:** Tidefall Sanctuary. The other three locations and their portals are hidden; their source assets remain available for later development.
 - **Ten minutes:** the HUD counts down from 10:00. Staying alive until 00:00 wins; losing all vitality ends the run.
-- **Periodic swarms:** 100 enemies arrive when the run begins, then another wave every 10 gameplay seconds. Each minute adds 10 enemies to each new wave: 100 in minute one, 110 in minute two, through 190 in minute ten. There are 60 waves (8,700 enemies total); the last arrives at 00:10 remaining.
+- **Periodic swarms:** up to 100 enemies arrive when the run begins, then another wave every 10 gameplay seconds. Each minute adds 10 enemies to each new wave: 100 in minute one, 110 in minute two, through 190 in minute ten. There are 60 waves (8,700 requested arrivals before capacity limits); the last arrives at 00:10 remaining.
 - **Automatic pursuit:** ninjas, wind scouts and iron brutes spawn on clear ground around the hero and immediately run toward them. Surviving enemies remain between waves. Defeated enemies are replaced only by future waves.
 - **Pause and retry:** Escape, Settings and Prototype Lab freeze the clock and waves. Restart survival / Try again resets the timer, population, kills and power-ups.
 
-Large waves enter over a few frames to avoid a single spawn hitch. Any enemy awaiting safe placement stays queued. Swarm bodies use the animated crowd renderer, preserving actual combat collisions without allocating a full skeleton for every enemy. There is no hard cap that silently drops scheduled enemies. A worst-case no-kill stress test retained all 8,700 enemies, but this many simultaneous actors significantly slows simulation; the current version is not optimized for leaving the entire ten-minute population alive.
+The default hard limit is **200 active enemies**, including practice enemies. Prototype Lab exposes a 32–400 limit that takes effect on the next run; changing it never removes living enemies. Each wave requests only available slots, discards overflow and replaces any previous unplaced request. Skipped demand does not accumulate or burst after kills; the next scheduled wave replenishes free slots. The ten-minute clock, 60-wave progression and wave-size growth remain intact. Spawning retains its 12-per-frame / 3 ms budget and safe placement checks. Swarm bodies use the animated crowd renderer without a full skeleton per actor. The default is a conservative population bound, not a measured Mac frame-rate guarantee.
 
 The HUD shows time remaining, wave number and size, the next swarm countdown, enemies alive and kills. The former guardian/door expedition objective is inactive in this mode. Existing characters, weapons, abilities, healing drops and map traversal remain available.
 
@@ -206,7 +206,7 @@ Current survival checks:
 
 ```sh
 /Applications/Godot.app/Contents/MacOS/Godot --headless --path . -- --survival-test
-/Applications/Godot.app/Contents/MacOS/Godot --headless --path . -- --survival-test --survival-stress
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path . -- --survival-test --survival-load
 /Applications/Godot.app/Contents/MacOS/Godot --path . -- --survival-visual
 ```
 

@@ -1,80 +1,109 @@
 class_name EnemyCrowd
 extends Node3D
-# Nearby combatants retain their rigs. The rest share one animated GPU draw.
-const RIG_BUDGET=32
+# Four textured rigid-part batches; ordinary actors never instantiate skeletons.
+# Guardians retain their authored rig. Combat/collision remain in Ninja.
 const VIEW_DISTANCE=110.0
+const ASSET_IDS=["masked_foot_soldier","straw_hat_bandit","daruma_bruiser","lantern_yokai"]
 var game: Node
+var batches: Array[MultiMeshInstance3D]=[]
+# Compatibility handle for existing diagnostic scripts (first species only).
 var batch: MultiMeshInstance3D
-var material: ShaderMaterial
+var materials: Array[ShaderMaterial]=[]
 var age=0.0
-var selection_clock=0.0
+
 func _ready():
 	process_priority=40
-	var source=GameAssets.instantiate_model("enemies/ninja_crowd")
-	var mesh=source.find_children("*","MeshInstance3D",true,false)[0].mesh
-	batch=MultiMeshInstance3D.new();batch.multimesh=MultiMesh.new()
-	batch.multimesh.transform_format=MultiMesh.TRANSFORM_3D;batch.multimesh.use_custom_data=true
-	batch.multimesh.mesh=mesh;batch.multimesh.instance_count=1024;batch.multimesh.visible_instance_count=0
-	batch.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	var shader=Shader.new();shader.code="""shader_type spatial;
-render_mode cull_disabled;
-uniform float clock=0.0;
-varying vec4 actor_data;
-mat3 rotate_x(float a){float c=cos(a);float s=sin(a);return mat3(vec3(1,0,0),vec3(0,c,s),vec3(0,-s,c));}
-void vertex(){
- actor_data=INSTANCE_CUSTOM;
- float limb=round(UV.x*8.0);float phase=clock*(5.0+INSTANCE_CUSTOM.y*8.0)+INSTANCE_CUSTOM.x;
- float motion=INSTANCE_CUSTOM.y;vec3 pivot=vec3(0);float swing=0.0;
- if(limb==1.0||limb==2.0){pivot=vec3(limb==1.0?-0.25:0.25,0.91,0);swing=sin(phase+(limb==2.0?3.14159:0.0))*0.7*motion;}
- if(limb==3.0||limb==4.0){pivot=vec3(limb==3.0?-0.49:0.49,1.58,0);swing=-sin(phase+(limb==4.0?3.14159:0.0))*0.6*motion;}
- mat3 turn=rotate_x(swing);VERTEX=pivot+turn*(VERTEX-pivot);NORMAL=turn*NORMAL;
- VERTEX.y+=abs(sin(phase))*0.045*motion;
-}
-void fragment(){
- vec3 tint=vec3(1.0);
- if(actor_data.z>0.5&&actor_data.z<1.5)tint=vec3(0.4,1.35,1.0);
- if(actor_data.z>1.5&&actor_data.z<2.5)tint=vec3(1.5,1.1,0.45);
- if(actor_data.z>2.5)tint=vec3(1.15,0.65,1.6);
- ALBEDO=COLOR.rgb*mix(vec3(1.0),tint,1.0-smoothstep(0.25,0.7,max(COLOR.r,max(COLOR.g,COLOR.b))));ROUGHNESS=0.8;
- if(actor_data.w>0.5){ALBEDO=mix(ALBEDO,vec3(0.35,0.8,1.0),0.7);}
-}"""
-	material=ShaderMaterial.new();material.shader=shader;batch.material_override=material;add_child(batch);source.free()
-func select_rigs():
-	var candidates=[];var focus=game.player.global_position
-	for enemy in game.enemies:
-		if not is_instance_valid(enemy):continue
-		if enemy.swarm:
-			enemy.render_full=false
-			continue
-		var distance=enemy.global_position.distance_squared_to(focus)
-		enemy.render_full=enemy.boss or enemy.practice or game.player.sky_strike.target==enemy and game.player.sky_strike.active
-		if not enemy.render_full and distance<45*45:candidates.append([distance,enemy])
-	candidates.sort_custom(func(a,b):return a[0]<b[0])
-	for i in range(mini(RIG_BUDGET,candidates.size())):candidates[i][1].render_full=true
+	var shader=load("res://assets/materials/original_enemy_crowd.gdshader")
+	for kind in range(ASSET_IDS.size()):
+		var source=GameAssets.instantiate_model("enemies/original_set/"+ASSET_IDS[kind])
+		var surface=SurfaceTool.new();surface.begin(Mesh.PRIMITIVE_TRIANGLES)
+		append_parts(source,Transform3D.IDENTITY,surface)
+		var instance=MultiMeshInstance3D.new();instance.multimesh=MultiMesh.new()
+		instance.name=ASSET_IDS[kind]+"_batch"
+		instance.multimesh.transform_format=MultiMesh.TRANSFORM_3D
+		instance.multimesh.use_custom_data=true
+		instance.multimesh.mesh=surface.commit()
+		instance.multimesh.instance_count=64;instance.multimesh.visible_instance_count=0
+		instance.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		var material=ShaderMaterial.new();material.shader=shader
+		material.set_shader_parameter("atlas",load("res://assets/textures/enemies/original_set/enemy_atlas.png"))
+		material.set_shader_parameter("species",kind)
+		instance.material_override=material
+		materials.append(material);batches.append(instance);add_child(instance);source.free()
+	batch=batches[0]
+
+# Merge the rigid named export groups once, retaining texture UV and encoding
+# the animation group in UV2. No per-actor scene tree or duplicate mesh resource.
+func append_parts(node: Node, parent_transform: Transform3D, surface: SurfaceTool):
+	var transform=parent_transform
+	if node is Node3D:transform=parent_transform*node.transform
+	if node is MeshInstance3D:
+		var limb=0
+		for part in ["Leg_L","Leg_R","Arm_L","Arm_R"]:
+			if str(node.name).begins_with(part):limb=["Leg_L","Leg_R","Arm_L","Arm_R"].find(part)+1
+		for slot in range(node.mesh.get_surface_count()):
+			var arrays=node.mesh.surface_get_arrays(slot)
+			var vertices=arrays[Mesh.ARRAY_VERTEX]
+			var normals=arrays[Mesh.ARRAY_NORMAL]
+			var uvs=arrays[Mesh.ARRAY_TEX_UV]
+			var indices=arrays[Mesh.ARRAY_INDEX]
+			var count=indices.size() if indices!=null and indices.size()>0 else vertices.size()
+			for corner in range(count):
+				var index=indices[corner] if indices!=null and indices.size()>0 else corner
+				surface.set_normal((transform.basis.inverse().transposed()*normals[index]).normalized())
+				surface.set_uv(uvs[index]);surface.set_uv2(Vector2(float(limb)/8.0,0))
+				surface.add_vertex(transform*vertices[index])
+	for child in node.get_children():append_parts(child,transform,surface)
+
+func clear():
+	for instance in batches:instance.multimesh.visible_instance_count=0
+
 func _process(delta):
 	if not game.playing or game.paused or game.transitioning:return
-	age+=delta;selection_clock-=delta
-	if selection_clock<=0:selection_clock=.2;select_rigs()
-	material.set_shader_parameter("clock",age)
-	var count=0;var focus=game.player.global_position
-	# Resizing a MultiMesh clears its transforms. Grow before filling the buffer
-	# so crossing 1,024 (or 2,048, etc.) cannot erase already-written actors.
-	if game.enemies.size()>batch.multimesh.instance_count:
-		var capacity=batch.multimesh.instance_count
-		while capacity<game.enemies.size():capacity*=2
-		batch.multimesh.instance_count=capacity
+	age+=delta
+	for material in materials:material.set_shader_parameter("clock",age)
+	var counts=[0,0,0,0];var needed=[0,0,0,0]
+	var focus=game.player.global_position
+	for enemy in game.enemies:
+		if is_instance_valid(enemy) and not enemy.boss:needed[visual_species(enemy)]+=1
+	# Allocate before writing; reallocating a MultiMesh clears its transforms.
+	for kind in range(batches.size()):
+		if needed[kind]>batches[kind].multimesh.instance_count:
+			batches[kind].multimesh.instance_count=nearest_po2(needed[kind])
 	for enemy in game.enemies:
 		if not is_instance_valid(enemy):continue
 		var distance=enemy.global_position.distance_squared_to(focus)
 		var shown=distance<VIEW_DISTANCE*VIEW_DISTANCE or enemy.practice
-		var target=game.player.sky_strike.active and game.player.sky_strike.target==enemy
-		var full=(enemy.render_full or target) and shown and not enemy.swarm
-		enemy.distance_asleep=not shown;enemy.visible=shown;enemy.model.visible=full
-		if enemy.name_tag!=null:enemy.name_tag.visible=full and distance<18*18
-		if not shown or full:continue
-		var transform=enemy.global_transform
-		transform.basis=transform.basis*enemy.model.basis
-		batch.multimesh.set_instance_transform(count,transform)
-		batch.multimesh.set_instance_custom_data(count,Color(float(enemy.get_instance_id()%100)*.13,clampf(Vector2(enemy.velocity.x,enemy.velocity.z).length()/7,0,1),float(enemy.variant),1 if enemy.frozen_left>0 else 0))
-		count+=1
-	batch.multimesh.visible_instance_count=count
+		enemy.render_full=enemy.boss
+		enemy.distance_asleep=not shown;enemy.visible=shown;enemy.model.visible=shown and enemy.boss
+		if enemy.name_tag!=null:enemy.name_tag.visible=shown and distance<18*18
+		if not shown or enemy.boss:continue
+		var kind=visual_species(enemy)
+		var transform=visual_transform(enemy)
+		batches[kind].multimesh.set_instance_transform(counts[kind],transform)
+		batches[kind].multimesh.set_instance_custom_data(counts[kind],actor_data(enemy))
+		counts[kind]+=1
+	for kind in range(batches.size()):batches[kind].multimesh.visible_instance_count=counts[kind]
+
+func actor_data(enemy: Ninja)->Color:
+	var motion=clampf(Vector2(enemy.velocity.x,enemy.velocity.z).length()/7.0,0,1)
+	var attack=0.0
+	if enemy.state=="windup":attack=.65
+	elif enemy.state=="strike":attack=-clampf(enemy.timer/.3,0,1)
+	if enemy.dead:motion=0;attack=0
+	return Color(float(enemy.get_instance_id()%100)*.13,motion,attack,1 if enemy.frozen_left>0 else 0)
+
+func visual_species(enemy: Ninja)->int:
+	# Survival keeps its existing three combat archetypes. Alternate standard
+	# melee appearances so the fourth design does not introduce ranged attacks.
+	if enemy.swarm and enemy.variant==0 and enemy.formation_index%2==1:return 3
+	return enemy.variant
+
+func visual_transform(enemy: Ninja)->Transform3D:
+	var transform=enemy.global_transform
+	transform.basis=transform.basis*enemy.model.basis
+	if not enemy.dead and enemy.frozen_left<=0:
+		var response=exp(-enemy.recoil_age*10)*cos(enemy.recoil_age*15)*enemy.recoil_strength
+		var recoil=Vector3(enemy.recoil_direction.z*response,enemy.recoil_direction.x*response*.45,-enemy.recoil_direction.x*response)
+		transform.basis=transform.basis*Basis.from_euler(recoil)
+	return transform

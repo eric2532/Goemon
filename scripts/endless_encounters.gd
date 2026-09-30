@@ -39,7 +39,7 @@ func tick(delta: float):
 	# Cleared corpses must not accumulate stale references over an endless session.
 	for i in range(game.enemies.size()-1,-1,-1):
 		if not is_instance_valid(game.enemies[i]):game.enemies.remove_at(i)
-	var budget=int(game.tuning.respawn_batch)
+	var budget=mini(int(game.tuning.respawn_batch),game.enemy_spawn_capacity())
 	for id in slots:
 		var slot: Dictionary=slots[id]
 		if living(slot)!=null:

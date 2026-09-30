@@ -52,25 +52,48 @@ func run():
 	s.tick(9.999)
 	check(s.wave==1,"No early wave before 10 seconds")
 	s.tick(.001)
-	check(s.wave==2 and s.total_spawned+s.pending==200,"Exactly 100 additional enemies at 10 seconds")
+	check(s.wave==2 and s.total_spawned+s.pending==200,"Second wave fills the default 200-enemy allowance")
+	await drain_wave()
+	check(game.active_enemy_count()==200 and game.enemy_spawn_capacity()==0,"Hard cap includes every living enemy")
+	check(game.spawn_practice(true)==0,"Practice spawns share the hard cap at saturation")
+	var legacy=EndlessEncounters.new();legacy.game=game
+	legacy.slots={"0":{"home":Vector3.ZERO,"actor":null,"remaining":0.0}}
+	legacy.tick(1)
+	check(legacy.respawn_count==0 and game.active_enemy_count()==200,"Legacy replacement path also respects global saturation")
+	legacy.free()
+	s.queue_wave();await drain_wave()
+	check(s.pending==0 and game.active_enemy_count()==200,"Saturated wave leaves no queued backlog")
+	# Restore the scheduled wave counter after the direct saturation probe.
+	s.wave-=1;s.total_scheduled-=100;s.total_skipped-=100
+	var capped_total=s.total_spawned
+	var removed=game.enemies[0]
+	removed.take_hit(1000,Vector3.FORWARD,true)
+	s.tick(0)
+	check(game.active_enemy_count()==199 and s.total_spawned==capped_total and s.pending==0,"Death immediately frees capacity without replaying skipped demand")
+	game.update_tuning("max_active_enemies",32)
+	check(game.active_enemy_limit==200 and game.active_enemy_count()==199,"Lowering next-run limit preserves current living combatants")
+	game.update_tuning("max_active_enemies",200)
 	s.tick(49.999)
-	check(s.wave==6 and s.total_spawned+s.pending==600,"Time jumps catch up every scheduled wave without duplication")
+	check(s.wave==6 and s.total_scheduled==600 and s.pending<=game.enemy_spawn_capacity(),"Time jumps catch up every scheduled wave without duplication")
 	s.tick(.001)
-	check(s.wave==7 and s.wave_size(s.wave)==110 and s.total_spawned+s.pending==710,"At one minute, each wave grows to 110 enemies")
+	check(s.wave==7 and s.wave_size(s.wave)==110 and s.total_scheduled==710 and s.pending<=game.enemy_spawn_capacity(),"At one minute, each wave grows to 110 enemies")
 	check(s.clock_text(s.remaining())=="09:00","Countdown displays the correct minute boundary")
 	s.tick(539.99)
-	check(s.wave==60 and s.wave_size(s.wave)==190 and s.total_spawned+s.pending==8700,"Full run schedules all 60 growing waves (8,700 enemies), without a population cap")
-	if "--survival-stress" in OS.get_cmdline_user_args():
-		for frame in range(5000):
-			if s.pending==0:break
-			s.tick(0)
-			await get_tree().physics_frame
-		check(s.pending==0 and game.enemies.size()==8700,"Worst-case run retains all 8,700 living enemies")
+	check(s.wave==60 and s.wave_size(s.wave)==190 and s.total_scheduled==8700 and game.active_enemy_count()<=200,"All 60 growing waves progress while excess population demand is skipped")
+	if "--survival-load" in OS.get_cmdline_user_args():
+		await drain_wave()
 		game.tuning.freeze_ai=false
 		var start=Time.get_ticks_usec()
-		await wait(2)
-		print("SURVIVAL_STRESS simulation_2s_wall_ms=",(Time.get_ticks_usec()-start)/1000.0," physics_ms=",Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS)*1000," nodes=",Performance.get_monitor(Performance.OBJECT_NODE_COUNT))
-		await capture_survival("stress")
+		var samples=[]
+		var last_frame=Time.get_ticks_usec()
+		for frame in range(120):
+			await get_tree().physics_frame
+			var now=Time.get_ticks_usec()
+			samples.append((now-last_frame)/1000.0)
+			last_frame=now
+		samples.sort()
+		print("SURVIVAL_LOAD active=",game.active_enemy_count()," frames=120 wall_ms=",(Time.get_ticks_usec()-start)/1000.0," frame_interval_median_ms=",samples[60]," frame_interval_p95_ms=",samples[114]," engine_last_physics_ms=",Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS)*1000," nodes=",Performance.get_monitor(Performance.OBJECT_NODE_COUNT))
+		check(game.active_enemy_count()<=200 and s.pending==0,"Representative capped cloud load stays bounded")
 		game.tuning.freeze_ai=true
 	s.tick(.01)
 	check(game.won and game.paused and not s.active and s.remaining()==0 and s.pending==0,"Zero triggers victory and stops pending spawning")
@@ -118,11 +141,29 @@ func run():
 	check(game.player.hp<=0 and game.paused and not s.active and not game.won and s.elapsed==0,"Player death stops the run without awarding survival victory")
 	await capture_survival("defeat")
 	game.show_main_menu();s.tick(20)
-	check(not game.playing and not game.paused and not s.active and s.elapsed==0 and game.crowd.batch.multimesh.visible_instance_count==0,"Main menu stops the run and hides the previous crowd")
+	var hidden=true
+	for batch in game.crowd.batches:
+		if batch.multimesh.visible_instance_count!=0:hidden=false
+	check(not game.playing and not game.paused and not s.active and s.elapsed==0 and hidden,"Main menu stops the run and hides every species crowd")
 	game.tuning.invincible=true;game.start_game()
 	s.set_physics_process(true)
 	await wait(10.25)
 	check(s.wave==2 and s.total_spawned==200 and s.remaining()<590,"Live physics clock automatically advances and delivers the second wave")
+	game.show_main_menu()
+	game.tuning.max_active_enemies=32
+	game.start_game();s.set_physics_process(false)
+	await wait(.15);await drain_wave()
+	check(game.active_enemy_limit==32 and game.active_enemy_count()==32 and s.pending==0,"New run applies configured 32-enemy hard cap to opening wave")
+	var freed=game.enemies[0];freed.queue_free()
+	await get_tree().process_frame
+	check(game.active_enemy_count()==31 and game.enemy_spawn_capacity()==1,"Freed references are pruned and release exactly one slot")
+	check(game.spawn_practice(true)==1 and game.active_enemy_count()==32,"Practice spawn takes the single free shared slot")
+	s.tick(10);await drain_wave()
+	check(game.active_enemy_count()==32 and s.pending==0,"Practice actor blocks additional wave arrivals")
+	game.clear_practice()
+	check(game.active_enemy_count()==31,"Practice cleanup releases its shared slot")
+	s.tick(10);await drain_wave()
+	check(game.active_enemy_count()==32 and s.pending==0,"Next wave replenishes only the available slot")
 	game.show_main_menu()
 	print("SURVIVAL_RESULT failures=",failures)
 	get_tree().quit(1 if failures else 0)

@@ -10,7 +10,7 @@ const DEFAULTS={
 	"charged_damage":70.0,"charged_radius":2.2,"surge_duration":30.0,
 	"surge_range":1.65,"surge_coin_size":1.8,"surge_coin_speed":1.65,
 	"respawn_delay":6.0,"respawn_batch":3,"respawn_safe_distance":7.0,
-	"spawn_count":5,"enemy_hp":66.0,"enemy_damage":1.0,"boss_hp_mult":1.0,"freeze_ai":false
+	"max_active_enemies":200,"spawn_count":5,"enemy_hp":66.0,"enemy_damage":1.0,"boss_hp_mult":1.0,"freeze_ai":false
 }
 const PLAYER_ROWS=[
 	["max_hp","Maximum HP",10,2000,10],
@@ -39,6 +39,7 @@ const BEAM_ROWS=[
 	["beam_length","Length (m)",5,65,1]
 ]
 const ENEMY_ROWS=[
+	["max_active_enemies","Active enemy limit (next run)",32,400,1],
 	["spawn_count","Spawn batch size",1,20,1],
 	["respawn_delay","Enemy respawn delay (s)",2,30,.5],
 	["respawn_batch","Respawn batch limit",1,8,1],

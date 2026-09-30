@@ -47,11 +47,10 @@ func run():
 	check(game.player.impact_pause==0 and e.impact_pause==0,"Hit-stop releases without leaving actors frozen")
 	check(e.hp==952,"Active contact window damages each victim only once")
 	# Recoil follows world-space hit direction, including lateral blows.
-	e.take_hit(1,Vector3.RIGHT,false);e.apply_recoil()
-	var right=e.model.body.rotation.z
-	e.model.animate(0,0,true,0,0,false,0,false)
-	e.take_hit(1,Vector3.LEFT,true);e.apply_recoil()
-	check(right*e.model.body.rotation.z<0,"Opposite impacts reverse torso recoil")
+	e.take_hit(1,Vector3.RIGHT,false)
+	var right=game.crowd.visual_transform(e).basis.get_euler().z
+	e.take_hit(1,Vector3.LEFT,true)
+	check(right*game.crowd.visual_transform(e).basis.get_euler().z<0,"Opposite impacts reverse batched body recoil")
 	check(e.recoil_strength>0.4,"Heavy hit produces a stronger recoil")
 	await wait(0.7)
 	game.player.start_attack(false)

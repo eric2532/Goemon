@@ -1,0 +1,69 @@
+{
+  "baseline": "82b4e8307af1158dbec566cb67632eb5cdbbb6d2",
+  "assets": [
+    {
+      "asset_id": "enemies/original_set/masked_foot_soldier",
+      "triangles": 430,
+      "materials": 1,
+      "source_meshes": 24,
+      "source": "assets/blender/enemies/original_set/masked_foot_soldier.blend",
+      "export": "assets/models/enemies/original_set/masked_foot_soldier.glb",
+      "thumbnail": "docs/original-enemies/masked_foot_soldier.png",
+      "animation": "Named rigid parts; runtime UV2 limb ID batching; no skeletal rig",
+      "authorship": "Original geometry and original 256px painted atlas; no third-party meshes",
+      "sha256": {
+        "source": "09c661c6abf60634056726963d62f15c0d39c8a0a3418efe131b83a5db2acad3",
+        "export": "a2158f8eacd0bc58a301eca7372378b2207b26a2760d3fcff6437f26c0968dc2"
+      },
+      "runtime_batch_surfaces": 1
+    },
+    {
+      "asset_id": "enemies/original_set/straw_hat_bandit",
+      "triangles": 478,
+      "materials": 1,
+      "source_meshes": 24,
+      "source": "assets/blender/enemies/original_set/straw_hat_bandit.blend",
+      "export": "assets/models/enemies/original_set/straw_hat_bandit.glb",
+      "thumbnail": "docs/original-enemies/straw_hat_bandit.png",
+      "animation": "Named rigid parts; runtime UV2 limb ID batching; no skeletal rig",
+      "authorship": "Original geometry and original 256px painted atlas; no third-party meshes",
+      "sha256": {
+        "source": "915b9bacd1211b7916d3eb1e1a907c527042d26b43bd9e377c30be478bde7f99",
+        "export": "fa7a5d1d1768e09339a8d709fa639e05915096e4fd75e84238ef07a6f57b5736"
+      },
+      "runtime_batch_surfaces": 1
+    },
+    {
+      "asset_id": "enemies/original_set/lantern_yokai",
+      "triangles": 604,
+      "materials": 1,
+      "source_meshes": 16,
+      "source": "assets/blender/enemies/original_set/lantern_yokai.blend",
+      "export": "assets/models/enemies/original_set/lantern_yokai.glb",
+      "thumbnail": "docs/original-enemies/lantern_yokai.png",
+      "animation": "Named rigid parts; runtime UV2 limb ID batching; no skeletal rig",
+      "authorship": "Original geometry and original 256px painted atlas; no third-party meshes",
+      "sha256": {
+        "source": "9190fb6f1078de5c78702d2c352a11c8c62d2f00885ac027385ee86172f12131",
+        "export": "b25e4922c9930f6f91e4f4703aab0eab766670501b1e1628b4cc64105a8fcefa"
+      },
+      "runtime_batch_surfaces": 1
+    },
+    {
+      "asset_id": "enemies/original_set/daruma_bruiser",
+      "triangles": 312,
+      "materials": 1,
+      "source_meshes": 11,
+      "source": "assets/blender/enemies/original_set/daruma_bruiser.blend",
+      "export": "assets/models/enemies/original_set/daruma_bruiser.glb",
+      "thumbnail": "docs/original-enemies/daruma_bruiser.png",
+      "animation": "Named rigid parts; runtime UV2 limb ID batching; no skeletal rig",
+      "authorship": "Original geometry and original 256px painted atlas; no third-party meshes",
+      "sha256": {
+        "source": "de13e3e45a6d11a884d6f1fae9810e77d81ff6af027104a73a932a0e76174db8",
+        "export": "aab5384d3fedce0e40106dd89b38abc1c908f4d42578783a791984a522192710"
+      },
+      "runtime_batch_surfaces": 1
+    }
+  ]
+}

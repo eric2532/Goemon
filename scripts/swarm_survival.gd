@@ -12,6 +12,8 @@ var elapsed=0.0
 var wave=0
 var pending=0
 var total_spawned=0
+var total_scheduled=0
+var total_skipped=0
 var alive_count=0
 var active=false
 var spawn_rng=RandomNumberGenerator.new()
@@ -19,7 +21,7 @@ var spawn_probe: PhysicsShapeQueryParameters3D
 
 func reset():
 	active=false;elapsed=0;wave=0;pending=0;total_spawned=0;alive_count=0
-	slots.clear();respawn_count=0
+	slots.clear();respawn_count=0;total_scheduled=0;total_skipped=0
 
 func begin():
 	reset();enabled=true;active=true
@@ -37,8 +39,14 @@ func clock_text(seconds: float)->String:
 
 func queue_wave():
 	wave+=1
-	pending+=wave_size(wave)
-	game.hud.banner="WAVE %02d · %d ENEMIES" % [wave,wave_size(wave)]
+	# Each wave replaces its unplaced request. Demand beyond available room is
+	# skipped, never banked for a burst after a kill or a long paused frame.
+	total_skipped+=pending
+	var requested=wave_size(wave)
+	total_scheduled+=requested
+	pending=mini(requested,game.enemy_spawn_capacity())
+	total_skipped+=requested-pending
+	game.hud.banner="WAVE %02d · %d INCOMING · LIMIT %d" % [wave,pending,game.active_enemy_limit]
 	game.hud.banner_time=2.5
 
 func tick(delta: float):
@@ -50,18 +58,19 @@ func tick(delta: float):
 		game.survival_victory()
 		return
 	while wave<TOTAL_WAVES and elapsed+0.000001>=wave*INTERVAL:queue_wave()
-	alive_count=0
-	for i in range(game.enemies.size()-1,-1,-1):
-		var enemy=game.enemies[i]
-		if not is_instance_valid(enemy):game.enemies.remove_at(i)
-		elif not enemy.dead:alive_count+=1
+	alive_count=game.active_enemy_count()
 	spawn_pending()
 
 func spawn_pending():
+	if not enabled or not active or not game.playing or game.paused or game.transitioning or game.player.hp<=0:return
+	var room=game.enemy_spawn_capacity()
+	if pending>room:
+		total_skipped+=pending-room
+		pending=room
 	var deadline=Time.get_ticks_usec()+SPAWN_TIME_USEC
 	for i in range(mini(SPAWN_BUDGET,pending)):
 		var point=wave_spawn_point()
-		if point==null:break # Retain every unplaced enemy and retry on the next frame.
+		if point==null:break # Retry only until the next wave; requests never accumulate.
 		var enemy=Ninja.new();enemy.game=game;enemy.swarm=true
 		enemy.encounter_id="swarm_%d" % total_spawned
 		enemy.formation_index=total_spawned

@@ -147,6 +147,34 @@
     "bytes": 734260
   },
   {
+    "asset": "enemies/original_set/daruma_bruiser",
+    "triangles": 312,
+    "meshes": 11,
+    "surfaces": 11,
+    "bytes": 49780
+  },
+  {
+    "asset": "enemies/original_set/lantern_yokai",
+    "triangles": 604,
+    "meshes": 16,
+    "surfaces": 16,
+    "bytes": 76108
+  },
+  {
+    "asset": "enemies/original_set/masked_foot_soldier",
+    "triangles": 430,
+    "meshes": 24,
+    "surfaces": 24,
+    "bytes": 73820
+  },
+  {
+    "asset": "enemies/original_set/straw_hat_bandit",
+    "triangles": 478,
+    "meshes": 24,
+    "surfaces": 24,
+    "bytes": 78124
+  },
+  {
     "asset": "environments/cherry_tree",
     "triangles": 1992,
     "meshes": 2,
@@ -215,6 +243,69 @@
     "meshes": 2,
     "surfaces": 8,
     "bytes": 244216
+  },
+  {
+    "asset": "town_props/bowl_shop_sign",
+    "triangles": 96,
+    "meshes": 1,
+    "surfaces": 4,
+    "bytes": 115172
+  },
+  {
+    "asset": "town_props/dumpling_stall",
+    "triangles": 1286,
+    "meshes": 1,
+    "surfaces": 5,
+    "bytes": 251020
+  },
+  {
+    "asset": "town_props/indigo_noren",
+    "triangles": 168,
+    "meshes": 1,
+    "surfaces": 3,
+    "bytes": 94048
+  },
+  {
+    "asset": "town_props/noodle_stall",
+    "triangles": 686,
+    "meshes": 1,
+    "surfaces": 4,
+    "bytes": 169256
+  },
+  {
+    "asset": "town_props/offering_box",
+    "triangles": 156,
+    "meshes": 1,
+    "surfaces": 3,
+    "bytes": 93784
+  },
+  {
+    "asset": "town_props/paper_lantern",
+    "triangles": 452,
+    "meshes": 1,
+    "surfaces": 3,
+    "bytes": 111136
+  },
+  {
+    "asset": "town_props/stone_lantern",
+    "triangles": 204,
+    "meshes": 1,
+    "surfaces": 2,
+    "bytes": 73828
+  },
+  {
+    "asset": "town_props/tidefall_gate",
+    "triangles": 1092,
+    "meshes": 1,
+    "surfaces": 6,
+    "bytes": 245952
+  },
+  {
+    "asset": "town_props/wayside_shrine",
+    "triangles": 272,
+    "meshes": 1,
+    "surfaces": 7,
+    "bytes": 211444
   },
   {
     "asset": "weapons/golden_pipe",

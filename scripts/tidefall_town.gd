@@ -57,6 +57,8 @@ func _ready():
 					t.origin.y-=12
 					child.multimesh.set_instance_transform(i,t)
 
+	TownProps.add_to(self)
+
 func contains_street(p: Vector2)->bool:
 	for road in streets:
 		if Geometry2D.get_closest_point_to_segment(p,road[0],road[1]).distance_to(p)<road[2]*.5:return true

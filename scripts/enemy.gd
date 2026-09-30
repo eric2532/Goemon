@@ -10,7 +10,7 @@ var swarm=false
 static var swarm_bar_mesh: BoxMesh
 var encounter_id=""
 var variant=0
-const VARIANT_NAMES=["Ninja","Wind scout","Iron brute","Ember caster"]
+const VARIANT_NAMES=["Masked soldier","Straw-hat bandit","Daruma bruiser","Lantern yokai"]
 const HEALTH=[1.0,.8,1.8,1.0]
 const SPEED=[4.0,6.4,2.9,3.6]
 const COLORS=["e46d5a","50d9b0","e4ab55","b085f5"]
@@ -75,20 +75,11 @@ func _ready():
 	collision.position.y=shape.height/2
 	add_child(collision)
 	model=HeroModel.new(true,boss,boss_style)
-	model.crowd_proxy=swarm
+	model.crowd_proxy=not boss
 	add_child(model)
 	if boss: model.scale=Vector3.ONE*1.5
-	elif variant!=0 and not swarm:
+	elif variant!=0:
 		model.scale=Vector3.ONE*([1.0,.88,1.22,1.0][variant])
-		var material=Geo.mat(COLORS[variant],.25,.25)
-		# Distinct silhouettes built on the existing ninja rig.
-		if variant==1:
-			for side in [-1,1]:Geo.spike(model.head,Vector3(side*.18,.14,0),Vector3(side*.55,.38,.12),.12,material)
-		elif variant==2:
-			for arm in model.arms:Geo.sphere(arm,Vector3(0,-.06,0),Vector3(.65,.42,.56),material)
-		else:
-			var crown=Geo.torus(model.head,Vector3(0,.37,0),.44,.50,material);crown.rotation.x=.18
-			Geo.spike(model.arms[0],Vector3(0,-.4,0),Vector3(0,-.8,-.4),.20,material)
 	if swarm:
 		model.scale=Vector3.ONE*([1.0,.88,1.22,1.0][variant])
 		if swarm_bar_mesh==null:
@@ -130,7 +121,7 @@ func take_hit(damage: float, dir: Vector3, heavy: bool):
 	if heavy and not training_dummy: velocity.y=5.5;grounded_cached=false
 	if frozen_left>0:velocity=Vector3.ZERO
 	walk_clock=0
-	if not swarm:
+	if not model.crowd_proxy:
 		model.animate(0,0,is_on_floor(),velocity.y,0,false,0,false)
 		apply_recoil()
 	game.damage_number(global_position+Vector3.UP*2.6,int(damage),heavy)
@@ -293,6 +284,7 @@ func fire_fan():
 	game.sound("heavy_swing",0.5,true)
 
 func apply_recoil():
+	if model.crowd_proxy:return # Crowd applies the same directional response to its instance.
 	var response=exp(-recoil_age*10)*cos(recoil_age*15)*recoil_strength
 	model.body.rotation.x+=recoil_direction.z*response
 	model.body.rotation.z-=recoil_direction.x*response
@@ -306,7 +298,7 @@ func pursuit_direction()->Vector3:
 		route_clock=.18;route_direction=game.pursuit.direction(global_position,formation_index if swarm else -1)
 	return route_direction
 func update_animation(idle: bool):
-	if swarm or not render_full:return
+	if model.crowd_proxy or not render_full:return
 	if animation_elapsed<1.0/30.0 and state not in ["windup","strike"]:return
 	model.animate(animation_elapsed,0 if idle else Vector2(velocity.x,velocity.z).length(),grounded_cached or is_on_floor(),velocity.y,0.65 if state=="windup" else (timer/.3 if state=="strike" else 0.0),boss,1,false)
 	apply_recoil();model.sync_skeleton();animation_elapsed=0

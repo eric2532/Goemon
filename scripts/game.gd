@@ -15,6 +15,8 @@ var world: Sanctuary
 var player: Hero
 var camera_rig: ActionCamera
 var enemies: Array[Ninja]=[]
+# Snapshot per run: changing the Lab limit never deletes living combatants.
+var active_enemy_limit=200
 var crowd: EnemyCrowd
 var pursuit: EnemyPursuit
 var encounters: EndlessEncounters
@@ -291,7 +293,19 @@ func sound(kind: String,volume: float=1.0,enemy_source: bool=false):
 	a.pitch_scale=1.0 if sound_library.custom.has(kind) else randf_range(0.92,1.08)
 	a.play()
 
+func active_enemy_count()->int:
+	var count=0
+	for i in range(enemies.size()-1,-1,-1):
+		var enemy=enemies[i]
+		if not is_instance_valid(enemy):enemies.remove_at(i)
+		elif not enemy.dead and not enemy.is_queued_for_deletion():count+=1
+	return count
+
+func enemy_spawn_capacity()->int:
+	return maxi(0,active_enemy_limit-active_enemy_count())
+
 func spawn_enemies():
+	active_enemy_limit=int(PrototypeTuning.sanitized(tuning).max_active_enemies)
 	for e in enemies:
 		if is_instance_valid(e):
 			remove_child(e)
@@ -311,6 +325,8 @@ func spawn_enemies():
 		var id="boss" if is_boss else str(i)
 		if saved.get(id,{}).get("dead",false): continue
 		if is_boss and area_cleared.get(area_index,false): continue
+		# Reserve the last slot for the guardian in the dormant expedition path.
+		if enemy_spawn_capacity()<=(0 if is_boss else 1):continue
 		var e=Ninja.new()
 		e.game=self
 		e.encounter_id=id
@@ -422,7 +438,7 @@ func show_main_menu():
 	playing=false
 	won=false
 	encounters.reset()
-	crowd.batch.multimesh.visible_instance_count=0
+	crowd.clear()
 	for enemy in enemies:
 		if is_instance_valid(enemy):enemy.hide()
 	Engine.time_scale=1
@@ -1162,7 +1178,7 @@ func spawn_practice(dummy: bool)->int:
 	var live=0
 	for e in enemies:
 		if is_instance_valid(e) and not e.dead and e.practice: live+=1
-	var amount=mini(int(tuning.spawn_count),80-live)
+	var amount=mini(mini(int(tuning.spawn_count),80-live),enemy_spawn_capacity())
 	var spawned=0
 	for attempt in range(100):
 		if spawned>=amount: break
