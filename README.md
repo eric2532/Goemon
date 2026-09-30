@@ -2,6 +2,10 @@
 
 A fully local Godot 4.6.1 survival action game set in Tidefall Sanctuary.
 
+## Environment art
+
+The colorful Edo environment reskin uses 13 original editable Blender assets and 128-pixel painted surface textures across Tidefall Sanctuary and the three dormant regions. Characters, gameplay, UI and collision remain unchanged. See [assets, screenshots and validation](docs/environment-reskin/README.md).
+
 ## Play
 
 Open **build/Goemon.app**, then select **Play**. The macOS application includes the game engine and all content. You do not need Godot, a terminal, an account, or an internet connection.
