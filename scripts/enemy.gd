@@ -143,10 +143,11 @@ func freeze_for(seconds: float):
 	state="chase";timer=0;attack_hit=true;cooldown=maxf(cooldown,.3)
 	if not is_instance_valid(frozen_visual):
 		frozen_visual=Node3D.new();add_child(frozen_visual)
+		var ice_material=Geo.mat("89deff",.25,.6)
+		ice_material.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA;ice_material.albedo_color.a=.4
 		for i in range(3):
 			var angle=TAU*i/3.0
-			var shard=Geo.spike(frozen_visual,Vector3(cos(angle)*.4,0,sin(angle)*.4),Vector3(cos(angle)*.55,2.3,sin(angle)*.55),.36,Geo.mat("89deff",.25,.6))
-			shard.transparency=.25
+			var shard=Geo.spike(frozen_visual,Vector3(cos(angle)*.4,0,sin(angle)*.4),Vector3(cos(angle)*.55,1.25,sin(angle)*.55),.18,ice_material)
 	frozen_visual.show()
 
 func _physics_process(delta):

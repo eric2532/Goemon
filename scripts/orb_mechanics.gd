@@ -58,7 +58,7 @@ func burst(kind: String):
 	if kind=="fire":
 		fire_bursts+=1
 		var effect=EdoFireExplosion.new();effect.game=game;effect.sound_slot="orb_fire";effect.position=origin
-		game.add_child(effect);effect.add_to_group("elemental_vfx");effect.scale=Vector3.ONE*1.7
+		game.add_child(effect);effect.add_to_group("elemental_vfx");effect.scale=Vector3.ONE # Visual footprint only; BURST_RADIUS remains 7m.
 	else:
 		ice_bursts+=1
 		var effect=preload("res://scripts/ice_burst.gd").new();effect.game=game;effect.position=origin;game.add_child(effect)
