@@ -1,9 +1,12 @@
 class_name MusashiModel
 extends HeroModel
 var combat: Node
+const REVIEW_MODEL="res://assets/characters/musashi/preview/edo_ember_v01.glb"
+const ORIGINAL_MODEL="res://assets/characters/musashi/model/edo_refined.glb"
 func _ready():
 	body=Node3D.new();add_child(body)
-	rig_visual=load("res://assets/characters/musashi/model/edo_refined.glb").instantiate();body.add_child(rig_visual)
+	var model_path=ORIGINAL_MODEL if "--edo-original" in OS.get_cmdline_user_args() else REVIEW_MODEL
+	rig_visual=load(model_path).instantiate();body.add_child(rig_visual)
 	skeleton=rig_visual.find_child("Skeleton3D",true,false)
 	head=driver("Head",Vector3(0,1.65,0))
 	arms.assign([driver("Arm_L",Vector3(.16,1.47,0)),driver("Arm_R",Vector3(-.18,1.47,0))])

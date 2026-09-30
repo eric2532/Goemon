@@ -1,0 +1,15 @@
+{
+  "checks_passed": {
+    "firecaster": 49,
+    "meteor": 31,
+    "survival": 39,
+    "combat": 25,
+    "render": 7,
+    "fallback": 7,
+    "rig_comparison": 12
+  },
+  "default_model": "EDO_EMBER_V01",
+  "fallback_flag": "--edo-original",
+  "source_preview_commit": "2d04c7278ba513b6889707c734c73da295d768fa",
+  "fire_ice_commit": "50f4ea5df8f59dd1f81881c138b88f383e78ca87"
+}

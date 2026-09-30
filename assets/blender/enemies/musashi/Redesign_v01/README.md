@@ -1,4 +1,6 @@
-# Edo Ember v01 — preview only
+# Edo Ember v01 — original preview and combined playable review
+
+Combined PR2 review now selects this model by default for Edo (Q); `--edo-original` preserves the original comparison path. See `docs/combined-review/README.md`. The history below describes the initial isolated preview.
 
 Asset ID: **EDO_EMBER_V01**. Branch: `feat/edo-redesign-preview-v1`, based on PR2 commit `65fa8b1` after fetching current origin/main and the unmerged PR2 branch. No playable default, enemy/town/effect file, push, merge, or running Mac instance was changed.
 
@@ -27,10 +29,10 @@ From repository root:
 blender -b --python tools/build_edo_redesign_v01.py
 blender -b --python tools/validate_edo_v01.py
 godot --headless --editor --path . --import --quit
-godot --path . --rendering-method gl_compatibility --script tools/preview_edo_v01.gd -- --visual
+godot --path . --rendering-method gl_compatibility --script tools/preview_edo_v01.gd -- --edo-original --visual
 ```
 
-Use a writable XDG config/cache/data directory in a restricted cloud environment. Omit `--visual` and add `--headless` for compatibility checks without captures. The preview harness temporarily swaps only its own scene instance; normal startup keeps `edo_refined.glb`.
+Use a writable XDG config/cache/data directory in a restricted cloud environment. Omit `--visual` and add `--headless` for compatibility checks without captures. The preview harness temporarily swaps only its own scene instance; the `--edo-original` flag explicitly keeps the old baseline for this comparison.
 
 The generic repository exporter deliberately skips alternative files under the locked Musashi directory. This version therefore has an explicit scoped builder/export path using the same GLB/Y-up/skinning conventions; it never invokes a generic master overwrite.
 
@@ -38,4 +40,4 @@ The generic repository exporter deliberately skips alternative files under the l
 
 SHA-256 comparison against `65fa8b1` proves the approved master, both existing playable .blend sources, shipped GLB, animation adapter, combat script and player script are unchanged. The original .blend sources use Blender 5.2 and cannot be opened by this cloud's Blender 4.3.2. Inspection used the shipped GLB, source builder scripts, approved reports and packed reference image. The new .blend is native Blender 4.3.2 and reopens successfully. No claim is made that the original 5.2 files were natively audited here.
 
-Pending: user visual review before any playable replacement. No technical blocker to reviewing these source/export files.
+Pending: final visual approval. The user authorized the combined playable review with the original model retained as an explicit fallback.
