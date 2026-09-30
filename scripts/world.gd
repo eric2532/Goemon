@@ -76,6 +76,11 @@ func _ready():
 		ring.rotation.x=PI/2
 		motes.append(mote)
 
+	# New town composition is exclusive to the main sanctuary.
+	var town=TidefallTown.new()
+	town.world=self
+	add_child(town)
+
 func lighting():
 	var env = WorldEnvironment.new()
 	var e = Environment.new()

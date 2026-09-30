@@ -1,0 +1,36 @@
+{
+  "town": {
+    "passed": 13,
+    "failures": 0
+  },
+  "reachability": {
+    "passed": 5,
+    "failures": 0
+  },
+  "survival": {
+    "passed": 27,
+    "failures": 0
+  },
+  "direct_attacks": {
+    "passed": 28,
+    "failures": 0
+  },
+  "elemental_orbs": {
+    "passed": 27,
+    "failures": 0
+  },
+  "blender_assets_validated": 5,
+  "main_existing_shapes_unchanged": 712,
+  "new_closed_building_hulls": 24,
+  "new_roof_colliders": 24,
+  "dormant_regions_audit_exact": 3,
+  "renderer": "OpenGL Compatibility, Mesa llvmpipe",
+  "godot": "4.6.3",
+  "blender": "4.3.2",
+  "baseline_reachable_cells": 11828,
+  "final_reachable_cells": 11798,
+  "isolated_walkable_cells": 0,
+  "principal_route_pairs_unchanged": 49,
+  "max_local_route_increase_metres": 10,
+  "sampled_spawns_connected_per_layout": 700
+}

@@ -182,6 +182,41 @@
     "bytes": 304488
   },
   {
+    "asset": "town/corner_house",
+    "triangles": 946,
+    "meshes": 2,
+    "surfaces": 6,
+    "bytes": 170172
+  },
+  {
+    "asset": "town/noren_shop",
+    "triangles": 862,
+    "meshes": 2,
+    "surfaces": 8,
+    "bytes": 221276
+  },
+  {
+    "asset": "town/plaster_storehouse",
+    "triangles": 550,
+    "meshes": 2,
+    "surfaces": 7,
+    "bytes": 167772
+  },
+  {
+    "asset": "town/timber_house",
+    "triangles": 994,
+    "meshes": 2,
+    "surfaces": 7,
+    "bytes": 206456
+  },
+  {
+    "asset": "town/two_story_inn",
+    "triangles": 1186,
+    "meshes": 2,
+    "surfaces": 8,
+    "bytes": 244216
+  },
+  {
     "asset": "weapons/golden_pipe",
     "triangles": 1368,
     "meshes": 1,
