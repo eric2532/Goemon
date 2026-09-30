@@ -1,0 +1,50 @@
+[
+	{
+		"check": "16 existing named bones",
+		"passed": true
+	},
+	{
+		"check": "Exact compatible global rest transforms after GLB roundtrip",
+		"passed": true
+	},
+	{
+		"check": "idle full skeleton pose and hand origins match original",
+		"passed": true
+	},
+	{
+		"check": "idle uses existing MusashiMotion without invalid transforms",
+		"passed": true
+	},
+	{
+		"check": "run full skeleton pose and hand origins match original",
+		"passed": true
+	},
+	{
+		"check": "run uses existing MusashiMotion without invalid transforms",
+		"passed": true
+	},
+	{
+		"check": "jump full skeleton pose and hand origins match original",
+		"passed": true
+	},
+	{
+		"check": "jump uses existing MusashiMotion without invalid transforms",
+		"passed": true
+	},
+	{
+		"check": "beam full skeleton pose and hand origins match original",
+		"passed": true
+	},
+	{
+		"check": "beam uses existing MusashiMotion without invalid transforms",
+		"passed": true
+	},
+	{
+		"check": "meteor full skeleton pose and hand origins match original",
+		"passed": true
+	},
+	{
+		"check": "meteor uses existing MusashiMotion without invalid transforms",
+		"passed": true
+	}
+]
