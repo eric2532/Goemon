@@ -25,3 +25,7 @@ __pycache__/
 /tests/**/*.import
 /tests/**/*.json
 /tests/**/*.txt
+
+# Generated prior-commit world for town visual comparison.
+/tests/tidefall-town/baseline/
+/docs/**/*.png.import

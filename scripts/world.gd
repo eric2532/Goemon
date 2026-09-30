@@ -50,8 +50,8 @@ func _ready():
 		path_segment(Vector3(side*43,0,-24),court,5.5)
 		path_segment(court,Vector3(side*38,0,-81),5.5)
 		path_segment(Vector3(side*38,0,-81),Vector3(-10,0,-56),5.5)
-		Geo.cylinder(self,court,12,.18,Geo.mat("d0bd92"),true)
-		Geo.torus(self,court+Vector3.UP*.1,10.8,11,Geo.mat("cba95f",.2))
+		Geo.cylinder(self,court,12,.18,EdoEnvironment.material("d0bd92"),true)
+		Geo.torus(self,court+Vector3.UP*.1,10.8,11,EdoEnvironment.material("cba95f",.2))
 		torii(court.x,court.z+12,10)
 		for offset in [-7,7]:lantern(court+Vector3(offset,0,-6))
 	landmarks["WESTERN TRAINING COURT"]=Vector3(-76,0,-51)
@@ -59,8 +59,8 @@ func _ready():
 	for i in range(12):
 		var b = Node3D.new()
 		add_child(b)
-		Geo.beam(b,Vector3(-0.5,0.13,0),Vector3.ZERO,0.04,Geo.mat("eef5df"))
-		Geo.beam(b,Vector3.ZERO,Vector3(0.5,0.13,0),0.04,Geo.mat("eef5df"))
+		Geo.beam(b,Vector3(-0.5,0.13,0),Vector3.ZERO,0.04,EdoEnvironment.material("eef5df"))
+		Geo.beam(b,Vector3.ZERO,Vector3(0.5,0.13,0),0.04,EdoEnvironment.material("eef5df"))
 		b.position = Vector3(rng.randf_range(-50,50),rng.randf_range(20,32),rng.randf_range(-65,30))
 		birds.append(b)
 	for i in range(24):
@@ -71,10 +71,15 @@ func _ready():
 		var mote=Node3D.new()
 		add_child(mote)
 		mote.position=p
-		Geo.sphere(mote,Vector3.ZERO,Vector3(0.28,0.44,0.28),Geo.mat("ffe78c",0.5,0.7))
-		var ring=Geo.torus(mote,Vector3.ZERO,0.30,0.34,Geo.mat("ffdc70",0.5,0.4))
+		Geo.sphere(mote,Vector3.ZERO,Vector3(0.28,0.44,0.28),EdoEnvironment.material("ffe78c",0.5,0.7))
+		var ring=Geo.torus(mote,Vector3.ZERO,0.30,0.34,EdoEnvironment.material("ffdc70",0.5,0.4))
 		ring.rotation.x=PI/2
 		motes.append(mote)
+
+	# New town composition is exclusive to the main sanctuary.
+	var town=TidefallTown.new()
+	town.world=self
+	add_child(town)
 
 func lighting():
 	var env = WorldEnvironment.new()
@@ -138,34 +143,34 @@ func terrain():
 	var m=StandardMaterial3D.new()
 	m.vertex_color_use_as_albedo=true
 	m.roughness=0.95
-	Geo.mesh(self,st.commit(),Vector3.ZERO,m,true)
+	Geo.mesh(self,st.commit(),Vector3.ZERO,EdoEnvironment.ground(area_index),true)
 	# Checker-cut coastal escarpments, composed as massive geological blocks.
 	for side in [-1,1]:
 		for zi in range(25):
 			for row in range(4):
 				var z=playable_bounds.position.y+zi*playable_bounds.size.y/24
 				var x=side*(playable_bounds.end.x+3+sin(zi*1.7)*1.3)
-				Geo.box(self,Vector3(x,-7+row*3.5,z),Vector3(5.0,3.48,6.98),Geo.mat("987247" if (zi+row)%2 else "bb9359"),true)
+				Geo.box(self,Vector3(x,-7+row*3.5,z),Vector3(5.0,3.48,6.98),EdoEnvironment.material("987247" if (zi+row)%2 else "bb9359"),true)
 	for i in range(11):
 		var x=playable_bounds.position.x+18+i*(playable_bounds.size.x-36)/10
 		var h=15+rng.randf()*16
-		Geo.cylinder(self,Vector3(x,h/2-2,playable_bounds.position.y-6),9,h,Geo.mat("927c59"),true,6)
-		Geo.cylinder(self,Vector3(x,h-1,playable_bounds.position.y-6),7.1,2.8,Geo.mat("3e8f55"),false,5.7)
+		Geo.cylinder(self,Vector3(x,h/2-2,playable_bounds.position.y-6),9,h,EdoEnvironment.material("927c59"),true,6)
+		Geo.cylinder(self,Vector3(x,h-1,playable_bounds.position.y-6),7.1,2.8,EdoEnvironment.material("3e8f55"),false,5.7)
 		for layer in range(int(h/3)):
-			Geo.cylinder(self,Vector3(x,layer*3-1,playable_bounds.position.y-6),9.1-layer*0.24,1.45,Geo.mat("a58a5b" if layer%2 else "847553"),false,8.5-layer*0.22)
+			Geo.cylinder(self,Vector3(x,layer*3-1,playable_bounds.position.y-6),9.1-layer*0.24,1.45,EdoEnvironment.material("a58a5b" if layer%2 else "847553"),false,8.5-layer*0.22)
 	# Distant sea stacks frame the coast.
 	for i in range(18):
 		var x=rng.randf_range(-220,220)
 		var z=rng.randf_range(85,190)
-		Geo.cylinder(self,Vector3(x,-1,z),rng.randf_range(4,11),rng.randf_range(8,28),Geo.mat("548b91"),false,3)
+		Geo.cylinder(self,Vector3(x,-1,z),rng.randf_range(4,11),rng.randf_range(8,28),EdoEnvironment.material("548b91"),false,3)
 
 func water():
 	var shader=Shader.new()
 	shader.code="""shader_type spatial;
 render_mode diffuse_burley, specular_schlick_ggx;
-uniform vec4 deep_color : source_color = vec4(0.02,0.42,0.56,1.0);
+uniform vec4 deep_color : source_color = vec4(0.025,0.23,0.52,1.0);
 void vertex(){ VERTEX.y += sin(VERTEX.x*0.17+TIME*0.9)*0.10 + cos(VERTEX.z*0.22+TIME)*0.08; }
-void fragment(){float w=sin(UV.x*260.0+sin(UV.y*180.0+TIME)*2.0+TIME)*sin(UV.y*280.0-TIME); float foam=smoothstep(0.82,1.0,w); ALBEDO=deep_color.rgb+vec3(0.12,0.24,0.20)*foam; ROUGHNESS=0.22; METALLIC=0.32;}
+void fragment(){float w=sin(UV.x*260.0+sin(UV.y*180.0+TIME)*2.0+TIME)*sin(UV.y*280.0-TIME); float foam=smoothstep(0.82,1.0,w); ALBEDO=deep_color.rgb+vec3(0.12,0.24,0.20)*foam; ROUGHNESS=0.85; METALLIC=0.0;}
 """
 	water_material=ShaderMaterial.new()
 	water_material.shader=shader
@@ -183,14 +188,14 @@ void fragment(){float w=sin(UV.x*260.0+sin(UV.y*180.0+TIME)*2.0+TIME)*sin(UV.y*2
 	cascade.shader=s
 	for i in range(3):
 		Geo.box(self,Vector3(24+i*1.7,8-i*1.0,-73+i*2.0),Vector3(2.5,19-i*2.0,0.45),cascade)
-		for j in range(5): Geo.sphere(self,Vector3(22+i*2+rng.randf()*4,0.2,-70+rng.randf()*5),Vector3(1.3,0.18,1.5),Geo.mat("c2f4e5",0,0.2))
+		for j in range(5): Geo.sphere(self,Vector3(22+i*2+rng.randf()*4,0.2,-70+rng.randf()*5),Vector3(1.3,0.18,1.5),EdoEnvironment.material("c2f4e5",0,0.2))
 
 func path_segment(a: Vector3,b: Vector3,width: float):
 	var dist=a.distance_to(b)
 	for i in range(int(dist/1.4)+1):
 		var p=a.lerp(b,float(i)/maxf(1,int(dist/1.4)))
 		p.y=height_at(p.x,p.z)+0.035
-		var stone=Geo.cylinder(self,p,width*0.5,0.10,Geo.mat("d6c599"),false)
+		var stone=Geo.cylinder(self,p,width*0.5,0.10,EdoEnvironment.material("d6c599"),false)
 		stone.scale.z=0.65
 		stone.rotation.y=rng.randf()*0.2
 
@@ -204,10 +209,12 @@ func paths():
 func roof(p: Vector3, w: float, d: float, h: float):
 	var visual=GameAssets.place(self,"architecture/temple_roof",p,Vector3(w/10,h/2.8,d/10))
 	GameAssets.collision_for(visual)
+	visual.hide() # Original roof remains the exact collision/camera-probe source.
+	GameAssets.place(self,"edo/roof",p,Vector3(w/10,h/2.8,d/10))
 
 func temple(x: float,z: float,w: float,d: float,levels: int):
 	var y=height_at(x,z)
-	var stone=Geo.mat("8b9992")
+	var stone=EdoEnvironment.material("8b9992")
 	Geo.box(self,Vector3(x,y+0.35,z),Vector3(w+2,0.7,d+2),stone,true)
 	# Stairs meet the sloping terrain at their foot and the platform at their crest.
 	var front_z=z+d/2+8.0
@@ -225,34 +232,35 @@ func temple(x: float,z: float,w: float,d: float,levels: int):
 		var ly=y+0.7+level*4.5
 		var lw=w*pow(0.76,level)
 		var ld=d*pow(0.76,level)
-		if level>0: Geo.box(self,Vector3(x,ly,z),Vector3(lw,0.35,ld),Geo.mat("923c2c"),true)
+		if level>0: Geo.box(self,Vector3(x,ly,z),Vector3(lw,0.35,ld),EdoEnvironment.material("923c2c"),true)
 		for sx in [-1,1]:
 			for sz in [-1,1]:
-				Geo.cylinder(self,Vector3(x+sx*(lw/2-0.55),ly+1.8,z+sz*(ld/2-0.55)),0.30,3.6,Geo.mat("bf4532"),true)
-			Geo.box(self,Vector3(x+sx*lw*0.49,ly+1.4,z),Vector3(0.18,2.6,ld*0.64),Geo.mat("eee0bc"),true)
-			for k in range(6): Geo.box(self,Vector3(x+sx*lw*0.50,ly+1.4,z-ld*0.27+k*ld*0.108),Vector3(0.22,2.6,0.09),Geo.mat("724634"))
-		Geo.box(self,Vector3(x,ly+3.1,z+ld/2-0.3),Vector3(lw,0.45,0.42),Geo.mat("ad3d30"))
-		Geo.box(self,Vector3(x,ly+3.1,z-ld/2+0.3),Vector3(lw,0.45,0.42),Geo.mat("ad3d30"))
+				Geo.cylinder(self,Vector3(x+sx*(lw/2-0.55),ly+1.8,z+sz*(ld/2-0.55)),0.30,3.6,EdoEnvironment.material("bf4532"),true)
+			Geo.box(self,Vector3(x+sx*lw*0.49,ly+1.4,z),Vector3(0.18,2.6,ld*0.64),EdoEnvironment.material("eee0bc"),true)
+			for k in range(6): Geo.box(self,Vector3(x+sx*lw*0.50,ly+1.4,z-ld*0.27+k*ld*0.108),Vector3(0.22,2.6,0.09),EdoEnvironment.material("724634"))
+		Geo.box(self,Vector3(x,ly+3.1,z+ld/2-0.3),Vector3(lw,0.45,0.42),EdoEnvironment.material("ad3d30"))
+		Geo.box(self,Vector3(x,ly+3.1,z-ld/2+0.3),Vector3(lw,0.45,0.42),EdoEnvironment.material("ad3d30"))
 		roof(Vector3(x,ly+3.55,z),lw+3.6,ld+3.6,2.8)
+		EdoEnvironment.temple_details(self,x,z,ly,lw,ld)
 		for sx in [-1,1]: lantern(Vector3(x+sx*(lw/2-0.4),ly+2.3,z+ld/2+0.2),false)
 	# Interior altar and tall illuminated crest.
-	Geo.box(self,Vector3(x,y+1.1,z-d*0.27),Vector3(3,0.8,1.2),Geo.mat("88342a"),true)
-	var crest=Geo.torus(self,Vector3(x,y+2.8,z-d*0.29),0.65,0.80,Geo.mat("ffd47a",0.6,0.3))
+	Geo.box(self,Vector3(x,y+1.1,z-d*0.27),Vector3(3,0.8,1.2),EdoEnvironment.material("88342a"),true)
+	var crest=Geo.torus(self,Vector3(x,y+2.8,z-d*0.29),0.65,0.80,EdoEnvironment.material("ffd47a",0.6,0.3))
 	crest.rotation.x=PI/2
 
 func torii(x: float,z: float,width: float=8.0):
 	var y=height_at(x,z)
-	GameAssets.place(self,"architecture/torii",Vector3(x,y,z),Vector3(width/8,1,1))
+	GameAssets.place(self,"edo/torii",Vector3(x,y,z),Vector3(width/8,1,1))
 	# Keep the established obstacle footprint and collision layers.
 	for side in [-1,1]:
-		Geo.cylinder(self,Vector3(x+side*width*0.36,y+2.7,z),0.34,5.4,Geo.mat("d84a32"),true).hide()
-		Geo.cylinder(self,Vector3(x+side*width*0.36,y+0.3,z),0.44,0.6,Geo.mat("29454e"),true).hide()
+		Geo.cylinder(self,Vector3(x+side*width*0.36,y+2.7,z),0.34,5.4,EdoEnvironment.material("d84a32"),true).hide()
+		Geo.cylinder(self,Vector3(x+side*width*0.36,y+0.3,z),0.44,0.6,EdoEnvironment.material("29454e"),true).hide()
 
 func lantern(p: Vector3,post: bool=true):
 	if post:
-		Geo.cylinder(self,p+Vector3(0,1,0),0.10,2,Geo.mat("634638"),true)
+		Geo.cylinder(self,p+Vector3(0,1,0),0.10,2,EdoEnvironment.material("634638"),true)
 		p.y+=2
-	GameAssets.place(self,"props/paper_lantern",p)
+	GameAssets.place(self,"edo/lantern",p)
 
 func architecture():
 	temple(-10,-38,19,14,3)
@@ -267,15 +275,18 @@ func architecture():
 	for i in range(30):
 		var x=12+i*0.88
 		var y=lerpf(bridge_y,height_at(37.52,-8)-0.10,float(i)/29.0)+sin(float(i)/29.0*PI)*1.65
-		var deck=Geo.box(self,Vector3(x,y,-8),Vector3(0.93,0.24,5.0),Geo.mat("a55235"),true)
+		var deck=Geo.box(self,Vector3(x,y,-8),Vector3(0.93,0.24,5.0),EdoEnvironment.material("a55235"),true)
 		deck.rotation.z=cos(float(i)/29.0*PI)*0.195
+		deck.hide() # Preserve every original bridge collision segment.
+		var boards=GameAssets.place(self,"edo/bridge_deck",deck.position,Vector3(.93,.24,5.0))
+		boards.rotation=deck.rotation
 		for side in [-1,1]:
-			if i%3==0: Geo.box(self,Vector3(x,y+0.68,-8+side*2.35),Vector3(0.17,1.5,0.17),Geo.mat("d64732"),true)
-			Geo.box(self,Vector3(x,y+1.2,-8+side*2.35),Vector3(0.94,0.16,0.20),Geo.mat("e5663b"))
+			if i%3==0: Geo.box(self,Vector3(x,y+0.68,-8+side*2.35),Vector3(0.17,1.5,0.17),EdoEnvironment.material("d64732"),true)
+			Geo.box(self,Vector3(x,y+1.2,-8+side*2.35),Vector3(0.94,0.16,0.20),EdoEnvironment.material("e5663b"))
 	# Boss courtyard sits on natural terrain; its rim gives clear arena boundaries.
 	var ay=height_at(45,-40)
-	Geo.cylinder(self,Vector3(45,ay-0.05,-40),11,0.20,Geo.mat("a4afa0"),true)
-	Geo.torus(self,Vector3(45,ay+0.075,-40),8.6,8.75,Geo.mat("eacb85"))
+	Geo.cylinder(self,Vector3(45,ay-0.05,-40),11,0.20,EdoEnvironment.material("a4afa0"),true)
+	Geo.torus(self,Vector3(45,ay+0.075,-40),8.6,8.75,EdoEnvironment.material("eacb85"))
 	for i in range(12):
 		var a=i*TAU/12
 		var p=Vector3(45+cos(a)*10.7,ay,-40+sin(a)*10.7)
@@ -284,11 +295,11 @@ func architecture():
 	for i in range(10):
 		var z=5-i*2.6
 		var y=height_at(-44,z)
-		for side in [-1,1]: Geo.sphere(self,Vector3(-44+side*4.4,y+2,z),Vector3(4.5,6,4.2),Geo.mat("647d76"))
-		Geo.box(self,Vector3(-44,y+5,z),Vector3(10,1.8,3),Geo.mat("627870"),true)
-		for side in [-1,1]: Geo.box(self,Vector3(-44+side*4.2,y+2,z),Vector3(2,5,3),Geo.mat("61786c"),true)
+		GameAssets.place(self,"edo/grotto_bay",Vector3(-44,y,z))
+		Geo.box(self,Vector3(-44,y+5,z),Vector3(10,1.8,3),EdoEnvironment.material("627870"),true).hide()
+		for side in [-1,1]: Geo.box(self,Vector3(-44+side*4.2,y+2,z),Vector3(2,5,3),EdoEnvironment.material("61786c"),true).hide()
 		if i%3==0:
-			var crystal=Geo.spike(self,Vector3(-41,y,z),Vector3(-41.4,y+1.7,z),0.42,Geo.mat("58ddd8",0.3,0.5))
+			var crystal=Geo.spike(self,Vector3(-41,y,z),Vector3(-41.4,y+1.7,z),0.42,EdoEnvironment.material("58ddd8",0.3,0.5))
 			var light=OmniLight3D.new()
 			light.position=crystal.position+Vector3(-0.5,0.5,0)
 			light.light_color=Color("50ddd2")
@@ -299,8 +310,8 @@ func architecture():
 	for i in range(8):
 		var p=Vector3(-31+(i%4)*4,0,-13-int(i/4)*7)
 		p.y=height_at(p.x,p.z)
-		Geo.cylinder(self,p+Vector3(0,1.2,0),0.65,2.4+rng.randf()*2.5,Geo.mat("99ab91"),true)
-		Geo.box(self,p+Vector3(0,0.2,0),Vector3(1.9,0.4,1.9),Geo.mat("859980"),true)
+		Geo.cylinder(self,p+Vector3(0,1.2,0),0.65,2.4+rng.randf()*2.5,EdoEnvironment.material("99ab91"),true)
+		Geo.box(self,p+Vector3(0,0.2,0),Vector3(1.9,0.4,1.9),EdoEnvironment.material("859980"),true)
 	for i in range(10): lantern(Vector3(-4 if i%2==0 else 3,height_at(-4,27-i*5),27-i*5))
 
 func tree(p: Vector3, cherry: bool=false, palm: bool=false):
@@ -308,10 +319,11 @@ func tree(p: Vector3, cherry: bool=false, palm: bool=false):
 	# Keep the enlarged grotto portal and its approach readable across seeds.
 	if area_index==0 and Vector2(p.x+44,p.z-11).length()<12:return
 	var kind="palm" if palm else ("cherry_tree" if cherry else "green_tree")
-	var visual=GameAssets.place(self,"environments/"+kind,p,Vector3(1,h/6,1))
+	if area_index==2 and posmod(roundi(p.x+p.z),4)==0:kind="bamboo"
+	var visual=GameAssets.place(self,"edo/"+kind,p,Vector3(1,h/6,1))
 	var canopy=visual.find_child("Canopy",true,false)
 	if canopy: breeze.append(canopy)
-	Geo.beam(self,p,p+Vector3(0.3,h,0.2),0.22 if palm else 0.38,Geo.mat("735344"),true).hide()
+	Geo.beam(self,p,p+Vector3(0.3,h,0.2),0.22 if palm else 0.38,EdoEnvironment.material("735344"),true).hide()
 
 func nature():
 	for i in range(108):
@@ -326,7 +338,7 @@ func nature():
 		var z=rng.randf_range(-70,40)
 		if abs(x+5)<7 or abs(z+8)<4 or abs(x-24)<8: continue
 		var p=Vector3(x,height_at(x,z),z)
-		GameAssets.place(self,"environments/moss_rock",p,Vector3(2+rng.randf()*3,1+rng.randf()*2,2+rng.randf()*3)*0.5)
+		GameAssets.place(self,"edo/moss_rock",p,Vector3(2+rng.randf()*3,1+rng.randf()*2,2+rng.randf()*3)*0.5)
 	# Wind-deformed instanced grass keeps the large landscape inexpensive.
 	var grass_shader=Shader.new()
 	grass_shader.code="""shader_type spatial; render_mode cull_disabled; void vertex(){VERTEX.x += sin(TIME*1.7+MODEL_MATRIX[3].x*0.3+MODEL_MATRIX[3].z)*VERTEX.y*0.17;} void fragment(){ALBEDO=mix(vec3(0.17,0.39,0.20),vec3(0.49,0.68,0.28),UV.y); ROUGHNESS=1.0;}"""
@@ -341,7 +353,9 @@ func nature():
 	st.generate_normals()
 	var mm=MultiMesh.new()
 	mm.transform_format=MultiMesh.TRANSFORM_3D
-	mm.mesh=st.commit()
+	var grass_asset=GameAssets.instantiate_model("edo/grass_tuft")
+	mm.mesh=grass_asset.find_child("Body",true,false).mesh
+	grass_asset.free()
 	mm.instance_count=3400
 	for i in range(3400):
 		var x=rng.randf_range(-69,69)
@@ -359,7 +373,7 @@ func nature():
 		var z=rng.randf_range(-55,41)
 		if abs(x-24)<7: continue
 		var p=Vector3(x,height_at(x,z)+0.23,z)
-		Geo.sphere(self,p,Vector3(0.35,0.15,0.35),Geo.mat(["fff0a4","f291b0","f3b066"][i%3]))
+		Geo.sphere(self,p,Vector3(0.35,0.15,0.35),EdoEnvironment.material(["fff0a4","f291b0","f3b066"][i%3]))
 
 func _process(delta):
 	elapsed+=delta
@@ -439,9 +453,9 @@ func atmosphere():
 	petal.height=0.22
 	petal.radial_segments=8
 	petal.rings=4
-	petal.material=Geo.mat("f9abc3")
+	petal.material=EdoEnvironment.material("f9abc3")
 	petals.draw_pass_1=petal
 	add_child(petals)
 	for i in range(7):
 		var p=Vector3(-120+i*39,43+sin(i*2)*5,-135)
-		for j in range(3): Geo.sphere(self,p+Vector3(j*5,sin(j*2)*2,0),Vector3(16,5,9),Geo.mat("d8f0e9"))
+		for j in range(3): Geo.sphere(self,p+Vector3(j*5,sin(j*2)*2,0),Vector3(16,5,9),EdoEnvironment.material("d8f0e9"))

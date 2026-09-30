@@ -29,7 +29,7 @@ static func flatten(world,x: float,z: float,h: float)->float:
 		if distance<31:return lerpf(c.y,h,smoothstep(25,31,distance))
 	return h
 static func dress(world):
-	var stone=Geo.mat(["c7b48b","809e9e","d1bda6","c8a073"][world.area_index])
+	var stone=EdoEnvironment.material(["c7b48b","809e9e","d1bda6","c8a073"][world.area_index])
 	for route in world.outer_routes:path(world,route[0],route[1])
 	for i in range(world.outposts.size()):
 		var c=world.outposts[i]
@@ -45,7 +45,7 @@ static func dress(world):
 			if absf(p.x-c.x)<13:continue
 			p.y=world.height_at(p.x,p.z)
 			if world.area_index==1:
-				Geo.spike(world,p,p+Vector3(2,6,1),1.4,Geo.mat("68c6c5",.2,.2))
+				Geo.spike(world,p,p+Vector3(2,6,1),1.4,EdoEnvironment.material("68c6c5",.2,.2))
 			else:world.tree(p,world.area_index==2,world.area_index==3)
 	# Low-cost scattered stones between districts (one shared mesh/material).
 	var mesh=SphereMesh.new();mesh.radius=1;mesh.height=2;mesh.radial_segments=8;mesh.rings=4
@@ -56,7 +56,7 @@ static func dress(world):
 		for c in world.outposts:
 			if Vector2(p.x-c.x,p.z-c.z).length()<32:p.y-=8
 		multimesh.set_instance_transform(i,Transform3D(Basis.IDENTITY.scaled(Vector3(1.3,.6,1)*world.rng.randf_range(.5,2)),p))
-	var instance=MultiMeshInstance3D.new();instance.multimesh=multimesh;instance.material_override=Geo.mat("819586");world.add_child(instance)
+	var instance=MultiMeshInstance3D.new();instance.multimesh=multimesh;instance.material_override=EdoEnvironment.material("819586");world.add_child(instance)
 static func enemy_spots(world,per_outpost: int)->Array:
 	var result=[]
 	for c in world.outposts:
@@ -85,4 +85,4 @@ static func path(world,a: Vector3,b: Vector3):
 			st.set_color(Color("c7b38a") if i%2 else Color("d5c296"));st.add_vertex(vertex)
 	st.generate_normals()
 	var material=StandardMaterial3D.new();material.vertex_color_use_as_albedo=true;material.roughness=1
-	Geo.mesh(world,st.commit(),Vector3.ZERO,material)
+	Geo.mesh(world,st.commit(),Vector3.ZERO,EdoEnvironment.surface("sand"))

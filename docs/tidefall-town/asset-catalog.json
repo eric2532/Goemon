@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "area": "Tidefall Sanctuary",
+  "assets": [
+    {
+      "asset_id": "town/timber_house",
+      "display_name": "Timber House",
+      "authorship": "Original Blender geometry with original Edo texture kit; no downloaded third-party models",
+      "files": {
+        "source": "assets/blender/town/timber_house.blend",
+        "runtime": "assets/models/town/timber_house.glb"
+      },
+      "sha256": {
+        "source": "db64494784d16c30d9dbb201259ddc75ad66165d1760ef9c3d648c29bd94d761",
+        "runtime": "37dfa7320fb1c5f06180479f54cddb7e070961654a31023c2f362cc196b5bd76"
+      },
+      "thumbnail": "docs/tidefall-town/timber_house.png",
+      "used_by": [
+        "tidefall-building-05",
+        "tidefall-building-10",
+        "tidefall-building-11",
+        "tidefall-building-16",
+        "tidefall-building-17",
+        "tidefall-building-22"
+      ]
+    },
+    {
+      "asset_id": "town/noren_shop",
+      "display_name": "Blue Noren Shop",
+      "authorship": "Original Blender geometry with original Edo texture kit; no downloaded third-party models",
+      "files": {
+        "source": "assets/blender/town/noren_shop.blend",
+        "runtime": "assets/models/town/noren_shop.glb"
+      },
+      "sha256": {
+        "source": "500b2a159faabe3a3b6f893533aa213eac18622d2368ad43983b26cf5de672d6",
+        "runtime": "32a335237050568ac74b197835ef3c0feabede7359a5cb0111b70e3436b78f17"
+      },
+      "thumbnail": "docs/tidefall-town/noren_shop.png",
+      "used_by": [
+        "tidefall-building-03",
+        "tidefall-building-04",
+        "tidefall-building-09",
+        "tidefall-building-14",
+        "tidefall-building-15",
+        "tidefall-building-23"
+      ]
+    },
+    {
+      "asset_id": "town/two_story_inn",
+      "display_name": "Red Curtain Inn",
+      "authorship": "Original Blender geometry with original Edo texture kit; no downloaded third-party models",
+      "files": {
+        "source": "assets/blender/town/two_story_inn.blend",
+        "runtime": "assets/models/town/two_story_inn.glb"
+      },
+      "sha256": {
+        "source": "520defd386670e04fe5415f3552740e47925cad73b51261771ec0ef5aa6a6a41",
+        "runtime": "b9f2c8bfb5e0c5e2181c2f8c8d677d9fb83c08380e1d79679901f5c82506fa3a"
+      },
+      "thumbnail": "docs/tidefall-town/two_story_inn.png",
+      "used_by": [
+        "tidefall-building-01",
+        "tidefall-building-07",
+        "tidefall-building-20"
+      ]
+    },
+    {
+      "asset_id": "town/corner_house",
+      "display_name": "Gable Corner House",
+      "authorship": "Original Blender geometry with original Edo texture kit; no downloaded third-party models",
+      "files": {
+        "source": "assets/blender/town/corner_house.blend",
+        "runtime": "assets/models/town/corner_house.glb"
+      },
+      "sha256": {
+        "source": "4dbfa4db02e16c5a4aa190cbac315555185a3f2098266c14c5deb5ab3a28759d",
+        "runtime": "d0f4eb3d4b5156180eda64d81b8ca8d81abb743f04b18655b6e33f4113a34a21"
+      },
+      "thumbnail": "docs/tidefall-town/corner_house.png",
+      "used_by": [
+        "tidefall-building-02",
+        "tidefall-building-12",
+        "tidefall-building-19",
+        "tidefall-building-21"
+      ]
+    },
+    {
+      "asset_id": "town/plaster_storehouse",
+      "display_name": "Plaster Storehouse",
+      "authorship": "Original Blender geometry with original Edo texture kit; no downloaded third-party models",
+      "files": {
+        "source": "assets/blender/town/plaster_storehouse.blend",
+        "runtime": "assets/models/town/plaster_storehouse.glb"
+      },
+      "sha256": {
+        "source": "9842ae43a4d1a0231f75afbf086b5c89fcfc507af6e57a6e2d869b84b8d89286",
+        "runtime": "de13591492b97c6259b26a9a733a4392001426e1e7ec29a51f4fb48150ba3a8c"
+      },
+      "thumbnail": "docs/tidefall-town/plaster_storehouse.png",
+      "used_by": [
+        "tidefall-building-06",
+        "tidefall-building-08",
+        "tidefall-building-13",
+        "tidefall-building-18",
+        "tidefall-building-24"
+      ]
+    }
+  ],
+  "placements": "placements.json"
+}

@@ -63,8 +63,8 @@ func _ready():
 	for route in routes: path_segment(route[0],route[1],5.8)
 	for i in range(centers.size()):
 		var c=centers[i]
-		Geo.cylinder(self,c-Vector3.UP*0.045,11.2 if i<4 else 14,0.16,Geo.mat("99b2a2" if area_index==1 else "d0bd92"),true)
-		Geo.torus(self,c+Vector3.UP*0.045,10.3 if i<4 else 13.1,10.45 if i<4 else 13.3,Geo.mat("cba95f",0.2))
+		Geo.cylinder(self,c-Vector3.UP*0.045,11.2 if i<4 else 14,0.16,EdoEnvironment.material("99b2a2" if area_index==1 else "d0bd92"),true)
+		Geo.torus(self,c+Vector3.UP*0.045,10.3 if i<4 else 13.1,10.45 if i<4 else 13.3,EdoEnvironment.material("cba95f",0.2))
 		if i>0:
 			for side in [-1,1]: lantern(c+Vector3(side*10,0,3))
 	var boss=centers[4]
@@ -96,16 +96,16 @@ func floor_mesh():
 	var material=StandardMaterial3D.new()
 	material.vertex_color_use_as_albedo=true
 	material.roughness=0.95
-	Geo.mesh(self,st.commit(),Vector3.ZERO,material,true)
+	Geo.mesh(self,st.commit(),Vector3.ZERO,EdoEnvironment.ground(area_index),true)
 
 func confine():
-	var rock=Geo.mat("405d68" if area_index==1 else ("946d4f" if area_index==3 else "6a8165"))
+	var rock=EdoEnvironment.material("405d68" if area_index==1 else ("946d4f" if area_index==3 else "6a8165"))
 	WorldExpansion.walls(self,rock)
 	for side in [-1,1]:
 		for i in range(16):
 			var p=Vector3(side*(playable_bounds.end.x-1),8,playable_bounds.position.y+i*playable_bounds.size.y/15)
 			Geo.cylinder(self,p,5.5,20+rng.randf()*8,rock,false,4.2)
-			if area_index!=1: Geo.sphere(self,p+Vector3(0,12,0),Vector3(11,3,11),Geo.mat("548954"))
+			if area_index!=1: Geo.sphere(self,p+Vector3(0,12,0),Vector3(11,3,11),EdoEnvironment.material("548954"))
 	if area_index==1:
 		# Solid cavern roof with skylight slots; camera probes collide with it.
 		for x in [-78,-39,0,39,78]:
@@ -132,7 +132,7 @@ func dress_area():
 		if area_index==1:
 			for j in range(4):
 				var start=p+Vector3(j*0.4,0,sin(j)*0.5)
-				Geo.spike(self,start,start+Vector3(rng.randf_range(-0.4,0.4),rng.randf_range(1.2,3.1),0),0.43,Geo.mat("59cbbb" if i%2 else "8b9ad9",0.25,0.25))
+				Geo.spike(self,start,start+Vector3(rng.randf_range(-0.4,0.4),rng.randf_range(1.2,3.1),0),0.43,EdoEnvironment.material("59cbbb" if i%2 else "8b9ad9",0.25,0.25))
 			if i%8==0:
 				var light=OmniLight3D.new()
 				light.position=p+Vector3.UP*2
@@ -143,20 +143,20 @@ func dress_area():
 		elif area_index==2: tree(p,true,false)
 		elif i%3==0: tree(p,false,true)
 		else:
-			Geo.cylinder(self,p+Vector3.UP*2,0.75,4,Geo.mat("ab7351"),true,0.65)
-			Geo.box(self,p+Vector3.UP*4,Vector3(2,0.4,2),Geo.mat("e1b45f"),true)
+			Geo.cylinder(self,p+Vector3.UP*2,0.75,4,EdoEnvironment.material("ab7351"),true,0.65)
+			Geo.box(self,p+Vector3.UP*4,Vector3(2,0.4,2),EdoEnvironment.material("e1b45f"),true)
 	for i in range(38):
 		var p=Vector3(rng.randf_range(-86,86),0,rng.randf_range(-94,78))
 		if not clear_route(p): continue
 		p.y=height_at(p.x,p.z)
-		GameAssets.place(self,"environments/moss_rock",p+Vector3.UP*0.35,Vector3(1.2,0.8,1.1))
+		GameAssets.place(self,"edo/moss_rock",p+Vector3.UP*0.35,Vector3(1.2,0.8,1.1))
 	# A real rock tunnel is an alternative route between the middle courts.
 	var z=centers[3].z
 	var x=centers[3].x
 	for k in range(4):
 		var p=Vector3(x,height_at(x,z+7+k*2.5),z+7+k*2.5)
-		for side in [-1,1]: Geo.box(self,p+Vector3(side*4.7,2.5,0),Vector3(2,5.5,2.7),Geo.mat("536d68"),true)
-		Geo.box(self,p+Vector3(0,5.5,0),Vector3(11,1.1,2.7),Geo.mat("536d68"),true)
+		for side in [-1,1]: Geo.box(self,p+Vector3(side*4.7,2.5,0),Vector3(2,5.5,2.7),EdoEnvironment.material("536d68"),true)
+		Geo.box(self,p+Vector3(0,5.5,0),Vector3(11,1.1,2.7),EdoEnvironment.material("536d68"),true)
 
 func make_trail_motes():
 	for route in routes:
@@ -166,7 +166,7 @@ func make_trail_motes():
 			var mote=Node3D.new()
 			add_child(mote)
 			mote.position=p
-			Geo.sphere(mote,Vector3.ZERO,Vector3(0.28,0.44,0.28),Geo.mat("ffe78c",0.5,0.7))
-			var ring=Geo.torus(mote,Vector3.ZERO,0.30,0.34,Geo.mat("ffdc70",0.5,0.4))
+			Geo.sphere(mote,Vector3.ZERO,Vector3(0.28,0.44,0.28),EdoEnvironment.material("ffe78c",0.5,0.7))
+			var ring=Geo.torus(mote,Vector3.ZERO,0.30,0.34,EdoEnvironment.material("ffdc70",0.5,0.4))
 			ring.rotation.x=PI/2
 			motes.append(mote)

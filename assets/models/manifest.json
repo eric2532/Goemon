@@ -21,6 +21,97 @@
     "bytes": 586060
   },
   {
+    "asset": "edo/bamboo",
+    "triangles": 1000,
+    "meshes": 1,
+    "surfaces": 2,
+    "bytes": 117440
+  },
+  {
+    "asset": "edo/bridge_deck",
+    "triangles": 60,
+    "meshes": 1,
+    "surfaces": 2,
+    "bytes": 52108
+  },
+  {
+    "asset": "edo/cherry_tree",
+    "triangles": 1024,
+    "meshes": 2,
+    "surfaces": 2,
+    "bytes": 133560
+  },
+  {
+    "asset": "edo/grass_tuft",
+    "triangles": 12,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 28128
+  },
+  {
+    "asset": "edo/green_tree",
+    "triangles": 896,
+    "meshes": 2,
+    "surfaces": 2,
+    "bytes": 117212
+  },
+  {
+    "asset": "edo/grotto_bay",
+    "triangles": 212,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 43620
+  },
+  {
+    "asset": "edo/lantern",
+    "triangles": 180,
+    "meshes": 1,
+    "surfaces": 2,
+    "bytes": 71896
+  },
+  {
+    "asset": "edo/moss_rock",
+    "triangles": 600,
+    "meshes": 1,
+    "surfaces": 2,
+    "bytes": 100056
+  },
+  {
+    "asset": "edo/noren",
+    "triangles": 388,
+    "meshes": 1,
+    "surfaces": 3,
+    "bytes": 111244
+  },
+  {
+    "asset": "edo/palm",
+    "triangles": 64,
+    "meshes": 2,
+    "surfaces": 2,
+    "bytes": 56100
+  },
+  {
+    "asset": "edo/roof",
+    "triangles": 642,
+    "meshes": 1,
+    "surfaces": 2,
+    "bytes": 86120
+  },
+  {
+    "asset": "edo/shoji",
+    "triangles": 132,
+    "meshes": 1,
+    "surfaces": 2,
+    "bytes": 61580
+  },
+  {
+    "asset": "edo/torii",
+    "triangles": 348,
+    "meshes": 1,
+    "surfaces": 4,
+    "bytes": 129808
+  },
+  {
     "asset": "enemies/guardian_0",
     "triangles": 9664,
     "meshes": 2,
@@ -89,6 +180,41 @@
     "meshes": 1,
     "surfaces": 2,
     "bytes": 304488
+  },
+  {
+    "asset": "town/corner_house",
+    "triangles": 946,
+    "meshes": 2,
+    "surfaces": 6,
+    "bytes": 170172
+  },
+  {
+    "asset": "town/noren_shop",
+    "triangles": 862,
+    "meshes": 2,
+    "surfaces": 8,
+    "bytes": 221276
+  },
+  {
+    "asset": "town/plaster_storehouse",
+    "triangles": 550,
+    "meshes": 2,
+    "surfaces": 7,
+    "bytes": 167772
+  },
+  {
+    "asset": "town/timber_house",
+    "triangles": 994,
+    "meshes": 2,
+    "surfaces": 7,
+    "bytes": 206456
+  },
+  {
+    "asset": "town/two_story_inn",
+    "triangles": 1186,
+    "meshes": 2,
+    "surfaces": 8,
+    "bytes": 244216
   },
   {
     "asset": "weapons/golden_pipe",
