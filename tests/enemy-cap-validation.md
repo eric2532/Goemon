@@ -17,3 +17,19 @@ Each wave replaces unplaced demand and only requests free slots. Overflow is ski
 - Quiet representative cloud sample, 200 living enemies and AI enabled, 120 physics frame notifications: 2,003.259 ms wall time; notification interval median 13.834 ms, p95 20.727 ms; 5,471 nodes. These are headless scheduling intervals, **not rendered FPS or per-frame CPU timings**. Engine last-reported physics value was 23.793 ms (a single monitor sample, not a percentile). No 400-enemy or 8,700-enemy stress run was used to select this bound.
 
 Renderer checks and visual evidence belong to the asset integration validation. The default constrains simulation work; hardware-specific tuning still requires testing on that hardware.
+
+## Full-session accelerated validation (pre-publication follow-up)
+
+`godot --headless --path . --script scripts/enemy_cap_session_tests.gd` completed with **zero failures**. This is three complete 600-second encounter schedules, advancing each ten-second wave explicitly while using real actor creation, physics frames, death handling, reference cleanup and restart. AI is frozen in this invariant test; it does not replace the prior AI-enabled real-clock check or establish rendering performance.
+
+| Configured cap | Waves | Simulated seconds | Maximum active | Sampled physics frames | Controlled deaths | Total spawned | Skipped demand |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 32 | 60 | 600 | 32 | 788 | 77 | 109 | 8,591 |
+| 200 | 60 | 600 | 200 | 803 | 77 | 277 | 8,423 |
+| 400 | 60 | 600 | 400 | 819 | 77 | 477 | 8,223 |
+
+All runs reached saturation, tested practice and legacy replacement rejection at saturation, performed eleven seven-enemy death/cleanup cycles, and verified that no skipped demand refilled between waves. After each cleanup, weak references were released and the enemy registry equaled the living count. Each run paused during wave 17, rejected time/spawn advancement while paused, reached victory exactly at 600 scheduled seconds, rejected a 61st wave, and restarted with all prior actors freed and the configured opening-wave bound preserved. Spawned plus skipped demand equals all 8,700 scheduled requests in every run. Total test wall time: 47.636 seconds; this is accelerated test execution time, **not a performance result**.
+
+Production creation-path audit (`rg 'Ninja.new' scripts`): survival waves, practice spawning, dormant `EndlessEncounters` replacements and dormant expedition initialization all consult the shared capacity. The first three have runtime coverage across these checks and the earlier last-slot tests. Expedition initialization remains unreachable with the compile-time `SURVIVAL_MODE` constant and was **statically inspected**, not falsely claimed as executed: it reserves guardian room and checks capacity before each allocation. The only other creation site is a test fixture in `combat_tests.gd`.
+
+Evidence: `tests/enemy-cap-session.log`. No production gameplay files changed for this follow-up, and no push, PR, merge or deployment was performed.
