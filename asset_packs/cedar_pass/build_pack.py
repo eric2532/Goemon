@@ -215,6 +215,7 @@ def render_group(names,positions,path,ortho=20):
 spec=[('machiya_open','building','machiya'),('inn','building','inn'),('tea_house_open','building','tea_house'),('warehouse','building','warehouse'),('shrine','building','shrine'),('gatehouse','building','gatehouse')]+[(n,'tree',k) for n,k in [('cedar','cedar'),('sakura','sakura'),('cloud_pine','pine'),('bamboo_cluster','bamboo')]]+[(n,'rock',n) for n in ['river_rock','moss_boulder','split_crag','cliff_step']]+[(n,'mountain',n) for n in ['twin_summit','long_ridge','sacred_peak']]+[(n,'prop',n) for n in ['lantern','well','cart','fence','torii']]
 if '--checkpoint' in sys.argv:spec=[spec[0],spec[6],spec[11]]
 manifest=[]
+if (P/'interiors.json').exists():raise RuntimeError('Revision 2 interiors exist. Use export_saved.py; do not overwrite them with the original exterior generator.')
 for name,cat,kind in spec:
  reset();{'building':building,'tree':tree,'rock':rock,'mountain':mountain,'prop':prop}[cat](kind);manifest.append(export(name,cat))
 (P/('checkpoint.json' if '--checkpoint' in sys.argv else 'manifest.json')).write_text(json.dumps(manifest,indent=2))

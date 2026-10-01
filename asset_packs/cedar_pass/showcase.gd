@@ -5,6 +5,7 @@ var angle := 0.3
 var elevation := 0.8
 var distance := 115.0
 var asset_roots := {}
+var cutaway_mode := 0
 func _ready():
  var data = JSON.parse_string(FileAccess.get_file_as_string("res://manifest.json"))
  var shared = preload("res://shared_matte.tres")
@@ -64,7 +65,7 @@ func _ready():
  var canvas := CanvasLayer.new()
  add_child(canvas)
  var help := Label.new()
- help.text = "CEDAR PASS  |  22 original environment assets  |  metres, scale 1\nDrag left mouse: orbit   Wheel: zoom   WASD: pan   1: shop   2: tea house   3: overview\nCream capsule beside shop = 1.8 m. Static collision demo; interiors have open doorways."
+ help.text = "CEDAR PASS  |  22 original environment assets  |  metres, scale 1\nDrag left mouse: orbit   Wheel: zoom   WASD: pan   1: shop   2: tea house   3: overview   I: exterior / ground-floor / upstairs\nCream capsule beside shop = 1.8 m. Static collision demo; interiors have open doorways."
  help.position = Vector2(24,20)
  canvas.add_child(help)
  _camera_update()
@@ -83,6 +84,12 @@ func _unhandled_input(event):
   if event.button_index == MOUSE_BUTTON_WHEEL_UP: distance = max(8, distance*.9)
   if event.button_index == MOUSE_BUTTON_WHEEL_DOWN: distance = min(220, distance*1.1)
  if event is InputEventKey and event.pressed:
+  if event.keycode == KEY_I:
+   cutaway_mode = (cutaway_mode+1)%3
+   for asset in asset_roots.values():
+    for m in asset.find_children("*","MeshInstance3D",true,false):
+     var n=String(m.name)
+     m.visible = not (cutaway_mode>0 and (n.begins_with("CP_Roof") or n.begins_with("CP_Wall_Front") or n.begins_with("CP_Wall_Right") or (cutaway_mode==1 and n.begins_with("CP_Upper"))))
   if event.keycode == KEY_1: focus = Vector3(0,2,0); distance=17
   if event.keycode == KEY_2: focus = Vector3(36,2,0); distance=17
   if event.keycode == KEY_3: focus = Vector3(40,0,-25); distance=115

@@ -1,40 +1,41 @@
 {
+  "assembled_meshes": 61,
   "assets": [
     {
       "dimensions_match": true,
       "id": "machiya_open",
-      "surfaces": 1,
-      "triangles": 4838
+      "surfaces": 7,
+      "triangles": 5514
     },
     {
       "dimensions_match": true,
       "id": "inn",
-      "surfaces": 1,
-      "triangles": 5762
+      "surfaces": 9,
+      "triangles": 7090
     },
     {
       "dimensions_match": true,
       "id": "tea_house_open",
-      "surfaces": 1,
-      "triangles": 5126
+      "surfaces": 7,
+      "triangles": 6118
     },
     {
       "dimensions_match": true,
       "id": "warehouse",
-      "surfaces": 1,
-      "triangles": 2690
+      "surfaces": 7,
+      "triangles": 3834
     },
     {
       "dimensions_match": true,
       "id": "shrine",
-      "surfaces": 1,
-      "triangles": 3582
+      "surfaces": 7,
+      "triangles": 3986
     },
     {
       "dimensions_match": true,
       "id": "gatehouse",
-      "surfaces": 1,
-      "triangles": 3576
+      "surfaces": 7,
+      "triangles": 4236
     },
     {
       "dimensions_match": true,
@@ -133,25 +134,6 @@
       "triangles": 1412
     }
   ],
-  "doorways": [
-    {
-      "capsule_0_6_by_1_8_clear": true,
-      "floor_present": true,
-      "id": "machiya_open",
-      "ray_clear": true
-    },
-    {
-      "capsule_0_6_by_1_8_clear": true,
-      "floor_present": true,
-      "id": "tea_house_open",
-      "ray_clear": true
-    },
-    {
-      "capsule_0_6_by_1_8_clear": true,
-      "floor_present": true,
-      "id": "gatehouse",
-      "ray_clear": true
-    }
-  ],
+  "authored_movement_test": "verification/interior_walk.json",
   "showcase_loaded": true
 }
