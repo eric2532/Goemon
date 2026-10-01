@@ -1,0 +1,32 @@
+[
+  {
+    "asset": "noren_shop",
+    "dimensions_blender_xyz": [
+      8.8,
+      7.92,
+      8.45
+    ],
+    "body_width": 8,
+    "body_depth": 6
+  },
+  {
+    "asset": "two_story_inn",
+    "dimensions_blender_xyz": [
+      8.8,
+      7.92,
+      10.75
+    ],
+    "body_width": 8,
+    "body_depth": 6
+  },
+  {
+    "asset": "plaster_storehouse",
+    "dimensions_blender_xyz": [
+      8.8,
+      7.58,
+      8.45
+    ],
+    "body_width": 8,
+    "body_depth": 6
+  }
+]

@@ -1,0 +1,42 @@
+{
+  "base_commit": "32c02225e8ec9924d770de53c3df6237cb426cc2",
+  "blender_version": "4.3.2",
+  "godot_version": "4.6.3",
+  "assets": 22,
+  "triangles_total": 32002,
+  "editable_asset_sources_reopened": 22,
+  "additional_blend_scenes_reopened": [
+    "contact_sheet",
+    "showcase"
+  ],
+  "individual_glbs_reimported": 22,
+  "godot_assembled_glb_mesh_count": 23,
+  "godot_showcase_loaded_and_rendered": true,
+  "open_passages_verified": [
+    "machiya_open",
+    "tea_house_open",
+    "gatehouse"
+  ],
+  "capsule_dimensions_m": [
+    0.6,
+    1.8
+  ],
+  "visual_inspection": [
+    "checkpoint.png",
+    "street_close.png",
+    "shrine_close.png",
+    "tea_house_close.png",
+    "mountains_close.png",
+    "contact_sheet.png",
+    "interior_entry.png",
+    "godot_shop.png",
+    "godot_tea_house.png",
+    "godot_overview.png"
+  ],
+  "known_limits": [
+    "Mac-only enlarged town and Edo V05 unavailable; integration intentionally deferred",
+    "No LODs, lightmap UVs or navmesh",
+    "Cy\u0441les CPU preview grain; cloud build lacks denoiser"
+  ],
+  "scope": "Only asset_packs/cedar_pass added; no push or Mac operations"
+}

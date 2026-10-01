@@ -1,0 +1,530 @@
+[
+  {
+    "id": "machiya_open",
+    "category": "building",
+    "dimensions_xyz_blender_m": [
+      9.8,
+      8.21,
+      6.663
+    ],
+    "bounds_min": [
+      -4.900125026702881,
+      -4.505000114440918,
+      0.0
+    ],
+    "bounds_max": [
+      4.900125026702881,
+      3.7049999237060547,
+      6.66297721862793
+    ],
+    "triangles": 4838,
+    "pivot": "ground center (0,0,0)",
+    "interior": true,
+    "collision": "separate wall/floor boxes; keep doorway clear",
+    "surfaces": 1
+  },
+  {
+    "id": "inn",
+    "category": "building",
+    "dimensions_xyz_blender_m": [
+      11.8,
+      9.105,
+      9.663
+    ],
+    "bounds_min": [
+      -5.900125026702881,
+      -4.899999618530273,
+      0.0
+    ],
+    "bounds_max": [
+      5.900125026702881,
+      4.204999923706055,
+      9.66297721862793
+    ],
+    "triangles": 5762,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "static trimesh or simplified convex hull",
+    "surfaces": 1
+  },
+  {
+    "id": "tea_house_open",
+    "category": "building",
+    "dimensions_xyz_blender_m": [
+      10.8,
+      8.21,
+      5.663
+    ],
+    "bounds_min": [
+      -5.400125026702881,
+      -4.505000114440918,
+      0.0
+    ],
+    "bounds_max": [
+      5.400125026702881,
+      3.7049999237060547,
+      5.66297721862793
+    ],
+    "triangles": 5126,
+    "pivot": "ground center (0,0,0)",
+    "interior": true,
+    "collision": "separate wall/floor boxes; keep doorway clear",
+    "surfaces": 1
+  },
+  {
+    "id": "warehouse",
+    "category": "building",
+    "dimensions_xyz_blender_m": [
+      9.8,
+      8.41,
+      7.663
+    ],
+    "bounds_min": [
+      -4.900125026702881,
+      -4.204999923706055,
+      0.0
+    ],
+    "bounds_max": [
+      4.900125026702881,
+      4.204999923706055,
+      7.66297721862793
+    ],
+    "triangles": 2690,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "static trimesh or simplified convex hull",
+    "surfaces": 1
+  },
+  {
+    "id": "shrine",
+    "category": "building",
+    "dimensions_xyz_blender_m": [
+      8.8,
+      8.31,
+      6.863
+    ],
+    "bounds_min": [
+      -4.400125026702881,
+      -4.605000019073486,
+      0.0
+    ],
+    "bounds_max": [
+      4.400125026702881,
+      3.7049999237060547,
+      6.862977027893066
+    ],
+    "triangles": 3582,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "static trimesh or simplified convex hull",
+    "surfaces": 1
+  },
+  {
+    "id": "gatehouse",
+    "category": "building",
+    "dimensions_xyz_blender_m": [
+      13.6,
+      6.21,
+      7.613
+    ],
+    "bounds_min": [
+      -6.8001251220703125,
+      -3.1050000190734863,
+      0.0
+    ],
+    "bounds_max": [
+      6.8001251220703125,
+      3.1050000190734863,
+      7.612977027893066
+    ],
+    "triangles": 3576,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "separate wall/floor boxes; keep doorway clear",
+    "surfaces": 1
+  },
+  {
+    "id": "cedar",
+    "category": "tree",
+    "dimensions_xyz_blender_m": [
+      4.6,
+      4.6,
+      7.669
+    ],
+    "bounds_min": [
+      -2.299999952316284,
+      -2.299999952316284,
+      -0.01869521476328373
+    ],
+    "bounds_max": [
+      2.299999952316284,
+      2.299999952316284,
+      7.650000095367432
+    ],
+    "triangles": 84,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "trunk capsule only",
+    "surfaces": 1
+  },
+  {
+    "id": "sakura",
+    "category": "tree",
+    "dimensions_xyz_blender_m": [
+      5.886,
+      5.091,
+      6.256
+    ],
+    "bounds_min": [
+      -2.7690093517303467,
+      -2.7149152755737305,
+      -0.0237739160656929
+    ],
+    "bounds_max": [
+      3.1168503761291504,
+      2.375945806503296,
+      6.232121467590332
+    ],
+    "triangles": 364,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "trunk capsule only",
+    "surfaces": 1
+  },
+  {
+    "id": "cloud_pine",
+    "category": "tree",
+    "dimensions_xyz_blender_m": [
+      5.886,
+      5.091,
+      6.355
+    ],
+    "bounds_min": [
+      -2.7690093517303467,
+      -2.7149152755737305,
+      -0.0237739160656929
+    ],
+    "bounds_max": [
+      3.1168503761291504,
+      2.375945806503296,
+      6.330998420715332
+    ],
+    "triangles": 384,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "trunk capsule only",
+    "surfaces": 1
+  },
+  {
+    "id": "bamboo_cluster",
+    "category": "tree",
+    "dimensions_xyz_blender_m": [
+      5.4,
+      1.445,
+      6.308
+    ],
+    "bounds_min": [
+      -2.6500000953674316,
+      -0.6449999809265137,
+      -0.004995426628738642
+    ],
+    "bounds_max": [
+      2.75,
+      0.800000011920929,
+      6.3025383949279785
+    ],
+    "triangles": 1236,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "trunk capsule only",
+    "surfaces": 1
+  },
+  {
+    "id": "river_rock",
+    "category": "rock",
+    "dimensions_xyz_blender_m": [
+      2.657,
+      1.804,
+      1.3
+    ],
+    "bounds_min": [
+      -1.2403465509414673,
+      -0.8736321330070496,
+      0.0
+    ],
+    "bounds_max": [
+      1.416696548461914,
+      0.9308387637138367,
+      1.2999999523162842
+    ],
+    "triangles": 52,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "static trimesh or simplified convex hull",
+    "surfaces": 1
+  },
+  {
+    "id": "moss_boulder",
+    "category": "rock",
+    "dimensions_xyz_blender_m": [
+      2.878,
+      2.302,
+      2.4
+    ],
+    "bounds_min": [
+      -1.3104168176651,
+      -1.165030837059021,
+      0.0
+    ],
+    "bounds_max": [
+      1.5677648782730103,
+      1.1368811130523682,
+      2.4000000953674316
+    ],
+    "triangles": 52,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "static trimesh or simplified convex hull",
+    "surfaces": 1
+  },
+  {
+    "id": "split_crag",
+    "category": "rock",
+    "dimensions_xyz_blender_m": [
+      3.112,
+      2.318,
+      4.0
+    ],
+    "bounds_min": [
+      -1.5400124788284302,
+      -1.1347200870513916,
+      0.0
+    ],
+    "bounds_max": [
+      1.5720478296279907,
+      1.1835700273513794,
+      4.0
+    ],
+    "triangles": 80,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "static trimesh or simplified convex hull",
+    "surfaces": 1
+  },
+  {
+    "id": "cliff_step",
+    "category": "rock",
+    "dimensions_xyz_blender_m": [
+      5.861,
+      3.392,
+      4.0
+    ],
+    "bounds_min": [
+      -2.832115411758423,
+      -1.603318452835083,
+      0.0
+    ],
+    "bounds_max": [
+      3.028860092163086,
+      1.7889032363891602,
+      4.0
+    ],
+    "triangles": 52,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "static trimesh or simplified convex hull",
+    "surfaces": 1
+  },
+  {
+    "id": "twin_summit",
+    "category": "mountain",
+    "dimensions_xyz_blender_m": [
+      26.844,
+      13.443,
+      15.0
+    ],
+    "bounds_min": [
+      -13.781042098999023,
+      -5.721312999725342,
+      0.0
+    ],
+    "bounds_max": [
+      13.062638282775879,
+      7.721312999725342,
+      15.0
+    ],
+    "triangles": 136,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "static trimesh or simplified convex hull",
+    "surfaces": 1
+  },
+  {
+    "id": "long_ridge",
+    "category": "mountain",
+    "dimensions_xyz_blender_m": [
+      29.679,
+      9.962,
+      11.0
+    ],
+    "bounds_min": [
+      -16.12227439880371,
+      -4.032787799835205,
+      0.0
+    ],
+    "bounds_max": [
+      13.556511878967285,
+      5.928962707519531,
+      11.0
+    ],
+    "triangles": 272,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "static trimesh or simplified convex hull",
+    "surfaces": 1
+  },
+  {
+    "id": "sacred_peak",
+    "category": "mountain",
+    "dimensions_xyz_blender_m": [
+      29.766,
+      17.924,
+      20.0
+    ],
+    "bounds_min": [
+      -14.635069847106934,
+      -8.961750984191895,
+      0.0
+    ],
+    "bounds_max": [
+      15.130800247192383,
+      8.961750984191895,
+      20.0
+    ],
+    "triangles": 68,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "static trimesh or simplified convex hull",
+    "surfaces": 1
+  },
+  {
+    "id": "lantern",
+    "category": "prop",
+    "dimensions_xyz_blender_m": [
+      1.6,
+      1.21,
+      3.213
+    ],
+    "bounds_min": [
+      -0.800125002861023,
+      -0.6050000190734863,
+      0.0
+    ],
+    "bounds_max": [
+      0.800125002861023,
+      0.6050000190734863,
+      3.2129769325256348
+    ],
+    "triangles": 512,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "static trimesh or simplified convex hull",
+    "surfaces": 1
+  },
+  {
+    "id": "well",
+    "category": "prop",
+    "dimensions_xyz_blender_m": [
+      3.8,
+      2.91,
+      4.013
+    ],
+    "bounds_min": [
+      -1.9001250267028809,
+      -1.4550000429153442,
+      0.0
+    ],
+    "bounds_max": [
+      1.9001250267028809,
+      1.4550000429153442,
+      4.012977123260498
+    ],
+    "triangles": 1060,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "static trimesh or simplified convex hull",
+    "surfaces": 1
+  },
+  {
+    "id": "cart",
+    "category": "prop",
+    "dimensions_xyz_blender_m": [
+      2.07,
+      3.703,
+      1.585
+    ],
+    "bounds_min": [
+      -1.034999966621399,
+      -2.703153610229492,
+      -0.0350000262260437
+    ],
+    "bounds_max": [
+      1.034999966621399,
+      1.0,
+      1.5500000715255737
+    ],
+    "triangles": 508,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "static trimesh or simplified convex hull",
+    "surfaces": 1
+  },
+  {
+    "id": "fence",
+    "category": "prop",
+    "dimensions_xyz_blender_m": [
+      3.2,
+      0.18,
+      1.6
+    ],
+    "bounds_min": [
+      -1.600000023841858,
+      -0.09000000357627869,
+      0.0
+    ],
+    "bounds_max": [
+      1.600000023841858,
+      0.09000000357627869,
+      1.600000023841858
+    ],
+    "triangles": 156,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "static trimesh or simplified convex hull",
+    "surfaces": 1
+  },
+  {
+    "id": "torii",
+    "category": "prop",
+    "dimensions_xyz_blender_m": [
+      6.4,
+      0.86,
+      4.798
+    ],
+    "bounds_min": [
+      -3.200125217437744,
+      -0.429999977350235,
+      -0.0047605568543076515
+    ],
+    "bounds_max": [
+      3.200125217437744,
+      0.429999977350235,
+      4.792977333068848
+    ],
+    "triangles": 1412,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "static trimesh or simplified convex hull",
+    "surfaces": 1
+  }
+]

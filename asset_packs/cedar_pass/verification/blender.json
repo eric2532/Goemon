@@ -1,0 +1,178 @@
+[
+  {
+    "id": "machiya_open",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 4838,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "inn",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 5762,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "tea_house_open",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 5126,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "warehouse",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 2690,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "shrine",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 3582,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "gatehouse",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 3576,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "cedar",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 84,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "sakura",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 364,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "cloud_pine",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 384,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "bamboo_cluster",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 1236,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "river_rock",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 52,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "moss_boulder",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 52,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "split_crag",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 80,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "cliff_step",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 52,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "twin_summit",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 136,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "long_ridge",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 272,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "sacred_peak",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 68,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "lantern",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 512,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "well",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 1060,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "cart",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 508,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "fence",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 156,
+    "ground_pivot": true,
+    "surfaces": 1
+  },
+  {
+    "id": "torii",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 1412,
+    "ground_pivot": true,
+    "surfaces": 1
+  }
+]

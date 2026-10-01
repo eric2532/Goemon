@@ -1,0 +1,157 @@
+{
+  "assets": [
+    {
+      "dimensions_match": true,
+      "id": "machiya_open",
+      "surfaces": 1,
+      "triangles": 4838
+    },
+    {
+      "dimensions_match": true,
+      "id": "inn",
+      "surfaces": 1,
+      "triangles": 5762
+    },
+    {
+      "dimensions_match": true,
+      "id": "tea_house_open",
+      "surfaces": 1,
+      "triangles": 5126
+    },
+    {
+      "dimensions_match": true,
+      "id": "warehouse",
+      "surfaces": 1,
+      "triangles": 2690
+    },
+    {
+      "dimensions_match": true,
+      "id": "shrine",
+      "surfaces": 1,
+      "triangles": 3582
+    },
+    {
+      "dimensions_match": true,
+      "id": "gatehouse",
+      "surfaces": 1,
+      "triangles": 3576
+    },
+    {
+      "dimensions_match": true,
+      "id": "cedar",
+      "surfaces": 1,
+      "triangles": 84
+    },
+    {
+      "dimensions_match": true,
+      "id": "sakura",
+      "surfaces": 1,
+      "triangles": 364
+    },
+    {
+      "dimensions_match": true,
+      "id": "cloud_pine",
+      "surfaces": 1,
+      "triangles": 384
+    },
+    {
+      "dimensions_match": true,
+      "id": "bamboo_cluster",
+      "surfaces": 1,
+      "triangles": 1236
+    },
+    {
+      "dimensions_match": true,
+      "id": "river_rock",
+      "surfaces": 1,
+      "triangles": 52
+    },
+    {
+      "dimensions_match": true,
+      "id": "moss_boulder",
+      "surfaces": 1,
+      "triangles": 52
+    },
+    {
+      "dimensions_match": true,
+      "id": "split_crag",
+      "surfaces": 1,
+      "triangles": 80
+    },
+    {
+      "dimensions_match": true,
+      "id": "cliff_step",
+      "surfaces": 1,
+      "triangles": 52
+    },
+    {
+      "dimensions_match": true,
+      "id": "twin_summit",
+      "surfaces": 1,
+      "triangles": 136
+    },
+    {
+      "dimensions_match": true,
+      "id": "long_ridge",
+      "surfaces": 1,
+      "triangles": 272
+    },
+    {
+      "dimensions_match": true,
+      "id": "sacred_peak",
+      "surfaces": 1,
+      "triangles": 68
+    },
+    {
+      "dimensions_match": true,
+      "id": "lantern",
+      "surfaces": 1,
+      "triangles": 512
+    },
+    {
+      "dimensions_match": true,
+      "id": "well",
+      "surfaces": 1,
+      "triangles": 1060
+    },
+    {
+      "dimensions_match": true,
+      "id": "cart",
+      "surfaces": 1,
+      "triangles": 508
+    },
+    {
+      "dimensions_match": true,
+      "id": "fence",
+      "surfaces": 1,
+      "triangles": 156
+    },
+    {
+      "dimensions_match": true,
+      "id": "torii",
+      "surfaces": 1,
+      "triangles": 1412
+    }
+  ],
+  "doorways": [
+    {
+      "capsule_0_6_by_1_8_clear": true,
+      "floor_present": true,
+      "id": "machiya_open",
+      "ray_clear": true
+    },
+    {
+      "capsule_0_6_by_1_8_clear": true,
+      "floor_present": true,
+      "id": "tea_house_open",
+      "ray_clear": true
+    },
+    {
+      "capsule_0_6_by_1_8_clear": true,
+      "floor_present": true,
+      "id": "gatehouse",
+      "ray_clear": true
+    }
+  ],
+  "showcase_loaded": true
+}

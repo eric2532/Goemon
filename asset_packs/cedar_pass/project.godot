@@ -1,0 +1,10 @@
+config_version=5
+[application]
+config/name="Cedar Pass — Standalone Asset Showcase"
+run/main_scene="res://showcase.tscn"
+[display]
+window/size/viewport_width=1600
+window/size/viewport_height=1000
+[rendering]
+renderer/rendering_method="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.40,0.65,0.72,1)
