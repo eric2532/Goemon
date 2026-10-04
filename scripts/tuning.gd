@@ -23,7 +23,7 @@ const PLAYER_ROWS=[
 	["second_jump_speed","Double-jump launch speed",8,24,0.25]
 ]
 const COIN_ROWS=[
-	["coin_count","Quick-toss coin count",1,12,1],
+	["coin_count","Manual quick-toss coins",1,12,1],
 	["split_count","Split-attack coin count",3,15,1],
 	["coin_damage","Coin damage",1,250,1],
 	["coin_speed","Coin speed",10,90,1],

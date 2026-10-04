@@ -1,0 +1,49 @@
+{
+  "face_hair_exact_geometry_preserved": {
+    "V04 Connected cheek jaw nose ears": true,
+    "V04 Swept crest and curved tapering locks": true
+  },
+  "source_reopens": true,
+  "meshes": 15,
+  "unweighted_vertices": 0,
+  "unnormalized_vertices": 0,
+  "external_libraries": 0,
+  "preserved": {
+    "assets/blender/enemies/musashi/Final/Musashi_Final.blend": {
+      "sha256": "3542e31714cc4571e076f5b99b0dc81eb7cdbd859cf9d38393102f2b14d2004c",
+      "unchanged": true
+    },
+    "assets/blender/enemies/musashi/Redesign_v01/Edo_Ember_v01.blend": {
+      "sha256": "257170d3f76e45d53f9892bbbb618202876d452b47f37db2da1657ff349eab1a",
+      "unchanged": true
+    },
+    "assets/blender/enemies/musashi/Redesign_v02_Blockout/Edo_Reference_Blockout_v02.blend": {
+      "sha256": "7f454078bb955ebe1efaf23cfefef75e14b7863d0993bd79019b542eb75ac0a1",
+      "unchanged": true
+    },
+    "assets/characters/musashi/model/musashi_model.gd": {
+      "sha256": "974c31f47ad424cdcb8a0fea795ff1f7574d46525d6a36a835e255d90cf11cfd",
+      "unchanged": true
+    },
+    "assets/characters/musashi/animations/motion.gd": {
+      "sha256": "360fdc7b76d029c06e98e1be5d48fc23c3e0c4ff6b53fcbb13dbfddeb44ca0ec",
+      "unchanged": true
+    },
+    "assets/characters/musashi/combat/musashi_combat.gd": {
+      "sha256": "5a055b8d0fc34a2f26f598f1836e1fdbc5d9ae8e0d85a001e3c6b3bdc468f596",
+      "unchanged": true
+    },
+    "scripts/player.gd": {
+      "sha256": "bc8bdd53967f7ed566c188b673765deffaa238944251e9c63950472ef21d8558",
+      "unchanged": true
+    },
+    "assets/blender/enemies/musashi/Redesign_v03_Smooth/Edo_Lean_Smooth_v03.blend": {
+      "sha256": "f948ecaf8b856427bfb71a2388f3dc81087178debfd29d6c2108632cc5544fdf",
+      "unchanged": true
+    },
+    "assets/blender/enemies/musashi/Redesign_v04_Hips/Edo_Hip_Continuity_v04.blend": {
+      "sha256": "4c4b68e5a2aa9aba78d515de8648f77f5801e5809ed26eb122f56e38d7c144ac",
+      "unchanged": true
+    }
+  }
+}

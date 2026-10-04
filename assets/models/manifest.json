@@ -14,11 +14,39 @@
     "bytes": 120092
   },
   {
+    "asset": "characters/edo_anime",
+    "triangles": 32282,
+    "meshes": 20,
+    "surfaces": 44,
+    "bytes": 2223936
+  },
+  {
     "asset": "characters/kai",
     "triangles": 650,
     "meshes": 3,
     "surfaces": 3,
     "bytes": 586060
+  },
+  {
+    "asset": "characters/ren",
+    "triangles": 622,
+    "meshes": 3,
+    "surfaces": 6,
+    "bytes": 598044
+  },
+  {
+    "asset": "characters/ren_anime",
+    "triangles": 33962,
+    "meshes": 3,
+    "surfaces": 16,
+    "bytes": 2865180
+  },
+  {
+    "asset": "characters/ren_rival",
+    "triangles": 8868,
+    "meshes": 3,
+    "surfaces": 11,
+    "bytes": 2553788
   },
   {
     "asset": "edo/bamboo",
@@ -210,6 +238,48 @@
     "bytes": 304488
   },
   {
+    "asset": "sky_descent/cloud_0",
+    "triangles": 1204,
+    "meshes": 1,
+    "bytes": 22824,
+    "surfaces": 1
+  },
+  {
+    "asset": "sky_descent/cloud_1",
+    "triangles": 1122,
+    "meshes": 1,
+    "bytes": 21352,
+    "surfaces": 1
+  },
+  {
+    "asset": "sky_descent/island_0",
+    "triangles": 4056,
+    "meshes": 3,
+    "bytes": 269372,
+    "surfaces": 10
+  },
+  {
+    "asset": "sky_descent/island_1",
+    "triangles": 4056,
+    "meshes": 3,
+    "bytes": 266468,
+    "surfaces": 10
+  },
+  {
+    "asset": "sky_descent/island_2",
+    "triangles": 4056,
+    "meshes": 3,
+    "bytes": 267224,
+    "surfaces": 10
+  },
+  {
+    "asset": "sky_descent/sun_halo",
+    "triangles": 1472,
+    "meshes": 3,
+    "bytes": 100656,
+    "surfaces": 3
+  },
+  {
     "asset": "town/corner_house",
     "triangles": 946,
     "meshes": 2,
@@ -222,6 +292,13 @@
     "meshes": 2,
     "surfaces": 8,
     "bytes": 221276
+  },
+  {
+    "asset": "town/open_teahouse",
+    "triangles": 718,
+    "meshes": 2,
+    "surfaces": 6,
+    "bytes": 155680
   },
   {
     "asset": "town/plaster_storehouse",
@@ -320,5 +397,173 @@
     "meshes": 1,
     "surfaces": 2,
     "bytes": 119256
+  },
+  {
+    "asset": "cedar_pass/bamboo_cluster",
+    "triangles": 1236,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 103780
+  },
+  {
+    "asset": "cedar_pass/cart",
+    "triangles": 508,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 45524
+  },
+  {
+    "asset": "cedar_pass/cedar",
+    "triangles": 84,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 9548
+  },
+  {
+    "asset": "cedar_pass/cliff_step",
+    "triangles": 52,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 6492
+  },
+  {
+    "asset": "cedar_pass/cloud_pine",
+    "triangles": 384,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 41636
+  },
+  {
+    "asset": "cedar_pass/fence",
+    "triangles": 156,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 15952
+  },
+  {
+    "asset": "cedar_pass/gatehouse",
+    "triangles": 4236,
+    "meshes": 7,
+    "surfaces": 7,
+    "bytes": 371464
+  },
+  {
+    "asset": "cedar_pass/inn",
+    "triangles": 7090,
+    "meshes": 9,
+    "surfaces": 9,
+    "bytes": 616884
+  },
+  {
+    "asset": "cedar_pass/lantern",
+    "triangles": 512,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 44496
+  },
+  {
+    "asset": "cedar_pass/long_ridge",
+    "triangles": 272,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 28696
+  },
+  {
+    "asset": "cedar_pass/machiya_open",
+    "triangles": 5514,
+    "meshes": 7,
+    "surfaces": 7,
+    "bytes": 475624
+  },
+  {
+    "asset": "cedar_pass/moss_boulder",
+    "triangles": 52,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 6508
+  },
+  {
+    "asset": "cedar_pass/river_rock",
+    "triangles": 52,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 6504
+  },
+  {
+    "asset": "cedar_pass/sacred_peak",
+    "triangles": 68,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 8028
+  },
+  {
+    "asset": "cedar_pass/sakura",
+    "triangles": 364,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 38868
+  },
+  {
+    "asset": "cedar_pass/shrine",
+    "triangles": 3986,
+    "meshes": 7,
+    "surfaces": 7,
+    "bytes": 343904
+  },
+  {
+    "asset": "cedar_pass/split_crag",
+    "triangles": 80,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 10036
+  },
+  {
+    "asset": "cedar_pass/tea_house_open",
+    "triangles": 6118,
+    "meshes": 7,
+    "surfaces": 7,
+    "bytes": 526796
+  },
+  {
+    "asset": "cedar_pass/torii",
+    "triangles": 1412,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 117504
+  },
+  {
+    "asset": "cedar_pass/twin_summit",
+    "triangles": 136,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 14916
+  },
+  {
+    "asset": "cedar_pass/warehouse",
+    "triangles": 3834,
+    "meshes": 7,
+    "surfaces": 7,
+    "bytes": 341988
+  },
+  {
+    "asset": "cedar_pass/well",
+    "triangles": 1060,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 90024
+  },
+  {
+    "asset": "sky_descent/cloud_platform_0",
+    "triangles": 508,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 13336
+  },
+  {
+    "asset": "sky_descent/cloud_platform_1",
+    "triangles": 508,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 13344
   }
 ]

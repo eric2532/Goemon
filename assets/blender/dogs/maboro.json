@@ -1,0 +1,27 @@
+{
+  "id": "maboro",
+  "name": "Maboro",
+  "breed": "chin",
+  "gear": "mirage",
+  "source": "assets/blender/dogs/maboro.blend",
+  "model": "assets/models/dogs/maboro.glb",
+  "portrait": "assets/ui/dogs/maboro.png",
+  "triangles": 11930,
+  "meshes": 1,
+  "materials": 4,
+  "bones": 28,
+  "deform_bones": 24,
+  "animations": {
+    "idle": 2.0,
+    "run": 0.8,
+    "attack": 1.0,
+    "hurt": 0.45,
+    "death": 0.9
+  },
+  "attack_contact": 0.38,
+  "run_reference_speed": 2.4,
+  "forward": "Godot -Z",
+  "reference": "asset_packs/ninja_dogs/references/07-maboro-mirage-weaver.png",
+  "reference_sha256": "fe310cf40c949b9987ceafcbb9846bcbbb8d0fd4bd1ffb988eea3b8dd5f104a7",
+  "glb_sha256": "949498b43e380cbc6ef39fc3ffc9bc027da233366e23ad0f206f1d0128dbbb74"
+}

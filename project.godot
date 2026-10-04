@@ -8,7 +8,7 @@ config/custom_user_dir_name="Godot/app_userdata/Azure Ember"
 config/icon="res://icon.svg"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/description="Survive ten minutes of growing enemy swarms in Tidefall Sanctuary."
+config/description="Explore Sky Descent, defend Fire Siege, or play Rogue Siege with Goemon and all ten original Rogue fighters, cursor combat, and an angled battle camera."
 
 [display]
 window/size/viewport_width=1440

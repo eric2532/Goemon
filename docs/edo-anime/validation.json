@@ -1,0 +1,75 @@
+{
+  "protected_sources_sha256": {
+    "assets/blender/enemies/musashi/Redesign_v05_Posture/Edo_Posture_Shoulders_v05.blend": "bfb0605ba07bb6ccda4aaca75f64599672f2dba9f6f280832374d8977d1cd1cf",
+    "assets/blender/enemies/musashi/Final/Musashi_Final.blend": "3542e31714cc4571e076f5b99b0dc81eb7cdbd859cf9d38393102f2b14d2004c"
+  },
+  "sources_unchanged": true,
+  "body_vertices_unchanged": true,
+  "body_weights_unchanged": true,
+  "bone_rest_unchanged": true,
+  "bones": 16,
+  "hair_locks": 8,
+  "triangles": 32282,
+  "palette_linear": {
+    "skin": [
+      0.82,
+      0.46,
+      0.25
+    ],
+    "hands": [
+      0.64,
+      0.32,
+      0.17
+    ],
+    "hair": [
+      0.012,
+      0.021,
+      0.023
+    ],
+    "hair_ridge": [
+      0.026,
+      0.049,
+      0.048
+    ],
+    "hair_shade": [
+      0.007,
+      0.012,
+      0.014
+    ],
+    "red": [
+      0.34,
+      0.018,
+      0.037
+    ],
+    "red_edge": [
+      0.58,
+      0.046,
+      0.038
+    ],
+    "vest": [
+      0.036,
+      0.044,
+      0.051
+    ],
+    "orange": [
+      0.98,
+      0.32,
+      0.028
+    ],
+    "wrap": [
+      0.64,
+      0.59,
+      0.43
+    ],
+    "shoe": [
+      0.031,
+      0.068,
+      0.13
+    ],
+    "sole": [
+      0.017,
+      0.023,
+      0.027
+    ]
+  }
+}

@@ -1,0 +1,432 @@
+[
+  {
+    "id": "pirate",
+    "name": "Pirate",
+    "title": "The Drowned Captain",
+    "tagline": "Chaos has a captain.",
+    "description": "A swaggering duelist. Chain cutlass strikes, fire your flintlock, and laugh at danger with a swig of rum.",
+    "hero": false,
+    "weaponNames": [
+      "Cutlass",
+      "Flintlock"
+    ],
+    "color": "#e4b86b",
+    "speed": 5.15,
+    "maxHealth": 100,
+    "cooldowns": {
+      "cutlass": 0.3,
+      "flintlock": 1.65,
+      "roll": 1.05,
+      "drink": 15
+    },
+    "abilities": {
+      "cutlass": {
+        "name": "Cutlass",
+        "description": "Three-hit combo with a sweeping finisher.",
+        "icon": "cutlass"
+      },
+      "flintlock": {
+        "name": "Flintlock",
+        "description": "A devastating close-quarters shot with real recoil.",
+        "icon": "flintlock"
+      },
+      "roll": {
+        "name": "Roll",
+        "description": "Roll through danger with a brief protection window.",
+        "icon": "roll"
+      },
+      "drink": {
+        "name": "Drink",
+        "description": "Become untargetable for five seconds.",
+        "icon": "drink"
+      }
+    }
+  },
+  {
+    "id": "samurai",
+    "name": "Samurai",
+    "title": "The Crimson Ronin",
+    "tagline": "Calm before the cut.",
+    "description": "A fearless, deliberate swordsman. Measured katana cuts and precise archery become a single moment of overwhelming force.",
+    "hero": false,
+    "weaponNames": [
+      "Katana",
+      "Yumi Bow"
+    ],
+    "color": "#f0817e",
+    "speed": 5.05,
+    "maxHealth": 100,
+    "cooldowns": {
+      "cutlass": 0.4,
+      "flintlock": 1.15,
+      "roll": 1.3,
+      "drink": 14
+    },
+    "abilities": {
+      "cutlass": {
+        "name": "Katana",
+        "description": "Measured katana combo with medium reach.",
+        "icon": "cutlass"
+      },
+      "flintlock": {
+        "name": "Bow & Arrow",
+        "description": "A precise, fast arrow aimed at the cursor.",
+        "icon": "bow"
+      },
+      "roll": {
+        "name": "Dodge",
+        "description": "A short, untargetable step through danger.",
+        "icon": "roll"
+      },
+      "drink": {
+        "name": "Iaijutsu",
+        "description": "Proposed skill: draw-cut through a wide area with full power.",
+        "icon": "spark"
+      }
+    }
+  },
+  {
+    "id": "ninja",
+    "name": "Ninja",
+    "title": "The Violet Ghost",
+    "tagline": "Seen only after the strike.",
+    "description": "An elusive operative built for decisive elimination. Fast short-katana cuts, spreading shuriken, and sudden bursts of movement.",
+    "hero": false,
+    "weaponNames": [
+      "Short Katana",
+      "Shuriken"
+    ],
+    "color": "#bba2ff",
+    "speed": 5.85,
+    "maxHealth": 85,
+    "cooldowns": {
+      "cutlass": 0.21,
+      "flintlock": 1.25,
+      "roll": 0.85,
+      "drink": 22
+    },
+    "abilities": {
+      "cutlass": {
+        "name": "Short Katana",
+        "description": "A fast three-cut assassination combo.",
+        "icon": "cutlass"
+      },
+      "flintlock": {
+        "name": "Shuriken",
+        "description": "Throw five ninja stars in a tight fan.",
+        "icon": "shuriken"
+      },
+      "roll": {
+        "name": "Ninja Dash",
+        "description": "A fast directional dash with a brief evasion window.",
+        "icon": "roll"
+      },
+      "drink": {
+        "name": "Anbu Dance",
+        "description": "For 10s, katana hits may execute ordinary foes. Bosses take bonus damage.",
+        "icon": "skull"
+      }
+    }
+  },
+  {
+    "id": "mage",
+    "name": "Mage",
+    "title": "The Astral Savant",
+    "tagline": "Make the impossible inevitable.",
+    "description": "An elegant caster wielding concentrated arcane force. Burst nearby foes with the staff, send energy from the wand, and blink away.",
+    "hero": false,
+    "weaponNames": [
+      "Magic Staff",
+      "Magic Wand"
+    ],
+    "color": "#8edaff",
+    "speed": 5.25,
+    "maxHealth": 85,
+    "cooldowns": {
+      "cutlass": 0.75,
+      "flintlock": 0.65,
+      "roll": 1.8,
+      "drink": 24
+    },
+    "abilities": {
+      "cutlass": {
+        "name": "Arcane Pulse",
+        "description": "One powerful staff blast in a limited area ahead.",
+        "icon": "staff"
+      },
+      "flintlock": {
+        "name": "Energy Bolt",
+        "description": "Send a luminous magic projectile downrange.",
+        "icon": "spark"
+      },
+      "roll": {
+        "name": "Blink",
+        "description": "Instantly reposition in your movement direction.",
+        "icon": "roll"
+      },
+      "drink": {
+        "name": "Overflow",
+        "description": "For 10s, both magical attacks cast in rapid succession.",
+        "icon": "lightning"
+      }
+    }
+  },
+  {
+    "id": "knight",
+    "name": "Knight",
+    "title": "The Iron Vow",
+    "tagline": "Stand where others break.",
+    "description": "A brave defender with an iron heart. Broad sword sweeps and a forceful shield turn steadfast defense into renewed attack.",
+    "hero": false,
+    "weaponNames": [
+      "Broadsword",
+      "Shield"
+    ],
+    "color": "#97bfff",
+    "speed": 4.65,
+    "maxHealth": 125,
+    "cooldowns": {
+      "cutlass": 0.5,
+      "flintlock": 1.3,
+      "roll": 0.9,
+      "drink": 22
+    },
+    "abilities": {
+      "cutlass": {
+        "name": "Broadsword",
+        "description": "Wide melee sweeps with a powerful final swing.",
+        "icon": "cutlass"
+      },
+      "flintlock": {
+        "name": "Shield Bash",
+        "description": "Tap to bash. Hold to block incoming frontal projectiles.",
+        "icon": "shield"
+      },
+      "roll": {
+        "name": "Short Dash",
+        "description": "A short, quick reposition with brief protection.",
+        "icon": "roll"
+      },
+      "drink": {
+        "name": "Knight’s Code",
+        "description": "Prototype rule: 8s resilience; blocks empower the next sword strike.",
+        "icon": "shield"
+      }
+    }
+  },
+  {
+    "id": "dragoon",
+    "name": "Dragoon",
+    "title": "The Azure Lancer",
+    "tagline": "The sky is your opening.",
+    "description": "An elegant aerial fighter. Pierce from a distance, descend lance-first, then backflip clear before the dust settles.",
+    "hero": true,
+    "weaponNames": [
+      "Lance",
+      "Lance"
+    ],
+    "color": "#74d9f7",
+    "speed": 5.2,
+    "maxHealth": 100,
+    "cooldowns": {
+      "cutlass": 0.36,
+      "flintlock": 2.6,
+      "roll": 1.55,
+      "drink": 24
+    },
+    "abilities": {
+      "cutlass": {
+        "name": "Piercing Strikes",
+        "description": "Long-reaching, precise lance thrusts.",
+        "icon": "lance"
+      },
+      "flintlock": {
+        "name": "Leap",
+        "description": "Leap toward the cursor and slam down from above.",
+        "icon": "lance"
+      },
+      "roll": {
+        "name": "Back Flip",
+        "description": "Retreat a fixed long distance opposite your facing.",
+        "icon": "roll"
+      },
+      "drink": {
+        "name": "Dragon Leap",
+        "description": "For 10s, Leap and Back Flip have no cooldown. Actions still take time.",
+        "icon": "spark"
+      }
+    }
+  },
+  {
+    "id": "magic-swordsman",
+    "name": "Magic Swordsman",
+    "title": "The Moonblade",
+    "tagline": "An edge beyond the physical.",
+    "description": "A mysterious warrior with an oversized magical claymore. Substantial sword swings become immense, piercing waves of energy.",
+    "hero": true,
+    "weaponNames": [
+      "Magical Claymore",
+      "Magical Claymore"
+    ],
+    "color": "#b9a0ff",
+    "speed": 5.1,
+    "maxHealth": 100,
+    "cooldowns": {
+      "cutlass": 0.48,
+      "flintlock": 2.1,
+      "roll": 1.45,
+      "drink": 24
+    },
+    "abilities": {
+      "cutlass": {
+        "name": "Claymore",
+        "description": "Weighty, medium-speed magical sword swings.",
+        "icon": "cutlass"
+      },
+      "flintlock": {
+        "name": "Energy Wave",
+        "description": "A large, long-range blade wave pierces every enemy in its path.",
+        "icon": "wave"
+      },
+      "roll": {
+        "name": "Dash Strike",
+        "description": "Dash a long distance and finish with a sweeping strike.",
+        "icon": "roll"
+      },
+      "drink": {
+        "name": "Final Strike",
+        "description": "For 10s, energy waves have no cooldown beyond their cast animation.",
+        "icon": "spark"
+      }
+    }
+  },
+  {
+    "id": "ranger",
+    "name": "Ranger",
+    "title": "The Verdant Watch",
+    "tagline": "One breath. One arrow.",
+    "description": "An agile master of the greatbow. Alternate decisive shots with rapid volleys, leaping into the perfect firing line.",
+    "hero": true,
+    "weaponNames": [
+      "Greatbow",
+      "Greatbow"
+    ],
+    "color": "#a8db99",
+    "speed": 5.6,
+    "maxHealth": 90,
+    "cooldowns": {
+      "cutlass": 0.62,
+      "flintlock": 2.4,
+      "roll": 1.2,
+      "drink": 23
+    },
+    "abilities": {
+      "cutlass": {
+        "name": "Power Arrow",
+        "description": "A fast, powerful arrow fired with precision.",
+        "icon": "bow"
+      },
+      "flintlock": {
+        "name": "Rapid Arrow",
+        "description": "Release four arrows in rapid succession.",
+        "icon": "bow"
+      },
+      "roll": {
+        "name": "Fast Leap",
+        "description": "Leap in your facing direction and evade attacks while airborne.",
+        "icon": "roll"
+      },
+      "drink": {
+        "name": "Rain",
+        "description": "Rapid Arrow has no cooldown for a prototype 10s duration; volleys still take time.",
+        "icon": "rain"
+      }
+    }
+  },
+  {
+    "id": "explorer",
+    "name": "Explorer",
+    "title": "The Gilded Wayfarer",
+    "tagline": "Fortune favors the first leap.",
+    "description": "A courageous adventurer wielding twin blades. Rapid cuts and whirling attacks meet a hook shot that pulls you into the action.",
+    "hero": true,
+    "weaponNames": [
+      "Twin Blades",
+      "Twin Blades"
+    ],
+    "color": "#ffc67c",
+    "speed": 5.7,
+    "maxHealth": 95,
+    "cooldowns": {
+      "cutlass": 0.23,
+      "flintlock": 1.7,
+      "roll": 1.5,
+      "drink": 24
+    },
+    "abilities": {
+      "cutlass": {
+        "name": "Twin Blades",
+        "description": "A rapid dual-wield combo that alternates both blades.",
+        "icon": "blades"
+      },
+      "flintlock": {
+        "name": "Spin Attack",
+        "description": "Whirl in a complete circle to cut nearby enemies.",
+        "icon": "blades"
+      },
+      "roll": {
+        "name": "Hook Shot",
+        "description": "Aim at a foe or a gold arena anchor and pull yourself toward it.",
+        "icon": "hook"
+      },
+      "drink": {
+        "name": "Blood Lust",
+        "description": "All attacks become guaranteed 2× super critical hits for a prototype 8s.",
+        "icon": "fire"
+      }
+    }
+  },
+  {
+    "id": "master-thief",
+    "name": "Master Thief",
+    "title": "The Smiling Ember",
+    "tagline": "A little smoke. A lot of trouble.",
+    "description": "An easygoing powerhouse with a huge smoke pipe. Catch attacks in a block, unleash stored fire, or duck and swing from below.",
+    "hero": true,
+    "weaponNames": [
+      "Huge Smoke Pipe",
+      "Huge Smoke Pipe"
+    ],
+    "color": "#ffac85",
+    "speed": 4.8,
+    "maxHealth": 115,
+    "cooldowns": {
+      "cutlass": 0.66,
+      "flintlock": 0.65,
+      "roll": 0.15,
+      "drink": 24
+    },
+    "abilities": {
+      "cutlass": {
+        "name": "Pipe Strikes",
+        "description": "Heavy pipe swings; Get Down changes these to low sweeping attacks.",
+        "icon": "pipe"
+      },
+      "flintlock": {
+        "name": "Pipe Block",
+        "description": "Hold to block and fill the meter. At full meter, tap to unleash fire. Disabled when lowered.",
+        "icon": "shield"
+      },
+      "roll": {
+        "name": "Get Down",
+        "description": "Toggle a persistent low stance: avoid projectiles, move slower, and use low strikes.",
+        "icon": "stance"
+      },
+      "drink": {
+        "name": "Grand Smoke",
+        "description": "Provisional name: for 10s the pipe grows to 3× size, gains reach, and adds Fire.",
+        "icon": "fire"
+      }
+    }
+  }
+]

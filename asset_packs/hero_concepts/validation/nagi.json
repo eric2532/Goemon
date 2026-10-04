@@ -1,0 +1,56 @@
+{
+  "character": "nagi",
+  "source_sha256": "48a49ecfdea61b601b3aad73c17bc510e81c764d47c40a2bbdf9d244d4c4f0c3",
+  "glb_sha256": "31ee35adc93ab40470b392915e6cff60199f1b1b2fa6f277305b37e98dca0d11",
+  "status": "PASS",
+  "source": {
+    "objects": 365,
+    "triangles": 285952,
+    "vertices": 144797,
+    "bounds_min": [
+      -1.5376710891723633,
+      -0.4727681279182434,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      0.9680107235908508,
+      0.4499678909778595,
+      2.818694591522217
+    ],
+    "nonfinite_objects": []
+  },
+  "glb_reimport": {
+    "objects": 364,
+    "triangles": 285952,
+    "vertices": 166478,
+    "bounds_min": [
+      -1.5376710891723633,
+      -0.4727681279182434,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      0.9680107235908508,
+      0.4499678909778595,
+      2.818694591522217
+    ],
+    "nonfinite_objects": []
+  },
+  "bounds_max_error": 0.0,
+  "packed_images": [
+    "09-nagi-tide-courier.png",
+    "Nagi_accent_painted_fiber",
+    "Nagi_cloth_painted_fiber",
+    "Nagi_cream_painted_fiber",
+    "Nagi_hair_painted_fiber",
+    "Nagi_pants_painted_fiber",
+    "Nagi_rope_painted_fiber"
+  ],
+  "static_unrigged": true,
+  "views": [
+    "three_quarter",
+    "front",
+    "side",
+    "back",
+    "import"
+  ]
+}

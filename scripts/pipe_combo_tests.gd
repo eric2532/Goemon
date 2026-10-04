@@ -72,8 +72,8 @@ func run():
 	await mouse(true);await wait(0.04);await mouse(false)
 	await wait(1.65)
 	game.impact_confirmed.disconnect(observer)
-	check(impacts==[1,2,3] and e.hp==926,"One click executes exactly three ordered hits")
-	check(pauses.size()==3 and pauses[0]<pauses[1] and pauses[1]<pauses[2],"Impact pauses grow from opener through finisher")
+	check(impacts==[1,2,2,3,3] and is_equal_approx(e.hp,867.6),"One click executes three ordered weapon hits plus two independent red follow-ups")
+	check(pauses.size()==5 and pauses[0]<pauses[1] and pauses[1]<pauses[3],"Original weapon contacts retain increasing impact strength alongside bonus contacts")
 	check(e.recoil_strength>0.4,"Finisher uses powerful enemy recoil")
 	await wait(0.35)
 	check(game.player.attack_left==0,"Finisher completes its committed recovery")
@@ -85,7 +85,7 @@ func run():
 	await mouse(true);await mouse(false)
 	check(game.player.combo==1 and game.player.queued,"Early extra click buffers without skipping opener")
 	await wait(1.65)
-	check(target.hp==926 and game.player.combo==3,"Buffered click does not duplicate or restart the automatic combo")
+	check(is_equal_approx(target.hp,867.6) and game.player.combo==3,"Buffered click does not duplicate or restart the automatic combo or its red follow-ups")
 	await reset()
 	game.player.invuln=0
 	# Free target demonstrates physical knockback rather than stationary dummy behavior.

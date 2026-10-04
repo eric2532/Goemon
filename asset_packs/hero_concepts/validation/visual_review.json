@@ -1,0 +1,41 @@
+{
+  "reviewed": [
+    "sen",
+    "raku",
+    "izumi",
+    "gaku",
+    "shiro",
+    "banji",
+    "touma",
+    "roan",
+    "nagi",
+    "kuren"
+  ],
+  "views": [
+    "three_quarter",
+    "front",
+    "side",
+    "back"
+  ],
+  "checks": [
+    "Head/scalp coverage and hairline contacts",
+    "Cloak and sleeve layering",
+    "Staff, rope, weapon, hat and scroll-case placement",
+    "Waist gear, wraps and footwear",
+    "Full camera framing"
+  ],
+  "corrections": [
+    "Fitted continuous scalp shells",
+    "Restored visible forehead and outer eye areas",
+    "Supported staff and scroll-case end rings",
+    "Completed rear jacket fabric panels",
+    "Moved Gaku headband outside scalp",
+    "Added front mantle drapes"
+  ],
+  "limitations": [
+    "Shared stylized facial construction; fine likeness simplified",
+    "Painted wear, embroidery, tears and hair strands simplified",
+    "Unseen rear details interpreted",
+    "No deformation, animation, rig or game integration validation"
+  ]
+}

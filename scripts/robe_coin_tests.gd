@@ -4,7 +4,7 @@ var launches: Array=[]
 
 func observe_projectile(node: Node):
 	if node is GoldCoin and not node is MusashiFireball and not node.hostile:
-		launches.append({"direction":node.velocity.normalized(),"speed":node.velocity.length(),"damage":node.damage,"radius":node.hit_radius,"lifetime":node.lifetime,"piercing":node.piercing})
+		launches.append({"direction":node.velocity.normalized(),"speed":node.velocity.length(),"damage":node.damage,"radius":node.hit_radius,"lifetime":node.lifetime,"piercing":node.piercing,"energy":node.combo_energy})
 
 func fresh_robe(equipped: bool=true):
 	await fresh()
@@ -31,7 +31,7 @@ func run():
 	var p=game.player
 	await fresh_robe(false);var enemy=target(Vector3(0,0,-2.4))
 	await mouse(true);await mouse(false);await attack_frames()
-	check(launches.is_empty() and enemy.hp==9926,"Without the robe the original three melee hits have no bonus coins")
+	check(launches.is_empty() and is_equal_approx(enemy.hp,9867.6),"Without the robe the three melee hits and two red follow-ups emit no bonus coins")
 	await fresh_robe(false);await key(KEY_R);await mouse(true);await mouse(false);await attack_frames()
 	check(launches.is_empty(),"Unrobed R spin has no coin ring")
 	for boosted in [false,true]:
@@ -42,7 +42,7 @@ func run():
 		enemy=target(Vector3(0,0,-12));enemy.set_physics_process(false)
 		await mouse(true);await mouse(false);await attack_frames();await wait(.5)
 		check(launches.size()==3,"Combo emits exactly one bonus coin per hit at speed boost=%s" % boosted)
-		check(enemy.hp==(9910 if boosted else 9940),"All three coins damage a target beyond melee reach at speed boost=%s (HP %s)" % [boosted,enemy.hp])
+		check(is_equal_approx(enemy.hp,9908.5 if boosted else 9939),"All three robe coins inherit cast damage; the final coin gets the first confirmed-link bonus at speed boost=%s (HP %s)" % [boosted,enemy.hp])
 		if launches.size()>0:
 			var c=launches[0]
 			check(is_equal_approx(c.damage,30 if boosted else 20) and is_equal_approx(c.speed,96 if boosted else 32) and is_equal_approx(c.radius,.45 if boosted else .3) and is_equal_approx(c.speed*c.lifetime,64),"Bonus coins inherit damage, speed, range and constant travel distance")

@@ -1,0 +1,16 @@
+extends "res://scripts/defense_dog_picker.gd"
+
+func _init():
+	roster_property="barracks"
+	heading="C A S T L E   B A R R A C K S"
+	subtitle="Choose a character. All ten fight with Goemon's three-hit pipe combo in this first pass."
+	unit_label="HEROES"
+	summon_prefix="HeroSummon_"
+	close_name="HeroRosterClose"
+	summon_method="summon_defense_hero"
+	close_method="close_hero_roster"
+	hotkey="H"
+	input_action="summon_heroes"
+	other_action="summon_dogs"
+	other_roster_method="show_dog_roster"
+	full_text="SQUAD FULL"

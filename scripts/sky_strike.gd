@@ -4,6 +4,7 @@ extends RefCounted
 const OUT_TIME=.24
 const BACK_TIME=.19
 const BLAST_RADIUS=5.0
+var attack_ticket: Dictionary={}
 var hero: Hero
 var active=false
 var elapsed=0.0
@@ -26,6 +27,7 @@ func choose_target()->Ninja:
 	var closest=INF
 	for enemy in hero.game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead:continue
+		if hero.game.descent_mode and enemy.island_index>=0 and enemy.island_index!=hero.game.encounters.current_island:continue
 		var distance=hero.global_position.distance_squared_to(enemy.global_position)
 		if distance<closest:nearest=enemy;closest=distance
 	return nearest
@@ -35,13 +37,14 @@ func begin()->bool:
 		pending=0;hero.game.toast("T · No enemies remaining in this area")
 		return false
 	var saved_pending=pending;var last_target=previous_target;var selected=target
-	hero.cancel_charge();pending=saved_pending;previous_target=last_target;target=selected
+	hero.cancel_charge(false,hero.game.rogue_battle_mode);pending=saved_pending;previous_target=last_target;target=selected
 	hero.attack_left=0;hero.heavy_buffer=0;hero.queued=false
+	hero.reset_wall_jump()
 	hero.jump_buffer=0;hero.jump_windup=0;hero.dodge_time=0;hero.air_turn=0
 	origin=hero.global_position
 	var direction=target.global_position-origin;direction.y=0;direction=direction.normalized()
 	landing=target.global_position-direction*(target.body_radius+.65)
-	landing.y=hero.game.world.height_at(landing.x,landing.z)+.1
+	landing.y=hero.game.world.surface_height_at(landing)+.1
 	# Validate the capsule along the complete arc before committing to the movement.
 	arc_height=6.0
 	var clear=path_clear(arc_height)
@@ -54,22 +57,25 @@ func begin()->bool:
 			if path_clear(arc_height):clear=true;break
 	if not clear:
 		pending=0;hero.game.toast("T · Leap path is blocked");return false
+	attack_ticket=hero.attack_chain.begin("sky_strike")
 	active=true;elapsed=0;landed=false;trail_left=0
 	hero.facing=direction;hero.velocity=Vector3.ZERO;hero.impact_pause=0
 	hero.game.burst(origin+Vector3.UP*.2,Color("78dfff"),20)
 	SkySmoke.emit(hero.game,origin,false)
 	hero.game.sound("sky_leap",.85)
+	if hero.attack_chain.unleashed():
+		impact();active=false;hero.attack_left=0
 	return true
 func arc(t: float)->Vector3:
 	return origin.lerp(landing,t)+Vector3.UP*sin(t*PI)*arc_height
 func path_clear(height: float)->bool:
-	var shape=CapsuleShape3D.new();shape.radius=.38;shape.height=1.85
+	var shape=CapsuleShape3D.new();shape.radius=.38*hero.growth_multiplier();shape.height=1.85*hero.growth_multiplier()
 	var query=PhysicsShapeQueryParameters3D.new();query.shape=shape;query.collision_mask=1
 	var last=origin
 	for i in range(1,25):
 		var t=float(i)/24
 		var next=origin.lerp(landing,t)+Vector3.UP*sin(t*PI)*height
-		query.transform=Transform3D(Basis.IDENTITY,last+Vector3.UP*.95);query.motion=next-last
+		query.transform=Transform3D(Basis.IDENTITY,last+Vector3.UP*.95*hero.growth_multiplier());query.motion=next-last
 		var sweep=hero.get_world_3d().direct_space_state.cast_motion(query)
 		if sweep[0]<.99:return false
 		last=next
@@ -105,7 +111,8 @@ func impact():
 	hero.game.sound("sky_stomp",1.0)
 	hero.game.burst(landing+Vector3.UP*.4,Color("ffdf86"),30,1.4)
 	hero.game.camera_rig.kick(Vector3.DOWN,.13)
-	var radius=BLAST_RADIUS*hero.pickup_multiplier("range")
+	var radius=BLAST_RADIUS*hero.pickup_multiplier("range")*hero.growth_multiplier()
+	BreakableBuilding.hit_area(hero.game,landing+Vector3.UP,radius,160*hero.damage_multiplier(),attack_ticket)
 	for enemy in hero.game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead:continue
 		var offset=enemy.global_position-landing
@@ -113,7 +120,7 @@ func impact():
 		var ray=PhysicsRayQueryParameters3D.create(landing+Vector3.UP,enemy.global_position+Vector3.UP,1)
 		if not hero.get_world_3d().direct_space_state.intersect_ray(ray).is_empty():continue
 		var direction=offset.normalized() if offset.length()>.01 else hero.facing
-		enemy.take_hit(160*hero.damage_multiplier(),direction,true)
+		enemy.take_hit(160*hero.damage_multiplier(),direction,true,attack_ticket)
 		hero.game.impact_effect(enemy.global_position+Vector3.UP,direction,2)
 		hero.game.chain+=1;hero.game.chain_timer=3
 

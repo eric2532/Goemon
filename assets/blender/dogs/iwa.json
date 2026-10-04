@@ -1,0 +1,27 @@
+{
+  "id": "iwa",
+  "name": "Iwa",
+  "breed": "mastiff",
+  "gear": "shield",
+  "source": "assets/blender/dogs/iwa.blend",
+  "model": "assets/models/dogs/iwa.glb",
+  "portrait": "assets/ui/dogs/iwa.png",
+  "triangles": 14474,
+  "meshes": 1,
+  "materials": 4,
+  "bones": 28,
+  "deform_bones": 24,
+  "animations": {
+    "idle": 2.0,
+    "run": 0.8,
+    "attack": 1.0,
+    "hurt": 0.45,
+    "death": 0.9
+  },
+  "attack_contact": 0.38,
+  "run_reference_speed": 2.4,
+  "forward": "Godot -Z",
+  "reference": "asset_packs/ninja_dogs/references/08-iwa-shield-breaker.png",
+  "reference_sha256": "e0eb50e6d214671339938c6fcc08b06e0810bed3854dd500bb7c72df9851a0d0",
+  "glb_sha256": "8e421bf8a391d7af3df8d9eaca676b550ca8aeebea65e3bc26c20b2d49f18c0f"
+}

@@ -24,12 +24,12 @@ static func add_to(town: Node3D):
 	# Accessories are attached to existing solid fronts at head height or above.
 	for i in [1,2,4,8,13,18,22]:
 		var house=town.buildings[i]
-		var lantern=GameAssets.place(house,"town_props/paper_lantern",Vector3(3.3,2.05,3.3))
+		var lantern=GameAssets.place(house,"town_props/paper_lantern",Vector3(3.3,2.05,3.3)*TidefallTown.BUILDING_SCALE)
 		lantern.name="ShopPaperLantern"
-		var sign=GameAssets.place(house,"town_props/bowl_shop_sign",Vector3(-3.05,2.15,3.22))
+		var sign=GameAssets.place(house,"town_props/bowl_shop_sign",Vector3(-3.05,2.15,3.22)*TidefallTown.BUILDING_SCALE)
 		sign.name="ShopBowlSign"
 	for i in [0,9]:
-		var curtain=GameAssets.place(town.buildings[i],"town_props/indigo_noren",Vector3(0,2.15,3.22))
+		var curtain=GameAssets.place(town.buildings[i],"town_props/indigo_noren",Vector3(0,2.15,3.22)*TidefallTown.BUILDING_SCALE)
 		curtain.name="IndigoNoren"
 
 static func ground(parent: Node3D,world,id: String,p: Vector2)->Node3D:

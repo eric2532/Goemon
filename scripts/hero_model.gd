@@ -1,6 +1,8 @@
 class_name HeroModel
 extends Node3D
 
+var skin_id=HeroSkins.DEFAULT_ID
+
 var hair_normal: Node3D
 var hair_gold: Node3D
 var body: Node3D
@@ -29,7 +31,9 @@ var charge_requested=false
 var charge_release=-1.0
 var charge_slot=1
 var charge_pose_weight=0.0
+const ROGUE_PIPE_PROFILE=preload("res://scripts/goemon_rogue_combo.gd")
 var pipe_combo_active=false
+var rogue_pipe_combo_active=false
 var pipe_combo_stage=1
 var pipe_combo_pose: Dictionary={}
 var locomotion: RefCounted
@@ -64,6 +68,7 @@ func _ready():
 		hair_gold=Node3D.new()
 		body.add_child(hair_gold)
 	hair_gold.hide()
+	if not ninja and not boss and skin_id!=HeroSkins.DEFAULT_ID: apply_skin(skin_id)
 	if not ninja and not boss:
 		# Original source geometry is a T pose. Match its actual joints without
 		# changing mesh proportions; lower arms in the visual adapter only.
@@ -167,7 +172,7 @@ func combat_pose(attack: float,heavy: bool,combo: int,dodge: bool):
 		arms[1].rotation.y=.5;pipe.hide();return
 	if pipe_combo_active and attack>0 and not heavy and not dodge:
 		pipe_combo_stage=combo
-		pipe_combo_pose=PipeCombo.sample(combo,1.0-attack)
+		pipe_combo_pose=ROGUE_PIPE_PROFILE.sample(combo,(1.0-attack)*ROGUE_PIPE_PROFILE.duration(combo)) if rogue_pipe_combo_active else PipeCombo.sample(combo,1.0-attack)
 		# Readable legacy driver values; the articulated rig consumes the pose below.
 		arms[1].rotation.y=(1 if combo!=2 else -1)*0.8
 		pipe.visible=equipped and not chain_selected
@@ -202,3 +207,20 @@ func combat_pose(attack: float,heavy: bool,combo: int,dodge: bool):
 func set_surge(active: bool):
 	hair_normal.visible=not active
 	hair_gold.visible=active
+
+# Swap only mesh resources. Keep the live rig, pose, weapons and cloth attachments.
+func apply_skin(id: String):
+	if ninja or boss:return
+	id=HeroSkins.valid_id(id)
+	var parts=HeroSkins.mesh_parts(id)
+	for part in HeroSkins.PARTS:
+		var target=rig_visual.find_child(part,true,false) as MeshInstance3D
+		assert(target!=null,"Hero is missing skin part "+part)
+		target.mesh=parts[part].mesh
+		target.skin=parts[part].skin
+	skin_id=id
+	rig_visual.scale=Vector3.ONE*HeroSkins.CATALOG[1 if id=="ren" else 0].display_scale
+	if locomotion!=null:
+		locomotion.dirty=true
+		sync_skeleton()
+	if is_instance_valid(ronin_scarf) and ronin_scarf.visible:ronin_scarf._process(0)

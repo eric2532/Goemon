@@ -1,0 +1,58 @@
+{
+  "character": "sen",
+  "source_sha256": "d991a07538734478c4ef39c41fd0a8dd688af0bcba3a5315ed2a43c2fcbaf7f6",
+  "glb_sha256": "004e393e135a953471497b7aa3f0d1d4a098c49322cf7f05c3892b28a6b86aad",
+  "status": "PASS",
+  "source": {
+    "objects": 370,
+    "triangles": 267380,
+    "vertices": 135563,
+    "bounds_min": [
+      -1.6957402229309082,
+      -0.4727681279182434,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      0.9834634065628052,
+      0.5541423559188843,
+      3.005094051361084
+    ],
+    "nonfinite_objects": []
+  },
+  "glb_reimport": {
+    "objects": 369,
+    "triangles": 267380,
+    "vertices": 153240,
+    "bounds_min": [
+      -1.6957402229309082,
+      -0.4727681279182434,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      0.9834634065628052,
+      0.5541423559188843,
+      3.005094051361084
+    ],
+    "nonfinite_objects": []
+  },
+  "bounds_max_error": 0.0,
+  "packed_images": [
+    "01-sen-sky-ronin.png",
+    "Sen_accent_painted_fiber",
+    "Sen_cloth_painted_fiber",
+    "Sen_cream_painted_fiber",
+    "Sen_gold_painted_fiber",
+    "Sen_hair_painted_fiber",
+    "Sen_leather_painted_fiber",
+    "Sen_pants_painted_fiber",
+    "Sen_rope_painted_fiber"
+  ],
+  "static_unrigged": true,
+  "views": [
+    "three_quarter",
+    "front",
+    "side",
+    "back",
+    "import"
+  ]
+}

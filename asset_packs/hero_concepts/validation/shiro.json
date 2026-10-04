@@ -1,0 +1,58 @@
+{
+  "character": "shiro",
+  "source_sha256": "403437965cfd56ac8151d433968fa461f88bad0fb22ef09644c0561bedbfb85e",
+  "glb_sha256": "1fffc1f6d73dc02271cf5f29c9e278c7102af0b808f231ff848295f0d19c6080",
+  "status": "PASS",
+  "source": {
+    "objects": 343,
+    "triangles": 265316,
+    "vertices": 134215,
+    "bounds_min": [
+      -0.9000446200370789,
+      -0.5717758536338806,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      0.9000446200370789,
+      0.5563506484031677,
+      2.572162628173828
+    ],
+    "nonfinite_objects": []
+  },
+  "glb_reimport": {
+    "objects": 342,
+    "triangles": 265316,
+    "vertices": 151893,
+    "bounds_min": [
+      -0.9000446200370789,
+      -0.5717758536338806,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      0.9000446200370789,
+      0.5563506484031677,
+      2.572162628173828
+    ],
+    "nonfinite_objects": []
+  },
+  "bounds_max_error": 0.0,
+  "packed_images": [
+    "05-shiro-moon-duelist.png",
+    "Shiro_accent_painted_fiber",
+    "Shiro_cloth_painted_fiber",
+    "Shiro_cream_painted_fiber",
+    "Shiro_gold_painted_fiber",
+    "Shiro_hair_painted_fiber",
+    "Shiro_leather_painted_fiber",
+    "Shiro_pants_painted_fiber",
+    "Shiro_rope_painted_fiber"
+  ],
+  "static_unrigged": true,
+  "views": [
+    "three_quarter",
+    "front",
+    "side",
+    "back",
+    "import"
+  ]
+}

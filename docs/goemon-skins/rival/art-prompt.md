@@ -1,0 +1,7 @@
+# Storm Rival face texture
+
+Built-in `image_gen` generation. Saved project asset: `assets/textures/characters/ren_rival/face.png`. The output is used unchanged on the 3D model; the UV projection, hair and costume accents are authored in Blender.
+
+Exact prompt:
+
+Create a square flat game UV face texture, NOT a portrait: all four edges are continuous uniform warm light peach #ffda9a. No face outline, ears, head, neck, hair, clothing, background objects or text. Only facial features on the peach field. Design an expressive mischievous male CHIBI ANIME RIVAL face for a colorful Japanese action game. Very large lively electric-blue irises, round lower eyes and sharply angled upper lids, thick dark navy expressive eyebrows, slightly different eyebrow heights for a cocky playful expression. A confident asymmetrical open grin with a small simple white tooth shape and dark red mouth interior, tiny curved anime nose mark, restrained two short red cheek accents. Strong bold clean dark outlines, polished flat cel-painted game art, little highlights within blue irises. The face must have big readable features and personality at thumbnail size. Eye centers precisely at x=29% and71%, y=43%, eye shapes each 29% canvas width and27% canvas height. Eyebrows y=22%. Nose y=66%. Smile center x=51%,y=79%, width30%. Top 12%, bottom10% and left/right8% are completely plain skin tone. No realism, no soft watercolor, no eyelashes suggesting makeup, no intricate tiny details, no geometric placeholder eyes. Facial features only, flat texture.

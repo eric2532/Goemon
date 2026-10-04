@@ -1,0 +1,27 @@
+{
+  "id": "daigo",
+  "name": "Daigo",
+  "breed": "akita",
+  "gear": "armor",
+  "source": "assets/blender/dogs/daigo.blend",
+  "model": "assets/models/dogs/daigo.glb",
+  "portrait": "assets/ui/dogs/daigo.png",
+  "triangles": 13992,
+  "meshes": 1,
+  "materials": 4,
+  "bones": 28,
+  "deform_bones": 24,
+  "animations": {
+    "idle": 2.0,
+    "run": 0.8,
+    "attack": 1.0,
+    "hurt": 0.45,
+    "death": 0.9
+  },
+  "attack_contact": 0.38,
+  "run_reference_speed": 2.4,
+  "forward": "Godot -Z",
+  "reference": "asset_packs/ninja_dogs/references/02-daigo-iron-guardian.png",
+  "reference_sha256": "6493cdae510357d2398b404eb64bd6ad9d5567825f9e387b8181e8b9fff34858",
+  "glb_sha256": "721a8f4918d1660e8f30b09eb0e7de92940072d7c2debf2be4cbfb7d895b3d2a"
+}

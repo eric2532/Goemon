@@ -1,0 +1,58 @@
+{
+  "character": "raku",
+  "source_sha256": "9e8e88fa031c42dd7fd95b159444b918684cf049fec4315dd47cc0aee8f12121",
+  "glb_sha256": "1304142651acc2ec2fa7f7554ad44204cbbfbbe6f47181463499be02d46987d0",
+  "status": "PASS",
+  "source": {
+    "objects": 405,
+    "triangles": 311212,
+    "vertices": 157581,
+    "bounds_min": [
+      -0.9834634065628052,
+      -0.5629147887229919,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      0.9834634065628052,
+      0.4277186989784241,
+      2.818694591522217
+    ],
+    "nonfinite_objects": []
+  },
+  "glb_reimport": {
+    "objects": 404,
+    "triangles": 311212,
+    "vertices": 180808,
+    "bounds_min": [
+      -0.9834634065628052,
+      -0.5629147887229919,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      0.9834634065628052,
+      0.4277186989784241,
+      2.818694591522217
+    ],
+    "nonfinite_objects": []
+  },
+  "bounds_max_error": 0.0,
+  "packed_images": [
+    "02-raku-ember-brawler.png",
+    "Raku_accent_painted_fiber",
+    "Raku_cloth_painted_fiber",
+    "Raku_cream_painted_fiber",
+    "Raku_gold_painted_fiber",
+    "Raku_hair_painted_fiber",
+    "Raku_leather_painted_fiber",
+    "Raku_pants_painted_fiber",
+    "Raku_rope_painted_fiber"
+  ],
+  "static_unrigged": true,
+  "views": [
+    "three_quarter",
+    "front",
+    "side",
+    "back",
+    "import"
+  ]
+}

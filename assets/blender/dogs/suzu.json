@@ -1,0 +1,27 @@
+{
+  "id": "suzu",
+  "name": "Suzu",
+  "breed": "spitz",
+  "gear": "ward",
+  "source": "assets/blender/dogs/suzu.blend",
+  "model": "assets/models/dogs/suzu.glb",
+  "portrait": "assets/ui/dogs/suzu.png",
+  "triangles": 13592,
+  "meshes": 1,
+  "materials": 4,
+  "bones": 28,
+  "deform_bones": 24,
+  "animations": {
+    "idle": 2.0,
+    "run": 0.8,
+    "attack": 1.0,
+    "hurt": 0.45,
+    "death": 0.9
+  },
+  "attack_contact": 0.38,
+  "run_reference_speed": 2.4,
+  "forward": "Godot -Z",
+  "reference": "asset_packs/ninja_dogs/references/06-suzu-ward-keeper.png",
+  "reference_sha256": "8ef2241577fa1a665544e10e27c81775d1eccefe14603cf9a30fc3e4b4ce2fd0",
+  "glb_sha256": "b47af27040121d8aea84a320e40a8f818598fe611264046bcbb47ad27dcbe125"
+}

@@ -73,7 +73,8 @@ func _process(delta):
 	for enemy in game.enemies:
 		if not is_instance_valid(enemy):continue
 		var distance=enemy.global_position.distance_squared_to(focus)
-		var shown=distance<VIEW_DISTANCE*VIEW_DISTANCE or enemy.practice
+		var view_distance=360.0 if game.tower_defense_mode else (260.0 if enemy.ground_giant else VIEW_DISTANCE)
+		var shown=distance<view_distance*view_distance or enemy.practice
 		enemy.render_full=enemy.boss
 		enemy.distance_asleep=not shown;enemy.visible=shown;enemy.model.visible=shown and enemy.boss
 		if enemy.name_tag!=null:enemy.name_tag.visible=shown and distance<18*18

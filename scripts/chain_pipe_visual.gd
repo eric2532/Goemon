@@ -1,6 +1,7 @@
 class_name ChainPipeVisual
 extends Node3D
 static var meshes: Dictionary={}
+const LINK_THICKNESS=2.6
 var endpoint_override=false
 var endpoint=Vector3.ZERO
 var powered=false
@@ -39,6 +40,6 @@ func update_chain():
 		var t=float(i)/maxf(1,count-1)
 		var p=start.lerp(point,t)
 		p.y-=sin(t*PI)*(.08 if endpoint_override else .16)
-		var basis=head.basis*Basis(Vector3.FORWARD,(i%2)*PI/2)
+		var basis=head.basis*Basis(Vector3.FORWARD,(i%2)*PI/2)*Basis.from_scale(Vector3(LINK_THICKNESS,LINK_THICKNESS,1.0))
 		links.multimesh.set_instance_transform(i,Transform3D(basis,p))
 	flame.visible=powered

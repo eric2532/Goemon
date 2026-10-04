@@ -1,5 +1,6 @@
 shader_type spatial;
 render_mode cull_disabled;
+uniform bool gold_cloak=false;
 uniform float cloth_clock=0.0;
 uniform float flow=0.0;
 uniform float sway=0.0;
@@ -38,8 +39,10 @@ void vertex() {
 }
 
 void fragment() {
-	ALBEDO=COLOR.rgb*(0.98+0.02*sin(UV.x*310.0)*sin(UV.y*670.0));
-	ROUGHNESS=0.94;
+	vec3 fabric=gold_cloak ? mix(vec3(0.35,0.14,0.015),vec3(1.0,0.66,0.10),clamp(dot(COLOR.rgb,vec3(0.6,0.25,0.15))*1.7+0.2,0.0,1.0)) : COLOR.rgb;
+	ALBEDO=fabric*(0.98+0.02*sin(UV.x*310.0)*sin(UV.y*670.0));
+	EMISSION=gold_cloak ? fabric*0.14 : vec3(0.0);
+	ROUGHNESS=gold_cloak ? 0.68 : 0.94;
 	SPECULAR=0.15;
 	NORMAL=FRONT_FACING ? NORMAL : -NORMAL;
 }

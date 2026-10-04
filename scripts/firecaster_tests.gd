@@ -98,7 +98,8 @@ func run():
 		var hp=enemy.hp
 		for i in range(200):beam._physics_process(.01)
 		beam_damage.append(hp-enemy.hp);p.set_physics_process(true);await mouse(false)
-	check(is_equal_approx(beam_damage[0],180) and is_equal_approx(beam_damage[1],405),"Beam uses faster ticks and damage buff: "+str(beam_damage))
+	# The shield misses this distant target, so only the beam earns a link.
+	check(is_equal_approx(beam_damage[0],180) and is_equal_approx(beam_damage[1],405),"Beam combines confirmed hits with faster orb ticks and damage buff: "+str(beam_damage))
 
 	await prepare(2);enemy=target(Vector3(0,0,-2));p.dodge_cooldown=0;p.invuln=0
 	await key(KEY_E);await wait(.05)
@@ -134,7 +135,7 @@ func run():
 		await prepare(1);enemy=target(Vector3(0,0,-2.4))
 		for i in range(stacks):p.collect_powerup("attack_speed")
 		await mouse(true);await mouse(false);combo_frames.append(await attack_frames())
-		check(enemy.hp==9926,"Goemon's complete three-hit combo survives speed stacks="+str(stacks))
+		check(is_equal_approx(enemy.hp,9867.6),"Goemon's three weapon hits and two red follow-ups survive speed stacks="+str(stacks))
 	check(combo_frames[1]<combo_frames[0]*.5,"Four blue orbs speed up all three combo stages")
 	await prepare(1);front=target(Vector3(0,0,-3));rear=target(Vector3(0,0,3));await key(KEY_R);await mouse(true);await mouse(false);await attack_frames()
 	check(front.hp==9930 and rear.hp==9930,"Goemon R spin still hits front and rear")

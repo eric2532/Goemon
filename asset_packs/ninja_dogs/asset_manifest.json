@@ -1,0 +1,298 @@
+{
+  "schema_version": 1,
+  "count": 10,
+  "blender_version": "4.3.2",
+  "units": "meters",
+  "assets": [
+    {
+      "id": "01",
+      "name": "Kogane",
+      "source": "sources/01_Kogane.blend",
+      "export": "exports/01_Kogane.glb",
+      "reference": "references/01-kogane-shadow-scout.png",
+      "comparison": "previews/01_comparison.jpg",
+      "views": "previews/01_views.jpg",
+      "scope": "static sculpture",
+      "armature": false,
+      "animations": [],
+      "materials": 11,
+      "export_meshes": 149,
+      "export_triangles": 299582,
+      "source_sha256": "50502cb501e96e81a85c0759754b11dca647764ddf908eee2686449915dfc9c1",
+      "glb_sha256": "2aa74f633ef5e2880599e0b48d22997c07ea5d688678439a913b0d0719194eb5",
+      "bounds_m": [
+        [
+          -0.6009758114814758,
+          -0.24515998363494873,
+          0.006699360441416502
+        ],
+        [
+          0.6694554090499878,
+          0.19610637426376343,
+          0.9226571321487427
+        ]
+      ]
+    },
+    {
+      "id": "02",
+      "name": "Daigo",
+      "source": "sources/02_Daigo.blend",
+      "export": "exports/02_Daigo.glb",
+      "reference": "references/02-daigo-iron-guardian.png",
+      "comparison": "previews/02_comparison.jpg",
+      "views": "previews/02_views.jpg",
+      "scope": "static sculpture",
+      "armature": false,
+      "animations": [],
+      "materials": 11,
+      "export_meshes": 286,
+      "export_triangles": 355344,
+      "source_sha256": "27cd1ed9af762a7f65da14066cc2271d53238040d15391b0af9412835555fa57",
+      "glb_sha256": "d345963231bc2af9ec0cf29bd8e4e1056a298077cfea206fdb0732e3f332566c",
+      "bounds_m": [
+        [
+          -0.7626924514770508,
+          -0.42688000202178955,
+          -0.016954002901911736
+        ],
+        [
+          0.801775336265564,
+          0.42688000202178955,
+          1.288800835609436
+        ]
+      ]
+    },
+    {
+      "id": "03",
+      "name": "Kage",
+      "source": "sources/03_Kage.blend",
+      "export": "exports/03_Kage.glb",
+      "reference": "references/03-kage-bramble-ambusher.png",
+      "comparison": "previews/03_comparison.jpg",
+      "views": "previews/03_views.jpg",
+      "scope": "static sculpture",
+      "armature": false,
+      "animations": [],
+      "materials": 14,
+      "export_meshes": 236,
+      "export_triangles": 351618,
+      "source_sha256": "fced0032a803aaaa29acaad8e9d330e712961a2fba631a4bd33a99f17e01928f",
+      "glb_sha256": "b4d0caed46a7c61966ae519db378a4274c460a0a84456f8f3eabf0ef95ee9ca3",
+      "bounds_m": [
+        [
+          -0.8816523551940918,
+          -0.2839599847793579,
+          0.00973071064800024
+        ],
+        [
+          0.8811901807785034,
+          0.2281445413827896,
+          1.1740214824676514
+        ]
+      ]
+    },
+    {
+      "id": "04",
+      "name": "Arashi",
+      "source": "sources/04_Arashi.blend",
+      "export": "exports/04_Arashi.glb",
+      "reference": "references/04-arashi-storm-tracker.png",
+      "comparison": "previews/04_comparison.jpg",
+      "views": "previews/04_views.jpg",
+      "scope": "static sculpture",
+      "armature": false,
+      "animations": [],
+      "materials": 14,
+      "export_meshes": 132,
+      "export_triangles": 389774,
+      "source_sha256": "8c9c4adb1b2a76a25cde2c7d1b625b0c258188d268cbc2811cf1b21dc80368e8",
+      "glb_sha256": "5f2fe0294ad26a9a1dcad0e6b69ad7c4171c65de385ca919583b8b9277414242",
+      "bounds_m": [
+        [
+          -0.6851497888565063,
+          -0.2773139774799347,
+          0.015515442006289959
+        ],
+        [
+          0.7535951733589172,
+          0.2222779393196106,
+          1.2739605903625488
+        ]
+      ]
+    },
+    {
+      "id": "05",
+      "name": "Haku",
+      "source": "sources/05_Haku.blend",
+      "export": "exports/05_Haku.glb",
+      "reference": "references/05-haku-blade-guard.png",
+      "comparison": "previews/05_comparison.jpg",
+      "views": "previews/05_views.jpg",
+      "scope": "static sculpture",
+      "armature": false,
+      "animations": [],
+      "materials": 9,
+      "export_meshes": 147,
+      "export_triangles": 297104,
+      "source_sha256": "9564c49b347d19995951a3ed321a68a462587acb4b90f74dd0aa2d35a305597f",
+      "glb_sha256": "e462bd4716dece05ccb55dd2ee4ea04a7f8582513a205d23fd3fc8c157950a94",
+      "bounds_m": [
+        [
+          -0.6967760920524597,
+          -0.2690100073814392,
+          0.0187482051551342
+        ],
+        [
+          0.7408668398857117,
+          0.20008213818073273,
+          1.235552191734314
+        ]
+      ]
+    },
+    {
+      "id": "06",
+      "name": "Suzu",
+      "source": "sources/06_Suzu.blend",
+      "export": "exports/06_Suzu.glb",
+      "reference": "references/06-suzu-ward-keeper.png",
+      "comparison": "previews/06_comparison.jpg",
+      "views": "previews/06_views.jpg",
+      "scope": "static sculpture",
+      "armature": false,
+      "animations": [],
+      "materials": 11,
+      "export_meshes": 198,
+      "export_triangles": 348146,
+      "source_sha256": "252573b65189a02df8953179b6f1d3af1de06035f8e873c6d6c1733d4b9edd71",
+      "glb_sha256": "c8a59da5ff2b07157b8a43343eb20bb039666e6d90c2f85e66a5d14a60873ba6",
+      "bounds_m": [
+        [
+          -0.4922434389591217,
+          -0.20123308897018433,
+          0.00048724067164584994
+        ],
+        [
+          0.44676998257637024,
+          0.20458896458148956,
+          0.8466699719429016
+        ]
+      ]
+    },
+    {
+      "id": "07",
+      "name": "Maboro",
+      "source": "sources/07_Maboro.blend",
+      "export": "exports/07_Maboro.glb",
+      "reference": "references/07-maboro-mirage-weaver.png",
+      "comparison": "previews/07_comparison.jpg",
+      "views": "previews/07_views.jpg",
+      "scope": "static sculpture",
+      "armature": false,
+      "animations": [],
+      "materials": 9,
+      "export_meshes": 116,
+      "export_triangles": 291718,
+      "source_sha256": "2c523b3893ca04e9f354d6c2876908fd018d71e4144f124093692bf1bd48b4c1",
+      "glb_sha256": "9fc7075d374e472ce5229c09cf06a63b3678a3047b19b5d7648d494250a51042",
+      "bounds_m": [
+        [
+          -0.4542454183101654,
+          -0.16533833742141724,
+          0.008810688741505146
+        ],
+        [
+          0.34685078263282776,
+          0.16806365549564362,
+          0.5259631872177124
+        ]
+      ]
+    },
+    {
+      "id": "08",
+      "name": "Iwa",
+      "source": "sources/08_Iwa.blend",
+      "export": "exports/08_Iwa.glb",
+      "reference": "references/08-iwa-shield-breaker.png",
+      "comparison": "previews/08_comparison.jpg",
+      "views": "previews/08_views.jpg",
+      "scope": "static sculpture",
+      "armature": false,
+      "animations": [],
+      "materials": 12,
+      "export_meshes": 152,
+      "export_triangles": 143152,
+      "source_sha256": "e3e86bd8852f61a867542e47776a04716e3412735d7f7808bda3c1c3fbf475eb",
+      "glb_sha256": "ebce61116f9b1a826be0d128c54afeed63d578c12992e49d4facf513aec7e1da",
+      "bounds_m": [
+        [
+          -1.1376569271087646,
+          -0.5505994558334351,
+          -0.021883152425289154
+        ],
+        [
+          0.9418950080871582,
+          0.4093892574310303,
+          1.3531121015548706
+        ]
+      ]
+    },
+    {
+      "id": "09",
+      "name": "Mine",
+      "source": "sources/09_Mine.blend",
+      "export": "exports/09_Mine.glb",
+      "reference": "references/09-mine-cliff-runner.png",
+      "comparison": "previews/09_comparison.jpg",
+      "views": "previews/09_views.jpg",
+      "scope": "static sculpture",
+      "armature": false,
+      "animations": [],
+      "materials": 14,
+      "export_meshes": 129,
+      "export_triangles": 561520,
+      "source_sha256": "c77905a00f54c1b25340a292af00b11e52c5a8b5982cb674a47c5f18a8d741b8",
+      "glb_sha256": "9c831429f9e94fc26beefc053450754915c2623cfc054a59c66f2df3dd2ce177",
+      "bounds_m": [
+        [
+          -0.7381263971328735,
+          -0.43668749928474426,
+          0.0012600123882293701
+        ],
+        [
+          0.8190083503723145,
+          0.2687751352787018,
+          1.267258882522583
+        ]
+      ]
+    },
+    {
+      "id": "10",
+      "name": "Hayate",
+      "source": "sources/10_Hayate.blend",
+      "export": "exports/10_Hayate.glb",
+      "reference": "references/10-hayate-wind-striker.png",
+      "comparison": "previews/10_comparison.jpg",
+      "views": "previews/10_views.jpg",
+      "scope": "static sculpture",
+      "armature": false,
+      "animations": [],
+      "materials": 9,
+      "export_meshes": 145,
+      "export_triangles": 252821,
+      "source_sha256": "6cd277a50264ee3efe1003e15cf72f9d4a4ee68d64748de04c9db9005eb310ca",
+      "glb_sha256": "f60646ebc968e1f810750b3a289d403079f3d18f7a83832bc1e921f370c9cf90",
+      "bounds_m": [
+        [
+          -1.3633673191070557,
+          -0.18404124677181244,
+          0.07425256073474884
+        ],
+        [
+          1.1409333944320679,
+          0.2923027575016022,
+          1.1631827354431152
+        ]
+      ]
+    }
+  ]
+}

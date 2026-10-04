@@ -2,6 +2,20 @@ extends Node3D
 signal impact_confirmed(victim, strength, duration)
 
 const SURVIVAL_MODE=true
+var descent_mode=not "--legacy-survival" in OS.get_cmdline_user_args()
+var tower_defense_mode=false
+var rogue_battle_mode=false
+var rogue_roster_mode=false
+var selected_rogue_id=3
+var rogue_original_character=1
+var rogue_roster_open=false
+var rogue_pick_start=false
+var rogue_defense_settings: Dictionary={}
+var rogue_view
+var rogue_feedback
+var defense_beta=not ("--standard-defense" in OS.get_cmdline_user_args() or "--tower-defense-test" in OS.get_cmdline_user_args() or "--tower-defense-visual" in OS.get_cmdline_user_args())
+var defense_hard="--hard-defense" in OS.get_cmdline_user_args()
+var defense_tactics=not Array(OS.get_cmdline_user_args()).any(func(arg):return arg.begins_with("--defense-fire-") or arg.begins_with("--tower-defense-beta-"))
 const AREA_NAMES=["TIDEFALL SANCTUARY", "JADE GROTTO", "SAKURA HIGHLANDS", "SUNFORGE CITADEL"]
 const BOSS_NAMES=["Lord Arashi", "Lady Hisui", "Master Hanami", "Daimyo Akagane"]
 var area_index=0
@@ -19,7 +33,10 @@ var enemies: Array[Ninja]=[]
 var active_enemy_limit=200
 var crowd: EnemyCrowd
 var pursuit: EnemyPursuit
+var adventure: IslandAdventure
 var encounters: EndlessEncounters
+var kennel
+var barracks
 var boss_enemy: Ninja
 var ui: CanvasLayer
 var hud: GameHUD
@@ -44,7 +61,7 @@ var last_sound_voice: AudioStreamPlayer
 # Attack voices are reserved: crowd impacts can never replace a swing or cast.
 const ATTACK_SOUNDS=["orb_ice","orb_fire","swing","heavy_swing","throw","fire_cast","spin_swing","giant_toss","sky_leap","sky_stomp","chain_throw","chain_sweep","chain_fire_sweep","edo_volley","edo_giant","edo_shield","edo_beam_start","edo_beam_loop","edo_meteor_cast","edo_meteor_strike","edo_dodge","goemon_dash"]
 const IMPACT_SOUNDS=["hit","heavy_hit","enemy_reaction","environment_hit","coin_hit","coin_heavy_hit","fire_impact","chain_hit","chain_explosion","edo_meteor_impact","edo_dodge_impact","goemon_dash_hit"]
-const DEFAULT_SETTINGS={"volume":0.65,"music_enabled":false,"sensitivity":1.0,"fullscreen":false,"quality":1}
+const DEFAULT_SETTINGS={"volume":0.65,"music_enabled":false,"sensitivity":1.0,"fullscreen":false,"quality":1,"goemon_skin":HeroSkins.DEFAULT_ID}
 var settings=DEFAULT_SETTINGS.duplicate()
 var settings_path="user://settings.cfg"
 var zone_seen: Dictionary={}
@@ -57,10 +74,12 @@ func _ready():
 	setup_inputs()
 	load_settings()
 	setup_audio()
+	ComboEnergy.warmup()
 	SkySmoke.warmup()
 	EdoFireExplosion.warmup()
 	sound_library=SoundLibrary.new();sound_library.game=self;add_child(sound_library)
 	world=Sanctuary.new()
+	world.descent_mode=descent_mode
 	world.process_mode=Node.PROCESS_MODE_PAUSABLE
 	add_child(world)
 	player=Hero.new()
@@ -73,6 +92,8 @@ func _ready():
 	camera_rig.player=player
 	camera_rig.sens=settings.sensitivity
 	add_child(camera_rig)
+	rogue_view=preload("res://scripts/rogue_battle_view.gd").new();rogue_view.game=self;add_child(rogue_view)
+	rogue_feedback=preload("res://scripts/rogue_battle_feedback.gd").new();rogue_feedback.game=self;add_child(rogue_feedback)
 	ui=CanvasLayer.new()
 	add_child(ui)
 	hud=GameHUD.new()
@@ -80,24 +101,100 @@ func _ready():
 	ui.add_child(hud)
 	crowd=EnemyCrowd.new();crowd.game=self;add_child(crowd)
 	pursuit=EnemyPursuit.new();pursuit.game=self;add_child(pursuit)
-	encounters=SwarmSurvival.new();encounters.game=self;add_child(encounters)
+	encounters=preload("res://scripts/sky_descent.gd").new() if descent_mode else SwarmSurvival.new();encounters.game=self;add_child(encounters)
+	adventure=IslandAdventure.new();adventure.game=self;add_child(adventure)
 	orb_system=preload("res://scripts/orb_mechanics.gd").new();orb_system.game=self;add_child(orb_system)
+	kennel=load("res://scripts/defense_kennel.gd").new();kennel.game=self;kennel.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(kennel)
+	barracks=load("res://scripts/defense_barracks.gd").new();barracks.game=self;barracks.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(barracks)
 	spawn_enemies()
 	spawn_gates()
 	pursuit.configure()
 	show_main_menu()
+	if "--rogue-siege-tests" in OS.get_cmdline_user_args() or "--rogue-siege-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/rogue_siege_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--rogue-siege" in OS.get_cmdline_user_args():
+		start_mode.call_deferred("rogue_defense")
+	elif "--rogue-battle-test" in OS.get_cmdline_user_args() or "--rogue-battle-tests" in OS.get_cmdline_user_args() or "--rogue-battle-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/rogue_battle_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--rogue-battle" in OS.get_cmdline_user_args():
+		start_mode.call_deferred("rogue")
+	if Array(OS.get_cmdline_user_args()).any(func(arg):return arg.begins_with("--defense-hero-")):
+		smoke_test=true
+		var suite=load("res://scripts/defense_hero_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif Array(OS.get_cmdline_user_args()).any(func(arg):return arg.begins_with("--defense-dog-")):
+		smoke_test=true
+		var suite=load("res://scripts/defense_dog_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif Array(OS.get_cmdline_user_args()).any(func(arg):return arg.begins_with("--defense-tactics-")):
+		smoke_test=true
+		var suite=load("res://scripts/defense_tactics_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--defense-fire-test" in OS.get_cmdline_user_args() or "--defense-fire-visual" in OS.get_cmdline_user_args() or "--defense-fire-benchmark" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/defense_fire_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--tower-defense-beta-test" in OS.get_cmdline_user_args() or "--tower-defense-beta-visual" in OS.get_cmdline_user_args() or "--tower-defense-beta-benchmark" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/defense_fire_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--tower-defense-test" in OS.get_cmdline_user_args() or "--tower-defense-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/tower_defense_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--tower-defense" in OS.get_cmdline_user_args():
+		start_mode.call_deferred("defense")
 	if "--elemental-orbs-test" in OS.get_cmdline_user_args() or "--elemental-orbs-visual" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/elemental_orb_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	if "--skins-test" in OS.get_cmdline_user_args() or "--skins-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/skin_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
 	if "--music-settings-test" in OS.get_cmdline_user_args() or "--music-settings-visual" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/music_settings_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	if "--test-ren-skin" in OS.get_cmdline_user_args():player.character_models[1].apply_skin("ren")
 	if "--direct-attacks-test" in OS.get_cmdline_user_args() or "--direct-attacks-visual" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/direct_attack_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
 	if "--robe-coins-test" in OS.get_cmdline_user_args() or "--robe-coins-visual" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/robe_coin_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	if "--attack-chain-test" in OS.get_cmdline_user_args() or "--attack-chain-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/attack_chain_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	if "--coin-scaling-test" in OS.get_cmdline_user_args() or "--coin-scaling-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/coin_scaling_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	if "--sky-combat-test" in OS.get_cmdline_user_args() or "--sky-combat-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/sky_combat_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	if "--adventure-test" in OS.get_cmdline_user_args() or "--adventure-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/adventure_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	if "--building-contact-test" in OS.get_cmdline_user_args() or "--building-contact-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/building_contact_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	if "--destruction-test" in OS.get_cmdline_user_args() or "--destruction-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/destruction_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	if "--map-shuffle-test" in OS.get_cmdline_user_args() or "--map-shuffle-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/map_shuffle_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	if "--world-performance-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/world_performance_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	if "--flight-test" in OS.get_cmdline_user_args() or "--flight-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/flight_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	if "--district-test" in OS.get_cmdline_user_args() or "--district-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/district_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	if "--descent-test" in OS.get_cmdline_user_args() or "--descent-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/sky_descent_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	if "--leveling-test" in OS.get_cmdline_user_args() or "--leveling-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/leveling_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	if "--wall-jump-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/wall_jump_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
 	if "--ronin-jumps-test" in OS.get_cmdline_user_args() or "--ronin-jumps-visual" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/ronin_jump_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
@@ -203,7 +300,7 @@ func _ready():
 	if "--area-visual-test" in OS.get_cmdline_user_args(): area_visual_test.call_deferred()
 
 func setup_inputs():
-	var keys={"walk_modifier":KEY_CTRL,"move_forward":KEY_W,"move_back":KEY_S,"move_left":KEY_A,"move_right":KEY_D,"jump":KEY_SPACE,"sprint":KEY_SHIFT,"dodge":KEY_C,"equip":KEY_E,"assist":KEY_TAB,"pause":KEY_ESCAPE,"character_toggle":KEY_Q,"weapon_pipe":KEY_1,"weapon_coin":KEY_2,"weapon_chain":KEY_3,"scarf_toggle":KEY_4,"interact":KEY_F,"surge":KEY_R,"sky_strike":KEY_T,"prototype_lab":KEY_F1}
+	var keys={"walk_modifier":KEY_CTRL,"move_forward":KEY_W,"move_back":KEY_S,"move_left":KEY_A,"move_right":KEY_D,"jump":KEY_SPACE,"sprint":KEY_SHIFT,"dodge":KEY_C,"equip":KEY_E,"assist":KEY_TAB,"pause":KEY_ESCAPE,"character_toggle":KEY_Q,"weapon_pipe":KEY_1,"weapon_coin":KEY_2,"weapon_chain":KEY_3,"scarf_toggle":KEY_4,"gold_cloak":KEY_5,"interact":KEY_F,"surge":KEY_R,"sky_strike":KEY_T,"prototype_lab":KEY_F1,"shuffle_map":KEY_Y,"summon_dogs":KEY_G,"summon_heroes":KEY_H}
 	for action in keys:
 		if not InputMap.has_action(action): InputMap.add_action(action)
 		var event=InputEventKey.new()
@@ -377,6 +474,8 @@ func expanded_enemy_spots(base: Array)->Array:
 	return result
 
 func clear_menu():
+	if is_instance_valid(kennel):kennel.menu_open=false
+	if is_instance_valid(barracks):barracks.menu_open=false
 	if is_instance_valid(sound_library): sound_library.cancel()
 	if is_instance_valid(menu):
 		menu.queue_free()
@@ -427,6 +526,17 @@ func menu_base()->Control:
 	return menu
 
 func show_main_menu():
+	rogue_roster_open=false;rogue_pick_start=false
+	var restore_hero=rogue_roster_mode or player.is_rogue_character()
+	rogue_roster_mode=false
+	if restore_hero:player.select_character(rogue_original_character)
+	restore_defense_settings()
+	rogue_battle_mode=false
+	if is_instance_valid(rogue_view):rogue_view.set_enabled(false)
+	if is_instance_valid(rogue_feedback):rogue_feedback.set_enabled(false)
+	if is_instance_valid(kennel):kennel.reset()
+	if is_instance_valid(barracks):barracks.reset()
+	if is_instance_valid(adventure):adventure.reset()
 	player.cancel_charge()
 	player.end_surge()
 	player.clear_powerups()
@@ -446,28 +556,207 @@ func show_main_menu():
 	player.visible=true
 	player.model.visible=true
 	player.position=Vector3(1,world.height_at(1,38),38)
+	player.buildings_broken=0
 	player.scale=Vector3.ONE*1.65
 	player.model.rotation.y=PI+0.4
 	camera_rig.camera.position=Vector3(8,5.8,47)
 	camera_rig.camera.look_at(Vector3(-2,2.6,35))
 	camera_rig.camera.fov=56
+	if descent_mode:
+		var top=world.sky_islands.islands[0]
+		player.position=top+Vector3(0,.12,3.8)
+		camera_rig.camera.global_position=top+Vector3(24,17,28)
+		camera_rig.camera.look_at(top+Vector3(0,-5,0))
+		world.sky_islands.highlight(0)
+	elif tower_defense_mode:
+		player.position=world.spawn_point
+		camera_rig.camera.global_position=Vector3(95,145,120) if defense_beta else Vector3(225,170,120)
+		camera_rig.camera.look_at(Vector3(0,0,-80))
 	var root=menu_base()
-	label_at(root,"1 0   M I N U T E   S W A R M   S U R V I V A L",Vector2(74,108),15,Color("f4d38b"))
+	label_at(root,"S K Y   A B O V E .   S T A N D   Y O U R   G R O U N D .",Vector2(74,108),15,Color("f4d38b"))
 	label_at(root,"GOEMON",Vector2(68,150),76)
-	label_at(root,"T I D E F A L L   S A N C T U A R Y",Vector2(76,355),20,Color("f4d38b"))
-	label_at(root,"100 enemies to start. New swarms every 10 seconds.",Vector2(76,411),20)
-	button_at(root,"PLAY  /  Survive 10 minutes",Vector2(76,491),start_game).grab_focus()
-	button_at(root,"Settings",Vector2(76,555),func(): show_settings(false))
-	button_at(root,"Quit",Vector2(76,619),quit_clean)
+	label_at(root,"C H O O S E   Y O U R   A D V E N T U R E",Vector2(76,345),20,Color("f4d38b"))
+	label_at(root,"Your heroes. Your world. Choose how you battle.",Vector2(76,393),20)
+	var primary_mode="survival" if "--legacy-survival" in OS.get_cmdline_user_args() else "descent"
+	button_at(root,"PLAY  /  Sky Descent" if primary_mode=="descent" else "PLAY  /  Swarm Survival",Vector2(76,456),start_mode.bind(primary_mode),460).grab_focus()
+	label_at(root,"784 islands · Explore, fly, and descend to Tidefall" if primary_mode=="descent" else "Ten minutes · Growing enemy swarms",Vector2(88,519),16,Color("d8e6df"))
+	var defense_button=button_at(root,"TOWER DEFENSE  /  Fire Siege" if defense_beta else "TOWER DEFENSE  /  Three Gates",Vector2(76,572),show_defense_setup if defense_beta else start_mode.bind("defense"),460)
+	defense_button.name="TowerDefenseButton"
+	label_at(root,"10 waves · Upgrade cards · Dogs and character summons" if defense_beta else "Three lanes · Earn gold · Build cannons · Hold the shrine",Vector2(88,635),16,Color("d8e6df"))
+	var rogue_button=button_at(root,"ROGUE BATTLE  /  Cursor combat",Vector2(650,456),start_mode.bind("rogue"),500)
+	rogue_button.name="RogueBattleButton"
+	label_at(root,"Sky Descent · Angled camera · Mouse to aim",Vector2(662,519),16,Color("d8e6df"))
+	var siege_button=button_at(root,"ROGUE SIEGE  /  Tower Defense",Vector2(650,572),show_defense_setup.bind(true),500)
+	siege_button.name="RogueSiegeButton"
+	label_at(root,"Goemon + 10 Rogue fighters · Cursor combat",Vector2(662,635),16,Color("d8e6df"))
+	button_at(root,"Settings",Vector2(76,706),func(): show_settings(false),220)
+	button_at(root,"Quit",Vector2(312,706),quit_clean,224)
 	label_at(root,"PROCEDURAL WORLD  /  ORIGINAL CHARACTER  /  GODOT 4",Vector2(76,822),12,Color("c4d6d2"))
-	label_at(root,"SWARM SURVIVAL     01",Vector2(1050,825),14,Color("efd297"))
+	label_at(root,"SKY DESCENT   /   FIRE SIEGE" if defense_beta else "SKY DESCENT   /   THREE GATES",Vector2(1030,825),14,Color("efd297"))
 
-func start_game():
+func show_defense_setup(rogue: bool=false):
+	var root=menu_base()
+	label_at(root,"ROGUE SIEGE" if rogue else "FIRE SIEGE",Vector2(92,150),58)
+	label_at(root,"Choose your defense challenge",Vector2(96,230),25,Color("f1d390"))
+	label_at(root,"Pick one of three cards before every wave. Your build lasts the run.",Vector2(96,282),21)
+	label_at(root,"Ice shells · Fire paths · Armored enemies · Bosses on waves 5 and 10",Vector2(96,321),18,Color("b9d7da"))
+	button_at(root,"BETA  /  Full battery",Vector2(96,398),start_rogue_defense.bind(false) if rogue else start_defense.bind(false),500).grab_focus()
+	label_at(root,"24 defenses · 12,000 gold · 100 shrine integrity",Vector2(108,461),18,Color("cddad6"))
+	button_at(root,"HARD  /  Build your defense",Vector2(96,524),start_rogue_defense.bind(true) if rogue else start_defense.bind(true),500)
+	label_at(root,"4 defenses · 650 gold · 50 shrine integrity",Vector2(108,587),18,Color("cddad6"))
+	label_at(root,"G · Summon dogs   /   H · Summon characters from the castle",Vector2(108,640),18,Color("a1e2d7"))
+	if rogue:
+		label_at(root,"ROGUE COMBAT",Vector2(720,405),26,Color("f1d390"))
+		label_at(root,"Play Goemon or any of the ten Rogue fighters.",Vector2(720,456),19)
+		label_at(root,"Mouse aim · LMB / RMB attacks",Vector2(720,499),18)
+		label_at(root,"C / E utility · R skill · Q change fighter",Vector2(720,533),18)
+		label_at(root,"Same siege, defenses, cards, and allied squads.",Vector2(720,585),18,Color("a1e2d7"))
+	button_at(root,"Back",Vector2(96,710),show_main_menu,240)
+
+func start_defense(hard: bool=false):
+	defense_hard=hard
+	start_mode("defense")
+
+func start_rogue_defense(hard: bool=false):
+	defense_hard=hard
+	show_rogue_roster(true)
+
+func show_rogue_roster(starting: bool=false):
+	if not starting and (not rogue_roster_mode or not playing or won or player.hp<=0 or transitioning):return
+	if not starting:
+		player.cancel_charge(true);Engine.time_scale=1
+		paused=true;get_tree().paused=true
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	var root=menu_base()
+	rogue_roster_open=true;rogue_pick_start=starting
+	var picker=load("res://scripts/rogue_roster_picker.gd").new()
+	picker.game=self;root.add_child(picker)
+
+func choose_rogue_character(id: int):
+	if not rogue_roster_open or (id!=1 and not player.RogueRoster.is_rogue(id)):return
+	selected_rogue_id=id
+	var starting=rogue_pick_start
+	rogue_roster_open=false;rogue_pick_start=false
+	if starting:start_mode("rogue_defense")
+	else:
+		player.select_character(id)
+		resume()
+
+func close_rogue_roster():
+	var starting=rogue_pick_start
+	rogue_roster_open=false;rogue_pick_start=false
+	if starting:show_defense_setup(true)
+	else:resume()
+
+func defense_drafting()->bool:
+	return tower_defense_mode and playing and is_instance_valid(encounters) and encounters.get("phase")=="draft"
+
+func show_defense_cards():
+	if not defense_drafting():return
+	player.cancel_charge(true);Engine.time_scale=1
+	paused=true;get_tree().paused=true;Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	var root=menu_base()
+	var picker=load("res://scripts/defense_card_picker.gd").new()
+	picker.game=self;picker.director=encounters;root.add_child(picker)
+
+func show_dog_roster():
+	if not tower_defense_mode or not defense_beta or not playing or won or transitioning:return
+	if paused and not (kennel.menu_open or barracks.menu_open):return
+	if player.hp<=0 or encounters.base_hp<=0 or defense_drafting():return
+	player.cancel_charge(true);Engine.time_scale=1
+	paused=true;get_tree().paused=true;Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	var root=menu_base()
+	kennel.menu_open=true
+	var picker=load("res://scripts/defense_dog_picker.gd").new()
+	picker.game=self;root.add_child(picker)
+
+func close_dog_roster():
+	if not is_instance_valid(kennel) or not kennel.menu_open:return
+	kennel.menu_open=false
+	resume()
+
+func summon_defense_dog(id: String):
+	if not is_instance_valid(kennel) or not kennel.menu_open:return
+	if not kennel.summon(id):return
+	var dog=DefenseDogCatalog.get_dog(id)
+	kennel.menu_open=false
+	resume()
+	toast("%s summoned · Leaving the castle" % dog.name)
+
+func show_hero_roster():
+	if not tower_defense_mode or not defense_beta or not playing or won or transitioning:return
+	if paused and not (kennel.menu_open or barracks.menu_open):return
+	if player.hp<=0 or encounters.base_hp<=0 or defense_drafting():return
+	player.cancel_charge(true);Engine.time_scale=1
+	paused=true;get_tree().paused=true;Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	var root=menu_base()
+	barracks.menu_open=true
+	var picker=load("res://scripts/defense_hero_picker.gd").new()
+	picker.game=self;root.add_child(picker)
+
+func close_hero_roster():
+	if not is_instance_valid(barracks) or not barracks.menu_open:return
+	barracks.menu_open=false
+	resume()
+
+func summon_defense_hero(id: String):
+	if not is_instance_valid(barracks) or not barracks.menu_open:return
+	if not barracks.summon(id):return
+	var hero=DefenseHeroCatalog.get_hero(id)
+	barracks.menu_open=false
+	resume()
+	toast("%s summoned · Leaving the castle" % hero.name)
+
+func start_mode(mode: String):
+	if transitioning or mode not in ["descent","defense","survival","rogue","rogue_defense"]:return
+	var was_rogue_roster=rogue_roster_mode
+	if mode!="rogue_defense":restore_defense_settings()
+	rogue_view.set_enabled(false)
+	rogue_feedback.set_enabled(false)
+	rogue_roster_open=false;rogue_pick_start=false
+	rogue_roster_mode=mode=="rogue_defense"
+	rogue_battle_mode=mode in ["rogue","rogue_defense"]
+	# Stop the outgoing director before replacing its world and collision bodies.
+	playing=false
+	if is_instance_valid(kennel):kennel.reset()
+	if is_instance_valid(barracks):barracks.reset()
+	encounters.reset()
+	encounters.set_physics_process(false)
+	remove_child(encounters)
+	encounters.queue_free()
+	tower_defense_mode=mode in ["defense","rogue_defense"]
+	descent_mode=mode in ["descent","rogue"]
+	if rogue_roster_mode:
+		if rogue_defense_settings.is_empty():rogue_defense_settings={"beta":defense_beta,"tactics":defense_tactics}
+		if not was_rogue_roster and player.ROSTER.has(player.character_id):rogue_original_character=player.character_id
+		defense_beta=true;defense_tactics=true
+		player.select_character(selected_rogue_id)
+	elif was_rogue_roster or player.is_rogue_character():player.select_character(rogue_original_character)
+	encounters=load("res://scripts/tower_defense.gd").new() if tower_defense_mode else (preload("res://scripts/sky_descent.gd").new() if descent_mode else SwarmSurvival.new())
+	if tower_defense_mode:
+		encounters.beta_mode=defense_beta;encounters.tactics_enabled=defense_tactics;encounters.hard_mode=defense_hard
+	encounters.game=self
+	add_child(encounters)
+	camera_rig.camera.far=3200 if descent_mode else 1400
+	start_game()
+
+func restore_defense_settings():
+	if rogue_defense_settings.is_empty():return
+	defense_beta=rogue_defense_settings.beta;defense_tactics=rogue_defense_settings.tactics
+	rogue_defense_settings.clear()
+
+func start_game(seed_override: int=-1):
+	if transitioning:return
+	rogue_feedback.clear()
+	adventure.reset()
+	player.run_upgrades={"damage":0,"vitality":0,"tempo":0}
+	player.attack_chain.reset()
+	player.buildings_broken=0
+	player.scale=Vector3.ONE
 	player.cancel_charge()
 	player.end_surge()
 	player.clear_powerups()
-	if transitioning: return
-	run_seed=90824 if smoke_test else int(Time.get_ticks_usec())%2147483647
+	run_seed=seed_override if seed_override>=0 else (90824 if smoke_test else int(Time.get_ticks_usec())%2147483647)
 	area_states.clear()
 	area_cleared.clear()
 	rebuild_area(0)
@@ -478,6 +767,7 @@ func start_game():
 	won=false
 	boss_active=false
 	kills=0
+	player.progression.reset(descent_mode)
 	chain=0
 	sparks=0
 	for mote in world.motes:
@@ -491,7 +781,7 @@ func start_game():
 	player.model.charge_release=-1.0
 	player.model.charge_pose_weight=0
 	player.model.locomotion.reset()
-	player.max_hp=tuning.max_hp
+	player.refresh_max_health()
 	player.hp=player.max_hp
 	player.invuln=0
 	player.dodge_time=0
@@ -500,6 +790,7 @@ func start_game():
 	player.jump_windup=0
 	player.heavy_buffer=0
 	player.jump_buffer=0
+	player.reset_wall_jump()
 	player.coyote=0
 	player.combo_window=0
 	player.combo=0
@@ -520,23 +811,76 @@ func start_game():
 	player.model.equipped=true
 	player.facing=Vector3.FORWARD
 	player.model.rotation=Vector3.ZERO
+	for id in player.character_abilities:
+		if player.RogueRoster.is_rogue(id):player.character_abilities[id].reset_run()
 	camera_rig.yaw=0
 	camera_rig.pitch=0.36
 	camera_rig.distance=14.0
 	camera_rig.reset_follow()
-	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if rogue_battle_mode else Input.MOUSE_MODE_CAPTURED
 	encounters.begin()
+	kennel.begin()
+	barracks.begin()
 	orb_system.begin()
-	toast("Survive 10 minutes · Waves grow by 10 enemies each minute · C Evade")
+	rogue_view.set_enabled(rogue_battle_mode)
+	if rogue_battle_mode:rogue_view.reset()
+	rogue_feedback.set_enabled(rogue_battle_mode)
+	if rogue_roster_mode:
+		toast("ROGUE SIEGE · Q Fighters · C Evade / E Dash · R Surge · F Upgrade · G / H Allies" if player.character_id==1 else "ROGUE SIEGE · Q Fighters · C / E Utility · R Skill · F Upgrade · G / H Allies")
+		return
+	if rogue_battle_mode:
+		toast("ROGUE BATTLE · Mouse aim · Hold LMB combo · RMB heavy · C evade")
+		return
+	toast(("Choose a card · F build / upgrade · G dogs · H characters" if defense_beta else "F at a wall mount · Buy cannons · Defend all three lanes") if tower_defense_mode else ("Choose any island · Stand on clouds · Drop freely · Y new map" if descent_mode else "Survive 10 minutes · Waves grow by 10 enemies each minute · C Evade"))
+
+func shuffle_map():
+	if transitioning:return
+	# Defer reconstruction out of input/physics callbacks and ignore key repeat.
+	transitioning=true
+	var root=menu_base()
+	label_at(root,"GENERATING A NEW MAP…",Vector2(92,260),36)
+	label_at(root,"Fresh islands, towns and encounters",Vector2(96,323),20,Color("dfc384"))
+	call_deferred("finish_map_shuffle")
+
+func finish_map_shuffle():
+	# Allow the loading message to render before rebuilding scene geometry.
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var next_seed=(run_seed+104729+int(Time.get_ticks_usec())%1000000)%2147483647
+	transitioning=false
+	start_game(next_seed)
+	toast("NEW MAP · Fresh descent · Y shuffle / Esc restart this map")
 
 func _unhandled_input(event):
 	if transitioning: return
+	if rogue_roster_mode and playing and event.is_action_pressed("character_toggle") and not event.is_echo():
+		if rogue_roster_open:close_rogue_roster()
+		else:show_rogue_roster()
+		get_viewport().set_input_as_handled();return
+	if event.is_action_pressed("summon_dogs") and not event.is_echo() and tower_defense_mode and defense_beta and playing:
+		if not paused:show_dog_roster()
+		get_viewport().set_input_as_handled();return
+	if event.is_action_pressed("summon_heroes") and not event.is_echo() and tower_defense_mode and defense_beta and playing:
+		if not paused:show_hero_roster()
+		get_viewport().set_input_as_handled();return
+	if tower_defense_mode and playing and encounters.base_hp<=0:return
+	if defense_drafting() and event.is_action_pressed("prototype_lab"):
+		get_viewport().set_input_as_handled();return
+	if defense_drafting() and event.is_action_pressed("pause"):
+		if is_instance_valid(menu) and menu.find_child("DefenseCard_0",true,false)!=null:show_pause()
+		else:show_defense_cards()
+		get_viewport().set_input_as_handled();return
+	if event.is_action_pressed("shuffle_map") and descent_mode and playing:
+		shuffle_map();get_viewport().set_input_as_handled();return
 	if event.is_action_pressed("prototype_lab") and playing and player.hp>0 and not won:
 		if paused: resume()
 		else: show_lab()
 		get_viewport().set_input_as_handled()
 	if event.is_action_pressed("interact") and playing and not paused:
-		use_nearby_gate()
+		if tower_defense_mode:
+			encounters.try_purchase();get_viewport().set_input_as_handled()
+		elif not adventure.pending_rewards.is_empty():adventure.show_choices()
+		else:use_nearby_gate()
 	if event.is_action_pressed("pause") and playing and player.hp>0 and not won:
 		if paused: resume()
 		else: show_pause()
@@ -551,20 +895,28 @@ func show_pause():
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	var root=menu_base()
 	label_at(root,"TAKE A BREATH",Vector2(92,160),43)
-	label_at(root,"Countdown and enemy waves are paused.",Vector2(94,220),19,Color("dfc384"))
-	button_at(root,"F1 · Prototype Lab",Vector2(470,304),show_lab,340)
+	label_at(root,"Waves, cannons, and the shrine are paused." if tower_defense_mode else ("Your descent and island encounters are paused." if descent_mode else "Countdown and enemy waves are paused."),Vector2(94,220),19,Color("dfc384"))
+	if not defense_drafting():button_at(root,"F1 · Prototype Lab",Vector2(470,304),show_lab,340)
+	if rogue_roster_mode:button_at(root,"Q · Change Rogue fighter",Vector2(470,367),show_rogue_roster,380)
+	if descent_mode:
+		button_at(root,"Y · Shuffle map + new run",Vector2(470,367),shuffle_map,380)
+		label_at(root,"Map seed: %d" % run_seed,Vector2(474,437),16,Color("dfc384"))
 	button_at(root,"Resume",Vector2(96,304),resume).grab_focus()
 	button_at(root,"Settings",Vector2(96,367),func(): show_settings(true))
-	button_at(root,"Restart survival",Vector2(96,430),restart_area)
+	button_at(root,"Restart Rogue Siege" if rogue_roster_mode else ("Restart Rogue Battle" if rogue_battle_mode else ("Restart defense" if tower_defense_mode else ("Restart descent" if descent_mode else "Restart survival"))),Vector2(96,430),restart_area)
 	button_at(root,"Main menu",Vector2(96,493),show_main_menu)
 	button_at(root,"Quit",Vector2(96,556),quit_clean)
 
 func resume():
 	if won or player.hp<=0:return
+	if tower_defense_mode and encounters.base_hp<=0:return
+	rogue_roster_open=false;rogue_pick_start=false
+	if defense_drafting():show_defense_cards();return
+	adventure.choosing=false
 	clear_menu()
 	paused=false
 	get_tree().paused=false
-	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if rogue_battle_mode else Input.MOUSE_MODE_CAPTURED
 
 func show_settings(from_pause: bool):
 	var root=menu_base()
@@ -615,6 +967,7 @@ func show_settings(from_pause: bool):
 	options.selected=settings.quality
 	root.add_child(options)
 	options.item_selected.connect(func(v): settings.quality=v; apply_quality(); save_settings())
+	button_at(root,"Playable skins · Choose your look",Vector2(710,211),func(): show_skin_picker(from_pause),480).name="PlayableSkinsButton"
 	button_at(root,"Sound Studio · Record sounds",Vector2(710,351),func(): show_sound_studio(from_pause),480)
 	if from_pause: button_at(root,"Prototype Lab · Gameplay tuning",Vector2(710,283),show_lab,400)
 	label_at(root,"EDO · FIRE BEAM",Vector2(710,437),22,Color("dfc384"))
@@ -627,6 +980,16 @@ func show_settings(from_pause: bool):
 	label_at(root,"Hold T to sustain · Release T to stop",Vector2(710,673),15)
 	button_at(root,"Back",Vector2(96,650),show_pause if from_pause else show_main_menu)
 
+func show_skin_picker(from_pause: bool):
+	var root=menu_base()
+	var picker=preload("res://scripts/skin_picker.gd").new()
+	picker.name="SkinPicker";picker.game=self;picker.from_pause=from_pause;root.add_child(picker)
+
+func select_goemon_skin(id: String):
+	settings.goemon_skin=HeroSkins.valid_id(id)
+	player.character_models[1].apply_skin(settings.goemon_skin)
+	save_settings()
+
 func show_sound_studio(from_pause: bool):
 	var root=menu_base()
 	var studio=SoundStudio.new();studio.game=self;studio.from_pause=from_pause;root.add_child(studio)
@@ -638,6 +1001,10 @@ func load_settings():
 		for k in settings: settings[k]=c.get_value("settings",k,DEFAULT_SETTINGS[k])
 		for k in tuning: tuning[k]=c.get_value("prototype",k,tuning[k])
 		tuning=PrototypeTuning.sanitized(tuning)
+	# Debug freeze belongs to this session, never the next playable launch.
+	tuning.freeze_ai=false
+	settings.goemon_skin=HeroSkins.valid_id(settings.goemon_skin)
+	if is_instance_valid(player):player.character_models[1].apply_skin(settings.goemon_skin)
 	AudioServer.set_bus_volume_db(0,linear_to_db(settings.volume))
 	apply_music_setting()
 	if settings.fullscreen: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
@@ -646,7 +1013,7 @@ func load_settings():
 func save_settings():
 	var c=ConfigFile.new()
 	for k in settings: c.set_value("settings",k,settings[k])
-	for k in tuning: c.set_value("prototype",k,tuning[k])
+	for k in tuning: c.set_value("prototype",k,false if k=="freeze_ai" else tuning[k])
 	c.save(settings_path)
 
 func apply_quality():
@@ -676,7 +1043,7 @@ func victory():
 	hud.banner="ALL FOUR SEALS RESTORED" if won else BOSS_NAMES[area_index].to_upper()+" DEFEATED"
 	hud.banner_time=6
 	toast("Expedition complete · Return through any door to explore" if won else ("Guardian defeated · Doors remain open; F to travel" if area_index<3 else "Return through the entrance to finish remaining guardians"))
-	player.max_hp=tuning.max_hp
+	player.refresh_max_health()
 	player.hp=player.max_hp
 	for gate in gates: gate.refresh()
 	sound("spark")
@@ -698,15 +1065,36 @@ func survival_victory():
 	button_at(root,"Main menu",Vector2(96,449),show_main_menu)
 	sound("spark")
 
+func defense_victory():
+	if won or player.hp<=0 or encounters.base_hp<=0:return
+	if is_instance_valid(kennel):kennel.reset()
+	if is_instance_valid(barracks):barracks.reset()
+	won=true;encounters.active=false
+	player.cancel_charge();player.end_surge()
+	paused=true;get_tree().paused=true;Engine.time_scale=1
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	var root=menu_base()
+	label_at(root,"ALL TEN WAVES DEFEATED",Vector2(92,230),42)
+	label_at(root,"%d defeated · %d breached · Shrine %d / %d" % [encounters.run_kills,encounters.run_breaches,encounters.base_hp,encounters.base_max_hp],Vector2(96,296),20,Color("e6cf97"))
+	label_at(root,("%s cleared · %d upgrade cards chosen" % ["Hard mode" if encounters.hard_mode else "Beta",encounters.card_history.size()]) if encounters.tactics_enabled else "Fire Siege complete. Try another defense setup.",Vector2(96,336),18)
+	button_at(root,"Restart Fire Siege",Vector2(96,400),restart_area,350).grab_focus()
+	button_at(root,"Main menu",Vector2(96,469),show_main_menu,350)
+	sound("spark")
+
 func defeat():
+	if is_instance_valid(kennel):kennel.reset()
+	if is_instance_valid(barracks):barracks.reset()
+	player.quick_attacks.stop_coins()
+	player.attack_chain.reset()
 	encounters.active=false
 	player.cancel_charge()
 	paused=true
 	get_tree().paused=true
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	var root=menu_base()
-	label_at(root,"A SPARK NEVER FADES",Vector2(92,230),42)
-	label_at(root,"Survived %s · Wave %d · %d defeated" % [encounters.clock_text(encounters.elapsed),encounters.wave,kills],Vector2(96,296),20,Color("e6cf97"))
+	label_at(root,"THE SHRINE HAS FALLEN" if tower_defense_mode and encounters.base_hp<=0 else "A SPARK NEVER FADES",Vector2(92,230),42)
+	var result="Wave %d · %d defeated · %d gold remaining" % [encounters.wave,kills,encounters.money] if tower_defense_mode else ("Island %d / %d · Level %d · %d defeated" % [encounters.current_island+1,world.sky_islands.COUNT,player.progression.level,kills] if descent_mode else "Survived %s · Wave %d · %d defeated" % [encounters.clock_text(encounters.elapsed),encounters.wave,kills])
+	label_at(root,result,Vector2(96,296),20,Color("e6cf97"))
 	button_at(root,"Try again",Vector2(96,380),restart_area).grab_focus()
 	button_at(root,"Main menu",Vector2(96,449),show_main_menu)
 
@@ -717,6 +1105,7 @@ func _process(delta):
 		return
 	if paused: return
 	portal_hint=""
+	if tower_defense_mode:portal_hint=encounters.interaction_prompt()
 	for gate in gates:
 		if player.position.distance_to(gate.position)<AreaGate.INTERACTION_RADIUS: portal_hint=gate.prompt()
 	hit_stop=maxf(0,hit_stop-delta) # Compatibility/debug meter; no global time dilation.
@@ -724,7 +1113,7 @@ func _process(delta):
 	if chain_timer<=0: chain=0
 	for key in world.landmarks:
 		var p=world.landmarks[key]
-		if Vector2(player.position.x-p.x,player.position.z-p.z).length()<12 and not zone_seen.has(key):
+		if absf(player.position.y-world.height_at(p.x,p.z))<8 and Vector2(player.position.x-p.x,player.position.z-p.z).length()<12 and not zone_seen.has(key):
 			zone_seen[key]=true
 			hud.banner=key
 			hud.banner_time=3.5
@@ -908,51 +1297,59 @@ func send_action(action: String):
 	release.pressed=false
 	Input.parse_input_event(release)
 
-func throw_coin(heavy: bool,charged: bool=false,power: float=1.0):
-	var from=player.global_position+Vector3.UP*1.25
-	var direction=Vector3.FORWARD.rotated(Vector3.UP,camera_rig.yaw)
-	var target: Ninja=null
-	var best_score=-100.0
-	if player.soft_target:
-		for e in enemies:
-			if not is_instance_valid(e) or e.dead: continue
-			var aim=e.global_position+Vector3.UP*(1.65 if e.boss else 1.1)
-			var diff=aim-from
-			var flat=Vector3(diff.x,0,diff.z).normalized()
-			var alignment=direction.dot(flat)
-			if diff.length()>30 or alignment<0.70: continue
-			var ray=PhysicsRayQueryParameters3D.create(from,aim,1)
-			if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty(): continue
-			var score=alignment*30-diff.length()*0.35
-			if score>best_score:
-				best_score=score
-				target=e
-	if target: direction=(target.global_position+Vector3.UP*(1.65 if target.boss else 1.1)-from).normalized()
-	player.facing=Vector3(direction.x,0,direction.z).normalized()
-	var count=1 if charged else int(tuning.split_count if heavy else tuning.coin_count)
-	for i in range(count):
-		var angle=(i-(count-1)*0.5)*(0.16 if heavy else 0.07)
-		spawn_gold_coin(from+direction*0.48,direction.rotated(Vector3.UP,angle),heavy,charged,power)
+func attack_direction()->Vector3:
+	if rogue_battle_mode and is_instance_valid(rogue_view):
+		rogue_view.update_aim()
+		return rogue_view.aim_direction()
+	return Vector3.FORWARD.rotated(Vector3.UP,camera_rig.yaw)
+
+func projectile_direction(origin: Vector3)->Vector3:
+	if rogue_battle_mode and is_instance_valid(rogue_view):
+		var offset: Vector3=rogue_view.aim+Vector3.UP*1.1-origin
+		if offset.length_squared()>.01:return offset.normalized()
+	return attack_direction()
+
+func throw_coin(heavy: bool,charged: bool=false,power: float=1.0,ticket: Dictionary={},automatic: bool=false):
+	if ticket.is_empty():ticket=player.attack_ticket if not player.attack_ticket.is_empty() else player.attack_chain.active_ticket
+	var from=player.global_position+Vector3.UP*1.25*player.growth_multiplier()
+	var direction=projectile_direction(from)
+	# Key 2 always selects the closest unobstructed enemy actually in the camera.
+	var target=AttackChain.screen_target(player,from,tuning.coin_speed*2.0*player.growth_multiplier()-.5) if automatic or player.soft_target or player.growth_multiplier()>1.01 or (player.quick_attacks.active and player.quick_attacks.action==2) else null
+	if target and (automatic or not rogue_battle_mode):direction=(AttackChain.aim_point(target)-from).normalized()
+	if not automatic:player.facing=Vector3(direction.x,0,direction.z).normalized()
+	if automatic:
+		spawn_gold_coin(from+direction*.48,direction,heavy,charged,power,false,0,ticket,false,player.progression.coin_count())
+		if player.scarf_equipped:spawn_gold_coin(from,direction.rotated(Vector3.UP,.12),false,false,1,false,0,ticket)
+	else:
+		var count=1 if charged else int(tuning.split_count if heavy else tuning.coin_count)
+		for i in range(count):
+			var angle=(i-(count-1)*.5)*(.16 if heavy else .07)
+			spawn_gold_coin(from+direction*.48,direction.rotated(Vector3.UP,angle),heavy,charged,power,false,0,ticket)
+	# Coins still confirm combo hits, but only melee may create a red bonus slash.
 	sound("giant_toss" if charged else "throw",0.4)
 
-func spawn_gold_coin(origin: Vector3,direction: Vector3,heavy: bool=false,charged: bool=false,power: float=1.0):
-	var coin=GoldCoin.new()
-	coin.game=self
+func spawn_gold_coin(origin: Vector3,direction: Vector3,heavy: bool=false,charged: bool=false,power: float=1.0,energy: bool=false,tilt: float=0.0,ticket: Dictionary={},cross: bool=false,count: int=1)->GoldCoin:
+	var coin: GoldCoin=preload("res://scripts/coin_volley.gd").new() if count>1 else GoldCoin.new()
+	coin.coin_count=count
+	coin.game=self;coin.combo_energy=energy;coin.slash_tilt=tilt
+	coin.attack_ticket=player.attack_chain.active_ticket if ticket.is_empty() else ticket
+	coin.cross_slash=cross
 	coin.heavy=heavy or charged
 	coin.piercing=charged
 	coin.damage=(tuning.charged_damage*power if charged else tuning.coin_damage*(1.2 if heavy else 1.0))*player.damage_multiplier()
 	var size_bonus=tuning.surge_coin_size if player.surge_left>0 else 1.0
-	coin.hit_radius=(tuning.charged_radius*(0.6+power*0.4) if charged else 0.3)*size_bonus*player.pickup_multiplier("range")
+	coin.hit_radius=(tuning.charged_radius*(0.6+power*0.4) if charged else 0.3)*size_bonus*player.pickup_multiplier("range")*player.growth_multiplier()
 	coin.visual_size=(coin.hit_radius/0.45 if charged else (1.3 if heavy else 1.0)*size_bonus)
 	coin.position=origin
 	coin.velocity=direction*tuning.coin_speed*(tuning.surge_coin_speed if player.surge_left>0 else 1.0)*player.attack_speed_multiplier()
-	coin.lifetime=2.0/player.attack_speed_multiplier()
+	coin.lifetime=2.0*player.growth_multiplier()/player.attack_speed_multiplier()
 	add_child(coin)
+	return coin
 
 func throw_robe_coins(heading: Vector3,radial: bool=false,spread: bool=false):
 	var direction=Vector3(heading.x,0,heading.z).normalized()
 	if direction.is_zero_approx():direction=Vector3.FORWARD
-	var from=player.global_position+Vector3.UP*1.25
+	var from=player.global_position+Vector3.UP*1.25*player.growth_multiplier()
 	# One release per contact: every combo stage gets a coin, a spin gets a full ring.
 	# Offset the extra ranged coin so it is visible alongside the normal toss.
 	for i in range(16 if radial else 1):
@@ -971,6 +1368,7 @@ func spin_slash(p: Vector3,radius: float):
 
 func spawn_gates():
 	gates.clear()
+	if tower_defense_mode:return
 	if SURVIVAL_MODE:
 		WorldExpansion.walls(world,Geo.mat("69816a"))
 		return
@@ -1015,18 +1413,25 @@ func remember_defeat(enemy: Ninja):
 	area_states[area_index].enemies[enemy.encounter_id]={"hp":0,"position":enemy.position,"dead":true}
 
 func rebuild_area(index: int):
+	if is_instance_valid(kennel):kennel.reset()
+	if is_instance_valid(barracks):barracks.reset()
 	if SURVIVAL_MODE:index=0
+	encounters.reset()
 	for projectile in get_tree().get_nodes_in_group("projectiles"): projectile.queue_free()
 	for effect in get_tree().get_nodes_in_group("boss_waves"): effect.queue_free()
 	for pickup in get_tree().get_nodes_in_group("energy_pickups"):pickup.queue_free()
 	for effect in get_tree().get_nodes_in_group("sky_smoke"):effect.queue_free()
 	for effect in get_tree().get_nodes_in_group("edo_explosions"):effect.queue_free()
+	for effect in get_tree().get_nodes_in_group("combo_energy"):effect.queue_free()
+	for effect in get_tree().get_nodes_in_group("building_rubble"):effect.queue_free()
 	if is_instance_valid(world):
 		remove_child(world)
 		world.queue_free()
 	area_index=index
 	boss_active=false
-	world=Sanctuary.new() if index==0 else ExpeditionArea.new()
+	world=load("res://scripts/tower_defense_world.gd").new() if tower_defense_mode else (Sanctuary.new() if index==0 else ExpeditionArea.new())
+	if tower_defense_mode:world.beta_mode=defense_beta
+	world.descent_mode=descent_mode
 	world.area_index=index
 	world.generation_seed=run_seed+index*104729
 	world.process_mode=Node.PROCESS_MODE_PAUSABLE
@@ -1041,6 +1446,7 @@ func rebuild_area(index: int):
 	apply_quality()
 
 func reset_player_at(p: Vector3):
+	player.attack_chain.reset()
 	player.cancel_charge()
 	checkpoint=p
 	player.position=p
@@ -1057,6 +1463,7 @@ func reset_player_at(p: Vector3):
 	player.jump_windup=0
 	player.heavy_buffer=0
 	player.jump_buffer=0
+	player.reset_wall_jump()
 	player.jumps_used=0
 	player.air_turn=0
 	player.coyote=0
@@ -1106,7 +1513,7 @@ func travel_to(index: int):
 
 func restart_area():
 	if SURVIVAL_MODE:
-		start_game()
+		start_game(run_seed)
 		return
 	player.cancel_charge()
 	player.end_surge()
@@ -1120,7 +1527,7 @@ func restart_area():
 	area_states.erase(area_index)
 	area_cleared.erase(area_index)
 	rebuild_area(area_index)
-	player.max_hp=tuning.max_hp
+	player.refresh_max_health()
 	player.hp=player.max_hp
 	player.scale=Vector3.ONE
 	reset_player_at(world.spawn_point if area_index>0 else Vector3(0,world.height_at(0,41)+0.3,41))
@@ -1134,7 +1541,7 @@ func restart_area():
 		for e in state.enemies.values():
 			if e.dead: kills+=1
 		sparks+=state.collected.size()
-	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if rogue_battle_mode else Input.MOUSE_MODE_CAPTURED
 	hud.banner=AREA_NAMES[area_index]
 	hud.banner_time=3
 
@@ -1170,7 +1577,7 @@ func show_lab():
 func update_tuning(key: String,value):
 	tuning[key]=value
 	tuning=PrototypeTuning.sanitized(tuning)
-	player.max_hp=tuning.max_hp
+	player.refresh_max_health()
 	player.hp=minf(player.hp,player.max_hp)
 	save_settings()
 
@@ -1236,14 +1643,20 @@ func confirm_impact(victim: Ninja, point: Vector3, direction: Vector3, strength:
 	var duration=[0.035,0.060,0.095][clampi(strength,0,2)]
 	impact_confirmed.emit(victim,strength,duration)
 	victim.impact_pause=maxf(victim.impact_pause,duration)
-	if not projectile: player.impact_pause=maxf(player.impact_pause,duration)
+	# Red pipe chains keep moving through impact; enemy recoil still sells the hit.
+	if not projectile and (rogue_battle_mode or not (player.character_id==1 and player.weapon_slot==1 and player.attack_chain.energized())):
+		player.impact_pause=maxf(player.impact_pause,duration)
 	hit_stop=maxf(hit_stop,duration)
 	camera_rig.kick(direction,[0.035,0.065,0.12][clampi(strength,0,2)])
 	sound(("coin_heavy_hit" if strength==2 else "coin_hit") if projectile else ("heavy_hit" if strength==2 else "hit"),0.7)
 	sound("enemy_reaction",0.22 if strength<2 else 0.38)
-	impact_effect(point,direction,strength)
+	if rogue_battle_mode:rogue_feedback.impact(victim,point,direction,strength,projectile)
+	else:impact_effect(point,direction,strength)
 
 func impact_effect(point: Vector3, direction: Vector3, strength: int):
+	if rogue_battle_mode:
+		rogue_feedback.impact(null,point,direction,strength,false)
+		return
 	var flash=Geo.sphere(self,point,Vector3.ONE*(0.12+strength*0.055),Geo.mat("fff4c4",0,1.8))
 	var ft=create_tween()
 	ft.tween_property(flash,"scale",Vector3.ONE*0.005,0.085)
@@ -1266,3 +1679,6 @@ func drop_powerup(point: Vector3):
 func _notification(what):
 	if what==NOTIFICATION_APPLICATION_FOCUS_OUT and is_instance_valid(player) and is_instance_valid(player.musashi):
 		player.musashi.release_primary()
+		if rogue_battle_mode:
+			player.rogue_controls.reset()
+			if playing and not paused and not won and player.hp>0 and not smoke_test:show_pause()

@@ -1,0 +1,27 @@
+{
+  "id": "arashi",
+  "name": "Arashi",
+  "breed": "shikoku",
+  "gear": "tracker",
+  "source": "assets/blender/dogs/arashi.blend",
+  "model": "assets/models/dogs/arashi.glb",
+  "portrait": "assets/ui/dogs/arashi.png",
+  "triangles": 12176,
+  "meshes": 1,
+  "materials": 4,
+  "bones": 28,
+  "deform_bones": 24,
+  "animations": {
+    "idle": 2.0,
+    "run": 0.8,
+    "attack": 1.0,
+    "hurt": 0.45,
+    "death": 0.9
+  },
+  "attack_contact": 0.38,
+  "run_reference_speed": 2.4,
+  "forward": "Godot -Z",
+  "reference": "asset_packs/ninja_dogs/references/04-arashi-storm-tracker.png",
+  "reference_sha256": "3a8df1f3e6d784b187a7cf2931be2f14a6f13726d7c238bafb76a771c50879a4",
+  "glb_sha256": "bb5da5c9acc9c0017142f1540b8d53f220ef7fb7a909e4bf35f5a43234c5dcc8"
+}

@@ -1,6 +1,14 @@
 class_name Sanctuary
 extends Node3D
 
+var descent_mode=true
+var breakable_buildings: Array=[]
+var building_navigation_dirty=false
+var sky_islands: Node3D
+var furnished_town: Node3D
+var furnished_districts: Array[Vector3]=[]
+var furnished_lots: Array=[]
+var furnished_cells: Dictionary={}
 var playable_bounds=WorldExpansion.bounds(0)
 var outposts: Array[Vector3]=[]
 var outer_routes: Array=[]
@@ -20,7 +28,10 @@ func height_at(x: float, z: float) -> float:
 	for side in [-1,1]:
 		var distance=Vector2(x-side*76,z+51).length()
 		if distance<17:h=lerpf(coastal_height(side*76,-51),h,smoothstep(12,17,distance))
-	return WorldExpansion.flatten(self,x,z,h)
+	return FurnishedTown.level_lots(self,x,z,TidefallTown.level_open_lots(self,x,z,WorldExpansion.flatten(self,x,z,h)))
+
+func surface_height_at(point: Vector3)->float:
+	return sky_islands.surface_height(point) if is_instance_valid(sky_islands) else height_at(point.x,point.z)
 
 func raw_height(x: float,z: float)->float:return coastal_height(x,z)
 
@@ -36,6 +47,7 @@ func coastal_height(x: float,z: float)->float:
 func _ready():
 	rng.seed = generation_seed
 	WorldExpansion.plan(self)
+	FurnishedTown.plan(self)
 	lighting()
 	terrain()
 	water()
@@ -80,6 +92,32 @@ func _ready():
 	var town=TidefallTown.new()
 	town.world=self
 	add_child(town)
+	furnished_town=FurnishedTown.new();furnished_town.world=self;add_child(furnished_town)
+	if descent_mode:
+		sky_islands=preload("res://scripts/sky_islands.gd").new();sky_islands.world=self;add_child(sky_islands)
+
+	configure_detail_ranges()
+
+func invalidate_building_navigation():
+	if building_navigation_dirty:return
+	building_navigation_dirty=true
+	call_deferred("refresh_building_navigation")
+
+func refresh_building_navigation():
+	building_navigation_dirty=false
+	var game=get_parent()
+	if game!=null and is_instance_valid(game.pursuit):game.pursuit.configure()
+
+func configure_detail_ranges():
+	# Imported sky/building meshes already have ranges. Apply sensible ranges to
+	# small unbounded ground props; collision bodies stay registered at all distances.
+	for mesh in find_children("*","MeshInstance3D",true,false):
+		if mesh.visibility_range_end>0 or mesh.mesh==null or mesh.get_parent().name=="TerrainChunks":continue
+		var bounds=mesh.global_transform*mesh.get_aabb()
+		var extent=bounds.size.length()
+		if extent>80:continue
+		mesh.visibility_range_end=150 if extent<5 else (280 if extent<22 else 550)
+		mesh.visibility_range_end_margin=15
 
 func lighting():
 	var env = WorldEnvironment.new()
@@ -87,8 +125,8 @@ func lighting():
 	e.background_mode = Environment.BG_SKY
 	var sky = Sky.new()
 	var sky_mat = ProceduralSkyMaterial.new()
-	sky_mat.sky_top_color = Color("256ca4")
-	sky_mat.sky_horizon_color = Color("a7e3df")
+	sky_mat.sky_top_color = Color("397fbe") if descent_mode else Color("256ca4")
+	sky_mat.sky_horizon_color = Color("f5d8b8") if descent_mode else Color("a7e3df")
 	sky_mat.ground_bottom_color = Color("477f8e")
 	sky_mat.ground_horizon_color = Color("a7e3df")
 	sky_mat.sky_curve = 0.17
@@ -109,7 +147,7 @@ func lighting():
 	e.adjustment_saturation=1.12
 	e.fog_enabled=true
 	e.fog_light_color=Color("90cdd5")
-	e.fog_density=0.0022
+	e.fog_density=0.00055 if descent_mode else 0.0022
 	env.environment=e
 	add_child(env)
 	var sun=DirectionalLight3D.new()
@@ -124,26 +162,29 @@ func lighting():
 	add_child(sun)
 
 func terrain():
-	var st=SurfaceTool.new()
-	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-	var step=2.5
+	# Keep the original 5 m topology, but give rendering/shadow culling bounded tiles.
+	var step=5.0
 	var edge=playable_bounds.grow(5)
-	for xi in range(ceili(edge.size.x/step)):
-		for zi in range(ceili(edge.size.y/step)):
-			var x=edge.position.x+xi*step
-			var z=edge.position.y+zi*step
-			var pts=[Vector3(x,height_at(x,z),z),Vector3(x+step,height_at(x+step,z),z),Vector3(x,height_at(x,z+step),z+step),Vector3(x+step,height_at(x+step,z+step),z+step)]
-			var c=Color("60ae59") if (xi+zi)%3 else Color("64b35b")
-			if z>40: c=Color("e6cf93") if (xi+zi)%2 else Color("ead9a3")
-			if abs(x-(24+3*sin(z*0.055)))<6: c=Color("8f9c6a")
-			for idx in [0,1,2,1,3,2]:
-				st.set_color(c.srgb_to_linear())
-				st.add_vertex(pts[idx])
-	st.generate_normals()
-	var m=StandardMaterial3D.new()
-	m.vertex_color_use_as_albedo=true
-	m.roughness=0.95
-	Geo.mesh(self,st.commit(),Vector3.ZERO,EdoEnvironment.ground(area_index),true)
+	var columns=ceili(edge.size.x/step);var rows=ceili(edge.size.y/step)
+	var ground_material=EdoEnvironment.ground(area_index)
+	var terrain_root=Node3D.new();terrain_root.name="TerrainChunks";add_child(terrain_root)
+	const TILE_CELLS=16
+	for start_x in range(0,columns,TILE_CELLS):
+		for start_z in range(0,rows,TILE_CELLS):
+			var st=SurfaceTool.new();st.begin(Mesh.PRIMITIVE_TRIANGLES)
+			var origin=Vector3(edge.position.x+start_x*step,0,edge.position.y+start_z*step)
+			for xi in range(start_x,mini(start_x+TILE_CELLS,columns)):
+				for zi in range(start_z,mini(start_z+TILE_CELLS,rows)):
+					var x=edge.position.x+xi*step;var z=edge.position.y+zi*step
+					var pts=[Vector3(x,height_at(x,z),z),Vector3(x+step,height_at(x+step,z),z),Vector3(x,height_at(x,z+step),z+step),Vector3(x+step,height_at(x+step,z+step),z+step)]
+					var c=Color("60ae59") if (xi+zi)%3 else Color("64b35b")
+					if z>40:c=Color("e6cf93") if (xi+zi)%2 else Color("ead9a3")
+					if abs(x-(24+3*sin(z*.055)))<6:c=Color("8f9c6a")
+					for idx in [0,1,2,1,3,2]:
+						st.set_color(c.srgb_to_linear());st.add_vertex(pts[idx]-origin)
+			st.generate_normals()
+			var tile=Geo.mesh(terrain_root,st.commit(),origin,ground_material,true)
+			tile.name="Tile_%d_%d" % [start_x,start_z]
 	# Checker-cut coastal escarpments, composed as massive geological blocks.
 	for side in [-1,1]:
 		for zi in range(25):
@@ -213,6 +254,7 @@ func roof(p: Vector3, w: float, d: float, h: float):
 	GameAssets.place(self,"edo/roof",p,Vector3(w/10,h/2.8,d/10))
 
 func temple(x: float,z: float,w: float,d: float,levels: int):
+	var first_child=get_child_count()
 	var y=height_at(x,z)
 	var stone=EdoEnvironment.material("8b9992")
 	Geo.box(self,Vector3(x,y+0.35,z),Vector3(w+2,0.7,d+2),stone,true)
@@ -247,6 +289,10 @@ func temple(x: float,z: float,w: float,d: float,levels: int):
 	Geo.box(self,Vector3(x,y+1.1,z-d*0.27),Vector3(3,0.8,1.2),EdoEnvironment.material("88342a"),true)
 	var crest=Geo.torus(self,Vector3(x,y+2.8,z-d*0.29),0.65,0.80,EdoEnvironment.material("ffd47a",0.6,0.3))
 	crest.rotation.x=PI/2
+	var pieces=get_children().slice(first_child)
+	var root=Node3D.new();root.name="BreakableTemple";add_child(root);root.position=Vector3(x,y,z)
+	for piece in pieces:piece.reparent(root,true)
+	BreakableBuilding.attach(root,self)
 
 func torii(x: float,z: float,width: float=8.0):
 	var y=height_at(x,z)

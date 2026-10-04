@@ -49,9 +49,10 @@ func _physics_process(delta):
 	# Pace simultaneous magnet rewards, retaining every completed set of five.
 	if not pending.is_empty() and burst_clock<=0 and not game.player.sky_strike.active:
 		burst(pending.pop_front());burst_clock=.12
-	magnet_clock-=delta
-	if magnet_clock<=0:
-		magnet_clock=MAGNET_INTERVAL if spawn_magnet() else 3.0
+	if not game.descent_mode:
+		magnet_clock-=delta
+		if magnet_clock<=0:
+			magnet_clock=MAGNET_INTERVAL if spawn_magnet() else 3.0
 
 func burst(kind: String):
 	var origin=game.player.global_position

@@ -1,0 +1,111 @@
+{
+  "status": "PASS",
+  "characters": 10,
+  "static_unrigged": true,
+  "blender_version": "4.3.2",
+  "source_reopen_and_glb_reimport": true,
+  "total_evaluated_triangles": 3025784,
+  "max_bounds_error": 0.0,
+  "characters_validated": [
+    {
+      "name": "sen",
+      "triangles": 267380,
+      "source_objects": 370,
+      "bounds": [
+        0.9834634065628052,
+        0.5541423559188843,
+        3.005094051361084
+      ]
+    },
+    {
+      "name": "raku",
+      "triangles": 311212,
+      "source_objects": 405,
+      "bounds": [
+        0.9834634065628052,
+        0.4277186989784241,
+        2.818694591522217
+      ]
+    },
+    {
+      "name": "izumi",
+      "triangles": 310248,
+      "source_objects": 412,
+      "bounds": [
+        0.9000446200370789,
+        0.48992761969566345,
+        2.818694591522217
+      ]
+    },
+    {
+      "name": "gaku",
+      "triangles": 352136,
+      "source_objects": 441,
+      "bounds": [
+        1.1852377653121948,
+        0.44863975048065186,
+        2.572180986404419
+      ]
+    },
+    {
+      "name": "shiro",
+      "triangles": 265316,
+      "source_objects": 343,
+      "bounds": [
+        0.9000446200370789,
+        0.5563506484031677,
+        2.572162628173828
+      ]
+    },
+    {
+      "name": "banji",
+      "triangles": 272484,
+      "source_objects": 338,
+      "bounds": [
+        0.9834634065628052,
+        0.4201233983039856,
+        2.649310827255249
+      ]
+    },
+    {
+      "name": "touma",
+      "triangles": 314516,
+      "source_objects": 420,
+      "bounds": [
+        1.1041918992996216,
+        0.4899998605251312,
+        2.572162628173828
+      ]
+    },
+    {
+      "name": "roan",
+      "triangles": 362440,
+      "source_objects": 529,
+      "bounds": [
+        0.9834634065628052,
+        0.472697377204895,
+        2.818694591522217
+      ]
+    },
+    {
+      "name": "nagi",
+      "triangles": 285952,
+      "source_objects": 365,
+      "bounds": [
+        0.9680107235908508,
+        0.4499678909778595,
+        2.818694591522217
+      ]
+    },
+    {
+      "name": "kuren",
+      "triangles": 284100,
+      "source_objects": 387,
+      "bounds": [
+        0.9834634065628052,
+        0.4222399890422821,
+        3.0062320232391357
+      ]
+    }
+  ]
+}

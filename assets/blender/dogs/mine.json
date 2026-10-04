@@ -1,0 +1,27 @@
+{
+  "id": "mine",
+  "name": "Mine",
+  "breed": "husky",
+  "gear": "climber",
+  "source": "assets/blender/dogs/mine.blend",
+  "model": "assets/models/dogs/mine.glb",
+  "portrait": "assets/ui/dogs/mine.png",
+  "triangles": 12804,
+  "meshes": 1,
+  "materials": 4,
+  "bones": 28,
+  "deform_bones": 24,
+  "animations": {
+    "idle": 2.0,
+    "run": 0.8,
+    "attack": 1.0,
+    "hurt": 0.45,
+    "death": 0.9
+  },
+  "attack_contact": 0.38,
+  "run_reference_speed": 2.4,
+  "forward": "Godot -Z",
+  "reference": "asset_packs/ninja_dogs/references/09-mine-cliff-runner.png",
+  "reference_sha256": "ebec756bd673cbf87fcd771c5823bf324c76bd06811c33a5ec3aa781904c3796",
+  "glb_sha256": "835b43c7ae63d37ef7a75c41ca54520478e911db01db52d936fb56bd807337b2"
+}

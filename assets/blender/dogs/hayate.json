@@ -1,0 +1,27 @@
+{
+  "id": "hayate",
+  "name": "Hayate",
+  "breed": "sighthound",
+  "gear": "wind",
+  "source": "assets/blender/dogs/hayate.blend",
+  "model": "assets/models/dogs/hayate.glb",
+  "portrait": "assets/ui/dogs/hayate.png",
+  "triangles": 11528,
+  "meshes": 1,
+  "materials": 4,
+  "bones": 28,
+  "deform_bones": 24,
+  "animations": {
+    "idle": 2.0,
+    "run": 0.8,
+    "attack": 1.0,
+    "hurt": 0.45,
+    "death": 0.9
+  },
+  "attack_contact": 0.38,
+  "run_reference_speed": 2.4,
+  "forward": "Godot -Z",
+  "reference": "asset_packs/ninja_dogs/references/10-hayate-wind-striker.png",
+  "reference_sha256": "1dbcd42f531404090d24683a63f6b1efd7566017135ab361e97523a3afa37831",
+  "glb_sha256": "abaa777e0d1ce5bf3abb47d71711b9b1c07fa639d681dc0ff1c319b60c6a6a1b"
+}

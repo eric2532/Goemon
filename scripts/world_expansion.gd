@@ -2,13 +2,16 @@ class_name WorldExpansion
 extends RefCounted
 const LINEAR_SCALE=3.1622776601683795
 static func bounds(area: int)->Rect2:
-	var dimensions=Vector2(186,163 if area==0 else 186)*LINEAR_SCALE
+	var dimensions=Vector2(186,163 if area==0 else 186)*LINEAR_SCALE*(2.0 if area==0 else 1.0)
 	return Rect2(Vector2(-dimensions.x*.5,62-dimensions.y if area==0 else -8-dimensions.y*.5),dimensions)
 static func plan(world):
 	world.outposts.clear();world.outer_routes.clear()
+	var layout_rng=RandomNumberGenerator.new();layout_rng.seed=world.generation_seed+101
 	if world.area_index==0:
 		for z in [-155,-275,-397]:
-			for x in [-195,0,195]:world.outposts.append(Vector3(x,0,z))
+			for x in [-195,0,195]:
+				var jitter=Vector3(layout_rng.randf_range(-28,28),0,layout_rng.randf_range(-15,15)) if world.descent_mode else Vector3.ZERO
+				world.outposts.append(Vector3(x,0,z)+jitter)
 	else:
 		for point in [Vector2(-205,-200),Vector2(0,-225),Vector2(205,-200),Vector2(-220,-20),Vector2(220,-20),Vector2(-205,190),Vector2(0,210),Vector2(205,190),Vector2(0,-130)]:
 			world.outposts.append(Vector3(point.x,0,point.y))
@@ -53,6 +56,7 @@ static func dress(world):
 	for i in range(360):
 		var p=Vector3(world.rng.randf_range(world.playable_bounds.position.x+6,world.playable_bounds.end.x-6),0,world.rng.randf_range(world.playable_bounds.position.y+6,world.playable_bounds.end.y-6))
 		p.y=world.height_at(p.x,p.z)-.35
+		if not world.furnished_cells.get(Vector2i(floori(p.x/32),floori(p.z/32)),[]).is_empty():p.y-=8
 		for c in world.outposts:
 			if Vector2(p.x-c.x,p.z-c.z).length()<32:p.y-=8
 		multimesh.set_instance_transform(i,Transform3D(Basis.IDENTITY.scaled(Vector3(1.3,.6,1)*world.rng.randf_range(.5,2)),p))

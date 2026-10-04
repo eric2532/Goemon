@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "purpose": "Exact approved hero concept PNG references for 3D modeling.",
+  "attribution": "AI-generated hero concept reference images created for the Goemon project. Source PNG bytes are preserved without modification.",
+  "files": [
+    {
+      "path": "asset_packs/hero_concepts/references/01-sen-sky-ronin.png",
+      "bytes": 2224615,
+      "sha256": "849591a466b07ebc442ec7e555ac86751d0fff5935e3544376f536dd6c36284a",
+      "git_blob_sha": "514b73c5b6c731ffe57657d6c34aaacd1cad1b88",
+      "dimensions": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "path": "asset_packs/hero_concepts/references/02-raku-ember-brawler.png",
+      "bytes": 2186388,
+      "sha256": "8277a559991b8208519d84dd0df74a4d6d4d820f9e2955280bd71657f9c65b9f",
+      "git_blob_sha": "837435e8e9841e2cef6061235221a67234389526",
+      "dimensions": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "path": "asset_packs/hero_concepts/references/03-izumi-frost-scout.png",
+      "bytes": 2114272,
+      "sha256": "2e047085d9c988c06265a049c11b71cc6b431e6f1342bb3b898db97d2a695542",
+      "git_blob_sha": "ba33faccb90f49ff39fde2a2f19b3cf26458baf8",
+      "dimensions": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "path": "asset_packs/hero_concepts/references/04-gaku-iron-pilgrim.png",
+      "bytes": 2032844,
+      "sha256": "2140a09b9910f9c26369f27d3b2f7e03f229f94be500666e97fbf36ec6ad7f98",
+      "git_blob_sha": "7990223d1f1e0d2e35a4d8c39e652eb31b8ca105",
+      "dimensions": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "path": "asset_packs/hero_concepts/references/05-shiro-moon-duelist.png",
+      "bytes": 2302069,
+      "sha256": "c03176da7ac5741f9742be3b824245b05dc48fb710809096aac59a435a3b4f8e",
+      "git_blob_sha": "6fbcc885c1c34477de55b96402d4b6f30adce4b6",
+      "dimensions": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "path": "asset_packs/hero_concepts/references/06-banji-clockwork-runner.png",
+      "bytes": 2312351,
+      "sha256": "dd99f7ea5cdbf8c6ed8a073c7a9fb45aded25b44375783e88ec310afa53d289b",
+      "git_blob_sha": "3d3285ab05eeb068ea33e26cebbeef2e1ab44bae",
+      "dimensions": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "path": "asset_packs/hero_concepts/references/07-touma-reed-wanderer.png",
+      "bytes": 2303185,
+      "sha256": "ae0a209e95b7ba8c70fc23841b96abae56e60809421d2cc45e7038c485631499",
+      "git_blob_sha": "b73783ffa04b9d12ac04b7f6a48c401b3d9904b2",
+      "dimensions": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "path": "asset_packs/hero_concepts/references/08-roan-mountain-striker.png",
+      "bytes": 2184567,
+      "sha256": "2bbac42b0a6c1f9d36dfc743fa74dabad94503cb4b7a5932df16769d61493d1d",
+      "git_blob_sha": "e3f9f2ef98d62cc4a900c845d3371dac5d2d751e",
+      "dimensions": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "path": "asset_packs/hero_concepts/references/09-nagi-tide-courier.png",
+      "bytes": 2492228,
+      "sha256": "f120abbc3cc2823e8ba1f54b1b82cd24a196bca97163f28b5bd1383156444653",
+      "git_blob_sha": "f1f477479916e0432fc8ff267c863edd66d8d435",
+      "dimensions": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "path": "asset_packs/hero_concepts/references/10-kuren-festival-guard.png",
+      "bytes": 2585455,
+      "sha256": "78e27f1731adcb0c98fff334139d9a351c1280c05a397aced87a658bfb92dcc8",
+      "git_blob_sha": "3479dc6871ca26fcdc0d49a8e5597beda5eca83e",
+      "dimensions": [
+        1254,
+        1254
+      ]
+    }
+  ]
+}

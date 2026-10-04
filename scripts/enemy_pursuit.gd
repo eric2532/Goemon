@@ -24,7 +24,7 @@ func configure():
 	dimensions=Vector2i(ceili(bounds.size.x/CELL),ceili(bounds.size.y/CELL))
 	building=false;build_queue.clear();build_distances.clear()
 	cells.clear();edges.clear();distances.clear();target_cell=Vector2i(-999,-999);clock=0;ready_field=false
-	shape=CapsuleShape3D.new();shape.radius=.7;shape.height=1.8
+	shape=CapsuleShape3D.new();shape.radius=3.1 if game.descent_mode else .7;shape.height=9.0 if game.descent_mode else 1.8
 	probe=PhysicsShapeQueryParameters3D.new();probe.shape=shape;probe.collision_mask=1
 func cell_of(point: Vector3)->Vector2i:
 	return Vector2i(floori((point.x-bounds.position.x)/CELL),floori((point.z-bounds.position.y)/CELL))
@@ -38,7 +38,7 @@ func ground(cell: Vector2i):
 	var floor_hit=space.intersect_ray(PhysicsRayQueryParameters3D.create(point+Vector3.UP*.8,point-Vector3.UP*1.2,1))
 	if floor_hit.is_empty() or floor_hit.normal.y<.72:cells[cell]=null;return null
 	point.y=floor_hit.position.y+.1
-	probe.transform=Transform3D(Basis.IDENTITY,point+Vector3.UP*.95)
+	probe.transform=Transform3D(Basis.IDENTITY,point+Vector3.UP*(shape.height*.5+.05))
 	if not space.intersect_shape(probe,1).is_empty():cells[cell]=null;return null
 	cells[cell]=point;return point
 func connected(a: Vector2i,b: Vector2i)->bool:
@@ -49,8 +49,9 @@ func connected(a: Vector2i,b: Vector2i)->bool:
 	if clear:
 		clear=absf(start.y-end.y)<2.0
 		if clear:
-			var query=PhysicsRayQueryParameters3D.create(start+Vector3.UP*.8,end+Vector3.UP*.8,1)
-			clear=game.get_world_3d().direct_space_state.intersect_ray(query).is_empty()
+			probe.transform=Transform3D(Basis.IDENTITY,start+Vector3.UP*(shape.height*.5+.05));probe.motion=end-start
+			clear=game.get_world_3d().direct_space_state.cast_motion(probe)[0]>.99
+			probe.motion=Vector3.ZERO
 	edges[key]=clear;edges[Vector4i(b.x,b.y,a.x,a.y)]=clear
 	return clear
 func start_build(point: Vector3)->bool:
@@ -66,15 +67,20 @@ func start_build(point: Vector3)->bool:
 	if ground(seed)==null:return false
 	build_target=cell_of(point);build_distances={seed:0};build_queue=[seed];build_index=0;building=true
 	return true
-func advance_build(budget_usec: int=1500):
+func advance_build(budget_usec: int=800):
 	var deadline=Time.get_ticks_usec()+budget_usec
 	while build_index<build_queue.size():
 		var cell=build_queue[build_index];build_index+=1
 		for step in STEPS:
 			var next=cell+step
+			# Defense raiders march their authored lanes. Only local interceptions
+			# need this hero-centered field, including routes around cover.
+			if game.tower_defense_mode and (next-build_target).length_squared()>100:continue
 			if build_distances.has(next) or not connected(cell,next):continue
 			build_distances[next]=build_distances[cell]+1;build_queue.append(next)
-		if build_index%16==0 and Time.get_ticks_usec()>=deadline:return
+		# Check every cell: sixteen expensive collision probes can overrun
+		# a frame before the old budget check even runs.
+		if Time.get_ticks_usec()>=deadline:return
 	distances=build_distances;target_cell=build_target;ready_field=true;building=false
 	build_queue=[];build_distances={}
 func refresh_field(point: Vector3):
@@ -118,6 +124,7 @@ func clear_segment(from: Vector3,to: Vector3)->bool:
 	var query=PhysicsRayQueryParameters3D.create(from+Vector3.UP*.8,to+Vector3.UP*.8,1)
 	return game.get_world_3d().direct_space_state.intersect_ray(query).is_empty()
 func _physics_process(delta):
+	if game.descent_mode and not game.encounters.completed:return
 	if not game.playing or game.paused or game.transitioning or game.tuning.freeze_ai:return
 	clock-=delta
 	if not building and clock<=0:

@@ -1,6 +1,7 @@
 class_name EdoFireBeam
 extends Node3D
 # A piercing volume: blue-orb stacks increase length and damage pulse rate.
+var attack_ticket: Dictionary={}
 var game: Node
 var hero: Hero
 var ability: Node
@@ -43,10 +44,14 @@ func _ready():
 	loop.volume_db=linear_to_db(.35*float(game.sound_library.gains.get("edo_beam_loop",1)));loop.pitch_scale=1.0 if game.sound_library.custom.has("edo_beam_loop") else .8;add_child(loop);loop.play()
 	update_path()
 func update_path():
-	direction=Vector3.FORWARD.rotated(Vector3.UP,game.camera_rig.yaw)
-	global_position=hero.global_position+Vector3.UP*1.65+direction*.8
+	direction=game.attack_direction()
+	global_position=hero.global_position+(Vector3.UP*1.65+direction*.8)*hero.growth_multiplier()
+	if game.rogue_battle_mode:direction=game.projectile_direction(global_position)
+	length_now=balance.beam_length*hero.base_attack_speed_multiplier()*hero.growth_multiplier()
+	if hero.growth_multiplier()>1.01 and not game.rogue_battle_mode:
+		var target=AttackChain.screen_target(hero,global_position,length_now)
+		if target!=null:direction=(AttackChain.aim_point(target)-global_position).normalized()
 	look_at(global_position+direction,Vector3.UP)
-	length_now=balance.beam_length*hero.attack_speed_multiplier()
 	var pulse=1.0+sin(elapsed*32)*.045
 	for i in range(shells.size()):
 		shells[i].position.z=-length_now*.5
@@ -57,6 +62,7 @@ func update_path():
 	tip.position.z=-length_now
 func damage_tick():
 	var end=global_position+direction*length_now
+	BreakableBuilding.hit_segment(game,global_position,end,balance.beam_tick_damage*hero.damage_multiplier(),attack_ticket)
 	for enemy in game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead:continue
 		var target=enemy.global_position+Vector3.UP*(1.5 if enemy.boss else 1.1)
@@ -64,7 +70,7 @@ func damage_tick():
 		if along<0 or along>length_now:continue
 		var nearest=Geometry3D.get_closest_point_to_segment(target,global_position,end)
 		if nearest.distance_to(target)>balance.beam_radius+enemy.body_radius:continue
-		enemy.take_hit(balance.beam_tick_damage*hero.damage_multiplier(),direction,false)
+		enemy.take_hit(balance.beam_tick_damage*hero.damage_multiplier(),direction,false,attack_ticket)
 		game.confirm_impact(enemy,nearest,direction,1,true)
 		game.burst(nearest,Color("ff8d32"),3,.7)
 		game.chain+=1;game.chain_timer=3

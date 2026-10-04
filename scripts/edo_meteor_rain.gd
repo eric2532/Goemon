@@ -1,6 +1,7 @@
 class_name EdoMeteorRain
 extends Node3D
 # One cast owns the falling fireballs. Damage happens once per impact.
+var attack_ticket: Dictionary={}
 var game: Node
 var hero: Hero
 var targets: Array[Vector3]=[]
@@ -14,9 +15,11 @@ static func ground_point(player: Hero,point: Vector3)->Variant:
 	var bounds=player.game.world.playable_bounds.grow(-2)
 	point.x=clampf(point.x,bounds.position.x,bounds.end.x)
 	point.z=clampf(point.z,bounds.position.y,bounds.end.y)
-	point.y=player.game.world.height_at(point.x,point.z)
+	var original_height=point.y
+	point.y=player.game.world.surface_height_at(point)
+	if player.game.descent_mode and absf(point.y-original_height)>8:return null
 	if point.y<0:return null
-	var ray=PhysicsRayQueryParameters3D.create(point+Vector3.UP*80,point-Vector3.UP*3,1)
+	var ray=PhysicsRayQueryParameters3D.create(point+Vector3.UP*2,point-Vector3.UP*3,1)
 	var hit=player.get_world_3d().direct_space_state.intersect_ray(ray)
 	if hit.is_empty() or hit.normal.y<.5:return null
 	return hit.position+Vector3.UP*.08
@@ -26,6 +29,7 @@ static func choose_targets(player: Hero,count: int,reach: float)->Array[Vector3]
 	var candidates: Array[Vector3]=[]
 	for enemy in player.game.enemies:
 		if is_instance_valid(enemy) and not enemy.dead and player.global_position.distance_to(enemy.global_position)<=reach:
+			if player.game.descent_mode and enemy.island_index>=0 and enemy.island_index!=player.game.encounters.current_island:continue
 			candidates.append(enemy.global_position)
 	candidates.sort_custom(func(a,b):return a.distance_squared_to(player.global_position)<b.distance_squared_to(player.global_position))
 	# Select separated enemy groups first, rather than spending every meteor on one mob.
@@ -94,6 +98,7 @@ func impact(point: Vector3):
 	EdoFireExplosion.emit(game,point,true,"edo_meteor_impact")
 	game.burst(point+Vector3.UP*.4,Color("ffb352"),22,1.4)
 	if hero.global_position.distance_to(point)<45:game.camera_rig.kick(Vector3.DOWN,.045)
+	BreakableBuilding.hit_area(game,point+Vector3.UP,radius,damage,attack_ticket)
 	for enemy in game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead:continue
 		var offset=enemy.global_position-point
@@ -101,6 +106,6 @@ func impact(point: Vector3):
 		var ray=PhysicsRayQueryParameters3D.create(point+Vector3.UP,enemy.global_position+Vector3.UP,1)
 		if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty():continue
 		var direction=offset.normalized() if offset.length()>.01 else hero.facing
-		enemy.take_hit(damage,direction,true)
+		enemy.take_hit(damage,direction,true,attack_ticket)
 		game.impact_effect(enemy.global_position+Vector3.UP,direction,2)
 		game.chain+=1;game.chain_timer=3

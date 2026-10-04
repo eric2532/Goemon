@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "description": "User-approved generated ninja-dog concept references. Exact original PNG bytes retained for Blender modeling reference.",
+  "generation": "OpenAI image generation; one image per dog",
+  "files": [
+    {
+      "file_name": "01-kogane-shadow-scout.png",
+      "bytes": 2188136,
+      "git_blob_sha": "66ec52e5d420e6e4436e1b118ffa7866af6eb361",
+      "sha256": "f33214f409a645ef72c1e20f7bb86b2db25df7e27dd1e567e1225d8b87dd2e79"
+    },
+    {
+      "file_name": "02-daigo-iron-guardian.png",
+      "bytes": 2619455,
+      "git_blob_sha": "16b1486b9545085978aba8b215261c84d6557a86",
+      "sha256": "6493cdae510357d2398b404eb64bd6ad9d5567825f9e387b8181e8b9fff34858"
+    },
+    {
+      "file_name": "03-kage-bramble-ambusher.png",
+      "bytes": 2223712,
+      "git_blob_sha": "2ab87143d4b7d7fa5d6c5d35256d60c1696ca41b",
+      "sha256": "9038b78ffceaac93cbc6d7e9671c0216181e3d9b1b0384e6ae7d9cc593ebcee9"
+    },
+    {
+      "file_name": "04-arashi-storm-tracker.png",
+      "bytes": 2313464,
+      "git_blob_sha": "49ca7f05451290934da9f0ee41a90f695dfa9719",
+      "sha256": "3a8df1f3e6d784b187a7cf2931be2f14a6f13726d7c238bafb76a771c50879a4"
+    },
+    {
+      "file_name": "05-haku-blade-guard.png",
+      "bytes": 1910152,
+      "git_blob_sha": "3590946b2327bdaad163b26b70c827133232b514",
+      "sha256": "6a6ca4be1e86b3de842bb93a6a12b54c5763e54905dc65562647175f33224be7"
+    },
+    {
+      "file_name": "06-suzu-ward-keeper.png",
+      "bytes": 2017584,
+      "git_blob_sha": "b7eaa2c6ca40fb7e65ef5e3bd4cdcf4a8ac0ed40",
+      "sha256": "8ef2241577fa1a665544e10e27c81775d1eccefe14603cf9a30fc3e4b4ce2fd0"
+    },
+    {
+      "file_name": "07-maboro-mirage-weaver.png",
+      "bytes": 2469017,
+      "git_blob_sha": "b47fd33368d2a59fc21bf1b86891bef92aae5d53",
+      "sha256": "fe310cf40c949b9987ceafcbb9846bcbbb8d0fd4bd1ffb988eea3b8dd5f104a7"
+    },
+    {
+      "file_name": "08-iwa-shield-breaker.png",
+      "bytes": 2304411,
+      "git_blob_sha": "8b2a6b7a0740d33d4b3d283d79806818383a4a2f",
+      "sha256": "e0eb50e6d214671339938c6fcc08b06e0810bed3854dd500bb7c72df9851a0d0"
+    },
+    {
+      "file_name": "09-mine-cliff-runner.png",
+      "bytes": 2405865,
+      "git_blob_sha": "ad72568c8eafafeb24e7ee44ebd87ef10e3dbef8",
+      "sha256": "ebec756bd673cbf87fcd771c5823bf324c76bd06811c33a5ec3aa781904c3796"
+    },
+    {
+      "file_name": "10-hayate-wind-striker.png",
+      "bytes": 2464466,
+      "git_blob_sha": "a6bd5e0abd131c0250a727ed370c6572cab5a396",
+      "sha256": "1dbcd42f531404090d24683a63f6b1efd7566017135ab361e97523a3afa37831"
+    }
+  ]
+}

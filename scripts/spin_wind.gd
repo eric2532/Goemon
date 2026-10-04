@@ -8,7 +8,7 @@ var materials: Array[StandardMaterial3D]=[]
 func _ready():
 	process_mode=Node.PROCESS_MODE_PAUSABLE
 	add_to_group("spin_wind")
-	var reach=hero.game.tuning.pipe_range*1.65*hero.range_multiplier()
+	var reach=hero.game.tuning.pipe_range*1.65*hero.melee_range_multiplier()
 	for layer in range(3):
 		var surface=SurfaceTool.new();surface.begin(Mesh.PRIMITIVE_TRIANGLES)
 		var radius=reach*(.50+layer*.22)
