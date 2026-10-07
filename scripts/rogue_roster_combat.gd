@@ -39,6 +39,13 @@ var _hook_markers: Array[Node3D] = []
 var _hook_cache: Array[Vector3] = []
 var _hook_cell: Vector2i = Vector2i(999999, 999999)
 var _setup_done: bool = false
+var animation_velocity: Vector3 = Vector3.ZERO
+var locomotion_velocity: Vector3 = Vector3.ZERO
+var utility_buffer: float = 0.0
+var buffered_evade: bool = false
+var flip_time: float = -1.0
+var landing_pose: float = 0.0
+var utility_trail: float = 0.0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -81,12 +88,17 @@ func _fresh_player() -> Dictionary:
 		"hp": hero.hp, "maxHp": hero.max_hp, "cooldowns": {"cutlass": 0.0, "flintlock": 0.0, "roll": 0.0, "drink": 0.0},
 		"sockets": {"cutlass": [], "flintlock": []}, "attack": null,
 		"roll": 0.0, "rollDir": Vector3.ZERO, "rollDuration": 0.32, "rollSpeed": 12.5, "rollStyle": "roll", "rollTicket": {},
-		"drink": 0.0, "invuln": 0.0, "shot": 0.0, "drinkGesture": 0.0,
+		"ultimatePulse": 0.0, "drink": 0.0, "invuln": 0.0, "shot": 0.0, "drinkGesture": 0.0,
 		"buffName": "", "buffTime": 0.0, "buffDuration": 0.0, "blockMeter": 0.0, "blocking": false,
 		"crouched": false, "riposte": 0.0, "travel": null, "burst": null, "secondaryBuffer": null,
 		"untargetable": 0.0, "classId": class_id, "id": class_id, "isPlayer": true, "actor": visual_actor}
 
 func reset_run() -> void:
+	locomotion_velocity = Vector3.ZERO
+	animation_velocity = Vector3.ZERO
+	utility_buffer = 0.0
+	flip_time = -1.0
+	landing_pose = 0.0
 	_clear_projectiles()
 	if is_instance_valid(fx):
 		fx.clear()
@@ -108,6 +120,7 @@ func reset_run() -> void:
 		player = _fresh_player()
 		hero.attack_left = 0
 		hero.impact_pause = 0
+		if is_instance_valid(visual_actor): visual_actor.reset_motion()
 		_animate(0, 0)
 
 func class_data() -> Dictionary:
@@ -132,14 +145,29 @@ func input(event: InputEvent) -> void:
 		secondary_held = true
 		action("flintlock")
 	elif event.is_action_pressed("dodge"):
-		if game.camera_combat() and has_extra_utility():standard_evade()
-		else:action("roll")
+		request_utility(game.camera_combat() and has_extra_utility())
 	elif event.is_action_pressed("equip"):
-		if not game.camera_combat() or has_extra_utility():action("roll")
+		if not game.camera_combat() or has_extra_utility():request_utility(false)
 	elif event.is_action_pressed("surge"):
 		action("drink")
 	elif event.is_action_pressed("jump"):
 		hero.jump_buffer = 0.15
+
+# A short press just before recovery ends is consumed once, never held/repeated.
+func request_utility(evade: bool) -> void:
+	buffered_evade = evade
+	utility_buffer = 0.16
+	_try_utility()
+
+func _try_utility() -> void:
+	if utility_buffer <= 0 or player.is_empty():
+		return
+	var cooldown: float = evade_cooldown if buffered_evade else player.cooldowns.roll
+	if cooldown > 0 or player.roll > 0 or player.travel != null:
+		return
+	utility_buffer = 0.0
+	if buffered_evade: standard_evade()
+	else: action("roll")
 
 func has_extra_utility() -> bool:
 	return class_id in ["explorer", "master-thief"]
@@ -283,11 +311,13 @@ func tick_timers(delta: float) -> void:
 	var tempo: float = hero.attack_speed_multiplier()
 	for key in player.cooldowns:
 		player.cooldowns[key] = maxf(0, player.cooldowns[key] - delta * (tempo if key in ["cutlass", "flintlock"] else 1.0))
-	for key in ["invuln", "drink", "shot", "drinkGesture"]:
+	for key in ["invuln", "drink", "shot", "drinkGesture", "ultimatePulse"]:
 		player[key] = maxf(0, player[key] - delta)
 	hero.invuln = maxf(0, hero.invuln - delta)
 	hero.jump_buffer = maxf(0, hero.jump_buffer - delta)
 	hero.coyote = maxf(0, hero.coyote - delta)
+	_try_utility()
+	utility_buffer = maxf(0, utility_buffer - delta)
 	combo_timer = maxf(0, combo_timer - delta)
 	attack_buffer = maxf(0, attack_buffer - delta)
 	if class_id != "pirate":
@@ -360,6 +390,12 @@ func physics_step(delta: float) -> void:
 	var raw: Vector2 = hero.smoke_move if hero.smoke_mode else Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	move_input = Vector3(raw.x, 0, raw.y).rotated(Vector3.UP, game.camera_rig.yaw).limit_length()
 	var previous: Vector3 = hero.global_position
+	landing_pose = maxf(0, landing_pose - delta * 5.5)
+	if player.roll > 0 or player.travel != null:
+		flip_time = -1.0
+	if flip_time >= 0:
+		flip_time += delta
+		if flip_time >= 0.48: flip_time = -1.0
 	if player.travel != null:
 		step_travel(delta)
 	else:
@@ -379,6 +415,7 @@ func physics_step(delta: float) -> void:
 	tick(delta, false)
 	_enforce_bounds()
 	_sync_hero()
+	animation_velocity = (hero.global_position - previous) / maxf(delta, 0.001)
 	_animate(delta * hero.attack_speed_multiplier(), Vector2(hero.global_position.x - previous.x, hero.global_position.z - previous.z).length() / maxf(delta, 0.001) / maxf(0.1, class_data().speed))
 	_update_hooks()
 
@@ -387,11 +424,18 @@ func _move_body(delta: float) -> void:
 	if hero.is_on_floor():
 		hero.coyote = 0.13
 		hero.jumps_used = 0
+		flip_time = -1.0
 	if p.roll > 0:
+		locomotion_velocity = Vector3.ZERO
 		var portion: float = minf(delta, p.roll)
+		var duration: float = maxf(0.01, p.rollDuration)
+		var start: float = 1.0-p.roll/duration
+		var finish: float = start+portion/duration
+		# Integrate a fast-start/eased-finish curve; total dash distance is unchanged.
+		var travel_time: float = portion+0.28*duration/PI*(sin(finish*PI)-sin(start*PI))
 		p.roll = maxf(0, p.roll - delta)
-		hero.velocity.x = p.rollDir.x * p.rollSpeed * portion / maxf(delta, 0.0001)
-		hero.velocity.z = p.rollDir.z * p.rollSpeed * portion / maxf(delta, 0.0001)
+		hero.velocity.x = p.rollDir.x * p.rollSpeed * travel_time / maxf(delta, 0.0001)
+		hero.velocity.z = p.rollDir.z * p.rollSpeed * travel_time / maxf(delta, 0.0001)
 		if p.roll <= 0:
 			use_ticket(p.rollTicket)
 			Actions.finish_dash(self)
@@ -403,14 +447,19 @@ func _move_body(delta: float) -> void:
 		if Input.is_action_pressed("walk_modifier"):
 			multiplier *= 0.5
 		var motion: Vector3 = move_input * base_speed * (class_data().speed / 5.15) * hero.progression.movement_multiplier() * multiplier + p.vel
-		hero.velocity.x = motion.x
-		hero.velocity.z = motion.z
+		var target_motion: Vector3 = motion - p.vel
+		var acceleration: float = 95.0 if move_input.length_squared() < 0.01 else 65.0
+		if not hero.is_on_floor(): acceleration *= 0.8
+		locomotion_velocity = locomotion_velocity.move_toward(target_motion, acceleration * delta)
+		hero.velocity.x = locomotion_velocity.x + p.vel.x
+		hero.velocity.z = locomotion_velocity.z + p.vel.z
 		p.vel *= exp(-12 * delta)
 	if hero.jump_buffer > 0 and p.roll <= 0:
 		if hero.coyote > 0 or hero.jumps_used < 2:
 			var grounded: bool = hero.coyote > 0
 			hero.velocity.y = (game.tuning.jump_speed if grounded else game.tuning.second_jump_speed) * hero.progression.jump_velocity_multiplier()
 			hero.jumps_used = 1 if grounded else 2
+			if not grounded: flip_time = 0.0
 			hero.jump_buffer = 0
 			hero.coyote = 0
 	if not hero.is_on_floor():
@@ -424,9 +473,14 @@ func _move_body(delta: float) -> void:
 		raised.origin.y += 0.32
 		if not hero.test_move(raised, horizontal):
 			hero.global_position.y += 0.32
+	var was_airborne: bool = not hero.is_on_floor()
 	hero.move_and_slide()
+	if was_airborne and hero.is_on_floor():
+		landing_pose = 1.0
+		flip_time = -1.0
 
 func step_travel(delta: float) -> void:
+	locomotion_velocity = Vector3.ZERO
 	var t = player.travel
 	if t == null:
 		return
@@ -452,6 +506,7 @@ func blink_to(destination: Vector3) -> void:
 	hero.move_and_collide(destination - hero.global_position)
 	player.pos = hero.global_position
 	hero.velocity = Vector3.ZERO
+	locomotion_velocity = Vector3.ZERO
 
 func _enforce_bounds() -> void:
 	var bounds: Rect2 = game.world.playable_bounds.grow(-1)
@@ -488,12 +543,24 @@ func _animate(delta: float, movement: float) -> void:
 			hero.model.rotation.y = lerp_angle(hero.model.rotation.y, target_yaw, 1 - exp(-turn_delta * (24 if hero.attack_left > 0 or player.shot > 0 else 14)))
 		else:
 			hero.model.rotation.y = target_yaw
-	var pose: Dictionary = player
+	var pose: Dictionary = player.duplicate()
 	if player.travel != null:
 		pose = player.duplicate()
 		pose.travel = player.travel.duplicate()
 		pose.travel.height = 0.0 # The real collision body already follows the arc.
-	visual_actor.animate_pose(pose, delta, time, minf(1, movement))
+	var real_delta: float = delta / maxf(0.01, hero.attack_speed_multiplier())
+	pose.grounded = hero.is_on_floor()
+	pose.vertical = hero.velocity.y
+	pose.landing = landing_pose
+	pose.flip = flip_time / 0.48 if flip_time >= 0 else -1.0
+	var world_motion := Vector3(animation_velocity.x, 0, animation_velocity.z)
+	pose.localMotion = visual_actor.global_basis.orthonormalized().inverse() * world_motion
+	pose.motionSpeed = world_motion.length()
+	visual_actor.animate_pose(pose, real_delta, time, minf(1, movement))
+	utility_trail -= real_delta
+	if (player.roll > 0 or player.travel != null) and utility_trail <= 0:
+		utility_trail = 0.075
+		fx.streak(hero.global_position + Vector3.UP * 0.65 - animation_velocity.normalized() * 0.8, hero.global_position + Vector3.UP * 0.65, tint(), 0.035, 0.16)
 
 func _process(delta: float) -> void:
 	if not active or not _setup_done or not game.playing or game.paused or game.transitioning:
@@ -748,6 +815,11 @@ func cancel(preserve_power: bool = false) -> void:
 	hit_stop = 0
 	if player.is_empty():
 		return
+	utility_buffer = 0.0
+	animation_velocity = Vector3.ZERO
+	locomotion_velocity = Vector3.ZERO
+	flip_time = -1.0
+	landing_pose = 0.0
 	player.attack = null
 	player.roll = 0
 	player.travel = null
@@ -759,12 +831,13 @@ func cancel(preserve_power: bool = false) -> void:
 	if is_instance_valid(fx):
 		fx.clear()
 	if not preserve_power:
-		for key in ["drink", "invuln", "untargetable", "buffTime", "buffDuration", "blockMeter", "riposte", "shot", "drinkGesture"]:
+		for key in ["ultimatePulse", "drink", "invuln", "untargetable", "buffTime", "buffDuration", "blockMeter", "riposte", "shot", "drinkGesture"]:
 			player[key] = 0.0
 		player.buffName = ""
 		player.crouched = false
 	if is_instance_valid(_hooks):
 		_hooks.hide()
+	if is_instance_valid(visual_actor): visual_actor.reset_motion(not preserve_power)
 	_sync_hero()
 	_animate(0, 0)
 

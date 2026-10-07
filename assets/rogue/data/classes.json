@@ -32,7 +32,7 @@
       },
       "roll": {
         "name": "Roll",
-        "description": "Roll through danger with a brief protection window.",
+        "description": "A responsive directional roll with brief protection and eased recovery.",
         "icon": "roll"
       },
       "drink": {
@@ -70,17 +70,17 @@
       },
       "flintlock": {
         "name": "Bow & Arrow",
-        "description": "A precise, fast arrow aimed at the cursor.",
+        "description": "A precise, fast arrow fired in the camera-facing direction.",
         "icon": "bow"
       },
       "roll": {
         "name": "Dodge",
-        "description": "A short, untargetable step through danger.",
+        "description": "A buffered directional step through danger with a brief untargetable window.",
         "icon": "roll"
       },
       "drink": {
         "name": "Iaijutsu",
-        "description": "Proposed skill: draw-cut through a wide area with full power.",
+        "description": "An empowered draw-cut through a wide area, surrounded by crimson energy.",
         "icon": "spark"
       }
     }
@@ -118,7 +118,7 @@
       },
       "roll": {
         "name": "Ninja Dash",
-        "description": "A fast directional dash with a brief evasion window.",
+        "description": "A fast directional dash with brief evasion and a readable energy trail.",
         "icon": "roll"
       },
       "drink": {
@@ -161,7 +161,7 @@
       },
       "roll": {
         "name": "Blink",
-        "description": "Instantly reposition in your movement direction.",
+        "description": "Blink in your movement direction, stopping safely at solid cover.",
         "icon": "roll"
       },
       "drink": {
@@ -204,7 +204,7 @@
       },
       "roll": {
         "name": "Short Dash",
-        "description": "A short, quick reposition with brief protection.",
+        "description": "A quick protected reposition with eased recovery into movement.",
         "icon": "roll"
       },
       "drink": {
@@ -242,12 +242,12 @@
       },
       "flintlock": {
         "name": "Leap",
-        "description": "Leap toward the cursor and slam down from above.",
+        "description": "Leap forward and slam down from above.",
         "icon": "lance"
       },
       "roll": {
         "name": "Back Flip",
-        "description": "Retreat a fixed long distance opposite your facing.",
+        "description": "Backflip away from your facing with a smooth hips-centered rotation.",
         "icon": "roll"
       },
       "drink": {
@@ -290,7 +290,7 @@
       },
       "roll": {
         "name": "Dash Strike",
-        "description": "Dash a long distance and finish with a sweeping strike.",
+        "description": "Dash in your movement direction and finish with the existing sweeping strike.",
         "icon": "roll"
       },
       "drink": {
@@ -333,7 +333,7 @@
       },
       "roll": {
         "name": "Fast Leap",
-        "description": "Leap in your facing direction and evade attacks while airborne.",
+        "description": "Leap in your movement direction; with no input, leap forward. Evade while airborne.",
         "icon": "roll"
       },
       "drink": {
@@ -376,7 +376,7 @@
       },
       "roll": {
         "name": "Hook Shot",
-        "description": "Aim at a foe or a gold arena anchor and pull yourself toward it.",
+        "description": "Face a nearby foe or gold anchor and hook toward it. No target consumes no cooldown.",
         "icon": "hook"
       },
       "drink": {
@@ -419,7 +419,7 @@
       },
       "roll": {
         "name": "Get Down",
-        "description": "Toggle a persistent low stance: avoid projectiles, move slower, and use low strikes.",
+        "description": "Smoothly enter a low stance to avoid projectiles and use low strikes; press again to stand.",
         "icon": "stance"
       },
       "drink": {

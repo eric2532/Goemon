@@ -111,7 +111,13 @@ func _ready():
 	spawn_gates()
 	pursuit.configure()
 	show_main_menu()
-	if "--fire-siege-art-tour" in OS.get_cmdline_user_args():
+	if "--fire-siege-motion-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/fire_siege_motion_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--fire-siege-motion-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/fire_siege_motion_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--fire-siege-art-tour" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/fire_siege_art_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
 	elif "--fire-siege-turn-test" in OS.get_cmdline_user_args() or "--fire-siege-turn-tour" in OS.get_cmdline_user_args():

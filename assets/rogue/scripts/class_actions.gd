@@ -148,12 +148,12 @@ static func fire_projectile(g, options: Dictionary = {}) -> void:
 	var color = g.tint()
 	var mesh = g.fx.create_projectile(kind, color)
 	var scale = g.range_scale()
-	var origin = g.player.pos + Vector3.UP * (1.2 if kind == "wave" else 1.05) * g.hero.growth_multiplier()
+	var origin = g.player.pos + Vector3.UP * (1.65 if kind == "wave" else 1.05) * g.hero.growth_multiplier()
 	var dir = g.projectile_direction(angle, origin)
 	g.add_projectile_mesh(mesh)
 	mesh.position = origin + dir * 0.9 * g.hero.growth_multiplier()
 	mesh.quaternion = Quaternion(Vector3.BACK, dir)
-	mesh.scale = Vector3.ONE * scale
+	mesh.scale = Vector3(1.4, 1.25, 1.15) * scale if kind == "wave" else Vector3.ONE * scale
 	var obstructed = g.place_projectile(mesh, options.get("width", 0.25) * scale, origin)
 	g.projectiles.append({"mesh": mesh, "vel": dir * speed, "life": 0.0 if obstructed else options.get("range", 20.0) * scale / speed,
 		"owner": "player", "kind": kind, "damage": damage, "weapon": options.get("weapon", "flintlock"),
@@ -206,6 +206,7 @@ static func class_action(g, slot: String, buffered = null) -> void:
 			if p.roll > 0:
 				p.cooldowns.drink = 0
 				return
+			p.ultimatePulse = 0.85
 			begin_attack(g, {"duration": 0.66, "contact": 0.22, "damage": 115, "reach": 5.3, "arc": 1.65, "style": "iaijutsu", "stop": 0.1}, 2)
 			p.invuln = maxf(p.invuln, 0.28)
 			g.toast("Iaijutsu · Full-power draw-cut")
@@ -251,7 +252,7 @@ static func class_action(g, slot: String, buffered = null) -> void:
 			g.fx.ring(p.pos, g.tint(), 1.4, 0.35)
 			g.sound.play("roll", {"pitch": 1.5})
 		elif id == "ranger":
-			travel(g, p.pos + g.front(p.angle) * 4.5, 0.36, 1.6, "fast-leap")
+			travel(g, p.pos + g.movement_direction() * 4.5, 0.36, 1.6, "fast-leap")
 		elif id == "explorer":
 			facing(g)
 			var candidates: Array = []
@@ -263,6 +264,8 @@ static func class_action(g, slot: String, buffered = null) -> void:
 			candidates.sort_custom(func(a, b): return a.pos.distance_to(g.aim) < b.pos.distance_to(g.aim))
 			if candidates.is_empty():
 				p.cooldowns.roll = 0
+				g.toast("Hook Shot · Face a nearby enemy or gold anchor")
+				g.fx.ring(p.pos, g.tint(), 0.8, 0.18)
 				return
 			var target = candidates[0]
 			var dir = (target.pos - p.pos).normalized()
@@ -324,7 +327,7 @@ static func class_action(g, slot: String, buffered = null) -> void:
 		travel(g, target, 0.72, 4.8, "lance-leap", true)
 	elif id == "magic-swordsman":
 		p.cooldowns.flintlock = 0.42 if p.buffTime > 0 else c.cooldowns.flintlock
-		fire_projectile(g, {"damage": 79, "speed": 13, "kind": "wave", "width": 1.25, "pierce": true, "heavy": true, "range": 24})
+		fire_projectile(g, {"damage": 79, "speed": 13, "kind": "wave", "width": 1.75, "pierce": true, "heavy": true, "range": 24})
 		p.vel -= dir * 1.6
 		g.fx.slash(p.pos, p.angle, 2, g.tint(), 3.5, {"style": "magic", "arc": 2.5, "height": 1.2, "tilt": 0.5})
 	elif id == "ranger":

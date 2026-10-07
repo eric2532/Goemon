@@ -12,6 +12,8 @@ var flash_color: Color = Color("ffdeb0")
 var flash_strength: float = 1.4
 var reduced_flashes: bool = false
 var _flash_applied: bool = false
+var locomotion = preload("res://assets/rogue/scripts/locomotion.gd").new()
+var ultimate_aura: Node3D
 
 const WEAPON_AXES = {
 	"pirate": Vector3(-0.565, 0.811, 0.009),
@@ -40,6 +42,10 @@ func setup(character_id: String) -> void:
 		model.rotation_order = EULER_ORDER_XYZ
 		add_child(model)
 		_cache(model)
+		if is_instance_valid(ultimate_aura): ultimate_aura.queue_free()
+		ultimate_aura = preload("res://assets/rogue/scripts/ultimate_aura.gd").new()
+		add_child(ultimate_aura)
+		ultimate_aura.configure(self, id)
 	else:
 		push_error("Missing character model: %s" % id)
 		model = Node3D.new()
@@ -60,6 +66,10 @@ func _cache(node: Node) -> void:
 				materials.append({"material": material, "emission": material.emission, "enabled": material.emission_enabled, "energy": material.emission_energy_multiplier})
 	for child in node.get_children():
 		_cache(child)
+
+func reset_motion(clear_power: bool = true) -> void:
+	locomotion.reset()
+	if clear_power and is_instance_valid(ultimate_aura): ultimate_aura.clear()
 
 func flash_hit(color: Color = Color("ffdeb0"), strength: float = 1.4) -> void:
 	flash = 0.115
@@ -247,15 +257,10 @@ func animate_pose(state: Dictionary, dt: float, time: float, movement: float = 0
 	if not is_instance_valid(model):
 		return
 	var is_player: bool = bool(state.get("isPlayer", id not in ["revenant", "warden"]))
-	var stride: float = sin(time * (13.0 if is_player else 9.0) + seed) * minf(1.0, movement) * 0.62
 	for joint in joints.values():
 		joint.node.transform = joint.transform
-	_r("Leg_L", stride)
-	_r("Leg_R", -stride)
-	_r("Arm_L", -stride * 0.4)
-	_r("Arm_R", stride * 0.4)
-	model.position.y = absf(sin(time * 9.0 + seed)) * 0.045 * movement + sin(time * 2.4 + seed) * 0.025
-	model.rotation = Vector3(0, 0, sin(time * 6.0 + seed) * 0.03 * movement)
+	model.position = Vector3.ZERO
+	locomotion.apply(self, state, dt, time, movement)
 	var attack = state.get("attack")
 	if not is_player:
 		if attack is Dictionary and not attack.is_empty():
@@ -282,6 +287,8 @@ func animate_pose(state: Dictionary, dt: float, time: float, movement: float = 0
 					_: _sword(attack, phase)
 			elif float(state.get("shot", 0)) > 0 and not bool(state.get("blocking", false)):
 				_shot(float(state.shot))
+	locomotion.flip(self, state)
+	if is_instance_valid(ultimate_aura): ultimate_aura.tick(state, dt)
 	flash = maxf(0, flash - dt)
 	# Unchanged imported materials stay on the GPU between hits.
 	if flash > 0.0 or _flash_applied:
@@ -335,12 +342,10 @@ func _stance(state: Dictionary, time: float) -> void:
 		else:
 			var flip: bool = state.get("rollStyle", "") == "backflip"
 			model.position.y += sin(t * PI) * (1.4 if flip else 0.12)
-			model.rotation.x = t * TAU if flip else -0.22
-	if bool(state.get("crouched", false)):
-		model.position.y -= 0.52
-		_r("Body", 0.2)
-		_r("Leg_L", -0.65)
-		_r("Leg_R", -0.65)
+			model.rotation.x = -t * TAU if flip else -sin(t*PI)*0.22
+			if flip:
+				var pivot := Vector3(0, 1.05, 0)
+				model.position += pivot-model.basis*pivot
 	if bool(state.get("blocking", false)):
 		_r("Arm_L", -1.25, 0, 0.2)
 		if id == "master-thief":
