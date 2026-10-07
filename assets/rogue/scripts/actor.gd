@@ -14,6 +14,7 @@ var reduced_flashes: bool = false
 var _flash_applied: bool = false
 var locomotion = preload("res://assets/rogue/scripts/locomotion.gd").new()
 var ultimate_aura: Node3D
+var movement_wind: Node3D
 
 const WEAPON_AXES = {
 	"pirate": Vector3(-0.565, 0.811, 0.009),
@@ -39,6 +40,8 @@ func setup(character_id: String) -> void:
 	var resource = load("res://assets/rogue/styled/models/%s.glb" % id)
 	if resource is PackedScene:
 		model = resource.instantiate()
+		# Fuller side silhouette; the painted front, height and collision stay intact.
+		model.scale.z *= 1.15
 		model.rotation_order = EULER_ORDER_XYZ
 		add_child(model)
 		_cache(model)
@@ -46,6 +49,9 @@ func setup(character_id: String) -> void:
 		ultimate_aura = preload("res://assets/rogue/scripts/ultimate_aura.gd").new()
 		add_child(ultimate_aura)
 		ultimate_aura.configure(self, id)
+		if is_instance_valid(movement_wind): movement_wind.queue_free()
+		movement_wind = preload("res://assets/rogue/scripts/movement_wind.gd").new()
+		add_child(movement_wind)
 	else:
 		push_error("Missing character model: %s" % id)
 		model = Node3D.new()
@@ -69,6 +75,7 @@ func _cache(node: Node) -> void:
 
 func reset_motion(clear_power: bool = true) -> void:
 	locomotion.reset()
+	if is_instance_valid(movement_wind): movement_wind.clear()
 	if clear_power and is_instance_valid(ultimate_aura): ultimate_aura.clear()
 
 func flash_hit(color: Color = Color("ffdeb0"), strength: float = 1.4) -> void:
@@ -121,7 +128,8 @@ func _aim_weapon(name_: String, source: Vector3, target: Vector3, amount: float 
 		ancestor = ancestor.get_parent() as Node3D
 	var aimed_direction: Vector3 = (parent_basis.inverse() * target.normalized()).normalized()
 	var aimed_rotation: Quaternion = Quaternion(source.normalized(), aimed_direction)
-	var rest_rotation: Quaternion = joints[name_].transform.basis.get_rotation_quaternion()
+	var rest_rotation: Quaternion = joint.quaternion
+	# Layer action entry over this frame's carrying pose; full contact remains exact.
 	joint.quaternion = rest_rotation.slerp(aimed_rotation, clampf(amount, 0.0, 1.0))
 
 func _sword(attack: Dictionary, phase: Dictionary) -> void:
@@ -289,6 +297,7 @@ func animate_pose(state: Dictionary, dt: float, time: float, movement: float = 0
 				_shot(float(state.shot))
 	locomotion.flip(self, state)
 	if is_instance_valid(ultimate_aura): ultimate_aura.tick(state, dt)
+	if is_instance_valid(movement_wind): movement_wind.tick(state, dt)
 	flash = maxf(0, flash - dt)
 	# Unchanged imported materials stay on the GPU between hits.
 	if flash > 0.0 or _flash_applied:

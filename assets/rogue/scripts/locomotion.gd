@@ -7,6 +7,8 @@ var air: float = 0.0
 var crouch: float = 0.0
 var side_lean: float = 0.0
 var neck_lean: float = 0.0
+var carry_side: float = 0.0
+var carry_weight: float = 0.0
 
 func reset() -> void:
  phase = 0.0
@@ -16,6 +18,8 @@ func reset() -> void:
  crouch = 0.0
  side_lean = 0.0
  neck_lean = 0.0
+ carry_side = 0.0
+ carry_weight = 0.0
 
 func apply(actor, state: Dictionary, dt: float, time: float, movement: float) -> void:
  var grounded: bool = state.get("grounded", true)
@@ -46,9 +50,10 @@ func apply(actor, state: Dictionary, dt: float, time: float, movement: float) ->
  actor._p("Leg_R", 0, maxf(0, -cos(phase)) * weight * 0.075)
  actor._r("Arm_L", -stride * forward * 0.5, 0, stride * sideways * 0.23)
  actor._r("Arm_R", stride * forward * 0.5, 0, -stride * sideways * 0.23)
- actor._r("Body", weight * forward * 0.07, stride * 0.045, side_lean * 0.14)
- actor._r("Head", -weight * forward * 0.04, -stride * 0.025, neck_lean * 0.035)
- actor._p("Body", -side_lean * 0.025)
+ actor._r("Body", weight * forward * 0.07, stride * 0.045, side_lean * 0.25)
+ actor._r("Head", -weight * forward * 0.04, -stride * 0.025, neck_lean * 0.065)
+ actor._p("Body", -side_lean * 0.05)
+ _carry(actor,state,dt,sideways,busy or special or not grounded)
  actor.model.position.y = (1.0-cos(phase*2.0))*0.027*weight + sin(time*2.4)*0.018*(1.0-weight)
  actor.model.rotation = Vector3.ZERO
  var rise: float = clampf(float(state.get("vertical", 0))/12.0, -1, 1)
@@ -81,3 +86,33 @@ func flip(actor, state: Dictionary) -> void:
  actor.model.rotation.x += eased*TAU
  var pivot := Vector3(0, 1.05, 0)
  actor.model.position += pivot-actor.model.basis*pivot
+
+func _carry(actor, state: Dictionary, dt: float, sideways: float, busy: bool) -> void:
+ # Follow the torso more slowly, so direction changes transfer weight to the hand.
+ carry_side = lerpf(carry_side,sideways,1-exp(-dt*7.5))
+ var attacking: bool = state.get("attack") is Dictionary
+ var target: float = carry_weight if attacking else (weight*absf(sideways) if not busy and float(state.get("drinkGesture",0))<=0 else 0.0)
+ carry_weight = lerpf(carry_weight,target,1-exp(-dt*(22 if busy else 9)))
+ var amount: float = carry_weight
+ # Remove locomotion's weapon offset by the committed contact pose. The short
+ # opening fade avoids a pop when attacking from a low moving carry.
+ var attack = state.get("attack")
+ if attack is Dictionary:
+  var attack_phase: Dictionary = actor._phase(attack)
+  amount *= 1-actor._c(attack_phase,1,1,1)
+ if amount < .001:return
+ var heavy: bool = actor.id in ["magic-swordsman","knight","dragoon"]
+ var lag: float = carry_side*amount
+ actor._r("Arm_R", -.16*amount, lag*.20, lag*.20)
+ actor._p("Arm_R", -.065*amount-lag*.04, .045*amount, -.075*amount)
+ actor._r("Arm_L", .08*amount, -lag*.12, -lag*.15)
+ # Local negative X is the authored right hand. Keep that handedness for both
+ # strafe directions; the blade trails lower on left travel and opens on right.
+ if actor.id in actor.WEAPON_AXES:
+  var down: float = -.22 if heavy else -.12
+  if actor.id=="mage":down=.65
+  if actor.id=="dragoon":down=.12
+  var target_axis := Vector3(-.94-carry_side*.12,down, .48-carry_side*.12)
+  actor._aim_weapon("Weapon_Cutlass",actor.WEAPON_AXES[actor.id],target_axis,amount*.92)
+ if actor.id=="explorer":
+  actor._aim_weapon("Weapon_Pistol",actor.LEFT_BLADE,Vector3(.9,-.12,.45+carry_side*.12),amount*.8)

@@ -111,7 +111,10 @@ func _ready():
 	spawn_gates()
 	pursuit.configure()
 	show_main_menu()
-	if "--fire-siege-lean-audio-tour" in OS.get_cmdline_user_args() or "--fire-siege-sound-tour" in OS.get_cmdline_user_args():
+	if "--fire-siege-weight-test" in OS.get_cmdline_user_args() or "--fire-siege-weight-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/fire_siege_weight_tour.gd" if "--fire-siege-weight-tour" in OS.get_cmdline_user_args() else "res://scripts/fire_siege_weight_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--fire-siege-lean-audio-tour" in OS.get_cmdline_user_args() or "--fire-siege-sound-tour" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/fire_siege_lean_audio_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
 	elif "--fire-siege-lean-audio-test" in OS.get_cmdline_user_args():

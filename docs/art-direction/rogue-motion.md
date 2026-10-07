@@ -86,3 +86,39 @@ A second packaged recording exercises repeated waves and the ultimate against
 180 live enemies: zero caster hit-stop frames, 11.285 ms physics p95, and
 -10.6 dBFS maximum recorded audio. Its frames were also inspected. The native
 app was then launched normally and verified at the Fire Siege selection screen.
+
+## Fuller profiles, weapon carry and airflow — 2.31.0
+
+All ten Rogue rigs have 15% more model-space depth, preserving front width,
+height, the painted faces, clothes and attached equipment. This is a runtime
+model transform in actor.gd; the approved editable Blender assets stay intact.
+The physical Hero/collision scale and gameplay ranges remain unchanged.
+
+Sideways movement now has up to 14.3 degrees of shoulder lean and 3.7 degrees
+of neck follow-through. The carrying arm responds more slowly than the torso.
+The right-handed claymore trails low to the character's right on left strafe;
+on right strafe the arm opens outward. Staff, lance, bow and dual blades retain
+appropriate carrying orientations. The weapon remains attached to its grip.
+Attack entry blends over the moving carry, and full contact poses take priority.
+
+MovementWind draws seven tapered, translucent airflow ribbons in one reusable
+mesh. Actual movement speed and acceleration drive intensity; sprint is stronger
+than cruise, collisions prevent stationary wind, and stopping fades it out.
+It does not replace the ultimate body overlay. Reset clears both direction and
+visibility. No effect nodes are spawned per frame.
+
+The weight review tour records previous/current profiles, left/right strafes,
+sprint and stops for every Rogue, plus Magic Swordsman movement-to-attack,
+energy wave, double jump and ultimate. Its before comparison temporarily sets
+only visual depth to 1.0; normal gameplay always uses the new 1.15 depth.
+
+Both attack entry and recovery blend against the carrying pose; a contact pose
+always has full priority. Separate failing regressions caught the initial entry
+overwrite and upright recovery snap before these transitions were corrected.
+
+Final signed macOS package: 84 weight/transition, 95 movement/utility, 134
+controls/combat and 69 lean/audio checks passed (382 total, zero failures).
+The 43.5-second packaged gameplay capture and all-hero profile/strafe/sprint
+frames were inspected, including the corrected attack recovery sequence.
+The final app was launched normally and verified at Fire Siege selection.
+Existing Godot resource-cleanup warnings remain in test exit logs.
