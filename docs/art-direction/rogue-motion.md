@@ -122,3 +122,19 @@ The 43.5-second packaged gameplay capture and all-hero profile/strafe/sprint
 frames were inspected, including the corrected attack recovery sequence.
 The final app was launched normally and verified at Fire Siege selection.
 Existing Godot resource-cleanup warnings remain in test exit logs.
+
+## Diagonal sidestep refinement — 2.31.1
+
+Reduced side roll from 14.3 to 5.2 degrees, neck roll to 1.1 degrees, and lateral
+body offset from 0.05 to 0.018. Pure strafe now eases the visible stepping stance
+and shoulders about 30 degrees into travel; the head/neck follows to roughly
+27 degrees. The stride is resolved in that turned frame with reduced lateral
+leg spread. Actual movement direction, camera heading, collision and speeds are
+unchanged. The turn blends out at attack contact and returns during recovery.
+Existing weapon carry, 15% profile depth, wind and painted designs remain.
+
+The signed macOS 2.31.1 package passed 453 checks (104 weight/diagonal pose,
+51 turning, 134 controls/combat, 95 movement/utility, 69 lean/audio), zero
+failures. Both strafe directions for all ten heroes and attack transitions were
+visually inspected in the 43.5-second packaged recording. Normal app startup was
+verified. Existing Godot test-exit resource-cleanup warnings remain.

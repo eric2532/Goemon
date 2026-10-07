@@ -13,7 +13,7 @@ func run():
    actor.reset_motion()
    for frame in range(45):
     actor.animate_pose({"isPlayer":true,"grounded":true,"motionSpeed":10.2,"localMotion":Vector3(side*10.2,0,0)},1.0/60,frame/60.0,1)
-   check(actor.joints.Body.node.rotation.z*side<-.10,"%s shoulders lean into side %s" %[CLASS_IDS[i],side])
+   check(actor.joints.Body.node.rotation.z*side<-.05 and absf(actor.joints.Body.node.rotation.z)<.11,"%s shoulders lean into side %s" %[CLASS_IDS[i],side])
    check((actor.joints.Head.node.rotation.z-resting_neck)*side<-.015,"%s neck adds a small directional tilt" % CLASS_IDS[i])
    for frame in range(40):actor.animate_pose({"isPlayer":true,"grounded":true,"motionSpeed":0,"localMotion":Vector3.ZERO},1.0/60,1+frame/60.0,0)
    check(absf(actor.joints.Body.node.rotation.z)<.01 and absf(actor.joints.Head.node.rotation.z-resting_neck)<.01,"%s settles upright after releasing strafe" % CLASS_IDS[i])

@@ -11,8 +11,11 @@ func run():
   actor.reset_motion()
   var rest: Vector3 = actor.joints.Arm_R.node.position
   for frame in range(45):actor.animate_pose(motion(10.2),1.0/60,frame/60.0,1)
-  check(actor.joints.Body.node.rotation.z<-.20,"%s has a readable side weight shift" % CLASS_IDS[i])
+  check(actor.joints.Body.node.rotation.z<-.05 and actor.joints.Body.node.rotation.z>-.11,"%s keeps a restrained side lean" % CLASS_IDS[i])
+  check(actor.model.rotation.y>.45 and actor.model.rotation.y<.56,"%s angles its stepping stance about 30 degrees into strafe" % CLASS_IDS[i])
   check(actor.joints.Arm_R.node.position.distance_to(rest)>.04,"%s carrying arm responds to strafe momentum" % CLASS_IDS[i])
+  var head_yaw: float = actor.model.rotation.y+actor.joints.Body.node.rotation.y+actor.joints.Head.node.rotation.y
+  check(head_yaw>.4 and head_yaw<.65,"%s head and neck follow the diagonal shoulder turn" % CLASS_IDS[i])
   var before: Vector3 = actor.joints.Arm_R.node.position
   actor.animate_pose(motion(-10.2),1.0/60,1,1)
   check(actor.joints.Arm_R.node.position.distance_to(before)<.035,"%s reversing direction does not snap its carrying hand" % CLASS_IDS[i])

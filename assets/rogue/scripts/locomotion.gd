@@ -7,6 +7,7 @@ var air: float = 0.0
 var crouch: float = 0.0
 var side_lean: float = 0.0
 var neck_lean: float = 0.0
+var strafe_yaw: float = 0.0
 var carry_side: float = 0.0
 var carry_weight: float = 0.0
 
@@ -18,6 +19,7 @@ func reset() -> void:
  crouch = 0.0
  side_lean = 0.0
  neck_lean = 0.0
+ strafe_yaw = 0.0
  carry_side = 0.0
  carry_weight = 0.0
 
@@ -44,18 +46,28 @@ func apply(actor, state: Dictionary, dt: float, time: float, movement: float) ->
  var lean_target: float = -sideways * weight * (0.2 if busy else 1.0)
  side_lean = lerpf(side_lean, lean_target, 1.0-exp(-dt*12.0))
  neck_lean = lerpf(neck_lean, side_lean, 1.0-exp(-dt*10.0))
- actor._r("Leg_L", stride * forward, 0, -stride * sideways)
- actor._r("Leg_R", -stride * forward, 0, stride * sideways)
+ # Turn the stepping stance a little toward travel. Counter-turn the upper
+ # body/head so camera-facing intent remains readable, without a rigid lean.
+ strafe_yaw = lerpf(strafe_yaw,sideways*weight*.524,1-exp(-dt*10))
+ var pose_yaw: float = strafe_yaw
+ var attack = state.get("attack")
+ if attack is Dictionary:pose_yaw *= 1-actor._c(actor._phase(attack),1,1,1)
+ elif busy or special:pose_yaw *= .2
+ var step_direction: Vector3 = direction.rotated(Vector3.UP,-pose_yaw)
+ var step_forward: float = step_direction.z
+ var step_side: float = step_direction.x*.72
+ actor._r("Leg_L", stride * step_forward, 0, -stride * step_side)
+ actor._r("Leg_R", -stride * step_forward, 0, stride * step_side)
  actor._p("Leg_L", 0, maxf(0, cos(phase)) * weight * 0.075)
  actor._p("Leg_R", 0, maxf(0, -cos(phase)) * weight * 0.075)
  actor._r("Arm_L", -stride * forward * 0.5, 0, stride * sideways * 0.23)
  actor._r("Arm_R", stride * forward * 0.5, 0, -stride * sideways * 0.23)
- actor._r("Body", weight * forward * 0.07, stride * 0.045, side_lean * 0.25)
- actor._r("Head", -weight * forward * 0.04, -stride * 0.025, neck_lean * 0.065)
- actor._p("Body", -side_lean * 0.05)
+ actor._r("Body", weight * forward * 0.07, stride * 0.025, side_lean * 0.09)
+ actor._r("Head", -weight * forward * 0.04, -stride * 0.015-pose_yaw*.10, neck_lean * 0.02)
+ actor._p("Body", -side_lean * 0.018)
  _carry(actor,state,dt,sideways,busy or special or not grounded)
  actor.model.position.y = (1.0-cos(phase*2.0))*0.027*weight + sin(time*2.4)*0.018*(1.0-weight)
- actor.model.rotation = Vector3.ZERO
+ actor.model.rotation = Vector3(0,pose_yaw,0)
  var rise: float = clampf(float(state.get("vertical", 0))/12.0, -1, 1)
  actor._r("Leg_L", -air*(0.32+maxf(0,rise)*0.4))
  actor._r("Leg_R", air*(0.22+maxf(0,rise)*0.25))
