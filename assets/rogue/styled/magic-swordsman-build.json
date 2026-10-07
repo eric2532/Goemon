@@ -1,6 +1,6 @@
 {
   "hero": "magic-swordsman",
-  "triangles": 2624,
+  "triangles": 2848,
   "mesh_batches": 7,
   "source": "assets/blender/rogue/magic-swordsman.blend",
   "removed_microdetails": [
@@ -99,5 +99,5 @@
     "Weapon_Cutlass"
   ],
   "face_method": "UV-painted skull",
-  "head_shape": "Sculpted cranium, cheeks, short jaw and chin"
+  "head_shape": "Slimmer cheeks, tapered jaw and face-framing hair"
 }

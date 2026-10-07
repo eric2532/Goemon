@@ -1,6 +1,6 @@
 {
   "hero": "mage",
-  "triangles": 3148,
+  "triangles": 3168,
   "mesh_batches": 8,
   "source": "assets/blender/rogue/mage.blend",
   "removed_microdetails": [
@@ -46,5 +46,5 @@
     "Weapon_Pistol"
   ],
   "face_method": "UV-painted skull",
-  "head_shape": "Sculpted cranium, cheeks, short jaw and chin"
+  "head_shape": "Slimmer cheeks, tapered jaw and face-framing hair"
 }

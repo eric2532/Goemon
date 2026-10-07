@@ -127,3 +127,20 @@ turning, movement, jumping, evasion and native attacks. Gameplay frame sequences
 were inspected. The signed 2.29.2 app was launched normally and left open at hero
 selection. Editable sources, comparison renders and the new recording are saved
 beside the app; the preceding 2.29.1 app and recording are retained separately.
+
+## Slimmer faces and additional hair: 2.29.3
+
+The user found 2.29.2 too round. Lower cheek widths are reduced about 12%, and
+the jaw now tapers more clearly toward the short chin. The original painted
+face atlas and its landmark projection remain unchanged. Each exposed face has
+two solid tapered temple locks in its existing hair colour, tucked under the
+existing hair, hat or hood. Magic Swordsman also has a smooth solid rear hair
+layer behind the long silver locks, covering gaps. Samurai's chin tie follows
+the narrowed jaw. Knight keeps his closed helmet; Goemon and Edo are untouched.
+
+The nine skulls, eighteen new temple locks and silver hair underlayer passed
+manifold and winding checks. Native animation transforms and the painted atlas
+match the previous version. Multi-angle renders and the final 70.63-second
+packaged gameplay recording were inspected. The packaged control/combat suite
+passed 134 checks with zero failures, code signing verified, and the native app
+was reopened successfully on the actual Fire Siege map.

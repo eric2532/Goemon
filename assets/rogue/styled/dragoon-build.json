@@ -1,6 +1,6 @@
 {
   "hero": "dragoon",
-  "triangles": 3020,
+  "triangles": 3040,
   "mesh_batches": 7,
   "source": "assets/blender/rogue/dragoon.blend",
   "removed_microdetails": [
@@ -96,5 +96,5 @@
     "Weapon_Cutlass"
   ],
   "face_method": "UV-painted skull",
-  "head_shape": "Sculpted cranium, cheeks, short jaw and chin"
+  "head_shape": "Slimmer cheeks, tapered jaw and face-framing hair"
 }

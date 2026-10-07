@@ -61,8 +61,8 @@ def sculpt_head(skull,hero):
  cx=(lo.x+hi.x)/2;cy=(lo.y+hi.y)/2;rx=(hi.x-lo.x)/2
  front=cy-lo.y;back=hi.y-cy;height=hi.z-lo.z
  # z, half-width, forward depth, rear depth: round cranium, cheek, jaw, chin.
- rings=[(.14,.33,.55,.26),(.18,.58,.77,.40),(.28,.82,.93,.68),
-        (.43,1.00,1.00,.87),(.60,.98,1.00,.99),(.76,.93,.95,.99),
+ rings=[(.14,.24,.52,.26),(.18,.43,.72,.40),(.28,.66,.88,.64),
+        (.43,.88,.97,.84),(.60,.95,1.00,.99),(.76,.93,.95,.99),
         (.89,.76,.75,.80),(.97,.43,.40,.45)]
  if hero=='master-thief':
   rings=[(z,w*(1.04 if .18<=z<=.43 else 1),f,b) for z,w,f,b in rings]
@@ -97,7 +97,50 @@ def sculpt_head(skull,hero):
  for mat in skull.data.materials:mesh.materials.append(mat)
  skull.data=mesh
  for p in mesh.polygons:p.use_smooth=True
- skull['head_shape']='Rounded cranium, full cheeks, short tapered jaw and chin'
+ skull['head_shape']='Restrained cheeks, angular tapered jaw and short chin'
+
+def frame_face_with_hair(skull,hero,head,coll):
+ # Small solid locks frame the cheek silhouette; the painted eyes stay exposed.
+ source_names={'pirate':'Swept back hair','mage':'Mage silver hair back',
+  'magic-swordsman':'Silver hair crown','explorer':'Auburn hair crown',
+  'master-thief':'Swept back chestnut hair'}
+ source=next((o for o in coll.objects if o.name==source_names.get(hero)),None)
+ if source:mat=source.data.materials[0]
+ else:
+  colors={'samurai':(.014,.010,.009),'ninja':(.008,.009,.017),
+   'dragoon':(.012,.020,.028),'ranger':(.085,.035,.013)}
+  mat=material(hero+' | Temple hair',colors[hero])
+ xmin,xmax,zmin,zmax=skull['face_uv_bounds'];rx=(xmax-xmin)/2;h=zmax-zmin
+ ps=[skull.matrix_world@v.co for v in skull.data.vertices]
+ cy=(min(p.y for p in ps)+max(p.y for p in ps))/2
+ front=cy-min(p.y for p in ps)
+ tips={'pirate':.36,'samurai':.38,'ninja':.47,'mage':.27,'dragoon':.38,
+       'magic-swordsman':.32,'ranger':.36,'explorer':.32,'master-thief':.39}
+ for side in [-1,1]:
+  # A faceted triangular cross-section gives each lock genuine volume.
+  verts=[]
+  for x,y,z,w,d in [(.77,-.50,.82,.18,.04),(.94,-.69,.61,.145,.047)]:
+   center=Vector((side*x*rx,cy+y*front,zmin+z*h))
+   verts.extend([center+Vector((side*dx,dy,0)) for dx,dy in [(-w*rx,0),(w*rx,0),(0,-d)]])
+  verts.append(Vector((side*.77*rx,cy-.81*front,zmin+tips[hero]*h)))
+  faces=[(0,2,1),(0,1,4,3),(1,2,5,4),(2,0,3,5),(3,4,6),(4,5,6),(5,3,6)]
+  if side<0:faces=[tuple(reversed(f)) for f in faces]
+  lock=mesh_obj('Face framing hair '+('L' if side<0 else 'R'),verts,faces,mat,head,coll)
+  lock['art_direction']='Solid tapered temple lock matching existing hairstyle'
+ # Fill the gaps between Swordsman's original long silver locks at the rear.
+ if hero=='magic-swordsman':
+  verts=[];faces=[];segments=12
+  for z,w,depth in [(.29,.55,.62),(.48,.90,.96),(.70,.96,1.02),(.87,.76,.82)]:
+   for j in range(segments+1):
+    a=math.pi/2+j*math.pi/segments
+    verts.append((rx*w*math.sin(a),cy-front*depth*math.cos(a)+.025,zmin+z*h))
+  for k in range(3):
+   for j in range(segments):
+    a=k*(segments+1)+j;faces.append((a,a+1,a+segments+2,a+segments+1))
+  layer=mesh_obj('Silver hair underlayer',verts,faces,mat,head,coll)
+  for polygon in layer.data.polygons:polygon.use_smooth=True
+  solid=layer.modifiers.new('Hair volume','SOLIDIFY');solid.thickness=.018
+  bpy.context.view_layer.objects.active=layer;bpy.ops.object.modifier_apply(modifier=solid.name)
 
 def build(hero):
  filename,tag,hs,bw,bd=PROFILES[hero]
@@ -207,6 +250,21 @@ def build(hero):
      reshape(o,lambda p:p+Vector((0,0,-seat_offset)))
    bounds=list(skull['face_uv_bounds']);bounds[2]-=seat_offset;bounds[3]-=seat_offset
    skull['face_uv_bounds']=bounds
+  frame_face_with_hair(skull,hero,head,coll)
+  if hero=='samurai':
+   surface=BVHTree.FromPolygons([skull.matrix_world@v.co for v in skull.data.vertices],[list(f.vertices) for f in skull.data.polygons])
+   for o in coll.objects:
+    if o.type!='MESH' or not o.name.startswith('Chin silk tie'):continue
+    points=[o.matrix_world@v.co for v in o.data.vertices]
+    mid_y=sum(p.y for p in points)/len(points);inv=o.matrix_world.inverted()
+    for v,p in zip(o.data.vertices,points):
+     old_y=p.y;p.x*=.75;p.z+=.02
+     hit,normal,index,dist=surface.ray_cast(Vector((p.x,-10,p.z)),Vector((0,1,0)))
+     if hit:p.y=hit.y-.012+(old_y-mid_y)*.25
+     else:
+      hit,normal,index,dist=surface.find_nearest(p)
+      p.y=hit.y-.012+(old_y-mid_y)*.25
+     v.co=inv@p
  if hero=='ninja':
   skull=next(o for o in coll.objects if 'Carved head' in o.name)
   surface=BVHTree.FromPolygons([skull.matrix_world@v.co for v in skull.data.vertices],[list(f.vertices) for f in skull.data.polygons])
@@ -327,7 +385,7 @@ def build(hero):
  bpy.ops.export_scene.gltf(filepath=str(OUT/'models'/(hero+'.glb')),export_format='GLB',use_selection=True,export_yup=True,export_materials='EXPORT')
  triangles=sum(len(o.data.loop_triangles) for o in export_objects if o.type=='MESH')
  report={'hero':hero,'triangles':triangles,'mesh_batches':sum(o.type=='MESH' for o in export_objects),'source':str(source_path.relative_to(ROOT)),'removed_microdetails':removed,'head_scale':hs,'body_width':bw,'body_depth':bd,'pivot_roles':list(pivots),'face_method':'UV-painted skull' if hero in FACE_TILES else 'closed helmet'}
- report['head_shape']='Sculpted cranium, cheeks, short jaw and chin' if hero in FACE_TILES else 'Unchanged closed helmet'
+ report['head_shape']='Slimmer cheeks, tapered jaw and face-framing hair' if hero in FACE_TILES else 'Unchanged closed helmet'
  (OUT/(hero+'-build.json')).write_text(json.dumps(report,indent=2))
  print('STYLED',hero,triangles,'triangles',report['mesh_batches'],'batches',flush=True)
 

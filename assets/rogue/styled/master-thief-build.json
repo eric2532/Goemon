@@ -1,6 +1,6 @@
 {
   "hero": "master-thief",
-  "triangles": 3116,
+  "triangles": 3136,
   "mesh_batches": 7,
   "source": "assets/blender/rogue/master-thief.blend",
   "removed_microdetails": [
@@ -98,5 +98,5 @@
     "Weapon_Cutlass"
   ],
   "face_method": "UV-painted skull",
-  "head_shape": "Sculpted cranium, cheeks, short jaw and chin"
+  "head_shape": "Slimmer cheeks, tapered jaw and face-framing hair"
 }

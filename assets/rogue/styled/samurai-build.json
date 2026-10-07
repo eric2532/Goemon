@@ -1,6 +1,6 @@
 {
   "hero": "samurai",
-  "triangles": 4810,
+  "triangles": 4830,
   "mesh_batches": 8,
   "source": "assets/blender/rogue/samurai.blend",
   "removed_microdetails": [
@@ -50,5 +50,5 @@
     "Weapon_Pistol"
   ],
   "face_method": "UV-painted skull",
-  "head_shape": "Sculpted cranium, cheeks, short jaw and chin"
+  "head_shape": "Slimmer cheeks, tapered jaw and face-framing hair"
 }

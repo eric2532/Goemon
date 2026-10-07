@@ -30,8 +30,8 @@
     "method": "UV-painted skull; separate facial geometry removed; Knight retains closed helmet"
   },
   "head_refinement": {
-    "version": "2.29.2",
-    "method": "Sculpted cheek/jaw/cranium loops; upper scalp preserves hair-fitting envelope",
+    "version": "2.29.3",
+    "method": "Slimmer cheeks and tapered jaw, solid temple hair locks, silver rear hair layer and fitted Samurai chin strap",
     "face_atlas": "Unchanged approved 2.29.1 artwork",
     "geometry_only": true
   }

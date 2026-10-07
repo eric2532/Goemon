@@ -20,3 +20,7 @@ The painted face artwork was approved in the next user review. Keep that atlas
 unchanged when refining head geometry. Replace the stretched sphere silhouette
 with a rounded cranium, intentional cheeks, a short tapered jaw and rounded chin;
 keep painted facial landmarks stable and check hair/ear/headwear fit from all sides.
+
+Latest refinement: 2.29.2 cheeks were too round. Use slimmer cheeks and a clearer
+jaw taper, with modest extra temple/side hair to frame the face. The approved
+painted face artwork stays unchanged. Do not restore full round cheeks.
