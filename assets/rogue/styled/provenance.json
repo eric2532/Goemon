@@ -21,5 +21,12 @@
       "source_project": "Rogue",
       "source_path": "art/standard-roster.blend"
     }
-  ]
+  ],
+  "painted_faces": {
+    "tool": "built-in imagegen",
+    "atlas": "assets/rogue/styled/faces/painted-faces.png",
+    "prompts": "assets/rogue/styled/faces/prompt.txt",
+    "version": "2.29.1",
+    "method": "UV-painted skull; separate facial geometry removed; Knight retains closed helmet"
+  }
 }

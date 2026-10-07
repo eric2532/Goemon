@@ -1,6 +1,6 @@
 {
   "hero": "master-thief",
-  "triangles": 3456,
+  "triangles": 3128,
   "mesh_batches": 7,
   "source": "assets/blender/rogue/master-thief.blend",
   "removed_microdetails": [
@@ -57,16 +57,34 @@
     "Cheek sculpt.008",
     "Inner ear.008",
     "Eye socket.008",
+    "Eye ivory.008",
+    "Iris.008",
+    "Pupil.008",
+    "Expressive brow.008",
     "Cheek sculpt.009",
     "Inner ear.009",
     "Eye socket.009",
+    "Eye ivory.009",
+    "Iris.009",
+    "Pupil.009",
+    "Expressive brow.009",
+    "Nose planes.004",
+    "Easygoing open grin.001",
+    "Friendly toothy smile.001",
+    "Rounded friendly lower cheek",
+    "Wide smile shadow",
+    "Big cheerful grin",
+    "Thief soft sweeping moustache",
+    "Laugh line",
+    "Thief soft sweeping moustache.001",
+    "Laugh line.001",
     "Pipe grip gold winding",
     "Pipe grip gold winding.001",
     "Pipe grip gold winding.002",
     "Pipe grip gold winding.003",
     "Pipe grip gold winding.004"
   ],
-  "head_scale": 2.05,
+  "head_scale": 1.55,
   "body_width": 1.22,
   "body_depth": 1.4,
   "pivot_roles": [
@@ -78,5 +96,6 @@
     "Arm_R",
     "Arm_L",
     "Weapon_Cutlass"
-  ]
+  ],
+  "face_method": "UV-painted skull"
 }

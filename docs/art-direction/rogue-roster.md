@@ -41,8 +41,8 @@ claimed to be those missing drawings.
 `tools/style_rogue_roster.py` uses preserved editable component sources in
 `assets/blender/rogue/originals`. It changes body regions independently, retains
 costume/weapon components, simplifies dense primitive topology, removes selected
-microdetails, rebuilds anime eye surfaces and consolidates matte colors into
-128px nearest-filtered palettes. Sources retain separate editable components;
+microdetails and consolidates matte costume colors into 128px nearest-filtered
+palettes. Faces use the painted atlas described below. Sources retain separate editable components;
 GLBs batch by animated pivot. Existing native joint roles and rigid weapon axes
 remain compatible with the Rogue action animator. Their rest pose remains the
 native relaxed arm pose, not Goemon's T pose, because the native skills depend on it.
@@ -55,7 +55,10 @@ scale and +Z-to−Z wrapper convention. Original imports remain available separa
 Validation requires checking the comparison images, roster portraits, and actual
 Fire Siege movement/actions; code tests alone cannot judge the designs.
 
-## Delivered 2.29.0
+## Superseded 2.29.0
+
+The user rejected the enlarged heads and raised facial features in this version.
+It is historical context, not an approved face or proportion reference.
 
 All ten derivatives are integrated into the roster and native actor. Review
 caught and fixed detached facial details, clipped comparison silhouettes, and
@@ -70,3 +73,31 @@ verification. Original 2D concepts remain unavailable; existing Rogue sources an
 portraits were used. Costumes retain more geometry than the Goemon original,
 while sharing one matte palette per hero and only 7–9 animated mesh batches.
 No remote or Linux release was published for this art update.
+
+## Painted face correction: 2.29.1
+
+Head scales are reduced 24–31% relative to 2.29.0. All nine visible faces are
+UV-painted directly onto the actual head mesh. Separate eyes, brows, noses, lips,
+cheeks, jaws, facial hair and smile creases are removed. Knight retains his closed
+helmet at the smaller head scale. Hair, hats, ears and Ninja's mask remain geometry.
+The original Goemon and Edo assets are unchanged.
+
+`assets/rogue/styled/faces/painted-faces.png` was created and refined with the
+built-in image-generation tool; `prompt.txt` records both prompts and provenance.
+The atlas has distinct painted identities in a 3×3 grid. Skull fronts use planar
+UVs; skull backs, ears and exposed skin use plain skin areas without repeating
+facial features. The face material is matte and uses linear texture filtering.
+The Blender sources pack the image and preserve editable meshes and UVs.
+
+The face expressions are currently fixed paintings, like the reference approach;
+this change does not add blinking or animated mouth textures. Existing body,
+head-turning and native combat animations remain active.
+
+Final verification: the exported 2.29.1 macOS app passed all 134 combat/control
+checks. Its 70.63-second art-tour recording exercised all ten revised heroes,
+with camera orbits, movement, jumps, evades and native attacks. Comparison renders
+and gameplay frame sequences were inspected. Native launch reached difficulty,
+roster, upgrade selection and the actual Fire Siege map; the app was left paused
+with Magic Swordsman. Code-signature verification passed. An existing exit-only
+resource cleanup warning remains in the automated tour log; it did not interrupt
+the recording or normal launch. No GitHub/Linux release accompanies this correction.

@@ -1,6 +1,6 @@
 {
   "hero": "mage",
-  "triangles": 3272,
+  "triangles": 3116,
   "mesh_batches": 8,
   "source": "assets/blender/rogue/mage.blend",
   "removed_microdetails": [
@@ -17,11 +17,21 @@
     "Jaw planes.002",
     "Cheekbone.004",
     "Eye socket.004",
+    "Eye white.004",
+    "Iris.004",
+    "Pupil.004",
+    "Confident eyebrow.004",
     "Cheekbone.005",
     "Eye socket.005",
+    "Eye white.005",
+    "Iris.005",
+    "Pupil.005",
+    "Confident eyebrow.005",
+    "Carved nose.002",
+    "Calm upper lip.001",
     "Lower lip highlight.001"
   ],
-  "head_scale": 2.26,
+  "head_scale": 1.65,
   "body_width": 1.24,
   "body_depth": 1.43,
   "pivot_roles": [
@@ -34,5 +44,6 @@
     "Head",
     "Weapon_Cutlass",
     "Weapon_Pistol"
-  ]
+  ],
+  "face_method": "UV-painted skull"
 }

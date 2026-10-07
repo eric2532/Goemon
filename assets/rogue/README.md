@@ -23,3 +23,9 @@ script is `tools/style_rogue_roster.py`; comparison/portrait rendering is
 `tools/render_rogue_style.py`. Per-character build reports record triangle counts,
 mesh batches and removed microdetails. See `docs/art-direction/rogue-roster.md`
 for the identity comparisons, measured master baseline and known reference limits.
+# Painted faces (2.29.1)
+
+The latest user correction supersedes the earlier enlarged head treatment.
+Styled heroes now have smaller heads and painted facial features on the skull UVs.
+Knight keeps his closed helmet. The source atlas and generation/edit prompts are
+in `styled/faces/`; all editable Blender files embed the painted image.

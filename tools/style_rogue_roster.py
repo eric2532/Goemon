@@ -10,19 +10,22 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'assets/rogue/styled'
 SOURCE=ROOT/'assets/blender/rogue'
 PROFILES={
- 'pirate':('rogue-characters','CAPTAIN',2.28,1.34,1.48),
- 'samurai':('standard-roster','SAMURAI',2.20,1.35,1.44),
- 'ninja':('standard-roster','NINJA',2.25,1.22,1.38),
- 'mage':('standard-roster','MAGE',2.26,1.24,1.43),
- 'knight':('standard-roster','KNIGHT',2.20,1.40,1.45),
- 'dragoon':('hero-roster','DRAGOON',2.28,1.30,1.47),
- 'magic-swordsman':('hero-roster','MAGIC SWORDSMAN',2.38,1.30,1.50),
- 'ranger':('hero-roster','RANGER',2.30,1.25,1.43),
- 'explorer':('hero-roster','EXPLORER',2.34,1.25,1.40),
- 'master-thief':('hero-roster','MASTER THIEF',2.05,1.22,1.40),
+ 'pirate':('rogue-characters','CAPTAIN',1.65,1.34,1.48),
+ 'samurai':('standard-roster','SAMURAI',1.65,1.35,1.44),
+ 'ninja':('standard-roster','NINJA',1.60,1.22,1.38),
+ 'mage':('standard-roster','MAGE',1.65,1.24,1.43),
+ 'knight':('standard-roster','KNIGHT',1.65,1.40,1.45),
+ 'dragoon':('hero-roster','DRAGOON',1.65,1.30,1.47),
+ 'magic-swordsman':('hero-roster','MAGIC SWORDSMAN',1.65,1.30,1.50),
+ 'ranger':('hero-roster','RANGER',1.60,1.25,1.43),
+ 'explorer':('hero-roster','EXPLORER',1.65,1.25,1.40),
+ 'master-thief':('hero-roster','MASTER THIEF',1.55,1.22,1.40),
 }
 # Decorative microgeometry becomes broad color shapes rather than raised engraving.
 REMOVE=re.compile(r'knuckle crease|carved strand|temple hair strand|hair strand|grip.*wire|coin embroidery|inlaid rune line|bracer luminous rune|mantle.*border|longcoat silver border|greave gilt ridge|sash silk folds|trouser drape fold|stole woven stripe|ankle winding|finger seam|hand-set rivet|etched|carved highlight|hair highlight|cape fold|grip wire|grip gold winding|filigree|stitch|embroidered|rune line|buckle recess|boot seam|chain link|individual beard|freckle|nostril|inner ear|cheekbone|cheek plane|lower lip highlight|jaw planes|eye socket|upper eyelid|cheek sculpt|defined jaw',re.I)
+
+FACE_TILES={'pirate':0,'samurai':1,'ninja':2,'mage':3,'dragoon':4,'magic-swordsman':5,'ranger':6,'explorer':7,'master-thief':8}
+FACE_PARTS=re.compile(r'eye|iris|pupil|brow|nose|mouth|lip|cheek|jaw|grin|smile|laugh line|beard|moustache|patch|ear inner',re.I)
 
 def material(name,color):
  m=bpy.data.materials.new(name);m.use_nodes=True;n=m.node_tree.nodes.get('Principled BSDF');n.inputs['Base Color'].default_value=(*color,1);n.inputs['Roughness'].default_value=1;n.inputs['Specular IOR Level'].default_value=0;return m
@@ -104,11 +107,11 @@ def build(hero):
   m=old_world[o].copy();m.translation=transforms[o];o.matrix_world=m
  bpy.context.view_layer.update()
  removed=[]
- catchlights=[]
  for o,points in list(old_points.items()):
   name=o.name.lower()
+  facial_part=ancestor(o,'Head') and FACE_PARTS.search(name)
   ninja_underlay=hero=='ninja' and name.split('.')[0] in ['eye white','iris','pupil','confident eyebrow']
-  if REMOVE.search(name) or ninja_underlay or (hero=='ninja' and 'visible eye-window skin' in name):removed.append(o.name);bpy.data.objects.remove(o,do_unlink=True);continue
+  if REMOVE.search(name) or facial_part or ninja_underlay or (hero=='ninja' and 'visible eye-window skin' in name):removed.append(o.name);bpy.data.objects.remove(o,do_unlink=True);continue
   if hero=='ninja' and 'faceted shinobi mask' in name:
    points=[Vector((p.x,(-.095 if p.y<-.15 else -.070),p.z)) if abs(p.x)>.12 else p for p in points]
   in_head=ancestor(o,'Head') is not None
@@ -120,23 +123,6 @@ def build(hero):
    mapped=[new+(p-origin) for p in points]
   elif in_head:
    mapped=[headmap(p) for p in points]
-   # Eyes are shallow painted-looking anime discs, not protruding eyeballs.
-   eye_kind=next((t for t in ['eye ivory','eye white','iris','pupil'] if t in name),None)
-   if 'amber eye' in name:eye_kind='iris'
-   if eye_kind:
-    center=sum(mapped,Vector())/len(mapped)
-    rx,rz={'eye ivory':(.145,.105),'eye white':(.145,.105),'iris':(.076,.082),'pupil':(.030,.047)}[eye_kind]
-    # Fit eye depth to the skull; inset color planes share the same frontal plane.
-    center.y= -.462 if eye_kind in ['eye ivory','eye white'] else (-.470 if eye_kind=='iris' else -.478)
-    mapped=[center]+[center+Vector((rx*math.cos(k*math.tau/12),0,rz*math.sin(k*math.tau/12))) for k in range(12)]
-    local=o.matrix_world.inverted()
-    new=bpy.data.meshes.new(o.name+' anime eye')
-    new.from_pydata([local@p for p in mapped],[],[(0,k+1,(k+1)%12+1) for k in range(12)])
-    for m in o.data.materials:new.materials.append(m)
-    o.data=new
-    if eye_kind=='pupil':catchlights.append(center+Vector((-.026,-.009,.037)))
-   if 'brow' in name:
-    mapped=[p+Vector((0,-.028,.045)) for p in mapped]
   else:
    mapped=[bodymap(p) for p in points]
    # Chunky feet and hands are remodeled locally; do not widen the entire actor.
@@ -145,8 +131,6 @@ def build(hero):
     mapped=[Vector((pivot.x+(p.x-pivot.x)*1.26,p.y*1.18,p.z)) for p in mapped]
    if any(t in name for t in ['grasp','hand','fist','ninja glove']) and not any(t in name for t in ['handle','handguard']):
     center=sum(mapped,Vector())/len(mapped);mapped=[center+(p-center)*1.7 for p in mapped]
-  if in_head and 'nose' in name:
-   mid=sum(mapped,Vector())/len(mapped);mapped=[Vector((mid.x+(p.x-mid.x)*.72,mid.y+(p.y-mid.y)*.35,p.z)) for p in mapped]
   if in_head and ('hair lock' in name or 'sidelock' in name):
    mid=sum(mapped,Vector())/len(mapped);mapped=[Vector((p.x,mid.y+(p.y-mid.y)*1.45,p.z)) for p in mapped]
   inv=o.matrix_world.inverted()
@@ -160,35 +144,15 @@ def build(hero):
    bpy.context.view_layer.objects.active=o
    bpy.ops.object.modifier_apply(modifier=mod.name)
   for p in o.data.polygons:p.use_smooth=True
- # White painted eye glints use the same atlas/material as the rest of the face.
- glint=material('Painted eye glints',(.98,.99,1))
- for center in catchlights:
-  r=.018
-  mesh_obj('Eye painted glint',[center+Vector((x,0,z)) for x,z in [(-r,-r),(r,-r),(r,r),(-r,r)]],[(0,1,2,3)],glint,head,coll)
- # Conform facial markings to the finalized skull, using its actual surface.
- # Preserve volume for the nose, while painted eyes/lips sit just above the skin.
- skull=next((o for o in coll.objects if o.type=='MESH' and any(t in o.name.lower() for t in ['carved face','carved head','captain head'])),None)
- if skull:
-  points=[skull.matrix_world@v.co for v in skull.data.vertices]
-  surface=skull
-  points=[surface.matrix_world@v.co for v in surface.data.vertices]
-  bvh=BVHTree.FromPolygons(points,[list(f.vertices) for f in surface.data.polygons])
-  for o in list(coll.objects):
-   name=o.name.lower()
-   if o.type!='MESH' or o==skull or o==surface or not ancestor(o,'Head'):continue
-   if not any(t in name for t in ['eye','iris','pupil','brow','mouth','lip','nose','moustache','forehead plated crest','crest violet gem']):continue
-   if 'patch' in name:continue
-   points=[o.matrix_world@v.co for v in o.data.vertices];back=max(p.y for p in points)
-   inv=o.matrix_world.inverted()
-   face_offset=.009
-   if 'iris' in name or 'amber eye' in name:face_offset=.018
-   if 'pupil' in name:face_offset=.026
-   if 'glint' in name:face_offset=.036
+ if hero=='ninja':
+  skull=next(o for o in coll.objects if 'Carved head' in o.name)
+  surface=BVHTree.FromPolygons([skull.matrix_world@v.co for v in skull.data.vertices],[list(f.vertices) for f in skull.data.polygons])
+  for o in coll.objects:
+   if o.type!='MESH' or not any(t in o.name for t in ['forehead plated crest','crest violet gem']):continue
+   points=[o.matrix_world@v.co for v in o.data.vertices];back=max(p.y for p in points);inv=o.matrix_world.inverted()
    for v,p in zip(o.data.vertices,points):
-    hit,normal,index,dist=bvh.ray_cast(Vector((p.x,-10,p.z)),Vector((0,1,0)))
-    if hit:
-     p.y=hit.y-face_offset+(p.y-back if any(t in name for t in ['nose','moustache','brow','mouth','lip','forehead plated crest','crest violet gem']) else 0)
-     v.co=inv@p
+    hit,normal,index,dist=surface.ray_cast(Vector((p.x,-10,p.z)),Vector((0,1,0)))
+    if hit:p.y=hit.y-.006+p.y-back;v.co=inv@p
  if hero=='ninja':
   mask=next(o for o in coll.objects if 'Faceted shinobi mask' in o.name)
   bvh=BVHTree.FromPolygons([mask.matrix_world@v.co for v in mask.data.vertices],[list(f.vertices) for f in mask.data.polygons])
@@ -227,6 +191,44 @@ def build(hero):
    for li in face.loop_indices:uv.data[li].uv=co
    face.material_index=0
   o.data.materials.clear();o.data.materials.append(mat)
+ # The actual face is a single UV-painted skull surface: no facial feature meshes.
+ if hero in FACE_TILES:
+  skull=next(o for o in coll.objects if o.type=='MESH' and any(t in o.name.lower() for t in ['carved face','carved head','captain head']))
+  painted=bpy.data.images.load(str(OUT/'faces/painted-faces.png'),check_existing=True);painted.pack()
+  face_mat=material(hero+' | Drawn face',(1,1,1));nt=face_mat.node_tree
+  tex=nt.nodes.new('ShaderNodeTexImage');tex.image=painted;tex.interpolation='Linear'
+  nt.links.new(tex.outputs['Color'],nt.nodes['Principled BSDF'].inputs['Base Color'])
+  tile=FACE_TILES[hero];column=tile%3;row=tile//3
+  def face_uv(u,v):return ((column+u)/3,(2-row+v)/3)
+  points=[skull.matrix_world@v.co for v in skull.data.vertices]
+  xmin=min(p.x for p in points);xmax=max(p.x for p in points)
+  zmin=min(p.z for p in points);zmax=max(p.z for p in points)
+  cy=sum(p.y for p in points)/len(points)
+  # Broaden UV coverage slightly so the drawn features remain restrained on the face.
+  skin_names=[m.name.lower() for m in mats]
+  skin_indices={i for i,n in enumerate(skin_names) if any(t in n for t in ['skin','face planes','warm face','weathered peach','sculpt planes'])}
+  for o in coll.objects:
+   if o.type!='MESH':continue
+   uv=o.data.uv_layers.active
+   if o==skull:
+    o.data.materials.clear();o.data.materials.append(face_mat)
+    for f in o.data.polygons:
+     center=o.matrix_world@f.center
+     for li in f.loop_indices:
+      p=o.matrix_world@o.data.vertices[o.data.loops[li].vertex_index].co
+      u=(p.x-xmin)/(xmax-xmin);v=(p.z-zmin)/(zmax-zmin)
+      uv.data[li].uv=face_uv(min(u,.90) if hero=='dragoon' else u,v) if center.y<cy else face_uv(.025,.975)
+     f.material_index=0
+    o['painted_face']=True
+   else:
+    # Match ears/neck/bare hands to the texture's skin; leave gloves and clothing intact.
+    o.data.materials.append(face_mat)
+    for f in o.data.polygons:
+     co=uv.data[f.loop_start].uv
+     mi=int(co.y*8)*8+int(co.x*8)
+     if mi in skin_indices:
+      f.material_index=1
+      for li in f.loop_indices:uv.data[li].uv=face_uv(.025,.975)
  # Save source with individually editable clothing / anatomy / accessory components.
  for o in coll.objects:
   if o.type=='EMPTY':o.name=role(o)
@@ -262,7 +264,7 @@ def build(hero):
  bpy.context.view_layer.objects.active=next(o for o in export_objects if o.type=='MESH')
  bpy.ops.export_scene.gltf(filepath=str(OUT/'models'/(hero+'.glb')),export_format='GLB',use_selection=True,export_yup=True,export_materials='EXPORT')
  triangles=sum(len(o.data.loop_triangles) for o in export_objects if o.type=='MESH')
- report={'hero':hero,'triangles':triangles,'mesh_batches':sum(o.type=='MESH' for o in export_objects),'source':str(source_path.relative_to(ROOT)),'removed_microdetails':removed,'head_scale':hs,'body_width':bw,'body_depth':bd,'pivot_roles':list(pivots)}
+ report={'hero':hero,'triangles':triangles,'mesh_batches':sum(o.type=='MESH' for o in export_objects),'source':str(source_path.relative_to(ROOT)),'removed_microdetails':removed,'head_scale':hs,'body_width':bw,'body_depth':bd,'pivot_roles':list(pivots),'face_method':'UV-painted skull' if hero in FACE_TILES else 'closed helmet'}
  (OUT/(hero+'-build.json')).write_text(json.dumps(report,indent=2))
  print('STYLED',hero,triangles,'triangles',report['mesh_batches'],'batches',flush=True)
 

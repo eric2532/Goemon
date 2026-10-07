@@ -1,6 +1,6 @@
 {
   "hero": "dragoon",
-  "triangles": 3292,
+  "triangles": 3032,
   "mesh_batches": 7,
   "source": "assets/blender/rogue/dragoon.blend",
   "removed_microdetails": [
@@ -14,11 +14,21 @@
     "Cheek sculpt",
     "Inner ear",
     "Eye socket",
+    "Eye ivory",
+    "Iris",
+    "Pupil",
+    "Expressive brow",
     "Sculpted upper eyelid",
     "Cheek sculpt.001",
     "Inner ear.001",
     "Eye socket.001",
+    "Eye ivory.001",
+    "Iris.001",
+    "Pupil.001",
+    "Expressive brow.001",
     "Sculpted upper eyelid.001",
+    "Nose planes",
+    "Mouth",
     "Mantle embroidered hem",
     "Sculpted cape fold",
     "Sculpted cape fold.001",
@@ -58,6 +68,11 @@
     "Forearm dragon bracer etched edge.001",
     "Hand-set rivet",
     "Hand-set rivet.001",
+    "Brow crystal",
+    "Helm tapered cheek guard",
+    "Cheek guard platinum edge",
+    "Helm tapered cheek guard.001",
+    "Cheek guard platinum edge.001",
     "Lance grip silver wire",
     "Lance grip silver wire.001",
     "Lance grip silver wire.002",
@@ -67,7 +82,7 @@
     "Lance grip silver wire.006",
     "Lance grip silver wire.007"
   ],
-  "head_scale": 2.28,
+  "head_scale": 1.65,
   "body_width": 1.3,
   "body_depth": 1.47,
   "pivot_roles": [
@@ -79,5 +94,6 @@
     "Leg_L",
     "Arm_L",
     "Weapon_Cutlass"
-  ]
+  ],
+  "face_method": "UV-painted skull"
 }

@@ -1,6 +1,6 @@
 {
   "hero": "explorer",
-  "triangles": 3562,
+  "triangles": 3394,
   "mesh_batches": 8,
   "source": "assets/blender/rogue/explorer.blend",
   "removed_microdetails": [
@@ -14,9 +14,20 @@
     "Cheek sculpt.006",
     "Inner ear.006",
     "Eye socket.006",
+    "Eye ivory.006",
+    "Iris.006",
+    "Pupil.006",
+    "Expressive brow.006",
     "Cheek sculpt.007",
     "Inner ear.007",
     "Eye socket.007",
+    "Eye ivory.007",
+    "Iris.007",
+    "Pupil.007",
+    "Expressive brow.007",
+    "Nose planes.003",
+    "Easygoing open grin",
+    "Friendly toothy smile",
     "Jacket hand stitching",
     "Hand-set rivet.006",
     "Leather blade bracer etched edge",
@@ -50,7 +61,7 @@
     "Explorer cheek freckle.004",
     "Explorer cheek freckle.005"
   ],
-  "head_scale": 2.34,
+  "head_scale": 1.65,
   "body_width": 1.25,
   "body_depth": 1.4,
   "pivot_roles": [
@@ -63,5 +74,6 @@
     "Arm_L",
     "Weapon_Cutlass",
     "Weapon_Pistol"
-  ]
+  ],
+  "face_method": "UV-painted skull"
 }

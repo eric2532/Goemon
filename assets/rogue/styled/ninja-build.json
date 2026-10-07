@@ -1,6 +1,6 @@
 {
   "hero": "ninja",
-  "triangles": 3944,
+  "triangles": 3813,
   "mesh_batches": 8,
   "source": "assets/blender/rogue/ninja.blend",
   "removed_microdetails": [
@@ -20,11 +20,20 @@
     "Iris.003",
     "Pupil.003",
     "Confident eyebrow.003",
+    "Carved nose.001",
     "Visible eye-window skin",
+    "Almond shaped eye white",
+    "Cold cyan iris",
+    "Small ninja pupil",
+    "Angled stealth eyebrow",
+    "Almond shaped eye white.001",
+    "Cold cyan iris.001",
+    "Small ninja pupil.001",
+    "Angled stealth eyebrow.001",
     "Hand-set rivet.008",
     "Hand-set rivet.009"
   ],
-  "head_scale": 2.25,
+  "head_scale": 1.6,
   "body_width": 1.22,
   "body_depth": 1.38,
   "pivot_roles": [
@@ -37,5 +46,6 @@
     "Head",
     "Weapon_Cutlass",
     "Weapon_Pistol"
-  ]
+  ],
+  "face_method": "UV-painted skull"
 }

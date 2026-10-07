@@ -1,6 +1,6 @@
 {
   "hero": "samurai",
-  "triangles": 4958,
+  "triangles": 4778,
   "mesh_batches": 8,
   "source": "assets/blender/rogue/samurai.blend",
   "removed_microdetails": [
@@ -19,11 +19,23 @@
     "Jaw planes",
     "Cheekbone",
     "Eye socket",
+    "Eye white",
+    "Iris",
+    "Pupil",
+    "Confident eyebrow",
     "Cheekbone.001",
     "Eye socket.001",
-    "Lower lip highlight"
+    "Eye white.001",
+    "Iris.001",
+    "Pupil.001",
+    "Confident eyebrow.001",
+    "Carved nose",
+    "Calm upper lip",
+    "Lower lip highlight",
+    "Menpo cheek guard",
+    "Menpo cheek guard.001"
   ],
-  "head_scale": 2.2,
+  "head_scale": 1.65,
   "body_width": 1.35,
   "body_depth": 1.44,
   "pivot_roles": [
@@ -36,5 +48,6 @@
     "Head",
     "Weapon_Cutlass",
     "Weapon_Pistol"
-  ]
+  ],
+  "face_method": "UV-painted skull"
 }

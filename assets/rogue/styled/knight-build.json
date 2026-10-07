@@ -1,6 +1,6 @@
 {
   "hero": "knight",
-  "triangles": 4080,
+  "triangles": 3992,
   "mesh_batches": 8,
   "source": "assets/blender/rogue/knight.blend",
   "removed_microdetails": [
@@ -26,6 +26,10 @@
     "Hand-set rivet.025",
     "Hand-set rivet.026",
     "Hand-set rivet.027",
+    "Knight eye-slit gilt brow",
+    "Knight shadowed eye glint",
+    "Knight eye-slit gilt brow.001",
+    "Knight shadowed eye glint.001",
     "Hand-set rivet.028",
     "Hand-set rivet.029",
     "Hand-set rivet.030",
@@ -35,7 +39,7 @@
     "Hand-set rivet.034",
     "Hand-set rivet.035"
   ],
-  "head_scale": 2.2,
+  "head_scale": 1.65,
   "body_width": 1.4,
   "body_depth": 1.45,
   "pivot_roles": [
@@ -48,5 +52,6 @@
     "Head",
     "Weapon_Cutlass",
     "Weapon_Pistol"
-  ]
+  ],
+  "face_method": "closed helmet"
 }

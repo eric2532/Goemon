@@ -1,6 +1,6 @@
 {
   "hero": "magic-swordsman",
-  "triangles": 2792,
+  "triangles": 2636,
   "mesh_batches": 7,
   "source": "assets/blender/rogue/magic-swordsman.blend",
   "removed_microdetails": [
@@ -14,11 +14,21 @@
     "Cheek sculpt.002",
     "Inner ear.002",
     "Eye socket.002",
+    "Eye ivory.002",
+    "Iris.002",
+    "Pupil.002",
+    "Expressive brow.002",
     "Sculpted upper eyelid.002",
     "Cheek sculpt.003",
     "Inner ear.003",
     "Eye socket.003",
+    "Eye ivory.003",
+    "Iris.003",
+    "Pupil.003",
+    "Expressive brow.003",
     "Sculpted upper eyelid.003",
+    "Nose planes.001",
+    "Mouth.001",
     "Mantle embroidered hem.001",
     "Sculpted cape fold.004",
     "Sculpted cape fold.005",
@@ -75,7 +85,7 @@
     "Claymore grip wire.005",
     "Claymore grip wire.006"
   ],
-  "head_scale": 2.38,
+  "head_scale": 1.65,
   "body_width": 1.3,
   "body_depth": 1.5,
   "pivot_roles": [
@@ -87,5 +97,6 @@
     "Leg_L",
     "Arm_L",
     "Weapon_Cutlass"
-  ]
+  ],
+  "face_method": "UV-painted skull"
 }

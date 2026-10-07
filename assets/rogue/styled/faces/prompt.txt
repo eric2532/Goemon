@@ -1,0 +1,21 @@
+Built-in image_gen generation, 2026-10-07.
+References: approved goemon_original.png atlas and the existing Rogue roster.
+
+Create one production texture atlas for a retro Japanese action RPG: a perfectly regular 3 columns by 3 rows grid of NINE square flat PAINTED FACE TEXTURES. All nine cells equal size, no gutters, no labels, no borders. Each tile is edge-to-edge uniform warm peach skin color (#dca474), with just inked eyes, eyebrows, a tiny drawn nose mark and mouth/facial hair centered inside it. NO head outline, NO ears, NO hair, NO neck, NO clothing, NO headwear. These are UV textures to paint directly onto rounded low-poly heads, not portraits, not 3D renders. Matte flat unlit color, crisp charming hand-painted 1990s anime game illustration, like the original Goemon painted eye atlas. Eyes almond shaped with bold upper eyelids and colored irises, NOT googly round circles. Facial features comfortably contained within the central 65% width and central 55% height; eyes around 43% down the tile, mouth around 65%. Skin background must be completely flat, no lighting gradients, shadows, contours or blush blobs. Keep details bold and readable at 128px.
+
+Tile identities in strict row-major order:
+Top left PIRATE: adult male, amber left visible eye, black eyepatch over viewer-right eye, bold cocky brow, short dark pointed beard and curved moustache, small confident grin. No eyepatch strap outside central face.
+Top middle SAMURAI: mature male, narrow amber eyes, strong black angular brows, stern calm tiny mouth, clean shaven.
+Top right NINJA: youthful male, focused teal eyes, sharp thin brows, tiny nose and neutral closed mouth; no face covering painted, the 3D model supplies mask.
+Middle left MAGE: calm adult female, elegant blue almond eyes, fine brows, gentle restrained mouth, tiny nose, clean face.
+Middle middle DRAGOON: determined male, cyan almond eyes, black brows angled slightly inward, confident closed mouth.
+Middle right MAGIC SWORDSMAN: handsome young adult male, violet almond eyes, slim silver-grey eyebrows, calm slightly asymmetric smirk, tiny nose, no beard.
+Bottom left RANGER: calm adult male, green almond eyes, brown eyebrows, reserved mouth, tiny nose, no beard.
+Bottom middle EXPLORER: adventurous young adult female, warm teal almond eyes, auburn brows, friendly curved smile, three small freckles each cheek.
+Bottom right MASTER THIEF: cheerful older male, relaxed amber almond eyes, brown eyebrows, sweeping brown moustache, small friendly grin and subtle smile creases. No beard.
+
+Consistent drawing language across all cells, but distinct expressions. Use the provided Goemon atlas only for flat painted cartoon face language; use the roster only for iris and facial-hair identities. Do not reproduce the ugly round protruding eyes from the roster. Final output is ONLY the full square 3x3 texture atlas, perfectly flat and orthographic.
+
+Follow-up edit (built-in image_gen): Preserve the exact 3x3 grid and all facial
+features; add Ranger's small pointed brown chin beard in the bottom-left tile;
+make Magic Swordsman's middle-right tile skin a paler peach (#edc9ac).

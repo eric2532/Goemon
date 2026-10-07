@@ -9,3 +9,9 @@ make Goemon clones. Compare full front, side and three-quarter views beside Goem
 under shared lighting before integration, then verify the character in gameplay.
 Keep source models editable and preserve native combat/animation compatibility.
 The approved Goemon source and atlas are not a template to overwrite or reshape.
+
+User correction (2026-10-07): facial features must be PAINTED onto the head
+texture, like Goemon. Do not build separate eyeballs, eyebrows, noses, lips, or
+facial-hair pieces. Keep a simple volumetric head, restrained head proportions,
+and use editable UV face artwork. The rejected oversized-head/raised-feature
+version is not an approved reference.
