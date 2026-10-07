@@ -1,0 +1,499 @@
+GAME-WIDE CHARACTER ART DIRECTION
+
+From this point forward, use the approved GOEMON Blender character as the
+MASTER BASELINE for every playable character in this game.
+
+GOEMON defines the game's 3D CHARACTER STYLE.
+
+IMPORTANT:
+
+Do NOT make every character look like Goemon.
+Do NOT copy Goemon's clothing, hairstyle, face, colors, or exact body shape.
+
+Instead:
+
+GOEMON defines HOW characters are translated into 3D.
+Each character's original reference defines WHO that character is.
+
+Every new character should look like they were created by the same studio,
+for the same game, using Goemon as the visual and technical baseline.
+
+==================================================
+1. FIRST: ANALYZE GOEMON
+==================================================
+
+Before creating or modifying another character, inspect the existing approved
+Goemon Blender model.
+
+Do not rely only on screenshots.
+
+Inspect the actual geometry, objects, modifiers, materials and proportions.
+
+Extract Goemon's visual rules:
+
+- head-to-body ratio
+- head width and depth
+- skull construction
+- face depth
+- eye size and construction
+- nose simplification
+- mouth style
+- ear style
+- neck thickness
+- torso construction
+- ribcage depth
+- pelvis depth
+- shoulder scale
+- arm thickness
+- hand scale
+- leg proportions
+- foot exaggeration
+- overall polygon density
+- hair construction
+- clothing construction
+- edge softness
+- material/shader style
+- texture/detail density
+
+These become the baseline for the game's character system.
+
+==================================================
+2. PROPORTION LANGUAGE
+==================================================
+
+Use Goemon's overall stylization level as the baseline.
+
+New characters should share the same general relationship between:
+
+HEAD
+TORSO
+ARMS
+HANDS
+PELVIS
+LEGS
+FEET
+
+Do NOT force every character to use Goemon's exact measurements.
+
+A character may naturally be:
+
+- taller
+- shorter
+- thinner
+- heavier
+- younger
+- older
+- stronger
+- more delicate
+
+But those differences must feel like variations within the SAME GAME.
+
+For example:
+
+If Goemon uses an oversized head and exaggerated feet,
+other characters should use a compatible level of exaggeration.
+
+Do not suddenly give another character realistic human proportions.
+
+==================================================
+3. 3D VOLUME — VERY IMPORTANT
+==================================================
+
+Goemon establishes the minimum standard for 3D construction.
+
+Every character must have proper:
+
+- skull volume
+- facial depth
+- ribcage volume
+- waist transition
+- pelvis volume
+- shoulder volume
+- thigh volume
+- hand volume
+- foot volume
+
+Do NOT create characters that only look correct from the front.
+
+Do NOT create a 2D illustration and extrude it backward.
+
+The character must look intentionally designed from:
+
+FRONT
+SIDE
+BACK
+3/4
+
+Use Goemon's front-to-back body volume as the baseline.
+
+==================================================
+4. FACE STYLE
+==================================================
+
+Use Goemon to establish the game's FACIAL DESIGN LANGUAGE.
+
+Match the same general:
+
+- level of anime stylization
+- eye complexity
+- iris treatment
+- eyebrow construction
+- nose simplification
+- mouth simplification
+- cheek volume
+- jaw simplification
+- ear construction
+- skin shading
+
+BUT preserve the new character's identity.
+
+Do NOT copy Goemon's exact eyes or expression.
+
+For example:
+
+Goemon can have narrow mischievous eyes.
+
+Another character may have rounder or calmer eyes.
+
+But both eyes should look like they were created using the SAME game's
+modeling and material system.
+
+==================================================
+5. HAIR STYLE
+==================================================
+
+Use Goemon's hair construction as the baseline.
+
+Hair should be constructed from:
+
+- intentional large 3D clumps
+- strong readable silhouettes
+- simplified geometry
+- controlled secondary spikes
+- real front-to-back volume
+
+Do NOT use realistic individual strands.
+
+Do NOT use particle hair.
+
+Do NOT make hair that only works from the front.
+
+Each hairstyle should be unique to its character while using the same
+modeling philosophy as Goemon.
+
+==================================================
+6. BODY SHAPE
+==================================================
+
+Goemon defines the STYLE of anatomy, not everyone's anatomy.
+
+Preserve each character's original body type.
+
+However, translate that body into the same simplified 3D language.
+
+For example:
+
+A skinny character should look like:
+"skinny character from Goemon's game"
+
+A large character should look like:
+"large character from Goemon's game"
+
+A female character should look like:
+"female character from Goemon's game"
+
+A tall character should look like:
+"tall character from Goemon's game"
+
+Do NOT simply stretch or shrink Goemon.
+
+==================================================
+7. CLOTHING
+==================================================
+
+Preserve each character's original costume.
+
+Use Goemon only to determine HOW clothing is modeled.
+
+Match Goemon's:
+
+- geometry complexity
+- cloth thickness
+- fold simplification
+- edge treatment
+- silhouette emphasis
+- material roughness
+- detail density
+
+Large clothing shapes are more important than tiny folds.
+
+Clothing must wrap around actual 3D body volume.
+
+Do not create flat front/back clothing panels.
+
+==================================================
+8. HANDS AND FEET
+==================================================
+
+Use Goemon's exaggeration level as the baseline.
+
+Hands should share a similar level of simplification.
+
+Feet/shoes should share a similar visual weight.
+
+This does NOT mean everyone gets Goemon's shoes.
+
+It means footwear should be translated using the same chunky,
+game-readable shape language.
+
+==================================================
+9. MATERIALS
+==================================================
+
+Use Goemon's materials as the game's master material reference.
+
+New characters should have compatible:
+
+- skin response
+- hair roughness
+- cloth roughness
+- specular level
+- shading softness
+- color saturation
+- texture/detail density
+
+Do not create one character with realistic PBR materials while Goemon uses
+stylized materials.
+
+Different colors are expected.
+
+Different rendering philosophies are not.
+
+==================================================
+10. GEOMETRY LANGUAGE
+==================================================
+
+Match Goemon's balance between:
+
+SOFT / ROUND BODY FORMS
+
+and
+
+SHARP / ANGULAR DESIGN ELEMENTS
+
+Keep approximately the same:
+
+- polygon density
+- bevel philosophy
+- smoothing
+- surface complexity
+- silhouette complexity
+
+A player should never look at two characters and think one came from a
+completely different 3D asset pack.
+
+==================================================
+11. TECHNICAL STANDARD
+==================================================
+
+Use Goemon as the technical baseline where practical.
+
+Match:
+
+- scene scale
+- orientation
+- ground level
+- object organization
+- naming conventions
+- transform conventions
+- A-pose / rest pose
+- material organization
+- export setup
+
+Where possible, maintain compatibility with the same character skeleton and
+animation system.
+
+Do not change skeleton proportions merely to force a character to match
+Goemon if their anatomy legitimately requires differences.
+
+==================================================
+12. ORIGINAL CHARACTER REFERENCE ALWAYS MATTERS
+==================================================
+
+For every character there will be TWO sources of truth:
+
+SOURCE A:
+The character's original 2D reference.
+
+This determines:
+
+WHO THE CHARACTER IS.
+
+It controls:
+- silhouette
+- hairstyle
+- clothing
+- accessories
+- body type
+- colors
+- personality
+- recognizable features
+
+
+SOURCE B:
+The approved Goemon Blender model.
+
+This determines:
+
+WHAT GAME THE CHARACTER BELONGS TO.
+
+It controls:
+- 3D stylization
+- modeling language
+- proportion philosophy
+- facial rendering style
+- geometry complexity
+- materials
+- detail density
+- technical construction
+
+NEVER sacrifice the identity of Source A simply to copy Goemon.
+
+Translate Source A THROUGH the visual language established by Source B.
+
+==================================================
+13. COMPARISON TEST
+==================================================
+
+After creating each character, place:
+
+GOEMON
+and
+THE NEW CHARACTER
+
+next to each other in the same Blender scene.
+
+Use:
+
+- same lighting
+- same camera
+- same background
+- same rendering settings
+- appropriate relative character height
+
+Render:
+
+FRONT
+SIDE
+3/4
+
+Ask:
+
+"If these were shown without context, would a player immediately believe
+they are characters from the same game?"
+
+Check specifically:
+
+- head/body stylization
+- face language
+- eye treatment
+- hair construction
+- hand/foot exaggeration
+- geometry complexity
+- materials
+- shading
+- detail density
+- 3D volume
+
+If something feels like it belongs to a different game, identify WHY and
+modify that component.
+
+==================================================
+14. DO NOT OVER-COPY GOEMON
+==================================================
+
+This rule is extremely important.
+
+CONSISTENCY does not mean SAMENESS.
+
+Do NOT gradually turn the cast into:
+
+"Goemon with different clothes."
+
+Characters should have strongly different silhouettes.
+
+Preserve:
+
+- height differences
+- body differences
+- personality
+- hairstyles
+- clothing
+- facial features
+- proportions where character-specific
+
+Think:
+
+SAME ART DIRECTOR.
+SAME GAME ENGINE.
+SAME MODELING TEAM.
+SAME VISUAL RULES.
+
+DIFFERENT CHARACTER DESIGNERS.
+
+==================================================
+15. WORKFLOW FOR EVERY CHARACTER
+==================================================
+
+STEP 1:
+Inspect Goemon.
+
+STEP 2:
+Inspect the new character's original reference.
+
+STEP 3:
+Write a short comparison explaining:
+- what must come from the original
+- what style rules must come from Goemon
+
+STEP 4:
+Create/correct the base body and proportions.
+
+STEP 5:
+Check FRONT + SIDE + 3/4 before detailing.
+
+STEP 6:
+Create face and hair.
+
+STEP 7:
+Create clothing and accessories.
+
+STEP 8:
+Standardize materials against Goemon.
+
+STEP 9:
+Place new character beside Goemon.
+
+STEP 10:
+Perform final style consistency check.
+
+Do NOT proceed into detailed polishing when the proportions or silhouette
+still look wrong.
+
+==================================================
+FINAL RULE
+==================================================
+
+GOEMON IS THE MASTER 3D STYLE BASELINE FOR THIS GAME.
+
+Do not copy Goemon.
+
+Use Goemon to define the visual grammar of the world.
+
+The final result should make me think:
+
+"Of course these two characters are from the same game."
+
+NOT:
+
+"These are two unrelated Blender models made in different styles."

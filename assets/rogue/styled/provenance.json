@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-07",
+  "derivative_builder": "tools/style_rogue_roster.py",
+  "identity_references": "Existing Rogue models and rendered portraits; original 2D concepts unavailable",
+  "original_blender_sources": [
+    {
+      "path": "assets/blender/rogue/originals/hero-roster.blend",
+      "sha256": "780157916c1599224d6b8d79467aa7b4361f7f2a289d8434614c88759930d952",
+      "source_project": "Rogue",
+      "source_path": "art/hero-roster.blend"
+    },
+    {
+      "path": "assets/blender/rogue/originals/rogue-characters.blend",
+      "sha256": "087f99f60ebf68e4233aeeb83b77b7c13f64cf31f5e4a0c1ae517a725f31131d",
+      "source_project": "Rogue",
+      "source_path": "art/rogue-characters.blend"
+    },
+    {
+      "path": "assets/blender/rogue/originals/standard-roster.blend",
+      "sha256": "5b7f1147b4eb506c1f78ee7203d62d5847d1fe4fe116df061d4b544c0bb68372",
+      "source_project": "Rogue",
+      "source_path": "art/standard-roster.blend"
+    }
+  ]
+}

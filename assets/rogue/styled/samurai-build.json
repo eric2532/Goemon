@@ -1,0 +1,40 @@
+{
+  "hero": "samurai",
+  "triangles": 4958,
+  "mesh_batches": 8,
+  "source": "assets/blender/rogue/samurai.blend",
+  "removed_microdetails": [
+    "Greave gilt ridge",
+    "Greave gilt ridge.001",
+    "Greave gilt ridge.002",
+    "Greave gilt ridge.003",
+    "Greave gilt ridge.004",
+    "Greave gilt ridge.005",
+    "Hand-set rivet",
+    "Hand-set rivet.001",
+    "Hand-set rivet.002",
+    "Hand-set rivet.003",
+    "Hand-set rivet.004",
+    "Hand-set rivet.005",
+    "Jaw planes",
+    "Cheekbone",
+    "Eye socket",
+    "Cheekbone.001",
+    "Eye socket.001",
+    "Lower lip highlight"
+  ],
+  "head_scale": 2.2,
+  "body_width": 1.35,
+  "body_depth": 1.44,
+  "pivot_roles": [
+    "Samurai",
+    "Body",
+    "Leg_R",
+    "Leg_L",
+    "Arm_R",
+    "Arm_L",
+    "Head",
+    "Weapon_Cutlass",
+    "Weapon_Pistol"
+  ]
+}

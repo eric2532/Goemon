@@ -34,7 +34,7 @@ func setup(character_id: String) -> void:
 	materials.clear()
 	flash = 0.0
 	_flash_applied = false
-	var resource = load("res://assets/rogue/models/%s.glb" % id)
+	var resource = load("res://assets/rogue/styled/models/%s.glb" % id)
 	if resource is PackedScene:
 		model = resource.instantiate()
 		model.rotation_order = EULER_ORDER_XYZ

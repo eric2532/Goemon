@@ -1,0 +1,38 @@
+{
+  "hero": "mage",
+  "triangles": 3272,
+  "mesh_batches": 8,
+  "source": "assets/blender/rogue/mage.blend",
+  "removed_microdetails": [
+    "Robe embroidered gold border",
+    "Robe embroidered star",
+    "Robe embroidered star.001",
+    "Robe embroidered star.002",
+    "Robe embroidered gold border.001",
+    "Robe embroidered star.003",
+    "Robe embroidered star.004",
+    "Robe embroidered star.005",
+    "Ivory skirt stitched fold",
+    "Ivory skirt stitched fold.001",
+    "Jaw planes.002",
+    "Cheekbone.004",
+    "Eye socket.004",
+    "Cheekbone.005",
+    "Eye socket.005",
+    "Lower lip highlight.001"
+  ],
+  "head_scale": 2.26,
+  "body_width": 1.24,
+  "body_depth": 1.43,
+  "pivot_roles": [
+    "Mage",
+    "Body",
+    "Leg_R",
+    "Leg_L",
+    "Arm_R",
+    "Arm_L",
+    "Head",
+    "Weapon_Cutlass",
+    "Weapon_Pistol"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "hero": "ninja",
+  "triangles": 3944,
+  "mesh_batches": 8,
+  "source": "assets/blender/rogue/ninja.blend",
+  "removed_microdetails": [
+    "Harness stitched line",
+    "Hand-set rivet.006",
+    "Hand-set rivet.007",
+    "Jaw planes.001",
+    "Cheekbone.002",
+    "Eye socket.002",
+    "Eye white.002",
+    "Iris.002",
+    "Pupil.002",
+    "Confident eyebrow.002",
+    "Cheekbone.003",
+    "Eye socket.003",
+    "Eye white.003",
+    "Iris.003",
+    "Pupil.003",
+    "Confident eyebrow.003",
+    "Visible eye-window skin",
+    "Hand-set rivet.008",
+    "Hand-set rivet.009"
+  ],
+  "head_scale": 2.25,
+  "body_width": 1.22,
+  "body_depth": 1.38,
+  "pivot_roles": [
+    "Ninja",
+    "Body",
+    "Leg_R",
+    "Leg_L",
+    "Arm_R",
+    "Arm_L",
+    "Head",
+    "Weapon_Cutlass",
+    "Weapon_Pistol"
+  ]
+}

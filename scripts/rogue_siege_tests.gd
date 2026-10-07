@@ -303,7 +303,7 @@ func primary_rules():
 	for index in range(CLASS_IDS.size()):
 		await fresh_class(index)
 		var p=game.player;var a=p.active_ability;var model=p.model;var id=CLASS_IDS[index]
-		var expected_path="res://assets/rogue/models/%s.glb" % id
+		var expected_path="res://assets/rogue/styled/models/%s.glb" % id
 		var loaded=is_instance_valid(model.actor) and model.actor.id==id and is_instance_valid(model.actor.model) and model.actor.model.scene_file_path==expected_path
 		check(loaded and p.character_id==index+3 and a.class_id==id,"%s loads its actual native model and dedicated class kit" % id)
 		if not loaded:continue
