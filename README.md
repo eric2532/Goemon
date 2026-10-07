@@ -25,6 +25,9 @@ on **E**, with a normal dodge on C. Other Rogue heroes have no duplicate E evade
 Goemon and Edo retain their original E, T and numbered skills. **Q** chooses a
 hero, **F** builds/upgrades towers, **G/H** open the existing companion rosters.
 
+Idle camera orbit leaves each hero’s body facing in place, as with Goemon.
+Movement eases the body into its heading; side steps and backpedaling keep
+forward shoulders. Attacks and held blocks still follow the camera heading.
 Manual attacks face the camera heading without cursor aiming or lock-on.
 Committed melee strikes retain their direction. Dragoon leaps forward; Explorer
 hooks a visible forward enemy or anchor within native range. Native weapons,

@@ -366,7 +366,16 @@ func physics_step(delta: float) -> void:
 		_move_body(delta)
 	player.pos = hero.global_position
 	if player.attack == null and player.roll <= 0 and player.travel == null:
-		player.angle = lerp_angle(player.angle, atan2(aim.x - player.pos.x, aim.z - player.pos.z), minf(1, delta * 20))
+		if game.camera_combat():
+			# Like Goemon, idle camera orbit leaves the feet/body facing in place.
+			# Grounded side/back movement keeps the shoulders toward the camera heading.
+			if player.blocking:
+				player.angle = atan2(aim.x - player.pos.x, aim.z - player.pos.z)
+			elif move_input.length() > 0.1:
+				var direction = move_input.normalized() if raw.y < -0.1 or hero.jumps_used >= 2 else game.attack_direction()
+				player.angle = atan2(direction.x, direction.z)
+		else:
+			player.angle = lerp_angle(player.angle, atan2(aim.x - player.pos.x, aim.z - player.pos.z), minf(1, delta * 20))
 	tick(delta, false)
 	_enforce_bounds()
 	_sync_hero()
@@ -473,7 +482,12 @@ func _animate(delta: float, movement: float) -> void:
 	if not is_instance_valid(visual_actor) or player.is_empty():
 		return
 	if active:
-		hero.model.rotation.y = atan2(-hero.facing.x, -hero.facing.z)
+		var target_yaw = atan2(-hero.facing.x, -hero.facing.z)
+		if game.camera_combat():
+			var turn_delta = delta / maxf(0.01, hero.attack_speed_multiplier())
+			hero.model.rotation.y = lerp_angle(hero.model.rotation.y, target_yaw, 1 - exp(-turn_delta * (24 if hero.attack_left > 0 or player.shot > 0 else 14)))
+		else:
+			hero.model.rotation.y = target_yaw
 	var pose: Dictionary = player
 	if player.travel != null:
 		pose = player.duplicate()
