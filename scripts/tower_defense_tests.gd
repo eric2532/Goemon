@@ -108,7 +108,10 @@ func shared_controls():
 	await capture_defense("05-shared-gold-flight")
 	p.set_gold_cloak(false);await move_to(Vector3(0,0,100))
 	await key(KEY_Q)
-	check(p.character_id==2 and p.musashi.active,"Q selects the existing Edo character and combat system")
+	if game.rogue_roster_mode:
+		check(game.rogue_roster_open,"Q opens the shared Fire Siege hero roster")
+		game.menu.find_child("RogueFighter_edo",true,false).pressed.emit();await frames(2)
+	check(p.character_id==2 and p.musashi.active,"Hero selection preserves the existing Edo character and combat system")
 	target=dummy(Vector3(0,0,-6));p.musashi.ranged_mode=true
 	await mouse(true);await frames(32);await mouse(false);await frames(50)
 	check(target.hp<1000,"Edo's original ranged attack damages a real target in defense")

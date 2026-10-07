@@ -10,31 +10,30 @@ The main area now has 48 original Blender town buildings at 4× their previous l
 
 The ground map is now **four times its previous area** (twice the width and depth), approximately **1,176 × 1,031 metres**. Existing Tidefall streets remain in place; new furnished districts occupy the expanded sides and north, with paths back to the original courts. Terrain pads keep entrances flush. Enemy AI freeze is a session-only Prototype Lab option and always resets to off when the game launches.
 
-## Rogue Battle · Cursor combat
+## Fire Siege · Universal hero controls
 
-Choose **ROGUE BATTLE / Cursor combat** on the main menu. This separate mode runs the same Sky Descent islands, Tidefall ground map, Goemon/Edo characters, skins, enemy encounters, progression, pickups and abilities. Normal Sky Descent and Tower Defense retain their existing camera and controls.
+Choose **TOWER DEFENSE / Fire Siege**, choose Beta or Hard, then select Goemon,
+Edo, or any of the ten Rogue heroes. The original straight-lane battlefield,
+third-person camera, waves, towers, upgrade cards, dogs and companions remain.
+The separate cursor-combat menu entries are retired.
 
-The battle camera uses Rogue's fixed elevated orthographic angle and smooth 32% local follow, recentering as you travel and following vertical flight/descent. The gold ground reticle marks mouse aim, and the arrow under your hero shows the chosen direction. **WASD** moves relative to the screen while the mouse aims independently. **Tap LMB** for one combo stage, **hold LMB** to continue the three-stage sequence, **RMB** for heavy, and **C** to evade in your movement direction (or toward the cursor while stationary). Existing numbered abilities, jumps, cloak flight, Q character switching, R surge and T special attacks remain available. The 2 auto-coin toggle keeps its automatic target selection; manually aimed attacks follow the cursor.
+**WASD** moves relative to the camera; mouse turns the camera; **Shift** sprints
+and **Space** jumps. **LMB** is each hero's primary attack; **RMB** is their native
+secondary (hold to block for Knight/Master Thief). **C** uses the class evade,
+**R** its signature skill. Explorer's Hook Shot and Master Thief's Get Down are
+on **E**, with a normal dodge on C. Other Rogue heroes have no duplicate E evade.
+Goemon and Edo retain their original E, T and numbered skills. **Q** chooses a
+hero, **F** builds/upgrades towers, **G/H** open the existing companion rosters.
 
-Primary and secondary inputs use short 170/240 ms buffers. Melee chains keep their contact and recovery poses even when a hit chain is active; existing damage and speed bonuses still apply. Confirmed impacts add directional gold cutting marks, sparks, subtle rings, enemy recoil and a brief contact pause. Damage, hit detection and models remain shared with the original combat. The new feedback uses a bounded effect pool and freezes with pause. Restart preserves the selected mode and map seed; returning to the menu restores perspective framing.
+Manual attacks face the camera heading without cursor aiming or lock-on.
+Committed melee strikes retain their direction. Dragoon leaps forward; Explorer
+hooks a visible forward enemy or anchor within native range. Native weapons,
+models, attack/contact timings, damage, cooldowns and class buffs are retained.
+The new normal dodge for Explorer and Master Thief has a 0.75-second cooldown.
 
-Run directly with `godot --path . -- --rogue-battle`. Validate with `--rogue-battle-test`; `--rogue-battle-visual` also captures the mode menu, camera, cursor and hit presentation in `tests/rogue-battle/`.
-
-## Rogue Siege · Tower Defense with Goemon and all ten Rogue fighters
-
-Choose **ROGUE SIEGE / Tower Defense**, choose **Beta** or **Hard**, then select your fighter. This mode combines the same Fire Siege battlefield, ten 600-enemy waves, towers, card upgrades, boss encounters, shrine, gold, dogs, and castle companions with Rogue's angled orthographic camera, world-space attack cursor, and original class combat. The original Fire Siege and Sky Descent modes remain available.
-
-Rogue Siege uses a slightly wider battle view (24 instead of 19.8) and a steeper, roughly 48° downward angle to improve enemy visibility around cover. The view smoothly leads forward while moving ahead, then settles back when you stop. Its horizontal camera direction stays the same. All ten imported fighters are visually 15% larger without changing their collision bodies or combat stats.
-
-The playable roster is **Goemon, Pirate, Samurai, Ninja, Mage, Knight, Dragoon, Magic Swordsman, Ranger, Explorer, and Master Thief**. The ten Rogue fighters use their original models, portraits, weapon poses, sounds, timed attacks, and distinct four-action kits. Examples include Pirate's flintlock and Drink, Samurai's draw-cut, Ninja's five-star spread, Mage's blink and fast casting, Knight's shield and riposte, Dragoon's aimed leap, Magic Swordsman's piercing wave, Ranger's arrow burst, Explorer's hook, and Master Thief's crouch, block meter, and giant pipe.
-
-Goemon appears above the ten Rogue cards in the fighter picker and retains his full moveset. His plain pipe **LMB** combo in Rogue Siege uses Magic Swordsman's buffered input rhythm, 0.48 / 0.48 / 0.576-second swings, contact at 0.15 seconds, and native slash, impact, sound, and hit pause. Tap for one swing or hold to continue the three stages. Goemon's damage, progression, weapons, and abilities stay intact: **C** evade, **E** dash, **R** Golden Surge, **T** Sky Strike, and **1–5** quick attacks and cloaks. His original combo in other modes is unchanged.
-
-**WASD** moves, **Shift** sprints, and **Space** retains the existing double jump. Aim with the mouse; **LMB** uses the primary attack (hold to continue), **RMB** the secondary, **C / E** the movement or stance ability, and **R** the signature skill. The HUD shows the selected fighter's abilities and cooldowns. **Q** opens the paused fighter roster, including during an upgrade-card choice. Switching preserves health percentage and spent cooldowns; restarting resets all cached class kits. **F** still builds/upgrades towers, **G** opens dogs, and **H** opens the original castle companion roster.
-
-Native damage goes through the existing enemy health, armor, recoil, kill rewards, progression, and hit-chain systems. Projectiles and melee respect solid cover; movement abilities use the player's collision body. Class movement speeds retain their differences while scaling to the existing run/sprint settings for the larger battlefield. Imported source and asset provenance are documented in `assets/rogue/README.md`.
-
-Run directly with `godot --path . -- --rogue-siege`. Runtime validation uses `--rogue-siege-tests`; add `--rogue-siege-visual` for the ten-character roster and attack captures in `tests/rogue-siege/`.
+Launch with `--tower-defense`. Runtime verification: `--fire-siege-controls-test`;
+add `--fire-siege-controls-visual` for captured class gameplay. The historical
+Rogue implementation remains in source for regression comparisons.
 
 ## Sky Descent · Active gameplay loop
 
@@ -66,7 +65,7 @@ Validate traversal/enemy changes with `--sky-combat-test` or `--sky-combat-visua
 
 ## Play
 
-Open **build/Goemon.app**, then choose **Sky Descent**, **Tower Defense / Fire Siege**, **Rogue Battle**, or **Rogue Siege / Tower Defense**. The macOS application includes the game engine and all content. You do not need Godot, a terminal, an account, or an internet connection.
+Open **build/Goemon.app**, then choose **Sky Descent** or **Tower Defense / Fire Siege**. The macOS application includes the game engine and all content. You do not need Godot, a terminal, an account, or an internet connection.
 
 ### Tower Defense · Fire Siege — castle companions, upgrade cards, and bosses
 

@@ -160,7 +160,7 @@ func launch():
 	var from=hero.model.hand_position("R")
 	var dir=game.projectile_direction(from)
 	var score=-100.0
-	if (hero.soft_target or hero.growth_multiplier()>1.01) and not game.rogue_battle_mode:
+	if (hero.soft_target or hero.growth_multiplier()>1.01) and not game.rogue_battle_mode and not game.camera_combat():
 		for e in game.enemies:
 			if not is_instance_valid(e) or e.dead:continue
 			var aim=e.global_position+Vector3.UP*(1.5 if e.boss else 1.1);var dif=aim-from

@@ -6,7 +6,8 @@ var descent_mode=not "--legacy-survival" in OS.get_cmdline_user_args()
 var tower_defense_mode=false
 var rogue_battle_mode=false
 var rogue_roster_mode=false
-var selected_rogue_id=3
+var roster_start_mode="defense"
+var selected_rogue_id=1
 var rogue_original_character=1
 var rogue_roster_open=false
 var rogue_pick_start=false
@@ -110,16 +111,22 @@ func _ready():
 	spawn_gates()
 	pursuit.configure()
 	show_main_menu()
-	if "--rogue-siege-tests" in OS.get_cmdline_user_args() or "--rogue-siege-visual" in OS.get_cmdline_user_args():
+	if "--fire-siege-controls-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/fire_siege_controls_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--fire-siege-controls-test" in OS.get_cmdline_user_args() or "--fire-siege-controls-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/fire_siege_controls_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--rogue-siege-tests" in OS.get_cmdline_user_args() or "--rogue-siege-visual" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/rogue_siege_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
 	elif "--rogue-siege" in OS.get_cmdline_user_args():
-		start_mode.call_deferred("rogue_defense")
+		start_mode.call_deferred("defense")
 	elif "--rogue-battle-test" in OS.get_cmdline_user_args() or "--rogue-battle-tests" in OS.get_cmdline_user_args() or "--rogue-battle-visual" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/rogue_battle_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
 	elif "--rogue-battle" in OS.get_cmdline_user_args():
-		start_mode.call_deferred("rogue")
+		start_mode.call_deferred("defense")
 	if Array(OS.get_cmdline_user_args()).any(func(arg):return arg.begins_with("--defense-hero-")):
 		smoke_test=true
 		var suite=load("res://scripts/defense_hero_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
@@ -298,6 +305,8 @@ func _ready():
 		suite.call_deferred("run")
 	if "--combat-visual" in OS.get_cmdline_user_args(): combat_visual.call_deferred()
 	if "--area-visual-test" in OS.get_cmdline_user_args(): area_visual_test.call_deferred()
+
+	if OS.has_feature("fire_siege") and not smoke_test:show_defense_setup.call_deferred()
 
 func setup_inputs():
 	var keys={"walk_modifier":KEY_CTRL,"move_forward":KEY_W,"move_back":KEY_S,"move_left":KEY_A,"move_right":KEY_D,"jump":KEY_SPACE,"sprint":KEY_SHIFT,"dodge":KEY_C,"equip":KEY_E,"assist":KEY_TAB,"pause":KEY_ESCAPE,"character_toggle":KEY_Q,"weapon_pipe":KEY_1,"weapon_coin":KEY_2,"weapon_chain":KEY_3,"scarf_toggle":KEY_4,"gold_cloak":KEY_5,"interact":KEY_F,"surge":KEY_R,"sky_strike":KEY_T,"prototype_lab":KEY_F1,"shuffle_map":KEY_Y,"summon_dogs":KEY_G,"summon_heroes":KEY_H}
@@ -583,12 +592,8 @@ func show_main_menu():
 	var defense_button=button_at(root,"TOWER DEFENSE  /  Fire Siege" if defense_beta else "TOWER DEFENSE  /  Three Gates",Vector2(76,572),show_defense_setup if defense_beta else start_mode.bind("defense"),460)
 	defense_button.name="TowerDefenseButton"
 	label_at(root,"10 waves · Upgrade cards · Dogs and character summons" if defense_beta else "Three lanes · Earn gold · Build cannons · Hold the shrine",Vector2(88,635),16,Color("d8e6df"))
-	var rogue_button=button_at(root,"ROGUE BATTLE  /  Cursor combat",Vector2(650,456),start_mode.bind("rogue"),500)
-	rogue_button.name="RogueBattleButton"
-	label_at(root,"Sky Descent · Angled camera · Mouse to aim",Vector2(662,519),16,Color("d8e6df"))
-	var siege_button=button_at(root,"ROGUE SIEGE  /  Tower Defense",Vector2(650,572),show_defense_setup.bind(true),500)
-	siege_button.name="RogueSiegeButton"
-	label_at(root,"Goemon + 10 Rogue fighters · Cursor combat",Vector2(662,635),16,Color("d8e6df"))
+	label_at(root,"FIRE SIEGE · 12 PLAYABLE HEROES",Vector2(650,480),24,Color("f1d390"))
+	label_at(root,"Original camera · Shared controls · Native hero skills",Vector2(650,529),17)
 	button_at(root,"Settings",Vector2(76,706),func(): show_settings(false),220)
 	button_at(root,"Quit",Vector2(312,706),quit_clean,224)
 	label_at(root,"PROCEDURAL WORLD  /  ORIGINAL CHARACTER  /  GODOT 4",Vector2(76,822),12,Color("c4d6d2"))
@@ -600,9 +605,9 @@ func show_defense_setup(rogue: bool=false):
 	label_at(root,"Choose your defense challenge",Vector2(96,230),25,Color("f1d390"))
 	label_at(root,"Pick one of three cards before every wave. Your build lasts the run.",Vector2(96,282),21)
 	label_at(root,"Ice shells · Fire paths · Armored enemies · Bosses on waves 5 and 10",Vector2(96,321),18,Color("b9d7da"))
-	button_at(root,"BETA  /  Full battery",Vector2(96,398),start_rogue_defense.bind(false) if rogue else start_defense.bind(false),500).grab_focus()
+	button_at(root,"BETA  /  Full battery",Vector2(96,398),start_rogue_defense.bind(false) if rogue else choose_defense_hero.bind(false),500).grab_focus()
 	label_at(root,"24 defenses · 12,000 gold · 100 shrine integrity",Vector2(108,461),18,Color("cddad6"))
-	button_at(root,"HARD  /  Build your defense",Vector2(96,524),start_rogue_defense.bind(true) if rogue else start_defense.bind(true),500)
+	button_at(root,"HARD  /  Build your defense",Vector2(96,524),start_rogue_defense.bind(true) if rogue else choose_defense_hero.bind(true),500)
 	label_at(root,"4 defenses · 650 gold · 50 shrine integrity",Vector2(108,587),18,Color("cddad6"))
 	label_at(root,"G · Summon dogs   /   H · Summon characters from the castle",Vector2(108,640),18,Color("a1e2d7"))
 	if rogue:
@@ -617,7 +622,13 @@ func start_defense(hard: bool=false):
 	defense_hard=hard
 	start_mode("defense")
 
+func choose_defense_hero(hard: bool=false):
+	defense_hard=hard
+	roster_start_mode="defense"
+	show_rogue_roster(true)
+
 func start_rogue_defense(hard: bool=false):
+	roster_start_mode="rogue_defense"
 	defense_hard=hard
 	show_rogue_roster(true)
 
@@ -633,11 +644,11 @@ func show_rogue_roster(starting: bool=false):
 	picker.game=self;root.add_child(picker)
 
 func choose_rogue_character(id: int):
-	if not rogue_roster_open or (id!=1 and not player.RogueRoster.is_rogue(id)):return
+	if not rogue_roster_open or (id not in [1,2] and not player.RogueRoster.is_rogue(id)):return
 	selected_rogue_id=id
 	var starting=rogue_pick_start
 	rogue_roster_open=false;rogue_pick_start=false
-	if starting:start_mode("rogue_defense")
+	if starting:start_mode(roster_start_mode)
 	else:
 		player.select_character(id)
 		resume()
@@ -645,7 +656,7 @@ func choose_rogue_character(id: int):
 func close_rogue_roster():
 	var starting=rogue_pick_start
 	rogue_roster_open=false;rogue_pick_start=false
-	if starting:show_defense_setup(true)
+	if starting:show_defense_setup(roster_start_mode=="rogue_defense")
 	else:resume()
 
 func defense_drafting()->bool:
@@ -714,7 +725,7 @@ func start_mode(mode: String):
 	rogue_view.set_enabled(false)
 	rogue_feedback.set_enabled(false)
 	rogue_roster_open=false;rogue_pick_start=false
-	rogue_roster_mode=mode=="rogue_defense"
+	rogue_roster_mode=mode=="rogue_defense" or (mode=="defense" and defense_beta)
 	rogue_battle_mode=mode in ["rogue","rogue_defense"]
 	# Stop the outgoing director before replacing its world and collision bodies.
 	playing=false
@@ -727,9 +738,9 @@ func start_mode(mode: String):
 	tower_defense_mode=mode in ["defense","rogue_defense"]
 	descent_mode=mode in ["descent","rogue"]
 	if rogue_roster_mode:
-		if rogue_defense_settings.is_empty():rogue_defense_settings={"beta":defense_beta,"tactics":defense_tactics}
+		if rogue_defense_settings.is_empty():rogue_defense_settings={"beta":defense_beta,"tactics":defense_tactics,"soft_target":player.soft_target}
 		if not was_rogue_roster and player.ROSTER.has(player.character_id):rogue_original_character=player.character_id
-		defense_beta=true;defense_tactics=true
+		if mode=="rogue_defense":defense_beta=true;defense_tactics=true
 		player.select_character(selected_rogue_id)
 	elif was_rogue_roster or player.is_rogue_character():player.select_character(rogue_original_character)
 	encounters=load("res://scripts/tower_defense.gd").new() if tower_defense_mode else (preload("res://scripts/sky_descent.gd").new() if descent_mode else SwarmSurvival.new())
@@ -743,6 +754,7 @@ func start_mode(mode: String):
 func restore_defense_settings():
 	if rogue_defense_settings.is_empty():return
 	defense_beta=rogue_defense_settings.beta;defense_tactics=rogue_defense_settings.tactics
+	player.soft_target=rogue_defense_settings.get("soft_target",true)
 	rogue_defense_settings.clear()
 
 func start_game(seed_override: int=-1):
@@ -825,6 +837,10 @@ func start_game(seed_override: int=-1):
 	rogue_view.set_enabled(rogue_battle_mode)
 	if rogue_battle_mode:rogue_view.reset()
 	rogue_feedback.set_enabled(rogue_battle_mode)
+	if camera_combat():
+		player.soft_target=false
+		toast("FIRE SIEGE · Camera-facing combat · Q Heroes · C Evade · E Utility · F Towers · G / H Allies")
+		return
 	if rogue_roster_mode:
 		toast("ROGUE SIEGE · Q Fighters · C Evade / E Dash · R Surge · F Upgrade · G / H Allies" if player.character_id==1 else "ROGUE SIEGE · Q Fighters · C / E Utility · R Skill · F Upgrade · G / H Allies")
 		return
@@ -897,13 +913,13 @@ func show_pause():
 	label_at(root,"TAKE A BREATH",Vector2(92,160),43)
 	label_at(root,"Waves, cannons, and the shrine are paused." if tower_defense_mode else ("Your descent and island encounters are paused." if descent_mode else "Countdown and enemy waves are paused."),Vector2(94,220),19,Color("dfc384"))
 	if not defense_drafting():button_at(root,"F1 · Prototype Lab",Vector2(470,304),show_lab,340)
-	if rogue_roster_mode:button_at(root,"Q · Change Rogue fighter",Vector2(470,367),show_rogue_roster,380)
+	if rogue_roster_mode:button_at(root,"Q · Choose hero",Vector2(470,367),show_rogue_roster,380)
 	if descent_mode:
 		button_at(root,"Y · Shuffle map + new run",Vector2(470,367),shuffle_map,380)
 		label_at(root,"Map seed: %d" % run_seed,Vector2(474,437),16,Color("dfc384"))
 	button_at(root,"Resume",Vector2(96,304),resume).grab_focus()
 	button_at(root,"Settings",Vector2(96,367),func(): show_settings(true))
-	button_at(root,"Restart Rogue Siege" if rogue_roster_mode else ("Restart Rogue Battle" if rogue_battle_mode else ("Restart defense" if tower_defense_mode else ("Restart descent" if descent_mode else "Restart survival"))),Vector2(96,430),restart_area)
+	button_at(root,"Restart Rogue Siege" if rogue_roster_mode and rogue_battle_mode else ("Restart Rogue Battle" if rogue_battle_mode else ("Restart defense" if tower_defense_mode else ("Restart descent" if descent_mode else "Restart survival"))),Vector2(96,430),restart_area)
 	button_at(root,"Main menu",Vector2(96,493),show_main_menu)
 	button_at(root,"Quit",Vector2(96,556),quit_clean)
 
@@ -1297,6 +1313,9 @@ func send_action(action: String):
 	release.pressed=false
 	Input.parse_input_event(release)
 
+func camera_combat()->bool:
+	return tower_defense_mode and rogue_roster_mode and not rogue_battle_mode
+
 func attack_direction()->Vector3:
 	if rogue_battle_mode and is_instance_valid(rogue_view):
 		rogue_view.update_aim()
@@ -1315,7 +1334,7 @@ func throw_coin(heavy: bool,charged: bool=false,power: float=1.0,ticket: Diction
 	var direction=projectile_direction(from)
 	# Key 2 always selects the closest unobstructed enemy actually in the camera.
 	var target=AttackChain.screen_target(player,from,tuning.coin_speed*2.0*player.growth_multiplier()-.5) if automatic or player.soft_target or player.growth_multiplier()>1.01 or (player.quick_attacks.active and player.quick_attacks.action==2) else null
-	if target and (automatic or not rogue_battle_mode):direction=(AttackChain.aim_point(target)-from).normalized()
+	if target and (automatic or (not rogue_battle_mode and not camera_combat())):direction=(AttackChain.aim_point(target)-from).normalized()
 	if not automatic:player.facing=Vector3(direction.x,0,direction.z).normalized()
 	if automatic:
 		spawn_gold_coin(from+direction*.48,direction,heavy,charged,power,false,0,ticket,false,player.progression.coin_count())

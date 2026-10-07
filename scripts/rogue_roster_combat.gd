@@ -26,6 +26,7 @@ var combo: int = 0
 var combo_timer: float = 0.0
 var hit_stop: float = 0.0
 var time: float = 0.0
+var evade_cooldown: float = 0.0
 var fx: Node3D
 var sound: Node
 var visual_actor: Node3D
@@ -93,6 +94,7 @@ func reset_run() -> void:
 	secondary_held = false
 	attack_buffer = 0.0
 	combo = 0
+	evade_cooldown = 0
 	combo_timer = 0.0
 	hit_stop = 0.0
 	time = 0.0
@@ -129,12 +131,26 @@ func input(event: InputEvent) -> void:
 	elif event.is_action_pressed("heavy_attack"):
 		secondary_held = true
 		action("flintlock")
-	elif event.is_action_pressed("dodge") or event.is_action_pressed("equip"):
-		action("roll")
+	elif event.is_action_pressed("dodge"):
+		if game.camera_combat() and has_extra_utility():standard_evade()
+		else:action("roll")
+	elif event.is_action_pressed("equip"):
+		if not game.camera_combat() or has_extra_utility():action("roll")
 	elif event.is_action_pressed("surge"):
 		action("drink")
 	elif event.is_action_pressed("jump"):
 		hero.jump_buffer = 0.15
+
+func has_extra_utility() -> bool:
+	return class_id in ["explorer", "master-thief"]
+
+func standard_evade() -> void:
+	if evade_cooldown > 0 or player.roll > 0 or player.travel != null:
+		return
+	begin_cast("evade")
+	player.angle = atan2(aim.x - player.pos.x, aim.z - player.pos.z)
+	evade_cooldown = 0.75
+	Actions.dash(self, movement_direction(), 0.28, 18.0, "roll")
 
 func release_input(event: InputEvent) -> void:
 	if event.is_action_released("light_attack"):
@@ -251,6 +267,7 @@ func range_scale() -> float:
 
 func projectile_direction(angle: float, origin: Vector3) -> Vector3:
 	var direction: Vector3 = front(angle)
+	if game.camera_combat():return direction
 	var offset: Vector3 = aim + Vector3.UP * 1.1 - origin
 	var horizontal: float = Vector2(offset.x, offset.z).length()
 	direction.y = offset.y / maxf(0.5, horizontal)
@@ -262,6 +279,7 @@ func use_ticket(ticket: Dictionary) -> void:
 func tick_timers(delta: float) -> void:
 	if player.is_empty():
 		return
+	evade_cooldown = maxf(0, evade_cooldown - delta)
 	var tempo: float = hero.attack_speed_multiplier()
 	for key in player.cooldowns:
 		player.cooldowns[key] = maxf(0, player.cooldowns[key] - delta * (tempo if key in ["cutlass", "flintlock"] else 1.0))
@@ -443,7 +461,7 @@ func _sync_hero() -> void:
 	hero.facing = front(player.angle)
 	hero.invuln = maxf(hero.invuln, player.invuln)
 	hero.dodge_time = player.roll
-	hero.dodge_cooldown = player.cooldowns.roll
+	hero.dodge_cooldown = evade_cooldown if game.camera_combat() and has_extra_utility() else player.cooldowns.roll
 	hero.attack_left = maxf(0, player.attack.duration - player.attack.time) if player.attack != null else 0.0
 	hero.attack_duration = player.attack.duration if player.attack != null else 0.4
 	hero.combo = int(player.attack.index) + 1 if player.attack != null else 0
@@ -473,7 +491,9 @@ func _process(delta: float) -> void:
 func _update_aim() -> void:
 	if not is_instance_valid(game) or not is_instance_valid(hero):
 		return
-	if is_instance_valid(game.get("rogue_view")):
+	if game.camera_combat():
+		aim = hero.global_position + game.attack_direction() * 7.5
+	elif game.rogue_battle_mode and is_instance_valid(game.get("rogue_view")):
 		game.rogue_view.update_aim()
 		aim = game.rogue_view.aim
 	else:
@@ -748,6 +768,12 @@ func state() -> Dictionary:
 	result["buffName"] = "Drink" if player.get("drink", 0) > 0 else player.get("buffName", "")
 	result["buffTime"] = player.get("drink", 0) if player.get("drink", 0) > 0 else player.get("buffTime", 0)
 	return result
+
+func hook_ahead(point: Vector3) -> bool:
+	if not game.camera_combat():return true
+	var offset = point - hero.global_position
+	offset.y = 0
+	return offset.length_squared() > 0.01 and offset.normalized().dot(game.attack_direction()) >= 0.75
 
 func hook_points() -> Array[Vector3]:
 	var cell: Vector2i = Vector2i(floori(hero.global_position.x / 12), floori(hero.global_position.z / 12))

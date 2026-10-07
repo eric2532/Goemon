@@ -65,9 +65,9 @@ func _draw():
 	if p.is_rogue_character():
 		var data=p.RogueRoster.data(p.character_id)
 		var cooldowns=p.active_ability.player.get("cooldowns",{})
-		text(Vector2(32,h-108),"Q · Choose fighter   /   Mouse aim",15,gold)
+		text(Vector2(32,h-108),"Q · Choose hero   /   Camera-facing" if game.camera_combat() else "Q · Choose fighter   /   Mouse aim",15,gold)
 		text(Vector2(32,h-80),"LMB · %s   RMB · %s%s" % [data.abilities.cutlass.name,data.abilities.flintlock.name,rogue_cooldown(cooldowns.get("flintlock",0.0))],15)
-		text(Vector2(32,h-53),"C / E · %s%s   R · %s%s" % [data.abilities.roll.name,rogue_cooldown(cooldowns.get("roll",0.0)),data.abilities.drink.name,rogue_cooldown(cooldowns.get("drink",0.0))],14,Color(data.color))
+		text(Vector2(32,h-53),("C Evade · E %s%s   R %s%s" if game.camera_combat() and p.active_ability.has_extra_utility() else ("C · %s%s   R · %s%s" if game.camera_combat() else "C / E · %s%s   R · %s%s")) % [data.abilities.roll.name,rogue_cooldown(cooldowns.get("roll",0.0)),data.abilities.drink.name,rogue_cooldown(cooldowns.get("drink",0.0))],14,Color(data.color))
 		text(Vector2(32,h-28),"WASD Move · Shift Sprint · Space Jump · F Upgrade · Esc Pause",13,Color("c0d3d1"))
 	else:
 		var primary=""
@@ -80,7 +80,7 @@ func _draw():
 			if slot==3:primary="LMB · Explosive throw   RMB · Fire fan" if p.surge_left>0 else "LMB · Chain throw   RMB · Fan swing"
 		if game.rogue_battle_mode:primary="Mouse aim · "+primary.replace("LMB · 3-hit combo","Hold LMB · Combo")
 		var number_actions="1 Spin · 2 Coins ×%d %s · 3 Sweep · 4 Red · 5 Gold" % [p.progression.coin_count(),"ON" if p.quick_attacks.coins_enabled else "OFF"]
-		text(Vector2(32,h-108),("1 Volley · 2 Giant fireball · 3 Meteors · Q Switch" if p.attack_chain.unleashed() else "E D O · FIRECASTER · Q Switch character") if p.character_id==2 else number_actions,15,gold)
+		text(Vector2(32,h-108),("1 Volley · 2 Giant fireball · 3 Meteors · Q Switch" if p.attack_chain.unleashed() else "E D O · FIRECASTER · Q Choose hero" if game.rogue_roster_mode else "E D O · FIRECASTER · Q Switch character") if p.character_id==2 else number_actions,15,gold)
 		text(Vector2(32,h-80),primary,15)
 		text(Vector2(32,h-53),"WASD Fly   HOLD SPACE Ascend   SHIFT Boost" if p.can_fly() else "WASD   CTRL Walk   SHIFT Sprint   SPACE ×%d Jump   C Evade" % p.maximum_jumps(),13)
 		var mode_control=("F Upgrade" if game.defense_beta else "F Build cannon") if game.tower_defense_mode else "Y New map"
@@ -157,7 +157,7 @@ func _draw():
 		if buff_left>0:text(Vector2(32,285),"%s · %.1fs" % [buff_name.to_upper(),buff_left],15,gold)
 		elif state.get("blocking",false):text(Vector2(32,285),"BLOCKING · Face incoming attacks",15,gold)
 		elif state.get("crouched",false):text(Vector2(32,285),"GET DOWN · Evading projectiles",15,gold)
-		else:text(Vector2(32,285),"Q · ROGUE FIGHTERS",15,gold)
+		else:text(Vector2(32,285),"Q · CHOOSE HERO",15,gold)
 		if state.get("classId","")=="master-thief":
 			var meter=float(state.get("blockMeter",0))
 			draw_rect(Rect2(32,299,220,5),ink);draw_rect(Rect2(32,299,220*clampf(meter/100.0,0,1),5),gold)
@@ -229,7 +229,7 @@ func draw_defense(w: float,h: float,ink: Color,gold: Color):
 	var world=game.world
 	var left=w*.5-205
 	draw_style_box(panel_style(ink),Rect2(left,24,410,178 if run.beta_mode else 150))
-	text(Vector2(left+22,49),("ROGUE SIEGE / "+("HARD" if run.hard_mode else "BETA")) if game.rogue_roster_mode else (("FIRE SIEGE  /  HARD" if run.hard_mode else "FIRE SIEGE  /  HOLD THE CENTER") if run.beta_mode else "THREE GATES  /  TOWER DEFENSE"),15,gold)
+	text(Vector2(left+22,49),("ROGUE SIEGE / "+("HARD" if run.hard_mode else "BETA")) if game.rogue_roster_mode and game.rogue_battle_mode else (("FIRE SIEGE  /  HARD" if run.hard_mode else "FIRE SIEGE  /  HOLD THE CENTER") if run.beta_mode else "THREE GATES  /  TOWER DEFENSE"),15,gold)
 	text(Vector2(left+22,86),"%d GOLD" % run.money,29,Color("ffe6a3"))
 	text(Vector2(left+240,83),"WAVE %d / %d" % [maxi(1,run.wave),run.MAX_WAVES] if run.beta_mode else "WAVE %02d" % run.wave,20)
 	var status="NEXT WAVE IN %ds · BUILD & REPOSITION" % ceili(run.next_wave_in()) if run.next_wave_in()>0 else "%d RAIDERS · HOLD ALL THREE LANES" % run.alive_count

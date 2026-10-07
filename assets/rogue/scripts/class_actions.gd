@@ -259,7 +259,7 @@ static func class_action(g, slot: String, buffered = null) -> void:
 				candidates.append({"pos": e.pos, "enemy": true})
 			for point in g.hook_points():
 				candidates.append({"pos": point, "enemy": false})
-			candidates = candidates.filter(func(target): return target.pos.distance_to(p.pos) > 1.25 and target.pos.distance_to(p.pos) <= 15 and g.clear_line(p.pos + Vector3.UP, target.pos + Vector3.UP))
+			candidates = candidates.filter(func(target): return target.pos.distance_to(p.pos) > 1.25 and target.pos.distance_to(p.pos) <= 15 and g.hook_ahead(target.pos) and g.clear_line(p.pos + Vector3.UP, target.pos + Vector3.UP))
 			candidates.sort_custom(func(a, b): return a.pos.distance_to(g.aim) < b.pos.distance_to(g.aim))
 			if candidates.is_empty():
 				p.cooldowns.roll = 0

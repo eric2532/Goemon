@@ -118,6 +118,7 @@ func _input(event):
 
 func _unhandled_input(event):
 	if not game.playing or game.paused or game.transitioning: return
+	if game.camera_combat() and event.is_action_pressed("assist"):return
 	if game.rogue_battle_mode:game.rogue_view.update_aim()
 	if game.rogue_roster_mode and event.is_action_pressed("character_toggle") and not event.is_echo():
 		game.show_rogue_roster();get_viewport().set_input_as_handled();return
@@ -174,7 +175,7 @@ func rogue_dodge_direction()->Vector3:
 	return Vector3(move.x,0,move.y).rotated(Vector3.UP,game.camera_rig.yaw).normalized() if move.length_squared()>.01 else game.attack_direction()
 
 func start_attack(heavy: bool, stage: int=1, charged: bool=false, power: float=1.0,action: String=""):
-	if game.rogue_battle_mode:facing=game.attack_direction()
+	if game.rogue_battle_mode or game.camera_combat():facing=game.attack_direction()
 	attack_ticket=attack_chain.begin(action if not action.is_empty() else ("coin" if weapon_slot==2 else ("heavy" if heavy else "pipe")))
 	wide_swing=action=="wide"
 	if weapon_slot==1 and not model.equipped: model.equipped=true
@@ -223,7 +224,7 @@ func start_attack(heavy: bool, stage: int=1, charged: bool=false, power: float=1
 		strike()
 
 func uses_rogue_pipe_profile()->bool:
-	return game.rogue_roster_mode and character_id==1 and weapon_slot==1 and not attack_heavy and not attack_charged and not wide_swing and attack_ticket.get("action","")=="pipe"
+	return game.rogue_roster_mode and game.rogue_battle_mode and character_id==1 and weapon_slot==1 and not attack_heavy and not attack_charged and not wide_swing and attack_ticket.get("action","")=="pipe"
 
 func play_swing_sound():
 	swing_played=true
@@ -377,7 +378,7 @@ func _physics_process(delta):
 		velocity.z=horizontal_velocity.y
 	if game.rogue_battle_mode and not forward_dash.active and not chain_pipe_combat.active and dodge_time<=0 and attack_left<=0:
 		facing=game.attack_direction()
-	if not game.rogue_battle_mode and not forward_dash.active and wall_jump_recovery<=0 and dir.length()>0.1 and (attack_left<=0 or jumps_used>=2):
+	if not game.rogue_battle_mode and not forward_dash.active and wall_jump_recovery<=0 and dir.length()>0.1 and (attack_left<=0 or (jumps_used>=2 and not game.camera_combat())):
 		# Forward travel turns into the path. S backpedals and A/D strafe with
 		# camera-facing shoulders, so directional locomotion is actually reachable.
 		facing=dir.normalized() if flying or input.y< -0.1 or jumps_used>=2 else Vector3.FORWARD.rotated(Vector3.UP,yaw)
@@ -657,7 +658,7 @@ func end_surge():
 
 func select_character(id: int):
 	if id==character_id:
-		if game.rogue_roster_mode and (id==1 or is_rogue_character()):game.selected_rogue_id=id
+		if game.rogue_roster_mode and (id in [1,2] or is_rogue_character()):game.selected_rogue_id=id
 		return
 	if not ROSTER.has(id) and not (game.rogue_roster_mode and RogueRoster.is_rogue(id)):return
 	var health_fraction=hp/maxf(1.0,max_hp)
@@ -682,9 +683,9 @@ func select_character(id: int):
 		refresh_max_health()
 		hp=max_hp*health_fraction
 	last_foot_events=model.locomotion.step_events
-	if game.rogue_roster_mode and (id==1 or is_rogue_character()):game.selected_rogue_id=id
+	if game.rogue_roster_mode and (id in [1,2] or is_rogue_character()):game.selected_rogue_id=id
 	if is_rogue_character():
-		game.toast(RogueRoster.name_for(id)+" · LMB / RMB Attack · C / E Utility · R Skill · Q Fighters")
+		game.toast(RogueRoster.name_for(id)+(" · Camera-facing · C Evade · E Utility · R Skill · Q Heroes" if game.camera_combat() else " · LMB / RMB Attack · C / E Utility · R Skill · Q Fighters"))
 	elif game.rogue_roster_mode and id==1:
 		game.toast("Goemon · Q Fighters · Hold LMB Combo · RMB Heavy · C Evade · E Dash · R Surge")
 	else:game.toast(ROSTER[id].name+" · Q Switch character · "+("LMB Triple fireball · RMB Giant fireball · T Meteor rain · R Beam" if id==2 else "1 Wind spin · 2 Auto coins ON/OFF · 3 Long sweep · C Evade"))

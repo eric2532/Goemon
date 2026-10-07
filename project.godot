@@ -3,12 +3,14 @@ config_version=5
 
 [application]
 config/name="Goemon"
+config/name.fire_siege="Goemon Fire Siege"
+config/custom_user_dir_name.fire_siege="Godot/app_userdata/Goemon Fire Siege"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Godot/app_userdata/Azure Ember"
 config/icon="res://icon.svg"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/description="Explore Sky Descent, defend Fire Siege, or play Rogue Siege with Goemon and all ten original Rogue fighters, cursor combat, and an angled battle camera."
+config/description="Explore Sky Descent or defend Fire Siege with Goemon, Edo and ten Rogue heroes using shared camera-facing controls."
 
 [display]
 window/size/viewport_width=1440
