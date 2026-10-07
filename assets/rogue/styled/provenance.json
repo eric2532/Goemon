@@ -28,5 +28,11 @@
     "prompts": "assets/rogue/styled/faces/prompt.txt",
     "version": "2.29.1",
     "method": "UV-painted skull; separate facial geometry removed; Knight retains closed helmet"
+  },
+  "head_refinement": {
+    "version": "2.29.2",
+    "method": "Sculpted cheek/jaw/cranium loops; upper scalp preserves hair-fitting envelope",
+    "face_atlas": "Unchanged approved 2.29.1 artwork",
+    "geometry_only": true
   }
 }

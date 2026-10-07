@@ -1,6 +1,6 @@
 {
   "hero": "explorer",
-  "triangles": 3394,
+  "triangles": 3382,
   "mesh_batches": 8,
   "source": "assets/blender/rogue/explorer.blend",
   "removed_microdetails": [
@@ -75,5 +75,6 @@
     "Weapon_Cutlass",
     "Weapon_Pistol"
   ],
-  "face_method": "UV-painted skull"
+  "face_method": "UV-painted skull",
+  "head_shape": "Sculpted cranium, cheeks, short jaw and chin"
 }

@@ -1,6 +1,6 @@
 {
   "hero": "pirate",
-  "triangles": 3362,
+  "triangles": 3394,
   "mesh_batches": 9,
   "source": "assets/blender/rogue/pirate.blend",
   "removed_microdetails": [
@@ -80,5 +80,6 @@
     "Weapon_Cutlass",
     "Weapon_Pistol"
   ],
-  "face_method": "UV-painted skull"
+  "face_method": "UV-painted skull",
+  "head_shape": "Sculpted cranium, cheeks, short jaw and chin"
 }

@@ -101,3 +101,29 @@ roster, upgrade selection and the actual Fire Siege map; the app was left paused
 with Magic Swordsman. Code-signature verification passed. An existing exit-only
 resource cleanup warning remains in the automated tour log; it did not interrupt
 the recording or normal launch. No GitHub/Linux release accompanies this correction.
+
+## Head silhouette refinement: 2.29.2
+
+The user approved the painted facial artwork and requested better head shapes.
+The nine exposed skulls now use an editable surface with deliberate cranium,
+cheek, jaw and chin loops, replacing the source's stretched spherical forms.
+The chin ends 12% of the old skull height higher; the eye and mouth positions use
+the original UV projection bounds, and the approved face atlas is byte-identical.
+The cheeks transition into a shorter tapered jaw, with gentler taper for Mage
+and Explorer and fuller cheeks for Master Thief. Ears are smaller and flatter.
+Knight's enclosed helmet and the original Goemon/Edo geometry remain unchanged.
+Head pivots, hair/headwear, clothing, weapons and combat rules are preserved.
+The upper skull blends back into its original hair-fitting envelope above the
+brows. Mage's head components sit 0.08m lower and Samurai's 0.06m lower to keep
+the exposed neck restrained; UV bounds move with each head, and all native
+animation pivots remain unchanged.
+
+Verification: all nine skulls passed manifold, winding and degenerate-face checks.
+All exported native joint transforms match 2.29.1 exactly, and the face atlas is
+byte-identical. Four-angle comparisons and close-ups were reviewed, including a
+hair-overlap correction. The final packaged app passed 134 combat/control checks
+with zero failures; its 70.63-second recording covers the entire revised roster's
+turning, movement, jumping, evasion and native attacks. Gameplay frame sequences
+were inspected. The signed 2.29.2 app was launched normally and left open at hero
+selection. Editable sources, comparison renders and the new recording are saved
+beside the app; the preceding 2.29.1 app and recording are retained separately.

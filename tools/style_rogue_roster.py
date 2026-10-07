@@ -51,6 +51,54 @@ def depth(o):
  while o.parent:n+=1;o=o.parent
  return n
 
+def sculpt_head(skull,hero):
+ # Purpose-built cheek/jaw loops replace the source's vertically stretched sphere.
+ # Keep the approved painted landmarks in the original world-space UV bounds.
+ points=[skull.matrix_world@v.co for v in skull.data.vertices]
+ lo=Vector(tuple(min(p[i] for p in points) for i in range(3)))
+ hi=Vector(tuple(max(p[i] for p in points) for i in range(3)))
+ skull['face_uv_bounds']=[lo.x,hi.x,lo.z,hi.z]
+ cx=(lo.x+hi.x)/2;cy=(lo.y+hi.y)/2;rx=(hi.x-lo.x)/2
+ front=cy-lo.y;back=hi.y-cy;height=hi.z-lo.z
+ # z, half-width, forward depth, rear depth: round cranium, cheek, jaw, chin.
+ rings=[(.14,.33,.55,.26),(.18,.58,.77,.40),(.28,.82,.93,.68),
+        (.43,1.00,1.00,.87),(.60,.98,1.00,.99),(.76,.93,.95,.99),
+        (.89,.76,.75,.80),(.97,.43,.40,.45)]
+ if hero=='master-thief':
+  rings=[(z,w*(1.04 if .18<=z<=.43 else 1),f,b) for z,w,f,b in rings]
+ elif hero in ['mage','explorer']:
+  rings=[(z,w*(.96 if .18<=z<=.43 else 1),f,b) for z,w,f,b in rings]
+ verts=[];faces=[];segments=24
+ for z,w,f,b in rings:
+  for j in range(segments):
+   a=j*math.tau/segments;s=math.sin(a);c=math.cos(a)
+   x=cx+rx*w*math.copysign(abs(s)**.9,s)
+   y=cy-front*f*c**.48 if c>=0 else cy+back*b*(-c)**.85
+   # Original hair/helmet shells were fitted to the ellipsoidal upper cranium.
+   # Blend back inside that envelope above the brows, preventing scalp poke-through.
+   cap_blend=max(0,min(1,(z-.60)/.16))
+   cap_radius=math.sqrt(max(0,1-(2*z-1)**2))
+   x=x*(1-cap_blend)+(cx+rx*cap_radius*s)*cap_blend
+   cap_y=cy-(front if c>=0 else back)*cap_radius*c
+   y=y*(1-cap_blend)+cap_y*cap_blend
+   verts.append((x,y,lo.z+height*z))
+ for k in range(len(rings)-1):
+  for j in range(segments):
+   a=k*segments+j;b=k*segments+(j+1)%segments
+   faces.append((a,b,b+segments,a+segments))
+ bottom=len(verts);verts.append((cx,cy-.025,lo.z+height*.12))
+ top=len(verts);verts.append((cx,cy,hi.z))
+ for j in range(segments):
+  faces.append((bottom,(j+1)%segments,j))
+  a=(len(rings)-1)*segments+j;b=(len(rings)-1)*segments+(j+1)%segments
+  faces.append((a,b,top))
+ inv=skull.matrix_world.inverted();mesh=bpy.data.meshes.new('Sculpted cheek jaw and cranium')
+ mesh.from_pydata([inv@Vector(p) for p in verts],[],faces);mesh.update()
+ for mat in skull.data.materials:mesh.materials.append(mat)
+ skull.data=mesh
+ for p in mesh.polygons:p.use_smooth=True
+ skull['head_shape']='Rounded cranium, full cheeks, short tapered jaw and chin'
+
 def build(hero):
  filename,tag,hs,bw,bd=PROFILES[hero]
  bpy.ops.wm.open_mainfile(filepath=str(SOURCE/'originals'/(filename+'.blend')))
@@ -133,6 +181,10 @@ def build(hero):
     center=sum(mapped,Vector())/len(mapped);mapped=[center+(p-center)*1.7 for p in mapped]
   if in_head and ('hair lock' in name or 'sidelock' in name):
    mid=sum(mapped,Vector())/len(mapped);mapped=[Vector((p.x,mid.y+(p.y-mid.y)*1.45,p.z)) for p in mapped]
+  if hero in FACE_TILES and re.fullmatch(r'ear(?:\.\d+)?',name):
+   mid=sum(mapped,Vector())/len(mapped)
+   mapped=[mid+Vector(((p.x-mid.x)*.8,(p.y-mid.y)*.6,(p.z-mid.z)*.8)) for p in mapped]
+   mapped=[p+Vector((-.008 if mid.x>0 else .008,0,0)) for p in mapped]
   inv=o.matrix_world.inverted()
   for v,p in zip(o.data.vertices,mapped):v.co=inv@p
   # Source bevel stacks inflate simple shapes into hundreds of reflective facets.
@@ -144,6 +196,17 @@ def build(hero):
    bpy.context.view_layer.objects.active=o
    bpy.ops.object.modifier_apply(modifier=mod.name)
   for p in o.data.polygons:p.use_smooth=True
+ if hero in FACE_TILES:
+  skull=next(o for o in coll.objects if o.type=='MESH' and any(t in o.name.lower() for t in ['carved face','carved head','captain head']))
+  sculpt_head(skull,hero)
+  seat_offset={'mage':.08,'samurai':.06}.get(hero,0)
+  if seat_offset:
+   # Seat the shorter jaw near the robe collar without altering animation pivots.
+   for o in coll.objects:
+    if o.type=='MESH' and ancestor(o,'Head'):
+     reshape(o,lambda p:p+Vector((0,0,-seat_offset)))
+   bounds=list(skull['face_uv_bounds']);bounds[2]-=seat_offset;bounds[3]-=seat_offset
+   skull['face_uv_bounds']=bounds
  if hero=='ninja':
   skull=next(o for o in coll.objects if 'Carved head' in o.name)
   surface=BVHTree.FromPolygons([skull.matrix_world@v.co for v in skull.data.vertices],[list(f.vertices) for f in skull.data.polygons])
@@ -201,8 +264,7 @@ def build(hero):
   tile=FACE_TILES[hero];column=tile%3;row=tile//3
   def face_uv(u,v):return ((column+u)/3,(2-row+v)/3)
   points=[skull.matrix_world@v.co for v in skull.data.vertices]
-  xmin=min(p.x for p in points);xmax=max(p.x for p in points)
-  zmin=min(p.z for p in points);zmax=max(p.z for p in points)
+  xmin,xmax,zmin,zmax=skull['face_uv_bounds']
   cy=sum(p.y for p in points)/len(points)
   # Broaden UV coverage slightly so the drawn features remain restrained on the face.
   skin_names=[m.name.lower() for m in mats]
@@ -265,6 +327,7 @@ def build(hero):
  bpy.ops.export_scene.gltf(filepath=str(OUT/'models'/(hero+'.glb')),export_format='GLB',use_selection=True,export_yup=True,export_materials='EXPORT')
  triangles=sum(len(o.data.loop_triangles) for o in export_objects if o.type=='MESH')
  report={'hero':hero,'triangles':triangles,'mesh_batches':sum(o.type=='MESH' for o in export_objects),'source':str(source_path.relative_to(ROOT)),'removed_microdetails':removed,'head_scale':hs,'body_width':bw,'body_depth':bd,'pivot_roles':list(pivots),'face_method':'UV-painted skull' if hero in FACE_TILES else 'closed helmet'}
+ report['head_shape']='Sculpted cranium, cheeks, short jaw and chin' if hero in FACE_TILES else 'Unchanged closed helmet'
  (OUT/(hero+'-build.json')).write_text(json.dumps(report,indent=2))
  print('STYLED',hero,triangles,'triangles',report['mesh_batches'],'batches',flush=True)
 

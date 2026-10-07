@@ -1,6 +1,6 @@
 {
   "hero": "ranger",
-  "triangles": 2932,
+  "triangles": 2920,
   "mesh_batches": 7,
   "source": "assets/blender/rogue/ranger.blend",
   "removed_microdetails": [
@@ -79,5 +79,6 @@
     "Arm_L",
     "Weapon_Cutlass"
   ],
-  "face_method": "UV-painted skull"
+  "face_method": "UV-painted skull",
+  "head_shape": "Sculpted cranium, cheeks, short jaw and chin"
 }

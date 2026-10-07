@@ -15,3 +15,8 @@ texture, like Goemon. Do not build separate eyeballs, eyebrows, noses, lips, or
 facial-hair pieces. Keep a simple volumetric head, restrained head proportions,
 and use editable UV face artwork. The rejected oversized-head/raised-feature
 version is not an approved reference.
+
+The painted face artwork was approved in the next user review. Keep that atlas
+unchanged when refining head geometry. Replace the stretched sphere silhouette
+with a rounded cranium, intentional cheeks, a short tapered jaw and rounded chin;
+keep painted facial landmarks stable and check hair/ear/headwear fit from all sides.
