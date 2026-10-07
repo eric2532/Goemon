@@ -5,6 +5,8 @@ var weight: float = 0.0
 var direction: Vector3 = Vector3.BACK
 var air: float = 0.0
 var crouch: float = 0.0
+var side_lean: float = 0.0
+var neck_lean: float = 0.0
 
 func reset() -> void:
  phase = 0.0
@@ -12,6 +14,8 @@ func reset() -> void:
  direction = Vector3.BACK
  air = 0.0
  crouch = 0.0
+ side_lean = 0.0
+ neck_lean = 0.0
 
 func apply(actor, state: Dictionary, dt: float, time: float, movement: float) -> void:
  var grounded: bool = state.get("grounded", true)
@@ -30,14 +34,21 @@ func apply(actor, state: Dictionary, dt: float, time: float, movement: float) ->
  var stride: float = sin(phase) * weight * lerpf(0.64, 0.92, clampf(speed/18.0, 0, 1))
  var sideways: float = direction.x
  var forward: float = direction.z
+ # Shoulders lead the weight shift; the neck follows with a smaller, softer tilt.
+ # Preserve committed attack poses and guards instead of leaning the weapon away.
+ var busy: bool = state.get("attack") != null or state.get("blocking", false) or float(state.get("shot",0)) > 0
+ var lean_target: float = -sideways * weight * (0.2 if busy else 1.0)
+ side_lean = lerpf(side_lean, lean_target, 1.0-exp(-dt*12.0))
+ neck_lean = lerpf(neck_lean, side_lean, 1.0-exp(-dt*10.0))
  actor._r("Leg_L", stride * forward, 0, -stride * sideways)
  actor._r("Leg_R", -stride * forward, 0, stride * sideways)
  actor._p("Leg_L", 0, maxf(0, cos(phase)) * weight * 0.075)
  actor._p("Leg_R", 0, maxf(0, -cos(phase)) * weight * 0.075)
  actor._r("Arm_L", -stride * forward * 0.5, 0, stride * sideways * 0.23)
  actor._r("Arm_R", stride * forward * 0.5, 0, -stride * sideways * 0.23)
- actor._r("Body", weight * forward * 0.07, stride * 0.045, -weight * sideways * 0.055)
- actor._r("Head", -weight * forward * 0.04, -stride * 0.025)
+ actor._r("Body", weight * forward * 0.07, stride * 0.045, side_lean * 0.14)
+ actor._r("Head", -weight * forward * 0.04, -stride * 0.025, neck_lean * 0.035)
+ actor._p("Body", -side_lean * 0.025)
  actor.model.position.y = (1.0-cos(phase*2.0))*0.027*weight + sin(time*2.4)*0.018*(1.0-weight)
  actor.model.rotation = Vector3.ZERO
  var rise: float = clampf(float(state.get("vertical", 0))/12.0, -1, 1)

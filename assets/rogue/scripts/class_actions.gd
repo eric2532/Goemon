@@ -122,7 +122,8 @@ static func resolve_attack(g, a: Dictionary) -> void:
 		if a.style == "iaijutsu":
 			g.fx.ring(p.pos, a.color, a.reach, 0.35)
 			g.fx.shake = maxf(g.fx.shake, 0.24)
-		g.sound.play("blade", {"style": g.class_id, "combo": a.index, "pitch": 0.8 if a.style == "iaijutsu" else 1.0})
+		if not a.get("sweepSound", false):
+			g.sound.play("blade", {"style": g.class_id, "combo": a.index, "pitch": 0.8 if a.style == "iaijutsu" else 1.0})
 	var hits = 0
 	for e in g.living():
 		if not g.in_arc(p.pos, e.pos, a.angle, a.reach + (0.4 if e.type == "warden" else 0), a.arc):

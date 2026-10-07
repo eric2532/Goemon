@@ -342,6 +342,11 @@ func tick(delta: float, update_timers: bool = true) -> void:
 	if player.attack != null:
 		var a: Dictionary = player.attack
 		a.time += combat_delta
+		var sweep_pitch: float = clampf(sqrt(hero.attack_speed_multiplier()), 0.8, 1.5)
+		var sweep_lead: float = 0.075 * hero.attack_speed_multiplier() / sweep_pitch
+		if class_id == "magic-swordsman" and a.get("style", "") == "claymore" and not a.get("sweepSound", false) and a.time >= maxf(0, a.contact - sweep_lead):
+			a.sweepSound = true
+			sound.play("claymore-sweep", {"combo": a.index, "pitch": sweep_pitch})
 		if a.time >= a.contact and not a.hit:
 			a.hit = true
 			_resolution_ticket = a.ticket
@@ -647,7 +652,10 @@ func hit(e: Dictionary = {}, amount: float = 0, weapon: String = "cutlass", heav
 	if not element.is_empty():
 		return
 	fx.weapon_impact(e.pos, atan2(dir.x, dir.z), presentation if not presentation.is_empty() else "sword", tint(), heavy)
-	sound.play("pierce" if presentation in ["thrust", "arrow"] else ("heavy" if heavy else "hit"), {"pitch": 0.77 if e.type == "warden" else 1.0})
+	if class_id == "magic-swordsman" and presentation in ["claymore", "wave"]:
+		sound.play("claymore-impact", {"heavy": heavy, "volume": 0.85, "pitch": 0.92 if e.type == "warden" else 1.0})
+	else:
+		sound.play("pierce" if presentation in ["thrust", "arrow"] else ("heavy" if heavy else "hit"), {"pitch": 0.77 if e.type == "warden" else 1.0})
 	var stop: float = 0.075 if heavy else 0.04
 	enemy.impact_pause = maxf(enemy.impact_pause, stop)
 	# A released projectile keeps travelling independently of the caster.

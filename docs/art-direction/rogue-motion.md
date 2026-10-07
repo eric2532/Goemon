@@ -38,3 +38,27 @@ Validation: the signed macOS 2.30.0 app passed 95 movement/ability checks,
 checks (291 total, zero failures). The 71.93-second all-hero gameplay recording,
 flip frame sequence and all ten ultimate auras were visually inspected. Existing
 Godot resource-cleanup warnings still appear when test processes exit.
+
+## Shoulder/neck weight and claymore audio — 2.30.1
+
+Sideways movement now adds up to eight degrees of shoulder roll and two degrees
+of neck tilt toward travel, with a small upper-body weight shift. The neck follows
+slightly later, both settle into the authored neutral stance, and their influence
+reduces during attacks and guarding. Root facing, foot animation and gameplay
+speeds remain unchanged. No approved model or face assets were edited.
+
+Magic Swordsman has three dedicated claymore air sweeps and light/heavy cutting
+impacts. A sweep starts before contact and its lead accounts for attack tempo and
+playback pitch. Empty swings produce no impact; real blade and wave contacts use
+the new cutting transient. Other classes and Goemon keep their previous sounds.
+The original shared blade files are unchanged. Stereo 48 kHz PCM sources are
+reproducible with tools/generate_claymore_audio.py (numpy); these are original
+synthesized noise/metal layers without third-party samples.
+
+The signed macOS package passed all 357 checks: 66 lean/audio, 95 motion,
+134 controls/combat, 51 turning and 11 compact-siege/wave checks. The actual-game
+recording shows all ten Rogues strafing and the claymore miss/contact sequence.
+Its front-facing frames were visually inspected. Audio routing, timing, loaded
+assets, non-clipping levels and PCM format were checked; the provided old/new
+comparison lets the user judge the subjective sound character. Existing Godot
+resource-cleanup warnings remain in test exit logs.
