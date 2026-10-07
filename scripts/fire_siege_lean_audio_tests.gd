@@ -22,17 +22,27 @@ func run():
  a.sound.last_events.clear()
  tap("light_attack");await frames(6)
  check(a.player.attack != null and not a.player.attack.hit and a.sound.last_events.has("claymore-sweep") and a.sound.cache.has("claymore-sweep-0"),"Claymore sweep starts before damage contact")
+ check(quiet_voice(a.sound, "claymore-sweep-0.wav", .8),"Claymore sweep plays below its previous full-volume mix")
  await frames(35)
  check(not a.sound.last_events.has("claymore-impact"),"A completed missed swing never makes a cutting impact")
  await fresh_class(6);a=game.player.active_ability;a.sound.last_events.clear()
  var victim=fixture(Vector3(2.2,0,0));tap("light_attack");await frames(15)
  check(victim.hp<10000 and a.sound.last_events.has("claymore-impact") and a.sound.cache.has("claymore-impact-light"),"Claymore contact plays the dedicated cutting impact")
+ check(quiet_voice(a.sound, "claymore-impact-light.wav", .65),"Cutting contact sits beneath the swing instead of dominating it")
  check(not a.sound.last_events.has("hit") and not a.sound.last_events.has("heavy"),"Claymore contact does not layer the generic hammer impact")
  await fresh_class(6);a=game.player.active_ability;a.sound.last_events.clear()
- victim=fixture(Vector3(3,0,0));tap("heavy_attack");await frames(25)
+ victim=fixture(Vector3(3,0,0));tap("heavy_attack")
+ check(a.sound.cache.has("claymore-wave") and a.sound.last_events.has("claymore-wave") and not a.sound.last_events.has("cast"),"Energy wave loads its dedicated release sound without the old cast layer")
+ await frames(25)
  check(victim.hp<10000 and a.sound.last_events.has("claymore-impact") and a.sound.cache.has("claymore-impact-heavy"),"Energy wave contact uses the same blade-cut character")
  await fresh_class(0);a=game.player.active_ability;a.sound.last_events.clear()
  fixture(Vector3(2.2,0,0));tap("light_attack");await frames(14)
  check(a.sound.last_events.has("hit") and not a.sound.last_events.has("claymore-impact"),"Pirate audio remains unchanged in this first character-specific sound pass")
  print("FIRE_SIEGE_LEAN_AUDIO_RESULT checks=",checks," failures=",failures)
  get_tree().quit(1 if failures else 0)
+
+func quiet_voice(sound, filename: String, max_gain: float) -> bool:
+ for v in sound.voices:
+  if v.stream != null and v.stream.resource_path.ends_with(filename) and db_to_linear(v.volume_db) < sound.volume*max_gain:
+   return true
+ return false

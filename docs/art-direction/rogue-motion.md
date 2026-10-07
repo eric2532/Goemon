@@ -62,3 +62,27 @@ Its front-facing frames were visually inspected. Audio routing, timing, loaded
 assets, non-clipping levels and PCM format were checked; the provided old/new
 comparison lets the user judge the subjective sound character. Existing Godot
 resource-cleanup warnings remain in test exit logs.
+
+## Softer cuts and energy-wave release — 2.30.2
+
+The approved swing is retained with a slightly finer edge and playback gain
+reduced from 1.0 to 0.68 (about 3.35 dB). Contact gain is reduced from 0.85 to
+0.52; the source also has a lower peak and replaces the low metallic knock with
+upper-mid shearing noise and a faint steel tail. Magic Swordsman's wave now uses
+its own 0.72-second blade-release and fading energy-rush sound, at gain 0.64.
+The original shared blade files, other heroes, gameplay timing and damage remain
+unchanged. The generator includes all six editable sound sources.
+
+The signed macOS 2.30.2 package passed 69 lean/audio, 134 control/combat and
+11 compact-map/wave checks (214 total, zero failures). New checks first failed
+against the previous implementation, then passed for actual voice gains and
+wave event routing. The 8.97-second packaged gameplay capture shows empty swings,
+combo contacts, wave flight and wave contact; its frames were inspected.
+Recorded audio peaks at -12.1 dBFS with no clipping. The separate six-second
+preview presents swing, cuts and wave at their relative playback gains; subjective
+timbre remains for the user to judge. Existing test-exit resource warnings remain.
+
+A second packaged recording exercises repeated waves and the ultimate against
+180 live enemies: zero caster hit-stop frames, 11.285 ms physics p95, and
+-10.6 dBFS maximum recorded audio. Its frames were also inspected. The native
+app was then launched normally and verified at the Fire Siege selection screen.

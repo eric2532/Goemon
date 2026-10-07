@@ -161,8 +161,11 @@ static func fire_projectile(g, options: Dictionary = {}) -> void:
 		"heavy": heavy, "width": options.get("width", 0.25) * scale, "rangeScale": scale, "pierce": options.get("pierce", false), "hits": [], "trailTimer": 0.0, "ticket": g.current_ticket()})
 	g.player.shot = 0.2
 	g.fx.muzzle(g.player.pos, angle, color, "spell" if kind == "bolt" else ("bow" if kind == "arrow" else kind))
-	g.sound.play("cast" if kind in ["bolt", "wave"] else ("bow" if kind == "arrow" else "shuriken"),
-		{"style": ("power" if heavy else "rapid") if kind == "arrow" else g.class_id, "volume": 0.55 if kind == "star" else 0.75, "pitch": 0.75 if kind == "wave" else 1.0})
+	if kind == "wave":
+		g.sound.play("claymore-wave", {"volume": 0.64})
+	else:
+		g.sound.play("cast" if kind == "bolt" else ("bow" if kind == "arrow" else "shuriken"),
+			{"style": ("power" if heavy else "rapid") if kind == "arrow" else g.class_id, "volume": 0.55 if kind == "star" else 0.75})
 	if heavy:
 		g.fx.shake = maxf(g.fx.shake, 0.07)
 

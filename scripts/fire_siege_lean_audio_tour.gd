@@ -7,7 +7,8 @@ func run():
  game.start_mode("defense");pause_fixture_director();game.encounters.choose_card("supply_cache")
  var p=game.player
  game.camera_rig.set_process(false)
- for i in range(10):
+ var sound_only: bool = "--fire-siege-sound-tour" in OS.get_cmdline_user_args()
+ for i in range(0 if sound_only else 10):
   await fresh_class(i)
   game.reset_player_at(Vector3(0,.1,205));game.camera_rig.yaw=0
   p.facing=Vector3.FORWARD;p.model.rotation.y=0;p.active_ability.reset_run()
@@ -34,5 +35,14 @@ func run():
  var victim=fixture(Vector3(0,0,-2.3));victim.training_dummy=true
  press("light_attack");await frames(100);press("light_attack",false)
  await frames(45)
+ if sound_only:
+  await clear_enemies()
+  p.active_ability.reset_run()
+  game.reset_player_at(Vector3(0,.1,205));game.camera_rig.yaw=0
+  game.camera_rig.camera.global_position=Vector3(4,3.7,211)
+  game.camera_rig.camera.look_at(Vector3(0,1.3,201))
+  game.toast("Energy wave · Blade release and travelling energy")
+  await frames(20);tap("heavy_attack");await frames(140)
+  fixture(Vector3(0,0,-6));tap("heavy_attack");await frames(120)
  print("LEAN_AUDIO_TOUR_COMPLETE")
  get_tree().quit()
