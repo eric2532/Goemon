@@ -1,6 +1,6 @@
 {
   "hero": "magic-swordsman",
-  "triangles": 2848,
+  "triangles": 2868,
   "mesh_batches": 7,
   "source": "assets/blender/rogue/magic-swordsman.blend",
   "removed_microdetails": [

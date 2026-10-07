@@ -144,3 +144,19 @@ match the previous version. Multi-angle renders and the final 70.63-second
 packaged gameplay recording were inspected. The packaged control/combat suite
 passed 134 checks with zero failures, code signing verified, and the native app
 was reopened successfully on the actual Fire Siege map.
+
+## Approved design, slight ear coverage: 2.29.4
+
+The user approved the complete 2.29.3 design and requested only slightly more
+hair over the ears. Two small solid side tufts per exposed head overlap the
+upper ear, while leaving the lobe and jewellery visible. Existing skulls,
+painted faces, temple locks, hairstyles, costume and gameplay remain unchanged.
+Knight's closed helmet remains intact. Treat 2.29.3/2.29.4 as the approved design.
+
+Validation: all 1,405 pre-existing objects retain identical geometry, transforms
+and parenting versus approved commit 4ffb11a. The eighteen new tufts passed
+manifold, winding and degenerate-face checks. Multi-angle renders and the
+70.63-second packaged gameplay recording were inspected. The packaged control
+and combat suite passed 134 checks with zero failures. The signed 2.29.4 app
+was launched normally and left open at Fire Siege difficulty selection.
+The test harness still reports existing resource-cleanup warnings at exit.

@@ -1,6 +1,6 @@
 {
   "hero": "master-thief",
-  "triangles": 3136,
+  "triangles": 3156,
   "mesh_batches": 7,
   "source": "assets/blender/rogue/master-thief.blend",
   "removed_microdetails": [

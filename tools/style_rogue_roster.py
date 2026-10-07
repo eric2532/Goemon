@@ -127,6 +127,23 @@ def frame_face_with_hair(skull,hero,head,coll):
   if side<0:faces=[tuple(reversed(f)) for f in faces]
   lock=mesh_obj('Face framing hair '+('L' if side<0 else 'R'),verts,faces,mat,head,coll)
   lock['art_direction']='Solid tapered temple lock matching existing hairstyle'
+  # A small side tuft overlaps the upper ear, leaving the lobe and jewellery visible.
+  ear=next((o for o in coll.objects if o.type=='MESH' and re.fullmatch(r'Ear(?:\.\d+)?',o.name)
+            and sum((o.matrix_world@v.co).x for v in o.data.vertices)*side>0),None)
+  if ear:
+   ep=[ear.matrix_world@v.co for v in ear.data.vertices]
+   outer=max(p.x*side for p in ep);ey=sum(p.y for p in ep)/len(ep)
+   ez0=min(p.z for p in ep);ez1=max(p.z for p in ep)
+   yf=min(p.y for p in ep)-.012;yb=max(p.y for p in ep)+.010
+   verts=[]
+   for x,z,spread in [(outer-.034,ez1+.085,.75),(outer+.009,ez1-.035,1.0)]:
+    verts.extend([(side*(x-.038),ey+(y-ey)*spread,z) for y in [yf,yb]])
+    verts.append((side*(x+.009),ey-.008,z))
+   verts.append((side*(outer-.008),ey-.006,(ez0+ez1)/2+.008))
+   faces=[(0,1,2),(0,3,4,1),(1,4,5,2),(2,5,3,0),(3,6,4),(4,6,5),(5,6,3)]
+   if side>0:faces=[tuple(reversed(f)) for f in faces]
+   tuft=mesh_obj('Ear framing hair '+('L' if side<0 else 'R'),verts,faces,mat,head,coll)
+   tuft['art_direction']='Modest upper-ear coverage; approved face and fringe unchanged'
  # Fill the gaps between Swordsman's original long silver locks at the rear.
  if hero=='magic-swordsman':
   verts=[];faces=[];segments=12

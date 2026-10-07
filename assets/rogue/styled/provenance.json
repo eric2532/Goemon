@@ -34,5 +34,10 @@
     "method": "Slimmer cheeks and tapered jaw, solid temple hair locks, silver rear hair layer and fitted Samurai chin strap",
     "face_atlas": "Unchanged approved 2.29.1 artwork",
     "geometry_only": true
+  },
+  "ear_coverage_refinement": {
+    "version": "2.29.4",
+    "approved_baseline": "2.29.3",
+    "method": "Two small matching solid side tufts cover upper ears; existing geometry and painted faces preserved"
   }
 }

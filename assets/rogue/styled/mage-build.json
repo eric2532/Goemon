@@ -1,6 +1,6 @@
 {
   "hero": "mage",
-  "triangles": 3168,
+  "triangles": 3188,
   "mesh_batches": 8,
   "source": "assets/blender/rogue/mage.blend",
   "removed_microdetails": [

@@ -1,6 +1,6 @@
 {
   "hero": "explorer",
-  "triangles": 3402,
+  "triangles": 3422,
   "mesh_batches": 8,
   "source": "assets/blender/rogue/explorer.blend",
   "removed_microdetails": [

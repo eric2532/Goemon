@@ -1,6 +1,6 @@
 {
   "hero": "samurai",
-  "triangles": 4830,
+  "triangles": 4850,
   "mesh_batches": 8,
   "source": "assets/blender/rogue/samurai.blend",
   "removed_microdetails": [

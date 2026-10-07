@@ -1,6 +1,6 @@
 {
   "hero": "pirate",
-  "triangles": 3414,
+  "triangles": 3434,
   "mesh_batches": 9,
   "source": "assets/blender/rogue/pirate.blend",
   "removed_microdetails": [

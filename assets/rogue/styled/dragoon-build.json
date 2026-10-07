@@ -1,6 +1,6 @@
 {
   "hero": "dragoon",
-  "triangles": 3040,
+  "triangles": 3060,
   "mesh_batches": 7,
   "source": "assets/blender/rogue/dragoon.blend",
   "removed_microdetails": [

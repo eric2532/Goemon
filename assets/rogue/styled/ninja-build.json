@@ -1,6 +1,6 @@
 {
   "hero": "ninja",
-  "triangles": 3865,
+  "triangles": 3885,
   "mesh_batches": 8,
   "source": "assets/blender/rogue/ninja.blend",
   "removed_microdetails": [

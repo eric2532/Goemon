@@ -1,6 +1,6 @@
 {
   "hero": "ranger",
-  "triangles": 2940,
+  "triangles": 2960,
   "mesh_batches": 7,
   "source": "assets/blender/rogue/ranger.blend",
   "removed_microdetails": [
