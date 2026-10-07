@@ -80,7 +80,7 @@ func begin():
 	game.checkpoint=game.world.spawn_point
 	game.player.position=game.checkpoint;game.player.velocity=Vector3.ZERO
 	game.camera_rig.yaw=0;game.camera_rig.pitch=.5;game.camera_rig.reset_follow()
-	game.hud.banner="FIRE SIEGE · 10 waves · 12 fire towers + 12 cannons" if beta_mode else "THREE GATES · Build cannons at the gold pads [F]"
+	game.hud.banner="FIRE SIEGE · 2 walls · 4 fire towers + 4 cannons" if beta_mode else "THREE GATES · Build cannons at the gold pads [F]"
 	game.hud.banner_time=6
 	if beta_mode and tactics_enabled:request_card_choice()
 

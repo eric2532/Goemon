@@ -111,7 +111,10 @@ func _ready():
 	spawn_gates()
 	pursuit.configure()
 	show_main_menu()
-	if "--fire-siege-controls-tour" in OS.get_cmdline_user_args():
+	if "--fire-siege-compact-test" in OS.get_cmdline_user_args() or "--fire-siege-compact-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/fire_siege_compact_tour.gd" if "--fire-siege-compact-tour" in OS.get_cmdline_user_args() else "res://scripts/fire_siege_compact_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--fire-siege-controls-tour" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/fire_siege_controls_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
 	elif "--fire-siege-controls-test" in OS.get_cmdline_user_args() or "--fire-siege-controls-visual" in OS.get_cmdline_user_args():
@@ -606,7 +609,7 @@ func show_defense_setup(rogue: bool=false):
 	label_at(root,"Pick one of three cards before every wave. Your build lasts the run.",Vector2(96,282),21)
 	label_at(root,"Ice shells · Fire paths · Armored enemies · Bosses on waves 5 and 10",Vector2(96,321),18,Color("b9d7da"))
 	button_at(root,"BETA  /  Full battery",Vector2(96,398),start_rogue_defense.bind(false) if rogue else choose_defense_hero.bind(false),500).grab_focus()
-	label_at(root,"24 defenses · 12,000 gold · 100 shrine integrity",Vector2(108,461),18,Color("cddad6"))
+	label_at(root,"2 walls · 8 defenses · 12,000 gold · 100 shrine integrity",Vector2(108,461),18,Color("cddad6"))
 	button_at(root,"HARD  /  Build your defense",Vector2(96,524),start_rogue_defense.bind(true) if rogue else choose_defense_hero.bind(true),500)
 	label_at(root,"4 defenses · 650 gold · 50 shrine integrity",Vector2(108,587),18,Color("cddad6"))
 	label_at(root,"G · Summon dogs   /   H · Summon characters from the castle",Vector2(108,640),18,Color("a1e2d7"))
@@ -1693,6 +1696,7 @@ func combo_slash(point: Vector3, direction: Vector3, stage: int, size: float):
 	slash(point,direction,false,stage,Color("fff1b0") if stage==3 else Color("ffe19a"),size*[0.82,1.04,1.26][idx],[0.88,-0.12,0.30][idx])
 
 func drop_powerup(point: Vector3):
+	if tower_defense_mode and defense_beta:return
 	orb_system.drop(point)
 
 func _notification(what):

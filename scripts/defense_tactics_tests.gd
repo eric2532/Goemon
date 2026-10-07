@@ -79,7 +79,7 @@ func draft_and_campaign():
 	var s=game.encounters;var p=game.player
 	check(s.beta_mode and s.tactics_enabled and not s.hard_mode,"Normal tactics starts with card choices enabled")
 	var world=game.world;var bounds: Rect2=world.playable_bounds
-	check(bounds==Rect2(-80,-400,160,760),"Fire Siege uses a compact 160-by-760 battlefield around its single approach")
+	check(bounds==Rect2(-80,50,160,310),"Fire Siege uses a compact 160-by-310 battlefield around its single approach")
 	var floor_body=world.get_node("DefenseFloor")
 	var floor_shape: CollisionShape3D=floor_body.find_children("*","CollisionShape3D",true,false)[0]
 	var floor_center: Vector3=floor_shape.global_position
@@ -91,12 +91,12 @@ func draft_and_campaign():
 	var roads=world.find_children("*","MeshInstance3D",true,false).filter(func(mesh):return mesh.has_meta("defense_lane") and int(mesh.get_meta("defense_lane"))>=0)
 	var gate_posts=world.find_children("ApproachGatePost_*","",true,false)
 	check(world.active_lane_indices()==[1] and not roads.is_empty() and roads.all(func(mesh):return int(mesh.get_meta("defense_lane"))==1) and gate_posts.size()==2 and gate_posts.all(func(post):return String(post.name).begins_with("ApproachGatePost_1_")),"Rendered roads and gate posts belong only to the single active center approach")
-	var sites_fit=world.cannon_sites.size()==24;var stations={}
+	var sites_fit=world.cannon_sites.size()==8;var stations={}
 	for site in world.cannon_sites:
 		sites_fit=sites_fit and site.lane==1 and bounds.has_point(Vector2(site.position.x,site.position.z)) and bounds.has_point(Vector2(site.build_position.x,site.build_position.z))
 		stations[site.position.z]=int(stations.get(site.position.z,0))+1
-	check(sites_fit and stations.size()==6 and stations.values().all(func(count):return count==4),"All 24 mounts and purchase positions fit six stations along the one active road")
-	check(s.tower_count("fire")==12 and s.tower_count("cannon")==12 and s.money==12000 and s.base_hp==100,"Normal mode retains 24 built defenses, 12,000 gold and 100 shrine integrity")
+	check(sites_fit and stations.size()==2 and stations.values().all(func(count):return count==4),"All 8 mounts and purchase positions fit two stations along the one active road")
+	check(s.tower_count("fire")==4 and s.tower_count("cannon")==4 and s.money==12000 and s.base_hp==100,"Normal mode retains 8 built defenses, 12,000 gold and 100 shrine integrity")
 	check(s.phase=="draft" and s.wave==0 and game.paused and get_tree().paused,"The initial card draft pauses the world before any enemies arrive")
 	check(valid_offer(s) and s.card_offer==["ice_shells","hot_flames","supply_cache"],"Opening draft offers exactly three distinct valid ice, fire, and gold choices")
 	check(game.menu.find_children("DefenseCard_*","Button",true,false).size()==3,"The card menu exposes three individually selectable buttons")
@@ -133,8 +133,8 @@ func draft_and_campaign():
 						bosses+=1;boss_rows.append({"wave":number,"tier":actor.defense_boss_tier,"scale":actor.defense_scale,"hp":actor.max_hp})
 						if number==10:
 							var clear=true
-							for z in [-170,-100,-30,40,110,180]:clear=clear and not actor.test_move(Transform3D(Basis.IDENTITY,Vector3(0,.1,z-5)),Vector3(0,0,10))
-							check(clear,"The final boss's real collision capsule fits all six center wall openings")
+							for z in game.world.defense_stations:clear=clear and not actor.test_move(Transform3D(Basis.IDENTITY,Vector3(0,.1,z-5)),Vector3(0,0,10))
+							check(clear,"The final boss's real collision capsule fits both center wall openings")
 				actor.take_hit(1000000000,Vector3.FORWARD,false,{"tower":true,"armor_piercing":true})
 			var before=s.total_spawned;s.tick(0)
 			bounded=bounded and s.total_spawned-before<=8 and game.active_enemy_count()<=180
@@ -202,8 +202,8 @@ func tactics_effect_checks():
 	await tactics_setup();var s=game.encounters
 	s.choose_card("ice_shells")
 	var cannon=s.site_states[0].cannon;var flame=s.site_states[1].cannon
-	await move_to(Vector3(6,0,-150))
-	var target=fixture_enemy("runner",Vector3(0,.1,-193));target.set_physics_process(false)
+	await move_to(Vector3(6,0,190))
+	var target=fixture_enemy("runner",Vector3(0,.1,147));target.set_physics_process(false)
 	var traits=target.defense_traits;var hp=target.hp
 	cannon.fire_at(target)
 	check(cannon.shells.size()==1 and cannon.shells[0].ice and cannon.shells[0].node!=null and cannon.shells[0].node.mesh==DefenseCannon.ice_shell_mesh,"Frost Battery launches a real blue crystal projectile with ice payload")
@@ -218,8 +218,8 @@ func tactics_effect_checks():
 	check(traits.slow_left==remaining,"Pause freezes the enemy's remaining chill duration")
 	game.resume();traits.tick_status(2.01)
 	check(traits.slow_left==0 and traits.slow_factor==1 and not traits.slow_visual.visible,"Expired chill fully restores movement and hides the status ring")
-	await move_to(Vector3(65,0,-270))
-	var march_origin=Vector3(0,.1,-300)
+	await move_to(Vector3(65,0,145))
+	var march_origin=Vector3(0,.1,120)
 	target.position=march_origin;target.velocity=Vector3.ZERO;target.stun=0;target.impact_pause=0;target.walk_clock=0
 	target.defense_offset=Vector3.ZERO;target.defense_waypoint=1;target.state="chase"
 	game.tuning.freeze_ai=false;target.set_physics_process(true);await frames(90)
@@ -229,8 +229,8 @@ func tactics_effect_checks():
 	var chilled_distance=target.position.z-march_origin.z
 	check(normal_distance>10 and chilled_distance>0 and chilled_distance<normal_distance*.8 and chilled_distance>normal_distance*.4,"Real ice-chilled lane movement is slower but never stops (normal %.2fm, chilled %.2fm)" % [normal_distance,chilled_distance])
 	game.tuning.freeze_ai=true;target.set_physics_process(false);traits.tick_status(10)
-	target.position=Vector3(0,.1,-193);target.velocity=Vector3.ZERO
-	await move_to(Vector3(6,0,-150))
+	target.position=Vector3(0,.1,147);target.velocity=Vector3.ZERO
+	await move_to(Vector3(6,0,190))
 	traits.apply_slow(.01,1000)
 	check(traits.slow_factor>=.25 and traits.slow_left<=6,"Even extreme slow input stays bounded and cannot create permanent freeze")
 	traits.tick_status(6.1)
@@ -339,7 +339,7 @@ func role_and_boss_checks():
 	traits.slam_contact();check(p.hp==hero_hp,"Jumping above the ground slam avoids actual damage")
 	p.position=origin+Vector3(0,.1,4);p.invuln=.2;traits.slam_contact()
 	check(p.hp==hero_hp,"The existing dodge immunity protects against the boss slam")
-	boss.position=Vector3(12,.1,-174);p.position=Vector3(12,.1,-166);p.invuln=0
+	boss.position=Vector3(12,.1,166);p.position=Vector3(12,.1,174);p.invuln=0
 	traits.begin_slam();await frames(2);hero_hp=p.hp;traits.slam_contact()
 	check(p.hp==hero_hp,"A real defense parapet shields the hero from a nearby boss slam")
 	traits.cancel_attack();boss.position=Vector3(0,.1,80);traits.begin_slam()

@@ -569,9 +569,12 @@ func hit(e: Dictionary = {}, amount: float = 0, weapon: String = "cutlass", heav
 	sound.play("pierce" if presentation in ["thrust", "arrow"] else ("heavy" if heavy else "hit"), {"pitch": 0.77 if e.type == "warden" else 1.0})
 	var stop: float = 0.075 if heavy else 0.04
 	enemy.impact_pause = maxf(enemy.impact_pause, stop)
-	hit_stop = maxf(hit_stop, stop)
-	hero.impact_pause = hit_stop
-	game.hit_stop = maxf(game.hit_stop, stop)
+	# A released projectile keeps travelling independently of the caster.
+	# Piercing a crowd must not repeatedly freeze movement and projectile ticks.
+	if not _projectile_damage:
+		hit_stop = maxf(hit_stop, stop)
+		hero.impact_pause = hit_stop
+		game.hit_stop = maxf(game.hit_stop, stop)
 	game.impact_confirmed.emit(enemy, 2 if heavy else 0, stop)
 	game.camera_rig.kick(dir, 0.065 if heavy else 0.035)
 	game.chain += 1

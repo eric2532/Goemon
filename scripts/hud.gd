@@ -172,7 +172,7 @@ func _draw():
 		text(Vector2(32,285),"R · GOLDEN SURGE  %02ds" % ceili(p.surge_left) if p.surge_left>0 else "R · Golden surge ready",16,gold)
 	var thief_meter=p.is_rogue_character() and p.RogueRoster.class_id(p.character_id)=="master-thief"
 	var buff_y=(376.0 if p.buildings_broken>0 else 352.0) if thief_meter else (352.0 if p.buildings_broken>0 else 330.0)
-	if not game.descent_mode:
+	if not game.descent_mode and not (game.tower_defense_mode and game.defense_beta):
 		text(Vector2(32,buff_y),"ICE %d / 5 · Freeze 2s" % p.elemental_orbs.ice,15,EnergyPickup.COLORS.ice)
 		buff_y+=24
 		text(Vector2(32,buff_y),"FIRE %d / 5 · Explosion" % p.elemental_orbs.fire,15,EnergyPickup.COLORS.fire)

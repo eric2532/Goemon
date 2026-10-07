@@ -30,6 +30,11 @@ Committed melee strikes retain their direction. Dragoon leaps forward; Explorer
 hooks a visible forward enemy or anchor within native range. Native weapons,
 models, attack/contact timings, damage, cooldowns and class buffs are retained.
 The new normal dodge for Explorer and Master Thief has a 0.75-second cooldown.
+Ranged contacts retain enemy recoil without freezing the caster: Magic
+Swordsman waves keep their native 79 damage, piercing and 24-metre range
+while travelling through crowds. `--fire-siege-compact-test` verifies this
+regression, the shorter layout and drop-free kills. `--fire-siege-compact-tour`
+records a layout overview followed by live wave combat.
 
 Launch with `--tower-defense`. Runtime verification: `--fire-siege-controls-test`;
 add `--fire-siege-controls-visual` for captured class gameplay. The historical
@@ -69,13 +74,13 @@ Open **build/Goemon.app**, then choose **Sky Descent** or **Tower Defense / Fire
 
 ### Tower Defense · Fire Siege — castle companions, upgrade cards, and bosses
 
-Fire Siege uses a compact **160 × 760 metre** battlefield around its single active road, one quarter of the former map area. The unused side roads are removed; five forward cover lines and one main castle wall protect the shrine, with 24 tower mounts and a long enemy approach. Woodland and valley scenery sit closer to the road. The HUD keeps the battlefield unobstructed with no minimap; tower information and recent upgrade cards sit in the upper-right corner.
+Fire Siege uses a compact **160 × 310 metre** battlefield with a **190-metre entrance-to-base route** (previously 640 metres). One forward cover wall and one main castle wall protect the shrine, with **eight tower mounts** total. Enemy collectible drops and pickup magnets are disabled in this mode; gold, kill progression and healing remain. Woodland and valley scenery sit closer to the road. The HUD keeps the battlefield unobstructed with no minimap; tower information and recent upgrade cards sit in the upper-right corner.
 
 The main-menu defense choice offers **Beta / Full battery** or **Hard / Build your defense**, followed by **10 waves of 600 enemies in the center lane**. Each wave gets physically larger and stronger: wave 10 has **1.9× size, 2.98× health, 2.08× attack damage, and 1.135× movement speed** relative to wave 1. Before **every wave**, time pauses and you choose **one of three upgrade cards** by clicking or pressing **1, 2, or 3**. Choices last for this run, and the offer remains the same if you open the pause menu. After choosing, the opening countdown is four seconds; later waves give you **12 seconds** to build and reposition. There are ten choices total and no card screen after victory.
 
-**12 dragon fire towers and 12 cannons** are already installed across **six cover-wall positions**. The inner towers project sweeping flame bursts; the outer cannons fire explosive shells. The fire tower model and looping flame animation were authored in Blender, with the editable source in `assets/blender/defense/Fire_Defense.blend` and rebuild script in `tools/build_defense_fire.py`. Solid cover blocks flame damage and clips the visible jet. Flame animation, damage, and artillery all pause with the game.
+**4 dragon fire towers and 4 cannons** are already installed across **two cover-wall positions**. The inner towers project sweeping flame bursts; the outer cannons fire explosive shells. The fire tower model and looping flame animation were authored in Blender, with the editable source in `assets/blender/defense/Fire_Defense.blend` and rebuild script in `tools/build_defense_fire.py`. Solid cover blocks flame damage and clips the visible jet. Flame animation, damage, and artillery all pause with the game.
 
-The final defense line is a **160-metre castle wall** near the shrine, with stone battlements, four roofed watchtowers, and a **12-metre-wide gateway**. Two rear stone ramps lead to its **6.5-metre-high walkway**. The last two cannons and two fire towers sit on elevated gun platforms; their ground-level gold pads remain available for building and upgrades. The open gateway lets every enemy, including the final boss, pass through. The other five cover lines remain forward of the castle.
+The final defense line is a **160-metre castle wall** near the shrine, with stone battlements, four roofed watchtowers, and a **12-metre-wide gateway**. Two rear stone ramps lead to its **6.5-metre-high walkway**. The last two cannons and two fire towers sit on elevated gun platforms; their ground-level gold pads remain available for building and upgrades. The open gateway lets every enemy, including the final boss, pass through. One lower cover wall stands 60 metres ahead of the castle.
 
 Walk to a gold pad and press **F** to upgrade its defense. **12,000 starting gold**, 12 gold per enemy kill, and wave-clear bonuses let you experiment immediately. Both tower types have three levels, with upgrades costing 150 then 225 gold. Beta starts with 100 shrine integrity. **Hard mode starts with four defenses, 650 gold, and 50 integrity**; the remaining wall mounts cost 100 gold each. Character controls, attacks, spells, and movement stay shared with Sky Descent.
 
@@ -130,7 +135,7 @@ The card deck contains 15 powers. Frost Battery, Dragon's Breath, and War Chest 
 
 Only one cannon path and one fire path can be chosen per run; both cannon paths work with ice. Pools receive fire-damage and Shatter bonuses, respect walls, and are limited to one reusable pool per fire tower. Frost slows expire normally; bosses receive weaker, shorter chills. Cards, paths, gold, and tower levels reset on retry or a new run.
 
-Victory follows the tenth cleared wave. **Restart Fire Siege** resets the campaign, all 24 defenses to level I, shrine health, and starting gold. See [card and boss validation](tests/defense-tactics/README.md) for current checks: `--defense-tactics-test`, `--defense-tactics-visual`, and `--defense-tactics-benchmark`. The prior `--defense-fire-*` and `--tower-defense-beta-*` flags retain the simpler flame/progression regression fixture with tactics disabled. `--tower-defense --hard-defense` launches directly into the hard-mode opening draft.
+Victory follows the tenth cleared wave. **Restart Fire Siege** resets the campaign, all eight defenses to level I, shrine health, and starting gold. See [card and boss validation](tests/defense-tactics/README.md) for current checks: `--defense-tactics-test`, `--defense-tactics-visual`, and `--defense-tactics-benchmark`. The prior `--defense-fire-*` and `--tower-defense-beta-*` flags retain the simpler flame/progression regression fixture with tactics disabled. `--tower-defense --hard-defense` launches directly into the hard-mode opening draft.
 
 ### Tower Defense · Three Gates (retained standard configuration)
 

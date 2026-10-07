@@ -22,15 +22,20 @@ var defense_stations: Array=STATIONS.duplicate()
 
 func _ready():
 	descent_mode=false
-	playable_bounds=Rect2(-80,-400,160,760) if beta_mode else Rect2(-320,-400,640,760)
-	spawn_point=Vector3(0,.15,-145 if beta_mode else -140)
-	if beta_mode:defense_stations=[-170.0,-100.0,-30.0,40.0,110.0,180.0]
+	playable_bounds=Rect2(-80,50,160,310) if beta_mode else Rect2(-320,-400,640,760)
+	spawn_point=Vector3(0,.15,195 if beta_mode else -140)
+	if beta_mode:
+		defense_stations=[170.0,230.0]
+		dog_spawn_position=Vector3(0,.15,245)
+		hero_spawn_position=Vector3(0,.15,253)
 	rng.seed=generation_seed
 	landmarks={"JADE APPROACH":Vector3(-160,0,-170), "GOLD APPROACH":Vector3(0,0,-170), "EMBER APPROACH":Vector3(160,0,-170), "THE LAST SHRINE":base_position}
-	if beta_mode:landmarks={"GOLD APPROACH":Vector3(0,0,-170), "THE LAST SHRINE":base_position}
+	if beta_mode:landmarks={"GOLD APPROACH":Vector3(0,0,170), "THE LAST SHRINE":base_position}
 	for lane in range(3):
 		var x: float=LANE_X[lane]
 		lanes.append([Vector3(x,0,-340),Vector3(x,0,-170),Vector3(x,0,0),Vector3(x,0,160),Vector3(x,0,205),Vector3(x*.46875,0,260),base_position])
+	if beta_mode:
+		lanes[1]=[Vector3(0,0,110),Vector3(0,0,170),Vector3(0,0,230),Vector3(0,0,260),base_position]
 	lighting()
 	for child in get_children():
 		if child is WorldEnvironment:
@@ -141,17 +146,18 @@ func _build_routes():
 		for index in range(path.size()-1):
 			_road(path[index],path[index+1],22,edge,lane)
 			_road(path[index]+Vector3.UP*.02,path[index+1]+Vector3.UP*.02,18,sand,lane)
-		_gate(Vector3(LANE_X[lane],0,-320),lane,25)
-		_world_label(lane_names[lane]+" APPROACH",Vector3(LANE_X[lane],9.0,-319),lane_colors[lane],.035)
+		var gate_z=130 if beta_mode else -320
+		_gate(Vector3(LANE_X[lane],0,gate_z),lane,25)
+		_world_label(lane_names[lane]+" APPROACH",Vector3(LANE_X[lane],9.0,gate_z+1),lane_colors[lane],.035)
 		# Milestones, colored shoulders and a clear visual direction of attack.
-		for z in range(-320,210,24):
+		for z in range(gate_z,260 if beta_mode else 210,24):
 			for side in [-1,1]:
 				Geo.box(self,Vector3(LANE_X[lane]+side*9.7,.085,z),Vector3(.42,.10,10),Geo.mat(lane_colors[lane].darkened(.25).to_html(false)))
 			var arrow=Geo.box(self,Vector3(LANE_X[lane]-1,.105,z),Vector3(.35,.045,3),Geo.mat("e9d5a5"))
 			arrow.rotation.y=-.7
 			arrow=Geo.box(self,Vector3(LANE_X[lane]+1,.105,z),Vector3(.35,.045,3),Geo.mat("e9d5a5"))
 			arrow.rotation.y=.7
-		for z in [-255,85]:
+		for z in ([145,205] if beta_mode else [-255,85]):
 			for side in [-1,1]:_field_lantern(Vector3(LANE_X[lane]+side*14,0,z),lane_colors[lane])
 	# Crossroads behind each defense line let the player move between all lanes.
 	for z in defense_stations:
@@ -332,9 +338,9 @@ func _build_woodland():
 	var cedar_crowns: Array[Transform3D]=[]
 	var cherry_crowns: Array[Transform3D]=[]
 	var cedar_dark: Array[Transform3D]=[]
-	var tree_budget=180 if beta_mode else 370
+	var tree_budget=75 if beta_mode else 370
 	for i in range(tree_budget):
-		var p=Vector3(rng.randf_range(playable_bounds.position.x+15,playable_bounds.end.x-15),0,rng.randf_range(-385,340))
+		var p=Vector3(rng.randf_range(playable_bounds.position.x+15,playable_bounds.end.x-15),0,rng.randf_range(playable_bounds.position.y+15,playable_bounds.end.y-20))
 		if not _woodland_position(p):continue
 		var h=rng.randf_range(7,16)
 		trunks.append(Transform3D(Basis.IDENTITY.scaled(Vector3(1,h,1)),p+Vector3.UP*h*.5))
@@ -359,7 +365,7 @@ func _build_woodland():
 	_make_instances("DistantSakura",blossom,Geo.mat("c996a0"),cherry_crowns)
 	var rock_budget=14 if beta_mode else 34
 	for i in range(rock_budget):
-		var p=Vector3(rng.randf_range(playable_bounds.position.x+22,playable_bounds.end.x-22),0,rng.randf_range(-365,345))
+		var p=Vector3(rng.randf_range(playable_bounds.position.x+22,playable_bounds.end.x-22),0,rng.randf_range(playable_bounds.position.y+35,playable_bounds.end.y-15))
 		if not _woodland_position(p):continue
 		GameAssets.place(self,"edo/moss_rock",p,Vector3(rng.randf_range(2,5),rng.randf_range(1.5,4),rng.randf_range(2,5)))
 
@@ -397,7 +403,7 @@ func _build_horizon():
 	var count=16 if beta_mode else 21
 	for i in range(count):
 		var angle=float(i)*TAU/count
-		var p=Vector3(cos(angle)*(190 if beta_mode else 540),0,(-20 if beta_mode else -35)+sin(angle)*(520 if beta_mode else 610))
+		var p=Vector3(cos(angle)*(190 if beta_mode else 540),0,(215 if beta_mode else -35)+sin(angle)*(240 if beta_mode else 610))
 		var h=rng.randf_range(68,125) if beta_mode else rng.randf_range(70,180)
 		var radius=rng.randf_range(30,48) if beta_mode else rng.randf_range(80,135)
 		var mountain=Geo.cylinder(self,p+Vector3.UP*(h*.5-16),radius,h,Geo.mat("657f7b" if i%2==0 else "718e85"),false,9)

@@ -105,7 +105,7 @@ func extended_rules():
  check(not p.active_ability.secondary_held and not p.active_ability.player.blocking,"Menu and hero switching clear held blocking input")
  game.restart_area();pause_fixture_director();await frames(3)
  check(game.rogue_roster_mode and not game.rogue_battle_mode and game.camera_rig.camera.projection==Camera3D.PROJECTION_PERSPECTIVE,"Restart stays in original Fire Siege with camera-facing roster")
- check(game.encounters.phase=="draft" and game.encounters.cannons.size()==24,"Restart preserves the original defense setup and opening cards")
+ check(game.encounters.phase=="draft" and game.encounters.cannons.size()==8,"Restart preserves the original defense setup and opening cards")
  game.show_main_menu();await frames(2)
  game.menu.find_child("TowerDefenseButton",true,false).pressed.emit();await frames(2)
  button_with_prefix("HARD").pressed.emit();await frames(2)
