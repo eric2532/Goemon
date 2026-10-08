@@ -1,0 +1,25 @@
+{
+  "glb_bytes": 1121244,
+  "valid_magic": true,
+  "clip_durations": {
+    "build": 2.0,
+    "reverse_build": 2.0,
+    "work_loop": 4.0,
+    "upgrade_preview": 2.0
+  },
+  "reverse_endpoint_mismatches": [],
+  "loop_endpoint_mismatches": [],
+  "base_cost_gold": 10,
+  "base_income_gold_per_second": 2,
+  "external_resources": [],
+  "income_phase": "combat_only",
+  "setup_income": 0,
+  "pause_income": 0,
+  "clip_start_times": {
+    "build": 0.0,
+    "reverse_build": 0.0,
+    "work_loop": 0.0,
+    "upgrade_preview": 0.0
+  },
+  "passed": true
+}

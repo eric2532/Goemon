@@ -105,14 +105,14 @@ func extended_rules():
  check(not p.active_ability.secondary_held and not p.active_ability.player.blocking,"Menu and hero switching clear held blocking input")
  game.restart_area();pause_fixture_director();await frames(3)
  check(game.rogue_roster_mode and not game.rogue_battle_mode and game.camera_rig.camera.projection==Camera3D.PROJECTION_PERSPECTIVE,"Restart stays in original Fire Siege with camera-facing roster")
- check(game.encounters.phase=="draft" and game.encounters.cannons.size()==8,"Restart preserves the original defense setup and opening cards")
+ check(game.encounters.phase=="setup" and game.encounters.cannons.is_empty() and game.encounters.money==10,"Restart restores unlimited setup, empty sites and ten gold")
  game.show_main_menu();await frames(2)
  game.menu.find_child("TowerDefenseButton",true,false).pressed.emit();await frames(2)
  button_with_prefix("HARD").pressed.emit();await frames(2)
  check(game.menu.find_children("RogueFighter_*","Button",true,false).size()==12,"Fire Siege difficulty flow offers all twelve heroes")
  game.menu.find_child("RogueFighter_edo",true,false).pressed.emit();pause_fixture_director();await frames(2)
- check(p.character_id==2 and not game.rogue_battle_mode and game.encounters.hard_mode and game.encounters.cannons.size()==4 and game.encounters.money==650,"Hard Fire Siege starts with selected Edo and original economy")
- await capture("hard-opening-draft")
+ check(p.character_id==2 and not game.rogue_battle_mode and game.encounters.hard_mode and game.encounters.cannons.is_empty() and game.encounters.money==10 and game.encounters.base_hp==50,"Hard Fire Siege starts with selected Edo, empty sites and ten gold")
+ await capture("hard-opening-setup")
 
 func camera_edge_rules():
  var p=game.player

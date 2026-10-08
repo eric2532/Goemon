@@ -37,7 +37,8 @@ func reset_follow():
 func _unhandled_input(event):
 	if game.rogue_battle_mode:return
 	if not game.playing or game.paused or game.transitioning: return
-	if event is InputEventMouseMotion and Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
+	var downed_orbit=game.is_fire_siege() and game.encounters.hero_dead and event is InputEventMouseMotion and (event.button_mask&MOUSE_BUTTON_MASK_RIGHT)!=0
+	if event is InputEventMouseMotion and (Input.mouse_mode==Input.MOUSE_MODE_CAPTURED or downed_orbit):
 		yaw-=event.relative.x*0.0025*sens
 		pitch=clampf(pitch+event.relative.y*0.0021*sens,0.14,1.15)
 	if event is InputEventMouseButton and event.pressed:

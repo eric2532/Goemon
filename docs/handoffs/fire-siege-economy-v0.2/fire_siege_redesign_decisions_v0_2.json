@@ -1,0 +1,693 @@
+{
+  "schema_version": "0.2",
+  "status": "decision_gated_design_handoff_not_implemented",
+  "updated_date": "2026-10-08",
+  "baseline": {
+    "repository": "eric2532/Goemon",
+    "branch": "codex/fire-siege-universal-controls",
+    "commit": "81b9f0b69ea6b0fef3c3b832d24641ca64eb8640",
+    "baseline_is_immutable": true,
+    "branch_is_source_label_not_verified_remote_head": true
+  },
+  "semantics": {
+    "null": "Unresolved; not zero, disabled, or permission to use a legacy default",
+    "asset_clip_duration": "Presentation only; never a gameplay balance default",
+    "authority": "Current confirmed fields govern. Historical/proposed values never override current requirements. Open decision IDs gate dependent implementation.",
+    "combat_phase_mapping": "Spawning-combat income/drain is confirmed; map cleanup separately using D03. Mine pause income is zero; tower pause drain is open."
+  },
+  "confirmed": {
+    "map": {
+      "enemy_routes": 1,
+      "walls": 2,
+      "base": "behind_walls",
+      "prebuilt_towers": 0,
+      "front_wall_empty_sites": 4,
+      "extra_approach_empty_sites": {
+        "total": 8,
+        "left": 4,
+        "right": 4,
+        "arrangement": "one_straight_row_each_side_of_enemy_entrance_path"
+      },
+      "rear_wall_sites": null,
+      "mine_location": "near_base_left"
+    },
+    "economy": {
+      "starting_gold": 10,
+      "enemy_kill_gold": 0,
+      "enemy_item_or_pickup_drops": false,
+      "wave_completed_reward": {
+        "formula": "10 * completed_wave_number",
+        "waves": 10,
+        "amounts": [
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90,
+          100
+        ],
+        "total_derived": 550,
+        "wave_10_awarded_before_victory_and_result_ui": true,
+        "pay_once_per_wave": true
+      },
+      "incomplete_cancel_cost": 0,
+      "construction_gold_debit": "successful_construction_completion_only"
+    },
+    "tower": {
+      "name": "tower",
+      "first_build_type": "arrow",
+      "first_build_level": 1,
+      "cost_gold": 5,
+      "damage_per_hit": 50,
+      "future_upgrade_intent": "cannon",
+      "future_levels_defined": false,
+      "visible_arrow_projectile": true,
+      "fire_interval_seconds": 0.5,
+      "shots_per_second": 2,
+      "arrows_per_shot": 1,
+      "cadence_status": "confirmed",
+      "damage_per_arrow": 50,
+      "ongoing_operating_cost_required": true,
+      "operating_cost": {
+        "mechanism": "time_based_drain_per_built_tower",
+        "rate_gold_per_second": null,
+        "resource": "gold",
+        "independent_of_firing": true,
+        "applies_after_construction_completion": true,
+        "active_phases": [
+          "combat"
+        ],
+        "pause_behavior": null,
+        "zero_gold_behavior": null,
+        "ammo_purchase_system_approved": false,
+        "starter_ammo_approved": false,
+        "proposed_0_1_gold_per_second_approved": false,
+        "setup_drain": 0,
+        "cleanup_drain_policy": null
+      },
+      "first_shot_timing": null
+    },
+    "mine": {
+      "cost_gold": 10,
+      "level_1_gold_per_second": 2,
+      "earns_during": "combat_only",
+      "setup_income": 0,
+      "paused_income": 0,
+      "income_before_completion": 0,
+      "nominal_payback_earning_seconds_derived": 5,
+      "upgrade_interaction": "same_hold_B_construction",
+      "upgrade_values": null,
+      "income_rate_status": "confirmed",
+      "gross_gold_per_60_combat_seconds_derived": 120,
+      "derived_figures_exclude": [
+        "construction_time",
+        "tower_gold_drain",
+        "setup_time",
+        "paused_time"
+      ],
+      "requires_purchase": true,
+      "starts_purchased": false,
+      "starts_completed": false,
+      "cleanup_income_gold_per_second": null
+    },
+    "construction": {
+      "input": "B",
+      "mode": "hold",
+      "hero_position": "in_front_of_target_site",
+      "progress_bar": "above_site",
+      "hammer_animation": "small_while_advancing",
+      "assembly": "visible_and_synchronized_to_progress",
+      "release": "progress_decays",
+      "resume": "from_remaining_progress",
+      "complete": "deduct_once_then_completion_light",
+      "build_seconds": null,
+      "decay_rate": null
+    },
+    "waves": {
+      "count": 10,
+      "spawning": "continuous",
+      "spawn_window_seconds": 60,
+      "setup_before_every_wave": "unlimited",
+      "first_wave_included": true,
+      "start_confirmation": {
+        "input": "Y",
+        "hold_seconds": 3,
+        "visible_progress": true,
+        "release": "progress_decays_like_construction",
+        "resume": "from_remaining_progress"
+      },
+      "combat_timer_begins": "after_successful_manual_confirmation",
+      "automatic_prepare_or_rest_countdown": false,
+      "fixed_600_enemies": false,
+      "after_spawn_window": "stop_spawning_keep_wave_active_until_all_remaining_enemies_cleared",
+      "after_clear": "award_wave_reward_then_unlimited_setup_or_final_victory",
+      "spawn_rate_per_second": 5,
+      "nominal_enemies_per_wave_derived": 300,
+      "nominal_enemies_per_run_derived": 3000,
+      "spawn_rate_by_wave": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "first_pass_rate_escalation_approved": false,
+      "count_note": "Nominal counts derive from 5 per second for 60 seconds. Cap/backlog policy remains open; do not silently reduce rate or scheduled count."
+    },
+    "enemy": {
+      "initial_normal_hp": 100,
+      "route_objective": "rush_base",
+      "attack_targets": [
+        "currently_controlled_hero"
+      ],
+      "prohibited_attack_targets": [
+        "towers",
+        "mine",
+        "allies"
+      ],
+      "zero_rewards_does_not_remove": [
+        "personal_kill_credit",
+        "xp_or_personal_levels",
+        "direct_kill_healing",
+        "attack_chain_credit"
+      ]
+    },
+    "hero_death": {
+      "ends_run": false,
+      "auto_revive_delay_seconds": 5,
+      "enemies_faster_while_dead": true,
+      "beta_revive_now_button": true,
+      "button_skips_delay": true,
+      "enemy_speed_multiplier": null,
+      "speed_reset_on_revive": null
+    },
+    "hud": {
+      "location": "bottom_center",
+      "contents": [
+        "current_hero_portrait",
+        "health",
+        "primary_LMB",
+        "secondary_RMB"
+      ],
+      "preferred_attack_icons": "2D_weapon_or_spell",
+      "placeholders_allowed_first_build": true,
+      "refresh_on_hero_switch": true,
+      "other_abilities_removed": false,
+      "gold_position": null,
+      "wave_position": null
+    },
+    "cards": {
+      "old_system_removed_in_redesigned_mode": true,
+      "remove_effects_bonuses_stacking_path_gating_and_draft_pauses": true,
+      "replacement_cards_approved": false,
+      "removed": [
+        {
+          "name": "Frost Battery",
+          "id": "ice_shells"
+        },
+        {
+          "name": "Deep Winter",
+          "id": "deep_freeze"
+        },
+        {
+          "name": "Shatter",
+          "id": "shatter"
+        },
+        {
+          "name": "Rapid Reload",
+          "id": "rapid_reload"
+        },
+        {
+          "name": "Heavy Ordnance",
+          "id": "cannon_power"
+        },
+        {
+          "name": "Dragon’s Breath",
+          "id": "hot_flames"
+        },
+        {
+          "name": "Eagle Watch",
+          "id": "long_sights"
+        },
+        {
+          "name": "Siege Shells",
+          "id": "siege_payload"
+        },
+        {
+          "name": "Armor Piercer",
+          "id": "piercing_rounds"
+        },
+        {
+          "name": "Wildfire Fan",
+          "id": "wide_flames"
+        },
+        {
+          "name": "Burning Ground",
+          "id": "burning_ground"
+        },
+        {
+          "name": "War Chest",
+          "id": "supply_cache"
+        },
+        {
+          "name": "Second Wind",
+          "id": "shrine_repair"
+        },
+        {
+          "name": "Stone Sanctuary",
+          "id": "fortified_shrine"
+        },
+        {
+          "name": "Bounty Charter",
+          "id": "bounty_hunters"
+        }
+      ]
+    }
+  },
+  "inherited_explicitly": {
+    "base_failure_at_zero_integrity": true,
+    "normal_breach_damage": 1,
+    "boss_breach_damage": 15,
+    "baseline_beta_integrity": 100,
+    "baseline_hard_integrity": 50,
+    "warning": "Inherited reference only; not new balance approval. Hero death no longer ends the redesigned run.",
+    "unmodified_scope": [
+      "hero_roster",
+      "other_abilities_and_bindings",
+      "movement",
+      "camera",
+      "hero_switching",
+      "personal_progression",
+      "direct_kill_healing"
+    ]
+  },
+  "open": {
+    "construction": [
+      "tower_and_mine_build_seconds",
+      "decay_rate",
+      "range",
+      "facing",
+      "target_selection",
+      "line_of_sight",
+      "pause_and_interruption_policy",
+      "multiple_partially_built_sites",
+      "insufficient_funds_at_start_or_completion",
+      "same_tick_spend_and_income_order",
+      "construction_allowed_phases",
+      "interaction_target_rearming"
+    ],
+    "waves": [
+      "enemy_composition",
+      "population_cap",
+      "cap_backlog_policy",
+      "Y_confirmation_decay_and_interruptions",
+      "breached_actor_accounting_under_kill_all_requirement",
+      "first_and_last_spawn_boundaries",
+      "wave_start_rearming"
+    ],
+    "tower": [
+      "range",
+      "target_priority",
+      "projectile_handling",
+      "raw_or_net_damage_interpretation",
+      "future_cannon_upgrade_stats",
+      "tower_gold_drain_rate",
+      "tower_gold_drain_pause_behavior",
+      "tower_zero_gold_behavior",
+      "first_shot_timing",
+      "retarget_cooldown_behavior",
+      "tower_cleanup_drain_policy"
+    ],
+    "mine": [
+      "discrete_or_continuous_accrual",
+      "post_timer_cleanup_income",
+      "upgrade_levels_costs_and_output",
+      "fractional_ledger_precision_and_display"
+    ],
+    "enemy": [
+      "HP100_scope_across_roles_and_waves",
+      "role_mitigation",
+      "wave_scaling",
+      "bosses_and_schedule"
+    ],
+    "revival": [
+      "enemy_speed_multiplier",
+      "speed_reset",
+      "respawn_location",
+      "restored_hp",
+      "invulnerability",
+      "timer_clock",
+      "dead_controls",
+      "active_abilities",
+      "hero_switching_while_dead"
+    ],
+    "map_and_ui": [
+      "rear_wall_sites",
+      "exact_new_site_coordinates",
+      "gold_and_wave_HUD_positions",
+      "allied_system_economy",
+      "Beta_and_Hard_profile_exposure"
+    ],
+    "terminal": [
+      "base_failure_vs_final_clearance_precedence",
+      "death_or_revive_at_victory",
+      "transactions_at_terminal_transition"
+    ]
+  },
+  "proposed_engineering_contract": {
+    "authoritative_normalized_construction_progress": "p in [0,1]",
+    "active_build_targets_at_once": 1,
+    "completion": "atomic debit and activation; guard duplicate completion",
+    "visuals": "read gameplay progress; animation durations are not gameplay timings",
+    "currency": "Ledger deltas must match approved events without race-created money. D02 decides debt/zero-wallet behavior; no floor is silently imposed.",
+    "run_identity_guards": "Stale events cannot mutate an ended or replacement run; implementation mechanism is not prescribed."
+  },
+  "inferences_requiring_confirmation": {
+    "mine_income_during_cleanup": {
+      "expected": 2,
+      "unit": "gold_per_second",
+      "reason": "wave remains active and income is combat only",
+      "status": "inference_not_separately_confirmed",
+      "conditional_risk": "If the last enemy can be stalled safely and net mine income stays positive after tower drain, cleanup could allow unlimited farming; explicitly decide whether that unbounded income is intentional.",
+      "paired_decision": "D03 also decides cleanup tower drain separately."
+    }
+  },
+  "decision_history": [
+    {
+      "date": "2026-10-08",
+      "decision": "10 gold per completed wave number through 100 at wave 10"
+    },
+    {
+      "date": "2026-10-08",
+      "decision": "include wave rewards in spec"
+    },
+    {
+      "date": "2026-10-08",
+      "decision": "unlimited setup before every wave and hold Y for 3 seconds to start"
+    },
+    {
+      "date": "2026-10-08",
+      "decision": "mine income only during combat"
+    },
+    {
+      "date": "2026-10-08",
+      "decision": "stop spawning at 60 seconds, clear remaining enemies before next setup"
+    },
+    {
+      "date": "2026-10-08",
+      "decision": "tower visibly fires arrow projectiles"
+    },
+    {
+      "date": "2026-10-08",
+      "decision": "5 enemies per second for all ten first-pass 60 second waves; nominally 300 per wave; no approved rate escalation"
+    },
+    {
+      "date": "2026-10-08",
+      "decision": "Level 1 arrow tower fires one arrow every 0.5 seconds (2 shots/sec); 50 damage per arrow; initial normal enemy HP remains 100"
+    },
+    {
+      "date": "2026-10-08",
+      "decision": "Towers require an ongoing operating cost; maintenance versus ammunition and all rates/depletion rules remain unresolved"
+    },
+    {
+      "date": "2026-10-08",
+      "decision": "Operating cost clarified as direct time-based gold drain per completed tower regardless of firing; rate, active phases, pause, and zero-gold behavior remain open. No ammunition system selected."
+    },
+    {
+      "date": "2026-10-08",
+      "decision": "Time-based tower gold drain applies only during combat, including idle completed towers; setup drain is zero. Numeric rate and zero-gold behavior remain unresolved."
+    },
+    {
+      "date": "2026-10-08",
+      "decision": "Increase mine income from the previous 1 gold/sec; exact replacement pending. 2 gold/sec is only a proposal; combat-only phase remains confirmed."
+    },
+    {
+      "date": "2026-10-08",
+      "decision": "Mine level 1 income confirmed at 2 gold/sec during combat only, replacing 1. Derived gross income is 120 per 60 combat seconds; gross payback is 5 earning seconds before construction time and tower drain. Tower drain numeric rate is still open."
+    }
+  ],
+  "simulation_boundaries": {
+    "approval_status": "The 0.5 second tower interval is user-confirmed; other scenario parameters and outputs do not approve game balance",
+    "tower_fire_interval_seconds": 0.5,
+    "legacy_interval_reference_seconds": 1.8,
+    "legacy_interval_is_approved": false,
+    "tower_interval_status": "user_confirmed"
+  },
+  "handoff_revision": "astra-final-2026-10-08",
+  "publication": {
+    "status": "pending",
+    "no_published_asset_branch_verified": true,
+    "planned_docs_root": "docs/handoffs/fire-siege-economy-v0.2",
+    "planned_assets_root": "assets/economy_v1",
+    "handoff_does_not_authorize_publication": true
+  },
+  "source_evidence": {
+    "baseline_source_verified": true,
+    "method": "12 migration-map files matched cached Git object manifest for the pinned commit",
+    "project_declared_engine": "Godot 4.6",
+    "renderer": "Forward Plus",
+    "target_game_redesign_tested": false,
+    "asset_staging_verification": "Reviewer verified 99 staged files against SHA256 inventory, 12 self-contained GLB2 files, and four decompressible Blender sources; this is local staging, not publication."
+  },
+  "state_contract": [
+    {
+      "state": "setup",
+      "approved": "unlimited; mine income 0; tower drain 0; await manual Y confirmation"
+    },
+    {
+      "state": "start_confirmation",
+      "approved": "hold Y 3 seconds; release decay; resume remaining",
+      "open": "D07"
+    },
+    {
+      "state": "spawning_combat",
+      "approved": "60 seconds; 5 scheduled/sec; mine 2/sec; timed completed-tower drain with rate unresolved",
+      "open": "D01,D02,D03,D08,D09"
+    },
+    {
+      "state": "clearance",
+      "approved": "stop scheduling and emitting new enemies after 60 seconds; clear remaining enemies; resolve cap/deferred-demand conflict under D08",
+      "open": "D03,D10"
+    },
+    {
+      "state": "settlement",
+      "approved": "pay 10 * wave once; final 100 before victory UI"
+    },
+    {
+      "state": "terminal",
+      "approved": "no stale callbacks into ended/replacement run; hero death alone is not defeat",
+      "open": "D20"
+    }
+  ],
+  "decision_register": [
+    {
+      "id": "D01",
+      "title": "Tower drain rate",
+      "status": "open",
+      "question_and_constraints": "What gold/sec does each completed tower consume? Combat-only, including idle towers, is confirmed. No numeric rate is approved; 0.1 gold/sec remains a proposal. Blocks economy balance and A05/A06.",
+      "dependent_acceptance_ids": [
+        "A05",
+        "A06"
+      ]
+    },
+    {
+      "id": "D02",
+      "title": "Low and zero wallet",
+      "status": "open",
+      "question_and_constraints": "At insufficient gold, do towers stop, accrue debt, or follow another rule? Decide all-at-once versus priority allocation, partial payments, firing effects, debt limits if any, and re-enable behavior after income/rewards. Blocks A06/A09.",
+      "dependent_acceptance_ids": [
+        "A06",
+        "A09"
+      ]
+    },
+    {
+      "id": "D03",
+      "title": "Economy clocks",
+      "status": "open",
+      "question_and_constraints": "Does mine income continue during Clearance? Does tower drain continue then? Decide separately, including intentional net farming. Mine setup/pause income and tower setup drain are zero; tower pause drain is still open. Blocks A05/A06/A13.",
+      "dependent_acceptance_ids": [
+        "A05",
+        "A06",
+        "A13"
+      ]
+    },
+    {
+      "id": "D04",
+      "title": "Construction duration and decay",
+      "status": "open",
+      "question_and_constraints": "Choose tower and mine build seconds, decay rate or duration, any decay delay, and upgrade timing when upgrades are defined. Animation lengths choose none of these. Blocks A07/A08.",
+      "dependent_acceptance_ids": [
+        "A07",
+        "A08"
+      ]
+    },
+    {
+      "id": "D05",
+      "title": "Purchase affordability and ordering",
+      "status": "open",
+      "question_and_constraints": "May unaffordable work start? At completion without enough gold, does progress hold, decay, fail, or follow another rule? Order same-tick income, drain, construction, and reward transactions. Blocks A09/A15.",
+      "dependent_acceptance_ids": [
+        "A09",
+        "A15"
+      ]
+    },
+    {
+      "id": "D06",
+      "title": "Build eligibility and interruptions",
+      "status": "open",
+      "question_and_constraints": "Choose range, facing, line of sight, target selection, one versus multiple active/partial sites, and whether B construction is allowed in Setup, Spawning, and Clearance. Define movement away, target/hero switch, death, menus, pause, and exit effects. Only B release decay/resume is fixed. Blocks A07/A08.",
+      "dependent_acceptance_ids": [
+        "A07",
+        "A08"
+      ]
+    },
+    {
+      "id": "D07",
+      "title": "Y confirmation behavior",
+      "status": "open",
+      "question_and_constraints": "Choose decay, interruptions, UI placement, dead-hero eligibility, and how input rearms between waves. Required outcome: a distinct manual 3 second confirmation for every wave, no automatic restart from carried progress or a stale callback. Blocks A10.",
+      "dependent_acceptance_ids": [
+        "A10"
+      ]
+    },
+    {
+      "id": "D08",
+      "title": "Spawn boundaries and population cap",
+      "status": "open",
+      "question_and_constraints": "Choose first/last spawn timing, live cap, and exact deferred demand handling. Five/sec for 60 seconds gives nominal 300. Explain cap behavior without silently skipping actors, changing rate, or extending the spawning window. Blocks A11/A12.",
+      "dependent_acceptance_ids": [
+        "A11",
+        "A12"
+      ]
+    },
+    {
+      "id": "D09",
+      "title": "Enemy composition",
+      "status": "open",
+      "question_and_constraints": "Choose the first pass role mix and any boss inclusion. Five/sec remains unchanged on all ten waves. This does not settle HP scaling or boss scheduling under D12. Blocks A11/A16.",
+      "dependent_acceptance_ids": [
+        "A11",
+        "A16"
+      ]
+    },
+    {
+      "id": "D10",
+      "title": "Breaches and clearance",
+      "status": "open",
+      "question_and_constraints": "How does an actor removed by a base breach satisfy the kill-all/clearance requirement? Keep base loss separate. Define killed/breached/alive/deferred count conservation and wave completion exactly. Blocks A12/A13/A15.",
+      "dependent_acceptance_ids": [
+        "A12",
+        "A13",
+        "A15"
+      ]
+    },
+    {
+      "id": "D11",
+      "title": "Tower targeting and projectile rules",
+      "status": "open",
+      "question_and_constraints": "Choose range, target priority, first-shot timing, reacquisition/retarget cooldown behavior, projectile speed and trajectory, collision/obstruction, and damage timing. One visible arrow every 0.5 seconds and 50 damage are fixed. Blocks A16/A17.",
+      "dependent_acceptance_ids": [
+        "A16",
+        "A17"
+      ]
+    },
+    {
+      "id": "D12",
+      "title": "HP interpretation and bosses",
+      "status": "open",
+      "question_and_constraints": "Does 100 HP cover every initial normal role, and how do later waves change it? Decide retained armor/shields/mitigation, raw versus net 50 damage, wave growth, boss presence/stats/schedule, and their interaction with breach rules. Do not promise universal two-hit kills. Blocks A16.",
+      "dependent_acceptance_ids": [
+        "A16"
+      ]
+    },
+    {
+      "id": "D13",
+      "title": "Dead-state enemy speed",
+      "status": "open",
+      "question_and_constraints": "Choose the speed multiplier and whether/when it resets on revival. Decide repeat-death stacking or replacement. Enemies must be faster while the hero is dead; no value is approved. Blocks A18.",
+      "dependent_acceptance_ids": [
+        "A18"
+      ]
+    },
+    {
+      "id": "D14",
+      "title": "Revival and dead controls",
+      "status": "open",
+      "question_and_constraints": "Choose respawn location, HP, immunity, clock/pause handling, camera/control behavior, hero switching while dead, and treatment of active abilities/buffs/projectiles and construction. Keep the 5 second auto revive and Beta skip. Decide dead-hero wave confirmation with D07. Blocks A18/A19.",
+      "dependent_acceptance_ids": [
+        "A18",
+        "A19"
+      ]
+    },
+    {
+      "id": "D15",
+      "title": "Upgrade content",
+      "status": "open",
+      "question_and_constraints": "Mine upgrading uses hold B, but levels, costs, outputs, and visuals are undefined. Arrow-to-cannon progression is future intent only. Decide these separately before exposing an upgrade purchase; do not carry old tiers forward. Blocks upgrade-specific extensions of A07/A09.",
+      "dependent_acceptance_ids": [
+        "A07",
+        "A09"
+      ]
+    },
+    {
+      "id": "D16",
+      "title": "Sites and geometry",
+      "status": "open",
+      "question_and_constraints": "Decide rear wall buildability and exact coordinates, spacing, collision and interaction pads for added sites/mine. Preserve one route, both walls, and its clearance. Four front plus eight approach sites are approved; rear sites are additional only if approved. Blocks A01/A02.",
+      "dependent_acceptance_ids": [
+        "A01",
+        "A02"
+      ]
+    },
+    {
+      "id": "D17",
+      "title": "Fractional ledger and display",
+      "status": "open",
+      "question_and_constraints": "Choose accrual/debit granularity, precision, rounding, and shown gold precision. Preserve rate totals across frame rates. Decide simultaneous transaction ordering with D05, not by incidental callback order. Blocks A05/A06/A09.",
+      "dependent_acceptance_ids": [
+        "A05",
+        "A06",
+        "A09"
+      ]
+    },
+    {
+      "id": "D18",
+      "title": "HUD completion",
+      "status": "open",
+      "question_and_constraints": "Choose gold/wave display positions, final portraits/icons, affordability/depletion feedback, and coexistence with other ability indicators. Bottom-center hero portrait/health/LMB/RMB and switch refresh are fixed. Attack-icon placeholders are already acceptable. Blocks final visual A20.",
+      "dependent_acceptance_ids": [
+        "A20"
+      ]
+    },
+    {
+      "id": "D19",
+      "title": "Profiles and allies",
+      "status": "open",
+      "question_and_constraints": "Confirm Beta/Hard exposure and inherited integrity differences under the new opening economy. Decide any ally availability/cost changes separately; enemy exclusion from attacking allies does not remove allied systems. Existing hero abilities/progression remain. Blocks profile and economy regression A21.",
+      "dependent_acceptance_ids": [
+        "A21"
+      ]
+    },
+    {
+      "id": "D20",
+      "title": "Terminal precedence",
+      "status": "open",
+      "question_and_constraints": "Decide base failure versus final enemy clearance/reward on the same tick; pending projectiles; hero death/revive concurrent with victory; and what happens to active transactions on terminal transition. A hero's zero HP cannot itself defeat the run or prevent victory. Blocks A15/A19/A22.",
+      "dependent_acceptance_ids": [
+        "A15",
+        "A19",
+        "A22"
+      ]
+    }
+  ],
+  "acceptance_contract_source": "Readable handoff section 10, A01–A22; these are pending/testable contracts, not claims of passing gameplay tests."
+}

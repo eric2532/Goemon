@@ -51,7 +51,8 @@ func _ready():
 		if id==game.selected_rogue_id:selected=button
 	var footer=HBoxContainer.new();footer.add_theme_constant_override("separation",22);layout.add_child(footer)
 	var back=Button.new();back.name="RogueRosterClose";back.text="Esc · Back" if game.rogue_pick_start else "Q / Esc · Back to battle";back.custom_minimum_size=Vector2(270,44);back.pressed.connect(game.close_rogue_roster);footer.add_child(back)
-	footer.add_child(label("WASD move · Mouse camera · Space jump · Shift sprint\n"+("Choose a fighter to begin. Pick an upgrade card before each wave." if game.rogue_pick_start else "Time is paused. Switching keeps your health percentage and ability cooldowns."),15,Color("a9c3c4")))
+	var start_hint="Choose a hero to begin. Build with B, then hold Y to launch a wave." if game.roster_start_mode=="defense" else "Choose a hero to begin, then pick your first upgrade card."
+	footer.add_child(label("WASD move · Mouse camera · Space jump · Shift sprint\n"+(start_hint if game.rogue_pick_start else "Time is paused. Switching keeps your health percentage and ability cooldowns."),15,Color("a9c3c4")))
 	if selected!=null:selected.grab_focus()
 
 func original_card(parent: Control,id: int)->Button:

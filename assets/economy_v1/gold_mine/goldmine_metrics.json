@@ -1,0 +1,66 @@
+{
+  "asset": "FireSiege Gold Mine v1",
+  "units": "meters",
+  "blender_up": "+Z",
+  "blender_forward": "-Y",
+  "gltf_up": "+Y",
+  "gltf_forward": "+Z",
+  "pivot": "ground center",
+  "base_cost_gold": 10,
+  "base_income_gold_per_second": 2,
+  "implementation": "asset metadata only; no game code",
+  "clips_seconds": {
+    "build": 2,
+    "reverse_build": 2,
+    "work_loop": 4,
+    "upgrade_preview": 2
+  },
+  "collections": [
+    "00_SHARED_ROCK_SITE",
+    "01_UNBUILT_MARKERS",
+    "02_BUILD_FOUNDATION",
+    "03_BUILD_POSTS",
+    "04_BUILD_LINTEL",
+    "05_BUILD_DETAILS",
+    "06_TEMP_CONSTRUCTION",
+    "07_WORKING_CART",
+    "08_WORKING_PICK",
+    "09_OPTIONAL_REINFORCEMENT",
+    "99_SOCKETS"
+  ],
+  "mesh_objects": 248,
+  "triangles_authored": 9404,
+  "materials": 19,
+  "sockets": {
+    "socket_build_fx": [
+      0,
+      0,
+      3.2
+    ],
+    "socket_income_fx": [
+      0,
+      -1.3,
+      2.4
+    ]
+  },
+  "working_bounds_min": [
+    -2.2749478816986084,
+    -2.3299999237060547,
+    -0.4172675609588623
+  ],
+  "working_bounds_max": [
+    2.271611213684082,
+    2.4017441272735596,
+    2.8934009075164795
+  ],
+  "visible_height_m": 2.8934,
+  "footprint_m": [
+    4.547,
+    4.732
+  ],
+  "embedded_below_ground_m": 0.418,
+  "income_phase": "combat_only",
+  "setup_income_gold_per_second": 0,
+  "pause_income_gold_per_second": 0,
+  "cleanup_combat_status": "undecided"
+}

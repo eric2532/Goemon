@@ -10,7 +10,7 @@ config/custom_user_dir_name="Godot/app_userdata/Azure Ember"
 config/icon="res://icon.svg"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/description="Explore Sky Descent or defend Fire Siege with Goemon, Edo and ten Rogue heroes using shared camera-facing controls."
+config/description="Build arrow towers, operate a gold mine and defend ten Fire Siege waves with Goemon, Edo and ten Rogue heroes. Sky Descent and original hero designs remain available."
 
 [display]
 window/size/viewport_width=1440

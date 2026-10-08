@@ -1,0 +1,246 @@
+extends Node3D
+## Gameplay owns progress, purchases and arrows; supplied GLBs provide visuals only.
+
+const TOWER_SCENE=preload("res://assets/economy_v1/arrow_tower/exports/tower_build_recoil_reverse.glb")
+const WALL_MOUNT_SCENE=preload("res://assets/economy_v1/arrow_tower/exports/tower_wall_mount.glb")
+const ARROW_SCENE=preload("res://assets/economy_v1/arrow_tower/exports/arrow_projectile.glb")
+const MINE_SCENE=preload("res://assets/economy_v1/gold_mine/goldmine_v1.glb")
+const PROGRESS_SCENE=preload("res://assets/economy_v1/construction_fx/exports/FS_FX_ProgressFrame.glb")
+const PROMPT_SCENE=preload("res://assets/economy_v1/construction_fx/exports/FS_FX_BPrompt.glb")
+const HAMMER_SCENE=preload("res://assets/economy_v1/construction_fx/exports/FS_FX_Hammer_BuildLoop.glb")
+const COMPLETION_SCENE=preload("res://assets/economy_v1/construction_fx/exports/FS_FX_CompletionPulse.glb")
+const ARROW_RANGE=48.0
+const ARROW_SPEED=65.0
+const ARROW_DAMAGE=50.0
+const SHOT_INTERVAL=.5
+const RECOIL_SECONDS=.35
+const EPSILON=.000001
+var game: Node
+var director: Node
+var kind="arrow"
+var target: Node3D
+var shells: Array=[]
+var blasts: Array=[]
+var completed=false
+var completion_events=0
+var shots_fired=0
+var progress=0.0
+var working=false
+var visual_root: Node3D
+var progress_root: Node3D
+var progress_fill: Node3D
+var hammer: Node3D
+var completion_light: Node3D
+var launcher: Node3D
+var muzzle: Node3D
+var build_socket: Node3D
+var income_socket: Node3D
+var recoil: Node3D
+var embedded_arrow: Node3D
+var build_player: AnimationPlayer
+var hammer_player: AnimationPlayer
+var completion_player: AnimationPlayer
+var build_clip: StringName
+var build_clip_duration=0.0
+var _model_meshes: Array[Node]=[]
+var _generation=0
+var _shot_clock=0.0
+var _work_clock=0.0
+var _mine_clock=0.0
+var _completion_left=0.0
+var _recoil_left=0.0
+
+func _ready():
+	_generation=int(director.generation) if is_instance_valid(director) else 0
+	visual_root=Node3D.new();visual_root.name="VisualAdapter";add_child(visual_root)
+	var model=(TOWER_SCENE if kind=="arrow" else MINE_SCENE).instantiate()
+	visual_root.add_child(model)
+	_bind_imported_visual(model)
+	if kind=="arrow" and position.y>2:
+		var mount=WALL_MOUNT_SCENE.instantiate();mount.name="AuthoredWallMount";add_child(mount)
+	_build_feedback()
+	set_build_progress(progress,working)
+
+func _find_player(model: Node)->AnimationPlayer:
+	for node in model.find_children("*","AnimationPlayer",true,false):
+		node.callback_mode_process=AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+		return node
+	return null
+
+func _seek(player: AnimationPlayer,clip: StringName,seconds: float):
+	player.play(clip);player.seek(seconds,true);player.pause()
+
+func _bind_imported_visual(model: Node):
+	# Keep supplied names and GLB +Y-up/+Z-front: Godot already converted Blender axes.
+	launcher=model.find_child("LAUNCHER_YAW",true,false) as Node3D
+	muzzle=model.find_child("SOCKET_ARROW_MUZZLE",true,false) as Node3D
+	recoil=model.find_child("LAUNCHER_RECOIL",true,false) as Node3D
+	embedded_arrow=model.find_child("ARROW_PROJECTILE",true,false) as Node3D
+	build_socket=model.find_child("SOCKET_BUILD_FX" if kind=="arrow" else "socket_build_fx",true,false) as Node3D
+	income_socket=model.find_child("socket_income_fx",true,false) as Node3D
+	build_player=_find_player(model)
+	build_clip=&"Tower_Build_Recoil_Reverse" if kind=="arrow" else &"build"
+	build_clip_duration=71.0/24.0 if kind=="arrow" else 2.0
+	_model_meshes=model.find_children("*","MeshInstance3D",true,false)
+	if kind=="mine":build_player.get_animation("work_loop").loop_mode=Animation.LOOP_LINEAR
+
+func _build_feedback():
+	progress_root=Node3D.new();progress_root.name="ConstructionProgress";add_child(progress_root)
+	progress_root.position=to_local(build_socket.global_position)+Vector3.UP*.25
+	progress_root.add_child(PROGRESS_SCENE.instantiate())
+	progress_fill=progress_root.find_child("ProgressFill",true,false) as Node3D
+	var prompt=PROMPT_SCENE.instantiate();prompt.position=Vector3(-1.5,0,0);prompt.scale=Vector3.ONE*.65;progress_root.add_child(prompt)
+	var label=Label3D.new();label.name="BuildPrice";label.text="%d GOLD" % (10 if kind=="mine" else 5)
+	label.position.y=.4;label.font_size=26;label.pixel_size=.012;label.outline_size=6
+	label.modulate=Color("ffe1a0");label.visibility_range_end=40;progress_root.add_child(label)
+	for mesh in progress_root.find_children("*","GeometryInstance3D",true,false):
+		mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		mesh.visibility_range_end=45
+	hammer=HAMMER_SCENE.instantiate();hammer.name="WorkingHammer";add_child(hammer)
+	hammer.position=to_local(build_socket.global_position)+Vector3(1.1,-.6,0);hammer.scale=Vector3.ONE*.7
+	hammer_player=_find_player(hammer);hammer_player.get_animation("Build_HammerLoop").loop_mode=Animation.LOOP_LINEAR
+	_seek(hammer_player,&"Build_HammerLoop",0)
+	completion_light=COMPLETION_SCENE.instantiate();completion_light.name="PaidCompletionPulse";add_child(completion_light)
+	completion_light.position.y=.1;completion_light.scale=Vector3.ONE*(1.55 if kind=="mine" else 1.0)
+	completion_player=_find_player(completion_light)
+	completion_player.get_animation("Complete_GoldPulse").loop_mode=Animation.LOOP_NONE
+	_seek(completion_player,&"Complete_GoldPulse",0);completion_light.hide()
+
+func _sync_mesh_visibility():
+	# Authored epsilon-scale hidden parts need not consume a draw call.
+	for mesh in _model_meshes:mesh.visible=mesh.global_basis.get_scale().length()>.025
+
+func set_build_progress(p: float,valid_work: bool):
+	if completed:return
+	progress=clampf(p,0,1);working=valid_work and progress<1
+	if not is_instance_valid(visual_root):return
+	_seek(build_player,build_clip,progress*build_clip_duration)
+	_sync_mesh_visibility()
+	progress_root.visible=true
+	progress_fill.visible=progress>0
+	progress_fill.scale.x=maxf(.00001,progress)
+	# The authored mesh starts at local x=0; its fixed -0.975m translation is the anchor.
+	hammer.visible=working
+
+func complete_build():
+	if completed:return
+	set_build_progress(1,false)
+	completed=true;working=false;completion_events+=1
+	progress_root.hide();hammer.hide()
+	_completion_left=1.0;_seek(completion_player,&"Complete_GoldPulse",0);completion_light.show()
+
+func tick(delta: float,powered_delta: float):
+	var elapsed=maxf(0,delta)
+	_tick_feedback(elapsed)
+	if not is_instance_valid(director) or not director.active or int(director.generation)!=_generation or director.phase not in ["spawning","clearance"]:
+		retire_wave_effects();return
+	if not completed or kind!="arrow":return
+	var paid=clampf(powered_delta,0,elapsed)
+	if paid<=0:
+		_tick_arrows(elapsed);return
+	# Advance physical flight between firing deadlines; depleted portions still advance arrows.
+	# Paid time is shared uniformly through this tick by the economy director.
+	var rate=paid/elapsed
+	var remaining=elapsed
+	while remaining>EPSILON:
+		target=_acquire_target()
+		if target==null:
+			_shot_clock=maxf(0,_shot_clock-remaining*rate);_tick_arrows(remaining);break
+		if _shot_clock<=EPSILON:
+			_fire_at(target);_shot_clock=SHOT_INTERVAL
+		var step=minf(remaining,_shot_clock/rate)
+		_tick_arrows(step);_shot_clock=maxf(0,_shot_clock-step*rate);remaining-=step
+	# A deadline at the tick boundary is still due, and must not wait one more frame.
+	if _shot_clock<=EPSILON:
+		target=_acquire_target()
+		if target!=null:_fire_at(target);_shot_clock=SHOT_INTERVAL
+
+func _tick_feedback(delta: float):
+	var camera=get_viewport().get_camera_3d()
+	if is_instance_valid(camera):progress_root.global_basis=camera.global_basis
+	if working:
+		_work_clock=fmod(_work_clock+delta,1.0)
+		_seek(hammer_player,&"Build_HammerLoop",_work_clock)
+	if _completion_left>0:
+		_completion_left=maxf(0,_completion_left-delta)
+		_seek(completion_player,&"Complete_GoldPulse",1-_completion_left)
+		completion_light.visible=_completion_left>0
+	if completed and kind=="mine" and is_instance_valid(director) and director.active and director.generation==_generation and director.phase=="spawning":
+		_mine_clock=fmod(_mine_clock+delta,4.0)
+		_seek(build_player,&"work_loop",_mine_clock)
+		_sync_mesh_visibility()
+
+func _tick_recoil(delta: float):
+	if _recoil_left<=0:return
+	_recoil_left=maxf(0,_recoil_left-delta)
+	if _recoil_left>0:
+		var fraction=1-_recoil_left/RECOIL_SECONDS
+		_seek(build_player,build_clip,3.25+fraction*(4.041666667-3.25))
+		embedded_arrow.hide()
+	else:
+		_seek(build_player,build_clip,build_clip_duration)
+		embedded_arrow.show()
+
+func _eligible(enemy)->bool:
+	return is_instance_valid(enemy) and not enemy.is_queued_for_deletion() and not enemy.dead and director.owns(enemy)
+
+func _acquire_target()->Node3D:
+	var chosen: Node3D=null
+	var downstream=-INF;var nearest=INF
+	for enemy in game.enemies:
+		if not _eligible(enemy):continue
+		var distance=global_position.distance_squared_to(enemy.global_position)
+		if distance>ARROW_RANGE*ARROW_RANGE:continue
+		var z: float=enemy.global_position.z
+		if z>downstream or (is_equal_approx(z,downstream) and distance<nearest):
+			chosen=enemy;downstream=z;nearest=distance
+	return chosen
+
+func _fire_at(enemy: Node3D):
+	var aim=enemy.global_position+Vector3.UP*1.05
+	# Authored LAUNCHER_YAW remains a yaw pivot. The independent arrow can pitch toward its target.
+	var direction=launcher.to_local(aim)
+	launcher.rotation.y+=atan2(direction.x,direction.z)
+	var arrow=ARROW_SCENE.instantiate() as Node3D
+	add_child(arrow);arrow.set_as_top_level(true)
+	arrow.global_transform=muzzle.global_transform
+	arrow.look_at(aim,Vector3.UP,true)
+	shells.append({"node":arrow,"target":weakref(enemy),"generation":_generation,"wave":int(director.wave),"age":0.0})
+	shots_fired+=1;_recoil_left=RECOIL_SECONDS
+	_seek(build_player,build_clip,3.25);embedded_arrow.hide()
+
+func _tick_arrows(delta: float):
+	_tick_recoil(delta)
+	for index in range(shells.size()-1,-1,-1):
+		var shot: Dictionary=shells[index]
+		var enemy=shot.target.get_ref()
+		if shot.generation!=director.generation or shot.wave!=director.wave or not _eligible(enemy):
+			_remove_arrow(index);continue
+		var node: Node3D=shot.node
+		var previous=node.global_position
+		var aim: Vector3=enemy.global_position+Vector3.UP*1.05
+		var destination=previous.move_toward(aim,ARROW_SPEED*delta)
+		var ray=PhysicsRayQueryParameters3D.create(previous,destination,1)
+		ray.hit_from_inside=true
+		var hit=get_world_3d().direct_space_state.intersect_ray(ray)
+		if not hit.is_empty():_remove_arrow(index);continue
+		node.global_position=destination
+		if destination.distance_squared_to(aim)<=.0001:
+			var direction=(aim-previous).normalized();direction.y=0
+			enemy.take_hit(ARROW_DAMAGE,direction,false,{"tower":true})
+			_remove_arrow(index)
+		else:
+			node.look_at(aim,Vector3.UP,true)
+			shot.age+=delta
+			if shot.age>3.0:_remove_arrow(index)
+
+func _remove_arrow(index: int):
+	var node=shells[index].node
+	if is_instance_valid(node):node.queue_free();node.hide()
+	shells.remove_at(index)
+
+func retire_wave_effects():
+	for index in range(shells.size()-1,-1,-1):_remove_arrow(index)
+	blasts.clear();target=null;_shot_clock=0
+	if _recoil_left>0:
+		_recoil_left=0;_seek(build_player,build_clip,build_clip_duration);embedded_arrow.show()

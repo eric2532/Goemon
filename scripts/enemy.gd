@@ -227,7 +227,7 @@ func take_hit(damage: float, dir: Vector3, heavy: bool,attack_ticket: Dictionary
 		if not tower_hit and not training_dummy and not practice:game.player.award_kill()
 		game.remember_defeat(self)
 		if not tower_hit and not training_dummy and not game.descent_mode:game.drop_powerup(global_position)
-		if not tower_hit:game.player.hp=minf(game.player.max_hp,game.player.hp+9)
+		if not tower_hit and (game.player.hp>0 or not game.is_fire_siege()):game.player.hp=minf(game.player.max_hp,game.player.hp+9)
 		# Artillery already supplies a shared, budgeted impact effect. Spawning
 		# eighteen particles per splash victim would overwhelm a large battery.
 		if not tower_hit:game.burst(global_position+Vector3.UP,Color("82e7e0"),18)
@@ -251,7 +251,7 @@ func freeze_for(seconds: float):
 
 func _physics_process(delta):
 	if not game.playing or game.paused or game.transitioning: return
-	var hero_targetable=not game.player.rogue_untargetable()
+	var hero_targetable=not game.player.rogue_untargetable() and (game.player.hp>0 or not game.is_fire_siege())
 	if defense_traits!=null and not dead:defense_traits.tick_status(delta)
 	if island_index>=0 and not dead:
 		var center=game.world.sky_islands.islands[island_index]
@@ -442,6 +442,7 @@ func clear_defense_dog():
 	defense_dog_state="";defense_dog_timer=0;defense_dog_contact_done=true
 
 func refresh_defense_dog_target(delta: float):
+	if game.is_fire_siege():clear_defense_dog();return null
 	var kennel=game.get("kennel")
 	var barracks=game.get("barracks")
 	var running_roster=kennel if kennel!=null and kennel.running() else (barracks if barracks!=null and barracks.running() else null)
@@ -462,6 +463,7 @@ func refresh_defense_dog_target(delta: float):
 	return running_roster
 
 func defense_ally_manager(ally):
+	if game.is_fire_siege():return null
 	# Both bounded rosters use the same actor ownership and cancellation rules.
 	# Keep the legacy retaliation field names for existing saves and diagnostics.
 	if not is_instance_valid(ally) or ally.dead:return null

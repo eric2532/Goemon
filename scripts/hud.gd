@@ -1,5 +1,7 @@
 class_name GameHUD
 extends Control
+var siege_hud=preload("res://scripts/fire_siege_hud.gd").new()
+var revive_button: Button
 var game: Node
 var zone="TIDEFALL SHORE"
 var banner=""
@@ -17,12 +19,22 @@ var building_target_time=0.0
 func _ready():
 	mouse_filter=Control.MOUSE_FILTER_IGNORE
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	revive_button=Button.new();revive_button.name="ReviveNow";revive_button.text="V · Revive Now"
+	revive_button.custom_minimum_size=Vector2(230,46);revive_button.focus_mode=Control.FOCUS_NONE
+	revive_button.pressed.connect(func():
+		if game.is_fire_siege():game.encounters.revive_now())
+	add_child(revive_button);revive_button.hide()
 
 func text(p: Vector2,s: String,size: int=18,color: Color=Color("edf4e9")):
 	draw_string(font,p+Vector2(0,2),s,HORIZONTAL_ALIGNMENT_LEFT,-1,size,Color(0,0.08,0.12,0.65))
 	draw_string(font,p,s,HORIZONTAL_ALIGNMENT_LEFT,-1,size,color)
 
 func _process(delta):
+	var siege=game!=null and game.is_fire_siege() and game.playing and not game.paused and not game.won
+	if siege:siege_hud.update_portrait(self)
+	if is_instance_valid(revive_button):
+		revive_button.visible=siege and game.encounters.hero_dead and not game.encounters.hard_mode
+		revive_button.position=Vector2(size.x*.5-115,size.y*.43+57)
 	banner_time=maxf(0,banner_time-delta)
 	toast_time=maxf(0,toast_time-delta)
 	nearby_refresh-=delta
@@ -31,6 +43,7 @@ func _process(delta):
 
 func _draw():
 	if not game or not game.playing or game.paused: return
+	if game.is_fire_siege():siege_hud.draw(self);return
 	var w=size.x
 	var h=size.y
 	var p=game.player

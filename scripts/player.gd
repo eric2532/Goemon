@@ -117,7 +117,8 @@ func _input(event):
 	if is_rogue_character() and active_ability!=null:active_ability.release_input(event)
 
 func _unhandled_input(event):
-	if not game.playing or game.paused or game.transitioning: return
+	if not game.playing or game.paused or game.transitioning or hp<=0: return
+	if game.siege_building() and not event.is_action_pressed("pause"):return
 	if game.camera_combat() and event.is_action_pressed("assist"):return
 	if game.rogue_battle_mode:game.rogue_view.update_aim()
 	if game.rogue_roster_mode and event.is_action_pressed("character_toggle") and not event.is_echo():
@@ -295,6 +296,8 @@ func take_hit(amount: float, direction: Vector3, projectile: bool=false):
 
 func _physics_process(delta):
 	if not game.playing or game.paused or game.transitioning or hp<=0: return
+	if game.siege_building():
+		cancel_charge(true);attack_left=0;queued=false;quick_attacks.stop_coins()
 	if game.rogue_battle_mode:game.rogue_view.update_aim()
 	attack_chain.tick(delta,attack_left>0 or sky_strike.active or forward_dash.active or (active_ability!=null and active_ability.blocks_movement()))
 	if attack_chain.milestone>attack_chain.announced_milestone:

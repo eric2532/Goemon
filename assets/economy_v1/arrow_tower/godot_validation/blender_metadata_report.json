@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "operation": "Gameplay documentation metadata only",
+  "geometry_transform_animation_before_sha256": "f21c5f8bab9af68ba81f756a7eac27b872e83a6c270067964bedd24814c5132e",
+  "geometry_transform_animation_after_sha256": "f21c5f8bab9af68ba81f756a7eac27b872e83a6c270067964bedd24814c5132e",
+  "unchanged": true,
+  "gameplay_fire_interval_seconds": 0.5,
+  "gameplay_shots_per_second": 2,
+  "gameplay_arrow_damage": 50,
+  "combat_drain": {
+    "required": true,
+    "scope": "time-based per built tower during combat",
+    "rate": null,
+    "zero_wallet_behavior": null
+  }
+}

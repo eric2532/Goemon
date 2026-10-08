@@ -156,6 +156,7 @@ func attack_contact():
 		feedback_left=.3;game.burst(point,Color("92efe4"),4,.55)
 
 func take_hit(amount: float,direction: Vector3):
+	if game.is_fire_siege():return
 	if dead or not active_run() or amount<=0:return
 	var damage=amount*(1.0-clampf(float(profile.get("armor",0)),0,.65))
 	hp=maxf(0,hp-damage);hits_received+=1;damage_received+=damage

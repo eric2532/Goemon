@@ -1,4 +1,4 @@
-# Goemon — Sky Descent
+# Goemon — Fire Siege MVP / Sky Descent
 
 A fully local Godot 4.6.1 action game: explore 784 floating islands, grow stronger in battle, and reach the original Tidefall Sanctuary below.
 
@@ -10,38 +10,49 @@ The main area now has 48 original Blender town buildings at 4× their previous l
 
 The ground map is now **four times its previous area** (twice the width and depth), approximately **1,176 × 1,031 metres**. Existing Tidefall streets remain in place; new furnished districts occupy the expanded sides and north, with paths back to the original courts. Terrain pads keep entrances flush. Enemy AI freeze is a session-only Prototype Lab option and always resets to off when the game launches.
 
-## Fire Siege · Universal hero controls
+## Fire Siege MVP · v2.32.0
 
-Choose **TOWER DEFENSE / Fire Siege**, choose Beta or Hard, then select Goemon,
-Edo, or any of the ten Rogue heroes. The original straight-lane battlefield,
-third-person camera, waves, towers, upgrade cards, dogs and companions remain.
-The separate cursor-combat menu entries are retired.
+Choose **Fire Siege**, Beta or Hard, then Goemon, Edo or any of the ten Rogue heroes.
+Current hero designs, camera-facing controls, signature skills and progression are preserved.
+The redesign uses the published arrow tower, gold mine and construction FX from
+`codex/fire-siege-economy-assets-v1` (`9b63371`).
 
-**WASD** moves relative to the camera; mouse turns the camera; **Shift** sprints
-and **Space** jumps. **LMB** is each hero's primary attack; **RMB** is their native
-secondary (hold to block for Knight/Master Thief). **C** uses the class evade,
-**R** its signature skill. Explorer's Hook Shot and Master Thief's Get Down are
-on **E**, with a normal dodge on C. Other Rogue heroes have no duplicate E evade.
-Goemon and Edo retain their original E, T and numbered skills. **Q** chooses a
-hero, **F** builds/upgrades towers, **G/H** open the existing companion rosters.
+Start with **10 gold**, twelve empty tower sites and an unbuilt mine. Stand at a
+site's gold interaction pad, face the structure and **hold B**. An arrow tower costs
+**5 gold**, takes 3 seconds to build, and fires a visible **50-damage arrow every
+0.5 seconds**. The mine left of the base costs **10 gold**, takes 4 seconds, and
+earns **2 gold/sec while the wave is spawning**. Releasing B gradually reverses
+construction; reholding resumes it. Moving interrupts construction and requires
+a fresh B hold once stationary. Payment happens only on completion.
 
-Idle camera orbit leaves each hero’s body facing in place, as with Goemon.
-Movement eases the body into its heading; side steps and backpedaling keep
-forward shoulders. Attacks and held blocks still follow the camera heading.
-Manual attacks face the camera heading without cursor aiming or lock-on.
-Committed melee strikes retain their direction. Dragoon leaps forward; Explorer
-hooks a visible forward enemy or anchor within native range. Native weapons,
-models, attack/contact timings, damage, cooldowns and class buffs are retained.
-The new normal dodge for Explorer and Master Thief has a 0.75-second cooldown.
-Ranged contacts retain enemy recoil without freezing the caster: Magic
-Swordsman waves keep their native 79 damage, piercing and 24-metre range
-while travelling through crowds. `--fire-siege-compact-test` verifies this
-regression, the shorter layout and drop-free kills. `--fire-siege-compact-tour`
-records a layout overview followed by live wave combat.
+Every wave starts in unlimited preparation. **Hold Y for 3 seconds** to launch it.
+Each of ten waves schedules **five enemies per second for 60 seconds**, then waits
+until every remaining actor is killed or has breached the base. Wave N pays
+**10 × N gold**, including the final 100 before victory. Kills retain progression
+and direct healing but give no gold or pickups. There are no card drafts or upgrades.
 
-Launch with `--tower-defense`. Runtime verification: `--fire-siege-controls-test`;
-add `--fire-siege-controls-visual` for captured class gameplay. The historical
-Rogue implementation remains in source for regression comparisons.
+Completed towers consume **0.1 gold/sec each**, including idle time, during spawning
+and clearance. At zero funds, towers pause firing until paid time is available.
+The mine stops earning during clearance, so holding the last enemy cannot farm gold.
+Preparation and pause do not advance income or upkeep. Beta/Hard start at 100/50 base
+integrity; each breach removes one integrity. Only loss of the base defeats the run.
+
+Hero death keeps the siege moving: enemies are **35% faster** until revival after
+**5 seconds**. Beta also offers **V / Revive Now**. Revival gives full health and two
+seconds of protection. Right-drag the mouse to look around while downed. Gold,
+waves, purchases and death state reset on retry.
+
+**WASD** move, mouse camera, **Shift** sprint, **Space** jump, **LMB/RMB** primary and
+secondary, **C** evade, **R** signature skill, **Q** hero roster, **G/H** existing
+ally rosters, **Esc** pause. Goemon/Edo retain E/T/numbered abilities; Explorer's
+Hook Shot and Master Thief's Get Down remain on E. Allies keep existing prices and
+abilities, stay active during hero death, and cannot be attacked by enemies.
+
+Launch with `--tower-defense`, or use the **Fire Siege macOS/Linux** export.
+Run `--fire-siege-mvp-test`, `--fire-siege-campaign-test` and
+`--fire-siege-controls-test`; deterministic/asset suites are documented in
+[implementation decisions](docs/fire-siege-mvp/decisions.md) and
+[verification](docs/fire-siege-mvp/verification.md).
 
 ## Sky Descent · Active gameplay loop
 
@@ -75,70 +86,15 @@ Validate traversal/enemy changes with `--sky-combat-test` or `--sky-combat-visua
 
 Open **build/Goemon.app**, then choose **Sky Descent** or **Tower Defense / Fire Siege**. The macOS application includes the game engine and all content. You do not need Godot, a terminal, an account, or an internet connection.
 
-### Tower Defense · Fire Siege — castle companions, upgrade cards, and bosses
+### Fire Siege mode boundary
 
-Fire Siege uses a compact **160 × 310 metre** battlefield with a **190-metre entrance-to-base route** (previously 640 metres). One forward cover wall and one main castle wall protect the shrine, with **eight tower mounts** total. Enemy collectible drops and pickup magnets are disabled in this mode; gold, kill progression and healing remain. Woodland and valley scenery sit closer to the road. The HUD keeps the battlefield unobstructed with no minimap; tower information and recent upgrade cards sit in the upper-right corner.
-
-The main-menu defense choice offers **Beta / Full battery** or **Hard / Build your defense**, followed by **10 waves of 600 enemies in the center lane**. Each wave gets physically larger and stronger: wave 10 has **1.9× size, 2.98× health, 2.08× attack damage, and 1.135× movement speed** relative to wave 1. Before **every wave**, time pauses and you choose **one of three upgrade cards** by clicking or pressing **1, 2, or 3**. Choices last for this run, and the offer remains the same if you open the pause menu. After choosing, the opening countdown is four seconds; later waves give you **12 seconds** to build and reposition. There are ten choices total and no card screen after victory.
-
-**4 dragon fire towers and 4 cannons** are already installed across **two cover-wall positions**. The inner towers project sweeping flame bursts; the outer cannons fire explosive shells. The fire tower model and looping flame animation were authored in Blender, with the editable source in `assets/blender/defense/Fire_Defense.blend` and rebuild script in `tools/build_defense_fire.py`. Solid cover blocks flame damage and clips the visible jet. Flame animation, damage, and artillery all pause with the game.
-
-The final defense line is a **160-metre castle wall** near the shrine, with stone battlements, four roofed watchtowers, and a **12-metre-wide gateway**. Two rear stone ramps lead to its **6.5-metre-high walkway**. The last two cannons and two fire towers sit on elevated gun platforms; their ground-level gold pads remain available for building and upgrades. The open gateway lets every enemy, including the final boss, pass through. One lower cover wall stands 60 metres ahead of the castle.
-
-Walk to a gold pad and press **F** to upgrade its defense. **12,000 starting gold**, 12 gold per enemy kill, and wave-clear bonuses let you experiment immediately. Both tower types have three levels, with upgrades costing 150 then 225 gold. Beta starts with 100 shrine integrity. **Hard mode starts with four defenses, 650 gold, and 50 integrity**; the remaining wall mounts cost 100 gold each. Character controls, attacks, spells, and movement stay shared with Sky Descent.
-
-Press **G** during battle to open the **Castle Kennel**. Time pauses while you choose one of ten companions. Summoning costs gold, closes the roster, and sends the dog out through the castle gateway to hunt raiders. You can field **eight living dogs**, including duplicates, with **three seconds of battle time** between summons. Dogs have their own health; enemies retaliate and bosses can hit them with ground slams. Cyan ground rings and small health bars distinguish allies. Companions remain until defeated or the run ends; a restart clears the squad. G or Escape closes the roster without purchasing. The kennel is also available in Hard mode.
-
-| Companion | Gold | Specialty |
-| --- | ---: | --- |
-| Kogane · Shadow Scout | 150 | Affordable, quick scout. |
-| Daigo · Iron Guardian | 300 | 750 health and 35% damage reduction. |
-| Kage · Bramble Ambusher | 260 | Piercing bites bypass enemy armor and shields. |
-| Arashi · Storm Tracker | 260 | Hits slow raiders by 30% for 1.4 seconds. |
-| Haku · Blade Guard | 320 | Cleaving strikes catch up to three enemies. |
-| Suzu · Ward Keeper | 300 | Restores 12 health to nearby dogs every three seconds, up to their maximum. |
-| Maboro · Mirage Weaver | 280 | 20% damage reduction and a 40% slowing bite. |
-| Iwa · Shield Breaker | 400 | 900 health, 20% damage reduction, and heavy piercing attacks. |
-| Mine · Cliff Runner | 230 | Fast pursuit and 10% damage reduction. |
-| Hayate · Wind Striker | 280 | Fastest runner, with quick attacks that catch two enemies. |
-
-The ten designs come from `origin/feat/ninja-dog-models` at `f511c4849a6225f1e3f71de2bc5c3589f690d246`. Their original references and sculptures are retained in the ignored `asset_packs/ninja_dogs` source pack. The game uses rebuilt, rigged Blender assets in `assets/models/dogs`, editable sources in `assets/blender/dogs`, and portraits rendered from those models in `assets/ui/dogs`. Each dog has idle, run, attack, hurt, and defeat clips. Bite damage lands at the attack's 0.38-second contact pose. Dogs use a separate bounded ally roster, leaving the 180-enemy limit unchanged. Rebuild with `tools/build_defense_dogs.py`; see [companion validation](tests/defense-dogs/README.md) for checks and captures.
-
-Press **H** to open the **Castle Barracks** and summon one of ten character allies: **Sen, Raku, Izumi, Gaku, Shiro, Banji, Touma, Roan, Nagi, and Kuren**. They emerge from the castle courtyard and fight alongside your dogs. Each costs **300 gold**, has **500 health**, and uses Goemon's existing **three-hit pipe combo**, dealing **50 base damage per contact**. This first pass gives all ten the same combat stats and choreography while retaining their distinct character designs. Attacks use the same pose samples and contact timing as Goemon, with a 1.95-second interval between combos. Their title and clothing do not grant extra elemental abilities in this pass.
-
-The barracks allows **eight living characters**, independently of the kennel's eight dogs, and has its own **three-second summon cooldown**. G and H switch between the two paused rosters; press the active roster's hotkey or Escape to return to battle. Both spend the same siege gold. Enemies and bosses can attack either type of ally, and allies never consume enemy spawn slots. Pause, wave choices, defeat, victory, retry, and leaving the mode apply to both rosters. Suzu's existing heal continues to support dogs.
-
-The character designs were imported from `origin/feat/hero-concept-models` at `1064214f1f6497a854edd42f11060c40a0bb3ae6`. Originals are preserved in the Godot-ignored source folder `asset_packs/hero_concepts`; runtime models and portraits live in `assets/models/defense_heroes` and `assets/ui/defense_heroes`. Their static source geometry is adapted to Goemon's articulated rig for gameplay, with one skinned mesh and roughly 21,000–22,000 triangles per character. See [character ally validation](tests/defense-heroes/README.md) for the new roster, shared animation, mixed-squad and performance checks.
-
-Arrivals are spread across frames, with up to eight actors and a two-millisecond creation budget per update. At most **180 enemies are alive at once** (or the lower limit chosen in Prototype Lab); the rest of each wave waits for a free slot. Cannons reuse bounded projectile and explosion meshes. Flame towers reuse their Blender meshes, animation players, and timed damage pulses. Local pursuit fields serve nearby cover fights while distant enemies follow the lane.
-
-**Enemy roles change how you fight.** Gold-accented runners move quickly; armored brutes absorb 40% of incoming damage; cyan shield carriers block 70% of frontal light hits but take full damage from behind. Heavy attacks break a shield for 1.6 seconds. Armor Piercer cannons bypass both defenses. All three roles still grow each wave.
-
-**Waves 5 and 10 contain bosses** within their 600-enemy roster: Shrinebreaker and Inferno Warlord. Their ground slam has a 1.25-second warning ring; dodge out, jump clear, or take solid cover. Their glowing recovery window lasts 1.8 seconds and takes double damage. Bosses resist chill, fit through the center wall gaps, and cost 15 shrine integrity if they breach.
-
-The card deck contains 15 powers. Frost Battery, Dragon's Breath, and War Chest are the opening choices; later offers draw three distinct eligible cards. Prerequisites and maximum ranks keep unavailable choices out of the offer.
-
-| Card | Effect |
-| --- | --- |
-| Frost Battery | All cannons fire blue ice crystals; hits slow by 40% for 2 seconds. |
-| Deep Winter | Requires ice; +10 percentage points of slow and +0.5 seconds duration per rank, twice. |
-| Shatter | Requires ice; all tower damage gains 40% against already chilled enemies. |
-| Rapid Reload | All tower reload intervals decrease 15% per rank, up to three ranks. |
-| Heavy Ordnance | +25% cannon damage per rank, up to three ranks. |
-| Dragon's Breath | +25% fire damage per rank, up to three ranks. |
-| Eagle Watch | +15% tower range per rank, twice. |
-| Siege Shells | Cannon path: +50% splash radius and +15% damage. |
-| Armor Piercer | Alternative cannon path: +40% damage, bypasses armor/shields, half splash radius. |
-| Wildfire Fan | Fire path: +60% cone width, 10% less range. |
-| Burning Ground | Alternative fire path: 20% less range; bursts leave a 4 m pool for 3 seconds at 50 base damage/sec. |
-| War Chest | +1,000 gold immediately; repeatable. |
-| Second Wind | Restores up to 30 shrine integrity and 40 hero health; offered only when useful. |
-| Stone Sanctuary | +25 maximum and current shrine integrity per rank, up to three ranks. |
-| Bounty Charter | +4 gold per kill per rank, up to three ranks. |
-
-Only one cannon path and one fire path can be chosen per run; both cannon paths work with ice. Pools receive fire-damage and Shatter bonuses, respect walls, and are limited to one reusable pool per fire tower. Frost slows expire normally; bosses receive weaker, shorter chills. Cards, paths, gold, and tower levels reset on retry or a new run.
-
-Victory follows the tenth cleared wave. **Restart Fire Siege** resets the campaign, all eight defenses to level I, shrine health, and starting gold. See [card and boss validation](tests/defense-tactics/README.md) for current checks: `--defense-tactics-test`, `--defense-tactics-visual`, and `--defense-tactics-benchmark`. The prior `--defense-fire-*` and `--tower-defense-beta-*` flags retain the simpler flame/progression regression fixture with tactics disabled. `--tower-defense --hard-defense` launches directly into the hard-mode opening draft.
+The MVP rules above replace the old Fire Siege battery/card economy. The original
+`TowerDefense` director, cannon/flame assets and card catalog remain available to
+the historical Rogue Siege configuration; Three Gates keeps its separate rules.
+Old `--defense-fire-*`, `--defense-tactics-*` and `--tower-defense-beta-*` scripts
+are historical fixtures with obsolete Fire Siege opening/balance expectations.
+Current redesigned-mode acceptance is covered by the MVP, campaign, structures,
+state and hero-control suites. Use `--tower-defense --hard-defense` for Hard.
 
 ### Tower Defense · Three Gates (retained standard configuration)
 

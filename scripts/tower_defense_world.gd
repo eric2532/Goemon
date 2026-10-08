@@ -6,6 +6,9 @@ extends Sanctuary
 const CastleWall=preload("res://scripts/defense_castle_wall.gd")
 
 var beta_mode=false
+var redesign_mode=false
+var mine_position=Vector3(-16,0,282)
+var mine_build_position=Vector3(-16,.15,286)
 var lanes: Array=[]
 var lane_names: Array[String]=["WEST · JADE", "CENTER · GOLD", "EAST · EMBER"]
 var lane_colors: Array[Color]=[Color("6ce1c0"), Color("ffcf69"), Color("ff886b")]
@@ -21,6 +24,7 @@ const STATIONS=[-170.0,0.0,160.0]
 var defense_stations: Array=STATIONS.duplicate()
 
 func _ready():
+	if redesign_mode:beta_mode=true
 	descent_mode=false
 	playable_bounds=Rect2(-80,50,160,310) if beta_mode else Rect2(-320,-400,640,760)
 	spawn_point=Vector3(0,.15,195 if beta_mode else -140)
@@ -146,7 +150,7 @@ func _build_routes():
 		for index in range(path.size()-1):
 			_road(path[index],path[index+1],22,edge,lane)
 			_road(path[index]+Vector3.UP*.02,path[index+1]+Vector3.UP*.02,18,sand,lane)
-		var gate_z=130 if beta_mode else -320
+		var gate_z=96 if redesign_mode else (130 if beta_mode else -320)
 		_gate(Vector3(LANE_X[lane],0,gate_z),lane,25)
 		_world_label(lane_names[lane]+" APPROACH",Vector3(LANE_X[lane],9.0,gate_z+1),lane_colors[lane],.035)
 		# Milestones, colored shoulders and a clear visual direction of attack.
@@ -181,6 +185,7 @@ func _build_defenses():
 			var accent=Geo.mat(lane_colors[lane].darkened(.3).to_html(false),.12)
 			if beta_mode and station==defense_stations.size()-1:
 				cover_walls.append_array(CastleWall.build(self,center))
+				if redesign_mode:continue
 				for offset in [-16.0,-9.0,9.0,16.0]:
 					var side_label="WEST" if offset<0 else "EAST"
 					_cannon_mount(center,lane,offset,"CASTLE WALL · %s %s" % [side_label,"OUTER" if absf(offset)>12 else "INNER"],6.85)
@@ -207,6 +212,25 @@ func _build_defenses():
 			else:
 				var offset=-11.0 if (lane+station)%2==0 else 11.0
 				_cannon_mount(center,lane,offset,["FORWARD","MIDDLE","REAR"][station])
+	if redesign_mode:
+		for x in [-12.0,12.0]:
+			for z in [116.0,130.0,144.0,158.0]:_approach_mount(Vector3(x,.15,z))
+		_build_mine_marker()
+
+func _approach_mount(mount: Vector3):
+	var pad=Vector3(mount.x,.15,mount.z+3.5)
+	cannon_sites.append({"position":mount,"lane":1,"label":"%s APPROACH · %d" % ["WEST" if mount.x<0 else "EAST",int(mount.z)],"build_position":pad})
+	# Only visual geometry: the open center route and work pads cannot trap actors.
+	Geo.box(self,mount-Vector3.UP*.05,Vector3(2.8,.1,2.8),Geo.mat("8b7957",.45))
+	Geo.torus(self,mount+Vector3.UP*.025,1.20,1.32,Geo.mat("e3bd6f",.6))
+	Geo.cylinder(self,pad-Vector3.UP*.065,1.45,.1,Geo.mat("435956"))
+	Geo.torus(self,pad,1.20,1.32,Geo.mat("ffcf69",.3,.35))
+	Geo.box(self,pad+Vector3.UP*.025,Vector3(1.0,.04,.12),Geo.mat("ffdf93",.4))
+	Geo.box(self,pad+Vector3.UP*.025,Vector3(.12,.04,1.0),Geo.mat("ffdf93",.4))
+
+func _build_mine_marker():
+	Geo.box(self,mine_position+Vector3.UP*.05,Vector3(4.55,.1,4.73),Geo.mat("6e7460"))
+	Geo.torus(self,mine_build_position,1.25,1.40,Geo.mat("ffcf69",.3,.35))
 
 func _cannon_mount(center: Vector3,lane: int,offset: float,line_name: String,mount_height: float=2.65):
 	var mount=center+Vector3(offset,mount_height,0)

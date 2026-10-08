@@ -111,7 +111,16 @@ func _ready():
 	spawn_gates()
 	pursuit.configure()
 	show_main_menu()
-	if "--fire-siege-weight-test" in OS.get_cmdline_user_args() or "--fire-siege-weight-tour" in OS.get_cmdline_user_args():
+	if "--fire-siege-mvp-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/fire_siege_mvp_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--fire-siege-campaign-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/fire_siege_campaign_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--fire-siege-mvp-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/fire_siege_mvp_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--fire-siege-weight-test" in OS.get_cmdline_user_args() or "--fire-siege-weight-tour" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/fire_siege_weight_tour.gd" if "--fire-siege-weight-tour" in OS.get_cmdline_user_args() else "res://scripts/fire_siege_weight_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
 	elif "--fire-siege-lean-audio-tour" in OS.get_cmdline_user_args() or "--fire-siege-sound-tour" in OS.get_cmdline_user_args():
@@ -333,7 +342,7 @@ func _ready():
 	if OS.has_feature("fire_siege") and not smoke_test:show_defense_setup.call_deferred()
 
 func setup_inputs():
-	var keys={"walk_modifier":KEY_CTRL,"move_forward":KEY_W,"move_back":KEY_S,"move_left":KEY_A,"move_right":KEY_D,"jump":KEY_SPACE,"sprint":KEY_SHIFT,"dodge":KEY_C,"equip":KEY_E,"assist":KEY_TAB,"pause":KEY_ESCAPE,"character_toggle":KEY_Q,"weapon_pipe":KEY_1,"weapon_coin":KEY_2,"weapon_chain":KEY_3,"scarf_toggle":KEY_4,"gold_cloak":KEY_5,"interact":KEY_F,"surge":KEY_R,"sky_strike":KEY_T,"prototype_lab":KEY_F1,"shuffle_map":KEY_Y,"summon_dogs":KEY_G,"summon_heroes":KEY_H}
+	var keys={"walk_modifier":KEY_CTRL,"move_forward":KEY_W,"move_back":KEY_S,"move_left":KEY_A,"move_right":KEY_D,"jump":KEY_SPACE,"sprint":KEY_SHIFT,"dodge":KEY_C,"equip":KEY_E,"assist":KEY_TAB,"pause":KEY_ESCAPE,"character_toggle":KEY_Q,"weapon_pipe":KEY_1,"weapon_coin":KEY_2,"weapon_chain":KEY_3,"scarf_toggle":KEY_4,"gold_cloak":KEY_5,"interact":KEY_F,"surge":KEY_R,"sky_strike":KEY_T,"prototype_lab":KEY_F1,"shuffle_map":KEY_Y,"summon_dogs":KEY_G,"summon_heroes":KEY_H,"siege_build":KEY_B,"siege_start":KEY_Y,"siege_revive":KEY_V}
 	for action in keys:
 		if not InputMap.has_action(action): InputMap.add_action(action)
 		var event=InputEventKey.new()
@@ -547,6 +556,7 @@ func button_at(parent: Control,words: String,p: Vector2,action: Callable,width: 
 	return b
 
 func menu_base()->Control:
+	if is_fire_siege():encounters.interrupt_inputs()
 	clear_menu()
 	menu=Control.new()
 	menu.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -627,13 +637,13 @@ func show_defense_setup(rogue: bool=false):
 	var root=menu_base()
 	label_at(root,"ROGUE SIEGE" if rogue else "FIRE SIEGE",Vector2(92,150),58)
 	label_at(root,"Choose your defense challenge",Vector2(96,230),25,Color("f1d390"))
-	label_at(root,"Pick one of three cards before every wave. Your build lasts the run.",Vector2(96,282),21)
-	label_at(root,"Ice shells · Fire paths · Armored enemies · Bosses on waves 5 and 10",Vector2(96,321),18,Color("b9d7da"))
-	button_at(root,"BETA  /  Full battery",Vector2(96,398),start_rogue_defense.bind(false) if rogue else choose_defense_hero.bind(false),500).grab_focus()
-	label_at(root,"2 walls · 8 defenses · 12,000 gold · 100 shrine integrity",Vector2(108,461),18,Color("cddad6"))
+	label_at(root,"Pick one of three cards before every wave. Your build lasts the run." if rogue else "Build your defense. Fight beside it. Survive ten waves.",Vector2(96,282),21)
+	label_at(root,"Ice shells · Fire paths · Armored enemies · Bosses on waves 5 and 10" if rogue else "Hold B to build · Hold Y for 3 seconds to start each wave",Vector2(96,321),18,Color("b9d7da"))
+	button_at(root,"BETA  /  Full battery" if rogue else "BETA  /  Build & defend",Vector2(96,398),start_rogue_defense.bind(false) if rogue else choose_defense_hero.bind(false),500).grab_focus()
+	label_at(root,"2 walls · 8 defenses · 12,000 gold · 100 shrine integrity" if rogue else "12 empty sites · 10 gold · 100 integrity · Revive Now available",Vector2(108,461),18,Color("cddad6"))
 	button_at(root,"HARD  /  Build your defense",Vector2(96,524),start_rogue_defense.bind(true) if rogue else choose_defense_hero.bind(true),500)
-	label_at(root,"4 defenses · 650 gold · 50 shrine integrity",Vector2(108,587),18,Color("cddad6"))
-	label_at(root,"G · Summon dogs   /   H · Summon characters from the castle",Vector2(108,640),18,Color("a1e2d7"))
+	label_at(root,"4 defenses · 650 gold · 50 shrine integrity" if rogue else "12 empty sites · 10 gold · 50 integrity · 5-second revival",Vector2(108,587),18,Color("cddad6"))
+	label_at(root,"G · Summon dogs   /   H · Summon characters from the castle" if rogue else "Arrow tower 5 gold · Mine 10 gold · Unlimited preparation",Vector2(108,640),18,Color("a1e2d7"))
 	if rogue:
 		label_at(root,"ROGUE COMBAT",Vector2(720,405),26,Color("f1d390"))
 		label_at(root,"Play Goemon or any of the ten Rogue fighters.",Vector2(720,456),19)
@@ -767,7 +777,7 @@ func start_mode(mode: String):
 		if mode=="rogue_defense":defense_beta=true;defense_tactics=true
 		player.select_character(selected_rogue_id)
 	elif was_rogue_roster or player.is_rogue_character():player.select_character(rogue_original_character)
-	encounters=load("res://scripts/tower_defense.gd").new() if tower_defense_mode else (preload("res://scripts/sky_descent.gd").new() if descent_mode else SwarmSurvival.new())
+	encounters=load("res://scripts/fire_siege.gd" if mode=="defense" and defense_beta else "res://scripts/tower_defense.gd").new() if tower_defense_mode else (preload("res://scripts/sky_descent.gd").new() if descent_mode else SwarmSurvival.new())
 	if tower_defense_mode:
 		encounters.beta_mode=defense_beta;encounters.tactics_enabled=defense_tactics;encounters.hard_mode=defense_hard
 	encounters.game=self
@@ -863,7 +873,7 @@ func start_game(seed_override: int=-1):
 	rogue_feedback.set_enabled(rogue_battle_mode)
 	if camera_combat():
 		player.soft_target=false
-		toast("FIRE SIEGE · Camera-facing combat · Q Heroes · C Evade · E Utility · F Towers · G / H Allies")
+		toast("FIRE SIEGE · Hold B to build · Hold Y to start · Q Heroes · G / H Allies" if is_fire_siege() else "FIRE SIEGE · Camera-facing combat · Q Heroes · C Evade · E Utility · F Towers · G / H Allies")
 		return
 	if rogue_roster_mode:
 		toast("ROGUE SIEGE · Q Fighters · C Evade / E Dash · R Surge · F Upgrade · G / H Allies" if player.character_id==1 else "ROGUE SIEGE · Q Fighters · C / E Utility · R Skill · F Upgrade · G / H Allies")
@@ -893,6 +903,8 @@ func finish_map_shuffle():
 
 func _unhandled_input(event):
 	if transitioning: return
+	if is_fire_siege() and playing and not paused and event.is_action_pressed("siege_revive") and not event.is_echo():
+		encounters.revive_now();get_viewport().set_input_as_handled();return
 	if rogue_roster_mode and playing and event.is_action_pressed("character_toggle") and not event.is_echo():
 		if rogue_roster_open:close_rogue_roster()
 		else:show_rogue_roster()
@@ -921,7 +933,7 @@ func _unhandled_input(event):
 			encounters.try_purchase();get_viewport().set_input_as_handled()
 		elif not adventure.pending_rewards.is_empty():adventure.show_choices()
 		else:use_nearby_gate()
-	if event.is_action_pressed("pause") and playing and player.hp>0 and not won:
+	if event.is_action_pressed("pause") and playing and (player.hp>0 or is_fire_siege()) and not won:
 		if paused: resume()
 		else: show_pause()
 		get_viewport().set_input_as_handled()
@@ -935,7 +947,7 @@ func show_pause():
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	var root=menu_base()
 	label_at(root,"TAKE A BREATH",Vector2(92,160),43)
-	label_at(root,"Waves, cannons, and the shrine are paused." if tower_defense_mode else ("Your descent and island encounters are paused." if descent_mode else "Countdown and enemy waves are paused."),Vector2(94,220),19,Color("dfc384"))
+	label_at(root,"Waves, construction, income and revival are paused." if is_fire_siege() else "Waves, cannons, and the shrine are paused." if tower_defense_mode else ("Your descent and island encounters are paused." if descent_mode else "Countdown and enemy waves are paused."),Vector2(94,220),19,Color("dfc384"))
 	if not defense_drafting():button_at(root,"F1 · Prototype Lab",Vector2(470,304),show_lab,340)
 	if rogue_roster_mode:button_at(root,"Q · Choose hero",Vector2(470,367),show_rogue_roster,380)
 	if descent_mode:
@@ -948,7 +960,7 @@ func show_pause():
 	button_at(root,"Quit",Vector2(96,556),quit_clean)
 
 func resume():
-	if won or player.hp<=0:return
+	if won or (player.hp<=0 and not is_fire_siege()):return
 	if tower_defense_mode and encounters.base_hp<=0:return
 	rogue_roster_open=false;rogue_pick_start=false
 	if defense_drafting():show_defense_cards();return
@@ -956,7 +968,7 @@ func resume():
 	clear_menu()
 	paused=false
 	get_tree().paused=false
-	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if rogue_battle_mode else Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if rogue_battle_mode or (is_fire_siege() and player.hp<=0) else Input.MOUSE_MODE_CAPTURED
 
 func show_settings(from_pause: bool):
 	var root=menu_base()
@@ -1106,22 +1118,31 @@ func survival_victory():
 	sound("spark")
 
 func defense_victory():
-	if won or player.hp<=0 or encounters.base_hp<=0:return
+	if won or (player.hp<=0 and not is_fire_siege()) or encounters.base_hp<=0:return
 	if is_instance_valid(kennel):kennel.reset()
 	if is_instance_valid(barracks):barracks.reset()
 	won=true;encounters.active=false
+	if is_fire_siege():
+		encounters.runtime.revive_left=0;clear_siege_projectiles()
 	player.cancel_charge();player.end_surge()
 	paused=true;get_tree().paused=true;Engine.time_scale=1
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	var root=menu_base()
 	label_at(root,"ALL TEN WAVES DEFEATED",Vector2(92,230),42)
 	label_at(root,"%d defeated · %d breached · Shrine %d / %d" % [encounters.run_kills,encounters.run_breaches,encounters.base_hp,encounters.base_max_hp],Vector2(96,296),20,Color("e6cf97"))
-	label_at(root,("%s cleared · %d upgrade cards chosen" % ["Hard mode" if encounters.hard_mode else "Beta",encounters.card_history.size()]) if encounters.tactics_enabled else "Fire Siege complete. Try another defense setup.",Vector2(96,336),18)
+	label_at(root,("%s cleared · %.2f gold · Final wave reward +100 paid" % ["Hard" if encounters.hard_mode else "Beta",encounters.money]) if is_fire_siege() else ("%s cleared · %d upgrade cards chosen" % ["Hard mode" if encounters.hard_mode else "Beta",encounters.card_history.size()]) if encounters.tactics_enabled else "Fire Siege complete. Try another defense setup.",Vector2(96,336),18)
 	button_at(root,"Restart Fire Siege",Vector2(96,400),restart_area,350).grab_focus()
 	button_at(root,"Main menu",Vector2(96,469),show_main_menu,350)
 	sound("spark")
 
 func defeat():
+	if is_fire_siege() and encounters.base_hp>0 and playing and not won:
+		encounters.hero_died()
+		return
+	if is_fire_siege():
+		encounters.phase="defeat";encounters.runtime.revive_left=0
+		encounters.interrupt_inputs();encounters.retire_wave_effects()
+		clear_siege_projectiles()
 	if is_instance_valid(kennel):kennel.reset()
 	if is_instance_valid(barracks):barracks.reset()
 	player.quick_attacks.stop_coins()
@@ -1337,6 +1358,22 @@ func send_action(action: String):
 	release.pressed=false
 	Input.parse_input_event(release)
 
+func is_fire_siege()->bool:
+	return tower_defense_mode and is_instance_valid(encounters) and encounters.get("redesign_mode")==true
+
+func siege_building()->bool:
+	return is_fire_siege() and playing and not paused and player.hp>0 and Input.is_action_pressed("siege_build") and encounters.nearest_site()>=0
+
+func clear_siege_projectiles():
+	player.cancel_charge()
+	player.quick_attacks.stop_coins()
+	player.end_surge()
+	player.sky_strike.cancel()
+	player.forward_dash.cancel()
+	for group in ["projectiles","boss_waves","edo_explosions","combo_energy"]:
+		for projectile in get_tree().get_nodes_in_group(group):
+			projectile.set_process(false);projectile.set_physics_process(false);projectile.queue_free()
+
 func camera_combat()->bool:
 	return tower_defense_mode and rogue_roster_mode and not rogue_battle_mode
 
@@ -1473,7 +1510,8 @@ func rebuild_area(index: int):
 	area_index=index
 	boss_active=false
 	world=load("res://scripts/tower_defense_world.gd").new() if tower_defense_mode else (Sanctuary.new() if index==0 else ExpeditionArea.new())
-	if tower_defense_mode:world.beta_mode=defense_beta
+	if tower_defense_mode:
+		world.beta_mode=defense_beta;world.redesign_mode=is_fire_siege()
 	world.descent_mode=descent_mode
 	world.area_index=index
 	world.generation_seed=run_seed+index*104729

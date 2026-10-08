@@ -1,0 +1,52 @@
+{
+  "demo_fps": 24,
+  "frame_range": [
+    1,
+    145
+  ],
+  "timing": "illustrative only",
+  "sources": {
+    "tower": {
+      "file": "/workspace/scratch/23f1a29e8f92/tower_assets_v1/exports/tower_build_recoil_reverse.glb",
+      "sha256": "cc93e9b39778580fb524a24f9139bda991805fd08917eeeac0e777da2b782136"
+    },
+    "mine": {
+      "file": "/workspace/scratch/23f1a29e8f92/goldmine_assets_v1/goldmine_v1.glb",
+      "sha256": "bf5d35b5ef670dc00bb8b3c397913dd57672fb3fc976202f4ac8be2726b975bf"
+    }
+  },
+  "frames": {
+    "hold": [
+      1,
+      48
+    ],
+    "release_decay": [
+      49,
+      72
+    ],
+    "resume": [
+      73,
+      120
+    ],
+    "complete": [
+      121,
+      145
+    ]
+  },
+  "tower_source_build_frames": [
+    1,
+    72
+  ],
+  "mine_source_build_frames": [
+    1,
+    49
+  ],
+  "reference_metadata": {
+    "mine_base_income_gold_per_second": 2,
+    "mine_income_phase": "combat_only",
+    "tower_l1_fire_interval_seconds": 0.5,
+    "tower_l1_arrow_damage": 50,
+    "note": "Metadata only; illustration timing is unchanged."
+  },
+  "metadata_refresh": "Copied current root extras from the frozen source GLBs; geometry and animation were not modified."
+}

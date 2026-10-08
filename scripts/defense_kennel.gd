@@ -97,7 +97,7 @@ func owns(dog)->bool:
 	return active and is_instance_valid(dog) and dog.kennel==self and dog.generation==generation and dogs.has(dog)
 
 func running()->bool:
-	return active and game.playing and not game.paused and not game.transitioning and not game.won and game.player.hp>0 and game.encounters.base_hp>0
+	return active and game.playing and not game.paused and not game.transitioning and not game.won and (game.player.hp>0 or game.is_fire_siege()) and game.encounters.base_hp>0
 
 func tick(delta: float):
 	if not running():return
@@ -114,6 +114,7 @@ func valid_enemy(enemy)->bool:
 	return is_instance_valid(enemy) and not enemy.dead and enemy.defense_lane>=0 and game.encounters.owns(enemy)
 
 func enemy_target(enemy):
+	if game.is_fire_siege():return null
 	if not running() or not valid_enemy(enemy):return null
 	# A close hero keeps the existing combat priority. Once a dog retaliation
 	# starts, Ninja holds that exact target through its windup and contact.
@@ -129,6 +130,7 @@ func enemy_target(enemy):
 	return chosen
 
 func boss_slam(enemy,origin: Vector3,radius: float,damage: float):
+	if game.is_fire_siege():return
 	if not running() or not valid_enemy(enemy):return
 	for dog in dogs:
 		if not owns(dog) or dog.dead:continue
