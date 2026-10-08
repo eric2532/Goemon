@@ -46,4 +46,8 @@ Files: export_presets.cfg, docs/fire-siege-mvp/verification.md, release artifact
 - [x] Run relevant regression suites, scene launch and visual checks; fix actual failures.
 - [x] Fresh code review, resolve important findings with regression tests.
 - [x] Export macOS and Linux release packages, verify ZIP and exported resource/runtime startup, compute checksums.
-- [ ] Commit, push new branch and tag, publish GitHub prerelease with honest test and asset limitations; verify uploaded assets.
+- [x] Commit, push new branch and tag, publish GitHub prerelease with honest test and asset limitations; verify uploaded assets.
+
+Published `fire-siege-v2.32.0-mvp` at implementation commit `b93dc378aaf92e1db3e15c102f6efdc6343e0eaf`.
+GitHub reports all five release assets uploaded; every size and SHA-256 digest matches
+the local package. Release: https://github.com/eric2532/Goemon/releases/tag/fire-siege-v2.32.0-mvp.
