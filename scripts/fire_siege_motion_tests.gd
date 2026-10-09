@@ -20,7 +20,12 @@ func run():
   check(Vector2(p.velocity.x,p.velocity.z).length()<.01,"%s stops without drifting" % CLASS_IDS[i])
   tap("jump");await frames(12);tap("jump");await frames(14)
   check(p.jumps_used==2 and a.visual_actor.model.basis.y.y<-.3,"%s second jump visibly flips forward" % CLASS_IDS[i])
-  await frames(75)
+  # Dragoon now has twice the jump height and correspondingly longer airtime.
+  # Check the landing event rather than the old common 75-frame landing time.
+  for landing_frame in range(120):
+   if p.is_on_floor():break
+   await frames(1)
+  await frames(2)
   check(Vector2(a.visual_actor.model.position.x,a.visual_actor.model.position.z).length()<.01,"%s flip keeps the mesh over its collision body" % CLASS_IDS[i])
   check(p.is_on_floor() and a.visual_actor.model.basis.y.y>.9,"%s lands upright after the flip" % CLASS_IDS[i])
   tap("surge");await frames(10)
@@ -49,4 +54,7 @@ func run():
  tap("jump");await frames(10);tap("jump");await frames(2);tap("dodge");await frames(14)
  check(a.visual_actor.model.basis.y.y>.8,"Aerial Knight dodge does not resume an interrupted flip")
  print("FIRE_SIEGE_MOTION_RESULT checks=",checks," failures=",failures)
+ game.show_main_menu();game.sound_library.cancel();game.music.stop()
+ for voice in game.voices:voice.stop()
+ await frames(30)
  get_tree().quit(1 if failures else 0)

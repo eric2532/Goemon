@@ -1,7 +1,7 @@
 {
   "hero": "samurai",
-  "triangles": 4850,
-  "mesh_batches": 8,
+  "triangles": 9676,
+  "mesh_batches": 9,
   "source": "assets/blender/rogue/samurai.blend",
   "removed_microdetails": [
     "Greave gilt ridge",
@@ -50,5 +50,187 @@
     "Weapon_Pistol"
   ],
   "face_method": "UV-painted skull",
-  "head_shape": "Slimmer cheeks, tapered jaw and face-framing hair"
+  "head_shape": "Firm compact chin, sharp cheek-to-jaw break, focused brow; black tapered temple locks under kabuto",
+  "roster_generator": "tools/sculpt_rogue_roster.py",
+  "facial_depth_revision": "approved-2.34.1-roster-rollout",
+  "painted_atlas_changed": false,
+  "export_face_uv_check": {
+    "uv_set": 0,
+    "distinct_coordinates": 714,
+    "u_span": 0.3253333568572998,
+    "v_span": 0.3166666626930237,
+    "single_head_uv_set": true
+  },
+  "pivot_invariance": true,
+  "body_and_weapon_geometry_invariance": true,
+  "unchanged_components": 220,
+  "adjusted_accessories": [
+    "Chin silk tie",
+    "Chin silk tie.001"
+  ],
+  "replaced_head_components": [
+    "Face framing hair L",
+    "Ear framing hair L",
+    "Face framing hair R",
+    "Ear framing hair R"
+  ],
+  "roster_mesh_checks": [
+    {
+      "name": "Carved head",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.1156014072812334
+    },
+    {
+      "name": "Chin silk tie",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 7.068834718618681e-05
+    },
+    {
+      "name": "Chin silk tie.001",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 6.49199157144861e-05
+    },
+    {
+      "name": "Roster samurai temple -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.002996961833454
+    },
+    {
+      "name": "Roster samurai temple 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.003081656859856866
+    },
+    {
+      "name": "Roster samurai nape lock 0",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0032380102114740236
+    },
+    {
+      "name": "Roster samurai nape lock 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0032311559639321037
+    },
+    {
+      "name": "Roster samurai nape lock 2",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0032281101632374316
+    },
+    {
+      "name": "Roster samurai nape lock 3",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0032288777906370088
+    }
+  ],
+  "equipment_revision": "2.37",
+  "equipment_generator": "tools/equip_rogue_roster.py",
+  "equipment_design": "Compact Samurai neckline: head/helmet lowered 0.13, neck shortened 41 percent, fitted crimson mouth wrap and unchanged long wind-driven tail",
+  "equipment_removed": [
+    "Chin silk tie",
+    "Chin silk tie.001"
+  ],
+  "equipment_adjusted": [
+    "Samurai neck",
+    "Carved head",
+    "Ear",
+    "Ear.001",
+    "Kabuto fluted crown",
+    "Helmet gilt ribs",
+    "Helmet gilt ribs.001",
+    "Helmet gilt ribs.002",
+    "Helmet gilt ribs.003",
+    "Helmet gilt ribs.004",
+    "Helmet gilt ribs.005",
+    "Helmet gilt ribs.006",
+    "Helmet gilt ribs.007",
+    "Helmet gilt ribs.008",
+    "Helmet gilt ribs.009",
+    "Helmet gilt ribs.010",
+    "Helmet gilt ribs.011",
+    "Kabuto shikoro nape plate",
+    "Shikoro gold edge",
+    "Kabuto shikoro nape plate.001",
+    "Shikoro gold edge.001",
+    "Kabuto shikoro nape plate.002",
+    "Shikoro gold edge.002",
+    "Kabuto shikoro nape plate.003",
+    "Shikoro gold edge.003",
+    "Kabuto shikoro nape plate.004",
+    "Shikoro gold edge.004",
+    "Kabuto shikoro nape plate.005",
+    "Shikoro gold edge.005",
+    "Kabuto fukigaeshi wings",
+    "Clan sun crest",
+    "Chin silk tie",
+    "Kabuto fukigaeshi wings.001",
+    "Clan sun crest.001",
+    "Chin silk tie.001",
+    "Gold crescent maedate",
+    "Maedate central garnet",
+    "Roster samurai temple -1",
+    "Roster samurai temple 1",
+    "Roster samurai nape lock 0",
+    "Roster samurai nape lock 1",
+    "Roster samurai nape lock 2",
+    "Roster samurai nape lock 3"
+  ],
+  "equipment_mesh_checks": [
+    {
+      "name": "Samurai neck",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.013481246209984608
+    },
+    {
+      "name": "Equipment crimson mouth and neck wrap",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.006659522320592453
+    },
+    {
+      "name": "Equipment crimson scarf side knot",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.004109262145560441
+    },
+    {
+      "name": "Equipment continuous long scarf tail",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.003149160091220603
+    }
+  ],
+  "equipment_unchanged_components": 186,
+  "equipment_pivot_invariance": false,
+  "equipment_pivot_adjustments": {
+    "Head": [
+      0,
+      0,
+      -0.13
+    ]
+  },
+  "equipment_body_and_weapon_geometry_invariance": true,
+  "scarf_contract": {
+    "root": "Head/ScarfTail",
+    "mesh": "ScarfTail_Geometry",
+    "source_axis": "+Y",
+    "godot_axis": "-Z",
+    "length": 1.4,
+    "length_subdivisions": 24,
+    "source_attachment_world": [
+      -0.44,
+      0.3,
+      1.4
+    ],
+    "mesh_transform": "identity",
+    "root_pin_length": 0.1
+  }
 }

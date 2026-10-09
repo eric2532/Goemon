@@ -376,6 +376,14 @@ func create_projectile(kind: String, color: Color = TEAL) -> Node3D:
 	var group: Node3D = Node3D.new()
 	group.name = "Projectile_" + kind
 	match kind:
+		"bullet":
+			# Previous shot streak radius was 0.055; visualScale=10 makes a 1.1 m round.
+			var core = _mesh(sphere_geometry, Color("fff6c9"), 0.98)
+			core.scale = Vector3.ONE * 0.055
+			group.add_child(core)
+			var shell = _mesh(sphere_geometry, Color("ffc267"), 0.25)
+			shell.scale = Vector3.ONE * 0.068
+			group.add_child(shell)
 		"arrow", "power-arrow", "bow":
 			var shaft: MeshInstance3D = _shaft(Vector3(0, 0, -0.65), Vector3(0, 0, 0.35), color, 0.025)
 			group.add_child(shaft)
@@ -405,6 +413,15 @@ func create_projectile(kind: String, color: Color = TEAL) -> Node3D:
 				fin.position = Vector3(side * 0.75, 0, -0.75)
 				fin.rotation.y = side * -0.12
 				group.add_child(fin)
+		"fireball":
+			for layer in [[0.26, 0.98], [0.39, 0.6], [0.52, 0.14]]:
+				var flame = _mesh(sphere_geometry, Color("fff0b0") if layer[0] < 0.3 else Color("ff572a"), layer[1])
+				flame.scale = Vector3.ONE * layer[0]
+				group.add_child(flame)
+			for i in range(3):
+				var orbit = _mesh(_ring_geometry(0.43, 0.04, PI * 1.55, 32), Color("ffc34d"), 0.75)
+				orbit.rotation = Vector3(i * 1.05, i * 0.7, i * 0.8)
+				group.add_child(orbit)
 		"bolt", "spell", "wand":
 			var core: MeshInstance3D = _mesh(_spear(0.9, 0.19, 0.19), Color("f0eeff"), 0.95)
 			core.position.z = -0.35
@@ -431,10 +448,10 @@ func tick(dt: float) -> void:
 	flash = maxf(0, flash - dt)
 	for i in range(items.size() - 1, -1, -1):
 		var item: Dictionary = items[i]
-		var node: Node3D = item.node
-		if not is_instance_valid(node):
+		if not is_instance_valid(item.node):
 			items.remove_at(i)
 			continue
+		var node: Node3D = item.node
 		item.life -= dt
 		if item.life <= 0:
 			node.queue_free()
@@ -453,6 +470,21 @@ func tick(dt: float) -> void:
 			"ring":
 				node.scale = Vector3.ONE * float(item.radius) * (0.25 + t * 0.85)
 				_fade(node, remaining)
+			"crimson-slash":
+				node.scale = Vector3.ONE * (0.83 + 0.17 * minf(1, t * 4))
+				node.rotation.y = item.angle + (t - 0.3) * 0.12
+				_fade(node, minf(1, remaining * 2.3))
+			"wave-disc":
+				node.scale = Vector3.ONE * item.radius * (1.0 if item.warning else (0.24 + 0.76 * (1 - pow(remaining, 2))))
+				_fade(node, (0.7 + sin(t * PI) * 0.3) if item.warning else remaining)
+			"nova":
+				node.scale = Vector3.ONE * (0.15 + 0.85 * (1 - pow(remaining, 4)))
+				_fade(node, pow(remaining, 0.7))
+				node.rotation.y = t * 0.1
+			"shield-counter":
+				node.position = item.origin + Vector3(sin(item.angle), 0, cos(item.angle)) * (1 - pow(remaining, 3)) * 3.8
+				node.scale = Vector3.ONE * (0.8 + t * 0.65)
+				_fade(node, minf(1, remaining * 2.8))
 			"slash":
 				for material in item.materials:
 					material.set_shader_parameter("age", t)
@@ -521,3 +553,104 @@ func clear() -> void:
 	items.clear()
 	shake = 0.0
 	flash = 0.0
+
+func charge_orb(pos: Vector3) -> Node3D:
+	var orb = create_projectile("fireball", Color("ff7135"))
+	orb.name = "HeldChargedFireball"
+	orb.position = pos
+	return _add(orb, 3600.0, "charge")
+
+func cross_slash(pos: Vector3, angle: float, reach: float) -> void:
+	for side in [-1, 1]:
+		slash(pos, angle, 1, Color("ffe5b2"), reach, {"style": "katana", "arc": 1.8, "height": 1.15, "tilt": side * 0.85, "direction": side, "life": 0.35})
+
+func lance_wave(pos: Vector3, radius: float, index: int) -> Node3D:
+	_ensure_geometry()
+	var group = Node3D.new()
+	group.name = "LanceBlueWarning" if index < 0 else "LanceBlueShockwave"
+	group.position = pos + Vector3.UP * 0.2
+	var disc = _mesh(_ring_geometry(1.0, 0.96), Color("2463d5"), 0.34, false)
+	disc.rotation.x = -PI / 2
+	group.add_child(disc)
+	for r in [1.0, 0.88]:
+		var edge = _mesh(_ring_geometry(r, 0.038), Color("2779d9"), 0.9, false)
+		edge.rotation.x = -PI / 2
+		group.add_child(edge)
+	if index >= 0:
+		for i in range(16):
+			var angle = i * TAU / 16
+			var ray = _mesh(_spear(0.26, 0.014, 0.025), Color("bceaff"), 0.8)
+			ray.position = Vector3(sin(angle), 0.012, cos(angle)) * 0.8
+			ray.rotation.y = angle
+			group.add_child(ray)
+	group.scale = Vector3.ONE * radius * (1.0 if index < 0 else 0.24)
+	return _add(group, 0.72 if index < 0 else 0.42, "wave-disc", {"radius": radius, "warning": index < 0})
+
+func frost_nova(pos: Vector3, radius: float) -> Node3D:
+	_ensure_geometry()
+	var group = Node3D.new()
+	group.name = "FrostNova"
+	group.position = pos + Vector3.UP * 0.1
+	for r in [1.0, 0.78, 0.43]:
+		var edge = _mesh(_ring_geometry(radius * r, 0.065), Color("a3efff"), 0.74)
+		edge.rotation.x = -PI / 2
+		group.add_child(edge)
+	var veil = _mesh(sphere_geometry, Color("6bc5ff"), 0.09, false)
+	veil.scale = Vector3(radius, 0.5, radius)
+	group.add_child(veil)
+	for i in range(24):
+		var angle = i * TAU / 24
+		var distance = radius * (0.72 if i % 2 else 0.96)
+		var crystal = _mesh(_spear(0.8 + (i % 3) * 0.22, 0.16, 0.16), Color("c0f4ff"), 0.72)
+		crystal.position = Vector3(sin(angle), 0, cos(angle)) * distance
+		crystal.rotation = Vector3(-PI / 2 + 0.25, angle, 0)
+		group.add_child(crystal)
+		var spoke = _shaft(Vector3.ZERO, Vector3(sin(angle), 0, cos(angle)) * distance, Color("549bd5"), 0.022)
+		group.add_child(spoke)
+	return _add(group, 0.9, "nova")
+
+func energy_shield(pos: Vector3, angle: float, reach: float) -> Node3D:
+	var group = Node3D.new()
+	group.name = "NavyShieldCounter"
+	group.position = pos + Vector3.UP * 1.8
+	group.rotation.y = angle
+	var points = PackedVector3Array([Vector3(-1.8, 1.3, 0), Vector3(0, 1.9, 0), Vector3(1.8, 1.3, 0), Vector3(1.6, -0.5, 0), Vector3(0, -1.8, 0), Vector3(-1.6, -0.5, 0)])
+	var face = _mesh(_array_mesh(points, PackedInt32Array([0, 1, 2, 0, 2, 3, 0, 3, 4, 0, 4, 5])), Color("102957"), 0.76, false)
+	face.position.z = 1.4
+	group.add_child(face)
+	for i in range(points.size()):
+		var edge = _shaft(points[i], points[(i + 1) % points.size()], Color("548fea"), 0.06)
+		edge.position.z = 1.4
+		group.add_child(edge)
+	for pair in [[Vector3(-0.7, 0.35, 1.42), Vector3(0.7, 0.35, 1.42)], [Vector3(0, -0.75, 1.42), Vector3(0, 1.0, 1.42)]]:
+		group.add_child(_shaft(pair[0], pair[1], Color("80acff"), 0.08))
+	slash(pos, angle, 2, Color("275ab1"), reach, {"style": "magic", "arc": 2.5, "height": 0.6, "tilt": 0.1})
+	return _add(group, 0.46, "shield-counter", {"origin": group.position, "angle": angle})
+
+func power_slash(pos: Vector3, angle: float, reach: float) -> Node3D:
+	var group = Node3D.new()
+	group.name = "CrimsonPowerSlash"
+	group.position = pos + Vector3.UP * 1.1
+	group.rotation.y = angle
+	# A broad saturated body remains readable over bright terrain; its outer edge glows.
+	for layer in [[reach, reach * 0.30, 0.15, 0.52], [reach * 0.98, reach * 0.10, -0.04, 0.38]]:
+		var body = _mesh(_blade(layer[0], layer[1], 2.5, 1, layer[2]), Color("df102d"), layer[3], false)
+		group.add_child(body)
+	var rim = _mesh(_blade(reach + 0.04, 0.13, 2.5, 1, 0.15), Color("ff4651"), 0.8)
+	group.add_child(rim)
+	return _add(group, 0.56, "crimson-slash", {"angle": angle})
+
+func dive_slash(pos: Vector3, angle: float, reach: float, impact: bool) -> Node3D:
+	var group = Node3D.new()
+	group.name = "MoonbladeDiveImpact" if impact else "MoonbladeDiveTrail"
+	group.position = pos + Vector3.UP * (0.3 if impact else 1.0)
+	group.rotation.y = angle
+	for layer in [[reach, reach * 0.28, 0.64], [reach * 0.98, 0.12, 0.94]]:
+		var blade = _mesh(_blade(layer[0], layer[1], 2.5 if impact else 1.4, 1, 0.08), Color("6334c1") if layer[1] > 0.2 else Color("eee0ff"), layer[2], layer[1] <= 0.2)
+		blade.rotation.x = 0.05 if impact else -0.8
+		group.add_child(blade)
+	if impact:
+		ring(pos, Color("bc92ff"), reach, 0.5)
+		particles(pos + Vector3.UP * 0.4, Color("e7caff"), 32, 2.2)
+		shake = maxf(shake, 0.3)
+	return _add(group, 0.55 if impact else 0.22, "dive-impact" if impact else "dive-trail")

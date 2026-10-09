@@ -29,6 +29,7 @@ var working=false
 var visual_root: Node3D
 var progress_root: Node3D
 var progress_fill: Node3D
+var proximity_prompt: Label3D
 var hammer: Node3D
 var completion_light: Node3D
 var launcher: Node3D
@@ -96,6 +97,13 @@ func _build_feedback():
 	for mesh in progress_root.find_children("*","GeometryInstance3D",true,false):
 		mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		mesh.visibility_range_end=45
+	proximity_prompt=Label3D.new();proximity_prompt.name="BuildProximityPrompt";add_child(proximity_prompt)
+	# An empty foundation is low to the ground. Keep its prompt over that
+	# foundation instead of the completed tower's much higher FX socket.
+	proximity_prompt.position=Vector3(0,1.25 if kind=="arrow" else 1.8,0)
+	proximity_prompt.font_size=30;proximity_prompt.pixel_size=.013;proximity_prompt.outline_size=8
+	proximity_prompt.outline_modulate=Color("10222a");proximity_prompt.billboard=BaseMaterial3D.BILLBOARD_ENABLED
+	proximity_prompt.visibility_range_end=45;proximity_prompt.hide()
 	hammer=HAMMER_SCENE.instantiate();hammer.name="WorkingHammer";add_child(hammer)
 	hammer.position=to_local(build_socket.global_position)+Vector3(1.1,-.6,0);hammer.scale=Vector3.ONE*.7
 	hammer_player=_find_player(hammer);hammer_player.get_animation("Build_HammerLoop").loop_mode=Animation.LOOP_LINEAR
@@ -116,17 +124,26 @@ func set_build_progress(p: float,valid_work: bool):
 	if not is_instance_valid(visual_root):return
 	_seek(build_player,build_clip,progress*build_clip_duration)
 	_sync_mesh_visibility()
-	progress_root.visible=true
+	progress_root.visible=progress>EPSILON
+	if progress>EPSILON:proximity_prompt.hide()
 	progress_fill.visible=progress>0
 	progress_fill.scale.x=maxf(.00001,progress)
 	# The authored mesh starts at local x=0; its fixed -0.975m translation is the anchor.
 	hammer.visible=working
 
+func set_proximity(selected: bool,affordable: bool):
+	if not is_instance_valid(proximity_prompt):return
+	proximity_prompt.visible=selected and not completed and progress<=EPSILON
+	if not proximity_prompt.visible:return
+	var label="MINE · 10 GOLD" if kind=="mine" else "ARROW TOWER · 5 GOLD"
+	proximity_prompt.text=("IN RANGE · HOLD B" if affordable else "IN RANGE · NEED GOLD")+"\n"+label
+	proximity_prompt.modulate=Color("a3f0ca") if affordable else Color("ffb792")
+
 func complete_build():
 	if completed:return
 	set_build_progress(1,false)
 	completed=true;working=false;completion_events+=1
-	progress_root.hide();hammer.hide()
+	progress_root.hide();hammer.hide();proximity_prompt.hide()
 	_completion_left=1.0;_seek(completion_player,&"Complete_GoldPulse",0);completion_light.show()
 
 func tick(delta: float,powered_delta: float):

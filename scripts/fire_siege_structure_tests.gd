@@ -70,12 +70,13 @@ func geometry():
 	var pads_clear=true
 	for site in world.cannon_sites:
 		exact=exact and expected.has(site.position)
-		var offset=5.3 if site.position.y>2 else 3.5
+		var offset=3.5
 		pads_clear=pads_clear and is_equal_approx(site.build_position.z-site.position.z,offset) and absf(site.build_position.x)>=9
 	check(exact,"All sites occupy the four front-wall and eight straight-row positions")
 	check(pads_clear,"Interaction pads stay south of their site and outside the 12m enemy corridor")
 	check(world.get_node_or_null("MainCastleWall")!=null and world.cover_walls.size()>6,"Both original defensive walls remain despite removal of rear build sites")
-	check(world.mine_position==Vector3(-16,0,282) and world.mine_build_position.z>world.mine_position.z,"Mine is left of the base with a reachable southern work pad")
+	var nearby_mines=world.mine_sites.filter(func(site):return site.position.distance_to(world.spawn_point)<=25)
+	check(nearby_mines.size()>=3 and world.mine_sites.size()==4,"Three opening mines are close to spawn and the rear mine remains available")
 	await physics_frame
 	var space=root.world_3d.direct_space_state
 	var corridor_clear=true
@@ -97,6 +98,7 @@ func construction():
 	clear_fixture()
 	for kind_value in ["arrow","mine"]:
 		var structure=tower(Vector3.ZERO,kind_value)
+		check(not structure.progress_root.visible,"Untouched %s hides its empty construction bar" % kind_value)
 		structure.set_build_progress(.6,true)
 		var assembled_pose=pose_snapshot(structure.visual_root)
 		check(structure.progress_fill.visible and is_equal_approx(structure.progress_fill.scale.x,.6) and structure.hammer.visible,"%s exposes normalized progress and working hammer" % kind_value)
@@ -105,6 +107,9 @@ func construction():
 		var hammer_pose=hammer_pivot.transform
 		structure.set_build_progress(.2,false);structure.tick(.1,0)
 		check(pose_snapshot(structure.visual_root)!=assembled_pose and not structure.hammer.visible and hammer_pivot.transform==hammer_pose,"%s assembly reverses on decay and hammer stops when work stops" % kind_value)
+		check(structure.progress_root.visible,"Partial %s keeps its remaining construction progress visible" % kind_value)
+		structure.set_build_progress(0,false)
+		check(not structure.progress_root.visible,"Fully decayed %s hides its empty construction bar again" % kind_value)
 		structure.set_build_progress(.6,true)
 		check(pose_snapshot(structure.visual_root)==assembled_pose,"%s reholding seeks to the same exact assembly pose" % kind_value)
 		structure.set_build_progress(1,false)

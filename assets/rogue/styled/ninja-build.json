@@ -1,6 +1,6 @@
 {
   "hero": "ninja",
-  "triangles": 3885,
+  "triangles": 8522,
   "mesh_batches": 8,
   "source": "assets/blender/rogue/ninja.blend",
   "removed_microdetails": [
@@ -48,5 +48,97 @@
     "Weapon_Pistol"
   ],
   "face_method": "UV-painted skull",
-  "head_shape": "Slimmer cheeks, tapered jaw and face-framing hair"
+  "head_shape": "Narrow tapered face and forward alert eye plane; hood-fitted dark locks and wrapped violet mask",
+  "roster_generator": "tools/sculpt_rogue_roster.py",
+  "facial_depth_revision": "approved-2.34.1-roster-rollout",
+  "painted_atlas_changed": false,
+  "export_face_uv_check": {
+    "uv_set": 0,
+    "distinct_coordinates": 730,
+    "u_span": 0.32533329725265503,
+    "v_span": 0.3166666626930237,
+    "single_head_uv_set": true
+  },
+  "pivot_invariance": true,
+  "body_and_weapon_geometry_invariance": true,
+  "unchanged_components": 152,
+  "adjusted_accessories": [
+    "Shinobi forehead plated crest",
+    "Shinobi crest violet gem"
+  ],
+  "replaced_head_components": [
+    "Face framing hair L",
+    "Ear framing hair L",
+    "Face framing hair R",
+    "Ear framing hair R"
+  ],
+  "roster_mesh_checks": [
+    {
+      "name": "Carved head.001",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.10390389901434226
+    },
+    {
+      "name": "Shinobi forehead plated crest",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0008227752188898867
+    },
+    {
+      "name": "Shinobi crest violet gem",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 3.6170136265064364e-05
+    },
+    {
+      "name": "Roster ninja temple -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0027714249877074017
+    },
+    {
+      "name": "Roster ninja temple 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.002863586888969992
+    },
+    {
+      "name": "Roster fitted shinobi hood",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.13046601807175504
+    },
+    {
+      "name": "Roster fitted shinobi mask",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.009029331257555513
+    }
+  ],
+  "equipment_revision": "2.36",
+  "equipment_generator": "tools/equip_rogue_roster.py",
+  "equipment_design": "Slightly fuller lower jaw and chin (maximum 6.5 percent width), coordinated fitted cloth mask; upper face/UV artwork exact",
+  "equipment_removed": [],
+  "equipment_adjusted": [
+    "Carved head.001",
+    "Roster fitted shinobi mask"
+  ],
+  "equipment_mesh_checks": [
+    {
+      "name": "Carved head.001",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.10619530936398684
+    },
+    {
+      "name": "Roster fitted shinobi mask",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.009357313522996562
+    }
+  ],
+  "equipment_unchanged_components": 157,
+  "equipment_pivot_invariance": true,
+  "equipment_body_and_weapon_geometry_invariance": true
 }

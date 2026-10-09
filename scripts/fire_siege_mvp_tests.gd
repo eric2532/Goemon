@@ -30,6 +30,8 @@ func run():
  check(run.card_offer.is_empty() and run.upgrade_level("supply_cache")==0,"Retired card state cannot affect the new run")
  check(not run.try_purchase() and run.money==10,"Legacy F purchase cannot bypass construction")
  run.set_physics_process(false)
+ await build_access_rules()
+ game.restart_area();await frames(3);run=game.encounters;run.set_physics_process(false)
  var site=game.world.cannon_sites[0]
  game.reset_player_at(site.build_position);game.player.facing=(site.position-game.player.position).normalized()
  game.player.select_character(3)
@@ -126,6 +128,64 @@ func run():
  check(game.menu!=null,"Victory presents a result screen")
  game.show_main_menu();await frames(2)
  finish()
+
+func build_access_rules():
+ var run=game.encounters
+ game.player.set_physics_process(false)
+ var site=game.world.cannon_sites[4]
+ # These points are outside the structure footprint and clear of the road.
+ # Facing away must not suppress real build progress from any approach.
+ for offset in [Vector3(-3.8,0,0),Vector3(3.8,0,0),Vector3(0,0,-3.8),Vector3(0,0,3.8),Vector3(-3,0,-3),Vector3(3,0,3),Vector3(-3,0,3),Vector3(3,0,-3)]:
+  game.reset_player_at(site.position+offset);game.player.facing=offset.normalized()
+  run.update_build_input(0,false)
+  var prompts=run.site_states.filter(func(state):return state.cannon.get_node_or_null("BuildProximityPrompt")!=null and state.cannon.get_node("BuildProximityPrompt").visible)
+  check(prompts.size()==1 and not run.site_states[4].cannon.progress_root.visible,"Only the nearest in-range structure shows its prompt before work begins")
+  run.update_build_input(.3,true)
+  check(run.site_states[4].progress>0,"Approaching from %s while facing away can actually build" % offset)
+  run.update_build_input(4,false)
+ for side in [-1,1]:
+  var wall_site=game.world.cannon_sites[0]
+  game.reset_player_at(Vector3(wall_site.position.x,.15,wall_site.position.z+side*3.8));game.player.facing=Vector3(0,0,side)
+  run.update_build_input(0,false);run.update_build_input(.3,true)
+  check(run.site_states[0].progress>0,"Supporting parapet still permits work from side %d" % side)
+  run.update_build_input(4,false)
+ game.reset_player_at(site.position+Vector3(0,8,0))
+ run.update_build_input(0,false);run.update_build_input(1,true)
+ check(run.site_states[4].progress==0,"Being above a structure cannot build it remotely")
+ var visible_prompts=run.site_states.filter(func(state):return state.cannon.get_node_or_null("BuildProximityPrompt")!=null and state.cannon.get_node("BuildProximityPrompt").visible)
+ check(visible_prompts.is_empty(),"Leaving build range hides the proximity prompt")
+ game.reset_player_at(site.position+Vector3(4,0,0))
+ var wall=StaticBody3D.new();wall.collision_layer=1;wall.position=site.position+Vector3(2.8,1,0)
+ var shape=CollisionShape3D.new();shape.shape=BoxShape3D.new();shape.shape.size=Vector3(.3,3,5);wall.add_child(shape);game.add_child(wall)
+ await frames(2)
+ run.update_build_input(0,false);run.update_build_input(1,true)
+ check(run.site_states[4].progress==0,"Solid cover between hero and footprint blocks construction")
+ wall.queue_free();await frames(2)
+ var mines=run.get("mine_states")
+ check(mines!=null and mines.size()>=3,"Several independent mine sites are available")
+ if mines!=null:
+  var nearby=0
+  for mine in game.world.mine_sites:
+   if Vector2(mine.position.x,mine.position.z-195).length()<=25:nearby+=1
+  check(nearby>=3,"At least three mines are reachable within 25 metres of the opening position")
+  run.money=30
+  for i in range(2):
+   game.reset_player_at(game.world.mine_sites[i].position+Vector3(0,.15,4))
+   run.update_build_input(0,false);run.update_build_input(2 if i==0 else 1,true)
+  check(is_equal_approx(mines[0].progress,.25) and is_equal_approx(mines[1].progress,.25) and run.money==30,"Two mines retain independent unpaid progress while unattended work decays")
+  run.update_build_input(4,false)
+  for i in range(3):
+   var center=game.world.mine_sites[i].position
+   game.reset_player_at(center+Vector3(0,.15,4));game.player.facing=Vector3.BACK
+   run.update_build_input(0,false);run.update_build_input(4,true)
+   check(mines[i].level==1 and run.money==20-i*10,"Mine %d completes its own purchase once" % (i+1))
+   run.update_build_input(4,true)
+   check(run.money==20-i*10,"Holding after mine %d completes cannot charge again" % (i+1))
+  run.update_start_input(0,false);run.update_start_input(3,true);run.tick(1)
+  check(is_equal_approx(run.money,6),"Three completed mines earn six gold in one spawning second")
+  run.phase="clearance";run.tick(1)
+  check(is_equal_approx(run.money,6),"Additional mines cannot generate income during clearance")
+ game.player.set_physics_process(true)
 
 func finish():
  print("FIRE_SIEGE_MVP_RESULT checks=",checks," failures=",failures)

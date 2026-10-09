@@ -1,5 +1,12 @@
 # Rogue cast: Goemon visual baseline
 
+Current MVP direction (9 October 2026): the user approved the v2.34.1 Magic
+Swordsman and Explorer pilots, then requested the same coordinated design
+throughout the Rogue cast. The remaining eight now use class-specific face,
+hair, mask or helmet designs, with the accepted pilots preserved. See
+[the roster rollout](rogue-roster-upgrade.md) and [the pilot notes](rogue-design-pilot.md).
+Historical exact-head approvals below are superseded by this all-roster request.
+
 The approved master is `assets/blender/characters/kai.blend`. Keep that model,
 its original atlas and the illustrated 2D exploration intact. The complete user
 art brief is saved in `goemon-character-standard.txt` beside this document.

@@ -1,6 +1,6 @@
 {
   "hero": "ranger",
-  "triangles": 2960,
+  "triangles": 5756,
   "mesh_batches": 7,
   "source": "assets/blender/rogue/ranger.blend",
   "removed_microdetails": [
@@ -80,5 +80,69 @@
     "Weapon_Cutlass"
   ],
   "face_method": "UV-painted skull",
-  "head_shape": "Slimmer cheeks, tapered jaw and face-framing hair"
+  "head_shape": "Lean tapered jaw and elevated cheek plane; asymmetric chestnut fringe and temple locks inside forest hood",
+  "roster_generator": "tools/sculpt_rogue_roster.py",
+  "facial_depth_revision": "approved-2.34.1-roster-rollout",
+  "painted_atlas_changed": false,
+  "export_face_uv_check": {
+    "uv_set": 0,
+    "distinct_coordinates": 730,
+    "u_span": 0.3253333349712193,
+    "v_span": 0.31666672229766846,
+    "single_head_uv_set": true
+  },
+  "pivot_invariance": true,
+  "body_and_weapon_geometry_invariance": true,
+  "unchanged_components": 127,
+  "adjusted_accessories": [],
+  "replaced_head_components": [
+    "Face framing hair L",
+    "Ear framing hair L",
+    "Face framing hair R",
+    "Ear framing hair R"
+  ],
+  "roster_mesh_checks": [
+    {
+      "name": "Carved face.002",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.10031386209734418
+    },
+    {
+      "name": "Roster ranger temple -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.003017547477579789
+    },
+    {
+      "name": "Roster ranger ear sweep -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0027700357637701076
+    },
+    {
+      "name": "Roster ranger temple 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.003094870218510042
+    },
+    {
+      "name": "Roster ranger ear sweep 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0027457047341704565
+    },
+    {
+      "name": "Roster ranger parted fringe left",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0030504779145296337
+    },
+    {
+      "name": "Roster ranger parted fringe right",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0021705576736831067
+    }
+  ]
 }

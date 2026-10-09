@@ -43,7 +43,7 @@ func _ready():
 		contents.add_child(label(data.name,22,tint))
 		contents.add_child(label("%d HP   ·   %s" % [data.maxHealth,data.title],11,Color("c4d4d5")))
 		for slot in ["cutlass","flintlock","roll","drink"]:
-			var key={"cutlass":"LMB","flintlock":"RMB","roll":("E" if data.id in ["explorer","master-thief"] else "C"),"drink":"R"}[slot]
+			var key={"cutlass":"LMB","flintlock":"RMB / 3","roll":("E" if data.id in ["samurai","ninja","explorer","master-thief"] else "C"),"drink":"R"}[slot]
 			var line=label("%s   %s" % [key,data.abilities[slot].name],14,tint if slot=="drink" else Color("d4e1df"))
 			contents.add_child(line)
 			button.tooltip_text+="\n%s · %s" % [data.abilities[slot].name,data.abilities[slot].description.replace("Proposed skill: ","").replace("at the cursor","forward").replace("toward the cursor","forward")]

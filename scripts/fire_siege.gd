@@ -7,9 +7,14 @@ const MINE_COST=10
 const BUILD_RANGE=3.5
 var runtime=State.new()
 var redesign_mode=true
-var mine_built=false
-var mine_progress=0.0
-var mine_visual: Node3D
+var mine_states: Array=[]
+# The first mine remains available to existing tour and diagnostic scripts.
+var mine_built: bool:
+	get:return not mine_states.is_empty() and mine_states[0].level>0
+var mine_progress: float:
+	get:return mine_states[0].progress if not mine_states.is_empty() else 0.0
+var mine_visual: Node3D:
+	get:return mine_states[0].cannon if not mine_states.is_empty() else null
 var build_site=-1
 var build_progress=0.0
 var building=false
@@ -33,7 +38,8 @@ func reset():
 	retire_wave_effects()
 	for site in site_states:
 		if is_instance_valid(site.get("cannon")):site.cannon.queue_free()
-	if is_instance_valid(mine_visual):mine_visual.queue_free()
+	for mine in mine_states:
+		if is_instance_valid(mine.get("cannon")):mine.cannon.queue_free()
 	runtime.reset();active=false;enabled=true;elapsed=0;wave=0;pending=0;alive_count=0
 	total_spawned=0;total_scheduled=0;total_skipped=0;money=10.0
 	base_max_hp=50 if hard_mode else 100;base_hp=base_max_hp
@@ -42,14 +48,21 @@ func reset():
 	slots.clear();wave_actors.clear();resolved.clear();respawn_count=0
 	upgrades.clear();card_offer.clear();card_history.clear();card_choice_wave=0;chosen_wave=0
 	cannon_path="";fire_path="";tactics_enabled=false
-	cannons.clear();site_states.clear();mine_visual=null;mine_built=false;mine_progress=0
+	cannons.clear();site_states.clear();mine_states.clear()
 	build_site=-1;build_progress=0;building=false;powered=true;_build_armed=true;_last_hero_id=-1
 
 func _create_sites():
 	for site in game.world.cannon_sites:
 		var structure=_new_structure("arrow",site.position)
 		site_states.append({"level":0,"cannon":structure,"kind":"arrow","progress":0.0})
-	mine_visual=_new_structure("mine",game.world.mine_position)
+	for site in game.world.mine_sites:
+		mine_states.append({"level":0,"cannon":_new_structure("mine",site.position),"kind":"mine","progress":0.0})
+
+func mine_count()->int:
+	var count=0
+	for mine in mine_states:
+		if mine.level>0:count+=1
+	return count
 
 func _new_structure(kind: String,point: Vector3)->Node3D:
 	var structure=load("res://scripts/fire_siege_structure.gd").new()
@@ -63,7 +76,7 @@ func begin():
 	original_spawn=game.world.spawn_point;game.checkpoint=original_spawn
 	game.player.position=original_spawn;game.player.velocity=Vector3.ZERO
 	game.camera_rig.yaw=0;game.camera_rig.pitch=.5;game.camera_rig.reset_follow()
-	_banner("FIRE SIEGE · Hold B at a pad to build · Hold Y for 3s to start",6)
+	_banner("FIRE SIEGE · Approach a structure and hold B · Hold Y for 3s to start",6)
 
 func _running()->bool:
 	return enabled and active and not runtime.terminal and is_instance_valid(game) and game.playing and not game.paused and not game.transitioning
@@ -92,7 +105,7 @@ func tick(delta: float):
 		income_seconds=schedule.spawning_seconds;due=schedule.due
 	var powered_delta=0.0
 	if combat:
-		var ledger=runtime.economy(money,dt,income_seconds,cannons.size(),mine_built)
+		var ledger=runtime.economy(money,dt,income_seconds,cannons.size(),mine_count())
 		money=ledger.money;powered_delta=ledger.powered_delta
 		powered=cannons.is_empty() or powered_delta>=dt-0.000000001
 	else:powered=true
@@ -100,7 +113,8 @@ func tick(delta: float):
 	if phase=="spawning" and runtime.scheduled>=300:phase="clearance"
 	for site in site_states:
 		if is_instance_valid(site.cannon):site.cannon.tick(dt,powered_delta if site.level>0 else 0.0)
-	if is_instance_valid(mine_visual):mine_visual.tick(dt,0)
+	for mine in mine_states:
+		if is_instance_valid(mine.cannon):mine.cannon.tick(dt,0)
 	update_build_input(dt,Input.is_action_pressed("siege_build"))
 	update_start_input(dt,Input.is_action_pressed("siege_start"))
 	_settle_wave()
@@ -208,26 +222,29 @@ func _restore_hero():
 
 func interrupt_inputs():
 	runtime.interrupt_inputs();_build_armed=false;building=false;build_site=-1;build_progress=0
-	for state in site_states:
-		if is_instance_valid(state.cannon):state.cannon.set_build_progress(state.progress,false)
-	if is_instance_valid(mine_visual):mine_visual.set_build_progress(mine_progress,false)
+	for state in site_states+mine_states:
+		if is_instance_valid(state.cannon):
+			state.cannon.set_build_progress(state.progress,false)
+			state.cannon.set_proximity(false,false)
 
 func nearest_site()->int:
 	if not is_instance_valid(game) or not _living_hero():return -1
 	var closest=-1;var best=BUILD_RANGE*BUILD_RANGE
-	for index in range(site_states.size()+1):
-		if (mine_built if index==site_states.size() else site_states[index].level>0):continue
-		var pad: Vector3=game.world.mine_build_position if index==site_states.size() else game.world.cannon_sites[index].build_position
-		var center: Vector3=game.world.mine_position if index==site_states.size() else game.world.cannon_sites[index].position
-		var diff=pad-game.player.position
-		if absf(diff.y)>3:continue
+	var states=site_states+mine_states
+	var sites=game.world.cannon_sites+game.world.mine_sites
+	for index in range(states.size()):
+		if states[index].level>0:continue
+		var center: Vector3=sites[index].position
+		if absf(center.y-game.player.position.y)>3:continue
+		var half: Vector2=sites[index].footprint
+		# Distance and visibility target the nearest footprint edge, so every
+		# reachable side works without tracing through a tower's own parapet.
+		var edge=Vector3(clampf(game.player.position.x,center.x-half.x,center.x+half.x),game.player.position.y,clampf(game.player.position.z,center.z-half.y,center.z+half.y))
+		var diff=edge-game.player.position
 		var distance=Vector2(diff.x,diff.z).length_squared()
 		if distance>best:continue
-		var toward=center-game.player.position;toward.y=0
-		var facing: Vector3=game.player.facing;facing.y=0
-		if toward.length_squared()>.01 and facing.normalized().dot(toward.normalized())<cos(deg_to_rad(75)):continue
 		if game.is_inside_tree() and diff.length_squared()>.01:
-			var query=PhysicsRayQueryParameters3D.create(game.player.global_position+Vector3.UP,pad+Vector3.UP,1)
+			var query=PhysicsRayQueryParameters3D.create(game.player.global_position+Vector3.UP,edge+Vector3.UP,1)
 			query.exclude=[game.player.get_rid()]
 			if not game.get_world_3d().direct_space_state.intersect_ray(query).is_empty():continue
 		best=distance;closest=index
@@ -236,48 +253,45 @@ func nearest_site()->int:
 func update_build_input(delta: float,held: bool):
 	if not _running() or base_hp<=0:return
 	if not held:_build_armed=true
-	# Walking, knockback or jumping interrupts work even inside the same pad.
+	# Walking, knockback or jumping interrupts work even inside build range.
 	# Releasing B makes the next stationary hold an intentional new action.
 	var movement=Input.get_vector("move_left","move_right","move_forward","move_back")
 	if held and (movement.length_squared()>.01 or Vector2(game.player.velocity.x,game.player.velocity.z).length_squared()>.04 or Input.is_action_pressed("jump")):
 		_build_armed=false
-	var index=nearest_site() if held and _build_armed and _living_hero() else -1
+	var nearby=nearest_site()
+	var index=nearby if held and _build_armed and _living_hero() else -1
 	building=index>=0 and money+0.000000001>=site_cost(index)
 	build_site=index;build_progress=0
-	for i in range(site_states.size()):
-		var state: Dictionary=site_states[i]
+	var states=site_states+mine_states
+	for i in range(states.size()):
+		var state: Dictionary=states[i]
+		var mine=state.kind=="mine"
+		var price=MINE_COST if mine else ARROW_COST
+		state.cannon.set_proximity(i==nearby,money+0.000000001>=price)
 		if state.level>0:continue
 		var working=i==index and building
-		var step=runtime.build_step(state.progress,delta,working,money+0.000000001>=ARROW_COST,3.0)
+		var step=runtime.build_step(state.progress,delta,working,money+0.000000001>=price,4.0 if mine else 3.0)
 		state.progress=step.progress
-		if step.completed and money+0.000000001>=ARROW_COST:
-			money=maxf(0,money-ARROW_COST);state.level=1;cannons.append(state.cannon)
+		if step.completed and money+0.000000001>=price:
+			money=maxf(0,money-price);state.level=1
+			if not mine:cannons.append(state.cannon)
 			state.cannon.complete_build();building=false
-			_banner("ARROW TOWER READY · 50 damage · 0.10 gold/s upkeep",3)
+			_banner("MINE READY · +2 gold/s while enemies are spawning" if mine else "ARROW TOWER READY · 50 damage · 0.10 gold/s upkeep",3)
 		state.cannon.set_build_progress(state.progress,working and state.level==0)
 		if i==index:build_progress=state.progress
-	if not mine_built:
-		var working=index==site_states.size() and building
-		var step=runtime.build_step(mine_progress,delta,working,money+0.000000001>=MINE_COST,4.0)
-		mine_progress=step.progress
-		if step.completed and money+0.000000001>=MINE_COST:
-			money=maxf(0,money-MINE_COST);mine_built=true;mine_visual.complete_build();building=false
-			_banner("MINE READY · +2 gold/s while enemies are spawning",3)
-		mine_visual.set_build_progress(mine_progress,working and not mine_built)
-		if index==site_states.size():build_progress=mine_progress
 
 func site_cost(index: int)->int:
-	if index==site_states.size():return 0 if mine_built else MINE_COST
-	if index<0 or index>=site_states.size() or site_states[index].level>0:return 0
-	return ARROW_COST
+	var states=site_states+mine_states
+	if index<0 or index>=states.size() or states[index].level>0:return 0
+	return MINE_COST if states[index].kind=="mine" else ARROW_COST
 
 func interaction_prompt()->String:
 	if hero_dead:return "Reviving in %.1fs · Enemies move 35%% faster" % revive_left
 	var index=nearest_site()
-	if index<0:return "Hold B facing a build pad · Arrow 5 gold · Mine 10 gold"
+	if index<0:return "Approach a structure to build · Arrow 5 gold · Mine 10 gold"
 	var cost=site_cost(index)
-	var label="MINE" if index==site_states.size() else "ARROW TOWER"
-	return "Hold B · %s · %d gold%s" % [label,cost," · Need %.2f more" % (cost-money) if money<cost else ""]
+	var label="MINE" if index>=site_states.size() else "ARROW TOWER"
+	return "IN RANGE · Hold B · %s · %d gold%s" % [label,cost," · Need %.2f more" % (cost-money) if money<cost else ""]
 
 # Compatibility methods deliberately expose no legacy cards/upgrades/F buys.
 func try_purchase()->bool:return false

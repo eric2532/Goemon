@@ -73,11 +73,11 @@ func draw(hud):
  hud.draw_style_box(hud.panel_style(ink),Rect2(right,Vector2(302,170)))
  hud.text(right+Vector2(18,27),"BUILD YOUR DEFENSE",15,gold)
  hud.text(right+Vector2(18,55),"%d / 12 arrow towers  ·  5 gold each" % run.cannons.size(),15)
- hud.text(right+Vector2(18,81),"Mine: "+("BUILT" if run.mine_built else "10 gold · left of base"),15,teal if run.mine_built else muted)
- var income=2.0 if run.mine_built and run.phase=="spawning" else 0.0
+ hud.text(right+Vector2(18,81),"%d / %d mines · 10 gold each" % [run.mine_count(),run.mine_states.size()],15,teal if run.mine_count()>0 else muted)
+ var income=2.0*run.mine_count() if run.phase=="spawning" else 0.0
  var upkeep=.1*run.cannons.size() if run.phase in ["spawning","clearance"] else 0.0
  hud.text(right+Vector2(18,107),"Income +%.1f/s   Upkeep −%.1f/s" % [income,upkeep],14,muted)
- hud.text(right+Vector2(18,132),"Hold B at a site · Face its gold pad",13,gold)
+ hud.text(right+Vector2(18,132),"Approach any side · Hold B to build",13,gold)
  hud.text(right+Vector2(18,153),"Kills: no gold · Wave reward: 10 × wave",12,muted)
  if run.cannons.size()>0 and not run.powered and run.phase in ["spawning","clearance"]:
   centered(hud,236,"OUT OF GOLD · Towers need upkeep to fire",20,red)
@@ -102,17 +102,24 @@ func draw(hud):
  hud.text(panel+Vector2(126,73),"%d / %d HP" % [ceili(p.hp),ceili(p.max_hp)],14)
  hud.text(panel+Vector2(126,96),"Q Heroes · C Evade",13,muted)
  hud.text(panel+Vector2(126,114),"E %s · R %s" % [info.utility,info.skill],11,muted)
+ var energy_hero=p.is_rogue_character() and p.active_ability.uses_energy()
+ var energy=int(p.active_ability.player.get("energy",0)) if energy_hero else 0
+ if energy_hero:
+  var bar=panel+Vector2(366,94)
+  hud.draw_rect(Rect2(bar,Vector2(160,5)),Color("394849"))
+  hud.draw_rect(Rect2(bar,Vector2(160*energy/100.0,5)),gold if energy>=100 else info.color)
+  hud.text(bar+Vector2(175,5),"FREE HEAVY · RMB / 3" if energy>=100 else "ENERGY %d / 100 · +20 per light" % energy,10,gold if energy>=100 else muted)
  var cooldowns=p.active_ability.player.get("cooldowns",{}) if p.is_rogue_character() else {}
  for i in range(2):
   var pos=panel+Vector2(366+i*177,13)
   hud.draw_style_box(hud.panel_style(Color("17333a")),Rect2(pos,Vector2(165,76)))
   hud.draw_texture_rect(icon(info.primary_icon if i==0 else info.secondary_icon),Rect2(pos+Vector2(9,12),Vector2(39,39)),false)
-  hud.text(pos+Vector2(58,23),"LMB" if i==0 else "RMB",15,gold)
+  hud.text(pos+Vector2(58,23),"LMB" if i==0 else ("RMB / 3" if p.is_rogue_character() else "RMB"),15,gold)
   var label=String(info.primary if i==0 else info.secondary)
   hud.text(pos+Vector2(58,43),label.left(15),11)
   var remaining=float(cooldowns.get("cutlass" if i==0 else "flintlock",0))
-  hud.text(pos+Vector2(58,62),"%.1fs" % remaining if remaining>.05 else "READY",11,muted)
- hud.text(panel+Vector2(366,110),"WASD Move · Shift Sprint · Space Jump · Esc Pause",12,muted)
+  hud.text(pos+Vector2(58,62),"FREE READY" if i==1 and energy_hero and energy>=100 else ("%.1fs" % remaining if remaining>.05 else "READY"),11,gold if i==1 and energy_hero and energy>=100 else muted)
+ hud.text(panel+Vector2(366,121 if energy_hero else 110),"WASD Move · Shift Sprint · Space Jump · Esc Pause",12,muted)
  hud.text(Vector2(30,h-58),"G Dogs   H Allies",13,muted)
  hud.text(Vector2(30,h-35),"1–5 / T  Hero abilities",12,muted)
  if not game.portal_hint.is_empty():centered(hud,h-177,game.portal_hint,16,gold)

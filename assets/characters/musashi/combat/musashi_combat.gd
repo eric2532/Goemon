@@ -175,7 +175,7 @@ func launch():
 		ball.damage=(balance.charged_fireball_damage if large_cast else balance.fireball_damage)*hero.damage_multiplier()
 		ball.hit_radius=(balance.charged_fireball_radius if large_cast else balance.fireball_radius)*hero.pickup_multiplier("range")*hero.growth_multiplier()
 		ball.velocity=dir.rotated(Vector3.UP,(i-(count-1)*.5)*.12)*(balance.charged_projectile_speed if large_cast else balance.projectile_speed)*hero.attack_speed_multiplier()
-		ball.lifetime=balance.projectile_lifetime*hero.growth_multiplier()/hero.attack_speed_multiplier()
+		ball.lifetime=balance.projectile_lifetime*hero.growth_multiplier()/hero.attack_speed_multiplier()*(1.0 if large_cast else hero.BASIC_ATTACK_RANGE_MULTIPLIER)
 		game.add_child(ball);ball.global_position=from
 
 func start_beam(action: String="light_attack"):
@@ -190,7 +190,7 @@ func start_beam(action: String="light_attack"):
 	hero.facing=game.attack_direction()
 	beam=load("res://assets/vfx/fire_beam/fire_beam.tscn").instantiate()
 	beam.game=game;beam.hero=hero;beam.ability=self;beam.balance=balance.duplicate();beam.attack_ticket=attack_ticket
-	beam.balance.beam_length=game.tuning.beam_length
+	beam.balance.beam_length=game.tuning.beam_length*(hero.BASIC_ATTACK_RANGE_MULTIPLIER if action=="light_attack" else 1.0)
 	beam.balance.beam_radius=game.tuning.beam_width*.5*hero.pickup_multiplier("range")*hero.growth_multiplier()
 	beam.sustained=true;beam_held=true
 	change(State.BEAM);hero.attack_left=1;hero.attack_duration=1

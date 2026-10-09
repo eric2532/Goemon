@@ -1,6 +1,6 @@
 {
   "hero": "master-thief",
-  "triangles": 3156,
+  "triangles": 6010,
   "mesh_batches": 7,
   "source": "assets/blender/rogue/master-thief.blend",
   "removed_microdetails": [
@@ -98,5 +98,91 @@
     "Weapon_Cutlass"
   ],
   "face_method": "UV-painted skull",
-  "head_shape": "Slimmer cheeks, tapered jaw and face-framing hair"
+  "head_shape": "Broad mature jaw and smile-supported cheeks, rounded nose; swept chestnut crown and bold silver temples",
+  "roster_generator": "tools/sculpt_rogue_roster.py",
+  "facial_depth_revision": "approved-2.34.1-roster-rollout",
+  "painted_atlas_changed": false,
+  "export_face_uv_check": {
+    "uv_set": 0,
+    "distinct_coordinates": 688,
+    "u_span": 0.32533329725265503,
+    "v_span": 0.3166666626930237,
+    "single_head_uv_set": true
+  },
+  "pivot_invariance": true,
+  "body_and_weapon_geometry_invariance": true,
+  "unchanged_components": 111,
+  "adjusted_accessories": [],
+  "replaced_head_components": [
+    "Grey sideburn",
+    "Grey sideburn.001",
+    "Swept back chestnut hair",
+    "Combed grey hair sweep",
+    "Combed grey hair sweep.001",
+    "Combed grey hair sweep.002",
+    "Combed grey hair sweep.003",
+    "Combed grey hair sweep.004",
+    "Combed grey hair sweep.005",
+    "Combed grey hair sweep.006",
+    "Face framing hair L",
+    "Ear framing hair L",
+    "Face framing hair R",
+    "Ear framing hair R"
+  ],
+  "roster_mesh_checks": [
+    {
+      "name": "Carved face.004",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.125963433813133
+    },
+    {
+      "name": "Roster master-thief temple -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0030156248914330907
+    },
+    {
+      "name": "Roster master-thief ear sweep -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0028371942251542194
+    },
+    {
+      "name": "Roster master-thief temple 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0031049167769363916
+    },
+    {
+      "name": "Roster master-thief ear sweep 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0028097358564037767
+    },
+    {
+      "name": "Roster thief chestnut swept fringe",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.006938913423326862
+    },
+    {
+      "name": "Roster thief swept rear -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.006030696763152719
+    },
+    {
+      "name": "Roster thief swept rear 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.005496308073345517
+    },
+    {
+      "name": "Roster master-thief solid rear hair mass",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.07592406761610397
+    }
+  ]
 }

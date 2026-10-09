@@ -111,7 +111,37 @@ func _ready():
 	spawn_gates()
 	pursuit.configure()
 	show_main_menu()
-	if "--fire-siege-mvp-tour" in OS.get_cmdline_user_args():
+	if "--rogue-mask-refinement-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/rogue_mask_refinement_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--rogue-equipment-combat-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/rogue_equipment_combat_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--rogue-equipment-upgrade-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/rogue_equipment_upgrade_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--native-primary-range-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/native_primary_range_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--rogue-roster-v235-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/rogue_roster_v235_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--rogue-roster-upgrade-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/rogue_roster_upgrade_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--rogue-design-gameplay-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/rogue_design_gameplay_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--rogue-upgrade-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/rogue_upgrade_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--rogue-combat-upgrade-test" in OS.get_cmdline_user_args() or "--rogue-combat-upgrade-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/rogue_combat_upgrade_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--movement-camera-test" in OS.get_cmdline_user_args() or "--movement-camera-visual" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/movement_camera_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--fire-siege-mvp-tour" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/fire_siege_mvp_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
 	elif "--fire-siege-campaign-test" in OS.get_cmdline_user_args():
@@ -1393,18 +1423,21 @@ func throw_coin(heavy: bool,charged: bool=false,power: float=1.0,ticket: Diction
 	if ticket.is_empty():ticket=player.attack_ticket if not player.attack_ticket.is_empty() else player.attack_chain.active_ticket
 	var from=player.global_position+Vector3.UP*1.25*player.growth_multiplier()
 	var direction=projectile_direction(from)
+	var primary_range = player.BASIC_ATTACK_RANGE_MULTIPLIER if not heavy and not charged else 1.0
 	# Key 2 always selects the closest unobstructed enemy actually in the camera.
-	var target=AttackChain.screen_target(player,from,tuning.coin_speed*2.0*player.growth_multiplier()-.5) if automatic or player.soft_target or player.growth_multiplier()>1.01 or (player.quick_attacks.active and player.quick_attacks.action==2) else null
+	var target=AttackChain.screen_target(player,from,tuning.coin_speed*2.0*primary_range*player.growth_multiplier()-.5) if automatic or player.soft_target or player.growth_multiplier()>1.01 or (player.quick_attacks.active and player.quick_attacks.action==2) else null
 	if target and (automatic or (not rogue_battle_mode and not camera_combat())):direction=(AttackChain.aim_point(target)-from).normalized()
 	if not automatic:player.facing=Vector3(direction.x,0,direction.z).normalized()
 	if automatic:
-		spawn_gold_coin(from+direction*.48,direction,heavy,charged,power,false,0,ticket,false,player.progression.coin_count())
+		var coin=spawn_gold_coin(from+direction*.48,direction,heavy,charged,power,false,0,ticket,false,player.progression.coin_count())
+		coin.lifetime*=primary_range
 		if player.scarf_equipped:spawn_gold_coin(from,direction.rotated(Vector3.UP,.12),false,false,1,false,0,ticket)
 	else:
 		var count=1 if charged else int(tuning.split_count if heavy else tuning.coin_count)
 		for i in range(count):
 			var angle=(i-(count-1)*.5)*(.16 if heavy else .07)
-			spawn_gold_coin(from+direction*.48,direction.rotated(Vector3.UP,angle),heavy,charged,power,false,0,ticket)
+			var coin=spawn_gold_coin(from+direction*.48,direction.rotated(Vector3.UP,angle),heavy,charged,power,false,0,ticket)
+			coin.lifetime*=primary_range
 	# Coins still confirm combo hits, but only melee may create a red bonus slash.
 	sound("giant_toss" if charged else "throw",0.4)
 

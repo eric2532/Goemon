@@ -8,6 +8,11 @@ const COMBO = [
 	{"duration": 0.33, "contact": 0.095, "damage": 30, "reach": 3.05, "arc": 1.3, "impulse": 3.2, "stop": 0.055},
 	{"duration": 0.49, "contact": 0.15, "damage": 48, "reach": 3.35, "arc": 1.55, "impulse": 6.5, "stop": 0.085}
 ]
+const PRIMARY_RANGE_MULTIPLIER = 3.0
+const ENERGY_PER_LIGHT = 20
+const ENERGY_MAX = 100
+const DIVE_DAMAGE = 260
+const DIVE_RADIUS = 8.0
 const MAX_PROJECTILES = 160
 const ELEMENT_COLORS = {"fire": Color("ff9a5e"), "ice": Color("9de8ff"), "lightning": Color("c4a5ff")}
 var hero: Hero
@@ -21,6 +26,7 @@ var aim: Vector3 = Vector3.ZERO
 var move_input: Vector3 = Vector3.ZERO
 var primary_held: bool = false
 var secondary_held: bool = false
+var secondary_sources: Dictionary = {}
 var attack_buffer: float = 0.0
 var combo: int = 0
 var combo_timer: float = 0.0
@@ -90,7 +96,9 @@ func _fresh_player() -> Dictionary:
 		"roll": 0.0, "rollDir": Vector3.ZERO, "rollDuration": 0.32, "rollSpeed": 12.5, "rollStyle": "roll", "rollTicket": {},
 		"ultimatePulse": 0.0, "drink": 0.0, "invuln": 0.0, "shot": 0.0, "drinkGesture": 0.0,
 		"buffName": "", "buffTime": 0.0, "buffDuration": 0.0, "blockMeter": 0.0, "blocking": false,
-		"crouched": false, "riposte": 0.0, "travel": null, "burst": null, "secondaryBuffer": null,
+		"crouched": false, "riposte": 0.0, "travel": null, "dive": null, "energy": 0, "burst": null, "secondaryBuffer": null,
+		"chargeTime": 0.0, "charging": false, "chargeAngle": 0.0, "chargeTicket": {}, "chargeOrb": null,
+		"guardTime": 0.0, "guardStyle": "", "guardTicket": {}, "dashAttack": null, "pulses": [], "bladeSide": 1,
 		"untargetable": 0.0, "classId": class_id, "id": class_id, "isPlayer": true, "actor": visual_actor}
 
 func reset_run() -> void:
@@ -104,6 +112,7 @@ func reset_run() -> void:
 		fx.clear()
 	primary_held = false
 	secondary_held = false
+	secondary_sources.clear()
 	attack_buffer = 0.0
 	combo = 0
 	evade_cooldown = 0
@@ -117,6 +126,7 @@ func reset_run() -> void:
 	if is_instance_valid(_hooks):
 		_hooks.hide()
 	if hero != null:
+		if not player.is_empty(): Actions.cancel_charge(self)
 		player = _fresh_player()
 		hero.attack_left = 0
 		hero.impact_pause = 0
@@ -141,16 +151,18 @@ func input(event: InputEvent) -> void:
 	if event.is_action_pressed("light_attack"):
 		primary_held = true
 		action("cutlass")
-	elif event.is_action_pressed("heavy_attack"):
+	elif event.is_action_pressed("heavy_attack") or event.is_action_pressed("weapon_chain"):
+		var already_held: bool = secondary_held
+		secondary_sources["mouse" if event.is_action_pressed("heavy_attack") else "key3"] = true
 		secondary_held = true
-		action("flintlock")
+		if not already_held or not uses_energy(): action("flintlock")
 	elif event.is_action_pressed("dodge"):
 		request_utility(game.camera_combat() and has_extra_utility())
 	elif event.is_action_pressed("equip"):
 		if not game.camera_combat() or has_extra_utility():request_utility(false)
 	elif event.is_action_pressed("surge"):
 		action("drink")
-	elif event.is_action_pressed("jump"):
+	elif event.is_action_pressed("jump") and player.get("dive") == null and not (player.travel != null and player.travel.kind == "lance-leap"):
 		hero.jump_buffer = 0.15
 
 # A short press just before recovery ends is consumed once, never held/repeated.
@@ -170,7 +182,7 @@ func _try_utility() -> void:
 	else: action("roll")
 
 func has_extra_utility() -> bool:
-	return class_id in ["explorer", "master-thief"]
+	return class_id in ["samurai", "ninja", "explorer", "master-thief"]
 
 func standard_evade() -> void:
 	if evade_cooldown > 0 or player.roll > 0 or player.travel != null:
@@ -183,13 +195,22 @@ func standard_evade() -> void:
 func release_input(event: InputEvent) -> void:
 	if event.is_action_released("light_attack"):
 		primary_held = false
-	if event.is_action_released("heavy_attack"):
-		secondary_held = false
-		if not player.is_empty():
+		if class_id == "mage": attack_buffer = 0.0
+		if not player.is_empty() and player.get("charging", false):
+			if active and game.playing and not game.paused and not game.transitioning and hero.hp > 0:
+				Actions.release_charge(self)
+			else:
+				Actions.cancel_charge(self)
+	if event.is_action_released("heavy_attack") or event.is_action_released("weapon_chain"):
+		secondary_sources.erase("mouse" if event.is_action_released("heavy_attack") else "key3")
+		secondary_held = not secondary_sources.is_empty()
+		if not secondary_held and not player.is_empty() and class_id == "master-thief":
 			player.blocking = false
+			player.guardTime = 0.0
+			player.secondaryBuffer = null
 
 func action(slot: String) -> void:
-	if not active or player.is_empty() or not player.cooldowns.has(slot):
+	if not active or player.is_empty() or not player.cooldowns.has(slot) or hero.hp <= 0 or player.get("dive") != null:
 		return
 	player.pos = hero.global_position
 	_update_aim()
@@ -201,7 +222,7 @@ func action(slot: String) -> void:
 			attack()
 		return
 	if class_id != "pirate":
-		Actions.class_action(self, slot)
+		Actions.class_action(self, slot, null, true)
 		_sync_hero()
 		return
 	var p: Dictionary = player
@@ -216,21 +237,7 @@ func action(slot: String) -> void:
 		p.angle = atan2(aim.x - p.pos.x, aim.z - p.pos.z)
 		var start: Vector3 = p.pos + Vector3.UP * 1.3 * hero.growth_multiplier()
 		var dir: Vector3 = projectile_direction(p.angle, start)
-		var end: Vector3 = start + dir * 17 * range_scale()
-		var wall: Dictionary = _terrain_hit(start, end, 0.055)
-		if not wall.is_empty():
-			end = wall.position
-		var targets: Array = _segment_targets(start, end, 0.24 * range_scale())
-		if not targets.is_empty():
-			var enemy: Dictionary = targets[0].e
-			_resolution_ticket = _ticket
-			_damage_origin = start
-			_projectile_damage = true
-			hit(enemy, 82, "flintlock", true, dir, "", "gun")
-			_projectile_damage = false
-			end = enemy.pos + Vector3.UP * 1.2
-		fx.streak(start + dir * 0.75, end, Color("ffecc3"), 0.055, 0.16)
-		fx.muzzle(p.pos, p.angle, Color("ffdba1"), "gun")
+		Actions.fire_projectile(self, {"angle": p.angle, "damage": 82, "speed": 42.0, "kind": "bullet", "width": 0.55, "visualScale": 10.0, "pierce": true, "heavy": true, "range": 17.0, "height": 1.3, "color": Color("ffecc3")})
 		fx.smoke(start, 12, Color("a7a092"))
 		fx.ring(p.pos, Color("ffc282"), 1.6, 0.22)
 		fx.shake = maxf(fx.shake, 0.23)
@@ -260,10 +267,13 @@ func action(slot: String) -> void:
 	_sync_hero()
 
 func _can_primary() -> bool:
-	return player.attack == null and player.roll <= 0 and player.travel == null and player.cooldowns.cutlass <= 0 and not player.blocking
+	return player.get("dive") == null and player.attack == null and player.roll <= 0 and player.travel == null and player.cooldowns.cutlass <= 0 and not player.blocking and not player.charging
 
 func attack() -> void:
 	begin_cast("primary")
+	if class_id == "magic-swordsman" and hero.jumps_used >= 2 and not hero.is_on_floor():
+		_begin_dive()
+		return
 	if class_id != "pirate":
 		Actions.begin_primary(self)
 		return
@@ -273,12 +283,69 @@ func attack() -> void:
 	attack_buffer = 0
 	player.angle = atan2(aim.x - player.pos.x, aim.z - player.pos.z)
 	var a: Dictionary = COMBO[index].duplicate(true)
-	a.rangeScale = range_scale()
+	a.rangeScale = primary_range_scale()
 	a.reach *= a.rangeScale
 	a.merge({"index": index, "time": 0.0, "hit": false, "angle": player.angle, "style": "sword", "weapon": "cutlass", "ticket": current_ticket()}, true)
 	player.attack = a
 	player.cooldowns.cutlass = a.duration
 	player.vel += front(player.angle) * (3.1 if index == 2 else 2.1)
+
+func uses_energy() -> bool:
+	return class_id in ["ninja", "explorer"]
+
+func energy_ready() -> bool:
+	return uses_energy() and int(player.get("energy", 0)) >= ENERGY_MAX
+
+func _complete_primary(a: Dictionary) -> void:
+	if not uses_energy() or not a.get("primary", false) or not a.get("hit", false):
+		return
+	var previous: int = int(player.energy)
+	player.energy = mini(ENERGY_MAX, previous + ENERGY_PER_LIGHT)
+	if previous < ENERGY_MAX and energy_ready():
+		fx.ring(player.pos, tint(), 1.65, 0.35)
+		fx.damage(player.pos, "FREE HEAVY", "crit")
+
+func _begin_dive() -> void:
+	player.angle = atan2(aim.x - player.pos.x, aim.z - player.pos.z)
+	var direction: Vector3 = front(player.angle)
+	player.dive = {"time": 0.0, "direction": direction, "angle": player.angle, "ticket": current_ticket(), "rangeScale": range_scale(), "trail": 0.0}
+	player.cooldowns.cutlass = 0.65
+	player.attack = null
+	player.vel = Vector3.ZERO
+	player.secondaryBuffer = null
+	attack_buffer = 0.0
+	hero.jump_buffer = 0.0
+	flip_time = -1.0
+	locomotion_velocity = Vector3.ZERO
+	hero.velocity = direction * 28.0 + Vector3.DOWN * 38.0
+	fx.dive_slash(player.pos, player.angle, 5.5 * range_scale(), false)
+	sound.play("claymore-sweep", {"pitch": 0.75, "volume": 0.85})
+
+func _step_dive(delta: float) -> void:
+	var dive: Dictionary = player.dive
+	dive.time += delta
+	dive.trail -= delta
+	hero.velocity = dive.direction * 28.0 + Vector3.DOWN * 38.0
+	hero.move_and_slide()
+	player.pos = hero.global_position
+	if dive.trail <= 0:
+		dive.trail = 0.075
+		fx.dive_slash(player.pos, dive.angle, 5.5 * dive.rangeScale, false)
+	if hero.is_on_floor():
+		# Clear before resolving hits: landing and subsequent body ticks cannot replay it.
+		player.dive = null
+		hero.velocity = Vector3.ZERO
+		landing_pose = 1.6
+		use_ticket(dive.ticket)
+		_resolution_ticket = dive.ticket
+		_projectile_damage = false
+		_damage_origin = player.pos + Vector3.UP
+		fx.dive_slash(player.pos, dive.angle, DIVE_RADIUS * dive.rangeScale, true)
+		Actions.area(self, player.pos, DIVE_RADIUS, DIVE_DAMAGE, "cutlass", true, Color("c5a2ff"), "dive-slash", dive.rangeScale)
+		hit_stop = maxf(hit_stop, 0.12)
+		sound.play("claymore-impact", {"heavy": true, "pitch": 0.65, "volume": 0.85})
+	elif dive.time >= 2.5:
+		player.dive = null
 
 func begin_cast(kind: String) -> void:
 	_ticket = hero.attack_chain.begin("rogue_" + class_id + "_" + kind)
@@ -292,6 +359,9 @@ func current_ticket() -> Dictionary:
 
 func range_scale() -> float:
 	return float(_ticket.get("rogue_range_scale", hero.range_multiplier()))
+
+func primary_range_scale() -> float:
+	return range_scale() * PRIMARY_RANGE_MULTIPLIER
 
 func projectile_direction(angle: float, origin: Vector3) -> Vector3:
 	var direction: Vector3 = front(angle)
@@ -310,7 +380,8 @@ func tick_timers(delta: float) -> void:
 	evade_cooldown = maxf(0, evade_cooldown - delta)
 	var tempo: float = hero.attack_speed_multiplier()
 	for key in player.cooldowns:
-		player.cooldowns[key] = maxf(0, player.cooldowns[key] - delta * (tempo if key in ["cutlass", "flintlock"] else 1.0))
+		var timed_guard: bool = key == "flintlock" and class_id in ["knight", "master-thief"]
+		player.cooldowns[key] = maxf(0, player.cooldowns[key] - delta * (tempo if key in ["cutlass", "flintlock"] and not timed_guard else 1.0))
 	for key in ["invuln", "drink", "shot", "drinkGesture", "ultimatePulse"]:
 		player[key] = maxf(0, player[key] - delta)
 	hero.invuln = maxf(0, hero.invuln - delta)
@@ -366,6 +437,7 @@ func tick(delta: float, update_timers: bool = true) -> void:
 			else:
 				Actions.resolve_attack(self, a)
 		if a.time >= a.duration:
+			_complete_primary(a)
 			player.attack = null
 	if (primary_held or attack_buffer > 0) and _can_primary():
 		attack()
@@ -389,6 +461,7 @@ func physics_step(delta: float) -> void:
 	if hit_stop > 0:
 		hit_stop = maxf(0, hit_stop - delta)
 		hero.impact_pause = hit_stop
+		Actions.update_guard(self, delta)
 		return
 	hero.impact_pause = 0
 	tick_timers(delta)
@@ -401,19 +474,23 @@ func physics_step(delta: float) -> void:
 	if flip_time >= 0:
 		flip_time += delta
 		if flip_time >= 0.48: flip_time = -1.0
-	if player.travel != null:
+	if player.get("dive") != null:
+		_step_dive(delta)
+	elif player.travel != null:
 		step_travel(delta)
 	else:
 		_move_body(delta)
 	player.pos = hero.global_position
-	if player.attack == null and player.roll <= 0 and player.travel == null:
+	if player.dashAttack != null:
+		Actions.resolve_dash_segment(self, previous, player.pos)
+	if player.get("dive") == null and player.attack == null and not player.charging and player.roll <= 0 and player.travel == null:
 		if game.camera_combat():
 			# Like Goemon, idle camera orbit leaves the feet/body facing in place.
-			# Grounded side/back movement keeps the shoulders toward the camera heading.
+			# Moving in any direction turns the whole body into the path.
 			if player.blocking:
 				player.angle = atan2(aim.x - player.pos.x, aim.z - player.pos.z)
 			elif move_input.length() > 0.1:
-				var direction = move_input.normalized() if raw.y < -0.1 or hero.jumps_used >= 2 else game.attack_direction()
+				var direction = move_input.normalized()
 				player.angle = atan2(direction.x, direction.z)
 		else:
 			player.angle = lerp_angle(player.angle, atan2(aim.x - player.pos.x, aim.z - player.pos.z), minf(1, delta * 20))
@@ -430,7 +507,12 @@ func _move_body(delta: float) -> void:
 		hero.coyote = 0.13
 		hero.jumps_used = 0
 		flip_time = -1.0
-	if p.roll > 0:
+	if p.blocking and class_id == "master-thief":
+		locomotion_velocity = Vector3.ZERO
+		p.vel = Vector3.ZERO
+		hero.velocity.x = 0
+		hero.velocity.z = 0
+	elif p.roll > 0:
 		locomotion_velocity = Vector3.ZERO
 		var portion: float = minf(delta, p.roll)
 		var duration: float = maxf(0.01, p.rollDuration)
@@ -459,10 +541,10 @@ func _move_body(delta: float) -> void:
 		hero.velocity.x = locomotion_velocity.x + p.vel.x
 		hero.velocity.z = locomotion_velocity.z + p.vel.z
 		p.vel *= exp(-12 * delta)
-	if hero.jump_buffer > 0 and p.roll <= 0:
+	if hero.jump_buffer > 0 and p.roll <= 0 and not (p.blocking and class_id == "master-thief"):
 		if hero.coyote > 0 or hero.jumps_used < 2:
 			var grounded: bool = hero.coyote > 0
-			hero.velocity.y = (game.tuning.jump_speed if grounded else game.tuning.second_jump_speed) * hero.progression.jump_velocity_multiplier()
+			hero.velocity.y = (game.tuning.jump_speed if grounded else game.tuning.second_jump_speed) * hero.progression.jump_velocity_multiplier() * (sqrt(2.0) if class_id == "dragoon" else 1.0)
 			hero.jumps_used = 1 if grounded else 2
 			if not grounded: flip_time = 0.0
 			hero.jump_buffer = 0
@@ -489,6 +571,9 @@ func step_travel(delta: float) -> void:
 	var t = player.travel
 	if t == null:
 		return
+	if t.kind == "lance-leap":
+		_step_lance_leap(t, delta)
+		return
 	t.time += delta
 	var amount: float = minf(1, t.time / t.duration)
 	var destination: Vector3 = t.start.lerp(t.target, amount)
@@ -501,10 +586,49 @@ func step_travel(delta: float) -> void:
 			use_ticket(t.ticket)
 			_resolution_ticket = t.ticket
 			_damage_origin = player.pos + Vector3.UP
-			fx.spell_burst(player.pos, player.angle, tint(), 2.65 * t.rangeScale)
-			Actions.area(self, player.pos, 2.65, 85, "flintlock", true, tint(), "slam", t.rangeScale)
+			Actions.lance_impact(self, t)
 		player.travel = null
-		fx.ring(player.pos, tint(), 3 if t.kind == "lance-leap" else 1.25, 0.3)
+		if t.kind != "lance-leap": fx.ring(player.pos, tint(), 1.25, 0.3)
+
+func _step_lance_leap(t: Dictionary, delta: float) -> void:
+	t.time += delta
+	if t.phase == "drop":
+		# Continue below the activation height until the real body meets a floor.
+		# move_and_slide lets descent proceed along walls instead of sticking to them.
+		hero.velocity = Vector3.DOWN * minf(55.0, maxf(38.0, -hero.velocity.y) + 30.0 * delta)
+		hero.move_and_slide()
+		player.pos = hero.global_position
+		if hero.is_on_floor() and hero.get_floor_normal().dot(Vector3.UP) >= cos(hero.floor_max_angle):
+			_finish_lance_landing(t)
+		return
+	var amount: float = minf(1.0, t.time / t.duration)
+	var destination: Vector3 = t.start.lerp(t.target, amount)
+	destination.y += sin(amount * PI) * t.height
+	var motion: Vector3 = destination - hero.global_position
+	hero.velocity = motion / maxf(delta, 0.0001)
+	var collision: KinematicCollision3D = hero.move_and_collide(motion)
+	player.pos = hero.global_position
+	if collision != null:
+		# A wall or ceiling ends the arc, but only downward floor contact lands it.
+		if motion.y < 0.0 and collision.get_normal().dot(Vector3.UP) >= cos(hero.floor_max_angle):
+			_finish_lance_landing(t)
+			return
+	if amount >= 1.0 or collision != null:
+		t.phase = "drop"
+		hero.velocity = Vector3.DOWN * 38.0
+
+func _finish_lance_landing(t: Dictionary) -> void:
+	# Consume before creating pulses, so later body ticks cannot replay an impact.
+	player.travel = null
+	hero.velocity = Vector3.ZERO
+	hero.jump_buffer = 0.0
+	hero.jumps_used = 0
+	hero.coyote = 0.13
+	landing_pose = 1.25
+	use_ticket(t.ticket)
+	_resolution_ticket = t.ticket
+	_damage_origin = player.pos + Vector3.UP
+	Actions.lance_impact(self, t)
 
 func blink_to(destination: Vector3) -> void:
 	destination = clamp_arena(destination)
@@ -520,6 +644,7 @@ func _enforce_bounds() -> void:
 		hero.global_position = game.checkpoint
 		hero.velocity = Vector3.ZERO
 		player.travel = null
+		player.dive = null
 		player.roll = 0
 		game.camera_rig.reset_follow()
 	player.pos = hero.global_position
@@ -557,7 +682,7 @@ func _animate(delta: float, movement: float) -> void:
 	pose.grounded = hero.is_on_floor()
 	pose.vertical = hero.velocity.y
 	pose.landing = landing_pose
-	pose.flip = flip_time / 0.48 if flip_time >= 0 else -1.0
+	pose.flip = flip_time / 0.48 if flip_time >= 0 and player.get("dive") == null else -1.0
 	var world_motion := Vector3(animation_velocity.x, 0, animation_velocity.z)
 	pose.localMotion = visual_actor.global_basis.orthonormalized().inverse() * world_motion
 	pose.motionSpeed = world_motion.length()
@@ -720,8 +845,8 @@ func add_projectile_mesh(mesh: Node3D) -> void:
 	game.add_child(mesh)
 	mesh.add_to_group("rogue_projectiles")
 
-func place_projectile(mesh: Node3D, width: float, start: Vector3) -> bool:
-	var wall: Dictionary = _terrain_hit(start, mesh.position, width)
+func place_projectile(mesh: Node3D, width: float, start: Vector3, sphere_collision: bool = false) -> bool:
+	var wall: Dictionary = _terrain_hit(start, mesh.position, width, sphere_collision)
 	if wall.is_empty():
 		return false
 	mesh.position = wall.position
@@ -729,7 +854,7 @@ func place_projectile(mesh: Node3D, width: float, start: Vector3) -> bool:
 	return true
 
 func resolve_projectile_segment(pr: Dictionary, from: Vector3, to: Vector3) -> void:
-	var wall: Dictionary = _terrain_hit(from, to, pr.width)
+	var wall: Dictionary = _terrain_hit(from, to, pr.width, pr.get("sphereCollision", false))
 	var end: Vector3 = wall.position if not wall.is_empty() else to
 	var candidates: Array = _segment_targets(from, end, pr.width)
 	for candidate in candidates:
@@ -742,8 +867,9 @@ func resolve_projectile_segment(pr: Dictionary, from: Vector3, to: Vector3) -> v
 		_projectile_damage = true
 		hit(e, pr.damage, pr.weapon, pr.heavy, pr.vel.normalized(), "", pr.kind)
 		_projectile_damage = false
-		if pr.kind == "bolt":
-			fx.ring(e.pos, tint(), 1.1, 0.2)
+		if pr.kind in ["bolt", "fireball"]:
+			fx.ring(e.pos, pr.get("color", tint()), 1.1 * pr.get("visualScale", 1.0), 0.3)
+			if pr.kind == "fireball": fx.particles(e.pos, Color("ff7135"), 18, pr.get("visualScale", 1.0))
 		if not pr.pierce:
 			pr.life = 0
 			pr.mesh.position = from.lerp(end, candidate.t)
@@ -763,15 +889,22 @@ func _segment_targets(from: Vector3, to: Vector3, width: float) -> Array:
 	candidates.sort_custom(func(a, b): return a.t < b.t)
 	return candidates
 
-func _terrain_hit(from: Vector3, to: Vector3, radius: float = 0.0) -> Dictionary:
+func _terrain_hit(from: Vector3, to: Vector3, radius: float = 0.0, sphere_collision: bool = false) -> Dictionary:
 	if from.distance_squared_to(to) < 0.000001 or not is_instance_valid(hero) or not hero.is_inside_tree():
 		return {}
 	var space: PhysicsDirectSpaceState3D = hero.get_world_3d().direct_space_state
 	if radius > 0.01:
-		var shape: BoxShape3D = BoxShape3D.new()
-		# Broad energy waves are wide but thin; a spherical cast would hit the
-		# ground instead of modelling their authored horizontal silhouette.
-		shape.size = Vector3(radius * 2, minf(radius, 0.22) * 2, 0.08)
+		var shape: Shape3D
+		if sphere_collision:
+			var sphere := SphereShape3D.new()
+			sphere.radius = radius
+			shape = sphere
+		else:
+			# Existing energy waves use a wide, thin silhouette. The new round
+			# bullet uses its full sphere so low/grazing cover stops it too.
+			var box := BoxShape3D.new()
+			box.size = Vector3(radius * 2, minf(radius, 0.22) * 2, 0.08)
+			shape = box
 		var query: PhysicsShapeQueryParameters3D = PhysicsShapeQueryParameters3D.new()
 		query.shape = shape
 		query.collision_mask = 1
@@ -819,6 +952,7 @@ func interrupt_for_dodge() -> void:
 func cancel(preserve_power: bool = false) -> void:
 	primary_held = false
 	secondary_held = false
+	secondary_sources.clear()
 	attack_buffer = 0
 	hit_stop = 0
 	if player.is_empty():
@@ -831,14 +965,21 @@ func cancel(preserve_power: bool = false) -> void:
 	player.attack = null
 	player.roll = 0
 	player.travel = null
+	player.dive = null
 	player.burst = null
 	player.secondaryBuffer = null
 	player.blocking = false
+	player.guardTime = 0.0
+	player.guardStyle = ""
+	player.dashAttack = null
+	player.pulses.clear()
+	Actions.cancel_charge(self)
 	player.vel = Vector3.ZERO
 	_clear_projectiles()
 	if is_instance_valid(fx):
 		fx.clear()
 	if not preserve_power:
+		player.energy = 0
 		for key in ["ultimatePulse", "drink", "invuln", "untargetable", "buffTime", "buffDuration", "blockMeter", "riposte", "shot", "drinkGesture"]:
 			player[key] = 0.0
 		player.buffName = ""
@@ -918,3 +1059,17 @@ func _exit_tree() -> void:
 	_clear_projectiles()
 	if is_instance_valid(_hooks):
 		_hooks.queue_free()
+
+# Pulse origin and ticket survive independently of player movement or later attacks.
+func resolve_area_pulse(pulse: Dictionary) -> void:
+	var prior_ticket: Dictionary = _ticket
+	var prior_resolution: Dictionary = _resolution_ticket
+	use_ticket(pulse.ticket)
+	_resolution_ticket = pulse.ticket
+	_damage_origin = pulse.pos + Vector3.UP
+	_projectile_damage = true
+	Actions.area(self, pulse.pos, pulse.radius, pulse.damage, "flintlock", false, Color("529cff"), "lance-wave", pulse.rangeScale)
+	_projectile_damage = false
+	_ticket = prior_ticket
+	_resolution_ticket = prior_resolution
+	fx.lance_wave(pulse.pos, pulse.radius * pulse.rangeScale, pulse.index)

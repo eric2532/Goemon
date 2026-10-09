@@ -7,8 +7,11 @@ const CastleWall=preload("res://scripts/defense_castle_wall.gd")
 
 var beta_mode=false
 var redesign_mode=false
-var mine_position=Vector3(-16,0,282)
-var mine_build_position=Vector3(-16,.15,286)
+var mine_sites: Array=[]
+var mine_position: Vector3:
+	get:return mine_sites[0].position if not mine_sites.is_empty() else Vector3(-18,0,189)
+var mine_build_position: Vector3:
+	get:return mine_position+Vector3(0,.15,4)
 var lanes: Array=[]
 var lane_names: Array[String]=["WEST · JADE", "CENTER · GOLD", "EAST · EMBER"]
 var lane_colors: Array[Color]=[Color("6ce1c0"), Color("ffcf69"), Color("ff886b")]
@@ -215,27 +218,21 @@ func _build_defenses():
 	if redesign_mode:
 		for x in [-12.0,12.0]:
 			for z in [116.0,130.0,144.0,158.0]:_approach_mount(Vector3(x,.15,z))
-		_build_mine_marker()
+		for point in [Vector3(-18,0,189),Vector3(18,0,189),Vector3(-18,0,208),Vector3(-16,0,282)]:
+			mine_sites.append({"position":point,"footprint":Vector2(2.3,2.365)})
+			Geo.box(self,point+Vector3.UP*.05,Vector3(4.55,.1,4.73),Geo.mat("6e7460"))
 
 func _approach_mount(mount: Vector3):
 	var pad=Vector3(mount.x,.15,mount.z+3.5)
-	cannon_sites.append({"position":mount,"lane":1,"label":"%s APPROACH · %d" % ["WEST" if mount.x<0 else "EAST",int(mount.z)],"build_position":pad})
+	cannon_sites.append({"position":mount,"lane":1,"label":"%s APPROACH · %d" % ["WEST" if mount.x<0 else "EAST",int(mount.z)],"build_position":pad,"footprint":Vector2(1.4,1.4)})
 	# Only visual geometry: the open center route and work pads cannot trap actors.
 	Geo.box(self,mount-Vector3.UP*.05,Vector3(2.8,.1,2.8),Geo.mat("8b7957",.45))
-	Geo.torus(self,mount+Vector3.UP*.025,1.20,1.32,Geo.mat("e3bd6f",.6))
-	Geo.cylinder(self,pad-Vector3.UP*.065,1.45,.1,Geo.mat("435956"))
-	Geo.torus(self,pad,1.20,1.32,Geo.mat("ffcf69",.3,.35))
-	Geo.box(self,pad+Vector3.UP*.025,Vector3(1.0,.04,.12),Geo.mat("ffdf93",.4))
-	Geo.box(self,pad+Vector3.UP*.025,Vector3(.12,.04,1.0),Geo.mat("ffdf93",.4))
-
-func _build_mine_marker():
-	Geo.box(self,mine_position+Vector3.UP*.05,Vector3(4.55,.1,4.73),Geo.mat("6e7460"))
-	Geo.torus(self,mine_build_position,1.25,1.40,Geo.mat("ffcf69",.3,.35))
 
 func _cannon_mount(center: Vector3,lane: int,offset: float,line_name: String,mount_height: float=2.65):
 	var mount=center+Vector3(offset,mount_height,0)
-	cannon_sites.append({"position":mount,"lane":lane,"label":"%s · %s" % [lane_names[lane],line_name],"build_position":center+Vector3(offset,.05,5.3)})
+	cannon_sites.append({"position":mount,"lane":lane,"label":"%s · %s" % [lane_names[lane],line_name],"build_position":center+Vector3(offset,.05,3.5 if redesign_mode else 5.3),"footprint":Vector2(1.4,1.4)})
 	Geo.cylinder(self,mount-Vector3.UP*.04,1.55,.20,Geo.mat("8b7957",.45))
+	if redesign_mode:return
 	Geo.torus(self,mount+Vector3.UP*.08,1.20,1.32,Geo.mat("e3bd6f",.6))
 	# Distinct purchasing pad on the protected side of the wall.
 	var pad=center+Vector3(offset,.08,5.3)

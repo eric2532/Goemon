@@ -48,9 +48,9 @@ func advance_wave(delta: float)->Dictionary:
 	scheduled=target
 	return {"due":due,"spawning_seconds":wave_elapsed-before}
 
-func economy(balance: float,delta: float,income_seconds: float,towers: int,mine: bool)->Dictionary:
+func economy(balance: float,delta: float,income_seconds: float,towers: int,mines: int)->Dictionary:
 	var duration=maxf(0,delta)
-	var available=maxf(0,balance)+(2.0*maxf(0,income_seconds) if mine else 0.0)
+	var available=maxf(0,balance)+2.0*maxf(0,income_seconds)*maxi(0,mines)
 	var rate=maxi(0,towers)*.1
 	var powered_delta=duration if rate<=0 else minf(duration,available/rate)
 	var result=maxf(0,available-rate*powered_delta)

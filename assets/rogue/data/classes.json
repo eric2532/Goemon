@@ -22,12 +22,12 @@
     "abilities": {
       "cutlass": {
         "name": "Cutlass",
-        "description": "Three-hit combo with a sweeping finisher.",
+        "description": "A three-hit cutlass combo with triple reach and a sweeping finisher.",
         "icon": "cutlass"
       },
       "flintlock": {
         "name": "Flintlock",
-        "description": "A devastating close-quarters shot with real recoil.",
+        "description": "Fire an enormous flintlock round through every enemy in a straight line. Solid cover stops it.",
         "icon": "flintlock"
       },
       "roll": {
@@ -58,24 +58,24 @@
     "maxHealth": 100,
     "cooldowns": {
       "cutlass": 0.4,
-      "flintlock": 1.15,
-      "roll": 1.3,
+      "flintlock": 2.4,
+      "roll": 1.2,
       "drink": 14
     },
     "abilities": {
       "cutlass": {
         "name": "Katana",
-        "description": "Measured katana combo with medium reach.",
+        "description": "A measured katana combo with triple reach.",
         "icon": "cutlass"
       },
       "flintlock": {
-        "name": "Bow & Arrow",
-        "description": "A precise, fast arrow fired in the camera-facing direction.",
+        "name": "Crimson Arc",
+        "description": "RMB / 3: release a huge red energy slash with powerful reach.",
         "icon": "bow"
       },
       "roll": {
-        "name": "Dodge",
-        "description": "A buffered directional step through danger with a brief untargetable window.",
+        "name": "Bow",
+        "description": "E: loose a powerful arrow. C remains your evade.",
         "icon": "roll"
       },
       "drink": {
@@ -101,24 +101,24 @@
     "maxHealth": 85,
     "cooldowns": {
       "cutlass": 0.21,
-      "flintlock": 1.25,
-      "roll": 0.85,
+      "flintlock": 2.8,
+      "roll": 1.25,
       "drink": 22
     },
     "abilities": {
       "cutlass": {
         "name": "Short Katana",
-        "description": "A fast three-cut assassination combo.",
+        "description": "A fast three-cut combo with triple reach. Each completed light adds 20 energy; 100 stores one free heavy.",
         "icon": "cutlass"
       },
       "flintlock": {
-        "name": "Shuriken",
-        "description": "Throw five ninja stars in a tight fan.",
+        "name": "Shadow Cut",
+        "description": "RMB / 3: dash through enemies once. A full energy bar grants one manual cast during cooldown.",
         "icon": "shuriken"
       },
       "roll": {
-        "name": "Ninja Dash",
-        "description": "A fast directional dash with brief evasion and a readable energy trail.",
+        "name": "Wide Shuriken",
+        "description": "E: throw five larger shuriken in a wide, long-range fan. C evades.",
         "icon": "roll"
       },
       "drink": {
@@ -143,20 +143,20 @@
     "speed": 5.25,
     "maxHealth": 85,
     "cooldowns": {
-      "cutlass": 0.75,
-      "flintlock": 0.65,
+      "cutlass": 0.48,
+      "flintlock": 5.0,
       "roll": 1.8,
       "drink": 24
     },
     "abilities": {
       "cutlass": {
-        "name": "Arcane Pulse",
-        "description": "One powerful staff blast in a limited area ahead.",
+        "name": "Charged Fireball",
+        "description": "Tap LMB to fire; hold for 1, 2 or 3 seconds for a larger, stronger fireball. Every tier pierces enemies with triple travel range; cover blocks it.",
         "icon": "staff"
       },
       "flintlock": {
-        "name": "Energy Bolt",
-        "description": "Send a luminous magic projectile downrange.",
+        "name": "Frost Nova",
+        "description": "RMB / 3: freeze nearby enemies for three seconds without dealing damage.",
         "icon": "spark"
       },
       "roll": {
@@ -166,7 +166,7 @@
       },
       "drink": {
         "name": "Overflow",
-        "description": "For 10s, both magical attacks cast in rapid succession.",
+        "description": "For 10 seconds, recover quickly between fireball casts. Charged fireballs retain their 1, 2 and 3 second tiers.",
         "icon": "lightning"
       }
     }
@@ -187,19 +187,19 @@
     "maxHealth": 125,
     "cooldowns": {
       "cutlass": 0.5,
-      "flintlock": 1.3,
+      "flintlock": 4.0,
       "roll": 0.9,
       "drink": 22
     },
     "abilities": {
       "cutlass": {
-        "name": "Broadsword",
-        "description": "Wide melee sweeps with a powerful final swing.",
+        "name": "Longsword",
+        "description": "A sword combo with triple reach and a heavy finisher.",
         "icon": "cutlass"
       },
       "flintlock": {
-        "name": "Shield Bash",
-        "description": "Tap to bash. Hold to block incoming frontal projectiles.",
+        "name": "Navy Counter",
+        "description": "RMB / 3: guard for two seconds. An incoming hit triggers a massive navy energy shield bash.",
         "icon": "shield"
       },
       "roll": {
@@ -236,13 +236,13 @@
     },
     "abilities": {
       "cutlass": {
-        "name": "Piercing Strikes",
-        "description": "Long-reaching, precise lance thrusts.",
+        "name": "Lance Pierce",
+        "description": "A broad lance thrust with triple reach. Both normal jumps reach twice their former height.",
         "icon": "lance"
       },
       "flintlock": {
-        "name": "Leap",
-        "description": "Leap forward and slam down from above.",
+        "name": "Azure Lance Leap",
+        "description": "RMB / 3: leap ahead from the ground, or plunge straight down while airborne. Landing sends three widening blue shockwaves.",
         "icon": "lance"
       },
       "roll": {
@@ -280,7 +280,7 @@
     "abilities": {
       "cutlass": {
         "name": "Claymore",
-        "description": "Weighty, medium-speed magical sword swings.",
+        "description": "Magical sword swings with triple reach. After the second jump, LMB dives forward and down in a huge energy slash, dealing massive landing damage.",
         "icon": "cutlass"
       },
       "flintlock": {
@@ -315,7 +315,7 @@
     "speed": 5.6,
     "maxHealth": 90,
     "cooldowns": {
-      "cutlass": 0.62,
+      "cutlass": 0.2066666667,
       "flintlock": 2.4,
       "roll": 1.2,
       "drink": 23
@@ -323,12 +323,12 @@
     "abilities": {
       "cutlass": {
         "name": "Power Arrow",
-        "description": "A fast, powerful arrow fired with precision.",
+        "description": "Fire powerful arrows three times as often, with twice the visible size and triple travel range.",
         "icon": "bow"
       },
       "flintlock": {
         "name": "Rapid Arrow",
-        "description": "Release four arrows in rapid succession.",
+        "description": "Release four arrows in rapid succession, each twice the visible size.",
         "icon": "bow"
       },
       "roll": {
@@ -365,13 +365,13 @@
     },
     "abilities": {
       "cutlass": {
-        "name": "Twin Blades",
-        "description": "A rapid dual-wield combo that alternates both blades.",
+        "name": "Evasive Blades",
+        "description": "Alternate evasive underhand slashes with triple reach. Each completed light adds 20 energy; 100 stores one free heavy.",
         "icon": "blades"
       },
       "flintlock": {
-        "name": "Spin Attack",
-        "description": "Whirl in a complete circle to cut nearby enemies.",
+        "name": "Cross Dash",
+        "description": "RMB / 3: dash forward with crossing blades. A full energy bar grants one manual cast during cooldown.",
         "icon": "blades"
       },
       "roll": {
@@ -391,7 +391,7 @@
     "name": "Master Thief",
     "title": "The Smiling Ember",
     "tagline": "A little smoke. A lot of trouble.",
-    "description": "An easygoing powerhouse with a huge smoke pipe. Catch attacks in a block, unleash stored fire, or duck and swing from below.",
+    "description": "A pipe-wielding powerhouse. Sweep wide with fast strikes, or stand firm in a red-glowing guard.",
     "hero": true,
     "weaponNames": [
       "Huge Smoke Pipe",
@@ -401,20 +401,20 @@
     "speed": 4.8,
     "maxHealth": 115,
     "cooldowns": {
-      "cutlass": 0.66,
-      "flintlock": 0.65,
+      "cutlass": 0.38,
+      "flintlock": 5.0,
       "roll": 0.15,
       "drink": 24
     },
     "abilities": {
       "cutlass": {
-        "name": "Pipe Strikes",
-        "description": "Heavy pipe swings; Get Down changes these to low sweeping attacks.",
+        "name": "Swift Pipe",
+        "description": "Fast, broad pipe sweeps with triple reach; growth extends them further.",
         "icon": "pipe"
       },
       "flintlock": {
-        "name": "Pipe Block",
-        "description": "Hold to block and fill the meter. At full meter, tap to unleash fire. Disabled when lowered.",
+        "name": "Ember Guard",
+        "description": "Hold RMB / 3 to stand still and block damage for up to three seconds, followed by recovery.",
         "icon": "shield"
       },
       "roll": {

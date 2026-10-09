@@ -53,14 +53,14 @@ The old seven-bone wrapper path is retained exclusively for existing enemies. Ro
 
 ## Controls and movement
 
-- W: forward travel and smooth turning into the path.
-- S: backward travel with camera-facing shoulders.
-- A / D: left / right strafe; diagonally forward input turns into the path.
+- WASD: camera-relative travel, with smooth full-body turning into every movement direction, including backward and all diagonals.
 - Ctrl held: walk at up to 2.2 m/s.
 - Shift held: sprint using the existing Prototype Lab speed setting.
 - Space / double Space, attacks, Q evade and R retain their gameplay behavior.
 
 Horizontal acceleration/deceleration is vector-based. Visual facing uses frame-rate-independent damping; movement input is never delayed for an animation. Ground phase follows distance rather than a fixed timer. Feet may enter a normal flight phase during fast running; that is distinct from sliding a supporting foot.
+
+The Fire Siege camera follows backward travel immediately and buffers one metre of actual forward travel before following. Stopping recentres the view; starting forward again re-arms the buffer. Blocked input does not consume it. Camera-aimed attacks, held shields and committed movement abilities retain their aiming rules.
 
 ## Editing and export
 
@@ -74,7 +74,7 @@ Run Blender with `tools/verify_reference_hero.py` to compare all original triang
 
 ## Validation
 
-`--locomotion-test` exercises walk/run/sprint, backward travel, strafing and reversals, turning, jump/fall/landing, slopes, stopping and a blocking wall. It checks foot reach, stationary support anchors, fixed bone lengths, bent elbows, root-motion isolation and hand attachment. It also checks motion on all torso/clavicle/neck bones, visible chest twist and pelvis/chest counter-rotation.
+`--locomotion-test` exercises walk/run/sprint, backward and sideways turns, reversals, jump/fall/landing, slopes, stopping and a blocking wall. It checks foot reach, stationary support anchors, fixed bone lengths, bent elbows, root-motion isolation and hand attachment. It also checks motion on all torso/clavicle/neck bones, visible chest twist and pelvis/chest counter-rotation.
 
 `--locomotion-visual` runs those motions in the actual coastal scene and records both a three-quarter inspection pass and the normal collision-aware gameplay camera. It writes `tests/locomotion-metrics.json` and numbered review frames. The review video is `tests/locomotion-review.mp4`; it preserves capture timestamps and is not a performance benchmark. The close inspection pass can cross scenery; the normal camera pass retains collision handling.
 

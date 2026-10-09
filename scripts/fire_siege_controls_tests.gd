@@ -36,8 +36,8 @@ func run():
  # No enemy or mouse location influences a ranged shot heading.
  await fresh_class(3)
  var a=game.player.active_ability
- game.camera_rig.yaw=PI;tap("heavy_attack")
- check(not a.projectiles.is_empty() and a.projectiles[0].vel.z>0 and absf(a.projectiles[0].vel.x)<.01,"Mage bolt follows camera heading even when old cursor aim points elsewhere")
+ game.camera_rig.yaw=PI;tap("light_attack")
+ check(not a.projectiles.is_empty() and a.projectiles[0].vel.z>0 and absf(a.projectiles[0].vel.x)<.01,"Mage fireball follows camera heading even when old cursor aim points elsewhere")
  # The committed melee remains captured while the camera turns.
  await fresh_class(0);var target=fixture(Vector3(2.2,0,0));tap("light_attack")
  game.camera_rig.yaw=PI;await frames(25)
@@ -80,15 +80,24 @@ func extended_rules():
  await knight_defense_rules();await utility_cover_rules();await impact_and_muzzle_rules()
  for index in [0,1,2,3,4,6,7,8,9]:
   await fresh_class(index);var a=p.active_ability
-  var victim=fixture(Vector3(2.2,0,0));tap("heavy_attack")
+  var victim=fixture(Vector3(2.2,0,0))
+  if index!=9:tap("heavy_attack")
   if index==9:
    press("heavy_attack");await frames(3)
    check(a.player.blocking,"Master Thief retains hold-to-block")
    press("heavy_attack",false);continue
+  if index==4:
+   game.tuning.invincible=false;p.invuln=0;p.take_hit(10,Vector3.LEFT);game.tuning.invincible=true
   await settle_attack()
-  check(victim.hp<10000,"%s secondary reaches enemies ahead" % CLASS_IDS[index])
-  if index in [1,2,3,6,7]:
-   check(native_projectiles.size()==(5 if index==2 else (4 if index==7 else 1)),"%s keeps its original projectile count" % CLASS_IDS[index])
+  if index==3:
+   check(victim.hp==10000,"Mage frost nova preserves enemy health")
+  else:
+   check(victim.hp<10000,"%s secondary reaches enemies ahead" % CLASS_IDS[index])
+  if index in [6,7]:
+   check(native_projectiles.size()==(4 if index==7 else 1),"%s keeps its original projectile count" % CLASS_IDS[index])
+ for index in [1,2]:
+  await fresh_class(index);tap("equip");await settle_attack()
+  check(native_projectiles.size()==(1 if index==1 else 5),"%s retains its ranged weapon on E" % CLASS_IDS[index])
  await fresh_class(5)
  var a=p.active_ability
  var landing_enemy=fixture(Vector3(7.5,0,0));tap("heavy_attack")
@@ -129,3 +138,24 @@ func camera_edge_rules():
  await frames(3)
  check(p.attack_left>0 and p.facing.is_equal_approx(Vector3.FORWARD),"Goemon keeps committed airborne attack direction while strafing")
  p.smoke_move=Vector2.ZERO;p.cancel_charge()
+
+
+func knight_defense_rules():
+ await fresh_class(4)
+ var p=game.player;var a=p.active_ability
+ var target=fixture(Vector3(4.5,0,0))
+ tap("heavy_attack");await frames(2)
+ check(a.player.blocking,"Knight tap opens the timed guard after releasing secondary")
+ game.tuning.invincible=false;p.invuln=0
+ var health=p.hp
+ p.take_hit(10,Vector3.LEFT,false)
+ check(p.hp==health,"Knight timed guard stops an incoming melee hit")
+ game.tuning.invincible=true;await frames(35)
+ check(target.hp<=9840,"Knight retaliates with a powerful extended shield bash")
+ await frames(110)
+ check(not a.player.blocking,"Knight guard ends after its two-second window")
+ await fresh_class(4);a=p.active_ability;tap("surge")
+ game.tuning.invincible=false;p.invuln=0;health=p.hp
+ p.take_hit(20,Vector3.LEFT,false)
+ check(p.hp==health-10,"Knight's Code still halves incoming damage outside guard")
+ game.tuning.invincible=true

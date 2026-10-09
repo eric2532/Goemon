@@ -56,6 +56,10 @@ func _initialize():
 	check(near(ledger.powered_delta,.05) and near(ledger.money,0),"Insufficient money buys equal partial power for all twelve towers")
 	ledger=s.economy(0,1,1,1,true)
 	check(near(ledger.money,1.9) and near(ledger.powered_delta,1),"Mine income restores power before upkeep")
+	ledger=s.economy(0,2.5,2.5,2,3)
+	check(near(ledger.money,14.5) and near(ledger.powered_delta,2.5),"Each of three mines earns independently before two towers pay fractional upkeep")
+	ledger=s.economy(14.5,2,0,2,3)
+	check(near(ledger.money,14.1),"All mine income stops during clearance while tower upkeep continues")
 	# Catches completion charging early, release losing all work, affordability bypass.
 	var build=s.build_step(0,1.5,true,true,3)
 	check(near(build.progress,.5) and not build.completed,"Tower is unpurchased while half assembled")

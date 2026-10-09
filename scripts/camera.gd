@@ -14,6 +14,7 @@ var sens=1.0
 var kick_direction=Vector2.ZERO
 var kick_strength=0.0
 var kick_age=1.0
+var travel_follow=preload("res://scripts/travel_camera_follow.gd").new()
 
 func kick(direction: Vector3, strength: float):
 	if kick_age<0.06 and strength<kick_strength:return
@@ -33,6 +34,7 @@ func reset_follow():
 	if game.rogue_battle_mode and is_instance_valid(game.rogue_view) and game.rogue_view.enabled:
 		game.rogue_view.reset();return
 	follow=player.global_position+Vector3.UP*1.4*player.growth_multiplier()
+	travel_follow.reset(follow)
 
 func _unhandled_input(event):
 	if game.rogue_battle_mode:return
@@ -54,15 +56,21 @@ func _process(delta):
 	if is_instance_valid(town):town.update_cutaway(player.global_position,yaw)
 	var indoors=is_instance_valid(town) and town.indoor
 	var speed=Vector2(player.velocity.x,player.velocity.z).length()
-	var fast=clampf((speed-8)/10,0,1)
-	var lead=Vector3(player.velocity.x,0,player.velocity.z)*0.08
-	var target=player.global_position+Vector3.UP*1.4*player.growth_multiplier()+lead
+	var input=player.smoke_move if player.smoke_mode else Input.get_vector("move_left","move_right","move_forward","move_back")
+	var target=player.global_position+Vector3.UP*1.4*player.growth_multiplier()
+	var horizontal=travel_follow.update(target,input,yaw,delta)
+	var fast=0.0 if travel_follow.buffering else clampf((speed-8)/10,0,1)
 	if game.descent_mode:target.y-=clampf(-player.velocity.y*.1,0,3.5)
-	if player.sky_strike.active:target=player.sky_strike.origin.lerp(player.sky_strike.landing,.5)+Vector3.UP*(1.4+player.sky_strike.arc_height*.3)
-	follow.x=lerpf(follow.x,target.x,1-exp(-delta*22))
-	follow.z=lerpf(follow.z,target.z,1-exp(-delta*22))
+	if player.sky_strike.active:
+		target=player.sky_strike.origin.lerp(player.sky_strike.landing,.5)+Vector3.UP*(1.4+player.sky_strike.arc_height*.3)
+		horizontal=follow.lerp(target,1-exp(-delta*22))
+		travel_follow.reset(player.global_position+Vector3.UP*1.4*player.growth_multiplier())
+		travel_follow.focus=horizontal
+	follow.x=horizontal.x
+	follow.z=horizontal.z
 	follow.y=lerpf(follow.y,target.y,1-exp(-delta*12))
 	var desired=distance*sqrt(player.growth_multiplier())+fast*1.2+(1.6 if game.boss_active else 0)
+	if travel_follow.buffering:desired=current_distance
 	if player.sky_strike.active:desired=maxf(desired,player.sky_strike.origin.distance_to(player.sky_strike.landing)*.85+10)
 	if indoors:desired=8.0
 	var view_pitch=maxf(pitch,.74) if indoors else pitch
@@ -78,7 +86,7 @@ func _process(delta):
 	current_distance=minf(current_distance,safe+0.08)
 	camera.global_position=follow+offset*current_distance
 	camera.look_at(follow,Vector3.UP)
-	camera.fov=lerpf(camera.fov,63+fast*6,delta*5)
+	if not travel_follow.buffering:camera.fov=lerpf(camera.fov,63+fast*6,delta*5)
 	var bank=-player.velocity.dot(Vector3(cos(yaw),0,-sin(yaw)))*fast*0.0009
 	camera.rotation.z=bank
 	kick_age+=delta

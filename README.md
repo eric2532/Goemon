@@ -1,6 +1,9 @@
 # Goemon — Fire Siege MVP / Sky Descent
 
-A fully local Godot 4.6.1 action game: explore 784 floating islands, grow stronger in battle, and reach the original Tidefall Sanctuary below.
+A fully local Godot 4.6.1 action game. **Fire Siege MVP is the primary development
+version**, as requested on 9 October 2026. Continue work in the latest
+`codex/fire-siege-mvp` worktree and use its Fire Siege export. The legacy Sky
+Descent material below remains reference for that older mode.
 
 ## Environment art
 
@@ -10,18 +13,44 @@ The main area now has 48 original Blender town buildings at 4× their previous l
 
 The ground map is now **four times its previous area** (twice the width and depth), approximately **1,176 × 1,031 metres**. Existing Tidefall streets remain in place; new furnished districts occupy the expanded sides and north, with paths back to the original courts. Terrain pads keep entrances flush. Enemy AI freeze is a session-only Prototype Lab option and always resets to off when the game launches.
 
-## Fire Siege MVP · v2.32.0
+## Fire Siege · Closed masks and Samurai proportions · v2.37.0
+
+Download the [v2.37.0 MVP GitHub release](https://github.com/eric2532/Goemon/releases/tag/fire-siege-v2.37.0-mvp)
+for the current universal macOS build. Repository access is required.
+
+Samurai now has a shorter neck, a lower head/helmet position and a compact fitted
+scarf. Dragoon's dragon helmet covers his face; Magic Swordsman wears a purple
+demon mask beneath his crystal crown. The long animated scarf and v2.36 combat
+updates remain. See the [mask refinement verification](docs/fire-siege-mvp/mask-refinement-v237.md).
+
+### Previous equipment and skill update · v2.36.0
+
+Dragoon wears a blue dragon helmet, Magic Swordsman a purple enchanted helmet,
+and Samurai a red face-wrap scarf with a long animated tail. Ninja has a slightly
+fuller jaw. Airborne Dragoon Leap (right-click / 3) now descends into an actual
+ground impact; Ranger fires three times as often and uses twice-size arrows.
+See the [equipment follow-up plan](docs/fire-siege-mvp/equipment-upgrade-v236-plan.md)
+and [verification](docs/fire-siege-mvp/equipment-upgrade-v236-verification.md).
 
 Choose **Fire Siege**, Beta or Hard, then Goemon, Edo or any of the ten Rogue heroes.
-Current hero designs, camera-facing controls, signature skills and progression are preserved.
+All ten Rogue heroes use the coordinated head, face-layout and hair direction
+introduced by Magic Swordsman and Explorer. Exposed faces have integrated depth,
+defined cheeks and jaws, and projecting noses; masks and headwear retain each
+hero's identity. See the [original design direction](docs/art-direction/rogue-design-pilot.md)
+and [roster upgrade plan](docs/fire-siege-mvp/roster-upgrade-v235-plan.md).
+The local v2.35.0 app, visual review and validation are recorded in the
+[upgrade verification](docs/fire-siege-mvp/roster-upgrade-v235-verification.md).
+All twelve heroes now turn their bodies toward camera-relative movement in every direction, including backward and sideways travel. The camera follows backward movement immediately and waits for one metre of forward travel before following; each new forward input re-arms the buffer. Hero designs, camera-aimed attacks, signature skills and progression are preserved.
 The redesign uses the published arrow tower, gold mine and construction FX from
 `codex/fire-siege-economy-assets-v1` (`9b63371`).
 
-Start with **10 gold**, twelve empty tower sites and an unbuilt mine. Stand at a
-site's gold interaction pad, face the structure and **hold B**. An arrow tower costs
+Start with **10 gold**, twelve empty tower sites and four unbuilt mines, with three
+mines close to spawn. Approach any accessible side of a structure and **hold B**
+when the **IN RANGE** prompt appears. An arrow tower costs
 **5 gold**, takes 3 seconds to build, and fires a visible **50-damage arrow every
-0.5 seconds**. The mine left of the base costs **10 gold**, takes 4 seconds, and
-earns **2 gold/sec while the wave is spawning**. Releasing B gradually reverses
+0.5 seconds**. Each mine costs **10 gold**, takes 4 seconds, and independently
+earns **2 gold/sec while the wave is spawning**. Empty progress bars and build-pad
+circles are hidden; a bar appears after construction begins. Releasing B gradually reverses
 construction; reholding resumes it. Moving interrupts construction and requires
 a fresh B hold once stationary. Payment happens only on completion.
 
@@ -42,15 +71,44 @@ Hero death keeps the siege moving: enemies are **35% faster** until revival afte
 seconds of protection. Right-drag the mouse to look around while downed. Gold,
 waves, purchases and death state reset on retry.
 
-**WASD** move, mouse camera, **Shift** sprint, **Space** jump, **LMB/RMB** primary and
-secondary, **C** evade, **R** signature skill, **Q** hero roster, **G/H** existing
-ally rosters, **Esc** pause. Goemon/Edo retain E/T/numbered abilities; Explorer's
-Hook Shot and Master Thief's Get Down remain on E. Allies keep existing prices and
+**WASD** move, mouse camera, **Shift** sprint, **Space** jump, **LMB** primary and
+**RMB / 3** secondary for the ten Rogue fighters (including holding/releasing),
+**C** evade, **R** signature skill, **Q** hero roster, **G/H** existing
+ally rosters, **Esc** pause. Goemon/Edo retain E/T/numbered abilities. **E** uses
+Samurai's bow, Ninja's enlarged shuriken fan, Explorer's Hook Shot, or Master Thief's
+Get Down. Allies keep existing prices and
 abilities, stay active during hero death, and cannot be attacked by enemies.
+
+The Rogue fighters use revised weapon grips and distinct attacks: Ninja's long
+dash cut, Samurai's giant red slash, Explorer's evasive reverse-grip cuts and dash
+cross slash, Dragoon's wider thrust and three blue landing shockwaves, and Knight's
+two-second guard with a massive navy shield counter. Mage's primary releases a
+fireball on click release, with larger charge tiers at one, two and three seconds;
+frost nova freezes nearby enemies for three seconds without damage. Master Thief
+has faster, wider pipe attacks and a stationary red guard while holding secondary,
+lasting at most three seconds. Growth scales the pipe's reach and effects.
+
+All twelve heroes' basic attacks have **three times their previous range**, with
+growth scaling on top. Magic Swordsman can press LMB after the second jump to
+dive forward and down into a powerful violet energy slash. Dragoon's normal and
+second jumps reach **twice the normal height**. Pirate's shot is a visible,
+ten-times-larger piercing bullet; every Mage fireball tier also pierces enemies
+along its straight path. Solid cover still blocks projectiles.
+
+Ninja and Explorer have a small energy meter. **Five completed light attacks**
+fill it and earn one **free RMB / 3 heavy attack**, usable during the normal
+cooldown. Using the bonus consumes the meter without restarting that cooldown.
+Normal heavy attacks remain available when their cooldown expires. Death,
+changing heroes and restarting clear the meter.
 
 Launch with `--tower-defense`, or use the **Fire Siege macOS/Linux** export.
 Run `--fire-siege-mvp-test`, `--fire-siege-campaign-test` and
-`--fire-siege-controls-test`; deterministic/asset suites are documented in
+`--fire-siege-controls-test`; `--rogue-combat-upgrade-test` checks the upgraded kits
+and `--rogue-upgrade-tour` captures their appearance in game.
+`--rogue-roster-v235-test` checks the new ranges, energy, piercing and aerial
+skills; `--native-primary-range-test` covers Goemon and Edo. The rendered
+`--rogue-roster-upgrade-tour` captures all ten designs and the new abilities.
+`--movement-camera-test` checks every hero plus the forward buffer, reversals and Sky Strike recovery. Add `--movement-camera-visual` for rendered movement captures. Deterministic/asset suites are documented in
 [implementation decisions](docs/fire-siege-mvp/decisions.md) and
 [verification](docs/fire-siege-mvp/verification.md).
 
@@ -212,7 +270,7 @@ While wearing the cloak, every pipe combo hit, heavy strike, chain throw and cha
 
 | Input | Action |
 |---|---|
-| W / S / A / D | Forward / backpedal / left and right strafe, relative to camera |
+| W / S / A / D | Move relative to the camera and turn the whole body toward travel |
 | Ctrl, held | Slow walk |
 | Mouse | Orbit the camera |
 | Mouse wheel | Zoom |

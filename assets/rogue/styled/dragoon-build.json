@@ -1,6 +1,6 @@
 {
   "hero": "dragoon",
-  "triangles": 3060,
+  "triangles": 8918,
   "mesh_batches": 7,
   "source": "assets/blender/rogue/dragoon.blend",
   "removed_microdetails": [
@@ -96,5 +96,292 @@
     "Weapon_Cutlass"
   ],
   "face_method": "UV-painted skull",
-  "head_shape": "Slimmer cheeks, tapered jaw and face-framing hair"
+  "head_shape": "Angular cheek apex and crisp short chin; swept charcoal locks continue horned helmet silhouette",
+  "roster_generator": "tools/sculpt_rogue_roster.py",
+  "facial_depth_revision": "approved-2.34.1-roster-rollout",
+  "painted_atlas_changed": false,
+  "export_face_uv_check": {
+    "uv_set": 0,
+    "distinct_coordinates": 716,
+    "u_span": 0.3253333568572998,
+    "v_span": 0.3166666626930237,
+    "single_head_uv_set": true
+  },
+  "pivot_invariance": true,
+  "body_and_weapon_geometry_invariance": true,
+  "unchanged_components": 132,
+  "adjusted_accessories": [],
+  "replaced_head_components": [
+    "Face framing hair L",
+    "Ear framing hair L",
+    "Face framing hair R",
+    "Ear framing hair R"
+  ],
+  "roster_mesh_checks": [
+    {
+      "name": "Carved face",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.10586395918175684
+    },
+    {
+      "name": "Roster dragoon temple -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.003050336909701957
+    },
+    {
+      "name": "Roster dragoon ear sweep -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.002846715692588587
+    },
+    {
+      "name": "Roster dragoon temple 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0031280493829806944
+    },
+    {
+      "name": "Roster dragoon ear sweep 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0028225894395656724
+    },
+    {
+      "name": "Roster dragoon nape lock 0",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0033463392718669676
+    },
+    {
+      "name": "Roster dragoon nape lock 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.003351257105225128
+    },
+    {
+      "name": "Roster dragoon nape lock 2",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0033595878734852193
+    },
+    {
+      "name": "Roster dragoon swept nape -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.004737099582337385
+    },
+    {
+      "name": "Roster dragoon swept nape 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.004630729125734793
+    },
+    {
+      "name": "Roster dragoon diagonal fringe",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0028517524699741325
+    }
+  ],
+  "equipment_revision": "2.37",
+  "equipment_generator": "tools/equip_rogue_roster.py",
+  "equipment_design": "Closed navy dragon faceplate with narrow turquoise visor, projecting armored snout, silver bridge and complete jaw; existing swept horns, crown shell and temple fins retained",
+  "equipment_removed": [
+    "Azure helmet crown",
+    "Silver forehead crest",
+    "Azure forehead inlay",
+    "Helm individual wing feather",
+    "Helm individual wing feather.001",
+    "Helm individual wing feather.002",
+    "Helm individual wing feather.003",
+    "Dragon horn",
+    "Helm individual wing feather.004",
+    "Helm individual wing feather.005",
+    "Helm individual wing feather.006",
+    "Helm individual wing feather.007",
+    "Dragon horn.001",
+    "Equipment dragon swept snout",
+    "Equipment dragon silver muzzle rim",
+    "Equipment dragon teal eye inlay -1",
+    "Equipment dragon jaw guard -1",
+    "Equipment dragon teal eye inlay 1",
+    "Equipment dragon jaw guard 1"
+  ],
+  "equipment_adjusted": [],
+  "equipment_mesh_checks": [
+    {
+      "name": "Equipment dragon azure skull shell",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.1001886930096069
+    },
+    {
+      "name": "Equipment dragon swept silver horn -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.007606362822416143
+    },
+    {
+      "name": "Equipment dragon teal horn root -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0052584495206918005
+    },
+    {
+      "name": "Equipment dragon swept temple scale -1 0",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0014665441873539004
+    },
+    {
+      "name": "Equipment dragon swept temple scale -1 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0013654788129638892
+    },
+    {
+      "name": "Equipment dragon swept temple scale -1 2",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0012644165589858537
+    },
+    {
+      "name": "Equipment dragon swept silver horn 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.007781748198472083
+    },
+    {
+      "name": "Equipment dragon teal horn root 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.005243454284147502
+    },
+    {
+      "name": "Equipment dragon swept temple scale 1 0",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0017040430132820772
+    },
+    {
+      "name": "Equipment dragon swept temple scale 1 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0015268537603963113
+    },
+    {
+      "name": "Equipment dragon swept temple scale 1 2",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0013496666795412156
+    },
+    {
+      "name": "Equipment dragon dorsal silver crest 0",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0017221710883602824
+    },
+    {
+      "name": "Equipment dragon dorsal silver crest 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0017221698156394823
+    },
+    {
+      "name": "Equipment dragon dorsal silver crest 2",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0017221701175393382
+    },
+    {
+      "name": "Equipment dragon closed face shell",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.01133301180943087
+    },
+    {
+      "name": "Equipment dragon visor shadow -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.00010706397394697622
+    },
+    {
+      "name": "Equipment dragon visor teal slit -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 2.6631946949739423e-05
+    },
+    {
+      "name": "Equipment dragon visor armored brow -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.00034876816021445
+    },
+    {
+      "name": "Equipment dragon face swept cheek -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0006903624723113273
+    },
+    {
+      "name": "Equipment dragon muzzle nostril -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 2.3627937001902035e-05
+    },
+    {
+      "name": "Equipment dragon visor shadow 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.00010706397394697456
+    },
+    {
+      "name": "Equipment dragon visor teal slit 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 2.6631946949738746e-05
+    },
+    {
+      "name": "Equipment dragon visor armored brow 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0003487681602144541
+    },
+    {
+      "name": "Equipment dragon face swept cheek 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0006903625310888534
+    },
+    {
+      "name": "Equipment dragon muzzle nostril 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 2.362793700190312e-05
+    },
+    {
+      "name": "Equipment dragon muzzle silver bridge",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0004843501927801241
+    },
+    {
+      "name": "Equipment dragon muzzle dark jaw seam",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.00013936780184656486
+    },
+    {
+      "name": "Equipment dragon muzzle silver jaw",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.000910952658615125
+    }
+  ],
+  "equipment_unchanged_components": 130,
+  "equipment_pivot_invariance": true,
+  "equipment_pivot_adjustments": {},
+  "equipment_body_and_weapon_geometry_invariance": true
 }

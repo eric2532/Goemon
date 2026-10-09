@@ -408,4 +408,13 @@ def build(hero):
 
 if __name__=='__main__':
  args=sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else list(PROFILES)
- for hero in args:build(hero)
+ # Preserve the approved pilots and the complete roster anatomy/hair direction.
+ # The sculptors call build() for their base, so dispatch only at the CLI entry.
+ sys.path.insert(0,str(ROOT/'tools'))
+ from sculpt_rogue_pilot import PILOTS, build as build_pilot
+ from sculpt_rogue_roster import build as build_roster
+ from equip_rogue_roster import HEROES as EQUIPMENT_HEROES, build as build_equipment
+ for hero in args:
+  if hero in EQUIPMENT_HEROES:build_equipment(hero)
+  elif hero in PILOTS:build_pilot(hero)
+  else:build_roster(hero)

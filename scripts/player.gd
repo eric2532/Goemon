@@ -7,6 +7,7 @@ var character_models: Dictionary={}
 var character_abilities: Dictionary={}
 var musashi: MusashiCombat
 var active_ability: Node
+const BASIC_ATTACK_RANGE_MULTIPLIER = 3.0
 const ROSTER={1: {"name":"Goemon", "model":preload("res://scripts/hero_model.gd")},2: {"name":"Edo", "model":preload("res://assets/characters/musashi/model/musashi_model.gd"),"combat":preload("res://assets/characters/musashi/combat/musashi_combat.gd")}}
 const RogueRoster=preload("res://scripts/rogue_roster.gd")
 var model: HeroModel
@@ -203,7 +204,7 @@ func start_attack(heavy: bool, stage: int=1, charged: bool=false, power: float=1
 		facing=game.attack_direction()
 	if soft_target and weapon_slot==1 and not game.rogue_battle_mode:
 		var best: Node3D=null
-		var dist=game.tuning.pipe_range*range_multiplier()+1.5
+		var dist=game.tuning.pipe_range*attack_reach_multiplier()+1.5
 		for e in game.enemies:
 			if not is_instance_valid(e) or e.dead: continue
 			var dif=e.global_position-global_position
@@ -247,14 +248,14 @@ func strike():
 		game.sound("dash",.45)
 	elif first_sample:
 		if uses_rogue_pipe_profile():rogue_pipe_combo.slash(combo)
-		elif wide_swing:game.combo_slash(center,facing,2,melee_range_multiplier()*game.tuning.pipe_range*1.26/3.5)
-		elif attack_heavy: game.slash(center,facing,true,combo,Color("ffdf83"),melee_range_multiplier()*game.tuning.pipe_range/3.5)
-		else: game.combo_slash(center,facing,combo,melee_range_multiplier()*game.tuning.pipe_range/3.5)
+		elif wide_swing:game.combo_slash(center,facing,2,attack_reach_multiplier()*game.tuning.pipe_range*1.26/3.5)
+		elif attack_heavy: game.slash(center,facing,true,combo,Color("ffdf83"),attack_reach_multiplier()*game.tuning.pipe_range/3.5)
+		else: game.combo_slash(center,facing,combo,attack_reach_multiplier()*game.tuning.pipe_range/3.5)
 	var any_hit=false
 	for e in game.enemies:
 		if not is_instance_valid(e) or e.dead or struck_targets.has(e.get_instance_id()): continue
 		var dif=e.global_position-global_position
-		var reach=game.tuning.pipe_range*(1.65 if attack_charged else (1.26 if attack_heavy else 1.0))*melee_range_multiplier()
+		var reach=game.tuning.pipe_range*(1.65 if attack_charged else (1.26 if attack_heavy else 1.0))*attack_reach_multiplier()
 		if dif.length()<reach+e.body_radius and absf(dif.y)<3.5*growth_multiplier() and (attack_charged or facing.dot(dif.normalized())>-0.12):
 			var ray=PhysicsRayQueryParameters3D.create(global_position+Vector3.UP,e.global_position+Vector3.UP,1)
 			if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty(): continue
@@ -267,7 +268,7 @@ func strike():
 			else:game.confirm_impact(e,contact,hit_dir,2 if attack_heavy or combo==3 else (1 if combo==2 else 0),false)
 			any_hit=true
 	var building_damage=game.tuning.charged_damage*charge_power if attack_charged else (48 if attack_heavy else (30 if combo==3 else 22))
-	BreakableBuilding.hit_area(game,global_position+Vector3.UP*growth_multiplier(),game.tuning.pipe_range*(1.65 if attack_charged else (1.26 if attack_heavy else 1.0))*melee_range_multiplier(),building_damage*damage_multiplier(),attack_ticket,facing,-1.0 if attack_charged else -.12,struck_targets)
+	BreakableBuilding.hit_area(game,global_position+Vector3.UP*growth_multiplier(),game.tuning.pipe_range*(1.65 if attack_charged else (1.26 if attack_heavy else 1.0))*attack_reach_multiplier(),building_damage*damage_multiplier(),attack_ticket,facing,-1.0 if attack_charged else -.12,struck_targets)
 	if first_sample and not any_hit:
 		var environment_ray=PhysicsRayQueryParameters3D.create(global_position+Vector3.UP,center+facing*1.2,1)
 		var surface=get_world_3d().direct_space_state.intersect_ray(environment_ray)
@@ -379,12 +380,10 @@ func _physics_process(delta):
 		var horizontal_velocity=Vector2(velocity.x,velocity.z).move_toward(Vector2(dir.x,dir.z)*speed,accel*delta)
 		velocity.x=horizontal_velocity.x
 		velocity.z=horizontal_velocity.y
-	if game.rogue_battle_mode and not forward_dash.active and not chain_pipe_combat.active and dodge_time<=0 and attack_left<=0:
-		facing=game.attack_direction()
-	if not game.rogue_battle_mode and not forward_dash.active and wall_jump_recovery<=0 and dir.length()>0.1 and (attack_left<=0 or (jumps_used>=2 and not game.camera_combat())):
-		# Forward travel turns into the path. S backpedals and A/D strafe with
-		# camera-facing shoulders, so directional locomotion is actually reachable.
-		facing=dir.normalized() if flying or input.y< -0.1 or jumps_used>=2 else Vector3.FORWARD.rotated(Vector3.UP,yaw)
+	if not forward_dash.active and not chain_pipe_combat.active and dodge_time<=0 and wall_jump_recovery<=0 and dir.length()>0.1 and (attack_left<=0 or (jumps_used>=2 and not game.camera_combat() and not game.rogue_battle_mode)):
+		# Free movement turns into camera-relative travel in every direction.
+		# Attacks and committed abilities keep their existing aim.
+		facing=dir.normalized()
 	model.rotation.y=lerp_angle(model.rotation.y,atan2(-facing.x,-facing.z),1-exp(-delta*(24 if attack_left>0 else 14)))
 	if jump_buffer>0:
 		if not is_on_floor() and wall_jump_grace>0 and wall_jump_recovery<=0 and jump_windup<=0 and dodge_time<=0 and not forward_dash.active:
@@ -610,6 +609,10 @@ func range_multiplier()->float:
 func melee_range_multiplier()->float:
 	return range_multiplier()*(game.tuning.surge_range if attack_charged and surge_left<=0 else 1.0)
 
+func attack_reach_multiplier()->float:
+	var basic = not attack_heavy and not attack_charged and not wide_swing
+	return melee_range_multiplier() * (BASIC_ATTACK_RANGE_MULTIPLIER if basic else 1.0)
+
 func emit_robe_coins(radial: bool=false):
 	if character_id!=1 or not scarf_equipped:return
 	game.throw_robe_coins(facing,radial,weapon_slot==2)
@@ -688,7 +691,7 @@ func select_character(id: int):
 	last_foot_events=model.locomotion.step_events
 	if game.rogue_roster_mode and (id in [1,2] or is_rogue_character()):game.selected_rogue_id=id
 	if is_rogue_character():
-		game.toast(RogueRoster.name_for(id)+(" · Camera-facing · C Evade · E Utility · R Skill · Q Heroes" if game.camera_combat() else " · LMB / RMB Attack · C / E Utility · R Skill · Q Fighters"))
+		game.toast(RogueRoster.name_for(id)+(" · LMB Attack · RMB / 3 Secondary · C Evade · E Utility · R Skill · Q Heroes" if game.camera_combat() else " · LMB Attack · RMB / 3 Secondary · C / E Utility · R Skill · Q Fighters"))
 	elif game.rogue_roster_mode and id==1:
 		game.toast("Goemon · Q Fighters · Hold LMB Combo · RMB Heavy · C Evade · E Dash · R Surge")
 	else:game.toast(ROSTER[id].name+" · Q Switch character · "+("LMB Triple fireball · RMB Giant fireball · T Meteor rain · R Beam" if id==2 else "1 Wind spin · 2 Auto coins ON/OFF · 3 Long sweep · C Evade"))

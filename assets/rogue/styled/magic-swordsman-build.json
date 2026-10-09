@@ -1,6 +1,6 @@
 {
   "hero": "magic-swordsman",
-  "triangles": 2868,
+  "triangles": 8750,
   "mesh_batches": 7,
   "source": "assets/blender/rogue/magic-swordsman.blend",
   "removed_microdetails": [
@@ -99,5 +99,358 @@
     "Weapon_Cutlass"
   ],
   "face_method": "UV-painted skull",
-  "head_shape": "Slimmer cheeks, tapered jaw and face-framing hair"
+  "head_shape": "Anime depth refinement: convex face, supported eye plane and broad integrated nose",
+  "facial_depth_revision": "2.34.1",
+  "facial_depth_profile": {
+    "chin": {
+      "x": 0.0,
+      "z": 1.5049999952316284,
+      "front_depth": 0.25644487142562866
+    },
+    "mouth": {
+      "x": 0.0,
+      "z": 1.5499999523162842,
+      "front_depth": 0.2861616313457489
+    },
+    "lower_cheek": {
+      "x": 0.17889802157878876,
+      "z": 1.649999976158142,
+      "front_depth": 0.25910472869873047
+    },
+    "upper_cheek": {
+      "x": 0.16778221726417542,
+      "z": 1.75,
+      "front_depth": 0.2806834876537323
+    },
+    "eye_plane": {
+      "x": 0.1456615924835205,
+      "z": 1.7949999570846558,
+      "front_depth": 0.2756553888320923
+    },
+    "brow": {
+      "x": 0.1431998461484909,
+      "z": 1.875,
+      "front_depth": 0.27365419268608093
+    },
+    "nose_tip": {
+      "x": 0.0,
+      "z": 1.6720000505447388,
+      "front_depth": 0.3637363612651825
+    },
+    "nose_bridge": {
+      "x": 0.0,
+      "z": 1.75,
+      "front_depth": 0.3296359181404114
+    },
+    "forehead": {
+      "x": 0.0,
+      "z": 1.8949999809265137,
+      "front_depth": 0.27804291248321533
+    }
+  },
+  "hair_shape": "Large closed swept clumps; original class identity and colors",
+  "pilot_generator": "tools/sculpt_rogue_pilot.py",
+  "painted_atlas_changed": false,
+  "export_face_uv_check": {
+    "uv_set": 0,
+    "distinct_coordinates": 659,
+    "u_span": 0.32533329725265503,
+    "v_span": 0.3149999976158142,
+    "single_head_uv_set": true
+  },
+  "pivot_invariance": true,
+  "body_and_weapon_geometry_invariance": true,
+  "pilot_mesh_checks": [
+    {
+      "name": "Carved face.001",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.1209866359996112
+    },
+    {
+      "name": "Pilot fitted hair crown",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.07749987763834372
+    },
+    {
+      "name": "Pilot silver sweeping fringe",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.009365712547974386
+    },
+    {
+      "name": "Pilot silver central accent",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0050131440077069035
+    },
+    {
+      "name": "Pilot silver right fringe",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.005449916791662957
+    },
+    {
+      "name": "Pilot silver crown lock 00",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.00693324435131431
+    },
+    {
+      "name": "Pilot silver crown lock 01",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.005601092044830816
+    },
+    {
+      "name": "Pilot silver crown lock 02",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.004167082607621235
+    },
+    {
+      "name": "Pilot silver crown lock 03",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.003717076020415103
+    },
+    {
+      "name": "Pilot silver crown lock 04",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.004307689466545355
+    },
+    {
+      "name": "Pilot silver crown lock 05",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0038362403719820076
+    },
+    {
+      "name": "Pilot silver nape lock 00",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.008806872727821135
+    },
+    {
+      "name": "Pilot silver nape lock 01",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.00862252000713135
+    },
+    {
+      "name": "Pilot silver nape lock 02",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.00852341614050823
+    },
+    {
+      "name": "Pilot silver nape lock 03",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.008560784871709505
+    },
+    {
+      "name": "Pilot silver nape lock 04",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.008698321958317235
+    },
+    {
+      "name": "Pilot silver temple -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.003194918881220773
+    },
+    {
+      "name": "Pilot silver temple 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0032993449149085812
+    }
+  ],
+  "equipment_revision": "2.37",
+  "equipment_generator": "tools/equip_rogue_roster.py",
+  "equipment_design": "Full violet demon mask with bold slanted brows, narrow dark enchanted eyes, angular cheeks/nose/chin and two small silver fangs; existing amethyst crystal crown and temples retained",
+  "equipment_removed": [
+    "Silver temple circlet",
+    "Temple jewel",
+    "Silver temple circlet.001",
+    "Temple jewel.001",
+    "Pilot silver crown lock 00",
+    "Pilot silver crown lock 01",
+    "Pilot silver crown lock 02",
+    "Pilot silver crown lock 03",
+    "Pilot silver sweeping fringe"
+  ],
+  "equipment_adjusted": [],
+  "equipment_mesh_checks": [
+    {
+      "name": "Equipment arcane violet helmet shell",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.13479094135935013
+    },
+    {
+      "name": "Equipment arcane angular brow",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0024156800631229785
+    },
+    {
+      "name": "Equipment arcane upswept crown blade -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.007567202830740973
+    },
+    {
+      "name": "Equipment arcane lavender blade edge -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 2.4991838713242552e-05
+    },
+    {
+      "name": "Equipment arcane temple guard -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.001906842152285368
+    },
+    {
+      "name": "Equipment arcane temple rune -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 5.1148321256245285e-05
+    },
+    {
+      "name": "Equipment arcane upswept crown blade 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.006563974567693002
+    },
+    {
+      "name": "Equipment arcane lavender blade edge 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 2.499183871324949e-05
+    },
+    {
+      "name": "Equipment arcane temple guard 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0022723005994995777
+    },
+    {
+      "name": "Equipment arcane temple rune 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 5.1148321256246423e-05
+    },
+    {
+      "name": "Equipment arcane crystal silver setting",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.004005249028325025
+    },
+    {
+      "name": "Equipment arcane amethyst focus",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0010452497689624365
+    },
+    {
+      "name": "Equipment demon closed violet face shell",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.010563644484089812
+    },
+    {
+      "name": "Equipment demon narrow shadow eye -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.00015137247965506283
+    },
+    {
+      "name": "Equipment demon slanted violet eye slit -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 1.9443950530433474e-05
+    },
+    {
+      "name": "Equipment demon bold raised brow -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.00046704015534049237
+    },
+    {
+      "name": "Equipment demon angular cheek blade -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0006371727044914418
+    },
+    {
+      "name": "Equipment demon narrow shadow eye 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.00015137247965506392
+    },
+    {
+      "name": "Equipment demon slanted violet eye slit 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 1.9443950530437773e-05
+    },
+    {
+      "name": "Equipment demon bold raised brow 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.00046704015534049177
+    },
+    {
+      "name": "Equipment demon angular cheek blade 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0006371727015846595
+    },
+    {
+      "name": "Equipment demon angular nose ridge",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.001317060361531386
+    },
+    {
+      "name": "Equipment demon nose center facet",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 6.060001046812794e-05
+    },
+    {
+      "name": "Equipment demon sharp mouth shadow",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.00037293985900529786
+    },
+    {
+      "name": "Equipment demon small silver fang -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 6.111997250674605e-05
+    },
+    {
+      "name": "Equipment demon small silver fang 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 6.111997250674773e-05
+    },
+    {
+      "name": "Equipment demon pointed chin armor",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.00046317621865301365
+    }
+  ],
+  "equipment_unchanged_components": 108,
+  "equipment_pivot_invariance": true,
+  "equipment_pivot_adjustments": {},
+  "equipment_body_and_weapon_geometry_invariance": true
 }
