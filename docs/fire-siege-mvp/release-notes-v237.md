@@ -26,11 +26,17 @@ v2.32.0.
 
 `Goemon-Fire-Siege-v2.37.0-macOS.zip` contains the tested universal macOS app
 (Apple Silicon and Intel). Extract the ZIP and launch **Goemon Fire Siege.app**.
-This release contains the macOS build; no updated Linux build is included.
 The macOS app is ad-hoc signed and is not notarized.
 
+`Goemon-Fire-Siege-v2.37.0-Linux-x86_64.zip` contains the Linux x86_64 executable,
+resource pack and launch instructions. Extract the complete folder, keep the
+executable and PCK together, and run `./Goemon-Fire-Siege.x86_64`. If necessary,
+restore executable permission with `chmod +x Goemon-Fire-Siege.x86_64`.
+The Linux resource pack is checked on macOS; native Linux execution has not been
+verified on this machine.
+
 The preview, verification report and `SHA256SUMS.txt` are included as release
-assets. The ZIP is byte-identical to the locally tested v2.37.0 archive.
+assets. The Mac ZIP is byte-identical to the locally tested v2.37.0 archive.
 
 ## Verification
 
@@ -40,6 +46,10 @@ produced 26 captures with no runtime warnings or errors; its three revised model
 hashes match source. Earlier combat and construction validation remains documented
 in this repository. These are local acceptance checks, not exhaustive testing on
 every supported Mac.
+
+The exported Linux resource pack passed 41 equipment/combat checks and 13 scarf
+checks using the local Godot runtime outside the source checkout. See the
+attached Linux verification report for the native-runtime testing limitation.
 
 See [v2.37 verification](https://github.com/eric2532/Goemon/blob/fire-siege-v2.37.0-mvp/docs/fire-siege-mvp/mask-refinement-v237.md),
 [v2.36 equipment/combat verification](https://github.com/eric2532/Goemon/blob/fire-siege-v2.37.0-mvp/docs/fire-siege-mvp/equipment-upgrade-v236-verification.md),

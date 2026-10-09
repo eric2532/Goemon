@@ -16,7 +16,7 @@ The ground map is now **four times its previous area** (twice the width and dept
 ## Fire Siege · Closed masks and Samurai proportions · v2.37.0
 
 Download the [v2.37.0 MVP GitHub release](https://github.com/eric2532/Goemon/releases/tag/fire-siege-v2.37.0-mvp)
-for the current universal macOS build. Repository access is required.
+for the current universal macOS and Linux x86_64 builds. Repository access is required.
 
 Samurai now has a shorter neck, a lower head/helmet position and a compact fitted
 scarf. Dragoon's dragon helmet covers his face; Magic Swordsman wears a purple
