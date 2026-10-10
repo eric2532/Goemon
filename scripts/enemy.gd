@@ -286,7 +286,7 @@ func _physics_process(delta):
 	var focus=game.player
 	var distance=global_position.distance_squared_to(focus.global_position)
 	if defense_lane>=0 and not dead:
-		if position.distance_squared_to(game.world.base_position)<8*8:
+		if game.encounters.can_breach(self):
 			game.encounters.breach(self);return
 		var kennel=refresh_defense_dog_target(delta)
 		var prior_boss_phase=defense_traits.phase if defense_traits!=null else ""

@@ -66,6 +66,10 @@ const DEFAULT_SETTINGS={"volume":0.65,"music_enabled":false,"sensitivity":1.0,"f
 var settings=DEFAULT_SETTINGS.duplicate()
 var settings_path="user://settings.cfg"
 var zone_seen: Dictionary={}
+var map_editor
+var map_editor_draft
+var custom_map_data: Dictionary={}
+var launching_custom_map=false
 var smoke_test=false
 var tuning=PrototypeTuning.DEFAULTS.duplicate()
 var lab_spawn_id=0
@@ -111,7 +115,43 @@ func _ready():
 	spawn_gates()
 	pursuit.configure()
 	show_main_menu()
-	if "--rogue-mask-refinement-tour" in OS.get_cmdline_user_args():
+	if "--auto-build-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/auto_build_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--auto-build-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/auto_build_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--auto-attack-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/auto_attack_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--auto-attack-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/auto_attack_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--map-builder-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/map_builder_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--map-builder-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/map_builder_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--ranger-air-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/ranger_air_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--ranger-air-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/ranger_air_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--ranger-precision-tour" in OS.get_cmdline_user_args() or "--ranger-storm-tour" in OS.get_cmdline_user_args() or "--ranger-flight-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/ranger_storm_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--ranger-precision-test" in OS.get_cmdline_user_args() or "--ranger-storm-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/ranger_storm_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--ranger-flight-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/ranger_flight_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--ranger-redesign-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/ranger_redesign_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--rogue-mask-refinement-tour" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/rogue_mask_refinement_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
 	elif "--rogue-equipment-combat-test" in OS.get_cmdline_user_args():
@@ -372,7 +412,7 @@ func _ready():
 	if OS.has_feature("fire_siege") and not smoke_test:show_defense_setup.call_deferred()
 
 func setup_inputs():
-	var keys={"walk_modifier":KEY_CTRL,"move_forward":KEY_W,"move_back":KEY_S,"move_left":KEY_A,"move_right":KEY_D,"jump":KEY_SPACE,"sprint":KEY_SHIFT,"dodge":KEY_C,"equip":KEY_E,"assist":KEY_TAB,"pause":KEY_ESCAPE,"character_toggle":KEY_Q,"weapon_pipe":KEY_1,"weapon_coin":KEY_2,"weapon_chain":KEY_3,"scarf_toggle":KEY_4,"gold_cloak":KEY_5,"interact":KEY_F,"surge":KEY_R,"sky_strike":KEY_T,"prototype_lab":KEY_F1,"shuffle_map":KEY_Y,"summon_dogs":KEY_G,"summon_heroes":KEY_H,"siege_build":KEY_B,"siege_start":KEY_Y,"siege_revive":KEY_V}
+	var keys={"walk_modifier":KEY_CTRL,"move_forward":KEY_W,"move_back":KEY_S,"move_left":KEY_A,"move_right":KEY_D,"jump":KEY_SPACE,"sprint":KEY_SHIFT,"dodge":KEY_C,"equip":KEY_E,"assist":KEY_TAB,"pause":KEY_ESCAPE,"character_toggle":KEY_Q,"weapon_pipe":KEY_1,"weapon_coin":KEY_2,"weapon_chain":KEY_3,"scarf_toggle":KEY_4,"gold_cloak":KEY_5,"interact":KEY_F,"surge":KEY_R,"sky_strike":KEY_T,"prototype_lab":KEY_F1,"shuffle_map":KEY_Y,"summon_dogs":KEY_G,"summon_heroes":KEY_H,"siege_build":KEY_B,"siege_start":KEY_Y,"siege_revive":KEY_V,"auto_attack_toggle":KEY_J}
 	for action in keys:
 		if not InputMap.has_action(action): InputMap.add_action(action)
 		var event=InputEventKey.new()
@@ -599,6 +639,8 @@ func menu_base()->Control:
 	return menu
 
 func show_main_menu():
+	player.reset_auto_attack()
+	custom_map_data.clear()
 	rogue_roster_open=false;rogue_pick_start=false
 	var restore_hero=rogue_roster_mode or player.is_rogue_character()
 	rogue_roster_mode=false
@@ -658,6 +700,9 @@ func show_main_menu():
 	label_at(root,"10 waves · Upgrade cards · Dogs and character summons" if defense_beta else "Three lanes · Earn gold · Build cannons · Hold the shrine",Vector2(88,635),16,Color("d8e6df"))
 	label_at(root,"FIRE SIEGE · 12 PLAYABLE HEROES",Vector2(650,480),24,Color("f1d390"))
 	label_at(root,"Original camera · Shared controls · Native hero skills",Vector2(650,529),17)
+	var builder_button=button_at(root,"BUILD YOUR OWN MAP",Vector2(650,583),open_map_editor,390)
+	builder_button.name="MapBuilderButton"
+	label_at(root,"Place pieces · Draw routes · Save & play",Vector2(662,646),17,Color("d8e6df"))
 	button_at(root,"Settings",Vector2(76,706),func(): show_settings(false),220)
 	button_at(root,"Quit",Vector2(312,706),quit_clean,224)
 	label_at(root,"PROCEDURAL WORLD  /  ORIGINAL CHARACTER  /  GODOT 4",Vector2(76,822),12,Color("c4d6d2"))
@@ -668,7 +713,7 @@ func show_defense_setup(rogue: bool=false):
 	label_at(root,"ROGUE SIEGE" if rogue else "FIRE SIEGE",Vector2(92,150),58)
 	label_at(root,"Choose your defense challenge",Vector2(96,230),25,Color("f1d390"))
 	label_at(root,"Pick one of three cards before every wave. Your build lasts the run." if rogue else "Build your defense. Fight beside it. Survive ten waves.",Vector2(96,282),21)
-	label_at(root,"Ice shells · Fire paths · Armored enemies · Bosses on waves 5 and 10" if rogue else "Hold B to build · Hold Y for 3 seconds to start each wave",Vector2(96,321),18,Color("b9d7da"))
+	label_at(root,"Ice shells · Fire paths · Armored enemies · Bosses on waves 5 and 10" if rogue else "Stand nearby to build · Hold Y for 3 seconds to start each wave",Vector2(96,321),18,Color("b9d7da"))
 	button_at(root,"BETA  /  Full battery" if rogue else "BETA  /  Build & defend",Vector2(96,398),start_rogue_defense.bind(false) if rogue else choose_defense_hero.bind(false),500).grab_focus()
 	label_at(root,"2 walls · 8 defenses · 12,000 gold · 100 shrine integrity" if rogue else "12 empty sites · 10 gold · 100 integrity · Revive Now available",Vector2(108,461),18,Color("cddad6"))
 	button_at(root,"HARD  /  Build your defense",Vector2(96,524),start_rogue_defense.bind(true) if rogue else choose_defense_hero.bind(true),500)
@@ -783,6 +828,7 @@ func summon_defense_hero(id: String):
 	toast("%s summoned · Leaving the castle" % hero.name)
 
 func start_mode(mode: String):
+	if not launching_custom_map:custom_map_data.clear()
 	if transitioning or mode not in ["descent","defense","survival","rogue","rogue_defense"]:return
 	var was_rogue_roster=rogue_roster_mode
 	if mode!="rogue_defense":restore_defense_settings()
@@ -823,6 +869,7 @@ func restore_defense_settings():
 
 func start_game(seed_override: int=-1):
 	if transitioning:return
+	player.reset_auto_attack()
 	rogue_feedback.clear()
 	adventure.reset()
 	player.run_upgrades={"damage":0,"vitality":0,"tempo":0}
@@ -903,7 +950,7 @@ func start_game(seed_override: int=-1):
 	rogue_feedback.set_enabled(rogue_battle_mode)
 	if camera_combat():
 		player.soft_target=false
-		toast("FIRE SIEGE · Hold B to build · Hold Y to start · Q Heroes · G / H Allies" if is_fire_siege() else "FIRE SIEGE · Camera-facing combat · Q Heroes · C Evade · E Utility · F Towers · G / H Allies")
+		toast("FIRE SIEGE · Stand nearby to build · Hold Y to start · Q Heroes · G / H Allies" if is_fire_siege() else "FIRE SIEGE · Camera-facing combat · Q Heroes · C Evade · E Utility · F Towers · G / H Allies")
 		return
 	if rogue_roster_mode:
 		toast("ROGUE SIEGE · Q Fighters · C Evade / E Dash · R Surge · F Upgrade · G / H Allies" if player.character_id==1 else "ROGUE SIEGE · Q Fighters · C / E Utility · R Skill · F Upgrade · G / H Allies")
@@ -932,6 +979,7 @@ func finish_map_shuffle():
 	toast("NEW MAP · Fresh descent · Y shuffle / Esc restart this map")
 
 func _unhandled_input(event):
+	if is_instance_valid(map_editor):return
 	if transitioning: return
 	if is_fire_siege() and playing and not paused and event.is_action_pressed("siege_revive") and not event.is_echo():
 		encounters.revive_now();get_viewport().set_input_as_handled();return
@@ -986,6 +1034,9 @@ func show_pause():
 	button_at(root,"Resume",Vector2(96,304),resume).grab_focus()
 	button_at(root,"Settings",Vector2(96,367),func(): show_settings(true))
 	button_at(root,"Restart Rogue Siege" if rogue_roster_mode and rogue_battle_mode else ("Restart Rogue Battle" if rogue_battle_mode else ("Restart defense" if tower_defense_mode else ("Restart descent" if descent_mode else "Restart survival"))),Vector2(96,430),restart_area)
+	if not custom_map_data.is_empty():
+		var edit_button=button_at(root,"Return to map builder",Vector2(470,430),open_map_editor,380)
+		edit_button.name="ReturnToMapBuilder"
 	button_at(root,"Main menu",Vector2(96,493),show_main_menu)
 	button_at(root,"Quit",Vector2(96,556),quit_clean)
 
@@ -1392,9 +1443,10 @@ func is_fire_siege()->bool:
 	return tower_defense_mode and is_instance_valid(encounters) and encounters.get("redesign_mode")==true
 
 func siege_building()->bool:
-	return is_fire_siege() and playing and not paused and player.hp>0 and Input.is_action_pressed("siege_build") and encounters.nearest_site()>=0
+	return is_fire_siege() and encounters.build_candidate()>=0
 
 func clear_siege_projectiles():
+	player.reset_auto_attack()
 	player.cancel_charge()
 	player.quick_attacks.stop_coins()
 	player.end_surge()
@@ -1542,7 +1594,8 @@ func rebuild_area(index: int):
 		world.queue_free()
 	area_index=index
 	boss_active=false
-	world=load("res://scripts/tower_defense_world.gd").new() if tower_defense_mode else (Sanctuary.new() if index==0 else ExpeditionArea.new())
+	world=load("res://scripts/map_builder_world.gd").new() if tower_defense_mode and not custom_map_data.is_empty() else (load("res://scripts/tower_defense_world.gd").new() if tower_defense_mode else (Sanctuary.new() if index==0 else ExpeditionArea.new()))
+	if world.get("custom_map")==true:world.map_data=custom_map_data.duplicate(true)
 	if tower_defense_mode:
 		world.beta_mode=defense_beta;world.redesign_mode=is_fire_siege()
 	world.descent_mode=descent_mode
@@ -1797,3 +1850,24 @@ func _notification(what):
 		if rogue_battle_mode:
 			player.rogue_controls.reset()
 			if playing and not paused and not won and player.hp>0 and not smoke_test:show_pause()
+
+func open_map_editor():
+	if is_instance_valid(map_editor):return
+	clear_siege_projectiles()
+	playing=false;paused=true;get_tree().paused=true
+	Engine.time_scale=1;Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	clear_menu();hud.hide()
+	if map_editor_draft==null:
+		map_editor_draft=load("res://scripts/map_document.gd").new();map_editor_draft.reset_template()
+	map_editor=load("res://scripts/map_editor.gd").new();map_editor.game=self;map_editor.document=map_editor_draft
+	add_child(map_editor)
+
+func play_custom_map(map_data: Dictionary):
+	var verifier=load("res://scripts/map_document.gd").new()
+	if not verifier.decode(JSON.stringify(map_data)).is_empty() or not verifier.validate().is_empty():return
+	custom_map_data=verifier.data.duplicate(true)
+	if is_instance_valid(map_editor):
+		map_editor_draft=map_editor.document;remove_child(map_editor);map_editor.queue_free();map_editor=null
+	get_tree().paused=false;paused=false;hud.show()
+	launching_custom_map=true;defense_beta=true;defense_tactics=true
+	start_mode("defense");launching_custom_map=false

@@ -5,6 +5,9 @@ version**, as requested on 9 October 2026. Continue work in the latest
 `codex/fire-siege-mvp` worktree and use its Fire Siege export. The legacy Sky
 Descent material below remains reference for that older mode.
 
+The latest **v2.45** GitHub source is on **`codex/fire-siege-mvp`**.
+See [agent review instructions, verification and screenshots](docs/fire-siege-mvp/github-review-v245.md).
+
 ## Environment art
 
 The colorful Edo environment reskin uses 13 original editable Blender assets and 128-pixel painted surface textures across Tidefall Sanctuary and the three dormant regions. Characters, gameplay, UI and collision remain unchanged. See [assets, screenshots and validation](docs/environment-reskin/README.md).
@@ -13,10 +16,82 @@ The main area now has 48 original Blender town buildings at 4× their previous l
 
 The ground map is now **four times its previous area** (twice the width and depth), approximately **1,176 × 1,031 metres**. Existing Tidefall streets remain in place; new furnished districts occupy the expanded sides and north, with paths back to the original courts. Terrain pads keep entrances flush. Enemy AI freeze is a session-only Prototype Lab option and always resets to off when the game launches.
 
-## Fire Siege · Closed masks and Samurai proportions · v2.37.0
+## Fire Siege · Automatic construction · v2.45.0
+
+The current local app is `build/final-macos/Goemon Fire Siege.app` (v2.45.0).
+Stand beside an affordable tower or mine spot to build automatically. No B
+input is needed. Empty sites use small muted stones; a full translucent
+preview appears nearby, with a circular progress ring filling counterclockwise.
+Moving, jumping or rolling stops work; standing nearby again resumes it.
+The completed structure becomes solid and charges once. Tower: 3 seconds /
+5 gold; mine: 4 seconds / 10 gold. See [construction controls and verification](docs/fire-siege-mvp/auto-build-v245.md).
+
+### Automatic normal attack · v2.44.0
+
+Press **J** during play to toggle automatic normal attacks for any hero. Move
+and aim with the camera; no left click is needed. The HUD shows ON, PAUSED or
+OFF. Normal attack speed, combo effects and Ranger's double-jump fan remain
+active. Menus, construction and evasive moves suspend automatic attacks;
+new runs, death, hero changes and entering the editor reset the toggle OFF.
+Manual attacks and Mage charging still work. See [controls and verification](docs/fire-siege-mvp/auto-attack-v244.md).
+
+### In-game map builder · v2.43.0
+
+Choose **BUILD YOUR OWN MAP** in the main menu. Place scenery, ground tiles,
+tower/mine sites and gameplay markers on a flat 160×310m field. Move/rotate,
+duplicate/delete, snap to a 1/2/4m grid, undo/redo, save/load named local maps,
+and press **Play Map**. Pause your custom siege and choose **Return to map
+builder** to continue editing. The ordinary Fire Siege map remains available.
+
+New modular pieces include a torii gate, garden pavilion, stone lantern,
+stone wall, wooden fence, bamboo grove, cherry blossom, cedar, mossy boulder,
+supply crates and jade banner. Ordered route markers support turns and
+backward segments; validation catches blocked routes and unsafe spawn areas.
+All v2.42 Ranger changes remain. See [builder controls and verification](docs/fire-siege-mvp/map-builder-v243.md).
+
+### Previous Ranger high jump and held-Space slow fall · v2.42.0
+
+Version v2.42.0 introduced the Ranger air update.
+Ranger's first and second jumps now reach **twice their previous height**.
+Hold **Space while falling** to descend at **one-third normal speed** and keep
+firing arrows. Release Space to fall normally. Holding the first jump does not
+automatically consume the double jump; release and press Space again for it.
+Straight arrows with subtle launch variation, green third shots, combo firing
+speed, Rain, five-arrow fans, fitted hat, larger arrows and quick WASD roll
+remain. See the [air update and verification](docs/fire-siege-mvp/ranger-air-v242.md).
+
+### Previous straight arrows with human aim variation · v2.41.0
+
+Each Ranger arrow flies straight with small random horizontal and vertical aim
+offsets. Normal aim varies up to2° horizontally/1.25° vertically; green power
+shots up to2.5°/1.5°. All v2.40 features are retained. See the
+[correction and verification](docs/fire-siege-mvp/ranger-precision-v241.md).
+
+### Previous random coverage and snap roll · v2.40.0
+
+Version v2.40 introduced broad random mid-flight sweeps, hit-combo firing
+acceleration, Rain powering every release, and the0.15-second/6.9-metre roll.
+The mid-flight sweeps are superseded by v2.41's small launch-angle variation.
+See the [previous update](docs/fire-siege-mvp/ranger-storm-v240.md).
+
+### Previous curved Ranger arrows and green third shot · v2.39.0
+
+Version v2.39 introduced actual curved arrow flight, the wider fan, and each
+third LMB release becoming a larger green energy shot with 50% more damage.
+See the [previous flight update](docs/fire-siege-mvp/ranger-flight-v239.md).
+
+### Previous Ranger fan shot and fast roll · v2.38.0
+
+Version v2.38.0 was based on the latest v2.37 MVP. Ranger now wears a full fitted hat, uses arrows
+20% larger than v2.37, and fires five simultaneous fan arrows with **RMB / 3**.
+After **Space twice**, **LMB** fires the fan downward. **C** performs a fast
+quarter-second tumble in the movement direction. See the
+[Ranger update and verification](docs/fire-siege-mvp/ranger-upgrade-v238.md).
+
+### Previous closed masks and Samurai proportions · v2.37.0
 
 Download the [v2.37.0 MVP GitHub release](https://github.com/eric2532/Goemon/releases/tag/fire-siege-v2.37.0-mvp)
-for the current universal macOS and Linux x86_64 builds. Repository access is required.
+for the previously published universal macOS and Linux x86_64 builds. Repository access is required.
 
 Samurai now has a shorter neck, a lower head/helmet position and a compact fitted
 scarf. Dragoon's dragon helmet covers his face; Magic Swordsman wears a purple

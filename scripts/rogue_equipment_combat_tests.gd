@@ -12,6 +12,7 @@ func run():
 	await obstruction_rules()
 	await cancel_rules()
 	await ranger_rules()
+	await ranger_fan_and_roll_rules()
 	game.show_main_menu();game.sound_library.cancel();game.music.stop()
 	await frames(3)
 	stop_audio(game)
@@ -115,26 +116,36 @@ func ranger_rules():
 		check(native_projectiles.size()==3,"Ranger %s held primary releases three arrows per old firing cycle" % ("buffed" if boosted else "normal"))
 		var correct=true
 		for arrow in a.projectiles:
-			correct=correct and arrow.mesh.scale.is_equal_approx(Vector3.ONE*2) and is_equal_approx(arrow.vel.length(),36) and is_equal_approx(arrow.width,.25)
-		check(not a.projectiles.is_empty() and correct,"Ranger %s primary doubles visuals while retaining projectile speed and collision width" % ("buffed" if boosted else "normal"))
+			correct=correct and arrow.mesh.scale.is_equal_approx(Vector3.ONE*(3.24 if arrow.get("power",false) else 2.4)) and is_equal_approx(arrow.vel.length(),36) and is_equal_approx(arrow.width,.25)
+		check(not a.projectiles.is_empty() and correct,"Ranger %s primary enlarges visuals while retaining projectile speed and collision width" % ("buffed" if boosted else "normal"))
 		await fresh_class(7);a=p.active_ability
 		if boosted:tap("surge")
-		tap("heavy_attack");await frames(25)
-		correct=a.projectiles.size()==4
+		tap("heavy_attack");await frames(1)
+		correct=a.projectiles.size()==5
 		for arrow in a.projectiles:
-			correct=correct and arrow.mesh.scale.is_equal_approx(Vector3.ONE*2) and is_equal_approx(arrow.vel.length(),34) and is_equal_approx(arrow.width,.25)
-		check(correct,"Ranger %s secondary retains four arrows with doubled visuals and original flight handling" % ("buffed" if boosted else "normal"))
+			correct=correct and arrow.mesh.scale.is_equal_approx(Vector3.ONE*(3.24 if boosted else 2.4)) and is_equal_approx(arrow.vel.length(),34) and is_equal_approx(arrow.width,.25)
+		check(correct,"Ranger %s secondary releases five fan arrows with enlarged visuals and original flight handling" % ("buffed" if boosted else "normal"))
+		await frames(24)
 	for boosted in [false,true]:
 		await fresh_class(7)
+		# Elevated range fixture and vertical coverage accommodate actual aim
+		# variation instead of requiring a random shot to hit one level point.
+		game.player.global_position+=Vector3.UP*4;await frames(2)
+		game.player.velocity=Vector3.ZERO;game.player.jumps_used=1;game.player.coyote=0
 		if boosted:tap("surge")
-		var far=fixture(Vector3(48,0,0));var outside=fixture(Vector3(66,0,0));tap("light_attack");await frames(130)
-		check(is_equal_approx(10000-far.hp,67) and outside.hp==10000,"Ranger %s enlarged primary keeps its long range and single-target damage" % ("buffed" if boosted else "normal"))
-		far.queue_free();await frames(2);tap("light_attack");await frames(130)
-		check(outside.hp==10000 and game.player.active_ability.projectiles.is_empty(),"Ranger %s primary expires before an unobstructed target beyond its original 60-unit range" % ("buffed" if boosted else "normal"))
+		var far=ranger_target_band(48,3.0,1.5);var outside=ranger_target_band(66,4.0,2.0)
+		tap("light_attack");await frames(130)
+		check(is_equal_approx(ranger_band_damage(far),101 if boosted else 67) and outside.all(func(e):return e.hp==10000),"Ranger %s straight primary reaches its long-range coverage with configured damage" % ("buffed" if boosted else "normal"))
+		for enemy in far:enemy.queue_free()
+		game.player.global_position=TEST_ORIGIN+Vector3.UP*4;await frames(2)
+		game.player.velocity=Vector3.ZERO;game.player.jumps_used=1;game.player.coyote=0
+		tap("light_attack");await frames(130)
+		check(outside.all(func(e):return e.hp==10000) and game.player.active_ability.projectiles.is_empty(),"Ranger %s primary expires before unobstructed coverage beyond its original 60-unit range" % ("buffed" if boosted else "normal"))
 		await fresh_class(7)
 		if boosted:tap("surge")
-		outside=fixture(Vector3(24,0,0));tap("heavy_attack");await frames(70)
-		check(outside.hp==10000 and game.player.active_ability.projectiles.is_empty(),"Ranger %s secondary arrows retain their original 20-unit range" % ("buffed" if boosted else "normal"))
+		var beyond=fixture(Vector3(24,0,0));tap("heavy_attack");await frames(70)
+		check(beyond.hp==10000 and game.player.active_ability.projectiles.is_empty(),"Ranger %s secondary arrows retain their original 20-unit range" % ("buffed" if boosted else "normal"))
+
 	var a=game.player.active_ability
 	for boosted in [false,true]:
 		await fresh_class(7);a=game.player.active_ability
@@ -145,3 +156,71 @@ func ranger_rules():
 		wall.queue_free();await frames(2)
 	await fresh_class(1);a=game.player.active_ability;tap("equip")
 	check(a.projectiles.size()==1 and a.projectiles[0].mesh.scale.is_equal_approx(Vector3.ONE) and is_equal_approx(a.projectiles[0].vel.length(),32),"Samurai's utility arrow retains its original size and speed")
+
+var fan_records: Dictionary={}
+
+func record_projectiles():
+	super.record_projectiles()
+	if not is_instance_valid(game) or not game.player.is_rogue_character():return
+	for pr in game.player.active_ability.projectiles:
+		if not is_instance_valid(pr.mesh):continue
+		var uid=pr.mesh.get_instance_id()
+		if not fan_records.has(uid):fan_records[uid]={"frame":Engine.get_physics_frames(),"velocity":pr.vel,"scale":pr.mesh.scale}
+
+func ranger_fan_and_roll_rules():
+	for control in ["heavy_attack","weapon_chain"]:
+		await fresh_class(7);fan_records.clear()
+		var targets=ranger_target_band(8,7.5)
+		tap(control);await frames(1)
+		var arrows=fan_records.values();var same_time=arrows.size()==5
+		if same_time:same_time=arrows.all(func(pr):return pr.frame==arrows[0].frame)
+		check(same_time,"Ranger %s fires five arrows simultaneously" % control)
+		await frames(40)
+		check(is_equal_approx(ranger_band_damage(targets),125) and targets.filter(func(e):return e.hp<10000).size()>=3,"Ranger %s straight fan damages several enemies across its broad coverage" % control)
+	for delayed in [false,true]:
+		await fresh_class(7);fan_records.clear()
+		var p=game.player;var a=p.active_ability;var targets=ranger_target_band(7.5,7.5)
+		tap("jump");await frames(30 if delayed else 6);tap("jump");await frames(20 if delayed else 6)
+		check(p.jumps_used==2 and not p.is_on_floor(),"Ranger %s double jump reaches an aerial shooting position" % ("delayed" if delayed else "early"))
+		var airborne_height=p.position.y
+		tap("light_attack");await frames(5)
+		var arrows=fan_records.values()
+		check(arrows.size()==5 and arrows.all(func(pr):return pr.velocity.y< -3),"Ranger %s aerial LMB fan sends all five arrows downward" % ("delayed" if delayed else "early"))
+		check(absf(p.model.actor.model.rotation.x)<1.3,"Ranger aerial shooting pose interrupts the double-jump flip")
+		await frames(70)
+		check(ranger_band_damage(targets)>=100,"Ranger %s straight aerial fan reaches multiple real ground targets" % ("delayed" if delayed else "early"))
+		if delayed:check(airborne_height>6,"The delayed double-jump test covers the high apex")
+		await frames(50);p.attack_chain.reset();native_projectiles.clear();a.player.cooldowns.cutlass=0
+		await clear_enemies();var ground=ranger_target_band(3,2);tap("light_attack");await frames(20)
+		check(native_projectiles.size()==1 and is_equal_approx(ranger_band_damage(ground),67),"Landing restores Ranger's fast single arrow and continues its combo")
+	await fresh_class(7)
+	var p=game.player;var a=p.active_ability;var origin=p.position
+	tap("dodge");await frames(6)
+	check(a.player.travel==null and a.player.roll>0 and absf(p.model.actor.model.rotation.x)>1,"Ranger C visibly tumbles instead of leaping or sliding")
+	check(absf(p.model.actor.model.position.z)<1.0,"Ranger tumble stays aligned with its moving collision body")
+	await frames(10)
+	check(a.player.roll<=0 and p.position.distance_to(origin)>4,"Ranger roll travels over four metres within a quarter second")
+	check(absf(p.model.actor.model.position.z)<.1,"Ranger roll restores its visible model position")
+	await fresh_class(7);a=p.active_ability
+	var wall=obstacle(Vector3(2.5,3,0),Vector3(.35,8,14));await frames(2)
+	origin=p.position;tap("dodge");await frames(30)
+	check(p.position.x-origin.x<2.3,"Ranger fast roll cannot cross solid cover")
+	wall.queue_free();await frames(2)
+	await fresh_class(7);a=p.active_ability
+	tap("surge");press("weapon_chain");await frames(40);press("weapon_chain",false)
+	check(native_projectiles.size()==10,"Ranger Rain repeats two complete five-arrow fans while holding key 3")
+	await fresh_class(7);a=p.active_ability
+	tap("jump");await frames(6);tap("jump");await frames(6);tap("light_attack")
+	game.show_pause();await frames(5);game.resume();await frames(25)
+	check(a.projectiles.is_empty(),"Pausing cancels an unreleased aerial fan without replaying it on resume")
+
+func ranger_target_band(distance: float, radius: float, vertical_radius: float = 0.0) -> Array:
+	var targets=[]
+	for j in range(-ceili(vertical_radius/.75),ceili(vertical_radius/.75)+1):
+		for i in range(-ceili(radius/.75),ceili(radius/.75)+1):targets.append(fixture(Vector3(distance,j*.75,i*.75)))
+	return targets
+
+func ranger_band_damage(targets: Array) -> float:
+	var damage=0.0
+	for e in targets:damage+=10000-e.hp
+	return damage

@@ -2,6 +2,8 @@ class_name Hero
 extends CharacterBody3D
 
 var game: Node
+var auto_attack_enabled=false
+var auto_attack_clock=0.0
 var character_id=1
 var character_models: Dictionary={}
 var character_abilities: Dictionary={}
@@ -119,7 +121,10 @@ func _input(event):
 
 func _unhandled_input(event):
 	if not game.playing or game.paused or game.transitioning or hp<=0: return
-	if game.siege_building() and not event.is_action_pressed("pause"):return
+	if event.is_action_pressed("auto_attack_toggle") and not event.is_echo():
+		if game.is_fire_siege():set_auto_attack(not auto_attack_enabled)
+		get_viewport().set_input_as_handled();return
+	if game.siege_building() and (event.is_action_pressed("light_attack") or event.is_action_pressed("heavy_attack") or event.is_action_pressed("weapon_pipe") or event.is_action_pressed("weapon_coin") or event.is_action_pressed("weapon_chain") or event.is_action_pressed("surge") or event.is_action_pressed("sky_strike")):return
 	if game.camera_combat() and event.is_action_pressed("assist"):return
 	if game.rogue_battle_mode:game.rogue_view.update_aim()
 	if game.rogue_roster_mode and event.is_action_pressed("character_toggle") and not event.is_echo():
@@ -300,6 +305,14 @@ func _physics_process(delta):
 	if game.siege_building():
 		cancel_charge(true);attack_left=0;queued=false;quick_attacks.stop_coins()
 	if game.rogue_battle_mode:game.rogue_view.update_aim()
+	auto_attack_clock=maxf(0,auto_attack_clock-delta*attack_speed_multiplier())
+	if auto_attack_running() and auto_attack_clock<=0:
+		if character_id==1 and attack_left<=0 and not quick_attacks.active and quick_attacks.pending.is_empty() and not chain_pipe_combat.active:
+			quick_attacks.request_mouse(false)
+			auto_attack_clock=maxf(.12,attack_duration)
+		elif character_id==2 and musashi.available() and not musashi.heavy_queued:
+			musashi.primary_attack()
+			auto_attack_clock=maxf(.12,attack_duration)
 	attack_chain.tick(delta,attack_left>0 or sky_strike.active or forward_dash.active or (active_ability!=null and active_ability.blocks_movement()))
 	if attack_chain.milestone>attack_chain.announced_milestone:
 		attack_chain.announced_milestone=attack_chain.milestone
@@ -667,6 +680,7 @@ func select_character(id: int):
 		if game.rogue_roster_mode and (id in [1,2] or is_rogue_character()):game.selected_rogue_id=id
 		return
 	if not ROSTER.has(id) and not (game.rogue_roster_mode and RogueRoster.is_rogue(id)):return
+	reset_auto_attack()
 	var health_fraction=hp/maxf(1.0,max_hp)
 	var was_rogue=is_rogue_character()
 	quick_attacks.stop_coins()
@@ -730,7 +744,8 @@ func damage_multiplier()->float:
 func base_attack_speed_multiplier()->float:
 	return progression.attack_multiplier()*pickup_multiplier("attack_speed")*(1.0+.05*run_upgrades.tempo)
 func attack_speed_multiplier()->float:
-	return base_attack_speed_multiplier()*attack_chain.multiplier()
+	var chain_rate=active_ability.ranger_fire_rate_multiplier() if is_rogue_character() and active_ability!=null and active_ability.class_id=="ranger" else attack_chain.multiplier()
+	return base_attack_speed_multiplier()*chain_rate
 
 func refresh_max_health(heal_growth: bool=false):
 	var previous=max_hp
@@ -768,3 +783,22 @@ func clear_powerups():
 	if is_instance_valid(game.orb_system):game.orb_system.pending.clear()
 	attack_speed_stacks=0
 	for kind in powerups:powerups[kind]=0.0
+
+# Auto intent stays separate from real mouse state and all native attack timing.
+func auto_attack_running()->bool:
+	if not auto_attack_enabled or not game.is_fire_siege() or not game.playing or game.paused or game.transitioning or hp<=0:return false
+	if game.siege_building() or Input.is_action_pressed("heavy_attack") or Input.is_action_pressed("weapon_chain"):return false
+	if dodge_time>0 or impact_pause>0 or forward_dash.active or sky_strike.active:return false
+	if active_ability!=null and active_ability.blocks_movement():return false
+	return true
+
+func set_auto_attack(enabled: bool):
+	auto_attack_enabled=enabled
+	auto_attack_clock=0
+	if not enabled and character_id==2 and is_instance_valid(musashi) and not Input.is_action_pressed("light_attack"):
+		musashi.release_primary()
+	game.toast("AUTO ATTACK ON · J to stop · Aim with the camera" if enabled else "AUTO ATTACK OFF · J to enable")
+
+func reset_auto_attack():
+	auto_attack_enabled=false
+	auto_attack_clock=0

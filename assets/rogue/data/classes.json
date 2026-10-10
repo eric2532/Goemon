@@ -304,8 +304,8 @@
     "id": "ranger",
     "name": "Ranger",
     "title": "The Verdant Watch",
-    "tagline": "One breath. One arrow.",
-    "description": "An agile master of the greatbow. Alternate decisive shots with rapid volleys, leaping into the perfect firing line.",
+    "tagline": "Two arrows. Verdant power.",
+    "description": "A greatbow master whose straight arrows have subtle human aim variation. Jump twice as high, hold Space while falling to descend three times slower, and keep firing downward fans. Every third primary attack unleashes green energy.",
     "hero": true,
     "weaponNames": [
       "Greatbow",
@@ -317,28 +317,28 @@
     "cooldowns": {
       "cutlass": 0.2066666667,
       "flintlock": 2.4,
-      "roll": 1.2,
+      "roll": 0.55,
       "drink": 23
     },
     "abilities": {
       "cutlass": {
-        "name": "Power Arrow",
-        "description": "Fire powerful arrows three times as often, with twice the visible size and triple travel range.",
+        "name": "Wind Arrow",
+        "description": "LMB fires straight arrows with small random left/right and up/down aim variation. Maintain hit combos to accelerate firing up to three times base speed. Every third attack becomes green power with 50% more damage. Double-jump LMB fans downward.",
         "icon": "bow"
       },
       "flintlock": {
-        "name": "Rapid Arrow",
-        "description": "Release four arrows in rapid succession, each twice the visible size.",
+        "name": "Fan Shot",
+        "description": "RMB or 3 fires five straight arrows in a broad fan, each with a small individual aim variation. After a double jump, the fan descends toward the ground ahead. This attack does not advance the LMB combo.",
         "icon": "bow"
       },
       "roll": {
-        "name": "Fast Leap",
-        "description": "Leap in your movement direction; with no input, leap forward. Evade while airborne.",
+        "name": "Fast Roll",
+        "description": "C performs a super-fast 0.15-second roll about seven metres in your WASD direction, including diagonals. With no input, roll where your body faces.",
         "icon": "roll"
       },
       "drink": {
         "name": "Rain",
-        "description": "Rapid Arrow has no cooldown for a prototype 10s duration; volleys still take time.",
+        "description": "For 10 seconds, every arrow is straight-flying green power with subtle aim variation and 50% more damage, including LMB, RMB/3 and aerial fans. Fan Shot recharges in 0.55 seconds; hold RMB or 3 to repeat.",
         "icon": "rain"
       }
     }

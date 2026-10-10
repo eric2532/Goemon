@@ -14,6 +14,9 @@ const PRIMARY = {
 	"master-thief": {"duration": 0.38, "contact": 0.105, "damage": 62, "reach": 4.8, "arc": 1.65, "style": "pipe"}
 }
 const HOOK_ANCHORS = [Vector3(-7, 0, -7), Vector3(7, 0, -7), Vector3(-7, 0, 7), Vector3(7, 0, 7)]
+const RangerFlight = preload("res://assets/rogue/scripts/ranger_arrow_flight.gd")
+const RANGER_FAN_STEP = 0.24
+const RANGER_POWER_COLOR = Color("55ff87")
 
 static func facing(g) -> Vector3:
 	g.player.angle = atan2(g.aim.x - g.player.pos.x, g.aim.z - g.player.pos.z)
@@ -43,6 +46,14 @@ static func begin_primary(g) -> void:
 	g.combo = index + 1
 	g.combo_timer = 1.05
 	var config = PRIMARY[g.class_id].duplicate(true)
+	if g.class_id == "ranger":
+		config.power = int(p.get("rangerShots", 0)) % 3 == 2
+	if g.class_id == "ranger" and g.hero.jumps_used >= 2 and not g.hero.is_on_floor():
+		facing(g)
+		config.style = "bow-fan"
+		config.downward = true
+		config.aimPoint = g.ranger_ground_target(p.angle)
+		g.flip_time = -1.0
 	config.primary = true
 	if g.class_id == "explorer":
 		config.swingSide = p.bladeSide
@@ -94,6 +105,11 @@ static func area(g, center: Vector3, radius: float, amount: float, weapon: Strin
 static func resolve_attack(g, a: Dictionary) -> void:
 	var p = g.player
 	var dir = g.front(a.angle)
+	if a.style == "bow-fan":
+		fire_ranger_fan(g, a.angle, true, a.weapon, a.aimPoint, a.get("power", false) or p.buffTime > 0)
+		p.rangerShots = int(p.get("rangerShots", 0)) + 1
+		p.vel -= dir * 0.8
+		return
 	if a.style == "staff":
 		var center = p.pos + dir * 1.8 * a.rangeScale
 		g.fx.streak(p.pos + Vector3.UP * 1.7, center + Vector3.UP * 0.3, a.color, 0.15, 0.18)
@@ -101,7 +117,9 @@ static func resolve_attack(g, a: Dictionary) -> void:
 		area(g, center, 2.3, a.damage, "cutlass", true, a.color, "staff", a.rangeScale)
 		return
 	if a.style == "bow":
-		fire_projectile(g, {"angle": a.angle, "damage": a.damage, "speed": 36, "kind": "arrow", "weapon": "cutlass", "heavy": true, "width": 0.25, "primary": true})
+		var power: bool = a.get("power", false) or p.buffTime > 0
+		fire_projectile(g, {"angle": a.angle, "damage": roundi(a.damage * 1.5) if power else a.damage, "speed": 36, "kind": "arrow", "weapon": "cutlass", "heavy": true, "width": 0.25, "primary": true, "power": power})
+		p.rangerShots = int(p.get("rangerShots", 0)) + 1
 		p.vel -= dir * 0.8
 		return
 	var slash_style = {"katana": "katana", "ninja": "dagger", "heavy": "cleave", "claymore": "magic", "twin": "dagger", "pipe": "cleave", "low-pipe": "spin", "iaijutsu": "katana", "power-slash": "magic", "evasive-slash": "dagger", "shield-bash": "cleave"}.get(a.style, "sword")
@@ -157,6 +175,20 @@ static func resolve_attack(g, a: Dictionary) -> void:
 	if hits > 0:
 		g.hit_stop = maxf(g.hit_stop, a.stop)
 
+static func fire_ranger_fan(g, angle: float, downward: bool = false, weapon: String = "flintlock", target: Vector3 = Vector3.ZERO, power: bool = false) -> void:
+	var origin: Vector3 = g.player.pos + Vector3.UP * 1.05 * g.hero.growth_multiplier()
+	var direction: Vector3 = g.projectile_direction(angle, origin)
+	var impact: Vector3 = target + Vector3.UP * 1.1
+	var side: Vector3 = g.front(angle).cross(Vector3.UP).normalized()
+	var spread_distance: float = maxf(4.0 * g.hero.growth_multiplier(), Vector2(impact.x - origin.x, impact.z - origin.z).length())
+	if downward:
+		impact.y = minf(impact.y, origin.y - 0.6)
+	for i in range(-2, 3):
+		var ray: Vector3 = (impact + side * spread_distance * tan(i * RANGER_FAN_STEP) - origin).normalized() if downward else direction.rotated(Vector3.UP, i * RANGER_FAN_STEP)
+		fire_projectile(g, {"angle": angle + i * RANGER_FAN_STEP, "direction": ray,
+			"damage": 38 if power else 25, "speed": 34, "kind": "arrow", "weapon": weapon, "primary": weapon == "cutlass", "feedback": i == 0, "power": power})
+	g.player.shotDownward = downward
+
 static func fire_projectile(g, options: Dictionary = {}) -> void:
 	var angle = options.get("angle", g.player.angle)
 	var damage = options.get("damage", 30)
@@ -164,14 +196,19 @@ static func fire_projectile(g, options: Dictionary = {}) -> void:
 	var kind = options.get("kind", "arrow")
 	var heavy = options.get("heavy", false)
 	var color = options.get("color", g.tint())
-	var mesh = g.fx.create_projectile(kind, color)
+	var ranger_arrow: bool = g.class_id == "ranger" and kind == "arrow"
+	var power: bool = ranger_arrow and options.get("power", false)
+	if ranger_arrow: color = RANGER_POWER_COLOR if power else Color("d4be8a")
+	var mesh = g.fx.create_projectile(("ranger-power-arrow" if power else "ranger-arrow") if ranger_arrow else kind, color)
 	var scale = g.range_scale()
 	var visual_scale = options.get("visualScale", 1.0)
-	if g.class_id == "ranger" and kind == "arrow":
-		visual_scale *= 2.0
+	if ranger_arrow:
+		visual_scale *= 2.4 * (1.35 if power else 1.0)
 	var travel_scale = g.primary_range_scale() if options.get("primary", false) else scale
 	var origin = g.player.pos + Vector3.UP * options.get("height", 1.65 if kind == "wave" else 1.05) * g.hero.growth_multiplier()
-	var dir = g.projectile_direction(angle, origin)
+	var dir: Vector3 = options.get("direction", g.projectile_direction(angle, origin))
+	var aim_direction: Vector3 = dir
+	if ranger_arrow: dir = RangerFlight.launch_direction(dir, power)
 	g.add_projectile_mesh(mesh)
 	mesh.position = origin + dir * 0.9 * g.hero.growth_multiplier()
 	mesh.quaternion = Quaternion(Vector3.BACK, dir)
@@ -181,7 +218,19 @@ static func fire_projectile(g, options: Dictionary = {}) -> void:
 	g.projectiles.append({"mesh": mesh, "vel": dir * speed, "life": 0.0 if obstructed else options.get("range", 20.0) * travel_scale / speed,
 		"owner": "player", "kind": kind, "damage": damage, "color": color, "visualScale": visual_scale, "weapon": options.get("weapon", "flintlock"),
 		"heavy": heavy, "width": options.get("width", 0.25) * scale, "rangeScale": scale, "sphereCollision": sphere_collision, "pierce": options.get("pierce", false), "hits": [], "trailTimer": 0.0, "ticket": g.current_ticket()})
+	if ranger_arrow:
+		var projectile: Dictionary = g.projectiles.back()
+		projectile.power = power
+		projectile.aimDirection = aim_direction
+		RangerFlight.attach(projectile, int(g.player.get("rangerFlightSerial", 0)), scale)
+		g.player.rangerFlightSerial = int(g.player.get("rangerFlightSerial", 0)) + 1
+		if power and options.get("feedback", true):
+			g.fx.ring(origin, RANGER_POWER_COLOR, .75 * scale, .22)
+			g.sound.play("cast", {"pitch": 1.15, "volume": .5})
 	g.player.shot = 0.2
+	g.player.shotDownward = false
+	if not options.get("feedback", true):
+		return
 	g.fx.muzzle(g.player.pos, angle, color, "spell" if kind in ["bolt", "fireball"] else ("bow" if kind == "arrow" else ("gun" if kind == "bullet" else kind)))
 	if kind == "wave":
 		g.sound.play("claymore-wave", {"volume": 0.64})
@@ -294,7 +343,9 @@ static func class_action(g, slot: String, buffered = null, manual: bool = false)
 			g.fx.ring(p.pos, g.tint(), 1.4, 0.35)
 			g.sound.play("roll", {"pitch": 1.5})
 		elif id == "ranger":
-			travel(g, p.pos + g.movement_direction() * 4.5, 0.36, 1.6, "fast-leap")
+			var dir: Vector3 = g.ranger_roll_direction()
+			p.angle = atan2(dir.x, dir.z)
+			dash(g, dir, 0.15, 46.0, "roll")
 		elif id == "explorer":
 			facing(g)
 			var candidates: Array = []
@@ -389,7 +440,9 @@ static func class_action(g, slot: String, buffered = null, manual: bool = false)
 		g.fx.slash(p.pos, p.angle, 2, g.tint(), 3.5, {"style": "magic", "arc": 2.5, "height": 1.2, "tilt": 0.5})
 	elif id == "ranger":
 		p.cooldowns.flintlock = 0.55 if p.buffTime > 0 else c.cooldowns.flintlock
-		p.burst = {"remaining": 4, "timer": 0.0, "ticket": g.current_ticket()}
+		var downward: bool = g.hero.jumps_used >= 2 and not g.hero.is_on_floor()
+		if downward: g.flip_time = -1.0
+		fire_ranger_fan(g, p.angle, downward, "flintlock", g.ranger_ground_target(p.angle) if downward else g.aim, p.buffTime > 0)
 
 static func update_class(g, dt: float) -> void:
 	var p = g.player
@@ -463,13 +516,16 @@ static func update_projectile(g, pr: Dictionary, dt: float) -> void:
 		return
 	var previous = pr.mesh.position
 	pr.life -= dt
-	pr.mesh.position += pr.vel * dt
+	if pr.has("rangerFlight"):
+		RangerFlight.advance(pr, dt)
+	else:
+		pr.mesh.position += pr.vel * dt
 	if pr.kind == "star":
 		pr.mesh.rotate_object_local(Vector3.UP, dt * 30)
 	elif pr.kind in ["bolt", "fireball"]:
 		pr.mesh.rotate_object_local(Vector3.FORWARD, dt * 6)
 	pr.trailTimer -= dt
-	if pr.trailTimer <= 0:
+	if pr.trailTimer <= 0 and not pr.has("rangerFlight"):
 		var direction = pr.vel.normalized()
 		var tail = pr.mesh.position - direction * (1.1 if pr.kind == "wave" else 0.9) * pr.rangeScale
 		var color = pr.get("color", g.tint())
@@ -482,6 +538,9 @@ static func update_projectile(g, pr: Dictionary, dt: float) -> void:
 			g.fx.streak(tail, pr.mesh.position, color, (0.13 * pr.get("visualScale", 1.0) if pr.kind == "fireball" else (0.055 * pr.get("visualScale", 1.0) if pr.kind == "bullet" else (0.075 if pr.kind == "bolt" else 0.022))) * pr.rangeScale, 0.13)
 		pr.trailTimer = 0.055
 	g.resolve_projectile_segment(pr, previous, pr.mesh.position)
+	if pr.has("rangerFlight"):
+		# End the straight trail at the same contact point as native collision.
+		g.fx.ranger_trail(pr, previous, pr.mesh.position)
 
 static func begin_charge(g) -> void:
 	var p = g.player

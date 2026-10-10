@@ -430,7 +430,10 @@ func animate_pose(state: Dictionary, dt: float, time: float, movement: float = 0
 				match str(attack.get("style", "cutlass")):
 					"thrust": _lance(phase, int(attack.get("index", 0)))
 					"staff": _staff(phase)
-					"bow": _bow(phase)
+					"bow", "bow-fan":
+						_bow(phase)
+						if bool(attack.get("downward", false)):
+							_aerial_bow(_c(phase, 1, 1, 1))
 					"bash", "shield-bash": _shield(phase)
 					"dash-cut", "cross-slash", "power-slash", "evasive-slash": _special_cut(attack, phase)
 					"ninja", "twin": _underhand(attack, phase)
@@ -440,6 +443,8 @@ func animate_pose(state: Dictionary, dt: float, time: float, movement: float = 0
 					_: _sword(attack, phase)
 			elif float(state.get("shot", 0)) > 0 and not bool(state.get("blocking", false)):
 				_shot(float(state.shot))
+				if id == "ranger" and bool(state.get("shotDownward", false)):
+					_aerial_bow(clampf(float(state.shot) / 0.2, 0, 1))
 		_charge_guard(state, time)
 	locomotion.flip(self, state)
 	if is_player:
@@ -469,6 +474,12 @@ func animate_pose(state: Dictionary, dt: float, time: float, movement: float = 0
 				material.emission_energy_multiplier = entry.energy
 		_flash_applied = flash > 0.0
 	_guard_glow_applied = guard_glow
+
+func _aerial_bow(weight: float) -> void:
+	model.rotation.x += 0.65 * weight
+	_r("Head", 0.22 * weight)
+	_r("Leg_L", -0.85 * weight)
+	_r("Leg_R", -0.65 * weight)
 
 func _stance(state: Dictionary, time: float) -> void:
 	# Keep the approved gait and its small carrying lag, then establish each
@@ -532,7 +543,16 @@ func _stance(state: Dictionary, time: float) -> void:
 	if float(state.get("roll", 0)) > 0:
 		var duration: float = float(state.get("rollDuration", 0.32))
 		var t: float = 1.0 - float(state.roll) / maxf(0.01, duration)
-		if id == "pirate":
+		if id == "ranger" and state.get("rollStyle", "") == "roll":
+			model.rotation.x = t * TAU
+			var pivot: Vector3 = Vector3(0, 0.78, 0)
+			model.position += pivot - model.basis * pivot
+			_p("Body", 0, -0.22)
+			_r("Leg_L", -1.1)
+			_r("Leg_R", -1.1)
+			_r("Arm_L", -0.9, 0, 0.3)
+			_r("Arm_R", -0.9, 0, -0.3)
+		elif id == "pirate":
 			model.position.y += sin(t * PI) * 0.4
 			model.rotation.x = -t * TAU
 		else:

@@ -101,12 +101,12 @@ func construction():
 		check(not structure.progress_root.visible,"Untouched %s hides its empty construction bar" % kind_value)
 		structure.set_build_progress(.6,true)
 		var assembled_pose=pose_snapshot(structure.visual_root)
-		check(structure.progress_fill.visible and is_equal_approx(structure.progress_fill.scale.x,.6) and structure.hammer.visible,"%s exposes normalized progress and working hammer" % kind_value)
+		check(structure.progress_fill.visible and structure.progress_fill.mesh.get_surface_count()==1 and structure.progress_label.text=="60%" and structure.hammer.visible,"%s exposes circular progress and working hammer" % kind_value)
 		structure.tick(.1,0)
 		var hammer_pivot=structure.hammer.find_child("FX_HammerSwingPivot",true,false)
 		var hammer_pose=hammer_pivot.transform
-		structure.set_build_progress(.2,false);structure.tick(.1,0)
-		check(pose_snapshot(structure.visual_root)!=assembled_pose and not structure.hammer.visible and hammer_pivot.transform==hammer_pose,"%s assembly reverses on decay and hammer stops when work stops" % kind_value)
+		structure.set_proximity(true,true);structure.set_build_progress(.2,false);structure.tick(.1,0)
+		check(pose_snapshot(structure.visual_root)==assembled_pose and not structure.hammer.visible and hammer_pivot.transform==hammer_pose,"%s retains its complete ghost silhouette while decay stops the hammer" % kind_value)
 		check(structure.progress_root.visible,"Partial %s keeps its remaining construction progress visible" % kind_value)
 		structure.set_build_progress(0,false)
 		check(not structure.progress_root.visible,"Fully decayed %s hides its empty construction bar again" % kind_value)
@@ -131,13 +131,13 @@ func asset_contracts():
 	var visible_meshes=0
 	for mesh in arrow.visual_root.find_children("*","MeshInstance3D",true,false):
 		if mesh.is_visible_in_tree():visible_meshes+=1
-	check(visible_meshes==15,"An unbought tower starts in its fifteen-piece empty foundation pose")
+	check(visible_meshes==0 and not arrow.visual_root.visible,"An unbought distant tower hides its full silhouette")
 	check(arrow.build_player.has_animation("Tower_Build_Recoil_Reverse") and is_equal_approx(arrow.build_player.get_animation("Tower_Build_Recoil_Reverse").length,179.0/24.0),"Tower import retains the exact 24FPS combined clip")
 	arrow.set_build_progress(1,false)
 	check(arrow.to_local(arrow.muzzle.global_position).distance_to(Vector3(0,1.86,1.73))<.001,"Imported arrow socket preserves Godot Y-up and +Z-forward coordinates")
-	check(is_equal_approx(arrow.progress_fill.position.x,-.975),"Imported progress fill retains its fixed left anchor")
+	check(arrow.progress_fill.mesh.get_aabb().size.x>1.3 and arrow.progress_fill.mesh.get_aabb().size.y>1.3,"Completed progress geometry forms a full circular ring")
 	check(arrow.hammer.find_child("FX_HammerSwingPivot",true,false)!=null and arrow.completion_light.find_child("Completion_OuterRing",true,false)!=null,"Supplied hammer and completion GLBs provide construction feedback")
-	check(arrow.progress_root.find_child("BPrompt_Keycap",true,false)!=null,"Supplied B prompt appears with construction feedback")
+	check(arrow.progress_root.find_child("BPrompt_Keycap",true,false)==null and arrow.progress_label!=null,"Automatic construction displays a percent without requiring a B prompt")
 	var pulse=arrow.completion_player.get_animation("Complete_GoldPulse")
 	var blend_tracks=0;var spark_nodes={}
 	for i in range(pulse.get_track_count()):

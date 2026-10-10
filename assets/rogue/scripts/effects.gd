@@ -327,6 +327,39 @@ func _shaft(a: Vector3, b: Vector3, color: Color, width: float = 0.04) -> MeshIn
 func streak(a: Vector3, b: Vector3, color: Color = Color("ffe2a8"), width: float = 0.065, life: float = 0.16) -> Node3D:
 	return _add(_shaft(a, b, color, width), life, "streak")
 
+func ranger_trail(pr: Dictionary, start: Vector3, end: Vector3) -> void:
+	# One reusable mesh/material per arrow, rather than one node per flight tick.
+	if start.distance_squared_to(end) < .000001: return
+	var life: float = .26 if pr.get("power", false) else .14
+	var item: Dictionary = pr.get("rangerTrail", {})
+	if item.is_empty() or not is_instance_valid(item.node) or item.node.is_queued_for_deletion():
+		var mesh: MeshInstance3D = _mesh(ImmediateMesh.new(), pr.color)
+		mesh.material_override.vertex_color_use_as_albedo = true
+		item = {"points": [{"pos": start, "time": time}], "width": (.055 if pr.get("power", false) else .014) * pr.rangeScale}
+		_add(mesh, life, "ranger-trail", item)
+		pr.rangerTrail = item
+	item.life = life
+	item.points.append({"pos": end, "time": time})
+	while item.points.size() > 2 and item.points[1].time < time - life:
+		item.points.pop_front()
+	var geometry: ImmediateMesh = item.node.mesh
+	geometry.clear_surfaces()
+	geometry.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
+	for i in range(1, item.points.size()):
+		var a: Vector3 = item.points[i-1].pos
+		var b: Vector3 = item.points[i].pos
+		var tangent: Vector3 = (b-a).normalized()
+		if tangent.length_squared() < .01: continue
+		var side: Vector3 = tangent.cross(Vector3.UP).normalized()
+		if side.length_squared() < .01: side = Vector3.RIGHT
+		var alpha: float = clampf(1.0-(time-item.points[i].time)/life, 0.0, 1.0)
+		geometry.surface_set_color(Color(1, 1, 1, alpha))
+		for axis in [side, tangent.cross(side).normalized()]:
+			var offset: Vector3 = axis * item.width
+			for vertex in [a-offset, a+offset, b+offset, a-offset, b+offset, b-offset]:
+				geometry.surface_add_vertex(vertex)
+	geometry.surface_end()
+
 func lightning(a: Vector3, b: Vector3) -> void:
 	var start: Vector3 = a + Vector3.UP
 	var end: Vector3 = b + Vector3.UP
@@ -376,6 +409,27 @@ func create_projectile(kind: String, color: Color = TEAL) -> Node3D:
 	var group: Node3D = Node3D.new()
 	group.name = "Projectile_" + kind
 	match kind:
+		"ranger-arrow", "ranger-power-arrow":
+			var power: bool = kind == "ranger-power-arrow"
+			var shaft_geometry = CylinderMesh.new()
+			shaft_geometry.top_radius = .021; shaft_geometry.bottom_radius = .021
+			shaft_geometry.height = .95; shaft_geometry.radial_segments = 5
+			var shaft = _mesh(shaft_geometry, color if power else Color("765331"), 1.0, power)
+			shaft.rotation.x = PI / 2
+			shaft.position.z = -.15
+			group.add_child(shaft)
+			var point = _mesh(_spear(.38, .1, .045), color if power else Color("b7c9cc"), 1.0, power)
+			point.position.z = .3
+			group.add_child(point)
+			for side in [-1.0, 1.0]:
+				var feather = _mesh(_spear(.23, .08, .012), color if power else Color("597c43"), .9, power)
+				feather.position = Vector3(side * .04, 0, -.6)
+				feather.rotation.y = side * -.35
+				group.add_child(feather)
+			if power:
+				var aura = _mesh(_spear(.8, .14, .1), color, .22)
+				aura.position.z = -.06
+				group.add_child(aura)
 		"bullet":
 			# Previous shot streak radius was 0.055; visualScale=10 makes a 1.1 m round.
 			var core = _mesh(sphere_geometry, Color("fff6c9"), 0.98)
@@ -531,6 +585,9 @@ func tick(dt: float) -> void:
 				node.scale = Vector3(1 - t * 0.35, 1 - t * 0.35, 0.8 + t * 0.6)
 				if item.spell:
 					node.rotation.z = t * 0.35
+			"ranger-trail":
+				# World-space vertices must retain their exact flight/contact position.
+				_fade(node, remaining)
 			"streak":
 				_fade(node, remaining)
 				node.scale.x = maxf(0.001, remaining)

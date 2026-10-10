@@ -1,6 +1,6 @@
 {
   "hero": "ranger",
-  "triangles": 5756,
+  "triangles": 7650,
   "mesh_batches": 7,
   "source": "assets/blender/rogue/ranger.blend",
   "removed_microdetails": [
@@ -144,5 +144,44 @@
       "degenerate_faces": 0,
       "signed_volume": 0.0021705576736831067
     }
-  ]
+  ],
+  "ranger_hat_generator": "tools/equip_ranger_hat.py",
+  "ranger_hat_revision": "full-scalp-coverage",
+  "ranger_hat_design": "Fitted forest-green crown with full rear nape panel, swept brim, chestnut band and one solid gold feather",
+  "ranger_hat_removed": [
+    "Hood back",
+    "Hood gold woven opening",
+    "Hood gold woven opening.001"
+  ],
+  "ranger_hat_mesh_checks": [
+    {
+      "name": "Ranger hat full crown and nape",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.13645474879254096
+    },
+    {
+      "name": "Ranger hat swept brim",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.004173257656249017
+    },
+    {
+      "name": "Ranger hat chestnut band",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0005508896947823885
+    },
+    {
+      "name": "Ranger hat gold feather",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0011071549095094842
+    }
+  ],
+  "ranger_hat_unchanged_components": 139,
+  "ranger_hat_face_geometry_and_uv_invariance": true,
+  "ranger_hat_hair_invariance": true,
+  "ranger_hat_body_and_weapon_geometry_invariance": true,
+  "ranger_hat_pivot_invariance": true
 }

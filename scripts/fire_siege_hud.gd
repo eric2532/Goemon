@@ -14,7 +14,9 @@ func icon(key: String)->Texture2D:
 func hero_info(player)->Dictionary:
  if player.is_rogue_character():
   var data=Roster.data(player.character_id)
-  return {"name":data.name,"portrait":Roster.portrait(player.character_id),"primary":data.abilities.cutlass.name,"secondary":data.abilities.flintlock.name,"primary_icon":data.abilities.cutlass.icon,"secondary_icon":data.abilities.flintlock.icon,"utility":data.abilities.roll.name,"skill":data.abilities.drink.name,"color":Color(data.color)}
+  var primary="Aerial Fan" if data.id=="ranger" and player.jumps_used>=2 and not player.is_on_floor() else data.abilities.cutlass.name
+  if data.id=="ranger" and (player.active_ability.player.buffTime>0 or int(player.active_ability.player.get("rangerShots",0))%3==2):primary="Green Fan" if player.jumps_used>=2 and not player.is_on_floor() else "Green Power"
+  return {"name":data.name,"portrait":Roster.portrait(player.character_id),"primary":primary,"secondary":data.abilities.flintlock.name,"primary_icon":data.abilities.cutlass.icon,"secondary_icon":data.abilities.flintlock.icon,"utility":data.abilities.roll.name,"skill":data.abilities.drink.name,"color":Color(data.color)}
  if player.character_id==2:
   return {"name":"Edo","portrait":original_portrait,"primary":"Fireballs","secondary":"Giant fireball","primary_icon":"fire","secondary_icon":"spark","utility":"Fire dodge","skill":"Blue surge","color":Color("ff956f")}
  return {"name":"Goemon","portrait":original_portrait,"primary":"Pipe combo","secondary":"Heavy strike","primary_icon":"pipe","secondary_icon":"wave","utility":"Dash","skill":"Golden surge","color":Color("edcf87")}
@@ -72,12 +74,12 @@ func draw(hud):
  var right=Vector2(w-328,25)
  hud.draw_style_box(hud.panel_style(ink),Rect2(right,Vector2(302,170)))
  hud.text(right+Vector2(18,27),"BUILD YOUR DEFENSE",15,gold)
- hud.text(right+Vector2(18,55),"%d / 12 arrow towers  ·  5 gold each" % run.cannons.size(),15)
+ hud.text(right+Vector2(18,55),"%d / %d arrow towers · 5 gold each" % [run.cannons.size(),run.site_states.size()],15)
  hud.text(right+Vector2(18,81),"%d / %d mines · 10 gold each" % [run.mine_count(),run.mine_states.size()],15,teal if run.mine_count()>0 else muted)
  var income=2.0*run.mine_count() if run.phase=="spawning" else 0.0
  var upkeep=.1*run.cannons.size() if run.phase in ["spawning","clearance"] else 0.0
  hud.text(right+Vector2(18,107),"Income +%.1f/s   Upkeep −%.1f/s" % [income,upkeep],14,muted)
- hud.text(right+Vector2(18,132),"Approach any side · Hold B to build",13,gold)
+ hud.text(right+Vector2(18,132),"Stand nearby · Auto build",13,gold)
  hud.text(right+Vector2(18,153),"Kills: no gold · Wave reward: 10 × wave",12,muted)
  if run.cannons.size()>0 and not run.powered and run.phase in ["spawning","clearance"]:
   centered(hud,236,"OUT OF GOLD · Towers need upkeep to fire",20,red)
@@ -100,8 +102,9 @@ func draw(hud):
  hud.draw_rect(Rect2(panel+Vector2(126,41),Vector2(221,10)),Color("3f3d41"))
  hud.draw_rect(Rect2(panel+Vector2(126,41),Vector2(221*clampf(p.hp/p.max_hp,0,1),10)),teal)
  hud.text(panel+Vector2(126,73),"%d / %d HP" % [ceili(p.hp),ceili(p.max_hp)],14)
- hud.text(panel+Vector2(126,96),"Q Heroes · C Evade",13,muted)
- hud.text(panel+Vector2(126,114),"E %s · R %s" % [info.utility,info.skill],11,muted)
+ var ranger=p.is_rogue_character() and p.active_ability.class_id=="ranger"
+ hud.text(panel+Vector2(126,96),"Q Heroes · C Fast Roll" if ranger else "Q Heroes · C Evade",13,muted)
+ hud.text(panel+Vector2(126,114),"R Rain · FIRE ×%.2f" % p.active_ability.ranger_fire_rate_multiplier() if ranger else "E %s · R %s" % [info.utility,info.skill],11,muted)
  var energy_hero=p.is_rogue_character() and p.active_ability.uses_energy()
  var energy=int(p.active_ability.player.get("energy",0)) if energy_hero else 0
  if energy_hero:
@@ -114,14 +117,15 @@ func draw(hud):
   var pos=panel+Vector2(366+i*177,13)
   hud.draw_style_box(hud.panel_style(Color("17333a")),Rect2(pos,Vector2(165,76)))
   hud.draw_texture_rect(icon(info.primary_icon if i==0 else info.secondary_icon),Rect2(pos+Vector2(9,12),Vector2(39,39)),false)
-  hud.text(pos+Vector2(58,23),"LMB" if i==0 else ("RMB / 3" if p.is_rogue_character() else "RMB"),15,gold)
+  hud.text(pos+Vector2(58,23),("AUTO" if p.auto_attack_enabled else "LMB") if i==0 else ("RMB / 3" if p.is_rogue_character() else "RMB"),15,gold)
   var label=String(info.primary if i==0 else info.secondary)
   hud.text(pos+Vector2(58,43),label.left(15),11)
   var remaining=float(cooldowns.get("cutlass" if i==0 else "flintlock",0))
   hud.text(pos+Vector2(58,62),"FREE READY" if i==1 and energy_hero and energy>=100 else ("%.1fs" % remaining if remaining>.05 else "READY"),11,gold if i==1 and energy_hero and energy>=100 else muted)
  hud.text(panel+Vector2(366,121 if energy_hero else 110),"WASD Move · Shift Sprint · Space Jump · Esc Pause",12,muted)
+ hud.text(Vector2(30,h-82),"J AUTO ATTACK: "+("ON" if p.auto_attack_running() else "PAUSED") if p.auto_attack_enabled else "J AUTO ATTACK: OFF",13,teal if p.auto_attack_enabled else muted)
  hud.text(Vector2(30,h-58),"G Dogs   H Allies",13,muted)
- hud.text(Vector2(30,h-35),"1–5 / T  Hero abilities",12,muted)
+ hud.text(Vector2(30,h-35),("Space ×2: Auto Fan · Hold Space: Slow fall" if p.auto_attack_enabled else "Space ×2 + LMB: Fan · Hold Space: Slow fall") if p.is_rogue_character() and p.active_ability.class_id=="ranger" else "1–5 / T  Hero abilities",12,muted)
  if not game.portal_hint.is_empty():centered(hud,h-177,game.portal_hint,16,gold)
  if p.attack_chain.count>0:
   hud.text(Vector2(32,235),"%d LINKS · DMG ×%.2f" % [p.attack_chain.count,p.attack_chain.damage_multiplier()],18,Color("ffbe85"))

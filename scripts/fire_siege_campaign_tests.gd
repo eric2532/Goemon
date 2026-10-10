@@ -39,6 +39,9 @@ func build(index: int):
 	var pad: Vector3=game.world.mine_build_position if mine else game.world.cannon_sites[index].build_position
 	var center: Vector3=game.world.mine_position if mine else game.world.cannon_sites[index].position
 	game.reset_player_at(pad);game.player.facing=(center-pad).normalized()
+	game.player.set_physics_process(true)
+	for i in range(20):await get_tree().physics_frame
+	game.player.set_physics_process(false);game.player.velocity=Vector3.ZERO
 	run.update_build_input(0,false);run.update_build_input(4 if mine else 3,true)
 
 func kill_all():
@@ -116,11 +119,11 @@ func full_campaign():
 
 func fractional_economy():
 	await fresh();var run=director()
-	build(12)
+	await build(12)
 	check(run.mine_built and near(run.money,0),"Real mine construction debits the opening ten gold")
 	start_wave();run.tick(2.5);freeze_actors()
 	check(near(run.money,5),"Purchased mine earns five gold in 2.5 spawning seconds")
-	build(0)
+	await build(0)
 	check(run.cannons.size()==1 and near(run.money,0),"Earned mine income can purchase the first arrow tower")
 	for i in range(10):run.tick(.013)
 	freeze_actors()
@@ -135,7 +138,7 @@ func fractional_economy():
 
 func depleted_power():
 	await fresh();var run=director()
-	build(0);var tower=run.cannons[0]
+	await build(0);var tower=run.cannons[0]
 	start_wave();run.tick(60);freeze_actors()
 	check(near(run.money,0) and not run.powered,"Idle completed tower exhausts its wallet without debt")
 	var target=living()[0]
@@ -164,7 +167,7 @@ func terminal_precedence():
 
 func retry_ownership():
 	await fresh();var run=director()
-	build(4);var old_tower=run.cannons[0]
+	await build(4);var old_tower=run.cannons[0]
 	start_wave();run.tick(.2);freeze_actors()
 	var old_actor=living()[0]
 	old_actor.position=old_tower.position+Vector3(0,0,-35)

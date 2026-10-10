@@ -20,7 +20,6 @@ var build_progress=0.0
 var building=false
 var powered=true
 var original_spawn=Vector3.ZERO
-var _build_armed=true
 var _last_hero_id=-1
 
 var generation: int:
@@ -49,7 +48,7 @@ func reset():
 	upgrades.clear();card_offer.clear();card_history.clear();card_choice_wave=0;chosen_wave=0
 	cannon_path="";fire_path="";tactics_enabled=false
 	cannons.clear();site_states.clear();mine_states.clear()
-	build_site=-1;build_progress=0;building=false;powered=true;_build_armed=true;_last_hero_id=-1
+	build_site=-1;build_progress=0;building=false;powered=true;_last_hero_id=-1
 
 func _create_sites():
 	for site in game.world.cannon_sites:
@@ -76,7 +75,7 @@ func begin():
 	original_spawn=game.world.spawn_point;game.checkpoint=original_spawn
 	game.player.position=original_spawn;game.player.velocity=Vector3.ZERO
 	game.camera_rig.yaw=0;game.camera_rig.pitch=.5;game.camera_rig.reset_follow()
-	_banner("FIRE SIEGE · Approach a structure and hold B · Hold Y for 3s to start",6)
+	_banner("FIRE SIEGE · Stand beside a structure to build · Hold Y for 3s to start",6)
 
 func _running()->bool:
 	return enabled and active and not runtime.terminal and is_instance_valid(game) and game.playing and not game.paused and not game.transitioning
@@ -115,7 +114,7 @@ func tick(delta: float):
 		if is_instance_valid(site.cannon):site.cannon.tick(dt,powered_delta if site.level>0 else 0.0)
 	for mine in mine_states:
 		if is_instance_valid(mine.cannon):mine.cannon.tick(dt,0)
-	update_build_input(dt,Input.is_action_pressed("siege_build"))
+	update_build_input(dt)
 	update_start_input(dt,Input.is_action_pressed("siege_start"))
 	_settle_wave()
 
@@ -221,7 +220,7 @@ func _restore_hero():
 	_banner("HERO REVIVED · 2 seconds of protection",2)
 
 func interrupt_inputs():
-	runtime.interrupt_inputs();_build_armed=false;building=false;build_site=-1;build_progress=0
+	runtime.interrupt_inputs();building=false;build_site=-1;build_progress=0
 	for state in site_states+mine_states:
 		if is_instance_valid(state.cannon):
 			state.cannon.set_build_progress(state.progress,false)
@@ -250,16 +249,21 @@ func nearest_site()->int:
 		best=distance;closest=index
 	return closest
 
-func update_build_input(delta: float,held: bool):
-	if not _running() or base_hp<=0:return
-	if not held:_build_armed=true
-	# Walking, knockback or jumping interrupts work even inside build range.
-	# Releasing B makes the next stationary hold an intentional new action.
+func build_candidate()->int:
+	if not _running() or not _living_hero() or base_hp<=0:return -1
+	var p=game.player
 	var movement=Input.get_vector("move_left","move_right","move_forward","move_back")
-	if held and (movement.length_squared()>.01 or Vector2(game.player.velocity.x,game.player.velocity.z).length_squared()>.04 or Input.is_action_pressed("jump")):
-		_build_armed=false
+	if movement.length_squared()>.01 or Vector2(p.velocity.x,p.velocity.z).length_squared()>.04:return -1
+	if not p.is_on_floor() or Input.is_action_pressed("jump") or Input.is_action_pressed("dodge"):return -1
+	if p.dodge_time>0 or p.forward_dash.active or p.sky_strike.active:return -1
+	if p.active_ability!=null and p.active_ability.blocks_movement():return -1
 	var nearby=nearest_site()
-	var index=nearby if held and _build_armed and _living_hero() else -1
+	return nearby if nearby>=0 and money+0.000000001>=site_cost(nearby) else -1
+
+func update_build_input(delta: float,_held: bool=false):
+	if not _running() or base_hp<=0:return
+	var nearby=nearest_site()
+	var index=build_candidate()
 	building=index>=0 and money+0.000000001>=site_cost(index)
 	build_site=index;build_progress=0
 	var states=site_states+mine_states
@@ -291,7 +295,7 @@ func interaction_prompt()->String:
 	if index<0:return "Approach a structure to build · Arrow 5 gold · Mine 10 gold"
 	var cost=site_cost(index)
 	var label="MINE" if index>=site_states.size() else "ARROW TOWER"
-	return "IN RANGE · Hold B · %s · %d gold%s" % [label,cost," · Need %.2f more" % (cost-money) if money<cost else ""]
+	return "STAND NEARBY · %s · %d gold%s" % [label,cost," · Need %.2f more" % (cost-money) if money<cost else ""]
 
 # Compatibility methods deliberately expose no legacy cards/upgrades/F buys.
 func try_purchase()->bool:return false

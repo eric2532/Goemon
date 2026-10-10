@@ -5,8 +5,6 @@ const TOWER_SCENE=preload("res://assets/economy_v1/arrow_tower/exports/tower_bui
 const WALL_MOUNT_SCENE=preload("res://assets/economy_v1/arrow_tower/exports/tower_wall_mount.glb")
 const ARROW_SCENE=preload("res://assets/economy_v1/arrow_tower/exports/arrow_projectile.glb")
 const MINE_SCENE=preload("res://assets/economy_v1/gold_mine/goldmine_v1.glb")
-const PROGRESS_SCENE=preload("res://assets/economy_v1/construction_fx/exports/FS_FX_ProgressFrame.glb")
-const PROMPT_SCENE=preload("res://assets/economy_v1/construction_fx/exports/FS_FX_BPrompt.glb")
 const HAMMER_SCENE=preload("res://assets/economy_v1/construction_fx/exports/FS_FX_Hammer_BuildLoop.glb")
 const COMPLETION_SCENE=preload("res://assets/economy_v1/construction_fx/exports/FS_FX_CompletionPulse.glb")
 const ARROW_RANGE=48.0
@@ -28,7 +26,12 @@ var progress=0.0
 var working=false
 var visual_root: Node3D
 var progress_root: Node3D
-var progress_fill: Node3D
+var progress_fill: MeshInstance3D
+var progress_label: Label3D
+var _selected=false
+var _ghost_material: StandardMaterial3D
+var _original_materials: Dictionary={}
+var _ring_fraction=-1.0
 var proximity_prompt: Label3D
 var hammer: Node3D
 var completion_light: Node3D
@@ -58,7 +61,18 @@ func _ready():
 	visual_root.add_child(model)
 	_bind_imported_visual(model)
 	if kind=="arrow" and position.y>2:
-		var mount=WALL_MOUNT_SCENE.instantiate();mount.name="AuthoredWallMount";add_child(mount)
+		var mount=WALL_MOUNT_SCENE.instantiate();mount.name="AuthoredWallMount";visual_root.add_child(mount)
+		_model_meshes.append_array(mount.find_children("*","MeshInstance3D",true,false))
+	_ghost_material=StandardMaterial3D.new()
+	_ghost_material.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA
+	_ghost_material.albedo_color=Color(.42,.82,.72,.3)
+	_ghost_material.roughness=.8
+	for mesh in _model_meshes:
+		_original_materials[mesh.get_instance_id()]={"material":mesh.material_override,"shadow":mesh.cast_shadow}
+	# Four low stones mark the footprint without a bright purchasing platform.
+	for x in [-1,1]:
+		for z in [-1,1]:
+			Geo.box(self,Vector3(x*(2.0 if kind=="mine" else 1.2),-.07 if kind=="arrow" else .035,z*(2.0 if kind=="mine" else 1.2)),Vector3(.22,.05,.22),Geo.mat("767b65"))
 	_build_feedback()
 	set_build_progress(progress,working)
 
@@ -88,11 +102,14 @@ func _bind_imported_visual(model: Node):
 func _build_feedback():
 	progress_root=Node3D.new();progress_root.name="ConstructionProgress";add_child(progress_root)
 	progress_root.position=to_local(build_socket.global_position)+Vector3.UP*.25
-	progress_root.add_child(PROGRESS_SCENE.instantiate())
-	progress_fill=progress_root.find_child("ProgressFill",true,false) as Node3D
-	var prompt=PROMPT_SCENE.instantiate();prompt.position=Vector3(-1.5,0,0);prompt.scale=Vector3.ONE*.65;progress_root.add_child(prompt)
+	var backing=MeshInstance3D.new();backing.name="ProgressCircleTrack";backing.mesh=_arc_mesh(1.0)
+	backing.material_override=_ring_material(Color("344947"));progress_root.add_child(backing)
+	progress_fill=MeshInstance3D.new();progress_fill.name="CounterclockwiseProgressFill"
+	progress_fill.material_override=_ring_material(Color("9be6c4"));progress_fill.position.z=.006;progress_root.add_child(progress_fill)
+	progress_label=Label3D.new();progress_label.name="BuildPercent";progress_label.font_size=28;progress_label.pixel_size=.012
+	progress_label.position=Vector3(0,0,.025);progress_label.outline_size=6;progress_label.modulate=Color("e2f6e8");progress_root.add_child(progress_label)
 	var label=Label3D.new();label.name="BuildPrice";label.text="%d GOLD" % (10 if kind=="mine" else 5)
-	label.position.y=.4;label.font_size=26;label.pixel_size=.012;label.outline_size=6
+	label.position.y=-.87;label.font_size=21;label.pixel_size=.012;label.outline_size=5
 	label.modulate=Color("ffe1a0");label.visibility_range_end=40;progress_root.add_child(label)
 	for mesh in progress_root.find_children("*","GeometryInstance3D",true,false):
 		mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
@@ -118,31 +135,66 @@ func _sync_mesh_visibility():
 	# Authored epsilon-scale hidden parts need not consume a draw call.
 	for mesh in _model_meshes:mesh.visible=mesh.global_basis.get_scale().length()>.025
 
+func _ring_material(color: Color)->StandardMaterial3D:
+	var material=StandardMaterial3D.new();material.albedo_color=color
+	material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.cull_mode=BaseMaterial3D.CULL_DISABLED
+	return material
+
+func _arc_mesh(fraction: float)->ArrayMesh:
+	var mesh=ArrayMesh.new()
+	if fraction<=0:return mesh
+	var vertices=PackedVector3Array();var count=maxi(1,int(ceil(64*fraction)))
+	for i in range(count):
+		var start=TAU*fraction*i/count;var end=TAU*fraction*(i+1)/count
+		# XY faces the camera. Twelve o'clock -> left -> bottom -> right.
+		var outer_a=Vector3(-sin(start)*.68,cos(start)*.68,0)
+		var inner_a=Vector3(-sin(start)*.52,cos(start)*.52,0)
+		var outer_b=Vector3(-sin(end)*.68,cos(end)*.68,0)
+		var inner_b=Vector3(-sin(end)*.52,cos(end)*.52,0)
+		vertices.append_array(PackedVector3Array([outer_a,inner_a,outer_b,outer_b,inner_a,inner_b]))
+	var arrays=[];arrays.resize(Mesh.ARRAY_MAX);arrays[Mesh.ARRAY_VERTEX]=vertices
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
+	return mesh
+
+func _sync_preview():
+	visual_root.visible=completed or _selected or working
+	for mesh in _model_meshes:
+		var original: Dictionary=_original_materials[mesh.get_instance_id()]
+		mesh.material_override=original.material if completed else _ghost_material
+		mesh.cast_shadow=original.shadow if completed else GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+
 func set_build_progress(p: float,valid_work: bool):
 	if completed:return
 	progress=clampf(p,0,1);working=valid_work and progress<1
 	if not is_instance_valid(visual_root):return
-	_seek(build_player,build_clip,progress*build_clip_duration)
-	_sync_mesh_visibility()
-	progress_root.visible=progress>EPSILON
-	if progress>EPSILON:proximity_prompt.hide()
+	# Preview the whole finished silhouette while the purchase is still unpaid.
+	_seek(build_player,build_clip,build_clip_duration)
+	_sync_mesh_visibility();_sync_preview()
+	progress_root.visible=(_selected or working) and progress>EPSILON
+	if progress_root.visible:proximity_prompt.hide()
 	progress_fill.visible=progress>0
-	progress_fill.scale.x=maxf(.00001,progress)
-	# The authored mesh starts at local x=0; its fixed -0.975m translation is the anchor.
+	if not is_equal_approx(_ring_fraction,progress):
+		progress_fill.mesh=_arc_mesh(progress);_ring_fraction=progress
+	progress_label.text="%d%%" % int(round(progress*100))
 	hammer.visible=working
 
 func set_proximity(selected: bool,affordable: bool):
+	_selected=selected
 	if not is_instance_valid(proximity_prompt):return
+	_sync_preview()
+	progress_root.visible=selected and not completed and progress>EPSILON
 	proximity_prompt.visible=selected and not completed and progress<=EPSILON
 	if not proximity_prompt.visible:return
 	var label="MINE · 10 GOLD" if kind=="mine" else "ARROW TOWER · 5 GOLD"
-	proximity_prompt.text=("IN RANGE · HOLD B" if affordable else "IN RANGE · NEED GOLD")+"\n"+label
+	proximity_prompt.text=("STAND NEARBY TO BUILD" if affordable else "NEED GOLD")+"\n"+label
 	proximity_prompt.modulate=Color("a3f0ca") if affordable else Color("ffb792")
 
 func complete_build():
 	if completed:return
 	set_build_progress(1,false)
 	completed=true;working=false;completion_events+=1
+	_sync_preview()
 	progress_root.hide();hammer.hide();proximity_prompt.hide()
 	_completion_left=1.0;_seek(completion_player,&"Complete_GoldPulse",0);completion_light.show()
 

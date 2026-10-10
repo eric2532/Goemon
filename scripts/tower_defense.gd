@@ -227,6 +227,16 @@ func recover_escaped_actor(enemy: Ninja)->bool:
 	# Knockback can carry a living raider over the low perimeter. Keep its
 	# place in the roster, but return it to the route before it falls forever.
 	var path: Array=game.world.lanes[enemy.defense_lane]
+	if game.world.get("custom_map")==true:
+		var waypoint=clampi(enemy.defense_waypoint,1,path.size()-1)
+		var point=Geometry3D.get_closest_point_to_segment(enemy.position,path[waypoint-1],path[waypoint])
+		point.y=game.world.height_at(point.x,point.z)+.15
+		enemy.position=point;enemy.velocity=Vector3.ZERO;enemy.grounded_cached=false
+		enemy.walk_clock=0;enemy.walk_age=0;enemy.walk_start=point;enemy.walk_end=point
+		enemy.route_clock=0;enemy.route_direction=Vector3.ZERO;enemy.state="march";enemy.timer=0
+		enemy.stun=0;enemy.impact_pause=0;enemy.attack_hit=false
+		if enemy.defense_traits!=null:enemy.defense_traits.cancel_attack()
+		return true
 	var z=clampf(enemy.position.z,bounds.position.y+3,game.world.base_position.z-12)
 	var waypoint=1
 	while waypoint<path.size()-1 and z>=path[waypoint].z-2:waypoint+=1
@@ -295,10 +305,26 @@ func spawn_pending(_delta: float=0.0):
 func defense_speed(enemy: Ninja)->float:
 	return [8.5,11.5,7.0][enemy.variant]*(enemy.defense_speed_multiplier if beta_mode else 1.0+minf(.35,(wave-1)*.012))
 
+func can_breach(enemy: Ninja)->bool:
+	if game.world.get("custom_map")==true and enemy.defense_waypoint<game.world.lanes[enemy.defense_lane].size()-1:return false
+	return enemy.position.distance_squared_to(game.world.base_position)<8*8
+
 func lane_direction(enemy: Ninja)->Vector3:
 	var path: Array=game.world.lanes[enemy.defense_lane]
-	if enemy.position.distance_squared_to(game.world.base_position)<8*8:
+	if can_breach(enemy):
 		breach(enemy);return Vector3.ZERO
+	if game.world.get("custom_map")==true:
+		while enemy.defense_waypoint<path.size()-1:
+			var next: Vector3=path[enemy.defense_waypoint]+enemy.defense_offset
+			var previous: Vector3=path[enemy.defense_waypoint-1]+enemy.defense_offset
+			var segment=next-previous;segment.y=0
+			var remaining=enemy.position-next;remaining.y=0
+			var passed=remaining.dot(segment)>=0 and remaining.length()<6
+			if remaining.length()>2.5 and not passed:break
+			enemy.defense_waypoint+=1
+		var next: Vector3=path[enemy.defense_waypoint]
+		if enemy.defense_waypoint<path.size()-1:next+=enemy.defense_offset
+		var move=next-enemy.position;move.y=0;return move.normalized()
 	# All routes advance north-to-south. After briefly fighting the hero,
 	# resume the next downstream waypoint instead of walking back upstream.
 	while enemy.defense_waypoint<path.size()-1 and enemy.position.z>=path[enemy.defense_waypoint].z-2:

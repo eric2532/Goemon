@@ -94,7 +94,7 @@ func extended_rules():
   else:
    check(victim.hp<10000,"%s secondary reaches enemies ahead" % CLASS_IDS[index])
   if index in [6,7]:
-   check(native_projectiles.size()==(4 if index==7 else 1),"%s keeps its original projectile count" % CLASS_IDS[index])
+   check(native_projectiles.size()==(5 if index==7 else 1),"%s secondary releases its configured projectile count" % CLASS_IDS[index])
  for index in [1,2]:
   await fresh_class(index);tap("equip");await settle_attack()
   check(native_projectiles.size()==(1 if index==1 else 5),"%s retains its ranged weapon on E" % CLASS_IDS[index])

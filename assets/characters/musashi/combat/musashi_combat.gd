@@ -129,7 +129,7 @@ func tick(delta: float,update_timers: bool=true):
 		if teleport.active:return
 	elapsed+=delta*hero.attack_speed_multiplier() if is_attacking() else delta
 	if state==State.BEAM:
-		if beam_held and not Input.is_action_pressed(beam_action):stop_hold_beam();return
+		if beam_held and not (Input.is_action_pressed(beam_action) or (beam_action=="light_attack" and hero.auto_attack_running())):stop_hold_beam();return
 		if is_instance_valid(beam):
 			hero.facing=game.attack_direction();hero.attack_left=1.0
 		else:hero.attack_left=0;end_beam_guard();change(State.IDLE)

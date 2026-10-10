@@ -33,7 +33,7 @@ func run():
  await build_access_rules()
  game.restart_area();await frames(3);run=game.encounters;run.set_physics_process(false)
  var site=game.world.cannon_sites[0]
- game.reset_player_at(site.build_position);game.player.facing=(site.position-game.player.position).normalized()
+ await stand_at(site.build_position);game.player.facing=(site.position-game.player.position).normalized()
  game.player.select_character(3)
  press("light_attack",true);press("siege_build",true)
  game.player._physics_process(.016)
@@ -41,25 +41,25 @@ func run():
  press("light_attack",false);press("siege_build",false);game.player.select_character(1)
  run.update_build_input(0,false);run.update_build_input(1.5,true)
  check(is_equal_approx(run.site_states[0].progress,.5) and run.money==10,"Partial construction costs nothing")
- run.update_build_input(1,false)
- check(is_equal_approx(run.site_states[0].progress,.25),"Released construction decays visibly")
- run.update_build_input(2.25,true)
- check(run.site_states[0].level==1 and run.money==5 and run.cannons.size()==1,"Reheld construction resumes and pays once")
+ game.player.position=Vector3(0,.15,60);run.update_build_input(1,false)
+ check(is_equal_approx(run.site_states[0].progress,.25),"Leaving construction range decays visibly")
+ await stand_at(site.build_position);run.update_build_input(2.25,false)
+ check(run.site_states[0].level==1 and run.money==5 and run.cannons.size()==1,"Standing nearby again resumes and pays once")
  run.update_build_input(3,true)
- check(run.money==5 and run.cannons.size()==1,"Holding B after completion cannot buy again")
+ check(run.money==5 and run.cannons.size()==1,"Remaining nearby after completion cannot buy again")
  var moving_site=game.world.cannon_sites[4]
- game.reset_player_at(moving_site.build_position);game.player.facing=(moving_site.position-game.player.position).normalized()
+ await stand_at(moving_site.build_position);game.player.facing=(moving_site.position-game.player.position).normalized()
  run.update_build_input(0,false);run.update_build_input(1,true)
  game.player.position.x+=1;game.player.velocity=Vector3(3,0,0)
  run.update_build_input(1,true)
  check(run.site_states[4].progress<1.0/3.0 and not run.building,"Movement within the pad interrupts construction and decays progress")
  game.player.velocity=Vector3.ZERO
  run.update_build_input(3,true)
- check(run.site_states[4].level==0 and run.money==5,"Interrupted construction requires releasing B before resuming")
+ check(run.site_states[4].level==1 and run.money==0,"Stopping movement automatically resumes construction")
  run.update_build_input(0,false);run.update_build_input(3,true)
- check(run.site_states[4].level==1 and run.money==0,"Stationary release and rehold rearms construction")
+ check(run.site_states[4].level==1 and run.money==0,"Continuing to stand nearby cannot pay again")
  game.restart_area();await frames(3);run=game.encounters;run.set_physics_process(false)
- game.reset_player_at(game.world.mine_build_position);game.player.facing=(game.world.mine_position-game.player.position).normalized()
+ await stand_at(game.world.mine_build_position);game.player.facing=(game.world.mine_position-game.player.position).normalized()
  run.update_build_input(0,false);run.update_build_input(4,true)
  check(run.mine_built and run.money==0,"Mine purchase completes after four seconds and charges ten")
  run.tick(20)
@@ -136,25 +136,25 @@ func build_access_rules():
  # These points are outside the structure footprint and clear of the road.
  # Facing away must not suppress real build progress from any approach.
  for offset in [Vector3(-3.8,0,0),Vector3(3.8,0,0),Vector3(0,0,-3.8),Vector3(0,0,3.8),Vector3(-3,0,-3),Vector3(3,0,3),Vector3(-3,0,3),Vector3(3,0,-3)]:
-  game.reset_player_at(site.position+offset);game.player.facing=offset.normalized()
+  await stand_at(site.position+offset);game.player.facing=offset.normalized()
   run.update_build_input(0,false)
   var prompts=run.site_states.filter(func(state):return state.cannon.get_node_or_null("BuildProximityPrompt")!=null and state.cannon.get_node("BuildProximityPrompt").visible)
-  check(prompts.size()==1 and not run.site_states[4].cannon.progress_root.visible,"Only the nearest in-range structure shows its prompt before work begins")
+  check(prompts.size()==1 and not run.site_states[4].cannon.progress_root.visible,"Only the nearest in-range structure shows its initial proximity feedback")
   run.update_build_input(.3,true)
   check(run.site_states[4].progress>0,"Approaching from %s while facing away can actually build" % offset)
-  run.update_build_input(4,false)
+  game.player.position=Vector3(0,.15,60);run.update_build_input(4,false)
  for side in [-1,1]:
   var wall_site=game.world.cannon_sites[0]
-  game.reset_player_at(Vector3(wall_site.position.x,.15,wall_site.position.z+side*3.8));game.player.facing=Vector3(0,0,side)
+  await stand_at(Vector3(wall_site.position.x,.15,wall_site.position.z+side*3.8));game.player.facing=Vector3(0,0,side)
   run.update_build_input(0,false);run.update_build_input(.3,true)
   check(run.site_states[0].progress>0,"Supporting parapet still permits work from side %d" % side)
-  run.update_build_input(4,false)
- game.reset_player_at(site.position+Vector3(0,8,0))
+  game.player.position=Vector3(0,.15,60);run.update_build_input(4,false)
+ await stand_at(site.position+Vector3(0,8,0))
  run.update_build_input(0,false);run.update_build_input(1,true)
  check(run.site_states[4].progress==0,"Being above a structure cannot build it remotely")
  var visible_prompts=run.site_states.filter(func(state):return state.cannon.get_node_or_null("BuildProximityPrompt")!=null and state.cannon.get_node("BuildProximityPrompt").visible)
  check(visible_prompts.is_empty(),"Leaving build range hides the proximity prompt")
- game.reset_player_at(site.position+Vector3(4,0,0))
+ await stand_at(site.position+Vector3(4,0,0))
  var wall=StaticBody3D.new();wall.collision_layer=1;wall.position=site.position+Vector3(2.8,1,0)
  var shape=CollisionShape3D.new();shape.shape=BoxShape3D.new();shape.shape.size=Vector3(.3,3,5);wall.add_child(shape);game.add_child(wall)
  await frames(2)
@@ -170,22 +170,27 @@ func build_access_rules():
   check(nearby>=3,"At least three mines are reachable within 25 metres of the opening position")
   run.money=30
   for i in range(2):
-   game.reset_player_at(game.world.mine_sites[i].position+Vector3(0,.15,4))
+   await stand_at(game.world.mine_sites[i].position+Vector3(0,.15,4))
    run.update_build_input(0,false);run.update_build_input(2 if i==0 else 1,true)
   check(is_equal_approx(mines[0].progress,.25) and is_equal_approx(mines[1].progress,.25) and run.money==30,"Two mines retain independent unpaid progress while unattended work decays")
-  run.update_build_input(4,false)
+  game.player.position=Vector3(0,.15,60);run.update_build_input(4,false)
   for i in range(3):
    var center=game.world.mine_sites[i].position
-   game.reset_player_at(center+Vector3(0,.15,4));game.player.facing=Vector3.BACK
+   await stand_at(center+Vector3(0,.15,4));game.player.facing=Vector3.BACK
    run.update_build_input(0,false);run.update_build_input(4,true)
    check(mines[i].level==1 and run.money==20-i*10,"Mine %d completes its own purchase once" % (i+1))
    run.update_build_input(4,true)
-   check(run.money==20-i*10,"Holding after mine %d completes cannot charge again" % (i+1))
+   check(run.money==20-i*10,"Standing after mine %d completes cannot charge again" % (i+1))
   run.update_start_input(0,false);run.update_start_input(3,true);run.tick(1)
   check(is_equal_approx(run.money,6),"Three completed mines earn six gold in one spawning second")
   run.phase="clearance";run.tick(1)
   check(is_equal_approx(run.money,6),"Additional mines cannot generate income during clearance")
  game.player.set_physics_process(true)
+
+func stand_at(point: Vector3):
+ var p=game.player;var processing=p.is_physics_processing()
+ game.reset_player_at(point);p.set_physics_process(true);await frames(20)
+ p.set_physics_process(processing);p.velocity=Vector3.ZERO
 
 func finish():
  print("FIRE_SIEGE_MVP_RESULT checks=",checks," failures=",failures)

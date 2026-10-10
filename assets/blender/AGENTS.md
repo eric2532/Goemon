@@ -1,5 +1,13 @@
 # Character art direction
 
+Current user correction (2026-10-09, Ranger hat): replace Ranger's open hood
+with a fitted forest-green hat whose crown and rear nape panel fully cover the
+scalp, with a readable brim and optional feather. Preserve the approved v2.35
+painted face, facial depth, UVs and all solid hair meshes exactly, plus native
+body/weapon geometry and pivots. Rebuild through tools/equip_ranger_hat.py
+(also dispatched by style_rogue_roster.py). Inspect the live exported front,
+profile, three-quarter and back beside Goemon; regenerate the matching portrait.
+
 Current user correction (2026-10-09, v2.37): Samurai's neck looks too long;
 shorten the neck and lower the head/helmet assembly, refitting the red scarf into
 a compact mouth-and-neck wrap while retaining its long animated tail. Dragoon's

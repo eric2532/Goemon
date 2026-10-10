@@ -9,6 +9,7 @@ const COMBO = [
 	{"duration": 0.49, "contact": 0.15, "damage": 48, "reach": 3.35, "arc": 1.55, "impulse": 6.5, "stop": 0.085}
 ]
 const PRIMARY_RANGE_MULTIPLIER = 3.0
+const RANGER_GLIDE_DIVISOR = 3.0
 const ENERGY_PER_LIGHT = 20
 const ENERGY_MAX = 100
 const DIVE_DAMAGE = 260
@@ -99,9 +100,10 @@ func _fresh_player() -> Dictionary:
 		"crouched": false, "riposte": 0.0, "travel": null, "dive": null, "energy": 0, "burst": null, "secondaryBuffer": null,
 		"chargeTime": 0.0, "charging": false, "chargeAngle": 0.0, "chargeTicket": {}, "chargeOrb": null,
 		"guardTime": 0.0, "guardStyle": "", "guardTicket": {}, "dashAttack": null, "pulses": [], "bladeSide": 1,
-		"untargetable": 0.0, "classId": class_id, "id": class_id, "isPlayer": true, "actor": visual_actor}
+		"untargetable": 0.0, "rangerShots": 0, "rangerFlightSerial": 0, "rangerGliding": false, "classId": class_id, "id": class_id, "isPlayer": true, "actor": visual_actor}
 
 func reset_run() -> void:
+	_restore_ranger_fall()
 	locomotion_velocity = Vector3.ZERO
 	animation_velocity = Vector3.ZERO
 	utility_buffer = 0.0
@@ -214,7 +216,7 @@ func action(slot: String) -> void:
 		return
 	player.pos = hero.global_position
 	_update_aim()
-	if slot == "roll" and player.attack == null and player.roll <= 0 and player.travel == null:
+	if slot == "roll" and class_id != "ranger" and player.attack == null and player.roll <= 0 and player.travel == null:
 		player.angle = atan2(aim.x - player.pos.x, aim.z - player.pos.z)
 	if slot == "cutlass":
 		attack_buffer = 0.17
@@ -363,6 +365,18 @@ func range_scale() -> float:
 func primary_range_scale() -> float:
 	return range_scale() * PRIMARY_RANGE_MULTIPLIER
 
+func ranger_ground_target(angle: float) -> Vector3:
+	if not game.camera_combat():
+		return aim
+	var point: Vector3 = hero.global_position + front(angle) * 7.5 * hero.growth_multiplier()
+	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(point + Vector3.UP * 2.0, point + Vector3.DOWN * 128.0, 1)
+	query.exclude = [hero.get_rid()]
+	var floor_hit: Dictionary = hero.get_world_3d().direct_space_state.intersect_ray(query)
+	if not floor_hit.is_empty():
+		return floor_hit.position
+	point.y -= 8.0 * hero.growth_multiplier()
+	return point
+
 func projectile_direction(angle: float, origin: Vector3) -> Vector3:
 	var direction: Vector3 = front(angle)
 	if game.camera_combat():return direction
@@ -439,8 +453,11 @@ func tick(delta: float, update_timers: bool = true) -> void:
 		if a.time >= a.duration:
 			_complete_primary(a)
 			player.attack = null
-	if (primary_held or attack_buffer > 0) and _can_primary():
+	if (primary_held or attack_buffer > 0 or hero.auto_attack_running()) and _can_primary():
 		attack()
+		# Automatic Mage primary is a normal tap. A real held click still charges.
+		if class_id == "mage" and hero.auto_attack_running() and not primary_held and player.charging:
+			Actions.release_charge(self)
 	for i in range(projectiles.size() - 1, -1, -1):
 		var projectile: Dictionary = projectiles[i]
 		if not is_instance_valid(projectile.mesh):
@@ -504,6 +521,7 @@ func physics_step(delta: float) -> void:
 func _move_body(delta: float) -> void:
 	var p: Dictionary = player
 	if hero.is_on_floor():
+		_restore_ranger_fall()
 		hero.coyote = 0.13
 		hero.jumps_used = 0
 		flip_time = -1.0
@@ -544,13 +562,21 @@ func _move_body(delta: float) -> void:
 	if hero.jump_buffer > 0 and p.roll <= 0 and not (p.blocking and class_id == "master-thief"):
 		if hero.coyote > 0 or hero.jumps_used < 2:
 			var grounded: bool = hero.coyote > 0
-			hero.velocity.y = (game.tuning.jump_speed if grounded else game.tuning.second_jump_speed) * hero.progression.jump_velocity_multiplier() * (sqrt(2.0) if class_id == "dragoon" else 1.0)
+			p.rangerGliding = false
+			hero.velocity.y = (game.tuning.jump_speed if grounded else game.tuning.second_jump_speed) * hero.progression.jump_velocity_multiplier() * (sqrt(2.0) if class_id in ["dragoon", "ranger"] else 1.0)
 			hero.jumps_used = 1 if grounded else 2
 			if not grounded: flip_time = 0.0
 			hero.jump_buffer = 0
 			hero.coyote = 0
 	if not hero.is_on_floor():
-		hero.velocity.y = maxf(-55, hero.velocity.y - 30 * delta)
+		# Keep ordinary fall momentum behind the glide, then apply the held
+		# speed divisor once. Releasing Space restores that ordinary momentum.
+		var fall_speed: float = hero.velocity.y
+		if p.rangerGliding and fall_speed < 0: fall_speed *= RANGER_GLIDE_DIVISOR
+		fall_speed = maxf(-55, fall_speed - 30 * delta)
+		p.rangerGliding = class_id == "ranger" and fall_speed < 0 and Input.is_action_pressed("jump") and hero.hp > 0
+		hero.velocity.y = fall_speed / RANGER_GLIDE_DIVISOR if p.rangerGliding else fall_speed
+		if p.rangerGliding and hero.jumps_used >= 2: hero.jump_buffer = 0
 	elif hero.velocity.y < 0:
 		hero.velocity.y = 0
 	# Match the existing body step-up allowance; this never bypasses tall cover.
@@ -563,8 +589,15 @@ func _move_body(delta: float) -> void:
 	var was_airborne: bool = not hero.is_on_floor()
 	hero.move_and_slide()
 	if was_airborne and hero.is_on_floor():
+		p.rangerGliding = false
 		landing_pose = 1.0
 		flip_time = -1.0
+
+func _restore_ranger_fall() -> void:
+	if player.is_empty(): return
+	if player.get("rangerGliding", false) and is_instance_valid(hero) and hero.velocity.y < 0:
+		hero.velocity.y = maxf(-55, hero.velocity.y * RANGER_GLIDE_DIVISOR)
+	player.rangerGliding = false
 
 func step_travel(delta: float) -> void:
 	locomotion_velocity = Vector3.ZERO
@@ -718,6 +751,15 @@ static func front(angle: float) -> Vector3:
 func movement_direction() -> Vector3:
 	return move_input.normalized() if move_input.length_squared() > 0.1 else front(player.angle)
 
+func ranger_roll_direction() -> Vector3:
+	var raw: Vector2 = hero.smoke_move if hero.smoke_mode else Input.get_vector("move_left","move_right","move_forward","move_back")
+	if raw.length_squared()>.01:
+		return Vector3(raw.x,0,raw.y).normalized().rotated(Vector3.UP,game.camera_rig.yaw)
+	return front(player.angle)
+
+func ranger_fire_rate_multiplier() -> float:
+	return minf(3.0,1.0+.12*hero.attack_chain.count)
+
 func clamp_arena(pos: Vector3) -> Vector3:
 	var bounds: Rect2 = game.world.playable_bounds.grow(-1)
 	pos.x = clampf(pos.x, bounds.position.x, bounds.end.x)
@@ -753,6 +795,9 @@ func living() -> Array:
 # native action module uses the same method with a target dictionary for damage.
 func hit(e: Dictionary = {}, amount: float = 0, weapon: String = "cutlass", heavy: bool = false, direction: Vector3 = Vector3.ZERO, element: String = "", presentation: String = "") -> void:
 	if e.is_empty():
+		# Hero applies incoming knockback after this hook. Restore ordinary
+		# momentum first so the glide divisor cannot multiply that impulse.
+		_restore_ranger_fall()
 		if is_instance_valid(visual_actor):
 			visual_actor.flash_hit(Color("ff573e"), 1.1)
 		hit_stop = maxf(hit_stop, 0.045)
@@ -865,7 +910,7 @@ func resolve_projectile_segment(pr: Dictionary, from: Vector3, to: Vector3) -> v
 		_resolution_ticket = pr.ticket
 		_damage_origin = from
 		_projectile_damage = true
-		hit(e, pr.damage, pr.weapon, pr.heavy, pr.vel.normalized(), "", pr.kind)
+		hit(e, pr.damage, pr.weapon, pr.heavy, pr.get("flightDirection", pr.vel.normalized()), "", pr.kind)
 		_projectile_damage = false
 		if pr.kind in ["bolt", "fireball"]:
 			fx.ring(e.pos, pr.get("color", tint()), 1.1 * pr.get("visualScale", 1.0), 0.3)
@@ -950,6 +995,7 @@ func interrupt_for_dodge() -> void:
 	action("roll")
 
 func cancel(preserve_power: bool = false) -> void:
+	_restore_ranger_fall()
 	primary_held = false
 	secondary_held = false
 	secondary_sources.clear()
@@ -980,6 +1026,8 @@ func cancel(preserve_power: bool = false) -> void:
 		fx.clear()
 	if not preserve_power:
 		player.energy = 0
+		player.rangerShots = 0
+		player.rangerFlightSerial = 0
 		for key in ["ultimatePulse", "drink", "invuln", "untargetable", "buffTime", "buffDuration", "blockMeter", "riposte", "shot", "drinkGesture"]:
 			player[key] = 0.0
 		player.buffName = ""
