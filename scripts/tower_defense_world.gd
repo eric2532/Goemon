@@ -21,6 +21,7 @@ var base_position=Vector3(0,0,300)
 var dog_spawn_position=Vector3(0,.15,195)
 var hero_spawn_position=Vector3(0,.15,203)
 var defense_banners: Array[Node3D]=[]
+var spirit_lantern_positions: Array[Vector3]=[]
 var shrine_halo: MeshInstance3D
 const LANE_X=[-160.0,0.0,160.0]
 const STATIONS=[-170.0,0.0,160.0]
@@ -65,11 +66,18 @@ func _ready():
 		_build_barracks_marker()
 	_build_woodland()
 	_build_horizon()
+	if redesign_mode:_install_spirit_effects()
 	# Fixed defenses must remain visible during flight and across the valley.
 	# This compact map uses instanced woodland, so strategic scenery stays drawn;
 	# the floating labels retain their own short readability range.
 
 func height_at(_x: float, _z: float)->float:return 0.0
+
+func _install_spirit_effects():
+	var effects=preload("res://scripts/spirit_fortress_effects.gd").new()
+	effects.name="SpiritFortressEffects"
+	add_child(effects)
+
 func raw_height(_x: float, _z: float)->float:return 0.0
 func surface_height_at(_point: Vector3)->float:return 0.0
 func active_lane_indices()->Array:return [1] if beta_mode else [0,1,2]
@@ -309,6 +317,7 @@ func _world_label(text_value: String,p: Vector3,color: Color,pixel: float):
 	add_child(label)
 
 func _field_lantern(p: Vector3,color: Color):
+	spirit_lantern_positions.append(p)
 	Geo.cylinder(self,p+Vector3(0,1.6,0),.13,3.2,Geo.mat("453c30"))
 	Geo.box(self,p+Vector3(0,3.0,0),Vector3(.85,1.0,.85),Geo.mat(color.lightened(.2).to_html(false),0,.8))
 	Geo.box(self,p+Vector3(0,3.62,0),Vector3(1.3,.22,1.3),Geo.mat("263e3d"))

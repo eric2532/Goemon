@@ -1157,6 +1157,8 @@ func apply_quality():
 			if n is WorldEnvironment:
 				n.environment.ssao_enabled=settings.quality>0
 				n.environment.glow_enabled=settings.quality>0
+		var spirit=world.get_node_or_null("SpiritFortressEffects")
+		if spirit:spirit.apply_quality(settings.quality)
 
 func toast(words: String):
 	hud.toast_text=words

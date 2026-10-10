@@ -1,12 +1,25 @@
 # Goemon — Fire Siege MVP / Sky Descent
 
-A fully local Godot 4.6.1 action game. **Fire Siege MVP is the primary development
-version**, as requested on 9 October 2026. Continue work in the latest
-`codex/fire-siege-mvp` worktree and use its Fire Siege export. The legacy Sky
-Descent material below remains reference for that older mode.
+A fully local Godot 4.6.3 action game. **Fire Siege MVP is the primary development
+version**. This `codex/fire-siege-spirit-effects` branch adds Spirit Fortress's
+visual techniques to the playable Fire Siege game as **v2.46.0**. The legacy
+Sky Descent material below remains reference for that older mode.
 
-The latest **v2.45** GitHub source is on **`codex/fire-siege-mvp`**.
+The pushed **v2.45** base is on **`codex/fire-siege-mvp`**, commit `8758b73`.
 See [agent review instructions, verification and screenshots](docs/fire-siege-mvp/github-review-v245.md).
+
+## Fire Siege · Spirit Fortress effects · v2.46.0
+
+Fire Siege now has petals and spirit motes, warm lantern/cool shrine lighting,
+distance haze, animated banner cloth, water/foam side pools, floating stones
+outside the field, and glowing shrine rune pulses. Use the existing Graphics
+quality setting: Medium enables the effects; High also enables one shrine
+accent shadow; Low removes the added effects and uses static banner cloth.
+Pause freezes every animation. Custom maps gain atmosphere and animated
+authored banners, while the map builder retains its clear editor lighting.
+
+See [integration and verification](docs/fire-siege-mvp/spirit-fortress-v246.md)
+and [source provenance](assets/vfx/spirit_fortress/README.md).
 
 ## Environment art
 
@@ -18,7 +31,7 @@ The ground map is now **four times its previous area** (twice the width and dept
 
 ## Fire Siege · Automatic construction · v2.45.0
 
-The current local app is `build/final-macos/Goemon Fire Siege.app` (v2.45.0).
+Version v2.45.0 introduced automatic construction; v2.46.0 retains it.
 Stand beside an affordable tower or mine spot to build automatically. No B
 input is needed. Empty sites use small muted stones; a full translucent
 preview appears nearby, with a circular progress ring filling counterclockwise.

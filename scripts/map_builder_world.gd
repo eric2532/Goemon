@@ -39,8 +39,10 @@ func _ready():
   var kind: String=entry.kind
   var n=Pieces.build(self,kind,true);n.position=doc.point(entry);n.rotation_degrees.y=entry.rotation
   n.set_meta("piece_uid",entry.uid);piece_nodes[entry.uid]=n
+  n.set_meta("piece_kind",kind)
   if kind in ["tower","mine"] and not editor_labels:n.hide()
   if kind=="tower":
    cannon_sites.append({"position":n.position+Vector3.UP*.15,"lane":1,"label":"CUSTOM ARROW TOWER","build_position":n.position+Vector3(0,.15,3.5),"footprint":Vector2(1.4,1.4)})
   elif kind=="mine":mine_sites.append({"position":n.position,"footprint":Vector2(2.3,2.365)})
+ if not editor_labels:_install_spirit_effects()
 func _process(_delta):pass
