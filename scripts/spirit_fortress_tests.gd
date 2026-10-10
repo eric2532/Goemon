@@ -33,6 +33,10 @@ func run():
  var environment=game.world.find_children("*","WorldEnvironment",true,false)[0].environment
  check(environment.glow_enabled and environment.fog_enabled,"Emission bloom and distance haze are enabled")
  check(fx.water_material.shader!=null and not fx.banner_materials.is_empty(),"Water and existing battlefield banners use the source effects shaders")
+ check(fx.particles.all(func(p):return p.mesh.material.vertex_color_use_as_albedo),"Particle lifetime colors and opacity reach their rendered material")
+ check(fx.find_children("*","GeometryInstance3D",true,false).all(func(n):return n.cast_shadow==GeometryInstance3D.SHADOW_CASTING_SETTING_OFF),"Decorative effects do not add shadow passes or an opaque shadow beneath the fading rune")
+ var cloth=game.world.find_children("SpiritCloth","MeshInstance3D",true,false)
+ check(cloth.size()>1 and cloth.all(func(n):return n.mesh==cloth[0].mesh and n.material_override==cloth[0].material_override),"Identical opaque battlefield banners share mesh and material for instancing")
  var clock=float(fx.clock_time)
  var water_clock=float(fx.water_material.get_shader_parameter("clock_time"))
  var stone_position: Vector3=fx.float_roots[0].position
@@ -65,7 +69,7 @@ func run():
  if fx!=null:
   check(fx.get_node_or_null("SpiritPools")==null and fx.float_roots.is_empty(),"Custom maps receive no unplaced pools or floating stone scenery")
   check(game.world.cannon_sites.size()==12 and game.world.mine_sites.size()==4,"Custom map gameplay markers are preserved")
-  check(fx.banner_materials.size()==3,"Every custom map banner receives animated cloth, including duplicate and rotated pieces")
+  check(game.world.find_children("SpiritCloth","MeshInstance3D",true,false).size()==3,"Every custom map banner receives animated cloth, including duplicate and rotated pieces")
   await capture("custom",Vector3(31,18,214),Vector3(0,2,195))
  var editor=load("res://scripts/map_builder_world.gd").new()
  editor.map_data=doc.data.duplicate(true);editor.editor_labels=true;root.add_child(editor)

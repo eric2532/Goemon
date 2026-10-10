@@ -9,6 +9,8 @@ var lights: Array[OmniLight3D]=[]
 var float_roots: Array[Node3D]=[]
 var float_positions: Array[Vector3]=[]
 var banner_materials: Array[ShaderMaterial]=[]
+var cloth_materials: Dictionary={}
+var cloth_meshes: Dictionary={}
 var water_material: ShaderMaterial
 var pulse: MeshInstance3D
 var environment: Environment
@@ -39,19 +41,28 @@ func _ready():
  _particles(world.spawn_point+Vector3(0,5,0),64,Color("edb8c7"),true)
  _particles(world.base_position+Vector3.UP*3,36,Color("84f5ec"),false)
  _runes(world.base_position)
+ # Ground overlays, tiny trim and distant ornaments need no extra shadow pass.
+ # Battlefield cloth stays outside this branch and retains its wind-driven shadow.
+ for geometry in find_children("*","GeometryInstance3D",true,false):
+  geometry.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
  apply_quality(1)
 
 func _cloth(parent: Node3D,position: Vector3,size: Vector2,color: Color):
  # Retain the existing pole and footprint; replace only rigid cloth/emblem boxes.
  for child in parent.get_children():
   if child is MeshInstance3D and child.mesh is BoxMesh:child.hide()
- var material=ShaderMaterial.new();material.shader=BANNER
- material.set_shader_parameter("clock_time",0.0)
- material.set_shader_parameter("cloth_color",color.darkened(.25))
- material.set_shader_parameter("trim_color",Color("f4e5bf"))
- banner_materials.append(material)
- var plane=PlaneMesh.new();plane.orientation=PlaneMesh.FACE_Z;plane.size=size
- plane.subdivide_width=8;plane.subdivide_depth=20
+ var material: ShaderMaterial=cloth_materials.get(color)
+ if material==null:
+  material=ShaderMaterial.new();material.shader=BANNER
+  material.set_shader_parameter("clock_time",0.0)
+  material.set_shader_parameter("cloth_color",color.darkened(.25))
+  material.set_shader_parameter("trim_color",Color("f4e5bf"))
+  cloth_materials[color]=material;banner_materials.append(material)
+ var plane: PlaneMesh=cloth_meshes.get(size)
+ if plane==null:
+  plane=PlaneMesh.new();plane.orientation=PlaneMesh.FACE_Z;plane.size=size
+  plane.subdivide_width=8;plane.subdivide_depth=20
+  cloth_meshes[size]=plane
  var cloth=Geo.mesh(parent,plane,position,material)
  cloth.name="SpiritCloth";cloth.extra_cull_margin=.4
 
@@ -72,6 +83,7 @@ func _particles(position: Vector3,amount: int,color: Color,petals: bool):
  ps.scale_amount_min=.12 if petals else .08;ps.scale_amount_max=.24 if petals else .17
  var material=StandardMaterial3D.new();material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
  material.albedo_color=color;material.billboard_mode=BaseMaterial3D.BILLBOARD_ENABLED
+ material.vertex_color_use_as_albedo=true
  material.billboard_keep_scale=true;material.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA
  material.cull_mode=BaseMaterial3D.CULL_DISABLED
  var gradient=Gradient.new();gradient.offsets=PackedFloat32Array([0,.65,1])

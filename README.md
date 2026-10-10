@@ -2,13 +2,13 @@
 
 A fully local Godot 4.6.3 action game. **Fire Siege MVP is the primary development
 version**. This `codex/fire-siege-spirit-effects` branch adds Spirit Fortress's
-visual techniques to the playable Fire Siege game as **v2.46.0**. The legacy
+visual techniques to the playable Fire Siege game as **v2.46.1**. The legacy
 Sky Descent material below remains reference for that older mode.
 
 The pushed **v2.45** base is on **`codex/fire-siege-mvp`**, commit `8758b73`.
 See [agent review instructions, verification and screenshots](docs/fire-siege-mvp/github-review-v245.md).
 
-## Fire Siege · Spirit Fortress effects · v2.46.0
+## Fire Siege · Spirit Fortress effects · v2.46.1
 
 Fire Siege now has petals and spirit motes, warm lantern/cool shrine lighting,
 distance haze, animated banner cloth, water/foam side pools, floating stones
@@ -20,6 +20,11 @@ authored banners, while the map builder retains its clear editor lighting.
 
 See [integration and verification](docs/fire-siege-mvp/spirit-fortress-v246.md)
 and [source provenance](assets/vfx/spirit_fortress/README.md).
+
+v2.46.1 shares identical banner meshes/materials, removes decorative shadow
+passes, and corrects particle lifetime fading. See the
+[effects performance audit](docs/fire-siege-mvp/spirit-performance-v2461.md)
+for measured comparisons and their limits.
 
 ## Environment art
 
