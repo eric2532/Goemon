@@ -66,7 +66,9 @@ func _ready():
 		_build_barracks_marker()
 	_build_woodland()
 	_build_horizon()
-	if redesign_mode:_install_spirit_effects()
+	if redesign_mode:
+		preload("res://scripts/neon_shrine.gd").apply(self)
+		_install_spirit_effects()
 	# Fixed defenses must remain visible during flight and across the valley.
 	# This compact map uses instanced woodland, so strategic scenery stays drawn;
 	# the floating labels retain their own short readability range.
@@ -121,12 +123,14 @@ func _build_ground():
 	add_child(ground_root)
 	var shader=Shader.new()
 	shader.code="""shader_type spatial;
+uniform bool night_theme=false;
 varying vec3 ground_pos;
 void vertex(){ground_pos=(MODEL_MATRIX*vec4(VERTEX,1.0)).xyz;}
 void fragment(){
  float large=sin(ground_pos.x*.041)*sin(ground_pos.z*.027);
  float fleck=sin(ground_pos.x*1.83+sin(ground_pos.z*2.31))*sin(ground_pos.z*2.07);
  ALBEDO=mix(vec3(.23,.32,.19),vec3(.37,.43,.26),large*.5+.5)+fleck*.017;
+ if(night_theme){ALBEDO=mix(vec3(.045,.07,.105),vec3(.09,.12,.17),large*.5+.5)+fleck*.008;}
  ROUGHNESS=1.0;
 }
 """

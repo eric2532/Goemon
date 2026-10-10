@@ -15,7 +15,7 @@ func run():
 	check(p.model.rig_visual.scene_file_path==expected,"Ordinary Edo selection loads requested model: "+expected)
 	check(p.model.skeleton.get_bone_count()==16,"Runtime review model has all16 animation bones")
 	check(shape.shape==collider and shape.transform==collider_transform and p.hp==hp,"Switching preserves shared collider, transform and health")
-	check(game.active_enemy_limit==200 and game.crowd.batches.size()==4,"Enemy cap and four original species batches remain active")
+	check(game.active_enemy_limit==200 and game.crowd.batches.size()>=4,"Enemy cap and four original species batches remain available")
 	check(game.world.find_child("TidefallProps",true,false)!=null,"Main town prop kit remains integrated")
 	for side in ["L","R"]:check(p.model.hand_position(side).is_finite(),"Hand attachment origin remains finite: "+side)
 	if "--visual" in OS.get_cmdline_user_args():

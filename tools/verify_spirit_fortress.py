@@ -34,6 +34,7 @@ def main():
     suites = list(SUITES)
     suites.extend((name, ["--", "--" + name + "-test"], marker) for name, marker in LATEST)
     suites.append(("spirit", ["--script", "res://scripts/spirit_fortress_tests.gd"], "SPIRIT_FORTRESS_RESULT"))
+    suites.append(("neon", ["--script", "res://scripts/neon_shrine_tests.gd"], "NEON_SHRINE_RESULT"))
     if args.native:
         suites = [suite for suite in suites if suite[1][0] != "--script"]
     results = []

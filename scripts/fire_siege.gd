@@ -150,11 +150,20 @@ func _spawn_due(count: int):
 		enemy.defense_lane=1;enemy.defense_waypoint=1;enemy.defense_offset=Vector3(sideways,0,0)
 		enemy.encounter_id="siege_%d_%d_%d" % [generation,wave,serial]
 		enemy.formation_index=total_spawned;enemy.variant=(serial+wave)%3
+		# Two additional melee roles use the existing combat timings and crowd path.
+		var health=100.0
+		if serial%10==4:
+			enemy.variant=1;health=80.0;enemy.defense_speed_multiplier=1.15;enemy.defense_damage_multiplier=.8
+			enemy.set_meta("siege_archetype","cyber_ronin");enemy.set_meta("siege_species",4)
+		elif serial%10==9:
+			enemy.variant=2;health=180.0;enemy.defense_speed_multiplier=.82;enemy.defense_damage_multiplier=1.4
+			enemy.defense_scale=1.12
+			enemy.set_meta("siege_archetype","armored_oni");enemy.set_meta("siege_species",5)
 		enemy.position=point;enemy.state="march";enemy.alerted=true
 		enemy.set_meta("siege_generation",generation)
 		enemy.process_mode=Node.PROCESS_MODE_PAUSABLE
 		game.add_child(enemy);game.enemies.append(enemy)
-		enemy.max_hp=100.0;enemy.hp=100.0
+		enemy.max_hp=health;enemy.hp=health
 		wave_actors[enemy.encounter_id]=weakref(enemy)
 		pending-=1;total_spawned+=1;alive_count+=1;last_spawn_count+=1
 	last_spawn_usec=Time.get_ticks_usec()-started;peak_spawn_count=maxi(peak_spawn_count,last_spawn_count)
@@ -198,7 +207,7 @@ func _terminate(victory: bool):
 	else:game.defeat()
 
 func defense_speed(enemy: Ninja)->float:
-	return [8.5,11.5,7.0][enemy.variant]*(1.35 if hero_dead else 1.0)
+	return [8.5,11.5,7.0][enemy.variant]*enemy.defense_speed_multiplier*(1.35 if hero_dead else 1.0)
 
 func hero_died():
 	if not active or base_hp<=0 or not runtime.hero_died():return

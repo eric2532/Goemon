@@ -13,6 +13,11 @@ Four original, editable low-poly Blender characters on baseline `82b4e8307af1158
 
 ## Runtime adaptation
 
+v2.47.0 retains the original four batches and adds two siege-only species.
+The original-set description below remains applicable to these four designs.
+See [neon shrine roster and measurements](../neon-shrine/README.md). The renderer
+check also verifies that the additional species stay absent from original survival.
+
 Ordinary enemies use four single-surface MultiMesh batches. Named rigid parts merge once at startup; atlas UVs remain in UV0 and limb codes occupy UV2. No skeleton or mesh hierarchy is instantiated per ordinary actor. Guardian rigs and gameplay-owned collision remain separate. Existing variant combat stats and timing remain; these are visual species, not new attack classes. In the active melee survival mode, alternating standard soldiers wear the lantern design so all four designs appear without introducing ranged attacks. The legacy caster variant also uses the lantern.
 
 Rigid animation is deliberately limited: humanoid limb swings/club windup and strike, lantern hop, daruma rocking, existing freeze tint and death shrink. There are no skinned joint deformations, authored animation clips, foot IK, lantern-specific collision or daruma-specific attacks. Lantern/daruma silhouettes differ from their existing gameplay collision volumes; a later gameplay design pass can specialize those separately. Current visual scale factors are retained by the adapter.

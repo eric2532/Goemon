@@ -2,13 +2,21 @@
 
 A fully local Godot 4.6.3 action game. **Fire Siege MVP is the primary development
 version**. This `codex/fire-siege-spirit-effects` branch adds Spirit Fortress's
-visual techniques to the playable Fire Siege game as **v2.46.1**. The legacy
+visual techniques to the playable Fire Siege game, now expanded with neon shrine
+art and two new enemy types as **v2.47.0**. The legacy
 Sky Descent material below remains reference for that older mode.
 
 The pushed **v2.45** base is on **`codex/fire-siege-mvp`**, commit `8758b73`.
 See [agent review instructions, verification and screenshots](docs/fire-siege-mvp/github-review-v245.md).
 
-## Fire Siege · Spirit Fortress effects · v2.46.1
+## Fire Siege · Neon shrine dusk · v2.47.0
+
+The standard battlefield now has a darker indigo palette, cyan and magenta
+circuits, illuminated shrine lattices, vermilion gates and warm lanterns.
+Cyber ronin and armored oni join the existing crowd with distinct melee roles;
+waves retain the 300-actor limit. See [art, roster and validation](docs/neon-shrine/README.md).
+
+## Spirit Fortress effects · v2.46.1
 
 Fire Siege now has petals and spirit motes, warm lantern/cool shrine lighting,
 distance haze, animated banner cloth, water/foam side pools, floating stones

@@ -16,6 +16,7 @@ var pulse: MeshInstance3D
 var environment: Environment
 var original_fog: Dictionary={}
 var quality=1
+var neon_theme=false
 
 func _ready():
  name="SpiritFortressEffects"
@@ -28,11 +29,12 @@ func _ready():
  water_material=ShaderMaterial.new();water_material.shader=WATER
  water_material.set_shader_parameter("clock_time",0.0)
  var custom=world.get("custom_map")==true
+ neon_theme=not custom
  if custom:
   for piece in world.piece_nodes.values():
    if piece.get_meta("piece_kind","")=="banner":_cloth(piece,Vector3(.8,3.3,0),Vector2(1.6,2.3),Color("48a595"))
  else:
-  for flag in world.defense_banners:_cloth(flag,Vector3(.85,-1.25,0),Vector2(1.7,2.5),Color("ba935a"))
+  for flag in world.defense_banners:_cloth(flag,Vector3(.85,-1.25,0),Vector2(1.7,2.5),Color("454066"))
   _gardens(world.spawn_point)
   var positions: Array=world.spirit_lantern_positions.duplicate()
   positions.sort_custom(func(a,b):return a.distance_squared_to(world.spawn_point)<b.distance_squared_to(world.spawn_point))
@@ -57,6 +59,9 @@ func _cloth(parent: Node3D,position: Vector3,size: Vector2,color: Color):
   material.set_shader_parameter("clock_time",0.0)
   material.set_shader_parameter("cloth_color",color.darkened(.25))
   material.set_shader_parameter("trim_color",Color("f4e5bf"))
+  if neon_theme:
+   material.set_shader_parameter("trim_color",Color("e966b0"))
+   material.set_shader_parameter("neon_strength",.9)
   cloth_materials[color]=material;banner_materials.append(material)
  var plane: PlaneMesh=cloth_meshes.get(size)
  if plane==null:
@@ -148,3 +153,7 @@ func apply_quality(value: int):
    environment.fog_depth_curve=1.3;environment.fog_sky_affect=0
    environment.fog_light_color=Color("9cb5bb");environment.fog_light_energy=.8
    environment.glow_intensity=.4;environment.glow_hdr_threshold=1.1
+   if neon_theme:
+    environment.fog_density=.18;environment.fog_depth_begin=100
+    environment.fog_light_color=Color("556b90");environment.fog_light_energy=.65
+    environment.glow_intensity=.5;environment.glow_hdr_threshold=1.3
