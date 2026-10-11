@@ -1648,6 +1648,7 @@ func rebuild_area(index: int):
 	if world.get("custom_map")==true:world.map_data=custom_map_data.duplicate(true)
 	if tower_defense_mode:
 		world.beta_mode=defense_beta;world.redesign_mode=is_fire_siege()
+		world.expanded_mode=is_fire_siege() and world.get("custom_map")!=true
 	world.descent_mode=descent_mode
 	world.area_index=index
 	world.generation_seed=run_seed+index*104729

@@ -26,6 +26,9 @@ var shrine_halo: MeshInstance3D
 const LANE_X=[-160.0,0.0,160.0]
 const STATIONS=[-170.0,0.0,160.0]
 var defense_stations: Array=STATIONS.duplicate()
+var expanded_mode=false
+var layout_anchors: Dictionary={}
+var exploration_caches: Array[Dictionary]=[]
 
 func _ready():
 	if redesign_mode:beta_mode=true
@@ -44,6 +47,7 @@ func _ready():
 		lanes.append([Vector3(x,0,-340),Vector3(x,0,-170),Vector3(x,0,0),Vector3(x,0,160),Vector3(x,0,205),Vector3(x*.46875,0,260),base_position])
 	if beta_mode:
 		lanes[1]=[Vector3(0,0,110),Vector3(0,0,170),Vector3(0,0,230),Vector3(0,0,260),base_position]
+	if expanded_mode:load("res://scripts/fire_siege_layout.gd").configure(self)
 	lighting()
 	for child in get_children():
 		if child is WorldEnvironment:
@@ -169,7 +173,7 @@ func _build_routes():
 		_gate(Vector3(LANE_X[lane],0,gate_z),lane,25)
 		_world_label(lane_names[lane]+" APPROACH",Vector3(LANE_X[lane],9.0,gate_z+1),lane_colors[lane],.035)
 		# Milestones, colored shoulders and a clear visual direction of attack.
-		for z in range(gate_z,260 if beta_mode else 210,24):
+		for z in range(gate_z,int(base_position.z-10) if expanded_mode else (260 if beta_mode else 210),24):
 			for side in [-1,1]:
 				Geo.box(self,Vector3(LANE_X[lane]+side*9.7,.085,z),Vector3(.42,.10,10),Geo.mat(lane_colors[lane].darkened(.25).to_html(false)))
 			var arrow=Geo.box(self,Vector3(LANE_X[lane]-1,.105,z),Vector3(.35,.045,3),Geo.mat("e9d5a5"))
@@ -230,7 +234,8 @@ func _build_defenses():
 	if redesign_mode:
 		for x in [-12.0,12.0]:
 			for z in [116.0,130.0,144.0,158.0]:_approach_mount(Vector3(x,.15,z))
-		for point in [Vector3(-18,0,189),Vector3(18,0,189),Vector3(-18,0,208),Vector3(-16,0,282)]:
+		var mine_points=[Vector3(-18,0,175),Vector3(18,0,175),Vector3(-30,0,180),Vector3(-18,0,280)] if expanded_mode else [Vector3(-18,0,189),Vector3(18,0,189),Vector3(-18,0,208),Vector3(-16,0,282)]
+		for point in mine_points:
 			mine_sites.append({"position":point,"footprint":Vector2(2.3,2.365)})
 
 func _approach_mount(mount: Vector3):
@@ -333,9 +338,9 @@ func _build_shrine():
 	Geo.torus(self,base_position+Vector3.UP*.15,23.6,24.2,Geo.mat("bfa568",.3))
 	Geo.torus(self,base_position+Vector3.UP*.16,10.2,10.65,Geo.mat("e9bd62",.3,.15))
 	for side in [-1,1]:
-		for z in [280,302,327]:_field_lantern(Vector3(side*25,0,z),Color("ffe3a3"))
-		_banner(Vector3(side*14,0,278),Color("f6ce79"))
-	var shrine=Vector3(0,0,331)
+		for offset in [-20,2,27]:_field_lantern(base_position+Vector3(side*25,0,offset),Color("ffe3a3"))
+		_banner(base_position+Vector3(side*14,0,-22),Color("f6ce79"))
+	var shrine=base_position+Vector3(0,0,31)
 	_solid_box(shrine+Vector3.UP*.5,Vector3(29,1,17),stone,"ShrineFoundation")
 	for level in range(3):
 		var w=24-level*5.5
@@ -436,6 +441,7 @@ func _build_horizon():
 	for i in range(count):
 		var angle=float(i)*TAU/count
 		var p=Vector3(cos(angle)*(190 if beta_mode else 540),0,(215 if beta_mode else -35)+sin(angle)*(240 if beta_mode else 610))
+		if expanded_mode:p=Vector3(cos(angle)*220,0,playable_bounds.get_center().y+sin(angle)*285)
 		var h=rng.randf_range(68,125) if beta_mode else rng.randf_range(70,180)
 		var radius=rng.randf_range(30,48) if beta_mode else rng.randf_range(80,135)
 		var mountain=Geo.cylinder(self,p+Vector3.UP*(h*.5-16),radius,h,Geo.mat("657f7b" if i%2==0 else "718e85"),false,9)

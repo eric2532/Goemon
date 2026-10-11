@@ -105,6 +105,7 @@ func _gardens(spawn: Vector3):
  var stone=Geo.mat("526f70")
  for side in [-1,1]:
   var p=Vector3(side*40,0,spawn.z+12)
+  if get_parent().get("expanded_mode")==true:p.z=get_parent().base_position.z+60
   var plane=PlaneMesh.new();plane.size=Vector2(8,16);plane.subdivide_width=24;plane.subdivide_depth=40
   Geo.mesh(pools,plane,p+Vector3.UP*.12,water_material)
   for x in [-4.2,4.2]:Geo.box(pools,p+Vector3(x,.16,0),Vector3(.3,.3,16.6),stone)
@@ -112,7 +113,7 @@ func _gardens(spawn: Vector3):
   _particles(p+Vector3.UP*.6,8,Color("d4faef"),false)
   # Hover beyond the map boundary, clear of actors, work spots and the route.
   for i in range(3):
-   var n=Node3D.new();n.name="FloatingStone";n.position=Vector3(side*(87+i*6),5+i*2,spawn.z-10+i*28)
+   var n=Node3D.new();n.name="FloatingStone";n.position=Vector3(side*((get_parent().playable_bounds.size.x*.5+7)+i*6),5+i*2,spawn.z-10+i*28)
    add_child(n);float_roots.append(n);float_positions.append(n.position)
    var rock=Geo.sphere(n,Vector3.ZERO,Vector3(2,3,2.5),Geo.mat("4b6070"));rock.mesh.radial_segments=9;rock.mesh.rings=4
    Geo.cylinder(n,Vector3(0,-1,0),.4,2.2,Geo.mat("48bbc8",.25,1.3),false,.15)

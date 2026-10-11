@@ -53,33 +53,35 @@ static func _material(old: StandardMaterial3D,mapped: Dictionary,road: ShaderMat
 
 static func _details(world: Node3D):
  var root=Node3D.new();root.name="NeonShrineDetails";world.add_child(root)
+ var rear_shift=float(world.defense_stations[-1])-230.0
+ var shrine_shift=float(world.base_position.z)-300.0
  var cyan: Array[Transform3D]=[];var pink: Array[Transform3D]=[];var amber: Array[Transform3D]=[]
  # Broken lane rails and circuitry remain flush and outside the attack path.
- for z in range(108,290,14):
+ for z in range(108,int(world.base_position.z)-10,14):
   for side in [-1,1]:
    cyan.append(_box(Vector3(side*9.65,.15,z),Vector3(.13,.06,7)))
    pink.append(_box(Vector3(side*10.2,.15,z+2),Vector3(.09,.06,2)))
- for gate_z in [96.0,230.0]:
+ for gate_z in [96.0,float(world.defense_stations[-1])]:
   if gate_z==96:
    pink.append(_box(Vector3(0,9.35,96.85),Vector3(28.5,.09,.09)))
    cyan.append(_box(Vector3(0,9.13,96.87),Vector3(26.5,.06,.09)))
    for side in [-1,1]:cyan.append(_box(Vector3(side*12.48,4.9,96.59),Vector3(.07,7.1,.07)))
   else:
    # Match the front faces of the existing high gatehouse and its watchtowers.
-   pink.append(_box(Vector3(0,13.70,227.82),Vector3(22.25,.09,.09)))
-   cyan.append(_box(Vector3(0,12.86,228.90),Vector3(63.8,.06,.09)))
+   pink.append(_box(Vector3(0,13.70,227.82+rear_shift),Vector3(22.25,.09,.09)))
+   cyan.append(_box(Vector3(0,12.86,228.90+rear_shift),Vector3(63.8,.06,.09)))
    for x in [-30.85,-25.15,25.15,30.85]:
-    cyan.append(_box(Vector3(x,9.4,228.96),Vector3(.07,5.4,.07)))
+    cyan.append(_box(Vector3(x,9.4,228.96+rear_shift),Vector3(.07,5.4,.07)))
  # Circuit seams along the existing fortification, behind the combat sightline.
  for side in [-1,1]:
-  cyan.append(_box(Vector3(side*43,3.0,228.93),Vector3(66,.10,.055)))
-  pink.append(_box(Vector3(side*43,5.6,228.9),Vector3(66,.07,.055)))
+  cyan.append(_box(Vector3(side*43,3.0,228.93+rear_shift),Vector3(66,.10,.055)))
+  pink.append(_box(Vector3(side*43,5.6,228.9+rear_shift),Vector3(66,.07,.055)))
   for x in [23.0,47.0,71.0]:
-   cyan.append(_box(Vector3(side*x,4.2,228.92),Vector3(.08,2.4,.055)))
+   cyan.append(_box(Vector3(side*x,4.2,228.92+rear_shift),Vector3(.08,2.4,.055)))
  # Shoji-like illuminated window lattices on the existing shrine footprint.
  for level in range(3):
   var width=24-level*5.5;var depth=14-level*2.8;var y=1+level*6.0
-  var z=331-depth*.5+.24
+  var z=331+shrine_shift-depth*.5+.24
   pink.append(_box(Vector3(0,y+4.48,z),Vector3(width+3,.09,.10)))
   for side in [-1,1]:
    for panel in range(3):
@@ -89,7 +91,7 @@ static func _details(world: Node3D):
     for dy in [-1.5,-.5,.5,1.5]:cyan.append(_box(Vector3(x,y+2.2+dy,z),Vector3(1.4,.055,.055)))
    amber.append(_box(Vector3(side*2,y+2.2,z),Vector3(.08,3.3,.055)))
  # Emissive seal at the gate, shaped as an invented geometric crest.
- for seal in [[96.75,7.9],[322.0,3.2]]:
+ for seal in [[96.75,7.9],[322.0+shrine_shift,3.2]]:
   for stroke in [[0,0,.08,1.35],[0,.1,.9,.08],[-.3,.55,.07,.32],[.3,.55,.07,.32],[0,-.58,.75,.08]]:
    amber.append(_box(Vector3(stroke[0],seal[1]+stroke[1],seal[0]),Vector3(stroke[2],stroke[3],.065)))
  _batch(root,"CyanCircuits",cyan,Geo.mat("45dce8",.2,2.0))
