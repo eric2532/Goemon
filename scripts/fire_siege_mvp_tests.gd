@@ -166,7 +166,7 @@ func build_access_rules():
  if mines!=null:
   var nearby=0
   for mine in game.world.mine_sites:
-   if Vector2(mine.position.x,mine.position.z-195).length()<=25:nearby+=1
+   if Vector2(mine.position.x-game.world.spawn_point.x,mine.position.z-game.world.spawn_point.z).length()<=25:nearby+=1
   check(nearby>=3,"At least three mines are reachable within 25 metres of the opening position")
   run.money=30
   for i in range(2):

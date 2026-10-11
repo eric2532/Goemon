@@ -22,6 +22,8 @@ var powered=true
 var original_spawn=Vector3.ZERO
 var _last_hero_id=-1
 var exploration=preload("res://scripts/fire_siege_exploration.gd").new()
+var shrine=preload("res://scripts/fire_siege_shrine.gd").new()
+var shrine_warning_left=0.0
 
 var generation: int:
 	get:return runtime.generation
@@ -73,6 +75,7 @@ func _new_structure(kind: String,point: Vector3)->Node3D:
 func begin():
 	reset();_create_sites();active=true
 	exploration.configure(self)
+	shrine.configure(self);shrine_warning_left=0
 	game.active_enemy_limit=300
 	original_spawn=game.world.spawn_point;game.checkpoint=original_spawn
 	game.player.position=original_spawn;game.player.velocity=Vector3.ZERO
@@ -90,6 +93,7 @@ func tick(delta: float):
 	if base_hp<=0:_terminate(false);return
 	var dt=maxf(0,delta)
 	exploration.tick(dt)
+	shrine_warning_left=maxf(0,shrine_warning_left-dt)
 	elapsed+=dt
 	if game.player.hp<=0 and not hero_dead:hero_died()
 	if runtime.advance_revive(dt):_restore_hero()
@@ -99,6 +103,8 @@ func tick(delta: float):
 		if not is_instance_valid(game.enemies[i]):game.enemies.remove_at(i)
 	for enemy in game.enemies:
 		if is_instance_valid(enemy) and not enemy.dead and owns(enemy):recover_escaped_actor(enemy)
+	shrine.tick(dt)
+	if not _running():return
 	var combat=phase in ["spawning","clearance"]
 	var income_seconds=0.0
 	var due=0
@@ -132,6 +138,7 @@ func queue_wave():
 	if not _running() or not runtime.start_permit or phase!="setup" or wave>=10 or pending>0 or alive_count>0 or not _living_hero() or base_hp<=0:return
 	retire_wave_effects();runtime.start_wave()
 	wave+=1;phase="spawning";pending=300;total_scheduled+=300
+	shrine.configure(self)
 	wave_kills=0;wave_breaches=0;resolved.clear();wave_actors.clear();prep_left=0
 	_banner("WAVE %02d / 10 · 300 RAIDERS · HOLD THE SHRINE" % wave,4)
 
@@ -178,17 +185,45 @@ func owns(enemy: Ninja)->bool:
 
 func record_defeat(enemy: Ninja):
 	if not owns(enemy) or not enemy.dead or enemy.defense_escaped or resolved.has(enemy.encounter_id):return
+	shrine.release(enemy)
 	resolved[enemy.encounter_id]="killed";wave_kills+=1;run_kills+=1;alive_count=maxi(0,alive_count-1)
 
 func breach(enemy: Ninja):
 	if not owns(enemy) or enemy.dead or resolved.has(enemy.encounter_id):return
-	resolved[enemy.encounter_id]="breached";enemy.defense_escaped=true;enemy.dead=true
-	if enemy.defense_traits!=null:enemy.defense_traits.cancel()
-	enemy.collision_layer=0;enemy.hide();enemy.queue_free()
-	alive_count=maxi(0,alive_count-1);wave_breaches+=1;run_breaches+=1;base_hp=maxi(0,base_hp-1)
-	game.burst(game.world.base_position+Vector3.UP*3,Color("ff725a"),16,1.4)
-	_banner("SHRINE BREACHED · %d / %d INTEGRITY" % [base_hp,base_max_hp],2.5)
+	if shrine.handles(enemy):return
+	if shrine.admit(enemy):
+		wave_breaches+=1;run_breaches+=1
+		enemy.state="march";enemy.timer=0;enemy.attack_hit=true;enemy.walk_clock=0;enemy.walk_phase_pending=true
+
+func can_breach(enemy: Ninja)->bool:
+	return owns(enemy) and not shrine.handles(enemy) and enemy.defense_waypoint>=game.world.lanes[enemy.defense_lane].size()-1 and super.can_breach(enemy)
+
+func lane_direction(enemy: Ninja)->Vector3:
+	if shrine.handles(enemy):
+		var offset: Vector3=shrine.assignment(enemy).position-enemy.position;offset.y=0;return offset.normalized()
+	return super.lane_direction(enemy)
+
+func apply_shrine_contact(enemy: Ninja)->bool:
+	if not _running() or phase not in ["spawning","clearance"] or not shrine.handles(enemy):return false
+	var target: Dictionary=shrine.assignment(enemy)
+	if not target.attacking or enemy.position.distance_squared_to(target.position)>=1.25*1.25 or enemy.stun>0 or enemy.frozen_left>0 or enemy.impact_pause>0:return false
+	var ray=PhysicsRayQueryParameters3D.create(enemy.global_position+Vector3.UP,game.world.base_position+Vector3.UP,1)
+	if not game.get_world_3d().direct_space_state.intersect_ray(ray).is_empty():return false
+	base_hp=maxi(0,base_hp-1)
+	game.burst(game.world.base_position+Vector3.UP*2,Color("ff725a"),4,.65)
+	if shrine_warning_left<=0:
+		shrine_warning_left=3;_banner("SHRINE UNDER ATTACK · %d / %d HEALTH" % [base_hp,base_max_hp],2.5)
 	if base_hp<=0:_terminate(false)
+	return true
+
+func shrine_attacker_count()->int:return shrine.attackers()
+
+func retire_wave_effects():
+	super.retire_wave_effects();shrine.clear()
+
+func recover_escaped_actor(enemy: Ninja)->bool:
+	if enemy.position.y< -5 or not game.world.playable_bounds.has_point(Vector2(enemy.position.x,enemy.position.z)):shrine.release(enemy)
+	return super.recover_escaped_actor(enemy)
 
 func _settle_wave():
 	if not active:return
@@ -311,7 +346,7 @@ func interaction_prompt()->String:
 
 func shrine_guidance()->Dictionary:
 	var diff=game.world.base_position-game.player.position
-	return {"distance":Vector2(diff.x,diff.z).length(),"direction":Vector2(diff.x,diff.z).normalized(),"under_attack":false}
+	return {"distance":Vector2(diff.x,diff.z).length(),"direction":Vector2(diff.x,diff.z).normalized(),"under_attack":shrine_attacker_count()>0}
 
 # Compatibility methods deliberately expose no legacy cards/upgrades/F buys.
 func try_purchase()->bool:return false

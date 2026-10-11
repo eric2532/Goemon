@@ -233,8 +233,8 @@ func _build_defenses():
 				_cannon_mount(center,lane,offset,["FORWARD","MIDDLE","REAR"][station])
 	if redesign_mode:
 		for x in [-12.0,12.0]:
-			for z in [116.0,130.0,144.0,158.0]:_approach_mount(Vector3(x,.15,z))
-		var mine_points=[Vector3(-18,0,175),Vector3(18,0,175),Vector3(-30,0,180),Vector3(-18,0,280)] if expanded_mode else [Vector3(-18,0,189),Vector3(18,0,189),Vector3(-18,0,208),Vector3(-16,0,282)]
+			for z in ([116.0,130.0,144.0,168.0] if expanded_mode else [116.0,130.0,144.0,158.0]):_approach_mount(Vector3(x,.15,z))
+		var mine_points=[Vector3(-18,0,175),Vector3(18,0,175),Vector3(-18,0,200),Vector3(-18,0,280)] if expanded_mode else [Vector3(-18,0,189),Vector3(18,0,189),Vector3(-18,0,208),Vector3(-16,0,282)]
 		for point in mine_points:
 			mine_sites.append({"position":point,"footprint":Vector2(2.3,2.365)})
 

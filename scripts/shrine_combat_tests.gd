@@ -36,7 +36,52 @@ func run():
 			if clock.advance(dt,true,false):events+=1
 		check(events==4,"Frame partitions preserve attack cadence")
 	await slots_rules()
+	await integration_rules()
 	finish()
+func integration_rules():
+	InputMap.erase_action("light_attack");InputMap.erase_action("heavy_attack")
+	var game=load("res://scenes/main.tscn").instantiate();game.smoke_test=true;root.add_child(game)
+	game.tuning.freeze_ai=true;game.tuning.invincible=true;game.start_mode("defense")
+	game.encounters.set_physics_process(false);game.player.set_physics_process(false);await physics_frame
+	var run=game.encounters
+	run.update_start_input(0,false);run.update_start_input(3,true);run.tick(.2)
+	var enemy=game.enemies.filter(func(e):return is_instance_valid(e) and not e.dead)[0]
+	enemy.set_physics_process(false);enemy.position=game.world.base_position+Vector3(0,.15,-7);enemy.defense_waypoint=3
+	run.breach(enemy);run.breach(enemy)
+	check(not enemy.dead and run.alive_count==1 and run.base_hp==100,"Both arrivals preserve one living actor and shrine HP")
+	if enemy.dead:
+		game.sound_library.cancel();game.music.stop();game.queue_free();await process_frame;return
+	run.phase="clearance";run.pending=0;run.shrine.tick(.2)
+	enemy.position=run.shrine.assignment(enemy).position+Vector3.UP*.15
+	var hero_hp=game.player.hp
+	run.tick(2.49);check(run.base_hp==100,"Actual shrine waits before first hit")
+	run.tick(.01);check(run.base_hp==99 and game.player.hp==hero_hp,"Shrine strike cannot hit the player")
+	game.paused=true;run.tick(20);game.paused=false
+	check(run.base_hp==99,"Pause freezes actual shrine damage")
+	enemy.freeze_for(1);run.tick(2.5);check(run.base_hp==99,"Freeze cancels actual contact")
+	enemy.frozen_left=0;run.tick(2.49);check(run.base_hp==99,"Thaw requires full new windup")
+	run.tick(.01);check(run.base_hp==98,"Thawed actor attacks again")
+	game.player.select_character(10);run.tick(0)
+	check(run.alive_count==1 and run.phase=="clearance","Hero switching cannot clear waiting attackers")
+	game.tuning.freeze_ai=false;enemy.state="windup";enemy.timer=0;enemy.stun=0
+	hero_hp=game.player.hp
+	enemy._physics_process(.1);game.tuning.freeze_ai=true
+	check(game.player.hp==hero_hp,"Actual shrine pose bypasses player strike damage")
+	game.player.hp=0;run.hero_died();run.tick(2.5)
+	check(run.hero_dead and run.base_hp==97 and run.alive_count==1,"Shrine siege continues during hero death")
+	run.tick(2.5)
+	check(not run.hero_dead and game.player.hp>0 and run.alive_count==1,"Revival preserves shrine attackers")
+	var before_knockback=run.base_hp
+	enemy.position+=Vector3(5,0,0);run.tick(2.5)
+	check(run.base_hp==before_knockback and not run.shrine.assignment(enemy).attacking,"Knockback releases a shrine seat")
+	enemy.take_hit(10000,Vector3.FORWARD,false,{"tower":true});run.record_defeat(enemy)
+	check(run.alive_count==0 and run.wave_kills==1,"Shrine actor death resolves exactly once")
+	run.tick(0);check(run.phase=="setup" and run.money==20,"Only actual death clears the wave and pays reward")
+	run.hard_mode=true;run.begin();check(run.base_hp==50,"Hard shrine begins with fifty HP")
+	var ghost=Ninja.new();ghost.defense_lane=1;ghost.encounter_id="stale";ghost.set_meta("siege_generation",run.generation-1)
+	check(not run.apply_shrine_contact(ghost) and run.base_hp==50,"Retired actor cannot damage replacement shrine");ghost.free()
+	run.base_hp=0;run.tick(0);check(run.phase=="defeat" and not run.active,"Zero shrine health defeats the run")
+	game.sound_library.cancel();game.music.stop();game.queue_free();await process_frame
 func slots_rules():
 	if not ResourceLoader.exists("res://scripts/fire_siege_shrine.gd"):
 		check(false,"Shrine controller manages bounded attack slots");return

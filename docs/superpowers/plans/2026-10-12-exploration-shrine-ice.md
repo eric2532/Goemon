@@ -152,7 +152,7 @@ Expected: `4.6.3.stable.official.7d41c59c4`. Run from the worktree. Standalone s
 - Produce `FireSiege.apply_shrine_contact(enemy: Ninja) -> bool` and `shrine_attacker_count() -> int`; HP mutation and terminal state remain director-owned.
 - Override FireSiege `can_breach(enemy: Ninja) -> bool` so already admitted actors are handled by the adapter, and enforce final-route-segment eligibility. Override `lane_direction(enemy: Ninja) -> Vector3` to use the controller's assigned/waiting position for admitted actors and the inherited route otherwise. Existing `breach(enemy)` becomes idempotent admission. No change to legacy TowerDefense breach.
 
-- [ ] **Step 1:** Add real-scene tests for both arrival entry points, alive_count unchanged on arrival, shrine 100/50 starting HP, first contact only at 2.5 seconds, one HP per interval, and no player HP loss from shrine strikes. Assert waiting/attacking actors block settlement; each actual death resolves once; zero HP defeats before victory. Test death/stun/freeze/knockback during windup, hero switching, hero death/revival, pause, restart, blocked contact, and earlier custom waypoint passing near the altar.
+- [x] **Step 1:** Add real-scene tests for both arrival entry points, alive_count unchanged on arrival, shrine 100/50 starting HP, first contact only at 2.5 seconds, one HP per interval, and no player HP loss from shrine strikes. Assert waiting/attacking actors block settlement; each actual death resolves once; zero HP defeats before victory. Test death/stun/freeze/knockback during windup, hero switching, hero death/revival, pause, restart, blocked contact, and earlier custom waypoint passing near the altar.
 
   ```gdscript
   var population = director.alive_count
@@ -163,10 +163,10 @@ Expected: `4.6.3.stable.official.7d41c59c4`. Run from the worktree. Standalone s
   check(director.base_hp == integrity, "arrival itself causes no damage")
   ```
 
-- [ ] **Step 2:** Run shrine tests and the custom-map integration test; expect old auto-breach behavior to fail the new assertions.
-- [ ] **Step 3:** Integrate controller setup, tick, cleanup, release-on-death and arrival admission. Call motion adapter before ordinary player/dog combat for assigned attackers, while waiting enemies retain nearby player combat. Protect admitted actors from recovery resets. Use existing model poses without invoking player-damage strikes. Change HUD breach copy to active shrine attackers; cap warning banners to one per three seconds and reuse bounded hit flashes.
-- [ ] **Step 4:** Run standalone shrine/state/crowd suites and game hooks `--map-builder-test`, `--fire-siege-mvp-test`, `--fire-siege-motion-test`, `--auto-build-test`; require zero failures. Update old arrival assertions to persistent siege contacts, retaining their original ownership and earlier-waypoint protections. Keep legacy arrival tests unchanged.
-- [ ] **Step 5:** Commit `Keep Fire Siege enemies alive to attack the shrine`.
+- [x] **Step 2:** Run shrine tests and the custom-map integration test; expect old auto-breach behavior to fail the new assertions.
+- [x] **Step 3:** Integrate controller setup, tick, cleanup, release-on-death and arrival admission. Call motion adapter before ordinary player/dog combat for assigned attackers, while waiting enemies retain nearby player combat. Protect admitted actors from recovery resets. Use existing model poses without invoking player-damage strikes. Change HUD breach copy to active shrine attackers; cap warning banners to one per three seconds and reuse bounded hit flashes.
+- [x] **Step 4:** Run standalone shrine/state/crowd suites and game hooks `--map-builder-test`, `--fire-siege-mvp-test`, `--fire-siege-motion-test`, `--auto-build-test`; require zero failures. Update old arrival assertions to persistent siege contacts, retaining their original ownership and earlier-waypoint protections. Keep legacy arrival tests unchanged.
+- [x] **Step 5:** Commit `Keep Fire Siege enemies alive to attack the shrine`.
 
 ### Task 5: Zero-damage ice projectile branch and shared effects
 

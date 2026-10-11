@@ -67,10 +67,10 @@ func draw(hud):
  if run.phase=="spawning":phase_text="INCOMING · %s remaining" % run.clock_text(60-run.wave_elapsed)
  elif run.phase=="clearance":phase_text="CLEAR THE FIELD · %d alive" % run.alive_count
  hud.text(left+Vector2(18,91),phase_text,16)
- hud.text(left+Vector2(18,116),"%d active   ·   %d defeated   ·   %d breached" % [run.alive_count,run.wave_kills,run.wave_breaches],12,muted)
+ hud.text(left+Vector2(18,116),"%d active   ·   %d defeated   ·   %d at shrine" % [run.alive_count,run.wave_kills,run.shrine_attacker_count()],12,muted)
  hud.draw_rect(Rect2(left+Vector2(18,133),Vector2(304,9)),Color("384448"))
  hud.draw_rect(Rect2(left+Vector2(18,133),Vector2(304*float(run.base_hp)/run.base_max_hp,9)),teal if run.base_hp>20 else red)
- hud.text(left+Vector2(18,164),"BASE INTEGRITY  %d / %d" % [run.base_hp,run.base_max_hp],14,teal)
+ hud.text(left+Vector2(18,164),"SHRINE HEALTH  %d / %d" % [run.base_hp,run.base_max_hp],14,red if run.shrine_attacker_count()>0 else teal)
  var right=Vector2(w-328,25)
  hud.draw_style_box(hud.panel_style(ink),Rect2(right,Vector2(302,170)))
  hud.text(right+Vector2(18,27),"BUILD YOUR DEFENSE",15,gold)

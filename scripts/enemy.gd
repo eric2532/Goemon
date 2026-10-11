@@ -290,6 +290,7 @@ func _physics_process(delta):
 	if defense_lane>=0 and not dead:
 		if game.encounters.can_breach(self):
 			game.encounters.breach(self);return
+		if game.is_fire_siege() and preload("res://scripts/shrine_enemy_motion.gd").tick(self,delta):return
 		var kennel=refresh_defense_dog_target(delta)
 		var prior_boss_phase=defense_traits.phase if defense_traits!=null else ""
 		if defense_traits!=null and defense_traits.is_boss() and is_instance_valid(defense_dog_target) and defense_traits.phase=="march" and defense_traits.slam_cooldown<=0 and not game.tuning.freeze_ai:

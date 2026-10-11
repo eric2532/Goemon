@@ -71,7 +71,7 @@ func run():
  enemy._physics_process(1.0/60)
  check(not enemy.dead,"Passing close to shrine on an earlier segment does not breach")
  enemy.defense_waypoint=game.world.lanes[1].size()-1;game.encounters.lane_direction(enemy)
- check(enemy.dead and game.encounters.wave_breaches==1,"Final-segment arrival breaches exactly once")
+ check(not enemy.dead and game.encounters.shrine.handles(enemy) and game.encounters.wave_breaches==1,"Final-segment arrival admits one living shrine attacker")
  game.encounters.tick(.2)
  enemy=game.enemies.filter(func(e):return is_instance_valid(e) and not e.dead)[0];enemy.defense_waypoint=4
  enemy.position=Vector3(-100,-8,152)
