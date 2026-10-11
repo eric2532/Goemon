@@ -74,12 +74,13 @@ func draw(hud):
  var right=Vector2(w-328,25)
  hud.draw_style_box(hud.panel_style(ink),Rect2(right,Vector2(302,170)))
  hud.text(right+Vector2(18,27),"BUILD YOUR DEFENSE",15,gold)
- hud.text(right+Vector2(18,55),"%d / %d arrow towers · 5 gold each" % [run.cannons.size(),run.site_states.size()],15)
+ var towers=run.tower_counts()
+ hud.text(right+Vector2(18,55),"%d ARROW · %d ICE · %d / %d built" % [towers.arrow,towers.ice,run.cannons.size(),run.site_states.size()],14)
  hud.text(right+Vector2(18,81),"%d / %d mines · 10 gold each" % [run.mine_count(),run.mine_states.size()],15,teal if run.mine_count()>0 else muted)
  var income=2.0*run.mine_count() if run.phase=="spawning" else 0.0
  var upkeep=.1*run.cannons.size() if run.phase in ["spawning","clearance"] else 0.0
  hud.text(right+Vector2(18,107),"Income +%.1f/s   Upkeep −%.1f/s" % [income,upkeep],14,muted)
- hud.text(right+Vector2(18,132),"Stand nearby · Auto build",13,gold)
+ hud.text(right+Vector2(18,132),"Auto build · F Ice: 10 gold · Slow only",12,gold)
  hud.text(right+Vector2(18,153),"Kills: no gold · Wave reward: 10 × wave",12,muted)
  if run.cannons.size()>0 and not run.powered and run.phase in ["spawning","clearance"]:
   centered(hud,236,"OUT OF GOLD · Towers need upkeep to fire",20,red)

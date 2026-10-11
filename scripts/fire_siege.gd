@@ -311,6 +311,7 @@ func update_build_input(delta: float,_held: bool=false):
 	if not _running() or base_hp<=0:return
 	var nearby=nearest_site()
 	var index=build_candidate()
+	var upgrade=nearest_upgrade_site()
 	building=index>=0 and money+0.000000001>=site_cost(index)
 	build_site=index;build_progress=0
 	var states=site_states+mine_states
@@ -319,6 +320,7 @@ func update_build_input(delta: float,_held: bool=false):
 		var mine=state.kind=="mine"
 		var price=MINE_COST if mine else ARROW_COST
 		state.cannon.set_proximity(i==nearby,money+0.000000001>=price)
+		if not mine and state.level>0:state.cannon.set_upgrade_proximity(i==upgrade,money+0.000000001>=10)
 		if state.level>0:continue
 		var working=i==index and building
 		var step=runtime.build_step(state.progress,delta,working,money+0.000000001>=price,4.0 if mine else 3.0)
@@ -336,8 +338,51 @@ func site_cost(index: int)->int:
 	if index<0 or index>=states.size() or states[index].level>0:return 0
 	return MINE_COST if states[index].kind=="mine" else ARROW_COST
 
+func _upgrade_access(index: int,required_level: int=1)->float:
+	if not _running() or not _living_hero() or base_hp<=0 or not game.player.is_on_floor():return INF
+	if index<0 or index>=site_states.size():return INF
+	var state: Dictionary=site_states[index]
+	if state.level!=required_level or not is_instance_valid(state.cannon) or state.cannon._generation!=generation:return INF
+	if game.player.dodge_time>0 or game.player.forward_dash.active or game.player.sky_strike.active:return INF
+	var site: Dictionary=game.world.cannon_sites[index]
+	var center: Vector3=site.position;var hero=game.player
+	if absf(center.y-hero.position.y)>3:return INF
+	var half: Vector2=site.footprint
+	var edge=Vector3(clampf(hero.position.x,center.x-half.x,center.x+half.x),hero.position.y,clampf(hero.position.z,center.z-half.y,center.z+half.y))
+	var distance=Vector2(edge.x-hero.position.x,edge.z-hero.position.z).length_squared()
+	if distance>BUILD_RANGE*BUILD_RANGE:return INF
+	var ray=PhysicsRayQueryParameters3D.create(hero.global_position+Vector3.UP,edge+Vector3.UP,1);ray.exclude=[hero.get_rid()]
+	if not game.get_world_3d().direct_space_state.intersect_ray(ray).is_empty():return INF
+	return distance
+
+func nearest_upgrade_site()->int:
+	var nearest=-1;var distance=INF
+	for i in range(site_states.size()):
+		var candidate=_upgrade_access(i)
+		if candidate<distance:distance=candidate;nearest=i
+	return nearest
+
+func upgrade_site(index: int)->bool:
+	if is_inf(_upgrade_access(index)) or money+0.000000001<10:return false
+	var state: Dictionary=site_states[index]
+	if not state.cannon.upgrade_to_ice():return false
+	money=maxf(0,money-10);state.level=2
+	_banner("ICE TOWER READY · Slow only · Keep arrow towers for damage",3)
+	return true
+
+func tower_counts()->Dictionary:
+	var counts={"arrow":0,"ice":0}
+	for state in site_states:
+		if state.level==1:counts.arrow+=1
+		elif state.level==2:counts.ice+=1
+	return counts
+
 func interaction_prompt()->String:
 	if hero_dead:return "Reviving in %.1fs · Enemies move 35%% faster" % revive_left
+	var upgrade=nearest_upgrade_site()
+	if upgrade>=0:return "F: ICE UPGRADE · 10 gold · Slow only"+(" · Need %.2f more" % (10-money) if money<10 else "")
+	for i in range(site_states.size()):
+		if not is_inf(_upgrade_access(i,2)):return "LEVEL 2 ICE · Slow only · Maximum level"
 	var index=nearest_site()
 	if index<0:return "Approach a structure to build · Arrow 5 gold · Mine 10 gold"
 	var cost=site_cost(index)
@@ -348,8 +393,8 @@ func shrine_guidance()->Dictionary:
 	var diff=game.world.base_position-game.player.position
 	return {"distance":Vector2(diff.x,diff.z).length(),"direction":Vector2(diff.x,diff.z).normalized(),"under_attack":shrine_attacker_count()>0}
 
-# Compatibility methods deliberately expose no legacy cards/upgrades/F buys.
-func try_purchase()->bool:return false
+# Compatibility methods keep legacy card systems retired.
+func try_purchase()->bool:return upgrade_site(nearest_upgrade_site())
 func install_cannon(_index: int):pass
 func upgrade_level(_id: String)->int:return 0
 func card_eligible(_id: String)->bool:return false

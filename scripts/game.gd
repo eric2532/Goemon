@@ -4,6 +4,7 @@ signal impact_confirmed(victim, strength, duration)
 const SURVIVAL_MODE=true
 var descent_mode=not "--legacy-survival" in OS.get_cmdline_user_args()
 var tower_defense_mode=false
+var _siege_interact_held=false
 var rogue_battle_mode=false
 var rogue_roster_mode=false
 var roster_start_mode="defense"
@@ -988,6 +989,7 @@ func finish_map_shuffle():
 	toast("NEW MAP · Fresh descent · Y shuffle / Esc restart this map")
 
 func _unhandled_input(event):
+	if event.is_action_released("interact"):_siege_interact_held=false
 	if is_instance_valid(map_editor):return
 	if transitioning: return
 	if is_fire_siege() and playing and not paused and event.is_action_pressed("siege_revive") and not event.is_echo():
@@ -1016,6 +1018,9 @@ func _unhandled_input(event):
 		else: show_lab()
 		get_viewport().set_input_as_handled()
 	if event.is_action_pressed("interact") and playing and not paused:
+		if is_fire_siege():
+			if event.is_echo() or _siege_interact_held:return
+			_siege_interact_held=true
 		if tower_defense_mode:
 			encounters.try_purchase();get_viewport().set_input_as_handled()
 		elif not adventure.pending_rewards.is_empty():adventure.show_choices()
@@ -1909,6 +1914,7 @@ func drop_powerup(point: Vector3):
 	orb_system.drop(point)
 
 func _notification(what):
+	if what==NOTIFICATION_APPLICATION_FOCUS_OUT:_siege_interact_held=false
 	if what==NOTIFICATION_APPLICATION_FOCUS_OUT and is_instance_valid(player) and is_instance_valid(player.musashi):
 		player.musashi.release_primary()
 		if rogue_battle_mode:

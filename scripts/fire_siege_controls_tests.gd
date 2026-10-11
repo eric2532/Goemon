@@ -102,9 +102,13 @@ func extended_rules():
   await fresh_class(index);tap("equip");await settle_attack()
   check(native_projectiles.size()==(1 if index==1 else 5),"%s retains its ranged weapon on E" % CLASS_IDS[index])
  await fresh_class(5)
+ for i in range(60):
+  if game.player.is_on_floor():break
+  await frames(1)
+ check(game.player.is_on_floor(),"Forward Dragoon leap fixture begins grounded")
  var a=p.active_ability
  var landing_enemy=fixture(Vector3(7.5,0,0));tap("heavy_attack")
- check(a.player.travel!=null and absf(a.player.travel.target.x-p.position.x-7.5)<.01,"Dragoon leap uses its original maximum forward range")
+ check(a.player.travel!=null and absf(a.player.travel.target.x-a.player.travel.start.x-7.5)<.01,"Dragoon leap uses its original maximum forward range")
  await frames(60)
  check(landing_enemy.hp<10000,"Forward Dragoon leap preserves landing damage")
  await fresh_class(8);a=p.active_ability

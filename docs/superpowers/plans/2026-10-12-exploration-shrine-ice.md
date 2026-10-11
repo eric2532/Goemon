@@ -201,7 +201,7 @@ Expected: `4.6.3.stable.official.7d41c59c4`. Run from the worktree. Standalone s
 - Unfinished-site nearest_site stays dedicated to level 1 building. Upgrade purchase requires current running run, living grounded hero, existing 3.5-metre footprint-edge access and clear LOS, level 1, and at least 10 gold.
 - Site dictionaries keep level state 0/1/2; structure level synchronizes after the atomic purchase. cannons retains each built tower exactly once.
 
-- [ ] **Step 1:** Add assertions for exact 10-gold charge, repeated same-tower calls charging 0, insufficient funds, inaccessible/upper-floor towers, nearest of two candidates, grounded hero requirement, dead/paused/terminal/stale run, and F key echo/held-event rejection. Assert no level 2 auto-upgrade while standing idle; level 1 still auto-builds for 5 gold in 3 seconds; mixed tower counts and 0.10 upkeep per tower remain correct. Conversion during an in-flight arrow cannot damage later.
+- [x] **Step 1:** Add assertions for exact 10-gold charge, repeated same-tower calls charging 0, insufficient funds, inaccessible/upper-floor towers, nearest of two candidates, grounded hero requirement, dead/paused/terminal/stale run, and F key echo/held-event rejection. Assert no level 2 auto-upgrade while standing idle; level 1 still auto-builds for 5 gold in 3 seconds; mixed tower counts and 0.10 upkeep per tower remain correct. Conversion during an in-flight arrow cannot damage later.
 
   ```gdscript
   director.money = 20
@@ -211,10 +211,10 @@ Expected: `4.6.3.stable.official.7d41c59c4`. Run from the worktree. Standalone s
   check(director.cannons.size() == powered_count, "conversion retains one upkeep entry")
   ```
 
-- [ ] **Step 2:** Run ice/auto-build/control suites; expect new upgrade behavior tests to fail before purchase integration.
-- [ ] **Step 3:** Implement exact-once eligibility/purchase and synchronize level, structure, and prompts. Filter `event.is_echo()` for F in game input while preserving legacy F behavior. Show `F: ICE UPGRADE · 10 gold · Slow only`, insufficient gold, and final level status. Display separate arrow/ice totals, shrine HP, and existing economy without crowding the reticle.
-- [ ] **Step 4:** Run ice and state scripts plus `--auto-build-test` and `--fire-siege-controls-test`; require zero failures. Confirm actual InputEventKey handling, not only direct method calls.
-- [ ] **Step 5:** Commit `Add explicit arrow-to-ice upgrades and defense HUD`.
+- [x] **Step 2:** Run ice/auto-build/control suites; expect new upgrade behavior tests to fail before purchase integration.
+- [x] **Step 3:** Implement exact-once eligibility/purchase and synchronize level, structure, and prompts. Filter `event.is_echo()` for F in game input while preserving legacy F behavior. Show `F: ICE UPGRADE · 10 gold · Slow only`, insufficient gold, and final level status. Display separate arrow/ice totals, shrine HP, and existing economy without crowding the reticle.
+- [x] **Step 4:** Run ice and state scripts plus `--auto-build-test` and `--fire-siege-controls-test`; require zero failures. Confirm actual InputEventKey handling, not only direct method calls.
+- [x] **Step 5:** Commit `Add explicit arrow-to-ice upgrades and defense HUD`.
 
 ### Task 7: Visual checks, full regressions, performance, and independent review
 

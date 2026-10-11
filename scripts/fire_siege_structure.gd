@@ -200,6 +200,13 @@ func complete_build():
 	progress_root.hide();hammer.hide();proximity_prompt.hide()
 	_completion_left=1.0;_seek(completion_player,&"Complete_GoldPulse",0);completion_light.show()
 
+func set_upgrade_proximity(selected: bool,affordable: bool):
+	proximity_prompt.visible=selected and completed and level==1
+	if not proximity_prompt.visible:return
+	proximity_prompt.position.y=2.8
+	proximity_prompt.text="F: ICE UPGRADE · 10 GOLD\nSLOW ONLY"+(" · NEED GOLD" if not affordable else "")
+	proximity_prompt.modulate=Color("93e9ff") if affordable else Color("ffb792")
+
 func attack_type()->StringName:return &"ice" if level==2 else &"arrow"
 
 func upgrade_to_ice()->bool:
@@ -277,6 +284,7 @@ func _acquire_target()->Node3D:
 	return chosen
 
 func _fire_at(enemy: Node3D):
+	if not _eligible(enemy) or global_position.distance_squared_to(enemy.global_position)>ARROW_RANGE*ARROW_RANGE:return
 	var aim=enemy.global_position+Vector3.UP*1.05
 	# Authored LAUNCHER_YAW remains a yaw pivot. The independent arrow can pitch toward its target.
 	var direction=launcher.to_local(aim)
