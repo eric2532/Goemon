@@ -91,8 +91,13 @@ func draw(hud):
   hud.draw_rect(Rect2(x+20,74,360,12),Color("344547"))
   hud.draw_rect(Rect2(x+20,74,360*run.start_progress,12),gold)
   centered(hud,103,"Explore, return, then hold for 3 seconds",12,muted)
-  var guide=run.shrine_guidance()
-  centered(hud,139,"SHRINE · %dm   |   SUPPLIES %d / %d" % [roundi(guide.distance),run.exploration.collected_count(),game.world.exploration_caches.size()],13,teal)
+ var guide=run.shrine_guidance()
+ var compass=Vector2(w*.5-190,132);var direction: Vector2=guide.screen_direction
+ if direction.length_squared()>.01:
+  hud.draw_line(compass-direction*10,compass+direction*10,teal,2,true)
+  hud.draw_colored_polygon(PackedVector2Array([compass+direction*14,compass+direction*5+direction.orthogonal()*5,compass+direction*5-direction.orthogonal()*5]),teal)
+ else:hud.draw_circle(compass,4,teal)
+ centered(hud,139,"SHRINE · %dm   |   SUPPLIES %d / %d" % [roundi(guide.distance),run.exploration.collected_count(),game.world.exploration_caches.size()] if run.phase=="setup" else "SHRINE · %dm%s" % [roundi(guide.distance)," · UNDER ATTACK" if guide.under_attack else ""],13,teal if not guide.under_attack else red)
  # Bottom-center hero panel; every field reads the active hero.
  var info=hero_info(p);var panel=Vector2(w*.5-365,h-151)
  hud.draw_style_box(hud.panel_style(ink),Rect2(panel,Vector2(730,129)))

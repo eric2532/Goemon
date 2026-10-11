@@ -34,6 +34,10 @@ func cache_rules():
 	game.encounters.set_physics_process(false);game.player.set_physics_process(false)
 	await physics_frame
 	var run=game.encounters
+	game.player.position=game.world.base_position+Vector3(0,.15,10);game.camera_rig.yaw=0
+	check(run.shrine_guidance().get("screen_direction",Vector2.ZERO).is_equal_approx(Vector2.UP),"Shrine compass points ahead relative to camera")
+	game.player.position=game.world.base_position+Vector3(-10,.15,0);game.camera_rig.yaw=-PI/2
+	check(run.shrine_guidance().get("screen_direction",Vector2.ZERO).is_equal_approx(Vector2.UP),"Shrine compass rotates with the camera")
 	var gold=run.money
 	for cache in game.world.exploration_caches:
 		game.player.position=cache.position

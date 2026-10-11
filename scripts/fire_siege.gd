@@ -391,7 +391,8 @@ func interaction_prompt()->String:
 
 func shrine_guidance()->Dictionary:
 	var diff=game.world.base_position-game.player.position
-	return {"distance":Vector2(diff.x,diff.z).length(),"direction":Vector2(diff.x,diff.z).normalized(),"under_attack":shrine_attacker_count()>0}
+	var direction=Vector2(diff.x,diff.z).normalized()
+	return {"distance":Vector2(diff.x,diff.z).length(),"direction":direction,"screen_direction":direction.rotated(game.camera_rig.yaw),"under_attack":shrine_attacker_count()>0}
 
 # Compatibility methods keep legacy card systems retired.
 func try_purchase()->bool:return upgrade_site(nearest_upgrade_site())
