@@ -788,9 +788,21 @@ func living() -> Array:
 	for enemy in game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead or enemy.hp <= 0:
 			continue
-		result.append({"node": enemy, "uid": enemy.get_instance_id(), "pos": enemy.global_position,
-			"hp": enemy.hp, "maxHp": enemy.max_hp, "type": "warden" if enemy.boss or (enemy.defense_traits != null and enemy.defense_traits.is_boss()) else "revenant",
-			"radius": enemy.body_radius, "vel": enemy.velocity, "attackCD": enemy.cooldown, "slow": 0.0, "slowAmount": 0.0})
+		result.append(_target_snapshot(enemy))
+	return result
+
+func _target_snapshot(enemy: Ninja) -> Dictionary:
+	return {"node": enemy, "uid": enemy.get_instance_id(), "pos": enemy.global_position,
+		"hp": enemy.hp, "maxHp": enemy.max_hp, "type": "warden" if enemy.boss or (enemy.defense_traits != null and enemy.defense_traits.is_boss()) else "revenant",
+		"radius": enemy.body_radius, "vel": enemy.velocity, "attackCD": enemy.cooldown, "slow": 0.0, "slowAmount": 0.0}
+
+func _nearby_targets(center: Vector3, radius: float, excluded_uid: int = -1) -> Array:
+	var result: Array = []
+	for enemy in game.enemies:
+		if not is_instance_valid(enemy) or enemy.dead or enemy.hp <= 0 or enemy.get_instance_id() == excluded_uid:
+			continue
+		if enemy.global_position.distance_to(center) < radius:
+			result.append(_target_snapshot(enemy))
 	return result
 
 # The default empty argument is the active_ability incoming-hit interface. The
@@ -858,8 +870,8 @@ func _apply_elements(first: Dictionary, amount: float, weapon: String) -> void:
 		var radius: float = [0, 1.8, 2.6, 3.4][tiers.fire]
 		fx.ring(first.pos, ELEMENT_COLORS.fire, radius, 0.3)
 		sound.play("fire", {"volume": 0.45})
-		for other in living():
-			if other.uid != first.uid and other.pos.distance_to(first.pos) < radius and clear_line(first.pos + Vector3.UP, other.pos + Vector3.UP):
+		for other in _nearby_targets(first.pos, radius, first.uid):
+			if clear_line(first.pos + Vector3.UP, other.pos + Vector3.UP):
 				hit(other, roundf(amount * 0.25 * tiers.fire), weapon, false, Vector3.ZERO, "fire")
 	if tiers.lightning > 0:
 		var visited: Array = [first.uid]
@@ -868,7 +880,7 @@ func _apply_elements(first: Dictionary, amount: float, weapon: String) -> void:
 		while visited.size() < limit:
 			var nearest: Dictionary = {}
 			var distance: float = 4.4
-			for other in living():
+			for other in _nearby_targets(current.pos, distance):
 				var gap: float = other.pos.distance_to(current.pos)
 				if not visited.has(other.uid) and gap < distance and clear_line(current.pos + Vector3.UP, other.pos + Vector3.UP):
 					nearest = other
@@ -904,7 +916,7 @@ func place_projectile(mesh: Node3D, width: float, start: Vector3, sphere_collisi
 func resolve_projectile_segment(pr: Dictionary, from: Vector3, to: Vector3) -> void:
 	var wall: Dictionary = _terrain_hit(from, to, pr.width, pr.get("sphereCollision", false))
 	var end: Vector3 = wall.position if not wall.is_empty() else to
-	var candidates: Array = _segment_targets(from, end, pr.width)
+	var candidates: Array = _segment_targets(from, end, pr.width, pr.hits)
 	for candidate in candidates:
 		var e: Dictionary = candidate.e
 		if pr.hits.has(e.uid):
@@ -927,13 +939,19 @@ func resolve_projectile_segment(pr: Dictionary, from: Vector3, to: Vector3) -> v
 		pr.mesh.position = end
 		fx.particles(end, tint(), 4, 0.3)
 
-func _segment_targets(from: Vector3, to: Vector3, width: float) -> Array:
+func _segment_targets(from: Vector3, to: Vector3, width: float, hit_ids: Array = []) -> Array:
 	var candidates: Array = []
-	for e in living():
-		var center: Vector3 = AttackChain.aim_point(e.node)
+	# Piercing shots retain their hit history. Do not rebuild snapshots or cast
+	# victim rays for those contacts on every following physics step.
+	var excluded: Dictionary = {}
+	for uid in hit_ids:excluded[uid]=true
+	for enemy in game.enemies:
+		if not is_instance_valid(enemy) or enemy.dead or enemy.hp <= 0 or excluded.has(enemy.get_instance_id()):
+			continue
+		var center: Vector3 = AttackChain.aim_point(enemy)
 		var result: Dictionary = segment_distance(center, from, to)
-		if result.distance <= width + e.radius and clear_line(from, center):
-			candidates.append({"e": e, "t": result.t})
+		if result.distance <= width + enemy.body_radius and clear_line(from, center):
+			candidates.append({"e": _target_snapshot(enemy), "t": result.t})
 	candidates.sort_custom(func(a, b): return a.t < b.t)
 	return candidates
 

@@ -12,6 +12,11 @@ var effect_budget: int = 320
 var burst_material: ShaderMaterial
 var impact_frame: int = -1
 var impacts_this_frame: int = 0
+var particle_frame: int = -1
+var particle_bursts_this_frame: int = 0
+var ring_frame: int = -1
+var rings_this_frame: int = 0
+var feedback_live: Dictionary = {}
 var shake: float = 0.0
 var flash: float = 0.0
 var reduced_flashes: bool = false
@@ -26,6 +31,7 @@ func apply_quality(level: int) -> void:
 	effect_budget = [180,320,420][quality]
 	while items.size()>effect_budget:
 		var oldest: Dictionary = items.pop_front()
+		_release_feedback(oldest)
 		if is_instance_valid(oldest.node): oldest.node.queue_free()
 
 func _ensure_geometry() -> void:
@@ -134,20 +140,38 @@ func _fade(node: Node, multiplier: float) -> void:
 	for child in node.get_children():
 		_fade(child, multiplier)
 
+func _release_feedback(item: Dictionary) -> void:
+	if feedback_live.has(item.kind):
+		feedback_live[item.kind] = maxi(0, int(feedback_live[item.kind])-1)
+
+func _feedback_available(kind: String) -> bool:
+	return int(feedback_live.get(kind,0)) < [6,12,18][quality]
+
 func _add(node: Node3D, life: float, kind: String, data: Dictionary = {}) -> Node3D:
 	if items.size() >= mini(MAX_EFFECTS,effect_budget):
 		var oldest: Dictionary = items.pop_front()
+		_release_feedback(oldest)
 		if is_instance_valid(oldest.node):
 			oldest.node.queue_free()
 	add_child(node)
 	data.merge({"node": node, "life": life, "max": life, "kind": kind}, true)
 	items.append(data)
+	if kind in ["impact","particle-burst","ring"]:
+		feedback_live[kind]=int(feedback_live.get(kind,0))+1
 	return node
 
 func particles(pos: Vector3, color: Color = GOLD, count: int = 12, power: float = 1.0) -> void:
-	_ensure_geometry()
 	var amount: int = mini(count, [6,16,24][quality])
 	if amount<=0:return
+	# A piercing spell can contact hundreds of enemies in one combat step.
+	# Count displayed frames: catch-up physics steps share one allocation budget.
+	# Reject excess cosmetic allocations before creating meshes or spark data.
+	var frame: int = Engine.get_process_frames()
+	if frame!=particle_frame:
+		particle_frame=frame;particle_bursts_this_frame=0
+	if particle_bursts_this_frame >= [3,8,12][quality] or not _feedback_available("particle-burst"):return
+	particle_bursts_this_frame+=1
+	_ensure_geometry()
 	var batch := MultiMeshInstance3D.new()
 	batch.name = "EnergySparks"
 	batch.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
@@ -170,6 +194,11 @@ func particles(pos: Vector3, color: Color = GOLD, count: int = 12, power: float 
 	_add(batch,.42,"particle-burst",{"sparks":sparks,"color":color,"opacity":.43 if reduced_flashes else 1.0})
 
 func ring(pos: Vector3, color: Color = GOLD, radius: float = 2.0, life: float = 0.4) -> Node3D:
+	var frame: int = Engine.get_process_frames()
+	if frame!=ring_frame:
+		ring_frame=frame;rings_this_frame=0
+	if rings_this_frame >= [3,8,12][quality] or not _feedback_available("ring"):return null
+	rings_this_frame+=1
 	var mesh: MeshInstance3D = _mesh(_ring_geometry(1, 0.045), color, 0.8)
 	mesh.position = pos + Vector3(0, 0.065, 0)
 	mesh.rotation.x = -PI / 2
@@ -241,10 +270,10 @@ func thrust(pos: Vector3, angle: float, reach: float = 4.3, color: Color = Color
 	return _add(group, 0.33, "thrust", {"tip": tip, "core": core, "vanes": vanes, "collars": collars, "reach": reach, "length": length_})
 
 func weapon_impact(pos: Vector3, angle: float, style: String = "sword", color: Color = GOLD, heavy: bool = false) -> Node3D:
-	var frame: int = int(time*60.0)
+	var frame: int = Engine.get_process_frames()
 	if frame!=impact_frame:
 		impact_frame=frame;impacts_this_frame=0
-	if impacts_this_frame >= [3,8,12][quality]:return null
+	if impacts_this_frame >= [3,8,12][quality] or not _feedback_available("impact"):return null
 	impacts_this_frame+=1
 	var group: Node3D = Node3D.new()
 	group.name = "WeaponImpact_" + style
@@ -546,12 +575,14 @@ func tick(dt: float) -> void:
 	for i in range(items.size() - 1, -1, -1):
 		var item: Dictionary = items[i]
 		if not is_instance_valid(item.node):
+			_release_feedback(item)
 			items.remove_at(i)
 			continue
 		var node: Node3D = item.node
 		item.life -= dt
 		if item.life <= 0:
 			node.queue_free()
+			_release_feedback(item)
 			items.remove_at(i)
 			continue
 		var t: float = clampf(1.0 - float(item.life) / float(item.max), 0, 1)
@@ -661,7 +692,10 @@ func clear() -> void:
 		if is_instance_valid(item.node):
 			item.node.queue_free()
 	items.clear()
+	feedback_live.clear()
 	impact_frame=-1;impacts_this_frame=0
+	particle_frame=-1;particle_bursts_this_frame=0
+	ring_frame=-1;rings_this_frame=0
 	shake = 0.0
 	flash = 0.0
 

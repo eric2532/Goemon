@@ -68,6 +68,12 @@ var settings_path="user://settings.cfg"
 var damage_number_frame=-1
 var damage_numbers_this_frame=0
 var damage_numbers_live=0
+var impact_feedback_frame=-1
+var impacts_this_frame=0
+var impacts_live=0
+var burst_feedback_frame=-1
+var burst_sparks_this_frame=0
+var burst_sparks_live=0
 var zone_seen: Dictionary={}
 var map_editor
 var map_editor_draft
@@ -1279,8 +1285,18 @@ func _process(delta):
 			sound("spark",0.65)
 
 func burst(p: Vector3,color: Color,count: int,scale_factor: float=1.0):
-	for i in range(count):
+	var frame=Engine.get_physics_frames()
+	if burst_feedback_frame!=frame:
+		burst_feedback_frame=frame;burst_sparks_this_frame=0
+	var quality=clampi(int(settings.quality),0,2)
+	var admitted=mini(count,mini([12,24,36][quality]-burst_sparks_this_frame,[48,96,144][quality]-burst_sparks_live))
+	if admitted<=0:return
+	burst_sparks_this_frame+=admitted
+	for i in range(admitted):
 		var n=Geo.sphere(self,p+Vector3(randf_range(-0.2,0.2),0.15,randf_range(-0.2,0.2)),Vector3.ONE*randf_range(0.07,0.15)*scale_factor,Geo.mat(color.to_html(),0,0.2))
+		n.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		burst_sparks_live+=1
+		n.tree_exited.connect(func():burst_sparks_live-=1,CONNECT_ONE_SHOT)
 		var tween=create_tween().set_parallel(true)
 		tween.tween_property(n,"position",p+Vector3(randf_range(-1.5,1.5),randf_range(0.3,1.8),randf_range(-1.5,1.5))*scale_factor,0.38).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tween.tween_property(n,"scale",Vector3.ONE*0.005,0.42)
@@ -1841,13 +1857,26 @@ func impact_effect(point: Vector3, direction: Vector3, strength: int):
 	if rogue_battle_mode:
 		rogue_feedback.impact(null,point,direction,strength,false)
 		return
-	var flash=Geo.sphere(self,point,Vector3.ONE*(0.12+strength*0.055),Geo.mat("fff4c4",0,1.8))
+	# This native path serves Goemon, Edo and environmental contacts. Damage,
+	# recoil, audio and hit-stop are resolved before cosmetic admission.
+	var frame=Engine.get_physics_frames()
+	if impact_feedback_frame!=frame:
+		impact_feedback_frame=frame;impacts_this_frame=0
+	var quality=clampi(int(settings.quality),0,2)
+	if impacts_this_frame>=[3,8,12][quality] or impacts_live>=[12,24,36][quality]:return
+	impacts_this_frame+=1;impacts_live+=1
+	var effect=Node3D.new();add_child(effect)
+	effect.tree_exited.connect(func():impacts_live-=1,CONNECT_ONE_SHOT)
+	var lifetime=create_tween();lifetime.tween_interval(.2);lifetime.tween_callback(effect.queue_free)
+	var flash=Geo.sphere(effect,point,Vector3.ONE*(0.12+strength*0.055),Geo.mat("fff4c4",0,1.8))
+	flash.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var ft=create_tween()
 	ft.tween_property(flash,"scale",Vector3.ONE*0.005,0.085)
 	ft.tween_callback(flash.queue_free)
 	for i in range(4+strength*2):
 		var ray=(direction+Vector3(randf_range(-0.7,0.7),randf_range(-0.2,0.8),randf_range(-0.7,0.7))).normalized()
-		var streak=Geo.beam(self,point,point+ray*(0.26+strength*0.13),0.018,Geo.mat("ffd477",0,1.0))
+		var streak=Geo.beam(effect,point,point+ray*(0.26+strength*0.13),0.018,Geo.mat("ffd477",0,1.0))
+		streak.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		var tween=create_tween().set_parallel(true)
 		tween.tween_property(streak,"position",streak.position+ray*(0.4+strength*0.22),0.16)
 		tween.tween_property(streak,"scale",Vector3.ONE*0.01,0.18)
