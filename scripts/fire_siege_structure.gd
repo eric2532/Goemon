@@ -16,6 +16,8 @@ const EPSILON=.000001
 var game: Node
 var director: Node
 var kind="arrow"
+var level=1
+var ice_effects
 var target: Node3D
 var shells: Array=[]
 var blasts: Array=[]
@@ -198,9 +200,18 @@ func complete_build():
 	progress_root.hide();hammer.hide();proximity_prompt.hide()
 	_completion_left=1.0;_seek(completion_player,&"Complete_GoldPulse",0);completion_light.show()
 
+func attack_type()->StringName:return &"ice" if level==2 else &"arrow"
+
+func upgrade_to_ice()->bool:
+	if not completed or kind!="arrow" or level!=1:return false
+	retire_wave_effects();level=2
+	ice_effects=preload("res://scripts/ice_tower_effects.gd").new();ice_effects.configure(self)
+	return true
+
 func tick(delta: float,powered_delta: float):
 	var elapsed=maxf(0,delta)
 	_tick_feedback(elapsed)
+	if ice_effects!=null:ice_effects.tick(elapsed)
 	if not is_instance_valid(director) or not director.active or int(director.generation)!=_generation or director.phase not in ["spawning","clearance"]:
 		retire_wave_effects();return
 	if not completed or kind!="arrow":return
@@ -216,13 +227,13 @@ func tick(delta: float,powered_delta: float):
 		if target==null:
 			_shot_clock=maxf(0,_shot_clock-remaining*rate);_tick_arrows(remaining);break
 		if _shot_clock<=EPSILON:
-			_fire_at(target);_shot_clock=SHOT_INTERVAL
+			_fire_at(target);_shot_clock=1.0 if level==2 else SHOT_INTERVAL
 		var step=minf(remaining,_shot_clock/rate)
 		_tick_arrows(step);_shot_clock=maxf(0,_shot_clock-step*rate);remaining-=step
 	# A deadline at the tick boundary is still due, and must not wait one more frame.
 	if _shot_clock<=EPSILON:
 		target=_acquire_target()
-		if target!=null:_fire_at(target);_shot_clock=SHOT_INTERVAL
+		if target!=null:_fire_at(target);_shot_clock=1.0 if level==2 else SHOT_INTERVAL
 
 func _tick_feedback(delta: float):
 	var camera=get_viewport().get_camera_3d()
@@ -270,8 +281,13 @@ func _fire_at(enemy: Node3D):
 	# Authored LAUNCHER_YAW remains a yaw pivot. The independent arrow can pitch toward its target.
 	var direction=launcher.to_local(aim)
 	launcher.rotation.y+=atan2(direction.x,direction.z)
-	var arrow=ARROW_SCENE.instantiate() as Node3D
-	add_child(arrow);arrow.set_as_top_level(true)
+	var arrow: Node3D
+	if level==2:
+		arrow=ice_effects.acquire()
+		if arrow==null:return
+	else:
+		arrow=ARROW_SCENE.instantiate() as Node3D
+		add_child(arrow);arrow.set_as_top_level(true)
 	arrow.global_transform=muzzle.global_transform
 	arrow.look_at(aim,Vector3.UP,true)
 	shells.append({"node":arrow,"target":weakref(enemy),"generation":_generation,"wave":int(director.wave),"age":0.0})
@@ -283,7 +299,8 @@ func _tick_arrows(delta: float):
 	for index in range(shells.size()-1,-1,-1):
 		var shot: Dictionary=shells[index]
 		var enemy=shot.target.get_ref()
-		if shot.generation!=director.generation or shot.wave!=director.wave or not _eligible(enemy):
+		shot.age+=maxf(0,delta)
+		if shot.age>3.0 or shot.generation!=director.generation or shot.wave!=director.wave or not _eligible(enemy):
 			_remove_arrow(index);continue
 		var node: Node3D=shot.node
 		var previous=node.global_position
@@ -296,20 +313,22 @@ func _tick_arrows(delta: float):
 		node.global_position=destination
 		if destination.distance_squared_to(aim)<=.0001:
 			var direction=(aim-previous).normalized();direction.y=0
-			enemy.take_hit(ARROW_DAMAGE,direction,false,{"tower":true})
+			if level==2:
+				enemy.apply_defense_slow(.6,2.0);ice_effects.impact(aim)
+			else:enemy.take_hit(ARROW_DAMAGE,direction,false,{"tower":true})
 			_remove_arrow(index)
 		else:
 			node.look_at(aim,Vector3.UP,true)
-			shot.age+=delta
-			if shot.age>3.0:_remove_arrow(index)
 
 func _remove_arrow(index: int):
 	var node=shells[index].node
-	if is_instance_valid(node):node.queue_free();node.hide()
+	if level==2:ice_effects.release(node)
+	elif is_instance_valid(node):node.queue_free();node.hide()
 	shells.remove_at(index)
 
 func retire_wave_effects():
 	for index in range(shells.size()-1,-1,-1):_remove_arrow(index)
 	blasts.clear();target=null;_shot_clock=0
+	if ice_effects!=null:ice_effects.clear()
 	if _recoil_left>0:
 		_recoil_left=0;_seek(build_player,build_clip,build_clip_duration);embedded_arrow.show()

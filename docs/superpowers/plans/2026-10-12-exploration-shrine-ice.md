@@ -177,7 +177,7 @@ Expected: `4.6.3.stable.official.7d41c59c4`. Run from the worktree. Standalone s
 - Ice visual helper: `configure(tower: Node3D) -> void`, `acquire() -> MeshInstance3D`, `release(visual: MeshInstance3D) -> void`, `impact(point: Vector3) -> void`, `tick(delta: float) -> void`, `clear() -> void`. Return null when the four-shot pool is exhausted; never grow it beyond four.
 - Consume existing `Ninja.apply_defense_slow(factor: float, seconds: float)` and projectile generation/ownership checks. Arrow impacts and ice impacts are distinct paths.
 
-- [ ] **Step 1:** Test actual Ninja HP and movement: ice arrival preserves HP=100 and stun/kill/damage-credit state, applies factor 0.6 for 2 seconds, refreshes without multiplying, expires to 1, and preserves boss resistance. Obstructed, dead, expired and retired-generation shots apply no slow. Assert conversion removes pending arrow damage; level 1 still deals 50. Exercise pool reuse for 1,000 shots and assert no more than four live visual slots and no added per-target lights/particles.
+- [x] **Step 1:** Test actual Ninja HP and movement: ice arrival preserves HP=100 and stun/kill/damage-credit state, applies factor 0.6 for 2 seconds, refreshes without multiplying, expires to 1, and preserves boss resistance. Obstructed, dead, expired and retired-generation shots apply no slow. Assert conversion removes pending arrow damage; level 1 still deals 50. Exercise pool reuse for 1,000 shots and assert no more than four live visual slots and no added per-target lights/particles.
 
   ```gdscript
   # After a real level-2 projectile reaches this 100-HP actor:
@@ -187,10 +187,10 @@ Expected: `4.6.3.stable.official.7d41c59c4`. Run from the worktree. Standalone s
   check(is_equal_approx(enemy.defense_slow_multiplier(), 1), "slow expires after two seconds")
   ```
 
-- [ ] **Step 2:** Run `"$goemon_engine" --headless --path . --script res://scripts/ice_tower_tests.gd`; expect failure because the tower has no ice upgrade yet.
-- [ ] **Step 3:** Implement the ice branch: range 48, interval 1, three-second TTL, shared crystal/bolt material, bounded impact visuals, no shadows, and target obstruction validation. Conversion clears old shells, resets firing state, and shows the crystal adapter while preserving GLB build/aim/recoil bindings. Leave imported/protected assets unchanged.
-- [ ] **Step 4:** Run ice and structure suites plus `projectile_query_tests.gd`; require zero failures and validate observed movement rather than only a stored slow value.
-- [ ] **Step 5:** Commit `Add zero-damage ice tower shots and pooled visuals`.
+- [x] **Step 2:** Run `"$goemon_engine" --headless --path . --script res://scripts/ice_tower_tests.gd`; expect failure because the tower has no ice upgrade yet.
+- [x] **Step 3:** Implement the ice branch: range 48, interval 1, three-second TTL, shared crystal/bolt material, bounded impact visuals, no shadows, and target obstruction validation. Conversion clears old shells, resets firing state, and shows the crystal adapter while preserving GLB build/aim/recoil bindings. Leave imported/protected assets unchanged.
+- [x] **Step 4:** Run ice and structure suites plus `projectile_query_tests.gd`; require zero failures and validate observed movement rather than only a stored slow value.
+- [x] **Step 5:** Commit `Add zero-damage ice tower shots and pooled visuals`.
 
 ### Task 6: Deliberate level 2 purchase and tower HUD
 
