@@ -126,7 +126,7 @@ Expected: `4.6.3.stable.official.7d41c59c4`. Run from the worktree. Standalone s
 - Assignment: `{position: Vector3, attacking: bool, pose: StringName}`; store weak references and current generation/wave identity, not raw queued Node references. At most twelve clock-bearing slots; waiting assignments do not deal damage.
 - Controller calls the Task 4 interface `owner.apply_shrine_contact(enemy: Ninja) -> bool` only after eligibility and obstruction checks. Tests provide a fixture owner implementing this contract before real director integration.
 
-- [ ] **Step 1:** Write clock tests with assertions: `advance(2.49,true,false)==false`, next `0.01` emits exactly one event, next 2.5 emits one, `advance(100,true,false)` emits one rather than forty, paused time emits none, and ineligible time cancels a pending hit and requires a fresh 2.5 seconds. Write slot tests for thirteen living owned actors: twelve legal assignments, one waiter, release transfers one seat, repeat admit is idempotent. Test near-boundary and blocked custom shrine positions, zero legal slots, stale/dead actors, contact cover, and slot reuse after cancellation.
+- [x] **Step 1:** Write clock tests with assertions: `advance(2.49,true,false)==false`, next `0.01` emits exactly one event, next 2.5 emits one, `advance(100,true,false)` emits one rather than forty, paused time emits none, and ineligible time cancels a pending hit and requires a fresh 2.5 seconds. Write slot tests for thirteen living owned actors: twelve legal assignments, one waiter, release transfers one seat, repeat admit is idempotent. Test near-boundary and blocked custom shrine positions, zero legal slots, stale/dead actors, contact cover, and slot reuse after cancellation.
 
   ```gdscript
   clock.reset()
@@ -137,10 +137,10 @@ Expected: `4.6.3.stable.official.7d41c59c4`. Run from the worktree. Standalone s
   check(not clock.advance(0,true,false), "large update leaves no replay backlog")
   ```
 
-- [ ] **Step 2:** Run `"$goemon_engine" --headless --path . --script res://scripts/shrine_combat_tests.gd`; require intentional missing-feature failure before adding the controller.
-- [ ] **Step 3:** Implement clocks and controller. Sample up to 48 candidates at 5.5 metre radius to obtain at most twelve legal contact positions using bounded clearance/bounds checks; retain existing floor height. Assign waiting positions on the 10.5 metre ring with bounded legal fallbacks and no teleports. Refresh queue at 0.2-second intervals. Validate ownership, slot proximity within 1.25 metres, status, and a clear altar contact ray before proposing a hit. Clear all clocks/references on lifecycle invalidation.
-- [ ] **Step 4:** Run the shrine suite; require zero failures, including partitioned delta timing, FIFO seat turnover, and zero-contact results when all candidates are blocked.
-- [ ] **Step 5:** Commit `Add independent shrine attack clocks and bounded siege slots`.
+- [x] **Step 2:** Run `"$goemon_engine" --headless --path . --script res://scripts/shrine_combat_tests.gd`; require intentional missing-feature failure before adding the controller.
+- [x] **Step 3:** Implement clocks and controller. Sample up to 48 candidates at 5.5 metre radius to obtain at most twelve legal contact positions using bounded clearance/bounds checks; retain existing floor height. Assign waiting positions on the 10.5 metre ring with bounded legal fallbacks and no teleports. Refresh queue at 0.2-second intervals. Validate ownership, slot proximity within 1.25 metres, status, and a clear altar contact ray before proposing a hit. Clear all clocks/references on lifecycle invalidation.
+- [x] **Step 4:** Run the shrine suite; require zero failures, including partitioned delta timing, FIFO seat turnover, and zero-contact results when all candidates are blocked.
+- [x] **Step 5:** Commit `Add independent shrine attack clocks and bounded siege slots`.
 
 ### Task 4: Persistent attackers, wave accounting, and shrine feedback
 
