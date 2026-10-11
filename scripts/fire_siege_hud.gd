@@ -89,7 +89,9 @@ func draw(hud):
   centered(hud,58,"HOLD  Y  ·  START WAVE %d" % shown_wave,18,gold)
   hud.draw_rect(Rect2(x+20,74,360,12),Color("344547"))
   hud.draw_rect(Rect2(x+20,74,360*run.start_progress,12),gold)
-  centered(hud,103,"Build, reposition, then hold for 3 seconds",12,muted)
+  centered(hud,103,"Explore, return, then hold for 3 seconds",12,muted)
+  var guide=run.shrine_guidance()
+  centered(hud,139,"SHRINE · %dm   |   SUPPLIES %d / %d" % [roundi(guide.distance),run.exploration.collected_count(),game.world.exploration_caches.size()],13,teal)
  # Bottom-center hero panel; every field reads the active hero.
  var info=hero_info(p);var panel=Vector2(w*.5-365,h-151)
  hud.draw_style_box(hud.panel_style(ink),Rect2(panel,Vector2(730,129)))

@@ -75,7 +75,7 @@ Expected: `4.6.3.stable.official.7d41c59c4`. Run from the worktree. Standalone s
 - Anchors have Vector3 values for entrance, shrine, pagoda, forward_station, rear_station, hero_summon, dog_summon, grove, village, watchpost; pagoda is shrine + (0,0,31), hero_summon is (-8,0.15,208), and dog_summon is (8,0.15,208). Keep approach towers at x=±12/z=116,130,144,158; move four parapet towers to z=155. Start mines at (-18,0,175), (18,0,175), (-30,0,180), and (-18,0,280), adjusting only if real footprint checks find a collision.
 - Keep existing world properties as consumers' public interface; helper supplies coordinates before ground/routes/defenses/art are built.
 
-- [ ] **Step 1:** Write `expanded_layout_contract` and `legacy_layout_unchanged` assertions: bounds equal `Rect2(-160,50,320,480)`, lane 1 ends at `(0,0,220)`, route length is 110, twelve towers/four mines, height zero; direct compact world still has its existing bounds/sites. Assert collider rays at x=-5.5,0,5.5 from z=110 to 218 are clear and all build pads fit inside bounds.
+- [x] **Step 1:** Write `expanded_layout_contract` and `legacy_layout_unchanged` assertions: bounds equal `Rect2(-160,50,320,480)`, lane 1 ends at `(0,0,220)`, route length is 110, twelve towers/four mines, height zero; direct compact world still has its existing bounds/sites. Assert collider rays at x=-5.5,0,5.5 from z=110 to 218 are clear and all build pads fit inside bounds.
 
   ```gdscript
   check(world.playable_bounds == Rect2(-160,50,320,480), "expanded bounds")
@@ -84,10 +84,10 @@ Expected: `4.6.3.stable.official.7d41c59c4`. Run from the worktree. Standalone s
   check(legacy.playable_bounds == Rect2(-80,50,160,310), "compact fixture unchanged")
   ```
 
-- [ ] **Step 2:** Run `"$goemon_engine" --headless --path . --script res://scripts/fire_siege_exploration_tests.gd`; expect the new expanded contract to fail before implementation, with a clear missing-feature assertion rather than a parser failure.
-- [ ] **Step 3:** Implement the interfaces and flag hook. Shift wall stations, mines, player/allied markers, shrine pagoda/lanterns/banners/windows, road trim, horizon and floating stones through anchors. Keep legacy world construction unchanged when expanded_mode is false. Keep small impact/fog/quality budgets at their existing values.
-- [ ] **Step 4:** Run the new suite and existing standalone `fire_siege_structure_tests.gd` and `spirit_fortress_tests.gd`; require zero failures. Verify actual tower access and route collision rather than coordinates alone.
-- [ ] **Step 5:** Commit only this deliverable with message `Add expanded Fire Siege layout and aligned shrine anchors`.
+- [x] **Step 2:** Run `"$goemon_engine" --headless --path . --script res://scripts/fire_siege_exploration_tests.gd`; expect the new expanded contract to fail before implementation, with a clear missing-feature assertion rather than a parser failure.
+- [x] **Step 3:** Implement the interfaces and flag hook. Shift wall stations, mines, player/allied markers, shrine pagoda/lanterns/banners/windows, road trim, horizon and floating stones through anchors. Keep legacy world construction unchanged when expanded_mode is false. Keep small impact/fog/quality budgets at their existing values.
+- [x] **Step 4:** Run the new suite and existing standalone `fire_siege_structure_tests.gd` and `spirit_fortress_tests.gd`; require zero failures. Verify actual tower access and route collision rather than coordinates alone.
+- [x] **Step 5:** Commit only this deliverable with message `Add expanded Fire Siege layout and aligned shrine anchors`.
 
 ### Task 2: Three explorable districts and preparation rewards
 
@@ -99,7 +99,7 @@ Expected: `4.6.3.stable.official.7d41c59c4`. Run from the worktree. Standalone s
 - Produce exploration `configure(owner: FireSiege) -> void`, `tick(delta: float) -> void`, `reset() -> void`, `collected_count() -> int`; owner retains gold authority.
 - Produce `FireSiege.shrine_guidance() -> Dictionary` with `distance: float`, `direction: Vector2`, and `under_attack: bool` (false until shrine integration).
 
-- [ ] **Step 1:** Add tests `district_paths_reach_shrine`, `cache_once_per_run`, `cache_access_and_lifecycle`, and `preparation_stays_unlimited`. Assert each cache adds exactly 3 gold once, all three add 9, pause/death/combat and blocked access add 0, new run rearms them, and a later preparation does not. Assert setup after 600 seconds has no scheduled actors or HP loss. Physically traverse representative path segments with the hero radius, not just centre rays.
+- [x] **Step 1:** Add tests `district_paths_reach_shrine`, `cache_once_per_run`, `cache_access_and_lifecycle`, and `preparation_stays_unlimited`. Assert each cache adds exactly 3 gold once, all three add 9, pause/death/combat and blocked access add 0, new run rearms them, and a later preparation does not. Assert setup after 600 seconds has no scheduled actors or HP loss. Physically traverse representative path segments with the hero radius, not just centre rays.
 
   ```gdscript
   var before = director.money
@@ -111,10 +111,10 @@ Expected: `4.6.3.stable.official.7d41c59c4`. Run from the worktree. Standalone s
   check(director.phase == "setup" and director.total_spawned == 0, "preparation stays safe")
   ```
 
-- [ ] **Step 2:** Run the exploration suite; observe missing districts/rewards failures while Task 1 checks stay green.
-- [ ] **Step 3:** Build the grove, village and watchpost loops and direct return paths. Route side paths behind the castle ramp toes (z>230), and take the watchpost's two returns around the pagoda at x=±30 rather than through its foundation. Use existing procedural kit meshes, shared night palettes, simple authored solids and spatial MultiMesh batches. Expose cache visuals at clear walkable points; check three markers at 5 Hz only when owner is running, setup and hero alive, within 2.5 metres and clear layer-1 access. Reflect collection once and display the reward. Update HUD preparation copy and shrine direction/distance without covering the crosshair.
-- [ ] **Step 4:** Run the exploration suite and `"$goemon_engine" --headless --path . -- --map-builder-test`; require zero failures and verify custom maps have no standard districts/caches. This task must not alter saved documents.
-- [ ] **Step 5:** Commit `Add exploration districts and preparation supply caches`.
+- [x] **Step 2:** Run the exploration suite; observe missing districts/rewards failures while Task 1 checks stay green.
+- [x] **Step 3:** Build the grove, village and watchpost loops and direct return paths. Route side paths behind the castle ramp toes (z>230), and take the watchpost's two returns around the pagoda at x=±30 rather than through its foundation. Use existing procedural kit meshes, shared night palettes, simple authored solids and spatial MultiMesh batches. Expose cache visuals at clear walkable points; check three markers at 5 Hz only when owner is running, setup and hero alive, within 2.5 metres and clear layer-1 access. Reflect collection once and display the reward. Update HUD preparation copy and shrine direction/distance without covering the crosshair.
+- [x] **Step 4:** Run the exploration suite and `"$goemon_engine" --headless --path . -- --map-builder-test`; require zero failures and verify custom maps have no standard districts/caches. This task must not alter saved documents.
+- [x] **Step 5:** Commit `Add exploration districts and preparation supply caches`.
 
 ### Task 3: Independent shrine strike clocks and legal slots
 

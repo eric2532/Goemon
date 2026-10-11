@@ -360,6 +360,8 @@ func _build_shrine():
 	_world_label("THE LAST SHRINE",base_position+Vector3(0,11,0),Color("ffe1a0"),.045)
 
 func _build_woodland():
+	if expanded_mode:
+		load("res://scripts/fire_siege_districts.gd").build(self);return
 	# Instanced woodland adds scale while keeping the huge field inexpensive.
 	var trunk_mesh=CylinderMesh.new()
 	trunk_mesh.bottom_radius=.48

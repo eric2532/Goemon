@@ -21,6 +21,7 @@ var building=false
 var powered=true
 var original_spawn=Vector3.ZERO
 var _last_hero_id=-1
+var exploration=preload("res://scripts/fire_siege_exploration.gd").new()
 
 var generation: int:
 	get:return runtime.generation
@@ -71,6 +72,7 @@ func _new_structure(kind: String,point: Vector3)->Node3D:
 
 func begin():
 	reset();_create_sites();active=true
+	exploration.configure(self)
 	game.active_enemy_limit=300
 	original_spawn=game.world.spawn_point;game.checkpoint=original_spawn
 	game.player.position=original_spawn;game.player.velocity=Vector3.ZERO
@@ -87,6 +89,7 @@ func tick(delta: float):
 	if not _running():return
 	if base_hp<=0:_terminate(false);return
 	var dt=maxf(0,delta)
+	exploration.tick(dt)
 	elapsed+=dt
 	if game.player.hp<=0 and not hero_dead:hero_died()
 	if runtime.advance_revive(dt):_restore_hero()
@@ -305,6 +308,10 @@ func interaction_prompt()->String:
 	var cost=site_cost(index)
 	var label="MINE" if index>=site_states.size() else "ARROW TOWER"
 	return "STAND NEARBY · %s · %d gold%s" % [label,cost," · Need %.2f more" % (cost-money) if money<cost else ""]
+
+func shrine_guidance()->Dictionary:
+	var diff=game.world.base_position-game.player.position
+	return {"distance":Vector2(diff.x,diff.z).length(),"direction":Vector2(diff.x,diff.z).normalized(),"under_attack":false}
 
 # Compatibility methods deliberately expose no legacy cards/upgrades/F buys.
 func try_purchase()->bool:return false
