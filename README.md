@@ -3,11 +3,29 @@
 A fully local Godot 4.6.3 action game. **Fire Siege MVP is the primary development
 version**. This `codex/fire-siege-spirit-effects` branch adds Spirit Fortress's
 visual techniques to the playable Fire Siege game, now expanded with neon shrine
-art and two new enemy types as **v2.47.0**. The legacy
+art, two new enemy types, the Samurai remake and roster-wide combat VFX as **v2.48.0**. The legacy
 Sky Descent material below remains reference for that older mode.
 
 The pushed **v2.45** base is on **`codex/fire-siege-mvp`**, commit `8758b73`.
 See [agent review instructions, verification and screenshots](docs/fire-siege-mvp/github-review-v245.md).
+
+## Fire Siege · Crimson Overdrive · v2.48.0
+
+Samurai now chains five cuts (left, right, diagonal, forward and a 180° turning
+finisher). RMB / 3 launches a huge piercing crimson energy arrow, blocked by
+solid cover. R grants 5× katana cadence for ten seconds; the 14-second ultimate
+cooldown and other ability cooldowns retain their normal rates. E keeps the
+original utility arrow and C remains evade. J repeats the five-cut normal combo.
+
+All twelve heroes gain brighter VFX: layered emissive cutting trails, sparks
+batched with MultiMesh, class-colored ultimate rims, Goemon's golden surge,
+and Edo's flowing fire, beam and shield shaders. Effects use gameplay clocks
+for pause. Low caps sparks at six per burst and impact presentation at three
+contacts per effect frame; Medium/High allow eight/twelve. This limits visuals
+only, so damage still reaches every valid target. Floating damage text now has
+both frame and live-label limits to prevent crowded-hit allocation spikes.
+
+See [combat behavior, checks and performance](docs/crimson-combat-v248.md).
 
 ## Fire Siege · Neon shrine dusk · v2.47.0
 

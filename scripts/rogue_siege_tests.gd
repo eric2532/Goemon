@@ -3,7 +3,7 @@ extends "res://scripts/combat_tests.gd"
 # The existing Fire Siege director is only paused while owned combat fixtures run.
 const CLASS_IDS=["pirate","samurai","ninja","mage","knight","dragoon","magic-swordsman","ranger","explorer","master-thief"]
 const PRIMARY_DAMAGE=[25,34,18,36,42,37,42,67,19,62]
-const PRIMARY_STYLE=["sword","katana","ninja","fireball","heavy","thrust","claymore","bow","evasive-slash","pipe"]
+const PRIMARY_STYLE=["sword","samurai-cut","ninja","fireball","heavy","thrust","claymore","bow","evasive-slash","pipe"]
 const TEST_ORIGIN=Vector3(0,.06,100)
 var visual=false
 var checks=0

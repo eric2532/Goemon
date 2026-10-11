@@ -306,6 +306,36 @@ func _sword(attack: Dictionary, phase: Dictionary) -> void:
 	model.rotation.x += _c(phase, -0.035, 0.075, 0.035) * weight
 	model.rotation.z += _c(phase, 0.045, -0.045, -0.08) * side
 
+func _samurai_cut(attack: Dictionary, phase: Dictionary) -> void:
+	var stage: int = int(attack.get("index", 0)) % 5
+	var side: float = -1.0 if stage == 1 else 1.0
+	var directions: Array = [
+		[Vector3(1, .1, .1), Vector3(0, .1, 1), Vector3(-1, .1, .2)],
+		[Vector3(-1, .1, .1), Vector3(0, .1, 1), Vector3(1, .1, .2)],
+		[Vector3(.9, 1, .1), Vector3(0, .2, 1), Vector3(-.8, -.6, .4)],
+		[Vector3(0, 1, -.3), Vector3(0, -.05, 1), Vector3(0, -.9, .5)],
+		[Vector3(-1, .15, .1), Vector3(0, .1, 1), Vector3(1, .1, -.15)]
+	]
+	var d: Array = directions[stage]
+	var direction := Vector3(_c(phase,d[0].x,d[1].x,d[2].x,-.25),_c(phase,d[0].y,d[1].y,d[2].y,-.68),_c(phase,d[0].z,d[1].z,d[2].z,.8))
+	var twist: float = _c(phase, -.45, .05, .5) * side
+	_r("Body", _c(phase,-.05,.12,.08), twist)
+	_r("Head", _c(phase,.03,-.03,.02), -twist*.4)
+	_r("Arm_R", _c(phase,-.7,-1.3,-.6) if stage<2 or stage==4 else _c(phase,-1.9,-1.25,-.25), _c(phase,-.6,0,.6)*side, _c(phase,-.4,-.1,.3)*side)
+	_p("Arm_R",_c(phase,-.05,.03,.1)*side,_c(phase,.12 if stage in [2,3] else 0,0,-.05),_c(phase,-.06,.18,.04))
+	_r("Arm_L",_c(phase,-.5,-1,-.6),-twist*.25,.16)
+	_p("Body",0,-_c(phase,.05,.02,.08),_c(phase,-.05,.1,.02))
+	_r("Leg_R",_c(phase,-.2,.2,.08));_r("Leg_L",_c(phase,.16,-.16,-.1))
+	if stage==4:
+		var t: float = float(attack.time)/maxf(.01,float(attack.duration))
+		# Half turn, then a brief return to the aiming stance for the next cut.
+		var turn: float = PI * _smooth(clampf((t-.08)/.60,0,1)) * (1.0-_smooth(clampf((t-.86)/.14,0,1)))
+		model.rotation.y += turn
+		# The torso turns through the cut; the blade stays in the committed
+		# forward semicircle used by collision and the moving energy ribbon.
+		direction = direction.rotated(Vector3.UP,-turn)
+	_aim_weapon("Weapon_Cutlass",WEAPON_AXES.samurai,direction,1.0)
+
 func _lance(phase: Dictionary, index: int) -> void:
 	var active: float = _c(phase, 1, 1, 1)
 	_r("Body", _c(phase, -0.09, 0.13, 0.1), _c(phase, -0.22, 0.06, 0.09))
@@ -428,6 +458,7 @@ func animate_pose(state: Dictionary, dt: float, time: float, movement: float = 0
 			if attack is Dictionary and not attack.is_empty():
 				var phase: Dictionary = _phase(attack)
 				match str(attack.get("style", "cutlass")):
+					"samurai-cut": _samurai_cut(attack, phase)
 					"thrust": _lance(phase, int(attack.get("index", 0)))
 					"staff": _staff(phase)
 					"bow", "bow-fan":

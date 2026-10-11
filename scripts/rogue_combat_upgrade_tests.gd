@@ -58,9 +58,9 @@ func dash_and_melee_rules():
  check(game.player.position.x-origin.x>8,"Ninja secondary travels a long forward dash")
  await fresh_class(1);a=game.player.active_ability
  far=fixture(Vector3(6.4,0,0));tap("heavy_attack")
- check(a.player.attack!=null and a.player.attack.get("style","")=="power-slash" and a.player.attack.color.r>.8 and a.player.attack.color.g<.3,"Samurai commits a huge red energy slash")
+ check(a.projectiles.size()==1 and a.projectiles[0].kind=="crimson-arrow" and a.projectiles[0].color.r>.8 and a.projectiles[0].color.g<.3,"Samurai launches a huge red energy arrow")
  await frames(35)
- check(10000-far.hp>=140,"Samurai slash deals powerful long-range damage")
+ check(10000-far.hp>=140,"Samurai arrow deals powerful long-range damage")
  await fresh_class(8);a=game.player.active_ability
  tap("light_attack")
  check(a.player.attack!=null and a.player.attack.get("style","")=="evasive-slash" and a.player.invuln>0,"Explorer primary combines an evasive window with underhand blades")
@@ -207,12 +207,11 @@ func posture_transition_rules():
  await fresh_class(1)
  var a=game.player.active_ability
  tap("heavy_attack")
- check(a.player.shot<=0,"Samurai sword slash does not enter the bow-shot equipment state")
- a.player.attack.time=a.player.attack.contact
+ check(a.player.shot>0 and a.player.attack==null,"Samurai energy arrow enters the bow-shot equipment state")
  a._animate(0,0)
  var actor=game.player.model.actor
- check(actor.joints.Weapon_Cutlass.node.position.distance_to(actor.joints.Weapon_Cutlass.position)<.001,"Samurai keeps sword in hand at power-slash contact")
- check(actor.joints.Body.node.to_local(actor.joints.Weapon_Pistol.node.global_position).z<-.3,"Samurai power slash keeps the unused bow on his back")
+ check(actor.joints.Body.node.to_local(actor.joints.Weapon_Pistol.node.global_position).z>.25,"Samurai brings the actual bow into firing position")
+ check(actor.joints.Body.node.to_local(actor.joints.Weapon_Cutlass.node.global_position).z<0,"Samurai stows his katana while releasing the energy arrow")
  await fresh_class(9);a=game.player.active_ability
  press("heavy_attack");tap("equip")
  check(a.player.crouched and not a.player.blocking and a.player.guardTime==0 and a.player.guardStyle.is_empty(),"Crouching cancels Thief guard timer and pose with its protection")

@@ -72,6 +72,7 @@ func configure(owner: Hero, id: String) -> void:
 		fx.name = "RogueSharedClassEffects"
 		fx.process_mode = Node.PROCESS_MODE_PAUSABLE
 		game.add_child(fx)
+	fx.apply_quality(int(game.settings.quality))
 	if not is_instance_valid(sound):
 		sound = game.get_node_or_null("RogueSharedClassAudio")
 	if not is_instance_valid(sound):
@@ -712,6 +713,7 @@ func _animate(delta: float, movement: float) -> void:
 		pose.travel = player.travel.duplicate()
 		pose.travel.height = 0.0 # The real collision body already follows the arc.
 	var real_delta: float = delta / maxf(0.01, hero.attack_speed_multiplier())
+	pose.graphicsQuality = game.settings.quality
 	pose.grounded = hero.is_on_floor()
 	pose.vertical = hero.velocity.y
 	pose.landing = landing_pose
@@ -825,8 +827,9 @@ func hit(e: Dictionary = {}, amount: float = 0, weapon: String = "cutlass", heav
 	if class_id == "magic-swordsman" and presentation in ["claymore", "wave"]:
 		sound.play("claymore-impact", {"heavy": heavy, "volume": 0.52, "pitch": 0.92 if e.type == "warden" else 1.0})
 	else:
-		sound.play("pierce" if presentation in ["thrust", "arrow"] else ("heavy" if heavy else "hit"), {"pitch": 0.77 if e.type == "warden" else 1.0})
+		sound.play("pierce" if presentation in ["thrust", "arrow", "crimson-arrow"] else ("heavy" if heavy else "hit"), {"pitch": 0.77 if e.type == "warden" else 1.0})
 	var stop: float = 0.075 if heavy else 0.04
+	if class_id == "samurai" and player.buffTime > 0 and not _projectile_damage: stop /= 5.0
 	enemy.impact_pause = maxf(enemy.impact_pause, stop)
 	# A released projectile keeps travelling independently of the caster.
 	# Piercing a crowd must not repeatedly freeze movement and projectile ticks.

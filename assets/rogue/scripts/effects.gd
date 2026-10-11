@@ -7,6 +7,11 @@ const GOLD: Color = Color("ffd487")
 const TEAL: Color = Color("6ef7dc")
 const BLADE_SHADER = preload("res://assets/rogue/shaders/blade_trail.gdshader")
 const MAX_EFFECTS: int = 700
+var quality: int = 1
+var effect_budget: int = 320
+var burst_material: ShaderMaterial
+var impact_frame: int = -1
+var impacts_this_frame: int = 0
 var shake: float = 0.0
 var flash: float = 0.0
 var reduced_flashes: bool = false
@@ -15,6 +20,13 @@ var time: float = 0.0
 var sphere_geometry: SphereMesh
 var spark_geometry: BoxMesh
 var geometry_cache: Dictionary = {}
+
+func apply_quality(level: int) -> void:
+	quality = clampi(level, 0, 2)
+	effect_budget = [180,320,420][quality]
+	while items.size()>effect_budget:
+		var oldest: Dictionary = items.pop_front()
+		if is_instance_valid(oldest.node): oldest.node.queue_free()
 
 func _ensure_geometry() -> void:
 	if sphere_geometry != null:
@@ -26,12 +38,17 @@ func _ensure_geometry() -> void:
 	sphere_geometry.rings = 4
 	spark_geometry = BoxMesh.new()
 	spark_geometry.size = Vector3.ONE
+	burst_material = ShaderMaterial.new()
+	burst_material.shader = preload("res://assets/rogue/shaders/energy_sparks.gdshader")
 
 func _material(color: Color, opacity: float = 1.0, additive: bool = true) -> StandardMaterial3D:
 	var material: StandardMaterial3D = StandardMaterial3D.new()
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	material.blend_mode = BaseMaterial3D.BLEND_MODE_ADD if additive else BaseMaterial3D.BLEND_MODE_MIX
+	material.emission_enabled = additive
+	material.emission = color
+	material.emission_energy_multiplier = 1.25 if reduced_flashes else 1.8
 	material.cull_mode = BaseMaterial3D.CULL_DISABLED
 	material.depth_draw_mode = BaseMaterial3D.DEPTH_DRAW_DISABLED
 	material.disable_fog = true
@@ -118,7 +135,7 @@ func _fade(node: Node, multiplier: float) -> void:
 		_fade(child, multiplier)
 
 func _add(node: Node3D, life: float, kind: String, data: Dictionary = {}) -> Node3D:
-	if items.size() >= MAX_EFFECTS:
+	if items.size() >= mini(MAX_EFFECTS,effect_budget):
 		var oldest: Dictionary = items.pop_front()
 		if is_instance_valid(oldest.node):
 			oldest.node.queue_free()
@@ -129,16 +146,28 @@ func _add(node: Node3D, life: float, kind: String, data: Dictionary = {}) -> Nod
 
 func particles(pos: Vector3, color: Color = GOLD, count: int = 12, power: float = 1.0) -> void:
 	_ensure_geometry()
-	for i in range(mini(count, 48)):
-		var spark: bool = i % 3 != 0
-		var mesh: MeshInstance3D = _mesh(spark_geometry if spark else sphere_geometry, color)
-		mesh.position = pos + Vector3(0, 0.8, 0)
-		var angle: float = randf() * TAU
-		var velocity: Vector3 = Vector3(sin(angle) * randf_range(2, 6), randf_range(2, 6), cos(angle) * randf_range(2, 6)) * power
-		var size_: float = randf_range(0.04, 0.11) * power
-		mesh.scale = Vector3(size_, size_ * (0.55 if spark else 1.0), size_ * (3.5 if spark else 1.0))
-		mesh.rotation = Vector3(randf() * 4, randf() * 5, randf() * 4)
-		_add(mesh, randf_range(0.22, 0.6), "particle", {"velocity": velocity, "spark": spark})
+	var amount: int = mini(count, [6,16,24][quality])
+	if amount<=0:return
+	var batch := MultiMeshInstance3D.new()
+	batch.name = "EnergySparks"
+	batch.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	batch.multimesh = MultiMesh.new()
+	batch.multimesh.transform_format = MultiMesh.TRANSFORM_3D
+	batch.multimesh.use_colors = true
+	batch.multimesh.instance_count = amount
+	batch.multimesh.mesh = spark_geometry
+	batch.material_override = burst_material
+	batch.position = pos + Vector3.UP*.8
+	var sparks: Array = []
+	for i in range(amount):
+		var angle: float = randf()*TAU
+		var size_: float = randf_range(.035,.085)*power
+		var spark = {"position": Vector3.ZERO, "velocity": Vector3(sin(angle)*randf_range(2,6),randf_range(2,6),cos(angle)*randf_range(2,6))*power,
+			"size": Vector3(size_,size_*.55,size_*3.5)}
+		sparks.append(spark)
+		batch.multimesh.set_instance_transform(i,Transform3D(Basis.IDENTITY.scaled(spark.size),Vector3.ZERO))
+		batch.multimesh.set_instance_color(i,Color(color.r,color.g,color.b,.43 if reduced_flashes else 1.0))
+	_add(batch,.42,"particle-burst",{"sparks":sparks,"color":color,"opacity":.43 if reduced_flashes else 1.0})
 
 func ring(pos: Vector3, color: Color = GOLD, radius: float = 2.0, life: float = 0.4) -> Node3D:
 	var mesh: MeshInstance3D = _mesh(_ring_geometry(1, 0.045), color, 0.8)
@@ -153,11 +182,11 @@ func slash(pos: Vector3, angle: float, combo: int = 0, color: Color = GOLD, reac
 	var aliases: Dictionary = {"cutlass": "sword", "ninja": "dagger", "heavy": "cleave", "claymore": "magic", "twin": "dagger", "pipe": "cleave", "low-pipe": "spin", "iaijutsu": "katana"}
 	var style: String = aliases.get(requested_style, requested_style)
 	var presets: Dictionary = {
-		"sword": {"width": 0.48, "life": 0.29, "arc": 2.25},
-		"katana": {"width": 0.35, "life": 0.31, "arc": 2.05},
-		"dagger": {"width": 0.3, "life": 0.21, "arc": 1.9},
-		"cleave": {"width": 0.74, "life": 0.36, "arc": 2.65},
-		"magic": {"width": 0.68, "life": 0.38, "arc": 2.6},
+		"sword": {"width": 0.6, "life": 0.29, "arc": 2.25},
+		"katana": {"width": 0.5, "life": 0.31, "arc": 2.05},
+		"dagger": {"width": 0.4, "life": 0.21, "arc": 1.9},
+		"cleave": {"width": 0.9, "life": 0.36, "arc": 2.65},
+		"magic": {"width": 0.8, "life": 0.38, "arc": 2.6},
 		"spin": {"width": 0.48, "life": 0.37, "arc": PI * 1.98},
 	}
 	var preset: Dictionary = presets.get(style, presets.sword)
@@ -169,6 +198,7 @@ func slash(pos: Vector3, angle: float, combo: int = 0, color: Color = GOLD, reac
 	group.name = "AttackSlash_" + style
 	group.position = pos + Vector3(0, float(options.get("height", 0.95)), 0)
 	group.rotation.y = angle
+	group.rotation.z = float(options.get("plane", 0.0))
 	var shader_materials: Array = []
 	for settings in [[reach, preset.width, 0.96, 0, 0], [reach - preset.width * 0.66, preset.width * 0.24, 0.42, 0.055, -0.025], [reach + 0.045, 0.045, 0.4, 0.015, 0.045]]:
 		var material: ShaderMaterial = ShaderMaterial.new()
@@ -211,13 +241,18 @@ func thrust(pos: Vector3, angle: float, reach: float = 4.3, color: Color = Color
 	return _add(group, 0.33, "thrust", {"tip": tip, "core": core, "vanes": vanes, "collars": collars, "reach": reach, "length": length_})
 
 func weapon_impact(pos: Vector3, angle: float, style: String = "sword", color: Color = GOLD, heavy: bool = false) -> Node3D:
+	var frame: int = int(time*60.0)
+	if frame!=impact_frame:
+		impact_frame=frame;impacts_this_frame=0
+	if impacts_this_frame >= [3,8,12][quality]:return null
+	impacts_this_frame+=1
 	var group: Node3D = Node3D.new()
 	group.name = "WeaponImpact_" + style
 	group.position = pos + Vector3(0, 1.0, 0)
 	group.rotation.y = angle
 	var strength: float = 1.35 if heavy else 1.0
 	var pieces: Array = []
-	if style in ["pierce", "arrow", "lance", "thrust"]:
+	if style in ["pierce", "arrow", "crimson-arrow", "lance", "thrust"]:
 		for i in range(5):
 			var shard: MeshInstance3D = _mesh(_spear((1.4 if i == 0 else 0.65) * strength, 0.12 if i == 0 else 0.045, 0.035), Color("ecfcff") if i == 0 else color, 0.85 if i == 0 else 0.5)
 			var side: float = float(i - 2)
@@ -409,6 +444,14 @@ func create_projectile(kind: String, color: Color = TEAL) -> Node3D:
 	var group: Node3D = Node3D.new()
 	group.name = "Projectile_" + kind
 	match kind:
+		"crimson-arrow":
+			var shaft = _mesh(_spear(1.8,.09,.09),color,.85)
+			shaft.position.z=-1.0;group.add_child(shaft)
+			var head = _mesh(_spear(.65,.22,.12),color,.95)
+			head.position.z=.55;group.add_child(head)
+			for side in [-1.0,1.0]:
+				var fin = _mesh(_spear(.55,.12,.05),color,.55)
+				fin.position=Vector3(side*.08,0,-.9);fin.rotation.y=side*-.65;group.add_child(fin)
 		"ranger-arrow", "ranger-power-arrow":
 			var power: bool = kind == "ranger-power-arrow"
 			var shaft_geometry = CylinderMesh.new()
@@ -514,6 +557,16 @@ func tick(dt: float) -> void:
 		var t: float = clampf(1.0 - float(item.life) / float(item.max), 0, 1)
 		var remaining: float = 1.0 - t
 		match str(item.kind):
+			"particle-burst":
+				for j in range(item.sparks.size()):
+					var spark: Dictionary = item.sparks[j]
+					spark.position += spark.velocity*dt
+					spark.velocity.y -= 14*dt
+					var basis: Basis = Basis(Quaternion(Vector3.BACK,spark.velocity.normalized())) if spark.velocity.length_squared()>.00001 else Basis.IDENTITY
+					node.multimesh.set_instance_transform(j,Transform3D(basis.scaled(spark.size*maxf(.01,remaining)),spark.position))
+					var color: Color = item.color
+					color.a = remaining*item.opacity
+					node.multimesh.set_instance_color(j,color)
 			"particle":
 				node.position += item.velocity * dt
 				item.velocity.y -= 14 * dt
@@ -608,6 +661,7 @@ func clear() -> void:
 		if is_instance_valid(item.node):
 			item.node.queue_free()
 	items.clear()
+	impact_frame=-1;impacts_this_frame=0
 	shake = 0.0
 	flash = 0.0
 

@@ -65,6 +65,9 @@ const IMPACT_SOUNDS=["hit","heavy_hit","enemy_reaction","environment_hit","coin_
 const DEFAULT_SETTINGS={"volume":0.65,"music_enabled":false,"sensitivity":1.0,"fullscreen":false,"quality":1,"goemon_skin":HeroSkins.DEFAULT_ID}
 var settings=DEFAULT_SETTINGS.duplicate()
 var settings_path="user://settings.cfg"
+var damage_number_frame=-1
+var damage_numbers_this_frame=0
+var damage_numbers_live=0
 var zone_seen: Dictionary={}
 var map_editor
 var map_editor_draft
@@ -1150,6 +1153,8 @@ func save_settings():
 	c.save(settings_path)
 
 func apply_quality():
+	var combat_fx=get_node_or_null("RogueSharedClassEffects")
+	if combat_fx:combat_fx.apply_quality(settings.quality)
 	get_viewport().msaa_3d=Viewport.MSAA_DISABLED if settings.quality==0 else (Viewport.MSAA_2X if settings.quality==1 else Viewport.MSAA_4X)
 	if is_instance_valid(world):
 		for n in world.get_children():
@@ -1307,7 +1312,17 @@ func slash(p: Vector3,dir: Vector3,heavy: bool,combo: int,color: Color=Color("ff
 	t.chain().tween_callback(n.queue_free)
 
 func damage_number(p: Vector3,amount: int,heavy: bool):
+	# Crowd damage remains per target. Only the expensive text/tween feedback
+	# is sampled, with both a contact-frame and a live-label budget.
+	var frame=Engine.get_physics_frames()
+	if damage_number_frame!=frame:
+		damage_number_frame=frame;damage_numbers_this_frame=0
+	var quality=clampi(int(settings.quality),0,2)
+	if damage_numbers_this_frame>=[3,8,12][quality] or damage_numbers_live>=[16,32,48][quality]:return
+	damage_numbers_this_frame+=1;damage_numbers_live+=1
 	var label=Label3D.new()
+	label.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	label.tree_exited.connect(func():damage_numbers_live-=1,CONNECT_ONE_SHOT)
 	label.text=str(amount)
 	label.font_size=48 if heavy else 36
 	label.pixel_size=0.013

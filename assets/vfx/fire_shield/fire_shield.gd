@@ -3,19 +3,22 @@ extends Node3D
 var age=0.0
 var rings=[]
 var ending=false
+var energy_material: ShaderMaterial
 func _ready():
 	position.y=1.2
 	var shader=Shader.new()
 	shader.code="""shader_type spatial;
 render_mode unshaded, blend_add, cull_back, depth_draw_never;
+uniform float clock=0.0;
 void fragment(){
  float rim=pow(1.0-abs(dot(normalize(NORMAL),normalize(VIEW))),2.6);
- float ripple=pow(0.5+0.5*sin(UV.y*65.0-TIME*3.0),12.0)*0.04;
+ float ripple=pow(0.5+0.5*sin(UV.y*65.0-clock*3.0+sin(UV.x*24.0)),12.0)*0.065;
  ALBEDO=vec3(0.025,0.32,0.95);
  EMISSION=vec3(0.04,0.48,1.0)*(0.2+rim*1.6);
  ALPHA=0.025+rim*0.30+ripple;
 }"""
 	var material=ShaderMaterial.new();material.shader=shader
+	energy_material=material
 	var sphere=Geo.sphere(self,Vector3.ZERO,Vector3.ONE*3.25,material)
 	sphere.mesh.radial_segments=64;sphere.mesh.rings=32
 	sphere.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
@@ -30,6 +33,7 @@ void fragment(){
 	scale=Vector3.ONE*.05
 func _process(delta):
 	age+=delta
+	energy_material.set_shader_parameter("clock",age)
 	if not ending:scale=Vector3.ONE*lerpf(.05,1.0,smoothstep(0,.24,age))*(1+sin(age*3)*.012)
 	for i in range(rings.size()):rings[i].rotate_y(delta*(.3+i*.15));rings[i].rotate_z(delta*.12)
 func dissipate():

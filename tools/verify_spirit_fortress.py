@@ -15,6 +15,7 @@ LATEST = [
     ("ranger-air", "RANGER_PRECISION_RESULT"),
     ("map-builder", "MAP_BUILDER_RESULT"),
     ("rogue-equipment-combat", "ROGUE_EQUIPMENT_COMBAT_RESULT"),
+    ("rogue-combat-upgrade", "ROGUE_COMBAT_UPGRADE_RESULT"),
 ]
 
 
@@ -35,6 +36,7 @@ def main():
     suites.extend((name, ["--", "--" + name + "-test"], marker) for name, marker in LATEST)
     suites.append(("spirit", ["--script", "res://scripts/spirit_fortress_tests.gd"], "SPIRIT_FORTRESS_RESULT"))
     suites.append(("neon", ["--script", "res://scripts/neon_shrine_tests.gd"], "NEON_SHRINE_RESULT"))
+    suites.append(("crimson", ["--script", "res://scripts/crimson_combat_runner.gd"], "CRIMSON_COMBAT_RESULT"))
     if args.native:
         suites = [suite for suite in suites if suite[1][0] != "--script"]
     results = []

@@ -5,22 +5,26 @@ var rays: Array[Node3D]=[]
 var bands: Array[Node3D]=[]
 var light: OmniLight3D
 var intensity=1.0
+var energy_material: ShaderMaterial
 
 func _ready():
 	process_mode=Node.PROCESS_MODE_PAUSABLE
 	var shader=Shader.new()
 	shader.code="""shader_type spatial;
 render_mode unshaded, blend_add, cull_disabled, depth_draw_never;
-void vertex(){ VERTEX.xz *= 1.0+sin(TIME*7.0+VERTEX.y*3.0)*0.065; }
+uniform float clock=0.0;
+void vertex(){ VERTEX.xz *= 1.0+sin(clock*7.0+VERTEX.y*3.0)*0.065; }
 void fragment(){
-float flame=pow(max(0.0,sin(UV.x*62.8+sin(UV.y*8.0-TIME*5.0))),5.0);
+float flame=pow(max(0.0,sin(UV.x*62.8+sin(UV.y*8.0-clock*5.0))),5.0);
 float edge=pow(1.0-abs(dot(normalize(NORMAL),normalize(VIEW))),2.0);
 float fade=sin(UV.y*3.14159);
-ALBEDO=vec3(1.0,0.61,0.08)*1.4;
+ALBEDO=vec3(1.0,0.61,0.08);
+EMISSION=vec3(1.0,0.42,0.025)*(1.5+flame);
 ALPHA=(flame*0.17+edge*0.15)*fade;
 }"""
 	var material=ShaderMaterial.new()
 	material.shader=shader
+	energy_material=material
 	Geo.cylinder(self,Vector3(0,1.7,0),0.85,3.5,material,false,0.30)
 	for i in range(14):
 		var ray=Geo.spike(self,Vector3.ZERO,Vector3(0,0.28,0),0.025,Geo.mat("fff0a3",0,2))
@@ -35,6 +39,7 @@ ALPHA=(flame*0.17+edge*0.15)*fade;
 func _process(delta):
 	if not visible: return
 	clock+=delta
+	energy_material.set_shader_parameter("clock",clock)
 	for i in range(rays.size()):
 		var t=fposmod(clock*0.6+i/14.0,1.0)
 		var a=i*2.4+clock*1.5

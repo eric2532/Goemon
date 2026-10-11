@@ -15,6 +15,11 @@ void fragment() {
 	float edge = smoothstep(0.80, 0.98, UV.y);
 	float inner = smoothstep(0.0, 0.24, UV.y);
 	float wake = pow(1.0 - min(t, 1.0), 0.82);
-	ALBEDO = mix(tint.rgb, vec3(1.0, 0.98, 0.91), edge * 0.85);
-	ALPHA = (0.30 + edge * 0.70) * inner * head * tail * wake * strength;
+	// Fine parallel cuts and a bright leading edge, timed by the combat clock.
+	float filament = pow(0.5 + 0.5 * sin(UV.y * 51.0 + UV.x * 8.0 - age * 9.0), 10.0);
+	float cutting_tip = exp(-abs(UV.x - front + 0.04) * 45.0);
+	vec3 energy = mix(tint.rgb, vec3(1.0, 0.96, 0.92), edge * 0.65 + cutting_tip * 0.25);
+	ALBEDO = energy;
+	EMISSION = energy * (1.1 + edge * 1.3 + filament * 0.5);
+	ALPHA = (0.34 + edge * 0.50 + filament * 0.16) * inner * head * tail * wake * strength;
 }

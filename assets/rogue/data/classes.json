@@ -47,7 +47,7 @@
     "name": "Samurai",
     "title": "The Crimson Ronin",
     "tagline": "Calm before the cut.",
-    "description": "A fearless, deliberate swordsman. Measured katana cuts and precise archery become a single moment of overwhelming force.",
+    "description": "Five katana cuts, a colossal crimson energy arrow, and ten seconds of overwhelming speed.",
     "hero": false,
     "weaponNames": [
       "Katana",
@@ -65,12 +65,12 @@
     "abilities": {
       "cutlass": {
         "name": "Katana",
-        "description": "A measured katana combo with triple reach.",
+        "description": "LMB: left cut, right cut, diagonal cut, forward cut, then a 180-degree turning slash. Hold to repeat the five-hit combo.",
         "icon": "cutlass"
       },
       "flintlock": {
-        "name": "Crimson Arc",
-        "description": "RMB / 3: release a huge red energy slash with powerful reach.",
+        "name": "Crimson Arrow",
+        "description": "RMB / 3: launch a huge red energy arrow that pierces enemies. Solid cover stops it.",
         "icon": "bow"
       },
       "roll": {
@@ -79,8 +79,8 @@
         "icon": "roll"
       },
       "drink": {
-        "name": "Iaijutsu",
-        "description": "An empowered draw-cut through a wide area, surrounded by crimson energy.",
+        "name": "Crimson Overdrive",
+        "description": "R: attack with your katana five times faster for 10 seconds, surrounded by crimson shader energy. Ability cooldowns remain unchanged.",
         "icon": "spark"
       }
     }
@@ -208,7 +208,7 @@
         "icon": "roll"
       },
       "drink": {
-        "name": "Knight’s Code",
+        "name": "Knight\u2019s Code",
         "description": "Prototype rule: 8s resilience; blocks empower the next sword strike.",
         "icon": "shield"
       }
@@ -381,7 +381,7 @@
       },
       "drink": {
         "name": "Blood Lust",
-        "description": "All attacks become guaranteed 2× super critical hits for a prototype 8s.",
+        "description": "All attacks become guaranteed 2\u00d7 super critical hits for a prototype 8s.",
         "icon": "fire"
       }
     }
@@ -424,7 +424,7 @@
       },
       "drink": {
         "name": "Grand Smoke",
-        "description": "Provisional name: for 10s the pipe grows to 3× size, gains reach, and adds Fire.",
+        "description": "Provisional name: for 10s the pipe grows to 3\u00d7 size, gains reach, and adds Fire.",
         "icon": "fire"
       }
     }

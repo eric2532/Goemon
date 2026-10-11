@@ -23,14 +23,10 @@ func _ready():
 	add_to_group("projectiles");add_to_group("musashi_projectiles");add_to_group("edo_beams")
 	remaining=balance.beam_duration
 	for i in range(3):
-		var material=StandardMaterial3D.new()
-		material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
-		material.albedo_color=[Color("ff3c10"),Color("ff931f"),Color("fff4b0")][i]
-		material.emission_enabled=true;material.emission=material.albedo_color;material.emission_energy_multiplier=1.5
-		if i<2:
-			material.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA
-			material.albedo_color.a=.25 if i==0 else .5
-		material.cull_mode=BaseMaterial3D.CULL_DISABLED
+		var material=ShaderMaterial.new()
+		material.shader=preload("res://assets/vfx/fire_beam/beam_energy.gdshader")
+		material.set_shader_parameter("tint",[Color("ff3c10"),Color("ff931f"),Color("fff4b0")][i])
+		material.set_shader_parameter("opacity",[.25,.5,.95][i])
 		var shell=Geo.cylinder(self,Vector3.ZERO,balance.beam_radius*[1.0,.79,.42][i],1,material)
 		shell.rotation.x=PI/2;shell.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;shells.append(shell)
 	for i in range(12):
@@ -54,6 +50,7 @@ func update_path():
 	look_at(global_position+direction,Vector3.UP)
 	var pulse=1.0+sin(elapsed*32)*.045
 	for i in range(shells.size()):
+		shells[i].material_override.set_shader_parameter("clock",elapsed)
 		shells[i].position.z=-length_now*.5
 		shells[i].scale=Vector3(pulse,maxf(.01,length_now),pulse)
 	for i in range(rings.size()):

@@ -54,6 +54,7 @@ func prepare() -> void:
 		fx.name = "RogueSharedClassEffects"
 		fx.process_mode = Node.PROCESS_MODE_PAUSABLE
 		game.add_child(fx)
+	fx.apply_quality(int(game.settings.quality))
 	if not is_instance_valid(sound):
 		sound = game.get_node_or_null("RogueSharedClassAudio")
 	if not is_instance_valid(sound):
