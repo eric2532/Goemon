@@ -2,7 +2,7 @@
 
 Date: 2026-10-12
 
-Status: design for user review. Exploration timing and tower conversion are confirmed. Coordinates, balance values, and supply caches below are proposed implementation defaults, not claims of user approval or completed gameplay.
+Status: user approved this written design for implementation planning on 2026-10-12, including the supply caches. Gameplay implementation has not started.
 
 ## Intent and success criteria
 
@@ -48,7 +48,7 @@ Districts:
 
 Use low, walkable terrain and simple collision in this release. Make districts feel different through layout, silhouettes, ground treatments, and local emissive details. Do not introduce hills that require changing the current flat height contract. Decorative roofs and distant scenery do not block the enemy route.
 
-Proposed exploration reward: one supply cache per district, worth three gold, collected once per run during preparation by a living player approaching within 2.5 metres. Display the reward and collected state. Caches stay inactive during combat and cannot generate passive preparation income. Their collection flags reset on a new run and survive wave changes. They are an explicitly reviewable addition to give the side paths a purpose.
+Exploration reward: one supply cache per district, worth three gold, collected once per run during preparation by a living player approaching within 2.5 metres. Display the reward and collected state. Caches stay inactive during combat and cannot generate passive preparation income. Their collection flags reset on a new run and survive wave changes.
 
 Keep existing hold-Y-for-three-seconds wave confirmation. Allow starting from anywhere; show the shrine direction and distance so the player can return first. Do not teleport the player, introduce an automatic wave timer, or pause active combat when the player leaves the defense corridor. Exploration is safe during preparation; wandering during a started wave leaves the shrine exposed.
 
