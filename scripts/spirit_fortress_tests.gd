@@ -25,7 +25,7 @@ func run():
  check(fx!=null,"Spirit Fortress effects are visible in the playable Fire Siege world")
  if fx==null:await finish();return
  check(game.world.cannon_sites.size()==12 and game.world.mine_sites.size()==4 and game.encounters.money==10,"Effects preserve all twelve tower sites, four mines and starting funds")
- check(game.world.lanes[1][0]==Vector3(0,0,110) and game.world.base_position==Vector3(0,0,300),"Effects preserve the enemy route and shrine destination")
+ check(game.world.lanes[1][0]==Vector3(0,0,110) and game.world.base_position==Vector3(0,0,220) and game.world.lanes[1][-1]==game.world.base_position,"Effects preserve the enemy route and shrine destination")
  check(fx.find_children("*","CollisionObject3D",true,false).is_empty(),"Decorative effects add no collision to combat or construction")
  game.settings.quality=1;game.apply_quality()
  check(fx.visible and fx.particles.all(func(p):return p.emitting),"Medium quality enables petals and spirit motes")
