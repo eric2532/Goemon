@@ -1,6 +1,11 @@
 class_name ActionCamera
 extends Node3D
 
+const CROSSHAIR_DEFAULT_PITCH=.035
+const CROSSHAIR_DEFAULT_DISTANCE=10.0
+const CROSSHAIR_SHOULDER=.65
+const CROSSHAIR_FOCUS_RISE=.35
+
 var player: Hero
 var game: Node
 var camera: Camera3D
@@ -75,13 +80,13 @@ func _process(delta):
 	if indoors:desired=8.0
 	var aiming: bool=game.crosshair_aim_enabled()
 	var view_pitch=maxf(pitch,.74) if indoors else (maxf(pitch,.14) if aiming else pitch)
-	var shoulder=Vector3(cos(yaw),0,-sin(yaw))*1.3*sqrt(player.growth_multiplier()) if aiming else Vector3.ZERO
-	var anchor=follow+shoulder
-	if aiming and shoulder.length_squared()>.01:
+	var shoulder=Vector3(cos(yaw),0,-sin(yaw))*CROSSHAIR_SHOULDER*sqrt(player.growth_multiplier()) if aiming else Vector3.ZERO
+	var anchor=follow+shoulder+(Vector3.UP*CROSSHAIR_FOCUS_RISE*player.growth_multiplier() if aiming else Vector3.ZERO)
+	if aiming and (anchor-follow).length_squared()>.01:
 		var lateral=PhysicsRayQueryParameters3D.create(follow,anchor,1)
 		if indoors:lateral.exclude=town.camera_exclusions
 		var side_hit=get_world_3d().direct_space_state.intersect_ray(lateral)
-		if not side_hit.is_empty():anchor=follow+shoulder.normalized()*maxf(0,follow.distance_to(side_hit.position)-.38)
+		if not side_hit.is_empty():anchor=follow+(anchor-follow).normalized()*maxf(0,follow.distance_to(side_hit.position)-.38)
 	var offset=Vector3(sin(yaw)*cos(view_pitch),sin(view_pitch),cos(yaw)*cos(view_pitch))
 	var safe=desired
 	# Five parallel probes protect the camera volume at doorway and cave edges.

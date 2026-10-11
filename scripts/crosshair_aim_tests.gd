@@ -5,9 +5,10 @@ func run():
 	game.smoke_test=true;game.tuning.invincible=true;game.tuning.freeze_ai=true
 	ProjectSettings.set_setting("goemon/experimental_crosshair",true)
 	game.player.smoke_mode=true;game.start_mode("defense");pause_fixture_director();await frames(3)
-	check(game.camera_rig.pitch<.1 and game.camera_rig.distance==9.0,"Fire Siege starts with the crosshair shoulder-view defaults")
+	check(game.camera_rig.pitch<.1 and game.camera_rig.distance==10.0,"Fire Siege starts with the crosshair shoulder-view defaults")
 	check(game.has_method("crosshair_aim_enabled"),"Separate crosshair aiming feature exists")
 	if game.has_method("crosshair_aim_enabled"):
+		await framing_rules()
 		await aiming_rules()
 		curve_rules()
 		if not OS.has_feature("crosshair_aim"):
@@ -17,6 +18,22 @@ func run():
 	await frames(10)
 	print("CROSSHAIR_AIM_RESULT checks=",checks," failures=",failures)
 	get_tree().quit(1 if failures else 0)
+
+func framing_rules():
+	await fresh_class(7)
+	var p=game.player;var rig=game.camera_rig;var camera=rig.camera
+	check(p.character_id==10,"Framing fixture selects Ranger")
+	p.set_physics_process(false);rig.set_process(false)
+	p.position=Vector3(0,.1,210);p.velocity=Vector3.ZERO
+	rig.yaw=0;rig.current_distance=rig.distance;rig.reset_follow();rig._process(.2)
+	var size:Vector2=camera.get_viewport().get_visible_rect().size
+	var hero_center=camera.unproject_position(p.position+Vector3.UP*1.4)
+	var head=camera.unproject_position(p.position+Vector3.UP*2.45)
+	check(hero_center.x>size.x*.45 and hero_center.x<size.x*.49,"Character and reticle share a tighter firing line without overlap")
+	check(head.y>size.y*.5,"Default reticle sits ahead above Ranger's head rather than beside his chest")
+	var ray=camera.project_ray_normal(size*.5)
+	var ground_distance=camera.global_position.y/-ray.y-camera.global_position.distance_to(p.position)
+	check(ground_distance>65 and ground_distance<115,"Default ground aim is farther ahead but within the crosshair ray range")
 
 func aiming_rules():
 	ProjectSettings.set_setting("goemon/experimental_crosshair",false)

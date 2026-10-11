@@ -33,11 +33,14 @@ func run():
   get_tree().quit(1);return
  game.encounters.choose_card("supply_cache");await frames(2)
  await primary_rules()
- # No enemy or mouse location influences a ranged shot heading.
+ # The old cursor does not redirect a shot; crosshair builds converge on the reticle.
  await fresh_class(3)
  var a=game.player.active_ability
- game.camera_rig.yaw=PI;tap("light_attack")
- check(not a.projectiles.is_empty() and a.projectiles[0].vel.z>0 and absf(a.projectiles[0].vel.x)<.01,"Mage fireball follows camera heading even when old cursor aim points elsewhere")
+ game.camera_rig.yaw=PI
+ var mage_origin:Vector3=a.player.pos+Vector3.UP*1.05*game.player.growth_multiplier()
+ var mage_direction:Vector3=(game.crosshair_target()-mage_origin).normalized() if game.crosshair_aim_enabled() else Vector3.BACK
+ tap("light_attack")
+ check(not a.projectiles.is_empty() and a.projectiles[0].vel.normalized().dot(mage_direction)>.99999,"Mage fireball follows the current aim reference even when old cursor aim points elsewhere")
  # The committed melee remains captured while the camera turns.
  await fresh_class(0);var target=fixture(Vector3(2.2,0,0));tap("light_attack")
  game.camera_rig.yaw=PI;await frames(25)
@@ -128,9 +131,10 @@ func camera_edge_rules():
  p.select_character(2);p.cancel_charge();await clear_enemies()
  game.reset_player_at(TEST_ORIGIN);game.camera_rig.yaw=0;await frames(3)
  fixture(Vector3(4,0,-10));p.buildings_broken=1;p.soft_target=false
+ var edo_direction:Vector3=(game.crosshair_target()-p.model.hand_position("R")).normalized() if game.crosshair_aim_enabled() else Vector3.FORWARD
  p.musashi.large_cast=true;p.musashi.launch()
  var balls=get_tree().get_nodes_in_group("edo_fireballs")
- check(not balls.is_empty() and balls.back().velocity.normalized().is_equal_approx(Vector3.FORWARD),"Grown Edo cannot auto-target an off-axis enemy in camera-facing Fire Siege")
+ check(not balls.is_empty() and balls.back().velocity.normalized().dot(edo_direction)>.99999,"Grown Edo keeps the current aim reference instead of auto-targeting an off-axis enemy")
  for ball in balls:ball.queue_free()
  p.cancel_charge();p.buildings_broken=0;p.select_character(1);p.smoke_move=Vector2.ZERO
  game.reset_player_at(TEST_ORIGIN+Vector3.UP*10);await frames(3)

@@ -71,7 +71,10 @@ func airborne_fire_rules():
 	check(a.player.rangerShots>=3 and a.projectiles.filter(func(pr):return pr.weapon=="cutlass").size()>=10,"Held LMB keeps releasing downward fans throughout the glide")
 	check(a.projectiles.any(func(pr):return pr.power and pr.vel.y<0),"Third-shot green downward fan remains available while gliding")
 	press("light_attack",false);a._clear_projectiles();tap("surge");tap("weapon_chain");await frames(1)
-	check(a.projectiles.size()==5 and a.projectiles.all(func(pr):return pr.power and pr.vel.y<0),"Rain and five-arrow secondary fan still work during held glide")
+	var powered_fan=a.projectiles.size()==5 and a.projectiles.all(func(pr):return pr.power)
+	if game.crosshair_aim_enabled():
+		check(powered_fan and a.projectiles[2].aimDirection.dot(game.projectile_direction(a.player.pos+Vector3.UP*1.05))>.999,"Rain and reticle-aimed five-arrow secondary fan work during held glide")
+	else:check(powered_fan and a.projectiles.all(func(pr):return pr.vel.y<0),"Rain and five-arrow secondary fan still work during held glide")
 	press("jump",false)
 
 func hurt_glide_rules():

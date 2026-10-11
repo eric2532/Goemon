@@ -946,8 +946,8 @@ func start_game(seed_override: int=-1):
 	for id in player.character_abilities:
 		if player.RogueRoster.is_rogue(id):player.character_abilities[id].reset_run()
 	camera_rig.yaw=0
-	camera_rig.pitch=.06 if crosshair_aim_enabled() else .36
-	camera_rig.distance=9.0 if crosshair_aim_enabled() else 14.0
+	camera_rig.pitch=ActionCamera.CROSSHAIR_DEFAULT_PITCH if crosshair_aim_enabled() else .36
+	camera_rig.distance=ActionCamera.CROSSHAIR_DEFAULT_DISTANCE if crosshair_aim_enabled() else 14.0
 	camera_rig.reset_follow()
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if rogue_battle_mode else Input.MOUSE_MODE_CAPTURED
 	encounters.begin()

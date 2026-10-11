@@ -9,6 +9,24 @@ Sky Descent material below remains reference for that older mode.
 The pushed **v2.45** base is on **`codex/fire-siege-mvp`**, commit `8758b73`.
 See [agent review instructions, verification and screenshots](docs/fire-siege-mvp/github-review-v245.md).
 
+## Fire Siege · Crosshair experiment · v2.49.1
+
+The separate Crosshair macOS export keeps three-dimensional reticle aiming,
+Ranger's five-arrow spread, release deviation and gentle curved flight. Its
+camera now uses a smaller shoulder offset, a higher focus point and a farther
+initial aim line to bring the character closer to the reticle's firing line.
+The regular Fire Siege export retains its existing camera defaults.
+
+Crowd movement now distributes short, validated ground-collision sweeps across
+nine physics phases. Smooth interpolation, solid-cover checks and immediate
+collision movement for knockback, airborne actors and bosses remain active.
+The new VFX, hero models, damage and attack timing are unchanged.
+
+`scripts/crowd_motion_tests.gd` checks the 300-actor sweep schedule, speed,
+cover and knockback. `scripts/crosshair_aim_tests.gd` checks Ranger framing,
+reticle convergence, cover and preserved arrow behavior. Release performance
+notes describe foreground measurements and remaining crowd limits.
+
 ## Fire Siege · Crimson Overdrive · v2.48.0
 
 Samurai now chains five cuts (left, right, diagonal, forward and a 180° turning

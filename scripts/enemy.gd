@@ -57,6 +57,8 @@ var route_direction=Vector3.ZERO
 var animation_elapsed=0.0
 var grounded_cached=false
 var walk_clock=0.0
+var walk_span=.15
+var walk_phase_pending=true
 var walk_start=Vector3.ZERO
 var walk_end=Vector3.ZERO
 var walk_age=1.0
@@ -578,22 +580,31 @@ func walk_motion(delta: float):
 		island_patrol=state=="patrol" and stun<=0 and (grounded_cached or is_on_floor()) and game.player.position.distance_squared_to(center)>32*32
 		if not island_patrol:
 			if is_on_floor() and velocity.y<=0:velocity.y=-.1
-			move_and_slide();grounded_cached=is_on_floor();walk_clock=0
+			move_and_slide();grounded_cached=is_on_floor();walk_clock=0;walk_phase_pending=true
 			return
 	# Keep real collision bodies for combat; amortize static-ground sweeps across
 	# frames and interpolate the validated short segment at the physics rate.
-	if walk_clock>0 and global_position.distance_squared_to(walk_start.lerp(walk_end,minf(1,walk_age/.15)))>.25:walk_clock=0
+	if walk_clock>0 and global_position.distance_squared_to(walk_start.lerp(walk_end,minf(1,walk_age/walk_span)))>.25:
+		walk_clock=0;walk_phase_pending=true
 	if boss or stun>0 or (not grounded_cached and not is_on_floor()):
 		if not grounded_cached and velocity.y==0:velocity.y=-1
-		move_and_slide();grounded_cached=is_on_floor();walk_clock=0
+		move_and_slide();grounded_cached=is_on_floor();walk_clock=0;walk_phase_pending=true
 		return
 	grounded_cached=true;velocity.y=0
 	var horizontal=Vector3(velocity.x,0,velocity.z)
-	if horizontal.length_squared()<.001:walk_clock=0;return
+	if horizontal.length_squared()<.001:walk_clock=0;walk_phase_pending=true;return
 	walk_clock-=delta
 	if walk_clock<=0:
-		walk_clock=.15;walk_age=0;walk_start=global_position
-		var motion=horizontal*.15
+		# A short first segment seeds a stable phase for each actor. Subsequent
+		# sweeps retain the existing 0.15 s horizon instead of all 300 sharing
+		# one tick. Real knockback/airborne collision above stays immediate.
+		walk_span=.15
+		if walk_phase_pending:
+			var slot=formation_index if formation_index>=0 else int(get_instance_id())
+			walk_span=.15*float(1+posmod(slot,9))/9.0
+			walk_phase_pending=false
+		walk_clock=walk_span;walk_age=0;walk_start=global_position
+		var motion=horizontal*walk_span
 		var hit=move_and_collide(motion,true)
 		if hit:
 			var slide=hit.get_remainder().slide(hit.get_normal())
@@ -605,4 +616,4 @@ func walk_motion(delta: float):
 		var floor_hit=get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(end+Vector3.UP*1.5,end-Vector3.UP*2,1))
 		if floor_hit.is_empty() or floor_hit.normal.y<.6:walk_end=walk_start
 		else:walk_end=Vector3(end.x,floor_hit.position.y+.06,end.z)
-	walk_age+=delta;global_position=walk_start.lerp(walk_end,minf(1,walk_age/.15))
+	walk_age+=delta;global_position=walk_start.lerp(walk_end,minf(1,walk_age/walk_span))

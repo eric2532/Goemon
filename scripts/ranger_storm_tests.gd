@@ -37,14 +37,20 @@ func random_flight_rules():
 		if powered:tap("surge")
 		tap("light_attack");await frames(4)
 		var pr=a.projectiles[0];var origin=pr.mesh.position;var heading=pr.vel.normalized()
-		var trail_id=pr.rangerTrail.node.get_instance_id();var straight=true
+		var trail_id=pr.rangerTrail.node.get_instance_id();var straight=true;var curve_offset=0.0;var aligned=true
 		for i in range(35):
 			if i==12:game.camera_rig.yaw+=.8;a._update_aim()
+			var previous:Vector3=pr.mesh.position
 			await frames(1)
 			straight=straight and (pr.mesh.position-origin).cross(heading).length()<.0001 and pr.vel.normalized().dot(heading)>.999999
-		check(straight,"%s actual arrow keeps one perfectly straight trajectory after release" % ("Green" if powered else "Normal"))
+			curve_offset=maxf(curve_offset,(pr.mesh.position-pr.rangerFlight.origin).cross(heading).length())
+			var displacement:Vector3=pr.mesh.position-previous
+			if displacement.length_squared()>.000001:aligned=aligned and pr.mesh.basis.z.normalized().dot(displacement.normalized())>.99999
+		if game.crosshair_aim_enabled():
+			check(curve_offset>.02 and curve_offset<.3 and pr.vel.normalized().dot(heading)>.999999,"%s actual arrow keeps its bounded release curve when the camera turns" % ("Green" if powered else "Normal"))
+		else:check(straight,"%s actual arrow keeps one perfectly straight trajectory after release" % ("Green" if powered else "Normal"))
 		check(pr.rangerTrail.node.get_instance_id()==trail_id,"Straight flight retains the efficient reusable trail")
-		check(pr.mesh.basis.z.normalized().dot(heading)>.9999,"Arrow tip keeps the fixed release direction")
+		check(aligned,"Arrow tip follows measured flight displacement")
 	await fresh_class(7);var a=game.player.active_ability;seed(241)
 	var quadrants={};var directions=[];var bounded=true;var horizontal=false;var vertical=false
 	for i in range(64):
@@ -96,7 +102,10 @@ func ultimate_rules():
 	check(a.projectiles.size()==5 and a.projectiles.all(func(pr):return pr.get("power",false) and pr.damage==38),"Rain powers every arrow in the key3 fan")
 	await fresh_class(7);a=p.active_ability;tap("surge")
 	tap("jump");await frames(6);tap("jump");await frames(6);tap("light_attack");await frames(4)
-	check(a.projectiles.size()==5 and a.projectiles.all(func(pr):return pr.get("power",false) and pr.vel.y< -3),"Rain powers every arrow of the downward aerial LMB fan")
+	var powered_fan=a.projectiles.size()==5 and a.projectiles.all(func(pr):return pr.get("power",false))
+	if game.crosshair_aim_enabled():
+		check(powered_fan and a.projectiles[2].aimDirection.dot(game.projectile_direction(a.player.pos+Vector3.UP*1.05))>.999,"Rain powers the aerial LMB fan aimed at the reticle")
+	else:check(powered_fan and a.projectiles.all(func(pr):return pr.vel.y< -3),"Rain powers every arrow of the downward aerial LMB fan")
 	a._clear_projectiles();a.player.cooldowns.flintlock=0;tap("heavy_attack");await frames(1)
 	check(a.projectiles.size()==5 and a.projectiles.all(func(pr):return pr.get("power",false)),"Rain powers the right-click aerial fan too")
 	await fresh_class(7);a=p.active_ability;tap("surge");await frames(610)

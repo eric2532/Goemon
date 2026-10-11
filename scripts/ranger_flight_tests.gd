@@ -27,13 +27,21 @@ func drift_rules():
 	for pr in arrows:origins.append(pr.mesh.position);directions.append(pr.vel.normalized())
 	var opening=absf(directions[0].signed_angle_to(directions[4],Vector3.UP))
 	check(opening>.88 and opening<1.05,"Five-arrow fan keeps its roughly 55-degree opening with subtle launch variation")
-	var straight=true
+	var straight=true;var curve_offset=0.0;var aligned=true
 	for step in range(16):
+		var previous=[]
+		for pr in arrows:previous.append(pr.mesh.position if is_instance_valid(pr.mesh) else Vector3.ZERO)
 		await frames(1)
 		for i in range(arrows.size()):
 			if is_instance_valid(arrows[i].mesh):straight=straight and (arrows[i].mesh.position-origins[i]).cross(directions[i]).length()<.0001
-	check(straight,"Every fan arrow follows its own fixed straight release ray")
-	check(arrows.all(func(pr):return is_instance_valid(pr.mesh) and pr.mesh.basis.z.normalized().dot(pr.vel.normalized())>.9999),"Arrow tips remain aligned with actual straight flight")
+			if is_instance_valid(arrows[i].mesh):curve_offset=maxf(curve_offset,(arrows[i].mesh.position-arrows[i].rangerFlight.origin).cross(directions[i]).length())
+			if is_instance_valid(arrows[i].mesh):
+				var displacement:Vector3=arrows[i].mesh.position-previous[i]
+				if displacement.length_squared()>.000001:aligned=aligned and arrows[i].mesh.basis.z.normalized().dot(displacement.normalized())>.99999
+	if game.crosshair_aim_enabled():
+		check(curve_offset>.02 and curve_offset<.3,"Fan arrows keep a gentle bounded curve around their separate release rays")
+	else:check(straight,"Every fan arrow follows its own fixed straight release ray")
+	check(aligned and arrows.all(func(pr):return is_instance_valid(pr.mesh)),"Arrow tips remain aligned with measured flight displacement")
 	check(arrows.any(func(pr):return absf(pr.vel.y)>.02),"Ground fan includes small vertical launch variation")
 	await fresh_class(1);a=game.player.active_ability;tap("equip");await frames(1)
 	var pr=a.projectiles[0];var start:Vector3=pr.mesh.position;var side:Vector3=pr.vel.normalized().cross(Vector3.UP)
@@ -71,7 +79,10 @@ func combo_rules():
 	tap("jump");await frames(6);tap("jump");await frames(6)
 	tap("light_attack");await frames(4)
 	var green=a.projectiles.filter(func(pr):return pr.get("power",false))
-	check(green.size()==5 and green.all(func(pr):return pr.vel.y< -3 and pr.damage==38),"Third aerial LMB attack is one complete green downward fan")
+	var powered_fan=green.size()==5 and green.all(func(pr):return pr.damage==38)
+	if game.crosshair_aim_enabled():
+		check(powered_fan and green[2].aimDirection.dot(game.projectile_direction(a.player.pos+Vector3.UP*1.05))>.999,"Third aerial LMB attack is one complete green reticle-aimed fan")
+	else:check(powered_fan and green.all(func(pr):return pr.vel.y< -3),"Third aerial LMB attack is one complete green downward fan")
 	await fresh_class(7);a=p.active_ability
 	for i in range(2):tap("light_attack");await frames(15)
 	a._clear_projectiles();p.attack_chain.reset()
