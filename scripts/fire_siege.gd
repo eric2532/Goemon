@@ -74,7 +74,7 @@ func begin():
 	game.active_enemy_limit=300
 	original_spawn=game.world.spawn_point;game.checkpoint=original_spawn
 	game.player.position=original_spawn;game.player.velocity=Vector3.ZERO
-	game.camera_rig.yaw=0;game.camera_rig.pitch=.5;game.camera_rig.reset_follow()
+	game.camera_rig.yaw=0;game.camera_rig.pitch=.06 if game.crosshair_aim_enabled() else .5;game.camera_rig.reset_follow()
 	_banner("FIRE SIEGE · Stand beside a structure to build · Hold Y for 3s to start",6)
 
 func _running()->bool:

@@ -195,6 +195,7 @@ static func resolve_attack(g, a: Dictionary) -> void:
 		g.hit_stop = maxf(g.hit_stop, a.stop)
 
 static func fire_ranger_fan(g, angle: float, downward: bool = false, weapon: String = "flintlock", target: Vector3 = Vector3.ZERO, power: bool = false) -> void:
+	if g.game.crosshair_aim_enabled():downward=false
 	var origin: Vector3 = g.player.pos + Vector3.UP * 1.05 * g.hero.growth_multiplier()
 	var direction: Vector3 = g.projectile_direction(angle, origin)
 	var impact: Vector3 = target + Vector3.UP * 1.1
@@ -241,7 +242,7 @@ static func fire_projectile(g, options: Dictionary = {}) -> void:
 		var projectile: Dictionary = g.projectiles.back()
 		projectile.power = power
 		projectile.aimDirection = aim_direction
-		RangerFlight.attach(projectile, int(g.player.get("rangerFlightSerial", 0)), scale)
+		RangerFlight.attach(projectile, int(g.player.get("rangerFlightSerial", 0)), scale, g.game.crosshair_aim_enabled())
 		g.player.rangerFlightSerial = int(g.player.get("rangerFlightSerial", 0)) + 1
 		if power and options.get("feedback", true):
 			g.fx.ring(origin, RANGER_POWER_COLOR, .75 * scale, .22)

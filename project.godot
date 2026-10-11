@@ -3,7 +3,9 @@ config_version=5
 
 [application]
 config/name="Goemon"
+config/name.crosshair_aim="Goemon Fire Siege Crosshair"
 config/name.fire_siege="Goemon Fire Siege"
+config/custom_user_dir_name.crosshair_aim="Godot/app_userdata/Goemon Fire Siege Crosshair"
 config/custom_user_dir_name.fire_siege="Godot/app_userdata/Goemon Fire Siege"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Godot/app_userdata/Azure Ember"

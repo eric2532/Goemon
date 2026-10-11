@@ -42,9 +42,9 @@ func _ready():
 func update_path():
 	direction=game.attack_direction()
 	global_position=hero.global_position+(Vector3.UP*1.65+direction*.8)*hero.growth_multiplier()
-	if game.rogue_battle_mode:direction=game.projectile_direction(global_position)
+	if game.rogue_battle_mode or game.crosshair_aim_enabled():direction=game.projectile_direction(global_position)
 	length_now=balance.beam_length*hero.base_attack_speed_multiplier()*hero.growth_multiplier()
-	if hero.growth_multiplier()>1.01 and not game.rogue_battle_mode:
+	if hero.growth_multiplier()>1.01 and not game.rogue_battle_mode and not game.crosshair_aim_enabled():
 		var target=AttackChain.screen_target(hero,global_position,length_now)
 		if target!=null:direction=(AttackChain.aim_point(target)-global_position).normalized()
 	look_at(global_position+direction,Vector3.UP)

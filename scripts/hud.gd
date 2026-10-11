@@ -41,8 +41,20 @@ func _process(delta):
 	if not game.paused:building_target_time=maxf(0,building_target_time-delta)
 	queue_redraw()
 
+func crosshair_visible()->bool:
+	return game!=null and game.crosshair_aim_enabled() and game.playing and not game.paused and not game.transitioning and not game.won and game.player.hp>0
+
+func draw_crosshair():
+	var center=size*.5
+	for direction in [Vector2.RIGHT,Vector2.LEFT,Vector2.UP,Vector2.DOWN]:
+		draw_line(center+direction*5,center+direction*12,Color(0,.04,.08,.9),4,true)
+		draw_line(center+direction*5,center+direction*12,Color("acfff3"),1.5,true)
+	draw_circle(center,2.5,Color(0,.04,.08,.9))
+	draw_circle(center,1.1,Color("ffffff"))
+
 func _draw():
 	if not game or not game.playing or game.paused: return
+	if crosshair_visible():draw_crosshair()
 	if game.is_fire_siege():siege_hud.draw(self);return
 	var w=size.x
 	var h=size.y

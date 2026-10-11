@@ -946,8 +946,8 @@ func start_game(seed_override: int=-1):
 	for id in player.character_abilities:
 		if player.RogueRoster.is_rogue(id):player.character_abilities[id].reset_run()
 	camera_rig.yaw=0
-	camera_rig.pitch=0.36
-	camera_rig.distance=14.0
+	camera_rig.pitch=.06 if crosshair_aim_enabled() else .36
+	camera_rig.distance=9.0 if crosshair_aim_enabled() else 14.0
 	camera_rig.reset_follow()
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if rogue_battle_mode else Input.MOUSE_MODE_CAPTURED
 	encounters.begin()
@@ -1498,7 +1498,24 @@ func attack_direction()->Vector3:
 		return rogue_view.aim_direction()
 	return Vector3.FORWARD.rotated(Vector3.UP,camera_rig.yaw)
 
+func crosshair_aim_enabled()->bool:
+	return camera_combat() and (OS.has_feature("crosshair_aim") or bool(ProjectSettings.get_setting("goemon/experimental_crosshair",false)))
+
+func crosshair_target(max_distance: float=120.0)->Vector3:
+	var camera: Camera3D=camera_rig.camera
+	var center: Vector2=camera.get_viewport().get_visible_rect().size*.5
+	var origin: Vector3=camera.project_ray_origin(center)
+	var direction: Vector3=camera.project_ray_normal(center)
+	var query=PhysicsRayQueryParameters3D.create(origin,origin+direction*max_distance,1|4)
+	query.exclude=[player.get_rid()]
+	var hit: Dictionary=camera.get_world_3d().direct_space_state.intersect_ray(query)
+	return hit.position if not hit.is_empty() else origin+direction*max_distance
+
 func projectile_direction(origin: Vector3)->Vector3:
+	if crosshair_aim_enabled():
+		var offset: Vector3=crosshair_target()-origin
+		var forward: Vector3=-camera_rig.camera.global_basis.z
+		return offset.normalized() if offset.length_squared()>.01 and offset.dot(forward)>0 else forward
 	if rogue_battle_mode and is_instance_valid(rogue_view):
 		var offset: Vector3=rogue_view.aim+Vector3.UP*1.1-origin
 		if offset.length_squared()>.01:return offset.normalized()

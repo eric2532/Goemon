@@ -41,6 +41,12 @@ var _ticket: Dictionary = {}
 var _resolution_ticket: Dictionary = {}
 var _damage_origin: Vector3 = Vector3.ZERO
 var _projectile_damage: bool = false
+var _projectile_query_active: bool = false
+var _projectile_targets: Array = []
+var _projectile_centers: PackedVector3Array = PackedVector3Array()
+var _projectile_radii: PackedFloat64Array = PackedFloat64Array()
+var _projectile_minimum: Vector3
+var _projectile_maximum: Vector3
 var _hooks: Node3D
 var _hook_markers: Array[Node3D] = []
 var _hook_cache: Array[Vector3] = []
@@ -367,6 +373,7 @@ func primary_range_scale() -> float:
 	return range_scale() * PRIMARY_RANGE_MULTIPLIER
 
 func ranger_ground_target(angle: float) -> Vector3:
+	if game.crosshair_aim_enabled():return game.crosshair_target()
 	if not game.camera_combat():
 		return aim
 	var point: Vector3 = hero.global_position + front(angle) * 7.5 * hero.growth_multiplier()
@@ -380,6 +387,8 @@ func ranger_ground_target(angle: float) -> Vector3:
 
 func projectile_direction(angle: float, origin: Vector3) -> Vector3:
 	var direction: Vector3 = front(angle)
+	if game.crosshair_aim_enabled():
+		return game.projectile_direction(origin).rotated(Vector3.UP,wrapf(angle-float(player.angle),-PI,PI))
 	if game.camera_combat():return direction
 	var offset: Vector3 = aim + Vector3.UP * 1.1 - origin
 	var horizontal: float = Vector2(offset.x, offset.z).length()
@@ -459,6 +468,7 @@ func tick(delta: float, update_timers: bool = true) -> void:
 		# Automatic Mage primary is a normal tap. A real held click still charges.
 		if class_id == "mage" and hero.auto_attack_running() and not primary_held and player.charging:
 			Actions.release_charge(self)
+	if not projectiles.is_empty(): _begin_projectile_queries()
 	for i in range(projectiles.size() - 1, -1, -1):
 		var projectile: Dictionary = projectiles[i]
 		if not is_instance_valid(projectile.mesh):
@@ -468,6 +478,7 @@ func tick(delta: float, update_timers: bool = true) -> void:
 		if projectile.life <= 0:
 			projectile.mesh.queue_free()
 			projectiles.remove_at(i)
+	_end_projectile_queries()
 	_sync_hero()
 
 func physics_step(delta: float) -> void:
@@ -737,7 +748,9 @@ func _process(delta: float) -> void:
 func _update_aim() -> void:
 	if not is_instance_valid(game) or not is_instance_valid(hero):
 		return
-	if game.camera_combat():
+	if game.crosshair_aim_enabled():
+		aim = game.crosshair_target()
+	elif game.camera_combat():
 		aim = hero.global_position + game.attack_direction() * 7.5
 	elif game.rogue_battle_mode and is_instance_valid(game.get("rogue_view")):
 		game.rogue_view.update_aim()
@@ -939,19 +952,63 @@ func resolve_projectile_segment(pr: Dictionary, from: Vector3, to: Vector3) -> v
 		pr.mesh.position = end
 		fx.particles(end, tint(), 4, 0.3)
 
+func _begin_projectile_queries() -> void:
+	# Enemy positions/radii cannot advance inside this synchronous projectile
+	# loop. Share geometry only until its end; health/death are checked per hit.
+	_projectile_targets.clear()
+	_projectile_centers.clear()
+	_projectile_radii.clear()
+	_projectile_minimum = Vector3.INF
+	_projectile_maximum = -Vector3.INF
+	for actor in game.enemies:
+		if not is_instance_valid(actor): continue
+		var enemy: Ninja = actor
+		if enemy.dead or enemy.hp <= 0: continue
+		var center: Vector3 = AttackChain.aim_point(enemy)
+		var radius: float = enemy.body_radius
+		_projectile_targets.append(enemy)
+		_projectile_centers.append(center)
+		_projectile_radii.append(radius)
+		_projectile_minimum = _projectile_minimum.min(center - Vector3.ONE * radius)
+		_projectile_maximum = _projectile_maximum.max(center + Vector3.ONE * radius)
+	_projectile_query_active = true
+
+func _end_projectile_queries() -> void:
+	_projectile_query_active = false
+
 func _segment_targets(from: Vector3, to: Vector3, width: float, hit_ids: Array = []) -> Array:
+	var standalone: bool = not _projectile_query_active
+	if standalone: _begin_projectile_queries()
+	var candidates: Array = _segment_candidates(from, to, width, hit_ids)
+	if standalone: _end_projectile_queries()
+	return candidates
+
+func _segment_candidates(from: Vector3, to: Vector3, width: float, hit_ids: Array) -> Array:
 	var candidates: Array = []
 	# Piercing shots retain their hit history. Do not rebuild snapshots or cast
 	# victim rays for those contacts on every following physics step.
+	var minimum: Vector3 = from.min(to) - Vector3.ONE * width
+	var maximum: Vector3 = from.max(to) + Vector3.ONE * width
+	if _projectile_targets.is_empty() or maximum.x < _projectile_minimum.x or minimum.x > _projectile_maximum.x or maximum.y < _projectile_minimum.y or minimum.y > _projectile_maximum.y or maximum.z < _projectile_minimum.z or minimum.z > _projectile_maximum.z:
+		return candidates
 	var excluded: Dictionary = {}
 	for uid in hit_ids:excluded[uid]=true
-	for enemy in game.enemies:
-		if not is_instance_valid(enemy) or enemy.dead or enemy.hp <= 0 or excluded.has(enemy.get_instance_id()):
+	var segment: Vector3 = to - from
+	var length_squared: float = segment.length_squared()
+	for index in range(_projectile_targets.size()):
+		var center: Vector3 = _projectile_centers[index]
+		var radius: float = _projectile_radii[index]
+		# Most airborne/far-travelling segments cannot touch the crowd. Reject
+		# them without allocating a distance Dictionary per actor per projectile.
+		if center.x + radius < minimum.x or center.x - radius > maximum.x or center.y + radius < minimum.y or center.y - radius > maximum.y or center.z + radius < minimum.z or center.z - radius > maximum.z:
 			continue
-		var center: Vector3 = AttackChain.aim_point(enemy)
-		var result: Dictionary = segment_distance(center, from, to)
-		if result.distance <= width + enemy.body_radius and clear_line(from, center):
-			candidates.append({"e": _target_snapshot(enemy), "t": result.t})
+		var actor = _projectile_targets[index]
+		if not is_instance_valid(actor): continue
+		var enemy: Ninja = actor
+		if enemy.dead or enemy.hp <= 0 or excluded.has(enemy.get_instance_id()): continue
+		var t: float = clampf((center - from).dot(segment) / length_squared, 0, 1) if length_squared > 0.0001 else 0.0
+		if center.distance_to(from + segment * t) <= width + radius and clear_line(from, center):
+			candidates.append({"e": _target_snapshot(enemy), "t": t})
 	candidates.sort_custom(func(a, b): return a.t < b.t)
 	return candidates
 
@@ -1060,6 +1117,10 @@ func cancel(preserve_power: bool = false) -> void:
 	_animate(0, 0)
 
 func _clear_projectiles() -> void:
+	_end_projectile_queries()
+	_projectile_targets.clear()
+	_projectile_centers.clear()
+	_projectile_radii.clear()
 	for projectile in projectiles:
 		if is_instance_valid(projectile.get("mesh")):
 			projectile.mesh.queue_free()
