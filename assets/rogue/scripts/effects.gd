@@ -17,6 +17,8 @@ var particle_bursts_this_frame: int = 0
 var ring_frame: int = -1
 var rings_this_frame: int = 0
 var feedback_live: Dictionary = {}
+var streak_frame: int = -1
+var streaks_this_frame: int = 0
 var shake: float = 0.0
 var flash: float = 0.0
 var reduced_flashes: bool = false
@@ -145,7 +147,7 @@ func _release_feedback(item: Dictionary) -> void:
 		feedback_live[item.kind] = maxi(0, int(feedback_live[item.kind])-1)
 
 func _feedback_available(kind: String) -> bool:
-	return int(feedback_live.get(kind,0)) < [6,12,18][quality]
+	return int(feedback_live.get(kind,0)) < ([16,32,48][quality] if kind=="streak" else [6,12,18][quality])
 
 func _add(node: Node3D, life: float, kind: String, data: Dictionary = {}) -> Node3D:
 	if items.size() >= mini(MAX_EFFECTS,effect_budget):
@@ -156,7 +158,7 @@ func _add(node: Node3D, life: float, kind: String, data: Dictionary = {}) -> Nod
 	add_child(node)
 	data.merge({"node": node, "life": life, "max": life, "kind": kind}, true)
 	items.append(data)
-	if kind in ["impact","particle-burst","ring"]:
+	if kind in ["impact","particle-burst","ring","streak"]:
 		feedback_live[kind]=int(feedback_live.get(kind,0))+1
 	return node
 
@@ -389,6 +391,12 @@ func _shaft(a: Vector3, b: Vector3, color: Color, width: float = 0.04) -> MeshIn
 	return mesh
 
 func streak(a: Vector3, b: Vector3, color: Color = Color("ffe2a8"), width: float = 0.065, life: float = 0.16) -> Node3D:
+	# Trails are cosmetic; projectile movement and collision run independently.
+	var frame: int = Engine.get_process_frames()
+	if frame!=streak_frame:
+		streak_frame=frame;streaks_this_frame=0
+	if streaks_this_frame >= [8,16,24][quality] or not _feedback_available("streak"):return null
+	streaks_this_frame+=1
 	return _add(_shaft(a, b, color, width), life, "streak")
 
 func ranger_trail(pr: Dictionary, start: Vector3, end: Vector3) -> void:
@@ -696,6 +704,7 @@ func clear() -> void:
 	impact_frame=-1;impacts_this_frame=0
 	particle_frame=-1;particle_bursts_this_frame=0
 	ring_frame=-1;rings_this_frame=0
+	streak_frame=-1;streaks_this_frame=0
 	shake = 0.0
 	flash = 0.0
 

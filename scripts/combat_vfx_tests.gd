@@ -77,6 +77,26 @@ func run():
 		fx.weapon_impact(Vector3.ZERO,0,"sword",Color.RED,false)
 		check(fx.items.size()>=3,"Expiry restores live feedback admission")
 		fx.clear();await process_frame
+	for quality in [0,1,2]:
+		fx.apply_quality(quality)
+		for i in range(100):fx.streak(Vector3.ZERO,Vector3.FORWARD,Color.RED,.1,.2)
+		check(fx.items.size()==[8,16,24][quality],"Projectile trails cap allocations per displayed frame")
+		fx.tick(.02)
+		for i in range(100):fx.streak(Vector3.ZERO,Vector3.FORWARD,Color.RED,.1,.2)
+		check(fx.items.size()==[8,16,24][quality],"Catch-up projectile ticks share the trail admission budget")
+		for frame in range(5):
+			await process_frame
+			for i in range(100):fx.streak(Vector3.ZERO,Vector3.FORWARD,Color.RED,.1,.2)
+		check(fx.items.size()==[16,32,48][quality],"Projectile trails have a separate live ceiling")
+		fx.tick(1);await process_frame
+		fx.streak(Vector3.ZERO,Vector3.FORWARD,Color.RED,.1,.2)
+		check(fx.items.size()==1,"Trail expiry restores admission")
+		fx.clear();await process_frame
+	fx.apply_quality(1)
+	var arrow={"color":Color.WHITE,"rangeScale":1.0}
+	for i in range(20):fx.ranger_trail(arrow,Vector3.FORWARD*i,Vector3.FORWARD*(i+1))
+	check(fx.items.size()==1 and arrow.rangerTrail.node.mesh.get_surface_count()>0,"Ranger preserves its reusable flight trail independently of cosmetic streak limits")
+	fx.clear();await process_frame
 	fx.queue_free();await process_frame
 	print("COMBAT_VFX_RESULT checks=",checks," failures=",failures)
 	quit(1 if failures else 0)
