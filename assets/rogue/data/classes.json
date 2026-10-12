@@ -285,7 +285,7 @@
       },
       "flintlock": {
         "name": "Energy Wave",
-        "description": "A large, long-range blade wave pierces every enemy in its path.",
+        "description": "RMB / 3: a broad energy blade deals 100 damage, piercing enemies across a 40-metre path. Grounded waves travel level; airborne waves follow your aim.",
         "icon": "wave"
       },
       "roll": {

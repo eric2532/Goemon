@@ -232,7 +232,7 @@ static func fire_projectile(g, options: Dictionary = {}) -> void:
 	g.add_projectile_mesh(mesh)
 	mesh.position = origin + dir * 0.9 * g.hero.growth_multiplier()
 	mesh.quaternion = Quaternion(Vector3.BACK, dir)
-	mesh.scale = Vector3(1.4, 1.25, 1.15) * scale if kind == "wave" else Vector3.ONE * scale * visual_scale
+	mesh.scale = Vector3(2.0, 1.5, 1.35) * scale if kind == "wave" else Vector3.ONE * scale * visual_scale
 	var sphere_collision = kind == "bullet"
 	var obstructed = g.place_projectile(mesh, options.get("width", 0.25) * scale, origin, sphere_collision)
 	g.projectiles.append({"mesh": mesh, "vel": dir * speed, "life": 0.0 if obstructed else options.get("range", 20.0) * travel_scale / speed,
@@ -463,7 +463,14 @@ static func class_action(g, slot: String, buffered = null, manual: bool = false)
 			g.hero.velocity = Vector3.DOWN * 38.0
 	elif id == "magic-swordsman":
 		p.cooldowns.flintlock = 0.42 if p.buffTime > 0 else c.cooldowns.flintlock
-		fire_projectile(g, {"damage": 79, "speed": 13, "kind": "wave", "width": 1.75, "pierce": true, "heavy": true, "range": 24})
+		var wave_origin: Vector3 = p.pos + Vector3.UP * 1.65 * g.hero.growth_multiplier()
+		var wave_direction: Vector3 = g.projectile_direction(p.angle, wave_origin)
+		if g.hero.is_on_floor():
+			# A ground wave keeps the reticle/lock heading but must not dive
+			# into the floor immediately after piercing a nearby low target.
+			wave_direction.y = 0
+			wave_direction = wave_direction.normalized() if wave_direction.length_squared() > 0.001 else dir
+		fire_projectile(g, {"damage": 100, "speed": 22, "kind": "wave", "width": 2.5, "pierce": true, "heavy": true, "range": 40, "direction": wave_direction})
 		p.vel -= dir * 1.6
 		g.fx.slash(p.pos, p.angle, 2, g.tint(), 3.5, {"style": "magic", "arc": 2.5, "height": 1.2, "tilt": 0.5})
 	elif id == "ranger":

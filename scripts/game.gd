@@ -134,6 +134,9 @@ func _ready():
 	elif "--auto-attack-tour" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/auto_attack_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--magic-swordsman-wave-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/magic_swordsman_wave_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
 	elif "--auto-lock-test" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/auto_lock_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
