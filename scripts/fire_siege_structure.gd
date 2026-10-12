@@ -245,10 +245,11 @@ func tick(delta: float,powered_delta: float):
 	var rate=paid/elapsed
 	var remaining=elapsed
 	while remaining>EPSILON:
-		target=_acquire_target()
-		if target==null:
-			_shot_clock=maxf(0,_shot_clock-remaining*rate);_tick_arrows(remaining);break
 		if _shot_clock<=EPSILON:
+			# Targets only affect a committed shot; flight keeps its own weak reference.
+			target=_acquire_target()
+			if target==null:
+				_tick_arrows(remaining);return
 			_fire_at(target);_shot_clock=1.0 if level==2 else SHOT_INTERVAL
 		var step=minf(remaining,_shot_clock/rate)
 		_tick_arrows(step);_shot_clock=maxf(0,_shot_clock-step*rate);remaining-=step

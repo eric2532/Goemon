@@ -14,7 +14,9 @@ class FixtureDirector extends Node:
 	var wave=1
 	var active=true
 	var phase="spawning"
+	var ownership_queries=0
 	func owns(enemy)->bool:
+		ownership_queries+=1
 		return is_instance_valid(enemy) and enemy.get_meta("generation",0)==generation
 	func record_defeat(_enemy):pass
 
@@ -177,6 +179,14 @@ func asset_contracts():
 	check(arrow.embedded_arrow.visible and arrow.recoil.position.distance_to(recoil_rest)<.001,"Recoil settles and reloads the embedded arrow independently of powered firing cadence")
 
 func projectiles():
+	clear_fixture()
+	var probe=tower();probe.complete_build()
+	var first=actor(Vector3(0,0,30),1000);var arriving=actor(Vector3(0,0,20),1000)
+	probe.tick(.001,.001);probe._remove_arrow(0);director.ownership_queries=0
+	probe.tick(.1,.1)
+	check(director.ownership_queries==0 and probe.shots_fired==1,"A cooling tower does not scan owned enemies before its next firing deadline")
+	arriving.position.z=40;probe.tick(.399,.399)
+	check(probe.shots_fired==2 and probe.target==arriving and probe.target!=first,"The exact next deadline selects current downstream priority rather than a stale cached target")
 	clear_fixture()
 	var structure=tower();structure.complete_build()
 	var near=actor(Vector3(0,0,10))
