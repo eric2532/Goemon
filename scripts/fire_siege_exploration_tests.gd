@@ -22,6 +22,25 @@ func run():
 	for site in world.cannon_sites:
 		check(world.playable_bounds.has_point(Vector2(site.build_position.x,site.build_position.z)),"Tower work pad stays in bounds")
 	check(world.exploration_caches.size()==3,"Each district has an exploration reward")
+	# Read submitted transforms: headless dummy rendering does not retain MultiMesh data.
+	var district=load("res://scripts/fire_siege_districts.gd").new()
+	for route in world.get_meta("exploration_paths"):district.path(route)
+	var aligned=true
+	for batch in district.batches.values():
+		for transform in batch.transforms:
+			var basis: Basis=transform.basis
+			aligned=aligned and absf(basis.x.normalized().dot(basis.z.normalized()))<.001
+	check(aligned,"District paths retain rectangular edges after rotation")
+	var roads_visible=true
+	for route in world.get_meta("exploration_paths"):
+		for i in range(route.size()-1):
+			var a: Vector3=route[i];var b: Vector3=route[i+1];var found=false
+			for batch in district.batches.values():
+				for t: Transform3D in batch.transforms:
+					if t.origin.distance_squared_to((a+b)*.5+Vector3.UP*.055)<.001:
+						found=absf(t.basis.z.normalized().dot((b-a).normalized()))>.999
+			roads_visible=roads_visible and found
+	check(roads_visible,"Rendered road segments follow the traversable district routes")
 	world.free()
 	var legacy=TowerDefenseWorld.new();legacy.beta_mode=true;root.add_child(legacy);legacy.set_process(false)
 	check(legacy.playable_bounds==Rect2(-80,50,160,310) and legacy.cannon_sites.size()==8,"Compact legacy layout stays intact")

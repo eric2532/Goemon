@@ -12,7 +12,7 @@ static func build(field: Node3D)->void:
 func box(p: Vector3,size: Vector3,color: String,emission: float=0,angle: float=0)->void:
 	var key="%s_%s_%d_%d" % [color,emission,floori(p.x/72),floori(p.z/72)]
 	if not batches.has(key):batches[key]={"mesh":box_mesh,"material":material(color,emission),"transforms":[]}
-	batches[key].transforms.append(Transform3D(Basis(Vector3.UP,angle).scaled(size),p))
+	batches[key].transforms.append(Transform3D(Basis(Vector3.UP,angle).scaled_local(size),p))
 func material(color: String,emission: float=0)->Material:
 	var key=color+str(emission)
 	if not materials.has(key):materials[key]=Geo.mat(color,.08,emission)
