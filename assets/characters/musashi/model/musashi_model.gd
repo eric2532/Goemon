@@ -4,16 +4,20 @@ var combat: Node
 const REVIEW_MODEL="res://assets/characters/musashi/preview/edo_posture_shoulders_v05.glb"
 const ORIGINAL_MODEL="res://assets/characters/musashi/model/edo_refined.glb"
 const ANIME_MODEL="res://assets/models/characters/edo_anime.glb"
+const APPROVED_MODEL="res://assets/models/characters/edo_approved.glb"
 const ANIME_DISPLAY_SCALE=1.20
 func _ready():
 	body=Node3D.new();add_child(body)
-	var model_path=ANIME_MODEL
+	var model_path=APPROVED_MODEL
 	if "--edo-original" in OS.get_cmdline_user_args():model_path=ORIGINAL_MODEL
 	elif "--edo-v05" in OS.get_cmdline_user_args():model_path=REVIEW_MODEL
+	elif "--edo-anime" in OS.get_cmdline_user_args():model_path=ANIME_MODEL
 	rig_visual=load(model_path).instantiate();body.add_child(rig_visual)
 	if model_path==REVIEW_MODEL:load("res://assets/characters/musashi/materials/palette_v05.gd").apply(rig_visual)
 	elif model_path==ANIME_MODEL:
 		load("res://assets/characters/musashi/materials/anime_palette.gd").apply(rig_visual)
+		rig_visual.scale=Vector3.ONE*ANIME_DISPLAY_SCALE
+	elif model_path==APPROVED_MODEL:
 		rig_visual.scale=Vector3.ONE*ANIME_DISPLAY_SCALE
 	skeleton=rig_visual.find_child("Skeleton3D",true,false)
 	head=driver("Head",Vector3(0,1.65,0))
@@ -22,6 +26,7 @@ func _ready():
 	pipe=Node3D.new();body.add_child(pipe);coin=Node3D.new();body.add_child(coin)
 	scarf=Node3D.new();body.add_child(scarf)
 	locomotion=MusashiMotion.new(self) if model_path==ORIGINAL_MODEL else load("res://assets/characters/musashi/animations/relaxed_idle_v05.gd").new(self)
+	if model_path==APPROVED_MODEL:locomotion=load("res://assets/characters/musashi/animations/approved_motion.gd").new(self)
 	process_priority=30
 func animate(delta: float,speed: float,grounded: bool,vertical: float,_attack: float,_heavy: bool,_combo: int,dodge: bool):
 	body.transform=Transform3D.IDENTITY

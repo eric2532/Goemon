@@ -1,0 +1,77 @@
+{
+  "version": "04",
+  "source_hashes": {
+    "/Users/eric/.codex/worktrees/fire-siege-spirit-effects/Sonic/assets/blender/enemies/musashi/Final/Musashi_Final.blend": "3542e31714cc4571e076f5b99b0dc81eb7cdbd859cf9d38393102f2b14d2004c",
+    "/Users/eric/.codex/worktrees/fire-siege-spirit-effects/Sonic/assets/blender/characters/kai.blend": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c"
+  },
+  "superseded_side_lock": "Hair_local_ear_overlap (geometry retained, hidden from render)",
+  "previous_study_sha256": "23e3bc8581c2a88f3a5827c4366ea27bed94ddcd4e6443b8ea23aeca5ffc794a",
+  "added_hair_objects": [
+    "Hair_Side_R_Temple",
+    "Hair_Side_L_Temple",
+    "Hair_Side_R_EarFront",
+    "Hair_Side_L_EarFront",
+    "Hair_Side_R_EarRear",
+    "Hair_Side_L_EarRear",
+    "Hair_Side_R_SideSweep",
+    "Hair_Side_L_SideSweep"
+  ],
+  "changes": [
+    "Eight mirrored solid tapered side clumps cover temples and ear tops",
+    "Existing crown/back hair, body proportions, painted face and head geometry retained exactly"
+  ],
+  "limitations": [
+    "Static unrigged visual study; not integrated into the game"
+  ],
+  "static_export": {
+    "file": "Edo_Study_Static.glb",
+    "triangles": 95548,
+    "height_m": 2.1,
+    "materials": 1,
+    "atlas_resolution": 2048,
+    "rigged": false
+  },
+  "verification": {
+    "all_existing_mesh_coordinates_faces_materials_uvs_transforms_preserved": true,
+    "new_hair_clumps_closed_outward": true,
+    "mirrored_side_hair_pairs": 4,
+    "temple_hair_occludes_skin_at_eight_side_samples": [
+      [
+        -0.2,
+        5.6
+      ],
+      [
+        0,
+        5.6
+      ],
+      [
+        0.2,
+        5.6
+      ],
+      [
+        0.35,
+        5.6
+      ],
+      [
+        -0.2,
+        5.75
+      ],
+      [
+        0,
+        5.75
+      ],
+      [
+        0.2,
+        5.75
+      ],
+      [
+        0.35,
+        5.75
+      ]
+    ],
+    "masters_and_v03_preserved": true,
+    "images_packed": true,
+    "glb_uv0_valid": true,
+    "godot_4_6_3_capture_pass": true
+  }
+}

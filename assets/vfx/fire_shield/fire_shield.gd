@@ -6,19 +6,8 @@ var ending=false
 var energy_material: ShaderMaterial
 func _ready():
 	position.y=1.2
-	var shader=Shader.new()
-	shader.code="""shader_type spatial;
-render_mode unshaded, blend_add, cull_back, depth_draw_never;
-uniform float clock=0.0;
-void fragment(){
- float rim=pow(1.0-abs(dot(normalize(NORMAL),normalize(VIEW))),2.6);
- float ripple=pow(0.5+0.5*sin(UV.y*65.0-clock*3.0+sin(UV.x*24.0)),12.0)*0.065;
- ALBEDO=vec3(0.025,0.32,0.95);
- EMISSION=vec3(0.04,0.48,1.0)*(0.2+rim*1.6);
- float pigment=0.65+0.35*smoothstep(-0.5,0.4,sin(UV.y*143.0+sin(UV.x*23.0-clock)*0.8));
- ALPHA=(0.025+rim*0.30+ripple)*pigment;
-}"""
-	var material=ShaderMaterial.new();material.shader=shader
+	var material=ShaderMaterial.new();material.shader=preload("res://assets/vfx/fire_shield/surge_energy.gdshader")
+	material.set_shader_parameter("energy",preload("res://assets/vfx/edo/spell_style.gd").energy_scale(self))
 	energy_material=material
 	var sphere=Geo.sphere(self,Vector3.ZERO,Vector3.ONE*3.25,material)
 	sphere.mesh.radial_segments=64;sphere.mesh.rings=32

@@ -28,6 +28,8 @@ func set_rot(name: String,v: Vector3):
 	# The arm rest vector points down; positive X raises the fist toward -Z.
 	if name.begins_with("Arm_") or name.begins_with("Forearm_"):v.x=-v.x
 	rotations[name]=Basis.from_euler(v)
+func casting_pose(_combat) -> Variant:
+	return null
 func evaluate():
 	if not dirty:return
 	dirty=false;rotations.clear();poses.clear()
@@ -49,7 +51,10 @@ func evaluate():
 		set_rot("Arm_L",Vector3(1.1,0,0));set_rot("Arm_R",Vector3(1.1,0,0))
 	var c=model.combat
 	var dip=0.0
-	if c and not dodge:
+	var custom_pose=casting_pose(c) if c and not dodge else null
+	if custom_pose!=null:
+		dip=float(custom_pose)
+	elif c and not dodge:
 		if c.is_charging():
 			var q=c.charge_ratio();set_rot("Hips",Vector3(0,-.25,0));set_rot("Chest",Vector3(.04,-.42,0))
 			set_rot("Arm_R",Vector3(-.7,-.45,-.65));set_rot("Forearm_R",Vector3(-1.25,0,0))
@@ -97,7 +102,7 @@ func evaluate():
 		var n=sk.get_bone_name(i);var r: Transform3D=rest[n];var parent=sk.get_bone_parent(i)
 		var desired: Basis=rotations.get(n,Basis.IDENTITY)
 		var previous: Basis=blended.get(n,Basis.IDENTITY)
-		var cast_speed=c.hero.attack_speed_multiplier() if c and c.is_casting_meteors() else 1.0
+		var cast_speed=c.hero.attack_speed_multiplier() if c and c.is_attacking() else 1.0
 		var delta_basis=previous.slerp(desired,1.0-exp(-dt*30.0*cast_speed))
 		blended[n]=delta_basis
 		var p=r.origin;var b=delta_basis

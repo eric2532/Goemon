@@ -565,5 +565,12 @@
     "meshes": 1,
     "surfaces": 1,
     "bytes": 13344
+  },
+  {
+    "asset": "characters/edo_approved",
+    "triangles": 95548,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 7114280
   }
 ]
