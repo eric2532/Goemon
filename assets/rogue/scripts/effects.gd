@@ -27,6 +27,8 @@ var time: float = 0.0
 var sphere_geometry: SphereMesh
 var spark_geometry: BoxMesh
 var geometry_cache: Dictionary = {}
+var previous_blade: Array = []
+var previous_blade_weapon: int = 0
 
 func apply_quality(level: int) -> void:
 	quality = clampi(level, 0, 2)
@@ -163,24 +165,40 @@ func _add(node: Node3D, life: float, kind: String, data: Dictionary = {}) -> Nod
 		feedback_live[kind]=int(feedback_live.get(kind,0))+1
 	return node
 
-func magic_sword_sample(attack: Dictionary, weapon: Node3D, axis: Vector3) -> void:
+func sword_brush_sample(attack: Variant, weapon: Node3D, axis: Vector3, crimson: bool = false, accelerated: bool = false, tempo: float = 1.0) -> void:
+	# Keep consecutive real poses even outside emission. Overdrive can cross
+	# windup/contact in one physics step; seeding from the last pose avoids a
+	# one-sample invisible ribbon without fabricating or slowing the animation.
+	var current: Array = [weapon.to_global(Vector3.ZERO),weapon.to_global(axis)]
+	var previous: Array = previous_blade if previous_blade_weapon==weapon.get_instance_id() else []
+	previous_blade=current;previous_blade_weapon=weapon.get_instance_id()
+	if attack==null:return
 	# Emit through the same windup/contact/follow-through phases as actor._phase.
 	var contact: float = attack.contact
 	var follow: float = minf(attack.duration*.78, contact+minf(.09,(attack.duration-contact)*.24))
-	if attack.time<contact*.52 or attack.time>follow:return
 	var item: Dictionary = attack.get("magicBrush",{})
+	var last_observed: float = attack.get("brushObservedTime",0.0)
+	attack.brushObservedTime=attack.time
+	var crossed_follow: bool = last_observed<follow and attack.time>follow
+	if attack.time<contact*.52 or (attack.time>follow and not crossed_follow):return
+	var life: float = .08/maxf(1.0,tempo) if accelerated else (.16 if crimson else .20)
 	if item.is_empty():
 		if not _feedback_available("magic-brush"):return
 		var ribbon = preload("res://assets/rogue/scripts/magic_sword_brush.gd").new()
+		ribbon.name="SamuraiSwordInkBrush" if crimson else "MagicSwordInkBrush"
+		ribbon.material_override.set_shader_parameter("crimson",crimson)
 		item = {}
-		_add(ribbon,.20,"magic-brush",item)
+		item.cut_index=attack.index
+		_add(ribbon,life,"magic-brush",item)
 		attack.magicBrush=item
+		if not previous.is_empty():ribbon.sample_blade(previous[0],previous[1])
 	# A cancelled/evicted ribbon must never resurrect from a stale attack handle.
 	if not is_instance_valid(item.node) or item.node.is_queued_for_deletion():return
-	item.life=.20
+	item.life=life
+	item.sampleTime=attack.time
 	item.node.material_override.set_shader_parameter("fade",1.0)
-	item.node.material_override.set_shader_parameter("energy",.42 if reduced_flashes else (1.15 if attack.index==2 else 1.0))
-	item.node.sample_blade(weapon.to_global(Vector3.ZERO),weapon.to_global(axis))
+	item.node.material_override.set_shader_parameter("energy",.42 if reduced_flashes else (1.15 if attack.index==(4 if crimson else 2) else 1.0))
+	item.node.sample_blade(current[0],current[1])
 
 func particles(pos: Vector3, color: Color = GOLD, count: int = 12, power: float = 1.0) -> void:
 	var amount: int = mini(count, [6,16,24][quality])
@@ -304,18 +322,20 @@ func weapon_impact(pos: Vector3, angle: float, style: String = "sword", color: C
 	var strength: float = 1.35 if heavy else 1.0
 	var pieces: Array = []
 	var magic_ring: MeshInstance3D
-	if style in ["claymore","wave"]:
-		group.name="MagicInkImpact"
+	if style in ["claymore","wave","samurai-cut"]:
+		var crimson: bool = style=="samurai-cut"
+		group.name="SamuraiInkImpact" if crimson else "MagicInkImpact"
 		for i in range(4 if quality==0 else 6):
 			var core: bool = i<2
-			var shard = _mesh(_diamond((1.45 if core else .75)*strength,.16 if core else .09),Color("f5dfff") if core else Color("9852f4"),.9 if core else .72)
+			var shard_color: Color = (Color("fff0d9") if crimson else Color("f5dfff")) if core else (Color("ff2848") if crimson else Color("9852f4"))
+			var shard = _mesh(_diamond((1.45 if core else .75)*strength,.16 if core else .09),shard_color,.9 if core else .72)
 			var a: float = -.55+i*PI/3.0
 			shard.rotation.z=a
 			group.add_child(shard)
 			pieces.append({"node":shard,"drive":0.0,"velocity":Vector3(cos(a),sin(a),.12)*(0 if core else 2.4*strength)})
-		magic_ring=_mesh(_ring_geometry(1.0,.055,TAU,32),Color("b37aff"),.65)
+		magic_ring=_mesh(_ring_geometry(1.0,.055,TAU,32),Color("ff4965") if crimson else Color("b37aff"),.65)
 		group.add_child(magic_ring)
-		particles(pos,Color("ad72ff"),12 if heavy else 8,.85)
+		particles(pos,Color("ff2848") if crimson else Color("ad72ff"),12 if heavy else 8,.85)
 	elif style in ["pierce", "arrow", "crimson-arrow", "lance", "thrust"]:
 		for i in range(5):
 			var shard: MeshInstance3D = _mesh(_spear((1.4 if i == 0 else 0.65) * strength, 0.12 if i == 0 else 0.045, 0.035), Color("ecfcff") if i == 0 else color, 0.85 if i == 0 else 0.5)
@@ -571,13 +591,23 @@ func create_projectile(kind: String, color: Color = TEAL) -> Node3D:
 			hub.rotation.x = PI / 2
 			group.add_child(hub)
 		"wave":
-			for setting in [[2.35, 0.45, 0.7], [2.12, 0.08, 0.92]]:
-				var blade: MeshInstance3D = _mesh(_blade(setting[0], setting[1], 1.55, 1, 0.08), color if setting[1] > 0.1 else Color("f5eaff"), setting[2])
+			var ink_materials: Array = []
+			for layer in range(2):
+				var blade = MeshInstance3D.new()
+				blade.mesh=_blade(2.35 if layer==0 else 2.12,.85 if layer==0 else .52,1.55,1,.08)
+				blade.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+				var ink = ShaderMaterial.new()
+				ink.shader=preload("res://assets/rogue/shaders/magic_ink_brush.gdshader")
+				ink.set_shader_parameter("fade",1.0 if layer==0 else .4)
+				ink.set_shader_parameter("energy",(.42 if reduced_flashes else 1.15) if layer==0 else (.24 if reduced_flashes else .5))
+				blade.material_override=ink
+				ink_materials.append(ink)
 				# Face the moving energy crescent forward. A floor-flat ribbon
 				# disappears edge-on from the shoulder-height gameplay camera.
 				blade.rotation.x = PI / 2
-				blade.position = Vector3(0, 2.1, 0.15)
+				blade.position = Vector3(0, 2.1, .15 if layer==0 else -.2)
 				group.add_child(blade)
+			group.set_meta("ink_materials",ink_materials)
 			for side in [-1.0, 1.0]:
 				var fin: MeshInstance3D = _mesh(_spear(1.2, 0.12, 0.055), color, 0.5)
 				fin.position = Vector3(side * 0.75, 0, -0.75)
@@ -739,6 +769,7 @@ func tick(dt: float) -> void:
 				node.outline_modulate.a = minf(0.95, remaining * 3.2)
 
 func clear() -> void:
+	previous_blade.clear();previous_blade_weapon=0
 	for item in items:
 		if is_instance_valid(item.node):
 			item.node.queue_free()

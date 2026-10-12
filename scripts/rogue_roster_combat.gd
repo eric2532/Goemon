@@ -59,6 +59,7 @@ var buffered_evade: bool = false
 var flip_time: float = -1.0
 var landing_pose: float = 0.0
 var utility_trail: float = 0.0
+var _completed_brush_attack: Variant = null
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -434,6 +435,7 @@ func tick(delta: float, update_timers: bool = true) -> void:
 			hit_stop = maxf(0, hit_stop - delta)
 			return
 		tick_timers(delta)
+	_completed_brush_attack=null
 	time += delta
 	var combat_delta: float = delta * hero.attack_speed_multiplier()
 	if player.attack != null:
@@ -463,6 +465,14 @@ func tick(delta: float, update_timers: bool = true) -> void:
 			else:
 				Actions.resolve_attack(self, a)
 		if a.time >= a.duration:
+			# Preserve one authored follow-through pose when a boosted combat step
+			# skips the whole stroke. This changes presentation only; damage,
+			# cooldowns and combo retirement still run on their original clock.
+			if class_id in ["samurai","magic-swordsman"] and a.style in ["samurai-cut","claymore"] and a.get("magicBrush",{}).is_empty():
+				var follow: float = minf(a.duration*.78,a.contact+minf(.09,(a.duration-a.contact)*.24))
+				if a.time-combat_delta<follow:
+					_completed_brush_attack=a.duplicate()
+					_completed_brush_attack.time=follow
 			_complete_primary(a)
 			player.attack = null
 	if (primary_held or attack_buffer > 0 or hero.auto_attack_running()) and _can_primary():
@@ -726,6 +736,8 @@ func _animate(delta: float, movement: float) -> void:
 		pose.travel = player.travel.duplicate()
 		pose.travel.height = 0.0 # The real collision body already follows the arc.
 	var real_delta: float = delta / maxf(0.01, hero.attack_speed_multiplier())
+	if _completed_brush_attack!=null:
+		pose.attack=_completed_brush_attack
 	pose.graphicsQuality = game.settings.quality
 	pose.grounded = hero.is_on_floor()
 	pose.vertical = hero.velocity.y
@@ -735,8 +747,10 @@ func _animate(delta: float, movement: float) -> void:
 	pose.localMotion = visual_actor.global_basis.orthonormalized().inverse() * world_motion
 	pose.motionSpeed = world_motion.length()
 	visual_actor.animate_pose(pose, real_delta, time, minf(1, movement))
-	if class_id=="magic-swordsman" and player.attack!=null and player.attack.style=="claymore" and visual_actor.joints.has("Weapon_Cutlass"):
-		fx.magic_sword_sample(player.attack,visual_actor.joints.Weapon_Cutlass.node,visual_actor.WEAPON_AXES[class_id])
+	if class_id in ["magic-swordsman","samurai"] and visual_actor.joints.has("Weapon_Cutlass"):
+		var brush_attack: Variant = pose.attack if pose.attack!=null and pose.attack.style in ["claymore","samurai-cut"] else null
+		fx.sword_brush_sample(brush_attack,visual_actor.joints.Weapon_Cutlass.node,visual_actor.WEAPON_AXES[class_id],class_id=="samurai",class_id=="samurai" and player.buffTime>0,hero.attack_speed_multiplier())
+	_completed_brush_attack=null
 	utility_trail -= real_delta
 	if (player.roll > 0 or player.travel != null) and utility_trail <= 0:
 		utility_trail = 0.075
@@ -1080,6 +1094,7 @@ func interrupt_for_dodge() -> void:
 	action("roll")
 
 func cancel(preserve_power: bool = false) -> void:
+	_completed_brush_attack=null
 	_restore_ranger_fall()
 	primary_held = false
 	secondary_held = false
