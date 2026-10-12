@@ -288,6 +288,7 @@ func _physics_process(delta):
 	var focus=game.player
 	var distance=global_position.distance_squared_to(focus.global_position)
 	if defense_lane>=0 and not dead:
+		if game.is_fire_siege() and preload("res://scripts/gate_enemy_motion.gd").tick(self,delta):return
 		if game.encounters.can_breach(self):
 			game.encounters.breach(self);return
 		if game.is_fire_siege() and preload("res://scripts/shrine_enemy_motion.gd").tick(self,delta):return

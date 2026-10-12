@@ -27,6 +27,7 @@ var original_spawn=Vector3.ZERO
 var _last_hero_id=-1
 var exploration=preload("res://scripts/fire_siege_exploration.gd").new()
 var shrine=preload("res://scripts/fire_siege_shrine.gd").new()
+var gate=preload("res://scripts/fire_siege_gate.gd").new()
 var shrine_warning_left=0.0
 
 var generation: int:
@@ -93,7 +94,7 @@ func _new_structure(kind: String,point: Vector3)->Node3D:
 func begin():
 	reset();_create_sites();active=true
 	exploration.configure(self)
-	shrine.configure(self);shrine_warning_left=0
+	shrine.configure(self);gate.configure(self);shrine_warning_left=0
 	game.active_enemy_limit=300
 	original_spawn=game.world.spawn_point;game.checkpoint=original_spawn
 	game.player.position=original_spawn;game.player.velocity=Vector3.ZERO
@@ -121,7 +122,7 @@ func tick(delta: float):
 		if not is_instance_valid(game.enemies[i]):game.enemies.remove_at(i)
 	for enemy in game.enemies:
 		if is_instance_valid(enemy) and not enemy.dead and owns(enemy):recover_escaped_actor(enemy)
-	shrine.tick(dt)
+	gate.tick(dt);shrine.tick(dt)
 	if not _running():return
 	var combat=phase in ["spawning","clearance"]
 	var income_seconds=0.0
@@ -157,7 +158,7 @@ func queue_wave():
 	if not _running() or not runtime.start_permit or phase!="setup" or wave>=10 or pending>0 or alive_count>0 or not _living_hero() or base_hp<=0:return
 	retire_wave_effects();runtime.start_wave()
 	wave+=1;phase="spawning";pending=300;total_scheduled+=300
-	shrine.configure(self)
+	shrine.configure(self);gate.configure(self)
 	wave_kills=0;wave_breaches=0;resolved.clear();wave_actors.clear();prep_left=0
 	_banner("WAVE %02d / 10 · 300 RAIDERS · HOLD THE SHRINE" % wave,4)
 
@@ -194,6 +195,7 @@ func _spawn_due(count: int):
 		game.add_child(enemy);game.enemies.append(enemy)
 		enemy.max_hp=health;enemy.hp=health
 		wave_actors[enemy.encounter_id]=weakref(enemy)
+		_admit_gate_actor(enemy)
 		pending-=1;total_spawned+=1;alive_count+=1;last_spawn_count+=1
 	last_spawn_usec=Time.get_ticks_usec()-started;peak_spawn_count=maxi(peak_spawn_count,last_spawn_count)
 
@@ -204,20 +206,25 @@ func owns(enemy: Ninja)->bool:
 
 func record_defeat(enemy: Ninja):
 	if not owns(enemy) or not enemy.dead or enemy.defense_escaped or resolved.has(enemy.encounter_id):return
-	shrine.release(enemy)
+	shrine.release(enemy);gate.release(enemy);_restore_gate_mask(enemy)
 	resolved[enemy.encounter_id]="killed";wave_kills+=1;run_kills+=1;alive_count=maxi(0,alive_count-1)
 
 func breach(enemy: Ninja):
 	if not owns(enemy) or enemy.dead or resolved.has(enemy.encounter_id):return
-	if shrine.handles(enemy):return
+	if shrine.handles(enemy) or gate_blocking(enemy):return
 	if shrine.admit(enemy):
 		wave_breaches+=1;run_breaches+=1
 		enemy.state="march";enemy.timer=0;enemy.attack_hit=true;enemy.walk_clock=0;enemy.walk_phase_pending=true
 
 func can_breach(enemy: Ninja)->bool:
-	return owns(enemy) and not shrine.handles(enemy) and enemy.defense_waypoint>=game.world.lanes[enemy.defense_lane].size()-1 and super.can_breach(enemy)
+	return owns(enemy) and not gate_blocking(enemy) and not shrine.handles(enemy) and enemy.defense_waypoint>=game.world.lanes[enemy.defense_lane].size()-1 and super.can_breach(enemy)
 
 func lane_direction(enemy: Ninja)->Vector3:
+	if gate_blocking(enemy):
+		_admit_gate_actor(enemy)
+		var target=gate.assignment(enemy)
+		if target.is_empty():return Vector3.ZERO
+		var offset: Vector3=target.position-enemy.position;offset.y=0;return offset.normalized()
 	if shrine.handles(enemy):
 		var offset: Vector3=shrine.assignment(enemy).position-enemy.position;offset.y=0;return offset.normalized()
 	return super.lane_direction(enemy)
@@ -237,11 +244,42 @@ func apply_shrine_contact(enemy: Ninja)->bool:
 
 func shrine_attacker_count()->int:return shrine.attackers()
 
+func gate_blocking(enemy: Ninja)->bool:return gate.intercepts(enemy)
+func _admit_gate_actor(enemy: Ninja)->void:
+	if not gate_blocking(enemy):return
+	if not enemy.has_meta("gate_prior_mask"):enemy.set_meta("gate_prior_mask",enemy.collision_mask)
+	enemy.collision_mask|=16
+	gate.admit(enemy)
+func _restore_gate_mask(enemy: Ninja)->void:
+	if not is_instance_valid(enemy):return
+	if enemy.has_meta("gate_prior_mask"):
+		enemy.collision_mask=int(enemy.get_meta("gate_prior_mask"));enemy.remove_meta("gate_prior_mask")
+	if enemy.has_meta("gate_motion_target"):enemy.remove_meta("gate_motion_target")
+	enemy.walk_clock=0;enemy.walk_phase_pending=true
+func _clear_gate_combat()->void:
+	gate.clear()
+	if not is_instance_valid(game):return
+	for enemy in game.enemies:
+		if is_instance_valid(enemy):_restore_gate_mask(enemy)
+func apply_gate_contact(enemy: Ninja)->bool:
+	if not _running() or phase not in ["spawning","clearance"] or not gate.handles(enemy):return false
+	var target: Dictionary=gate.assignment(enemy)
+	if not target.attacking or enemy.position.distance_squared_to(target.position)>=1.25*1.25 or enemy.stun>0 or enemy.frozen_left>0 or enemy.impact_pause>0:return false
+	var ray=PhysicsRayQueryParameters3D.create(enemy.global_position+Vector3.UP,gate_position+Vector3.UP,1)
+	if not game.get_world_3d().direct_space_state.intersect_ray(ray).is_empty():return false
+	gate_hp=maxf(0,gate_hp-20.0*enemy.defense_damage_multiplier*game.tuning.enemy_damage)
+	game._native_feedback().impact(gate_position+Vector3(enemy.position.x-gate_position.x,1.8,-.2),Vector3.BACK,1,Color("ff725a"))
+	if gate_hp<=0:
+		gate_state.cannon.break_gate();gate_state.level=0;gate_state.progress=0
+		_clear_gate_combat();_banner("GATE BROKEN · Protect the shrine · Rebuild for 10 gold",4)
+	return true
+
 func retire_wave_effects():
-	super.retire_wave_effects();shrine.clear()
+	super.retire_wave_effects();shrine.clear();_clear_gate_combat()
 
 func recover_escaped_actor(enemy: Ninja)->bool:
-	if enemy.position.y< -5 or not game.world.playable_bounds.has_point(Vector2(enemy.position.x,enemy.position.z)):shrine.release(enemy)
+	if enemy.position.y< -5 or not game.world.playable_bounds.has_point(Vector2(enemy.position.x,enemy.position.z)):
+		shrine.release(enemy);gate.release(enemy);_restore_gate_mask(enemy)
 	return super.recover_escaped_actor(enemy)
 
 func _settle_wave():
@@ -355,6 +393,10 @@ func update_build_input(delta: float,_held: bool=false):
 			if not mine and not barrier:cannons.append(state.cannon)
 			if barrier:gate_hp=gate_max_hp
 			state.cannon.complete_build();building=false
+			if barrier:
+				gate.configure(self)
+				for enemy in game.enemies:
+					if is_instance_valid(enemy):_admit_gate_actor(enemy)
 			_banner("GATE READY · 5000 HP · Shoot through the door" if barrier else "MINE READY · +2 gold/s while enemies are spawning" if mine else "ARROW TOWER READY · 50 damage · 0.10 gold/s upkeep",3)
 		state.cannon.set_build_progress(state.progress,working and state.level==0)
 		if i==index:build_progress=state.progress

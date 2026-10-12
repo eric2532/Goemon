@@ -92,7 +92,7 @@ func full_campaign():
 		if number==1:
 			var breached=living()[0];var kills=game.kills;var gold=run.money
 			run.breach(breached);run.breach(breached);run.record_defeat(breached)
-			check(run.base_hp==99 and run.run_breaches==1 and game.kills==kills and run.money==gold,"A breach resolves once, costs one integrity and grants no kill credit or gold")
+			check(run.base_hp==100 and not breached.dead and run.alive_count==1 and run.run_breaches==1 and game.kills==kills and run.money==gold,"Shrine arrival keeps the raider alive and grants no immediate damage, kill credit or gold")
 		run.tick(59.8);freeze_actors()
 		check(run.total_spawned-before_spawned==300 and run.pending==0 and run.phase=="clearance","Wave %d delivers all 300 actors by 60 seconds with no deferred demand" % number)
 		var gold=run.money
@@ -105,7 +105,7 @@ func full_campaign():
 		if number==10:
 			game.player.hp=0;run.hero_died()
 		kill_all()
-		check(run.alive_count==0 and run.wave_kills+run.wave_breaches==300,"Wave %d conserves spawned = killed + breached + alive" % number)
+		check(run.alive_count==0 and run.wave_kills==300,"Wave %d conserves spawned = killed + alive; arrivals remain living" % number)
 		run.tick(0)
 		check(near(run.money-gold,number*10),"Wave %d pays its one settlement reward" % number)
 		rewards+=run.money-gold
@@ -113,7 +113,7 @@ func full_campaign():
 		check(run.wave==number and near(run.money,gold+number*10),"Wave %d held Y and stale queue calls cannot carry into another wave or duplicate reward" % number)
 		await cleanup_corpses()
 	check(run.total_spawned==3000 and run.total_scheduled==3000 and run.total_skipped==0,"Ten real waves schedule and spawn exactly 3000 actors")
-	check(run.run_kills==2999 and run.run_breaches==1 and game.kills==2999,"Campaign actor accounting preserves the one breach without kill credit")
+	check(run.run_kills==3000 and run.run_breaches==1 and game.kills==3000,"Campaign credits all actual deaths including the surviving shrine arrival")
 	check(near(rewards,550) and near(run.money,560),"All ten rewards sum to 550 and leave the untouched opening wallet at 560")
 	check(game.won and run.phase=="complete" and not run.active and game.player.hp==0 and run.revive_left==0,"Final death cannot block victory and terminal state cancels revival")
 
@@ -161,8 +161,10 @@ func terminal_precedence():
 	var actors=living();var last=actors.pop_back()
 	for actor in actors:actor.take_hit(10000,Vector3.FORWARD,false,{"tower":true})
 	run.base_hp=1;var gold=run.money
-	run.breach(last);run.tick(0);run.record_defeat(last)
-	check(run.base_hp==0 and run.phase=="defeat" and not game.won and not run.active,"Base failure wins when the last final-wave actor breaches")
+	run.breach(last);run.shrine.tick(.2)
+	last.position=run.shrine.assignment(last).position+Vector3.UP*.06
+	run.tick(2.5);run.record_defeat(last)
+	check(run.base_hp==0 and run.phase=="defeat" and not game.won and not run.active,"Base failure wins when the last living final-wave actor strikes the shrine")
 	check(near(run.money,gold) and run.wave_kills==299 and run.wave_breaches==1,"Failed final clearance pays no reward and retains exact resolution totals")
 
 func retry_ownership():

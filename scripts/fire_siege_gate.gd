@@ -99,6 +99,7 @@ func tick(delta: float)->void:
 			eligible=owner.game.get_world_3d().direct_space_state.intersect_ray(ray).is_empty()
 		if not slot.clock.advance(dt,eligible,false):continue
 		if owner.call("apply_gate_contact",enemy)!=true:slot.clock.reset()
+		if not owner.gate_alive():return
 func assignment(enemy: Ninja)->Dictionary:
 	if not handles(enemy):return {}
 	var record: Dictionary=records[enemy.encounter_id]
