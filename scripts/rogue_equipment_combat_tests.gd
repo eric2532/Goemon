@@ -2,6 +2,7 @@ extends "res://scripts/fire_siege_controls_tests.gd"
 ## Real input, terrain contacts and enemy damage regressions for equipment combat.
 
 func run():
+	ProjectSettings.set_setting("goemon/experimental_crosshair",true)
 	Input.use_accumulated_input=false
 	game.smoke_test=true;game.tuning=PrototypeTuning.DEFAULTS.duplicate()
 	game.tuning.invincible=true;game.tuning.freeze_ai=true;game.player.smoke_mode=true
@@ -21,6 +22,18 @@ func run():
 	await frames(20)
 	print("ROGUE_EQUIPMENT_COMBAT_RESULT checks=",checks," failures=",failures)
 	get_tree().quit(1 if failures else 0)
+
+func fresh_class(index: int):
+	game.camera_rig.set_process(true)
+	await super.fresh_class(index)
+
+func aim_fixture(point: Vector3):
+	# These checks promise specific targets. In the crosshair build, move the
+	# real camera reticle there instead of relying on the retired cursor aim.
+	game.camera_rig.set_process(false)
+	game.camera_rig.camera.global_position=game.player.position+Vector3(-10,6,4)
+	game.camera_rig.camera.look_at(point)
+	await frames(2)
 
 func stop_audio(node: Node):
 	if node is AudioStreamPlayer or node is AudioStreamPlayer2D or node is AudioStreamPlayer3D:
@@ -69,7 +82,7 @@ func grounded_lance_rules():
 	# A raised surface must count as ground; the impact cannot assume world y=0.
 	await fresh_class(5);a=p.active_ability
 	var platform=obstacle(Vector3(7.5,1.5,0),Vector3(5,3,8));await frames(2)
-	var raised=fixture(Vector3(7.5,3,2.5));tap("heavy_attack");await frames(95)
+	var raised=fixture(Vector3(7.5,3,2.5));await aim_fixture(p.position+Vector3(7.5,3,0));tap("heavy_attack");await frames(95)
 	check(p.position.y>2.8 and a.player.travel==null and is_equal_approx(10000-raised.hp,192),"Lance landing recognizes a real raised platform floor")
 	platform.queue_free();await frames(2)
 
@@ -134,6 +147,7 @@ func ranger_rules():
 		game.player.velocity=Vector3.ZERO;game.player.jumps_used=1;game.player.coyote=0
 		if boosted:tap("surge")
 		var far=ranger_target_band(48,3.0,1.5);var outside=ranger_target_band(66,4.0,2.0)
+		await aim_fixture(game.player.position+Vector3(48,1.05,0))
 		tap("light_attack");await frames(130)
 		check(is_equal_approx(ranger_band_damage(far),101 if boosted else 67) and outside.all(func(e):return e.hp==10000),"Ranger %s straight primary reaches its long-range coverage with configured damage" % ("buffed" if boosted else "normal"))
 		for enemy in far:enemy.queue_free()
@@ -179,16 +193,22 @@ func ranger_fan_and_roll_rules():
 		check(is_equal_approx(ranger_band_damage(targets),125) and targets.filter(func(e):return e.hp<10000).size()>=3,"Ranger %s straight fan damages several enemies across its broad coverage" % control)
 	for delayed in [false,true]:
 		await fresh_class(7);fan_records.clear()
-		var p=game.player;var a=p.active_ability;var targets=ranger_target_band(7.5,7.5)
+		var p=game.player;var a=p.active_ability;var targets=[]
+		# A reticle-directed fan rotates its rays in 3D, so the outer arrows
+		# reach the ground before the centre arrow. Use a real ground formation
+		# with depth rather than the old automatic aim's single converging row.
+		for distance in [5.25,6.0,6.75,7.5,8.25,9.0]:
+			targets.append_array(ranger_target_band(distance,7.5))
 		tap("jump");await frames(30 if delayed else 6);tap("jump");await frames(20 if delayed else 6)
 		check(p.jumps_used==2 and not p.is_on_floor(),"Ranger %s double jump reaches an aerial shooting position" % ("delayed" if delayed else "early"))
 		var airborne_height=p.position.y
+		await aim_fixture(Vector3(p.position.x+7.5,0,p.position.z))
 		tap("light_attack");await frames(5)
 		var arrows=fan_records.values()
 		check(arrows.size()==5 and arrows.all(func(pr):return pr.velocity.y< -3),"Ranger %s aerial LMB fan sends all five arrows downward" % ("delayed" if delayed else "early"))
 		check(absf(p.model.actor.model.rotation.x)<1.3,"Ranger aerial shooting pose interrupts the double-jump flip")
 		await frames(70)
-		check(ranger_band_damage(targets)>=100,"Ranger %s straight aerial fan reaches multiple real ground targets" % ("delayed" if delayed else "early"))
+		check(ranger_band_damage(targets)>=100 and targets.filter(func(e):return e.hp<10000).size()>=3,"Ranger %s reticle-directed aerial fan reaches multiple real ground targets" % ("delayed" if delayed else "early"))
 		if delayed:check(airborne_height>6,"The delayed double-jump test covers the high apex")
 		await frames(50);p.attack_chain.reset();native_projectiles.clear();a.player.cooldowns.cutlass=0
 		await clear_enemies();var ground=ranger_target_band(3,2);tap("light_attack");await frames(20)
