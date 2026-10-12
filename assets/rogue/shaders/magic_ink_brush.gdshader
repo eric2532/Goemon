@@ -4,6 +4,8 @@ render_mode unshaded, blend_mix, cull_disabled, depth_draw_never, fog_disabled;
 uniform float fade = 1.0;
 uniform float energy = 1.0;
 uniform bool crimson = false;
+uniform bool custom_palette = false;
+uniform vec4 ink_tint : source_color = vec4(1.0, 0.7, 0.2, 1.0);
 uniform float brush_clock = 0.0;
 
 void fragment() {
@@ -21,6 +23,11 @@ void fragment() {
  vec3 outer_ink = crimson ? vec3(0.55, 0.014, 0.022) : vec3(0.24, 0.028, 0.52);
  vec3 pigment = mix(mix(inner_ink, outer_ink, UV.y), crimson ? vec3(1.0, 0.79, 0.69) : vec3(0.96, 0.82, 1.0), edge);
  pigment = mix(pigment, crimson ? vec3(0.98, 0.30, 0.09) : vec3(0.24, 0.88, 1.0), accent * 0.55);
+ if (custom_palette) {
+  vec3 body = mix(ink_tint.rgb * 0.14, ink_tint.rgb * 0.65, UV.y);
+  pigment = mix(body, mix(ink_tint.rgb, vec3(1.0), 0.82), edge);
+  pigment = mix(pigment, mix(ink_tint.rgb, vec3(1.0), 0.4), accent * 0.55);
+ }
  ALBEDO = pigment;
  EMISSION = pigment * (0.12 + edge * 2.2 + accent * 0.7) * energy;
  ALPHA = ink * dry_brush * taper * (0.78 + edge * 0.2) * fade;

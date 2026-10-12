@@ -27,6 +27,7 @@ var time: float = 0.0
 var sphere_geometry: SphereMesh
 var spark_geometry: BoxMesh
 var geometry_cache: Dictionary = {}
+var previous_poses: Dictionary = {}
 var previous_blade: Array = []
 var previous_blade_weapon: int = 0
 
@@ -166,12 +167,22 @@ func _add(node: Node3D, life: float, kind: String, data: Dictionary = {}) -> Nod
 	return node
 
 func sword_brush_sample(attack: Variant, weapon: Node3D, axis: Vector3, crimson: bool = false, accelerated: bool = false, tempo: float = 1.0) -> void:
-	# Keep consecutive real poses even outside emission. Overdrive can cross
-	# windup/contact in one physics step; seeding from the last pose avoids a
-	# one-sample invisible ribbon without fabricating or slowing the animation.
-	var current: Array = [weapon.to_global(Vector3.ZERO),weapon.to_global(axis)]
-	var previous: Array = previous_blade if previous_blade_weapon==weapon.get_instance_id() else []
-	previous_blade=current;previous_blade_weapon=weapon.get_instance_id()
+	_sample_weapon_brush(attack,[{"node":weapon,"axis":axis}],Color.WHITE,accelerated,tempo,true,crimson)
+
+func weapon_brush_sample(attack: Variant, blades: Array, tint: Color, accelerated: bool=false, tempo: float=1.0) -> void:
+	_sample_weapon_brush(attack,blades,tint,accelerated,tempo,false,false)
+
+func _sample_weapon_brush(attack: Variant, blades: Array, tint: Color, accelerated: bool, tempo: float, legacy: bool, crimson: bool) -> void:
+	var current: Array = []
+	var previous: Array = []
+	for blade in blades.slice(0,2):
+		if not is_instance_valid(blade.node):return
+		var uid=blade.node.get_instance_id()
+		var pose=[blade.node.to_global(Vector3.ZERO),blade.node.to_global(blade.axis)]
+		if previous_poses.has(uid):previous.append(previous_poses[uid])
+		current.append(pose);previous_poses[uid]=pose
+	if current.is_empty():return
+	if previous.size()!=current.size():previous.clear()
 	if attack==null:return
 	# Emit through the same windup/contact/follow-through phases as actor._phase.
 	var contact: float = attack.contact
@@ -183,22 +194,28 @@ func sword_brush_sample(attack: Variant, weapon: Node3D, axis: Vector3, crimson:
 	if attack.time<contact*.52 or (attack.time>follow and not crossed_follow):return
 	var life: float = .08/maxf(1.0,tempo) if accelerated else (.16 if crimson else .20)
 	if item.is_empty():
+		if not _feedback_available("magic-brush") and accelerated:
+			# Keep the newest boosted cut visible without exceeding the ribbon cap.
+			for old in items:
+				if old.kind=="magic-brush":
+					_release_feedback(old);old.node.queue_free();items.erase(old);break
 		if not _feedback_available("magic-brush"):return
 		var ribbon = preload("res://assets/rogue/scripts/magic_sword_brush.gd").new()
-		ribbon.name="SamuraiSwordInkBrush" if crimson else "MagicSwordInkBrush"
-		ribbon.material_override.set_shader_parameter("crimson",crimson)
+		ribbon.name=("SamuraiSwordInkBrush" if crimson else "MagicSwordInkBrush") if legacy else "RosterSwordInkBrush"
+		if legacy:ribbon.material_override.set_shader_parameter("crimson",crimson)
+		else:ribbon.material_override=preload("res://assets/rogue/scripts/ink_brush_style.gd").material(tint)
 		item = {}
 		item.cut_index=attack.index
 		_add(ribbon,life,"magic-brush",item)
 		attack.magicBrush=item
-		if not previous.is_empty():ribbon.sample_blade(previous[0],previous[1])
+		if not previous.is_empty():ribbon.sample_blades(previous)
 	# A cancelled/evicted ribbon must never resurrect from a stale attack handle.
 	if not is_instance_valid(item.node) or item.node.is_queued_for_deletion():return
 	item.life=life
 	item.sampleTime=attack.time
 	item.node.material_override.set_shader_parameter("fade",1.0)
 	item.node.material_override.set_shader_parameter("energy",.42 if reduced_flashes else (1.15 if attack.index==(4 if crimson else 2) else 1.0))
-	item.node.sample_blade(current[0],current[1])
+	item.node.sample_blades(current)
 
 func particles(pos: Vector3, color: Color = GOLD, count: int = 12, power: float = 1.0) -> void:
 	var amount: int = mini(count, [6,16,24][quality])
@@ -653,7 +670,11 @@ func tick(dt: float) -> void:
 			items.remove_at(i)
 			continue
 		var node: Node3D = item.node
-		item.life -= dt
+		# A new ribbon must reach one displayed frame before its short tail ages.
+		var age_delta: float = dt
+		if item.kind=="magic-brush" and not item.get("presented",false):
+			item.presented=true;age_delta=0.0
+		item.life -= age_delta
 		if item.life <= 0:
 			node.queue_free()
 			_release_feedback(item)
@@ -769,7 +790,7 @@ func tick(dt: float) -> void:
 				node.outline_modulate.a = minf(0.95, remaining * 3.2)
 
 func clear() -> void:
-	previous_blade.clear();previous_blade_weapon=0
+	previous_poses.clear();previous_blade.clear();previous_blade_weapon=0
 	for item in items:
 		if is_instance_valid(item.node):
 			item.node.queue_free()

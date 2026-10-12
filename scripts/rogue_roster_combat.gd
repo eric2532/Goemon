@@ -60,6 +60,7 @@ var flip_time: float = -1.0
 var landing_pose: float = 0.0
 var utility_trail: float = 0.0
 var _completed_brush_attack: Variant = null
+var _brush_blades: Array = []
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -95,6 +96,10 @@ func configure(owner: Hero, id: String) -> void:
 
 func sync_actor(actor: Node3D) -> void:
 	visual_actor = actor
+	_brush_blades.clear()
+	if is_instance_valid(actor) and actor.WEAPON_AXES.has(class_id) and actor.joints.has("Weapon_Cutlass"):
+		_brush_blades.append({"node":actor.joints.Weapon_Cutlass.node,"axis":actor.WEAPON_AXES[class_id]})
+		if class_id=="explorer" and actor.joints.has("Weapon_Pistol"):_brush_blades.append({"node":actor.joints.Weapon_Pistol.node,"axis":actor.LEFT_BLADE})
 	if not player.is_empty():
 		player.actor = actor
 
@@ -453,7 +458,7 @@ func tick(delta: float, update_timers: bool = true) -> void:
 			_projectile_damage = false
 			use_ticket(a.ticket)
 			if class_id == "pirate":
-				fx.slash(player.pos, a.angle, a.index, tint(), a.reach, {"style": "sword", "arc": a.arc * 2, "height": 1.05})
+				# Authored blade sampling owns the primary stroke.
 				sound.play("blade", {"style": "pirate", "combo": a.index})
 				var hits: int = 0
 				for e in living():
@@ -468,7 +473,7 @@ func tick(delta: float, update_timers: bool = true) -> void:
 			# Preserve one authored follow-through pose when a boosted combat step
 			# skips the whole stroke. This changes presentation only; damage,
 			# cooldowns and combo retirement still run on their original clock.
-			if class_id in ["samurai","magic-swordsman"] and a.style in ["samurai-cut","claymore"] and a.get("magicBrush",{}).is_empty():
+			if _uses_blade_brush(a) and a.get("magicBrush",{}).is_empty():
 				var follow: float = minf(a.duration*.78,a.contact+minf(.09,(a.duration-a.contact)*.24))
 				if a.time-combat_delta<follow:
 					_completed_brush_attack=a.duplicate()
@@ -720,6 +725,9 @@ func _sync_hero() -> void:
 	player.hp = hero.hp
 	player.maxHp = hero.max_hp
 
+func _uses_blade_brush(attack_: Variant) -> bool:
+	return attack_!=null and class_id in ["pirate","samurai","ninja","knight","magic-swordsman","explorer","master-thief"] and attack_.style not in ["shield-bash","bash","spin","fireburst","thrust"]
+
 func _animate(delta: float, movement: float) -> void:
 	if not is_instance_valid(visual_actor) or player.is_empty():
 		return
@@ -747,9 +755,12 @@ func _animate(delta: float, movement: float) -> void:
 	pose.localMotion = visual_actor.global_basis.orthonormalized().inverse() * world_motion
 	pose.motionSpeed = world_motion.length()
 	visual_actor.animate_pose(pose, real_delta, time, minf(1, movement))
-	if class_id in ["magic-swordsman","samurai"] and visual_actor.joints.has("Weapon_Cutlass"):
-		var brush_attack: Variant = pose.attack if pose.attack!=null and pose.attack.style in ["claymore","samurai-cut"] else null
-		fx.sword_brush_sample(brush_attack,visual_actor.joints.Weapon_Cutlass.node,visual_actor.WEAPON_AXES[class_id],class_id=="samurai",class_id=="samurai" and player.buffTime>0,hero.attack_speed_multiplier())
+	if not _brush_blades.is_empty():
+		var brush_attack: Variant = pose.attack if _uses_blade_brush(pose.attack) else null
+		if class_id in ["magic-swordsman","samurai"]:
+			fx.sword_brush_sample(brush_attack,_brush_blades[0].node,_brush_blades[0].axis,class_id=="samurai",class_id=="samurai" and player.buffTime>0,hero.attack_speed_multiplier())
+		else:
+			fx.weapon_brush_sample(brush_attack,_brush_blades,tint(),hero.attack_speed_multiplier()>2,hero.attack_speed_multiplier())
 	_completed_brush_attack=null
 	utility_trail -= real_delta
 	if (player.roll > 0 or player.travel != null) and utility_trail <= 0:

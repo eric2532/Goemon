@@ -3,6 +3,7 @@ extends MeshInstance3D
 const MAX_SAMPLES = 18
 const SUBDIVISIONS = 3
 var samples: Array = []
+var histories: Array = []
 
 func _init() -> void:
  name = "MagicSwordInkBrush"
@@ -13,9 +14,20 @@ func _init() -> void:
  material_override = material
 
 func sample_blade(base: Vector3, tip: Vector3) -> void:
- samples.append([to_local(base), to_local(tip)])
- if samples.size()>MAX_SAMPLES:samples.pop_front()
- if samples.size()<2:return
+ sample_blades([[base,tip]])
+
+func sample_blades(poses: Array) -> void:
+ # Both hands share one admitted ribbon; at most two finite surfaces.
+ while histories.size()<mini(2,poses.size()):histories.append([])
+ mesh.clear_surfaces()
+ for blade in range(mini(2,poses.size())):
+  samples=histories[blade]
+  samples.append([to_local(poses[blade][0]),to_local(poses[blade][1])])
+  if samples.size()>MAX_SAMPLES:samples.pop_front()
+  if samples.size()<2:continue
+  _surface()
+
+func _surface() -> void:
  var vertices = PackedVector3Array()
  var uvs = PackedVector2Array()
  var indices = PackedInt32Array()
@@ -42,7 +54,6 @@ func sample_blade(base: Vector3, tip: Vector3) -> void:
  var arrays: Array = []
  arrays.resize(Mesh.ARRAY_MAX)
  arrays[Mesh.ARRAY_VERTEX]=vertices;arrays[Mesh.ARRAY_TEX_UV]=uvs;arrays[Mesh.ARRAY_INDEX]=indices
- mesh.clear_surfaces()
  mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
 
 func _curve(a: Vector3,b: Vector3,c: Vector3,d: Vector3,t: float) -> Vector3:
