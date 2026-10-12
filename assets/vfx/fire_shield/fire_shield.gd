@@ -15,7 +15,8 @@ void fragment(){
  float ripple=pow(0.5+0.5*sin(UV.y*65.0-clock*3.0+sin(UV.x*24.0)),12.0)*0.065;
  ALBEDO=vec3(0.025,0.32,0.95);
  EMISSION=vec3(0.04,0.48,1.0)*(0.2+rim*1.6);
- ALPHA=0.025+rim*0.30+ripple;
+ float pigment=0.65+0.35*smoothstep(-0.5,0.4,sin(UV.y*143.0+sin(UV.x*23.0-clock)*0.8));
+ ALPHA=(0.025+rim*0.30+ripple)*pigment;
 }"""
 	var material=ShaderMaterial.new();material.shader=shader
 	energy_material=material
@@ -23,7 +24,7 @@ void fragment(){
 	sphere.mesh.radial_segments=64;sphere.mesh.rings=32
 	sphere.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	for i in range(2):
-		var ring=Geo.torus(self,Vector3.ZERO,1.60,1.615,Geo.mat("60cfff",0,1.1))
+		var ring=Geo.torus(self,Vector3.ZERO,1.60,1.615,preload("res://assets/rogue/scripts/ink_brush_style.gd").material(Color("60cfff"),.6,.5))
 		ring.rotation=Vector3(.7+i*1.2,0,.3+i);rings.append(ring)
 		ring.transparency=.50
 		ring.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF

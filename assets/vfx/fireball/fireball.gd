@@ -6,6 +6,7 @@ func _ready():
 	process_mode=Node.PROCESS_MODE_PAUSABLE
 	add_to_group("edo_fireballs");add_to_group("projectiles");add_to_group("musashi_projectiles")
 	ornament=FireEnergy.new();ornament.charged=heavy;add_child(ornament);ornament.scale=Vector3.ONE*(3.2 if heavy else 1.2)*game.player.growth_multiplier()
+	ornament.quaternion=Quaternion(Vector3.FORWARD,velocity.normalized()) if velocity.length_squared()>.001 else Quaternion.IDENTITY
 func update_visual(delta: float):
 	trail_clock-=delta
 	if trail_clock<=0:

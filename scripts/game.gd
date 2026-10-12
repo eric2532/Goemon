@@ -15,6 +15,7 @@ var rogue_pick_start=false
 var rogue_defense_settings: Dictionary={}
 var rogue_view
 var rogue_feedback
+var native_ink_feedback: Node
 var defense_beta=not ("--standard-defense" in OS.get_cmdline_user_args() or "--tower-defense-test" in OS.get_cmdline_user_args() or "--tower-defense-visual" in OS.get_cmdline_user_args())
 var defense_hard="--hard-defense" in OS.get_cmdline_user_args()
 var defense_tactics=not Array(OS.get_cmdline_user_args()).any(func(arg):return arg.begins_with("--defense-fire-") or arg.begins_with("--tower-defense-beta-"))
@@ -667,6 +668,7 @@ func menu_base()->Control:
 	return menu
 
 func show_main_menu():
+	if is_instance_valid(native_ink_feedback):native_ink_feedback.clear()
 	player.reset_auto_attack()
 	custom_map_data.clear()
 	rogue_roster_open=false;rogue_pick_start=false
@@ -856,6 +858,7 @@ func summon_defense_hero(id: String):
 	toast("%s summoned · Leaving the castle" % hero.name)
 
 func start_mode(mode: String):
+	if is_instance_valid(native_ink_feedback):native_ink_feedback.clear()
 	if not launching_custom_map:custom_map_data.clear()
 	if transitioning or mode not in ["descent","defense","survival","rogue","rogue_defense"]:return
 	var was_rogue_roster=rogue_roster_mode
@@ -1049,6 +1052,7 @@ func _unhandled_input(event):
 		get_viewport().set_input_as_handled()
 
 func show_pause():
+	if is_instance_valid(native_ink_feedback):native_ink_feedback.clear()
 	player.cancel_charge(true)
 	player.model.visible=true
 	paused=true
@@ -1277,6 +1281,7 @@ func defeat():
 	button_at(root,"Main menu",Vector2(96,449),show_main_menu)
 
 func _process(delta):
+	if is_instance_valid(native_ink_feedback):native_ink_feedback.tick(delta)
 	if transitioning: return
 	if not playing:
 		if is_instance_valid(player.model): player.model.animate(delta,0,true,0,0,false,0,false)
@@ -1332,6 +1337,9 @@ func wind(p: Vector3,dir: Vector3):
 	t.chain().tween_callback(n.queue_free)
 
 func slash(p: Vector3,dir: Vector3,heavy: bool,combo: int,color: Color=Color("ffdf83"),size_multiplier: float=1.0,plane: float=9.0):
+	if is_fire_siege():
+		_native_feedback().slash(p,dir,heavy,combo,color,size_multiplier,plane)
+		return
 	var st=SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	var radius=(3.1 if heavy else 2.3)*size_multiplier
@@ -1695,6 +1703,7 @@ func rebuild_area(index: int):
 	apply_quality()
 
 func reset_player_at(p: Vector3):
+	if is_instance_valid(native_ink_feedback):native_ink_feedback.clear()
 	player.attack_chain.reset()
 	player.cancel_charge()
 	checkpoint=p
@@ -1902,7 +1911,16 @@ func confirm_impact(victim: Ninja, point: Vector3, direction: Vector3, strength:
 	if rogue_battle_mode:rogue_feedback.impact(victim,point,direction,strength,projectile)
 	else:impact_effect(point,direction,strength)
 
+func _native_feedback() -> Node:
+	if not is_instance_valid(native_ink_feedback):
+		native_ink_feedback=preload("res://scripts/native_ink_feedback.gd").new()
+		add_child(native_ink_feedback);native_ink_feedback.configure(self)
+	return native_ink_feedback
+
 func impact_effect(point: Vector3, direction: Vector3, strength: int):
+	if is_fire_siege():
+		_native_feedback().impact(point,direction,strength,Color("ff713b") if player.character_id==2 else Color("ffd487"))
+		return
 	if rogue_battle_mode:
 		rogue_feedback.impact(null,point,direction,strength,false)
 		return

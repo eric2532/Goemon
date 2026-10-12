@@ -5,6 +5,8 @@ func run():
  ProjectSettings.set_setting("goemon/experimental_crosshair",true)
  game.player.smoke_mode=true;game.start_mode("defense");pause_fixture_director();await frames(3)
  await fresh_class(7)
+ check(game.hud.has_method("lock_marker_visible") and game.hud.call("lock_marker_visible")==false,"Lock presentation hides the target ring and label")
+ check(game.hud.crosshair_visible(),"Hidden lock marker preserves the center crosshair")
  var p=game.player;var rig=game.camera_rig
  rig.set_process(false);p.set_physics_process(false)
  p.position=Vector3(0,.1,210);p.active_ability.player.pos=p.position

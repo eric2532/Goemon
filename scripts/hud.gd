@@ -44,6 +44,9 @@ func _process(delta):
 func crosshair_visible()->bool:
 	return game!=null and game.crosshair_aim_enabled() and game.playing and not game.paused and not game.transitioning and not game.won and game.player.hp>0
 
+func lock_marker_visible()->bool:
+	return false
+
 func draw_crosshair():
 	var center=size*.5
 	for direction in [Vector2.RIGHT,Vector2.LEFT,Vector2.UP,Vector2.DOWN]:
@@ -55,11 +58,6 @@ func draw_crosshair():
 func _draw():
 	if not game or not game.playing or game.paused: return
 	if crosshair_visible():draw_crosshair()
-	var locked=game.player.auto_aim_target()
-	if locked:
-		var point=game.camera_rig.camera.unproject_position(AttackChain.aim_point(locked))
-		draw_arc(point,18,0,TAU,24,Color("ffd58c"),2,true)
-		text(point+Vector2(-18,-24),"LOCK",11,Color("ffd58c"))
 	if game.is_fire_siege():siege_hud.draw(self);return
 	var w=size.x
 	var h=size.y

@@ -5,6 +5,8 @@ var age=0.0
 var energy_material: ShaderMaterial
 var sparks: CPUParticles3D
 func _ready():
+	process_mode=Node.PROCESS_MODE_PAUSABLE
+	preload("res://assets/rogue/scripts/ink_brush_style.gd").attach_wake(self,Color("ff7338"),1.35 if charged else .8)
 	energy_material=ShaderMaterial.new();energy_material.shader=preload("res://assets/vfx/fireball/ember_energy.gdshader")
 	var shell=Geo.sphere(self,Vector3.ZERO,Vector3.ONE*(.65 if charged else .44),energy_material)
 	shell.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
@@ -27,6 +29,7 @@ func _ready():
 	sparks.initial_velocity_min=.4;sparks.initial_velocity_max=1.8;sparks.gravity=Vector3(0,1,0);add_child(sparks)
 func _process(delta):
 	age+=delta
+	preload("res://assets/rogue/scripts/ink_brush_style.gd").animate(self,delta)
 	energy_material.set_shader_parameter("clock",age)
 	for child in get_children():
 		if str(child.name).begins_with("Flame"):

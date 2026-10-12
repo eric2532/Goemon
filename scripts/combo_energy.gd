@@ -17,7 +17,8 @@ static func warmup():
 			var width=sin(t*PI)*.32
 			vertices.append(Vector3(sin(a)*2,cos(a)*2-1,0))
 			vertices.append(Vector3(sin(a)*(2-width),cos(a)*(2-width)-1,0))
-		for j in [0,1,2,2,1,3]:surface.set_normal(Vector3.BACK);surface.add_vertex(vertices[j])
+		for j in [0,1,2,2,1,3]:
+			surface.set_uv(Vector2((i+(1 if j>=2 else 0))/24.0,1.0 if j%2==0 else 0.0));surface.set_normal(Vector3.BACK);surface.add_vertex(vertices[j])
 	ribbon=surface.commit()
 	red=Geo.mat("ff193b",0,2.4).duplicate();red.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;red.cull_mode=BaseMaterial3D.CULL_DISABLED
 	core=Geo.mat("ffd1d7",0,2.0).duplicate();core.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;core.cull_mode=BaseMaterial3D.CULL_DISABLED
@@ -26,7 +27,8 @@ static func arc(parent: Node3D,tilt: float=0.0)->Node3D:
 	warmup()
 	var root=Node3D.new();parent.add_child(root);root.rotation.z=tilt
 	for inner in [false,true]:
-		var mesh=Geo.mesh(root,ribbon,Vector3(0,0,.012 if inner else 0),core if inner else red)
+		var ink=preload("res://assets/rogue/scripts/ink_brush_style.gd").material(Color("ffd1d7") if inner else Color("ff193b"),.8,.5 if inner else .9)
+		var mesh=Geo.mesh(root,ribbon,Vector3(0,0,.012 if inner else 0),ink)
 		mesh.scale=Vector3(.96,.82,1) if inner else Vector3.ONE
 		mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	return root

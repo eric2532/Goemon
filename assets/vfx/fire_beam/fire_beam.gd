@@ -30,7 +30,7 @@ func _ready():
 		var shell=Geo.cylinder(self,Vector3.ZERO,balance.beam_radius*[1.0,.79,.42][i],1,material)
 		shell.rotation.x=PI/2;shell.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;shells.append(shell)
 	for i in range(12):
-		var ring=Geo.torus(self,Vector3.ZERO,balance.beam_radius*.84,balance.beam_radius*.95,Geo.mat("ffab32",0,1.8))
+		var ring=Geo.torus(self,Vector3.ZERO,balance.beam_radius*.84,balance.beam_radius*.95,preload("res://assets/rogue/scripts/ink_brush_style.gd").material(Color("ffab32"),.7,.7))
 		ring.rotation.x=PI/2;ring.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;rings.append(ring)
 	source=FireEnergy.new();source.charged=true;add_child(source);source.scale=Vector3.ONE*2.6
 	tip=FireEnergy.new();tip.charged=true;add_child(tip);tip.scale=Vector3.ONE*3
@@ -55,6 +55,7 @@ func update_path():
 		shells[i].scale=Vector3(pulse,maxf(.01,length_now),pulse)
 	for i in range(rings.size()):
 		var t=fmod(elapsed*1.6+float(i)/rings.size(),1.0)
+		rings[i].material_override.set_shader_parameter("brush_clock",elapsed)
 		rings[i].position.z=-t*length_now;rings[i].scale=Vector3.ONE*(.8+sin(t*TAU+elapsed*12)*.13)
 	tip.position.z=-length_now
 func damage_tick():

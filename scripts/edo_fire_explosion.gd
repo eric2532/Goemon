@@ -41,6 +41,10 @@ func _ready():
 	light=OmniLight3D.new();light.light_color=Color("ff9a35");light.omni_range=9
 	light.light_energy=1.5;light.position.y=.45;add_child(light)
 	game.sound(sound_slot,.45)
+	if game.is_fire_siege():
+		var feedback=game._native_feedback()
+		feedback.fx.ring(global_position,Color("ff713b"),3.5,.45)
+		feedback.impact(global_position+Vector3.UP*.5,Vector3.UP,2,Color("ff713b"))
 
 func _physics_process(delta):
 	if not game.playing or game.paused or game.transitioning:return

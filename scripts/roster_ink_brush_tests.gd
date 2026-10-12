@@ -8,8 +8,10 @@ func run():
  game.tuning=PrototypeTuning.DEFAULTS.duplicate();game.tuning.freeze_ai=true;game.tuning.invincible=true
  ProjectSettings.set_setting("goemon/experimental_crosshair",true)
  game.player.smoke_mode=true;game.start_mode("defense");pause_fixture_director();await frames(3)
- if "--feedback-only" not in OS.get_cmdline_user_args():await blade_rules()
- await rogue_feedback_rules()
+ if "--native-only" not in OS.get_cmdline_user_args():
+  if "--feedback-only" not in OS.get_cmdline_user_args():await blade_rules()
+  await rogue_feedback_rules()
+ await native_feedback_rules()
  game.show_main_menu();game.sound_library.cancel();game.music.stop();stop_audio(game)
  var shared=game.get_node_or_null("RogueSharedClassAudio")
  if is_instance_valid(shared):shared.cache.clear()
@@ -69,7 +71,7 @@ func blade_rules():
 
 func ink_meshes(node: Node) -> Array:
  var found: Array=[]
- if node is MeshInstance3D and node.material_override is ShaderMaterial and node.material_override.shader==preload("res://assets/rogue/shaders/magic_ink_brush.gdshader"):found.append(node)
+ if (node is MeshInstance3D or node is MultiMeshInstance3D) and node.material_override is ShaderMaterial and node.material_override.shader==preload("res://assets/rogue/shaders/magic_ink_brush.gdshader"):found.append(node)
  for child in node.get_children():found.append_array(ink_meshes(child))
  return found
 
@@ -112,3 +114,33 @@ func rogue_feedback_rules():
      for pr in a.projectiles:shown=shown or not ink_meshes(pr.mesh).is_empty()
    check(shown,"%s %s has brush appearance while retaining its action" % [a.class_id,action_])
    check(a.fx.items.all(func(item):return item.kind!="impact"),"%s missed %s emits no confirmed-hit burst" % [a.class_id,action_])
+
+func native_feedback_rules():
+ check(game.hud.has_method("lock_marker_visible") and game.hud.call("lock_marker_visible")==false,"Target ring/LOCK label hidden")
+ check(game.hud.crosshair_visible(),"Center crosshair remains visible")
+ for hero in [1,2]:
+  for action_ in ["light_attack","heavy_attack","surge"]:
+   game.player.select_character(hero);game.reset_player_at(TEST_ORIGIN);await frames(30)
+   tap(action_);var shown=false
+   if action_=="surge":tap("light_attack")
+   for frame in range(28):await frames(1);shown=shown or not ink_meshes(game).is_empty()
+   check(shown,"Original hero %s %s uses painted feedback" % [hero,action_])
+   game.player.cancel_charge();await frames(90)
+ game.player.select_character(1);game.reset_player_at(TEST_ORIGIN);await frames(20)
+ var batch=preload("res://scripts/coin_volley.gd").new();batch.game=game;batch.coin_count=99;batch.velocity=Vector3.RIGHT*12;game.add_child(batch);batch.global_position=game.player.global_position+Vector3.UP
+ check(batch.batches.size()<=4 and not ink_meshes(batch).is_empty(),"99 coins keep batched models and a painted wake")
+ check(batch.get_child_count()<=6,"99-coin wake is instanced, not one node per coin")
+ batch.queue_free();await frames(1)
+ var native=game.get("native_ink_feedback")
+ check(is_instance_valid(native),"Original feedback has one explicit clock owner")
+ if is_instance_valid(native):
+  for quality in [0,1,2]:
+   native.clear();native.fx.apply_quality(quality)
+   for contact in range(300):native.impact(Vector3.ZERO,Vector3.RIGHT,2,Color.GOLD)
+   check(native.fx.items.filter(func(item):return item.kind=="impact").size()<=[3,8,12][quality],"Native crowd impacts share displayed-frame cap")
+   native.tick(1);await frames(1);check(native.fx.items.is_empty(),"Native feedback expires")
+  game.slash(TEST_ORIGIN,Vector3.RIGHT,false,0);await frames(1)
+  game.show_pause();await frames(2)
+  check(native.fx.items.is_empty(),"Pause clears native strokes")
+  game.resume();game.slash(TEST_ORIGIN,Vector3.RIGHT,false,0);game.player.select_character(3);await frames(1)
+  check(native.fx.items.is_empty(),"Hero switch clears native strokes")
