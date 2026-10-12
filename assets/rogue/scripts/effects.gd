@@ -147,6 +147,7 @@ func _release_feedback(item: Dictionary) -> void:
 		feedback_live[item.kind] = maxi(0, int(feedback_live[item.kind])-1)
 
 func _feedback_available(kind: String) -> bool:
+	if kind=="magic-brush":return int(feedback_live.get(kind,0))<[2,3,4][quality]
 	return int(feedback_live.get(kind,0)) < ([16,32,48][quality] if kind=="streak" else [6,12,18][quality])
 
 func _add(node: Node3D, life: float, kind: String, data: Dictionary = {}) -> Node3D:
@@ -158,9 +159,28 @@ func _add(node: Node3D, life: float, kind: String, data: Dictionary = {}) -> Nod
 	add_child(node)
 	data.merge({"node": node, "life": life, "max": life, "kind": kind}, true)
 	items.append(data)
-	if kind in ["impact","particle-burst","ring","streak"]:
+	if kind in ["impact","particle-burst","ring","streak","magic-brush"]:
 		feedback_live[kind]=int(feedback_live.get(kind,0))+1
 	return node
+
+func magic_sword_sample(attack: Dictionary, weapon: Node3D, axis: Vector3) -> void:
+	# Emit through the same windup/contact/follow-through phases as actor._phase.
+	var contact: float = attack.contact
+	var follow: float = minf(attack.duration*.78, contact+minf(.09,(attack.duration-contact)*.24))
+	if attack.time<contact*.52 or attack.time>follow:return
+	var item: Dictionary = attack.get("magicBrush",{})
+	if item.is_empty():
+		if not _feedback_available("magic-brush"):return
+		var ribbon = preload("res://assets/rogue/scripts/magic_sword_brush.gd").new()
+		item = {}
+		_add(ribbon,.20,"magic-brush",item)
+		attack.magicBrush=item
+	# A cancelled/evicted ribbon must never resurrect from a stale attack handle.
+	if not is_instance_valid(item.node) or item.node.is_queued_for_deletion():return
+	item.life=.20
+	item.node.material_override.set_shader_parameter("fade",1.0)
+	item.node.material_override.set_shader_parameter("energy",.42 if reduced_flashes else (1.15 if attack.index==2 else 1.0))
+	item.node.sample_blade(weapon.to_global(Vector3.ZERO),weapon.to_global(axis))
 
 func particles(pos: Vector3, color: Color = GOLD, count: int = 12, power: float = 1.0) -> void:
 	var amount: int = mini(count, [6,16,24][quality])
@@ -283,7 +303,20 @@ func weapon_impact(pos: Vector3, angle: float, style: String = "sword", color: C
 	group.rotation.y = angle
 	var strength: float = 1.35 if heavy else 1.0
 	var pieces: Array = []
-	if style in ["pierce", "arrow", "crimson-arrow", "lance", "thrust"]:
+	var magic_ring: MeshInstance3D
+	if style in ["claymore","wave"]:
+		group.name="MagicInkImpact"
+		for i in range(4 if quality==0 else 6):
+			var core: bool = i<2
+			var shard = _mesh(_diamond((1.45 if core else .75)*strength,.16 if core else .09),Color("f5dfff") if core else Color("9852f4"),.9 if core else .72)
+			var a: float = -.55+i*PI/3.0
+			shard.rotation.z=a
+			group.add_child(shard)
+			pieces.append({"node":shard,"drive":0.0,"velocity":Vector3(cos(a),sin(a),.12)*(0 if core else 2.4*strength)})
+		magic_ring=_mesh(_ring_geometry(1.0,.055,TAU,32),Color("b37aff"),.65)
+		group.add_child(magic_ring)
+		particles(pos,Color("ad72ff"),12 if heavy else 8,.85)
+	elif style in ["pierce", "arrow", "crimson-arrow", "lance", "thrust"]:
 		for i in range(5):
 			var shard: MeshInstance3D = _mesh(_spear((1.4 if i == 0 else 0.65) * strength, 0.12 if i == 0 else 0.045, 0.035), Color("ecfcff") if i == 0 else color, 0.85 if i == 0 else 0.5)
 			var side: float = float(i - 2)
@@ -304,7 +337,7 @@ func weapon_impact(pos: Vector3, angle: float, style: String = "sword", color: C
 		if bash or heavy:
 			ring(pos, color, 1.65 if bash else 1.1, 0.24)
 	shake = maxf(shake, 0.22 if heavy else 0.105)
-	return _add(group, 0.24 if heavy else 0.18, "impact", {"pieces": pieces})
+	return _add(group, (0.30 if heavy else 0.24) if magic_ring!=null else (0.24 if heavy else 0.18), "impact", {"pieces": pieces,"magicRing":magic_ring,"strength":strength})
 
 func spell_burst(pos: Vector3, angle: float = 0.0, color: Color = Color("9cbcff"), radius: float = 2.3) -> Node3D:
 	var group: Node3D = Node3D.new()
@@ -599,6 +632,8 @@ func tick(dt: float) -> void:
 		var t: float = clampf(1.0 - float(item.life) / float(item.max), 0, 1)
 		var remaining: float = 1.0 - t
 		match str(item.kind):
+			"magic-brush":
+				node.material_override.set_shader_parameter("fade",pow(remaining,.85))
 			"particle-burst":
 				for j in range(item.sparks.size()):
 					var spark: Dictionary = item.sparks[j]
@@ -658,8 +693,13 @@ func tick(dt: float) -> void:
 					_fade(collar, sin(phase * PI) * fade)
 			"impact":
 				_fade(node, pow(remaining, 0.65))
+				if is_instance_valid(item.get("magicRing")):
+					item.magicRing.scale=Vector3.ONE*(.25+t*1.65)*float(item.strength)
 				for piece in item.pieces:
-					if piece.drive > 0:
+					if piece.has("velocity"):
+						piece.node.position+=piece.velocity*dt
+						piece.node.scale=Vector3.ONE*(1-t*.65)
+					elif piece.drive > 0:
 						piece.node.position.z += piece.drive * dt * 3.0
 					else:
 						piece.node.scale = Vector3(0.75 + t * 0.9, 1 - t * 0.7, 1)

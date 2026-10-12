@@ -735,6 +735,8 @@ func _animate(delta: float, movement: float) -> void:
 	pose.localMotion = visual_actor.global_basis.orthonormalized().inverse() * world_motion
 	pose.motionSpeed = world_motion.length()
 	visual_actor.animate_pose(pose, real_delta, time, minf(1, movement))
+	if class_id=="magic-swordsman" and player.attack!=null and player.attack.style=="claymore" and visual_actor.joints.has("Weapon_Cutlass"):
+		fx.magic_sword_sample(player.attack,visual_actor.joints.Weapon_Cutlass.node,visual_actor.WEAPON_AXES[class_id])
 	utility_trail -= real_delta
 	if (player.roll > 0 or player.travel != null) and utility_trail <= 0:
 		utility_trail = 0.075

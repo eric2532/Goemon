@@ -169,7 +169,7 @@ static func resolve_attack(g, a: Dictionary) -> void:
 			options.tilt = 0.05
 		if a.style == "power-slash":
 			g.fx.power_slash(p.pos, a.angle, a.reach)
-		else:
+		elif not (g.class_id=="magic-swordsman" and a.style=="claymore"):
 			g.fx.slash(p.pos, a.angle, a.index, color, a.reach, options)
 		if a.style in ["twin", "evasive-slash"]:
 			g.fx.slash(p.pos, a.angle, a.index, Color("ffecd0"), a.reach * 0.88, {"style": "dagger", "arc": a.arc * 1.8, "height": 0.8, "direction": -a.get("swingSide", -1 if a.index % 2 else 1), "tilt": -0.36})
