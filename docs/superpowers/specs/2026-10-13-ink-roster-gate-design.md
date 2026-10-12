@@ -2,8 +2,8 @@
 
 Date: 2026-10-13
 
-Status: the user approved the starting design in chat. This written specification
-is awaiting review before implementation planning. Product code is unchanged.
+Status: the user approved the starting design and then this written specification
+for implementation planning on 2026-10-13. Product implementation has not started.
 
 ## Outcome and approved choices
 
