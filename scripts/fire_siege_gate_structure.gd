@@ -33,26 +33,40 @@ func _solid(point: Vector3,size_: Vector3,color: String) -> void:
  var collision=CollisionShape3D.new();var box=BoxShape3D.new();box.size=size_;collision.shape=box;collision.position=point;body.add_child(collision)
  Geo.box(walls,point,size_,Geo.mat(color))
 func _build_walls() -> void:
+ for solid in _wall_solids():_solid(solid.point,solid.size,solid.color)
  for side in [-1,1]:
-  _solid(Vector3(side*13,.5,0),Vector3(14,1,.8),"48515b")
-  _solid(Vector3(side*13,2.3,0),Vector3(14,2.6,.48),"624335")
-  _solid(Vector3(side*6.25,2,0),Vector3(.5,4,1),"802f34")
-  _solid(Vector3(side*19.7,2,0),Vector3(.6,4,.8),"802f34")
   # Static board seams and a stepped eave give the wall a timber rhythm.
   for i in range(7):Geo.box(walls,Vector3(side*(7+i*1.9),2.3,-.28),Vector3(.08,2.55,.07),Geo.mat("292e36"))
   Geo.box(walls,Vector3(side*13,3.8,0),Vector3(14.6,.25,1.3),Geo.mat("252c43"))
   Geo.box(walls,Vector3(side*13,4,0),Vector3(13.8,.18,.85),Geo.mat("36334e"))
   Geo.box(walls,Vector3(side*6.25,3.3,-.52),Vector3(.10,1.0,.06),Geo.mat("66e3df",0,.7))
- _solid(Vector3(0,4.05,0),Vector3(13.4,.32,1.5),"262b44")
  Geo.box(walls,Vector3(0,4.3,0),Vector3(12.4,.22,.75),Geo.mat("88363f"))
  walls_built=true
  if is_instance_valid(game.pursuit):game.pursuit.configure()
+func _wall_solids() -> Array:
+ var solids=[]
+ for side in [-1,1]:
+  solids.append({"point":Vector3(side*13,.5,0),"size":Vector3(14,1,.8),"color":"48515b"})
+  solids.append({"point":Vector3(side*13,2.3,0),"size":Vector3(14,2.6,.48),"color":"624335"})
+  solids.append({"point":Vector3(side*6.25,2,0),"size":Vector3(.5,4,1),"color":"802f34"})
+  solids.append({"point":Vector3(side*19.7,2,0),"size":Vector3(.6,4,.8),"color":"802f34"})
+ solids.append({"point":Vector3(0,4.05,0),"size":Vector3(13.4,.32,1.5),"color":"262b44"})
+ return solids
 func can_complete_build() -> bool:
  if _generation!=director.generation:return false
  var query=PhysicsShapeQueryParameters3D.new();query.shape=occupancy_shape
  query.transform=global_transform.translated_local(Vector3.UP*2);query.collision_mask=4
  for hit in get_world_3d().direct_space_state.intersect_shape(query,300):
   if hit.collider is Ninja and not hit.collider.dead:return false
+ # Rebuilding replaces only the friendly-transparent panel. First purchase
+ # also creates solid terrain, so every new collider must be safe for actors.
+ if not walls_built:
+  query.collision_mask=0xFFFFFFFF
+  for solid in _wall_solids():
+   var shape=BoxShape3D.new();shape.size=solid.size;query.shape=shape
+   query.transform=global_transform.translated_local(solid.point)
+   for hit in get_world_3d().direct_space_state.intersect_shape(query,300):
+    if hit.collider is PhysicsBody3D and not hit.collider is StaticBody3D:return false
  return true
 func complete_build() -> void:
  if completed or not can_complete_build():return
@@ -75,6 +89,6 @@ func _label() -> void:
  else:
   prompt.modulate=Color("ffd487") if affordable else Color("e9ad9e")
   prompt.text=("REBUILD" if walls_built else "BUILD WALL + GATE")+" · 10 GOLD · %d%%" % roundi(progress*100)
-  if progress>=1 and not can_complete_build():prompt.text="OPENING OCCUPIED · CLEAR ENEMIES TO BUILD"
+  if progress>=1 and not can_complete_build():prompt.text="BUILD AREA OCCUPIED · CLEAR THE DOOR AND WALLS"
 func _exit_tree():
  if walls_built and is_instance_valid(game) and is_instance_valid(game.pursuit) and game.is_inside_tree():game.pursuit.configure()

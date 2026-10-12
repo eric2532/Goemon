@@ -455,7 +455,7 @@ func interaction_prompt()->String:
 	if index<0:return "Approach a structure to build · Arrow 5 gold · Mine 10 gold"
 	var cost=site_cost(index)
 	var label="GATE" if _build_states()[index].kind=="gate" else "MINE" if index>=site_states.size() else "ARROW TOWER"
-	if label=="GATE" and gate_state.progress>=1 and not gate_state.cannon.can_complete_build():return "OPENING OCCUPIED · Clear enemies before construction completes"
+	if label=="GATE" and gate_state.progress>=1 and not gate_state.cannon.can_complete_build():return "BUILD AREA OCCUPIED · Clear the door and walls before construction completes"
 	return "STAND NEARBY · %s · %d gold%s" % [label,cost," · Need %.2f more" % (cost-money) if money<cost else ""]
 
 func shrine_guidance()->Dictionary:

@@ -19,6 +19,17 @@ func construction_rules():
  check(not r.gate_alive() and r.gate_hp==0 and not r.gate_state.is_empty(),"Gate starts unbuilt")
  check(r.gate_position==Vector3(0,0,180),"Gate sits five metres before starting point")
  var gate=r.gate_state.cannon
+ game.reset_player_at(Vector3(8,.06,180));await frames(35);r.money=10
+ check(r.build_candidate()>=0,"Side-wall footprint is an eligible nearby build position")
+ r.update_build_input(3.1)
+ check(not r.gate_alive() and r.money==10 and not gate.can_complete_build(),"Initial wall cannot be created around its builder")
+ game.reset_player_at(Vector3(0,.06,182));await frames(35)
+ var wall_occupant=fixture(Vector3.ZERO);wall_occupant.global_position=Vector3(13,.06,180);await frames(2)
+ r.update_build_input(.1)
+ check(not r.gate_alive() and r.money==10,"Initial wall occupancy defers payment for other actors too")
+ wall_occupant.collision_layer=8;await frames(2)
+ check(not gate.can_complete_build(),"Friendly bodies also block new solid wall creation")
+ wall_occupant.queue_free();await frames(2);r.gate_state.progress=0
  game.reset_player_at(Vector3(0,.06,182));await frames(35)
  r.money=9.0;r.update_build_input(3.1)
  check(not r.gate_alive() and r.money==9,"Insufficient gold cannot complete")
