@@ -32,6 +32,19 @@ func run():
  check(distance>.65,"Fireball hand follows a broad wind-up, release and follow-through arc")
  check(chest_basis[3].get_rotation_quaternion().angle_to(chest_basis[11].get_rotation_quaternion())>.30,"Casting rotates shoulders and chest")
  check(knee[3].get_rotation_quaternion().angle_to(knee[11].get_rotation_quaternion())>.12,"Casting shifts leg weight")
+ c.cancel();c.cast_fireball(false);m.locomotion.reset();m.locomotion_velocity=Vector3(0,0,-8)
+ var moving_hands=[];var moving_feet=[]
+ for step in range(40):
+  c.elapsed=float(step)/39*c.duration
+  m.animate(1.0/60,8,true,0,0,false,0,false)
+  moving_hands.append(m.hand_position("R"));moving_feet.append(m.skeleton.get_bone_global_pose(m.skeleton.find_bone("Foot_L")).origin.z)
+ var hand_arc=0.0;var step_lo=INF;var step_hi=-INF
+ for a in moving_hands:
+  for b in moving_hands:hand_arc=maxf(hand_arc,a.distance_to(b))
+ for z in moving_feet:step_lo=minf(step_lo,z);step_hi=maxf(step_hi,z)
+ check(hand_arc>.65,"Moving fireball cast retains its throwing hand arc")
+ check(step_hi-step_lo>.20,"Moving fireball cast keeps the walking legs active")
+ m.locomotion_velocity=Vector3.ZERO
  c.cancel();p.set_physics_process(true);await frames(5)
  c.cast_fireball(false);await frames(9)
  var balls=get_tree().get_nodes_in_group("edo_fireballs")

@@ -129,6 +129,9 @@ func _ready():
 	if "--edo-redesign-test" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/edo_redesign_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--edo-gait-tour" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/edo_gait_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
 	elif "--edo-redesign-tour" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/edo_redesign_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")

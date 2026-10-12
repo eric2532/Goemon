@@ -1,5 +1,54 @@
 extends "res://assets/characters/musashi/animations/relaxed_idle_v05.gd"
 ## Visual choreography only. Combat keeps its own release times and hit volumes.
+# Reuse the roster gait; convert its +Z-facing authored axes to Edo's -Z rig.
+class GaitAdapter extends RefCounted:
+	var id="edo"
+	var WEAPON_AXES={}
+	var owner_ref: WeakRef
+	var motion:
+		get:return owner_ref.get_ref()
+	var model: Node3D
+	func _init(owner_motion):
+		owner_ref=weakref(owner_motion);model=owner_motion.model.body
+	func _r(bone: String,x=0.0,y=0.0,z=0.0):
+		if bone=="Body":bone="Chest"
+		var old: Vector3=motion.rotations.get(bone,Basis.IDENTITY).get_euler()
+		var mapped=Vector3(-x,y,-z)
+		motion.rotations[bone]=Basis.from_euler(old+mapped)
+	func _p(bone: String,x=0.0,y=0.0,z=0.0):
+		if bone=="Body":bone="Chest"
+		motion.translations[bone]=motion.translations.get(bone,Vector3.ZERO)+Vector3(-x,y,-z)
+
+var gait=preload("res://assets/rogue/scripts/locomotion.gd").new()
+var gait_adapter
+var local_velocity=Vector3.ZERO
+var clock=0.0
+func _init(m):
+	super(m)
+	gait_adapter=GaitAdapter.new(self)
+func update(delta,velocity,on_ground,vy,_attack,is_dodging):
+	dt=delta;speed=Vector2(velocity.x,velocity.z).length();grounded=on_ground;vertical=vy;dodge=is_dodging
+	local_velocity=model.global_basis.orthonormalized().inverse()*Vector3(velocity.x,0,velocity.z)
+	model.landing=move_toward(model.landing,0,delta*5.0)
+	clock+=delta;dirty=true
+func apply_locomotion():
+	var c=model.combat
+	var busy=c!=null and (c.is_attacking() or c.state==c.State.BEAM or c.is_charging())
+	var old=int(gait.phase/PI)
+	gait.apply(gait_adapter,{"grounded":grounded,"vertical":vertical,"landing":model.landing,"roll":1.0 if dodge else 0.0,"motionSpeed":speed,"localMotion":Vector3(-local_velocity.x,0,-local_velocity.z),"shot":1.0 if busy else 0.0},dt,clock,clampf(speed/5,0,1))
+	phase=gait.phase
+	if grounded and speed>1 and int(phase/PI)!=old:step_events+=1
+	# Rogue legs move as intact silhouettes. Knee/ankle bends belong to spells,
+	# rather than folding the baggy pants and boot wraps on every running step.
+	set_rot("Shin_L",Vector3.ZERO);set_rot("Shin_R",Vector3.ZERO)
+	set_rot("Foot_L",Vector3.ZERO);set_rot("Foot_R",Vector3.ZERO)
+	set_rot("Forearm_L",Vector3(-.13,0,0));set_rot("Forearm_R",Vector3(-.13,0,0))
+	set_rot("Hand_L",Vector3.ZERO);set_rot("Hand_R",Vector3.ZERO)
+	root_bob=0.0
+func reset():
+	super.reset();gait.reset();clock=0.0;local_velocity=Vector3.ZERO
+	blended.clear();translations.clear()
+
 func casting_pose(c) -> Variant:
 	if c.state==c.State.FIREBALL:
 		var t=c.progress()
