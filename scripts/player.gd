@@ -4,6 +4,9 @@ extends CharacterBody3D
 var game: Node
 var auto_attack_enabled=false
 var auto_attack_clock=0.0
+var auto_lock_target: Ninja
+var auto_lock_refresh=0.0
+var auto_lock_had_target=false
 var character_id=1
 var character_models: Dictionary={}
 var character_abilities: Dictionary={}
@@ -305,6 +308,8 @@ func _physics_process(delta):
 	if game.siege_building():
 		cancel_charge(true);attack_left=0;queued=false;quick_attacks.stop_coins()
 	if game.rogue_battle_mode:game.rogue_view.update_aim()
+	auto_lock_refresh=maxf(0,auto_lock_refresh-delta)
+	if auto_attack_enabled:auto_aim_target()
 	auto_attack_clock=maxf(0,auto_attack_clock-delta*attack_speed_multiplier())
 	if auto_attack_running() and auto_attack_clock<=0:
 		if character_id==1 and attack_left<=0 and not quick_attacks.active and quick_attacks.pending.is_empty() and not chain_pipe_combat.active:
@@ -792,13 +797,35 @@ func auto_attack_running()->bool:
 	if active_ability!=null and active_ability.blocks_movement():return false
 	return true
 
+func auto_aim_origin()->Vector3:
+	if character_id==2 and is_instance_valid(model):return model.hand_position("R")
+	return global_position+Vector3.UP*(1.05 if is_rogue_character() else 1.25)*growth_multiplier()
+
+func auto_aim_target(muzzle: Vector3=Vector3.INF)->Ninja:
+	if not auto_attack_enabled or not game.is_fire_siege() or not game.playing or game.paused or game.transitioning or hp<=0:return null
+	var lost=auto_lock_had_target and (not is_instance_valid(auto_lock_target) or auto_lock_target.dead or not game.camera_rig.camera.is_position_in_frustum(AttackChain.aim_point(auto_lock_target)))
+	if auto_lock_refresh<=0 or lost:
+		auto_lock_target=AttackChain.screen_target(self,auto_aim_origin(),120.0,true)
+		auto_lock_refresh=.15
+		auto_lock_had_target=is_instance_valid(auto_lock_target)
+	if muzzle.is_finite() and is_instance_valid(auto_lock_target):
+		var ray=PhysicsRayQueryParameters3D.create(muzzle,AttackChain.aim_point(auto_lock_target),1)
+		ray.exclude=[get_rid()]
+		if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty():
+			auto_lock_target=AttackChain.screen_target(self,muzzle,120.0,true)
+			auto_lock_had_target=is_instance_valid(auto_lock_target)
+	return auto_lock_target
+
 func set_auto_attack(enabled: bool):
 	auto_attack_enabled=enabled
 	auto_attack_clock=0
+	auto_lock_target=null;auto_lock_refresh=0;auto_lock_had_target=false
+	if enabled:auto_aim_target()
 	if not enabled and character_id==2 and is_instance_valid(musashi) and not Input.is_action_pressed("light_attack"):
 		musashi.release_primary()
-	game.toast("AUTO ATTACK ON · J to stop · Aim with the camera" if enabled else "AUTO ATTACK OFF · J to enable")
+	game.toast("AUTO LOCK ON · Closest visible enemy · J to stop" if enabled else "AUTO ATTACK OFF · J to enable")
 
 func reset_auto_attack():
+	auto_lock_target=null;auto_lock_refresh=0;auto_lock_had_target=false
 	auto_attack_enabled=false
 	auto_attack_clock=0

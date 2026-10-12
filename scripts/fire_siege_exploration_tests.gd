@@ -47,6 +47,30 @@ func run():
 	legacy.free()
 	if ResourceLoader.exists("res://scripts/fire_siege_exploration.gd"):await cache_rules()
 	finish()
+func discovery_rules(game):
+	game.encounters.exploration.reset()
+	var discoveries=game.world.get("exploration_discoveries")
+	check(discoveries is Array and discoveries.size()==6,"Each area has a hidden chest and lore discovery")
+	if discoveries is Array and discoveries.size()==6:
+		var run=game.encounters;var gold=run.money
+		for item in discoveries:
+			game.player.position=item.position+Vector3(0,0,1)
+			run.exploration.tick(.2);run.exploration.tick(.2)
+		check(is_equal_approx(run.money,gold+6),"Hidden chests grant two gold once; lore grants no gold")
+		check(run.exploration.discovery_count()==6 and run.exploration.collected_count()==0,"Discoveries are counted separately from supply caches")
+		run.exploration.reset();game.player.position=discoveries[0].position+Vector3(0,0,1)
+		run.phase="spawning";run.exploration.tick(.2)
+		check(run.exploration.discovery_count()==0,"Discoveries cannot collect during shrine defense")
+		run.phase="setup";game.paused=true;run.exploration.tick(.2);game.paused=false
+		check(run.exploration.discovery_count()==0,"Paused discoveries cannot collect")
+		game.player.hp=0;run.exploration.tick(.2);game.player.hp=game.player.max_hp
+		check(run.exploration.discovery_count()==0,"Dead heroes cannot collect discoveries")
+		var body=StaticBody3D.new();var shape=CollisionShape3D.new();var box=BoxShape3D.new();box.size=Vector3(4,3,.2);shape.shape=box;body.add_child(shape);game.add_child(body);body.position=discoveries[0].position+Vector3(0,1,.5)
+		await physics_frame;run.exploration.tick(.2)
+		check(run.exploration.discovery_count()==0,"Discoveries cannot collect through walls")
+		body.free();await physics_frame;run.exploration.tick(.2)
+		check(run.exploration.discovery_count()==1,"Reset makes a discovery collectable again")
+		run.begin();check(run.exploration.discovery_count()==0,"Starting a new run resets discoveries")
 func cache_rules():
 	var game=load("res://scenes/main.tscn").instantiate();game.smoke_test=true;root.add_child(game)
 	game.tuning.freeze_ai=true;game.tuning.invincible=true;game.start_mode("defense")
@@ -95,6 +119,7 @@ func cache_rules():
 				var hit=game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(path[i]+Vector3.UP*1.1,path[i+1]+Vector3.UP*1.1,1))
 				print("PATH_BLOCK ",path[i]," -> ",path[i+1]," fraction=",sweep[0]," collider=",hit.get("collider").get_path() if hit.has("collider") else "none"," point=",hit.get("position"))
 			check(sweep[0]>.99,"Hero-sized district path is clear")
+	await discovery_rules(game)
 	game.sound_library.cancel();game.music.stop();game.queue_free()
 	await process_frame
 func finish():

@@ -29,6 +29,7 @@ var defense_stations: Array=STATIONS.duplicate()
 var expanded_mode=false
 var layout_anchors: Dictionary={}
 var exploration_caches: Array[Dictionary]=[]
+var exploration_discoveries: Array[Dictionary]=[]
 
 func _ready():
 	if redesign_mode:beta_mode=true

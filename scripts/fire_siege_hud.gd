@@ -97,7 +97,7 @@ func draw(hud):
   hud.draw_line(compass-direction*10,compass+direction*10,teal,2,true)
   hud.draw_colored_polygon(PackedVector2Array([compass+direction*14,compass+direction*5+direction.orthogonal()*5,compass+direction*5-direction.orthogonal()*5]),teal)
  else:hud.draw_circle(compass,4,teal)
- centered(hud,139,"SHRINE · %dm   |   SUPPLIES %d / %d" % [roundi(guide.distance),run.exploration.collected_count(),game.world.exploration_caches.size()] if run.phase=="setup" else "SHRINE · %dm%s" % [roundi(guide.distance)," · UNDER ATTACK" if guide.under_attack else ""],13,teal if not guide.under_attack else red)
+ centered(hud,139,"SHRINE · %dm   |   SUPPLIES %d/%d · FINDS %d/%d" % [roundi(guide.distance),run.exploration.collected_count(),game.world.exploration_caches.size(),run.exploration.discovery_count(),game.world.exploration_discoveries.size()] if run.phase=="setup" else "SHRINE · %dm%s" % [roundi(guide.distance)," · UNDER ATTACK" if guide.under_attack else ""],13,teal if not guide.under_attack else red)
  # Bottom-center hero panel; every field reads the active hero.
  var info=hero_info(p);var panel=Vector2(w*.5-365,h-151)
  hud.draw_style_box(hud.panel_style(ink),Rect2(panel,Vector2(730,129)))
@@ -131,7 +131,7 @@ func draw(hud):
   var remaining=float(cooldowns.get("cutlass" if i==0 else "flintlock",0))
   hud.text(pos+Vector2(58,62),"FREE READY" if i==1 and energy_hero and energy>=100 else ("%.1fs" % remaining if remaining>.05 else "READY"),11,gold if i==1 and energy_hero and energy>=100 else muted)
  hud.text(panel+Vector2(366,121 if energy_hero else 110),"WASD Move · Shift Sprint · Space Jump · Esc Pause",12,muted)
- hud.text(Vector2(30,h-82),"J AUTO ATTACK: "+("ON" if p.auto_attack_running() else "PAUSED") if p.auto_attack_enabled else "J AUTO ATTACK: OFF",13,teal if p.auto_attack_enabled else muted)
+ hud.text(Vector2(30,h-82),"J AUTO LOCK: "+("ON" if p.auto_attack_running() else "PAUSED") if p.auto_attack_enabled else "J AUTO LOCK: OFF",13,teal if p.auto_attack_enabled else muted)
  hud.text(Vector2(30,h-58),"G Dogs   H Allies",13,muted)
  hud.text(Vector2(30,h-35),("Space ×2: Auto Fan · Hold Space: Slow fall" if p.auto_attack_enabled else "Space ×2 + LMB: Fan · Hold Space: Slow fall") if p.is_rogue_character() and p.active_ability.class_id=="ranger" else "1–5 / T  Hero abilities",12,muted)
  if not game.portal_hint.is_empty():centered(hud,h-177,game.portal_hint,16,gold)

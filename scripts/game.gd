@@ -134,6 +134,9 @@ func _ready():
 	elif "--auto-attack-tour" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/auto_attack_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--auto-lock-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/auto_lock_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
 	elif "--auto-attack-test" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/auto_attack_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
@@ -1498,6 +1501,10 @@ func camera_combat()->bool:
 	return tower_defense_mode and rogue_roster_mode and not rogue_battle_mode
 
 func attack_direction()->Vector3:
+	var locked=player.auto_aim_target()
+	if locked:
+		var offset=locked.global_position-player.global_position;offset.y=0
+		if offset.length_squared()>.01:return offset.normalized()
 	if rogue_battle_mode and is_instance_valid(rogue_view):
 		rogue_view.update_aim()
 		return rogue_view.aim_direction()
@@ -1507,6 +1514,8 @@ func crosshair_aim_enabled()->bool:
 	return camera_combat() and (OS.has_feature("crosshair_aim") or bool(ProjectSettings.get_setting("goemon/experimental_crosshair",false)))
 
 func crosshair_target(max_distance: float=120.0)->Vector3:
+	var locked=player.auto_aim_target()
+	if locked:return AttackChain.aim_point(locked)
 	var camera: Camera3D=camera_rig.camera
 	var center: Vector2=camera.get_viewport().get_visible_rect().size*.5
 	var origin: Vector3=camera.project_ray_origin(center)
@@ -1517,6 +1526,8 @@ func crosshair_target(max_distance: float=120.0)->Vector3:
 	return hit.position if not hit.is_empty() else origin+direction*max_distance
 
 func projectile_direction(origin: Vector3)->Vector3:
+	var locked=player.auto_aim_target(origin)
+	if locked:return (AttackChain.aim_point(locked)-origin).normalized()
 	if crosshair_aim_enabled():
 		var offset: Vector3=crosshair_target()-origin
 		var forward: Vector3=-camera_rig.camera.global_basis.z
@@ -1532,7 +1543,7 @@ func throw_coin(heavy: bool,charged: bool=false,power: float=1.0,ticket: Diction
 	var direction=projectile_direction(from)
 	var primary_range = player.BASIC_ATTACK_RANGE_MULTIPLIER if not heavy and not charged else 1.0
 	# Key 2 always selects the closest unobstructed enemy actually in the camera.
-	var target=AttackChain.screen_target(player,from,tuning.coin_speed*2.0*primary_range*player.growth_multiplier()-.5) if automatic or player.soft_target or player.growth_multiplier()>1.01 or (player.quick_attacks.active and player.quick_attacks.action==2) else null
+	var target=player.auto_aim_target(from) if player.auto_attack_enabled else (AttackChain.screen_target(player,from,tuning.coin_speed*2.0*primary_range*player.growth_multiplier()-.5) if automatic or player.soft_target or player.growth_multiplier()>1.01 or (player.quick_attacks.active and player.quick_attacks.action==2) else null)
 	if target and (automatic or (not rogue_battle_mode and not camera_combat())):direction=(AttackChain.aim_point(target)-from).normalized()
 	if not automatic:player.facing=Vector3(direction.x,0,direction.z).normalized()
 	if automatic:

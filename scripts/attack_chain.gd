@@ -70,7 +70,7 @@ func reset():
 static func aim_point(enemy: Ninja)->Vector3:
 	return enemy.global_position+Vector3.UP*(5.0 if enemy.ground_giant else (1.65 if enemy.boss else (1.1*Ninja.ELITE_SIZE if enemy.island_elite else 1.1)))
 
-static func screen_target(hero: Hero,origin: Vector3,max_distance: float)->Ninja:
+static func screen_target(hero: Hero,origin: Vector3,max_distance: float,camera_sight: bool=false)->Ninja:
 	var camera=hero.game.camera_rig.camera
 	var best: Ninja=null
 	var closest=max_distance*max_distance
@@ -79,6 +79,9 @@ static func screen_target(hero: Hero,origin: Vector3,max_distance: float)->Ninja
 		var point=aim_point(enemy)
 		var distance=origin.distance_squared_to(point)
 		if distance>closest or not camera.is_position_in_frustum(point):continue
+		if camera_sight:
+			var sight=PhysicsRayQueryParameters3D.create(camera.global_position,point,1)
+			if not hero.get_world_3d().direct_space_state.intersect_ray(sight).is_empty():continue
 		var ray=PhysicsRayQueryParameters3D.create(origin,point,1)
 		if not hero.get_world_3d().direct_space_state.intersect_ray(ray).is_empty():continue
 		closest=distance;best=enemy

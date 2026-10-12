@@ -373,6 +373,8 @@ func primary_range_scale() -> float:
 	return range_scale() * PRIMARY_RANGE_MULTIPLIER
 
 func ranger_ground_target(angle: float) -> Vector3:
+	var locked=hero.auto_aim_target()
+	if locked:return AttackChain.aim_point(locked)
 	if game.crosshair_aim_enabled():return game.crosshair_target()
 	if not game.camera_combat():
 		return aim
@@ -387,7 +389,7 @@ func ranger_ground_target(angle: float) -> Vector3:
 
 func projectile_direction(angle: float, origin: Vector3) -> Vector3:
 	var direction: Vector3 = front(angle)
-	if game.crosshair_aim_enabled():
+	if game.crosshair_aim_enabled() or hero.auto_aim_target()!=null:
 		return game.projectile_direction(origin).rotated(Vector3.UP,wrapf(angle-float(player.angle),-PI,PI))
 	if game.camera_combat():return direction
 	var offset: Vector3 = aim + Vector3.UP * 1.1 - origin
@@ -748,7 +750,10 @@ func _process(delta: float) -> void:
 func _update_aim() -> void:
 	if not is_instance_valid(game) or not is_instance_valid(hero):
 		return
-	if game.crosshair_aim_enabled():
+	var locked=hero.auto_aim_target()
+	if locked:
+		aim = AttackChain.aim_point(locked)
+	elif game.crosshair_aim_enabled():
 		aim = game.crosshair_target()
 	elif game.camera_combat():
 		aim = hero.global_position + game.attack_direction() * 7.5
