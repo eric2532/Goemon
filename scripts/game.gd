@@ -135,6 +135,9 @@ func _ready():
 	elif "--auto-attack-tour" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/auto_attack_tour.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
+	elif "--shrine-gate-unit-test" in OS.get_cmdline_user_args():
+		smoke_test=true
+		var suite=load("res://scripts/shrine_gate_unit_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
 	elif "--shrine-gate-test" in OS.get_cmdline_user_args():
 		smoke_test=true
 		var suite=load("res://scripts/shrine_gate_tests.gd").new();suite.game=self;add_child(suite);suite.call_deferred("run")
