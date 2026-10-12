@@ -25,6 +25,10 @@ func run():
   if not a.projectiles.is_empty():
    var wave=a.projectiles[0]
    check(wave.kind=="wave" and wave.mesh.get_child_count()>=4,"%s retains the visible energy wave" % mode)
+   var bounds=AABB()
+   for child in wave.mesh.get_children():
+    if child is MeshInstance3D:bounds=bounds.merge(child.transform*child.get_aabb())
+   check(bounds.size.y*wave.mesh.scale.y>.75,"%s wave has a visible upright silhouette from the gameplay camera" % mode)
   await frames(150)
   check(is_equal_approx(10000-near.hp,100),"%s shockwave hits the close enemy once" % mode)
   check(is_equal_approx(10000-far.hp,100),"%s piercing shockwave reaches the enemy 35 metres away" % mode)

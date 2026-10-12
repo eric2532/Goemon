@@ -540,7 +540,10 @@ func create_projectile(kind: String, color: Color = TEAL) -> Node3D:
 		"wave":
 			for setting in [[2.35, 0.45, 0.7], [2.12, 0.08, 0.92]]:
 				var blade: MeshInstance3D = _mesh(_blade(setting[0], setting[1], 1.55, 1, 0.08), color if setting[1] > 0.1 else Color("f5eaff"), setting[2])
-				blade.position.z = -1.6
+				# Face the moving energy crescent forward. A floor-flat ribbon
+				# disappears edge-on from the shoulder-height gameplay camera.
+				blade.rotation.x = PI / 2
+				blade.position = Vector3(0, 2.1, 0.15)
 				group.add_child(blade)
 			for side in [-1.0, 1.0]:
 				var fin: MeshInstance3D = _mesh(_spear(1.2, 0.12, 0.055), color, 0.5)
