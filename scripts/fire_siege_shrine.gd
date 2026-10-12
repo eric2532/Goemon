@@ -6,6 +6,7 @@ var generation=-1
 var wave=-1
 var slots: Array[Dictionary]=[]
 var waiting_points: Array[Vector3]=[]
+var free_waiting: Array[int]=[]
 var records: Dictionary={}
 var queue: Array[String]=[]
 var refresh_left=0.0
@@ -21,9 +22,16 @@ func configure(run: Node)->void:
 			for slot in slots:
 				if slot.position.distance_squared_to(point)<2.4*2.4:separated=false;break
 			if separated:slots.append({"position":point,"id":"","clock":Clock.new()})
-		if i%2==0:
-			var wait=center+Vector3(cos(angle)*10.5,0,sin(angle)*10.5)
-			if legal(wait):waiting_points.append(wait)
+	# Reserve distinct floor positions for the entire bounded wave, near rings first.
+	for ring in range(16):
+		var radius=10.5+ring*3.0
+		var count=floori(TAU*radius/2.8)
+		for i in range(count):
+			var angle=TAU*float(i)/count
+			var point=center+Vector3(cos(angle)*radius,0,sin(angle)*radius)
+			if waiting_points.size()<300 and legal(point):waiting_points.append(point)
+		if waiting_points.size()>=300:break
+	for i in range(waiting_points.size()-1,-1,-1):free_waiting.append(i)
 func legal(point: Vector3)->bool:
 	if not owner.game.world.playable_bounds.grow(-1.2).has_point(Vector2(point.x,point.z)):return false
 	var q=PhysicsShapeQueryParameters3D.new();q.shape=clearance;q.collision_mask=1;q.transform=Transform3D(Basis.IDENTITY,point+Vector3.UP*1.2)
@@ -38,21 +46,28 @@ func admit(enemy: Ninja)->bool:
 	if records.has(id):
 		if records[id].actor.get_ref()==enemy:return true
 		release_id(id)
-	var point: Vector3=waiting_points[queue.size()%waiting_points.size()] if not waiting_points.is_empty() else enemy.position
-	records[id]={"actor":weakref(enemy),"slot":-1,"arrived":false,"waiting":point};queue.append(id)
+	var record={"actor":weakref(enemy),"slot":-1,"arrived":false,"waiting":enemy.position,"waiting_index":-1}
+	reserve_waiting(record,enemy);records[id]=record;queue.append(id)
 	return true
+func reserve_waiting(record: Dictionary,enemy: Ninja)->void:
+	# A constrained custom map may have no remaining legal floor: hold in place.
+	var index=-1 if free_waiting.is_empty() else free_waiting.pop_back()
+	record.waiting_index=index;record.waiting=enemy.position if index<0 else waiting_points[index]
+func release_waiting(record: Dictionary)->void:
+	if record.waiting_index>=0:free_waiting.append(record.waiting_index);record.waiting_index=-1
 func release(enemy: Ninja)->void:
 	if is_instance_valid(enemy) and records.has(enemy.encounter_id) and records[enemy.encounter_id].actor.get_ref()==enemy:release_id(enemy.encounter_id)
 func release_id(id: String)->void:
 	if not records.has(id):return
 	var index: int=records[id].slot
 	if index>=0:slots[index].id="";slots[index].clock.reset()
+	release_waiting(records[id])
 	records.erase(id);queue.erase(id)
 func unseat(id: String)->void:
 	var record: Dictionary=records[id]
 	var slot: Dictionary=slots[record.slot]
 	slot.id="";slot.clock.reset();record.slot=-1;record.arrived=false
-	if not waiting_points.is_empty():record.waiting=waiting_points[queue.size()%waiting_points.size()]
+	reserve_waiting(record,record.actor.get_ref())
 	queue.append(id)
 func refresh()->void:
 	for id in records.keys():
@@ -60,7 +75,11 @@ func refresh()->void:
 	for i in range(slots.size()):
 		if not slots[i].id.is_empty() or queue.is_empty():continue
 		var id=queue.pop_front()
+		release_waiting(records[id])
 		slots[i].id=id;slots[i].clock.reset();records[id].slot=i
+	for id in queue:
+		if free_waiting.is_empty():break
+		if records[id].waiting_index<0:reserve_waiting(records[id],records[id].actor.get_ref())
 func tick(delta: float)->void:
 	if not is_instance_valid(owner):return
 	if owner.generation!=generation or owner.wave!=wave:clear();return
@@ -93,4 +112,4 @@ func attackers()->int:
 	return count
 func waiting_count()->int:return queue.size()
 func clear()->void:
-	slots.clear();waiting_points.clear();records.clear();queue.clear();refresh_left=0
+	slots.clear();waiting_points.clear();free_waiting.clear();records.clear();queue.clear();refresh_left=0

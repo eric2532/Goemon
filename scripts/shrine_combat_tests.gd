@@ -36,8 +36,46 @@ func run():
 			if clock.advance(dt,true,false):events+=1
 		check(events==4,"Frame partitions preserve attack cadence")
 	await slots_rules()
+	await queue_rules()
 	await integration_rules()
 	finish()
+func queue_unique(controller,actors: Array)->bool:
+	var occupied={}
+	for actor in actors:
+		if not controller.handles(actor):continue
+		var a=controller.assignment(actor)
+		if a.attacking:continue
+		if occupied.has(a.position):return false
+		occupied[a.position]=true
+	return true
+func queue_rules():
+	InputMap.erase_action("light_attack");InputMap.erase_action("heavy_attack")
+	var game=load("res://scenes/main.tscn").instantiate();game.smoke_test=true;root.add_child(game)
+	game.tuning.freeze_ai=true;game.start_mode("defense");game.encounters.set_physics_process(false);game.player.set_physics_process(false);await physics_frame
+	var owner=Owner.new();owner.game=game;game.add_child(owner)
+	var controller=load("res://scripts/fire_siege_shrine.gd").new();controller.configure(owner)
+	var actors: Array=[]
+	for i in range(301):
+		var actor=Ninja.new();actor.game=game;actor.defense_lane=1;actor.encounter_id="queue_%d" % i;actor.set_meta("siege_generation",10)
+		game.add_child(actor);actor.set_physics_process(false);owner.roster[actor.encounter_id]=actor;actors.append(actor)
+		if i<300:controller.admit(actor)
+	controller.tick(.2)
+	check(controller.waiting_count()==288 and queue_unique(controller,actors),"Full 300-enemy shrine queue has distinct waiting targets")
+	controller.release(actors[0]);controller.tick(.2);controller.admit(actors[300])
+	check(queue_unique(controller,actors),"Seat promotion and new arrival cannot alias a live waiting target")
+	actors[13].dead=true;controller.tick(.2);actors[13].dead=false;controller.admit(actors[13])
+	check(queue_unique(controller,actors),"Dead waiter releases its reservation before reuse")
+	actors[1].position=controller.assignment(actors[1]).position;controller.tick(.01);actors[1].position+=Vector3(5,0,0);controller.tick(.01)
+	check(not controller.assignment(actors[1]).attacking and queue_unique(controller,actors),"Knockback reacquires a distinct waiting reservation")
+	game.world.base_position=Vector3(158,0,220);controller.configure(owner)
+	for actor in actors:controller.admit(actor)
+	controller.tick(.2)
+	var legal=true
+	for actor in actors:
+		var point: Vector3=controller.assignment(actor).position
+		legal=legal and game.world.playable_bounds.grow(-1.2).has_point(Vector2(point.x,point.z))
+	check(legal and queue_unique(controller,actors),"Boundary shrine uses distinct legal overflow positions")
+	controller.clear();game.sound_library.cancel();game.music.stop();game.queue_free();await process_frame
 func integration_rules():
 	InputMap.erase_action("light_attack");InputMap.erase_action("heavy_attack")
 	var game=load("res://scenes/main.tscn").instantiate();game.smoke_test=true;root.add_child(game)

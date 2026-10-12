@@ -18,6 +18,7 @@ var director: Node
 var kind="arrow"
 var level=1
 var ice_effects
+var render_batches: Array[MeshInstance3D]=[]
 var target: Node3D
 var shells: Array=[]
 var blasts: Array=[]
@@ -55,6 +56,10 @@ var _work_clock=0.0
 var _mine_clock=0.0
 var _completion_left=0.0
 var _recoil_left=0.0
+var _feedback_initialized=false
+var _proximity_initialized=false
+var _proximity_affordable=false
+var _preview_completed=-1
 
 func _ready():
 	_generation=int(director.generation) if is_instance_valid(director) else 0
@@ -135,7 +140,7 @@ func _build_feedback():
 
 func _sync_mesh_visibility():
 	# Authored epsilon-scale hidden parts need not consume a draw call.
-	for mesh in _model_meshes:mesh.visible=mesh.global_basis.get_scale().length()>.025
+	for mesh in _model_meshes:mesh.visible=not mesh.get_meta("render_batched",false) and mesh.global_basis.get_scale().length()>.025
 
 func _ring_material(color: Color)->StandardMaterial3D:
 	var material=StandardMaterial3D.new();material.albedo_color=color
@@ -161,6 +166,9 @@ func _arc_mesh(fraction: float)->ArrayMesh:
 
 func _sync_preview():
 	visual_root.visible=completed or _selected or working
+	var preview_state=int(completed)
+	if _preview_completed==preview_state:return
+	_preview_completed=preview_state
 	for mesh in _model_meshes:
 		var original: Dictionary=_original_materials[mesh.get_instance_id()]
 		mesh.material_override=original.material if completed else _ghost_material
@@ -168,8 +176,12 @@ func _sync_preview():
 
 func set_build_progress(p: float,valid_work: bool):
 	if completed:return
-	progress=clampf(p,0,1);working=valid_work and progress<1
+	var next_progress=clampf(p,0,1)
+	var next_working=valid_work and next_progress<1
+	if _feedback_initialized and is_equal_approx(progress,next_progress) and working==next_working:return
+	progress=next_progress;working=next_working
 	if not is_instance_valid(visual_root):return
+	_feedback_initialized=true
 	# Preview the whole finished silhouette while the purchase is still unpaid.
 	_seek(build_player,build_clip,build_clip_duration)
 	_sync_mesh_visibility();_sync_preview()
@@ -182,8 +194,10 @@ func set_build_progress(p: float,valid_work: bool):
 	hammer.visible=working
 
 func set_proximity(selected: bool,affordable: bool):
+	if _proximity_initialized and _selected==selected and _proximity_affordable==affordable:return
 	_selected=selected
 	if not is_instance_valid(proximity_prompt):return
+	_proximity_initialized=true;_proximity_affordable=affordable
 	_sync_preview()
 	progress_root.visible=selected and not completed and progress>EPSILON
 	proximity_prompt.visible=selected and not completed and progress<=EPSILON
@@ -197,6 +211,7 @@ func complete_build():
 	set_build_progress(1,false)
 	completed=true;working=false;completion_events+=1
 	_sync_preview()
+	if kind=="arrow":render_batches=preload("res://scripts/fire_siege_structure_batch.gd").convert(self)
 	progress_root.hide();hammer.hide();proximity_prompt.hide()
 	_completion_left=1.0;_seek(completion_player,&"Complete_GoldPulse",0);completion_light.show()
 

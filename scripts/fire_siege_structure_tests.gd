@@ -249,13 +249,66 @@ func projectiles():
 	enemy=actor(Vector3(0,0,30));structure.tick(1,1)
 	check(structure.shells.is_empty() and enemy.hp==100,"A completed mine never performs tower attacks")
 
+func stable_feedback():
+	clear_fixture();var structure=tower();var starts=[0]
+	structure.build_player.animation_started.connect(func(_clip):starts[0]+=1)
+	for i in range(120):structure.set_proximity(false,true);structure.set_build_progress(0,false)
+	check(starts[0]==0,"Idle previews do not replay imported build animations")
+	structure.set_proximity(true,true);structure.set_build_progress(.4,true)
+	var active_starts=starts[0]
+	for i in range(120):structure.set_proximity(true,true);structure.set_build_progress(.4,true)
+	check(starts[0]==active_starts and structure.hammer.visible and structure.progress_root.visible,"Stable working feedback keeps its pose without replay")
+	structure.set_build_progress(.4,false)
+	check(not structure.hammer.visible and structure.progress_root.visible,"Stopping construction still updates feedback at the same progress")
+	structure.set_proximity(false,true);structure.set_build_progress(.4,false)
+	check(not structure.visual_root.visible and not structure.progress_root.visible,"Leaving stable work hides its preview and progress")
+
+func completed_rendering():
+	clear_fixture();var structure=tower();structure.complete_build()
+	check(structure.get("render_batches")!=null,"Completed tower exposes bounded material batches")
+	if structure.get("render_batches")==null:return
+	var original_triangles=0;var batch_triangles=0;var surface_count=0
+	var original_bounds=AABB();var first=true
+	var no_duplicates=true
+	for mesh in structure._model_meshes:
+		if structure.embedded_arrow.is_ancestor_of(mesh):continue
+		for s in range(mesh.mesh.get_surface_count()):original_triangles+=triangle_count(mesh.mesh,s)
+		var local=structure.visual_root.global_transform.affine_inverse()*mesh.global_transform
+		var bounds: AABB=local*mesh.mesh.get_aabb()
+		original_bounds=bounds if first else original_bounds.merge(bounds);first=false
+		no_duplicates=no_duplicates and not mesh.visible
+	check(no_duplicates,"Batched tower parts avoid duplicate rendering")
+	var batch_bounds=AABB();first=true
+	for mesh in structure.render_batches:
+		surface_count+=mesh.mesh.get_surface_count()
+		for s in range(mesh.mesh.get_surface_count()):batch_triangles+=triangle_count(mesh.mesh,s)
+		var bounds: AABB=(structure.visual_root.global_transform.affine_inverse()*mesh.global_transform)*mesh.mesh.get_aabb()
+		batch_bounds=bounds if first else batch_bounds.merge(bounds);first=false
+	check(surface_count<=32 and original_triangles==batch_triangles and batch_triangles>0,"Batches retain every triangle in at most thirty-two material surfaces")
+	check(original_bounds.position.distance_to(batch_bounds.position)<.001 and original_bounds.size.distance_to(batch_bounds.size)<.001,"Completed batches preserve the supplied tower silhouette")
+	var second=tower(Vector3(10,0,0));second.complete_build()
+	check(second.render_batches[0].mesh==structure.render_batches[0].mesh,"Completed towers share immutable merged geometry")
+	var enemy=actor(Vector3(15,0,20));await physics_frame
+	structure._fire_at(enemy)
+	check(structure.render_batches.any(func(m):return m.get_parent()==structure.launcher) and structure.shells.size()==1,"Batches follow the authored yaw while arrows still launch")
+	var recoil=structure.recoil.position;structure._tick_arrows(.1)
+	check(structure.recoil.position!=recoil and structure.render_batches.any(func(m):return m.get_parent()==structure.recoil),"Recoil geometry follows its original animated pivot")
+	structure.upgrade_to_ice()
+	check(structure.render_batches.all(func(m):return m.visible) and structure.ice_effects!=null,"Ice conversion keeps the complete batched tower visible")
+	var mounted=tower(Vector3(20,2.65,0));mounted.complete_build()
+	check(mounted.render_batches[0].mesh!=structure.render_batches[0].mesh,"Wall mount retains its separate complete geometry")
+
+func triangle_count(mesh: Mesh,surface: int)->int:
+	var arrays=mesh.surface_get_arrays(surface)
+	return (arrays[Mesh.ARRAY_INDEX].size() if arrays[Mesh.ARRAY_INDEX]!=null else arrays[Mesh.ARRAY_VERTEX].size())/3
+
 func run():
 	await geometry()
 	var available=ResourceLoader.exists("res://scripts/fire_siege_structure.gd")
 	check(available,"Structure visual and arrow adapter exists")
 	if available:
 		structure_script=load("res://scripts/fire_siege_structure.gd")
-		asset_contracts();construction();await projectiles()
+		asset_contracts();construction();stable_feedback();await completed_rendering();await projectiles()
 		if "--visual-structures" in OS.get_cmdline_user_args():await render_review()
 	if is_instance_valid(fixture):fixture.free()
 	print("FIRE_SIEGE_STRUCTURE_RESULT checks=",checks," failures=",failures)
