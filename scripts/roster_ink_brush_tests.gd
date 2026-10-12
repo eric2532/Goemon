@@ -8,7 +8,8 @@ func run():
  game.tuning=PrototypeTuning.DEFAULTS.duplicate();game.tuning.freeze_ai=true;game.tuning.invincible=true
  ProjectSettings.set_setting("goemon/experimental_crosshair",true)
  game.player.smoke_mode=true;game.start_mode("defense");pause_fixture_director();await frames(3)
- await blade_rules()
+ if "--feedback-only" not in OS.get_cmdline_user_args():await blade_rules()
+ await rogue_feedback_rules()
  game.show_main_menu();game.sound_library.cancel();game.music.stop();stop_audio(game)
  var shared=game.get_node_or_null("RogueSharedClassAudio")
  if is_instance_valid(shared):shared.cache.clear()
@@ -65,3 +66,49 @@ func blade_rules():
    "pause":game.show_pause()
    "death":game.player.hp=0;a.cancel()
   await frames(3);check(ribbons(a.fx).is_empty(),"%s clears brush" % mode)
+
+func ink_meshes(node: Node) -> Array:
+ var found: Array=[]
+ if node is MeshInstance3D and node.material_override is ShaderMaterial and node.material_override.shader==preload("res://assets/rogue/shaders/magic_ink_brush.gdshader"):found.append(node)
+ for child in node.get_children():found.append_array(ink_meshes(child))
+ return found
+
+func rogue_feedback_rules():
+ await fresh_class(3);var fx=game.player.active_ability.fx
+ for kind in ["bullet","ranger-arrow","ranger-power-arrow","star","fireball","bolt","crimson-arrow","wave"]:
+  var node=fx.create_projectile(kind,Color("65eac8"));game.add_child(node)
+  var meshes=ink_meshes(node);check(not meshes.is_empty(),"%s has painted projectile body/wake" % kind)
+  var valid_uv=true
+  for mesh_ in meshes:
+   if mesh_.mesh is ArrayMesh:
+    for surface in range(mesh_.mesh.get_surface_count()):
+     var arr=mesh_.mesh.surface_get_arrays(surface)
+     valid_uv=valid_uv and arr[Mesh.ARRAY_TEX_UV]!=null and arr[Mesh.ARRAY_TEX_UV].size()==arr[Mesh.ARRAY_VERTEX].size()
+  check(valid_uv,"%s pigment geometry has valid UVs" % kind)
+  var pose=node.transform
+  preload("res://assets/rogue/scripts/ink_brush_style.gd").animate(node,.15)
+  check(node.transform==pose and meshes.any(func(mesh_):return float(mesh_.material_override.get_shader_parameter("brush_clock"))>.1),"%s paint animation leaves flight transform unchanged" % kind)
+  node.queue_free()
+ for quality in [0,1,2]:
+  fx.clear();await frames(1);fx.apply_quality(quality);fx.reduced_flashes=true
+  for contact in range(300):fx.weapon_impact(Vector3.ZERO,0,"arrow",Color("75fc8c"),true)
+  var bursts=fx.items.filter(func(item):return item.kind=="impact")
+  check(bursts.size()==[3,8,12][quality],"300 contacts share quality %s impact frame cap" % quality)
+  check(bursts.all(func(item):return not ink_meshes(item.node).is_empty() and item.pieces.size()>=4),"Hits have a painted bright core and colored fragments")
+  fx.tick(1);await frames(1);check(fx.items.is_empty(),"Crowd feedback expires at quality %s" % quality)
+ for index in range(10):
+  for action_ in ["light_attack","heavy_attack","equip","surge"]:
+   await fresh_class(index);var a=game.player.active_ability;var shown=false
+   tap(action_)
+   for frame in range(65):
+    await frames(1)
+    shown=shown or not ink_meshes(a.fx).is_empty()
+    for pr in a.projectiles:shown=shown or not ink_meshes(pr.mesh).is_empty()
+   # Defensive skills can expose their new attack palette via their next attack.
+   if not shown:
+    tap("light_attack")
+    for frame in range(35):
+     await frames(1);shown=shown or not ink_meshes(a.fx).is_empty()
+     for pr in a.projectiles:shown=shown or not ink_meshes(pr.mesh).is_empty()
+   check(shown,"%s %s has brush appearance while retaining its action" % [a.class_id,action_])
+   check(a.fx.items.all(func(item):return item.kind!="impact"),"%s missed %s emits no confirmed-hit burst" % [a.class_id,action_])

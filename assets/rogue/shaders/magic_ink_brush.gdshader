@@ -7,6 +7,9 @@ uniform bool crimson = false;
 uniform bool custom_palette = false;
 uniform vec4 ink_tint : source_color = vec4(1.0, 0.7, 0.2, 1.0);
 uniform float brush_clock = 0.0;
+uniform bool use_vertex_alpha = false;
+varying float trail_alpha;
+void vertex() { trail_alpha = COLOR.a; }
 
 void fragment() {
  // Long bristle grooves and an uneven inner edge, painted along the swing.
@@ -30,5 +33,5 @@ void fragment() {
  }
  ALBEDO = pigment;
  EMISSION = pigment * (0.12 + edge * 2.2 + accent * 0.7) * energy;
- ALPHA = ink * dry_brush * taper * (0.78 + edge * 0.2) * fade;
+ ALPHA = ink * dry_brush * taper * (0.78 + edge * 0.2) * fade * (use_vertex_alpha ? trail_alpha : 1.0);
 }

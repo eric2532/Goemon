@@ -551,7 +551,7 @@ static func update_projectile(g, pr: Dictionary, dt: float) -> void:
 		return
 	var previous = pr.mesh.position
 	pr.life -= dt
-	if pr.kind=="wave":
+	if pr.mesh.has_meta("ink_materials"):
 		pr.inkClock=float(pr.get("inkClock",0.0))+dt
 		for material in pr.mesh.get_meta("ink_materials",[]):material.set_shader_parameter("brush_clock",pr.inkClock)
 	if pr.has("rangerFlight"):

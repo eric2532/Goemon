@@ -5,6 +5,7 @@ extends Node3D
 
 const GOLD: Color = Color("ffd487")
 const TEAL: Color = Color("6ef7dc")
+const Ink = preload("res://assets/rogue/scripts/ink_brush_style.gd")
 const BLADE_SHADER = preload("res://assets/rogue/shaders/blade_trail.gdshader")
 const MAX_EFFECTS: int = 700
 var quality: int = 1
@@ -70,7 +71,9 @@ func _material(color: Color, opacity: float = 1.0, additive: bool = true) -> Sta
 func _mesh(geometry: Mesh, color: Color, opacity: float = 1.0, additive: bool = true) -> MeshInstance3D:
 	var node: MeshInstance3D = MeshInstance3D.new()
 	node.mesh = geometry
-	node.material_override = _material(color, opacity, additive)
+	node.material_override = Ink.material(color,.42 if reduced_flashes else (1.0 if additive else .5),opacity)
+	node.material_override.set_meta("base_fade",opacity)
+	node.set_meta("ink_materials",[node.material_override])
 	node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	return node
 
@@ -79,8 +82,16 @@ func _array_mesh(vertices: PackedVector3Array, indices: PackedInt32Array, uvs: P
 	arrays.resize(Mesh.ARRAY_MAX)
 	arrays[Mesh.ARRAY_VERTEX] = vertices
 	arrays[Mesh.ARRAY_INDEX] = indices
-	if not uvs.is_empty():
-		arrays[Mesh.ARRAY_TEX_UV] = uvs
+	if uvs.is_empty():
+		# Every procedural pigment surface needs UVs, including thrust facets.
+		var bounds=AABB(vertices[0],Vector3.ZERO)
+		for point in vertices:bounds=bounds.expand(point)
+		var longitudinal=2 if bounds.size.z>bounds.size.x else 0
+		for point in vertices:
+			var u=(point[longitudinal]-bounds.position[longitudinal])/maxf(.001,bounds.size[longitudinal])
+			var v=(point.y-bounds.position.y)/maxf(.001,bounds.size.y)
+			uvs.append(Vector2(u,v if bounds.size.y>.001 else .8))
+	arrays[Mesh.ARRAY_TEX_UV] = uvs
 	var mesh: ArrayMesh = ArrayMesh.new()
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	return mesh
@@ -123,14 +134,16 @@ func _ring_geometry(radius: float, width: float, arc: float = TAU, segments: int
 		return geometry_cache[key]
 	var vertices: PackedVector3Array = PackedVector3Array()
 	var indices: PackedInt32Array = PackedInt32Array()
+	var uvs: PackedVector2Array = PackedVector2Array()
 	for i in range(segments + 1):
 		var a: float = float(i) / float(segments) * arc
 		vertices.append(Vector3(sin(a), cos(a), 0) * maxf(0.01, radius - width))
 		vertices.append(Vector3(sin(a), cos(a), 0) * radius)
+		uvs.append(Vector2(float(i)/segments,0));uvs.append(Vector2(float(i)/segments,1))
 		if i < segments:
 			var n: int = i * 2
 			indices.append_array(PackedInt32Array([n, n + 1, n + 2, n + 1, n + 3, n + 2]))
-	var mesh: ArrayMesh = _array_mesh(vertices, indices)
+	var mesh: ArrayMesh = _array_mesh(vertices, indices,uvs)
 	if geometry_cache.size() < 180:
 		geometry_cache[key] = mesh
 	return mesh
@@ -142,6 +155,8 @@ func _fade(node: Node, multiplier: float) -> void:
 			var color: Color = material.albedo_color
 			color.a = float(material.get_meta("base_alpha", 1.0)) * multiplier
 			material.albedo_color = color
+		elif material is ShaderMaterial and material.shader==preload("res://assets/rogue/shaders/magic_ink_brush.gdshader"):
+			material.set_shader_parameter("fade",float(material.get_meta("base_fade",1.0))*multiplier)
 	for child in node.get_children():
 		_fade(child, multiplier)
 
@@ -160,6 +175,7 @@ func _add(node: Node3D, life: float, kind: String, data: Dictionary = {}) -> Nod
 		if is_instance_valid(oldest.node):
 			oldest.node.queue_free()
 	add_child(node)
+	_register_ink(node)
 	data.merge({"node": node, "life": life, "max": life, "kind": kind}, true)
 	items.append(data)
 	if kind in ["impact","particle-burst","ring","streak","magic-brush"]:
@@ -287,11 +303,8 @@ func slash(pos: Vector3, angle: float, combo: int = 0, color: Color = GOLD, reac
 	group.rotation.z = float(options.get("plane", 0.0))
 	var shader_materials: Array = []
 	for settings in [[reach, preset.width, 0.96, 0, 0], [reach - preset.width * 0.66, preset.width * 0.24, 0.42, 0.055, -0.025], [reach + 0.045, 0.045, 0.4, 0.015, 0.045]]:
-		var material: ShaderMaterial = ShaderMaterial.new()
-		material.shader = BLADE_SHADER
-		material.set_shader_parameter("tint", color)
-		material.set_shader_parameter("strength", settings[2] * (0.42 if reduced_flashes else 1.0))
-		material.set_shader_parameter("delay", settings[3])
+		var material: ShaderMaterial = Ink.material(color,settings[2]*(.42 if reduced_flashes else 1.0),settings[2])
+		material.set_meta("base_fade",settings[2])
 		var mesh: MeshInstance3D = MeshInstance3D.new()
 		mesh.mesh = _blade(settings[0], settings[1], arc, direction, tilt)
 		mesh.material_override = material
@@ -339,20 +352,22 @@ func weapon_impact(pos: Vector3, angle: float, style: String = "sword", color: C
 	var strength: float = 1.35 if heavy else 1.0
 	var pieces: Array = []
 	var magic_ring: MeshInstance3D
-	if style in ["claymore","wave","samurai-cut"]:
+	if not style.is_empty():
 		var crimson: bool = style=="samurai-cut"
-		group.name="SamuraiInkImpact" if crimson else "MagicInkImpact"
+		var legacy: bool=style in ["claymore","wave","samurai-cut"]
+		group.name=("SamuraiInkImpact" if crimson else "MagicInkImpact") if legacy else "RosterInkImpact_"+style
 		for i in range(4 if quality==0 else 6):
 			var core: bool = i<2
-			var shard_color: Color = (Color("fff0d9") if crimson else Color("f5dfff")) if core else (Color("ff2848") if crimson else Color("9852f4"))
+			var pigment: Color=(Color("ff2848") if crimson else Color("9852f4")) if legacy else color
+			var shard_color: Color = pigment.lightened(.82) if core else pigment
 			var shard = _mesh(_diamond((1.45 if core else .75)*strength,.16 if core else .09),shard_color,.9 if core else .72)
 			var a: float = -.55+i*PI/3.0
 			shard.rotation.z=a
 			group.add_child(shard)
 			pieces.append({"node":shard,"drive":0.0,"velocity":Vector3(cos(a),sin(a),.12)*(0 if core else 2.4*strength)})
-		magic_ring=_mesh(_ring_geometry(1.0,.055,TAU,32),Color("ff4965") if crimson else Color("b37aff"),.65)
+		magic_ring=_mesh(_ring_geometry(1.0,.055,TAU,32),(Color("ff4965") if crimson else Color("b37aff")) if legacy else color,.65)
 		group.add_child(magic_ring)
-		particles(pos,Color("ff2848") if crimson else Color("ad72ff"),12 if heavy else 8,.85)
+		particles(pos,(Color("ff2848") if crimson else Color("ad72ff")) if legacy else color,12 if heavy else 8,.85)
 	elif style in ["pierce", "arrow", "crimson-arrow", "lance", "thrust"]:
 		for i in range(5):
 			var shard: MeshInstance3D = _mesh(_spear((1.4 if i == 0 else 0.65) * strength, 0.12 if i == 0 else 0.045, 0.035), Color("ecfcff") if i == 0 else color, 0.85 if i == 0 else 0.5)
@@ -476,12 +491,13 @@ func ranger_trail(pr: Dictionary, start: Vector3, end: Vector3) -> void:
 	var item: Dictionary = pr.get("rangerTrail", {})
 	if item.is_empty() or not is_instance_valid(item.node) or item.node.is_queued_for_deletion():
 		var mesh: MeshInstance3D = _mesh(ImmediateMesh.new(), pr.color)
-		mesh.material_override.vertex_color_use_as_albedo = true
+		mesh.material_override.set_shader_parameter("use_vertex_alpha",true)
 		item = {"points": [{"pos": start, "time": time}], "width": (.055 if pr.get("power", false) else .014) * pr.rangeScale}
 		_add(mesh, life, "ranger-trail", item)
 		pr.rangerTrail = item
 	item.life = life
 	item.points.append({"pos": end, "time": time})
+	while item.points.size()>32:item.points.pop_front()
 	while item.points.size() > 2 and item.points[1].time < time - life:
 		item.points.pop_front()
 	var geometry: ImmediateMesh = item.node.mesh
@@ -498,8 +514,10 @@ func ranger_trail(pr: Dictionary, start: Vector3, end: Vector3) -> void:
 		geometry.surface_set_color(Color(1, 1, 1, alpha))
 		for axis in [side, tangent.cross(side).normalized()]:
 			var offset: Vector3 = axis * item.width
-			for vertex in [a-offset, a+offset, b+offset, a-offset, b+offset, b-offset]:
-				geometry.surface_add_vertex(vertex)
+			var positions=[a-offset,a+offset,b+offset,a-offset,b+offset,b-offset]
+			var uvs=[Vector2(0,0),Vector2(0,1),Vector2(1,1),Vector2(0,0),Vector2(1,1),Vector2(1,0)]
+			for vertex in range(6):
+				geometry.surface_set_uv(uvs[vertex]);geometry.surface_add_vertex(positions[vertex])
 	geometry.surface_end()
 
 func lightning(a: Vector3, b: Vector3) -> void:
@@ -657,7 +675,16 @@ func create_projectile(kind: String, color: Color = TEAL) -> Node3D:
 			var tail: MeshInstance3D = _mesh(_spear(0.8, 0.16, 0.16), color, 0.34)
 			tail.rotation.y = PI
 			group.add_child(tail)
+	_register_ink(group)
 	return group
+
+func _register_ink(node: Node3D) -> Array:
+	var inks: Array=[]
+	if node is MeshInstance3D and node.material_override is ShaderMaterial and node.material_override.shader==preload("res://assets/rogue/shaders/magic_ink_brush.gdshader"):inks.append(node.material_override)
+	for child in node.get_children():
+		if child is Node3D:inks.append_array(_register_ink(child))
+	node.set_meta("ink_materials",inks)
+	return inks
 
 func tick(dt: float) -> void:
 	time += dt
@@ -670,6 +697,7 @@ func tick(dt: float) -> void:
 			items.remove_at(i)
 			continue
 		var node: Node3D = item.node
+		Ink.animate(node,dt)
 		# A new ribbon must reach one displayed frame before its short tail ages.
 		var age_delta: float = dt
 		if item.kind=="magic-brush" and not item.get("presented",false):
@@ -722,7 +750,7 @@ func tick(dt: float) -> void:
 				_fade(node, minf(1, remaining * 2.8))
 			"slash":
 				for material in item.materials:
-					material.set_shader_parameter("age", t)
+					material.set_shader_parameter("fade",float(material.get_meta("base_fade",1.0))*remaining)
 				node.scale = Vector3.ONE * (0.94 + minf(t * 2.8, 1) * 0.06)
 			"thrust":
 				var drive: float = 1.0 - pow(1.0 - minf(t / 0.47, 1), 3)

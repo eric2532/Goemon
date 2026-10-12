@@ -16,7 +16,13 @@ func fresh_class(index: int):
  p.active_ability.reset_run()
  await clear_enemies()
  game.reset_player_at(TEST_ORIGIN);p.hp=p.max_hp;p.invuln=0
- aim_world(p.position+Vector3(8,0,0));await frames(12);native_projectiles.clear()
+ aim_world(p.position+Vector3(8,0,0));await frames(12)
+ # Model/scale changes can lift a freshly reset collider. Start ground rules
+ # only after a real floor contact, rather than guessing twelve frames.
+ for settle in range(45):
+  if p.is_on_floor() and absf(p.velocity.y)<.05:break
+  await frames(1)
+ native_projectiles.clear()
 
 func run():
  visual="--fire-siege-controls-visual" in OS.get_cmdline_user_args()
