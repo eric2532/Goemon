@@ -8,6 +8,10 @@ const BUILD_RANGE=3.5
 var runtime=State.new()
 var redesign_mode=true
 var mine_states: Array=[]
+var gate_state: Dictionary={}
+var gate_hp: float=0.0
+var gate_max_hp: float=5000.0
+var gate_position: Vector3=Vector3(0,0,180)
 # The first mine remains available to existing tour and diagnostic scripts.
 var mine_built: bool:
 	get:return not mine_states.is_empty() and mine_states[0].level>0
@@ -42,6 +46,8 @@ func reset():
 		if is_instance_valid(site.get("cannon")):site.cannon.queue_free()
 	for mine in mine_states:
 		if is_instance_valid(mine.get("cannon")):mine.cannon.queue_free()
+	if not gate_state.is_empty() and is_instance_valid(gate_state.get("cannon")):gate_state.cannon.queue_free()
+	gate_state.clear();gate_hp=0
 	runtime.reset();active=false;enabled=true;elapsed=0;wave=0;pending=0;alive_count=0
 	total_spawned=0;total_scheduled=0;total_skipped=0;money=10.0
 	base_max_hp=50 if hard_mode else 100;base_hp=base_max_hp
@@ -59,6 +65,18 @@ func _create_sites():
 		site_states.append({"level":0,"cannon":structure,"kind":"arrow","progress":0.0})
 	for site in game.world.mine_sites:
 		mine_states.append({"level":0,"cannon":_new_structure("mine",site.position),"kind":"mine","progress":0.0})
+	if game.world.get("custom_map")!=true and game.world.get("expanded_mode")==true and game.world.layout_anchors.has("gate"):
+		gate_position=game.world.layout_anchors.gate
+		var structure=preload("res://scripts/fire_siege_gate_structure.gd").new()
+		structure.game=game;structure.director=self;structure.position=gate_position;add_child(structure)
+		gate_state={"level":0,"cannon":structure,"kind":"gate","progress":0.0}
+
+func gate_alive()->bool:
+	return not gate_state.is_empty() and gate_state.level>0 and gate_hp>0 and gate_state.cannon.completed
+func _build_states()->Array:
+	return site_states+mine_states+([] if gate_state.is_empty() else [gate_state])
+func _build_sites()->Array:
+	return game.world.cannon_sites+game.world.mine_sites+([] if gate_state.is_empty() else [{"position":gate_position,"footprint":Vector2(6,.6)}])
 
 func mine_count()->int:
 	var count=0
@@ -123,6 +141,7 @@ func tick(delta: float):
 		if is_instance_valid(site.cannon):site.cannon.tick(dt,powered_delta if site.level>0 else 0.0)
 	for mine in mine_states:
 		if is_instance_valid(mine.cannon):mine.cannon.tick(dt,0)
+	if not gate_state.is_empty():gate_state.cannon.tick(dt)
 	update_build_input(dt)
 	update_start_input(dt,Input.is_action_pressed("siege_start"))
 	_settle_wave()
@@ -268,7 +287,7 @@ func _restore_hero():
 
 func interrupt_inputs():
 	runtime.interrupt_inputs();building=false;build_site=-1;build_progress=0
-	for state in site_states+mine_states:
+	for state in _build_states():
 		if is_instance_valid(state.cannon):
 			state.cannon.set_build_progress(state.progress,false)
 			state.cannon.set_proximity(false,false)
@@ -276,8 +295,8 @@ func interrupt_inputs():
 func nearest_site()->int:
 	if not is_instance_valid(game) or not _living_hero():return -1
 	var closest=-1;var best=BUILD_RANGE*BUILD_RANGE
-	var states=site_states+mine_states
-	var sites=game.world.cannon_sites+game.world.mine_sites
+	var states=_build_states()
+	var sites=_build_sites()
 	for index in range(states.size()):
 		if states[index].level>0:continue
 		var center: Vector3=sites[index].position
@@ -314,29 +333,36 @@ func update_build_input(delta: float,_held: bool=false):
 	var upgrade=nearest_upgrade_site()
 	building=index>=0 and money+0.000000001>=site_cost(index)
 	build_site=index;build_progress=0
-	var states=site_states+mine_states
+	var states=_build_states()
 	for i in range(states.size()):
 		var state: Dictionary=states[i]
 		var mine=state.kind=="mine"
-		var price=MINE_COST if mine else ARROW_COST
+		var barrier=state.kind=="gate"
+		var price=10 if barrier else (MINE_COST if mine else ARROW_COST)
 		state.cannon.set_proximity(i==nearby,money+0.000000001>=price)
-		if not mine and state.level>0:state.cannon.set_upgrade_proximity(i==upgrade,money+0.000000001>=10)
+		if not mine and not barrier and state.level>0:state.cannon.set_upgrade_proximity(i==upgrade,money+0.000000001>=10)
 		if state.level>0:continue
 		var working=i==index and building
-		var step=runtime.build_step(state.progress,delta,working,money+0.000000001>=price,4.0 if mine else 3.0)
+		var step: Dictionary
+		if barrier and state.progress>=1:
+			# A paid completion may be deferred by occupancy. Retry only while
+			# eligible; leaving the site retains ordinary progress decay.
+			step={"progress":1.0 if working else maxf(0,1.0-.25*maxf(0,delta)),"completed":working}
+		else:step=runtime.build_step(state.progress,delta,working,money+0.000000001>=price,4.0 if mine else 3.0)
 		state.progress=step.progress
-		if step.completed and money+0.000000001>=price:
+		if step.completed and money+0.000000001>=price and (not barrier or state.cannon.can_complete_build()):
 			money=maxf(0,money-price);state.level=1
-			if not mine:cannons.append(state.cannon)
+			if not mine and not barrier:cannons.append(state.cannon)
+			if barrier:gate_hp=gate_max_hp
 			state.cannon.complete_build();building=false
-			_banner("MINE READY · +2 gold/s while enemies are spawning" if mine else "ARROW TOWER READY · 50 damage · 0.10 gold/s upkeep",3)
+			_banner("GATE READY · 5000 HP · Shoot through the door" if barrier else "MINE READY · +2 gold/s while enemies are spawning" if mine else "ARROW TOWER READY · 50 damage · 0.10 gold/s upkeep",3)
 		state.cannon.set_build_progress(state.progress,working and state.level==0)
 		if i==index:build_progress=state.progress
 
 func site_cost(index: int)->int:
-	var states=site_states+mine_states
+	var states=_build_states()
 	if index<0 or index>=states.size() or states[index].level>0:return 0
-	return MINE_COST if states[index].kind=="mine" else ARROW_COST
+	return 10 if states[index].kind=="gate" else MINE_COST if states[index].kind=="mine" else ARROW_COST
 
 func _upgrade_access(index: int,required_level: int=1)->float:
 	if not _running() or not _living_hero() or base_hp<=0 or not game.player.is_on_floor():return INF
@@ -386,7 +412,8 @@ func interaction_prompt()->String:
 	var index=nearest_site()
 	if index<0:return "Approach a structure to build · Arrow 5 gold · Mine 10 gold"
 	var cost=site_cost(index)
-	var label="MINE" if index>=site_states.size() else "ARROW TOWER"
+	var label="GATE" if _build_states()[index].kind=="gate" else "MINE" if index>=site_states.size() else "ARROW TOWER"
+	if label=="GATE" and gate_state.progress>=1 and not gate_state.cannon.can_complete_build():return "OPENING OCCUPIED · Clear enemies before construction completes"
 	return "STAND NEARBY · %s · %d gold%s" % [label,cost," · Need %.2f more" % (cost-money) if money<cost else ""]
 
 func shrine_guidance()->Dictionary:

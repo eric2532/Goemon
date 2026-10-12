@@ -58,7 +58,7 @@ func draw(hud):
  var ink=Color(.025,.055,.075,.92);var gold=Color("f5d58c");var muted=Color("b6cbc8")
  var red=Color("ff9985");var teal=Color("91dfbe")
  var left=Vector2(26,25)
- hud.draw_style_box(hud.panel_style(ink),Rect2(left,Vector2(340,180)))
+ hud.draw_style_box(hud.panel_style(ink),Rect2(left,Vector2(340,206)))
  hud.text(left+Vector2(18,27),"FIRE SIEGE  /  "+("HARD" if run.hard_mode else "BETA"),15,gold)
  hud.text(left+Vector2(18,64),"%.2f GOLD" % run.money,28,gold)
  var shown_wave=mini(10,run.wave+1) if run.phase=="setup" else run.wave
@@ -71,6 +71,7 @@ func draw(hud):
  hud.draw_rect(Rect2(left+Vector2(18,133),Vector2(304,9)),Color("384448"))
  hud.draw_rect(Rect2(left+Vector2(18,133),Vector2(304*float(run.base_hp)/run.base_max_hp,9)),teal if run.base_hp>20 else red)
  hud.text(left+Vector2(18,164),"SHRINE HEALTH  %d / %d" % [run.base_hp,run.base_max_hp],14,red if run.shrine_attacker_count()>0 else teal)
+ if not run.gate_state.is_empty():hud.text(left+Vector2(18,190),"GATE  %d / 5000 HP" % run.gate_hp if run.gate_alive() else "GATE · Build/rebuild: 10 gold",14,teal if run.gate_alive() else muted)
  var right=Vector2(w-328,25)
  hud.draw_style_box(hud.panel_style(ink),Rect2(right,Vector2(302,170)))
  hud.text(right+Vector2(18,27),"BUILD YOUR DEFENSE",15,gold)
