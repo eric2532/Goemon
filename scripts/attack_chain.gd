@@ -76,6 +76,7 @@ static func screen_target(hero: Hero,origin: Vector3,max_distance: float)->Ninja
 	var closest=max_distance*max_distance
 	for enemy in hero.game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead:continue
+		if hero.game.has_method("forest_enemy_visible") and not hero.game.forest_enemy_visible(enemy):continue
 		var point=aim_point(enemy)
 		var distance=origin.distance_squared_to(point)
 		if distance>closest or not camera.is_position_in_frustum(point):continue

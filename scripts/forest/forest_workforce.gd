@@ -18,16 +18,17 @@ func count_job(id: int)->int:
 	for w in m.workers.values():
 		if w.job==id and w.state!="wounded":count+=1
 	return count
+func capacity(b: Dictionary)->int:
+	match b.kind:
+		"mine":return 3 if m.deposits.get(b.cell,0)>0 else 0
+		"tower":return 3
+		"wall","gate":return 2 if b.hp<b.max_hp and m.gold>0 else 0
+	return 0
 func jobs_near(p: Vector3)->Array:
 	var jobs=[]
 	for b in m.buildings.values():
 		if m.center(b).distance_to(p)>30:continue
-		var cap=0
-		match b.kind:
-			"mine":cap=3 if m.deposits.get(b.cell,0)>0 else 0
-			"tower":cap=3
-			"wall","gate":cap=2 if b.hp<b.max_hp and m.gold>0 else 0
-		if count_job(b.id)<cap:jobs.append(b)
+		if count_job(b.id)<capacity(b):jobs.append(b)
 	return jobs
 func _assign(w: Dictionary,b: Dictionary)->bool:
 	var start=m.nearest_open(m.cell_of(w.pos))
@@ -36,11 +37,25 @@ func _assign(w: Dictionary,b: Dictionary)->bool:
 	w.job=b.id;w.follow=false;w.path=[];w.destination=Vector2i(-999,-999)
 	w.state="deliver" if w.cargo>0 else "travel";w.timer=0.0
 	return true
-func assign_nearest(w: Dictionary,p: Vector3):
+func nearest_job(w: Dictionary,p: Vector3,reservations: Dictionary={})->Dictionary:
 	var best={};var distance=INF
 	for b in jobs_near(p):
+		if count_job(b.id)+reservations.get(b.id,0)>=capacity(b):continue
 		var path=m.route(m.nearest_open(m.cell_of(w.pos)),m.entry(b))
 		if not path.is_empty() and path.size()<distance:best=b;distance=path.size()
+	return best
+func preview_jobs(p: Vector3)->Dictionary:
+	var result={"mine":0,"tower":0,"repair":0,"idle":0};var reservations={}
+	for w in m.workers.values():
+		if not w.follow:continue
+		var b=nearest_job(w,p,reservations)
+		if b.is_empty():result.idle+=1
+		else:
+			reservations[b.id]=reservations.get(b.id,0)+1
+			result["repair" if b.kind in ["wall","gate"] else b.kind]+=1
+	return result
+func assign_nearest(w: Dictionary,p: Vector3):
+	var best=nearest_job(w,p)
 	w.follow=false;w.job=-1
 	if best.is_empty():
 		w.state="move";w.target=m.nearest_open(m.cell_of(p));w.path=[];w.destination=Vector2i(-999,-999)
@@ -98,6 +113,10 @@ func recover():
 		if w.state=="wounded":
 			w.hp=w.max_hp;w.pos=m.point(m.nearest_open(m.shrine_entry()+Vector2i(w.id%5-2,2)))
 			w.state="idle";w.job=-1;w.saved_job=-1
+func threatened(p: Vector3)->bool:
+	for e in m.enemies.values():
+		if e.hp>0 and p.distance_squared_to(e.pos)<144:return true
+	return false
 func tick(delta: float,hero: Vector3):
 	if held:rally(true,hero)
 	for w in m.workers.values():
@@ -113,8 +132,10 @@ func tick(delta: float,hero: Vector3):
 			w.safe=0.0 if threat else w.safe+delta
 			if w.safe>3:
 				var saved: Dictionary=m.buildings.get(w.saved_job,{})
-				if not saved.is_empty() and jobs_near(m.center(saved)).has(saved):_assign(w,saved)
-				else:w.state="idle"
+				if saved.is_empty():w.state="idle"
+				elif not threatened(m.point(m.entry(saved))) and not threatened(m.center(saved)):
+					if jobs_near(m.center(saved)).has(saved):_assign(w,saved)
+					else:w.state="idle"
 			continue
 		if w.state=="follow":
 			var offset=Vector2i(w.id%3-1,1+w.id%2)

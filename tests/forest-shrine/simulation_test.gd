@@ -17,7 +17,12 @@ func run():
 	check(m.gold==initial,"Waiting in preparation never produces gold")
 	check(m.start_wave(),"A ready settlement can start the first wave")
 	m.waves.spawn_clock=10000
-	m.rally(true,Vector3(0,0,18));m.rally(false,Vector3(-24,0,18))
+	m.rally(true,Vector3(0,0,18))
+	check(m.workforce.has_method("preview_jobs"),"Live commands preview available jobs before release")
+	if not m.workforce.has_method("preview_jobs"):finish();return
+	var preview=m.workforce.preview_jobs(Vector3(-24,0,18))
+	check(preview.mine==3 and preview.idle==3 and m.workers.values().all(func(w):return w.follow),"Preview respects capacity without changing selection or assigning jobs")
+	m.rally(false,Vector3(-24,0,18))
 	var assigned=0
 	for w in m.workers.values():
 		if w.job==mine.id:assigned+=1
@@ -61,5 +66,26 @@ func run():
 	var raider=m.enemies.values()[0];raider.pos=Vector3(0,0,48)
 	for i in range(1100):m.tick(.1,Vector3(120,0,120))
 	check(m.shrine().hp<1000,"Enemies breach blocking defenses and reach a fully enclosed shrine")
+	m.reset(42);m.start_wave()
+	for sector in range(8):
+		m.waves.sectors=[sector];m.waves.pending=10;m.enemies.clear();m.waves.spawn_one()
+		if not m.enemies.is_empty():
+			check(not m.ALLIED_REGION.has_point(m.cell_of(m.enemies.values()[0].pos)),"Enemies enter beyond friendly settlement bounds in sector %d"%sector)
+	m.reset(42);var threatened_mine=m.build("mine",Vector2i(-5,1),0);m.workforce.assign_idle(threatened_mine.id);m.start_wave()
+	m.waves.spawn_one();var threat=m.enemies.values()[0];threat.pos=m.point(m.entry(threatened_mine))
+	var fleeing=m.workers.values()[0];fleeing.pos=threat.pos;m.damage_worker(fleeing.id,1)
+	var returned_to_threat=false
+	for i in range(80):
+		m.workforce.tick(.1,Vector3.ZERO)
+		if fleeing.job==threatened_mine.id:returned_to_threat=true
+	check(not returned_to_threat,"Retreat does not send a worker back to a workplace still under attack")
+	m.reset(42)
+	for wave_index in range(5):
+		check(m.start_wave(),"Each prepared wave can start")
+		for step in range(200):
+			m.waves.spawn_clock=0;m.tick(.1,Vector3(0,0,18))
+			for id in m.enemies.keys():m.damage_enemy(id,10000)
+			if m.phase!="wave":break
+	check(m.phase=="victory" and m.wave==5 and not m.start_wave(),"The fifth finite wave ends in victory with no sixth wave")
 	finish()
 func finish():print("FOREST_SIMULATION_RESULT checks=%d failures=%d"%[checks,failures]);quit(1 if failures else 0)

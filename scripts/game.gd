@@ -70,6 +70,9 @@ var tuning=PrototypeTuning.DEFAULTS.duplicate()
 var lab_spawn_id=0
 
 func _ready():
+	if "--forest-shrine" in OS.get_cmdline_user_args() and not get_tree().has_meta("forest_return"):
+		get_tree().change_scene_to_file.call_deferred("res://scenes/forest_shrine.tscn")
+		return
 	process_mode=Node.PROCESS_MODE_ALWAYS
 	setup_inputs()
 	load_settings()
@@ -307,7 +310,7 @@ func setup_inputs():
 		event.physical_keycode=keys[action]
 		InputMap.action_add_event(action,event)
 	for pair in [["light_attack",MOUSE_BUTTON_LEFT],["heavy_attack",MOUSE_BUTTON_RIGHT]]:
-		InputMap.add_action(pair[0])
+		if not InputMap.has_action(pair[0]):InputMap.add_action(pair[0])
 		var event=InputEventMouseButton.new()
 		event.button_index=pair[1]
 		InputMap.action_add_event(pair[0],event)
@@ -589,6 +592,9 @@ func show_main_menu():
 	var siege_button=button_at(root,"ROGUE SIEGE  /  Tower Defense",Vector2(650,572),show_defense_setup.bind(true),500)
 	siege_button.name="RogueSiegeButton"
 	label_at(root,"Goemon + 10 Rogue fighters · Cursor combat",Vector2(662,635),16,Color("d8e6df"))
+	var forest_button=button_at(root,"FOREST SHRINE  /  Build & survive",Vector2(650,706),func(): get_tree().change_scene_to_file("res://scenes/forest_shrine.tscn"),500)
+	forest_button.name="ForestShrineButton"
+	label_at(root,"Plan defenses · Rally workers · Explore the forest",Vector2(662,769),16,Color("d8e6df"))
 	button_at(root,"Settings",Vector2(76,706),func(): show_settings(false),220)
 	button_at(root,"Quit",Vector2(312,706),quit_clean,224)
 	label_at(root,"PROCEDURAL WORLD  /  ORIGINAL CHARACTER  /  GODOT 4",Vector2(76,822),12,Color("c4d6d2"))

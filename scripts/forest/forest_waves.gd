@@ -19,7 +19,9 @@ func begin()->bool:
 	return true
 func spawn_one():
 	var angle=sectors[rng.randi_range(0,sectors.size()-1)]*TAU/8.0+rng.randf_range(-.09,.09)
-	var c=Vector2i(roundi(sin(angle)*37),roundi(cos(angle)*37))
+	var direction=Vector2(sin(angle),cos(angle))
+	direction*=39.0/maxf(absf(direction.x),absf(direction.y))
+	var c=Vector2i(roundi(direction.x),roundi(direction.y))
 	c=m.nearest_open(c,true)
 	if not m.REGION.has_point(c) or m.visible_at(m.point(c)):return
 	var id=m.next_id;m.next_id+=1

@@ -36,6 +36,13 @@ func run():
 	check(m.explored_at(Vector3(84,0,0)) and not m.visible_at(Vector3(84,0,0)),"Exploration persists after current sight moves away")
 	m.reset(42)
 	check(not m.explored_at(Vector3(84,0,0)),"New runs clear fog memory")
+	check(m.has_method("build_wall_line"),"Wall drags are an atomic transaction")
+	if m.has_method("build_wall_line"):
+		m.gold=15
+		check(m.build_wall_line([Vector2i(4,4),Vector2i(5,4)],0).is_empty() and m.gold==15,"An unaffordable wall line places nothing")
+		m.gold=100
+		check(m.build_wall_line([Vector2i(4,4),Vector2i(5,4)],0).size()==2 and m.gold==80,"A valid wall line charges its complete previewed price")
+	check(m.entry({"kind":"mine","cell":Vector2i(4,4),"rotation":1})==Vector2i(6,5),"Rotating a mine moves its worker entrance to the rotated front")
 	finish()
 func finish():
 	print("FOREST_MODEL_RESULT checks=%d failures=%d"%[checks,failures]);quit(1 if failures else 0)

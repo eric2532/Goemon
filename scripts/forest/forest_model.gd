@@ -68,7 +68,8 @@ func center(b: Dictionary)->Vector3:
 	return point(b.cell)+Vector3(size_.x-1,0,size_.y-1)*CELL*.5
 func entry(b: Dictionary)->Vector2i:
 	var size_=dimensions(b.kind,b.rotation)
-	return b.cell+Vector2i(size_.x/2,size_.y)
+	var entrances=[Vector2i(size_.x/2,size_.y),Vector2i(size_.x,size_.y/2),Vector2i(size_.x/2,-1),Vector2i(-1,size_.y/2)]
+	return b.cell+entrances[b.rotation%4]
 func shrine()->Dictionary:return buildings.get(1,{})
 func shrine_entry()->Vector2i:return Vector2i(0,2)
 func _make_building(kind: String,c: Vector2i,rotation: int)->Dictionary:
@@ -217,3 +218,17 @@ func damage_worker(id: int,amount: float):
 	if workforce!=null:workforce.damage(id,amount)
 func damage_enemy(id: int,amount: float):
 	if phase=="wave" and enemies.has(id):enemies[id].hp=maxf(0,enemies[id].hp-amount)
+
+func build_wall_line(cells: Array,rotation: int)->Array:
+	if phase!="preparing" or cells.is_empty() or cells.size()>40 or gold<cells.size()*COSTS.wall:return []
+	var saved_buildings=buildings.duplicate(true);var saved_occupancy=occupancy.duplicate()
+	var saved_explored=explored.duplicate();var saved_gold=gold;var saved_id=next_id;var saved_revision=revision
+	var added=[]
+	for c in cells:
+		var b=build("wall",c,rotation)
+		if b.is_empty():
+			buildings=saved_buildings;occupancy=saved_occupancy;explored=saved_explored
+			gold=saved_gold;next_id=saved_id;revision=saved_revision
+			rebuild_navigation();update_vision(hero_position);return []
+		added.append(b)
+	return added

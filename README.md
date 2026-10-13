@@ -2,6 +2,18 @@
 
 A fully local Godot 4.6.1 action game: explore 784 floating islands, grow stronger in battle, and reach the original Tidefall Sanctuary below.
 
+## Forest Shrine · Build & survive
+
+Choose **FOREST SHRINE / Build & survive** on the main menu. Protect one central shrine through five waves arriving from random forest edges. The new battlefield is **480 × 480 metres**, with a **336 × 336 metre settlement area**, a broad central clearing, and **two gold deposits beside the shrine**.
+
+Between waves, use the overhead view of the actual battlefield: select a parchment building card, click the grid to place, **R** to rotate, drag to draw wall lines, and right-click to cancel. **WASD / middle-drag** pans; the wheel zooms. Select a building to assign or recall workers, repair it, or remove it for half its cost. Gates admit Goemon and workers; enemies attack obstructing defenses. Start with six workers and 400 gold. A mine costs 150, a tower 120, a wall 10, a gate 30, and a recruit 50. New mines and towers automatically take available idle workers.
+
+During battle, **WASD** moves, **LMB / RMB** attacks, **C** evades, and **hold V** gathers workers inside a 30-metre circle. Lead them near a job and release V: they reserve the closest reachable local mine, tower, or damaged wall, with surplus workers waiting nearby. Each mine and tower holds three workers; repairs hold two. Workers carry mined gold back to the shrine, spend gold repairing walls, or shoot from towers. They retreat from danger; wounded workers sit out the wave and recover during preparation. Construction is available only between waves. **Escape** pauses or resumes.
+
+Unexplored ground stays hidden. Exploration remembers terrain; enemies require current shared vision from Goemon, healthy workers, or buildings. Tree cover blocks ground sight, and watchtowers see over the canopy. Complete five waves to win; Goemon's death or the shrine's destruction ends the run.
+
+This first version uses a fixed forest layout, two finite starter deposits, procedural timber structures and workers, and illustrated interface icons. Economy, enemy pressure, and camera scale are initial playtest values. Run directly with `godot --path . -- --forest-shrine`. See [validation and controls](tests/forest-shrine/README.md).
+
 ## Environment art
 
 The colorful Edo environment reskin uses 13 original editable Blender assets and 128-pixel painted surface textures across Tidefall Sanctuary and the three dormant regions. Characters, gameplay, UI and collision remain unchanged. See [assets, screenshots and validation](docs/environment-reskin/README.md).
