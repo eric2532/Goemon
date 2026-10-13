@@ -38,7 +38,7 @@
 ### Task 2: Definitive native release
 **Files:** README.md, project.godot, export_presets.cfg, native build artifacts.
 **Interfaces:** normal main entry -> Forest title -> roster -> overhead preparation -> crosshair battle; macOS app v2.54.0.
-- [ ] Verify normal launch/return/retry exposes only Forest and latest twelve-character roster.
-- [ ] Inspect rendered battle, preparation and picker, confirming crosshair perspective visually.
-- [ ] Fresh review against latest combat baseline and Forest behavior; fix important findings with regressions.
-- [ ] Export and verify app, back up v2.29, install definitive app, integrate source safely, and record final test/release evidence.
+- [x] Verify normal launch/return/retry exposes only Forest and latest twelve-character roster.
+- [x] Inspect rendered battle, preparation and picker, confirming crosshair perspective visually.
+- [x] Fresh review against latest combat baseline and Forest behavior; fix important findings with regressions.
+- [x] Export and verify app, back up v2.29, install definitive app, integrate source safely, and record final test/release evidence.
