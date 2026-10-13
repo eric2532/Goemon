@@ -120,7 +120,7 @@ func sync(delta: float):
 			var door=structure_nodes[b.id].get_node("GateDoor")
 			door.position.y=lerpf(door.position.y,6.5 if open_ else 2.4,minf(1,delta*6))
 	for w in model.workers.values():
-		var node: Node3D=worker_nodes[w.id];var offset=Vector3.UP*8.8 if w.state=="garrison" else Vector3.ZERO
+		var node: Node3D=worker_nodes[w.id];var offset=Vector3.UP*(8.8 if w.state=="garrison" else w.get("deck_height",0.0))
 		var move_: Vector3=w.pos-node.position+offset
 		if Vector2(move_.x,move_.z).length()>.015:node.rotation.y=atan2(move_.x,move_.z)
 		node.position=w.pos+offset;node.rotation.z=PI*.5 if w.state=="wounded" else 0.0

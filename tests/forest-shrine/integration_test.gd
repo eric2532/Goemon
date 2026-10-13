@@ -18,7 +18,7 @@ func run():
 	await click(game.camera_rig.camera.unproject_position(game.model.point(Vector2i(-5,1))))
 	check(game.model.buildings.values().any(func(b):return b.kind=="mine"),"A real battlefield click places the selected mine beside the shrine")
 	check(game.model.gold==250,"The placement spends its real cost")
-	if failures:game.queue_free();paused=false;await process_frame;finish();return
+	if failures:game.queue_free();paused=false;await process_frame;await create_timer(.35).timeout;finish();return
 	var pos=game.world.structure_nodes[game.model.next_id-1].position
 	game.start_wave()
 	await process_frame
@@ -53,6 +53,8 @@ func run():
 	check(game.player.attack_left==0 and not game.player.queued,"Wave end clears pending hero attacks before construction")
 	if "--visual" in OS.get_cmdline_user_args():
 		game.model.phase="preparing";game.model.enemies.clear();game.set_phase_view()
+		for w in game.model.workers.values():
+			if w.job==-1:w.state="idle";w.pos=Vector3(12,0,18)
 		game.model.gold=250;game.select_build("tower");game.place_cell(Vector2i(3,4))
 		game.model.build_wall_line([Vector2i(-5,6),Vector2i(-4,6),Vector2i(-3,6),Vector2i(-2,6),Vector2i(-1,6)],0)
 		game.model.build("gate",Vector2i(0,6),0);game.world.sync(0)
@@ -63,7 +65,7 @@ func run():
 		await capture("placement")
 		game.build_kind="";game.world.preview.hide();game.start_wave();game.model.waves.spawn_clock=10000
 		game.player.position=Vector3(8,.1,30);game.model.update_vision(game.player.position)
-		for i in range(190):await physics_frame
+		for i in range(320):await physics_frame
 		for i in range(4):
 			game.model.waves.spawn_one()
 			var e=game.model.enemies.values().back();e.pos=Vector3(10+i*4,0,55+i*3)
@@ -73,7 +75,7 @@ func run():
 		game.player.position=Vector3(96,.1,24);game.model.update_vision(game.player.position);game.rogue_view.reset()
 		for i in range(8):await physics_frame
 		await capture("exploration")
-	game.queue_free();paused=false;await process_frame;finish()
+	game.queue_free();paused=false;await process_frame;await create_timer(.35).timeout;finish()
 func capture(name_: String):
 	for i in range(6):await process_frame
 	await RenderingServer.frame_post_draw

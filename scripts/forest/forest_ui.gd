@@ -64,7 +64,7 @@ func _ready():
 	inspect_text=Label.new();inspect_text.add_theme_color_override("font_color",INK);inspect_text.add_theme_font_size_override("font_size",18);column.add_child(inspect_text)
 	for data in [["Assign idle workers",func():game.model.workforce.assign_idle(selected_id)],["Recall assigned workers",func():
 		for w in game.model.workers.values():
-			if w.job==selected_id:w.job=-1;w.state="idle";w.path=[]],["Repair building",func():
+			if w.job==selected_id:game.model.workforce.leave_tower(w);w.job=-1;w.state="idle";w.path=[]],["Repair building",func():
 		if not game.model.repair(selected_id):notify("Nothing to repair, or not enough gold")],["Remove · 50% refund",func():
 		if game.model.demolish(selected_id):selected_id=-1;game.world.sync(0)]]:
 		var b=make_button(data[0],data[1],240);b.custom_minimum_size.y=42;column.add_child(b)

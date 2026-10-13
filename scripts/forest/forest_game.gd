@@ -85,7 +85,7 @@ func _input(event):
 	if event.is_action("character_toggle") or event.is_action("summon_dogs") or event.is_action("summon_heroes") or event.is_action("shuffle_map"):
 		get_viewport().set_input_as_handled();return
 	if event.is_action("rally_workers"):
-		if not ordinary_pause:model.rally(event.is_pressed(),player.position)
+		if not ordinary_pause and not event.is_echo():model.rally(event.is_pressed(),player.position)
 		get_viewport().set_input_as_handled()
 	if event.is_action_pressed("pause") and not event.is_echo():
 		if not build_kind.is_empty():build_kind="";world.preview.hide()
@@ -189,6 +189,8 @@ func burst(p: Vector3,color: Color,count: int,scale_factor: float=1.0):
 	if model!=null and model.visible_at(p):super.burst(p,color,count,scale_factor)
 func confirm_impact(victim: Ninja,p: Vector3,direction: Vector3,strength: int,projectile: bool):
 	if model.visible_at(p):super.confirm_impact(victim,p,direction,strength,projectile)
+func impact_effect(p: Vector3,direction: Vector3,strength: int):
+	if model.visible_at(p):super.impact_effect(p,direction,strength)
 
 func wall_cells(end: Vector2i)->Array:
 	var change=end-wall_start;var horizontal=absi(change.x)>=absi(change.y)

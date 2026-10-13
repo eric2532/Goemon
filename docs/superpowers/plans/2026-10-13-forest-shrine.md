@@ -65,7 +65,7 @@
 ### Task 5: Regression, review, and playable delivery
 
 **Files:** Update README.md, tests/forest-shrine/README.md, project.godot/export_presets.cfg only if required for release metadata.
-- [ ] Run model, world, integration, and existing tower-defense/Rogue Siege regression checks; inspect runtime logs.
-- [ ] Request fresh whole-branch review; resolve important findings with regression tests.
+- [x] Run model, world, integration, and existing tower-defense/Rogue Siege regression checks; inspect runtime logs.
+- [x] Request fresh whole-branch review; resolve important findings with regression tests.
 - [ ] Export and verify a native macOS playable build; preserve existing app in build/Other Files before replacing the main app.
 - [ ] Update documentation with controls, validation, and any concrete limitations; commit and deliver the build and source changes.

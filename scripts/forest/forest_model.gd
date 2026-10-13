@@ -131,7 +131,7 @@ func placement_error(kind: String,c: Vector2i,rotation: int)->String:
 		allied_grid.set_point_solid(tile,kind!="gate")
 	var destinations=[shrine_entry()]
 	for b in buildings.values():
-		if b.kind in ["tower","mine"]:destinations.append(entry(b))
+		if b.kind in ["tower","mine"] or (workforce!=null and workforce.count_job(b.id)>0):destinations.append(entry(b))
 	if kind in ["tower","mine"]:destinations.append(entry({"kind":kind,"cell":c,"rotation":rotation}))
 	for w in workers.values():
 		if w.state!="wounded":destinations.append(nearest_open(cell_of(w.pos)))
@@ -155,9 +155,13 @@ func _remove_building(id: int):
 	if not buildings.has(id):return
 	var b: Dictionary=buildings[id]
 	for c in footprint(b.kind,b.cell,b.rotation):occupancy.erase(c)
-	buildings.erase(id)
 	for w in workers.values():
-		if w.job==id:w.job=-1;w.state="idle";w.path=[]
+		if w.job==id:
+			workforce.leave_tower(w)
+			if phase=="preparing" and w.has("exit_point"):
+				w.pos=w.exit_point;w.erase("exit_point");w.deck_height=0.0
+			w.job=-1;w.state="idle";w.path=[]
+	buildings.erase(id)
 func demolish(id: int)->bool:
 	if phase!="preparing" or id==1 or not buildings.has(id):return false
 	gold+=int(COSTS[buildings[id].kind]*.5)

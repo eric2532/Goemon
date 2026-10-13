@@ -31,7 +31,7 @@ func jobs_near(p: Vector3)->Array:
 		if count_job(b.id)<capacity(b):jobs.append(b)
 	return jobs
 func _assign(w: Dictionary,b: Dictionary)->bool:
-	var start=m.nearest_open(m.cell_of(w.pos))
+	var start=navigation_origin(w)
 	var destination=m.entry(b)
 	if m.route(start,destination).is_empty():return false
 	w.job=b.id;w.follow=false;w.path=[];w.destination=Vector2i(-999,-999)
@@ -41,7 +41,7 @@ func nearest_job(w: Dictionary,p: Vector3,reservations: Dictionary={})->Dictiona
 	var best={};var distance=INF
 	for b in jobs_near(p):
 		if count_job(b.id)+reservations.get(b.id,0)>=capacity(b):continue
-		var path=m.route(m.nearest_open(m.cell_of(w.pos)),m.entry(b))
+		var path=m.route(navigation_origin(w),m.entry(b))
 		if not path.is_empty() and path.size()<distance:best=b;distance=path.size()
 	return best
 func preview_jobs(p: Vector3)->Dictionary:
@@ -73,6 +73,7 @@ func rally(value: bool,p: Vector3):
 		for w in m.workers.values():
 			if w.state in ["wounded","retreat"] or w.follow:continue
 			if Vector2(w.pos.x-p.x,w.pos.z-p.z).length()<=30:
+				leave_tower(w)
 				w.follow=true;w.job=-1;w.state="follow";w.path=[];w.destination=Vector2i(-999,-999)
 	else:
 		held=false;release_point=p
@@ -82,6 +83,20 @@ func cancel_rally():
 	held=false
 	for w in m.workers.values():
 		if w.follow:w.follow=false;w.state="idle";w.path=[]
+func navigation_origin(w: Dictionary)->Vector2i:
+	if w.has("exit_point"):return m.cell_of(w.exit_point)
+	if w.state=="garrison" and m.buildings.has(w.job):return m.entry(m.buildings[w.job])
+	return m.nearest_open(m.cell_of(w.pos))
+func leave_tower(w: Dictionary):
+	if w.state!="garrison" or not m.buildings.has(w.job):return
+	w.exit_point=m.point(m.entry(m.buildings[w.job]));w.exit_start=w.pos;w.deck_height=8.8
+	w.path=[];w.destination=Vector2i(-999,-999)
+func tick_exit(w: Dictionary,delta: float):
+	w.pos=w.pos.move_toward(w.exit_point,delta*8.0)
+	var remaining=w.pos.distance_to(w.exit_point)
+	w.deck_height=8.8*remaining/maxf(.01,w.exit_start.distance_to(w.exit_point))
+	if remaining<.01:
+		w.pos=w.exit_point;w.erase("exit_point");w.deck_height=0.0;w.destination=Vector2i(-999,-999)
 func move(w: Dictionary,destination: Vector2i,delta: float,speed: float=8.0)->bool:
 	if not m.REGION.has_point(destination):return false
 	if w.destination!=destination or w.nav!=m.navigation_revision:
@@ -105,6 +120,7 @@ func damage(id: int,amount: float):
 		m.events.append({"kind":"wounded"});m.update_vision(m.hero_position)
 	else:retreat(w)
 func retreat(w: Dictionary):
+	leave_tower(w)
 	if w.state!="retreat":w.saved_job=w.job
 	w.state="retreat";w.job=-1;w.follow=false;w.path=[];w.destination=Vector2i(-999,-999);w.safe=0.0
 func recover():
@@ -112,7 +128,7 @@ func recover():
 	for w in m.workers.values():
 		if w.state=="wounded":
 			w.hp=w.max_hp;w.pos=m.point(m.nearest_open(m.shrine_entry()+Vector2i(w.id%5-2,2)))
-			w.state="idle";w.job=-1;w.saved_job=-1
+			w.state="idle";w.job=-1;w.saved_job=-1;w.erase("exit_point");w.deck_height=0.0
 func threatened(p: Vector3)->bool:
 	for e in m.enemies.values():
 		if e.hp>0 and p.distance_squared_to(e.pos)<144:return true
@@ -127,6 +143,8 @@ func tick(delta: float,hero: Vector3):
 				if e.hp>0 and w.pos.distance_squared_to(e.pos)<144:threat=true;break
 		if w.state=="garrison" and m.buildings.has(w.job) and m.buildings[w.job].hp<m.buildings[w.job].max_hp*.2:threat=true
 		if threat and w.state!="retreat":retreat(w)
+		if w.has("exit_point"):
+			tick_exit(w,delta);continue
 		if w.state=="retreat":
 			move(w,m.shrine_entry()+Vector2i(0,2),delta,10)
 			w.safe=0.0 if threat else w.safe+delta
