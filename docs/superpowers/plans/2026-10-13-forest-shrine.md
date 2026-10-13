@@ -67,5 +67,5 @@
 **Files:** Update README.md, tests/forest-shrine/README.md, project.godot/export_presets.cfg only if required for release metadata.
 - [x] Run model, world, integration, and existing tower-defense/Rogue Siege regression checks; inspect runtime logs.
 - [x] Request fresh whole-branch review; resolve important findings with regression tests.
-- [ ] Export and verify a native macOS playable build; preserve existing app in build/Other Files before replacing the main app.
-- [ ] Update documentation with controls, validation, and any concrete limitations; commit and deliver the build and source changes.
+- [x] Export and verify a native macOS playable build; preserve existing app in build/Other Files before replacing the main app.
+- [x] Update documentation with controls, validation, and any concrete limitations; commit and deliver the build and source changes.

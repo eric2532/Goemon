@@ -47,3 +47,9 @@ Implementation decisions recorded during the work:
 - Removed an empty, stale worktree index lock only after checking its age and confirming no process held it. No index data was removed.
 - Kept the nearby-deposit prototype scope from the latest request. Broader resource exploration will need a later map/economy pass.
 - Treated the intermittent headless shutdown warning as a teardown timing issue after verbose inspection and clean repeated runs, rather than changing gameplay resource ownership without evidence.
+
+## Delivered build
+
+macOS release **2.28.0** passed bundle-signature verification, headless main-menu and direct Forest Shrine launch, and rendered native launch on Apple M3 / Metal. Six Forest Shrine test suites passed; the model reported 20 checks, workforce/waves 34, and post-review regressions 15, alongside world/integration/lifecycle checks. Existing Tower Defense passed and Rogue Siege passed all 173 checks.
+
+The main launch icon is `build/Goemon.app`. The prior 2.27.0 app is preserved under `build/Other Files/Goemon-v2.27.0-before-Forest-Shrine.app`. Release screenshots, logs, and ZIP are stored under `build/Other Files/Forest Shrine v2.28.0/`.
