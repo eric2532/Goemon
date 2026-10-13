@@ -41,9 +41,8 @@ func run():
 	check(AttackChain.screen_target(game.player,game.player.position+Vector3.UP*1.25,50)==null,"Automatic attacks cannot select an enemy outside shared vision")
 	game.model.update_vision(game.player.position)
 	var hp=actor.hp
-	var aim=game.camera_rig.camera.unproject_position(actor.position+Vector3.UP)
-	game.rogue_view.aim_at(aim)
-	var motion=InputEventMouseMotion.new();motion.position=aim;root.push_input(motion,true)
+	game.camera_rig.yaw=-PI/2
+	game.camera_rig.reset_follow();game.camera_rig._process(.2)
 	var attack=InputEventAction.new();attack.action="light_attack";attack.pressed=true;Input.parse_input_event(attack)
 	for i in range(70):await physics_frame
 	attack=InputEventAction.new();attack.action="light_attack";attack.pressed=false;Input.parse_input_event(attack)
@@ -69,10 +68,10 @@ func run():
 		for i in range(4):
 			game.model.waves.spawn_one()
 			var e=game.model.enemies.values().back();e.pos=Vector3(10+i*4,0,55+i*3)
-		game.sync_enemies();game.rogue_view.reset()
+		game.sync_enemies();game.camera_rig.reset_follow()
 		for i in range(35):await physics_frame
 		await capture("battle")
-		game.player.position=Vector3(96,.1,24);game.model.update_vision(game.player.position);game.rogue_view.reset()
+		game.player.position=Vector3(96,.1,24);game.model.update_vision(game.player.position);game.camera_rig.reset_follow()
 		for i in range(8):await physics_frame
 		await capture("exploration")
 	game.queue_free();paused=false;await process_frame;await create_timer(.35).timeout;finish()

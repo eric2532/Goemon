@@ -3,12 +3,16 @@ config_version=5
 
 [application]
 config/name="Goemon"
+config/name.crosshair_aim="Goemon Fire Siege Crosshair"
+config/name.fire_siege="Goemon Fire Siege"
+config/custom_user_dir_name.crosshair_aim="Godot/app_userdata/Goemon Fire Siege Crosshair"
+config/custom_user_dir_name.fire_siege="Godot/app_userdata/Goemon Fire Siege"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Godot/app_userdata/Azure Ember"
 config/icon="res://icon.svg"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/description="Forest Shrine: build a forest settlement between waves, then defend it with Rogue Siege camera, cursor combat, Goemon, and all ten Rogue fighters."
+config/description="Forest Shrine: prepare your forest settlement from overhead, then fight with Fire Siege Crosshair combat, twelve heroes, updated animations and fog of war."
 
 [display]
 window/size/viewport_width=1440

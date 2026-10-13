@@ -1,0 +1,24 @@
+# Fire Siege MVP decisions — 8 October 2026
+
+Authority: the user asked to execute v0.2, publish a GitHub release, reuse available assets, and use engineering/design judgment for unresolved details. These are delegated MVP choices, not original confirmed balance. Baseline: 81b9f0b69ea6b0fef3c3b832d24641ca64eb8640. Other game modes remain on the legacy director.
+
+- D01: Each completed arrow tower costs 0.1 gold per combat second, including idle time.
+- D02: No debt. All towers share available power equally; time paid for determines their firing-clock advance. Income restores power automatically. Purchased towers at zero gold warn clearly.
+- D03: Mine income runs during the 60-second spawning phase only, preventing clearance farming. Tower upkeep continues through clearance. All gameplay clocks stop while paused.
+- D04: Tower build 3 seconds; mine build 4 seconds. Released progress decays by 0.25 normalized units/second, immediately.
+- D05/D17: Floating-point ledger, 2 decimal HUD display; income then upkeep then construction then settlement. Clamp tiny numerical noise only. Work requires affordability to advance; when unaffordable it decays. Purchase rechecks and charges once at completion.
+- D06: One nearest eligible target within 3.5m horizontally of its front interaction pad, within 3m vertically, facing within 75 degrees; clear line of sight to the pad. Construction works in setup/spawning/clearance. Each site can retain independent partial progress; all unattended sites decay. Death/movement/switch cancel active work and require B release before resuming; pause freezes; retry clears. Holding B suppresses attack inputs while working.
+- D07: Hold Y 3 seconds in setup, release decay 1/3 per second. Living hero required. Pause freezes. Opening a menu/switch/death resets confirmation and requires release. Every setup rearms only after Y release; no carried held key starts the next wave.
+- D08: 300 actors at times 0.2,0.4,...,60.0 each wave. Mode cap 300, independent of prototype cap setting; no backlog or skipped demand. A delayed tick emits all demand due through 60.0, then enters clearance; it never schedules later demand.
+- D09/D12: Three existing normal visual variants with 100 HP, no armor/role mitigation, no HP growth and no bosses in this MVP. Existing hero combat/progression remains intact.
+- D10: A base breach costs 1 integrity and removes/resolves that actor. Clearance means no living/unresolved actors; killed + breached = spawned. Breaches never award kill credit.
+- D11: Arrow range 48m, priority furthest downstream then nearest; instant eligible first shot, 0.5s cadence, 50 damage at impact. Visible arrow travels at 65m/s toward its committed target, stops on world obstruction, expires if target dies or generation changes. No retarget burst and no setup shots.
+- D13: Enemy route speed is 1.35x while the hero is dead, resets on revival, never stacks.
+- D14: Auto revive after 5 active seconds at the original spawn, full HP and 2 seconds immunity. Preserve progression; cancel active attacks/abilities/projectiles on death. No movement/attacks/build/start/switch while dead. Camera stays available through right-drag while the cursor can click Revive Now. Beta has Revive Now; Hard uses timer only.
+- D15: No mine upgrades, cannon progression, ammo, replacement cards, or undefined purchases.
+- D16: Exactly four front-wall sites plus two straight rows of four approach sites. No rear build sites. Mine to base left; interaction pads preserve the open route. Structures are immune scenery; their pads do not block the route.
+- D18: Economy/wave HUD upper left, build/status panel upper right, current portrait/HP/LMB/RMB bottom center; existing remaining abilities still accessible. Distinct primary/secondary placeholders allowed.
+- D19: Beta and Hard remain exposed with 100/50 integrity. Existing allied roster, limits and purchase costs are retained for MVP; enemies cannot target or damage allies. They award no kill gold/items.
+- D20: Base failure takes precedence. Settlement runs only with positive integrity; final 100 gold is credited before victory UI. Hero death cannot block victory. Terminal/reset retires projectiles, build input and revival.
+
+Asset evidence: branch codex/fire-siege-economy-assets-v1 at 9b63371 was fetched after the requested five-minute recheck. assets/economy_v1 and docs/handoffs/fire-siege-economy-v0.2 are reused verbatim; all 99 checksum-list entries, 98 payloads and original source provenance passed verification. Runtime .import settings are added without altering GLB bytes. Current character model, texture and portrait files remain identical to pinned baseline. The approach gate moves from z130 to z96 only in redesigned mode to avoid intersecting the eight new sites.

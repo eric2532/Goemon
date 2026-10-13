@@ -1,6 +1,6 @@
 # Goemon — Forest Shrine
 
-The current definitive build is **Forest Shrine v2.29.0**, a fully local Godot 4.6.1 game combining settlement building with Rogue Siege combat.
+The current definitive build is **Forest Shrine v2.54.0**, a fully local Godot 4.6.1 game combining settlement building with the complete Fire Siege Crosshair v2.53.1 combat baseline.
 
 ## Forest Shrine · Build & survive
 
@@ -8,13 +8,13 @@ Open the app and choose **PLAY FOREST SHRINE**, then pick a fighter. Protect one
 
 Between waves, use the overhead view of the actual battlefield: select a parchment building card, click the grid to place, **R** to rotate, drag to draw wall lines, and right-click to cancel. **WASD / middle-drag** pans; the wheel zooms. Select a building to assign or recall workers, repair it, or remove it for half its cost. Gates admit Goemon and workers; enemies attack obstructing defenses. Start with six workers and 400 gold. A mine costs 150, a tower 120, a wall 10, a gate 30, and a recruit 50. New mines and towers automatically take available idle workers.
 
-Starting a wave switches the same battlefield to **Rogue Siege’s exact close angled 3D camera, mouse reticle, smooth follow, and movement lead**. Choose **Goemon, Pirate, Samurai, Ninja, Mage, Knight, Dragoon, Magic Swordsman, Ranger, Explorer, or Master Thief**; each retains its native combat kit. **Q** opens the fighter picker in preparation or combat. Switching preserves health percentage and spent cooldowns; retry resets the run while keeping your fighter.
+Starting a wave switches the same battlefield to **Fire Siege Crosshair’s perspective shoulder camera, captured mouse look, centered crosshair, and three-dimensional projectile aiming**. Choose **Goemon, Edo, Pirate, Samurai, Ninja, Mage, Knight, Dragoon, Magic Swordsman, Ranger, Explorer, or Master Thief**; each retains its native combat kit. **Q** opens the fighter picker in preparation or combat. Switching preserves health percentage and spent cooldowns; retry resets the run while keeping your fighter.
 
-During battle, **WASD** moves, **Shift** sprints, **Space** jumps, **LMB / RMB** use primary/secondary attacks, **C / E** use a Rogue fighter’s utility, **R** uses their signature skill, and **hold V** gathers workers inside a 30-metre circle. Goemon retains his original C, E, R, T and numbered abilities. Lead them near a job and release V: they reserve the closest reachable local mine, tower, or damaged wall, with surplus workers waiting nearby. Each mine and tower holds three workers; repairs hold two. Workers carry mined gold back to the shrine, spend gold repairing walls, or shoot from towers. They retreat from danger; wounded workers sit out the wave and recover during preparation. Construction is available only between waves. **Escape** pauses or resumes.
+During battle, **WASD** moves, **Shift** sprints, **Space** jumps, **LMB / RMB** use primary/secondary attacks, **C** evades and **E** uses the extra class utility where available, **R** uses their signature skill, and **hold V** gathers workers inside a 30-metre circle. **J** toggles the latest camera-visible auto attack, respecting shared vision. Goemon and Edo retain their C, E, R, T and numbered abilities, along with the updated animation and ink effects. Lead them near a job and release V: they reserve the closest reachable local mine, tower, or damaged wall, with surplus workers waiting nearby. Each mine and tower holds three workers; repairs hold two. Workers carry mined gold back to the shrine, spend gold repairing walls, or shoot from towers. They retreat from danger; wounded workers sit out the wave and recover during preparation. Construction is available only between waves. **Escape** pauses or resumes.
 
 Unexplored ground stays hidden. Exploration remembers terrain; enemies require current shared vision from your fighter, healthy workers, or buildings. Tree cover blocks ground sight, and watchtowers see over the canopy. Complete five waves to win; Your fighter’s death or the shrine’s destruction ends the run.
 
-This first version uses a fixed forest layout, two finite starter deposits, procedural timber structures and workers, and illustrated interface icons. Economy and enemy pressure remain initial playtest values; combat framing now matches Rogue Siege. Run directly with `godot --path . -- --forest-shrine`. See [validation and controls](tests/forest-shrine/README.md).
+This first version uses a fixed forest layout, two finite starter deposits, procedural timber structures and workers, and illustrated interface icons. Economy and enemy pressure remain initial playtest values; combat framing and attacks now match Fire Siege Crosshair, including Samurai’s five cuts, Ranger’s curved five-arrow fan, and the updated Edo casting and movement. Run directly with `godot --path . -- --forest-shrine`. See [validation and controls](tests/forest-shrine/README.md).
 
 ## Historical modes and development notes
 
@@ -28,31 +28,176 @@ The main area now has 48 original Blender town buildings at 4× their previous l
 
 The ground map is now **four times its previous area** (twice the width and depth), approximately **1,176 × 1,031 metres**. Existing Tidefall streets remain in place; new furnished districts occupy the expanded sides and north, with paths back to the original courts. Terrain pads keep entrances flush. Enemy AI freeze is a session-only Prototype Lab option and always resets to off when the game launches.
 
-## Rogue Battle · Cursor combat
+## Fire Siege · Automatic construction · v2.45.0
 
-Choose **ROGUE BATTLE / Cursor combat** on the main menu. This separate mode runs the same Sky Descent islands, Tidefall ground map, Goemon/Edo characters, skins, enemy encounters, progression, pickups and abilities. Normal Sky Descent and Tower Defense retain their existing camera and controls.
+Version v2.45.0 introduced automatic construction; v2.46.0 retains it.
+Stand beside an affordable tower or mine spot to build automatically. No B
+input is needed. Empty sites use small muted stones; a full translucent
+preview appears nearby, with a circular progress ring filling counterclockwise.
+Moving, jumping or rolling stops work; standing nearby again resumes it.
+The completed structure becomes solid and charges once. Tower: 3 seconds /
+5 gold; mine: 4 seconds / 10 gold. See [construction controls and verification](docs/fire-siege-mvp/auto-build-v245.md).
 
-The battle camera uses Rogue's fixed elevated orthographic angle and smooth 32% local follow, recentering as you travel and following vertical flight/descent. The gold ground reticle marks mouse aim, and the arrow under your hero shows the chosen direction. **WASD** moves relative to the screen while the mouse aims independently. **Tap LMB** for one combo stage, **hold LMB** to continue the three-stage sequence, **RMB** for heavy, and **C** to evade in your movement direction (or toward the cursor while stationary). Existing numbered abilities, jumps, cloak flight, Q character switching, R surge and T special attacks remain available. The 2 auto-coin toggle keeps its automatic target selection; manually aimed attacks follow the cursor.
+### Automatic normal attack · v2.44.0
 
-Primary and secondary inputs use short 170/240 ms buffers. Melee chains keep their contact and recovery poses even when a hit chain is active; existing damage and speed bonuses still apply. Confirmed impacts add directional gold cutting marks, sparks, subtle rings, enemy recoil and a brief contact pause. Damage, hit detection and models remain shared with the original combat. The new feedback uses a bounded effect pool and freezes with pause. Restart preserves the selected mode and map seed; returning to the menu restores perspective framing.
+Press **J** during play to toggle automatic normal attacks for any hero. Move
+and aim with the camera; no left click is needed. The HUD shows ON, PAUSED or
+OFF. Normal attack speed, combo effects and Ranger's double-jump fan remain
+active. Menus, construction and evasive moves suspend automatic attacks;
+new runs, death, hero changes and entering the editor reset the toggle OFF.
+Manual attacks and Mage charging still work. See [controls and verification](docs/fire-siege-mvp/auto-attack-v244.md).
 
-Run directly with `godot --path . -- --rogue-battle`. Validate with `--rogue-battle-test`; `--rogue-battle-visual` also captures the mode menu, camera, cursor and hit presentation in `tests/rogue-battle/`.
+### In-game map builder · v2.43.0
 
-## Rogue Siege · Tower Defense with Goemon and all ten Rogue fighters
+Choose **BUILD YOUR OWN MAP** in the main menu. Place scenery, ground tiles,
+tower/mine sites and gameplay markers on a flat 160×310m field. Move/rotate,
+duplicate/delete, snap to a 1/2/4m grid, undo/redo, save/load named local maps,
+and press **Play Map**. Pause your custom siege and choose **Return to map
+builder** to continue editing. The ordinary Fire Siege map remains available.
 
-Choose **ROGUE SIEGE / Tower Defense**, choose **Beta** or **Hard**, then select your fighter. This mode combines the same Fire Siege battlefield, ten 600-enemy waves, towers, card upgrades, boss encounters, shrine, gold, dogs, and castle companions with Rogue's angled orthographic camera, world-space attack cursor, and original class combat. The original Fire Siege and Sky Descent modes remain available.
+New modular pieces include a torii gate, garden pavilion, stone lantern,
+stone wall, wooden fence, bamboo grove, cherry blossom, cedar, mossy boulder,
+supply crates and jade banner. Ordered route markers support turns and
+backward segments; validation catches blocked routes and unsafe spawn areas.
+All v2.42 Ranger changes remain. See [builder controls and verification](docs/fire-siege-mvp/map-builder-v243.md).
 
-Rogue Siege uses a slightly wider battle view (24 instead of 19.8) and a steeper, roughly 48° downward angle to improve enemy visibility around cover. The view smoothly leads forward while moving ahead, then settles back when you stop. Its horizontal camera direction stays the same. All ten imported fighters are visually 15% larger without changing their collision bodies or combat stats.
+### Previous Ranger high jump and held-Space slow fall · v2.42.0
 
-The playable roster is **Goemon, Pirate, Samurai, Ninja, Mage, Knight, Dragoon, Magic Swordsman, Ranger, Explorer, and Master Thief**. The ten Rogue fighters use their original models, portraits, weapon poses, sounds, timed attacks, and distinct four-action kits. Examples include Pirate's flintlock and Drink, Samurai's draw-cut, Ninja's five-star spread, Mage's blink and fast casting, Knight's shield and riposte, Dragoon's aimed leap, Magic Swordsman's piercing wave, Ranger's arrow burst, Explorer's hook, and Master Thief's crouch, block meter, and giant pipe.
+Version v2.42.0 introduced the Ranger air update.
+Ranger's first and second jumps now reach **twice their previous height**.
+Hold **Space while falling** to descend at **one-third normal speed** and keep
+firing arrows. Release Space to fall normally. Holding the first jump does not
+automatically consume the double jump; release and press Space again for it.
+Straight arrows with subtle launch variation, green third shots, combo firing
+speed, Rain, five-arrow fans, fitted hat, larger arrows and quick WASD roll
+remain. See the [air update and verification](docs/fire-siege-mvp/ranger-air-v242.md).
 
-Goemon appears above the ten Rogue cards in the fighter picker and retains his full moveset. His plain pipe **LMB** combo in Rogue Siege uses Magic Swordsman's buffered input rhythm, 0.48 / 0.48 / 0.576-second swings, contact at 0.15 seconds, and native slash, impact, sound, and hit pause. Tap for one swing or hold to continue the three stages. Goemon's damage, progression, weapons, and abilities stay intact: **C** evade, **E** dash, **R** Golden Surge, **T** Sky Strike, and **1–5** quick attacks and cloaks. His original combo in other modes is unchanged.
+### Previous straight arrows with human aim variation · v2.41.0
 
-**WASD** moves, **Shift** sprints, and **Space** retains the existing double jump. Aim with the mouse; **LMB** uses the primary attack (hold to continue), **RMB** the secondary, **C / E** the movement or stance ability, and **R** the signature skill. The HUD shows the selected fighter's abilities and cooldowns. **Q** opens the paused fighter roster, including during an upgrade-card choice. Switching preserves health percentage and spent cooldowns; restarting resets all cached class kits. **F** still builds/upgrades towers, **G** opens dogs, and **H** opens the original castle companion roster.
+Each Ranger arrow flies straight with small random horizontal and vertical aim
+offsets. Normal aim varies up to2° horizontally/1.25° vertically; green power
+shots up to2.5°/1.5°. All v2.40 features are retained. See the
+[correction and verification](docs/fire-siege-mvp/ranger-precision-v241.md).
 
-Native damage goes through the existing enemy health, armor, recoil, kill rewards, progression, and hit-chain systems. Projectiles and melee respect solid cover; movement abilities use the player's collision body. Class movement speeds retain their differences while scaling to the existing run/sprint settings for the larger battlefield. Imported source and asset provenance are documented in `assets/rogue/README.md`.
+### Previous random coverage and snap roll · v2.40.0
 
-Run directly with `godot --path . -- --rogue-siege`. Runtime validation uses `--rogue-siege-tests`; add `--rogue-siege-visual` for the ten-character roster and attack captures in `tests/rogue-siege/`.
+Version v2.40 introduced broad random mid-flight sweeps, hit-combo firing
+acceleration, Rain powering every release, and the0.15-second/6.9-metre roll.
+The mid-flight sweeps are superseded by v2.41's small launch-angle variation.
+See the [previous update](docs/fire-siege-mvp/ranger-storm-v240.md).
+
+### Previous curved Ranger arrows and green third shot · v2.39.0
+
+Version v2.39 introduced actual curved arrow flight, the wider fan, and each
+third LMB release becoming a larger green energy shot with 50% more damage.
+See the [previous flight update](docs/fire-siege-mvp/ranger-flight-v239.md).
+
+### Previous Ranger fan shot and fast roll · v2.38.0
+
+Version v2.38.0 was based on the latest v2.37 MVP. Ranger now wears a full fitted hat, uses arrows
+20% larger than v2.37, and fires five simultaneous fan arrows with **RMB / 3**.
+After **Space twice**, **LMB** fires the fan downward. **C** performs a fast
+quarter-second tumble in the movement direction. See the
+[Ranger update and verification](docs/fire-siege-mvp/ranger-upgrade-v238.md).
+
+### Previous closed masks and Samurai proportions · v2.37.0
+
+Download the [v2.37.0 MVP GitHub release](https://github.com/eric2532/Goemon/releases/tag/fire-siege-v2.37.0-mvp)
+for the previously published universal macOS and Linux x86_64 builds. Repository access is required.
+
+Samurai now has a shorter neck, a lower head/helmet position and a compact fitted
+scarf. Dragoon's dragon helmet covers his face; Magic Swordsman wears a purple
+demon mask beneath his crystal crown. The long animated scarf and v2.36 combat
+updates remain. See the [mask refinement verification](docs/fire-siege-mvp/mask-refinement-v237.md).
+
+### Previous equipment and skill update · v2.36.0
+
+Dragoon wears a blue dragon helmet, Magic Swordsman a purple enchanted helmet,
+and Samurai a red face-wrap scarf with a long animated tail. Ninja has a slightly
+fuller jaw. Airborne Dragoon Leap (right-click / 3) now descends into an actual
+ground impact; Ranger fires three times as often and uses twice-size arrows.
+See the [equipment follow-up plan](docs/fire-siege-mvp/equipment-upgrade-v236-plan.md)
+and [verification](docs/fire-siege-mvp/equipment-upgrade-v236-verification.md).
+
+Choose **Fire Siege**, Beta or Hard, then Goemon, Edo or any of the ten Rogue heroes.
+All ten Rogue heroes use the coordinated head, face-layout and hair direction
+introduced by Magic Swordsman and Explorer. Exposed faces have integrated depth,
+defined cheeks and jaws, and projecting noses; masks and headwear retain each
+hero's identity. See the [original design direction](docs/art-direction/rogue-design-pilot.md)
+and [roster upgrade plan](docs/fire-siege-mvp/roster-upgrade-v235-plan.md).
+The local v2.35.0 app, visual review and validation are recorded in the
+[upgrade verification](docs/fire-siege-mvp/roster-upgrade-v235-verification.md).
+All twelve heroes now turn their bodies toward camera-relative movement in every direction, including backward and sideways travel. The camera follows backward movement immediately and waits for one metre of forward travel before following; each new forward input re-arms the buffer. Hero designs, camera-aimed attacks, signature skills and progression are preserved.
+The redesign uses the published arrow tower, gold mine and construction FX from
+`codex/fire-siege-economy-assets-v1` (`9b63371`).
+
+Start with **10 gold**, twelve empty tower sites and four unbuilt mines, with three
+mines close to spawn. Approach any accessible side of a structure and **hold B**
+when the **IN RANGE** prompt appears. An arrow tower costs
+**5 gold**, takes 3 seconds to build, and fires a visible **50-damage arrow every
+0.5 seconds**. Each mine costs **10 gold**, takes 4 seconds, and independently
+earns **2 gold/sec while the wave is spawning**. Empty progress bars and build-pad
+circles are hidden; a bar appears after construction begins. Releasing B gradually reverses
+construction; reholding resumes it. Moving interrupts construction and requires
+a fresh B hold once stationary. Payment happens only on completion.
+
+Every wave starts in unlimited preparation. **Hold Y for 3 seconds** to launch it.
+Each of ten waves schedules **five enemies per second for 60 seconds**, then waits
+until every remaining actor is killed or has breached the base. Wave N pays
+**10 × N gold**, including the final 100 before victory. Kills retain progression
+and direct healing but give no gold or pickups. There are no card drafts or upgrades.
+
+Completed towers consume **0.1 gold/sec each**, including idle time, during spawning
+and clearance. At zero funds, towers pause firing until paid time is available.
+The mine stops earning during clearance, so holding the last enemy cannot farm gold.
+Preparation and pause do not advance income or upkeep. Beta/Hard start at 100/50 base
+integrity; each breach removes one integrity. Only loss of the base defeats the run.
+
+Hero death keeps the siege moving: enemies are **35% faster** until revival after
+**5 seconds**. Beta also offers **V / Revive Now**. Revival gives full health and two
+seconds of protection. Right-drag the mouse to look around while downed. Gold,
+waves, purchases and death state reset on retry.
+
+**WASD** move, mouse camera, **Shift** sprint, **Space** jump, **LMB** primary and
+**RMB / 3** secondary for the ten Rogue fighters (including holding/releasing),
+**C** evade, **R** signature skill, **Q** hero roster, **G/H** existing
+ally rosters, **Esc** pause. Goemon/Edo retain E/T/numbered abilities. **E** uses
+Samurai's bow, Ninja's enlarged shuriken fan, Explorer's Hook Shot, or Master Thief's
+Get Down. Allies keep existing prices and
+abilities, stay active during hero death, and cannot be attacked by enemies.
+
+The Rogue fighters use revised weapon grips and distinct attacks: Ninja's long
+dash cut, Samurai's giant red slash, Explorer's evasive reverse-grip cuts and dash
+cross slash, Dragoon's wider thrust and three blue landing shockwaves, and Knight's
+two-second guard with a massive navy shield counter. Mage's primary releases a
+fireball on click release, with larger charge tiers at one, two and three seconds;
+frost nova freezes nearby enemies for three seconds without damage. Master Thief
+has faster, wider pipe attacks and a stationary red guard while holding secondary,
+lasting at most three seconds. Growth scales the pipe's reach and effects.
+
+All twelve heroes' basic attacks have **three times their previous range**, with
+growth scaling on top. Magic Swordsman can press LMB after the second jump to
+dive forward and down into a powerful violet energy slash. Dragoon's normal and
+second jumps reach **twice the normal height**. Pirate's shot is a visible,
+ten-times-larger piercing bullet; every Mage fireball tier also pierces enemies
+along its straight path. Solid cover still blocks projectiles.
+
+Ninja and Explorer have a small energy meter. **Five completed light attacks**
+fill it and earn one **free RMB / 3 heavy attack**, usable during the normal
+cooldown. Using the bonus consumes the meter without restarting that cooldown.
+Normal heavy attacks remain available when their cooldown expires. Death,
+changing heroes and restarting clear the meter.
+
+Launch with `--tower-defense`, or use the **Fire Siege macOS/Linux** export.
+Run `--fire-siege-mvp-test`, `--fire-siege-campaign-test` and
+`--fire-siege-controls-test`; `--rogue-combat-upgrade-test` checks the upgraded kits
+and `--rogue-upgrade-tour` captures their appearance in game.
+`--rogue-roster-v235-test` checks the new ranges, energy, piercing and aerial
+skills; `--native-primary-range-test` covers Goemon and Edo. The rendered
+`--rogue-roster-upgrade-tour` captures all ten designs and the new abilities.
+`--movement-camera-test` checks every hero plus the forward buffer, reversals and Sky Strike recovery. Add `--movement-camera-visual` for rendered movement captures. Deterministic/asset suites are documented in
+[implementation decisions](docs/fire-siege-mvp/decisions.md) and
+[verification](docs/fire-siege-mvp/verification.md).
 
 ## Sky Descent · Active gameplay loop
 
@@ -84,72 +229,17 @@ Validate traversal/enemy changes with `--sky-combat-test` or `--sky-combat-visua
 
 ## Play
 
-Open **build/Goemon.app**, select **PLAY FOREST SHRINE**, and choose one of eleven fighters. Build from above, then press **START WAVE** to fight on the same map. The macOS application includes the game engine and all content. You do not need Godot, a terminal, an account, or an internet connection.
+Open **build/Goemon.app**, select **PLAY FOREST SHRINE**, and choose one of twelve heroes. Build from above, then press **START WAVE** to fight on the same map. The macOS application includes the game engine and all content. You do not need Godot, a terminal, an account, or an internet connection.
 
-### Tower Defense · Fire Siege — castle companions, upgrade cards, and bosses
+### Fire Siege mode boundary
 
-Fire Siege uses a compact **160 × 760 metre** battlefield around its single active road, one quarter of the former map area. The unused side roads are removed; five forward cover lines and one main castle wall protect the shrine, with 24 tower mounts and a long enemy approach. Woodland and valley scenery sit closer to the road. The HUD keeps the battlefield unobstructed with no minimap; tower information and recent upgrade cards sit in the upper-right corner.
-
-The main-menu defense choice offers **Beta / Full battery** or **Hard / Build your defense**, followed by **10 waves of 600 enemies in the center lane**. Each wave gets physically larger and stronger: wave 10 has **1.9× size, 2.98× health, 2.08× attack damage, and 1.135× movement speed** relative to wave 1. Before **every wave**, time pauses and you choose **one of three upgrade cards** by clicking or pressing **1, 2, or 3**. Choices last for this run, and the offer remains the same if you open the pause menu. After choosing, the opening countdown is four seconds; later waves give you **12 seconds** to build and reposition. There are ten choices total and no card screen after victory.
-
-**12 dragon fire towers and 12 cannons** are already installed across **six cover-wall positions**. The inner towers project sweeping flame bursts; the outer cannons fire explosive shells. The fire tower model and looping flame animation were authored in Blender, with the editable source in `assets/blender/defense/Fire_Defense.blend` and rebuild script in `tools/build_defense_fire.py`. Solid cover blocks flame damage and clips the visible jet. Flame animation, damage, and artillery all pause with the game.
-
-The final defense line is a **160-metre castle wall** near the shrine, with stone battlements, four roofed watchtowers, and a **12-metre-wide gateway**. Two rear stone ramps lead to its **6.5-metre-high walkway**. The last two cannons and two fire towers sit on elevated gun platforms; their ground-level gold pads remain available for building and upgrades. The open gateway lets every enemy, including the final boss, pass through. The other five cover lines remain forward of the castle.
-
-Walk to a gold pad and press **F** to upgrade its defense. **12,000 starting gold**, 12 gold per enemy kill, and wave-clear bonuses let you experiment immediately. Both tower types have three levels, with upgrades costing 150 then 225 gold. Beta starts with 100 shrine integrity. **Hard mode starts with four defenses, 650 gold, and 50 integrity**; the remaining wall mounts cost 100 gold each. Character controls, attacks, spells, and movement stay shared with Sky Descent.
-
-Press **G** during battle to open the **Castle Kennel**. Time pauses while you choose one of ten companions. Summoning costs gold, closes the roster, and sends the dog out through the castle gateway to hunt raiders. You can field **eight living dogs**, including duplicates, with **three seconds of battle time** between summons. Dogs have their own health; enemies retaliate and bosses can hit them with ground slams. Cyan ground rings and small health bars distinguish allies. Companions remain until defeated or the run ends; a restart clears the squad. G or Escape closes the roster without purchasing. The kennel is also available in Hard mode.
-
-| Companion | Gold | Specialty |
-| --- | ---: | --- |
-| Kogane · Shadow Scout | 150 | Affordable, quick scout. |
-| Daigo · Iron Guardian | 300 | 750 health and 35% damage reduction. |
-| Kage · Bramble Ambusher | 260 | Piercing bites bypass enemy armor and shields. |
-| Arashi · Storm Tracker | 260 | Hits slow raiders by 30% for 1.4 seconds. |
-| Haku · Blade Guard | 320 | Cleaving strikes catch up to three enemies. |
-| Suzu · Ward Keeper | 300 | Restores 12 health to nearby dogs every three seconds, up to their maximum. |
-| Maboro · Mirage Weaver | 280 | 20% damage reduction and a 40% slowing bite. |
-| Iwa · Shield Breaker | 400 | 900 health, 20% damage reduction, and heavy piercing attacks. |
-| Mine · Cliff Runner | 230 | Fast pursuit and 10% damage reduction. |
-| Hayate · Wind Striker | 280 | Fastest runner, with quick attacks that catch two enemies. |
-
-The ten designs come from `origin/feat/ninja-dog-models` at `f511c4849a6225f1e3f71de2bc5c3589f690d246`. Their original references and sculptures are retained in the ignored `asset_packs/ninja_dogs` source pack. The game uses rebuilt, rigged Blender assets in `assets/models/dogs`, editable sources in `assets/blender/dogs`, and portraits rendered from those models in `assets/ui/dogs`. Each dog has idle, run, attack, hurt, and defeat clips. Bite damage lands at the attack's 0.38-second contact pose. Dogs use a separate bounded ally roster, leaving the 180-enemy limit unchanged. Rebuild with `tools/build_defense_dogs.py`; see [companion validation](tests/defense-dogs/README.md) for checks and captures.
-
-Press **H** to open the **Castle Barracks** and summon one of ten character allies: **Sen, Raku, Izumi, Gaku, Shiro, Banji, Touma, Roan, Nagi, and Kuren**. They emerge from the castle courtyard and fight alongside your dogs. Each costs **300 gold**, has **500 health**, and uses Goemon's existing **three-hit pipe combo**, dealing **50 base damage per contact**. This first pass gives all ten the same combat stats and choreography while retaining their distinct character designs. Attacks use the same pose samples and contact timing as Goemon, with a 1.95-second interval between combos. Their title and clothing do not grant extra elemental abilities in this pass.
-
-The barracks allows **eight living characters**, independently of the kennel's eight dogs, and has its own **three-second summon cooldown**. G and H switch between the two paused rosters; press the active roster's hotkey or Escape to return to battle. Both spend the same siege gold. Enemies and bosses can attack either type of ally, and allies never consume enemy spawn slots. Pause, wave choices, defeat, victory, retry, and leaving the mode apply to both rosters. Suzu's existing heal continues to support dogs.
-
-The character designs were imported from `origin/feat/hero-concept-models` at `1064214f1f6497a854edd42f11060c40a0bb3ae6`. Originals are preserved in the Godot-ignored source folder `asset_packs/hero_concepts`; runtime models and portraits live in `assets/models/defense_heroes` and `assets/ui/defense_heroes`. Their static source geometry is adapted to Goemon's articulated rig for gameplay, with one skinned mesh and roughly 21,000–22,000 triangles per character. See [character ally validation](tests/defense-heroes/README.md) for the new roster, shared animation, mixed-squad and performance checks.
-
-Arrivals are spread across frames, with up to eight actors and a two-millisecond creation budget per update. At most **180 enemies are alive at once** (or the lower limit chosen in Prototype Lab); the rest of each wave waits for a free slot. Cannons reuse bounded projectile and explosion meshes. Flame towers reuse their Blender meshes, animation players, and timed damage pulses. Local pursuit fields serve nearby cover fights while distant enemies follow the lane.
-
-**Enemy roles change how you fight.** Gold-accented runners move quickly; armored brutes absorb 40% of incoming damage; cyan shield carriers block 70% of frontal light hits but take full damage from behind. Heavy attacks break a shield for 1.6 seconds. Armor Piercer cannons bypass both defenses. All three roles still grow each wave.
-
-**Waves 5 and 10 contain bosses** within their 600-enemy roster: Shrinebreaker and Inferno Warlord. Their ground slam has a 1.25-second warning ring; dodge out, jump clear, or take solid cover. Their glowing recovery window lasts 1.8 seconds and takes double damage. Bosses resist chill, fit through the center wall gaps, and cost 15 shrine integrity if they breach.
-
-The card deck contains 15 powers. Frost Battery, Dragon's Breath, and War Chest are the opening choices; later offers draw three distinct eligible cards. Prerequisites and maximum ranks keep unavailable choices out of the offer.
-
-| Card | Effect |
-| --- | --- |
-| Frost Battery | All cannons fire blue ice crystals; hits slow by 40% for 2 seconds. |
-| Deep Winter | Requires ice; +10 percentage points of slow and +0.5 seconds duration per rank, twice. |
-| Shatter | Requires ice; all tower damage gains 40% against already chilled enemies. |
-| Rapid Reload | All tower reload intervals decrease 15% per rank, up to three ranks. |
-| Heavy Ordnance | +25% cannon damage per rank, up to three ranks. |
-| Dragon's Breath | +25% fire damage per rank, up to three ranks. |
-| Eagle Watch | +15% tower range per rank, twice. |
-| Siege Shells | Cannon path: +50% splash radius and +15% damage. |
-| Armor Piercer | Alternative cannon path: +40% damage, bypasses armor/shields, half splash radius. |
-| Wildfire Fan | Fire path: +60% cone width, 10% less range. |
-| Burning Ground | Alternative fire path: 20% less range; bursts leave a 4 m pool for 3 seconds at 50 base damage/sec. |
-| War Chest | +1,000 gold immediately; repeatable. |
-| Second Wind | Restores up to 30 shrine integrity and 40 hero health; offered only when useful. |
-| Stone Sanctuary | +25 maximum and current shrine integrity per rank, up to three ranks. |
-| Bounty Charter | +4 gold per kill per rank, up to three ranks. |
-
-Only one cannon path and one fire path can be chosen per run; both cannon paths work with ice. Pools receive fire-damage and Shatter bonuses, respect walls, and are limited to one reusable pool per fire tower. Frost slows expire normally; bosses receive weaker, shorter chills. Cards, paths, gold, and tower levels reset on retry or a new run.
-
-Victory follows the tenth cleared wave. **Restart Fire Siege** resets the campaign, all 24 defenses to level I, shrine health, and starting gold. See [card and boss validation](tests/defense-tactics/README.md) for current checks: `--defense-tactics-test`, `--defense-tactics-visual`, and `--defense-tactics-benchmark`. The prior `--defense-fire-*` and `--tower-defense-beta-*` flags retain the simpler flame/progression regression fixture with tactics disabled. `--tower-defense --hard-defense` launches directly into the hard-mode opening draft.
+The MVP rules above replace the old Fire Siege battery/card economy. The original
+`TowerDefense` director, cannon/flame assets and card catalog remain available to
+the historical Rogue Siege configuration; Three Gates keeps its separate rules.
+Old `--defense-fire-*`, `--defense-tactics-*` and `--tower-defense-beta-*` scripts
+are historical fixtures with obsolete Fire Siege opening/balance expectations.
+Current redesigned-mode acceptance is covered by the MVP, campaign, structures,
+state and hero-control suites. Use `--tower-defense --hard-defense` for Hard.
 
 ### Tower Defense · Three Gates (retained standard configuration)
 
@@ -267,7 +357,7 @@ While wearing the cloak, every pipe combo hit, heavy strike, chain throw and cha
 
 | Input | Action |
 |---|---|
-| W / S / A / D | Forward / backpedal / left and right strafe, relative to camera |
+| W / S / A / D | Move relative to the camera and turn the whole body toward travel |
 | Ctrl, held | Slow walk |
 | Mouse | Orbit the camera |
 | Mouse wheel | Zoom |

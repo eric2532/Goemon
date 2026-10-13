@@ -1,0 +1,81 @@
+{
+  "reimport_succeeded": true,
+  "mesh_objects": 248,
+  "triangles": 9404,
+  "materials": 18,
+  "clips": {
+    "upgrade_preview": [
+      "00_SHARED_ROCK_SITE_Root",
+      "01_UNBUILT_MARKERS_Root",
+      "02_BUILD_FOUNDATION_Root",
+      "03_BUILD_POSTS_Root",
+      "04_BUILD_LINTEL_Root",
+      "05_BUILD_DETAILS_Root",
+      "06_TEMP_CONSTRUCTION_Root",
+      "07_WORKING_CART_Root",
+      "08_WORKING_PICK_Root",
+      "09_OPTIONAL_REINFORCEMENT_Root",
+      "CartWheel_Root_-0.51_-0.31",
+      "CartWheel_Root_-0.51_0.31",
+      "CartWheel_Root_0.51_-0.31",
+      "CartWheel_Root_0.51_0.31"
+    ],
+    "work_loop": [
+      "00_SHARED_ROCK_SITE_Root",
+      "01_UNBUILT_MARKERS_Root",
+      "02_BUILD_FOUNDATION_Root",
+      "03_BUILD_POSTS_Root",
+      "04_BUILD_LINTEL_Root",
+      "05_BUILD_DETAILS_Root",
+      "06_TEMP_CONSTRUCTION_Root",
+      "07_WORKING_CART_Root",
+      "08_WORKING_PICK_Root",
+      "09_OPTIONAL_REINFORCEMENT_Root",
+      "CartWheel_Root_-0.51_-0.31",
+      "CartWheel_Root_-0.51_0.31",
+      "CartWheel_Root_0.51_-0.31",
+      "CartWheel_Root_0.51_0.31"
+    ],
+    "reverse_build": [
+      "00_SHARED_ROCK_SITE_Root",
+      "01_UNBUILT_MARKERS_Root",
+      "02_BUILD_FOUNDATION_Root",
+      "03_BUILD_POSTS_Root",
+      "04_BUILD_LINTEL_Root",
+      "05_BUILD_DETAILS_Root",
+      "06_TEMP_CONSTRUCTION_Root",
+      "07_WORKING_CART_Root",
+      "08_WORKING_PICK_Root",
+      "09_OPTIONAL_REINFORCEMENT_Root",
+      "CartWheel_Root_-0.51_-0.31",
+      "CartWheel_Root_-0.51_0.31",
+      "CartWheel_Root_0.51_-0.31",
+      "CartWheel_Root_0.51_0.31"
+    ],
+    "build": [
+      "00_SHARED_ROCK_SITE_Root",
+      "01_UNBUILT_MARKERS_Root",
+      "02_BUILD_FOUNDATION_Root",
+      "03_BUILD_POSTS_Root",
+      "04_BUILD_LINTEL_Root",
+      "05_BUILD_DETAILS_Root",
+      "06_TEMP_CONSTRUCTION_Root",
+      "07_WORKING_CART_Root",
+      "08_WORKING_PICK_Root",
+      "09_OPTIONAL_REINFORCEMENT_Root",
+      "CartWheel_Root_-0.51_-0.31",
+      "CartWheel_Root_-0.51_0.31",
+      "CartWheel_Root_0.51_-0.31",
+      "CartWheel_Root_0.51_0.31"
+    ]
+  },
+  "missing_material_meshes": [],
+  "socket_nodes": [
+    "socket_build_fx",
+    "socket_entrance",
+    "socket_income_fx"
+  ],
+  "nonfinite_vertices": [],
+  "all_expected_clips_present": true,
+  "all_checks_pass": true
+}

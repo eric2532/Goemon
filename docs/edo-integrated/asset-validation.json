@@ -1,0 +1,36 @@
+{
+  "source_approved_study": "04",
+  "protected_sha256": {
+    "assets/blender/characters/edo_study_v04/Edo_Study_v04.blend": "a42f5b9ccd7183a1eecf7cfc6390de78eca4e48f90533623aa52de9b318ab0b2",
+    "assets/blender/characters/kai.blend": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c",
+    "assets/blender/enemies/musashi/Final/Musashi_Final.blend": "3542e31714cc4571e076f5b99b0dc81eb7cdbd859cf9d38393102f2b14d2004c",
+    "assets/models/characters/edo_anime.glb": "191da97e95e7c3e4892ed7a09c7c33a860586893bcc8e8bf2dee027c7b089d16"
+  },
+  "protected_sources_unchanged": true,
+  "height_m": 2.1,
+  "bones": [
+    "Root",
+    "Hips",
+    "Chest",
+    "Head",
+    "Arm_R",
+    "Forearm_R",
+    "Hand_R",
+    "Leg_R",
+    "Shin_R",
+    "Foot_R",
+    "Arm_L",
+    "Forearm_L",
+    "Hand_L",
+    "Leg_L",
+    "Shin_L",
+    "Foot_L"
+  ],
+  "normalized_weights": true,
+  "triangles": 95548,
+  "vertices": 48520,
+  "materials": 1,
+  "atlas_resolution": 2048,
+  "raw_to_game_scale": 0.29104870524203924,
+  "glb_bytes": 7114280
+}

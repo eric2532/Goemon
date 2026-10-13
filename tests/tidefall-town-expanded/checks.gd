@@ -143,7 +143,7 @@ func run():
 		for i in 30:game.camera_rig._process(1.0/30)
 		if game.camera_rig.current_distance>13.5:camera_clear+=1
 	check(camera_clear==5,"Five principal views keep the normal 14m camera")
-	check(game.active_enemy_limit==200 and game.crowd.batches.size()==4,"Enemy cap 200 and all four species remain active")
+	check(game.active_enemy_limit==200 and game.crowd.batches.size()>=4,"Enemy cap 200 and all four original species remain available")
 	check(game.player.model.rig_visual.scene_file_path==MusashiModel.REVIEW_MODEL,"Expanded town keeps colored V05 Edo integrated")
 	if "--visual" in OS.get_cmdline_user_args():
 		root.size=Vector2i(1024,720);root.set_flag(Window.FLAG_NO_FOCUS,true);game.hud.hide();Input.mouse_mode=Input.MOUSE_MODE_VISIBLE

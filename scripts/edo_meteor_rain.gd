@@ -29,6 +29,7 @@ static func choose_targets(player: Hero,count: int,reach: float)->Array[Vector3]
 	var candidates: Array[Vector3]=[]
 	for enemy in player.game.enemies:
 		if is_instance_valid(enemy) and not enemy.dead and player.global_position.distance_to(enemy.global_position)<=reach:
+			if player.game.has_method("forest_enemy_visible") and not player.game.forest_enemy_visible(enemy):continue
 			if player.game.descent_mode and enemy.island_index>=0 and enemy.island_index!=player.game.encounters.current_island:continue
 			candidates.append(enemy.global_position)
 	candidates.sort_custom(func(a,b):return a.distance_squared_to(player.global_position)<b.distance_squared_to(player.global_position))
@@ -69,10 +70,10 @@ func _ready():
 	for i in range(targets.size()):
 		var point=targets[i]
 		var ball=Node3D.new();add_child(ball);ball.hide()
-		var core=FireEnergy.new();core.charged=true;ball.add_child(core);core.scale=Vector3.ONE*3.5
+		var core=FireEnergy.new();core.charged=true;ball.add_child(core);core.scale=Vector3.ONE*3.5;core.rotation.x=-PI/2
 		# A tapered tail points back up the falling path.
-		Geo.spike(ball,Vector3.UP*.2,Vector3.UP*5,.7,Geo.mat("ff6b18",0,1.7))
-		Geo.spike(ball,Vector3.UP*.2,Vector3.UP*3,.36,Geo.mat("ffe595",0,2))
+		Geo.spike(ball,Vector3.UP*.2,Vector3.UP*5,.7,preload("res://assets/rogue/scripts/ink_brush_style.gd").material(Color("ff6b18"),.8,.7))
+		Geo.spike(ball,Vector3.UP*.2,Vector3.UP*3,.36,preload("res://assets/rogue/scripts/ink_brush_style.gd").material(Color("ffe595"),.7,.8))
 		strikes.append({"point":point,"start":point+Vector3.UP*(28+i%4*3),"delay":.12+i*.065,"flight":.72+float(i%3)*.06,"done":false,"ball":ball})
 	for mesh in find_children("*","MeshInstance3D",true,false):
 		mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF

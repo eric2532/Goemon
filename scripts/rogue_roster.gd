@@ -36,10 +36,10 @@ static func name_for(id: int) -> String:
 	return str(data(id).get("name", "Unknown"))
 
 static func model_path(id: int) -> String:
-	return "res://assets/rogue/models/%s.glb" % class_id(id)
+	return "res://assets/rogue/styled/models/%s.glb" % class_id(id)
 
 static func portrait_path(id: int) -> String:
-	return "res://assets/rogue/portraits/%s-portrait.png" % class_id(id)
+	return "res://assets/rogue/styled/portraits/%s-portrait.png" % class_id(id)
 
 static func portrait(id: int) -> Texture2D:
 	if not is_rogue(id):

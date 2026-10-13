@@ -1,0 +1,385 @@
+{
+  "checks": [
+    {
+      "bounds": {
+        "max": [
+          1.39999997615814,
+          0.569999992847443,
+          1.375
+        ],
+        "min": [
+          -1.39999997615814,
+          0.0,
+          -1.375
+        ],
+        "size": [
+          2.79999995231628,
+          0.569999992847443,
+          2.75
+        ]
+      },
+      "file": "tower_stage_empty.glb",
+      "mesh_count": 15,
+      "meshes_with_stable_id_meta": 0,
+      "names_unique": true,
+      "passed": true
+    },
+    {
+      "bounds": {
+        "max": [
+          1.39999997615814,
+          3.00999999046326,
+          1.375
+        ],
+        "min": [
+          -1.39999997615814,
+          0.0,
+          -1.375
+        ],
+        "size": [
+          2.79999995231628,
+          3.00999999046326,
+          2.75
+        ]
+      },
+      "file": "tower_stage_frame.glb",
+      "mesh_count": 51,
+      "meshes_with_stable_id_meta": 0,
+      "names_unique": true,
+      "passed": true
+    },
+    {
+      "bounds": {
+        "max": [
+          1.39999997615814,
+          3.48698163032532,
+          1.72000002861023
+        ],
+        "min": [
+          -1.39999997615814,
+          0.0,
+          -1.375
+        ],
+        "size": [
+          2.79999995231628,
+          3.48698163032532,
+          3.09500002861023
+        ]
+      },
+      "file": "tower_stage_assembling.glb",
+      "mesh_count": 105,
+      "meshes_with_stable_id_meta": 0,
+      "names_unique": true,
+      "passed": true
+    },
+    {
+      "bounds": {
+        "max": [
+          1.77500009536743,
+          3.78500008583069,
+          1.72000002861023
+        ],
+        "min": [
+          -1.77500009536743,
+          0.0,
+          -1.70500004291534
+        ],
+        "size": [
+          3.55000019073486,
+          3.78500008583069,
+          3.42500019073486
+        ]
+      },
+      "file": "tower_stage_complete.glb",
+      "mesh_count": 170,
+      "meshes_with_stable_id_meta": 0,
+      "names_unique": true,
+      "passed": true
+    },
+    {
+      "bounds": {
+        "max": [
+          1.33000004291534,
+          0.286113858222961,
+          1.1673721075058
+        ],
+        "min": [
+          -1.33000004291534,
+          -0.620000004768372,
+          -1.1673721075058
+        ],
+        "size": [
+          2.66000008583069,
+          0.906113862991333,
+          2.3347442150116
+        ]
+      },
+      "file": "tower_wall_mount.glb",
+      "mesh_count": 10,
+      "meshes_with_stable_id_meta": 0,
+      "names_unique": true,
+      "passed": true
+    },
+    {
+      "bounds": {
+        "max": [
+          0.119999997317791,
+          0.0779422521591187,
+          0.0
+        ],
+        "min": [
+          -0.119999997317791,
+          -0.0779422521591187,
+          -2.27999997138977
+        ],
+        "size": [
+          0.239999994635582,
+          0.155884504318237,
+          2.27999997138977
+        ]
+      },
+      "file": "arrow_projectile.glb",
+      "mesh_count": 5,
+      "meshes_with_stable_id_meta": 0,
+      "names_unique": true,
+      "passed": true,
+      "tip_at_origin": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "animation_names": [
+        "Tower_Build_Recoil_Reverse"
+      ],
+      "arbitrary_decay_resume_seek_matches": true,
+      "bounds": {
+        "max": [
+          1.69008505344391,
+          4.0701150894165,
+          1.60010504722595
+        ],
+        "min": [
+          -1.69008505344391,
+          0.0,
+          -1.60010504722595
+        ],
+        "size": [
+          3.38017010688782,
+          4.0701150894165,
+          3.2002100944519
+        ]
+      },
+      "clip_length": 7.45833349227905,
+      "completed_bounds": {
+        "max": [
+          1.77500009536743,
+          3.78500008583069,
+          1.72000002861023
+        ],
+        "min": [
+          -1.77500009536743,
+          0.0,
+          -1.70500004291534
+        ],
+        "size": [
+          3.55000019073486,
+          3.78500008583069,
+          3.42500019073486
+        ]
+      },
+      "file": "tower_build_recoil_reverse.glb",
+      "firing_samples": [
+        {
+          "frame": 79,
+          "projectile_global": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "projectile_scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "recoil_global": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "time": 3.25
+        },
+        {
+          "frame": 81,
+          "projectile_global": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "projectile_scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "recoil_global": [
+            0.0,
+            0.0,
+            -0.106666669249535
+          ],
+          "time": 3.33333333333333
+        },
+        {
+          "frame": 82,
+          "projectile_global": [
+            0.0,
+            0.0,
+            0.5
+          ],
+          "projectile_scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "recoil_global": [
+            0.0,
+            0.0,
+            -0.159999996423721
+          ],
+          "time": 3.375
+        },
+        {
+          "frame": 88,
+          "projectile_global": [
+            0.0,
+            0.0,
+            3.5
+          ],
+          "projectile_scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "recoil_global": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "time": 3.625
+        },
+        {
+          "frame": 91,
+          "projectile_global": [
+            0.0,
+            0.0,
+            5.0
+          ],
+          "projectile_scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "recoil_global": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "time": 3.75
+        },
+        {
+          "frame": 98,
+          "projectile_global": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "projectile_scale": [
+            0.999997138977051,
+            0.999997138977051,
+            0.999997138977051
+          ],
+          "recoil_global": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "time": 4.04166666666667
+        },
+        {
+          "frame": 108,
+          "projectile_global": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "projectile_scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "recoil_global": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "time": 4.45833333333333
+        }
+      ],
+      "first_key_seconds": 0.0,
+      "last_key_seconds": 7.45833349227905,
+      "mesh_count": 170,
+      "meshes_with_stable_id_meta": 0,
+      "muzzle_complete_global": [
+        0.0,
+        1.85999989509583,
+        1.73000001907349
+      ],
+      "names_unique": true,
+      "normalized_build_samples": [
+        {
+          "progress": 0.0,
+          "time": 0.0,
+          "visible_meshes": 15
+        },
+        {
+          "progress": 0.25,
+          "time": 0.739583333333333,
+          "visible_meshes": 42
+        },
+        {
+          "progress": 0.5,
+          "time": 1.47916666666667,
+          "visible_meshes": 76
+        },
+        {
+          "progress": 0.75,
+          "time": 2.21875,
+          "visible_meshes": 114
+        },
+        {
+          "progress": 1.0,
+          "time": 2.95833333333333,
+          "visible_meshes": 170
+        }
+      ],
+      "passed": true,
+      "reverse_pose_matches_forward": true,
+      "track_count": 313
+    }
+  ],
+  "engine": {
+    "build": "official",
+    "hash": "7d41c59c457bd5a245092b4e7eb2d833e3b3f8c3",
+    "hex": 263683,
+    "major": 4,
+    "minor": 6,
+    "patch": 3,
+    "status": "stable",
+    "string": "4.6.3-stable (official)",
+    "timestamp": 0
+  },
+  "failures": [],
+  "import_bake_fps": 24,
+  "scope": "Isolated import/playback at 24 FPS only; no game project edited or gameplay executed",
+  "status": "PASS"
+}

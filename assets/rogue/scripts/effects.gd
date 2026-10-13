@@ -5,8 +5,21 @@ extends Node3D
 
 const GOLD: Color = Color("ffd487")
 const TEAL: Color = Color("6ef7dc")
+const Ink = preload("res://assets/rogue/scripts/ink_brush_style.gd")
 const BLADE_SHADER = preload("res://assets/rogue/shaders/blade_trail.gdshader")
 const MAX_EFFECTS: int = 700
+var quality: int = 1
+var effect_budget: int = 320
+var burst_material: ShaderMaterial
+var impact_frame: int = -1
+var impacts_this_frame: int = 0
+var particle_frame: int = -1
+var particle_bursts_this_frame: int = 0
+var ring_frame: int = -1
+var rings_this_frame: int = 0
+var feedback_live: Dictionary = {}
+var streak_frame: int = -1
+var streaks_this_frame: int = 0
 var shake: float = 0.0
 var flash: float = 0.0
 var reduced_flashes: bool = false
@@ -15,6 +28,17 @@ var time: float = 0.0
 var sphere_geometry: SphereMesh
 var spark_geometry: BoxMesh
 var geometry_cache: Dictionary = {}
+var previous_poses: Dictionary = {}
+var previous_blade: Array = []
+var previous_blade_weapon: int = 0
+
+func apply_quality(level: int) -> void:
+	quality = clampi(level, 0, 2)
+	effect_budget = [180,320,420][quality]
+	while items.size()>effect_budget:
+		var oldest: Dictionary = items.pop_front()
+		_release_feedback(oldest)
+		if is_instance_valid(oldest.node): oldest.node.queue_free()
 
 func _ensure_geometry() -> void:
 	if sphere_geometry != null:
@@ -26,12 +50,17 @@ func _ensure_geometry() -> void:
 	sphere_geometry.rings = 4
 	spark_geometry = BoxMesh.new()
 	spark_geometry.size = Vector3.ONE
+	burst_material = ShaderMaterial.new()
+	burst_material.shader = preload("res://assets/rogue/shaders/energy_sparks.gdshader")
 
 func _material(color: Color, opacity: float = 1.0, additive: bool = true) -> StandardMaterial3D:
 	var material: StandardMaterial3D = StandardMaterial3D.new()
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	material.blend_mode = BaseMaterial3D.BLEND_MODE_ADD if additive else BaseMaterial3D.BLEND_MODE_MIX
+	material.emission_enabled = additive
+	material.emission = color
+	material.emission_energy_multiplier = 1.25 if reduced_flashes else 1.8
 	material.cull_mode = BaseMaterial3D.CULL_DISABLED
 	material.depth_draw_mode = BaseMaterial3D.DEPTH_DRAW_DISABLED
 	material.disable_fog = true
@@ -42,7 +71,9 @@ func _material(color: Color, opacity: float = 1.0, additive: bool = true) -> Sta
 func _mesh(geometry: Mesh, color: Color, opacity: float = 1.0, additive: bool = true) -> MeshInstance3D:
 	var node: MeshInstance3D = MeshInstance3D.new()
 	node.mesh = geometry
-	node.material_override = _material(color, opacity, additive)
+	node.material_override = Ink.material(color,.42 if reduced_flashes else (1.0 if additive else .5),opacity)
+	node.material_override.set_meta("base_fade",opacity)
+	node.set_meta("ink_materials",[node.material_override])
 	node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	return node
 
@@ -51,8 +82,16 @@ func _array_mesh(vertices: PackedVector3Array, indices: PackedInt32Array, uvs: P
 	arrays.resize(Mesh.ARRAY_MAX)
 	arrays[Mesh.ARRAY_VERTEX] = vertices
 	arrays[Mesh.ARRAY_INDEX] = indices
-	if not uvs.is_empty():
-		arrays[Mesh.ARRAY_TEX_UV] = uvs
+	if uvs.is_empty():
+		# Every procedural pigment surface needs UVs, including thrust facets.
+		var bounds=AABB(vertices[0],Vector3.ZERO)
+		for point in vertices:bounds=bounds.expand(point)
+		var longitudinal=2 if bounds.size.z>bounds.size.x else 0
+		for point in vertices:
+			var u=(point[longitudinal]-bounds.position[longitudinal])/maxf(.001,bounds.size[longitudinal])
+			var v=(point.y-bounds.position.y)/maxf(.001,bounds.size.y)
+			uvs.append(Vector2(u,v if bounds.size.y>.001 else .8))
+	arrays[Mesh.ARRAY_TEX_UV] = uvs
 	var mesh: ArrayMesh = ArrayMesh.new()
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	return mesh
@@ -95,14 +134,16 @@ func _ring_geometry(radius: float, width: float, arc: float = TAU, segments: int
 		return geometry_cache[key]
 	var vertices: PackedVector3Array = PackedVector3Array()
 	var indices: PackedInt32Array = PackedInt32Array()
+	var uvs: PackedVector2Array = PackedVector2Array()
 	for i in range(segments + 1):
 		var a: float = float(i) / float(segments) * arc
 		vertices.append(Vector3(sin(a), cos(a), 0) * maxf(0.01, radius - width))
 		vertices.append(Vector3(sin(a), cos(a), 0) * radius)
+		uvs.append(Vector2(float(i)/segments,0));uvs.append(Vector2(float(i)/segments,1))
 		if i < segments:
 			var n: int = i * 2
 			indices.append_array(PackedInt32Array([n, n + 1, n + 2, n + 1, n + 3, n + 2]))
-	var mesh: ArrayMesh = _array_mesh(vertices, indices)
+	var mesh: ArrayMesh = _array_mesh(vertices, indices,uvs)
 	if geometry_cache.size() < 180:
 		geometry_cache[key] = mesh
 	return mesh
@@ -114,33 +155,123 @@ func _fade(node: Node, multiplier: float) -> void:
 			var color: Color = material.albedo_color
 			color.a = float(material.get_meta("base_alpha", 1.0)) * multiplier
 			material.albedo_color = color
+		elif material is ShaderMaterial and material.shader==preload("res://assets/rogue/shaders/magic_ink_brush.gdshader"):
+			material.set_shader_parameter("fade",float(material.get_meta("base_fade",1.0))*multiplier)
 	for child in node.get_children():
 		_fade(child, multiplier)
 
+func _release_feedback(item: Dictionary) -> void:
+	if feedback_live.has(item.kind):
+		feedback_live[item.kind] = maxi(0, int(feedback_live[item.kind])-1)
+
+func _feedback_available(kind: String) -> bool:
+	if kind=="magic-brush":return int(feedback_live.get(kind,0))<[2,3,4][quality]
+	return int(feedback_live.get(kind,0)) < ([16,32,48][quality] if kind=="streak" else [6,12,18][quality])
+
 func _add(node: Node3D, life: float, kind: String, data: Dictionary = {}) -> Node3D:
-	if items.size() >= MAX_EFFECTS:
+	if items.size() >= mini(MAX_EFFECTS,effect_budget):
 		var oldest: Dictionary = items.pop_front()
+		_release_feedback(oldest)
 		if is_instance_valid(oldest.node):
 			oldest.node.queue_free()
 	add_child(node)
+	_register_ink(node)
 	data.merge({"node": node, "life": life, "max": life, "kind": kind}, true)
 	items.append(data)
+	if kind in ["impact","particle-burst","ring","streak","magic-brush"]:
+		feedback_live[kind]=int(feedback_live.get(kind,0))+1
 	return node
 
+func sword_brush_sample(attack: Variant, weapon: Node3D, axis: Vector3, crimson: bool = false, accelerated: bool = false, tempo: float = 1.0) -> void:
+	_sample_weapon_brush(attack,[{"node":weapon,"axis":axis}],Color.WHITE,accelerated,tempo,true,crimson)
+
+func weapon_brush_sample(attack: Variant, blades: Array, tint: Color, accelerated: bool=false, tempo: float=1.0) -> void:
+	_sample_weapon_brush(attack,blades,tint,accelerated,tempo,false,false)
+
+func _sample_weapon_brush(attack: Variant, blades: Array, tint: Color, accelerated: bool, tempo: float, legacy: bool, crimson: bool) -> void:
+	var current: Array = []
+	var previous: Array = []
+	for blade in blades.slice(0,2):
+		if not is_instance_valid(blade.node):return
+		var uid=blade.node.get_instance_id()
+		var pose=[blade.node.to_global(Vector3.ZERO),blade.node.to_global(blade.axis)]
+		if previous_poses.has(uid):previous.append(previous_poses[uid])
+		current.append(pose);previous_poses[uid]=pose
+	if current.is_empty():return
+	if previous.size()!=current.size():previous.clear()
+	if attack==null:return
+	# Emit through the same windup/contact/follow-through phases as actor._phase.
+	var contact: float = attack.contact
+	var follow: float = minf(attack.duration*.78, contact+minf(.09,(attack.duration-contact)*.24))
+	var item: Dictionary = attack.get("magicBrush",{})
+	var last_observed: float = attack.get("brushObservedTime",0.0)
+	attack.brushObservedTime=attack.time
+	var crossed_follow: bool = last_observed<follow and attack.time>follow
+	if attack.time<contact*.52 or (attack.time>follow and not crossed_follow):return
+	var life: float = .08/maxf(1.0,tempo) if accelerated else (.16 if crimson else .20)
+	if item.is_empty():
+		if not _feedback_available("magic-brush") and accelerated:
+			# Keep the newest boosted cut visible without exceeding the ribbon cap.
+			for old in items:
+				if old.kind=="magic-brush":
+					_release_feedback(old);old.node.queue_free();items.erase(old);break
+		if not _feedback_available("magic-brush"):return
+		var ribbon = preload("res://assets/rogue/scripts/magic_sword_brush.gd").new()
+		ribbon.name=("SamuraiSwordInkBrush" if crimson else "MagicSwordInkBrush") if legacy else "RosterSwordInkBrush"
+		if legacy:ribbon.material_override.set_shader_parameter("crimson",crimson)
+		else:ribbon.material_override=preload("res://assets/rogue/scripts/ink_brush_style.gd").material(tint)
+		item = {}
+		item.cut_index=attack.index
+		_add(ribbon,life,"magic-brush",item)
+		attack.magicBrush=item
+		if not previous.is_empty():ribbon.sample_blades(previous)
+	# A cancelled/evicted ribbon must never resurrect from a stale attack handle.
+	if not is_instance_valid(item.node) or item.node.is_queued_for_deletion():return
+	item.life=life
+	item.sampleTime=attack.time
+	item.node.material_override.set_shader_parameter("fade",1.0)
+	item.node.material_override.set_shader_parameter("energy",.42 if reduced_flashes else (1.15 if attack.index==(4 if crimson else 2) else 1.0))
+	item.node.sample_blades(current)
+
 func particles(pos: Vector3, color: Color = GOLD, count: int = 12, power: float = 1.0) -> void:
+	var amount: int = mini(count, [6,16,24][quality])
+	if amount<=0:return
+	# A piercing spell can contact hundreds of enemies in one combat step.
+	# Count displayed frames: catch-up physics steps share one allocation budget.
+	# Reject excess cosmetic allocations before creating meshes or spark data.
+	var frame: int = Engine.get_process_frames()
+	if frame!=particle_frame:
+		particle_frame=frame;particle_bursts_this_frame=0
+	if particle_bursts_this_frame >= [3,8,12][quality] or not _feedback_available("particle-burst"):return
+	particle_bursts_this_frame+=1
 	_ensure_geometry()
-	for i in range(mini(count, 48)):
-		var spark: bool = i % 3 != 0
-		var mesh: MeshInstance3D = _mesh(spark_geometry if spark else sphere_geometry, color)
-		mesh.position = pos + Vector3(0, 0.8, 0)
-		var angle: float = randf() * TAU
-		var velocity: Vector3 = Vector3(sin(angle) * randf_range(2, 6), randf_range(2, 6), cos(angle) * randf_range(2, 6)) * power
-		var size_: float = randf_range(0.04, 0.11) * power
-		mesh.scale = Vector3(size_, size_ * (0.55 if spark else 1.0), size_ * (3.5 if spark else 1.0))
-		mesh.rotation = Vector3(randf() * 4, randf() * 5, randf() * 4)
-		_add(mesh, randf_range(0.22, 0.6), "particle", {"velocity": velocity, "spark": spark})
+	var batch := MultiMeshInstance3D.new()
+	batch.name = "EnergySparks"
+	batch.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	batch.multimesh = MultiMesh.new()
+	batch.multimesh.transform_format = MultiMesh.TRANSFORM_3D
+	batch.multimesh.use_colors = true
+	batch.multimesh.instance_count = amount
+	batch.multimesh.mesh = spark_geometry
+	batch.material_override = burst_material
+	batch.position = pos + Vector3.UP*.8
+	var sparks: Array = []
+	for i in range(amount):
+		var angle: float = randf()*TAU
+		var size_: float = randf_range(.035,.085)*power
+		var spark = {"position": Vector3.ZERO, "velocity": Vector3(sin(angle)*randf_range(2,6),randf_range(2,6),cos(angle)*randf_range(2,6))*power,
+			"size": Vector3(size_,size_*.55,size_*3.5)}
+		sparks.append(spark)
+		batch.multimesh.set_instance_transform(i,Transform3D(Basis.IDENTITY.scaled(spark.size),Vector3.ZERO))
+		batch.multimesh.set_instance_color(i,Color(color.r,color.g,color.b,.43 if reduced_flashes else 1.0))
+	_add(batch,.42,"particle-burst",{"sparks":sparks,"color":color,"opacity":.43 if reduced_flashes else 1.0})
 
 func ring(pos: Vector3, color: Color = GOLD, radius: float = 2.0, life: float = 0.4) -> Node3D:
+	var frame: int = Engine.get_process_frames()
+	if frame!=ring_frame:
+		ring_frame=frame;rings_this_frame=0
+	if rings_this_frame >= [3,8,12][quality] or not _feedback_available("ring"):return null
+	rings_this_frame+=1
 	var mesh: MeshInstance3D = _mesh(_ring_geometry(1, 0.045), color, 0.8)
 	mesh.position = pos + Vector3(0, 0.065, 0)
 	mesh.rotation.x = -PI / 2
@@ -153,11 +284,11 @@ func slash(pos: Vector3, angle: float, combo: int = 0, color: Color = GOLD, reac
 	var aliases: Dictionary = {"cutlass": "sword", "ninja": "dagger", "heavy": "cleave", "claymore": "magic", "twin": "dagger", "pipe": "cleave", "low-pipe": "spin", "iaijutsu": "katana"}
 	var style: String = aliases.get(requested_style, requested_style)
 	var presets: Dictionary = {
-		"sword": {"width": 0.48, "life": 0.29, "arc": 2.25},
-		"katana": {"width": 0.35, "life": 0.31, "arc": 2.05},
-		"dagger": {"width": 0.3, "life": 0.21, "arc": 1.9},
-		"cleave": {"width": 0.74, "life": 0.36, "arc": 2.65},
-		"magic": {"width": 0.68, "life": 0.38, "arc": 2.6},
+		"sword": {"width": 0.6, "life": 0.29, "arc": 2.25},
+		"katana": {"width": 0.5, "life": 0.31, "arc": 2.05},
+		"dagger": {"width": 0.4, "life": 0.21, "arc": 1.9},
+		"cleave": {"width": 0.9, "life": 0.36, "arc": 2.65},
+		"magic": {"width": 0.8, "life": 0.38, "arc": 2.6},
 		"spin": {"width": 0.48, "life": 0.37, "arc": PI * 1.98},
 	}
 	var preset: Dictionary = presets.get(style, presets.sword)
@@ -169,13 +300,11 @@ func slash(pos: Vector3, angle: float, combo: int = 0, color: Color = GOLD, reac
 	group.name = "AttackSlash_" + style
 	group.position = pos + Vector3(0, float(options.get("height", 0.95)), 0)
 	group.rotation.y = angle
+	group.rotation.z = float(options.get("plane", 0.0))
 	var shader_materials: Array = []
 	for settings in [[reach, preset.width, 0.96, 0, 0], [reach - preset.width * 0.66, preset.width * 0.24, 0.42, 0.055, -0.025], [reach + 0.045, 0.045, 0.4, 0.015, 0.045]]:
-		var material: ShaderMaterial = ShaderMaterial.new()
-		material.shader = BLADE_SHADER
-		material.set_shader_parameter("tint", color)
-		material.set_shader_parameter("strength", settings[2] * (0.42 if reduced_flashes else 1.0))
-		material.set_shader_parameter("delay", settings[3])
+		var material: ShaderMaterial = Ink.material(color,settings[2]*(.42 if reduced_flashes else 1.0),settings[2])
+		material.set_meta("base_fade",settings[2])
 		var mesh: MeshInstance3D = MeshInstance3D.new()
 		mesh.mesh = _blade(settings[0], settings[1], arc, direction, tilt)
 		mesh.material_override = material
@@ -211,13 +340,35 @@ func thrust(pos: Vector3, angle: float, reach: float = 4.3, color: Color = Color
 	return _add(group, 0.33, "thrust", {"tip": tip, "core": core, "vanes": vanes, "collars": collars, "reach": reach, "length": length_})
 
 func weapon_impact(pos: Vector3, angle: float, style: String = "sword", color: Color = GOLD, heavy: bool = false) -> Node3D:
+	var frame: int = Engine.get_process_frames()
+	if frame!=impact_frame:
+		impact_frame=frame;impacts_this_frame=0
+	if impacts_this_frame >= [3,8,12][quality] or not _feedback_available("impact"):return null
+	impacts_this_frame+=1
 	var group: Node3D = Node3D.new()
 	group.name = "WeaponImpact_" + style
 	group.position = pos + Vector3(0, 1.0, 0)
 	group.rotation.y = angle
 	var strength: float = 1.35 if heavy else 1.0
 	var pieces: Array = []
-	if style in ["pierce", "arrow", "lance", "thrust"]:
+	var magic_ring: MeshInstance3D
+	if not style.is_empty():
+		var crimson: bool = style=="samurai-cut"
+		var legacy: bool=style in ["claymore","wave","samurai-cut"]
+		group.name=("SamuraiInkImpact" if crimson else "MagicInkImpact") if legacy else "RosterInkImpact_"+style
+		for i in range(4 if quality==0 else 6):
+			var core: bool = i<2
+			var pigment: Color=(Color("ff2848") if crimson else Color("9852f4")) if legacy else color
+			var shard_color: Color = pigment.lightened(.82) if core else pigment
+			var shard = _mesh(_diamond((1.45 if core else .75)*strength,.16 if core else .09),shard_color,.9 if core else .72)
+			var a: float = -.55+i*PI/3.0
+			shard.rotation.z=a
+			group.add_child(shard)
+			pieces.append({"node":shard,"drive":0.0,"velocity":Vector3(cos(a),sin(a),.12)*(0 if core else 2.4*strength)})
+		magic_ring=_mesh(_ring_geometry(1.0,.055,TAU,32),(Color("ff4965") if crimson else Color("b37aff")) if legacy else color,.65)
+		group.add_child(magic_ring)
+		particles(pos,(Color("ff2848") if crimson else Color("ad72ff")) if legacy else color,12 if heavy else 8,.85)
+	elif style in ["pierce", "arrow", "crimson-arrow", "lance", "thrust"]:
 		for i in range(5):
 			var shard: MeshInstance3D = _mesh(_spear((1.4 if i == 0 else 0.65) * strength, 0.12 if i == 0 else 0.045, 0.035), Color("ecfcff") if i == 0 else color, 0.85 if i == 0 else 0.5)
 			var side: float = float(i - 2)
@@ -238,7 +389,7 @@ func weapon_impact(pos: Vector3, angle: float, style: String = "sword", color: C
 		if bash or heavy:
 			ring(pos, color, 1.65 if bash else 1.1, 0.24)
 	shake = maxf(shake, 0.22 if heavy else 0.105)
-	return _add(group, 0.24 if heavy else 0.18, "impact", {"pieces": pieces})
+	return _add(group, (0.30 if heavy else 0.24) if magic_ring!=null else (0.24 if heavy else 0.18), "impact", {"pieces": pieces,"magicRing":magic_ring,"strength":strength})
 
 func spell_burst(pos: Vector3, angle: float = 0.0, color: Color = Color("9cbcff"), radius: float = 2.3) -> Node3D:
 	var group: Node3D = Node3D.new()
@@ -325,7 +476,49 @@ func _shaft(a: Vector3, b: Vector3, color: Color, width: float = 0.04) -> MeshIn
 	return mesh
 
 func streak(a: Vector3, b: Vector3, color: Color = Color("ffe2a8"), width: float = 0.065, life: float = 0.16) -> Node3D:
+	# Trails are cosmetic; projectile movement and collision run independently.
+	var frame: int = Engine.get_process_frames()
+	if frame!=streak_frame:
+		streak_frame=frame;streaks_this_frame=0
+	if streaks_this_frame >= [8,16,24][quality] or not _feedback_available("streak"):return null
+	streaks_this_frame+=1
 	return _add(_shaft(a, b, color, width), life, "streak")
+
+func ranger_trail(pr: Dictionary, start: Vector3, end: Vector3) -> void:
+	# One reusable mesh/material per arrow, rather than one node per flight tick.
+	if start.distance_squared_to(end) < .000001: return
+	var life: float = .26 if pr.get("power", false) else .14
+	var item: Dictionary = pr.get("rangerTrail", {})
+	if item.is_empty() or not is_instance_valid(item.node) or item.node.is_queued_for_deletion():
+		var mesh: MeshInstance3D = _mesh(ImmediateMesh.new(), pr.color)
+		mesh.material_override.set_shader_parameter("use_vertex_alpha",true)
+		item = {"points": [{"pos": start, "time": time}], "width": (.055 if pr.get("power", false) else .014) * pr.rangeScale}
+		_add(mesh, life, "ranger-trail", item)
+		pr.rangerTrail = item
+	item.life = life
+	item.points.append({"pos": end, "time": time})
+	while item.points.size()>32:item.points.pop_front()
+	while item.points.size() > 2 and item.points[1].time < time - life:
+		item.points.pop_front()
+	var geometry: ImmediateMesh = item.node.mesh
+	geometry.clear_surfaces()
+	geometry.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
+	for i in range(1, item.points.size()):
+		var a: Vector3 = item.points[i-1].pos
+		var b: Vector3 = item.points[i].pos
+		var tangent: Vector3 = (b-a).normalized()
+		if tangent.length_squared() < .01: continue
+		var side: Vector3 = tangent.cross(Vector3.UP).normalized()
+		if side.length_squared() < .01: side = Vector3.RIGHT
+		var alpha: float = clampf(1.0-(time-item.points[i].time)/life, 0.0, 1.0)
+		geometry.surface_set_color(Color(1, 1, 1, alpha))
+		for axis in [side, tangent.cross(side).normalized()]:
+			var offset: Vector3 = axis * item.width
+			var positions=[a-offset,a+offset,b+offset,a-offset,b+offset,b-offset]
+			var uvs=[Vector2(0,0),Vector2(0,1),Vector2(1,1),Vector2(0,0),Vector2(1,1),Vector2(1,0)]
+			for vertex in range(6):
+				geometry.surface_set_uv(uvs[vertex]);geometry.surface_add_vertex(positions[vertex])
+	geometry.surface_end()
 
 func lightning(a: Vector3, b: Vector3) -> void:
 	var start: Vector3 = a + Vector3.UP
@@ -376,6 +569,43 @@ func create_projectile(kind: String, color: Color = TEAL) -> Node3D:
 	var group: Node3D = Node3D.new()
 	group.name = "Projectile_" + kind
 	match kind:
+		"crimson-arrow":
+			var shaft = _mesh(_spear(1.8,.09,.09),color,.85)
+			shaft.position.z=-1.0;group.add_child(shaft)
+			var head = _mesh(_spear(.65,.22,.12),color,.95)
+			head.position.z=.55;group.add_child(head)
+			for side in [-1.0,1.0]:
+				var fin = _mesh(_spear(.55,.12,.05),color,.55)
+				fin.position=Vector3(side*.08,0,-.9);fin.rotation.y=side*-.65;group.add_child(fin)
+		"ranger-arrow", "ranger-power-arrow":
+			var power: bool = kind == "ranger-power-arrow"
+			var shaft_geometry = CylinderMesh.new()
+			shaft_geometry.top_radius = .021; shaft_geometry.bottom_radius = .021
+			shaft_geometry.height = .95; shaft_geometry.radial_segments = 5
+			var shaft = _mesh(shaft_geometry, color if power else Color("765331"), 1.0, power)
+			shaft.rotation.x = PI / 2
+			shaft.position.z = -.15
+			group.add_child(shaft)
+			var point = _mesh(_spear(.38, .1, .045), color if power else Color("b7c9cc"), 1.0, power)
+			point.position.z = .3
+			group.add_child(point)
+			for side in [-1.0, 1.0]:
+				var feather = _mesh(_spear(.23, .08, .012), color if power else Color("597c43"), .9, power)
+				feather.position = Vector3(side * .04, 0, -.6)
+				feather.rotation.y = side * -.35
+				group.add_child(feather)
+			if power:
+				var aura = _mesh(_spear(.8, .14, .1), color, .22)
+				aura.position.z = -.06
+				group.add_child(aura)
+		"bullet":
+			# Previous shot streak radius was 0.055; visualScale=10 makes a 1.1 m round.
+			var core = _mesh(sphere_geometry, Color("fff6c9"), 0.98)
+			core.scale = Vector3.ONE * 0.055
+			group.add_child(core)
+			var shell = _mesh(sphere_geometry, Color("ffc267"), 0.25)
+			shell.scale = Vector3.ONE * 0.068
+			group.add_child(shell)
 		"arrow", "power-arrow", "bow":
 			var shaft: MeshInstance3D = _shaft(Vector3(0, 0, -0.65), Vector3(0, 0, 0.35), color, 0.025)
 			group.add_child(shaft)
@@ -396,15 +626,37 @@ func create_projectile(kind: String, color: Color = TEAL) -> Node3D:
 			hub.rotation.x = PI / 2
 			group.add_child(hub)
 		"wave":
-			for setting in [[2.35, 0.45, 0.7], [2.12, 0.08, 0.92]]:
-				var blade: MeshInstance3D = _mesh(_blade(setting[0], setting[1], 1.55, 1, 0.08), color if setting[1] > 0.1 else Color("f5eaff"), setting[2])
-				blade.position.z = -1.6
+			var ink_materials: Array = []
+			for layer in range(2):
+				var blade = MeshInstance3D.new()
+				blade.mesh=_blade(2.35 if layer==0 else 2.12,.85 if layer==0 else .52,1.55,1,.08)
+				blade.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+				var ink = ShaderMaterial.new()
+				ink.shader=preload("res://assets/rogue/shaders/magic_ink_brush.gdshader")
+				ink.set_shader_parameter("fade",1.0 if layer==0 else .4)
+				ink.set_shader_parameter("energy",(.42 if reduced_flashes else 1.15) if layer==0 else (.24 if reduced_flashes else .5))
+				blade.material_override=ink
+				ink_materials.append(ink)
+				# Face the moving energy crescent forward. A floor-flat ribbon
+				# disappears edge-on from the shoulder-height gameplay camera.
+				blade.rotation.x = PI / 2
+				blade.position = Vector3(0, 2.1, .15 if layer==0 else -.2)
 				group.add_child(blade)
+			group.set_meta("ink_materials",ink_materials)
 			for side in [-1.0, 1.0]:
 				var fin: MeshInstance3D = _mesh(_spear(1.2, 0.12, 0.055), color, 0.5)
 				fin.position = Vector3(side * 0.75, 0, -0.75)
 				fin.rotation.y = side * -0.12
 				group.add_child(fin)
+		"fireball":
+			for layer in [[0.26, 0.98], [0.39, 0.6], [0.52, 0.14]]:
+				var flame = _mesh(sphere_geometry, Color("fff0b0") if layer[0] < 0.3 else Color("ff572a"), layer[1])
+				flame.scale = Vector3.ONE * layer[0]
+				group.add_child(flame)
+			for i in range(3):
+				var orbit = _mesh(_ring_geometry(0.43, 0.04, PI * 1.55, 32), Color("ffc34d"), 0.75)
+				orbit.rotation = Vector3(i * 1.05, i * 0.7, i * 0.8)
+				group.add_child(orbit)
 		"bolt", "spell", "wand":
 			var core: MeshInstance3D = _mesh(_spear(0.9, 0.19, 0.19), Color("f0eeff"), 0.95)
 			core.position.z = -0.35
@@ -423,7 +675,16 @@ func create_projectile(kind: String, color: Color = TEAL) -> Node3D:
 			var tail: MeshInstance3D = _mesh(_spear(0.8, 0.16, 0.16), color, 0.34)
 			tail.rotation.y = PI
 			group.add_child(tail)
+	_register_ink(group)
 	return group
+
+func _register_ink(node: Node3D) -> Array:
+	var inks: Array=[]
+	if node is MeshInstance3D and node.material_override is ShaderMaterial and node.material_override.shader==preload("res://assets/rogue/shaders/magic_ink_brush.gdshader"):inks.append(node.material_override)
+	for child in node.get_children():
+		if child is Node3D:inks.append_array(_register_ink(child))
+	node.set_meta("ink_materials",inks)
+	return inks
 
 func tick(dt: float) -> void:
 	time += dt
@@ -431,18 +692,37 @@ func tick(dt: float) -> void:
 	flash = maxf(0, flash - dt)
 	for i in range(items.size() - 1, -1, -1):
 		var item: Dictionary = items[i]
-		var node: Node3D = item.node
-		if not is_instance_valid(node):
+		if not is_instance_valid(item.node):
+			_release_feedback(item)
 			items.remove_at(i)
 			continue
-		item.life -= dt
+		var node: Node3D = item.node
+		Ink.animate(node,dt)
+		# A new ribbon must reach one displayed frame before its short tail ages.
+		var age_delta: float = dt
+		if item.kind=="magic-brush" and not item.get("presented",false):
+			item.presented=true;age_delta=0.0
+		item.life -= age_delta
 		if item.life <= 0:
 			node.queue_free()
+			_release_feedback(item)
 			items.remove_at(i)
 			continue
 		var t: float = clampf(1.0 - float(item.life) / float(item.max), 0, 1)
 		var remaining: float = 1.0 - t
 		match str(item.kind):
+			"magic-brush":
+				node.material_override.set_shader_parameter("fade",pow(remaining,.85))
+			"particle-burst":
+				for j in range(item.sparks.size()):
+					var spark: Dictionary = item.sparks[j]
+					spark.position += spark.velocity*dt
+					spark.velocity.y -= 14*dt
+					var basis: Basis = Basis(Quaternion(Vector3.BACK,spark.velocity.normalized())) if spark.velocity.length_squared()>.00001 else Basis.IDENTITY
+					node.multimesh.set_instance_transform(j,Transform3D(basis.scaled(spark.size*maxf(.01,remaining)),spark.position))
+					var color: Color = item.color
+					color.a = remaining*item.opacity
+					node.multimesh.set_instance_color(j,color)
 			"particle":
 				node.position += item.velocity * dt
 				item.velocity.y -= 14 * dt
@@ -453,9 +733,24 @@ func tick(dt: float) -> void:
 			"ring":
 				node.scale = Vector3.ONE * float(item.radius) * (0.25 + t * 0.85)
 				_fade(node, remaining)
+			"crimson-slash":
+				node.scale = Vector3.ONE * (0.83 + 0.17 * minf(1, t * 4))
+				node.rotation.y = item.angle + (t - 0.3) * 0.12
+				_fade(node, minf(1, remaining * 2.3))
+			"wave-disc":
+				node.scale = Vector3.ONE * item.radius * (1.0 if item.warning else (0.24 + 0.76 * (1 - pow(remaining, 2))))
+				_fade(node, (0.7 + sin(t * PI) * 0.3) if item.warning else remaining)
+			"nova":
+				node.scale = Vector3.ONE * (0.15 + 0.85 * (1 - pow(remaining, 4)))
+				_fade(node, pow(remaining, 0.7))
+				node.rotation.y = t * 0.1
+			"shield-counter":
+				node.position = item.origin + Vector3(sin(item.angle), 0, cos(item.angle)) * (1 - pow(remaining, 3)) * 3.8
+				node.scale = Vector3.ONE * (0.8 + t * 0.65)
+				_fade(node, minf(1, remaining * 2.8))
 			"slash":
 				for material in item.materials:
-					material.set_shader_parameter("age", t)
+					material.set_shader_parameter("fade",float(material.get_meta("base_fade",1.0))*remaining)
 				node.scale = Vector3.ONE * (0.94 + minf(t * 2.8, 1) * 0.06)
 			"thrust":
 				var drive: float = 1.0 - pow(1.0 - minf(t / 0.47, 1), 3)
@@ -477,8 +772,13 @@ func tick(dt: float) -> void:
 					_fade(collar, sin(phase * PI) * fade)
 			"impact":
 				_fade(node, pow(remaining, 0.65))
+				if is_instance_valid(item.get("magicRing")):
+					item.magicRing.scale=Vector3.ONE*(.25+t*1.65)*float(item.strength)
 				for piece in item.pieces:
-					if piece.drive > 0:
+					if piece.has("velocity"):
+						piece.node.position+=piece.velocity*dt
+						piece.node.scale=Vector3.ONE*(1-t*.65)
+					elif piece.drive > 0:
 						piece.node.position.z += piece.drive * dt * 3.0
 					else:
 						piece.node.scale = Vector3(0.75 + t * 0.9, 1 - t * 0.7, 1)
@@ -499,6 +799,9 @@ func tick(dt: float) -> void:
 				node.scale = Vector3(1 - t * 0.35, 1 - t * 0.35, 0.8 + t * 0.6)
 				if item.spell:
 					node.rotation.z = t * 0.35
+			"ranger-trail":
+				# World-space vertices must retain their exact flight/contact position.
+				_fade(node, remaining)
 			"streak":
 				_fade(node, remaining)
 				node.scale.x = maxf(0.001, remaining)
@@ -515,9 +818,116 @@ func tick(dt: float) -> void:
 				node.outline_modulate.a = minf(0.95, remaining * 3.2)
 
 func clear() -> void:
+	previous_poses.clear();previous_blade.clear();previous_blade_weapon=0
 	for item in items:
 		if is_instance_valid(item.node):
 			item.node.queue_free()
 	items.clear()
+	feedback_live.clear()
+	impact_frame=-1;impacts_this_frame=0
+	particle_frame=-1;particle_bursts_this_frame=0
+	ring_frame=-1;rings_this_frame=0
+	streak_frame=-1;streaks_this_frame=0
 	shake = 0.0
 	flash = 0.0
+
+func charge_orb(pos: Vector3) -> Node3D:
+	var orb = create_projectile("fireball", Color("ff7135"))
+	orb.name = "HeldChargedFireball"
+	orb.position = pos
+	return _add(orb, 3600.0, "charge")
+
+func cross_slash(pos: Vector3, angle: float, reach: float) -> void:
+	for side in [-1, 1]:
+		slash(pos, angle, 1, Color("ffe5b2"), reach, {"style": "katana", "arc": 1.8, "height": 1.15, "tilt": side * 0.85, "direction": side, "life": 0.35})
+
+func lance_wave(pos: Vector3, radius: float, index: int) -> Node3D:
+	_ensure_geometry()
+	var group = Node3D.new()
+	group.name = "LanceBlueWarning" if index < 0 else "LanceBlueShockwave"
+	group.position = pos + Vector3.UP * 0.2
+	var disc = _mesh(_ring_geometry(1.0, 0.96), Color("2463d5"), 0.34, false)
+	disc.rotation.x = -PI / 2
+	group.add_child(disc)
+	for r in [1.0, 0.88]:
+		var edge = _mesh(_ring_geometry(r, 0.038), Color("2779d9"), 0.9, false)
+		edge.rotation.x = -PI / 2
+		group.add_child(edge)
+	if index >= 0:
+		for i in range(16):
+			var angle = i * TAU / 16
+			var ray = _mesh(_spear(0.26, 0.014, 0.025), Color("bceaff"), 0.8)
+			ray.position = Vector3(sin(angle), 0.012, cos(angle)) * 0.8
+			ray.rotation.y = angle
+			group.add_child(ray)
+	group.scale = Vector3.ONE * radius * (1.0 if index < 0 else 0.24)
+	return _add(group, 0.72 if index < 0 else 0.42, "wave-disc", {"radius": radius, "warning": index < 0})
+
+func frost_nova(pos: Vector3, radius: float) -> Node3D:
+	_ensure_geometry()
+	var group = Node3D.new()
+	group.name = "FrostNova"
+	group.position = pos + Vector3.UP * 0.1
+	for r in [1.0, 0.78, 0.43]:
+		var edge = _mesh(_ring_geometry(radius * r, 0.065), Color("a3efff"), 0.74)
+		edge.rotation.x = -PI / 2
+		group.add_child(edge)
+	var veil = _mesh(sphere_geometry, Color("6bc5ff"), 0.09, false)
+	veil.scale = Vector3(radius, 0.5, radius)
+	group.add_child(veil)
+	for i in range(24):
+		var angle = i * TAU / 24
+		var distance = radius * (0.72 if i % 2 else 0.96)
+		var crystal = _mesh(_spear(0.8 + (i % 3) * 0.22, 0.16, 0.16), Color("c0f4ff"), 0.72)
+		crystal.position = Vector3(sin(angle), 0, cos(angle)) * distance
+		crystal.rotation = Vector3(-PI / 2 + 0.25, angle, 0)
+		group.add_child(crystal)
+		var spoke = _shaft(Vector3.ZERO, Vector3(sin(angle), 0, cos(angle)) * distance, Color("549bd5"), 0.022)
+		group.add_child(spoke)
+	return _add(group, 0.9, "nova")
+
+func energy_shield(pos: Vector3, angle: float, reach: float) -> Node3D:
+	var group = Node3D.new()
+	group.name = "NavyShieldCounter"
+	group.position = pos + Vector3.UP * 1.8
+	group.rotation.y = angle
+	var points = PackedVector3Array([Vector3(-1.8, 1.3, 0), Vector3(0, 1.9, 0), Vector3(1.8, 1.3, 0), Vector3(1.6, -0.5, 0), Vector3(0, -1.8, 0), Vector3(-1.6, -0.5, 0)])
+	var face = _mesh(_array_mesh(points, PackedInt32Array([0, 1, 2, 0, 2, 3, 0, 3, 4, 0, 4, 5])), Color("102957"), 0.76, false)
+	face.position.z = 1.4
+	group.add_child(face)
+	for i in range(points.size()):
+		var edge = _shaft(points[i], points[(i + 1) % points.size()], Color("548fea"), 0.06)
+		edge.position.z = 1.4
+		group.add_child(edge)
+	for pair in [[Vector3(-0.7, 0.35, 1.42), Vector3(0.7, 0.35, 1.42)], [Vector3(0, -0.75, 1.42), Vector3(0, 1.0, 1.42)]]:
+		group.add_child(_shaft(pair[0], pair[1], Color("80acff"), 0.08))
+	slash(pos, angle, 2, Color("275ab1"), reach, {"style": "magic", "arc": 2.5, "height": 0.6, "tilt": 0.1})
+	return _add(group, 0.46, "shield-counter", {"origin": group.position, "angle": angle})
+
+func power_slash(pos: Vector3, angle: float, reach: float) -> Node3D:
+	var group = Node3D.new()
+	group.name = "CrimsonPowerSlash"
+	group.position = pos + Vector3.UP * 1.1
+	group.rotation.y = angle
+	# A broad saturated body remains readable over bright terrain; its outer edge glows.
+	for layer in [[reach, reach * 0.30, 0.15, 0.52], [reach * 0.98, reach * 0.10, -0.04, 0.38]]:
+		var body = _mesh(_blade(layer[0], layer[1], 2.5, 1, layer[2]), Color("df102d"), layer[3], false)
+		group.add_child(body)
+	var rim = _mesh(_blade(reach + 0.04, 0.13, 2.5, 1, 0.15), Color("ff4651"), 0.8)
+	group.add_child(rim)
+	return _add(group, 0.56, "crimson-slash", {"angle": angle})
+
+func dive_slash(pos: Vector3, angle: float, reach: float, impact: bool) -> Node3D:
+	var group = Node3D.new()
+	group.name = "MoonbladeDiveImpact" if impact else "MoonbladeDiveTrail"
+	group.position = pos + Vector3.UP * (0.3 if impact else 1.0)
+	group.rotation.y = angle
+	for layer in [[reach, reach * 0.28, 0.64], [reach * 0.98, 0.12, 0.94]]:
+		var blade = _mesh(_blade(layer[0], layer[1], 2.5 if impact else 1.4, 1, 0.08), Color("6334c1") if layer[1] > 0.2 else Color("eee0ff"), layer[2], layer[1] <= 0.2)
+		blade.rotation.x = 0.05 if impact else -0.8
+		group.add_child(blade)
+	if impact:
+		ring(pos, Color("bc92ff"), reach, 0.5)
+		particles(pos + Vector3.UP * 0.4, Color("e7caff"), 32, 2.2)
+		shake = maxf(shake, 0.3)
+	return _add(group, 0.55 if impact else 0.22, "dive-impact" if impact else "dive-trail")

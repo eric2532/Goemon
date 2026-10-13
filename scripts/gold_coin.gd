@@ -15,6 +15,7 @@ var hit_enemies: Dictionary={}
 var hit_buildings: Dictionary={}
 var ornament: Node3D
 var trail_clock=0.0
+var painted_wake: MeshInstance3D
 var combo_energy=false
 var slash_tilt=0.0
 var cross_slash=false
@@ -37,9 +38,13 @@ func _ready():
 		look_at(global_position+velocity.normalized(),Vector3.UP if absf(velocity.normalized().y)<.98 else Vector3.RIGHT)
 	else:
 		ornament=make_mesh(self,visual_size)
+		if game.camera_combat():
+			painted_wake=preload("res://assets/rogue/scripts/ink_brush_style.gd").attach_wake(self,Color("ffd487"),visual_size)
+			painted_wake.quaternion=Quaternion(Vector3.FORWARD,velocity.normalized())
 
 func _physics_process(delta):
 	if not game.playing or game.paused or game.transitioning: return
+	if is_instance_valid(painted_wake):preload("res://assets/rogue/scripts/ink_brush_style.gd").animate(self,delta)
 	lifetime-=delta
 	if lifetime<=0:
 		queue_free()

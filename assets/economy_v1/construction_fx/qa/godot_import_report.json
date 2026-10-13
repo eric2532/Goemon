@@ -1,0 +1,119 @@
+{
+  "checks": [
+    {
+      "animation_tracks": [
+        "FX_HammerRoot/FX_HammerSwingPivot"
+      ],
+      "animations": [
+        "Build_HammerLoop"
+      ],
+      "blend_shapes": 0,
+      "file": "FS_FX_Hammer_BuildLoop.glb",
+      "meshes": 16,
+      "playback_samples": [
+        {
+          "rotation_z": 0.488692373037338,
+          "time": 0.0
+        },
+        {
+          "rotation_z": -0.785398066043854,
+          "time": 0.5
+        },
+        {
+          "rotation_z": 0.488692373037338,
+          "time": 1.0
+        }
+      ]
+    },
+    {
+      "animation_tracks": [],
+      "animations": [],
+      "blend_shapes": 0,
+      "file": "FS_FX_ProgressFrame.glb",
+      "meshes": 6,
+      "playback_samples": []
+    },
+    {
+      "animation_tracks": [],
+      "animations": [],
+      "blend_shapes": 0,
+      "file": "FS_FX_BPrompt.glb",
+      "meshes": 3,
+      "playback_samples": []
+    },
+    {
+      "animation_tracks": [
+        "FX_CompletionRoot/Completion_InnerRing",
+        "FX_CompletionRoot/Completion_InnerRing:ThinToZero",
+        "FX_CompletionRoot/Completion_OuterRing",
+        "FX_CompletionRoot/Completion_OuterRing:ThinToZero",
+        "FX_CompletionRoot/Completion_Spark_01",
+        "FX_CompletionRoot/Completion_Spark_01",
+        "FX_CompletionRoot/Completion_Spark_01",
+        "FX_CompletionRoot/Completion_Spark_02",
+        "FX_CompletionRoot/Completion_Spark_02",
+        "FX_CompletionRoot/Completion_Spark_02",
+        "FX_CompletionRoot/Completion_Spark_03",
+        "FX_CompletionRoot/Completion_Spark_03",
+        "FX_CompletionRoot/Completion_Spark_03",
+        "FX_CompletionRoot/Completion_Spark_04",
+        "FX_CompletionRoot/Completion_Spark_04",
+        "FX_CompletionRoot/Completion_Spark_04",
+        "FX_CompletionRoot/Completion_Spark_05",
+        "FX_CompletionRoot/Completion_Spark_05",
+        "FX_CompletionRoot/Completion_Spark_05",
+        "FX_CompletionRoot/Completion_Spark_06",
+        "FX_CompletionRoot/Completion_Spark_06",
+        "FX_CompletionRoot/Completion_Spark_06",
+        "FX_CompletionRoot/Completion_Spark_07",
+        "FX_CompletionRoot/Completion_Spark_07",
+        "FX_CompletionRoot/Completion_Spark_07",
+        "FX_CompletionRoot/Completion_Spark_08",
+        "FX_CompletionRoot/Completion_Spark_08",
+        "FX_CompletionRoot/Completion_Spark_08",
+        "FX_CompletionRoot/Completion_Spark_09",
+        "FX_CompletionRoot/Completion_Spark_09",
+        "FX_CompletionRoot/Completion_Spark_09",
+        "FX_CompletionRoot/Completion_Spark_10",
+        "FX_CompletionRoot/Completion_Spark_10",
+        "FX_CompletionRoot/Completion_Spark_10"
+      ],
+      "animations": [
+        "Complete_GoldPulse"
+      ],
+      "blend_shapes": 2,
+      "file": "FS_FX_CompletionPulse.glb",
+      "meshes": 12,
+      "playback_samples": [
+        {
+          "ring_weight": 1.0,
+          "spark_scale_x": 0.0000100135803222656,
+          "time": 0.0
+        },
+        {
+          "ring_weight": 0.0,
+          "spark_scale_x": 0.0511500239372253,
+          "time": 0.25
+        },
+        {
+          "ring_weight": 1.0,
+          "spark_scale_x": 0.0000100135803222656,
+          "time": 1.0
+        }
+      ]
+    }
+  ],
+  "engine": {
+    "build": "official",
+    "hash": "7d41c59c457bd5a245092b4e7eb2d833e3b3f8c3",
+    "hex": 263683,
+    "major": 4,
+    "minor": 6,
+    "patch": 3,
+    "status": "stable",
+    "string": "4.6.3-stable (official)",
+    "timestamp": 0
+  },
+  "failures": [],
+  "status": "PASS"
+}

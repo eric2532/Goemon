@@ -18,13 +18,13 @@ func run():
 	press("character_toggle");press("character_toggle",false);await process_frame
 	check(game.rogue_roster_open,"Q opens the full fighter roster during preparation")
 	if not game.rogue_roster_open:game.show_rogue_roster()
-	check(game.menu.find_children("RogueFighter_*","Button",true,false).size()==11,"Forest Shrine exposes Goemon plus ten Rogue fighters")
+	check(game.menu.find_children("RogueFighter_*","Button",true,false).size()==12,"Forest Shrine exposes Goemon, Edo and ten Rogue heroes")
 	game.choose_rogue_character(3);await process_frame
 	check(game.player.character_id==3 and game.paused and game.model.phase=="preparing","Selecting a fighter preserves the paused building phase")
 	check(not is_instance_valid(game.menu) or not game.menu.visible,"Choosing a fighter dismisses its menu")
 	game.forest_ui.sync();check(game.forest_ui.health.text.contains("Pirate"),"Forest HUD names the active fighter")
 	game.start_wave();game.model.waves.spawn_clock=10000;await process_frame
-	check(is_equal_approx(game.rogue_view._base_size(),24.0) and game.rogue_view._view_offset()==Vector3(14,28,21),"Wave camera exactly matches Rogue Siege framing")
+	check(game.camera_rig.camera.projection==Camera3D.PROJECTION_PERSPECTIVE and is_equal_approx(game.camera_rig.distance,ActionCamera.CROSSHAIR_DEFAULT_DISTANCE),"Wave camera uses Fire Siege Crosshair perspective framing")
 	if failures>0:await finish(game);return
 	for id in game.player.RogueRoster.ids():
 		press("light_attack",false);game.show_rogue_roster();game.choose_rogue_character(id)
@@ -34,10 +34,11 @@ func run():
 			if is_instance_valid(actor):actor.queue_free()
 		game.actors.clear();game.enemies.clear();game.model.enemies.clear()
 		game.model.waves.spawn_one();var e=game.model.enemies.values()[0];e.pos=Vector3(0,0,67);e.hp=10000;e.max_hp=10000;e.stun=100
-		game.model.update_vision(p.position);game.sync_enemies();game.rogue_view.reset();await frames(2)
-		var point=game.camera_rig.camera.unproject_position(e.pos+Vector3.UP)
-		var motion=InputEventMouseMotion.new();motion.position=point;root.push_input(motion,true);game.rogue_view.aim_at(point)
-		press("light_attack");await frames(70);press("light_attack",false)
+		game.model.update_vision(p.position);game.sync_enemies();game.camera_rig.reset_follow();await frames(2)
+		game.camera_rig.set_process(false)
+		game.camera_rig.camera.global_position=p.position+Vector3(.65,2.4,10)
+		game.camera_rig.camera.look_at(e.pos+Vector3.UP*1.1)
+		press("light_attack");await frames(70);press("light_attack",false);await frames(30)
 		check(e.hp<10000,"%s uses its real primary attack against a forest raider"%p.RogueRoster.name_for(id))
 		p.active_ability.player.cooldowns.drink=5
 		var hp_fraction=.45;p.hp=p.max_hp*hp_fraction

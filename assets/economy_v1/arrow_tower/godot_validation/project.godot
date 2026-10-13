@@ -1,0 +1,4 @@
+[application]
+config/name="Tower isolated import validation"
+[rendering]
+renderer/rendering_method="gl_compatibility"

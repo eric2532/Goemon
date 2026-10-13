@@ -57,6 +57,8 @@ var route_direction=Vector3.ZERO
 var animation_elapsed=0.0
 var grounded_cached=false
 var walk_clock=0.0
+var walk_span=.15
+var walk_phase_pending=true
 var walk_start=Vector3.ZERO
 var walk_end=Vector3.ZERO
 var walk_age=1.0
@@ -227,7 +229,7 @@ func take_hit(damage: float, dir: Vector3, heavy: bool,attack_ticket: Dictionary
 		if not tower_hit and not training_dummy and not practice:game.player.award_kill()
 		game.remember_defeat(self)
 		if not tower_hit and not training_dummy and not game.descent_mode:game.drop_powerup(global_position)
-		if not tower_hit:game.player.hp=minf(game.player.max_hp,game.player.hp+9)
+		if not tower_hit and (game.player.hp>0 or not game.is_fire_siege()):game.player.hp=minf(game.player.max_hp,game.player.hp+9)
 		# Artillery already supplies a shared, budgeted impact effect. Spawning
 		# eighteen particles per splash victim would overwhelm a large battery.
 		if not tower_hit:game.burst(global_position+Vector3.UP,Color("82e7e0"),18)
@@ -251,7 +253,7 @@ func freeze_for(seconds: float):
 
 func _physics_process(delta):
 	if not game.playing or game.paused or game.transitioning: return
-	var hero_targetable=not game.player.rogue_untargetable()
+	var hero_targetable=not game.player.rogue_untargetable() and (game.player.hp>0 or not game.is_fire_siege())
 	if defense_traits!=null and not dead:defense_traits.tick_status(delta)
 	if island_index>=0 and not dead:
 		var center=game.world.sky_islands.islands[island_index]
@@ -286,8 +288,10 @@ func _physics_process(delta):
 	var focus=game.player
 	var distance=global_position.distance_squared_to(focus.global_position)
 	if defense_lane>=0 and not dead:
-		if position.distance_squared_to(game.world.base_position)<8*8:
+		if game.is_fire_siege() and preload("res://scripts/gate_enemy_motion.gd").tick(self,delta):return
+		if game.encounters.can_breach(self):
 			game.encounters.breach(self);return
+		if game.is_fire_siege() and preload("res://scripts/shrine_enemy_motion.gd").tick(self,delta):return
 		var kennel=refresh_defense_dog_target(delta)
 		var prior_boss_phase=defense_traits.phase if defense_traits!=null else ""
 		if defense_traits!=null and defense_traits.is_boss() and is_instance_valid(defense_dog_target) and defense_traits.phase=="march" and defense_traits.slam_cooldown<=0 and not game.tuning.freeze_ai:
@@ -442,6 +446,7 @@ func clear_defense_dog():
 	defense_dog_state="";defense_dog_timer=0;defense_dog_contact_done=true
 
 func refresh_defense_dog_target(delta: float):
+	if game.is_fire_siege():clear_defense_dog();return null
 	var kennel=game.get("kennel")
 	var barracks=game.get("barracks")
 	var running_roster=kennel if kennel!=null and kennel.running() else (barracks if barracks!=null and barracks.running() else null)
@@ -462,6 +467,7 @@ func refresh_defense_dog_target(delta: float):
 	return running_roster
 
 func defense_ally_manager(ally):
+	if game.is_fire_siege():return null
 	# Both bounded rosters use the same actor ownership and cancellation rules.
 	# Keep the legacy retaliation field names for existing saves and diagnostics.
 	if not is_instance_valid(ally) or ally.dead:return null
@@ -576,22 +582,31 @@ func walk_motion(delta: float):
 		island_patrol=state=="patrol" and stun<=0 and (grounded_cached or is_on_floor()) and game.player.position.distance_squared_to(center)>32*32
 		if not island_patrol:
 			if is_on_floor() and velocity.y<=0:velocity.y=-.1
-			move_and_slide();grounded_cached=is_on_floor();walk_clock=0
+			move_and_slide();grounded_cached=is_on_floor();walk_clock=0;walk_phase_pending=true
 			return
 	# Keep real collision bodies for combat; amortize static-ground sweeps across
 	# frames and interpolate the validated short segment at the physics rate.
-	if walk_clock>0 and global_position.distance_squared_to(walk_start.lerp(walk_end,minf(1,walk_age/.15)))>.25:walk_clock=0
+	if walk_clock>0 and global_position.distance_squared_to(walk_start.lerp(walk_end,minf(1,walk_age/walk_span)))>.25:
+		walk_clock=0;walk_phase_pending=true
 	if boss or stun>0 or (not grounded_cached and not is_on_floor()):
 		if not grounded_cached and velocity.y==0:velocity.y=-1
-		move_and_slide();grounded_cached=is_on_floor();walk_clock=0
+		move_and_slide();grounded_cached=is_on_floor();walk_clock=0;walk_phase_pending=true
 		return
 	grounded_cached=true;velocity.y=0
 	var horizontal=Vector3(velocity.x,0,velocity.z)
-	if horizontal.length_squared()<.001:walk_clock=0;return
+	if horizontal.length_squared()<.001:walk_clock=0;walk_phase_pending=true;return
 	walk_clock-=delta
 	if walk_clock<=0:
-		walk_clock=.15;walk_age=0;walk_start=global_position
-		var motion=horizontal*.15
+		# A short first segment seeds a stable phase for each actor. Subsequent
+		# sweeps retain the existing 0.15 s horizon instead of all 300 sharing
+		# one tick. Real knockback/airborne collision above stays immediate.
+		walk_span=.15
+		if walk_phase_pending:
+			var slot=formation_index if formation_index>=0 else int(get_instance_id())
+			walk_span=.15*float(1+posmod(slot,9))/9.0
+			walk_phase_pending=false
+		walk_clock=walk_span;walk_age=0;walk_start=global_position
+		var motion=horizontal*walk_span
 		var hit=move_and_collide(motion,true)
 		if hit:
 			var slide=hit.get_remainder().slide(hit.get_normal())
@@ -603,4 +618,4 @@ func walk_motion(delta: float):
 		var floor_hit=get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(end+Vector3.UP*1.5,end-Vector3.UP*2,1))
 		if floor_hit.is_empty() or floor_hit.normal.y<.6:walk_end=walk_start
 		else:walk_end=Vector3(end.x,floor_hit.position.y+.06,end.z)
-	walk_age+=delta;global_position=walk_start.lerp(walk_end,minf(1,walk_age/.15))
+	walk_age+=delta;global_position=walk_start.lerp(walk_end,minf(1,walk_age/walk_span))

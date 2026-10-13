@@ -12,6 +12,11 @@ var flash_color: Color = Color("ffdeb0")
 var flash_strength: float = 1.4
 var reduced_flashes: bool = false
 var _flash_applied: bool = false
+var _guard_glow_applied: bool = false
+var locomotion = preload("res://assets/rogue/scripts/locomotion.gd").new()
+var ultimate_aura: Node3D
+var movement_wind: Node3D
+var scarf_wind: RefCounted
 
 const WEAPON_AXES = {
 	"pirate": Vector3(-0.565, 0.811, 0.009),
@@ -32,14 +37,28 @@ func setup(character_id: String) -> void:
 		model.queue_free()
 	joints.clear()
 	materials.clear()
+	scarf_wind = null
 	flash = 0.0
 	_flash_applied = false
-	var resource = load("res://assets/rogue/models/%s.glb" % id)
+	_guard_glow_applied = false
+	var resource = load("res://assets/rogue/styled/models/%s.glb" % id)
 	if resource is PackedScene:
 		model = resource.instantiate()
+		# Fuller side silhouette; the painted front, height and collision stay intact.
+		model.scale.z *= 1.15
 		model.rotation_order = EULER_ORDER_XYZ
 		add_child(model)
 		_cache(model)
+		if id == "samurai":
+			scarf_wind = preload("res://assets/rogue/scripts/scarf_wind.gd").new()
+			scarf_wind.configure(model)
+		if is_instance_valid(ultimate_aura): ultimate_aura.queue_free()
+		ultimate_aura = preload("res://assets/rogue/scripts/ultimate_aura.gd").new()
+		add_child(ultimate_aura)
+		ultimate_aura.configure(self, id)
+		if is_instance_valid(movement_wind): movement_wind.queue_free()
+		movement_wind = preload("res://assets/rogue/scripts/movement_wind.gd").new()
+		add_child(movement_wind)
 	else:
 		push_error("Missing character model: %s" % id)
 		model = Node3D.new()
@@ -60,6 +79,18 @@ func _cache(node: Node) -> void:
 				materials.append({"material": material, "emission": material.emission, "enabled": material.emission_enabled, "energy": material.emission_energy_multiplier})
 	for child in node.get_children():
 		_cache(child)
+
+func reset_motion(clear_power: bool = true) -> void:
+	locomotion.reset()
+	if is_instance_valid(movement_wind): movement_wind.clear()
+	if scarf_wind != null: scarf_wind.clear()
+	if clear_power and is_instance_valid(ultimate_aura): ultimate_aura.clear()
+	if _guard_glow_applied:
+		for entry in materials:
+			entry.material.emission_enabled = entry.enabled
+			entry.material.emission = entry.emission
+			entry.material.emission_energy_multiplier = entry.energy
+		_guard_glow_applied = false
 
 func flash_hit(color: Color = Color("ffdeb0"), strength: float = 1.4) -> void:
 	flash = 0.115
@@ -111,8 +142,134 @@ func _aim_weapon(name_: String, source: Vector3, target: Vector3, amount: float 
 		ancestor = ancestor.get_parent() as Node3D
 	var aimed_direction: Vector3 = (parent_basis.inverse() * target.normalized()).normalized()
 	var aimed_rotation: Quaternion = Quaternion(source.normalized(), aimed_direction)
-	var rest_rotation: Quaternion = joints[name_].transform.basis.get_rotation_quaternion()
+	var rest_rotation: Quaternion = joint.quaternion
+	# Layer action entry over this frame's carrying pose; full contact remains exact.
 	joint.quaternion = rest_rotation.slerp(aimed_rotation, clampf(amount, 0.0, 1.0))
+
+# Authored native actors face +Z: anatomical right is -X. Weapon origins are
+# palm centers, so turns keep the mesh attached to the actual hand.
+func _hand_anchor(side: String) -> Vector3:
+	var weapon: String = "Weapon_Cutlass" if side == "R" else "Weapon_Pistol"
+	if joints.has(weapon):
+		return joints[weapon].position
+	var right: Vector3 = joints.Weapon_Cutlass.position
+	return Vector3(-right.x, right.y, right.z)
+
+func _place_hand(side: String, target: Vector3, amount: float = 1.0) -> void:
+	var arm: Node3D = joints["Arm_" + side].node
+	var grip: Vector3 = _hand_anchor(side)
+	var direction: Vector3 = target - arm.position
+	if direction.length_squared() < 0.0001:
+		return
+	var rotation_to_hand := Quaternion(grip.normalized(), direction.normalized())
+	arm.quaternion = arm.quaternion.slerp(rotation_to_hand, amount)
+	# The stylized rig has one solid arm per side; a small shoulder adjustment
+	# closes the grip exactly without scaling arms or moving the weapon alone.
+	arm.position = arm.position.lerp(target - arm.basis * grip, amount)
+
+func _two_hand_grip() -> void:
+	if id != "magic-swordsman" or not joints.has("Weapon_Cutlass"):
+		return
+	var weapon: Node3D = joints.Weapon_Cutlass.node
+	var right: Node3D = joints.Arm_R.node
+	var blade: Vector3 = (right.basis * weapon.basis * WEAPON_AXES[id]).normalized()
+	var main_grip: Vector3 = right.transform * weapon.position
+	# The other palm wraps the lower hilt, behind the right hand on the pommel.
+	_place_hand("L", main_grip - blade * 0.19)
+
+func _stow_weapon(name_: String, origin: Vector3, axis: Vector3) -> void:
+	if not joints.has(name_):
+		return
+	var weapon: Node3D = joints[name_].node
+	var arm: Node3D = weapon.get_parent()
+	var source: Vector3 = Vector3.UP if name_ == "Weapon_Pistol" else WEAPON_AXES[id]
+	var stowed := Transform3D(Basis(Quaternion(source.normalized(), axis.normalized())), origin)
+	weapon.transform = arm.transform.affine_inverse() * stowed
+
+func _underhand(attack: Dictionary, phase: Dictionary) -> void:
+	var left: bool = id == "explorer" and int(attack.get("swingSide", -1 if int(attack.get("index", 0)) % 2 else 1)) < 0
+	var side: String = "L" if left else "R"
+	var sign_: float = 1.0 if left else -1.0
+	var arm: String = "Arm_" + side
+	var weapon: String = "Weapon_Pistol" if left else "Weapon_Cutlass"
+	var active: float = _c(phase, 1, 1, 1)
+	var sweep: float = _c(phase, -0.22, 0.18, 0.42) * -sign_
+	_r("Body", _c(phase, 0.03, 0.11, 0.07), sweep)
+	_r("Head", -_c(phase, 0.01, 0.07, 0.02), -sweep * 0.45)
+	_p("Body", 0, -_c(phase, 0.07, 0.02, 0.04), _c(phase, -0.06, 0.13, 0.06))
+	_r(arm, _c(phase, 0.24, -0.65, -1.08), _c(phase, -0.34, 0.13, 0.68) * -sign_, _c(phase, -0.1, 0.22, 0.34) * sign_)
+	_p(arm, _c(phase, 0.035, -0.04, -0.07) * sign_, _c(phase, -0.035, 0.07, 0.12), _c(phase, -0.09, 0.14, 0.2))
+	_r("Leg_R", _c(phase, -0.2, 0.2, 0.12))
+	_r("Leg_L", _c(phase, 0.17, -0.17, -0.1))
+	# A low outside-to-inside rising cut. The reverse blade leaves the little-
+	# finger end of the fist; the recovery never changes back to a forward grip.
+	var direction := Vector3(_c(phase, 0.56, 0.3, -0.66) * sign_, _c(phase, -0.42, -0.02, 0.58), _c(phase, -0.65, 1.0, 0.28))
+	_aim_weapon(weapon, LEFT_BLADE if left else WEAPON_AXES[id], direction, active)
+	model.rotation.x += _c(phase, -0.02, 0.06, 0.03)
+
+func _special_cut(attack: Dictionary, phase: Dictionary) -> void:
+	var style: String = attack.get("style", "")
+	if id in ["ninja", "explorer"]:
+		_underhand(attack, phase)
+	else:
+		_sword(attack, phase)
+	var active: float = _c(phase, 1, 1, 1)
+	if style in ["dash-cut", "evasive-slash"]:
+		_r("Body", _c(phase, 0.12, 0.24, 0.1), _c(phase, -0.4, 0.16, 0.65))
+		_p("Body", 0, -_c(phase, 0.08, 0.13, 0.03), _c(phase, -0.04, 0.16, 0.08))
+	elif style == "cross-slash":
+		_r("Arm_L", _c(phase, -0.3, -1.1, -0.65), _c(phase, -0.4, 0.1, 0.35), _c(phase, 0.4, -0.1, -0.2))
+		_aim_weapon("Weapon_Pistol", LEFT_BLADE, Vector3(_c(phase, 0.9, -0.2, -0.8), _c(phase, -0.3, 0.1, 0.45), _c(phase, -0.3, 1, 0.35)), active)
+	elif style == "power-slash":
+		_r("Body", _c(phase, -0.12, 0.23, 0.18))
+		_p("Body", 0, -_c(phase, 0.1, 0.06, 0.1))
+
+func _charge_guard(state: Dictionary, time: float) -> void:
+	var charge: float = clampf(float(state.get("chargeTime", 0.0)) / 3.0, 0, 1)
+	if id == "mage" and charge > 0.0:
+		var lift: float = _smooth(minf(1, charge * 5))
+		_r("Arm_R", -1.5 * lift, 0.15 * lift, -0.23 * lift)
+		_r("Arm_L", -1.1 * lift, -0.3 * lift, 0.24 * lift)
+		_r("Body", -0.09 * lift)
+		_p("Body", 0, -0.055 * lift)
+		_aim_weapon("Weapon_Cutlass", WEAPON_AXES.mage, Vector3(-0.12, 1, 0.25), lift)
+		model.rotation.z += sin(time * 32) * 0.012 * charge
+	if bool(state.get("blocking", false)) or float(state.get("guardTime", 0.0)) > 0:
+		if id == "master-thief":
+			_place_hand("R", Vector3(-0.36, 0.17, 0.42))
+			_place_hand("L", Vector3(0.27, 0.23, 0.45))
+			_aim_weapon("Weapon_Cutlass", WEAPON_AXES[id], Vector3(1, 0.12, 0.05))
+			_r("Body", 0.06)
+		elif id == "knight":
+			_place_hand("L", Vector3(0.26, 0.15, 0.42))
+			_aim_weapon("Weapon_Pistol", Vector3.UP, Vector3.UP)
+
+func _orient_bow(name_: String, forward: Vector3, up: Vector3, amount: float = 1.0) -> void:
+	if not joints.has(name_):
+		return
+	var weapon: Node3D = joints[name_].node
+	var parent_basis := Basis.IDENTITY
+	var ancestor: Node3D = weapon.get_parent()
+	while ancestor != null and ancestor != model:
+		parent_basis = ancestor.basis.orthonormalized() * parent_basis
+		ancestor = ancestor.get_parent() as Node3D
+	# Ranger's nocked arrow points -X in the source mesh; Samurai's bow curves
+	# +X. Align the complete bow plane, not only its long vertical axis.
+	var x: Vector3 = forward.normalized() * (-1.0 if id == "ranger" else 1.0)
+	var y: Vector3 = (up - x * up.dot(x)).normalized()
+	var desired := Basis(x, y, x.cross(y))
+	var orientation: Quaternion = (parent_basis.inverse() * desired).get_rotation_quaternion()
+	weapon.quaternion = weapon.quaternion.slerp(orientation, amount)
+
+func _equipment_pose(state: Dictionary) -> void:
+	if id != "samurai":
+		return
+	# Resolve after arm actions, so stowed equipment follows the torso and cannot
+	# be lifted by the hand that just drew the other weapon.
+	if float(state.get("shot", 0)) > 0:
+		_stow_weapon("Weapon_Cutlass", Vector3(-0.42, -0.12, -0.14), Vector3(-0.08, -1, -0.2))
+	else:
+		_stow_weapon("Weapon_Pistol", Vector3(0.04, 0.27, -0.4), Vector3(0.42, 1, 0))
 
 func _sword(attack: Dictionary, phase: Dictionary) -> void:
 	var index: int = int(attack.get("index", 0))
@@ -149,6 +306,36 @@ func _sword(attack: Dictionary, phase: Dictionary) -> void:
 	model.rotation.x += _c(phase, -0.035, 0.075, 0.035) * weight
 	model.rotation.z += _c(phase, 0.045, -0.045, -0.08) * side
 
+func _samurai_cut(attack: Dictionary, phase: Dictionary) -> void:
+	var stage: int = int(attack.get("index", 0)) % 5
+	var side: float = -1.0 if stage == 1 else 1.0
+	var directions: Array = [
+		[Vector3(1, .1, .1), Vector3(0, .1, 1), Vector3(-1, .1, .2)],
+		[Vector3(-1, .1, .1), Vector3(0, .1, 1), Vector3(1, .1, .2)],
+		[Vector3(.9, 1, .1), Vector3(0, .2, 1), Vector3(-.8, -.6, .4)],
+		[Vector3(0, 1, -.3), Vector3(0, -.05, 1), Vector3(0, -.9, .5)],
+		[Vector3(-1, .15, .1), Vector3(0, .1, 1), Vector3(1, .1, -.15)]
+	]
+	var d: Array = directions[stage]
+	var direction := Vector3(_c(phase,d[0].x,d[1].x,d[2].x,-.25),_c(phase,d[0].y,d[1].y,d[2].y,-.68),_c(phase,d[0].z,d[1].z,d[2].z,.8))
+	var twist: float = _c(phase, -.45, .05, .5) * side
+	_r("Body", _c(phase,-.05,.12,.08), twist)
+	_r("Head", _c(phase,.03,-.03,.02), -twist*.4)
+	_r("Arm_R", _c(phase,-.7,-1.3,-.6) if stage<2 or stage==4 else _c(phase,-1.9,-1.25,-.25), _c(phase,-.6,0,.6)*side, _c(phase,-.4,-.1,.3)*side)
+	_p("Arm_R",_c(phase,-.05,.03,.1)*side,_c(phase,.12 if stage in [2,3] else 0,0,-.05),_c(phase,-.06,.18,.04))
+	_r("Arm_L",_c(phase,-.5,-1,-.6),-twist*.25,.16)
+	_p("Body",0,-_c(phase,.05,.02,.08),_c(phase,-.05,.1,.02))
+	_r("Leg_R",_c(phase,-.2,.2,.08));_r("Leg_L",_c(phase,.16,-.16,-.1))
+	if stage==4:
+		var t: float = float(attack.time)/maxf(.01,float(attack.duration))
+		# Half turn, then a brief return to the aiming stance for the next cut.
+		var turn: float = PI * _smooth(clampf((t-.08)/.60,0,1)) * (1.0-_smooth(clampf((t-.86)/.14,0,1)))
+		model.rotation.y += turn
+		# The torso turns through the cut; the blade stays in the committed
+		# forward semicircle used by collision and the moving energy ribbon.
+		direction = direction.rotated(Vector3.UP,-turn)
+	_aim_weapon("Weapon_Cutlass",WEAPON_AXES.samurai,direction,1.0)
+
 func _lance(phase: Dictionary, index: int) -> void:
 	var active: float = _c(phase, 1, 1, 1)
 	_r("Body", _c(phase, -0.09, 0.13, 0.1), _c(phase, -0.22, 0.06, 0.09))
@@ -184,7 +371,10 @@ func _bow(phase: Dictionary, samurai: bool = false) -> void:
 	_p(bow_arm, _c(phase, 0.1, 0.11, 0.08) * side, _c(phase, 0.06, 0.02, 0.03), _c(phase, 0.2, 0.17, 0.12))
 	_r(draw_arm, _c(phase, -1.37, -1.04, -0.97), _c(phase, -0.5, -0.78, -0.55) * side, _c(phase, 0.36, 0.66, 0.4) * side)
 	_p(draw_arm, -_c(phase, 0.2, 0.08, 0.04) * side, _c(phase, 0.06, 0.05, 0.02), _c(phase, -0.06, -0.21, -0.14))
-	_aim_weapon("Weapon_Pistol" if samurai else "Weapon_Cutlass", Vector3.UP, Vector3(0.02 * side, 1, 0.035), active)
+	var bow_hand := Vector3(-0.27 * side, 0.28, 0.6)
+	_place_hand("L" if samurai else "R", bow_hand, active)
+	_place_hand("R" if samurai else "L", bow_hand + Vector3(0.2 * side, 0.035, -0.22), active)
+	_orient_bow("Weapon_Pistol" if samurai else "Weapon_Cutlass", Vector3.BACK, Vector3.UP, active)
 
 func _shield(phase: Dictionary) -> void:
 	var active: float = _c(phase, 1, 1, 1)
@@ -247,15 +437,10 @@ func animate_pose(state: Dictionary, dt: float, time: float, movement: float = 0
 	if not is_instance_valid(model):
 		return
 	var is_player: bool = bool(state.get("isPlayer", id not in ["revenant", "warden"]))
-	var stride: float = sin(time * (13.0 if is_player else 9.0) + seed) * minf(1.0, movement) * 0.62
 	for joint in joints.values():
 		joint.node.transform = joint.transform
-	_r("Leg_L", stride)
-	_r("Leg_R", -stride)
-	_r("Arm_L", -stride * 0.4)
-	_r("Arm_R", stride * 0.4)
-	model.position.y = absf(sin(time * 9.0 + seed)) * 0.045 * movement + sin(time * 2.4 + seed) * 0.025
-	model.rotation = Vector3(0, 0, sin(time * 6.0 + seed) * 0.03 * movement)
+	model.position = Vector3.ZERO
+	locomotion.apply(self, state, dt, time, movement)
 	var attack = state.get("attack")
 	if not is_player:
 		if attack is Dictionary and not attack.is_empty():
@@ -273,44 +458,103 @@ func animate_pose(state: Dictionary, dt: float, time: float, movement: float = 0
 			if attack is Dictionary and not attack.is_empty():
 				var phase: Dictionary = _phase(attack)
 				match str(attack.get("style", "cutlass")):
+					"samurai-cut": _samurai_cut(attack, phase)
 					"thrust": _lance(phase, int(attack.get("index", 0)))
 					"staff": _staff(phase)
-					"bow": _bow(phase)
-					"bash": _shield(phase)
+					"bow", "bow-fan":
+						_bow(phase)
+						if bool(attack.get("downward", false)):
+							_aerial_bow(_c(phase, 1, 1, 1))
+					"bash", "shield-bash": _shield(phase)
+					"dash-cut", "cross-slash", "power-slash", "evasive-slash": _special_cut(attack, phase)
+					"ninja", "twin": _underhand(attack, phase)
+					"charge-fireball": _staff(phase)
 					"spin": _spin(attack, phase)
 					"pipe", "low-pipe", "fireburst": _pipe(attack, phase)
 					_: _sword(attack, phase)
 			elif float(state.get("shot", 0)) > 0 and not bool(state.get("blocking", false)):
 				_shot(float(state.shot))
+				if id == "ranger" and bool(state.get("shotDownward", false)):
+					_aerial_bow(clampf(float(state.shot) / 0.2, 0, 1))
+		_charge_guard(state, time)
+	locomotion.flip(self, state)
+	if is_player:
+		_two_hand_grip()
+		_equipment_pose(state)
+	if is_instance_valid(ultimate_aura): ultimate_aura.tick(state, dt)
+	if is_instance_valid(movement_wind): movement_wind.tick(state, dt)
+	if scarf_wind != null: scarf_wind.tick(state, dt)
 	flash = maxf(0, flash - dt)
-	# Unchanged imported materials stay on the GPU between hits.
-	if flash > 0.0 or _flash_applied:
+	var guard_glow: bool = id == "master-thief" and bool(state.get("blocking", false)) and state.get("guardStyle", "thief") == "thief"
+	# Guard power adds light to the existing painted materials; releasing or
+	# cancelling restores their saved emission immediately, including after hits.
+	if flash > 0.0 or _flash_applied or guard_glow or _guard_glow_applied:
 		for entry in materials:
 			var material: StandardMaterial3D = entry.material
 			if flash > 0:
 				material.emission_enabled = true
 				material.emission = flash_color
 				material.emission_energy_multiplier = (0.28 if reduced_flashes else flash_strength) * minf(1.0, flash * 24.0)
+			elif guard_glow:
+				material.emission_enabled = true
+				material.emission = Color("e52b29")
+				material.emission_energy_multiplier = 0.38 if reduced_flashes else 0.62 + sin(time * 5.0) * 0.07
 			else:
 				material.emission_enabled = entry.enabled
 				material.emission = entry.emission
 				material.emission_energy_multiplier = entry.energy
 		_flash_applied = flash > 0.0
+	_guard_glow_applied = guard_glow
+
+func _aerial_bow(weight: float) -> void:
+	model.rotation.x += 0.65 * weight
+	_r("Head", 0.22 * weight)
+	_r("Leg_L", -0.85 * weight)
+	_r("Leg_R", -0.65 * weight)
 
 func _stance(state: Dictionary, time: float) -> void:
+	# Keep the approved gait and its small carrying lag, then establish each
+	# class's recognizable rest silhouette before layering the contact pose.
 	match id:
+		"magic-swordsman":
+			var lag: Vector3 = joints.Arm_R.node.position - joints.Arm_R.position
+			_place_hand("R", Vector3(-0.29, 0.02, 0.36) + lag)
+			_aim_weapon("Weapon_Cutlass", WEAPON_AXES[id], Vector3(-0.9, -0.46, -0.32))
+			_r("Body", 0.03, -0.06)
+		"pirate":
+			_r("Arm_R", -0.28, -0.08, -0.14)
+			_aim_weapon("Weapon_Cutlass", WEAPON_AXES[id], Vector3(-0.23, 1, 0.12))
+		"knight":
+			_r("Arm_R", -0.12, 0.06, 0.08)
+			_r("Arm_L", -0.2, -0.1, -0.12)
+			_aim_weapon("Weapon_Cutlass", WEAPON_AXES[id], Vector3(-0.2, -0.87, 0.5))
+			_aim_weapon("Weapon_Pistol", Vector3.UP, Vector3.UP)
+		"explorer":
+			_r("Arm_R", -0.12, -0.1, 0.08)
+			_r("Arm_L", -0.12, 0.1, -0.08)
+			_aim_weapon("Weapon_Cutlass", WEAPON_AXES[id], Vector3(-0.28, -0.74, -0.7))
+			_aim_weapon("Weapon_Pistol", LEFT_BLADE, Vector3(0.28, -0.74, -0.7))
 		"ninja":
 			model.position.y -= 0.07
 			model.rotation.x += 0.08
 			_r("Arm_L", 0, 0, 0.1)
-			_r("Arm_R", 0, 0, -0.1)
+			_r("Arm_R", -0.2, -0.16, -0.12)
+			_aim_weapon("Weapon_Cutlass", WEAPON_AXES[id], Vector3(-0.78, -0.16, -1))
 		"samurai":
 			_r("Body", 0, -0.09)
 			_r("Head", 0, 0.06)
+			_r("Arm_R", -0.08, -0.06, 0.08)
+			_aim_weapon("Weapon_Cutlass", WEAPON_AXES[id], Vector3(-0.25, -0.68, 0.8))
 		"mage": _r("Arm_L", -0.2 - sin(time * 1.5) * 0.035)
 		"ranger":
-			_r("Arm_L", -0.18)
-			_r("Head", 0, 0.08)
+			_r("Arm_R", -0.36, 0.04, 0.14)
+			_r("Arm_L", -0.38, -0.16, -0.12)
+			_r("Body", 0.02, -0.06)
+			_r("Head", -0.035, 0.08)
+			var lag: Vector3 = joints.Arm_R.node.position - joints.Arm_R.position
+			_place_hand("R", Vector3(-0.33, 0.08, 0.39) + lag)
+			_place_hand("L", Vector3(-0.1, 0.12, 0.17) + lag * 0.4)
+			_orient_bow("Weapon_Cutlass", Vector3(0, -0.28, 1), Vector3(-0.18, 1, 0.28))
 		"master-thief":
 			model.rotation.z += sin(time * 1.5) * 0.025
 			_r("Head", 0, 0, -0.04)
@@ -320,27 +564,44 @@ func _stance(state: Dictionary, time: float) -> void:
 		model.position.y += sin(t * PI) * float(travel.get("height", 2.5))
 		match str(travel.get("kind", "")):
 			"lance-leap":
-				model.rotation.x = -0.5 if t > 0.55 else 0.25
+				var dropping: bool = travel.get("phase", "arc") == "drop"
+				model.rotation.x = -0.5 if dropping or t > 0.55 else 0.25
 				_r("Arm_R", -2.2)
 				# Turn the actual lance point down for the landing, not just an effect.
-				_aim_weapon("Weapon_Cutlass", WEAPON_AXES.dragoon, Vector3(0, -1, 0.25), clampf((t - 0.25) * 4.0, 0, 1))
+				_aim_weapon("Weapon_Cutlass", WEAPON_AXES.dragoon, Vector3(0, -1, 0.25), 1.0 if dropping else clampf((t - 0.25) * 4.0, 0, 1))
 			"fast-leap": model.rotation.z = sin(t * PI) * 0.25
 			_: model.rotation.x = -0.25
 	if float(state.get("roll", 0)) > 0:
 		var duration: float = float(state.get("rollDuration", 0.32))
 		var t: float = 1.0 - float(state.roll) / maxf(0.01, duration)
-		if id == "pirate":
+		if id == "ranger" and state.get("rollStyle", "") == "roll":
+			model.rotation.x = t * TAU
+			var pivot: Vector3 = Vector3(0, 0.78, 0)
+			model.position += pivot - model.basis * pivot
+			_p("Body", 0, -0.22)
+			_r("Leg_L", -1.1)
+			_r("Leg_R", -1.1)
+			_r("Arm_L", -0.9, 0, 0.3)
+			_r("Arm_R", -0.9, 0, -0.3)
+		elif id == "pirate":
 			model.position.y += sin(t * PI) * 0.4
 			model.rotation.x = -t * TAU
 		else:
 			var flip: bool = state.get("rollStyle", "") == "backflip"
 			model.position.y += sin(t * PI) * (1.4 if flip else 0.12)
-			model.rotation.x = t * TAU if flip else -0.22
-	if bool(state.get("crouched", false)):
-		model.position.y -= 0.52
-		_r("Body", 0.2)
-		_r("Leg_L", -0.65)
-		_r("Leg_R", -0.65)
+			model.rotation.x = -t * TAU if flip else -sin(t*PI)*0.22
+			if flip:
+				var pivot := Vector3(0, 1.05, 0)
+				model.position += pivot-model.basis*pivot
+		if state.get("rollStyle", "") in ["dash-cut", "cross-slash"]:
+			var cut := {"style": state.rollStyle, "duration": duration, "contact": duration * 0.35, "time": duration - float(state.roll), "index": 0}
+			_special_cut(cut, _phase(cut))
+	if state.get("dive") != null and id == "magic-swordsman":
+		model.rotation.x = -0.72
+		_r("Body", 0.18, -0.12)
+		_r("Arm_R", -1.9, -0.35, -0.2)
+		_r("Arm_L", -1.8, 0.35, 0.2)
+		_aim_weapon("Weapon_Cutlass", WEAPON_AXES["magic-swordsman"], Vector3(0, -0.85, 1), 1.0)
 	if bool(state.get("blocking", false)):
 		_r("Arm_L", -1.25, 0, 0.2)
 		if id == "master-thief":

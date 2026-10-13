@@ -117,8 +117,6 @@ func segment(name: String,input: Vector2,seconds: float):
 	await get_tree().create_timer(seconds).timeout
 	metrics[name]={"plant_error_m":max_plant_error,"anchor_drift_m":max_anchor_drift,"bone_length_error_m":max_joint_stretch,"contacts":contact_samples,"speed":game.player.model.locomotion.actual_speed,"grounded":game.player.is_on_floor(),"vertical":game.player.velocity.y}
 	metrics[name]["mean_head_yaw_degrees"]=rad_to_deg(head_yaw_sum/maxi(1,head_yaw_samples))
-	if name=="Left strafe":check(head_yaw_sum/maxi(1,head_yaw_samples)>0.12,"Head turns toward left strafe")
-	if name=="Right strafe transition":check(head_yaw_sum/maxi(1,head_yaw_samples)<-0.08,"Head follows rightward reversal")
 	print("LOCOMOTION METRIC ",name," ",metrics[name])
 	check(max_plant_error<0.025,name+": reachable foot targets (under 2.5 cm error)")
 	check(max_anchor_drift<0.001,name+": stance anchors remain stationary")
@@ -187,11 +185,12 @@ func run():
 	await segment("Braking to idle",Vector2.ZERO,0.5)
 	await reset()
 	await segment("Backward run",Vector2(0,1),0.9)
-	check(game.player.facing.dot(Vector3.FORWARD)>0.95,"Backward input retains forward-facing shoulders")
+	check(game.player.facing.dot(Vector3.BACK)>0.95,"Backward input turns the body toward travel")
 	await reset()
-	await segment("Left strafe",Vector2(-1,0),1.2)
-	check(game.player.facing.dot(Vector3.FORWARD)>0.95,"Left strafe retains facing")
-	await segment("Right strafe transition",Vector2(1,0),1.4)
+	await segment("Left run",Vector2(-1,0),1.2)
+	check(game.player.facing.dot(Vector3.LEFT)>0.95,"Left input turns the body toward travel")
+	await segment("Right turn",Vector2(1,0),1.4)
+	check(game.player.facing.dot(Vector3.RIGHT)>0.95,"Reversing sideways turns the body toward travel")
 	await reset()
 	game.player.smoke_move=Vector2(0,-1)
 	for i in range(18):
@@ -230,8 +229,8 @@ func run():
 		key(KEY_SHIFT,false)
 		await segment("Gameplay camera / stop",Vector2.ZERO,0.55)
 		await reset()
-		await segment("Gameplay camera / left strafe",Vector2(-1,0),1.0)
-		await segment("Gameplay camera / right strafe",Vector2(1,0),1.3)
+		await segment("Gameplay camera / left run",Vector2(-1,0),1.0)
+		await segment("Gameplay camera / right turn",Vector2(1,0),1.3)
 		await reset()
 		await segment("Gameplay camera / breathing idle",Vector2.ZERO,5.0)
 	for bone in ["Pelvis","Spine","SpineMid","Chest","Clavicle_L","Clavicle_R","Neck","Head"]:

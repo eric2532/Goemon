@@ -1,0 +1,20 @@
+[
+  {
+    "asset": "cyber_ronin",
+    "triangles": 614,
+    "materials": 1,
+    "source": "assets/blender/enemies/neon_set/cyber_ronin.blend",
+    "export": "assets/models/enemies/neon_set/cyber_ronin.glb",
+    "authorship": "Original low-poly geometry and painted 256px atlas",
+    "animation": "Named rigid parts, existing GPU crowd animation"
+  },
+  {
+    "asset": "armored_oni",
+    "triangles": 642,
+    "materials": 1,
+    "source": "assets/blender/enemies/neon_set/armored_oni.blend",
+    "export": "assets/models/enemies/neon_set/armored_oni.glb",
+    "authorship": "Original low-poly geometry and painted 256px atlas",
+    "animation": "Named rigid parts, existing GPU crowd animation"
+  }
+]

@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "scope": "metadata-only",
+  "appearance_fingerprint_before": "c28d0e98c0e810cac17de2f22aeaae2c06508b9916ab5c40ae75b984359371d8",
+  "appearance_fingerprint_after": "c28d0e98c0e810cac17de2f22aeaae2c06508b9916ab5c40ae75b984359371d8",
+  "appearance_unchanged": true,
+  "changed_root_properties": [
+    {
+      "object": "DEMO_Tower_TOWER_ROOT",
+      "property": "gameplay_fire_interval_seconds",
+      "before": null,
+      "after": 0.5
+    },
+    {
+      "object": "DEMO_Tower_TOWER_ROOT",
+      "property": "gameplay_shots_per_second",
+      "before": null,
+      "after": 2
+    },
+    {
+      "object": "DEMO_Tower_TOWER_ROOT",
+      "property": "gameplay_arrow_damage",
+      "before": null,
+      "after": 50
+    },
+    {
+      "object": "DEMO_Tower_TOWER_ROOT",
+      "property": "gameplay_combat_drain_required",
+      "before": null,
+      "after": true
+    },
+    {
+      "object": "DEMO_Tower_TOWER_ROOT",
+      "property": "gameplay_combat_drain_scope",
+      "before": null,
+      "after": "time-based per built tower during combat"
+    },
+    {
+      "object": "DEMO_Tower_TOWER_ROOT",
+      "property": "gameplay_combat_drain_rate",
+      "before": null,
+      "after": "unresolved"
+    },
+    {
+      "object": "DEMO_Tower_TOWER_ROOT",
+      "property": "gameplay_zero_wallet_behavior",
+      "before": null,
+      "after": "unresolved"
+    },
+    {
+      "object": "DEMO_Mine_GoldMine_Root",
+      "property": "base_income_gold_per_second",
+      "before": 1,
+      "after": 2
+    }
+  ],
+  "source_sha256": {
+    "tower": "cc93e9b39778580fb524a24f9139bda991805fd08917eeeac0e777da2b782136",
+    "mine": "bf5d35b5ef670dc00bb8b3c397913dd57672fb3fc976202f4ac8be2726b975bf"
+  }
+}

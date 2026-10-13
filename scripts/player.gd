@@ -2,11 +2,17 @@ class_name Hero
 extends CharacterBody3D
 
 var game: Node
+var auto_attack_enabled=false
+var auto_attack_clock=0.0
+var auto_lock_target: Ninja
+var auto_lock_refresh=0.0
+var auto_lock_had_target=false
 var character_id=1
 var character_models: Dictionary={}
 var character_abilities: Dictionary={}
 var musashi: MusashiCombat
 var active_ability: Node
+const BASIC_ATTACK_RANGE_MULTIPLIER = 3.0
 const ROSTER={1: {"name":"Goemon", "model":preload("res://scripts/hero_model.gd")},2: {"name":"Edo", "model":preload("res://assets/characters/musashi/model/musashi_model.gd"),"combat":preload("res://assets/characters/musashi/combat/musashi_combat.gd")}}
 const RogueRoster=preload("res://scripts/rogue_roster.gd")
 var model: HeroModel
@@ -117,7 +123,12 @@ func _input(event):
 	if is_rogue_character() and active_ability!=null:active_ability.release_input(event)
 
 func _unhandled_input(event):
-	if not game.playing or game.paused or game.transitioning: return
+	if not game.playing or game.paused or game.transitioning or hp<=0: return
+	if event.is_action_pressed("auto_attack_toggle") and not event.is_echo():
+		if game.camera_combat():set_auto_attack(not auto_attack_enabled)
+		get_viewport().set_input_as_handled();return
+	if game.siege_building() and (event.is_action_pressed("light_attack") or event.is_action_pressed("heavy_attack") or event.is_action_pressed("weapon_pipe") or event.is_action_pressed("weapon_coin") or event.is_action_pressed("weapon_chain") or event.is_action_pressed("surge") or event.is_action_pressed("sky_strike")):return
+	if game.camera_combat() and event.is_action_pressed("assist"):return
 	if game.rogue_battle_mode:game.rogue_view.update_aim()
 	if game.rogue_roster_mode and event.is_action_pressed("character_toggle") and not event.is_echo():
 		game.show_rogue_roster();get_viewport().set_input_as_handled();return
@@ -174,7 +185,7 @@ func rogue_dodge_direction()->Vector3:
 	return Vector3(move.x,0,move.y).rotated(Vector3.UP,game.camera_rig.yaw).normalized() if move.length_squared()>.01 else game.attack_direction()
 
 func start_attack(heavy: bool, stage: int=1, charged: bool=false, power: float=1.0,action: String=""):
-	if game.rogue_battle_mode:facing=game.attack_direction()
+	if game.rogue_battle_mode or game.camera_combat():facing=game.attack_direction()
 	attack_ticket=attack_chain.begin(action if not action.is_empty() else ("coin" if weapon_slot==2 else ("heavy" if heavy else "pipe")))
 	wide_swing=action=="wide"
 	if weapon_slot==1 and not model.equipped: model.equipped=true
@@ -201,7 +212,7 @@ func start_attack(heavy: bool, stage: int=1, charged: bool=false, power: float=1
 		facing=game.attack_direction()
 	if soft_target and weapon_slot==1 and not game.rogue_battle_mode:
 		var best: Node3D=null
-		var dist=game.tuning.pipe_range*range_multiplier()+1.5
+		var dist=game.tuning.pipe_range*attack_reach_multiplier()+1.5
 		for e in game.enemies:
 			if not is_instance_valid(e) or e.dead: continue
 			var dif=e.global_position-global_position
@@ -223,7 +234,7 @@ func start_attack(heavy: bool, stage: int=1, charged: bool=false, power: float=1
 		strike()
 
 func uses_rogue_pipe_profile()->bool:
-	return game.rogue_roster_mode and character_id==1 and weapon_slot==1 and not attack_heavy and not attack_charged and not wide_swing and attack_ticket.get("action","")=="pipe"
+	return game.rogue_roster_mode and game.rogue_battle_mode and character_id==1 and weapon_slot==1 and not attack_heavy and not attack_charged and not wide_swing and attack_ticket.get("action","")=="pipe"
 
 func play_swing_sound():
 	swing_played=true
@@ -245,14 +256,14 @@ func strike():
 		game.sound("dash",.45)
 	elif first_sample:
 		if uses_rogue_pipe_profile():rogue_pipe_combo.slash(combo)
-		elif wide_swing:game.combo_slash(center,facing,2,melee_range_multiplier()*game.tuning.pipe_range*1.26/3.5)
-		elif attack_heavy: game.slash(center,facing,true,combo,Color("ffdf83"),melee_range_multiplier()*game.tuning.pipe_range/3.5)
-		else: game.combo_slash(center,facing,combo,melee_range_multiplier()*game.tuning.pipe_range/3.5)
+		elif wide_swing:game.combo_slash(center,facing,2,attack_reach_multiplier()*game.tuning.pipe_range*1.26/3.5)
+		elif attack_heavy: game.slash(center,facing,true,combo,Color("ffdf83"),attack_reach_multiplier()*game.tuning.pipe_range/3.5)
+		else: game.combo_slash(center,facing,combo,attack_reach_multiplier()*game.tuning.pipe_range/3.5)
 	var any_hit=false
 	for e in game.enemies:
 		if not is_instance_valid(e) or e.dead or struck_targets.has(e.get_instance_id()): continue
 		var dif=e.global_position-global_position
-		var reach=game.tuning.pipe_range*(1.65 if attack_charged else (1.26 if attack_heavy else 1.0))*melee_range_multiplier()
+		var reach=game.tuning.pipe_range*(1.65 if attack_charged else (1.26 if attack_heavy else 1.0))*attack_reach_multiplier()
 		if dif.length()<reach+e.body_radius and absf(dif.y)<3.5*growth_multiplier() and (attack_charged or facing.dot(dif.normalized())>-0.12):
 			var ray=PhysicsRayQueryParameters3D.create(global_position+Vector3.UP,e.global_position+Vector3.UP,1)
 			if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty(): continue
@@ -265,7 +276,7 @@ func strike():
 			else:game.confirm_impact(e,contact,hit_dir,2 if attack_heavy or combo==3 else (1 if combo==2 else 0),false)
 			any_hit=true
 	var building_damage=game.tuning.charged_damage*charge_power if attack_charged else (48 if attack_heavy else (30 if combo==3 else 22))
-	BreakableBuilding.hit_area(game,global_position+Vector3.UP*growth_multiplier(),game.tuning.pipe_range*(1.65 if attack_charged else (1.26 if attack_heavy else 1.0))*melee_range_multiplier(),building_damage*damage_multiplier(),attack_ticket,facing,-1.0 if attack_charged else -.12,struck_targets)
+	BreakableBuilding.hit_area(game,global_position+Vector3.UP*growth_multiplier(),game.tuning.pipe_range*(1.65 if attack_charged else (1.26 if attack_heavy else 1.0))*attack_reach_multiplier(),building_damage*damage_multiplier(),attack_ticket,facing,-1.0 if attack_charged else -.12,struck_targets)
 	if first_sample and not any_hit:
 		var environment_ray=PhysicsRayQueryParameters3D.create(global_position+Vector3.UP,center+facing*1.2,1)
 		var surface=get_world_3d().direct_space_state.intersect_ray(environment_ray)
@@ -294,7 +305,19 @@ func take_hit(amount: float, direction: Vector3, projectile: bool=false):
 
 func _physics_process(delta):
 	if not game.playing or game.paused or game.transitioning or hp<=0: return
+	if game.siege_building():
+		cancel_charge(true);attack_left=0;queued=false;quick_attacks.stop_coins()
 	if game.rogue_battle_mode:game.rogue_view.update_aim()
+	auto_lock_refresh=maxf(0,auto_lock_refresh-delta)
+	if auto_attack_enabled:auto_aim_target()
+	auto_attack_clock=maxf(0,auto_attack_clock-delta*attack_speed_multiplier())
+	if auto_attack_running() and auto_attack_clock<=0:
+		if character_id==1 and attack_left<=0 and not quick_attacks.active and quick_attacks.pending.is_empty() and not chain_pipe_combat.active:
+			quick_attacks.request_mouse(false)
+			auto_attack_clock=maxf(.12,attack_duration)
+		elif character_id==2 and musashi.available() and not musashi.heavy_queued:
+			musashi.primary_attack()
+			auto_attack_clock=maxf(.12,attack_duration)
 	attack_chain.tick(delta,attack_left>0 or sky_strike.active or forward_dash.active or (active_ability!=null and active_ability.blocks_movement()))
 	if attack_chain.milestone>attack_chain.announced_milestone:
 		attack_chain.announced_milestone=attack_chain.milestone
@@ -375,12 +398,10 @@ func _physics_process(delta):
 		var horizontal_velocity=Vector2(velocity.x,velocity.z).move_toward(Vector2(dir.x,dir.z)*speed,accel*delta)
 		velocity.x=horizontal_velocity.x
 		velocity.z=horizontal_velocity.y
-	if game.rogue_battle_mode and not forward_dash.active and not chain_pipe_combat.active and dodge_time<=0 and attack_left<=0:
-		facing=game.attack_direction()
-	if not game.rogue_battle_mode and not forward_dash.active and wall_jump_recovery<=0 and dir.length()>0.1 and (attack_left<=0 or jumps_used>=2):
-		# Forward travel turns into the path. S backpedals and A/D strafe with
-		# camera-facing shoulders, so directional locomotion is actually reachable.
-		facing=dir.normalized() if flying or input.y< -0.1 or jumps_used>=2 else Vector3.FORWARD.rotated(Vector3.UP,yaw)
+	if not forward_dash.active and not chain_pipe_combat.active and dodge_time<=0 and wall_jump_recovery<=0 and dir.length()>0.1 and (attack_left<=0 or (jumps_used>=2 and not game.camera_combat() and not game.rogue_battle_mode)):
+		# Free movement turns into camera-relative travel in every direction.
+		# Attacks and committed abilities keep their existing aim.
+		facing=dir.normalized()
 	model.rotation.y=lerp_angle(model.rotation.y,atan2(-facing.x,-facing.z),1-exp(-delta*(24 if attack_left>0 else 14)))
 	if jump_buffer>0:
 		if not is_on_floor() and wall_jump_grace>0 and wall_jump_recovery<=0 and jump_windup<=0 and dodge_time<=0 and not forward_dash.active:
@@ -606,6 +627,10 @@ func range_multiplier()->float:
 func melee_range_multiplier()->float:
 	return range_multiplier()*(game.tuning.surge_range if attack_charged and surge_left<=0 else 1.0)
 
+func attack_reach_multiplier()->float:
+	var basic = not attack_heavy and not attack_charged and not wide_swing
+	return melee_range_multiplier() * (BASIC_ATTACK_RANGE_MULTIPLIER if basic else 1.0)
+
 func emit_robe_coins(radial: bool=false):
 	if character_id!=1 or not scarf_equipped:return
 	game.throw_robe_coins(facing,radial,weapon_slot==2)
@@ -657,9 +682,10 @@ func end_surge():
 
 func select_character(id: int):
 	if id==character_id:
-		if game.rogue_roster_mode and (id==1 or is_rogue_character()):game.selected_rogue_id=id
+		if game.rogue_roster_mode and (id in [1,2] or is_rogue_character()):game.selected_rogue_id=id
 		return
 	if not ROSTER.has(id) and not (game.rogue_roster_mode and RogueRoster.is_rogue(id)):return
+	reset_auto_attack()
 	var health_fraction=hp/maxf(1.0,max_hp)
 	var was_rogue=is_rogue_character()
 	quick_attacks.stop_coins()
@@ -682,9 +708,9 @@ func select_character(id: int):
 		refresh_max_health()
 		hp=max_hp*health_fraction
 	last_foot_events=model.locomotion.step_events
-	if game.rogue_roster_mode and (id==1 or is_rogue_character()):game.selected_rogue_id=id
+	if game.rogue_roster_mode and (id in [1,2] or is_rogue_character()):game.selected_rogue_id=id
 	if is_rogue_character():
-		game.toast(RogueRoster.name_for(id)+" · LMB / RMB Attack · C / E Utility · R Skill · Q Fighters")
+		game.toast(RogueRoster.name_for(id)+(" · LMB Attack · RMB / 3 Secondary · C Evade · E Utility · R Skill · Q Heroes" if game.camera_combat() else " · LMB Attack · RMB / 3 Secondary · C / E Utility · R Skill · Q Fighters"))
 	elif game.rogue_roster_mode and id==1:
 		game.toast("Goemon · Q Fighters · Hold LMB Combo · RMB Heavy · C Evade · E Dash · R Surge")
 	else:game.toast(ROSTER[id].name+" · Q Switch character · "+("LMB Triple fireball · RMB Giant fireball · T Meteor rain · R Beam" if id==2 else "1 Wind spin · 2 Auto coins ON/OFF · 3 Long sweep · C Evade"))
@@ -723,7 +749,8 @@ func damage_multiplier()->float:
 func base_attack_speed_multiplier()->float:
 	return progression.attack_multiplier()*pickup_multiplier("attack_speed")*(1.0+.05*run_upgrades.tempo)
 func attack_speed_multiplier()->float:
-	return base_attack_speed_multiplier()*attack_chain.multiplier()
+	var chain_rate=active_ability.ranger_fire_rate_multiplier() if is_rogue_character() and active_ability!=null and active_ability.class_id=="ranger" else attack_chain.multiplier()
+	return base_attack_speed_multiplier()*chain_rate
 
 func refresh_max_health(heal_growth: bool=false):
 	var previous=max_hp
@@ -761,3 +788,44 @@ func clear_powerups():
 	if is_instance_valid(game.orb_system):game.orb_system.pending.clear()
 	attack_speed_stacks=0
 	for kind in powerups:powerups[kind]=0.0
+
+# Auto intent stays separate from real mouse state and all native attack timing.
+func auto_attack_running()->bool:
+	if not auto_attack_enabled or not game.camera_combat() or not game.playing or game.paused or game.transitioning or hp<=0:return false
+	if game.siege_building() or Input.is_action_pressed("heavy_attack") or Input.is_action_pressed("weapon_chain"):return false
+	if dodge_time>0 or impact_pause>0 or forward_dash.active or sky_strike.active:return false
+	if active_ability!=null and active_ability.blocks_movement():return false
+	return true
+
+func auto_aim_origin()->Vector3:
+	if character_id==2 and is_instance_valid(model):return model.hand_position("R")
+	return global_position+Vector3.UP*(1.05 if is_rogue_character() else 1.25)*growth_multiplier()
+
+func auto_aim_target(muzzle: Vector3=Vector3.INF)->Ninja:
+	if not auto_attack_enabled or not game.camera_combat() or not game.playing or game.paused or game.transitioning or hp<=0:return null
+	var lost=auto_lock_had_target and (not is_instance_valid(auto_lock_target) or auto_lock_target.dead or not game.camera_rig.camera.is_position_in_frustum(AttackChain.aim_point(auto_lock_target)) or (game.has_method("forest_enemy_visible") and not game.forest_enemy_visible(auto_lock_target)))
+	if auto_lock_refresh<=0 or lost:
+		auto_lock_target=AttackChain.screen_target(self,auto_aim_origin(),120.0,true)
+		auto_lock_refresh=.15
+		auto_lock_had_target=is_instance_valid(auto_lock_target)
+	if muzzle.is_finite() and is_instance_valid(auto_lock_target):
+		var ray=PhysicsRayQueryParameters3D.create(muzzle,AttackChain.aim_point(auto_lock_target),1)
+		ray.exclude=[get_rid()]
+		if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty():
+			auto_lock_target=AttackChain.screen_target(self,muzzle,120.0,true)
+			auto_lock_had_target=is_instance_valid(auto_lock_target)
+	return auto_lock_target
+
+func set_auto_attack(enabled: bool):
+	auto_attack_enabled=enabled
+	auto_attack_clock=0
+	auto_lock_target=null;auto_lock_refresh=0;auto_lock_had_target=false
+	if enabled:auto_aim_target()
+	if not enabled and character_id==2 and is_instance_valid(musashi) and not Input.is_action_pressed("light_attack"):
+		musashi.release_primary()
+	game.toast("AUTO LOCK ON · Closest visible enemy · J to stop" if enabled else "AUTO ATTACK OFF · J to enable")
+
+func reset_auto_attack():
+	auto_lock_target=null;auto_lock_refresh=0;auto_lock_had_target=false
+	auto_attack_enabled=false
+	auto_attack_clock=0

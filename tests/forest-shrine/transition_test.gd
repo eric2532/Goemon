@@ -18,7 +18,7 @@ func run():
 	game.show_pause();press("light_attack",false);await frames();game.resume()
 	check(not game.player.active_ability.primary_held,"Releasing an attack while paused cannot leave it held after resume")
 	game.model.rally(true,game.player.position);game.show_rogue_roster();game.close_rogue_roster()
-	check(not game.paused and not game.model.workforce.held and game.camera_rig.camera.size<30,"Closing the battle roster resumes close combat with rally released")
+	check(not game.paused and not game.model.workforce.held and game.camera_rig.camera.projection==Camera3D.PROJECTION_PERSPECTIVE,"Closing the battle roster resumes close combat with rally released")
 	var gold=game.model.gold;game.build_kind="wall";game.show_pause()
 	check(not game.place_cell(Vector2i(4,4)) and game.model.gold==gold,"A paused battle cannot construct or spend gold")
 	game.queue_free();paused=false;await frames();await create_timer(.35).timeout

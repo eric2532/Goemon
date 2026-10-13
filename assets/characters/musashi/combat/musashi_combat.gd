@@ -129,7 +129,7 @@ func tick(delta: float,update_timers: bool=true):
 		if teleport.active:return
 	elapsed+=delta*hero.attack_speed_multiplier() if is_attacking() else delta
 	if state==State.BEAM:
-		if beam_held and not Input.is_action_pressed(beam_action):stop_hold_beam();return
+		if beam_held and not (Input.is_action_pressed(beam_action) or (beam_action=="light_attack" and hero.auto_attack_running())):stop_hold_beam();return
 		if is_instance_valid(beam):
 			hero.facing=game.attack_direction();hero.attack_left=1.0
 		else:hero.attack_left=0;end_beam_guard();change(State.IDLE)
@@ -160,7 +160,7 @@ func launch():
 	var from=hero.model.hand_position("R")
 	var dir=game.projectile_direction(from)
 	var score=-100.0
-	if (hero.soft_target or hero.growth_multiplier()>1.01) and not game.rogue_battle_mode:
+	if (hero.soft_target or hero.growth_multiplier()>1.01) and not game.rogue_battle_mode and not game.camera_combat():
 		for e in game.enemies:
 			if not is_instance_valid(e) or e.dead:continue
 			var aim=e.global_position+Vector3.UP*(1.5 if e.boss else 1.1);var dif=aim-from
@@ -175,7 +175,7 @@ func launch():
 		ball.damage=(balance.charged_fireball_damage if large_cast else balance.fireball_damage)*hero.damage_multiplier()
 		ball.hit_radius=(balance.charged_fireball_radius if large_cast else balance.fireball_radius)*hero.pickup_multiplier("range")*hero.growth_multiplier()
 		ball.velocity=dir.rotated(Vector3.UP,(i-(count-1)*.5)*.12)*(balance.charged_projectile_speed if large_cast else balance.projectile_speed)*hero.attack_speed_multiplier()
-		ball.lifetime=balance.projectile_lifetime*hero.growth_multiplier()/hero.attack_speed_multiplier()
+		ball.lifetime=balance.projectile_lifetime*hero.growth_multiplier()/hero.attack_speed_multiplier()*(1.0 if large_cast else hero.BASIC_ATTACK_RANGE_MULTIPLIER)
 		game.add_child(ball);ball.global_position=from
 
 func start_beam(action: String="light_attack"):
@@ -190,7 +190,7 @@ func start_beam(action: String="light_attack"):
 	hero.facing=game.attack_direction()
 	beam=load("res://assets/vfx/fire_beam/fire_beam.tscn").instantiate()
 	beam.game=game;beam.hero=hero;beam.ability=self;beam.balance=balance.duplicate();beam.attack_ticket=attack_ticket
-	beam.balance.beam_length=game.tuning.beam_length
+	beam.balance.beam_length=game.tuning.beam_length*(hero.BASIC_ATTACK_RANGE_MULTIPLIER if action=="light_attack" else 1.0)
 	beam.balance.beam_radius=game.tuning.beam_width*.5*hero.pickup_multiplier("range")*hero.growth_multiplier()
 	beam.sustained=true;beam_held=true
 	change(State.BEAM);hero.attack_left=1;hero.attack_duration=1

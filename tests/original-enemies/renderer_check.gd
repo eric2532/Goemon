@@ -19,7 +19,9 @@ func run():
 		game.add_child(enemy);game.enemies.append(enemy)
 	await process_frame
 	game.crowd._process(.016)
-	check(game.crowd.batches.size()==4,"Four original designs have distinct shared batches")
+	check(game.crowd.batches.size()>=4,"Four original designs retain their shared batches")
+	for kind in range(4,game.crowd.batches.size()):
+		check(game.crowd.batches[kind].multimesh.visible_instance_count==0,"Siege-only species %d stays absent from original survival" % kind)
 	for kind in range(4):
 		var batch=game.crowd.batches[kind]
 		check(batch.multimesh.mesh.get_surface_count()==1,"Species %d merges to one material surface" % kind)

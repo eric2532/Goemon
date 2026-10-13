@@ -83,15 +83,17 @@ func sync():
 		if w.state=="wounded":wounded+=1
 	resources.text="%d GOLD    ·    %d WORKERS"%[m.gold,m.workers.size()-wounded]
 	status.text="PREPARATION %02d / 05  ·  Plan, build, then begin"%mini(5,m.wave+1) if prep else "WAVE %02d / 05  ·  %d enemies remaining"%[m.wave,m.enemies.size()+m.waves.pending]
-	var p=game.player;var fighter=p.RogueRoster.name_for(p.character_id) if p.is_rogue_character() else "Goemon"
+	var p=game.player;var fighter=p.RogueRoster.name_for(p.character_id) if p.is_rogue_character() else ("Edo" if p.character_id==2 else "Goemon")
 	health.text="Shrine %d / 1000    ·    %s %d / %d"%[m.shrine().get("hp",0),fighter,p.hp,p.max_hp]
 	abilities.visible=not prep
 	if p.is_rogue_character():
 		var data=p.RogueRoster.data(p.character_id);var cooldowns=p.active_ability.player.cooldowns
-		abilities.text="LMB · %s     RMB · %s%s\nC / E · %s%s     R · %s%s     Q · Fighters"%[data.abilities.cutlass.name,data.abilities.flintlock.name,cooldown(cooldowns.flintlock),data.abilities.roll.name,cooldown(cooldowns.roll),data.abilities.drink.name,cooldown(cooldowns.drink)]
+		var utility="C · Evade     E" if p.active_ability.has_extra_utility() else "C"
+		abilities.text="LMB · %s     RMB / 3 · %s%s\n%s · %s%s     R · %s%s     Q · Heroes"%[data.abilities.cutlass.name,data.abilities.flintlock.name,cooldown(cooldowns.flintlock),utility,data.abilities.roll.name,cooldown(cooldowns.roll),data.abilities.drink.name,cooldown(cooldowns.drink)]
+	elif p.character_id==2:abilities.text="LMB · Fireballs    RMB · Giant fireball    C · Evade    E · Fire dodge\nR · Blue surge    T · Meteors    Q · Heroes"
 	else:abilities.text="LMB · Pipe combo    RMB · Heavy    C · Evade    E · Dash    R · Surge    T · Sky strike\n1 · Spin    2 · Coins    3 · Sweep    4 / 5 · Cloaks    Q · Fighters"
 	if wounded:health.text+="    ·    %d wounded until preparation"%wounded
-	var text_="Choose a building below  ·  WASD / middle drag to pan  ·  Wheel to zoom" if prep else "WASD move · Mouse aim · Shift sprint · Space jump · Hold V to gather workers, release near a job"
+	var text_="Choose a building below  ·  WASD / middle drag to pan  ·  Wheel to zoom" if prep else "WASD move · Mouse camera · J auto attack · Shift sprint · Space jump · Hold V to gather workers, release near a job"
 	if prep and not game.build_kind.is_empty():text_="%s  ·  %s  ·  R rotate  ·  Right-click cancel"%[LABELS[game.build_kind],game.placement_hint]
 	if not prep and m.workforce.held:
 		var count=0
@@ -121,6 +123,17 @@ func _process(delta):
 	message_left=maxf(0,message_left-delta);preview_clock-=delta
 	if game.model.workforce.held and preview_clock<=0:
 		job_preview=game.model.workforce.preview_jobs(game.player.position);preview_clock=.2
-	sync()
+	sync();queue_redraw()
 
 func cooldown(seconds: float)->String:return " (%.1fs)"%seconds if seconds>0 else ""
+
+func crosshair_visible()->bool:
+	return game!=null and game.playing and game.model.phase=="wave" and not game.paused and not game.transitioning and not game.won and game.player.hp>0
+func _draw():
+	if not crosshair_visible():return
+	var center=size*.5
+	for direction in [Vector2.RIGHT,Vector2.LEFT,Vector2.UP,Vector2.DOWN]:
+		draw_line(center+direction*5,center+direction*12,Color(0,.04,.08,.9),4,true)
+		draw_line(center+direction*5,center+direction*12,Color("acfff3"),1.5,true)
+	draw_circle(center,2.5,Color(0,.04,.08,.9))
+	draw_circle(center,1.1,Color.WHITE)

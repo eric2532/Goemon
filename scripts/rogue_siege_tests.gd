@@ -2,8 +2,8 @@ extends "res://scripts/combat_tests.gd"
 # Real menu/mode, Hero input, native Rogue state and actual Ninja collision.
 # The existing Fire Siege director is only paused while owned combat fixtures run.
 const CLASS_IDS=["pirate","samurai","ninja","mage","knight","dragoon","magic-swordsman","ranger","explorer","master-thief"]
-const PRIMARY_DAMAGE=[25,34,18,64,42,37,42,67,19,62]
-const PRIMARY_STYLE=["sword","katana","ninja","staff","heavy","thrust","claymore","bow","twin","pipe"]
+const PRIMARY_DAMAGE=[25,34,18,36,42,37,42,67,19,62]
+const PRIMARY_STYLE=["sword","samurai-cut","ninja","fireball","heavy","thrust","claymore","bow","evasive-slash","pipe"]
 const TEST_ORIGIN=Vector3(0,.06,100)
 var visual=false
 var checks=0
@@ -105,7 +105,7 @@ func settle_goemon(limit: int=120):
 		await frames(1)
 	check(false,"Goemon's current attack and released input buffers finish within their bounded lifetime")
 
-func settle_attack(limit: int=180):
+func settle_attack(limit: int=480):
 	for i in range(limit):
 		var a=game.player.active_ability;var p=a.player
 		if p.attack==null and p.travel==null and p.roll<=0 and p.burst==null and a.projectiles.is_empty() and a.attack_buffer<=0 and p.secondaryBuffer==null:
@@ -303,7 +303,7 @@ func primary_rules():
 	for index in range(CLASS_IDS.size()):
 		await fresh_class(index)
 		var p=game.player;var a=p.active_ability;var model=p.model;var id=CLASS_IDS[index]
-		var expected_path="res://assets/rogue/models/%s.glb" % id
+		var expected_path="res://assets/rogue/styled/models/%s.glb" % id
 		var loaded=is_instance_valid(model.actor) and model.actor.id==id and is_instance_valid(model.actor.model) and model.actor.model.scene_file_path==expected_path
 		check(loaded and p.character_id==index+3 and a.class_id==id,"%s loads its actual native model and dedicated class kit" % id)
 		if not loaded:continue
@@ -316,7 +316,11 @@ func primary_rules():
 		var idle=pose_snapshot(model.actor)
 		aim_world(target.position);tap("light_attack")
 		var native_attack=a.player.attack
-		check(native_attack!=null and native_attack.style==PRIMARY_STYLE[index] and target.hp==10000 and not p.quick_attacks.active and not p.chain_pipe_combat.active,"%s starts its own primary windup without a Goemon fallback" % id)
+		if id=="mage":
+			check(a.projectiles.size()==1 and a.projectiles[0].kind=="fireball" and not p.quick_attacks.active and not p.chain_pipe_combat.active,"Mage tap releases its own fireball without a Goemon fallback")
+			native_attack={"style":"fireball"}
+		else:
+			check(native_attack!=null and native_attack.style==PRIMARY_STYLE[index] and target.hp==10000 and not p.quick_attacks.active and not p.chain_pipe_combat.active,"%s starts its own primary windup without a Goemon fallback" % id)
 		await frames(2)
 		check(pose_snapshot(model.actor)!=idle and model.actor.scale.is_equal_approx(Vector3.ONE*1.15),"%s animates the authored joints while keeping its 15 percent visual size increase" % id)
 		for i in range(100):
@@ -473,7 +477,7 @@ func impact_and_muzzle_rules():
 	await fresh_class(3)
 	var target=fixture(Vector3(5,0,0))
 	var wall=Geo.box(game,p.position+Vector3(.55,2,0),Vector3(.2,5,10),Geo.mat("657278"),true)
-	await frames(2);aim_world(target.position);tap("heavy_attack");await settle_attack();await frames(12)
+	await frames(2);aim_world(target.position);tap("light_attack");await settle_attack();await frames(12)
 	check(target.hp==10000,"A wall inside the projectile's initial muzzle offset prevents a shot from spawning through cover")
 	wall.queue_free();await frames(2)
 

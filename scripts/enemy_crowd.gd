@@ -1,9 +1,9 @@
 class_name EnemyCrowd
 extends Node3D
-# Four textured rigid-part batches; ordinary actors never instantiate skeletons.
+# Textured rigid-part batches; ordinary actors never instantiate skeletons.
 # Guardians retain their authored rig. Combat/collision remain in Ninja.
 const VIEW_DISTANCE=110.0
-const ASSET_IDS=["masked_foot_soldier","straw_hat_bandit","daruma_bruiser","lantern_yokai"]
+const ASSET_IDS=["masked_foot_soldier","straw_hat_bandit","daruma_bruiser","lantern_yokai","cyber_ronin","armored_oni"]
 var game: Node
 var batches: Array[MultiMeshInstance3D]=[]
 # Compatibility handle for existing diagnostic scripts (first species only).
@@ -15,7 +15,7 @@ func _ready():
 	process_priority=40
 	var shader=load("res://assets/materials/original_enemy_crowd.gdshader")
 	for kind in range(ASSET_IDS.size()):
-		var source=GameAssets.instantiate_model("enemies/original_set/"+ASSET_IDS[kind])
+		var source=GameAssets.instantiate_model("enemies/"+("original_set/" if kind<4 else "neon_set/")+ASSET_IDS[kind])
 		var surface=SurfaceTool.new();surface.begin(Mesh.PRIMITIVE_TRIANGLES)
 		append_parts(source,Transform3D.IDENTITY,surface)
 		var instance=MultiMeshInstance3D.new();instance.multimesh=MultiMesh.new()
@@ -26,7 +26,8 @@ func _ready():
 		instance.multimesh.instance_count=64;instance.multimesh.visible_instance_count=0
 		instance.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		var material=ShaderMaterial.new();material.shader=shader
-		material.set_shader_parameter("atlas",load("res://assets/textures/enemies/original_set/enemy_atlas.png"))
+		material.set_shader_parameter("atlas",load("res://assets/textures/enemies/"+("original_set/enemy_atlas.png" if kind<4 else "neon_set/neon_atlas.png")))
+		material.set_shader_parameter("neon_style",kind>=4)
 		material.set_shader_parameter("species",kind)
 		instance.material_override=material
 		materials.append(material);batches.append(instance);add_child(instance);source.free()
@@ -62,7 +63,8 @@ func _process(delta):
 	if not game.playing or game.paused or game.transitioning:return
 	age+=delta
 	for material in materials:material.set_shader_parameter("clock",age)
-	var counts=[0,0,0,0];var needed=[0,0,0,0]
+	var counts: Array[int]=[];var needed: Array[int]=[]
+	counts.resize(batches.size());counts.fill(0);needed.resize(batches.size());needed.fill(0)
 	var focus=game.player.global_position
 	for enemy in game.enemies:
 		if is_instance_valid(enemy) and not enemy.boss:needed[visual_species(enemy)]+=1
@@ -96,6 +98,8 @@ func actor_data(enemy: Ninja)->Color:
 	return Color(float(enemy.get_instance_id()%100)*.13,motion,attack,1 if enemy.frozen_left>0 else 0)
 
 func visual_species(enemy: Ninja)->int:
+	var siege_species=int(enemy.get_meta("siege_species",-1))
+	if siege_species>=4 and siege_species<ASSET_IDS.size():return siege_species
 	# Survival keeps its existing three combat archetypes. Alternate standard
 	# melee appearances so the fourth design does not introduce ranged attacks.
 	if enemy.swarm and enemy.variant==0 and enemy.formation_index%2==1:return 3

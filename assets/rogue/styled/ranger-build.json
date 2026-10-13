@@ -1,0 +1,187 @@
+{
+  "hero": "ranger",
+  "triangles": 7650,
+  "mesh_batches": 7,
+  "source": "assets/blender/rogue/ranger.blend",
+  "removed_microdetails": [
+    "Glove finger seam.012",
+    "Glove finger seam.013",
+    "Glove finger seam.014",
+    "Glove finger seam.015",
+    "Glove finger seam.016",
+    "Glove finger seam.017",
+    "Defined jaw.002",
+    "Cheek sculpt.004",
+    "Inner ear.004",
+    "Eye socket.004",
+    "Eye ivory.004",
+    "Iris.004",
+    "Pupil.004",
+    "Expressive brow.004",
+    "Sculpted upper eyelid.004",
+    "Cheek sculpt.005",
+    "Inner ear.005",
+    "Eye socket.005",
+    "Eye ivory.005",
+    "Iris.005",
+    "Pupil.005",
+    "Expressive brow.005",
+    "Sculpted upper eyelid.005",
+    "Nose planes.002",
+    "Mouth.002",
+    "Mantle embroidered hem.002",
+    "Sculpted cape fold.008",
+    "Sculpted cape fold.009",
+    "Sculpted cape fold.010",
+    "Sculpted cape fold.011",
+    "Overlapping leather cuirass etched edge",
+    "Overlapping leather cuirass etched edge.001",
+    "Overlapping leather cuirass etched edge.002",
+    "Carved leaf shoulder armor etched edge",
+    "Carved leaf shoulder armor etched edge.001",
+    "Carved leaf shoulder armor etched edge.002",
+    "Carved leaf shoulder armor etched edge.003",
+    "Archer bracer etched edge",
+    "Ranger raised kneepad etched edge",
+    "Overlapping leather cuirass etched edge.003",
+    "Overlapping leather cuirass etched edge.004",
+    "Overlapping leather cuirass etched edge.005",
+    "Carved leaf shoulder armor etched edge.004",
+    "Carved leaf shoulder armor etched edge.005",
+    "Carved leaf shoulder armor etched edge.006",
+    "Carved leaf shoulder armor etched edge.007",
+    "Archer bracer etched edge.001",
+    "Ranger raised kneepad etched edge.001",
+    "Hand-set rivet.004",
+    "Hand-set rivet.005",
+    "Sling gold stitching",
+    "Hood brow overhang",
+    "Hood hanging cheek fold",
+    "Brown hair at temple",
+    "Hood hanging cheek fold.001",
+    "Brown hair at temple.001",
+    "Ranger small chin beard",
+    "Greatbow carved leaf guard etched edge",
+    "Greatbow curling leaf filigree",
+    "Greatbow carved leaf guard etched edge.001",
+    "Greatbow curling leaf filigree.001"
+  ],
+  "head_scale": 1.6,
+  "body_width": 1.25,
+  "body_depth": 1.43,
+  "pivot_roles": [
+    "Ranger",
+    "Body",
+    "Head",
+    "Leg_R",
+    "Arm_R",
+    "Leg_L",
+    "Arm_L",
+    "Weapon_Cutlass"
+  ],
+  "face_method": "UV-painted skull",
+  "head_shape": "Lean tapered jaw and elevated cheek plane; asymmetric chestnut fringe and temple locks inside forest hood",
+  "roster_generator": "tools/sculpt_rogue_roster.py",
+  "facial_depth_revision": "approved-2.34.1-roster-rollout",
+  "painted_atlas_changed": false,
+  "export_face_uv_check": {
+    "uv_set": 0,
+    "distinct_coordinates": 730,
+    "u_span": 0.3253333349712193,
+    "v_span": 0.31666672229766846,
+    "single_head_uv_set": true
+  },
+  "pivot_invariance": true,
+  "body_and_weapon_geometry_invariance": true,
+  "unchanged_components": 127,
+  "adjusted_accessories": [],
+  "replaced_head_components": [
+    "Face framing hair L",
+    "Ear framing hair L",
+    "Face framing hair R",
+    "Ear framing hair R"
+  ],
+  "roster_mesh_checks": [
+    {
+      "name": "Carved face.002",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.10031386209734418
+    },
+    {
+      "name": "Roster ranger temple -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.003017547477579789
+    },
+    {
+      "name": "Roster ranger ear sweep -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0027700357637701076
+    },
+    {
+      "name": "Roster ranger temple 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.003094870218510042
+    },
+    {
+      "name": "Roster ranger ear sweep 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0027457047341704565
+    },
+    {
+      "name": "Roster ranger parted fringe left",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0030504779145296337
+    },
+    {
+      "name": "Roster ranger parted fringe right",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0021705576736831067
+    }
+  ],
+  "ranger_hat_generator": "tools/equip_ranger_hat.py",
+  "ranger_hat_revision": "full-scalp-coverage",
+  "ranger_hat_design": "Fitted forest-green crown with full rear nape panel, swept brim, chestnut band and one solid gold feather",
+  "ranger_hat_removed": [
+    "Hood back",
+    "Hood gold woven opening",
+    "Hood gold woven opening.001"
+  ],
+  "ranger_hat_mesh_checks": [
+    {
+      "name": "Ranger hat full crown and nape",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.13645474879254096
+    },
+    {
+      "name": "Ranger hat swept brim",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.004173257656249017
+    },
+    {
+      "name": "Ranger hat chestnut band",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0005508896947823885
+    },
+    {
+      "name": "Ranger hat gold feather",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0011071549095094842
+    }
+  ],
+  "ranger_hat_unchanged_components": 139,
+  "ranger_hat_face_geometry_and_uv_invariance": true,
+  "ranger_hat_hair_invariance": true,
+  "ranger_hat_body_and_weapon_geometry_invariance": true,
+  "ranger_hat_pivot_invariance": true
+}

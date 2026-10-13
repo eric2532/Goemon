@@ -35,7 +35,7 @@ func play(event: String, options: Dictionary = {}) -> void:
 		return
 	if paused and event not in ["click","hover","reward","victory","defeat"]:
 		return
-	var limits = {"hit":0.025,"heavy":0.035,"pierce":0.035,"shuriken":0.065,"fire":0.1,"ice":0.1,"lightning":0.085,"hover":0.06,"spawn":0.25}
+	var limits = {"hit":0.025,"heavy":0.035,"pierce":0.035,"claymore-impact":0.065,"shuriken":0.065,"fire":0.1,"ice":0.1,"lightning":0.085,"hover":0.06,"spawn":0.25}
 	var now = Time.get_ticks_msec()/1000.0
 	if now-float(last_events.get(event,-100.0)) < float(limits.get(event,0.015)):
 		return
@@ -46,6 +46,10 @@ func play(event: String, options: Dictionary = {}) -> void:
 		if style not in ["pirate","samurai","ninja","knight","magic-swordsman","explorer","master-thief"]:
 			style = "pirate"
 		file += "-"+style+"-"+str(clampi(int(options.get("combo",0)),0,2))
+	elif event == "claymore-sweep":
+		file += "-"+str(clampi(int(options.get("combo",0)),0,2))
+	elif event == "claymore-impact":
+		file += "-"+("heavy" if options.get("heavy",false) else "light")
 	elif event == "bow":
 		file += "-"+("power" if options.get("style","") == "power" else "rapid")
 	elif event == "cast":

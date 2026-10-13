@@ -1,0 +1,311 @@
+{
+  "schema_version": "0.2",
+  "status": "asset_level_validation_received_target_game_not_integrated",
+  "coordinate_convention": {
+    "units": "meters",
+    "blender_up": "+Z",
+    "blender_forward": "-Y",
+    "GLB_up": "+Y",
+    "GLB_forward": "+Z",
+    "pivot": "ground_center",
+    "godot_wrapper_rotation": "180 degrees around Y only if gameplay parent expects -Z forward; never apply conversion twice"
+  },
+  "arrow_tower": {
+    "static_glbs": [
+      "exports/tower_stage_empty.glb",
+      "exports/tower_stage_frame.glb",
+      "exports/tower_stage_assembling.glb",
+      "exports/tower_stage_complete.glb",
+      "exports/tower_wall_mount.glb"
+    ],
+    "animated_glb": "exports/tower_build_recoil_reverse.glb",
+    "clip": "Tower_Build_Recoil_Reverse",
+    "fps": 24,
+    "segments_blender_frames": {
+      "build": [
+        1,
+        72
+      ],
+      "fire": [
+        79,
+        91
+      ],
+      "reverse_preview": [
+        109,
+        180
+      ]
+    },
+    "continuous_progress_seek_seconds": "p * 71 / 24",
+    "release_decay": "decrease p and seek same build segment",
+    "nodes": [
+      "TOWER_ROOT",
+      "LAUNCHER_YAW",
+      "LAUNCHER_RECOIL",
+      "ARROW_PROJECTILE",
+      "SOCKET_ARROW_MUZZLE",
+      "SOCKET_BUILD_FX"
+    ],
+    "muzzle_blender_xyz": [
+      0,
+      -1.73,
+      1.86
+    ],
+    "muzzle_GLTF_xyz": [
+      0,
+      1.86,
+      1.73
+    ],
+    "complete_bounds_blender": {
+      "x": [
+        -1.775,
+        1.775
+      ],
+      "y": [
+        -1.72,
+        1.705
+      ],
+      "z": [
+        0,
+        3.785
+      ]
+    },
+    "core_foundation_xy": [
+      2.8,
+      2.75
+    ],
+    "mesh_nodes_by_stage": [
+      15,
+      51,
+      105,
+      170
+    ],
+    "evaluated_triangles_approx": 20052,
+    "round_trip_validation": "all seven GLBs passed fresh Blender and Godot import/AnimationPlayer-seek checks at 24 FPS",
+    "runtime_integration_verified": false,
+    "build_socket_blender_xyz": [
+      0,
+      0,
+      3.9
+    ],
+    "animation_import_fps": 24,
+    "clip_start_seconds": 0,
+    "clip_duration_seconds_expression": "179 / 24",
+    "reverse_preview_seek_seconds": "108 / 24 + (1 - p) * 71 / 24",
+    "godot_asset_validation": "4.6.3 isolated import and playback PASS at 24 FPS; target gameplay integration not verified",
+    "node_lookup": "Use retained unique names; arbitrary stable_id extras not exposed as Godot node metadata by default",
+    "recoil_travel_m": 0.16,
+    "projectile": {
+      "glb": "exports/arrow_projectile.glb",
+      "root": "ARROW_PROJECTILE_ROOT",
+      "tip_socket": "SOCKET_ARROW_TIP",
+      "pivot": "tip_origin",
+      "mesh_parts": 5,
+      "dimensions_Godot_xyz_m": [
+        0.24,
+        0.155885,
+        2.28
+      ],
+      "forward_Godot": "+Z",
+      "body_extends": "behind_tip_in_-Z",
+      "spawn": "instantiate under world/projectile container and copy muzzle global transform",
+      "flight_direction": "muzzle global +Z",
+      "hide_embedded_preview_arrow_until_reload": true,
+      "speed_trajectory_and_hits": "undecided",
+      "godot_validation": "tip origin, unique mesh names, direction, and dimensions verified",
+      "cadence": "Spawn one arrow every confirmed 0.5 seconds (2 shots/sec); gameplay owns scheduling, not animation duration."
+    },
+    "planned_repo_root": "assets/economy_v1/arrow_tower",
+    "not_verified": [
+      "integrated_gameplay",
+      "Godot_visual_QA",
+      "runtime_performance"
+    ],
+    "nominal_site_xy": [
+      2.8,
+      2.8
+    ],
+    "source_blend_filename": "firesiege_arrow_tower_v1.blend",
+    "compressed_source_path": "firesiege_arrow_tower_v1.blend.gz",
+    "source_extract_required": true,
+    "asset_package_version": "v1",
+    "confirmed_runtime_combat": {
+      "level": 1,
+      "fire_interval_seconds": 0.5,
+      "shots_per_second": 2,
+      "arrows_per_shot": 1,
+      "damage_per_arrow": 50,
+      "initial_normal_enemy_hp": 100,
+      "implementation_status": "not_implemented_by_this_handoff",
+      "ongoing_operating_cost_required": true,
+      "operating_cost_mechanism": "time_based_gold_drain_per_built_tower_regardless_of_firing",
+      "operating_cost_rate": null,
+      "depletion_policy": null,
+      "operating_cost_active_phases": [
+        "combat"
+      ],
+      "ammo_purchase_system_approved": false,
+      "setup_gold_drain": 0,
+      "cleanup_drain_policy": null,
+      "pause_drain_policy": null
+    }
+  },
+  "gold_mine": {
+    "glb": "goldmine_v1.glb",
+    "root": "GoldMine_Root",
+    "clips_seconds": {
+      "build": 2,
+      "reverse_build": 2,
+      "work_loop": 4,
+      "upgrade_preview": 2
+    },
+    "progress": "seek build at normalized p; decreasing p reverses partial work",
+    "default_saved_pose": "working; runtime must initialize build to p=0 for unbuilt site",
+    "upgrade_preview_status": "visual proposal only; no gameplay tier approved",
+    "footprint_m": [
+      4.55,
+      4.73
+    ],
+    "visible_height_m": 2.89,
+    "underside_depth_m": 0.42,
+    "mesh_parts": 248,
+    "triangles": 9404,
+    "sockets_blender_xyz": {
+      "socket_build_fx": [
+        0,
+        0,
+        3.2
+      ],
+      "socket_income_fx": [
+        0,
+        -1.3,
+        2.4
+      ],
+      "socket_entrance": [
+        0,
+        -1.25,
+        0
+      ]
+    },
+    "cost_gold": 10,
+    "income_gold_per_second": 2,
+    "income_phase": "combat_only; zero during setup and pause",
+    "runtime_integration_verified": false,
+    "clip_validation": "Exact normalized ranges and reverse/work-loop endpoints pass per builder",
+    "planned_repo_root": "assets/economy_v1/gold_mine",
+    "materials": 18,
+    "godot_asset_validation": "4.6.3 isolated import, build seek 0/1/2, repeated partial seeking, reverse endpoints, work motion 0–4, and sockets PASS",
+    "godot_import": {
+      "preserve_constant_transform_tracks": true,
+      "editor_settings": {
+        "animation/remove_immutable_tracks": false,
+        "nodes/use_name_suffixes": false
+      },
+      "runtime_call": "GLTFDocument.generate_scene(state, 30.0, false, false)",
+      "reason": "constant-track removal drops cart position; suffix processing renames work_loop to work",
+      "work_loop": "imported as LOOP_LINEAR in Godot 4.6.3; set loop mode explicitly"
+    },
+    "hidden_scale_epsilon": 1e-05,
+    "sockets_Godot_xyz": {
+      "socket_build_fx": [
+        0,
+        3.2,
+        0
+      ],
+      "socket_income_fx": [
+        0,
+        2.4,
+        1.3
+      ],
+      "socket_entrance": [
+        0,
+        0,
+        1.25
+      ]
+    },
+    "godot_editor_validation": "4.6.3 editor import and playback PASS without errors or warnings under documented settings",
+    "completed_cart_Godot_z": 1.56,
+    "source_blend_filename": "goldmine_v1.blend",
+    "compressed_source_path": "goldmine_v1.blend.gz",
+    "source_extract_required": true,
+    "asset_package_version": "v1",
+    "previous_income_gold_per_second": 1,
+    "income_increase_requested": true,
+    "proposed_2_gold_per_second_approved": true,
+    "income_rate_status": "confirmed",
+    "gross_gold_per_60_combat_seconds_derived": 120,
+    "gross_payback_earning_seconds_derived": 5,
+    "requires_purchase": true,
+    "starts_completed": false,
+    "cleanup_income_policy": null
+  },
+  "construction_fx": {
+    "demo_models": "explicitly labeled placeholders, not tower or mine runtime asset",
+    "exports": {
+      "exports/FS_FX_Hammer_BuildLoop.glb": {
+        "root": "FX_HammerRoot",
+        "pivot": "FX_HammerSwingPivot",
+        "clip": "Build_HammerLoop",
+        "seconds": 1,
+        "loop": true
+      },
+      "exports/FS_FX_ProgressFrame.glb": {
+        "root": "FX_ProgressRoot",
+        "fill_node": "ProgressFill",
+        "progress": "scale.x = clamp(p,0,1)",
+        "full_fill_width_m": 1.95,
+        "frame_width_m": 2.2,
+        "fixed_left_x_m": -0.975
+      },
+      "exports/FS_FX_BPrompt.glb": {
+        "root": "FX_BPromptRoot",
+        "optional": true
+      },
+      "exports/FS_FX_CompletionPulse.glb": {
+        "root": "FX_CompletionRoot",
+        "clip": "Complete_GoldPulse",
+        "seconds": 1,
+        "one_shot": true,
+        "components": "transform sparks and two shrinking ring morph targets"
+      }
+    },
+    "billboard": [
+      "FX_ProgressRoot",
+      "FX_BPromptRoot"
+    ],
+    "hammer_playback": "only while valid B hold advances progress; stop on release",
+    "completion_playback": "only after authoritative success and gold debit",
+    "runtime_integration_verified": false,
+    "validation": {
+      "blender_roundtrip": "4.3.2 PASS",
+      "godot_headless": "4.6.3 isolated scene import and playback PASS",
+      "pulse_evaluation_seconds": [
+        0,
+        0.25,
+        1
+      ],
+      "pulse_morph_tracks": 2,
+      "pulse_spark_tracks": 10,
+      "target_game_integration": false,
+      "hammer_playback": "PASS without errors"
+    },
+    "invisible_spark_scale_epsilon": 1e-05,
+    "progress_zero": "Hide fill or epsilon scale plus visibility=false to avoid singular transforms",
+    "wave_start_label": "Reuse progress visual with Y label; B prompt remains construction-only",
+    "planned_repo_root": "assets/economy_v1/construction_fx",
+    "source_blend_filename": "FireSiege_ConstructionFX_v1.blend",
+    "compressed_source_path": "FireSiege_ConstructionFX_v1.blend.gz",
+    "source_extract_required": true,
+    "asset_package_version": "v1"
+  },
+  "integration_warning": "Animation durations are presentation timing only. Gameplay owns construction duration, progress decay, the confirmed 0.5 second single-arrow tower cadence, mine income, and wave timers. Other unresolved knobs remain open; this handoff does not implement gameplay.",
+  "planned_repo_documentation_root": "docs/handoffs/fire-siege-economy-v0.2",
+  "portable_paths": "Resolve asset-relative paths from planned_repo_root; do not introduce authoring-machine absolute paths.",
+  "source_packaging": "Blender authoring sources are gzip-compressed at each planned_repo_root; decompress to source_blend_filename before editing. Runtime GLBs remain uncompressed.",
+  "runtime_balance_authority": "The current specification and design decision JSON override older gameplay annotations in visual asset packages. No model rebuilding is required for these balance changes.",
+  "availability": {
+    "state": "verified_local_staging_only",
+    "published_branch_verified": false,
+    "integrator_action": "Obtain supplied packages and inspect manifests before materializing planned paths; do not assume the pinned source branch contains them."
+  },
+  "decision_register_source": "fire_siege_redesign_decisions_v0_2.json"
+}

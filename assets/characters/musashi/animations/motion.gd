@@ -14,6 +14,8 @@ var dt=0.016
 var rest={}
 var poses={}
 var rotations={}
+var translations={}
+var root_bob=0.0
 var dirty=true
 var blended={}
 func _init(m):
@@ -28,10 +30,11 @@ func set_rot(name: String,v: Vector3):
 	# The arm rest vector points down; positive X raises the fist toward -Z.
 	if name.begins_with("Arm_") or name.begins_with("Forearm_"):v.x=-v.x
 	rotations[name]=Basis.from_euler(v)
-func evaluate():
-	if not dirty:return
-	dirty=false;rotations.clear();poses.clear()
+func casting_pose(_combat) -> Variant:
+	return null
+func apply_locomotion():
 	var move=clampf(speed/9,0,1);var wave=sin(phase);var sprint=clampf((speed-10)/8,0,1)
+	root_bob=absf(wave)*.026*move
 	set_rot("Hips",Vector3(-.05*sprint,.12*wave*move,.035*wave*move))
 	set_rot("Chest",Vector3(-.12*sprint,-.20*wave*move,0))
 	set_rot("Head",Vector3(.08*sprint,.05*wave*move,0))
@@ -44,12 +47,20 @@ func evaluate():
 		set_rot("Forearm_"+side,Vector3(-.26-.30*move,0,0))
 	if not grounded:
 		set_rot("Leg_L",Vector3(-.55,0,0));set_rot("Leg_R",Vector3(.3,0,0));set_rot("Shin_L",Vector3(.8,0,0))
+
+func evaluate():
+	if not dirty:return
+	dirty=false;rotations.clear();translations.clear();poses.clear()
+	apply_locomotion()
 	if dodge:
 		set_rot("Chest",Vector3(-.5,0,0))
 		set_rot("Arm_L",Vector3(1.1,0,0));set_rot("Arm_R",Vector3(1.1,0,0))
 	var c=model.combat
 	var dip=0.0
-	if c and not dodge:
+	var custom_pose=casting_pose(c) if c and not dodge else null
+	if custom_pose!=null:
+		dip=float(custom_pose)
+	elif c and not dodge:
 		if c.is_charging():
 			var q=c.charge_ratio();set_rot("Hips",Vector3(0,-.25,0));set_rot("Chest",Vector3(.04,-.42,0))
 			set_rot("Arm_R",Vector3(-.7,-.45,-.65));set_rot("Forearm_R",Vector3(-1.25,0,0))
@@ -97,15 +108,16 @@ func evaluate():
 		var n=sk.get_bone_name(i);var r: Transform3D=rest[n];var parent=sk.get_bone_parent(i)
 		var desired: Basis=rotations.get(n,Basis.IDENTITY)
 		var previous: Basis=blended.get(n,Basis.IDENTITY)
-		var cast_speed=c.hero.attack_speed_multiplier() if c and c.is_casting_meteors() else 1.0
+		var cast_speed=c.hero.attack_speed_multiplier() if c and c.is_attacking() else 1.0
 		var delta_basis=previous.slerp(desired,1.0-exp(-dt*30.0*cast_speed))
 		blended[n]=delta_basis
-		var p=r.origin;var b=delta_basis
+		var p=r.origin;var b=delta_basis;var inherited=Basis.IDENTITY
 		if parent>=0:
 			var pn=sk.get_bone_name(parent);var pp: Transform3D=poses[pn];var pr: Transform3D=rest[pn]
-			var inherited=pp.basis*pr.basis.inverse()
+			inherited=pp.basis*pr.basis.inverse()
 			p=pp.origin+inherited*(r.origin-pr.origin);b=inherited*delta_basis
-		elif grounded:p.y+=absf(wave)*.026*move+dip-jump_compression*.04
+		elif grounded:p.y+=root_bob+dip-jump_compression*.04
+		p+=translations.get(n,Vector3.ZERO) if parent<0 else inherited*translations.get(n,Vector3.ZERO)
 		var pose=Transform3D(b*r.basis,p);poses[n]=pose;sk.set_bone_global_pose(i,pose)
 
 func reset():

@@ -1,0 +1,4 @@
+[application]
+config/name="Fire Siege mine isolated asset validation"
+[rendering]
+renderer/rendering_method="gl_compatibility"

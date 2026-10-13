@@ -54,6 +54,7 @@ func prepare() -> void:
 		fx.name = "RogueSharedClassEffects"
 		fx.process_mode = Node.PROCESS_MODE_PAUSABLE
 		game.add_child(fx)
+	fx.apply_quality(int(game.settings.quality))
 	if not is_instance_valid(sound):
 		sound = game.get_node_or_null("RogueSharedClassAudio")
 	if not is_instance_valid(sound):
@@ -72,7 +73,7 @@ func slash(stage: int) -> void:
 	prepare()
 	var index: int = clampi(stage - 1, 0, 2)
 	var angle: float = atan2(hero.facing.x, hero.facing.z)
-	fx.slash(hero.global_position, angle, index, TINT, hero.game.tuning.pipe_range * hero.melee_range_multiplier(),
+	fx.slash(hero.global_position, angle, index, TINT, hero.game.tuning.pipe_range * hero.attack_reach_multiplier(),
 		{"style": "magic", "arc": 2.5, "height": 1.05 * hero.growth_multiplier(), "direction": -1 if index % 2 else 1})
 
 func impact(victim: Node3D, point: Vector3, direction: Vector3, stage: int) -> void:

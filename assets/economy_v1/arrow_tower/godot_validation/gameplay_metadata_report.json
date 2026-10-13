@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "files": [
+    {
+      "file": "arrow_projectile.glb",
+      "extras_updated": 0,
+      "mesh_animation_json_unchanged": true,
+      "binary_chunk_unchanged": true,
+      "binary_chunk_sha256": "925a75259034079af562e4cdb518914909c5dd590a294eb4a7abbb11ea5f41b5"
+    },
+    {
+      "file": "tower_build_recoil_reverse.glb",
+      "extras_updated": 3,
+      "mesh_animation_json_unchanged": true,
+      "binary_chunk_unchanged": true,
+      "binary_chunk_sha256": "65ca3589cc5be22dec34e2eeb5612b6860ed380b16471c23b92b29c56136328c"
+    },
+    {
+      "file": "tower_stage_assembling.glb",
+      "extras_updated": 2,
+      "mesh_animation_json_unchanged": true,
+      "binary_chunk_unchanged": true,
+      "binary_chunk_sha256": "1798ef288a1f5181ad86518ff5ffddb6654d46d80f5bf12924ae49a3dd2e5971"
+    },
+    {
+      "file": "tower_stage_complete.glb",
+      "extras_updated": 2,
+      "mesh_animation_json_unchanged": true,
+      "binary_chunk_unchanged": true,
+      "binary_chunk_sha256": "c2461b161bc5491c5d3a1553fcec466d15afbfece58e7603ba52058706bd8a6c"
+    },
+    {
+      "file": "tower_stage_empty.glb",
+      "extras_updated": 2,
+      "mesh_animation_json_unchanged": true,
+      "binary_chunk_unchanged": true,
+      "binary_chunk_sha256": "aef72e9356917bb06ea16513c5f85a1f07e34331fef1a89fc29610151d9b9193"
+    },
+    {
+      "file": "tower_stage_frame.glb",
+      "extras_updated": 2,
+      "mesh_animation_json_unchanged": true,
+      "binary_chunk_unchanged": true,
+      "binary_chunk_sha256": "2cd721e7a3b55ca4917f71f27a757e952317f1dd7bb1ab9f989ec5d1463a2b74"
+    },
+    {
+      "file": "tower_wall_mount.glb",
+      "extras_updated": 0,
+      "mesh_animation_json_unchanged": true,
+      "binary_chunk_unchanged": true,
+      "binary_chunk_sha256": "6f36428beb0c8fd0a68fe80c16edae02582c0e27b946d1caa27d26feb9328999"
+    }
+  ],
+  "cadence_seconds": 0.5,
+  "shots_per_second": 2,
+  "damage": 50,
+  "drain_rate": null,
+  "zero_wallet_behavior": null
+}

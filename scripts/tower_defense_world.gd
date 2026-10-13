@@ -6,6 +6,12 @@ extends Sanctuary
 const CastleWall=preload("res://scripts/defense_castle_wall.gd")
 
 var beta_mode=false
+var redesign_mode=false
+var mine_sites: Array=[]
+var mine_position: Vector3:
+	get:return mine_sites[0].position if not mine_sites.is_empty() else Vector3(-18,0,189)
+var mine_build_position: Vector3:
+	get:return mine_position+Vector3(0,.15,4)
 var lanes: Array=[]
 var lane_names: Array[String]=["WEST · JADE", "CENTER · GOLD", "EAST · EMBER"]
 var lane_colors: Array[Color]=[Color("6ce1c0"), Color("ffcf69"), Color("ff886b")]
@@ -15,22 +21,34 @@ var base_position=Vector3(0,0,300)
 var dog_spawn_position=Vector3(0,.15,195)
 var hero_spawn_position=Vector3(0,.15,203)
 var defense_banners: Array[Node3D]=[]
+var spirit_lantern_positions: Array[Vector3]=[]
 var shrine_halo: MeshInstance3D
 const LANE_X=[-160.0,0.0,160.0]
 const STATIONS=[-170.0,0.0,160.0]
 var defense_stations: Array=STATIONS.duplicate()
+var expanded_mode=false
+var layout_anchors: Dictionary={}
+var exploration_caches: Array[Dictionary]=[]
+var exploration_discoveries: Array[Dictionary]=[]
 
 func _ready():
+	if redesign_mode:beta_mode=true
 	descent_mode=false
-	playable_bounds=Rect2(-80,-400,160,760) if beta_mode else Rect2(-320,-400,640,760)
-	spawn_point=Vector3(0,.15,-145 if beta_mode else -140)
-	if beta_mode:defense_stations=[-170.0,-100.0,-30.0,40.0,110.0,180.0]
+	playable_bounds=Rect2(-80,50,160,310) if beta_mode else Rect2(-320,-400,640,760)
+	spawn_point=Vector3(0,.15,195 if beta_mode else -140)
+	if beta_mode:
+		defense_stations=[170.0,230.0]
+		dog_spawn_position=Vector3(0,.15,245)
+		hero_spawn_position=Vector3(0,.15,253)
 	rng.seed=generation_seed
 	landmarks={"JADE APPROACH":Vector3(-160,0,-170), "GOLD APPROACH":Vector3(0,0,-170), "EMBER APPROACH":Vector3(160,0,-170), "THE LAST SHRINE":base_position}
-	if beta_mode:landmarks={"GOLD APPROACH":Vector3(0,0,-170), "THE LAST SHRINE":base_position}
+	if beta_mode:landmarks={"GOLD APPROACH":Vector3(0,0,170), "THE LAST SHRINE":base_position}
 	for lane in range(3):
 		var x: float=LANE_X[lane]
 		lanes.append([Vector3(x,0,-340),Vector3(x,0,-170),Vector3(x,0,0),Vector3(x,0,160),Vector3(x,0,205),Vector3(x*.46875,0,260),base_position])
+	if beta_mode:
+		lanes[1]=[Vector3(0,0,110),Vector3(0,0,170),Vector3(0,0,230),Vector3(0,0,260),base_position]
+	if expanded_mode:load("res://scripts/fire_siege_layout.gd").configure(self)
 	lighting()
 	for child in get_children():
 		if child is WorldEnvironment:
@@ -53,11 +71,20 @@ func _ready():
 		_build_barracks_marker()
 	_build_woodland()
 	_build_horizon()
+	if redesign_mode:
+		preload("res://scripts/neon_shrine.gd").apply(self)
+		_install_spirit_effects()
 	# Fixed defenses must remain visible during flight and across the valley.
 	# This compact map uses instanced woodland, so strategic scenery stays drawn;
 	# the floating labels retain their own short readability range.
 
 func height_at(_x: float, _z: float)->float:return 0.0
+
+func _install_spirit_effects():
+	var effects=preload("res://scripts/spirit_fortress_effects.gd").new()
+	effects.name="SpiritFortressEffects"
+	add_child(effects)
+
 func raw_height(_x: float, _z: float)->float:return 0.0
 func surface_height_at(_point: Vector3)->float:return 0.0
 func active_lane_indices()->Array:return [1] if beta_mode else [0,1,2]
@@ -101,12 +128,14 @@ func _build_ground():
 	add_child(ground_root)
 	var shader=Shader.new()
 	shader.code="""shader_type spatial;
+uniform bool night_theme=false;
 varying vec3 ground_pos;
 void vertex(){ground_pos=(MODEL_MATRIX*vec4(VERTEX,1.0)).xyz;}
 void fragment(){
  float large=sin(ground_pos.x*.041)*sin(ground_pos.z*.027);
  float fleck=sin(ground_pos.x*1.83+sin(ground_pos.z*2.31))*sin(ground_pos.z*2.07);
  ALBEDO=mix(vec3(.23,.32,.19),vec3(.37,.43,.26),large*.5+.5)+fleck*.017;
+ if(night_theme){ALBEDO=mix(vec3(.045,.07,.105),vec3(.09,.12,.17),large*.5+.5)+fleck*.008;}
  ROUGHNESS=1.0;
 }
 """
@@ -141,17 +170,18 @@ func _build_routes():
 		for index in range(path.size()-1):
 			_road(path[index],path[index+1],22,edge,lane)
 			_road(path[index]+Vector3.UP*.02,path[index+1]+Vector3.UP*.02,18,sand,lane)
-		_gate(Vector3(LANE_X[lane],0,-320),lane,25)
-		_world_label(lane_names[lane]+" APPROACH",Vector3(LANE_X[lane],9.0,-319),lane_colors[lane],.035)
+		var gate_z=96 if redesign_mode else (130 if beta_mode else -320)
+		_gate(Vector3(LANE_X[lane],0,gate_z),lane,25)
+		_world_label(lane_names[lane]+" APPROACH",Vector3(LANE_X[lane],9.0,gate_z+1),lane_colors[lane],.035)
 		# Milestones, colored shoulders and a clear visual direction of attack.
-		for z in range(-320,210,24):
+		for z in range(gate_z,int(base_position.z-10) if expanded_mode else (260 if beta_mode else 210),24):
 			for side in [-1,1]:
 				Geo.box(self,Vector3(LANE_X[lane]+side*9.7,.085,z),Vector3(.42,.10,10),Geo.mat(lane_colors[lane].darkened(.25).to_html(false)))
 			var arrow=Geo.box(self,Vector3(LANE_X[lane]-1,.105,z),Vector3(.35,.045,3),Geo.mat("e9d5a5"))
 			arrow.rotation.y=-.7
 			arrow=Geo.box(self,Vector3(LANE_X[lane]+1,.105,z),Vector3(.35,.045,3),Geo.mat("e9d5a5"))
 			arrow.rotation.y=.7
-		for z in [-255,85]:
+		for z in ([145,205] if beta_mode else [-255,85]):
 			for side in [-1,1]:_field_lantern(Vector3(LANE_X[lane]+side*14,0,z),lane_colors[lane])
 	# Crossroads behind each defense line let the player move between all lanes.
 	for z in defense_stations:
@@ -175,6 +205,7 @@ func _build_defenses():
 			var accent=Geo.mat(lane_colors[lane].darkened(.3).to_html(false),.12)
 			if beta_mode and station==defense_stations.size()-1:
 				cover_walls.append_array(CastleWall.build(self,center))
+				if redesign_mode:continue
 				for offset in [-16.0,-9.0,9.0,16.0]:
 					var side_label="WEST" if offset<0 else "EAST"
 					_cannon_mount(center,lane,offset,"CASTLE WALL · %s %s" % [side_label,"OUTER" if absf(offset)>12 else "INNER"],6.85)
@@ -201,10 +232,22 @@ func _build_defenses():
 			else:
 				var offset=-11.0 if (lane+station)%2==0 else 11.0
 				_cannon_mount(center,lane,offset,["FORWARD","MIDDLE","REAR"][station])
+	if redesign_mode:
+		for x in [-12.0,12.0]:
+			for z in ([116.0,130.0,144.0,168.0] if expanded_mode else [116.0,130.0,144.0,158.0]):_approach_mount(Vector3(x,.15,z))
+		var mine_points=[Vector3(-18,0,175),Vector3(18,0,175),Vector3(-18,0,200),Vector3(-18,0,280)] if expanded_mode else [Vector3(-18,0,189),Vector3(18,0,189),Vector3(-18,0,208),Vector3(-16,0,282)]
+		for point in mine_points:
+			mine_sites.append({"position":point,"footprint":Vector2(2.3,2.365)})
+
+func _approach_mount(mount: Vector3):
+	var pad=Vector3(mount.x,.15,mount.z+3.5)
+	cannon_sites.append({"position":mount,"lane":1,"label":"%s APPROACH · %d" % ["WEST" if mount.x<0 else "EAST",int(mount.z)],"build_position":pad,"footprint":Vector2(1.4,1.4)})
+	# Only visual geometry: the open center route and work pads cannot trap actors.
 
 func _cannon_mount(center: Vector3,lane: int,offset: float,line_name: String,mount_height: float=2.65):
 	var mount=center+Vector3(offset,mount_height,0)
-	cannon_sites.append({"position":mount,"lane":lane,"label":"%s · %s" % [lane_names[lane],line_name],"build_position":center+Vector3(offset,.05,5.3)})
+	cannon_sites.append({"position":mount,"lane":lane,"label":"%s · %s" % [lane_names[lane],line_name],"build_position":center+Vector3(offset,.05,3.5 if redesign_mode else 5.3),"footprint":Vector2(1.4,1.4)})
+	if redesign_mode:return
 	Geo.cylinder(self,mount-Vector3.UP*.04,1.55,.20,Geo.mat("8b7957",.45))
 	Geo.torus(self,mount+Vector3.UP*.08,1.20,1.32,Geo.mat("e3bd6f",.6))
 	# Distinct purchasing pad on the protected side of the wall.
@@ -284,6 +327,7 @@ func _world_label(text_value: String,p: Vector3,color: Color,pixel: float):
 	add_child(label)
 
 func _field_lantern(p: Vector3,color: Color):
+	spirit_lantern_positions.append(p)
 	Geo.cylinder(self,p+Vector3(0,1.6,0),.13,3.2,Geo.mat("453c30"))
 	Geo.box(self,p+Vector3(0,3.0,0),Vector3(.85,1.0,.85),Geo.mat(color.lightened(.2).to_html(false),0,.8))
 	Geo.box(self,p+Vector3(0,3.62,0),Vector3(1.3,.22,1.3),Geo.mat("263e3d"))
@@ -295,9 +339,9 @@ func _build_shrine():
 	Geo.torus(self,base_position+Vector3.UP*.15,23.6,24.2,Geo.mat("bfa568",.3))
 	Geo.torus(self,base_position+Vector3.UP*.16,10.2,10.65,Geo.mat("e9bd62",.3,.15))
 	for side in [-1,1]:
-		for z in [280,302,327]:_field_lantern(Vector3(side*25,0,z),Color("ffe3a3"))
-		_banner(Vector3(side*14,0,278),Color("f6ce79"))
-	var shrine=Vector3(0,0,331)
+		for offset in [-20,2,27]:_field_lantern(base_position+Vector3(side*25,0,offset),Color("ffe3a3"))
+		_banner(base_position+Vector3(side*14,0,-22),Color("f6ce79"))
+	var shrine=base_position+Vector3(0,0,31)
 	_solid_box(shrine+Vector3.UP*.5,Vector3(29,1,17),stone,"ShrineFoundation")
 	for level in range(3):
 		var w=24-level*5.5
@@ -317,6 +361,8 @@ func _build_shrine():
 	_world_label("THE LAST SHRINE",base_position+Vector3(0,11,0),Color("ffe1a0"),.045)
 
 func _build_woodland():
+	if expanded_mode:
+		load("res://scripts/fire_siege_districts.gd").build(self);return
 	# Instanced woodland adds scale while keeping the huge field inexpensive.
 	var trunk_mesh=CylinderMesh.new()
 	trunk_mesh.bottom_radius=.48
@@ -332,9 +378,9 @@ func _build_woodland():
 	var cedar_crowns: Array[Transform3D]=[]
 	var cherry_crowns: Array[Transform3D]=[]
 	var cedar_dark: Array[Transform3D]=[]
-	var tree_budget=180 if beta_mode else 370
+	var tree_budget=75 if beta_mode else 370
 	for i in range(tree_budget):
-		var p=Vector3(rng.randf_range(playable_bounds.position.x+15,playable_bounds.end.x-15),0,rng.randf_range(-385,340))
+		var p=Vector3(rng.randf_range(playable_bounds.position.x+15,playable_bounds.end.x-15),0,rng.randf_range(playable_bounds.position.y+15,playable_bounds.end.y-20))
 		if not _woodland_position(p):continue
 		var h=rng.randf_range(7,16)
 		trunks.append(Transform3D(Basis.IDENTITY.scaled(Vector3(1,h,1)),p+Vector3.UP*h*.5))
@@ -359,7 +405,7 @@ func _build_woodland():
 	_make_instances("DistantSakura",blossom,Geo.mat("c996a0"),cherry_crowns)
 	var rock_budget=14 if beta_mode else 34
 	for i in range(rock_budget):
-		var p=Vector3(rng.randf_range(playable_bounds.position.x+22,playable_bounds.end.x-22),0,rng.randf_range(-365,345))
+		var p=Vector3(rng.randf_range(playable_bounds.position.x+22,playable_bounds.end.x-22),0,rng.randf_range(playable_bounds.position.y+35,playable_bounds.end.y-15))
 		if not _woodland_position(p):continue
 		GameAssets.place(self,"edo/moss_rock",p,Vector3(rng.randf_range(2,5),rng.randf_range(1.5,4),rng.randf_range(2,5)))
 
@@ -397,7 +443,8 @@ func _build_horizon():
 	var count=16 if beta_mode else 21
 	for i in range(count):
 		var angle=float(i)*TAU/count
-		var p=Vector3(cos(angle)*(190 if beta_mode else 540),0,(-20 if beta_mode else -35)+sin(angle)*(520 if beta_mode else 610))
+		var p=Vector3(cos(angle)*(190 if beta_mode else 540),0,(215 if beta_mode else -35)+sin(angle)*(240 if beta_mode else 610))
+		if expanded_mode:p=Vector3(cos(angle)*220,0,playable_bounds.get_center().y+sin(angle)*285)
 		var h=rng.randf_range(68,125) if beta_mode else rng.randf_range(70,180)
 		var radius=rng.randf_range(30,48) if beta_mode else rng.randf_range(80,135)
 		var mountain=Geo.cylinder(self,p+Vector3.UP*(h*.5-16),radius,h,Geo.mat("657f7b" if i%2==0 else "718e85"),false,9)

@@ -3,6 +3,7 @@ render_mode cull_disabled;
 uniform sampler2D atlas : source_color, filter_nearest;
 uniform float clock=0.0;
 uniform int species=0;
+uniform bool neon_style=false;
 varying vec4 actor_data;
 mat3 rotate_x(float a){float c=cos(a);float s=sin(a);return mat3(vec3(1,0,0),vec3(0,c,s),vec3(0,-s,c));}
 void vertex(){
@@ -26,5 +27,11 @@ void vertex(){
 }
 void fragment(){
  ALBEDO=texture(atlas,UV).rgb;ROUGHNESS=0.95;
+ if(neon_style){
+  ivec2 tile=ivec2(floor(UV*4.0));
+  // glTF exports texture V downward; these are the cyan, magenta and amber rows.
+  bool luminous=(tile.x==1&&(tile.y==0||tile.y==2))||(tile.x==3&&tile.y==3);
+  EMISSION=luminous?ALBEDO*1.25:vec3(0.0);ROUGHNESS=.72;
+ }
  if(actor_data.w>0.5){ALBEDO=mix(ALBEDO,vec3(0.35,0.8,1.0),0.7);}
 }

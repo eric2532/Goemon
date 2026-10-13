@@ -17,11 +17,11 @@ func run():
 	for name_ in ["RogueSiegeButton","RogueBattleButton","ForestShrineButton"]:
 		check(game.find_child(name_,true,false)==null,"Historical mode choice is hidden: "+name_)
 	game.find_child("ForestPlay",true,false).pressed.emit();await settle()
-	check(game.rogue_roster_open and game.menu.find_children("RogueFighter_*","Button",true,false).size()==11,"Play opens all eleven fighter choices")
+	check(game.rogue_roster_open and game.menu.find_children("RogueFighter_*","Button",true,false).size()==12,"Play opens all twelve hero choices")
 	game.choose_rogue_character(7);await settle()
 	check(game.playing and game.model.phase=="preparing" and game.paused and game.player.character_id==7,"Fighter choice enters overhead preparation")
 	game.start_wave();await settle();game.player.active_ability.player.cooldowns.drink=12
-	check(game.camera_rig.camera.size<30 and not paused,"Start Wave enters the closer 3D combat view")
+	check(game.camera_rig.camera.projection==Camera3D.PROJECTION_PERSPECTIVE and not paused,"Start Wave enters the closer 3D combat view")
 	game.model.damage_building(1,10000);await settle()
 	check(game.model.phase=="defeat","Shrine destruction still ends the run")
 	game.restart_area();await settle();game=current_scene
@@ -32,7 +32,7 @@ func run():
 		await capture("definitive-title")
 		game.begin_forest();await capture("definitive-roster")
 		game.choose_rogue_character(7);game.forest_ui.message_left=0;await capture("definitive-preparation")
-		game.start_wave();game.model.waves.spawn_clock=10000;game.player.position=Vector3(0,.1,55);game.rogue_view.reset();game.forest_ui.message_left=0
+		game.start_wave();game.model.waves.spawn_clock=10000;game.player.position=Vector3(0,.1,55);game.camera_rig.reset_follow();game.forest_ui.message_left=0
 		for i in range(6):
 			game.model.waves.spawn_one();var e=game.model.enemies.values().back();e.pos=Vector3(-6+i*2,0,47-i%2*2);e.stun=100
 		game.model.update_vision(game.player.position);game.sync_enemies()

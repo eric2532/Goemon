@@ -1,0 +1,174 @@
+{
+  "hero": "knight",
+  "triangles": 4868,
+  "mesh_batches": 8,
+  "source": "assets/blender/rogue/knight.blend",
+  "removed_microdetails": [
+    "Cape gold embroidered hem",
+    "Cape gold embroidered hem.001",
+    "Hand-set rivet.010",
+    "Hand-set rivet.011",
+    "Hand-set rivet.012",
+    "Tabard embroidered ivory border",
+    "Hand-set rivet.013",
+    "Hand-set rivet.014",
+    "Hand-set rivet.015",
+    "Tabard embroidered ivory border.001",
+    "Hand-set rivet.016",
+    "Hand-set rivet.017",
+    "Hand-set rivet.018",
+    "Hand-set rivet.019",
+    "Hand-set rivet.020",
+    "Hand-set rivet.021",
+    "Hand-set rivet.022",
+    "Hand-set rivet.023",
+    "Hand-set rivet.024",
+    "Hand-set rivet.025",
+    "Hand-set rivet.026",
+    "Hand-set rivet.027",
+    "Knight eye-slit gilt brow",
+    "Knight shadowed eye glint",
+    "Knight eye-slit gilt brow.001",
+    "Knight shadowed eye glint.001",
+    "Hand-set rivet.028",
+    "Hand-set rivet.029",
+    "Hand-set rivet.030",
+    "Hand-set rivet.031",
+    "Hand-set rivet.032",
+    "Hand-set rivet.033",
+    "Hand-set rivet.034",
+    "Hand-set rivet.035"
+  ],
+  "head_scale": 1.65,
+  "body_width": 1.4,
+  "body_depth": 1.45,
+  "pivot_roles": [
+    "Knight",
+    "Body",
+    "Leg_R",
+    "Leg_L",
+    "Arm_R",
+    "Arm_L",
+    "Head",
+    "Weapon_Cutlass",
+    "Weapon_Pistol"
+  ],
+  "face_method": "closed helmet",
+  "head_shape": "Closed armet with supported brow, tapered jaw visor and three solid cobalt plumes",
+  "roster_generator": "tools/sculpt_rogue_roster.py",
+  "facial_depth_revision": "approved-2.34.1-roster-rollout",
+  "painted_atlas_changed": false,
+  "export_face_uv_check": {
+    "face_method": "enclosed helmet",
+    "uv_set": 0
+  },
+  "pivot_invariance": true,
+  "body_and_weapon_geometry_invariance": true,
+  "unchanged_components": 159,
+  "adjusted_accessories": [],
+  "replaced_head_components": [
+    "Knight angled upper visor",
+    "Knight pointed lower visor",
+    "Visor perforated breathing slit",
+    "Visor perforated breathing slit.001",
+    "Visor perforated breathing slit.002",
+    "Knight angled upper visor.001",
+    "Knight pointed lower visor.001",
+    "Visor perforated breathing slit.003",
+    "Visor perforated breathing slit.004",
+    "Visor perforated breathing slit.005",
+    "Helmet central ridge",
+    "Flowing cobalt crest feather",
+    "Plume silk highlight",
+    "Flowing cobalt crest feather.001",
+    "Plume silk highlight.001",
+    "Flowing cobalt crest feather.002",
+    "Plume silk highlight.002",
+    "Flowing cobalt crest feather.003",
+    "Plume silk highlight.003",
+    "Flowing cobalt crest feather.004",
+    "Plume silk highlight.004",
+    "Flowing cobalt crest feather.005",
+    "Plume silk highlight.005",
+    "Flowing cobalt crest feather.006",
+    "Plume silk highlight.006",
+    "Flowing cobalt crest feather.007",
+    "Plume silk highlight.007",
+    "Flowing cobalt crest feather.008",
+    "Plume silk highlight.008"
+  ],
+  "roster_mesh_checks": [
+    {
+      "name": "Roster knight sculpted brow visor",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0034690484023995553
+    },
+    {
+      "name": "Roster knight tapered jaw visor",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.005055375278898896
+    },
+    {
+      "name": "Roster knight cobalt plume 0",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.013649128076324726
+    },
+    {
+      "name": "Roster knight cobalt plume 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.013649127979159884
+    },
+    {
+      "name": "Roster knight cobalt plume 2",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.013649128347497607
+    },
+    {
+      "name": "Roster knight gold central crest",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0005874245508856357
+    },
+    {
+      "name": "Roster knight visor vent -1 0",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 1.7108019119145272e-05
+    },
+    {
+      "name": "Roster knight visor vent -1 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 1.7108010014529475e-05
+    },
+    {
+      "name": "Roster knight visor vent -1 2",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 1.710797079468506e-05
+    },
+    {
+      "name": "Roster knight visor vent 1 0",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 1.7108019119145272e-05
+    },
+    {
+      "name": "Roster knight visor vent 1 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 1.7108010014529475e-05
+    },
+    {
+      "name": "Roster knight visor vent 1 2",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 1.7107970794685075e-05
+    }
+  ]
+}

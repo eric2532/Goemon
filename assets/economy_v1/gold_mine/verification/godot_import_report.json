@@ -1,0 +1,641 @@
+{
+  "checks": {
+    "asset_sha256": "bf5d35b5ef670dc00bb8b3c397913dd57672fb3fc976202f4ac8be2726b975bf",
+    "build_samples": [
+      {
+        "nodes": {
+          "01_UNBUILT_MARKERS_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "02_BUILD_FOUNDATION_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          },
+          "03_BUILD_POSTS_Root": {
+            "position": [
+              0.0,
+              -0.5,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          },
+          "04_BUILD_LINTEL_Root": {
+            "position": [
+              0.0,
+              -0.5,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          },
+          "05_BUILD_DETAILS_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          },
+          "06_TEMP_CONSTRUCTION_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          },
+          "07_WORKING_CART_Root": {
+            "position": [
+              0.0,
+              0.0,
+              1.55999994277954
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          },
+          "08_WORKING_PICK_Root": {
+            "position": [
+              -0.419999986886978,
+              0.930000007152557,
+              -0.0700000002980232
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          },
+          "09_OPTIONAL_REINFORCEMENT_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          }
+        },
+        "time": 0.0
+      },
+      {
+        "nodes": {
+          "01_UNBUILT_MARKERS_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          },
+          "02_BUILD_FOUNDATION_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "03_BUILD_POSTS_Root": {
+            "position": [
+              0.0,
+              -0.138888850808144,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.72222226858139,
+              0.72222226858139,
+              0.72222226858139
+            ]
+          },
+          "04_BUILD_LINTEL_Root": {
+            "position": [
+              0.0,
+              -0.5,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          },
+          "05_BUILD_DETAILS_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          },
+          "06_TEMP_CONSTRUCTION_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "07_WORKING_CART_Root": {
+            "position": [
+              0.0,
+              0.0,
+              1.55999994277954
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          },
+          "08_WORKING_PICK_Root": {
+            "position": [
+              -0.419999986886978,
+              0.930000007152557,
+              -0.0700000002980232
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          },
+          "09_OPTIONAL_REINFORCEMENT_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          }
+        },
+        "time": 1.0
+      },
+      {
+        "nodes": {
+          "01_UNBUILT_MARKERS_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          },
+          "02_BUILD_FOUNDATION_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "03_BUILD_POSTS_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "04_BUILD_LINTEL_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "05_BUILD_DETAILS_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "06_TEMP_CONSTRUCTION_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          },
+          "07_WORKING_CART_Root": {
+            "position": [
+              0.0,
+              0.0,
+              1.55999994277954
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "08_WORKING_PICK_Root": {
+            "position": [
+              -0.419999986886978,
+              0.930000007152557,
+              -0.0700000002980232
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "09_OPTIONAL_REINFORCEMENT_Root": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.0000100135803222656,
+              0.0000100135803222656,
+              0.0000100135803222656
+            ]
+          }
+        },
+        "time": 2.0
+      }
+    ],
+    "clip_durations_seconds": {
+      "build": 2.0,
+      "reverse_build": 2.0,
+      "upgrade_preview": 2.0,
+      "work_loop": 4.0
+    },
+    "explicit_loop_mode_verified": true,
+    "geometry": {
+      "materials": [
+        "FS_Gold",
+        "FS_Gold_Light",
+        "FS_Earth",
+        "FS_Stone_00",
+        "FS_Stone_01",
+        "FS_Stone_02",
+        "FS_Stone_03",
+        "FS_Stone_04",
+        "FS_Tunnel",
+        "FS_Wood_Cedar",
+        "FS_Iron",
+        "FS_Iron_Edge",
+        "FS_Wood_Honey",
+        "FS_Wood_Grain",
+        "FS_Wood_Light",
+        "FS_Lantern",
+        "FS_Rope",
+        "FS_Roof_Slate"
+      ],
+      "meshes": 248,
+      "missing_materials": [],
+      "triangles": 9404
+    },
+    "import_route": "GLTFDocument.generate_scene(state, 30.0, false, false)",
+    "imported_work_loop_mode": 1,
+    "partial_seek_reversible": true,
+    "pick_swing_radians": 0.733038485050201,
+    "reverse_endpoints_match": true,
+    "sockets_godot_coordinates": {
+      "socket_build_fx": [
+        0.0,
+        3.20000004768372,
+        0.0
+      ],
+      "socket_entrance": [
+        0.0,
+        0.0,
+        1.25
+      ],
+      "socket_income_fx": [
+        0.0,
+        2.40000009536743,
+        1.29999995231628
+      ]
+    },
+    "work_loop_samples": [
+      {
+        "cart_position": [
+          0.0,
+          0.0,
+          1.55999994277954
+        ],
+        "cart_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "pick_rotation": [
+          0.0,
+          0.0,
+          0.209439620375633
+        ],
+        "time": 0.0
+      },
+      {
+        "cart_position": [
+          0.0,
+          0.0,
+          1.3199999332428
+        ],
+        "cart_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "pick_rotation": [
+          0.0,
+          0.0,
+          0.209439620375633
+        ],
+        "time": 1.0
+      },
+      {
+        "cart_position": [
+          0.0,
+          0.0,
+          1.07999992370605
+        ],
+        "cart_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "pick_rotation": [
+          0.0,
+          0.0,
+          0.209439620375633
+        ],
+        "time": 2.0
+      },
+      {
+        "cart_position": [
+          0.0,
+          0.0,
+          1.31999981403351
+        ],
+        "cart_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "pick_rotation": [
+          0.0,
+          0.0,
+          0.209439247846603
+        ],
+        "time": 3.0
+      },
+      {
+        "cart_position": [
+          0.0,
+          0.0,
+          1.55999994277954
+        ],
+        "cart_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "pick_rotation": [
+          0.0,
+          0.0,
+          0.209439620375633
+        ],
+        "time": 4.0
+      }
+    ]
+  },
+  "engine": {
+    "build": "official",
+    "hash": "7d41c59c457bd5a245092b4e7eb2d833e3b3f8c3",
+    "hex": 263683,
+    "major": 4,
+    "minor": 6,
+    "patch": 3,
+    "status": "stable",
+    "string": "4.6.3-stable (official)",
+    "timestamp": 0
+  },
+  "failures": [],
+  "scope": "Isolated source-asset import and animation playback only; no game project edited",
+  "status": "PASS"
+}

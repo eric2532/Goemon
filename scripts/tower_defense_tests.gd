@@ -108,7 +108,10 @@ func shared_controls():
 	await capture_defense("05-shared-gold-flight")
 	p.set_gold_cloak(false);await move_to(Vector3(0,0,100))
 	await key(KEY_Q)
-	check(p.character_id==2 and p.musashi.active,"Q selects the existing Edo character and combat system")
+	if game.rogue_roster_mode:
+		check(game.rogue_roster_open,"Q opens the shared Fire Siege hero roster")
+		game.menu.find_child("RogueFighter_edo",true,false).pressed.emit();await frames(2)
+	check(p.character_id==2 and p.musashi.active,"Hero selection preserves the existing Edo character and combat system")
 	target=dummy(Vector3(0,0,-6));p.musashi.ranged_mode=true
 	await mouse(true);await frames(32);await mouse(false);await frames(50)
 	check(target.hp<1000,"Edo's original ranged attack damages a real target in defense")
@@ -146,10 +149,10 @@ func run():
 	game.tuning=PrototypeTuning.DEFAULTS.duplicate()
 	game.tuning.invincible=true;game.tuning.freeze_ai=true
 	var mode_buttons=game.menu.find_children("*","Button",true,false)
-	check(mode_buttons.any(func(button):return "defense" in button.text.to_lower()),"Main menu exposes a separate tower defense choice")
+	check(game.menu.find_child("TowerDefenseButton",true,false)!=null,"Main menu exposes a separate tower defense choice")
 	await capture_defense("01-main-menu")
 	var hero_id=game.player.get_instance_id()
-	game.start_mode("defense")
+	game.defense_beta=false;game.start_mode("defense")
 	var s=game.encounters;var p=game.player
 	s.set_physics_process(false);p.smoke_mode=true;Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	await frames(15)

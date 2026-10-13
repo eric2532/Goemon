@@ -8,6 +8,7 @@ var alive=PackedByteArray()
 var contacts: Array[Dictionary]=[]
 var batches: Array[MultiMeshInstance3D]=[]
 var age=0.0
+var wake_batch: MultiMeshInstance3D
 var active_count=0
 var ray_query: PhysicsRayQueryParameters3D
 
@@ -38,6 +39,14 @@ func _ready():
 		batch.multimesh.instance_count=coin_count;batch.multimesh.visible_instance_count=coin_count
 		batch.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		add_child(batch);batches.append(batch)
+	if game.camera_combat():
+		wake_batch=MultiMeshInstance3D.new();wake_batch.name="PaintedCoinWakes"
+		wake_batch.multimesh=MultiMesh.new();wake_batch.multimesh.transform_format=MultiMesh.TRANSFORM_3D
+		wake_batch.multimesh.mesh=preload("res://assets/rogue/scripts/ink_brush_style.gd").wake_mesh()
+		wake_batch.material_override=preload("res://assets/rogue/scripts/ink_brush_style.gd").material(Color("ffd487"),.6,.65)
+		wake_batch.multimesh.instance_count=mini(coin_count,[16,32,64][clampi(int(game.settings.quality),0,2)])
+		wake_batch.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(wake_batch)
+		set_meta("ink_materials",[wake_batch.material_override])
 	ray_query=PhysicsRayQueryParameters3D.new();ray_query.collision_mask=1;ray_query.hit_from_inside=true
 	update_batch()
 
@@ -48,6 +57,7 @@ func cast_ray(from: Vector3,to: Vector3)->Dictionary:
 func _physics_process(delta):
 	if not game.playing or game.paused or game.transitioning:return
 	lifetime-=delta;age+=delta
+	if is_instance_valid(wake_batch):preload("res://assets/rogue/scripts/ink_brush_style.gd").animate(self,delta)
 	if lifetime<=0:queue_free();return
 	var origin=global_position
 	var sweep=AABB();var initialized=false
@@ -114,5 +124,10 @@ func update_batch():
 		var spin=Basis(Vector3.UP,age*8)*Basis(Vector3.BACK,age*24+i*.37)
 		var pose=Transform3D(spin.scaled(Vector3.ONE*visual_size),points[i])
 		for part in range(batches.size()):batches[part].multimesh.set_instance_transform(index,pose*mesh_parts[part].transform)
+		if is_instance_valid(wake_batch) and index<wake_batch.multimesh.instance_count:
+			var basis=Basis(Quaternion(Vector3.FORWARD,velocities[i].normalized()))
+			wake_batch.multimesh.set_instance_transform(index,Transform3D(basis.scaled(Vector3.ONE*visual_size),points[i]))
 		index+=1
 	for batch in batches:batch.multimesh.visible_instance_count=index
+
+	if is_instance_valid(wake_batch):wake_batch.multimesh.visible_instance_count=mini(index,wake_batch.multimesh.instance_count)
