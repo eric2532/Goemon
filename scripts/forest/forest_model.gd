@@ -27,12 +27,13 @@ var next_id=1
 var events: Array=[]
 var workforce
 var waves
+var hero_targetable=true
 var hero_position=Vector3(0,0,18)
 var sight_clock=0.0
 var sight_cache: Dictionary={}
 
 func reset(value: int):
-	seed_value=value;phase="preparing";gold=400;wave=0;next_id=1
+	seed_value=value;phase="preparing";gold=400;wave=0;next_id=1;hero_targetable=true
 	buildings.clear();workers.clear();enemies.clear();deposits.clear();trees.clear();occupancy.clear()
 	explored.clear();visible_cells.clear();events.clear();sight_cache.clear()
 	deposits[Vector2i(-5,1)]=1200;deposits[Vector2i(5,1)]=1200

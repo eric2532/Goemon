@@ -1,18 +1,24 @@
-# Goemon — Sky Descent
+# Goemon — Forest Shrine
 
-A fully local Godot 4.6.1 action game: explore 784 floating islands, grow stronger in battle, and reach the original Tidefall Sanctuary below.
+The current definitive build is **Forest Shrine v2.29.0**, a fully local Godot 4.6.1 game combining settlement building with Rogue Siege combat.
 
 ## Forest Shrine · Build & survive
 
-Choose **FOREST SHRINE / Build & survive** on the main menu. Protect one central shrine through five waves arriving from random forest edges. The new battlefield is **480 × 480 metres**, with a **336 × 336 metre settlement area**, a broad central clearing, and **two gold deposits beside the shrine**.
+Open the app and choose **PLAY FOREST SHRINE**, then pick a fighter. Protect one central shrine through five waves arriving from random forest edges. The new battlefield is **480 × 480 metres**, with a **336 × 336 metre settlement area**, a broad central clearing, and **two gold deposits beside the shrine**.
 
 Between waves, use the overhead view of the actual battlefield: select a parchment building card, click the grid to place, **R** to rotate, drag to draw wall lines, and right-click to cancel. **WASD / middle-drag** pans; the wheel zooms. Select a building to assign or recall workers, repair it, or remove it for half its cost. Gates admit Goemon and workers; enemies attack obstructing defenses. Start with six workers and 400 gold. A mine costs 150, a tower 120, a wall 10, a gate 30, and a recruit 50. New mines and towers automatically take available idle workers.
 
-During battle, **WASD** moves, **LMB / RMB** attacks, **C** evades, and **hold V** gathers workers inside a 30-metre circle. Lead them near a job and release V: they reserve the closest reachable local mine, tower, or damaged wall, with surplus workers waiting nearby. Each mine and tower holds three workers; repairs hold two. Workers carry mined gold back to the shrine, spend gold repairing walls, or shoot from towers. They retreat from danger; wounded workers sit out the wave and recover during preparation. Construction is available only between waves. **Escape** pauses or resumes.
+Starting a wave switches the same battlefield to **Rogue Siege’s exact close angled 3D camera, mouse reticle, smooth follow, and movement lead**. Choose **Goemon, Pirate, Samurai, Ninja, Mage, Knight, Dragoon, Magic Swordsman, Ranger, Explorer, or Master Thief**; each retains its native combat kit. **Q** opens the fighter picker in preparation or combat. Switching preserves health percentage and spent cooldowns; retry resets the run while keeping your fighter.
 
-Unexplored ground stays hidden. Exploration remembers terrain; enemies require current shared vision from Goemon, healthy workers, or buildings. Tree cover blocks ground sight, and watchtowers see over the canopy. Complete five waves to win; Goemon's death or the shrine's destruction ends the run.
+During battle, **WASD** moves, **Shift** sprints, **Space** jumps, **LMB / RMB** use primary/secondary attacks, **C / E** use a Rogue fighter’s utility, **R** uses their signature skill, and **hold V** gathers workers inside a 30-metre circle. Goemon retains his original C, E, R, T and numbered abilities. Lead them near a job and release V: they reserve the closest reachable local mine, tower, or damaged wall, with surplus workers waiting nearby. Each mine and tower holds three workers; repairs hold two. Workers carry mined gold back to the shrine, spend gold repairing walls, or shoot from towers. They retreat from danger; wounded workers sit out the wave and recover during preparation. Construction is available only between waves. **Escape** pauses or resumes.
 
-This first version uses a fixed forest layout, two finite starter deposits, procedural timber structures and workers, and illustrated interface icons. Economy, enemy pressure, and camera scale are initial playtest values. Run directly with `godot --path . -- --forest-shrine`. See [validation and controls](tests/forest-shrine/README.md).
+Unexplored ground stays hidden. Exploration remembers terrain; enemies require current shared vision from your fighter, healthy workers, or buildings. Tree cover blocks ground sight, and watchtowers see over the canopy. Complete five waves to win; Your fighter’s death or the shrine’s destruction ends the run.
+
+This first version uses a fixed forest layout, two finite starter deposits, procedural timber structures and workers, and illustrated interface icons. Economy and enemy pressure remain initial playtest values; combat framing now matches Rogue Siege. Run directly with `godot --path . -- --forest-shrine`. See [validation and controls](tests/forest-shrine/README.md).
+
+## Historical modes and development notes
+
+Older modes are hidden from the normal title and pause flow. The following sections document earlier work; their source and explicit command-line regression entry points remain available. Forest Shrine is the current player experience.
 
 ## Environment art
 
@@ -78,7 +84,7 @@ Validate traversal/enemy changes with `--sky-combat-test` or `--sky-combat-visua
 
 ## Play
 
-Open **build/Goemon.app**, then choose **Sky Descent**, **Tower Defense / Fire Siege**, **Rogue Battle**, or **Rogue Siege / Tower Defense**. The macOS application includes the game engine and all content. You do not need Godot, a terminal, an account, or an internet connection.
+Open **build/Goemon.app**, select **PLAY FOREST SHRINE**, and choose one of eleven fighters. Build from above, then press **START WAVE** to fight on the same map. The macOS application includes the game engine and all content. You do not need Godot, a terminal, an account, or an internet connection.
 
 ### Tower Defense · Fire Siege — castle companions, upgrade cards, and bosses
 

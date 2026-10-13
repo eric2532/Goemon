@@ -1,4 +1,4 @@
-# Forest Shrine prototype validation
+# Forest Shrine validation — v2.29.0
 
 Requires Godot 4.6.1. Run from the repository root:
 
@@ -8,13 +8,19 @@ godot --headless --path . --script tests/forest-shrine/simulation_test.gd
 godot --headless --path . --script tests/forest-shrine/world_test.gd
 godot --headless --path . --script tests/forest-shrine/integration_test.gd -- --test
 godot --headless --path . --script tests/forest-shrine/lifecycle_test.gd
+godot --headless --path . --script tests/forest-shrine/rogue_test.gd -- --test
+godot --headless --path . --script tests/forest-shrine/definitive_test.gd
+godot --headless --path . --script tests/forest-shrine/transition_test.gd -- --test
 godot --headless --path . --script tests/forest-shrine/review_regression_test.gd
 godot --path . --script tests/forest-shrine/integration_test.gd -- --test --visual
+godot --path . --script tests/forest-shrine/definitive_test.gd -- --forest-title --visual
 ```
 
 The model suite covers grid occupancy, explored placement, real prices and atomic wall lines, rotated entrances, gate routing, and remembered/shared vision. The simulation suite covers job reservations and previews, deliveries, no preparation income, repair, wounds, safe retreat, perimeter spawns, barrier breach, and the full five-wave victory loop.
 
-The world suite checks actual construction colliders, friendly gate passage, and settlement bounds. Integration clicks a real build card and the actual 3D battlefield, checks phase/camera changes and combat building rejection, exercises live rally/pause, attacks a real raider with Goemon input, and rejects invisible auto-targets. Lifecycle checks cover main-menu launch, shrine defeat, retry, and return to the original menu. The review regressions verify repair access after construction, fresh rally input after pause, gradual tower exits through the entrance, staffed tower damage, and chain impacts hidden by fog.
+The world suite checks actual construction colliders, friendly gate passage, and settlement bounds. Integration clicks a real build card and the actual 3D battlefield, checks phase/camera changes and combat building rejection, exercises live rally/pause, attacks a real raider with Goemon input, and rejects invisible auto-targets. Lifecycle checks cover main-menu launch, shrine defeat, retry, and return to the Forest Shrine title. The review regressions verify repair access after construction, fresh rally input after pause, gradual tower exits through the entrance, staffed tower damage, and chain impacts hidden by fog.
+
+The Rogue suite exercises every native class primary attack against real forest raiders, exact Siege camera framing, Q roster transitions, health/cooldown preservation, fog filtering, shield bash, freeze/slow effects, and untargetable fighters. The definitive suite verifies normal launch, all eleven choices, preparation/combat transitions, selected-fighter retry, and Forest-only title return.
 
 Rendered integration saves `preparation.png`, `placement.png`, `battle.png`, and `exploration.png` here. Inspect these for overlapping UI, ghost alignment, forest cutaway, and current/remembered fog. Generated images are ignored by Git.
 
@@ -29,7 +35,7 @@ Both regression suites passed during implementation; Rogue Siege reported 173 ch
 
 ## Playtest
 
-Open `build/Goemon.app`, select **Forest Shrine**, place one mine and one watchtower, then a gate and short wall. Begin a wave and hold **V** to lead available workers to a different job. Watch the assignment counts while holding; release to reserve those jobs. Use **WASD**, mouse attacks, and **C** to defend; **Escape** pauses. Between waves, recruit, repair, and expand. Wounded workers return in preparation.
+Open `build/Goemon.app`, select **PLAY FOREST SHRINE**, choose a fighter, then place one mine and one watchtower, then a gate and short wall. Begin a wave and hold **V** to lead available workers to a different job. Watch the assignment counts while holding; release to reserve those jobs. Use **WASD**, mouse attacks, and **C** to defend; **Escape** pauses. Between waves, recruit, repair, and expand. Wounded workers return in preparation.
 
 Initial values need player feedback: two finite deposits, six workers, 400 starting gold, five finite waves, no save/load, and a fixed forest layout. Terrain art and worker animation are prototype assets. The mode intentionally starts with an empty buildable settlement around an existing shrine, rather than prebuilding the mines.
 
@@ -48,7 +54,7 @@ Implementation decisions recorded during the work:
 - Kept the nearby-deposit prototype scope from the latest request. Broader resource exploration will need a later map/economy pass.
 - Treated the intermittent headless shutdown warning as a teardown timing issue after verbose inspection and clean repeated runs, rather than changing gameplay resource ownership without evidence.
 
-## Delivered build
+## Previous delivered build — v2.28.0
 
 macOS release **2.28.0** passed bundle-signature verification, headless main-menu and direct Forest Shrine launch, and rendered native launch on Apple M3 / Metal. Six Forest Shrine test suites passed; the model reported 20 checks, workforce/waves 34, and post-review regressions 15, alongside world/integration/lifecycle checks. Existing Tower Defense passed and Rogue Siege passed all 173 checks.
 

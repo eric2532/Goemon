@@ -2,6 +2,7 @@ extends "res://scripts/game.gd"
 const ForestModel=preload("res://scripts/forest/forest_model.gd")
 const ForestWorld=preload("res://scripts/forest/forest_world.gd")
 const Raider=preload("res://scripts/forest/forest_raider.gd")
+@export var launch_to_title=false
 var model
 var forest_ui
 var build_kind=""
@@ -14,6 +15,7 @@ var last_phase=""
 var wall_start=Vector2i(-999,-999)
 var ordinary_pause=false
 var notice=""
+var roster_return_pause=false
 func _ready():
 	process_mode=Node.PROCESS_MODE_ALWAYS
 	descent_mode=false;rogue_battle_mode=true;rogue_roster_mode=true;tower_defense_mode=false
@@ -27,7 +29,8 @@ func _ready():
 	model=ForestModel.new();run_seed=90824 if smoke_test else int(Time.get_ticks_usec())%2147483647;model.reset(run_seed)
 	world=ForestWorld.new();world.model=model;world.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(world)
 	player=Hero.new();player.game=self;player.position=Vector3(0,.15,18);player.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(player)
-	player.select_character(1);player.progression.reset(false);player.hp=player.max_hp
+	selected_rogue_id=int(get_tree().get_meta("forest_fighter",1))
+	player.select_character(selected_rogue_id);player.progression.reset(false);player.refresh_max_health();player.hp=player.max_hp
 	checkpoint=player.position
 	camera_rig=ActionCamera.new();camera_rig.game=self;camera_rig.player=player;add_child(camera_rig)
 	rogue_view=preload("res://scripts/forest/forest_view.gd").new();rogue_view.game=self;add_child(rogue_view)
@@ -39,6 +42,7 @@ func _ready():
 	forest_ui=preload("res://scripts/forest/forest_ui.gd").new();forest_ui.game=self;ui.add_child(forest_ui)
 	playing=true;won=false;Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	rogue_view.set_enabled(true);rogue_feedback.set_enabled(true);set_phase_view()
+	if launch_to_title:show_title()
 func set_phase_view():
 	last_phase=model.phase;build_kind="";wall_start=Vector2i(-999,-999);ordinary_pause=false
 	world.preview.hide();model.workforce.cancel_rally();player.rogue_controls.reset();player.velocity=Vector3.ZERO
@@ -61,17 +65,18 @@ func update_preparation_camera():
 	var cam=camera_rig.camera;cam.projection=Camera3D.PROJECTION_ORTHOGONAL;cam.size=preparation_size
 	cam.global_position=pan+Vector3(0,160,110);cam.look_at(pan,Vector3.UP)
 func start_wave():
+	if not playing or ordinary_pause or rogue_roster_open:return
 	if model.start_wave():
 		forest_ui.selected_id=-1;set_phase_view();toast("The forest stirs. Watch the edges of your vision.")
 func select_build(kind: String):
-	if model.phase!="preparing":return
+	if not playing or ordinary_pause or model.phase!="preparing":return
 	build_kind=kind;forest_ui.selected_id=-1;wall_start=Vector2i(-999,-999)
 func ground_at(screen: Vector2)->Vector3:
 	var cam=camera_rig.camera;var from=cam.project_ray_origin(screen);var direction=cam.project_ray_normal(screen)
 	if absf(direction.y)<.001:return Vector3.ZERO
 	return from+direction*(-from.y/direction.y)
 func place_cell(cell: Vector2i)->bool:
-	if model.phase!="preparing" or build_kind.is_empty():return false
+	if not playing or ordinary_pause or model.phase!="preparing" or build_kind.is_empty():return false
 	var reason=model.placement_error(build_kind,cell,build_rotation)
 	if not reason.is_empty():toast(reason);return false
 	var b=model.build(build_kind,cell,build_rotation)
@@ -82,7 +87,17 @@ func place_cell(cell: Vector2i)->bool:
 	return true
 func _input(event):
 	if model==null:return
-	if event.is_action("character_toggle") or event.is_action("summon_dogs") or event.is_action("summon_heroes") or event.is_action("shuffle_map"):
+	if not playing and not rogue_roster_open:return
+	if event.is_action("character_toggle"):
+		if event.is_pressed() and not event.is_echo():
+			if rogue_roster_open:close_rogue_roster()
+			else:show_rogue_roster()
+		get_viewport().set_input_as_handled();return
+	if rogue_roster_open:
+		if event.is_action_pressed("pause") and not event.is_echo():close_rogue_roster()
+		if event.is_action("pause"):get_viewport().set_input_as_handled()
+		return
+	if event.is_action("summon_dogs") or event.is_action("summon_heroes") or event.is_action("shuffle_map"):
 		get_viewport().set_input_as_handled();return
 	if event.is_action("rally_workers"):
 		if not ordinary_pause and not event.is_echo():model.rally(event.is_pressed(),player.position)
@@ -95,8 +110,6 @@ func _input(event):
 func _unhandled_input(event):
 	if model==null or ordinary_pause:return
 	if model.phase=="wave":
-		if event is InputEventMouseButton and event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
-			rogue_view.battle_size=clampf(rogue_view.battle_size+(-4 if event.button_index==MOUSE_BUTTON_WHEEL_UP else 4),38,90)
 		return
 	if model.phase!="preparing":return
 	if event is InputEventKey and event.pressed and event.physical_keycode==KEY_R:build_rotation=(build_rotation+1)%4;get_viewport().set_input_as_handled()
@@ -144,6 +157,7 @@ func _process(delta):
 func _physics_process(delta):
 	if model!=null and model.phase!=last_phase:set_phase_view()
 	if model==null or paused or model.phase!="wave":return
+	model.hero_targetable=not player.rogue_untargetable()
 	model.tick(delta,player.position)
 	for event in model.events:
 		match event.kind:
@@ -166,18 +180,47 @@ func sync_enemies():
 	for i in range(enemies.size()-1,-1,-1):
 		if not is_instance_valid(enemies[i]):enemies.remove_at(i)
 func forest_enemy_visible(enemy)->bool:return model!=null and model.visible_at(enemy.global_position)
+func show_rogue_roster(starting: bool=false):
+	if not playing and not starting:return
+	if model.phase not in ["preparing","wave"] or player.hp<=0 or rogue_roster_open:return
+	roster_return_pause=ordinary_pause
+	player.cancel_charge(true);model.workforce.cancel_rally();Engine.time_scale=1
+	ordinary_pause=true;paused=true;get_tree().paused=true
+	build_kind="";wall_start=Vector2i(-999,-999);world.preview.hide();forest_ui.hide()
+	rogue_roster_open=true;rogue_pick_start=starting
+	var root=menu_base()
+	var picker=load("res://scripts/rogue_roster_picker.gd").new();picker.game=self
+	picker.title_text="F O R E S T   S H R I N E   /   C H O O S E   Y O U R   F I G H T E R"
+	picker.start_hint="Choose a fighter, then build your settlement before the first wave."
+	picker.back_text="Q / Esc · Back to preparation" if model.phase=="preparing" else "Q / Esc · Back to battle"
+	root.add_child(picker)
+func choose_rogue_character(id: int):
+	if not rogue_roster_open or (id!=1 and not player.RogueRoster.is_rogue(id)):return
+	selected_rogue_id=id;get_tree().set_meta("forest_fighter",id);player.select_character(id)
+	var starting=rogue_pick_start
+	rogue_roster_open=false;rogue_pick_start=false;clear_menu();forest_ui.show()
+	if starting:playing=true;set_phase_view()
+	elif roster_return_pause:show_pause()
+	else:resume()
+func close_rogue_roster():
+	if not rogue_roster_open:return
+	var starting=rogue_pick_start
+	rogue_roster_open=false;rogue_pick_start=false;clear_menu();forest_ui.show()
+	if starting:show_main_menu()
+	elif roster_return_pause:show_pause()
+	else:resume()
 func show_pause():
 	if model==null or model.phase not in ["preparing","wave"]:return
-	ordinary_pause=true;paused=true;get_tree().paused=true;model.workforce.cancel_rally();player.rogue_controls.reset()
+	ordinary_pause=true;paused=true;get_tree().paused=true;model.workforce.cancel_rally();player.cancel_charge(true);Engine.time_scale=1
 	forest_ui.show_overlay("REST A MOMENT","Your settlement and the forest are paused.",true)
 func resume():
 	if model.phase not in ["preparing","wave"]:return
 	ordinary_pause=false;forest_ui.close_overlay();paused=model.phase!="wave";get_tree().paused=paused
 func restart_area():
-	get_tree().paused=false;get_tree().reload_current_scene.call_deferred()
+	get_tree().paused=false;get_tree().change_scene_to_file.call_deferred("res://scenes/forest_shrine.tscn")
 func show_main_menu():
-	get_tree().paused=false;get_tree().set_meta("forest_return",true)
-	get_tree().change_scene_to_file.call_deferred("res://scenes/main.tscn")
+	get_tree().paused=false
+	get_tree().change_scene_to_file.call_deferred("res://scenes/forest_title.tscn")
 func defeat():
 	if model.phase=="wave":model.phase="defeat";set_phase_view()
 func toast(words: String):
@@ -200,3 +243,13 @@ func wall_cells(end: Vector2i)->Array:
 	for i in range(mini(length_+1,40)):
 		cells.append(wall_start+(Vector2i(signi(change.x)*i,0) if horizontal else Vector2i(0,signi(change.y)*i)))
 	return cells
+
+func show_title():
+	playing=false;ordinary_pause=true;paused=true;get_tree().paused=true
+	forest_ui.hide();rogue_view.reset();rogue_feedback.set_enabled(false)
+	world.ground_material.set_shader_parameter("show_grid",false)
+	var root=menu_base()
+	var title_ui=preload("res://scripts/forest/forest_title_ui.gd").new();title_ui.game=self;root.add_child(title_ui)
+func begin_forest():
+	if playing:return
+	rogue_feedback.set_enabled(true);show_rogue_roster(true)

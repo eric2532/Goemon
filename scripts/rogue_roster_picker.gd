@@ -2,6 +2,9 @@ extends Control
 ## Select a playable Rogue fighter without replacing the castle's ally rosters.
 const Roster=preload("res://scripts/rogue_roster.gd")
 var game: Node
+var title_text="R O G U E   S I E G E   /   C H O O S E   Y O U R   F I G H T E R"
+var start_hint="Choose a fighter to begin. Pick an upgrade card before each wave."
+var back_text="Q / Esc · Back to battle"
 
 func label(words: String,point_size: int,tint: Color=Color("eaf1ed"))->Label:
 	var node=Label.new();node.text=words
@@ -17,7 +20,7 @@ func _ready():
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);shade.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(shade)
 	var center=CenterContainer.new();center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);add_child(center)
 	var layout=VBoxContainer.new();layout.custom_minimum_size.x=1260;layout.add_theme_constant_override("separation",10);center.add_child(layout)
-	layout.add_child(label("R O G U E   S I E G E   /   C H O O S E   Y O U R   F I G H T E R",29,Color("f1d198")))
+	layout.add_child(label(title_text,29,Color("f1d198")))
 	layout.add_child(label("Goemon and all ten Rogue fighters. Original weapons, movement abilities, and signature skills.",18,Color("c0d4d5")))
 	var goemon=goemon_card(layout)
 	var grid=GridContainer.new();grid.columns=5;grid.add_theme_constant_override("h_separation",12);grid.add_theme_constant_override("v_separation",12);layout.add_child(grid)
@@ -47,8 +50,8 @@ func _ready():
 			button.tooltip_text+="\n%s · %s" % [data.abilities[slot].name,data.abilities[slot].description.replace("Proposed skill: ","")]
 		if id==game.selected_rogue_id:selected=button
 	var footer=HBoxContainer.new();footer.add_theme_constant_override("separation",22);layout.add_child(footer)
-	var back=Button.new();back.name="RogueRosterClose";back.text="Esc · Back" if game.rogue_pick_start else "Q / Esc · Back to battle";back.custom_minimum_size=Vector2(270,44);back.pressed.connect(game.close_rogue_roster);footer.add_child(back)
-	footer.add_child(label("WASD move · Mouse aim · Space jump · Shift sprint\n"+("Choose a fighter to begin. Pick an upgrade card before each wave." if game.rogue_pick_start else "Time is paused. Switching keeps your health percentage and ability cooldowns."),15,Color("a9c3c4")))
+	var back=Button.new();back.name="RogueRosterClose";back.text="Esc · Back" if game.rogue_pick_start else back_text;back.custom_minimum_size=Vector2(270,44);back.pressed.connect(game.close_rogue_roster);footer.add_child(back)
+	footer.add_child(label("WASD move · Mouse aim · Space jump · Shift sprint\n"+(start_hint if game.rogue_pick_start else "Time is paused. Switching keeps your health percentage and ability cooldowns."),15,Color("a9c3c4")))
 	if selected!=null:selected.grab_focus()
 
 func goemon_card(parent: Control)->Button:

@@ -513,6 +513,7 @@ func living() -> Array:
 	for enemy in game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead or enemy.hp <= 0:
 			continue
+		if game.has_method("forest_enemy_visible") and not game.forest_enemy_visible(enemy):continue
 		result.append({"node": enemy, "uid": enemy.get_instance_id(), "pos": enemy.global_position,
 			"hp": enemy.hp, "maxHp": enemy.max_hp, "type": "warden" if enemy.boss or (enemy.defense_traits != null and enemy.defense_traits.is_boss()) else "revenant",
 			"radius": enemy.body_radius, "vel": enemy.velocity, "attackCD": enemy.cooldown, "slow": 0.0, "slowAmount": 0.0})
@@ -531,6 +532,7 @@ func hit(e: Dictionary = {}, amount: float = 0, weapon: String = "cutlass", heav
 	var enemy = e.get("node")
 	if not is_instance_valid(enemy) or enemy.dead or amount <= 0:
 		return
+	if game.has_method("forest_enemy_visible") and not game.forest_enemy_visible(enemy):return
 	var target: Vector3 = AttackChain.aim_point(enemy)
 	var origin: Vector3 = _damage_origin if _projectile_damage else player.pos + Vector3.UP
 	if not _projectile_damage and absf(e.pos.y - player.pos.y) > 3.5:
@@ -597,6 +599,8 @@ func _apply_elements(first: Dictionary, amount: float, weapon: String) -> void:
 
 func bash_enemy(e: Dictionary, direction: Vector3) -> void:
 	if is_instance_valid(e.node) and not e.node.dead:
+		if e.node.has_method("apply_rogue_bash"):
+			e.node.apply_rogue_bash(direction);return
 		e.node.velocity += direction * 7
 		e.node.cooldown = maxf(e.node.cooldown, 1.2)
 

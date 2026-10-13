@@ -5,6 +5,7 @@ var resources: Label
 var status: Label
 var hint: Label
 var health: Label
+var abilities: Label
 var build_bar: HBoxContainer
 var bar_paper: Panel
 var inspection: PanelContainer
@@ -44,6 +45,9 @@ func _ready():
 	status=label_at("",Vector2(30,58),17)
 	resources=label_at("",Vector2.ZERO,23);resources.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT);resources.offset_left=-420;resources.offset_right=-30;resources.offset_top=24;resources.offset_bottom=64;resources.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
 	health=label_at("",Vector2(30,88),16)
+	var fighters=make_button("Q · Choose fighter",game.show_rogue_roster,190);fighters.name="Fighters";add_child(fighters)
+	fighters.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT);fighters.offset_left=-230;fighters.offset_right=-30;fighters.offset_top=75;fighters.offset_bottom=119;fighters.custom_minimum_size.y=40
+	abilities=label_at("",Vector2.ZERO,16);abilities.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE);abilities.offset_left=30;abilities.offset_right=-30;abilities.offset_top=-102;abilities.offset_bottom=-54
 	bar_paper=Panel.new();bar_paper.name="BuildPaper";bar_paper.add_theme_stylebox_override("panel",style(Color("243c34"),Color("8d8967")));add_child(bar_paper)
 	bar_paper.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE);bar_paper.offset_left=16;bar_paper.offset_right=-16;bar_paper.offset_top=-130;bar_paper.offset_bottom=-16
 	build_bar=HBoxContainer.new();build_bar.name="BuildBar";build_bar.add_theme_constant_override("separation",9);add_child(build_bar)
@@ -79,9 +83,15 @@ func sync():
 		if w.state=="wounded":wounded+=1
 	resources.text="%d GOLD    ·    %d WORKERS"%[m.gold,m.workers.size()-wounded]
 	status.text="PREPARATION %02d / 05  ·  Plan, build, then begin"%mini(5,m.wave+1) if prep else "WAVE %02d / 05  ·  %d enemies remaining"%[m.wave,m.enemies.size()+m.waves.pending]
-	health.text="Shrine %d / 1000    ·    Goemon %d / %d"%[m.shrine().get("hp",0),game.player.hp,game.player.max_hp]
+	var p=game.player;var fighter=p.RogueRoster.name_for(p.character_id) if p.is_rogue_character() else "Goemon"
+	health.text="Shrine %d / 1000    ·    %s %d / %d"%[m.shrine().get("hp",0),fighter,p.hp,p.max_hp]
+	abilities.visible=not prep
+	if p.is_rogue_character():
+		var data=p.RogueRoster.data(p.character_id);var cooldowns=p.active_ability.player.cooldowns
+		abilities.text="LMB · %s     RMB · %s%s\nC / E · %s%s     R · %s%s     Q · Fighters"%[data.abilities.cutlass.name,data.abilities.flintlock.name,cooldown(cooldowns.flintlock),data.abilities.roll.name,cooldown(cooldowns.roll),data.abilities.drink.name,cooldown(cooldowns.drink)]
+	else:abilities.text="LMB · Pipe combo    RMB · Heavy    C · Evade    E · Dash    R · Surge    T · Sky strike\n1 · Spin    2 · Coins    3 · Sweep    4 / 5 · Cloaks    Q · Fighters"
 	if wounded:health.text+="    ·    %d wounded until preparation"%wounded
-	var text_="Choose a building below  ·  WASD / middle drag to pan  ·  Wheel to zoom" if prep else "WASD move  ·  LMB attack  ·  RMB heavy  ·  C evade  ·  Hold V to gather workers, release near a job"
+	var text_="Choose a building below  ·  WASD / middle drag to pan  ·  Wheel to zoom" if prep else "WASD move · Mouse aim · Shift sprint · Space jump · Hold V to gather workers, release near a job"
 	if prep and not game.build_kind.is_empty():text_="%s  ·  %s  ·  R rotate  ·  Right-click cancel"%[LABELS[game.build_kind],game.placement_hint]
 	if not prep and m.workforce.held:
 		var count=0
@@ -112,3 +122,5 @@ func _process(delta):
 	if game.model.workforce.held and preview_clock<=0:
 		job_preview=game.model.workforce.preview_jobs(game.player.position);preview_clock=.2
 	sync()
+
+func cooldown(seconds: float)->String:return " (%.1fs)"%seconds if seconds>0 else ""

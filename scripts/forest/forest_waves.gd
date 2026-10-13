@@ -34,8 +34,22 @@ func tick(delta: float,hero: Vector3):
 		var e: Dictionary=m.enemies[id]
 		if e.hp<=0:m.enemies.erase(id);continue
 		e.clock=maxf(0,e.clock-delta);e.stun=maxf(0,e.stun-delta);e.attack=false
+		e.frozen=maxf(0,e.get("frozen",0.0)-delta)
+		e.slow_left=maxf(0,e.get("slow_left",0.0)-delta)
+		if e.slow_left<=0:e.slow=1.0
+		if e.frozen>0:e.velocity=Vector3.ZERO;continue
+		var impulse: Vector3=e.get("knockback",Vector3.ZERO)
+		if impulse.length_squared()>.01:
+			# Sweep short steps so impacts cannot push enemies through trees or defenses.
+			var steps=maxi(1,ceili(impulse.length()*delta/.5));var old: Vector3=e.pos
+			for step in range(steps):
+				var next: Vector3=e.pos+impulse*delta/steps;var cell=m.cell_of(next)
+				if not m.REGION.has_point(cell) or m.trees.has(cell) or m.occupancy.has(cell):break
+				e.pos=next
+			e.velocity=(e.pos-old)/maxf(.001,delta);e.knockback=impulse*exp(-8*delta);e.path=[]
+			continue
 		if e.stun>0:e.velocity=Vector3.ZERO;continue
-		var target_worker=-1;var hero_close=hero.distance_squared_to(e.pos)<64 and hero.y<5
+		var target_worker=-1;var hero_close=m.hero_targetable and hero.distance_squared_to(e.pos)<64 and hero.y<5
 		var target_point=hero if hero_close else m.point(m.shrine_entry())
 		for w in m.workers.values():
 			if w.state not in ["wounded","garrison"] and e.pos.distance_squared_to(w.pos)<49:
@@ -61,7 +75,7 @@ func tick(delta: float,hero: Vector3):
 				else:m.damage_building(1,15)
 			continue
 		if not e.path.is_empty():
-			var old: Vector3=e.pos;e.pos=e.pos.move_toward(m.point(e.path[0]),delta*(7.0+m.wave*.3))
+			var old: Vector3=e.pos;e.pos=e.pos.move_toward(m.point(e.path[0]),delta*(7.0+m.wave*.3)*e.get("slow",1.0))
 			e.velocity=(e.pos-old)/maxf(.001,delta)
 			if e.pos.distance_to(m.point(e.path[0]))<.05:e.path.pop_front()
 	if pending==0 and m.enemies.is_empty() and m.phase=="wave":

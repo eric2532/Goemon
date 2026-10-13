@@ -70,7 +70,10 @@ var tuning=PrototypeTuning.DEFAULTS.duplicate()
 var lab_spawn_id=0
 
 func _ready():
-	if "--forest-shrine" in OS.get_cmdline_user_args() and not get_tree().has_meta("forest_return"):
+	if OS.get_cmdline_user_args().is_empty() or "--forest-title" in OS.get_cmdline_user_args():
+		get_tree().change_scene_to_file.call_deferred("res://scenes/forest_title.tscn")
+		return
+	if "--forest-shrine" in OS.get_cmdline_user_args():
 		get_tree().change_scene_to_file.call_deferred("res://scenes/forest_shrine.tscn")
 		return
 	process_mode=Node.PROCESS_MODE_ALWAYS
