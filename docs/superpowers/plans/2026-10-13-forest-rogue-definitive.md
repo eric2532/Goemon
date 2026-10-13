@@ -39,5 +39,5 @@
 **Interfaces:** ForestGame.launch_to_title; begin_forest(); normal main entry routes to forest title; title Play opens initial fighter choice and selection begins preparation.
 - [x] Add failing lifecycle tests for default title, all 11 fighter cards, selection, wave transition, retry, and title return with no legacy choices.
 - [x] Implement forest-only launch/title and preserve debug regression flags. Retain selected fighter on retry.
-- [ ] Run all forest suites and existing Rogue Siege regression; fresh final review, fix important findings using failing regressions.
-- [ ] Export/sign/launch macOS build, preserve 2.28.0 app, integrate source, update controls/validation and deliver.
+- [x] Run all forest suites and existing Rogue Siege regression; fresh final review, fix important findings using failing regressions.
+- [x] Export/sign/launch macOS build, preserve 2.28.0 app, integrate source, update controls/validation and deliver.

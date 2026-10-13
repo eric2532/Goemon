@@ -66,3 +66,11 @@ The forced headless main-menu shutdown prints one dummy-renderer shader allocati
 ## Definitive combat review — v2.29.0
 
 A fresh review found that retained Goemon Sky Strike could automatically target a forest raider outside shared vision. A real-scene regression failed for both target selection and impact before correction. Selection and impact now check current forest visibility; visible targets retain normal damage. No minor findings were deferred.
+
+## Current delivered build — v2.29.0
+
+`build/Goemon.app` now launches the Forest Shrine title only. All eleven fighters use the original Rogue Siege combat and close battle camera, with overhead grid placement only between waves. Ten Forest suites and all 173 existing Rogue Siege checks passed after the final fog fix. The native bundle passed signature verification and headless launch; the exported PCK passed the definitive scene-flow suite. Rendered title, roster, preparation, and combat captures were inspected. Native UI automation was unreliable, so packaged scene-flow verification used the Godot test harness against the exported PCK.
+
+The previous app is preserved at `build/Other Files/Goemon-v2.28.0-before-Definitive-Forest.app`. The release ZIP, screenshots, and test/export logs live in `build/Other Files/Forest Shrine v2.29.0/`.
+
+Implementation decisions: historical modes remain available through explicit development commands while hidden from normal launch. The approved work was integrated locally into the existing feature branch. A stale, empty worktree index lock was removed after checking its age and confirming it had no process owner; no index data was removed.
