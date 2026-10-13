@@ -27,6 +27,7 @@ func choose_target()->Ninja:
 	var closest=INF
 	for enemy in hero.game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead:continue
+		if hero.game.has_method("forest_enemy_visible") and not hero.game.forest_enemy_visible(enemy):continue
 		if hero.game.descent_mode and enemy.island_index>=0 and enemy.island_index!=hero.game.encounters.current_island:continue
 		var distance=hero.global_position.distance_squared_to(enemy.global_position)
 		if distance<closest:nearest=enemy;closest=distance
@@ -115,6 +116,7 @@ func impact():
 	BreakableBuilding.hit_area(hero.game,landing+Vector3.UP,radius,160*hero.damage_multiplier(),attack_ticket)
 	for enemy in hero.game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead:continue
+		if hero.game.has_method("forest_enemy_visible") and not hero.game.forest_enemy_visible(enemy):continue
 		var offset=enemy.global_position-landing
 		if Vector2(offset.x,offset.z).length()>radius+enemy.body_radius or absf(offset.y)>3.5:continue
 		var ray=PhysicsRayQueryParameters3D.create(landing+Vector3.UP,enemy.global_position+Vector3.UP,1)

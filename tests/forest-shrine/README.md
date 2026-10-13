@@ -11,6 +11,7 @@ godot --headless --path . --script tests/forest-shrine/lifecycle_test.gd
 godot --headless --path . --script tests/forest-shrine/rogue_test.gd -- --test
 godot --headless --path . --script tests/forest-shrine/definitive_test.gd
 godot --headless --path . --script tests/forest-shrine/transition_test.gd -- --test
+godot --headless --path . --script tests/forest-shrine/fog_target_test.gd -- --test
 godot --headless --path . --script tests/forest-shrine/review_regression_test.gd
 godot --path . --script tests/forest-shrine/integration_test.gd -- --test --visual
 godot --path . --script tests/forest-shrine/definitive_test.gd -- --forest-title --visual
@@ -61,3 +62,7 @@ macOS release **2.28.0** passed bundle-signature verification, headless main-men
 The main launch icon is `build/Goemon.app`. The prior 2.27.0 app is preserved under `build/Other Files/Goemon-v2.27.0-before-Forest-Shrine.app`. Release screenshots, logs, and ZIP are stored under `build/Other Files/Forest Shrine v2.28.0/`.
 
 The forced headless main-menu shutdown prints one dummy-renderer shader allocation warning in both the prior 2.27.0 app and this build. Rendered native main-menu and Forest Shrine launches are clean; this is an existing headless-exit limitation, not a new gameplay failure.
+
+## Definitive combat review — v2.29.0
+
+A fresh review found that retained Goemon Sky Strike could automatically target a forest raider outside shared vision. A real-scene regression failed for both target selection and impact before correction. Selection and impact now check current forest visibility; visible targets retain normal damage. No minor findings were deferred.
