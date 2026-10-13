@@ -14,7 +14,7 @@ func update_visual(delta: float):
 		game.burst(global_position,Color("ff7827"),2 if heavy else 1,.45)
 func impact(point: Vector3):
 	game.burst(point,Color("ff732c"),24 if heavy else 10,1.2 if heavy else .7)
-	if not heavy:game.sound("fire_impact",.7)
+	if not heavy and (not game.has_method("forest_point_visible") or game.forest_point_visible(point)):game.sound("fire_impact",.7)
 	if heavy:
 		EdoFireExplosion.emit(game,point,true)
 		BreakableBuilding.hit_area(game,point,balance.explosion_radius*game.player.growth_multiplier(),damage,attack_ticket,Vector3.ZERO,-1,hit_buildings)

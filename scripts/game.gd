@@ -1565,7 +1565,11 @@ func crosshair_target(max_distance: float=120.0)->Vector3:
 	var origin: Vector3=camera.project_ray_origin(center)
 	var direction: Vector3=camera.project_ray_normal(center)
 	var query=PhysicsRayQueryParameters3D.create(origin,origin+direction*max_distance,1|4)
-	query.exclude=[player.get_rid()]
+	var excluded: Array[RID]=[player.get_rid()]
+	if has_method("forest_enemy_visible"):
+		for enemy in enemies:
+			if is_instance_valid(enemy) and not call("forest_enemy_visible",enemy):excluded.append(enemy.get_rid())
+	query.exclude=excluded
 	var hit: Dictionary=camera.get_world_3d().direct_space_state.intersect_ray(query)
 	return hit.position if not hit.is_empty() else origin+direction*max_distance
 

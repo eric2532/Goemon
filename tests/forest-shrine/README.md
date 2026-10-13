@@ -21,7 +21,7 @@ The model suite covers grid occupancy, explored placement, real prices and atomi
 
 The world suite checks actual construction colliders, friendly gate passage, and settlement bounds. Integration clicks a real build card and the actual 3D battlefield, checks phase/camera changes and combat building rejection, exercises live rally/pause, attacks a real raider with Goemon input, and rejects invisible auto-targets. Lifecycle checks cover main-menu launch, shrine defeat, retry, and return to the Forest Shrine title. The review regressions verify repair access after construction, fresh rally input after pause, gradual tower exits through the entrance, staffed tower damage, and chain impacts hidden by fog.
 
-The Rogue suite exercises every native class primary attack against real forest raiders, exact Siege camera framing, Q roster transitions, health/cooldown preservation, fog filtering, shield bash, freeze/slow effects, and untargetable fighters. The definitive suite verifies normal launch, all eleven choices, preparation/combat transitions, selected-fighter retry, and Forest-only title return.
+The Rogue suite exercises every native class primary attack against real forest raiders, Fire Siege Crosshair perspective framing, Q roster transitions, health/cooldown preservation, fog filtering, shield bash, freeze/slow effects, and untargetable fighters. The definitive suite verifies normal launch, all twelve choices, preparation/combat transitions, selected-fighter retry, and Forest-only title return.
 
 Rendered integration saves `preparation.png`, `placement.png`, `battle.png`, and `exploration.png` here. Inspect these for overlapping UI, ghost alignment, forest cutaway, and current/remembered fog. Generated images are ignored by Git.
 
@@ -74,3 +74,22 @@ A fresh review found that retained Goemon Sky Strike could automatically target 
 The previous app is preserved at `build/Other Files/Goemon-v2.28.0-before-Definitive-Forest.app`. The release ZIP, screenshots, and test/export logs live in `build/Other Files/Forest Shrine v2.29.0/`.
 
 Implementation decisions: historical modes remain available through explicit development commands while hidden from normal launch. The approved work was integrated locally into the existing feature branch. A stale, empty worktree index lock was removed after checking its age and confirming it had no process owner; no index data was removed.
+
+
+## Definitive crosshair correction · v2.54.0
+
+The current build merges the full Fire Siege Crosshair v2.53.1 baseline (`aa7f1d2`), preserving its camera, authored character assets, animations, combat actions and effects. The earlier v2.29 angled-camera release below is historical. Normal launch opens only Forest Shrine; the overhead grid is used only for preparation.
+
+New checks:
+
+```sh
+godot --headless --path . --fixed-fps 60 --script tests/forest-shrine/crosshair_test.gd
+godot --headless --path . --fixed-fps 60 --script tests/forest-shrine/modern_combat_test.gd
+godot --path . --script tests/forest-shrine/crosshair_tour.gd
+```
+
+The crosshair suite checks perspective/orthographic transitions, twelve heroes, pause/roster return, reticle state and battlefield continuity. Captured-cursor and mouse-look assertions also run in a real window because Godot's headless DisplayServer cannot capture a pointer. The modern-combat suite checks Samurai's five-cut combo and blade ink, Ranger's upward five-arrow curved fan, updated Edo beam, Goemon native effects, and visibility in auto-lock, center-ray targeting, projectile contact queries, elemental neighbors, meteor selection and fire impact presentation.
+
+All twelve Forest suites passed behavioral assertions. Existing modern Fire Siege suites also passed: Edo redesign 19 checks, Samurai combat 42, Magic Swordsman ink 33, equipment combat 63, roster ink 442, and auto-lock 59. Some accelerated headless harnesses print audio-resource cleanup warnings on exit; they reported no gameplay script errors. A first fixed-fps rendered harness crashed in Godot 4.6.1 teardown after its assertions passed; the real-time rendered tour using normal `quit_clean()` completed and exited successfully. Its title, roster, preparation, battle, Samurai, Edo and pause captures were inspected.
+
+The latest committed Edo assets are included. The separate chat's uncommitted `edo_new_design` work is intentionally not included or changed.
