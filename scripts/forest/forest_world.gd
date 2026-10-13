@@ -24,7 +24,7 @@ func _ready():
 	var image=Image.create(80,80,false,Image.FORMAT_RGBA8);image.fill(Color.BLACK)
 	fog_texture=ImageTexture.create_from_image(image)
 	var environment_=WorldEnvironment.new();var env=Environment.new()
-	env.background_mode=Environment.BG_COLOR;env.background_color=Color("24392f")
+	env.background_mode=Environment.BG_COLOR;env.background_color=Color("435e4e")
 	env.ambient_light_source=Environment.AMBIENT_SOURCE_COLOR;env.ambient_light_color=Color("c3d9c7");env.ambient_light_energy=.65
 	env.tonemap_mode=Environment.TONE_MAPPER_FILMIC;environment_.environment=env;add_child(environment_)
 	var sun=DirectionalLight3D.new();sun.rotation_degrees=Vector3(-52,-35,0);sun.light_color=Color("ffe2b5");sun.light_energy=1.5;sun.shadow_enabled=true;sun.directional_shadow_max_distance=190;add_child(sun)
@@ -53,7 +53,7 @@ func _process(_delta):pass
 func fog_material(color: Color,ground_: bool=false)->ShaderMaterial:
 	var mat=ShaderMaterial.new();mat.shader=preload("res://scripts/forest/forest_fog.gdshader")
 	mat.set_shader_parameter("visibility_map",fog_texture);mat.set_shader_parameter("base_color",color)
-	mat.set_shader_parameter("ground_surface",ground_);mat.set_shader_parameter("hide_unknown",not ground_)
+	mat.set_shader_parameter("ground_surface",ground_)
 	fog_materials.append(mat);return mat
 func make_forest():
 	var layers=[]

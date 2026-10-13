@@ -1,4 +1,4 @@
-# Forest Shrine validation — v2.29.0
+# Forest Shrine validation — v2.54.1
 
 Requires Godot 4.6.1. Run from the repository root:
 
@@ -95,3 +95,15 @@ All twelve Forest suites passed behavioral assertions. Existing modern Fire Sieg
 The latest committed Edo assets are included. The separate chat's uncommitted `edo_new_design` work is intentionally not included or changed.
 
 The macOS v2.54.0 bundle passed deep/strict signature verification and native headless boot. Its exported PCK passed definitive launch/retry/title flow, 15 crosshair checks and 20 modern-combat checks. Installed at `build/Goemon.app`; the v2.29 backup is `build/Other Files/Goemon-v2.29.0-before-Crosshair-Forest.app`. Release ZIP, rendered captures, and verification logs are in `build/Other Files/Forest Shrine v2.54.0/`.
+
+## Surrounding forest atmosphere · v2.54.1
+
+The existing woodland now remains visible beyond unexplored ground, with muted tree silhouettes, green ground, and successive rows fading into sage mist. Paths and the building grid still require exploration; enemies still require current shared vision. This is a renderer-only change: forest positions, collisions, navigation, buildings, workers, combat and camera settings are unchanged.
+
+Run the rendered regression with `godot --path . --script tests/forest-shrine/atmosphere_test.gd`. It compares real pixels with the unknown forest drawn versus hidden, checks that showing scenery grants no exploration or vision, verifies unseen raiders are absent from crowd batches, and then verifies their appearance after scouting. It saves preparation, zoomed overview, four battle directions and the forest approach for inspection. Run it in a real window; headless rendering is explicitly rejected.
+
+The regression failed with the original shader (zero forest pixels) and passed with the new shader. Model, simulation, world, fog targeting, crosshair, modern combat and definitive launch suites also passed. The accelerated fog-target and modern-combat harnesses retain their previously documented shutdown resource warnings; the rendered atmosphere run exits cleanly.
+
+The v2.54.1 macOS bundle passed deep/strict signature validation, native headless boot, and definitive launch flow against its exported PCK. The same exported PCK passed the rendered atmosphere regression with 8,640 changed forest pixels and no failures. Set `FOREST_ATMOSPHERE_CAPTURE_DIR` to an external directory when running the rendered test against a packaged PCK. A fresh independent review reported no findings; the existing starting-camera worker occlusion and headless cleanup warnings were outside this visual change.
+
+The current app remains `build/Goemon.app`. Its previous version is backed up as `build/Other Files/Goemon-v2.54.0-before-Forest-Atmosphere.app`; the v2.54.1 ZIP, packaged screenshots, and verification logs are under `build/Other Files/Forest Shrine v2.54.1/`. The other chat's uncommitted Edo redesign is untouched.

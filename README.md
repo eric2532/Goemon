@@ -1,6 +1,6 @@
 # Goemon — Forest Shrine
 
-The current definitive build is **Forest Shrine v2.54.0**, a fully local Godot 4.6.1 game combining settlement building with the complete Fire Siege Crosshair v2.53.1 combat baseline.
+The current definitive build is **Forest Shrine v2.54.1**, a fully local Godot 4.6.1 game combining settlement building with the complete Fire Siege Crosshair v2.53.1 combat baseline.
 
 ## Forest Shrine · Build & survive
 
@@ -12,7 +12,7 @@ Starting a wave switches the same battlefield to **Fire Siege Crosshair’s pers
 
 During battle, **WASD** moves, **Shift** sprints, **Space** jumps, **LMB / RMB** use primary/secondary attacks, **C** evades and **E** uses the extra class utility where available, **R** uses their signature skill, and **hold V** gathers workers inside a 30-metre circle. **J** toggles the latest camera-visible auto attack, respecting shared vision. Goemon and Edo retain their C, E, R, T and numbered abilities, along with the updated animation and ink effects. Lead them near a job and release V: they reserve the closest reachable local mine, tower, or damaged wall, with surplus workers waiting nearby. Each mine and tower holds three workers; repairs hold two. Workers carry mined gold back to the shrine, spend gold repairing walls, or shoot from towers. They retreat from danger; wounded workers sit out the wave and recover during preparation. Construction is available only between waves. **Escape** pauses or resumes.
 
-Unexplored ground stays hidden. Exploration remembers terrain; enemies require current shared vision from your fighter, healthy workers, or buildings. Tree cover blocks ground sight, and watchtowers see over the canopy. Complete five waves to win; Your fighter’s death or the shrine’s destruction ends the run.
+The clearing is surrounded by visible tree silhouettes fading into green mist. Unexplored ground conceals paths, resources, and the building grid; seeing distant trees does not explore it. Exploration remembers terrain; enemies require current shared vision from your fighter, healthy workers, or buildings. Tree cover blocks ground sight, and watchtowers see over the canopy. Complete five waves to win; Your fighter’s death or the shrine’s destruction ends the run.
 
 This first version uses a fixed forest layout, two finite starter deposits, procedural timber structures and workers, and illustrated interface icons. Economy and enemy pressure remain initial playtest values; combat framing and attacks now match Fire Siege Crosshair, including Samurai’s five cuts, Ranger’s curved five-arrow fan, and the updated Edo casting and movement. Run directly with `godot --path . -- --forest-shrine`. See [validation and controls](tests/forest-shrine/README.md).
 
