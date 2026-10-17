@@ -20,7 +20,7 @@ func impact(point: Vector3):
 		BreakableBuilding.hit_area(game,point,balance.explosion_radius*game.player.growth_multiplier(),damage,attack_ticket,Vector3.ZERO,-1,hit_buildings)
 		for e in game.enemies:
 			if not is_instance_valid(e) or e.dead or hit_enemies.has(e.get_instance_id()):continue
-			var center=e.global_position+Vector3.UP
+			var center=AttackChain.contact_point(e,point,e.global_position+Vector3.UP)
 			if center.distance_to(point)>balance.explosion_radius*game.player.growth_multiplier()+e.body_radius:continue
 			var ray=PhysicsRayQueryParameters3D.create(point,center,1)
 			if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty():continue

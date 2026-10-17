@@ -1,0 +1,55 @@
+{
+  "change": "Ranger holds his authored ready bow posture with no periodic torso or arm swing during ordinary grounded movement. Bow stays attached to the actual right wrist; both ready hand positions are restored after leg posing. Walking/running/sprinting/strafe/backward foot motion retained.",
+  "ranger_swing_scale": 0.0,
+  "other_steady_fighters_swing_scale": 0.1,
+  "source": {
+    "green": {
+      "checks": 48,
+      "failures": 0
+    },
+    "swords": {
+      "checks": 90,
+      "failures": 0
+    },
+    "equipment": {
+      "checks": 63,
+      "failures": 0
+    },
+    "alignment": {
+      "checks": 77,
+      "failures": 0
+    },
+    "sheath": {
+      "checks": 218,
+      "failures": 0
+    },
+    "polish": {
+      "checks": 66,
+      "failures": 0
+    }
+  },
+  "source_checks": 562,
+  "packaged": {
+    "packaged-ranger": {
+      "checks": 48,
+      "failures": 0
+    },
+    "packaged-swords": {
+      "checks": 90,
+      "failures": 0
+    },
+    "packaged-equipment": {
+      "checks": 63,
+      "failures": 0
+    }
+  },
+  "packaged_checks": 201,
+  "review": "Independent review passed. Shooting, airborne bow, jump and roll transforms match saved baseline exactly. Zero-time carry shows no bow drift; 0.5x/1x/2x growth keeps correct bow scale and grip.",
+  "native_launch": "Passed universal macOS launch; strict deep signature verification; archive integrity verified",
+  "current_app": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Goemon.app",
+  "rollback_app": "/Users/eric/Desktop/Projects_Codex/Sonic/build/ranger-steady-run/previous/Goemon.app",
+  "archive": "/Users/eric/Desktop/Projects_Codex/Sonic/build/ranger-steady-run/Goemon Ranger Steady Run.zip",
+  "preview": "ranger-steady-run.gif",
+  "preferences_unchanged": true,
+  "testing_scope": "Targeted regression suites; older legacy broad combat/chain limitations documented in docs/combat-polish/verification.json."
+}

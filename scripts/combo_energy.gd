@@ -57,11 +57,11 @@ static func melee_attack(hero: Hero,source: Dictionary,reach: float,cross: bool)
 	BreakableBuilding.hit_area(hero.game,origin,reach,MELEE_DAMAGE*hero.damage_multiplier(),ticket,direction,.5)
 	for enemy in hero.game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead:continue
-		var offset=enemy.global_position-hero.global_position
+		var offset=AttackChain.contact_point(enemy,origin,enemy.global_position)-hero.global_position
 		var flat=Vector3(offset.x,0,offset.z)
 		if flat.length()>reach+enemy.body_radius or absf(offset.y)>3.5*hero.growth_multiplier():continue
 		if flat.length()>.1 and direction.dot(flat.normalized())<.5:continue
-		var point=AttackChain.aim_point(enemy)
+		var point=AttackChain.aim_point(enemy,origin)
 		if not hero.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(origin,point,1)).is_empty():continue
 		enemy.take_hit(MELEE_DAMAGE*hero.damage_multiplier(),direction,false,ticket)
 		hero.game.confirm_impact(enemy,point,direction,1,true)

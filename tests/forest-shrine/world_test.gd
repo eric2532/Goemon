@@ -17,6 +17,6 @@ func run():
 	var colliders=world.structure_nodes[gate.id].find_children("*","StaticBody3D",true,false)
 	check(colliders.size()>0,"A gate owns real collision")
 	check(colliders.any(func(b):return b.collision_layer==32),"Gate passage blocks enemies without blocking friendly actors")
-	check(world.worker_nodes.size()==6,"All six workers have visible battlefield models")
+	check(world.worker_nodes.size()==8,"All eight miners and guards have visible battlefield models")
 	world.queue_free();await process_frame;finish()
 func finish():print("FOREST_WORLD_RESULT failures=%d"%failures);quit(1 if failures else 0)

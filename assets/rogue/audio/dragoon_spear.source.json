@@ -1,0 +1,95 @@
+{
+  "title": "Spear",
+  "channel": "Sounds of the Stickman",
+  "source_url": "https://www.youtube.com/watch?v=meRwEzTTneI",
+  "retrieved_on": "2026-10-15",
+  "source_wav_sha256": "f3dc1fc3ccb3a81acebc05de009197d3e3f155973d18378539236d65839ded52",
+  "usage": "Dragoon grounded left-click thrust combo and grounded right-click three-hit sweep",
+  "processing": "Trimmed individual effects, 85 Hz high-pass, tempo adjusted without shifting pitch, 3 ms attack/25 ms tail fades, peak normalized to -9 or -7.5 dBFS; stereo 48 kHz PCM16. Sweep blends both cleaves and a quieter thrust at 0/.008/.015 seconds into one broad strike, released once at the first contact.",
+  "generator": "tools/build_dragoon_lance_audio.py",
+  "license": "Not established by this download; original video lists the source attributions below.",
+  "original_video_sound_attributions": [
+    "https://www.zapsplat.com/music/spear-thrown-and-stick-into-ground-version-4/",
+    "https://www.zapsplat.com/music/spear-thrown-and-stick-into-ground-with-slight-vibration-of-the-wooden-spear-pole-on-impact-version-1/",
+    "https://www.zapsplat.com/music/knife-slice-slash-skin-fleshy-wound-squelch-of-blood-and-guts-2/",
+    "https://freesfx.co.uk/sfx/spear",
+    "https://www.zapsplat.com/music/knife-slice-slash-skin-fleshy-wound-squelch-of-blood-and-guts-4/",
+    "https://freesound.org/people/Pogotron/sounds/60835/",
+    "https://www.zapsplat.com/page/2/?s=slash&post_type=music&sound-effect-category-id",
+    "https://www.zapsplat.com/music/spear-thrown-and-stick-into-ground-with-slight-vibration-of-the-wooden-spear-pole-on-impact-version-5/"
+  ],
+  "samples": [
+    {
+      "path": "audio/thrust-dragoon-0.wav",
+      "duration_seconds": 0.42398,
+      "peak_dbfs": -9.0,
+      "sha256": "89f51779d5b65257e3e6c5390943382d4611a64eccddfa48f96053ea29a95e30",
+      "role": "Left-click thrust 1",
+      "source_seconds": [
+        1.092,
+        1.57
+      ],
+      "tempo": 1.15
+    },
+    {
+      "path": "audio/thrust-dragoon-1.wav",
+      "duration_seconds": 0.30727,
+      "peak_dbfs": -9.0,
+      "sha256": "e510cd153b02a4ad7158b73533cc2264a34a0d350d4cab85d0f1dfb50f23da9f",
+      "role": "Left-click thrust 2",
+      "source_seconds": [
+        1.906,
+        2.22
+      ],
+      "tempo": 1.05
+    },
+    {
+      "path": "audio/thrust-dragoon-2.wav",
+      "duration_seconds": 0.50138,
+      "peak_dbfs": -7.5,
+      "sha256": "5b2e97ab2ad114c2f8d984cf98833c9d622be8dbde984ea3640e90c2cd9d3253",
+      "role": "Left-click thrust 3",
+      "source_seconds": [
+        4.567,
+        5.15
+      ],
+      "tempo": 1.2
+    },
+    {
+      "path": "audio/sweep-dragoon.wav",
+      "duration_seconds": 0.39596,
+      "peak_dbfs": -7.5,
+      "sha256": "a97643e7266e41cf707cca3e2fbfbd01a2d9dd12c659cd8fd840a817c535ac52",
+      "role": "Right-click Azure Lance Sweep",
+      "layers": [
+        {
+          "source_seconds": [
+            2.8,
+            3.14
+          ],
+          "tempo": 1.1,
+          "gain": 0.85,
+          "offset_seconds": 0.0
+        },
+        {
+          "source_seconds": [
+            3.78,
+            4.06
+          ],
+          "tempo": 1.1,
+          "gain": 0.65,
+          "offset_seconds": 0.008
+        },
+        {
+          "source_seconds": [
+            4.58,
+            5.1
+          ],
+          "tempo": 1.4,
+          "gain": 0.35,
+          "offset_seconds": 0.015
+        }
+      ]
+    }
+  ]
+}

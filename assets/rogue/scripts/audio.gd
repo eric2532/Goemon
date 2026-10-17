@@ -1,5 +1,6 @@
 extends Node
 
+var game: Node
 var voices: Array[AudioStreamPlayer] = []
 var cache: Dictionary = {}
 var last_events: Dictionary = {}
@@ -31,6 +32,7 @@ func _ready() -> void:
 		ambience.play()
 
 func play(event: String, options: Dictionary = {}) -> void:
+	if is_instance_valid(game) and game.sound_library.recording:return
 	if volume <= 0.001 or voices.is_empty():
 		return
 	if paused and event not in ["click","hover","reward","victory","defeat"]:
@@ -40,31 +42,32 @@ func play(event: String, options: Dictionary = {}) -> void:
 	if now-float(last_events.get(event,-100.0)) < float(limits.get(event,0.015)):
 		return
 	last_events[event] = now
-	var file = event
-	if event == "blade":
-		var style = str(options.get("style","pirate"))
-		if style not in ["pirate","samurai","ninja","knight","magic-swordsman","explorer","master-thief"]:
-			style = "pirate"
-		file += "-"+style+"-"+str(clampi(int(options.get("combo",0)),0,2))
-	elif event == "claymore-sweep":
-		file += "-"+str(clampi(int(options.get("combo",0)),0,2))
-	elif event == "claymore-impact":
-		file += "-"+("heavy" if options.get("heavy",false) else "light")
-	elif event == "bow":
-		file += "-"+("power" if options.get("style","") == "power" else "rapid")
-	elif event == "cast":
-		file += "-"+("magic-swordsman" if options.get("style","") == "magic-swordsman" else "mage")
+	var file = event_file(event, options)
 	if not cache.has(file):
 		var path = "res://assets/rogue/audio/"+file+".wav"
 		if not ResourceLoader.exists(path):
 			return
 		cache[file] = load(path)
+	var recorded: AudioStream
+	var gain=1.0
+	var playback={}
+	if is_instance_valid(game):
+		var id=game.sound_character_id()
+		var slot=game.sound_library.native_slot(id,event,options)
+		var owner_ticket: Dictionary={}
+		if is_instance_valid(game.player):
+			owner_ticket=game.player.active_ability._ticket if game.player.active_ability!=null else game.player.attack_chain.active_ticket
+		var ticket: Dictionary=options.get("ticket",owner_ticket)
+		playback=game.move_audio.weapon(game,id,slot,cache[file],ticket)
+		if playback.muted:return
+		recorded=playback.stream if playback.recorded else null
+		gain=playback.gain
 	var voice = voices[cursor]
 	cursor = (cursor+1)%voices.size()
 	voice.stop()
-	voice.stream = cache[file]
-	voice.volume_db = linear_to_db(maxf(0.0001,volume*float(options.get("volume",options.get("gain",1.0)))))
-	voice.pitch_scale = clampf(float(options.get("pitch",1.0))*randf_range(0.97,1.03),0.3,2.8)
+	voice.stream = playback.stream if not playback.is_empty() else cache[file]
+	voice.volume_db = linear_to_db(volume*float(options.get("volume",options.get("gain",1.0)))*gain)
+	voice.pitch_scale = 1.0 if recorded else clampf(float(options.get("pitch",1.0))*randf_range(0.97,1.03),0.3,2.8)
 	voice.play()
 
 func set_volume(value: float) -> void:
@@ -75,3 +78,27 @@ func set_volume(value: float) -> void:
 func set_paused(value: bool) -> void:
 	paused = value
 	set_volume(volume)
+
+static func event_file(event: String, options: Dictionary = {})->String:
+	var file = event
+	if event == "blade":
+		var style = str(options.get("style","pirate"))
+		if style not in ["pirate","samurai","ninja","knight","magic-swordsman","explorer","master-thief"]:
+			style = "pirate"
+		var variation = "special" if style in ["ninja","explorer"] and options.get("special",false) else str(clampi(int(options.get("combo",0)),0,2))
+		file += "-"+style+"-"+variation
+	elif event == "thrust" and options.get("style","")=="dragoon":
+		file = "thrust-dragoon-"+str(clampi(int(options.get("combo",0)),0,2))
+	elif event == "claymore-sweep":
+		file = "sweep-dragoon" if options.get("style","")=="dragoon" else file+"-"+str(clampi(int(options.get("combo",0)),0,2))
+	elif event == "claymore-impact":
+		file += "-"+("heavy" if options.get("heavy",false) else "light")
+	elif event == "bow":
+		var style=str(options.get("style",""))
+		if style=="tower":file="bow-tower-"+str(posmod(int(options.get("variation",0)),2))
+		elif options.get("ranger",false) or style=="ranger":
+			file="bow-ranger-power" if style=="power" else "bow-ranger-rapid-"+str(posmod(int(options.get("variation",options.get("combo",0))),2))
+		else:file += "-"+("power" if style=="power" else "rapid")
+	elif event == "cast":
+		file += "-"+("magic-swordsman" if options.get("style","") == "magic-swordsman" else "mage")
+	return file

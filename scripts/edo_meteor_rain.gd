@@ -28,10 +28,10 @@ static func choose_targets(player: Hero,count: int,reach: float)->Array[Vector3]
 	var result: Array[Vector3]=[]
 	var candidates: Array[Vector3]=[]
 	for enemy in player.game.enemies:
-		if is_instance_valid(enemy) and not enemy.dead and player.global_position.distance_to(enemy.global_position)<=reach:
+		if is_instance_valid(enemy) and not enemy.dead and player.global_position.distance_to(AttackChain.contact_point(enemy,player.global_position+Vector3.UP,enemy.global_position))<=reach:
 			if player.game.has_method("forest_enemy_visible") and not player.game.forest_enemy_visible(enemy):continue
 			if player.game.descent_mode and enemy.island_index>=0 and enemy.island_index!=player.game.encounters.current_island:continue
-			candidates.append(enemy.global_position)
+			candidates.append(AttackChain.contact_point(enemy,player.global_position+Vector3.UP,enemy.global_position))
 	candidates.sort_custom(func(a,b):return a.distance_squared_to(player.global_position)<b.distance_squared_to(player.global_position))
 	# Select separated enemy groups first, rather than spending every meteor on one mob.
 	for candidate in candidates:
@@ -102,11 +102,12 @@ func impact(point: Vector3):
 	BreakableBuilding.hit_area(game,point+Vector3.UP,radius,damage,attack_ticket)
 	for enemy in game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead:continue
-		var offset=enemy.global_position-point
+		var hurt=AttackChain.contact_point(enemy,point+Vector3.UP,enemy.global_position)
+		var offset=hurt-point
 		if Vector2(offset.x,offset.z).length()>radius+enemy.body_radius or absf(offset.y)>4:continue
-		var ray=PhysicsRayQueryParameters3D.create(point+Vector3.UP,enemy.global_position+Vector3.UP,1)
+		var ray=PhysicsRayQueryParameters3D.create(point+Vector3.UP,AttackChain.contact_point(enemy,point+Vector3.UP,enemy.global_position+Vector3.UP),1)
 		if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty():continue
 		var direction=offset.normalized() if offset.length()>.01 else hero.facing
 		enemy.take_hit(damage,direction,true,attack_ticket)
-		game.impact_effect(enemy.global_position+Vector3.UP,direction,2)
+		game.impact_effect(AttackChain.contact_point(enemy,point+Vector3.UP,enemy.global_position+Vector3.UP),direction,2)
 		game.chain+=1;game.chain_timer=3

@@ -1,0 +1,37 @@
+SUPERSEDED: The user rejected the free cursor experiment. Current controls use ordinary mouse-look with a fixed reticle; see third-person-aim.txt.
+
+Free crosshair — latest Forest Shrine v2.59.0
+
+User explicitly chose free mouse movement instead of a fixed offset setting.
+In live Forest combat, move the mouse to aim anywhere in the viewport. The
+system arrow is hidden; the reticle itself is the pointer. Hold middle mouse
+or Alt while moving to turn the camera; release to aim freely again. Mouse
+wheel keeps zooming and left/right click keep their attacks. Settings includes
+the camera-look controls. No permanent extra HUD instructions were added.
+
+The reticle, actual targeting ray, projectile convergence, shared melee facing,
+hidden melee assistance and Dragoon's landing solution share the cursor aim.
+Dragoon's circle follows before launch and stays fixed after the dive starts.
+The current mouse position is viewport-relative and scales on resize. Orbit
+preserves it, then restores the pointer there. Menus, building, death and lost
+application focus release mouse capture and clear held camera-look sources.
+The earlier centered controls remain in legacy modes outside Forest Shrine.
+
+Implementation: scripts/forest/forest_game.gd (mode-local cursor/input lifecycle),
+scripts/game.gd (shared screen position and real aim), scripts/melee_assist.gd
+(manual breakaway reference), and both HUD reticle draw methods. The old
+crosshair lifecycle and melee fixtures now exercise the new cursor controls.
+
+Evidence under tests/free-crosshair: missing feature reproduced before code;
+23 free-aim checks pass headless and in native Metal rendering. Inspected the
+native off-centre reticle and matching blue landing circle screenshot. A native
+24-check run also verifies the reticle's actual white centre remains visible
+above the bottom hero HUD; the hidden-under-HUD failure was reproduced before
+moving its draw calls into one mouse-ignoring overlay Control. Existing
+crosshair lifecycle16, melee67, preview20, flight24, sweep25, spear audio18 and
+title/music17 checks pass, plus definitive title/roster/retry flow. Read-only
+review found no blockers. Packaged checks and installed app hashes/backup are
+recorded in verification.json.
+
+Current app: build/Goemon.app (restart to load).
+Release: build/Other Files/Forest Shrine v2.59.0/Free Crosshair/Goemon.zip

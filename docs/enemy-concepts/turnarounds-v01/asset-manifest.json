@@ -1,0 +1,42 @@
+{
+  "status": "Concept art only; no implementation",
+  "generator": "Built-in image_gen",
+  "views": [
+    "front",
+    "side",
+    "back"
+  ],
+  "scale": "Every enemy is drawn larger than the Goemon comparison. Exact runtime scale is undecided.",
+  "assets": [
+    {
+      "enemy": "masked_raider",
+      "path": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/enemy-concepts/turnarounds-v01/masked-raider-turnaround-v01.png",
+      "source": "/Users/eric/.codex/generated_images/01a138ca-d03a-79a2-a265-7fd2bce39857/exec-9f3acaf6-57d1-4f51-814f-1383271da536.png",
+      "sha256": "0f786a57a1a739820a4f47502c067b782c9fd5a0380c8156b388c878fc1b26f2"
+    },
+    {
+      "enemy": "reed_archer",
+      "path": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/enemy-concepts/turnarounds-v01/reed-archer-turnaround-v01.png",
+      "source": "/Users/eric/.codex/generated_images/01a138ca-d03a-79a2-a265-7fd2bce39857/exec-2efe8bc6-b0d7-4e13-9e0c-137a9105230a.png",
+      "sha256": "5619fbf8cd07e12c305f2b21628dd33eecdbb7ec86238ab135b742093f28915d"
+    },
+    {
+      "enemy": "daruma_breaker",
+      "path": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/enemy-concepts/turnarounds-v01/daruma-breaker-turnaround-v01.png",
+      "source": "/Users/eric/.codex/generated_images/01a138ca-d03a-79a2-a265-7fd2bce39857/exec-0bf8ec1f-dbd6-406c-b5e0-85ff0885b925.png",
+      "sha256": "bf478c83d8c45cc1b28cbe854101144520df3a490be76e63c396d8d6f20bc7f3"
+    },
+    {
+      "enemy": "lantern_runner",
+      "path": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/enemy-concepts/turnarounds-v01/lantern-runner-turnaround-v01.png",
+      "source": "/Users/eric/.codex/generated_images/01a138ca-d03a-79a2-a265-7fd2bce39857/exec-32e78b80-1257-43b3-a635-bebd1c07022a.png",
+      "sha256": "19dc79c93a01a7d8ae2d6e7158d867070eddef3c84cf31a062855a5d88e38fcb"
+    }
+  ],
+  "references": [
+    "/Users/eric/.codex/generated_images/01a138ca-d03a-79a2-a265-7fd2bce39857/exec-0034de28-ed00-4039-9720-f9b113610561.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/docs/goemon-cosplay/runtime/goemon-front.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/docs/goemon-cosplay/runtime/goemon-side.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/docs/goemon-cosplay/runtime/goemon-back.png"
+  ]
+}

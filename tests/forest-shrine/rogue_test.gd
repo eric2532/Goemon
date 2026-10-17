@@ -14,6 +14,7 @@ func press(action: String,down: bool=true):
 func run():
 	var game=load("res://scenes/forest_shrine.tscn").instantiate();root.add_child(game);current_scene=game
 	await process_frame;await process_frame
+	var starting_buildings=game.model.buildings.keys()
 	check(game.camera_rig.camera.size>=100 and game.model.phase=="preparing","Preparation retains the original overhead building view")
 	press("character_toggle");press("character_toggle",false);await process_frame
 	check(game.rogue_roster_open,"Q opens the full fighter roster during preparation")
@@ -22,9 +23,9 @@ func run():
 	game.choose_rogue_character(3);await process_frame
 	check(game.player.character_id==3 and game.paused and game.model.phase=="preparing","Selecting a fighter preserves the paused building phase")
 	check(not is_instance_valid(game.menu) or not game.menu.visible,"Choosing a fighter dismisses its menu")
-	game.forest_ui.sync();check(game.forest_ui.health.text.contains("Pirate"),"Forest HUD names the active fighter")
+	game.forest_ui.sync();check(game.forest_ui.hero_name.text.contains("Pirate"),"Forest HUD names the active fighter")
 	game.start_wave();game.model.waves.spawn_clock=10000;await process_frame
-	check(game.camera_rig.camera.projection==Camera3D.PROJECTION_PERSPECTIVE and is_equal_approx(game.camera_rig.distance,ActionCamera.CROSSHAIR_DEFAULT_DISTANCE),"Wave camera uses Fire Siege Crosshair perspective framing")
+	check(game.camera_rig.camera.projection==Camera3D.PROJECTION_PERSPECTIVE and is_equal_approx(game.camera_rig.distance,game.settings.forest_camera_distance),"Wave camera uses crosshair framing with the saved Forest distance")
 	if failures>0:await finish(game);return
 	for id in game.player.RogueRoster.ids():
 		press("light_attack",false);game.show_rogue_roster();game.choose_rogue_character(id)
@@ -33,7 +34,8 @@ func run():
 		for actor in game.actors.values():
 			if is_instance_valid(actor):actor.queue_free()
 		game.actors.clear();game.enemies.clear();game.model.enemies.clear()
-		game.model.waves.spawn_one();var e=game.model.enemies.values()[0];e.pos=Vector3(0,0,67);e.hp=10000;e.max_hp=10000;e.stun=100
+		# Keep the shared target inside the short weapons' physical Goemon-sized reach.
+		game.model.waves.spawn_one();var e=game.model.enemies.values()[0];e.pos=Vector3(0,0,68.5);e.hp=10000;e.max_hp=10000;e.stun=100
 		game.model.update_vision(p.position);game.sync_enemies();game.camera_rig.reset_follow();await frames(2)
 		game.camera_rig.set_process(false)
 		game.camera_rig.camera.global_position=p.position+Vector3(.65,2.4,10)
@@ -71,7 +73,7 @@ func run():
 	await frames(2)
 	check(not stalker.attack,"Untargetable Rogue fighters are not attacked by the forest director")
 	game.model.phase="preparing";game.set_phase_view();await process_frame
-	check(game.paused and game.camera_rig.camera.size>=100 and game.model.buildings.size()==1,"Wave completion returns to the same overhead settlement")
+	check(game.paused and game.camera_rig.camera.size>=100 and game.model.buildings.keys()==starting_buildings,"Wave completion returns to the same overhead fort")
 	await finish(game)
 func finish(game):
 	game.queue_free();paused=false;await process_frame;await create_timer(.35).timeout

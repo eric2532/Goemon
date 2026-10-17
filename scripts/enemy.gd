@@ -175,9 +175,11 @@ func take_hit(damage: float, dir: Vector3, heavy: bool,attack_ticket: Dictionary
 		defense_dog_state="";defense_dog_timer=0;defense_dog_contact_done=true
 	if heavy and elite_attacks!=null and elite_attacks.active:elite_attacks.cancel()
 	var tower_hit=bool(attack_ticket.get("tower",false))
+	var critical=preload("res://scripts/critical_hits.gd").roll(attack_ticket)
 	if not tower_hit:
 		damage*=game.player.attack_chain.damage_for(attack_ticket)
 		game.player.attack_chain.confirm(attack_ticket)
+		if critical:damage*=preload("res://scripts/critical_hits.gd").DAMAGE_MULTIPLIER
 	if defense_traits!=null:damage*=defense_traits.hit_multiplier(dir,attack_ticket,heavy)
 	var preserve_impact=attack_ticket.get("bonus",false) and recoil_age<.08
 	var prior_velocity=velocity;var prior_strength=recoil_strength;var prior_direction=recoil_direction;var prior_stun=stun
@@ -186,7 +188,7 @@ func take_hit(damage: float, dir: Vector3, heavy: bool,attack_ticket: Dictionary
 	recoil_strength=0.48 if heavy else 0.22
 	alerted=true
 	hp-=damage
-	bar.visible=true
+	bar.visible=false
 	bar.scale.x=maxf(0.01,hp/max_hp)*defense_scale
 	stun=0.46 if heavy else 0.20
 	if boss:
@@ -215,7 +217,8 @@ func take_hit(damage: float, dir: Vector3, heavy: bool,attack_ticket: Dictionary
 		model.animate(0,0,is_on_floor(),velocity.y,0,false,0,false)
 		apply_recoil()
 	if not tower_hit or attack_ticket.get("tower_feedback",false):
-		game.damage_number(global_position+Vector3.UP*2.6*defense_scale,int(damage),heavy)
+		var label_point: Vector3=call("combat_contact_point",game.player.global_position+Vector3.UP*2.6) if has_method("combat_contact_point") else global_position+Vector3.UP*2.6*defense_scale
+		game.damage_number(label_point,int(damage),heavy,critical)
 	if hp<=0:
 		if elite_attacks!=null:elite_attacks.cancel()
 		if defense_traits!=null:defense_traits.cancel()

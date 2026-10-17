@@ -1,10 +1,9 @@
 extends HeroModel
-## Keeps Hero's model contract while rendering Rogue's original authored actor.
-## The combat adapter advances native poses; this wrapper handles menus and the
-## +Z (Rogue) to -Z (Sonic) visual convention without rebuilding a Goemon rig.
+## Keeps Hero's model contract while class poses drive the shared Goemon base.
+## This wrapper handles menus and the +Z (Rogue) to -Z (Sonic) visual convention.
 
 const Actor = preload("res://assets/rogue/scripts/actor.gd")
-const VISUAL_SCALE = 1.15
+const VISUAL_SCALE = 1.0
 var class_id = "pirate"
 var actor: Node3D
 var combat: Node
@@ -96,6 +95,9 @@ func apply_skin(_id: String) -> void:
 	pass
 
 func hand_position(side: String = "R") -> Vector3:
+	if is_instance_valid(actor) and actor.cosplay_rig!=null:
+		var sk: Skeleton3D=actor.cosplay_rig.skeleton
+		return sk.global_transform*sk.get_bone_global_pose(sk.find_bone("Hand_"+side)).origin
 	if is_instance_valid(actor) and actor.joints.has("Arm_" + side):
 		var arm: Node3D = actor.joints["Arm_" + side].node
 		return arm.to_global(Vector3(0, -0.38, 0.2))

@@ -36,21 +36,23 @@ func _ready():
 	source=FireEnergy.new();source.charged=true;add_child(source);source.scale=Vector3.ONE*1.5
 	tip=FireEnergy.new();tip.charged=true;add_child(tip);tip.scale=Vector3.ONE*3
 	var light=OmniLight3D.new();light.light_color=Color("ff7528");light.light_energy=2;light.omni_range=8;add_child(light)
-	loop=AudioStreamPlayer3D.new();loop.stream=game.sound_library.custom.get("edo_beam_loop",game.sounds.edo_beam_loop).duplicate()
+	var audio: Dictionary=game.sound_library.playback_for(hero.character_id,"move_beam_weapon",game.sounds.edo_beam_loop,"edo_beam_loop")
+	loop=AudioStreamPlayer3D.new();loop.stream=audio.stream.duplicate()
 	loop.stream.loop_end=int(loop.stream.get_length()*loop.stream.mix_rate);loop.stream.loop_mode=AudioStreamWAV.LOOP_FORWARD
-	loop.volume_db=linear_to_db(.35*float(game.sound_library.gains.get("edo_beam_loop",1)));loop.pitch_scale=1.0 if game.sound_library.custom.has("edo_beam_loop") else .8;add_child(loop);loop.play()
+	loop.volume_db=linear_to_db(.35*audio.gain);loop.pitch_scale=1.0 if audio.recorded else .8;add_child(loop)
+	if not game.sound_library.recording and not audio.muted:loop.play()
 	update_path()
 func update_path():
 	direction=game.attack_direction()
-	global_position=hero.global_position+(Vector3.UP*1.65+direction*.8)*hero.growth_multiplier()
+	global_position=hero.model.hand_position("R")
 	if game.rogue_battle_mode or game.crosshair_aim_enabled():direction=game.projectile_direction(global_position)
 	length_now=balance.beam_length*hero.base_attack_speed_multiplier()*hero.growth_multiplier()
 	if hero.growth_multiplier()>1.01 and not game.rogue_battle_mode and not game.crosshair_aim_enabled():
 		var target=AttackChain.screen_target(hero,global_position,length_now)
 		if target!=null:direction=(AttackChain.aim_point(target)-global_position).normalized()
 	look_at(global_position+direction,Vector3.UP)
-	# The source flare follows the posed hand; the original damage-volume origin remains stable.
-	source.position=to_local(hero.model.hand_position("R"))
+	# The flare, visible shell and damage segment share the posed hand origin.
+	source.position=Vector3.ZERO
 	var pulse=1.0+sin(elapsed*32)*.045
 	for i in range(shells.size()):
 		shells[i].material_override.set_shader_parameter("clock",elapsed)
@@ -66,11 +68,13 @@ func damage_tick():
 	BreakableBuilding.hit_segment(game,global_position,end,balance.beam_tick_damage*hero.damage_multiplier(),attack_ticket)
 	for enemy in game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead:continue
-		var target=enemy.global_position+Vector3.UP*(1.5 if enemy.boss else 1.1)
-		var along=(target-global_position).dot(direction)
-		if along<0 or along>length_now:continue
-		var nearest=Geometry3D.get_closest_point_to_segment(target,global_position,end)
-		if nearest.distance_to(target)>balance.beam_radius+enemy.body_radius:continue
+		var legacy=enemy.global_position+Vector3.UP*(1.5 if enemy.boss else 1.1)
+		if not enemy.has_method("combat_segment_contact"):
+			var along=(legacy-global_position).dot(direction)
+			if along<0 or along>length_now:continue
+		var contact=AttackChain.segment_contact(enemy,global_position,end,balance.beam_radius,legacy)
+		if contact.is_empty():continue
+		var nearest: Vector3=contact.point
 		enemy.take_hit(balance.beam_tick_damage*hero.damage_multiplier(),direction,false,attack_ticket)
 		game.confirm_impact(enemy,nearest,direction,1,true)
 		game.burst(nearest,Color("ff8d32"),3,.7)

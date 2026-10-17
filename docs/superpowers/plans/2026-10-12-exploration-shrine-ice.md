@@ -45,7 +45,7 @@ Reuse the attached managed worktree; inspect it before edits with the using-git-
 For the commands below, set a task-specific engine variable in each shell that needs it:
 
 ```sh
-goemon_engine='/Users/eric/Downloads/Goemon-marc-prototypes-2026-10-10.JqoVC3/runtime/Godot.app/Contents/MacOS/Godot'
+goemon_engine='/Users/eric/Desktop/Projects_Codex/Sonic/backups/download-references/standalone-prototypes/Goemon-marc-prototypes-2026-10-10.JqoVC3/runtime/Godot.app/Contents/MacOS/Godot'
 "$goemon_engine" --version
 ```
 

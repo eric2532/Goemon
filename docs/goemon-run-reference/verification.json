@@ -1,0 +1,32 @@
+{
+  "request": "Match Goemon's run to the user's three side and rear reference screenshots.",
+  "changes": [
+    "Forward torso lean",
+    "Compact bent-elbow arm swing",
+    "Early high rear-heel recovery with sole facing backward",
+    "Smoothly blended forward run and sprint"
+  ],
+  "scope": "Goemon's existing HeroLocomotion animation; gameplay movement and other class-specific animation systems unchanged.",
+  "reference_checks": {
+    "checks": 12,
+    "failures": 0,
+    "red_before_change": 8
+  },
+  "locomotion": "LOCOMOTION_TEST_RESULT failures=0 frames=0 samples=2817",
+  "combat_combo": "PIPE_COMBO_RESULT failures=0 frames=0 plant_error=0.00000012287812 arm_error=0.00000180272102",
+  "packaged_reference_checks": "GOEMON_RUN_REFERENCE_RESULT checks=12 failures=0",
+  "master_sha256": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c",
+  "packaged_pck_sha256": "8bef52e8c952961e9b37b4b49de726e42ceba8e09e5b0e3b59bde868c13da8d5",
+  "preview": {
+    "frames": 60,
+    "fps": 30.6,
+    "angles": [
+      "side",
+      "rear",
+      "rear three-quarter"
+    ],
+    "gif": "goemon-run.gif",
+    "video": "goemon-run.mp4"
+  },
+  "macos_signature": "codesign --verify --deep --strict passed"
+}

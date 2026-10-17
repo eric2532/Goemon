@@ -1,0 +1,62 @@
+Forest Shrine v2.59.0 — denser spawns and Explorer close attack assist
+2026-10-15, macOS Apple M3, Godot 4.6.1 Forward+/Metal
+
+Changes
+- Three arrivals each 0.65-second timer, after the existing two-second opening.
+- Finite waves: 72, 108, 144, 180, 240. Active cap 240; bounded spawn retries.
+- Southern entry and fog clearance retained. Ordinary batch members spaced apart.
+- One Daruma in each of waves 3–5, preserving the giant's role and staging.
+- Crowd-only textures limited to 1024px with mipmaps. Original source images,
+  character rendering and the hub remain sharp. Ordinary crowd shadows disabled;
+  Daruma retains shadows. Reuse pose images/textures and update changed rows only.
+- Normal transforms computed once per part instead of inverse per vertex.
+- Explorer primary chooses an aimed, living, visible target within 2.75m of its
+  fitted body surface and the original forward half-plane. Turns during windup
+  and redirects the existing short forward lunge; lateral dodge is retained.
+- No extra damage, range, lunge distance, cooldown or teleport. Physics and walls
+  remain authoritative; loss of visibility or target validity ends assistance.
+
+Verification
+Fresh source checks: spawn 20/20; crowd cache/render data 25/25; Explorer 35/35;
+Explorer acquisition 2/2; modern combat 20/20; hub cleanup 78/78; roster 64/64;
+southern spawning 92/92; enemy roles 77/77; enemy integration 17/17;
+definitive title/roster/preparation/retry and ordinary integration: zero failures.
+First appearance of all four enemy types: 8/8, 0.13–1.79ms. Native fitted
+contact regression: 246/246, mean rounded contact 0.018ms.
+Independent review confirmed freed target and stale roster entries are safe.
+Rendered Explorer stroke hit nearby side target, damage 19. Captures in explorer/.
+240-actor Explorer acquisition used one detailed contact query, mean 2.43ms.
+
+Performance method
+Same real scene, 80 then 240 visible ordinary enemies, identical wide orthographic
+camera. Paired runs compare saved pre-change crowd/wave/shader files against new
+files. CPU components are separately sampled. Static frame samples keep walking
+poses moving; live samples additionally tick AI, actor colliders and world sync.
+These are local stress measurements, not a guaranteed framerate on other hardware.
+
+80 visible enemies: live median 16.65 -> 16.68ms; p95 17.16 -> 16.99ms.
+Drawn primitive passes 10,095,507 -> 3,918,773; crowd update 1.90 -> 0.59ms.
+
+240 visible enemies: live median 46.34 -> 25.95ms; p95 93.27 -> 75.48ms.
+Drawn primitive passes 28,553,328 -> 10,071,224; crowd update 5.50 -> 2.74ms.
+
+Limits: the deliberately all-visible 240-enemy case still exceeds 16.67ms and has
+occasional spikes. Rendering savings do not remove the CPU cost of three times as
+many active actors. Typical camera views contain fewer enemies. Raw metrics and
+screenshots: before-final/ and after-final/; profiler: tests/forest-shrine/dense_crowd_profile.gd.
+
+Release export succeeded (macOS preset), version 2.59.0. Bundle signature verified.
+The editor import scan still reports the existing unset Blender executable path
+for excluded .blend source assets; exported runtime uses imported models.
+Packed-resource checks: enlarged spawn waves 20/20, Explorer 35/35, shared run
+roster 1781/1781, definitive current title / hub / retry: zero failures.
+Packed Metal render completed at 80 and 240 visible enemies without errors.
+Final packed sample: 80 live median 16.67ms; 240 live median 16.93ms (~59fps),
+p95 19.68ms. The earlier paired source run was slower (25.95ms at 240), showing
+local timing variation; the 65% reduction in rendered primitives is consistent.
+Captures and raw packed metrics are in packaged/. Main app installed at
+build/Goemon.app; previous app preserved as recorded in installed.json.
+Installed PCK hash matches the verified exported PCK.
+
+Installed native macOS executable booted its embedded main scene headlessly
+and exited successfully after 20 frames, without script or resource errors.

@@ -6,7 +6,7 @@ func check(ok: bool,message: String):
 	if not ok:failures+=1;printerr("FAIL: "+message)
 func _initialize():call_deferred("run")
 func run():
-	var m=load("res://scripts/forest/forest_model.gd").new();m.reset(42)
+	var m=load("res://scripts/forest/forest_model.gd").new();preload("res://tests/forest-shrine/empty_settlement.gd").reset(m)
 	check(m.has_method("start_wave"),"The forest simulation can start and resolve a finite wave")
 	if failures:finish();return
 	check(m.workers.size()==6,"A new settlement has its starting workforce")
@@ -37,8 +37,10 @@ func run():
 	m.waves.pending=0;m.enemies.clear();m.tick(.1,Vector3(0,0,18))
 	check(m.phase=="preparing" and worker.state=="idle" and worker.hp==worker.max_hp,"Wave completion recovers wounded workers during preparation")
 	m.gold=1000
+	for x in range(3,11):
+		for y in range(5,7):m.explored[Vector2i(x,y)]=true
 	var wall=m.build("wall",Vector2i(3,5),0)
-	var tower=m.build("tower",Vector2i(4,5),0)
+	var tower=m.build("tower",Vector2i(9,5),0)
 	check(not wall.is_empty() and not tower.is_empty(),"Walls and towers fit in the large opening clearing")
 	wall.hp=100
 	m.start_wave();m.waves.spawn_clock=10000
@@ -54,24 +56,28 @@ func run():
 	m.damage_building(wall.id,1000)
 	check(not m.buildings.has(wall.id) and not m.occupancy.has(Vector2i(3,5)),"Destroyed walls immediately clear navigation occupancy")
 	check(m.enemies.is_empty(),"Delayed wave fixture does not create unintended enemies")
-	m.reset(42);m.workers.clear();m.gold=10000
-	m.build("gate",Vector2i(0,5),0)
-	for x in range(-3,4):
-		m.build("wall",Vector2i(x,-3),0)
-		if x not in [0,1]:m.build("wall",Vector2i(x,5),0)
-	for y in range(-2,5):
-		m.build("wall",Vector2i(-3,y),0);m.build("wall",Vector2i(3,y),0)
-	check(not m.route(Vector2i(0,7),Vector2i(0,2)).is_empty(),"A walled shrine retains its friendly gate route")
-	m.start_wave();m.waves.spawn_clock=10000;m.waves.spawn_one()
-	var raider=m.enemies.values()[0];raider.pos=Vector3(0,0,48)
+	preload("res://tests/forest-shrine/empty_settlement.gd").reset(m);m.workers.clear();m.gold=10000
+	for x in range(-12,13):
+		for y in range(-12,13):m.explored[Vector2i(x,y)]=true
+	for offset in range(0,18,6):
+		m.build("wall",Vector2i(-9+offset,-9),0)
+		m.build("wall",Vector2i(9,-9+offset),1)
+		m.build("wall",Vector2i(-8+offset,9),0)
+		m.build("wall",Vector2i(-9,-8+offset),1)
+	m.build("gate",Vector2i(0,9),0)
+	check(not m.route(Vector2i(0,11),Vector2i(0,2)).is_empty(),"A walled shrine retains its friendly gate route")
+	m.start_wave();m.waves.spawn_clock=10000
+	# Lantern owns shrine pressure; Raiders now prioritize the targetable hero.
+	var raider=m.waves.spawn_enemy(3,Vector3(0,0,72))
 	for i in range(1100):m.tick(.1,Vector3(120,0,120))
-	check(m.shrine().hp<1000,"Enemies breach blocking defenses and reach a fully enclosed shrine")
-	m.reset(42);m.start_wave()
-	for sector in range(8):
-		m.waves.sectors=[sector];m.waves.pending=10;m.enemies.clear();m.waves.spawn_one()
+	check(m.shrine().hp<m.shrine().max_hp,"Enemies breach blocking defenses and reach a fully enclosed shrine")
+	preload("res://tests/forest-shrine/empty_settlement.gd").reset(m);m.start_wave()
+	for attempt in range(8):
+		m.waves.pending=10;m.enemies.clear();m.waves.spawn_one()
 		if not m.enemies.is_empty():
-			check(not m.ALLIED_REGION.has_point(m.cell_of(m.enemies.values()[0].pos)),"Enemies enter beyond friendly settlement bounds in sector %d"%sector)
-	m.reset(42);var threatened_mine=m.build("mine",Vector2i(-5,1),0);m.workforce.assign_idle(threatened_mine.id);m.start_wave()
+			var entry: Vector3=m.enemies.values()[0].pos
+			check(not m.ALLIED_REGION.has_point(m.cell_of(entry)) and entry.z>absf(entry.x),"Enemies enter from the southern perimeter, attempt %d"%attempt)
+	preload("res://tests/forest-shrine/empty_settlement.gd").reset(m);var threatened_mine=m.build("mine",Vector2i(-5,1),0);m.workforce.assign_idle(threatened_mine.id);m.start_wave()
 	m.waves.spawn_one();var threat=m.enemies.values()[0];threat.pos=m.point(m.entry(threatened_mine))
 	var fleeing=m.workers.values()[0];fleeing.pos=threat.pos;m.damage_worker(fleeing.id,1)
 	var returned_to_threat=false
@@ -79,7 +85,7 @@ func run():
 		m.workforce.tick(.1,Vector3.ZERO)
 		if fleeing.job==threatened_mine.id:returned_to_threat=true
 	check(not returned_to_threat,"Retreat does not send a worker back to a workplace still under attack")
-	m.reset(42)
+	preload("res://tests/forest-shrine/empty_settlement.gd").reset(m)
 	for wave_index in range(5):
 		check(m.start_wave(),"Each prepared wave can start")
 		for step in range(200):

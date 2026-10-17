@@ -1,0 +1,37 @@
+{
+  "checks": 70,
+  "failures": [],
+  "assets": [
+    {
+      "asset": "masked_raider",
+      "height": 4.620000183872437,
+      "height_vs_goemon": 1.3999999672339856,
+      "triangles": 41873,
+      "glb_sha256": "5c2e64e620124b476f4d2a123cf3fb9a52703cc677c135a4688e039199578ba7"
+    },
+    {
+      "asset": "reed_archer",
+      "height": 4.455000146600424,
+      "height_vs_goemon": 1.349999959099613,
+      "triangles": 43156,
+      "glb_sha256": "b5d19a54b2e8c6544fb78f81c40bb58e8d430cd31d37aa881105a6944576ac71"
+    },
+    {
+      "asset": "daruma_breaker",
+      "height": 5.775000356386311,
+      "height_vs_goemon": 1.7499999973896807,
+      "triangles": 37176,
+      "glb_sha256": "318d4088a648dbcf77f5ffb145e93f9be97ce54df4d5fa56f32a6dba774868ba"
+    },
+    {
+      "asset": "lantern_runner",
+      "height": 5.115000255428669,
+      "height_vs_goemon": 1.5499999794371622,
+      "triangles": 30484,
+      "glb_sha256": "51bb4c38cd1faad49d940c333db17db7dc8aa91f79025f83cfc2e834a8a39e8c"
+    }
+  ],
+  "godot_import": "passed",
+  "godot_rendered_preview": "EXPORTED_ENEMY_PREVIEW_RESULT failures=0",
+  "sources_have_saved_studio_camera": true
+}

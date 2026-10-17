@@ -1,0 +1,106 @@
+{
+  "verified_at": "2026-10-14T02:40:48.039858+08:00",
+  "request": "Use the rear-view Goemon jumping reference across all twelve cosplay characters.",
+  "reference": "/Users/eric/Desktop/Screenshots/Screenshot 2026-10-14 at 2.20.53\u202fAM.png",
+  "changes": [
+    "Arms spread beside the shoulders with slightly raised fists and articulated elbows.",
+    "Both knees bend and heels tuck behind the body; soles face back.",
+    "Legs extend during descent and retain their final airborne target while the landing weight releases.",
+    "Double-jump flips transition through the shared pose at both boundaries while their rotation and central tuck remain authored.",
+    "The last grounded frame over an edge and airborne blends preserve leg segment lengths.",
+    "Jump height, steering, gravity, class attacks and special-move timing remain controlled by existing gameplay."
+  ],
+  "regression_evidence": {
+    "flip_boundaries_before": {
+      "checks": 162,
+      "failures": 20
+    },
+    "source_flip_and_landing_before": {
+      "checks": 178,
+      "failures": 15
+    },
+    "final_jump": {
+      "checks": 178,
+      "failures": 0
+    }
+  },
+  "packaged_tests": {
+    "goemon_jump_reference_tests": {
+      "checks": 178,
+      "failures": 0,
+      "exit_code": 0,
+      "log": "build/jump-reference/verification/packaged-goemon_jump_reference_tests.log"
+    },
+    "goemon_unified_run_tests": {
+      "checks": 131,
+      "failures": 0,
+      "exit_code": 0,
+      "log": "build/jump-reference/verification/packaged-goemon_unified_run_tests.log"
+    },
+    "goemon_attack_alignment_tests": {
+      "checks": 77,
+      "failures": 0,
+      "exit_code": 0,
+      "log": "build/jump-reference/verification/packaged-goemon_attack_alignment_tests.log"
+    },
+    "edo_primary_alignment_tests": {
+      "checks": 59,
+      "failures": 0,
+      "exit_code": 0,
+      "log": "build/jump-reference/verification/packaged-edo_primary_alignment_tests.log"
+    },
+    "character_balance_tests": {
+      "checks": 32,
+      "failures": 0,
+      "exit_code": 0,
+      "log": "build/jump-reference/verification/packaged-character_balance_tests.log"
+    }
+  },
+  "packaged_total_checks": 477,
+  "gameplay_tests": {
+    "locomotion": {
+      "samples": 1171,
+      "failures": 0,
+      "exit_code": 0
+    },
+    "roster_jump_and_class_rules": {
+      "checks": 100,
+      "failures": 0,
+      "exit_code": 0
+    }
+  },
+  "old_locomotion_issue_resolved": "Grounded terrain probes can miss immediately before falling. Normalize authored leg segments before terrain IK so that the unsolved leg cannot retain interpolation drift.",
+  "review": "Independent read-only review reproduced and verified both flip-boundary and landing fixes; no remaining Critical, Important or Minor findings in the new code. Existing Goemon constant leg-tuck release was measured separately and improved versus its baseline; that preexisting polish was left outside this change.",
+  "previews": {
+    "three_views": "goemon-jump-three-views.mp4",
+    "gif": "goemon-jump-three-views.gif",
+    "all_twelve": "all-twelve-jump.mp4",
+    "captures": 218,
+    "failures": 0,
+    "playback_speed": 0.5,
+    "duration_seconds": 3.6,
+    "decoded_media": 3,
+    "inspected": [
+      "goemon-jump-three-views-apex.png",
+      "all-twelve-jump-apex.png",
+      "closeup-frames/072.png",
+      "roster-frames/073.png",
+      "roster-frames/075.png"
+    ]
+  },
+  "package": {
+    "app": "build/goemon-cosplay/Goemon Cosplay.app",
+    "zip": "build/goemon-cosplay/Goemon Cosplay.zip",
+    "pck_sha256": "885b41238f0d93f2211aed87429ccf4e8bb2aeec7ed538f3beb5518a11ed4bb8",
+    "zip_sha256": "c264d53609dd410db700b2255147880d0a999991a0a8754abb67debbb007d06f",
+    "zip_crc": "pass",
+    "codesign_deep_strict": "pass",
+    "native_startup_quit_after_120_exit_code": 0
+  },
+  "preservation": {
+    "saved_settings_and_recording_files_checked": 16,
+    "changed_files": [],
+    "blender_master_unchanged": true,
+    "blender_master_sha256": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c"
+  }
+}

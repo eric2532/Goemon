@@ -12,7 +12,7 @@ func run():
 	game.model.gold=1000
 	game.select_build("mine");game.place_cell(Vector2i(-5,1))
 	game.select_build("tower");game.place_cell(Vector2i(3,4))
-	game.model.build_wall_line([Vector2i(-5,6),Vector2i(-4,6),Vector2i(-3,6),Vector2i(-2,6),Vector2i(-1,6)],0)
+	game.model.build_wall_line([Vector2i(-6,6),Vector2i(-3,6)],0)
 	game.model.build("gate",Vector2i(0,6),0);game.world.sync(0)
 	game.forest_ui.selected_id=-1;game.forest_ui.message_left=0
 	await capture("preparation")

@@ -40,7 +40,7 @@ func run():
  check(not a.projectiles.is_empty() and a.projectiles[0].mesh.position.y-p.position.y>1.5,"Wave travels at raised chest height")
  await frames(45)
  check(edge.hp<10000,"Wider wave reaches enemies near its visible edge")
- check(is_equal_approx(10000-edge.hp,79),"Piercing wave damages each target only once")
+ check(is_equal_approx(10000-edge.hp,100),"Piercing wave applies its current 100 damage exactly once")
  await fresh_class(7);a=p.active_ability
  p.smoke_move=Vector2.RIGHT;tap("dodge");p.smoke_move=Vector2.ZERO
  check(a.player.roll>0 and a.player.rollDir.dot(Vector3.RIGHT.rotated(Vector3.UP,game.camera_rig.yaw))>.999,"Ranger tumble follows directional input")

@@ -17,17 +17,23 @@ var last_hit_action=""
 var active_ticket: Dictionary={}
 var generation=0
 var sequence=0
+var hero_owner: WeakRef
 
 func make_ticket(action: String)->Dictionary:
-	return {"action":action,"generation":generation,"sequence":-1,"combo":count>0,"bonus":false,"damage_multiplier":damage_multiplier()}
+	var hero=hero_owner.get_ref() if hero_owner!=null else null
+	var chance: float=hero.game.hero_tuning("critical_chance") if is_instance_valid(hero) else 0.0
+	return {"action":action,"generation":generation,"sequence":-1,"combo":count>0,"bonus":false,"damage_multiplier":damage_multiplier(),"critical_chance":chance}
 
-func begin(action: String)->Dictionary:
+func begin(action: String,move_key: String="")->Dictionary:
 	previous=last_hit_action;current=action
 	active_ticket=make_ticket(action)
+	var hero=hero_owner.get_ref() if hero_owner!=null else null
+	if is_instance_valid(hero) and is_instance_valid(hero.game) and hero.game.get("move_audio")!=null:
+		active_ticket["move_audio"]=hero.game.move_audio.begin(hero,action,move_key)
 	return active_ticket
 
 func bonus_ticket(source: Dictionary)->Dictionary:
-	return {"action":"red_slash","generation":source.get("generation",-1),"sequence":-1,"combo":false,"bonus":true,"damage_multiplier":source.get("damage_multiplier",1.0)}
+	return {"action":"red_slash","generation":source.get("generation",-1),"sequence":-1,"combo":false,"bonus":true,"damage_multiplier":source.get("damage_multiplier",1.0),"critical_chance":source.get("critical_chance",0.0)}
 
 func confirm(ticket: Dictionary):
 	if ticket.is_empty() or ticket.get("generation",-1)!=generation:return
@@ -67,7 +73,21 @@ func energized()->bool:return count>0 and active_ticket.get("combo",false)
 func reset():
 	count=0;milestone=0;announced_milestone=0;remaining=0;previous="";current="";last_hit_action="";active_ticket={};generation+=1;sequence+=1
 
-static func aim_point(enemy: Ninja)->Vector3:
+static func contact_point(enemy: Ninja,from: Vector3,fallback: Vector3)->Vector3:
+	return enemy.combat_contact_point(from) if enemy.has_method("combat_contact_point") else fallback
+
+static func segment_contact(enemy: Ninja,from: Vector3,to: Vector3,radius: float,legacy_center: Vector3=Vector3.INF)->Dictionary:
+	if enemy.has_method("combat_segment_contact"):return enemy.combat_segment_contact(from,to,radius)
+	var center=aim_point(enemy) if legacy_center==Vector3.INF else legacy_center
+	var nearest=Geometry3D.get_closest_point_to_segment(center,from,to)
+	if nearest.distance_to(center)>radius+enemy.body_radius:return {}
+	var length=from.distance_to(to)
+	return {"point":nearest,"t":from.distance_to(nearest)/length if length>.0001 else 0.0}
+
+static func aim_point(enemy: Ninja,from: Vector3=Vector3.INF)->Vector3:
+	if enemy.has_method("combat_aim_point"):
+		if from==Vector3.INF:from=enemy.game.player.global_position+Vector3.UP*1.1
+		return enemy.combat_aim_point(from)
 	return enemy.global_position+Vector3.UP*(5.0 if enemy.ground_giant else (1.65 if enemy.boss else (1.1*Ninja.ELITE_SIZE if enemy.island_elite else 1.1)))
 
 static func screen_target(hero: Hero,origin: Vector3,max_distance: float,camera_sight: bool=false)->Ninja:
@@ -77,7 +97,7 @@ static func screen_target(hero: Hero,origin: Vector3,max_distance: float,camera_
 	for enemy in hero.game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead:continue
 		if hero.game.has_method("forest_enemy_visible") and not hero.game.forest_enemy_visible(enemy):continue
-		var point=aim_point(enemy)
+		var point=aim_point(enemy,origin)
 		var distance=origin.distance_squared_to(point)
 		if distance>closest or not camera.is_position_in_frustum(point):continue
 		if camera_sight:

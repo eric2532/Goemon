@@ -17,13 +17,15 @@ var locomotion = preload("res://assets/rogue/scripts/locomotion.gd").new()
 var ultimate_aura: Node3D
 var movement_wind: Node3D
 var scarf_wind: RefCounted
+var cosplay_rig: RefCounted
+const WeaponProportions=preload("res://scripts/weapon_proportions.gd")
 
 const WEAPON_AXES = {
 	"pirate": Vector3(-0.565, 0.811, 0.009),
 	"samurai": Vector3(-0.44, 1.08, 0.006),
-	"ninja": Vector3(-0.375, 0.806, 0.015),
+	"ninja": Vector3(-0.737267613, 1.216173053, 0.042017341),
 	"mage": Vector3(-0.28, 1.35, 0),
-	"knight": Vector3(-0.292, 1.147, 0.011),
+	"knight": Vector3(0, 2.44, 0),
 	"dragoon": Vector3(-0.479, 2.085, 0.019),
 	"magic-swordsman": Vector3(-0.554, 1.965, 0.029),
 	"explorer": Vector3(-0.473, 0.848, 0.03),
@@ -38,17 +40,26 @@ func setup(character_id: String) -> void:
 	joints.clear()
 	materials.clear()
 	scarf_wind = null
+	cosplay_rig = null
 	flash = 0.0
 	_flash_applied = false
 	_guard_glow_applied = false
-	var resource = load("res://assets/rogue/styled/models/%s.glb" % id)
+	var cosplay = id in ["pirate", "samurai", "ninja", "mage", "knight", "dragoon", "magic-swordsman", "ranger", "explorer", "master-thief"]
+	var resource = load(("res://assets/models/characters/goemon_cosplay/%s.glb" if cosplay else "res://assets/rogue/styled/models/%s.glb") % id)
 	if resource is PackedScene:
 		model = resource.instantiate()
 		# Fuller side silhouette; the painted front, height and collision stay intact.
-		model.scale.z *= 1.15
+		if not cosplay: model.scale.z *= 1.15
 		model.rotation_order = EULER_ORDER_XYZ
 		add_child(model)
 		_cache(model)
+		if cosplay:
+			for key in ["Weapon_Cutlass","Weapon_Pistol"]:
+				if joints.has(key):
+					joints[key].node.scale*=WeaponProportions.SCALE
+					joints[key].scale=joints[key].node.scale
+					joints[key].transform=joints[key].node.transform
+			cosplay_rig = preload("res://scripts/goemon_cosplay_rig.gd").new(model, joints)
 		if id == "samurai":
 			scarf_wind = preload("res://assets/rogue/scripts/scarf_wind.gd").new()
 			scarf_wind.configure(model)
@@ -65,11 +76,12 @@ func setup(character_id: String) -> void:
 		add_child(model)
 
 func _cache(node: Node) -> void:
-	if node is Node3D and node.name in ["Body", "Head", "Arm_L", "Arm_R", "Leg_L", "Leg_R", "Weapon_Cutlass", "Weapon_Pistol", "Flask"]:
+	var role = str(node.name).trim_prefix("Driver_")
+	if node is Node3D and role in ["Body", "Head", "Arm_L", "Arm_R", "Leg_L", "Leg_R", "Weapon_Cutlass", "Weapon_Pistol", "Flask"]:
 		var rest: Transform3D = node.transform
 		node.rotation_order = EULER_ORDER_XYZ
 		node.transform = rest
-		joints[str(node.name)] = {"node": node, "transform": node.transform, "rotation": node.rotation, "position": node.position, "scale": node.scale}
+		joints[role] = {"node": node, "transform": node.transform, "rotation": node.rotation, "position": node.position, "scale": node.scale}
 	if node is MeshInstance3D:
 		for surface in range(node.mesh.get_surface_count()):
 			var original = node.get_active_material(surface)
@@ -82,6 +94,12 @@ func _cache(node: Node) -> void:
 
 func reset_motion(clear_power: bool = true) -> void:
 	locomotion.reset()
+	if cosplay_rig!=null:cosplay_rig.idle_breath.reset()
+	if cosplay_rig!=null and cosplay_rig.dragoon_motion!=null:cosplay_rig.dragoon_motion.reset()
+	if cosplay_rig!=null and cosplay_rig.explorer_motion!=null:cosplay_rig.explorer_motion.reset()
+	if cosplay_rig!=null and cosplay_rig.ninja_motion!=null:cosplay_rig.ninja_motion.reset()
+	if cosplay_rig!=null and cosplay_rig.double_jump!=null:cosplay_rig.double_jump.reset()
+	if cosplay_rig!=null:cosplay_rig.knight_equipment.reset()
 	if is_instance_valid(movement_wind): movement_wind.clear()
 	if scarf_wind != null: scarf_wind.clear()
 	if clear_power and is_instance_valid(ultimate_aura): ultimate_aura.clear()
@@ -183,7 +201,7 @@ func _stow_weapon(name_: String, origin: Vector3, axis: Vector3) -> void:
 	var weapon: Node3D = joints[name_].node
 	var arm: Node3D = weapon.get_parent()
 	var source: Vector3 = Vector3.UP if name_ == "Weapon_Pistol" else WEAPON_AXES[id]
-	var stowed := Transform3D(Basis(Quaternion(source.normalized(), axis.normalized())), origin)
+	var stowed := Transform3D(Basis(Quaternion(source.normalized(), axis.normalized())).scaled(joints[name_].scale), origin)
 	weapon.transform = arm.transform.affine_inverse() * stowed
 
 func _underhand(attack: Dictionary, phase: Dictionary) -> void:
@@ -267,7 +285,9 @@ func _equipment_pose(state: Dictionary) -> void:
 	# Resolve after arm actions, so stowed equipment follows the torso and cannot
 	# be lifted by the hand that just drew the other weapon.
 	if float(state.get("shot", 0)) > 0:
-		_stow_weapon("Weapon_Cutlass", Vector3(-0.42, -0.12, -0.14), Vector3(-0.08, -1, -0.2))
+		var sheath=model.find_child("SamuraiRedScabbard",true,false)
+		if sheath!=null:joints.Weapon_Cutlass.node.global_transform=sheath.global_transform
+		else:_stow_weapon("Weapon_Cutlass", Vector3(-0.42, -0.12, -0.14), Vector3(-0.08, -1, -0.2))
 	else:
 		_stow_weapon("Weapon_Pistol", Vector3(0.04, 0.27, -0.4), Vector3(0.42, 1, 0))
 
@@ -455,7 +475,9 @@ func animate_pose(state: Dictionary, dt: float, time: float, movement: float = 0
 	else:
 		_stance(state, time)
 		if float(state.get("roll", 0)) <= 0 and not state.get("travel") and float(state.get("drinkGesture", 0)) <= 0:
-			if attack is Dictionary and not attack.is_empty():
+			if attack is Dictionary and (attack.get("primary",false) or attack.get("style","")=="energy-wave") and cosplay_rig!=null and id not in ["mage","ranger"]:
+				pass # The articulated Goemon choreography owns this entire basic pose.
+			elif attack is Dictionary and not attack.is_empty():
 				var phase: Dictionary = _phase(attack)
 				match str(attack.get("style", "cutlass")):
 					"samurai-cut": _samurai_cut(attack, phase)
@@ -484,6 +506,8 @@ func animate_pose(state: Dictionary, dt: float, time: float, movement: float = 0
 	if is_instance_valid(ultimate_aura): ultimate_aura.tick(state, dt)
 	if is_instance_valid(movement_wind): movement_wind.tick(state, dt)
 	if scarf_wind != null: scarf_wind.tick(state, dt)
+	if cosplay_rig != null: cosplay_rig.update(self,state,dt)
+	if is_player:_equipment_pose(state)
 	flash = maxf(0, flash - dt)
 	var guard_glow: bool = id == "master-thief" and bool(state.get("blocking", false)) and state.get("guardStyle", "thief") == "thief"
 	# Guard power adds light to the existing painted materials; releasing or
@@ -556,7 +580,8 @@ func _stance(state: Dictionary, time: float) -> void:
 			_place_hand("L", Vector3(-0.1, 0.12, 0.17) + lag * 0.4)
 			_orient_bow("Weapon_Cutlass", Vector3(0, -0.28, 1), Vector3(-0.18, 1, 0.28))
 		"master-thief":
-			model.rotation.z += sin(time * 1.5) * 0.025
+			# The shared breath supplies idle motion without rocking the soles.
+			model.rotation.z += sin(time * 1.5) * 0.025 * (locomotion.weight if cosplay_rig!=null else 1.0)
 			_r("Head", 0, 0, -0.04)
 	var travel = state.get("travel")
 	if travel is Dictionary and not travel.is_empty():

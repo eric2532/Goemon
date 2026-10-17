@@ -1,0 +1,36 @@
+{
+  "version": "2.56.0",
+  "branch": "feat/original-enemies-town-cap",
+  "installed_app": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Goemon.app",
+  "backup_app": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/knight-integration/previous/Goemon.app",
+  "pck_sha256": "c37a6e64c89a0dc29c31ea78bd35ba8973cfb9710bf802c4140be209f487e5ec",
+  "source_checks": {
+    "knight": 48,
+    "enemy_integration": 17,
+    "enemy_roles": 77,
+    "enemy_contact_review": 14,
+    "cosplay": 72,
+    "ranger_carry": 48,
+    "steady_run": 90
+  },
+  "packaged_checks": {
+    "knight": 48,
+    "enemy_integration": 17
+  },
+  "packaged_rendered_forest_captures": 2,
+  "review": "No P1/P2 findings; dense action sweeps at 0.5x-2x growth and zero-time probes verified",
+  "signature": "valid on disk; designated requirement satisfied",
+  "architectures": [
+    "arm64",
+    "x86_64"
+  ],
+  "existing_failure": {
+    "suite": "combat_polish_tests",
+    "passed": 65,
+    "total": 66,
+    "assertion": "Tower impact occurs at the real target position",
+    "baseline": "Same failure reproduced in untouched 2.55.0 PCK. Fixture assumes target.pos + UP; new enemies use imported contact surfaces."
+  },
+  "preserved_hashes": 55,
+  "preview": "knight-in-game-motion.gif"
+}

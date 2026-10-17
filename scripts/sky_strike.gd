@@ -29,7 +29,7 @@ func choose_target()->Ninja:
 		if not is_instance_valid(enemy) or enemy.dead:continue
 		if hero.game.has_method("forest_enemy_visible") and not hero.game.forest_enemy_visible(enemy):continue
 		if hero.game.descent_mode and enemy.island_index>=0 and enemy.island_index!=hero.game.encounters.current_island:continue
-		var distance=hero.global_position.distance_squared_to(enemy.global_position)
+		var distance=hero.global_position.distance_squared_to(AttackChain.contact_point(enemy,hero.global_position+Vector3.UP,enemy.global_position))
 		if distance<closest:nearest=enemy;closest=distance
 	return nearest
 func begin()->bool:
@@ -43,8 +43,9 @@ func begin()->bool:
 	hero.reset_wall_jump()
 	hero.jump_buffer=0;hero.jump_windup=0;hero.dodge_time=0;hero.air_turn=0
 	origin=hero.global_position
-	var direction=target.global_position-origin;direction.y=0;direction=direction.normalized()
-	landing=target.global_position-direction*(target.body_radius+.65)
+	var hurt=AttackChain.contact_point(target,origin+Vector3.UP,target.global_position)
+	var direction=hurt-origin;direction.y=0;direction=direction.normalized()
+	landing=hurt-direction*(target.body_radius+.65)
 	landing.y=hero.game.world.surface_height_at(landing)+.1
 	# Validate the capsule along the complete arc before committing to the movement.
 	arc_height=6.0
@@ -117,13 +118,14 @@ func impact():
 	for enemy in hero.game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead:continue
 		if hero.game.has_method("forest_enemy_visible") and not hero.game.forest_enemy_visible(enemy):continue
-		var offset=enemy.global_position-landing
+		var hurt=AttackChain.contact_point(enemy,landing+Vector3.UP,enemy.global_position)
+		var offset=hurt-landing
 		if Vector2(offset.x,offset.z).length()>radius+enemy.body_radius or absf(offset.y)>3.5:continue
-		var ray=PhysicsRayQueryParameters3D.create(landing+Vector3.UP,enemy.global_position+Vector3.UP,1)
+		var ray=PhysicsRayQueryParameters3D.create(landing+Vector3.UP,AttackChain.contact_point(enemy,landing+Vector3.UP,enemy.global_position+Vector3.UP),1)
 		if not hero.get_world_3d().direct_space_state.intersect_ray(ray).is_empty():continue
 		var direction=offset.normalized() if offset.length()>.01 else hero.facing
 		enemy.take_hit(160*hero.damage_multiplier(),direction,true,attack_ticket)
-		hero.game.impact_effect(enemy.global_position+Vector3.UP,direction,2)
+		hero.game.impact_effect(AttackChain.contact_point(enemy,landing+Vector3.UP,enemy.global_position+Vector3.UP),direction,2)
 		hero.game.chain+=1;hero.game.chain_timer=3
 
 func cancel():

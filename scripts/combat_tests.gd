@@ -119,7 +119,7 @@ func run():
 	game.player.select_weapon(2)
 	game.throw_coin(false)
 	coins=get_tree().get_nodes_in_group("projectiles")
-	check(coins.size()==1 and is_equal_approx(coins[0].visual_size,1.8) and is_equal_approx(coins[0].velocity.length(),52.8),"Surge coins are 1.8x larger and 1.65x faster")
+	check(coins.size()==1 and is_equal_approx(coins[0].visual_size,2.07) and is_equal_approx(coins[0].velocity.length(),52.8),"Surge coins are 1.8x the enlarged base size and 1.65x faster")
 	game.player.select_weapon(1)
 	front=dummy(Vector3(0,0,-5.3))
 	game.player.start_attack(false)

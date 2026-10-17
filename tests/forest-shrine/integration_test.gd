@@ -10,14 +10,16 @@ func run():
 	if failures:finish();return
 	var game=load("res://scenes/forest_shrine.tscn").instantiate();root.add_child(game);current_scene=game
 	await process_frame;await process_frame
-	check(game.forest_ui.resources.get_global_rect().position.x>=0 and game.forest_ui.resources.get_global_rect().end.x<=root.get_visible_rect().size.x+1,"Treasury text stays inside the visible window")
+	check(game.forest_ui.gold_count.get_global_rect().position.x>=0 and game.forest_ui.gold_count.get_global_rect().end.x<=root.get_visible_rect().size.x+1,"Treasury text stays inside the visible window")
 	check(game.model.phase=="preparing" and paused,"Preparation stops simulation while keeping the build UI usable")
 	check(game.forest_ui.get_node("BuildBar/Mine").visible,"Preparation exposes a mine building card")
+	game.model.demolish(game.model.occupancy[Vector2i(-5,1)]);game.world.sync(0)
+	var purchase_gold=game.model.gold
 	await click(game.forest_ui.get_node("BuildBar/Mine").get_global_rect().get_center())
 	check(game.build_kind=="mine","The mine card selects mine placement")
 	await click(game.camera_rig.camera.unproject_position(game.model.point(Vector2i(-5,1))))
 	check(game.model.buildings.values().any(func(b):return b.kind=="mine"),"A real battlefield click places the selected mine beside the shrine")
-	check(game.model.gold==250,"The placement spends its real cost")
+	check(game.model.gold==purchase_gold-150,"The placement spends its real cost")
 	if failures:game.queue_free();paused=false;await process_frame;await create_timer(.35).timeout;finish();return
 	var pos=game.world.structure_nodes[game.model.next_id-1].position
 	game.start_wave()
@@ -55,7 +57,7 @@ func run():
 		for w in game.model.workers.values():
 			if w.job==-1:w.state="idle";w.pos=Vector3(12,0,18)
 		game.model.gold=250;game.select_build("tower");game.place_cell(Vector2i(3,4))
-		game.model.build_wall_line([Vector2i(-5,6),Vector2i(-4,6),Vector2i(-3,6),Vector2i(-2,6),Vector2i(-1,6)],0)
+		game.model.build_wall_line([Vector2i(-12,6),Vector2i(-6,6)],0)
 		game.model.build("gate",Vector2i(0,6),0);game.world.sync(0)
 		game.forest_ui.selected_id=-1;game.forest_ui.message_left=0
 		await capture("preparation")

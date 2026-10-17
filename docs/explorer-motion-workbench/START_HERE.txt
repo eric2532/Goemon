@@ -1,0 +1,22 @@
+EXPLORER — KEY POSE WORKBENCH
+
+Current game animations are already prepared: 01_Idle (1–217),
+02_Run (1–41), and 03_Jump (1–91). All three actions are in every file.
+The separate Idle/Run/Jump files open on that clip with its playback range.
+
+Start with Idle, frame 1. Select bones in either character view.
+R rotates; X/Y/Z chooses an axis; Return confirms. I records a pose.
+Space plays/pauses; Command-S saves this work copy.
+Right_Blade_Control and Left_Blade_Control control the two blades. Arm and forearm bones use FK rotation.
+Edit bones rather than Skin, Costume, or weapon geometry.
+
+Provide your important poses and their frame numbers. Codex can preserve
+those poses, connect the frames between them, match loop ends, and tune
+timing. Existing intermediate keys may need replacing after your poses
+are approved. Saving a Blender file alone does not change the game.
+
+Run markers: 1 / 11 / 21 / 31 / 41.
+Jump markers: ready 1, takeoff 10, rising 25, apex 43, falling 61,
+landing 76, settle 91. Jump stays in place for editing; the game owns
+the actual jump height and distance. This is a representative preview
+of the current regular jump, not special aerial attacks.

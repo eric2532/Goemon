@@ -8,7 +8,7 @@ func _initialize():
 	create_timer(30).timeout.connect(func():printerr("FAIL: review regression timeout");quit(1))
 	call_deferred("run")
 func run():
-	var m=load("res://scripts/forest/forest_model.gd").new();m.reset(42);m.gold=10000
+	var m=load("res://scripts/forest/forest_model.gd").new();preload("res://tests/forest-shrine/empty_settlement.gd").reset(m);m.gold=10000;m.update_vision(m.point(Vector2i(6,4)))
 	var wall=m.build("wall",Vector2i(4,5),0);wall.hp=100
 	check(m.workforce.assign_idle(wall.id)==2,"Damaged wall reserves two repairers")
 	var seal=m.build("wall",Vector2i(4,6),0)
@@ -16,13 +16,14 @@ func run():
 	m.start_wave();m.waves.spawn_clock=10000
 	for i in range(100):m.tick(.1,m.hero_position)
 	check(wall.hp>100,"Reserved repairers still reach and repair their wall")
-	m.reset(42);m.gold=10000
+	preload("res://tests/forest-shrine/empty_settlement.gd").reset(m);m.gold=10000;m.update_vision(m.point(Vector2i(6,4)))
 	var tower=m.build("tower",Vector2i(4,5),0);m.workforce.assign_idle(tower.id);m.start_wave();m.waves.spawn_clock=10000
 	for i in range(150):m.tick(.1,m.hero_position)
 	var worker=m.workers.values()[0];var origin: Vector3=worker.pos;var entrance=m.point(m.entry(tower))
 	check(worker.state=="garrison","Tower crew reaches the archer deck")
 	m.waves.spawn_one();var target=m.enemies.values()[0];target.pos=origin+Vector3(0,0,20);target.stun=100
 	var target_hp=target.hp;m.update_vision(m.hero_position);m.workforce.tick(.1,m.hero_position)
+	for i in range(10):m.workforce.tick(.05,m.hero_position)
 	check(target.hp<target_hp and m.events.any(func(e):return e.kind=="arrow"),"Staffed towers shoot arrows and damage a visible raider")
 	m.enemies.clear()
 	m.rally(true,origin);m.workforce.tick(.1,Vector3(0,0,30))

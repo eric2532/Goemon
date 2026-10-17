@@ -66,9 +66,10 @@ func burst(kind: String):
 		game.sound("orb_ice",.55)
 	for enemy in game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead:continue
-		var offset=enemy.global_position-origin
+		var hurt=AttackChain.contact_point(enemy,origin+Vector3.UP,enemy.global_position)
+		var offset=hurt-origin
 		if Vector2(offset.x,offset.z).length()>BURST_RADIUS+enemy.body_radius or absf(offset.y)>4:continue
-		if not game.pursuit.clear_segment(origin,enemy.global_position):continue
+		if not game.pursuit.clear_segment(origin,AttackChain.contact_point(enemy,origin+Vector3.UP,enemy.global_position)):continue
 		if kind=="ice":enemy.freeze_for(FREEZE_SECONDS)
 		else:enemy.take_hit(FIRE_DAMAGE*game.player.damage_multiplier(),offset.normalized(),true)
 

@@ -12,16 +12,25 @@ var character_models: Dictionary={}
 var character_abilities: Dictionary={}
 var musashi: MusashiCombat
 var active_ability: Node
-const BASIC_ATTACK_RANGE_MULTIPLIER = 3.0
+const BASIC_ATTACK_RANGE_MULTIPLIER = 1.0
+const MELEE_CONTACT_MULTIPLIER = 1.12
+var melee_assist=preload("res://scripts/melee_assist.gd").new()
 const ROSTER={1: {"name":"Goemon", "model":preload("res://scripts/hero_model.gd")},2: {"name":"Edo", "model":preload("res://assets/characters/musashi/model/musashi_model.gd"),"combat":preload("res://assets/characters/musashi/combat/musashi_combat.gd")}}
 const RogueRoster=preload("res://scripts/rogue_roster.gd")
+const GroundResponse=preload("res://scripts/ground_movement_response.gd")
 var model: HeroModel
 var hp=100.0
 var max_hp=100.0
 var progression=preload("res://scripts/level_progression.gd").new()
 var facing=Vector3.FORWARD
+const COMBAT_AIM_HOLD=.28
+var combat_aim_left=0.0
+
 var attack_left=0.0
+var attack_motion_pending=false
+const MeleeResponse=preload("res://scripts/melee_responsiveness.gd")
 var attack_duration=0.42
+var pipe_contact_phase=-1.0
 var attack_heavy=false
 var hit_done=false
 var combo=0
@@ -85,7 +94,24 @@ var powerups={"damage":0.0,"range":0.0,"attack_speed":0.0}
 var smoke_mode=false
 var smoke_move=Vector2.ZERO
 
+func hold_combat_aim():
+	if game.has_method("forest_enemy_visible"):combat_aim_left=COMBAT_AIM_HOLD
+func tick_combat_aim(delta: float):
+	combat_aim_left=maxf(0,combat_aim_left-delta)
+	if dodge_time>0 or forward_dash.active or sky_strike.active:combat_aim_left=0;return
+	if character_id==2 and (musashi.is_attacking() or musashi.beam_held):hold_combat_aim()
+	if character_id==1 and weapon_slot==2 and attack_left>0:hold_combat_aim()
+	if is_rogue_character():
+		var data: Dictionary=active_ability.player
+		if data.roll>0 or data.travel!=null or data.get("dive")!=null:combat_aim_left=0;return
+		if data.charging or (active_ability.class_id in ["mage","ranger"] and data.attack!=null):hold_combat_aim()
+func combat_aiming()->bool:
+	if not game.has_method("forest_enemy_visible") or combat_aim_left<=0:return false
+	if dodge_time>0 or forward_dash.active or sky_strike.active:return false
+	return true
+
 func _ready():
+	attack_chain.hero_owner=weakref(self)
 	quick_attacks=preload("res://scripts/goemon_quick_attacks.gd").new(self)
 	rogue_controls=preload("res://scripts/rogue_battle_controls.gd").new(self)
 	rogue_pipe_combo=preload("res://scripts/goemon_rogue_combo.gd").new();rogue_pipe_combo.hero=self;add_child(rogue_pipe_combo)
@@ -112,7 +138,7 @@ func _ready():
 	aura.hide()
 	charge_ring=Node3D.new();add_child(charge_ring)
 	charge_ring.hide()
-	max_hp=game.tuning.max_hp*progression.health_multiplier()*(1.0+.1*run_upgrades.vitality)
+	max_hp=game.hero_tuning("max_hp")*progression.health_multiplier()*(1.0+.1*run_upgrades.vitality)
 	hp=max_hp
 	# Load registered visuals during startup so selection does not load a GLB mid-fight.
 	for id in ROSTER:ensure_character(id)
@@ -152,6 +178,7 @@ func _unhandled_input(event):
 		if event.is_action_pressed("dodge") and dodge_cooldown<=0:
 			active_ability.interrupt_for_dodge();attack_left=0
 			if game.rogue_battle_mode:facing=rogue_dodge_direction()
+			attack_chain.active_ticket["move_audio"]=game.move_audio.begin(self,"evade")
 			dodge_time=.28;dodge_cooldown=.75;invuln=.32;game.sound("dash")
 		return
 	for number in [1,3]:
@@ -178,6 +205,7 @@ func _unhandled_input(event):
 		dodge_time=0.28
 		dodge_cooldown=0.75
 		invuln=0.32
+		attack_chain.active_ticket["move_audio"]=game.move_audio.begin(self,"evade")
 		game.sound("dash")
 
 func rogue_dodge_direction()->Vector3:
@@ -185,8 +213,14 @@ func rogue_dodge_direction()->Vector3:
 	return Vector3(move.x,0,move.y).rotated(Vector3.UP,game.camera_rig.yaw).normalized() if move.length_squared()>.01 else game.attack_direction()
 
 func start_attack(heavy: bool, stage: int=1, charged: bool=false, power: float=1.0,action: String=""):
+	if character_id==1 and weapon_slot!=2:combat_aim_left=0
+	if weapon_slot==1:attack_motion_pending=true
 	if game.rogue_battle_mode or game.camera_combat():facing=game.attack_direction()
-	attack_ticket=attack_chain.begin(action if not action.is_empty() else ("coin" if weapon_slot==2 else ("heavy" if heavy else "pipe")))
+	var move_key=""
+	if character_id==1:
+		move_key=("giant_toss" if charged else ("coin_heavy" if heavy else "coin")) if weapon_slot==2 else (action if not action.is_empty() else ("heavy" if heavy else "primary_%d"%clampi(stage,1,3)))
+		if weapon_slot==1 and charged:move_key="spin"
+	attack_ticket=attack_chain.begin(action if not action.is_empty() else ("coin" if weapon_slot==2 else ("heavy" if heavy else "pipe")),move_key)
 	wide_swing=action=="wide"
 	if weapon_slot==1 and not model.equipped: model.equipped=true
 	attack_heavy=heavy
@@ -199,6 +233,10 @@ func start_attack(heavy: bool, stage: int=1, charged: bool=false, power: float=1
 		attack_duration=rogue_pipe_combo.duration(stage)
 		rogue_pipe_combo.prepare()
 		velocity+=facing*(2.5 if stage==3 else 1.25)
+	pipe_contact_phase=-1.0
+	if game.has_method("forest_enemy_visible") and character_id==1 and weapon_slot==1 and not attack_heavy and not attack_charged and not wide_swing:
+		pipe_contact_phase=MeleeResponse.contact_time(attack_duration*PipeCombo.CONTACT[clampi(combo-1,0,2)])/attack_duration
+	model.pipe_contact_phase=pipe_contact_phase
 	attack_left=attack_duration
 	hit_done=false
 	struck_targets.clear()
@@ -210,9 +248,9 @@ func start_attack(heavy: bool, stage: int=1, charged: bool=false, power: float=1
 		var wind=SpinWind.new();wind.hero=self;add_child(wind)
 	if weapon_slot==2:
 		facing=game.attack_direction()
-	if soft_target and weapon_slot==1 and not game.rogue_battle_mode:
+	if soft_target and weapon_slot==1 and not game.rogue_battle_mode and not game.has_method("forest_enemy_visible"):
 		var best: Node3D=null
-		var dist=game.tuning.pipe_range*attack_reach_multiplier()+1.5
+		var dist=game.hero_tuning("pipe_range")*attack_reach_multiplier()+1.5
 		for e in game.enemies:
 			if not is_instance_valid(e) or e.dead: continue
 			var dif=e.global_position-global_position
@@ -222,11 +260,15 @@ func start_attack(heavy: bool, stage: int=1, charged: bool=false, power: float=1
 		if best:
 			facing=(best.global_position-global_position).normalized()
 			facing.y=0
+	if character_id==1 and weapon_slot==1:
+		melee_assist.begin(self,atan2(facing.x,facing.z),melee_strike_reach())
+		var angle=melee_assist.steer(self,atan2(facing.x,facing.z),.012)
+		facing=Vector3(sin(angle),0,cos(angle))
 	# A live chain enters the contact pose immediately instead of replaying windup.
 	if attack_chain.unleashed() and not game.rogue_battle_mode:
 		impact_pause=0;combo_step_done=true;play_swing_sound();strike();attack_left=0
 	elif weapon_slot==1 and attack_chain.energized() and not game.rogue_battle_mode:
-		attack_left=attack_duration*(1.0-(.47 if heavy else PipeCombo.CONTACT[combo-1]))
+		attack_left=attack_duration*(1.0-attack_contact_phase())
 		impact_pause=0
 		play_swing_sound()
 		combo_step_done=true
@@ -244,6 +286,7 @@ func play_swing_sound():
 
 func strike():
 	var first_sample=not hit_done
+	if character_id==1 and weapon_slot==1:melee_assist.contact()
 	var bonus=first_sample and weapon_slot==1 and attack_chain.energized()
 	var cross=(wide_swing or attack_ticket.get("action","")=="spin") and attack_chain.previous=="heavy"
 	hit_done=true
@@ -251,32 +294,41 @@ func strike():
 	if weapon_slot==2:
 		game.throw_coin(attack_heavy,attack_charged,charge_power)
 		return
+	if not attack_charged:
+		# Contact resolves against the same articulated pose shown this frame.
+		model.pipe_combo_active=not attack_heavy and not wide_swing
+		model.rogue_pipe_combo_active=model.pipe_combo_active and uses_rogue_pipe_profile()
+		model.wide_swing_active=wide_swing
+		model.pipe_visual_scale=HeroModel.WeaponProportions.SCALE*game.hero_tuning("pipe_range")/3.5*range_multiplier()*melee_reach_setting()/maxf(.01,growth_multiplier())
+		model.animate(0,Vector2(velocity.x,velocity.z).length(),is_on_floor(),velocity.y,attack_left/attack_duration,attack_heavy,combo,false)
+		model.sync_skeleton()
+	var reach=melee_strike_reach()
 	var center=global_position+(Vector3.UP*1.1+facing*1.1)*growth_multiplier()
 	if first_sample and attack_charged:
 		game.sound("dash",.45)
 	elif first_sample:
 		if uses_rogue_pipe_profile():rogue_pipe_combo.slash(combo)
-		elif wide_swing:game.combo_slash(center,facing,2,attack_reach_multiplier()*game.tuning.pipe_range*1.26/3.5)
-		elif attack_heavy: game.slash(center,facing,true,combo,Color("ffdf83"),attack_reach_multiplier()*game.tuning.pipe_range/3.5)
-		else: game.combo_slash(center,facing,combo,attack_reach_multiplier()*game.tuning.pipe_range/3.5)
+		elif wide_swing:game.combo_slash(center,facing,2,attack_reach_multiplier()*game.hero_tuning("pipe_range")*1.26/3.5)
+		elif attack_heavy: game.slash(center,facing,true,combo,Color("ffdf83"),attack_reach_multiplier()*game.hero_tuning("pipe_range")/3.5)
+		else: game.combo_slash(global_position+Vector3.UP*1.1*growth_multiplier(),facing,combo,reach/3.5)
 	var any_hit=false
 	for e in game.enemies:
 		if not is_instance_valid(e) or e.dead or struck_targets.has(e.get_instance_id()): continue
-		var dif=e.global_position-global_position
-		var reach=game.tuning.pipe_range*(1.65 if attack_charged else (1.26 if attack_heavy else 1.0))*attack_reach_multiplier()
+		var hurt=AttackChain.contact_point(e,global_position+Vector3.UP*1.1,e.global_position)
+		var dif=hurt-global_position
 		if dif.length()<reach+e.body_radius and absf(dif.y)<3.5*growth_multiplier() and (attack_charged or facing.dot(dif.normalized())>-0.12):
-			var ray=PhysicsRayQueryParameters3D.create(global_position+Vector3.UP,e.global_position+Vector3.UP,1)
+			var ray=PhysicsRayQueryParameters3D.create(global_position+Vector3.UP,AttackChain.contact_point(e,global_position+Vector3.UP,e.global_position+Vector3.UP),1)
 			if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty(): continue
-			var damage=game.tuning.charged_damage*charge_power if attack_charged else (48 if attack_heavy else (30 if combo==3 else 22))
+			var damage=game.hero_tuning("charged_damage")*charge_power if attack_charged else (48 if attack_heavy else (30 if combo==3 else 22))
 			struck_targets[e.get_instance_id()]=true
 			var hit_dir=(dif.normalized()+facing.cross(Vector3.UP)*(0.32 if combo!=2 else -0.32)).normalized()
 			e.take_hit(damage*damage_multiplier(),hit_dir,attack_heavy or (weapon_slot==1 and combo==3),attack_ticket)
-			var contact=e.global_position+Vector3.UP*(1.5 if e.boss else 1.1)-dif.normalized()*e.body_radius
+			var contact=AttackChain.contact_point(e,global_position+Vector3.UP*1.1,e.global_position+Vector3.UP*(1.5 if e.boss else 1.1)-dif.normalized()*e.body_radius)
 			if uses_rogue_pipe_profile():rogue_pipe_combo.impact(e,contact,hit_dir,combo)
 			else:game.confirm_impact(e,contact,hit_dir,2 if attack_heavy or combo==3 else (1 if combo==2 else 0),false)
 			any_hit=true
-	var building_damage=game.tuning.charged_damage*charge_power if attack_charged else (48 if attack_heavy else (30 if combo==3 else 22))
-	BreakableBuilding.hit_area(game,global_position+Vector3.UP*growth_multiplier(),game.tuning.pipe_range*(1.65 if attack_charged else (1.26 if attack_heavy else 1.0))*attack_reach_multiplier(),building_damage*damage_multiplier(),attack_ticket,facing,-1.0 if attack_charged else -.12,struck_targets)
+	var building_damage=game.hero_tuning("charged_damage")*charge_power if attack_charged else (48 if attack_heavy else (30 if combo==3 else 22))
+	BreakableBuilding.hit_area(game,global_position+Vector3.UP*growth_multiplier(),reach,building_damage*damage_multiplier(),attack_ticket,facing,-1.0 if attack_charged else -.12,struck_targets)
 	if first_sample and not any_hit:
 		var environment_ray=PhysicsRayQueryParameters3D.create(global_position+Vector3.UP,center+facing*1.2,1)
 		var surface=get_world_3d().direct_space_state.intersect_ray(environment_ray)
@@ -289,7 +341,7 @@ func strike():
 	if bonus:ComboEnergy.melee_attack(self,attack_ticket,5.0*melee_range_multiplier(),cross)
 
 func take_hit(amount: float, direction: Vector3, projectile: bool=false):
-	if sky_strike.active or forward_dash.immunity_left>0 or invuln>0 or hp<=0 or game.tuning.invincible or (active_ability!=null and active_ability.protects_player()): return
+	if sky_strike.active or forward_dash.immunity_left>0 or invuln>0 or melee_contact_guarded() or hp<=0 or game.tuning.invincible or (active_ability!=null and active_ability.protects_player()): return
 	if is_rogue_character():
 		amount=active_ability.filter_damage(amount,direction,projectile)
 		if amount<=0:return
@@ -305,6 +357,7 @@ func take_hit(amount: float, direction: Vector3, projectile: bool=false):
 
 func _physics_process(delta):
 	if not game.playing or game.paused or game.transitioning or hp<=0: return
+	melee_assist.tick(self,delta)
 	if game.siege_building():
 		cancel_charge(true);attack_left=0;queued=false;quick_attacks.stop_coins()
 	if game.rogue_battle_mode:game.rogue_view.update_aim()
@@ -331,12 +384,13 @@ func _physics_process(delta):
 	if is_rogue_character():
 		active_ability.physics_step(delta)
 		return
+	tick_combat_aim(delta)
 	var attack_delta=delta*attack_speed_multiplier()
 	if surge_left>0:
 		surge_left=maxf(0,surge_left-delta)
 		if surge_left==0:end_surge()
 	if sky_strike.active:
-		sky_strike.tick(delta);return
+		sky_strike.tick(delta);constrain_forest_bounds();return
 	quick_attacks.tick_coins(delta)
 	if active_ability!=null:active_ability.tick_timers(delta)
 	if impact_pause>0:
@@ -372,23 +426,35 @@ func _physics_process(delta):
 	var lifting=can_fly() and Input.is_action_pressed("jump")
 	flying=can_fly() and (lifting or not is_on_floor())
 	if flying:jump_buffer=0;jump_windup=0;air_turn=0;reset_wall_jump()
-	var speed=game.tuning.sprint_speed if boosting else game.tuning.walk_speed
+	var speed=game.hero_tuning("sprint_speed") if boosting else game.hero_tuning("walk_speed")
+	var response_speed=speed*movement_multiplier()
 	if walking: speed=minf(speed,2.2)
 	speed*=movement_multiplier()
 	if flying:speed=(64.0 if boosting else 36.0)*progression.movement_multiplier()
-	if attack_left>0:
+	var forest_melee=game.has_method("forest_enemy_visible") and character_id==1 and weapon_slot==1
+	if forest_melee and attack_left>0 and not hit_done:
+		var angle=melee_assist.steer(self,atan2(facing.x,facing.z),delta)
+		facing=Vector3(sin(angle),0,cos(angle))
+	if attack_left>0 and not forest_melee:
 		if uses_rogue_pipe_profile():
 			# Rogue slows only the windup, leaving recovery free to reposition.
 			if attack_duration-attack_left<rogue_pipe_combo.CONTACT_TIME:speed*=0.5
 		else:speed*=0.42
-	var reversing=dir.length()>0.1 and Vector3(velocity.x,0,velocity.z).normalized().dot(dir.normalized())< -0.45
-	var accel=((58.0 if reversing else (48.0 if dir.length()<0.1 else 38.0)) if is_on_floor() else (40.0 if jumps_used>=2 else 24.0))*movement_multiplier()
+	var accel=GroundResponse.acceleration(Vector3(velocity.x,0,velocity.z),dir,response_speed) if is_on_floor() else (40.0 if jumps_used>=2 else 24.0)*movement_multiplier()
+	var strike_planted=_grounded_pipe_plant(attack_delta)
+	if is_on_floor() and (attack_left>0 or attack_motion_pending or velocity.y>0) and (not forest_melee or velocity.y>0):
+		# Pipe lunges and the takeoff tick of a hit reaction share this velocity.
+		# Preserve their authored travel while ordinary grounded control is quicker.
+		var reversing=dir.length()>.1 and Vector3(velocity.x,0,velocity.z).normalized().dot(dir.normalized())<-.45
+		accel=(58.0 if reversing else (48.0 if dir.length()<.1 else 38.0))*movement_multiplier()
 	if flying:accel=90.0*progression.movement_multiplier()
 	if forward_dash.active:
+		attack_motion_pending=false
 		var dash_speed=GoemonDash.SPEED*forward_dash.tempo*minf(1.0,forward_dash.remaining/delta)
 		velocity.x=forward_dash.direction.x*dash_speed
 		velocity.z=forward_dash.direction.z*dash_speed
 	elif dodge_time>0:
+		attack_motion_pending=false
 		velocity.x=facing.x*23
 		velocity.z=facing.z*23
 	else:
@@ -398,11 +464,20 @@ func _physics_process(delta):
 		var horizontal_velocity=Vector2(velocity.x,velocity.z).move_toward(Vector2(dir.x,dir.z)*speed,accel*delta)
 		velocity.x=horizontal_velocity.x
 		velocity.z=horizontal_velocity.y
-	if not forward_dash.active and not chain_pipe_combat.active and dodge_time<=0 and wall_jump_recovery<=0 and dir.length()>0.1 and (attack_left<=0 or (jumps_used>=2 and not game.camera_combat() and not game.rogue_battle_mode)):
+		if forest_melee and attack_left>0 and not hit_done and not strike_planted:
+			var assist_motion=melee_assist.motion(self,delta)
+			# Keep the bounded step separate from stored locomotion velocity;
+			# otherwise each tick adds it again and the hero coasts past the budget.
+			if not assist_motion.is_zero_approx():move_and_collide(assist_motion*delta)
+		if attack_left<=0 and horizontal_velocity.distance_to(Vector2(dir.x,dir.z)*speed)<.001:
+			attack_motion_pending=false
+	if combat_aiming() and (character_id==2 or weapon_slot==2 or attack_left<=0):
+		facing=game.attack_direction()
+	elif not forward_dash.active and not chain_pipe_combat.active and dodge_time<=0 and wall_jump_recovery<=0 and dir.length()>0.1 and (attack_left<=0 or (jumps_used>=2 and not game.camera_combat() and not game.rogue_battle_mode)):
 		# Free movement turns into camera-relative travel in every direction.
 		# Attacks and committed abilities keep their existing aim.
 		facing=dir.normalized()
-	model.rotation.y=lerp_angle(model.rotation.y,atan2(-facing.x,-facing.z),1-exp(-delta*(24 if attack_left>0 else 14)))
+	model.rotation.y=lerp_angle(model.rotation.y,atan2(-facing.x,-facing.z),1-exp(-delta*(24 if attack_left>0 else (GroundResponse.TURN_RESPONSE if is_on_floor() else 14))))
 	if jump_buffer>0:
 		if not is_on_floor() and wall_jump_grace>0 and wall_jump_recovery<=0 and jump_windup<=0 and dodge_time<=0 and not forward_dash.active:
 			perform_wall_jump()
@@ -413,7 +488,7 @@ func _physics_process(delta):
 			# Leaving a ledge already spends the grounded jump; equipment toggles
 			# never reset this counter or grant unlimited extra jumps in midair.
 			jumps_used=maxi(2,jumps_used+1)
-			velocity.y=game.tuning.second_jump_speed*progression.jump_velocity_multiplier()
+			velocity.y=game.hero_tuning("second_jump_speed")*progression.jump_velocity_multiplier()
 			jump_buffer=0
 			air_turn=0.42
 			if dir.length()>0.1:
@@ -428,7 +503,7 @@ func _physics_process(delta):
 		jump_windup=maxf(0,jump_windup-delta)
 		if jump_windup<=0:
 			jumps_used=1
-			velocity.y=game.tuning.jump_speed*progression.jump_velocity_multiplier()
+			velocity.y=game.hero_tuning("jump_speed")*progression.jump_velocity_multiplier()
 			coyote=0
 			game.burst(global_position,Color("e8dab0"),7)
 			game.sound("jump")
@@ -440,7 +515,7 @@ func _physics_process(delta):
 		attack_left=maxf(0,attack_left-attack_delta)
 		var progress=1-attack_left/attack_duration
 		var rogue_pipe=uses_rogue_pipe_profile()
-		var contact_phase=rogue_pipe_combo.contact_phase(combo) if rogue_pipe else (0.47 if attack_heavy else (PipeCombo.CONTACT[combo-1] if weapon_slot==1 else 0.36))
+		var contact_phase=attack_contact_phase()
 		if not swing_played and (progress>=contact_phase if rogue_pipe else progress>contact_phase-0.13):
 			play_swing_sound()
 		if not rogue_pipe and not combo_step_done and progress>0.18 and weapon_slot==1 and not attack_heavy:
@@ -457,6 +532,10 @@ func _physics_process(delta):
 				start_attack(true)
 			elif weapon_slot==1 and not attack_heavy and combo<3 and not game.rogue_battle_mode: start_attack(false,combo+1)
 	if character_id==1:quick_attacks.tick()
+	# An energized follow-up may start directly at contact above. Recheck its
+	# clock before movement, while retaining crossings of the previous stroke.
+	if (strike_planted or _grounded_pipe_plant(0)) and is_on_floor() and velocity.y<=0 and jump_windup<=0 and weapon_slot==1 and dodge_time<=0 and not forward_dash.active and not chain_pipe_combat.active:
+		velocity.x=0;velocity.z=0
 	last_vertical=velocity.y
 	# Step across tiny risers and deck joints without losing momentum.
 	if is_on_floor() and dir.length()>0.1:
@@ -478,12 +557,17 @@ func _physics_process(delta):
 	was_floor=is_on_floor()
 	var horizontal=Vector2(velocity.x,velocity.z).length()
 	model.locomotion.free_feet=air_turn>0 or (attack_charged and attack_left>0 and weapon_slot==1)
+	# Share the jump silhouette at both boundaries of the existing midair turn.
+	# Use the same post-tick progress as the body rotation below.
+	if model.locomotion.get("reference_jump_flip")!=null:
+		model.locomotion.reference_jump_flip=clampf(1-maxf(0,air_turn-delta)/.42,0,1) if air_turn>0 else -1.0
 	model.charge_requested=false
 	model.charge_release=1.0-attack_left/attack_duration if attack_charged and attack_left>0 else -1.0
 	model.charge_slot=weapon_slot
 	model.pipe_combo_active=character_id==1 and weapon_slot==1 and not attack_heavy and attack_left>0
 	model.rogue_pipe_combo_active=uses_rogue_pipe_profile() and attack_left>0
 	model.wide_swing_active=wide_swing and attack_left>0
+	if character_id==1:model.pipe_visual_scale=HeroModel.WeaponProportions.SCALE*game.hero_tuning("pipe_range")/3.5*range_multiplier()*melee_reach_setting()/maxf(.01,growth_multiplier())
 	model.animate(delta,horizontal,is_on_floor(),velocity.y,attack_left/attack_duration,attack_heavy,combo,dodge_time>0 or forward_dash.active)
 	flight_lean=lerpf(flight_lean,(-.28 if boosting else -.18) if flying else 0.0,1-exp(-delta*9))
 	if character_id==1:model.body.rotation.x+=flight_lean
@@ -517,7 +601,7 @@ func _physics_process(delta):
 	if character_id==1 and weapon_slot==2 and attack_left>0 and not attack_charged:
 		model.arms[1].rotation.x=-1.5-sin((1-attack_left/attack_duration)*PI)*0.6
 		model.arms[1].rotation.y=-0.4
-	model.coin.scale=Vector3.ONE*0.78*(game.tuning.surge_coin_size if surge_left>0 else 1.0)
+	model.coin.scale=Vector3.ONE*0.78*HeroModel.WeaponProportions.SCALE*(game.hero_tuning("surge_coin_size") if surge_left>0 else 1.0)
 	model.visible=not (invuln>0 and int(invuln*20)%2==0)
 	if model.locomotion.step_events!=last_foot_events:
 		last_foot_events=model.locomotion.step_events
@@ -528,7 +612,8 @@ func _physics_process(delta):
 	if horizontal>14 and trail_time<=0:
 		trail_time=0.065
 		game.wind(global_position+Vector3(0,0.8,0),-facing)
-	if game.descent_mode:
+	if constrain_forest_bounds():pass
+	elif game.descent_mode:
 		# Keep long falls over the physical ground map without returning uphill.
 		var bounds=game.world.playable_bounds.grow(-2)
 		var edge_x=clampf(global_position.x,bounds.position.x,bounds.end.x)
@@ -543,6 +628,18 @@ func _physics_process(delta):
 		reset_wall_jump()
 		game.camera_rig.reset_follow()
 		game.toast("Returned to the last sanctuary · −10 vitality")
+	if character_id==2:musashi.after_pose()
+
+func constrain_forest_bounds()->bool:
+	if not game.has_method("forest_point_visible"):return false
+	var bounds=game.world.playable_bounds.grow(-2)
+	var edge_x=clampf(global_position.x,bounds.position.x,bounds.end.x)
+	var edge_z=clampf(global_position.z,bounds.position.y,bounds.end.y)
+	if edge_x!=global_position.x:global_position.x=edge_x;velocity.x=0
+	if edge_z!=global_position.z:global_position.z=edge_z;velocity.z=0
+	if global_position.y< -5:
+		global_position.y=.15;velocity=Vector3.ZERO;jumps_used=0;reset_wall_jump();game.camera_rig.reset_follow()
+	return true
 
 func reset_wall_jump():
 	wall_jump_grace=0
@@ -568,7 +665,7 @@ func perform_wall_jump():
 	var horizontal=Vector3(velocity.x,0,velocity.z)
 	# Keep travel along the wall while replacing inward motion with a clean kick.
 	horizontal=horizontal.slide(wall_jump_normal)+wall_jump_normal*maxf(WALL_JUMP_PUSH,horizontal.dot(wall_jump_normal))
-	velocity=horizontal+Vector3.UP*game.tuning.second_jump_speed*progression.jump_velocity_multiplier()
+	velocity=horizontal+Vector3.UP*game.hero_tuning("second_jump_speed")*progression.jump_velocity_multiplier()
 	facing=horizontal.normalized()
 	jump_buffer=0;coyote=0;air_turn=0
 	# Wall hops work after all air jumps are spent, but never refill their budget.
@@ -581,6 +678,7 @@ func perform_wall_jump():
 
 func select_weapon(slot: int):
 	if slot not in [1,2,3]:return
+	combat_aim_left=0
 	if character_id==2:
 		musashi.select_weapon(true)
 		return
@@ -622,14 +720,40 @@ func grow_from_building():
 	game.toast("BUILDING BROKEN · Size and reach ×%.2f" % growth_multiplier())
 
 func range_multiplier()->float:
-	return growth_multiplier()*(game.tuning.surge_range if surge_left>0 else 1.0)*pickup_multiplier("range")
+	return growth_multiplier()*(game.hero_tuning("surge_range") if surge_left>0 else 1.0)*pickup_multiplier("range")
 
 func melee_range_multiplier()->float:
-	return range_multiplier()*(game.tuning.surge_range if attack_charged and surge_left<=0 else 1.0)
+	return range_multiplier()*melee_reach_setting()*(game.hero_tuning("surge_range") if attack_charged and surge_left<=0 else 1.0)
+
+func melee_reach_setting()->float:
+	return game.hero_tuning("melee_reach")
 
 func attack_reach_multiplier()->float:
 	var basic = not attack_heavy and not attack_charged and not wide_swing
 	return melee_range_multiplier() * (BASIC_ATTACK_RANGE_MULTIPLIER if basic else 1.0)
+
+func melee_contact_multiplier()->float:
+	return MELEE_CONTACT_MULTIPLIER if game.has_method("forest_enemy_visible") else 1.0
+
+func attack_contact_phase()->float:
+	if uses_rogue_pipe_profile():return rogue_pipe_combo.contact_phase(combo)
+	if pipe_contact_phase>=0:return pipe_contact_phase
+	return .47 if attack_heavy else (PipeCombo.CONTACT[clampi(combo-1,0,2)] if weapon_slot==1 else .36)
+
+func melee_contact_guarded()->bool:
+	return character_id==1 and weapon_slot==1 and attack_left>0 and pipe_contact_phase>=0 and MeleeResponse.contact_guard(attack_duration-attack_left,attack_duration*pipe_contact_phase)
+
+func _grounded_pipe_plant(step: float)->bool:
+	if not game.has_method("forest_enemy_visible") or character_id!=1 or weapon_slot!=1 or attack_left<=0:return false
+	if not is_on_floor() or velocity.y>0 or jump_buffer>0 or jump_windup>0 or dodge_time>0 or forward_dash.active or chain_pipe_combat.active:return false
+	var contact=attack_duration*attack_contact_phase()
+	return GroundResponse.strike_planted(attack_duration-attack_left,contact,attack_duration,step)
+
+func melee_strike_reach()->float:
+	var reach=HeroModel.WeaponProportions.SCALE*game.hero_tuning("pipe_range")*(1.65 if attack_charged else (1.26 if attack_heavy else 1.0))*attack_reach_multiplier()
+	if not attack_charged:
+		reach=minf(reach,model.visible_pipe_reach()+.12*growth_multiplier())
+	return reach*melee_contact_multiplier()
 
 func emit_robe_coins(radial: bool=false):
 	if character_id!=1 or not scarf_equipped:return
@@ -639,6 +763,7 @@ func movement_multiplier()->float:
 	return progression.movement_multiplier()*(3.0 if scarf_equipped and character_id==1 else 1.0)
 
 func maximum_jumps()->int:
+	if character_id==8:return 1
 	return 4 if scarf_equipped and character_id==1 else 2
 
 func can_fly()->bool:return gold_cloak and scarf_equipped and character_id==1
@@ -658,7 +783,7 @@ func set_scarf_equipped(value: bool):
 	# Remove excess momentum immediately when taking the scarf off.
 	if not value and character_id==1:
 		air_turn=0
-		var speed_limit=game.tuning.sprint_speed if Input.is_action_pressed("sprint") else game.tuning.walk_speed
+		var speed_limit=game.hero_tuning("sprint_speed") if Input.is_action_pressed("sprint") else game.hero_tuning("walk_speed")
 		speed_limit*=movement_multiplier()
 		var horizontal=Vector2(velocity.x,velocity.z).limit_length(speed_limit)
 		velocity.x=horizontal.x;velocity.z=horizontal.y
@@ -666,12 +791,14 @@ func set_scarf_equipped(value: bool):
 
 func activate_surge():
 	if surge_left>0 and not attack_chain.unleashed(): return
-	surge_left=game.tuning.surge_duration
+	surge_left=game.hero_tuning("surge_duration")
 	model.set_surge(true)
 	if is_instance_valid(model.chain_pipe):model.chain_pipe.powered=true
 	aura.show()
 	game.burst(global_position+Vector3.UP,Color("ffe69b"),24)
-	game.sound("spark")
+	var audio_ticket=attack_chain.make_ticket("surge")
+	audio_ticket["move_audio"]=game.move_audio.begin(self,"surge","surge")
+	game.sound("spark",1.0,false,audio_ticket)
 	game.toast("GOLDEN SURGE · Wind spin / Giant toss / Explosive chain + Fire sweep")
 
 func end_surge():
@@ -685,31 +812,33 @@ func select_character(id: int):
 		if game.rogue_roster_mode and (id in [1,2] or is_rogue_character()):game.selected_rogue_id=id
 		return
 	if not ROSTER.has(id) and not (game.rogue_roster_mode and RogueRoster.is_rogue(id)):return
+	combat_aim_left=0
 	reset_auto_attack()
+	melee_assist.reset()
 	var health_fraction=hp/maxf(1.0,max_hp)
-	var was_rogue=is_rogue_character()
 	quick_attacks.stop_coins()
 	cancel_charge()
 	if surge_left>0:end_surge()
 	if character_abilities.has(character_id):character_abilities[character_id].active=false
 	var rotation_before=model.rotation
 	model.hide();model.set_process(false)
-	attack_left=0;attack_charged=false;heavy_buffer=0;combo=0;queued=false;impact_pause=0;air_turn=0
+	attack_left=0;attack_motion_pending=false;attack_charged=false;heavy_buffer=0;combo=0;queued=false;impact_pause=0;air_turn=0
 	ensure_character(id)
 	character_id=id;model=character_models[id];model.rotation=rotation_before;model.show();model.set_process(true)
 	if id==2:
-		var horizontal=Vector2(velocity.x,velocity.z).limit_length(game.tuning.sprint_speed*movement_multiplier())
+		var horizontal=Vector2(velocity.x,velocity.z).limit_length(game.hero_tuning("sprint_speed")*movement_multiplier())
 		velocity.x=horizontal.x;velocity.z=horizontal.y
 	active_ability=character_abilities.get(id)
 	if active_ability!=null:
 		active_ability.active=true;active_ability.cancel()
 		if id==2:musashi=active_ability
-	if was_rogue or is_rogue_character():
-		refresh_max_health()
-		hp=max_hp*health_fraction
+	refresh_max_health()
+	hp=max_hp*health_fraction
 	last_foot_events=model.locomotion.step_events
 	if game.rogue_roster_mode and (id in [1,2] or is_rogue_character()):game.selected_rogue_id=id
-	if is_rogue_character():
+	if not game.character_control_hints:
+		game.toast(RogueRoster.name_for(id) if is_rogue_character() else ROSTER[id].name)
+	elif is_rogue_character():
 		game.toast(RogueRoster.name_for(id)+(" · LMB Attack · RMB / 3 Secondary · C Evade · E Utility · R Skill · Q Heroes" if game.camera_combat() else " · LMB Attack · RMB / 3 Secondary · C / E Utility · R Skill · Q Fighters"))
 	elif game.rogue_roster_mode and id==1:
 		game.toast("Goemon · Q Fighters · Hold LMB Combo · RMB Heavy · C Evade · E Dash · R Surge")
@@ -745,7 +874,7 @@ func pickup_multiplier(kind: String)->float:
 	if kind=="attack_speed":return 1.0+.5*maxi(1,attack_speed_stacks)
 	return {"damage":1.5,"range":1.5,"attack_speed":1.5}.get(kind,1.0)
 func damage_multiplier()->float:
-	return game.tuning.damage_mult*pickup_multiplier("damage")*(1.0+.1*run_upgrades.damage)
+	return game.hero_tuning("damage_mult")*pickup_multiplier("damage")*(1.0+.1*run_upgrades.damage)
 func base_attack_speed_multiplier()->float:
 	return progression.attack_multiplier()*pickup_multiplier("attack_speed")*(1.0+.05*run_upgrades.tempo)
 func attack_speed_multiplier()->float:
@@ -754,8 +883,7 @@ func attack_speed_multiplier()->float:
 
 func refresh_max_health(heal_growth: bool=false):
 	var previous=max_hp
-	max_hp=game.tuning.max_hp*progression.health_multiplier()*(1.0+.1*run_upgrades.vitality)
-	if is_rogue_character():max_hp=max_hp*float(RogueRoster.data(character_id).get("maxHealth",100))/100.0
+	max_hp=game.hero_tuning("max_hp")*progression.health_multiplier()*(1.0+.1*run_upgrades.vitality)
 	hp=minf(max_hp,hp+(maxf(0,max_hp-previous) if heal_growth else 0.0))
 
 func award_kill():

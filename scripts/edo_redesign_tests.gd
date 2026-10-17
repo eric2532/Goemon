@@ -16,8 +16,8 @@ func run():
  game.player.smoke_mode=true;game.start_mode("defense");game.encounters.enabled=false
  game.player.select_character(2);game.reset_player_at(Vector3(0,.1,205));await frames(15)
  var p=game.player;var m=p.model;var c=p.musashi
- check(m.rig_visual.scene_file_path=="res://assets/models/characters/edo_approved.glb","Game selects the approved fuller-side-hair Edo")
- check(m.skeleton.get_bone_count()==16,"All 16 gameplay joints remain available")
+ check(m.rig_visual.scene_file_path=="res://assets/models/characters/goemon_cosplay/edo.glb","Game selects the approved Goemon cosplay Edo")
+ check(m.skeleton.get_bone_count()==22 and m.skeleton.find_bone("Hand_R")>=0 and m.skeleton.find_bone("Shin_L")>=0,"Goemon's 22-bone rig exposes Edo casting and leg joints")
  var hand_positions: Array[Vector3]=[];var chest_basis: Array[Basis]=[];var knee: Array[Basis]=[]
  p.set_physics_process(false)
  c.cast_fireball(false)

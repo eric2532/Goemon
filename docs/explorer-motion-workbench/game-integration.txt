@@ -1,0 +1,46 @@
+Explorer approved movement — implemented in the current build/Goemon.app
+
+Approved source: Explorer_Animation_Workbench.blend in this directory.
+01_Idle: 217 samples, 216-frame / 3.6-second breathing loop.
+02_Run: 41 samples, 40-frame loop, both arms held in the approved rear pose.
+03_Jump: 91 samples, launch/landing from the user's keyed frame 1 and
+airborne from the confirmed unsaved frame-3 pose, then approved idle recovery.
+The original input snapshot, named pose actions, and verification files remain.
+
+Re-export using Blender in background mode with tools/export_explorer_animations.py.
+Runtime data: assets/animations/explorer_approved.json (including source SHA256).
+Runtime: scripts/explorer_authored_motion.gd, called only for Explorer at the end
+of goemon_cosplay_rig.gd; actor.reset_motion clears its state.
+
+Idle and running blend with movement speed. Run phase follows the existing
+distance/speed-driven cadence. Airborne animation is retimed to real takeoff,
+including immediate second jumps, and holds until actual ground contact.
+Landing then blends to idle or running. Both blade grips are interpolated
+relative to the actual hands, preserving their authored angles and scale.
+Native attacks, guards, dodges, crouch, charge, drink and special movements
+release the override. Collision, jump velocity/count, damage and timing remain
+owned by the existing controller. No Blender preview height is applied.
+
+Fresh checks in tests/explorer-animations/:
+- Source motion: 2,075 checks, including every exported pose, both weapons,
+  all run directions, breathing, launch/landing, early/late second jump,
+  long falls, action ownership and reset.
+- Packaged PCK motion: 2,076 checks; source-only files are inaccessible.
+- Real gameplay: 17 source and rendered checks, 18 packaged checks, including
+  collision movement, actual floor landing, existing damage tick and swapping.
+- Explorer melee-assist regression: 35 checks.
+- Shared roster run regression: 1,530 checks; Explorer now has separate coverage.
+- Dragoon approved poses: 1,872 checks.
+- Rendered game idle/run/airborne/landing/attack captures inspected.
+- Read-only code review: no remaining blockers after early second-jump fix.
+- Signed staged and installed macOS applications verified and booted.
+
+The historical definitive title fixture still fails its hard-coded initial-gold
+assertion in both the previous app and this source checkout, following earlier
+core-balance changes. This animation work does not change economy behavior.
+Scene-based tests retain existing resource-cleanup messages at shutdown;
+the functional animation/gameplay checks pass.
+
+Release archive: build/Other Files/explorer-motion-release-20261016/Goemon.zip.
+Previous app location and installed PCK hash: tests/explorer-animations/verification.json.
+Restart Goemon and choose Explorer to load the updated package.

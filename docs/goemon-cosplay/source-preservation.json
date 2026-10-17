@@ -1,0 +1,8 @@
+{
+  "master_sha256": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c",
+  "source": "assets/blender/characters/kai.blend",
+  "exact_geometry_and_uvs": true,
+  "built": [
+    "pirate"
+  ]
+}

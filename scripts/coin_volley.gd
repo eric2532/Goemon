@@ -72,7 +72,7 @@ func _physics_process(delta):
 	for victim in game.enemies:
 		if not is_instance_valid(victim) or victim.dead:continue
 		var aim=AttackChain.aim_point(victim)
-		if sweep.grow(hit_radius+victim.body_radius).has_point(aim):
+		if (victim.has_method("combat_bounds") and sweep.grow(hit_radius).intersects(victim.combat_bounds())) or sweep.grow(hit_radius+victim.body_radius).has_point(aim):
 			candidates.append({"enemy":victim,"point":aim,"radius":hit_radius+victim.body_radius,"id":victim.get_instance_id()})
 	var enemy_hits={};var building_hits={}
 	for i in range(coin_count):
@@ -83,9 +83,11 @@ func _physics_process(delta):
 		var closest=INF;var chosen=null;var contact=Vector3.ZERO
 		for candidate in candidates:
 			if contacts[i].has(candidate.id):continue
-			var nearest=Geometry3D.get_closest_point_to_segment(candidate.point,start,finish)
-			if nearest.distance_squared_to(candidate.point)>candidate.radius*candidate.radius:continue
-			if not cast_ray(nearest,candidate.point).is_empty():continue
+			var hit_contact=AttackChain.segment_contact(candidate.enemy,start,finish,hit_radius)
+			if hit_contact.is_empty():continue
+			var nearest: Vector3=hit_contact.point
+			var hurt=AttackChain.aim_point(candidate.enemy,nearest)
+			if not cast_ray(nearest,hurt).is_empty():continue
 			if piercing:
 				contacts[i][candidate.id]=true
 				add_hit(enemy_hits,candidate.enemy,nearest,velocities[i])

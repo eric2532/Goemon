@@ -1,0 +1,62 @@
+Current flight controls supersede the historical double-jump notes below: see flight-integration.txt for the single 3x jump, Space hover and crosshair-directed aerial strike.
+
+Dragoon approved animation integration — Forest Shrine v2.59.0
+
+Current application: build/Goemon.app (restart to load the updated content).
+Source: docs/dragoon-motion-workbench/Dragoon_Regular_Jump.blend.
+This final workbook retains all four approved actions:
+  01_Idle — corrected idle with breathing, 217 samples / 3.6s loop.
+  03_Lance_Thrust_1 — approved core hit and second deeper poke, 34 samples.
+  02_Jump — Dragoon regular upright jump without dive, 140 samples.
+  06_Azure_Leap — approved crouch, airborne, downward dive, landing, 228 samples.
+
+Re-export with:
+  /Applications/Blender.app/Contents/MacOS/Blender --background --factory-startup --disable-autoexec --python tools/export_dragoon_animations.py
+
+Runtime data: assets/animations/dragoon_approved.json.
+Runtime controller: scripts/dragoon_authored_motion.gd, invoked only for Dragoon
+at the end of goemon_cosplay_rig.gd's pose update. Native geometry, UVs,
+rest skeleton, materials and weapon geometry are unchanged. Blender's preview
+height parent is excluded; actual collision movement supplies travel.
+
+Idle fades into the existing shared run/slow movement. Primary attacks keep
+existing damage/contact/duration and map the core hit onto the combat contact
+frame; the extended poke follows before recovery. Visual frames are retimed to
+the real gameplay clocks rather than imposing Blender timeline durations on
+physics or combat. Regular airborne/landing phases follow velocity and actual
+floor contact. Both Space jumps use the dedicated upright pose in place of the
+old generic somersault; second launch, jump count and height remain game-owned.
+Grounded RMB maps crouch/launch/air/dive to the current lance-leap arc and then
+starts the landing on confirmed collision. Airborne RMB remains an immediate
+plunge. Dodge, crouch, guards and other special gestures release the override.
+Resetting or switching characters clears animation state.
+
+Latest-version check: read other chats 'Improve 3D combat feel', 'Arrange running
+poses in Godot' and 'Add music from a YouTube link'. Built on their shared
+latest v2.59.0 project with polished HUD, triple enemy spawns, shared run,
+12 percent reach increase, 70ms plant, hidden melee assist and existing audio.
+The proposed 1.1s sticky memory / weapon+voice studio design was still awaiting
+approval in that other chat and was not implemented by this task.
+
+Validation evidence: tests/dragoon-animations/.
+- Confirmed pre-integration pose mismatch (red.log).
+- Fresh exported data: 1,872 pose checks passed (all 619 frames, 22 bones and lance).
+- Real rendered and packaged gameplay: idle, hit timing, deeper extension,
+  jump/floor landing, special airborne/dive/landing, cancellation and resets.
+- Expanded packaged gameplay includes second jump and direct airborne plunge:
+  21 checks passed.
+- Shared roster run: 1,781 source and packaged checks passed.
+- Hidden melee assist: 67 source checks passed.
+- Packaged sound regression: 37 checks passed, including building music/Knight.
+- Packaged definitive title/roster/preparation/combat/retry: 0 failures.
+- Fixed collision-confirmed landing before is_on_floor refresh (landing-red.log).
+- Code review's generic second-jump-flip observation is intentional: the user's
+  new class-specific jump replaces that visual. Second-jump physics verified.
+  No other blocking findings were reported.
+- Some scene tests emit existing ObjectDB/resource cleanup messages at exit;
+  all functional assertions pass. Isolated pose/run checks exit cleanly.
+- Exported macOS bundle code signature verified, installed executable booted.
+
+Release archive: build/Other Files/Forest Shrine v2.59.0/Dragoon Animations/Goemon.zip
+Previous app location and installed PCK hash: tests/dragoon-animations/verification.json.
+Editable Blender files remain unchanged by the export/integration.

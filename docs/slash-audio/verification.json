@@ -1,0 +1,37 @@
+{
+  "app": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Goemon.app",
+  "backup": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Goemon-v2.59.0-before-Slash-Specials-Finishers-20261015-160605.app",
+  "archive": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Forest Shrine v2.59.0/Slash Specials Finishers/Goemon.zip",
+  "pck_sha256": "470ebe0a3677708700ac29306a6b0b92fa896a6a9036ffa02cdac696cc2e21dc",
+  "changes": [
+    "Explorer Cross Slash and Ninja Dash Cut play dedicated staggered slash mixes at activation",
+    "Third left-click hit layers a delayed blade impact; peak -6 dBFS versus -9 for light hits",
+    "Specials retain character-specific Sound Studio overrides; no per-frame audio restart"
+  ],
+  "checks": {
+    "source_specials": 37,
+    "source_recording": 39,
+    "source_gameplay": 9,
+    "packaged_specials": 37,
+    "packaged_building_music": 12,
+    "packaged_spawns": 20
+  },
+  "wave_counts": [
+    72,
+    108,
+    144,
+    180,
+    240
+  ],
+  "active_cap": 240,
+  "signature": "verified",
+  "known_diagnostics": "Existing unset Blender path during export and ObjectDB/resource cleanup warnings in music test shutdown. No failed assertions or runtime script errors.",
+  "installed_boot": {
+    "exit": 0,
+    "frames": 60,
+    "runtime_script_errors": 0,
+    "shutdown_diagnostics": [
+      "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+    ]
+  }
+}

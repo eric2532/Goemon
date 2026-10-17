@@ -32,7 +32,7 @@ func run():
   var s=m.skeleton;var hip=s.get_bone_global_pose(s.find_bone('Leg_L')).origin;var k=s.get_bone_global_pose(s.find_bone('Shin_L')).origin;var a=s.get_bone_global_pose(s.find_bone('Foot_L')).origin
   knee=maxf(knee,acos(clampf((k-hip).normalized().dot((a-k).normalized()),-1,1)))
  print('maximum knee flex ',knee)
- check(knee<.25,'Running preserves the Rogue-style straight lower-leg silhouette')
+ check(knee>.8 and knee<2.65,'Running bends the Goemon knee into a bounded heel recovery')
  var rest=sample(m,Vector3.ZERO)
  check(range_of(rest,2)<.04 and range_of(rest,0)<.04,'Stopping settles both feet')
  # Match equivalent distance rather than frame rate: 30Hz and 120Hz should walk alike.

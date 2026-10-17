@@ -4,6 +4,7 @@ extends RefCounted
 const DURATIONS=[0.28,0.34,0.56]
 const CONTACT=[0.34,0.38,0.48]
 const ACTIVE=[0.16,0.17,0.15]
+const Strike=preload("res://scripts/goemon_reference_strike.gd")
 const IDLE={"hip":Vector3.ZERO,"chest":Vector3.ZERO,"offset":Vector3.ZERO,"wrist":Vector3(0.55,0.78,-0.12),"guard":Vector3.ZERO,"roll":0.0,"aim":Vector3(0,0,-1)}
 const HIGH={"hip":Vector3(-0.04,-0.22,-0.04),"chest":Vector3(0.04,-0.18,-0.08),"offset":Vector3(0.025,-0.035,0.015),"wrist":Vector3(0.66,1.68,0.12),"guard":Vector3(0.25,0,-0.3),"roll":-0.3,"aim":Vector3(0.30,0.75,0.45)}
 const DIAGONAL_END={"hip":Vector3(0.11,-0.34,0.05),"chest":Vector3(0.16,-0.21,0.06),"offset":Vector3(0.04,-0.07,-0.035),"wrist":Vector3(0.61,0.99,-0.53),"guard":Vector3(0.5,0,-0.4),"roll":0.2,"aim":Vector3(0.40,-0.40,-0.85)}
@@ -31,11 +32,5 @@ static func raw(stage: int,t: float)->Dictionary:
 		if t<=keys[i+1][0]:return interpolate(keys[i][1],keys[i+1][1],inverse_lerp(keys[i][0],keys[i+1][0],t))
 	return keys[-1][1].duplicate()
 
-static func sample(stage: int,t: float)->Dictionary:
-	t=clampf(t,0,1)
-	var p=raw(stage,t)
-	# Endpoint-preserving phase offsets keep stage seams continuous.
-	p.chest=raw(stage,clampf(t-0.025*sin(t*PI),0,1)).chest
-	p.wrist=raw(stage,clampf(t-0.045*sin(t*PI),0,1)).wrist
-	p.aim=raw(stage,clampf(t-0.065*sin(t*PI),0,1)).aim
-	return p
+static func sample(stage: int,t: float,contact_override: float=-1.0)->Dictionary:
+	return Strike.sample(stage,t,contact_override if contact_override>=0 else CONTACT[clampi(stage-1,0,2)])

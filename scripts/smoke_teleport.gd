@@ -58,9 +58,10 @@ func smoke_damage(point: Vector3):
 	BreakableBuilding.hit_area(hero.game,point+Vector3.UP*hero.growth_multiplier(),RADIUS*hero.growth_multiplier(),DAMAGE*hero.damage_multiplier(),attack_ticket,Vector3.ZERO,-1,struck)
 	for enemy in hero.game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead or struck.has(enemy.get_instance_id()):continue
-		var offset=enemy.global_position-point
+		var hurt=AttackChain.contact_point(enemy,point+Vector3.UP,enemy.global_position)
+		var offset=hurt-point
 		if Vector2(offset.x,offset.z).length()>RADIUS*hero.growth_multiplier()+enemy.body_radius or absf(offset.y)>2.5:continue
-		var ray=PhysicsRayQueryParameters3D.create(point+Vector3.UP,enemy.global_position+Vector3.UP,1)
+		var ray=PhysicsRayQueryParameters3D.create(point+Vector3.UP,AttackChain.contact_point(enemy,point+Vector3.UP,enemy.global_position+Vector3.UP),1)
 		if not hero.get_world_3d().direct_space_state.intersect_ray(ray).is_empty():continue
 		struck[enemy.get_instance_id()]=true;hit_count+=1
 		enemy.take_hit(DAMAGE*hero.damage_multiplier(),offset.normalized(),false,attack_ticket)

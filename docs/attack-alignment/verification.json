@@ -1,0 +1,90 @@
+{
+  "verified_at": "2026-10-14T02:10:42.775041+08:00",
+  "scope": "All twelve Goemon-based fighters: melee choreography and visible reach, ranged release origins, and articulated running. Previous balance and recording settings preserved.",
+  "runtime": "Godot 4.6.3; macOS release export",
+  "packaged_tests": {
+    "goemon_attack_alignment_tests": {
+      "checks": 77,
+      "failures": 0,
+      "exit_code": 0,
+      "log": "build/goemon-cosplay/verification/packaged-goemon_attack_alignment_tests.log"
+    },
+    "goemon_run_reference_tests": {
+      "checks": 28,
+      "failures": 0,
+      "exit_code": 0,
+      "log": "build/goemon-cosplay/verification/packaged-goemon_run_reference_tests.log"
+    },
+    "edo_primary_alignment_tests": {
+      "checks": 59,
+      "failures": 0,
+      "exit_code": 0,
+      "log": "build/goemon-cosplay/verification/packaged-edo_primary_alignment_tests.log"
+    },
+    "edo_reference_run_tests": {
+      "checks": 24,
+      "failures": 0,
+      "exit_code": 0,
+      "log": "build/goemon-cosplay/verification/packaged-edo_reference_run_tests.log"
+    },
+    "character_balance_tests": {
+      "checks": 32,
+      "failures": 0,
+      "exit_code": 0,
+      "log": "build/goemon-cosplay/verification/packaged-character_balance_tests.log"
+    }
+  },
+  "source_regressions": {
+    "roster": {
+      "checks": 100,
+      "failures": 0
+    },
+    "class_combat": {
+      "checks": 81,
+      "failures": 0
+    },
+    "goemon_pipe_combo": {
+      "failures": 0
+    },
+    "locomotion": {
+      "samples": 1171,
+      "failures": 0
+    },
+    "edo_gait": {
+      "checks": 9,
+      "failures": 0
+    },
+    "edo_redesign": {
+      "checks": 19,
+      "failures": 0
+    }
+  },
+  "preview": {
+    "captures": 122,
+    "failures": 0,
+    "detail": "preview-verification.json",
+    "attack": "all-twelve-attack.mp4",
+    "running": "all-twelve-run.mp4"
+  },
+  "package": {
+    "app": "build/goemon-cosplay/Goemon Cosplay.app",
+    "zip": "build/goemon-cosplay/Goemon Cosplay.zip",
+    "pck_sha256": "3d1f092bcfb819fc65a2d92089adb19ac805acfa519fc5966315c342c1c32624",
+    "zip_sha256": "cfc47419889f91b82bda56f4595fe4364cc5891159ab23a44754eea8696f8167",
+    "zip_crc": "pass",
+    "zip_pck_matches_app": true,
+    "codesign_deep_strict": "pass",
+    "native_startup_quit_after_180_exit_code": 0
+  },
+  "preservation": {
+    "settings_and_recording_files_checked": 16,
+    "changed_files": [],
+    "goemon_blender_master_sha256": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c",
+    "master_unchanged": true
+  },
+  "review": "All identified issues resolved: Samurai fifth-strike direction and bow stow, Goemon visible pipe reach. Independent reviewer reported no remaining important findings.",
+  "limitations": [
+    "Pose videos are studio previews without live damage targets; gameplay collision and projectile release are checked by runtime suites.",
+    "Legacy Edo redesign test emitted an exit-time ObjectDB warning; new focused packaged suites exited cleanly."
+  ]
+}

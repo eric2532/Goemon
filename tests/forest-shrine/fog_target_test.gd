@@ -6,6 +6,8 @@ func _initialize():call_deferred("run")
 func run():
 	change_scene_to_file("res://scenes/forest_shrine.tscn");await process_frame;await process_frame
 	var game=current_scene;game.player.select_character(1);game.start_wave();game.model.waves.spawn_clock=10000;game.model.waves.spawn_one()
+	# A visible training dummy is a valid target, independent of hidden-raider checks.
+	game.enemies.erase(game.training_dummy)
 	var e=game.model.enemies.values()[0];e.pos=Vector3(150,0,60);e.hp=10000;e.max_hp=10000;e.stun=100
 	game.sync_enemies();await physics_frame;await physics_frame
 	var actor=game.actors[e.id];var strike=game.player.sky_strike

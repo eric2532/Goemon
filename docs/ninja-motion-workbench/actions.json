@@ -1,0 +1,82 @@
+[
+  {
+    "action": "01_Idle",
+    "start": 1,
+    "end": 217,
+    "keyframes": [
+      1,
+      19,
+      37,
+      55,
+      73,
+      91,
+      109,
+      127,
+      145,
+      163,
+      181,
+      199,
+      217
+    ],
+    "markers": {
+      "Breathe in": 55,
+      "Breathe out": 163,
+      "Loop": 217,
+      "Start": 1
+    }
+  },
+  {
+    "action": "02_Run",
+    "start": 1,
+    "end": 41,
+    "keyframes": [
+      1,
+      6,
+      11,
+      16,
+      21,
+      26,
+      31,
+      36,
+      41
+    ],
+    "markers": {
+      "Loop": 41,
+      "Passing A": 11,
+      "Passing B": 31,
+      "Stride A": 1,
+      "Stride B": 21
+    }
+  },
+  {
+    "action": "03_Cross_Slash_RMB",
+    "start": 1,
+    "end": 37,
+    "keyframes": [
+      1,
+      4,
+      6,
+      7,
+      10,
+      13,
+      16,
+      18,
+      19,
+      22,
+      25,
+      26,
+      28,
+      31,
+      34,
+      37
+    ],
+    "markers": {
+      "Cut": 10,
+      "End dash": 26,
+      "Follow through": 18,
+      "Ready": 1,
+      "Recover": 37,
+      "Windup": 6
+    }
+  }
+]

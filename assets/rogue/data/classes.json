@@ -113,7 +113,7 @@
       },
       "flintlock": {
         "name": "Shadow Cut",
-        "description": "RMB / 3: dash through enemies once. A full energy bar grants one manual cast during cooldown.",
+        "description": "RMB / 3: pierce enemies along your dash path, then deliver a separate forward finishing cut. Each phase can hit an enemy once. Every three landed basic attacks refresh this cooldown; each swing counts once. A full energy bar grants one manual cast during cooldown.",
         "icon": "shuriken"
       },
       "roll": {
@@ -187,7 +187,7 @@
     "maxHealth": 125,
     "cooldowns": {
       "cutlass": 0.5,
-      "flintlock": 4.0,
+      "flintlock": 0.0,
       "roll": 0.9,
       "drink": 22
     },
@@ -199,7 +199,7 @@
       },
       "flintlock": {
         "name": "Navy Counter",
-        "description": "RMB / 3: guard for two seconds. An incoming hit triggers a massive navy energy shield bash.",
+        "description": "Hold RMB / 3 to guard for as long as you hold it. A blocked frontal hit projects three large energy shields, damaging each enemy they touch once per shield.",
         "icon": "shield"
       },
       "roll": {
@@ -237,12 +237,12 @@
     "abilities": {
       "cutlass": {
         "name": "Lance Pierce",
-        "description": "A broad lance thrust with triple reach. Both normal jumps reach twice their former height.",
+        "description": "A broad lance thrust with triple reach. One jump reaches three normal jump heights; hold Space to hover at the apex.",
         "icon": "lance"
       },
       "flintlock": {
-        "name": "Azure Lance Leap",
-        "description": "RMB / 3: leap ahead from the ground, or plunge straight down while airborne. Landing sends three widening blue shockwaves.",
+        "name": "Azure Lance Sweep",
+        "description": "Grounded RMB / 3: sweep the lance left to right with blue energy, hitting three times for triple normal thrust damage per hit. Airborne LMB or RMB / 3: Dragon Leap toward the crosshair with no cooldown and three enlarged landing shockwaves.",
         "icon": "lance"
       },
       "roll": {
@@ -252,7 +252,7 @@
       },
       "drink": {
         "name": "Dragon Leap",
-        "description": "For 10s, Leap and Back Flip have no cooldown. Actions still take time.",
+        "description": "For 10s, Lance Sweep and Back Flip have no cooldown. Actions still take time.",
         "icon": "spark"
       }
     }

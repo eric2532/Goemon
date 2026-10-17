@@ -69,8 +69,10 @@ func dash_and_melee_rules():
  check(far.hp<10000 and game.player.position.x-TEST_ORIGIN.x>4,"Explorer secondary dashes forward and lands the cross slash")
  for index in [4,5,9]:
   await fresh_class(index);a=game.player.active_ability
+  near=fixture(Vector3(2.6 if index==5 else 1.9,0,0))
   far=fixture(Vector3(4.0 if index!=5 else 5.4,0,0));tap("light_attack");await frames(40)
-  check(far.hp<10000,"%s primary gains weapon reach" % CLASS_IDS[index])
+  check(near.hp<10000,"%s primary damages a target inside the visible weapon stroke" % CLASS_IDS[index])
+  check(far.hp==10000,"%s primary has no invisible reach beyond the weapon stroke" % CLASS_IDS[index])
 
 func mage_rules():
  var damages=[];var widths=[]
@@ -170,12 +172,13 @@ func edge_rules():
  check(a.filter_damage(20,Vector3.RIGHT,true)==0 and a.filter_damage(20,Vector3.BACK,false)==0,"Master Thief timed defense covers projectile and melee from every side")
  a.cancel();press("heavy_attack",false)
  await fresh_class(9);a=game.player.active_ability
- var small=fixture(Vector3(16.0,0,0));tap("light_attack");await frames(35)
+ var small=fixture(Vector3(3.5,0,0));tap("light_attack");await frames(35)
  check(small.hp==10000,"Ungrown pipe cannot hit outside its actual reach")
  await fresh_class(9);a=game.player.active_ability
  game.player.buildings_broken=20;game.player.scale=Vector3.ONE*game.player.growth_multiplier()
- var large=fixture(Vector3(16.0,0,0));tap("light_attack");await frames(35)
- check(large.hp<10000,"Pipe attack reach grows with the character")
+ var large=fixture(Vector3(3.5,0,0));var distant=fixture(Vector3(16.0,0,0));tap("light_attack");await frames(35)
+ check(large.hp<10000,"The visibly grown pipe reaches a target outside its ungrown stroke")
+ check(distant.hp==10000,"Growing the pipe does not restore its former invisible reach")
  await fresh_class(2);a=game.player.active_ability
  var wall=StaticBody3D.new();wall.collision_layer=1;wall.collision_mask=0
  var shape=CollisionShape3D.new();var box=BoxShape3D.new();box.size=Vector3(.5,7,7);shape.shape=box;wall.add_child(shape)
@@ -199,8 +202,9 @@ func signature_rules():
  tap("surge");tap("heavy_attack");a.filter_damage(20,Vector3.LEFT,true)
  check(a.player.riposte>0,"Knight Code still earns an empowered next sword strike from blocking")
  await frames(45)
- var target=fixture(Vector3(3.8,0,0));tap("light_attack");await frames(35)
+ var target=fixture(Vector3(1.9,0,0));var distant=fixture(Vector3(3.8,0,0));tap("light_attack");await frames(35)
  check(is_equal_approx(10000-target.hp,76),"Knight Code empowered primary preserves its 1.8x damage")
+ check(distant.hp==10000,"Knight Code increases damage without adding invisible sword reach")
 
 
 func posture_transition_rules():
@@ -211,7 +215,8 @@ func posture_transition_rules():
  a._animate(0,0)
  var actor=game.player.model.actor
  check(actor.joints.Body.node.to_local(actor.joints.Weapon_Pistol.node.global_position).z>.25,"Samurai brings the actual bow into firing position")
- check(actor.joints.Body.node.to_local(actor.joints.Weapon_Cutlass.node.global_position).z<0,"Samurai stows his katana while releasing the energy arrow")
+ var sheath=actor.model.find_child("SamuraiRedScabbard",true,false)
+ check(sheath!=null and actor.joints.Weapon_Cutlass.node.global_position.distance_to(sheath.global_position)<.015,"Samurai keeps his katana seated in the red scabbard while releasing the energy arrow")
  await fresh_class(9);a=game.player.active_ability
  press("heavy_attack");tap("equip")
  check(a.player.crouched and not a.player.blocking and a.player.guardTime==0 and a.player.guardStyle.is_empty(),"Crouching cancels Thief guard timer and pose with its protection")

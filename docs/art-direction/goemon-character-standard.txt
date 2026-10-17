@@ -1,5 +1,24 @@
 GAME-WIDE CHARACTER ART DIRECTION
 
+CURRENT DIRECTION — 2026-10-14
+
+The user has explicitly replaced the historical guidance below:
+"redesign them using Goemon's body and face and hair, just add in the details,
+essentially we will try it like Goemon cosplaying."
+
+Use the actual approved Goemon mesh as the shared base for every playable hero.
+Keep his body, painted face, UV layout and hair silhouette. Add each character's
+colors, fitted costume, accessories and weapons while retaining their playstyle.
+Keep the original kai.blend and atlas unchanged; save independent editable
+costume variants. Verify actual exported models, animation and gameplay.
+
+The remaining text is HISTORICAL and is superseded wherever it conflicts with
+the Goemon cosplay direction. It is retained to explain earlier assets.
+
+==================================================
+HISTORICAL BRIEF
+==================================================
+
 From this point forward, use the approved GOEMON Blender character as the
 MASTER BASELINE for every playable character in this game.
 

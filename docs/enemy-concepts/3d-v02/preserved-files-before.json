@@ -1,0 +1,10 @@
+{
+  "assets/blender/enemies/forest_redesign_v01/daruma_breaker.blend": "25c8a80f434830280fcac51246a3cfca87c9c71a029a65e7f8c085eee2466e68",
+  "assets/models/enemies/forest_redesign_v01/daruma_breaker.glb": "318d4088a648dbcf77f5ffb145e93f9be97ce54df4d5fa56f32a6dba774868ba",
+  "assets/textures/enemies/forest_redesign_v01/daruma_breaker_shell.png": "222cc54287f6c258a53a616c8ed34fb6c0e68d988fb2839ad07cd2d2fd3a3104",
+  "scripts/forest/forest_waves.gd": "0f11762113472e18e94b60c2326ec2bfd5d39c288b0cd6bfa0675b1186d1025d",
+  "scripts/forest/forest_raider.gd": "cd3236d56a0b2cc2b30d71f3d0fc54eeeaefaaf542ff1d04c9a7651aacd794d4",
+  "scripts/forest/forest_model.gd": "2d9d73a82982fb2f6c3503585186c506726850dfb4857e56390a9309ec401ffc",
+  "scripts/enemy_crowd.gd": "72d626e69e8982e1f73be4f46d3ef253c75e2043268edae01d6f592f6b4aa4d8",
+  "assets/blender/characters/kai.blend": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c"
+}

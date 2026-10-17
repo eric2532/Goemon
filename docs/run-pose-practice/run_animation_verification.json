@@ -1,0 +1,13 @@
+{
+  "action": "Run_User_Strides",
+  "baked_frames": 61,
+  "fps": 90,
+  "loop_seconds": 0.6666666666666666,
+  "anchor_error": 2.682209014892578e-07,
+  "loop_error": 4.799231193720463e-33,
+  "source_ground": -0.044085972011089325,
+  "lowest_shoe": -0.04408637806773186,
+  "max_head_step": 0.12285930380970167,
+  "max_unreachable_distance": 0.03522092461288684,
+  "source_action": "Run"
+}

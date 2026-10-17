@@ -1,0 +1,9 @@
+# Forest building-view map editor
+
+Add a Map Editor button to Forest preparation. Use the existing overhead camera and grid. Author flat layouts using towers, walls, gates, mines, gold deposits and trees. Place with left click, select existing pieces, rotate with R or a button, delete with Delete or a button. Keep the shrine, hero start and training dummy clear and fixed. Editing is free and pauses run simulation; playing a layout starts a fresh run with current balance settings.
+
+Ship an immutable snapshot of the current forest as Original Map. Custom JSON maps live in user://forest_maps, independently of the app bundle and settings. Named Save and a saved-map picker support multiple maps and relaunch. Never overwrite the bundled original. Confirm replacing unsaved work. Undo/redo protects ordinary editing. Retain the pre-editor app as a separate launchable build.
+
+Use a validated document for layout data only: building kind/cell/rotation/span, trees and gold deposits. Do not save wave progress, health, treasury, worker routes or live objects. Bound file size/counts, reject invalid coordinates, overlaps, unsupported kinds and malformed files without changing the current document. Check worker access before playing. A map selected for play remains active through Instant Restart; cold launch retains the original until a saved map is loaded explicitly.
+
+Reuse existing procedural art, collisions, fog, grid navigation and production controls. Rebuild authored world nodes when applying a layout, excluding stale bodies and deposits. Reveal the map only in editor preview. Keep editor clicks and text input isolated from construction, loadout, roster and combat shortcuts. Test persistence, real input, original-map recovery, play/restart and packaged native layout before installing the rebuilt app.

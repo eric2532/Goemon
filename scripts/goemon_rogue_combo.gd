@@ -6,6 +6,7 @@ const CONTACT_TIME = 0.15
 const COMBO_WINDOW = 1.05
 const HIT_PAUSES = [0.045, 0.045, 0.075]
 const TINT = Color("b9a0ff")
+const Strike = preload("res://scripts/goemon_reference_strike.gd")
 # Keep the pose profile independent of Hero/HeroModel's preload graph.
 var hero: Node3D
 var fx: Node3D
@@ -18,23 +19,7 @@ static func contact_phase(stage: int) -> float:
 	return CONTACT_TIME / duration(stage)
 
 static func sample(stage: int, elapsed: float) -> Dictionary:
-	var index: int = clampi(stage - 1, 0, 2)
-	var wind: Dictionary = [PipeCombo.HIGH, PipeCombo.DIAGONAL_END, PipeCombo.FINISH_LOAD][index]
-	# Each contact is an authored Goemon pose with the actual pipe crossing the
-	# forward hit region; recovery and windup use the native Rogue clock.
-	var contact: Dictionary = PipeCombo.raw(index + 1, [0.48, 0.38, 0.48][index])
-	var follow: Dictionary = [PipeCombo.DIAGONAL_END, PipeCombo.LEFT_END, PipeCombo.RIGHT_END][index]
-	var windup: float = CONTACT_TIME * 0.52
-	var follow_end: float = minf(duration(stage) * 0.78, CONTACT_TIME + minf(0.09, (duration(stage) - CONTACT_TIME) * 0.24))
-	if elapsed < windup:
-		return _blend(PipeCombo.IDLE, wind, smoothstep(0, windup, elapsed))
-	if elapsed < CONTACT_TIME:
-		var amount: float = clampf((elapsed - windup) / (CONTACT_TIME - windup), 0, 1)
-		return _blend(wind, contact, amount * amount)
-	if elapsed < follow_end:
-		var amount: float = clampf((elapsed - CONTACT_TIME) / (follow_end - CONTACT_TIME), 0, 1)
-		return _blend(contact, follow, 1.0 - (1.0 - amount) * (1.0 - amount))
-	return _blend(follow, PipeCombo.IDLE, smoothstep(follow_end, duration(stage), elapsed))
+	return Strike.sample(stage,elapsed/duration(stage),contact_phase(stage))
 
 static func _blend(from: Dictionary, to: Dictionary, amount: float) -> Dictionary:
 	var pose: Dictionary = {}
@@ -63,6 +48,7 @@ func prepare() -> void:
 		sound.process_mode = Node.PROCESS_MODE_PAUSABLE
 		sound.ambience_enabled = false
 		game.add_child(sound)
+	sound.game = game
 	sound.set_volume(float(game.settings.volume))
 
 func release(stage: int) -> void:
@@ -73,7 +59,7 @@ func slash(stage: int) -> void:
 	prepare()
 	var index: int = clampi(stage - 1, 0, 2)
 	var angle: float = atan2(hero.facing.x, hero.facing.z)
-	fx.slash(hero.global_position, angle, index, TINT, hero.game.tuning.pipe_range * hero.attack_reach_multiplier(),
+	fx.slash(hero.global_position, angle, index, TINT, hero.melee_strike_reach(),
 		{"style": "magic", "arc": 2.5, "height": 1.05 * hero.growth_multiplier(), "direction": -1 if index % 2 else 1})
 
 func impact(victim: Node3D, point: Vector3, direction: Vector3, stage: int) -> void:

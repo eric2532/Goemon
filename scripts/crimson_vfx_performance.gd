@@ -56,7 +56,7 @@ func run():
 	if omit_numbers:
 		# Diagnostic isolation only: retain all real contacts, damage and AI.
 		var diagnostic=GDScript.new()
-		diagnostic.source_code="extends \"res://scripts/game.gd\"\nfunc damage_number(_p: Vector3,_amount: int,_heavy: bool):pass\n"
+		diagnostic.source_code="extends \"res://scripts/game.gd\"\nfunc damage_number(_p: Vector3,_amount: int,_heavy: bool,_critical: bool=false):pass\n"
 		diagnostic.reload();game.set_script(diagnostic)
 	game.smoke_test=true;root.add_child(game)
 	game.tuning.invincible=true;game.tuning.freeze_ai=false;game.settings.quality=quality

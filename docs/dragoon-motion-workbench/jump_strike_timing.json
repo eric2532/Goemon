@@ -1,0 +1,47 @@
+{
+  "file": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/dragoon-motion-workbench/Dragoon_Jump_Strike.blend",
+  "source": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/dragoon-motion-workbench/Dragoon_Jump_User_Poses_20261015_174045.blend",
+  "frames": 228,
+  "fps": 60,
+  "duration_seconds": 3.783333333333333,
+  "anchors": [
+    [
+      1,
+      "crouch"
+    ],
+    [
+      12,
+      "crouch"
+    ],
+    [
+      48,
+      "airborne"
+    ],
+    [
+      84,
+      "airborne"
+    ],
+    [
+      114,
+      "dive"
+    ],
+    [
+      150,
+      "dive"
+    ],
+    [
+      180,
+      "landing"
+    ],
+    [
+      192,
+      "landing"
+    ],
+    [
+      228,
+      "idle"
+    ]
+  ],
+  "preview_height_m": 2.5,
+  "source_pose3_was_unkeyed": true
+}

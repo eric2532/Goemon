@@ -1,0 +1,19 @@
+{
+  "stage": "unrigged visual prototype",
+  "protected_sha256": {
+    "assets/blender/characters/kai.blend": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c",
+    "assets/blender/characters/edo_anime.blend": "49c5e2bbf26eb8e3dfc568d326a46cf743d5ee80e8e4da5a2626aa616db7a102",
+    "assets/models/characters/edo_anime.glb": "191da97e95e7c3e4892ed7a09c7c33a860586893bcc8e8bf2dee027c7b089d16"
+  },
+  "protected_unchanged": true,
+  "edo_meshes": 72,
+  "edo_triangles": 10408,
+  "viewer_bytes": 1603774,
+  "renders": [
+    "front",
+    "three-quarter",
+    "side",
+    "back",
+    "goemon-comparison"
+  ]
+}

@@ -1,9 +1,13 @@
 extends RefCounted
+const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
 var reference: WeakRef
 var m:
 	get:return reference.get_ref()
 var held=false
 var release_point=Vector3.ZERO
+var assignment_clock=0.0
+const ARROW_SPEED=70.0
+var arrows: Dictionary={}
 func _init(model):reference=weakref(model)
 func recruit(free: bool=false)->bool:
 	if m.phase!="preparing" or m.workers.size()>=24 or (not free and m.gold<50):return false
@@ -21,8 +25,8 @@ func count_job(id: int)->int:
 func capacity(b: Dictionary)->int:
 	match b.kind:
 		"mine":return 3 if m.deposits.get(b.cell,0)>0 else 0
-		"tower":return 3
-		"wall","gate":return 2 if b.hp<b.max_hp and m.gold>0 else 0
+		"tower":return m.balance.tower_workers
+		"shrine","wall","gate":return 2 if b.hp<b.max_hp and m.gold>0 else 0
 	return 0
 func jobs_near(p: Vector3)->Array:
 	var jobs=[]
@@ -31,12 +35,54 @@ func jobs_near(p: Vector3)->Array:
 		if count_job(b.id)<capacity(b):jobs.append(b)
 	return jobs
 func _assign(w: Dictionary,b: Dictionary)->bool:
+	if w.state=="wounded" or capacity(b)<=0:return false
+	if w.job!=b.id and count_job(b.id)>=capacity(b):return false
 	var start=navigation_origin(w)
 	var destination=m.entry(b)
 	if m.route(start,destination).is_empty():return false
+	leave_tower(w)
 	w.job=b.id;w.follow=false;w.path=[];w.destination=Vector2i(-999,-999)
-	w.state="deliver" if w.cargo>0 else "travel";w.timer=0.0
+	w.state="deliver" if w.cargo>0 else "travel";w.timer=0.0;w.job_nav=m.navigation_revision
 	return true
+func release_job(w: Dictionary):
+	leave_tower(w)
+	w.job=-1;w.state="deliver" if w.cargo>0 else "idle"
+	w.path=[];w.destination=Vector2i(-999,-999);w.timer=0.0
+func job_is_safe(b: Dictionary)->bool:
+	if m.phase!="wave":return true
+	if b.kind=="tower" and b.hp<b.max_hp*.2:return false
+	return not threatened(m.point(m.entry(b))) and not threatened(m.center(b))
+func automatic_job(w: Dictionary)->Dictionary:
+	var best={};var best_priority=99;var distance=INF
+	for b in m.buildings.values():
+		if count_job(b.id)>=capacity(b):continue
+		if not job_is_safe(b):continue
+		var priority=0 if b.kind in ["shrine","wall","gate"] else (1 if b.kind=="mine" else 2)
+		if priority>best_priority:continue
+		var path=m.route(navigation_origin(w),m.entry(b))
+		if not path.is_empty() and (priority<best_priority or path.size()<distance):
+			best=b;best_priority=priority;distance=path.size()
+	return best
+func auto_assign():
+	# Keep useful reservations stable; only reconsider idle or obsolete work.
+	for w in m.workers.values():
+		if w.state in ["wounded","retreat","follow","move"]:continue
+		if w.job!=-1:
+			var b: Dictionary=m.buildings.get(w.job,{})
+			if b.is_empty() or capacity(b)<=0:release_job(w)
+			elif w.get("job_nav",-1)!=m.navigation_revision:
+				if m.route(navigation_origin(w),m.entry(b)).is_empty():release_job(w)
+				else:w.job_nav=m.navigation_revision
+		if w.job==-1:
+			if w.cargo>0:w.state="deliver"
+			elif w.state!="idle":w.state="idle"
+	for w in m.workers.values():
+		if w.state!="idle" or w.job!=-1:continue
+		var b=automatic_job(w)
+		if not b.is_empty():_assign(w,b)
+func prepare_tick(delta: float):
+	# Movement and existing deliveries continue; production below is wave-only.
+	tick(delta,m.hero_position)
 func nearest_job(w: Dictionary,p: Vector3,reservations: Dictionary={})->Dictionary:
 	var best={};var distance=INF
 	for b in jobs_near(p):
@@ -52,7 +98,7 @@ func preview_jobs(p: Vector3)->Dictionary:
 		if b.is_empty():result.idle+=1
 		else:
 			reservations[b.id]=reservations.get(b.id,0)+1
-			result["repair" if b.kind in ["wall","gate"] else b.kind]+=1
+			result["repair" if b.kind in ["shrine","wall","gate"] else b.kind]+=1
 	return result
 func assign_nearest(w: Dictionary,p: Vector3):
 	var best=nearest_job(w,p)
@@ -65,6 +111,22 @@ func assign_idle(id: int)->int:
 	var b: Dictionary=m.buildings[id];var assigned=0
 	for w in m.workers.values():
 		if w.state=="idle" and jobs_near(m.center(b)).has(b) and _assign(w,b):assigned+=1
+	return assigned
+func assign_workers(id: int)->int:
+	if m.phase!="preparing" or not m.buildings.has(id):return 0
+	var b: Dictionary=m.buildings[id];var candidates=[];var assigned=0
+	if count_job(id)>=capacity(b):return 0
+	for w in m.workers.values():
+		if w.job==id or w.follow or w.state in ["wounded","retreat","follow","move"]:continue
+		var path=m.route(navigation_origin(w),m.entry(b))
+		if not path.is_empty():candidates.append({"worker":w,"priority":0 if w.state=="idle" else 1,"distance":path.size()})
+	candidates.sort_custom(func(a,b_):
+		if a.priority!=b_.priority:return a.priority<b_.priority
+		if a.distance!=b_.distance:return a.distance<b_.distance
+		return a.worker.id<b_.worker.id)
+	for candidate in candidates:
+		if count_job(id)>=capacity(b):break
+		if _assign(candidate.worker,b):assigned+=1
 	return assigned
 func rally(value: bool,p: Vector3):
 	if m.phase!="wave":held=false;return
@@ -124,6 +186,7 @@ func retreat(w: Dictionary):
 	if w.state!="retreat":w.saved_job=w.job
 	w.state="retreat";w.job=-1;w.follow=false;w.path=[];w.destination=Vector2i(-999,-999);w.safe=0.0
 func recover():
+	arrows.clear()
 	cancel_rally()
 	for w in m.workers.values():
 		if w.state=="wounded":
@@ -134,14 +197,17 @@ func threatened(p: Vector3)->bool:
 		if e.hp>0 and p.distance_squared_to(e.pos)<144:return true
 	return false
 func tick(delta: float,hero: Vector3):
+	if m.phase=="wave":tick_arrows(delta)
+	assignment_clock-=delta
+	if assignment_clock<=0:auto_assign();assignment_clock=.5
 	if held:rally(true,hero)
 	for w in m.workers.values():
 		if w.state=="wounded":continue
 		var threat=false
-		if w.state!="garrison":
+		if m.phase=="wave" and w.state!="garrison":
 			for e in m.enemies.values():
 				if e.hp>0 and w.pos.distance_squared_to(e.pos)<144:threat=true;break
-		if w.state=="garrison" and m.buildings.has(w.job) and m.buildings[w.job].hp<m.buildings[w.job].max_hp*.2:threat=true
+		if m.phase=="wave" and w.state=="garrison" and m.buildings.has(w.job) and m.buildings[w.job].hp<m.buildings[w.job].max_hp*.2:threat=true
 		if threat and w.state!="retreat":retreat(w)
 		if w.has("exit_point"):
 			tick_exit(w,delta);continue
@@ -151,9 +217,8 @@ func tick(delta: float,hero: Vector3):
 			if w.safe>3:
 				var saved: Dictionary=m.buildings.get(w.saved_job,{})
 				if saved.is_empty():w.state="idle"
-				elif not threatened(m.point(m.entry(saved))) and not threatened(m.center(saved)):
-					if jobs_near(m.center(saved)).has(saved):_assign(w,saved)
-					else:w.state="idle"
+				elif job_is_safe(saved):
+					if not _assign(w,saved):w.state="idle"
 			continue
 		if w.state=="follow":
 			var offset=Vector2i(w.id%3-1,1+w.id%2)
@@ -166,12 +231,13 @@ func tick(delta: float,hero: Vector3):
 				m.gold+=w.cargo;w.cargo=0;w.state="travel" if m.buildings.has(w.job) else "idle"
 			continue
 		if not m.buildings.has(w.job):
-			w.job=-1;w.state="idle";continue
+			w.job=-1;w.state="deliver" if w.cargo>0 else "idle";continue
 		var b: Dictionary=m.buildings[w.job]
 		if w.state=="travel":
 			if not move(w,m.entry(b),delta):continue
-			w.state={"mine":"mine","tower":"garrison","wall":"repair","gate":"repair"}.get(b.kind,"idle")
+			w.state={"mine":"mine","tower":"garrison","shrine":"repair","wall":"repair","gate":"repair"}.get(b.kind,"idle")
 			if w.state=="garrison":w.pos=m.center(b)+Vector3((w.id%3-1)*1.4,0,0)
+		if m.phase!="wave":continue
 		if w.state=="mine":
 			w.timer+=delta
 			if w.timer>=5:
@@ -188,8 +254,28 @@ func tick(delta: float,hero: Vector3):
 			if w.timer<=0:
 				var target={};var nearest=48.0*48.0
 				for e in m.enemies.values():
-					var distance=w.pos.distance_squared_to(e.pos)
-					if e.hp>0 and distance<nearest and m.visible_at(e.pos):target=e;nearest=distance
+					var hurt=Roles.hurt_point(e,w.pos+Vector3.UP*10)
+					var distance=w.pos.distance_squared_to(hurt)
+					if e.hp>0 and distance<nearest and (m.visible_at(e.pos) or m.visible_at(hurt)):target=e;nearest=distance
 				if not target.is_empty():
-					w.timer=1.4;m.damage_enemy(target.id,18)
-					m.events.append({"kind":"arrow","from":w.pos+Vector3.UP*10,"to":target.pos+Vector3.UP})
+					w.timer=1.0/m.balance.tower_attack_speed
+					var from: Vector3=w.pos+Vector3.UP*10
+					var id=m.next_id;m.next_id+=1
+					arrows[id]={"id":id,"from":from,"pos":from,"target":target.id,"age":0.0}
+					m.events.append({"kind":"arrow","id":id,"from":from,"to":Roles.hurt_point(target,from)})
+
+func tick_arrows(delta: float):
+	for id in arrows.keys():
+		var arrow: Dictionary=arrows[id]
+		var target: Dictionary=m.enemies.get(arrow.target,{})
+		arrow.age+=delta
+		if target.is_empty() or target.hp<=0 or arrow.age>1.5:
+			arrows.erase(id);continue
+		var to: Vector3=Roles.hurt_point(target,arrow.pos)
+		var direction: Vector3=(to-arrow.pos).normalized()
+		if arrow.pos.distance_to(to)<=ARROW_SPEED*delta:
+			m.damage_enemy(target.id,m.balance.tower_damage)
+			target.tower_direction=direction
+			m.events.append({"kind":"arrow_impact","id":id,"to":to,"direction":direction})
+			arrows.erase(id)
+		else:arrow.pos=arrow.pos.move_toward(to,ARROW_SPEED*delta)

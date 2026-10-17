@@ -1,0 +1,13 @@
+{
+  "saved_file_verified": true,
+  "pose_errors": {
+    "1": 2.980232238769531e-07,
+    "7": 2.384185791015625e-07,
+    "8": 2.384185791015625e-07,
+    "9": 2.384185791015625e-07,
+    "23": 2.980232238769531e-07
+  },
+  "other_clips_unchanged": true,
+  "meshes_uvs_bone_lengths_unchanged": true,
+  "approved_core_preserved": true
+}

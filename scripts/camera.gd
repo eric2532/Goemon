@@ -16,6 +16,8 @@ var current_distance=14.0
 var follow=Vector3.ZERO
 var impulse=0.0
 var sens=1.0
+var crosshair_focus_rise=CROSSHAIR_FOCUS_RISE
+var character_screen_offset=0.0
 var kick_direction=Vector2.ZERO
 var kick_strength=0.0
 var kick_age=1.0
@@ -48,13 +50,18 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion and (Input.mouse_mode==Input.MOUSE_MODE_CAPTURED or downed_orbit):
 		yaw-=event.relative.x*0.0025*sens
 		pitch=clampf(pitch+event.relative.y*0.0021*sens,-.65 if game.crosshair_aim_enabled() else .14,1.15)
+		if game.has_method("attack_aim_point"):update_camera(0)
 	if event is InputEventMouseButton and event.pressed:
-		if event.button_index==MOUSE_BUTTON_WHEEL_UP: distance=clampf(distance-0.65,7,18)
-		if event.button_index==MOUSE_BUTTON_WHEEL_DOWN: distance=clampf(distance+0.65,7,18)
+		if event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
+			var direction=-1.0 if event.button_index==MOUSE_BUTTON_WHEEL_UP else 1.0
+			if game.has_method("set_forest_camera_distance"):game.set_forest_camera_distance(distance+direction*.5)
+			else:distance=clampf(distance+direction*.65,7,18)
 
 func _process(delta):
+	update_camera(delta)
+func update_camera(delta: float,preview: bool=false):
 	if not game.playing or not is_instance_valid(player): return
-	if game.paused or game.transitioning: return
+	if (game.paused and not preview) or game.transitioning: return
 	if game.rogue_battle_mode:
 		game.rogue_view.update_camera(delta);return
 	var town=game.world.get("furnished_town")
@@ -81,7 +88,7 @@ func _process(delta):
 	var aiming: bool=game.crosshair_aim_enabled()
 	var view_pitch=maxf(pitch,.74) if indoors else (maxf(pitch,.14) if aiming else pitch)
 	var shoulder=Vector3(cos(yaw),0,-sin(yaw))*CROSSHAIR_SHOULDER*sqrt(player.growth_multiplier()) if aiming else Vector3.ZERO
-	var anchor=follow+shoulder+(Vector3.UP*CROSSHAIR_FOCUS_RISE*player.growth_multiplier() if aiming else Vector3.ZERO)
+	var anchor=follow+shoulder+(Vector3.UP*crosshair_focus_rise*player.growth_multiplier() if aiming else Vector3.ZERO)
 	if aiming and (anchor-follow).length_squared()>.01:
 		var lateral=PhysicsRayQueryParameters3D.create(follow,anchor,1)
 		if indoors:lateral.exclude=town.camera_exclusions
@@ -103,6 +110,19 @@ func _process(delta):
 		camera.look_at(camera.global_position+aim_direction*30,Vector3.UP)
 	else:camera.look_at(follow,Vector3.UP)
 	if not travel_follow.buffering:camera.fov=lerpf(camera.fov,63+fast*6,delta*5)
+	if aiming and not is_zero_approx(character_screen_offset):
+		# Reframe by a fraction of screen height without moving the collision-tested
+		# camera. Use the smoothed follow point so jumps keep their normal motion.
+		var feet=camera.to_local(follow-Vector3.UP*1.4*player.growth_multiplier())
+		if feet.z < -camera.near:
+			var tangent=tan(deg_to_rad(camera.fov)*.5)
+			var below_center=atan2(-feet.y,-feet.z)
+			var screen_y=.5+.5*tan(below_center)/tangent
+			# Limit only the extra displacement. Do not pull an existing offscreen
+			# framing back into the guard range and override upward mouse aiming.
+			var target_y=maxf(screen_y,minf(screen_y+character_screen_offset,.88)) if character_screen_offset>0 else minf(screen_y,maxf(screen_y+character_screen_offset,.45))
+			var target_angle=atan((target_y-.5)*2*tangent)
+			camera.rotate_object_local(Vector3.RIGHT,target_angle-below_center)
 	var bank=-player.velocity.dot(Vector3(cos(yaw),0,-sin(yaw)))*fast*0.0009
 	camera.rotation.z=bank
 	kick_age+=delta

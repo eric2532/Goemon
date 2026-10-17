@@ -1,0 +1,65 @@
+{
+  "change": "Samurai and Magic Swordsman retain 10% of ordinary running torso twist, banking, head sway, root bob and strafe turn. Full leg stride, cadence, weapon grips, physical movement speed and combat/airborne poses retained.",
+  "swing_scale": 0.1,
+  "source": {
+    "green": {
+      "checks": 90,
+      "failures": 0
+    },
+    "sheath": {
+      "checks": 218,
+      "failures": 0
+    },
+    "identity": {
+      "checks": 41,
+      "failures": 0
+    },
+    "alignment": {
+      "checks": 77,
+      "failures": 0
+    },
+    "fullbody": {
+      "checks": 98,
+      "failures": 0
+    },
+    "ink": {
+      "checks": 58,
+      "failures": 0
+    },
+    "polish": {
+      "checks": 66,
+      "failures": 0
+    },
+    "upgrade": {
+      "checks": 81,
+      "failures": 0
+    }
+  },
+  "source_checks": 729,
+  "packaged": {
+    "packaged-steady": {
+      "checks": 90,
+      "failures": 0
+    },
+    "packaged-sheath": {
+      "checks": 218,
+      "failures": 0
+    },
+    "packaged-identity": {
+      "checks": 41,
+      "failures": 0
+    }
+  },
+  "packaged_checks": 349,
+  "review": "Independent review passed. Extra backward, backward-diagonal and sideways probes confirm about 90% less chest yaw, exact stride clock, full stepping and both grips.",
+  "native_launch": "Passed; universal x86_64/arm64; strict deep code signature and archive integrity verified",
+  "current_app": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Goemon.app",
+  "rollback_app": "/Users/eric/Desktop/Projects_Codex/Sonic/build/steady-run/previous/Goemon.app",
+  "archive": "/Users/eric/Desktop/Projects_Codex/Sonic/build/steady-run/Goemon Steady Run.zip",
+  "previews": [
+    "samurai/steady-run.gif",
+    "magic-swordsman/steady-run.gif"
+  ],
+  "preferences_unchanged": true,
+  "testing_scope": "Targeted regression suites; older legacy broad combat/chain limitations documented in docs/combat-polish/verification.json."
+}

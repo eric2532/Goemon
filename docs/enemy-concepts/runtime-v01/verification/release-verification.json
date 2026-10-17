@@ -1,0 +1,21 @@
+{
+  "version": "2.55.0",
+  "installed_app": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Goemon.app",
+  "backup_app": "/Users/eric/Desktop/Projects_Codex/Sonic/build/enemy-redesign/previous/Goemon.app",
+  "pck_sha256": "f12f8a631d92e13443be87a63d433267bf43bea4fb64e12d084e0972bab778be",
+  "source_checks": {
+    "roles": 77,
+    "gait": 31,
+    "integration": 17,
+    "contact_review": 14,
+    "visual": 160
+  },
+  "packaged_integration_checks": 17,
+  "native_packaged_gameplay": "wall windup/contact/recovery freeze and Archer arrow flight/worker hit passed",
+  "native_release_title": "five rendered PNG frames; exit0, no errors",
+  "signature": "valid on disk; designated requirement satisfied",
+  "architectures": [
+    "arm64",
+    "x86_64"
+  ]
+}

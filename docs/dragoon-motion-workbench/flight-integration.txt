@@ -1,0 +1,61 @@
+CURRENT CONTROL UPDATE: grounded RMB is now Azure Lance Sweep; both airborne LMB/RMB trigger Dragon Leap. See sweep-integration.txt. The flight implementation notes below retain historical bindings.
+
+Dragoon flight update — latest Forest Shrine v2.59.0
+
+Space: one jump at approximately three ordinary jump heights, with default
+launch speed sqrt(3) times baseline and the same gravity. Dragoon no longer has
+a double jump; other characters retain their existing jump counts and bonuses.
+Explicit user tuning overrides remain available through the existing balance UI.
+Hold Space: reach full natural apex, then hold current altitude. Pressing/holding
+Space while descending also suspends vertical motion. Release Space to resume
+normal gravity. Hover does not add height. WASD retains normal air steering.
+
+Airborne RMB / 3: freeze the crosshair floor target at activation and launch the
+real collision body toward it at up to 45 m/s. Collision blocks walls. Real floor
+contact emits the existing powerful three widening blue shockwaves (64 base damage
+each), now at triple the original radii (12.6, 16.2, 19.8m before range upgrades). Reaching an empty-space goal or making no progress against a roof/wall
+falls back to a straight downward dive so travel cannot trap controls. No damage
+or landing effect is awarded merely for reaching an aim point.
+
+Airborne RMB has no cooldown: it ignores any remaining grounded timer and does
+not start or refresh one. Grounded RMB retains Azure Lance Leap and its normal
+cooldown. The HUD shows aerial RMB ready while airborne. Repeated clicks during
+an active dive cannot queue an unwanted grounded leap on landing.
+
+For this pass, grounded RMB retains Azure Lance Leap. Left click remains lance
+attacks on the ground and in the air. The user's optional suggestion to make all
+airborne attacks dive and replace grounded RMB remains a future control choice.
+The approved idle, lance attack, jump and jump-strike poses are retained.
+
+Built from the live shared project. Verified latest other chat 'Improve 3D combat
+feel' now includes sticky melee memory and paired Weapon/Voice Sound Studio
+controls; these changes and current music/HUD/enemy counts are preserved.
+
+Relevant changes: character_balance.gd, player.gd maximum_jumps,
+rogue_roster_combat.gd movement/hover/landing targeting/aimed-drop,
+class_actions.gd Dragoon secondary, dragoon_authored_motion.gd dive recognition,
+assets/rogue/data/classes.json descriptions. No native model or Blender edits.
+
+Evidence in tests/dragoon-flight:
+- Red flight test: existing 2x height/double jump/no hover/no aimed strike failed.
+- Flight source: 24 checks passed; measured 2.98x actual apex at 120 Hz.
+- Rendered flight: hover, aimed travel and destination damage inspected.
+- Four red roof/midair arrival failures reproduced, then fixed and passed.
+- Existing animation gameplay: 21 checks passed with single-jump expectations.
+- Approved source body/lance poses: 1,872 checks passed.
+- Latest hidden melee assist: 67 checks passed.
+- Latest paired move/audio: 42 checks passed.
+- Narrow independent review found the unreachable-target bug; fallback recheck
+  found no blocking issues.
+- Some scene harnesses retain existing ObjectDB cleanup messages at exit;
+  functional assertions and process exit codes are tracked separately.
+
+Current app: build/Goemon.app (restart to load).
+Release ZIP: build/Other Files/Forest Shrine v2.59.0/Dragoon Flight/Goemon.zip
+Packaged verification, app/PCK hash and previous-app backup: see
+ tests/dragoon-flight/verification.json.
+
+Repeat strike update validation: tests/dragoon-repeat/ (23 repeat/radius checks,
+24 flight checks, 23 HUD checks, 42 paired audio checks). The latest release ZIP
+is build/Other Files/Forest Shrine v2.59.0/Dragoon Repeat Strike/Goemon.zip.
+Current previous-app/PCK record: tests/dragoon-repeat/verification.json.

@@ -1,0 +1,32 @@
+{
+  "asset": "masked_raider",
+  "role": "Oversized masked forest infantry",
+  "source": "assets/blender/enemies/forest_redesign_v01/masked_raider.blend",
+  "export": "assets/models/enemies/forest_redesign_v01/masked_raider.glb",
+  "bounds_min": [
+    -1.4453238248825073,
+    -1.151633858680725,
+    -7.450580596923828e-09
+  ],
+  "bounds_max": [
+    1.8009235858917236,
+    0.7752647995948792,
+    4.619999885559082
+  ],
+  "height": 4.619999893009663,
+  "height_vs_goemon": 1.3999998790937562,
+  "triangles": 41873,
+  "meshes": 119,
+  "materials": 11,
+  "face_meshes": [
+    "Thin curved wood mask painted face"
+  ],
+  "notes": [
+    "Curved 45mm wooden face shell UV-mapped with painted angry eyes, brows, mouth and red markings; no floating facial features.",
+    "Full rounded cranium, deep padded ribcage and pelvis, short stout limbs and large hands/sandals; designed specifically to hold volume in profile.",
+    "Anatomical left wooden shoulder armor; anatomical right wooden club; indigo worn wrap jacket, hemp rope belt, red tied sash and swept topknot.",
+    "Height is exactly 1.40 times measured read-only Goemon master; asset-only approval, no game or gameplay integration.",
+    "Editable generator and packed PNG textures; separate named rigid meshes without skeletal rig."
+  ],
+  "rigging": "Named separate rigid parts; no gameplay integration or skeletal animation supplied."
+}

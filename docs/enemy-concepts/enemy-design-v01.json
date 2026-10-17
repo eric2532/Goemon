@@ -1,0 +1,115 @@
+{
+  "title": "Forest Shrine enemy design",
+  "recorded_date": "2026-10-14",
+  "timezone": "Asia/Taipei",
+  "implementation_status": "Implemented and verified in Goemon2.55.0 on2026-10-14.",
+  "user_instruction": "Save all these design first i will tell you when to start",
+  "roles": [
+    {
+      "asset_id": "masked_raider",
+      "name": "Masked Raider",
+      "primary_targets": [
+        "main_character"
+      ],
+      "health_tier": "high",
+      "behavior": "Prioritizes pursuing and attacking the main character.",
+      "runtime_parameters": {
+        "max_hp": 300,
+        "speed_m_per_s": 6,
+        "damage": 18,
+        "windup_s": 0.55,
+        "recovery_s": 0.85,
+        "range_m": 3.5
+      }
+    },
+    {
+      "asset_id": "reed_archer",
+      "name": "Reed Archer",
+      "primary_targets": [
+        "workers"
+      ],
+      "health_tier": "low",
+      "behavior": "Prioritizes killing workers.",
+      "runtime_parameters": {
+        "max_hp": 65,
+        "speed_m_per_s": 5,
+        "damage": 20,
+        "windup_s": 0.75,
+        "recovery_s": 1.6,
+        "range_m": 24
+      }
+    },
+    {
+      "asset_id": "daruma_breaker",
+      "name": "Daruma Breaker",
+      "primary_targets": [
+        "towers",
+        "walls"
+      ],
+      "health_tier": "high",
+      "behavior": "Prioritizes destroying towers and walls.",
+      "movement_requirement": "Very slow walking",
+      "health_requirement": "Very large health pool",
+      "proposed_prototype_values": {
+        "status": "Implemented starting playtest values",
+        "movement_speed_m_per_s": 0.75,
+        "max_hp": 3000,
+        "speed_increases_across_waves": false
+      },
+      "runtime_parameters": {
+        "max_hp": 3000,
+        "speed_m_per_s": 0.75,
+        "damage": 120,
+        "windup_s": 1.5,
+        "recovery_s": 3.5,
+        "range_m": 10
+      }
+    },
+    {
+      "asset_id": "lantern_runner",
+      "name": "Lantern Runner",
+      "primary_targets": [
+        "shrine"
+      ],
+      "health_tier": "low",
+      "behavior": "Rushes to the main base to attack the shrine.",
+      "runtime_parameters": {
+        "max_hp": 55,
+        "speed_m_per_s": 10,
+        "damage": 15,
+        "windup_s": 0.4,
+        "recovery_s": 0.75,
+        "range_m": 3
+      }
+    }
+  ],
+  "visual_requirements": [
+    "All four enemies larger than Goemon",
+    "Humanoid anatomy follows Goemon proportions",
+    "Rounded forms rather than blocky construction",
+    "Readable painted faces fitted to curved surfaces",
+    "Masked Raider needs full skull and torso depth in side view",
+    "Daruma Breaker is massive: four times the previous model in every linear dimension, approximately seven times Goemon height."
+  ],
+  "undecided_combat_parameters": [
+    "Subsequent playtest balance adjustments"
+  ],
+  "concept_sheets": "docs/enemy-concepts/turnarounds-v01",
+  "asset_catalog": "docs/enemy-concepts/3d-v01/asset-catalog.json",
+  "gameplay_implementation_authorized": true,
+  "asset_revisions": {
+    "daruma_breaker": {
+      "linear_scale_vs_previous": 4.0,
+      "height_vs_goemon": 7.00000025115662,
+      "source": "assets/blender/enemies/forest_redesign_v02/daruma_breaker.blend",
+      "export": "assets/models/enemies/forest_redesign_v02/daruma_breaker.glb",
+      "appearance": "Massive siege enemy, uniformly four times the previous model in height, width and depth."
+    }
+  },
+  "written_spec": "docs/superpowers/specs/2026-10-14-forest-enemy-redesign-design.md",
+  "implementation_authorization": "ok implement these new enemies into the game",
+  "implementation_plan": "docs/superpowers/plans/2026-10-14-forest-enemy-integration.md",
+  "runtime_build": "build/Goemon.app",
+  "runtime_verification": "docs/enemy-concepts/runtime-v01/verification/release-verification.json",
+  "balancing_status": "Initial playtest values; role priorities and massive/slow/durable Daruma are preserved."
+}

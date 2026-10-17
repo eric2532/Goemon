@@ -1,0 +1,11 @@
+config_version=5
+[application]
+config/name="Forest Enemy Asset Review"
+[display]
+window/size/viewport_width=1920
+window/size/viewport_height=900
+window/size/window_width_override=1440
+window/size/window_height_override=675
+[rendering]
+renderer/rendering_method="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false

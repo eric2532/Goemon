@@ -1,6 +1,11 @@
 extends RefCounted
 ## Native Rogue class kits, adapted only at collision, attribution, and world hooks.
-## Timing, damage, utilities, skills, and authored visual styles retain Rogue values.
+## Damage, utilities, skills, and authored styles retain Rogue values.
+## The Forest facade retimes ordinary melee contact for responsiveness.
+
+const NinjaDash=preload("res://scripts/ninja_dash_strike.gd")
+const KnightCounter=preload("res://scripts/knight_guard_counter.gd")
+const DRAGOON_IMPACT_RADIUS_MULTIPLIER=3.0
 
 const PRIMARY = {
 	"samurai": {"duration": 0.39, "contact": 0.1, "damage": 34, "reach": 3.3, "arc": 1.1, "style": "katana"},
@@ -34,24 +39,18 @@ static func begin_attack(g, config: Dictionary, index: int = 0, weapon: String =
 	facing(g)
 	var attack = {"index": index, "time": 0.0, "hit": false, "angle": p.angle, "stop": 0.045, "weapon": weapon, "color": g.tint(), "ticket": g.current_ticket()}
 	attack.merge(config, true)
+	g.refine_melee_primary(attack)
 	attack.rangeScale = g.primary_range_scale() if config.get("primary", false) else g.range_scale()
 	attack.reach *= attack.rangeScale
+	g.fit_primary_reach(attack)
 	p.attack = attack
 	if weapon == "cutlass":
 		p.cooldowns.cutlass = config.duration
 	g.attack_buffer = 0
 	p.blocking = false
 
-static func begin_primary(g) -> void:
+static func primary_config(g, index: int) -> Dictionary:
 	var p = g.player
-	if p.travel != null or (p.blocking and g.secondary_held) or not PRIMARY.has(g.class_id):
-		return
-	if g.class_id == "mage":
-		begin_charge(g)
-		return
-	var index = g.combo % (5 if g.class_id == "samurai" else 3) if g.combo_timer > 0 else 0
-	g.combo = index + 1
-	g.combo_timer = 1.05
 	var config = PRIMARY[g.class_id].duplicate(true)
 	if g.class_id == "samurai":
 		config.merge(SAMURAI_CUTS[index], true)
@@ -64,15 +63,12 @@ static func begin_primary(g) -> void:
 	if g.class_id == "ranger":
 		config.power = int(p.get("rangerShots", 0)) % 3 == 2
 	if g.class_id == "ranger" and g.hero.jumps_used >= 2 and not g.hero.is_on_floor():
-		facing(g)
 		config.style = "bow-fan"
 		config.downward = true
 		config.aimPoint = g.ranger_ground_target(p.angle)
-		g.flip_time = -1.0
 	config.primary = true
 	if g.class_id == "explorer":
 		config.swingSide = p.bladeSide
-		p.bladeSide *= -1
 	if g.class_id not in ["mage", "ranger", "samurai"] and index == 2:
 		config.damage = roundi(config.damage * 1.45)
 		config.duration *= 1.2
@@ -91,13 +87,33 @@ static func begin_primary(g) -> void:
 	if g.class_id == "knight" and p.riposte > 0:
 		config.damage *= 1.8
 		config.stop = 0.09
-		p.riposte = 0
-		g.fx.damage(p.pos, "RIPOSTE", "crit")
+	return config
+
+static func begin_primary(g) -> void:
+	var p = g.player
+	if p.travel != null or (p.blocking and g.secondary_held) or not PRIMARY.has(g.class_id):
+		return
+	if g.class_id == "mage":
+		begin_charge(g)
+		return
+	var index = g.combo % (5 if g.class_id == "samurai" else 3) if g.combo_timer > 0 else 0
+	g.combo = index + 1
+	g.combo_timer = 1.05
+	if g.class_id == "ranger" and g.hero.jumps_used >= 2 and not g.hero.is_on_floor():facing(g)
+	var config = primary_config(g, index)
+	if g.class_id == "ranger" and g.hero.jumps_used >= 2 and not g.hero.is_on_floor():
+		g.flip_time = -1.0
+	if g.class_id == "explorer":p.bladeSide *= -1
+	if g.class_id == "knight" and p.riposte > 0:
+		p.riposte = 0;g.fx.damage(p.pos, "RIPOSTE", "crit")
 	begin_attack(g, config, index)
 	if g.class_id == "explorer":
 		p.invuln = maxf(p.invuln, 0.14)
 		var side = Vector3(cos(p.angle), 0, -sin(p.angle))
 		p.vel += side * 3.8 * config.swingSide + g.front(p.angle) * 0.8
+	elif g.class_id == "ninja" and g.game.has_method("forest_enemy_visible"):
+		# Forest Ninja steps only after this swing delivers an accepted hit.
+		p.attack.hitDriftImpulse=2.5 if index==2 else 1.25
 	elif g.class_id not in ["mage", "ranger"]:
 		p.vel += g.front(p.angle) * (2.5 if index == 2 else 1.25)
 
@@ -120,6 +136,9 @@ static func area(g, center: Vector3, radius: float, amount: float, weapon: Strin
 static func resolve_attack(g, a: Dictionary) -> void:
 	var p = g.player
 	var dir = g.front(a.angle)
+	if a.style=="energy-wave":
+		g.release_sword_wave(a)
+		return
 	if a.style == "bow-fan":
 		fire_ranger_fan(g, a.angle, true, a.weapon, a.aimPoint, a.get("power", false) or p.buffTime > 0)
 		p.rangerShots = int(p.get("rangerShots", 0)) + 1
@@ -150,7 +169,7 @@ static func resolve_attack(g, a: Dictionary) -> void:
 		return
 	if a.style == "thrust":
 		g.fx.thrust(p.pos, a.angle, a.reach, a.color, a.index)
-		g.sound.play("thrust", {"combo": a.index})
+		g.sound.play("thrust", {"combo": a.index,"style":g.class_id})
 	elif a.style == "shield-bash":
 		g.fx.energy_shield(p.pos, a.angle, a.reach)
 		g.sound.play("shield")
@@ -180,7 +199,9 @@ static func resolve_attack(g, a: Dictionary) -> void:
 			g.sound.play("blade", {"style": g.class_id, "combo": a.index, "pitch": 0.8 if a.style == "iaijutsu" else 1.0})
 	var hits = 0
 	for e in g.living():
-		if not g.in_arc(p.pos, e.pos, a.angle, a.reach + (0.4 if e.type == "warden" else 0), a.arc):
+		# Weapon contact needs to reach the enemy's surface, not its centre.
+		var radius: float=float(e.get("radius",.45)) if a.get("weaponContact",false) else (0.4 if e.type=="warden" else 0.0)
+		if not g.in_arc(p.pos, e.pos, a.angle, a.reach + radius, a.arc):
 			continue
 		var damage = a.damage
 		if g.class_id == "ninja" and a.weapon == "cutlass" and p.buffTime > 0 and randf() < 0.25:
@@ -210,6 +231,7 @@ static func fire_ranger_fan(g, angle: float, downward: bool = false, weapon: Str
 	g.player.shotDownward = downward
 
 static func fire_projectile(g, options: Dictionary = {}) -> void:
+	g.hero.hold_combat_aim()
 	var angle = options.get("angle", g.player.angle)
 	var damage = options.get("damage", 30)
 	var speed = options.get("speed", 20.0)
@@ -225,13 +247,19 @@ static func fire_projectile(g, options: Dictionary = {}) -> void:
 	if ranger_arrow:
 		visual_scale *= 2.4 * (1.35 if power else 1.0)
 	var travel_scale = g.primary_range_scale() if options.get("primary", false) else scale
-	var origin = g.player.pos + Vector3.UP * options.get("height", 1.65 if kind == "wave" else 1.05) * g.hero.growth_multiplier()
+	var origin: Vector3 = options.get("origin",g.player.pos + Vector3.UP * options.get("height", 1.65 if kind == "wave" else 1.05) * g.hero.growth_multiplier())
+	var from_hand: bool=options.get("primary",false) and g.class_id in ["mage","ranger"]
+	if from_hand:
+		g.player.shot=.2
+		g._animate(0,0)
+		origin=g.hero.model.hand_position("L" if g.class_id=="mage" else "R")
 	var dir: Vector3 = options.get("direction", g.projectile_direction(angle, origin))
 	var aim_direction: Vector3 = dir
 	if ranger_arrow: dir = RangerFlight.launch_direction(dir, power)
 	g.add_projectile_mesh(mesh)
-	mesh.position = origin + dir * 0.9 * g.hero.growth_multiplier()
+	mesh.position = origin + dir * (0.12 if from_hand else 0.9) * g.hero.growth_multiplier()
 	mesh.quaternion = Quaternion(Vector3.BACK, dir)
+	if options.has("slashBasis"):mesh.basis=options.slashBasis
 	mesh.scale = Vector3(2.0, 1.5, 1.35) * scale if kind == "wave" else Vector3.ONE * scale * visual_scale
 	var sphere_collision = kind == "bullet"
 	var obstructed = g.place_projectile(mesh, options.get("width", 0.25) * scale, origin, sphere_collision)
@@ -256,7 +284,7 @@ static func fire_projectile(g, options: Dictionary = {}) -> void:
 		g.sound.play("claymore-wave", {"volume": 0.64})
 	elif kind != "bullet":
 		g.sound.play("cast" if kind in ["bolt", "fireball"] else ("bow" if kind in ["arrow", "crimson-arrow"] else "shuriken"),
-			{"style": ("power" if heavy else "rapid") if kind in ["arrow", "crimson-arrow"] else g.class_id, "volume": 0.55 if kind == "star" else 0.75})
+			{"style": ("power" if (power if ranger_arrow else heavy) else "rapid") if kind in ["arrow", "crimson-arrow"] else g.class_id, "ranger":ranger_arrow,"variation":int(g.player.get("rangerShots",0))%3,"volume": 0.55 if kind == "star" else 0.75})
 	if heavy:
 		g.fx.shake = maxf(g.fx.shake, 0.07)
 
@@ -289,7 +317,10 @@ static func dash(g, dir: Vector3, duration: float, speed: float, kind: String) -
 	if g.class_id == "samurai":
 		p.untargetable = duration
 	g.attack_buffer = 0
-	g.sound.play("roll")
+	if kind in ["dash-cut", "cross-slash"]:
+		g.sound.play("blade", {"style": g.class_id, "special": true})
+	else:
+		g.sound.play("roll")
 	g.fx.smoke(p.pos, 7, g.tint())
 
 static func class_action(g, slot: String, buffered = null, manual: bool = false) -> void:
@@ -405,27 +436,31 @@ static func class_action(g, slot: String, buffered = null, manual: bool = false)
 	# because its ordinary input buffer overlaps the final light's recovery.
 	var free_heavy = g.energy_ready() and (manual or (buffered != null and buffered.get("freeHeavy", false)))
 	var attack_locked = p.attack != null and not (p.attack.weapon == "cutlass" and p.attack.hit)
-	if (p.cooldowns.flintlock > 0 and not free_heavy) or p.roll > 0 or p.travel != null or p.get("dive") != null or attack_locked or p.burst != null or p.guardTime > 0:
-		if buffered == null and id not in ["master-thief", "knight"]:
+	var free_aerial_dragoon = id=="dragoon" and not g.hero.is_on_floor()
+	if free_aerial_dragoon:attack_locked=false
+	if (p.cooldowns.flintlock > 0 and id!="knight" and not free_heavy and not free_aerial_dragoon) or p.roll > 0 or p.travel != null or p.get("dive") != null or attack_locked or p.burst != null or p.guardTime > 0:
+		if buffered == null and id not in ["master-thief", "knight"] and not (id=="dragoon" and p.travel!=null):
 			p.secondaryBuffer = {"remaining": 0.24, "freeHeavy": free_heavy}
 		return
-	g.begin_cast("secondary")
+	g.begin_cast("sweep" if id=="dragoon" and not free_aerial_dragoon else "secondary")
 	cancel_charge(g)
 	p.attack = null
 	p.secondaryBuffer = null
 	var dir = facing(g)
 	if free_heavy:
 		p.energy = 0
-	else:
-		p.cooldowns.flintlock = c.cooldowns.flintlock
+	elif not free_aerial_dragoon:
+		p.cooldowns.flintlock = 0.0 if id=="knight" else c.cooldowns.flintlock
 	p.shot = 0.28
 	if id in ["master-thief", "knight"]:
 		p.crouched = false
 		p.shot = 0
-		p.guardTime = 3.0 if id == "master-thief" else 2.0
+		p.guardTime = 3.0 if id == "master-thief" else 1.0
 		p.guardStyle = "thief" if id == "master-thief" else "knight"
 		p.guardTicket = g.current_ticket()
 		p.blocking = true
+		# Guard activation is accepted even if nobody strikes the shield.
+		g.game.move_audio.release(g.game,p.guardTicket)
 		p.vel = Vector3.ZERO
 		g.fx.ring(p.pos, Color("ff3c3c") if id == "master-thief" else Color("244cab"), 1.6, 0.3)
 	elif id == "samurai":
@@ -435,7 +470,7 @@ static func class_action(g, slot: String, buffered = null, manual: bool = false)
 	elif id in ["ninja", "explorer"]:
 		var ninja = id == "ninja"
 		dash(g, dir, 0.42 if ninja else 0.30, 27.0 if ninja else 20.0, "dash-cut" if ninja else "cross-slash")
-		p.dashAttack = {"angle": p.angle, "damage": 76 if ninja else 78, "width": (0.85 if ninja else 1.45) * g.range_scale(), "hits": [], "ticket": g.current_ticket(), "style": "dash-cut" if ninja else "cross-slash", "fxTime": 0.0}
+		p.dashAttack = {"angle": p.angle, "damage": 76 if ninja else 78, "width": (0.85 if ninja else 1.45) * g.range_scale()*g.melee_reach_scale(), "weaponScale":g.melee_reach_scale(), "effectScale":g.range_scale()*g.melee_reach_scale(), "hits": [], "ticket": g.current_ticket(), "style": "dash-cut" if ninja else "cross-slash", "fxTime": 0.0}
 	elif id == "mage":
 		var radius = 8.0 * g.range_scale()
 		g.fx.frost_nova(p.pos, radius)
@@ -446,21 +481,22 @@ static func class_action(g, slot: String, buffered = null, manual: bool = false)
 				e.node.frozen_left = maxf(e.node.frozen_left, 3.0)
 		g.sound.play("cast", {"pitch": 0.72, "volume": 0.9})
 	elif id == "dragoon":
+		p.shot=0.0 # Both lance moves own their pose; neither is a ranged shot.
 		if p.buffTime > 0:
 			p.cooldowns.flintlock = 0
-		var airborne = not g.hero.is_on_floor()
-		var delta = g.aim - p.pos
-		delta.y = 0
-		delta = delta.limit_length(7.5)
-		var target = p.pos if airborne else p.pos + delta
-		if not airborne:
-			g.fx.lance_wave(g.clamp_arena(target), 4.2 * g.range_scale(), -1)
-		travel(g, target, 0.72, 4.8, "lance-leap", true)
-		p.travel.phase = "drop" if airborne else "arc"
-		g.hero.jump_buffer = 0.0
-		g.hero.coyote = 0.0
-		if airborne:
-			g.hero.velocity = Vector3.DOWN * 38.0
+		if g.hero.is_on_floor():
+			begin_attack(g,{"duration":.84,"contact":.22,"damage":PRIMARY.dragoon.damage*3.0,"reach":PRIMARY.dragoon.reach,"arc":PI/2,"style":"dragoon-sweep","color":Color("63cfff"),"stop":.045,"sweep_hits":0},0,"flintlock")
+			p.shot=0.0
+			return
+		travel(g,p.pos,.72,4.8,"lance-leap",true)
+		p.travel.phase="aimed-drop"
+		p.dragoonHovering=false
+		p.travel.target=g.dragoon_landing_target()
+		var toward: Vector3=p.travel.target-p.pos
+		if Vector2(toward.x,toward.z).length_squared()>.01:p.angle=atan2(toward.x,toward.z)
+		g.hero.jump_buffer=0.0
+		g.hero.coyote=0.0
+		g.hero.velocity=Vector3.DOWN*38.0
 	elif id == "magic-swordsman":
 		p.cooldowns.flintlock = 0.42 if p.buffTime > 0 else c.cooldowns.flintlock
 		var wave_origin: Vector3 = p.pos + Vector3.UP * 1.65 * g.hero.growth_multiplier()
@@ -470,9 +506,7 @@ static func class_action(g, slot: String, buffered = null, manual: bool = false)
 			# into the floor immediately after piercing a nearby low target.
 			wave_direction.y = 0
 			wave_direction = wave_direction.normalized() if wave_direction.length_squared() > 0.001 else dir
-		fire_projectile(g, {"damage": 100, "speed": 22, "kind": "wave", "width": 2.5, "pierce": true, "heavy": true, "range": 40, "direction": wave_direction})
-		p.vel -= dir * 1.6
-		g.fx.slash(p.pos, p.angle, 2, g.tint(), 3.5, {"style": "magic", "arc": 2.5, "height": 1.2, "tilt": 0.5})
+		begin_attack(g,{"duration":.42,"contact":.12,"damage":100,"reach":3.5,"arc":1.25,"style":"energy-wave","waveDirection":wave_direction,"stop":0.0},0,"flintlock")
 	elif id == "ranger":
 		p.cooldowns.flintlock = 0.55 if p.buffTime > 0 else c.cooldowns.flintlock
 		var downward: bool = g.hero.jumps_used >= 2 and not g.hero.is_on_floor()
@@ -493,6 +527,7 @@ static func update_class(g, dt: float) -> void:
 	if p.buffTime <= 0:
 		p.buffName = ""
 	update_guard(g, dt)
+	if g.class_id=="knight":KnightCounter.tick(g,dt)
 	if p.charging:
 		p.chargeTime = minf(3.0, p.chargeTime + dt)
 		if is_instance_valid(p.chargeOrb):
@@ -534,11 +569,10 @@ static func block_attack(g, incoming: Vector3, projectile: bool = false) -> bool
 	if not p.blocking or p.guardTime <= 0:
 		return false
 	if g.class_id == "knight":
+		if incoming.length_squared()>.001 and g.front(p.angle).dot(incoming.normalized())>0:return false
 		if p.buffTime > 0: p.riposte = 1
-		p.blocking = false
-		p.guardTime = 0
-		g.use_ticket(p.guardTicket)
-		begin_attack(g, {"duration": 0.5, "contact": 0.07, "damage": 160, "reach": 6.7, "arc": 1.3, "style": "shield-bash", "color": Color("153778"), "stop": 0.09}, 2, "flintlock")
+		# Keep guarding while one bounded three-face burst answers the block.
+		if not KnightCounter.trigger(g):return true
 	else:
 		g.fx.ring(p.pos, Color("ff3544"), 1.5, 0.22)
 		g.fx.particles(p.pos, Color("ff6359"), 8, 0.5)
@@ -568,10 +602,10 @@ static func update_projectile(g, pr: Dictionary, dt: float) -> void:
 		var tail = pr.mesh.position - direction * (1.1 if pr.kind == "wave" else 0.9) * pr.rangeScale
 		var color = pr.get("color", g.tint())
 		if pr.kind == "wave":
-			var side = Vector3(direction.z, 0, -direction.x)
+			var side: Vector3=pr.mesh.basis.x.normalized()
 			for offset in [-0.85, 0, 0.85]:
 				var head = pr.mesh.position + side * offset * pr.rangeScale
-				g.fx.streak(head - direction * 1.15 * pr.rangeScale, head, color, 0.025 * pr.rangeScale, 0.16)
+				g.fx.streak(head - direction * 1.6 * pr.rangeScale, head, color, 0.045 * pr.rangeScale, 0.18)
 		elif pr.kind == "crimson-arrow":
 			g.fx.streak(pr.mesh.position - direction * 4.0 * pr.rangeScale, pr.mesh.position, color, .16 * pr.rangeScale, .16)
 		else:
@@ -614,6 +648,11 @@ static func release_charge(g) -> void:
 
 static func update_guard(g, dt: float) -> void:
 	var p = g.player
+	if g.class_id=="knight" and p.guardStyle=="knight":
+		p.blocking=g.secondary_held
+		p.guardTime=1.0 if p.blocking else 0.0
+		if not p.blocking:p.guardStyle=""
+		return
 	if p.guardTime > 0:
 		p.guardTime = maxf(0, p.guardTime - dt)
 		if p.guardTime <= 0 or (g.class_id == "master-thief" and not g.secondary_held):
@@ -625,6 +664,9 @@ static func resolve_dash_segment(g, from: Vector3, to: Vector3) -> void:
 	var p = g.player
 	var a = p.dashAttack
 	if a == null:
+		return
+	if g.class_id=="ninja" and a.style=="dash-cut":
+		NinjaDash.resolve(g,from,to)
 		return
 	g.use_ticket(a.ticket)
 	g._resolution_ticket = a.ticket
@@ -643,18 +685,30 @@ static func resolve_dash_segment(g, from: Vector3, to: Vector3) -> void:
 		if a.fxTime >= 1.6 or p.roll <= 0:
 			a.fxTime = 0
 			if a.style == "cross-slash":
-				g.fx.cross_slash(to, a.angle, 2.4 * g.range_scale())
-			else:
-				g.fx.slash(to, a.angle, 0, Color("bc99ff"), 2.2 * g.range_scale(), {"style": "katana", "arc": 0.65, "tilt": 0.5})
+				g.fx.cross_slash(to, a.angle, 2.4 * float(a.get("effectScale",g.range_scale())))
+			elif not g.game.has_method("forest_enemy_visible"):
+				g.fx.slash(to, a.angle, 0, Color("bc99ff"), 2.2 * float(a.get("effectScale",g.range_scale())), {"style": "katana", "arc": 0.65, "tilt": 0.5})
 	if p.roll <= 0:
 		p.dashAttack = null
+
+static func dragoon_impact_radius(index: int) -> float:
+	return (4.2+clampi(index,0,2)*1.2)*DRAGOON_IMPACT_RADIUS_MULTIPLIER
 
 static func lance_impact(g, t: Dictionary) -> void:
 	var p = g.player
 	for index in range(3):
-		var pulse = {"time": index * 0.26, "pos": p.pos, "radius": 4.2 + index * 1.2, "damage": 64, "ticket": t.ticket, "rangeScale": t.rangeScale, "index": index}
+		var pulse = {"time": index * 0.26, "pos": p.pos, "radius": dragoon_impact_radius(index), "damage": 64, "ticket": t.ticket, "rangeScale": t.rangeScale, "index": index}
 		if index == 0:
 			g.resolve_area_pulse(pulse)
 		else:
 			p.pulses.append(pulse)
-	g.sound.play("slam", {"pitch": 0.75, "volume": 0.85})
+	g.sound.play("slam", {"pitch": 0.75, "volume": 0.85,"ticket":t.ticket})
+
+static func resolve_dragoon_sweep(g,a: Dictionary,index: int) -> void:
+	var blue=Color("63cfff")
+	var swipe=g.fx.slash(g.player.pos,a.angle,index,blue,a.reach,{"style":"magic","arc":a.arc*2,"height":1.12,"tilt":0.0,"direction":-1,"life":.32})
+	swipe.name="DragoonBlueSweep"
+	if index==0:g.sound.play("claymore-sweep",{"combo":2,"style":"dragoon","volume":.85,"ticket":a.ticket})
+	for enemy in g.living():
+		if g.in_arc(g.player.pos,enemy.pos,a.angle,a.reach+float(enemy.get("radius",.45)),a.arc):
+			g.hit(enemy,a.damage,a.weapon,true,g.front(a.angle),"","dragoon-sweep")

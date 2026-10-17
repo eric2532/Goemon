@@ -62,7 +62,10 @@ func _process(delta):
 		var c=l.pose("Foot_"+side).origin
 		var length1=l.rest["Leg_"+side].origin.distance_to(l.rest["Shin_"+side].origin)
 		var length2=l.rest["Shin_"+side].origin.distance_to(l.rest["Foot_"+side].origin)
-		max_joint_stretch=maxf(max_joint_stretch,maxf(absf(a.distance_to(b)-length1),absf(b.distance_to(c)-length2)))
+		var segment_error=maxf(absf(a.distance_to(b)-length1),absf(b.distance_to(c)-length2))
+		if segment_error>.012 and segment_error>max_joint_stretch:
+			print("LEG_TRANSITION_ERROR ",clip," side=",side," grounded=",l.grounded," air_blend=",l.air_blend," contact=",l.contact," error=",segment_error)
+		max_joint_stretch=maxf(max_joint_stretch,segment_error)
 	if clip=="Idle":
 		var hip=l.pose("Leg_L").origin;var knee=l.pose("Shin_L").origin;var ankle=l.pose("Foot_L").origin
 		var bend=acos(clampf((knee-hip).normalized().dot((ankle-knee).normalized()),-1,1))

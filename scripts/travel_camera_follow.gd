@@ -9,11 +9,12 @@ var previous_position = Vector3.ZERO
 var remaining = FORWARD_BUFFER
 var moving_forward = false
 var buffering = false
+var forward_buffer = FORWARD_BUFFER
 
 func reset(position: Vector3) -> void:
 	focus = position
 	previous_position = position
-	remaining = FORWARD_BUFFER
+	remaining = forward_buffer
 	moving_forward = false
 	buffering = false
 
@@ -28,7 +29,7 @@ func update(position: Vector3, input: Vector2, yaw: float, delta: float) -> Vect
 	var depth = travel.dot(forward)
 	var wants_forward = input.y < -0.1
 	if wants_forward and not moving_forward:
-		remaining = FORWARD_BUFFER
+		remaining = forward_buffer
 	moving_forward = wants_forward
 	buffering = wants_forward and remaining > 0.0001
 	var target = position
@@ -36,7 +37,7 @@ func update(position: Vector3, input: Vector2, yaw: float, delta: float) -> Vect
 		# Translate immediately, including a reversal before forward smoothing
 		# catches up. Keeping the current framing avoids a forward camera twitch.
 		focus += travel
-		remaining = FORWARD_BUFFER
+		remaining = forward_buffer
 		moving_forward = false
 		buffering = false
 	else:

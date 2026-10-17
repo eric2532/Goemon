@@ -1,0 +1,77 @@
+{
+  "requirements": {
+    "sheath": "Red scabbard freely carried in the left hand; closed tip remains behind the actor throughout all five slash paths",
+    "ready_pose": "Right hand on katana hilt, left hand on sheath; preserved during idle, running, sprinting, jumps, falls and flips",
+    "attacks": "Every slash withdraws the blade before swinging, aligns it with the scabbard, slides it back and finishes seated; five distinct cuts retain native timings and damage"
+  },
+  "source": {
+    "green": {
+      "checks": 218,
+      "failures": 0
+    },
+    "identity": {
+      "checks": 41,
+      "failures": 0
+    },
+    "alignment": {
+      "checks": 77,
+      "failures": 0
+    },
+    "fullbody": {
+      "checks": 98,
+      "failures": 0
+    },
+    "ink": {
+      "checks": 58,
+      "failures": 0
+    },
+    "upgrade": {
+      "checks": 81,
+      "failures": 0
+    },
+    "roster": {
+      "checks": 100,
+      "failures": 0
+    },
+    "critical": {
+      "checks": 47,
+      "failures": 0
+    },
+    "polish": {
+      "checks": 66,
+      "failures": 0
+    }
+  },
+  "source_checks": 786,
+  "packaged": {
+    "packaged-sheath": {
+      "checks": 218,
+      "failures": 0
+    },
+    "packaged-identity": {
+      "checks": 41,
+      "failures": 0
+    },
+    "packaged-ink": {
+      "checks": 58,
+      "failures": 0
+    },
+    "packaged-critical": {
+      "checks": 47,
+      "failures": 0
+    },
+    "packaged-polish": {
+      "checks": 66,
+      "failures": 0
+    }
+  },
+  "packaged_checks": 430,
+  "review": "Independent review passed. Dense 201-sample sweeps across five cuts at 0.5x/1x/2x growth and 1.5x visual range pickup confirmed backward axis, grips, full blade clearance and insertion containment. High-speed fourth-cut ribbon regression independently verified fixed.",
+  "native_launch": "Passed universal macOS launch, strict deep code signature verification, archive integrity",
+  "current_app": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Goemon.app",
+  "rollback_app": "/Users/eric/Desktop/Projects_Codex/Sonic/build/samurai-sheath/previous/Goemon.app",
+  "archive": "/Users/eric/Desktop/Projects_Codex/Sonic/build/samurai-sheath/Goemon Samurai Sheath.zip",
+  "preview": "samurai-draw-slash-sheathe.gif",
+  "preferences_unchanged": true,
+  "testing_scope": "Targeted regression suites; older legacy full combat/chain limitations remain documented in docs/combat-polish/verification.json."
+}

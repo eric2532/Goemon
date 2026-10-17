@@ -29,3 +29,12 @@ __pycache__/
 # Generated prior-commit world for town visual comparison.
 /tests/tidefall-town/baseline/
 /docs/**/*.png.import
+
+# Generated visual-development captures; keep editable models and workbenches.
+# Previously tracked reference images remain versioned.
+/docs/**/*.png
+/docs/**/*.jpg
+/docs/**/*.jpeg
+/docs/**/*.gif
+/docs/**/*.mp4
+/docs/**/*.zip

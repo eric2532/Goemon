@@ -1,0 +1,95 @@
+{
+  "verified_at": "2026-10-14T02:23:54.149196+08:00",
+  "request": "Coordinate the body, shoulders, arms and legs as one running pose, using the rear-view Goemon reference.",
+  "reference": "/Users/eric/Desktop/Screenshots/Screenshot 2026-10-14 at 1.55.27\u202fAM.png",
+  "changes": [
+    "Stride-synchronized body bank carries the hips, torso, shoulders and head.",
+    "Rear arm opens behind the turning chest; elbow and wrist directions inherit the chest frame.",
+    "Recovering knees and soles follow the hip frame; planted feet retain world-space anchors and recovery clearance stays above the ground.",
+    "Old independent costume shoulder/hip offsets blend into the shared body pose.",
+    "Parent-local hierarchical blending preserves limb lengths at low speeds and during diagonal runs."
+  ],
+  "red_green": {
+    "initial_coordination_checks": 120,
+    "before_failures": 96,
+    "partial_weight_regression_failures": 2,
+    "final_checks": 131,
+    "final_failures": 0
+  },
+  "packaged_tests": {
+    "goemon_unified_run_tests": {
+      "checks": 131,
+      "failures": 0,
+      "exit_code": 0,
+      "log": "build/unified-run/verification/packaged-goemon_unified_run_tests.log"
+    },
+    "goemon_attack_alignment_tests": {
+      "checks": 77,
+      "failures": 0,
+      "exit_code": 0,
+      "log": "build/unified-run/verification/packaged-goemon_attack_alignment_tests.log"
+    },
+    "goemon_run_reference_tests": {
+      "checks": 28,
+      "failures": 0,
+      "exit_code": 0,
+      "log": "build/unified-run/verification/packaged-goemon_run_reference_tests.log"
+    },
+    "edo_primary_alignment_tests": {
+      "checks": 59,
+      "failures": 0,
+      "exit_code": 0,
+      "log": "build/unified-run/verification/packaged-edo_primary_alignment_tests.log"
+    },
+    "edo_reference_run_tests": {
+      "checks": 24,
+      "failures": 0,
+      "exit_code": 0,
+      "log": "build/unified-run/verification/packaged-edo_reference_run_tests.log"
+    },
+    "character_balance_tests": {
+      "checks": 32,
+      "failures": 0,
+      "exit_code": 0,
+      "log": "build/unified-run/verification/packaged-character_balance_tests.log"
+    }
+  },
+  "packaged_total_checks": 351,
+  "review": "Independent reviewer found no remaining important issues after the partial-weight arm-length correction.",
+  "previews": {
+    "goemon_three_angles": "goemon-body-unison.mp4",
+    "goemon_gif": "goemon-body-unison.gif",
+    "all_twelve": "all-twelve-unified-run.mp4",
+    "captures": 182,
+    "failures": 0,
+    "inspected": [
+      "goemon-frames/003.png",
+      "goemon-frames/006.png",
+      "roster/run-three-quarter.png",
+      "roster/run-frames/004.png"
+    ]
+  },
+  "package": {
+    "app": "build/goemon-cosplay/Goemon Cosplay.app",
+    "zip": "build/goemon-cosplay/Goemon Cosplay.zip",
+    "pck_sha256": "39b8182cd48abd2c92ea56134055158de012739a6ec4a4678b18cbb6db83ddba",
+    "zip_sha256": "b0be75201b243d06992d79d14523a8bd3ab6cc08be71a34323d690d5d0a84559",
+    "zip_crc": "pass",
+    "codesign_deep_strict": "pass",
+    "native_startup_quit_after_120_exit_code": 0
+  },
+  "preservation": {
+    "saved_settings_and_recording_files_checked": 16,
+    "changed_files": [],
+    "blender_master_unchanged": true,
+    "blender_master_sha256": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c"
+  },
+  "known_existing_issue": {
+    "description": "Broad locomotion suite flags midair leg-length drift during Run to sprint after leaving the ground. Fixed-60-fps baseline and updated build have identical maximum leg-length error, 0.03410542011261 m. Not introduced by this correction.",
+    "baseline_log": "build/unified-run/verification/locomotion-baseline.log",
+    "current_log": "build/unified-run/verification/locomotion-fixed.log",
+    "baseline_failures": 1,
+    "current_failures": 1
+  },
+  "cleanup_diagnostic": "The first packaged Edo alignment run passed all59 assertions but emitted an intermittent ObjectDB/two-resource shutdown diagnostic. A subsequent isolated verbose run passed59/59 and exited without warnings or errors; both logs retained."
+}

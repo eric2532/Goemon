@@ -1,0 +1,29 @@
+NINJA — IDLE / RUN / RIGHT-CLICK POSE WORKBENCH
+
+The updated curved silver blade with purple handle is attached to Ninja.
+All three editable actions are in every file:
+  01_Idle               frames 1–217 (loop)
+  02_Run                frames 1–41  (loop)
+  03_Cross_Slash_RMB     frames 1–37  (right click)
+
+Ninja_Idle.blend, Ninja_Run.blend and Ninja_Cross_Slash_RMB.blend each open
+on their action with the appropriate playback range. The main workbench
+opens on Idle. Choose actions in the bottom Action Editor dropdown.
+
+Select arm/forearm/hand/chest bones in Pose Mode. R rotates; G moves;
+X/Y/Z constrains the axis. I records the pose; Space plays; Command-S saves.
+Auto Key is off so playback cannot overwrite a pose accidentally.
+Blade_Control is a child of Hand_R: the blade follows your arm and hand edits.
+Offhand_Control follows Hand_L. Rotate those controls to adjust the grip.
+Do not reshape Skin/Hair or edit rest bones in Edit Mode.
+
+Useful run poses: frame 1 contact A, 11 passing A, 21 contact B,
+31 passing B, 41 loop. Match the first and last frame for a seamless loop.
+Right-click poses: ready 1, windup 6, cut 10, follow-through 18,
+end of dash 26, recovery 37. The strike starts from the current Ninja
+right-click dash-cut (0.42 seconds); the extra recovery is editable.
+The character stays in place so the pose is easy to see. The game owns dash travel.
+
+Save your edits and keep track of the important pose frames. These files
+are independent work copies. Saving here does not publish animation changes
+to the game; the live source, rig and body remain separate.

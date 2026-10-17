@@ -48,7 +48,7 @@ func lock_marker_visible()->bool:
 	return false
 
 func draw_crosshair():
-	var center=size*.5
+	var center: Vector2=game.crosshair_screen_position()
 	for direction in [Vector2.RIGHT,Vector2.LEFT,Vector2.UP,Vector2.DOWN]:
 		draw_line(center+direction*5,center+direction*12,Color(0,.04,.08,.9),4,true)
 		draw_line(center+direction*5,center+direction*12,Color("acfff3"),1.5,true)
@@ -212,7 +212,7 @@ func _draw():
 			buff_y+=24
 	if p.surge_left>0:
 		draw_rect(Rect2(32,298,220,4),ink)
-		draw_rect(Rect2(32,298,220*minf(1,p.surge_left/game.tuning.surge_duration),4),gold)
+		draw_rect(Rect2(32,298,220*minf(1,p.surge_left/game.hero_tuning("surge_duration")),4),gold)
 	for gate in game.gates:
 		if game.portal_hint!="" or not gate.forward_gate:continue
 		var diff=gate.position-p.position

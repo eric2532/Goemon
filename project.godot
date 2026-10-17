@@ -12,7 +12,7 @@ config/custom_user_dir_name="Godot/app_userdata/Azure Ember"
 config/icon="res://icon.svg"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/description="Forest Shrine: prepare your forest settlement from overhead, then fight with Fire Siege Crosshair combat, twelve heroes, updated animations and fog of war."
+config/description="Forest Shrine: start in a ready fort with one gate and two staffed towers, reinforce from overhead, then fight with Fire Siege Crosshair combat, twelve heroes, four enemy combat roles, massive Daruma, updated animations and fog of war."
 
 [display]
 window/size/viewport_width=1440
@@ -20,6 +20,10 @@ window/size/viewport_height=900
 window/size/window_width_override=1280
 window/size/window_height_override=800
 window/stretch/mode="canvas_items"
+
+[filesystem]
+; Editable Blender sources are built explicitly into runtime GLBs by tools/.
+import/blender/enabled=false
 
 [rendering]
 textures/vram_compression/import_etc2_astc=true

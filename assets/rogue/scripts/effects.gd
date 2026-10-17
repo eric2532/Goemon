@@ -202,12 +202,12 @@ func _sample_weapon_brush(attack: Variant, blades: Array, tint: Color, accelerat
 	if attack==null:return
 	# Emit through the same windup/contact/follow-through phases as actor._phase.
 	var contact: float = attack.contact
-	var follow: float = minf(attack.duration*.78, contact+minf(.09,(attack.duration-contact)*.24))
+	var follow: float = float(attack.get("brushEnd",minf(attack.duration*.78, contact+minf(.09,(attack.duration-contact)*.24))))
 	var item: Dictionary = attack.get("magicBrush",{})
 	var last_observed: float = attack.get("brushObservedTime",0.0)
 	attack.brushObservedTime=attack.time
 	var crossed_follow: bool = last_observed<follow and attack.time>follow
-	if attack.time<contact*.52 or (attack.time>follow and not crossed_follow):return
+	if attack.time<float(attack.get("brushStart",contact*.52)) or (attack.time>follow and not crossed_follow):return
 	var life: float = .08/maxf(1.0,tempo) if accelerated else (.16 if crimson else .20)
 	if item.is_empty():
 		if not _feedback_available("magic-brush") and accelerated:
@@ -277,6 +277,9 @@ func ring(pos: Vector3, color: Color = GOLD, radius: float = 2.0, life: float = 
 	mesh.rotation.x = -PI / 2
 	mesh.scale = Vector3.ONE * 0.25
 	return _add(mesh, life, "ring", {"radius": radius})
+
+func ninja_finisher(pos: Vector3,angle: float,reach: float,width: float,range_scale: float,height: float)->Node3D:
+	return preload("res://scripts/ninja_finisher_effect.gd").spawn(self,pos,angle,reach,width,range_scale,height)
 
 func slash(pos: Vector3, angle: float, combo: int = 0, color: Color = GOLD, reach: float = 3.0, options: Dictionary = {}) -> Node3D:
 	var hit: int = absi(combo) % 3
@@ -629,7 +632,7 @@ func create_projectile(kind: String, color: Color = TEAL) -> Node3D:
 			var ink_materials: Array = []
 			for layer in range(2):
 				var blade = MeshInstance3D.new()
-				blade.mesh=_blade(2.35 if layer==0 else 2.12,.85 if layer==0 else .52,1.55,1,.08)
+				blade.mesh=_blade(2.35 if layer==0 else 2.12,.68 if layer==0 else .36,1.95,1,0)
 				blade.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 				var ink = ShaderMaterial.new()
 				ink.shader=preload("res://assets/rogue/shaders/magic_ink_brush.gdshader")
@@ -637,17 +640,13 @@ func create_projectile(kind: String, color: Color = TEAL) -> Node3D:
 				ink.set_shader_parameter("energy",(.42 if reduced_flashes else 1.15) if layer==0 else (.24 if reduced_flashes else .5))
 				blade.material_override=ink
 				ink_materials.append(ink)
-				# Face the moving energy crescent forward. A floor-flat ribbon
-				# disappears edge-on from the shoulder-height gameplay camera.
-				blade.rotation.x = PI / 2
-				blade.position = Vector3(0, 2.1, .15 if layer==0 else -.2)
+				# Canonical cutting edge lies in XY, centered on the projectile.
+				# Release supplies its world plane from the actual sword stroke.
+				blade.rotation.x=-PI/2
+				var bounds: AABB=blade.mesh.get_aabb()
+				blade.position=Vector3(0,-bounds.get_center().z,.04 if layer==0 else -.12)
 				group.add_child(blade)
 			group.set_meta("ink_materials",ink_materials)
-			for side in [-1.0, 1.0]:
-				var fin: MeshInstance3D = _mesh(_spear(1.2, 0.12, 0.055), color, 0.5)
-				fin.position = Vector3(side * 0.75, 0, -0.75)
-				fin.rotation.y = side * -0.12
-				group.add_child(fin)
 		"fireball":
 			for layer in [[0.26, 0.98], [0.39, 0.6], [0.52, 0.14]]:
 				var flame = _mesh(sphere_geometry, Color("fff0b0") if layer[0] < 0.3 else Color("ff572a"), layer[1])
@@ -700,7 +699,7 @@ func tick(dt: float) -> void:
 		Ink.animate(node,dt)
 		# A new ribbon must reach one displayed frame before its short tail ages.
 		var age_delta: float = dt
-		if item.kind=="magic-brush" and not item.get("presented",false):
+		if item.kind in ["magic-brush","ninja-finisher"] and not item.get("presented",false):
 			item.presented=true;age_delta=0.0
 		item.life -= age_delta
 		if item.life <= 0:
@@ -733,6 +732,11 @@ func tick(dt: float) -> void:
 			"ring":
 				node.scale = Vector3.ONE * float(item.radius) * (0.25 + t * 0.85)
 				_fade(node, remaining)
+			"ninja-finisher":
+				var age=float(item.max)-float(item.life)
+				_fade(item.edge,1-smoothstep(.08,.38,age))
+				_fade(item.area,1-smoothstep(.12,.38,age))
+				_fade(item.rim,1-smoothstep(.22,.50,age))
 			"crimson-slash":
 				node.scale = Vector3.ONE * (0.83 + 0.17 * minf(1, t * 4))
 				node.rotation.y = item.angle + (t - 0.3) * 0.12
@@ -744,6 +748,10 @@ func tick(dt: float) -> void:
 				node.scale = Vector3.ONE * (0.15 + 0.85 * (1 - pow(remaining, 4)))
 				_fade(node, pow(remaining, 0.7))
 				node.rotation.y = t * 0.1
+			"knight-shield-pulse":
+				var distance=1.0+6.0*clampf((float(item.max)-float(item.life))/.18,0,1)
+				node.position=item.origin+(Vector3.UP*3.3+Vector3(sin(item.angle),0,cos(item.angle))*distance)*float(item.rangeScale)
+				_fade(node,minf(1,remaining*3))
 			"shield-counter":
 				node.position = item.origin + Vector3(sin(item.angle), 0, cos(item.angle)) * (1 - pow(remaining, 3)) * 3.8
 				node.scale = Vector3.ONE * (0.8 + t * 0.65)
@@ -885,6 +893,21 @@ func frost_nova(pos: Vector3, radius: float) -> Node3D:
 		var spoke = _shaft(Vector3.ZERO, Vector3(sin(angle), 0, cos(angle)) * distance, Color("549bd5"), 0.022)
 		group.add_child(spoke)
 	return _add(group, 0.9, "nova")
+
+func knight_shield_pulse(pos: Vector3, angle: float, range_scale: float, index: int) -> Node3D:
+	var group=Node3D.new()
+	group.name="KnightShieldPulse%d"%(index+1)
+	group.position=pos+(Vector3.UP*3.3+Vector3(sin(angle),0,cos(angle)))*range_scale
+	group.rotation.y=angle
+	group.scale=Vector3.ONE*range_scale
+	var points=PackedVector3Array()
+	for point in preload("res://scripts/knight_guard_counter.gd").FACE:points.append(Vector3(point.x,point.y,0))
+	group.add_child(_mesh(_array_mesh(points,PackedInt32Array([0,1,2,0,2,3,0,3,4,0,4,5])),Color("19498c"),.38,false))
+	for i in points.size():
+		group.add_child(_shaft(points[i],points[(i+1)%points.size()],Color("77cfff"),.11))
+	for pair in [[Vector3(-1.8,.6,.04),Vector3(1.8,.6,.04)],[Vector3(0,-1.7,.04),Vector3(0,2.2,.04)]]:
+		group.add_child(_shaft(pair[0],pair[1],Color("e9d49b"),.13))
+	return _add(group,.22,"knight-shield-pulse",{"origin":pos,"angle":angle,"rangeScale":range_scale,"index":index})
 
 func energy_shield(pos: Vector3, angle: float, reach: float) -> Node3D:
 	var group = Node3D.new()

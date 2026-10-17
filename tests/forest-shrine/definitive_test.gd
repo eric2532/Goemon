@@ -1,8 +1,11 @@
 extends SceneTree
 var failures=0
+var config_path="user://forest-definitive-%d.cfg"%OS.get_process_id()
 func check(ok: bool,message: String):
 	if not ok:failures+=1;printerr("FAIL: "+message)
 func _initialize():
+	node_added.connect(func(node):
+		if node.get_script()==load("res://scripts/forest/forest_game.gd"):node.settings_path=config_path)
 	create_timer(40).timeout.connect(func():printerr("FAIL: definitive timeout");quit(1))
 	call_deferred("run")
 func settle():
@@ -25,7 +28,7 @@ func run():
 	game.model.damage_building(1,10000);await settle()
 	check(game.model.phase=="defeat","Shrine destruction still ends the run")
 	game.restart_area();await settle();game=current_scene
-	check(game.model.wave==0 and game.model.gold==400 and game.player.character_id==7 and game.player.active_ability.player.cooldowns.drink==0,"Retry keeps the fighter and resets the settlement and skills")
+	check(game.model.wave==0 and game.model.gold==1000000 and game.player.character_id==7 and game.player.active_ability.player.cooldowns.drink==0,"Retry keeps the fighter and resets the settlement and skills")
 	game.show_main_menu();await settle();game=current_scene
 	check(not game.playing and game.find_child("ForestPlay",true,false)!=null,"Return reaches the Forest Shrine title without legacy modes")
 	if "--visual" in OS.get_cmdline_user_args():
@@ -44,4 +47,6 @@ func run():
 func capture(name_: String):
 	await settle();await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("res://tests/forest-shrine/"+name_+".png")
-func finish():print("FOREST_DEFINITIVE_RESULT failures=%d"%failures);quit(1 if failures else 0)
+func finish():
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(config_path))
+	print("FOREST_DEFINITIVE_RESULT failures=%d"%failures);quit(1 if failures else 0)

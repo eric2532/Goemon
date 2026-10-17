@@ -1,0 +1,88 @@
+{
+  "verified_at": "2026-10-14T10:24:08.289898+08:00",
+  "change": "Wider wind-up and follow-through across shared basic melee, with stronger shoulders/torso/head rotation; unchanged contact pose and timings. Shared 3.6-second idle breath through chest, shoulders and head across all 12 playable characters; planted soles and simulation-time clock, suppressed in air/combat and blended away with movement.",
+  "tests": {
+    "breathing": {
+      "checks": 86,
+      "failures": 0,
+      "log": "build/swing-breathing/verification/breathing.log"
+    },
+    "strike": {
+      "checks": 98,
+      "failures": 0,
+      "log": "build/swing-breathing/verification/strike.log"
+    },
+    "alignment": {
+      "checks": 77,
+      "failures": 0,
+      "log": "build/swing-breathing/verification/alignment.log"
+    },
+    "run": {
+      "checks": 202,
+      "failures": 0,
+      "log": "build/swing-breathing/verification/run.log"
+    },
+    "jump": {
+      "checks": 178,
+      "failures": 0,
+      "log": "build/swing-breathing/verification/jump.log"
+    },
+    "packaged-breathing": {
+      "checks": 86,
+      "failures": 0,
+      "log": "build/swing-breathing/verification/packaged-breathing.log"
+    },
+    "packaged-strike": {
+      "checks": 98,
+      "failures": 0,
+      "log": "build/swing-breathing/verification/packaged-strike.log"
+    },
+    "packaged-alignment": {
+      "checks": 77,
+      "failures": 0,
+      "log": "build/swing-breathing/verification/packaged-alignment.log"
+    }
+  },
+  "source_checks_total": 641,
+  "review": "Independent read-only review found no blockers and independently verified all 641 source assertions.",
+  "preview": {
+    "video": "docs/swing-breathing/swing-and-breathing.mp4",
+    "fps": 30,
+    "frames": 219,
+    "duration_seconds": 7.3,
+    "playback_speed": 1,
+    "decode": "passed",
+    "visual_review": "Wind-up, contact and wider follow-through plus inhale/exhale frames inspected from front three-quarter, side and rear three-quarter views."
+  },
+  "native_startup": {
+    "frames": 120,
+    "exit_code": 0
+  },
+  "artifacts": {
+    "app": "build/goemon-cosplay/Goemon Cosplay.app",
+    "zip": "build/goemon-cosplay/Goemon Cosplay.zip",
+    "pck_sha256": "5160c5f65f33e463d5899298757aeeb1162cf52475f391c8441f00e7adb3ea02",
+    "zip_sha256": "daf03cb4affe8ce692814b7040e92e48c52e64006588508bddb46b606bb53b99",
+    "zip_crc": "passed",
+    "zip_matches_tested_export": true,
+    "codesign_deep_strict": "passed"
+  },
+  "preservation": {
+    "settings_and_recording_files": 17,
+    "all_hashes_unchanged": true,
+    "run_cadence_unchanged": true,
+    "original_blender_sha256": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c",
+    "previous_app_and_zip": "build/swing-breathing/previous"
+  },
+  "source_files": {
+    "scripts/goemon_reference_strike.gd": "6bd2a032ab86a30a47b18103f3f33de45577918c8b8f6604a7cbc0b8cc90b00f",
+    "scripts/goemon_idle_breath.gd": "3afb7669e60d1a014b0d60fc9d285ee27e3d8b6622e78371e85626b685f15584",
+    "scripts/hero_locomotion.gd": "e3a0caa34fc99e0566155eaa9412fd40601091ae124c7bf5d8fe0a4e57e86c91",
+    "scripts/goemon_cosplay_rig.gd": "837d48aaec1bbe18165f6d47d15692f653a7acd28a60f9da1fada765a3c6b398",
+    "assets/rogue/scripts/actor.gd": "3986c462560bc3a1987fa5dca5648413f312a43ac597517c9f9b9a12e8d9f0ae",
+    "assets/rogue/scripts/locomotion.gd": "e064c6b20c0f98589af2aa9a1c4363dfe71579ed12b453b69f51e91a4cc18426",
+    "assets/characters/musashi/animations/goemon_cosplay_motion.gd": "010e3c0595950fd4d7cad9f1f1887eca8019f6f6b545d8d4304bba5e9edf8c1a",
+    "scripts/goemon_swing_breathing_tests.gd": "cf23ad0d39a53db7a2092ac0acd81e294d3be2e9eda5c1a6bdc05000820244e9",
+    "scripts/goemon_idle_breath_tour.gd": "1ee99f5b632a6cec6136d2fd80fc045953859dc0a4ad9dfd3a6cec8af58bdc9d"
+  }
+}

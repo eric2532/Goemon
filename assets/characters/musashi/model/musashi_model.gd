@@ -5,10 +5,11 @@ const REVIEW_MODEL="res://assets/characters/musashi/preview/edo_posture_shoulder
 const ORIGINAL_MODEL="res://assets/characters/musashi/model/edo_refined.glb"
 const ANIME_MODEL="res://assets/models/characters/edo_anime.glb"
 const APPROVED_MODEL="res://assets/models/characters/edo_approved.glb"
+const COSPLAY_MODEL="res://assets/models/characters/goemon_cosplay/edo.glb"
 const ANIME_DISPLAY_SCALE=1.20
 func _ready():
 	body=Node3D.new();add_child(body)
-	var model_path=APPROVED_MODEL
+	var model_path=COSPLAY_MODEL
 	if "--edo-original" in OS.get_cmdline_user_args():model_path=ORIGINAL_MODEL
 	elif "--edo-v05" in OS.get_cmdline_user_args():model_path=REVIEW_MODEL
 	elif "--edo-anime" in OS.get_cmdline_user_args():model_path=ANIME_MODEL
@@ -27,6 +28,7 @@ func _ready():
 	scarf=Node3D.new();body.add_child(scarf)
 	locomotion=MusashiMotion.new(self) if model_path==ORIGINAL_MODEL else load("res://assets/characters/musashi/animations/relaxed_idle_v05.gd").new(self)
 	if model_path==APPROVED_MODEL:locomotion=load("res://assets/characters/musashi/animations/approved_motion.gd").new(self)
+	if model_path==COSPLAY_MODEL:locomotion=load("res://assets/characters/musashi/animations/goemon_cosplay_motion.gd").new(self)
 	process_priority=30
 func animate(delta: float,speed: float,grounded: bool,vertical: float,_attack: float,_heavy: bool,_combo: int,dodge: bool):
 	body.transform=Transform3D.IDENTITY

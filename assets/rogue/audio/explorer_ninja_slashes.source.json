@@ -1,0 +1,178 @@
+{
+  "title": "Best Sword Sounds (Slice/Slash/Crash/Swoosh/etc)",
+  "source_url": "https://www.youtube.com/watch?v=EgRvVq8mStE",
+  "retrieved_on": "2026-10-15",
+  "usage": "Explorer and Ninja light combos, stronger third-hit finishers, and right-click Cross Slash/Dash Cut specials",
+  "processing": "Layered slash mixes with dedicated staggered special cuts and heavier finisher impacts. Trimmed, high-pass at 110 Hz, tempo shortened without shifting pitch, peak normalized to -9 dBFS for light hits, -6 dBFS for finishers, -7.5 dBFS for specials, 3 ms attack and 25 ms tail fade, stereo 48 kHz PCM16.",
+  "license": "Not established by this download",
+  "samples": [
+    {
+      "path": "audio/blade-explorer-0.wav",
+      "main_source_seconds": [
+        13.41,
+        14.11
+      ],
+      "accent_source_seconds": [
+        36.93,
+        37.13
+      ],
+      "tempo": 1.25,
+      "accent_gain": 0.15,
+      "accent_offset_seconds": 0.012,
+      "role": "light",
+      "extra_layers": [],
+      "duration_seconds": 0.5662,
+      "peak_dbfs": -9.0,
+      "sha256": "439e3c6ba6f0e3cd84127cf0a3890c2a27ad8cf2af411efe1ae68fbcc6bf5527"
+    },
+    {
+      "path": "audio/blade-explorer-1.wav",
+      "main_source_seconds": [
+        16.84,
+        17.49
+      ],
+      "accent_source_seconds": [
+        39.48,
+        39.65
+      ],
+      "tempo": 1.2,
+      "accent_gain": 0.17,
+      "accent_offset_seconds": 0.012,
+      "role": "light",
+      "extra_layers": [],
+      "duration_seconds": 0.5414,
+      "peak_dbfs": -9.0,
+      "sha256": "87538b4c5a5760a71ba7b7ce032dd3efccd72ac8c70f4a29d4db48513fcb1264"
+    },
+    {
+      "path": "audio/blade-explorer-2.wav",
+      "main_source_seconds": [
+        14.77,
+        15.49
+      ],
+      "accent_source_seconds": [
+        18.31,
+        18.53
+      ],
+      "tempo": 1.2,
+      "accent_gain": 0.21,
+      "accent_offset_seconds": 0.012,
+      "role": "finisher",
+      "extra_layers": [
+        {
+          "source_seconds": [
+            22.03,
+            22.53
+          ],
+          "gain": 0.65,
+          "offset_seconds": 0.045
+        }
+      ],
+      "duration_seconds": 0.5974,
+      "peak_dbfs": -6.0,
+      "sha256": "b61f7253c28712ba383e2b2b889959604f8b34eb592c9d2ee98f9c198aedc7f7"
+    },
+    {
+      "path": "audio/blade-ninja-0.wav",
+      "main_source_seconds": [
+        26.24,
+        26.7
+      ],
+      "accent_source_seconds": [
+        28.98,
+        29.11
+      ],
+      "tempo": 1.5,
+      "accent_gain": 0.12,
+      "accent_offset_seconds": 0.012,
+      "role": "light",
+      "extra_layers": [],
+      "duration_seconds": 0.3172,
+      "peak_dbfs": -9.0,
+      "sha256": "a63a4e5b7709aeaf4f5d535d317988eb4045fccea51fc8973dce99e21714007b"
+    },
+    {
+      "path": "audio/blade-ninja-1.wav",
+      "main_source_seconds": [
+        27.39,
+        27.81
+      ],
+      "accent_source_seconds": [
+        20.35,
+        20.48
+      ],
+      "tempo": 1.5,
+      "accent_gain": 0.13,
+      "accent_offset_seconds": 0.012,
+      "role": "light",
+      "extra_layers": [],
+      "duration_seconds": 0.2829,
+      "peak_dbfs": -9.0,
+      "sha256": "bf5feae3a3677e1698287a279dc911e8d3e5d3d2835925999501aa80c4022d9e"
+    },
+    {
+      "path": "audio/blade-ninja-2.wav",
+      "main_source_seconds": [
+        38.39,
+        38.83
+      ],
+      "accent_source_seconds": [
+        34.31,
+        34.46
+      ],
+      "tempo": 1.4,
+      "accent_gain": 0.17,
+      "accent_offset_seconds": 0.012,
+      "role": "finisher",
+      "extra_layers": [
+        {
+          "source_seconds": [
+            36.93,
+            37.23
+          ],
+          "gain": 0.65,
+          "offset_seconds": 0.045
+        }
+      ],
+      "duration_seconds": 0.3297,
+      "peak_dbfs": -6.0,
+      "sha256": "422222af97e43fbfa7853e07a09c2c3d647ecd1b1ba66daa585dca2ae9809811"
+    },
+    {
+      "path": "audio/blade-explorer-special.wav",
+      "role": "special",
+      "main_source_seconds": [
+        18.3,
+        18.75
+      ],
+      "accent_source_seconds": [
+        23.83,
+        24.16
+      ],
+      "tempo": 1.15,
+      "accent_gain": 0.75,
+      "accent_offset_seconds": 0.095,
+      "duration_seconds": 0.4002,
+      "peak_dbfs": -7.5,
+      "sha256": "033e72133b9ff6ff53ffae4f9840bb257e2f527a7bad035fd42e45eee2bbc685"
+    },
+    {
+      "path": "audio/blade-ninja-special.wav",
+      "role": "special",
+      "main_source_seconds": [
+        25.1,
+        25.5
+      ],
+      "accent_source_seconds": [
+        28.98,
+        29.3
+      ],
+      "tempo": 1.25,
+      "accent_gain": 0.75,
+      "accent_offset_seconds": 0.075,
+      "duration_seconds": 0.3393,
+      "peak_dbfs": -7.5,
+      "sha256": "b8354d0e3c0ef9172274dc6a11cbe2bf43ade03db0ac94f7def9c0aaf526f4d9"
+    }
+  ]
+}

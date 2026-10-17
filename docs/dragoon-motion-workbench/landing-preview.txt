@@ -1,0 +1,39 @@
+Dragoon landing preview — latest Forest Shrine v2.59.0
+
+While Dragoon is airborne or hovering, a translucent blue ground circle follows
+the crosshair's landing solution. Its outer boundary is the full Dragon Leap
+damage radius (19.8m before existing range modifiers), with faint rings for the
+12.6m and 16.2m pulses. It shows all three expanding damage zones.
+
+On launch, center and radius follow the committed target/rangeScale snapshot,
+so moving the camera does not move the actual attack indicator. If collision
+forces the strike into its straight-down fallback, the circle moves below the
+real body to show the new landing area. No valid floor means no circle.
+Landing, death, pause, cancel, reset and character changes hide the marker;
+paused-tree end overlays also hide it via the marker's lightweight cleanup.
+
+Rendering: one persistent PlaneMesh with a reusable transparent blue shader.
+No per-frame mesh/effect creation; no shadows or light nodes. Aiming reuses the
+same target/floor solver as the actual ability; damage and preview use the same
+static radius function. Existing gameplay, animations, sweep and controls remain.
+
+Changed: scripts/dragoon_leap_preview.gd,
+assets/vfx/dragoon/leap_preview.gdshader,
+scripts/rogue_roster_combat.gd target solver/preview/lifecycle hooks,
+assets/rogue/scripts/class_actions.gd shared pulse radius helper.
+
+Evidence under tests/dragoon-preview:
+- Missing feature reproduced before implementation.
+- 20 rendered checks passed: position, radius, moving aim, commit lock, fallback,
+  ground/death/reset/cancel/character visibility, real paused-tree defeat cleanup,
+  and repeated updates retaining the same mesh identity.
+- 25 sweep, 24 flight and 23 repeat/radius regressions passed.
+- Inspected native aiming/committed screenshots; shader compiled in real Metal.
+- Review found end-overlay cleanup; reproduced red (19/20), then fixed.
+Some existing scene harnesses emit resource cleanup messages at exit; functional
+assertions are recorded independently of these known messages.
+
+Current app: build/Goemon.app (restart to load).
+Release: build/Other Files/Forest Shrine v2.59.0/Dragoon Landing Preview/Goemon.zip.
+Final packaged checks and previous-app/PCK record: verification.json under
+ tests/dragoon-preview.

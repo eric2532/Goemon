@@ -46,7 +46,7 @@ before changes and do not reset it.
 Run commands from the worktree with a task-specific variable:
 
 ```sh
-goemon_engine='/Users/eric/Downloads/Goemon-marc-prototypes-2026-10-10.JqoVC3/runtime/Godot.app/Contents/MacOS/Godot'
+goemon_engine='/Users/eric/Desktop/Projects_Codex/Sonic/backups/download-references/standalone-prototypes/Goemon-marc-prototypes-2026-10-10.JqoVC3/runtime/Godot.app/Contents/MacOS/Godot'
 "$goemon_engine" --version
 ```
 

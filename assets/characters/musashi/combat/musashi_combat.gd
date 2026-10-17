@@ -1,6 +1,7 @@
 class_name MusashiCombat
 extends Node
 signal state_changed(value: int)
+const BASIC_RANGED_REACH=3.0
 # Keep legacy state IDs stable for the animation adapter.
 enum State {IDLE,MOVING,PUNCH_1,PUNCH_2,PUNCH_3,HEAVY_HOOK,CHARGING_HOOK,FIREBALL,CHARGING_FIREBALL,FIRE_SHIELD,HIT_REACTION,BEAM,METEOR_CAST}
 var attack_ticket: Dictionary={}
@@ -14,6 +15,7 @@ var duration=0.0
 var stage=0
 var power=0.0
 var contact_done=false
+var release_pending=false
 var charge_effect: FireEnergy
 var shield: FireShieldVisual
 var shield_left=0.0
@@ -33,7 +35,7 @@ var meteor_pending=0
 
 func _ready():teleport=SmokeTeleport.new(hero,self)
 func blocks_movement()->bool:return teleport!=null and teleport.active
-func change(next: int):state=next;elapsed=0;state_changed.emit(state)
+func change(next: int):state=next;elapsed=0;release_pending=false;state_changed.emit(state)
 func is_charging()->bool:return false
 func is_attacking()->bool:return state in [State.FIREBALL,State.METEOR_CAST]
 func is_casting_meteors()->bool:return state==State.METEOR_CAST
@@ -102,7 +104,7 @@ func cast_fireball(large: bool=false):
 	hero.facing=game.attack_direction()
 	if hero.attack_chain.unleashed():
 		cancel_beam();primary_held=false;contact_done=true;launch()
-		game.sound("edo_giant" if large_cast else "edo_volley",.65)
+		game.sound("edo_giant" if large_cast else "edo_volley",.65,false,attack_ticket)
 		hero.attack_left=0;change(State.IDLE)
 # Legacy editor scripts may still call this; there is no charging input anymore.
 func begin_charge(_next: int):cast_fireball(true)
@@ -145,8 +147,8 @@ func tick(delta: float,update_timers: bool=true):
 	elif is_attacking():
 		hero.attack_left=maxf(0,duration-elapsed)
 		if progress()>=.27 and not contact_done:
-			contact_done=true;launch();game.sound("edo_giant" if large_cast else "edo_volley",.75 if large_cast else .55)
-		if elapsed>=duration:
+			contact_done=true;release_pending=true
+		if elapsed>=duration and not release_pending:
 			hero.attack_left=0;change(State.IDLE)
 			if heavy_queued:cast_fireball(true)
 			elif primary_held and Input.is_action_pressed("light_attack"):primary_attack()
@@ -156,7 +158,15 @@ func tick(delta: float,update_timers: bool=true):
 		state=State.FIRE_SHIELD if empowered() else (State.MOVING if Vector2(hero.velocity.x,hero.velocity.z).length()>1 else State.IDLE)
 		if primary_held and Input.is_action_pressed("light_attack") and hero.dodge_time<=0:primary_attack()
 
+func after_pose():
+	# Hero movement, facing and the current cast bones must all be evaluated
+	# before the projectile reads the visible hand's world-space position.
+	if not release_pending or state!=State.FIREBALL:return
+	release_pending=false
+	launch();game.sound("edo_giant" if large_cast else "edo_volley",.75 if large_cast else .55,false,attack_ticket)
+
 func launch():
+	hero.hold_combat_aim()
 	var from=hero.model.hand_position("R")
 	var dir=game.projectile_direction(from)
 	var score=-100.0
@@ -175,7 +185,7 @@ func launch():
 		ball.damage=(balance.charged_fireball_damage if large_cast else balance.fireball_damage)*hero.damage_multiplier()
 		ball.hit_radius=(balance.charged_fireball_radius if large_cast else balance.fireball_radius)*hero.pickup_multiplier("range")*hero.growth_multiplier()
 		ball.velocity=dir.rotated(Vector3.UP,(i-(count-1)*.5)*.12)*(balance.charged_projectile_speed if large_cast else balance.projectile_speed)*hero.attack_speed_multiplier()
-		ball.lifetime=balance.projectile_lifetime*hero.growth_multiplier()/hero.attack_speed_multiplier()*(1.0 if large_cast else hero.BASIC_ATTACK_RANGE_MULTIPLIER)
+		ball.lifetime=balance.projectile_lifetime*hero.growth_multiplier()/hero.attack_speed_multiplier()*(1.0 if large_cast else BASIC_RANGED_REACH)
 		game.add_child(ball);ball.global_position=from
 
 func start_beam(action: String="light_attack"):
@@ -190,8 +200,8 @@ func start_beam(action: String="light_attack"):
 	hero.facing=game.attack_direction()
 	beam=load("res://assets/vfx/fire_beam/fire_beam.tscn").instantiate()
 	beam.game=game;beam.hero=hero;beam.ability=self;beam.balance=balance.duplicate();beam.attack_ticket=attack_ticket
-	beam.balance.beam_length=game.tuning.beam_length*(hero.BASIC_ATTACK_RANGE_MULTIPLIER if action=="light_attack" else 1.0)
-	beam.balance.beam_radius=game.tuning.beam_width*.5*hero.pickup_multiplier("range")*hero.growth_multiplier()
+	beam.balance.beam_length=game.hero_tuning("beam_length")*(BASIC_RANGED_REACH if action=="light_attack" else 1.0)
+	beam.balance.beam_radius=game.hero_tuning("beam_width")*.5*hero.pickup_multiplier("range")*hero.growth_multiplier()
 	beam.sustained=true;beam_held=true
 	change(State.BEAM);hero.attack_left=1;hero.attack_duration=1
 	game.add_child(beam);game.camera_rig.kick(hero.facing,.08);game.sound("edo_beam_start",.6)
@@ -219,9 +229,10 @@ func shield_damage():
 	BreakableBuilding.hit_area(game,hero.global_position+Vector3.UP*hero.growth_multiplier(),balance.shield_radius*hero.growth_multiplier(),balance.shield_damage*hero.damage_multiplier(),shield_ticket)
 	for e in game.enemies:
 		if not is_instance_valid(e) or e.dead:continue
-		var dif=e.global_position-hero.global_position
+		var hurt=AttackChain.contact_point(e,hero.global_position+Vector3.UP,e.global_position)
+		var dif=hurt-hero.global_position
 		if dif.length()>balance.shield_radius*hero.growth_multiplier()+e.body_radius:continue
-		if not hero.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(hero.global_position+Vector3.UP,e.global_position+Vector3.UP,1)).is_empty():continue
+		if not hero.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(hero.global_position+Vector3.UP,AttackChain.contact_point(e,hero.global_position+Vector3.UP,e.global_position+Vector3.UP),1)).is_empty():continue
 		e.take_hit(balance.shield_damage*hero.damage_multiplier(),dif.normalized(),false,shield_ticket)
 		game.burst(e.global_position+Vector3.UP,Color("5ecbff"),5,.5)
 func end_shield():

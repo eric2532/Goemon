@@ -40,21 +40,45 @@ func extended_primary_rules():
 	var reaches=[2.85,3.3,2.45,28.0,4.8,6.2,3.5,20.0,2.65,4.8]
 	for index in range(10):
 		await fresh_class(index);var a=game.player.active_ability
-		var offset=Vector3(reaches[index]*2.3,0,0)
-		var victim=fixture(offset);tap("light_attack")
 		if index in [3,7]:
+			var victim=fixture(Vector3(reaches[index]*2.3,0,0))
+			var off_path: Ninja=null
+			if index==7:seed(103) # A repeatable, slightly upward Ranger release.
+			tap("light_attack")
 			await frames(10)
 			check(not a.projectiles.is_empty() and a.projectiles[0].life*a.projectiles[0].vel.length()>reaches[index]*2.7,"%s primary projectile travels three times its old range" % CLASS_IDS[index])
+			if index==7 and not a.projectiles.is_empty():
+				# Ranger deliberately scatters its release angle. Test actual long
+				# flight and narrow contact along the visible shot, not perfect aim.
+				var arrow: Dictionary=a.projectiles[0]
+				var direction: Vector3=arrow.vel.normalized()
+				var contact: Vector3=arrow.mesh.global_position+direction*46.0
+				victim.global_position+=contact-AttackChain.aim_point(victim)
+				var lateral=Vector3(-direction.z,0,direction.x).normalized()
+				off_path=fixture(victim.global_position-game.player.global_position+lateral*3.0)
+			await frames(230 if index==3 else 110)
+			check(victim.hp<10000,"%s basic projectile damages a real target beyond twice its old range" % CLASS_IDS[index])
+			if index==7:check(is_instance_valid(off_path) and off_path.hp==10000,"Ranger's long-travel arrow excludes a target beside its visible flight path")
 		else:
-			check(a.player.attack!=null and is_equal_approx(a.player.attack.reach,reaches[index]*3),"%s primary has exactly triple reach" % CLASS_IDS[index])
-		await frames(230 if index==3 else (110 if index==7 else 42))
-		check(victim.hp<10000,"%s basic damages a real target beyond twice its old range" % CLASS_IDS[index])
+			# Hand-placed fixtures sit inside the visible weapon stroke and well
+			# beyond it. Do not derive either target from the attack's hit radius.
+			var near=fixture(Vector3(2.4 if index in [5,6] else 1.5,0,0))
+			var distant=fixture(Vector3(reaches[index]*2.3,0,0))
+			tap("light_attack");await frames(42)
+			check(near.hp<10000,"%s primary damages a real target inside its visible weapon stroke" % CLASS_IDS[index])
+			check(distant.hp==10000,"%s primary cannot ghost-hit the former extended melee distance" % CLASS_IDS[index])
 	await fresh_class(1);var a=game.player.active_ability
-	game.player.buildings_broken=4;var scale=game.player.range_multiplier()
 	tap("light_attack")
-	check(is_equal_approx(a.player.attack.reach,3.3*3*scale),"Growth stacks exactly once on tripled light reach")
+	var base_reach: float=a.player.attack.reach
+	var base_weapon_scale: float=a.visual_actor.joints.Weapon_Cutlass.node.global_basis.get_scale().length()
+	await fresh_class(1);a=game.player.active_ability
+	for count in range(4):game.player.grow_from_building()
+	var scale=game.player.range_multiplier()
+	tap("light_attack")
+	var weapon_growth: float=a.visual_actor.joints.Weapon_Cutlass.node.global_basis.get_scale().length()/base_weapon_scale
+	check(absf(weapon_growth-scale)<.01 and absf(a.player.attack.reach/base_reach-weapon_growth)<.01,"Growth scales the visible weapon and melee contact together exactly once")
 	a.cancel();a.player.cooldowns.flintlock=0;tap("heavy_attack")
-	check(a.player.attack!=null and is_equal_approx(a.player.attack.reach,8*scale),"Heavy sword range remains unchanged by the basic range upgrade")
+	check(a.projectiles.size()==1 and a.projectiles[0].kind=="crimson-arrow" and is_equal_approx(a.projectiles[0].life*a.projectiles[0].vel.length(),28*scale),"Samurai's current secondary arrow receives growth once, without the primary range multiplier")
 	await fresh_class(9)
 	var wall=wall_at(Vector3(4,4,0));var hidden=fixture(Vector3(7,0,0));await frames(2)
 	tap("light_attack");await frames(40)

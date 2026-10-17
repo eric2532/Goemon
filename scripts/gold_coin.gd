@@ -58,9 +58,10 @@ func _physics_process(delta):
 	if not hostile:
 		for victim in game.enemies:
 			if not is_instance_valid(victim) or victim.dead or hit_enemies.has(victim.get_instance_id()): continue
-			var point=AttackChain.aim_point(victim)
-			var nearest=Geometry3D.get_closest_point_to_segment(point,global_position,end)
-			if nearest.distance_to(point)>hit_radius+victim.body_radius: continue
+			var contact=AttackChain.segment_contact(victim,global_position,end,hit_radius)
+			if contact.is_empty():continue
+			var point=AttackChain.aim_point(victim,contact.point)
+			var nearest: Vector3=contact.point
 			var sight=PhysicsRayQueryParameters3D.create(nearest,point,1)
 			if not get_world_3d().direct_space_state.intersect_ray(sight).is_empty(): continue
 			hit_enemies[victim.get_instance_id()]=true

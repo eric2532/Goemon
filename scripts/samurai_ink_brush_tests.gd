@@ -12,7 +12,8 @@ func run():
  var p=game.player;var a=p.active_ability
  check(ribbons(a.fx).is_empty(),"Idle Samurai does not emit a sword trail")
  for stage in range(5):
-  var victim=fixture(Vector3(3,0,0));tap("light_attack")
+  # Damage is tested inside every physical blade's reach, not the old sphere.
+  var victim=fixture(Vector3(2,0,0));tap("light_attack")
   var tracked=0;var broad=false
   for frame in range(45):
    await frames(1)
@@ -80,6 +81,7 @@ func run():
       area+=(vertices[indices[triangle+1]]-vertices[indices[triangle]]).cross(vertices[indices[triangle+2]]-vertices[indices[triangle]]).length()*.5
      if area>.01:visible[item.get("cut_index",-1)]=true
    press("light_attack",false)
+   if not visible.all(func(value):return value):print("SAMURAI_BRUSH_MISSING quality=",quality," stacks=",stacks," visible=",visible)
    check(visible.all(func(value):return value),"All five ultimate cuts have brush geometry with speed case %s at quality %s" % [stacks,quality])
    check(bounded,"Stacked-speed ultimate respects quality %s ribbon cap" % quality)
    await frames(15)
@@ -95,7 +97,7 @@ func run():
   await frames(3);check(ribbons(a.fx).is_empty(),"%s clears Samurai's brush trail" % mode)
  await fresh_class(1);a=p.active_ability;a.fx.apply_quality(0);a.fx.reduced_flashes=true
  var crowd: Array = []
- for i in range(20):crowd.append(fixture(Vector3(3+(i%4)*.2,0,(floori(i/4.0)-2)*.2)))
+ for i in range(20):crowd.append(fixture(Vector3(1.8+(i%4)*.15,0,(floori(i/4.0)-2)*.2)))
  tap("light_attack");await frames(10)
  check(crowd.all(func(enemy):return is_equal_approx(10000-enemy.hp,34)),"New Samurai hit feedback preserves damage to all 20 enemies")
  var impacts=a.fx.items.filter(func(item):return item.kind=="impact")
@@ -107,6 +109,8 @@ func run():
  check(ribbons(a.fx).is_empty(),"The big energy arrow does not emit a melee trail")
  check(a.projectiles.size()==1 and a.projectiles[0].kind=="crimson-arrow" and a.projectiles[0].mesh.scale.x>=3,"Samurai retains his huge red energy arrow")
  await fresh_class(6);a=p.active_ability;tap("heavy_attack")
+ # The wave is released by the actual sword contact, after its wind-up.
+ await frames(8)
  var materials: Array = []
  if not a.projectiles.is_empty():
   for child in a.projectiles[0].mesh.get_children():

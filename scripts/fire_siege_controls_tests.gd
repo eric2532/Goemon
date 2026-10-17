@@ -6,6 +6,8 @@ func aim_world(point: Vector3):
  if game.player.is_rogue_character():game.player.active_ability._update_aim()
 
 func fresh_class(index: int):
+ # Exact-damage fixtures disable random criticals; the dedicated suite checks them.
+ game.tuning.critical_chance=0.0
  press("light_attack",false);press("heavy_attack",false)
  if game.paused:game.resume()
  var p=game.player

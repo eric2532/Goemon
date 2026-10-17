@@ -24,7 +24,7 @@ func start(kind: String,sweep_reach: float=6.5):
 	powered=hero.surge_left>0;duration=1.0 if mode=="throw" else .78
 	damage=(90 if powered else 60) if mode=="throw" else (110 if powered else 70)
 	damage*=hero.damage_multiplier()
-	reach=(18.0 if mode=="throw" else sweep_reach)*hero.range_multiplier()
+	reach=(18.0 if mode=="throw" else sweep_reach)*hero.range_multiplier()*hero.melee_reach_setting()
 	direction=hero.game.attack_direction();hero.facing=direction
 	origin=hero.global_position+Vector3.UP*1.2*hero.growth_multiplier()+direction*.5
 	end=origin+direction*reach
@@ -77,9 +77,11 @@ func hit_path(a: Vector3,b: Vector3):
 	BreakableBuilding.hit_segment(hero.game,a,b+direction*.2,damage,attack_ticket,struck)
 	for enemy in hero.game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead or struck.has(enemy.get_instance_id()):continue
-		var point=enemy.global_position+Vector3.UP*(1.5 if enemy.boss else 1.1)
+		var legacy=enemy.global_position+Vector3.UP*(1.5 if enemy.boss else 1.1)
+		var contact=AttackChain.segment_contact(enemy,a,b,.7*hero.pickup_multiplier("range")*hero.growth_multiplier(),legacy)
+		if contact.is_empty():continue
+		var point=AttackChain.contact_point(enemy,contact.point,legacy)
 		var nearest=Geometry3D.get_closest_point_to_segment(point,a,b)
-		if nearest.distance_to(point)>.7*hero.pickup_multiplier("range")*hero.growth_multiplier()+enemy.body_radius:continue
 		if not clear_hit(nearest,point):continue
 		hit(enemy,point,direction,damage)
 func clear_hit(a: Vector3,b: Vector3)->bool:
@@ -89,12 +91,13 @@ func hit_fan():
 	BreakableBuilding.hit_area(hero.game,hero.global_position+Vector3.UP*hero.growth_multiplier(),reach,damage,attack_ticket,direction,cos(deg_to_rad(70)),struck)
 	for enemy in hero.game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead:continue
-		var offset=enemy.global_position-hero.global_position
+		var hurt=AttackChain.contact_point(enemy,hero.global_position+Vector3.UP,enemy.global_position)
+		var offset=hurt-hero.global_position
 		var flat=Vector3(offset.x,0,offset.z)
 		if flat.length()>reach+enemy.body_radius or absf(offset.y)>3.5*hero.growth_multiplier():continue
 		if flat.length()>.1 and direction.dot(flat.normalized())<cos(deg_to_rad(70)):continue
-		if not clear_hit(hero.global_position+Vector3.UP,enemy.global_position+Vector3.UP):continue
-		hit(enemy,enemy.global_position+Vector3.UP,flat.normalized(),damage)
+		if not clear_hit(hero.global_position+Vector3.UP,AttackChain.contact_point(enemy,hero.global_position+Vector3.UP,enemy.global_position+Vector3.UP)):continue
+		hit(enemy,AttackChain.contact_point(enemy,hero.global_position+Vector3.UP,enemy.global_position+Vector3.UP),flat.normalized(),damage)
 	if bonus:ComboEnergy.melee_attack(hero,attack_ticket,reach,true)
 func hit(enemy: Ninja,point: Vector3,dir: Vector3,amount: float):
 	struck[enemy.get_instance_id()]=true;enemy.take_hit(amount,dir,true,attack_ticket)
@@ -106,7 +109,7 @@ func explode_tip():
 	BreakableBuilding.hit_area(hero.game,end,radius,120*hero.damage_multiplier(),attack_ticket)
 	for enemy in hero.game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead:continue
-		var point=enemy.global_position+Vector3.UP
+		var point=AttackChain.contact_point(enemy,end,enemy.global_position+Vector3.UP)
 		if point.distance_to(end)>radius+enemy.body_radius or not clear_hit(end,point):continue
 		# Explosion damage is separate from the tip's one piercing hit.
 		hit(enemy,point,(point-end).normalized(),120*hero.damage_multiplier())

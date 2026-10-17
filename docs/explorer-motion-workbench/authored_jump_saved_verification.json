@@ -1,0 +1,19 @@
+{
+  "saved_file": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/explorer-motion-workbench/Explorer_Animation_Workbench.blend",
+  "frames_checked": 91,
+  "exact_user_and_idle_pose_errors": {
+    "1": 2.8312206268310547e-07,
+    "7": 2.8312206268310547e-07,
+    "22": 5.364418029785156e-07,
+    "43": 5.364418029785156e-07,
+    "60": 5.364418029785156e-07,
+    "76": 2.8312206268310547e-07,
+    "80": 2.8312206268310547e-07,
+    "91": 5.811452865600586e-07
+  },
+  "both_blades_follow_error": 0.0,
+  "max_bone_step_m": 0.1560072311639437,
+  "all_other_actions_preserved": true,
+  "duration_seconds": 1.5,
+  "in_place": true
+}

@@ -5,12 +5,13 @@ func check(ok: bool,message: String):
 	if ok:print("SOUND PASS: ",message)
 	else:failures+=1;push_error("SOUND FAIL: "+message)
 func run():
-	var lib=game.sound_library
+	var original_library=game.sound_library
+	var lib=SoundLibrary.new();lib.game=game
+	var sandbox="user://sound-studio-test-%s" % OS.get_process_id()
+	lib.folder=sandbox+"/recordings";lib.config_path=sandbox+"/studio.cfg"
+	DirAccess.make_dir_recursive_absolute(lib.folder)
+	game.add_child(lib);game.sound_library=lib
 	print("INPUT_DEVICES ",lib.devices())
-	var config_path="user://sound_studio.cfg"
-	var old_config=FileAccess.get_file_as_bytes(config_path) if FileAccess.file_exists(config_path) else PackedByteArray()
-	var old_folder=lib.folder;var old_custom=lib.custom.duplicate();var old_gains=lib.gains.duplicate()
-	lib.folder="user://sound_studio_test";DirAccess.make_dir_recursive_absolute(lib.folder)
 	var samples=PackedVector2Array()
 	for i in range(24000):
 		var value=sin(float(i)*TAU*440/48000)*0.15 if i>2400 and i<18000 else 0.0
@@ -20,7 +21,7 @@ func run():
 	check(lib.make_take(PackedVector2Array([Vector2.ZERO]),48000)==null,"Rejects empty/silent microphone takes")
 	lib.take=fixture;lib.take_slot="throw"
 	check(lib.save_take(),"Saves recording atomically")
-	var disk=AudioStreamWAV.load_from_file(lib.folder+"/throw.wav")
+	var disk=AudioStreamWAV.load_from_file(lib.folder+"/goemon/throw.wav")
 	check(disk!=null and disk.data==fixture.data,"WAV persists and reloads without data loss")
 	game.sound("throw")
 	check(game.last_sound_voice.stream==fixture,"Gameplay throw routes to custom audio")
@@ -28,7 +29,7 @@ func run():
 	var replacement=lib.make_take(samples.slice(0,12000),48000)
 	lib.take=replacement;lib.take_slot="throw"
 	check(lib.save_take(),"Saving a second take replaces the selected slot")
-	check(AudioStreamWAV.load_from_file(lib.folder+"/throw.wav").data==replacement.data and lib.custom.throw==replacement,"Only the replacement take remains on disk and in gameplay")
+	check(AudioStreamWAV.load_from_file(lib.folder+"/goemon/throw.wav").data==replacement.data and lib.custom.throw==replacement,"Only the replacement take remains on disk and in gameplay")
 	lib.recording=true;lib.active_slot="throw";lib.elapsed=.5
 	check(not lib.begin("hit") and lib.active_slot=="throw" and lib.elapsed==.5,"A second Record request cannot interrupt or overlap the active recording")
 	lib.recording=false
@@ -45,8 +46,7 @@ func run():
 	check(not lib.recording and not lib.mic.playing,"Stop closes the recording input")
 	lib.mic.stream=AudioStreamMicrophone.new()
 	lib.reset_slot("throw")
-	check(not lib.custom.has("throw") and not FileAccess.file_exists(lib.folder+"/throw.wav"),"Restore default removes only that custom slot")
-	lib.folder=old_folder;lib.custom=old_custom;lib.gains=old_gains
+	check(not lib.custom.has("throw") and not FileAccess.file_exists(lib.folder+"/goemon/throw.wav"),"Restore default removes only that custom slot")
 	game.show_settings(false)
 	game.show_sound_studio(false)
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
@@ -61,9 +61,13 @@ func run():
 	check(get_tree().paused,"Sound Studio works while game is paused")
 	game.resume();await get_tree().process_frame
 	check(not lib.recording and not lib.mic.playing,"Leaving studio stops capture and preview")
-	if old_config.is_empty():
-		if FileAccess.file_exists(config_path):DirAccess.remove_absolute(config_path)
-	else:
-		var file=FileAccess.open(config_path,FileAccess.WRITE);file.store_buffer(old_config);file.close()
+	game.clear_menu();await get_tree().process_frame
+	lib.cancel();lib.free();game.sound_library=original_library
+	remove_sandbox(sandbox)
 	print("SOUND_STUDIO_TEST_RESULT failures=",failures)
 	game.quit_clean()
+
+func remove_sandbox(path: String):
+	for entry in DirAccess.get_directories_at(path):remove_sandbox(path+"/"+entry)
+	for entry in DirAccess.get_files_at(path):DirAccess.remove_absolute(path+"/"+entry)
+	DirAccess.remove_absolute(path)

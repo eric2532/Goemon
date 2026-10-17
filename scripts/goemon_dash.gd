@@ -49,7 +49,7 @@ func after_move(origin: Vector3,delta: float):
 	BreakableBuilding.hit_area(hero.game,end+Vector3.UP*hero.growth_multiplier(),1.2*hero.growth_multiplier(),DAMAGE*hero.damage_multiplier(),attack_ticket,direction,-.2,struck)
 	for enemy in hero.game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead or struck.has(enemy.get_instance_id()):continue
-		var center=enemy.global_position
+		var center=AttackChain.contact_point(enemy,end+Vector3.UP,enemy.global_position)
 		var nearest=Geometry3D.get_closest_point_to_segment(center,origin,end)
 		var offset=center-nearest
 		if absf(offset.y)>2.0:continue
@@ -61,7 +61,9 @@ func after_move(origin: Vector3,delta: float):
 		var push=(offset.normalized()+direction*.75).normalized()
 		if push.length_squared()<.1:push=direction
 		enemy.take_hit(DAMAGE*hero.damage_multiplier(),push,false,attack_ticket)
-		if not enemy.training_dummy:
+		if enemy.has_method("combat_knockback"):
+			enemy.combat_knockback(push,PUSH_SPEED*enemy.growth_knockback(),.38)
+		elif not enemy.training_dummy:
 			enemy.velocity=push*PUSH_SPEED*enemy.growth_knockback()/(3.0 if enemy.ground_giant else (1.7 if enemy.boss or enemy.island_elite else 1.0))+Vector3.UP*2.0
 			enemy.stun=maxf(enemy.stun,.38)
 			enemy.grounded_cached=false

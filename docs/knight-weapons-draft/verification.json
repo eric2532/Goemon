@@ -1,0 +1,288 @@
+{
+  "live_files_unchanged": true,
+  "live_sha256": {
+    "assets/blender/characters/goemon_cosplay/knight.blend": "c7dfc90e3076c49fb814ff60240ec6bc385f8efb861cf5763bc1b87a88b540f0",
+    "assets/models/characters/goemon_cosplay/knight.glb": "f73c5b73c4814084a052fb8aaec6fb6b4b025cddbd6bc3c9d343974ef73f460a",
+    "assets/blender/characters/kai.blend": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c",
+    "tools/build_goemon_cosplay.py": "f9003a5efc1fad9e23f2ee2b42e677ce8d0681d3ba52b597fb5aac70184dbc6a",
+    "build/Goemon.app/Contents/Resources/Goemon.pck": "f12f8a631d92e13443be87a63d433267bf43bea4fb64e12d084e0972bab778be",
+    "build/Goemon.app/Contents/MacOS/Goemon": "76084e4762cc1501cfe01ac79a8280257310bb4ca321b91ac503d6b1cf796796"
+  },
+  "shared_geometry_uv_weights_unchanged": {
+    "Skin": "e168f3816b21c55cd634ffa86182fc05f76e81693ee6db38fd2ac49794124532",
+    "Hair_Normal": "9623db65ad723b2fc8170d1c78955b6e0bb5b76bf8dba89d4265a8d6f52491aa"
+  },
+  "bone_lengths_unchanged": true,
+  "original_shield_dimensions_xyz": [
+    0.6585821509361267,
+    0.4351126253604889,
+    0.9109234809875488
+  ],
+  "draft_shield_face_dimensions_xz": [
+    1.4225374460220337,
+    2.459493398666382
+  ],
+  "original_shield_depth": 0.4351126253604889,
+  "shield_face_scale": [
+    2.16,
+    2.7
+  ],
+  "shield_width_reduction_from_initial_draft": 0.28,
+  "shield_face_scale_from_previous_draft": 0.9,
+  "lion_artwork_scale_unchanged": true,
+  "shield_grip_centered_on_face": true,
+  "shield_emblem": "flat painted gold lion head",
+  "lion_emblem_has_relief_geometry": false,
+  "asset_bounds": {
+    "sword": {
+      "min_xyz": [
+        -0.4300000071525574,
+        -0.17499999701976776,
+        -0.4699999988079071
+      ],
+      "max_xyz": [
+        0.4300000071525574,
+        0.125,
+        2.440000057220459
+      ],
+      "dimensions_xyz": [
+        0.8600000143051147,
+        0.29999999701976776,
+        2.910000056028366
+      ]
+    },
+    "shield": {
+      "min_xyz": [
+        -0.7112687230110168,
+        -0.38999998569488525,
+        -1.229746699333191
+      ],
+      "max_xyz": [
+        0.7112687230110168,
+        0.05000000074505806,
+        1.229746699333191
+      ],
+      "dimensions_xyz": [
+        1.4225374460220337,
+        0.4399999864399433,
+        2.459493398666382
+      ]
+    }
+  },
+  "ready_grips_world": {
+    "R": {
+      "grip": [
+        -0.6899999976158142,
+        -0.23999999463558197,
+        1.0700000524520874
+      ],
+      "wrist": [
+        -0.6467995643615723,
+        -0.2548501491546631,
+        0.9429638385772705
+      ],
+      "elbow": [
+        -0.5972349047660828,
+        0.030250459909439087,
+        0.9619638323783875
+      ],
+      "grip_axis": [
+        -0.32000306248664856,
+        0.11000107228755951,
+        0.9410089254379272
+      ]
+    },
+    "L": {
+      "grip": [
+        0.8999999761581421,
+        -0.2199999988079071,
+        1.399999976158142
+      ],
+      "wrist": [
+        0.8999999761581421,
+        -0.2199999988079071,
+        1.2649999856948853
+      ],
+      "elbow": [
+        0.7479318380355835,
+        -0.02696438878774643,
+        1.111011266708374
+      ],
+      "grip_axis": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    }
+  },
+  "run_grips_world": {
+    "R": {
+      "grip": [
+        -0.7400000095367432,
+        -0.07000000029802322,
+        1.0499999523162842
+      ],
+      "wrist": [
+        -0.710309624671936,
+        -0.11858425289392471,
+        0.9275946617126465
+      ],
+      "elbow": [
+        -0.5833531618118286,
+        0.13805219531059265,
+        0.8815534710884094
+      ],
+      "grip_axis": [
+        -0.2199285924434662,
+        0.3598833382129669,
+        0.9067057967185974
+      ]
+    },
+    "L": {
+      "grip": [
+        0.7200000286102295,
+        0.0,
+        1.409999966621399
+      ],
+      "wrist": [
+        0.7200000286102295,
+        0.0,
+        1.274999976158142
+      ],
+      "elbow": [
+        0.7273752689361572,
+        0.11949305981397629,
+        1.0108654499053955
+      ],
+      "grip_axis": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    }
+  },
+  "presentation_bounds": {
+    "idle": {
+      "sword": {
+        "min_xyz": [
+          -1.5028337240219116,
+          -0.6198351979255676,
+          0.6017508506774902
+        ],
+        "max_xyz": [
+          -0.4898591637611389,
+          0.3619670569896698,
+          3.371769905090332
+        ]
+      },
+      "shield": {
+        "min_xyz": [
+          0.379029780626297,
+          -0.8435215950012207,
+          0.17025327682495117
+        ],
+        "max_xyz": [
+          1.6599605083465576,
+          -0.02890142798423767,
+          2.629746675491333
+        ]
+      }
+    },
+    "run": {
+      "sword": {
+        "min_xyz": [
+          -1.3391845226287842,
+          -0.3519365191459656,
+          0.5836031436920166
+        ],
+        "max_xyz": [
+          -0.5854189395904541,
+          1.0377192497253418,
+          3.2748606204986572
+        ]
+      },
+      "shield": {
+        "min_xyz": [
+          0.6700000166893005,
+          -0.7112687230110168,
+          0.180253267288208
+        ],
+        "max_xyz": [
+          1.1100000143051147,
+          0.7112687230110168,
+          2.63974666595459
+        ]
+      }
+    }
+  },
+  "run_presentation_frames": 16,
+  "gameplay_integrated": false,
+  "costume_revision": {
+    "silver_boot_face_count": 78,
+    "original_cape_length": 1.03,
+    "new_cape_length": 1.36,
+    "cape_color": "#080f28",
+    "cape_base_hem_width": 1.56,
+    "cape_dynamic_shape_keys": [
+      "Back_Billow",
+      "Left_Edge_Flutter",
+      "Right_Edge_Flutter",
+      "Hem_Sway"
+    ],
+    "idle_cape_preview_frames": 24,
+    "other_costume_coordinates_unchanged": true
+  },
+  "export_validation": {
+    "sword": {
+      "standalone_glb_reimported": true,
+      "batched_geometry_count": 1,
+      "embedded_texture_count": 0,
+      "dimensions_xyz": [
+        0.8600000143051147,
+        0.29999999701976776,
+        2.910000056028366
+      ],
+      "vertices": 2945,
+      "triangles": 1791
+    },
+    "shield": {
+      "standalone_glb_reimported": true,
+      "batched_geometry_count": 1,
+      "embedded_texture_count": 1,
+      "dimensions_xyz": [
+        1.4225374460220337,
+        0.4399999864399433,
+        2.459493398666382
+      ],
+      "vertices": 464,
+      "triangles": 258
+    },
+    "costume_export": {
+      "skinned_glb_reimported": true,
+      "cape_and_silver_boots_present": true,
+      "all_four_cloth_morph_controls_preserved": true
+    },
+    "idle_carry": {
+      "frames_checked": 24,
+      "max_grip_to_palm_distance": 7.450580596923828e-08,
+      "minimum_hand_to_hilt_axis_alignment": 1,
+      "torso_stable": true,
+      "cape_shoulders_pinned": true,
+      "cape_hem_motion": 0.0667772121412805,
+      "cape_min_ground_clearance": 0.15852758288383484
+    },
+    "run_carry": {
+      "frames_checked": 16,
+      "max_grip_to_palm_distance": 1.335779086952417e-07,
+      "minimum_hand_to_hilt_axis_alignment": 1,
+      "torso_stable": true,
+      "cape_shoulders_pinned": true,
+      "cape_hem_motion": 0.17460750201733385,
+      "cape_min_ground_clearance": 0.14869964122772217
+    },
+    "editable_sources": {
+      "all_three_open_with_populated_scenes": true,
+      "all_file_textures_packed": true
+    }
+  }
+}

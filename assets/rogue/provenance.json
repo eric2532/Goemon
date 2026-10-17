@@ -1,7 +1,7 @@
 {
   "source_project": "../Rogue",
   "source_date": "2026-10-04",
-  "note": "Model, portrait, data, audio, icon and shader bytes are copied unchanged. Native scripts have resource-path adaptations; audio ambience is opt-in because Sonic owns its soundtrack. Source project is not modified. Source script hashes record original contents.",
+  "note": "Explorer and Ninja blade audio was remixed on 2026-10-15 from the user-selected video; see audio/explorer_ninja_slashes.source.json. Knight sword swing audio was replaced on 2026-10-15 from the user-selected video; see audio/knight_sword.source.json. Model, portrait, data, audio, icon and shader bytes are copied unchanged. Native scripts have resource-path adaptations; audio ambience is opt-in because Sonic owns its soundtrack. Source project is not modified. Source script hashes record original contents.",
   "files": [
     {
       "source": "public/models/pirate.glb",
@@ -129,34 +129,52 @@
       "sha256": "8190d61ce0dff2aa10edabf861bc5b29247a0d31dfb04541e69ffbe7b07ecc77"
     },
     {
-      "source": "godot/assets/audio/blade-explorer-0.wav",
+      "source": "https://www.youtube.com/watch?v=EgRvVq8mStE",
       "path": "audio/blade-explorer-0.wav",
-      "sha256": "1a9f7d7ebbf5a59304ac9e43026eba41d5f19069266a0ffa45b2cc0fc28da8e5"
+      "sha256": "439e3c6ba6f0e3cd84127cf0a3890c2a27ad8cf2af411efe1ae68fbcc6bf5527",
+      "original_source": "godot/assets/audio/blade-explorer-0.wav",
+      "original_sha256": "1a9f7d7ebbf5a59304ac9e43026eba41d5f19069266a0ffa45b2cc0fc28da8e5",
+      "processing_manifest": "audio/explorer_ninja_slashes.source.json"
     },
     {
-      "source": "godot/assets/audio/blade-explorer-1.wav",
+      "source": "https://www.youtube.com/watch?v=EgRvVq8mStE",
       "path": "audio/blade-explorer-1.wav",
-      "sha256": "c05a6ac20001576892bbb3be453c044055501401b8533245eae9c1b2b77a5f92"
+      "sha256": "87538b4c5a5760a71ba7b7ce032dd3efccd72ac8c70f4a29d4db48513fcb1264",
+      "original_source": "godot/assets/audio/blade-explorer-1.wav",
+      "original_sha256": "c05a6ac20001576892bbb3be453c044055501401b8533245eae9c1b2b77a5f92",
+      "processing_manifest": "audio/explorer_ninja_slashes.source.json"
     },
     {
-      "source": "godot/assets/audio/blade-explorer-2.wav",
+      "source": "https://www.youtube.com/watch?v=EgRvVq8mStE",
       "path": "audio/blade-explorer-2.wav",
-      "sha256": "de8b1fda79161979725689231bb2a31da9b02443386dd0a6c236bca268e8b4ff"
+      "sha256": "b61f7253c28712ba383e2b2b889959604f8b34eb592c9d2ee98f9c198aedc7f7",
+      "original_source": "godot/assets/audio/blade-explorer-2.wav",
+      "original_sha256": "de8b1fda79161979725689231bb2a31da9b02443386dd0a6c236bca268e8b4ff",
+      "processing_manifest": "audio/explorer_ninja_slashes.source.json"
     },
     {
-      "source": "godot/assets/audio/blade-knight-0.wav",
+      "source": "https://www.youtube.com/watch?v=TAe0P6uDax4",
       "path": "audio/blade-knight-0.wav",
-      "sha256": "8e7612e01fd2abe6de104fb21c271f2b74c5d6e5d6f04688493b9939fc0ab029"
+      "sha256": "ccbbfccead461ffd4aa3be1006dd01fc55474d4b5886e436492a0c163b18bb59",
+      "original_source": "godot/assets/audio/blade-knight-0.wav",
+      "original_sha256": "8e7612e01fd2abe6de104fb21c271f2b74c5d6e5d6f04688493b9939fc0ab029",
+      "processing_manifest": "audio/knight_sword.source.json"
     },
     {
-      "source": "godot/assets/audio/blade-knight-1.wav",
+      "source": "https://www.youtube.com/watch?v=TAe0P6uDax4",
       "path": "audio/blade-knight-1.wav",
-      "sha256": "b87cf9fe4d751858ec05ac7af04f6f0fdd0fb4ba082cf7a244e722a1c792fbf5"
+      "sha256": "09f72c3278916bae51ac5450fc87adc9bb44b578d29d928c630bca9574089732",
+      "original_source": "godot/assets/audio/blade-knight-1.wav",
+      "original_sha256": "b87cf9fe4d751858ec05ac7af04f6f0fdd0fb4ba082cf7a244e722a1c792fbf5",
+      "processing_manifest": "audio/knight_sword.source.json"
     },
     {
-      "source": "godot/assets/audio/blade-knight-2.wav",
+      "source": "https://www.youtube.com/watch?v=TAe0P6uDax4",
       "path": "audio/blade-knight-2.wav",
-      "sha256": "f8ca6c2763f386d46ddf76c576a35c1718da1b983606c3bb5ae30b96b89f70f8"
+      "sha256": "bf94bf99538c360151133ff69675b8a6251a4eea2c45ac0e2d4c97a87537e266",
+      "original_source": "godot/assets/audio/blade-knight-2.wav",
+      "original_sha256": "f8ca6c2763f386d46ddf76c576a35c1718da1b983606c3bb5ae30b96b89f70f8",
+      "processing_manifest": "audio/knight_sword.source.json"
     },
     {
       "source": "godot/assets/audio/blade-magic-swordsman-0.wav",
@@ -189,19 +207,28 @@
       "sha256": "793e3f1046930706cc0c669bccd2cf55a58c55ce66810351115abea3412bcc79"
     },
     {
-      "source": "godot/assets/audio/blade-ninja-0.wav",
+      "source": "https://www.youtube.com/watch?v=EgRvVq8mStE",
       "path": "audio/blade-ninja-0.wav",
-      "sha256": "c0a401b1998d69956ca444e86856a8b9eefe37044b8774e73e96917cdd805235"
+      "sha256": "a63a4e5b7709aeaf4f5d535d317988eb4045fccea51fc8973dce99e21714007b",
+      "original_source": "godot/assets/audio/blade-ninja-0.wav",
+      "original_sha256": "c0a401b1998d69956ca444e86856a8b9eefe37044b8774e73e96917cdd805235",
+      "processing_manifest": "audio/explorer_ninja_slashes.source.json"
     },
     {
-      "source": "godot/assets/audio/blade-ninja-1.wav",
+      "source": "https://www.youtube.com/watch?v=EgRvVq8mStE",
       "path": "audio/blade-ninja-1.wav",
-      "sha256": "96a74111b6f21789315c640fee02ac83a3fddec0f7d3b47c30fe6f9f405d9098"
+      "sha256": "bf5feae3a3677e1698287a279dc911e8d3e5d3d2835925999501aa80c4022d9e",
+      "original_source": "godot/assets/audio/blade-ninja-1.wav",
+      "original_sha256": "96a74111b6f21789315c640fee02ac83a3fddec0f7d3b47c30fe6f9f405d9098",
+      "processing_manifest": "audio/explorer_ninja_slashes.source.json"
     },
     {
-      "source": "godot/assets/audio/blade-ninja-2.wav",
+      "source": "https://www.youtube.com/watch?v=EgRvVq8mStE",
       "path": "audio/blade-ninja-2.wav",
-      "sha256": "7af453963174a97a3d947bdbe4d4f1c84e150d59f8f4bf87586a3e922c2fb004"
+      "sha256": "422222af97e43fbfa7853e07a09c2c3d647ecd1b1ba66daa585dca2ae9809811",
+      "original_source": "godot/assets/audio/blade-ninja-2.wav",
+      "original_sha256": "7af453963174a97a3d947bdbe4d4f1c84e150d59f8f4bf87586a3e922c2fb004",
+      "processing_manifest": "audio/explorer_ninja_slashes.source.json"
     },
     {
       "source": "godot/assets/audio/blade-pirate-0.wav",
@@ -477,6 +504,18 @@
       "source": "godot/scripts/class_actions.gd",
       "path": "scripts/class_actions.gd",
       "sha256": "21e3e47563bdbe7409579183b53e0c4fbe40914ed9bdf095b0c7b77890bc7f05"
+    },
+    {
+      "path": "audio/blade-explorer-special.wav",
+      "source": "https://www.youtube.com/watch?v=EgRvVq8mStE",
+      "sha256": "033e72133b9ff6ff53ffae4f9840bb257e2f527a7bad035fd42e45eee2bbc685",
+      "processing_manifest": "audio/explorer_ninja_slashes.source.json"
+    },
+    {
+      "path": "audio/blade-ninja-special.wav",
+      "source": "https://www.youtube.com/watch?v=EgRvVq8mStE",
+      "sha256": "b8354d0e3c0ef9172274dc6a11cbe2bf43ade03db0ac94f7def9c0aaf526f4d9",
+      "processing_manifest": "audio/explorer_ninja_slashes.source.json"
     }
   ]
 }

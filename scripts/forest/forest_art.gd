@@ -2,6 +2,19 @@ extends RefCounted
 const WOOD="795239"
 const DARK="3e362b"
 const GOLD="d3a653"
+static var wall_post_mesh: CylinderMesh
+static var wall_tip_mesh: CylinderMesh
+static func wall_posts(parent: Node3D,count: int,center_x: float):
+	if wall_post_mesh==null:
+		wall_post_mesh=CylinderMesh.new();wall_post_mesh.bottom_radius=.49;wall_post_mesh.top_radius=.49;wall_post_mesh.height=3.6;wall_post_mesh.radial_segments=12
+		wall_tip_mesh=CylinderMesh.new();wall_tip_mesh.bottom_radius=.49;wall_tip_mesh.top_radius=0;wall_tip_mesh.height=.7;wall_tip_mesh.radial_segments=12
+	# The same rounded logs and pointed caps, with two draws per wall section.
+	for part in range(2):
+		var batch=MultiMeshInstance3D.new();batch.multimesh=MultiMesh.new();batch.multimesh.transform_format=MultiMesh.TRANSFORM_3D
+		batch.multimesh.mesh=wall_post_mesh if part==0 else wall_tip_mesh;batch.multimesh.instance_count=count
+		batch.material_override=Geo.mat("97704a" if part==0 else "bc9861")
+		parent.add_child(batch)
+		for i in range(count):batch.multimesh.set_instance_transform(i,Transform3D(Basis.IDENTITY,Vector3(i-(count-1)*.5+center_x,1.8 if part==0 else 3.95,0)))
 static func solid(parent: Node3D,offset: Vector3,size_: Vector3,layer: int=1):
 	var body=StaticBody3D.new();body.collision_layer=layer;body.collision_mask=0;parent.add_child(body)
 	var shape=CollisionShape3D.new();var box=BoxShape3D.new();box.size=size_;shape.shape=box;shape.position=offset;body.add_child(shape)
@@ -35,24 +48,32 @@ static func building(b: Dictionary)->Node3D:
 			solid(root,Vector3(0,2,0),Vector3(17.6,4,11.6))
 		"tower":
 			for x in [-4.5,4.5]:
-				for z in [-4.5,4.5]:Geo.box(root,Vector3(x,5,z),Vector3(.65,10,.65),Geo.mat(WOOD))
+				for z in [-4.5,4.5]:
+					Geo.box(root,Vector3(x,5,z),Vector3(.65,10,.65),Geo.mat(WOOD))
+					solid(root,Vector3(x,5,z),Vector3(.65,10,.65))
 			Geo.box(root,Vector3(0,8.7,0),Vector3(11,.5,11),Geo.mat("aa8654"))
+			var deck=solid(root,Vector3(0,8.7,0),Vector3(11,.5,11));deck.name="TowerDeck"
 			for side in [-1,1]:
 				Geo.box(root,Vector3(0,10,side*5),Vector3(10.5,1.8,.35),Geo.mat(WOOD))
+				solid(root,Vector3(0,10,side*5),Vector3(10.5,1.8,.35))
 				Geo.box(root,Vector3(side*5,10,0),Vector3(.35,1.8,10.5),Geo.mat(WOOD))
+				solid(root,Vector3(side*5,10,0),Vector3(.35,1.8,10.5))
 				Geo.beam(root,Vector3(-4,1,side*4.5),Vector3(4,8,side*4.5),.15,Geo.mat(WOOD))
 			for x in [-4.6,4.6]:
 				for z in [-4.6,4.6]:Geo.box(root,Vector3(x,11,z),Vector3(.25,5,.25),Geo.mat(DARK))
-			roof(root,Vector3(0,13.6,-4),Vector3(12,2.4,4),"345963")
+			var canopy=roof(root,Vector3(0,13.6,-4),Vector3(12,2.4,4),"345963")
+			canopy.create_trimesh_collision()
 			for i in range(10):Geo.box(root,Vector3(0,i*.8+.4,5.25),Vector3(2,.14,.2),Geo.mat("c3a16c"))
-			solid(root,Vector3(0,3,0),Vector3(11.2,6,11.2))
 		"wall":
-			for i in range(6):
-				var x=(i-2.5)*.96
-				Geo.cylinder(root,Vector3(x,1.8,0),.49,3.6,Geo.mat("97704a"))
-				Geo.spike(root,Vector3(x,3.6,0),Vector3(x,4.3,0),.49,Geo.mat("bc9861"))
-			for y in [1.1,2.7]:Geo.box(root,Vector3(0,y,.47),Vector3(6,.2,.2),Geo.mat(DARK))
-			solid(root,Vector3(0,2,0),Vector3(6,4,1.3))
+			var span: int=b.get("span",preload("res://scripts/forest/forest_model.gd").SIZES.wall.x)
+			var extension: Vector2=b.get("wall_extensions",Vector2.ZERO)
+			if b.rotation%4 in [1,2]:extension=Vector2(extension.y,extension.x)
+			var length_=span*6+extension.x+extension.y
+			var center_x=(extension.y-extension.x)*.5
+			var posts=int(length_)
+			wall_posts(root,posts,center_x)
+			for y in [1.1,2.7]:Geo.box(root,Vector3(center_x,y,.47),Vector3(length_,.2,.2),Geo.mat(DARK))
+			solid(root,Vector3(center_x,2,0),Vector3(length_,4,1.3))
 		"gate":
 			for x in [-5.1,5.1]:
 				Geo.box(root,Vector3(x,2.5,0),Vector3(1.1,5.0,1.1),Geo.mat(WOOD))

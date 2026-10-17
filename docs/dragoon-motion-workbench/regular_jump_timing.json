@@ -1,0 +1,54 @@
+{
+  "source": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/dragoon-motion-workbench/Dragoon_Before_Regular_Jump_20261015_175935.blend",
+  "file": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/dragoon-motion-workbench/Dragoon_Regular_Jump.blend",
+  "action": "02_Jump",
+  "frames": 140,
+  "fps": 60,
+  "seconds": 2.316666666666667,
+  "anchors": [
+    [
+      1,
+      "crouch"
+    ],
+    [
+      12,
+      "crouch"
+    ],
+    [
+      20,
+      "push"
+    ],
+    [
+      40,
+      "air"
+    ],
+    [
+      56,
+      "crest"
+    ],
+    [
+      72,
+      "air"
+    ],
+    [
+      84,
+      "descend"
+    ],
+    [
+      98,
+      "land"
+    ],
+    [
+      108,
+      "land"
+    ],
+    [
+      140,
+      "idle"
+    ]
+  ],
+  "airborne_start": 40,
+  "airborne_end": 72,
+  "landing_frame": 98,
+  "has_dive": false
+}

@@ -7,6 +7,7 @@ var tower_defense_mode=false
 var _siege_interact_held=false
 var rogue_battle_mode=false
 var rogue_roster_mode=false
+var character_control_hints=true
 var roster_start_mode="defense"
 var selected_rogue_id=1
 var rogue_original_character=1
@@ -34,7 +35,7 @@ var camera_rig: ActionCamera
 var enemies: Array[Ninja]=[]
 # Snapshot per run: changing the Lab limit never deletes living combatants.
 var active_enemy_limit=200
-var crowd: EnemyCrowd
+var crowd
 var pursuit: EnemyPursuit
 var adventure: IslandAdventure
 var encounters: EndlessEncounters
@@ -57,6 +58,7 @@ var hit_stop=0.0
 var music: AudioStreamPlayer
 var sounds: Dictionary={}
 var sound_library: SoundLibrary
+var move_audio=preload("res://scripts/move_audio.gd").new()
 var orb_system
 var voices: Array[AudioStreamPlayer]=[]
 var voice_idx=0
@@ -64,9 +66,14 @@ var last_sound_voice: AudioStreamPlayer
 # Attack voices are reserved: crowd impacts can never replace a swing or cast.
 const ATTACK_SOUNDS=["orb_ice","orb_fire","swing","heavy_swing","throw","fire_cast","spin_swing","giant_toss","sky_leap","sky_stomp","chain_throw","chain_sweep","chain_fire_sweep","edo_volley","edo_giant","edo_shield","edo_beam_start","edo_beam_loop","edo_meteor_cast","edo_meteor_strike","edo_dodge","goemon_dash"]
 const IMPACT_SOUNDS=["hit","heavy_hit","enemy_reaction","environment_hit","coin_hit","coin_heavy_hit","fire_impact","chain_hit","chain_explosion","edo_meteor_impact","edo_dodge_impact","goemon_dash_hit"]
-const DEFAULT_SETTINGS={"volume":0.65,"music_enabled":false,"sensitivity":1.0,"fullscreen":false,"quality":1,"goemon_skin":HeroSkins.DEFAULT_ID}
+const ViewPreferences=preload("res://scripts/forest/forest_view_preferences.gd")
+const DEFAULT_SETTINGS={"volume":0.65,"music_enabled":false,"sensitivity":1.0,"fullscreen":false,"quality":1,"goemon_skin":HeroSkins.DEFAULT_ID,"forest_camera_distance":ViewPreferences.CAMERA_DEFAULT,"forest_hud_scale":ViewPreferences.HUD_DEFAULT,"forest_character_screen_offset":ViewPreferences.CHARACTER_OFFSET_DEFAULT,"forest_show_crosshair":true}
 var settings=DEFAULT_SETTINGS.duplicate()
 var settings_path="user://settings.cfg"
+const CharacterBalance=preload("res://scripts/character_balance.gd")
+const CoreBalance=preload("res://scripts/forest/core_balance.gd")
+var core_balance=CoreBalance.defaults()
+var character_tuning: Dictionary={}
 var damage_number_frame=-1
 var damage_numbers_this_frame=0
 var damage_numbers_live=0
@@ -524,8 +531,43 @@ func apply_music_setting():
 		music.stream_paused=is_instance_valid(sound_library) and sound_library.recording
 	else:music.stop()
 
-func sound(kind: String,volume: float=1.0,enemy_source: bool=false):
+func sound_character_id()->int:
+	return player.character_id if is_instance_valid(player) else selected_rogue_id
+
+func sound_preview(id: int,slot: String)->AudioStream:
+	var recorded=sound_library.custom_for(id,slot)
+	if recorded:return recorded
+	var move: Dictionary=SoundLibrary.move_for_slot(id,slot)
+	if not move.is_empty():
+		if slot==move.voice:return null
+		var legacy: String=move.legacy
+		var inherited=sound_library.custom_for(id,legacy)
+		if inherited:return inherited
+		if move.options.has("preview_event") and (id!=1 or rogue_battle_mode):
+			return load("res://assets/rogue/audio/"+preload("res://assets/rogue/scripts/audio.gd").event_file(move.options.preview_event,move.options)+".wav")
+		if legacy.begins_with("native_"):
+			var event=legacy.trim_prefix("native_")
+			var path="res://assets/rogue/audio/"+preload("res://assets/rogue/scripts/audio.gd").event_file(event,move.options)+".wav"
+			if ResourceLoader.exists(path):return load(path)
+		return sound_preview(id,legacy)
+	var event=slot.trim_prefix("native_")
+	if id>=3:
+		if slot=="dash":event="roll"
+		elif slot in ["hit","heavy_hit"]:event="claymore-impact" if id==9 else ("heavy" if slot=="heavy_hit" else "hit")
+	if slot.begins_with("native_") or (id>=3 and slot in ["dash","hit","heavy_hit"]):
+		var audio=preload("res://assets/rogue/scripts/audio.gd")
+		var style="power" if id==4 and event=="bow" else SoundLibrary.character_key(id)
+		var file=audio.event_file(event,{"style":style,"heavy":slot=="heavy_hit"})
+		var path="res://assets/rogue/audio/"+file+".wav"
+		if ResourceLoader.exists(path):return load(path)
+	return sounds.get(slot)
+
+func sound(kind: String,volume: float=1.0,enemy_source: bool=false,ticket: Dictionary={}):
 	if not sounds.has(kind) or sound_library.recording: return
+	var id=sound_character_id()
+	if ticket.is_empty() and is_instance_valid(player):ticket=player.attack_chain.active_ticket
+	var playback: Dictionary=move_audio.weapon(self,id,kind,sounds[kind],ticket,not enemy_source)
+	if playback.muted:return
 	var attack=kind in ATTACK_SOUNDS and not enemy_source
 	var impact=kind in IMPACT_SOUNDS or enemy_source
 	var first=0 if attack else (16 if impact else 24)
@@ -547,9 +589,9 @@ func sound(kind: String,volume: float=1.0,enemy_source: bool=false):
 	voice_idx+=1
 	last_sound_voice=a
 	a.set_meta("order",voice_idx);a.set_meta("kind",kind)
-	a.stream=sound_library.custom.get(kind,sounds[kind])
-	a.volume_db=linear_to_db(volume*0.55*float(sound_library.gains.get(kind,1))*(0.45 if impact else 1.0))
-	a.pitch_scale=1.0 if sound_library.custom.has(kind) else randf_range(0.92,1.08)
+	a.stream=playback.stream
+	a.volume_db=linear_to_db(volume*0.55*playback.gain*(0.45 if impact else 1.0))
+	a.pitch_scale=1.0 if playback.recorded else randf_range(0.92,1.08)
 	a.play()
 
 func active_enemy_count()->int:
@@ -1111,7 +1153,7 @@ func resume():
 func show_settings(from_pause: bool):
 	var root=menu_base()
 	label_at(root,"SETTINGS",Vector2(92,145),43)
-	label_at(root,"Tune your adventure",Vector2(96,209),19,Color("dfc384"))
+	label_at(root,"Move mouse to turn the camera.\nAim with the centre reticle · mouse wheel zooms." if camera_combat() else "Tune your adventure",Vector2(96,209),19,Color("dfc384"))
 	label_at(root,"Master volume",Vector2(96,283),20)
 	var volume=HSlider.new()
 	volume.position=Vector2(340,288)
@@ -1158,16 +1200,14 @@ func show_settings(from_pause: bool):
 	root.add_child(options)
 	options.item_selected.connect(func(v): settings.quality=v; apply_quality(); save_settings())
 	button_at(root,"Playable skins · Choose your look",Vector2(710,211),func(): show_skin_picker(from_pause),480).name="PlayableSkinsButton"
-	button_at(root,"Sound Studio · Record sounds",Vector2(710,351),func(): show_sound_studio(from_pause),480)
-	if from_pause: button_at(root,"Prototype Lab · Gameplay tuning",Vector2(710,283),show_lab,400)
-	label_at(root,"EDO · FIRE BEAM",Vector2(710,437),22,Color("dfc384"))
-	for i in range(PrototypeTuning.BEAM_ROWS.size()):
-		var row=PrototypeTuning.BEAM_ROWS[i]
-		label_at(root,row[1],Vector2(710,488+i*58),18)
-		var spin=SpinBox.new();spin.position=Vector2(1030,480+i*58);spin.size=Vector2(160,40)
-		spin.min_value=row[2];spin.max_value=row[3];spin.step=row[4];spin.value=tuning[row[0]]
-		root.add_child(spin);spin.value_changed.connect(func(v):update_tuning(row[0],v))
-	label_at(root,"Hold T to sustain · Release T to stop",Vector2(710,673),15)
+	button_at(root,"Character balance · Choose a fighter",Vector2(710,283),func():show_character_balance(from_pause),560).name="CharacterBalanceButton"
+	button_at(root,"Sound Studio · Record sounds",Vector2(710,351),func(): show_sound_studio(from_pause),560).name="SoundStudioButton"
+	if has_method("show_view_settings"):
+		button_at(root,"Camera & HUD · Zoom and interface size",Vector2(710,453),func():call("show_view_settings",from_pause),560).name="CameraHUDSettingsButton"
+		label_at(root,"Adjust combat distance and the size of gameplay hubs.\nChanges preview immediately and save automatically.",Vector2(710,525),18)
+	else:
+		label_at(root,"BALANCE & RECORDINGS",Vector2(710,453),22,Color("dfc384"))
+		label_at(root,"Tune each fighter's health, damage and movement.\nGoemon's coins and Edo's beam have their own controls.\n\nYour saved sounds remain in Sound Studio.",Vector2(710,499),18)
 	button_at(root,"Back",Vector2(96,650),show_pause if from_pause else show_main_menu)
 
 func show_skin_picker(from_pause: bool):
@@ -1182,18 +1222,80 @@ func select_goemon_skin(id: String):
 
 func show_sound_studio(from_pause: bool):
 	var root=menu_base()
-	var studio=SoundStudio.new();studio.game=self;studio.from_pause=from_pause;root.add_child(studio)
+	sound_library.select_character(sound_character_id())
+	var studio=SoundStudio.new();studio.name="SoundStudio";studio.game=self;studio.from_pause=from_pause;root.add_child(studio)
+
+func show_character_balance(from_pause: bool,id: int=-1):
+	var root=menu_base()
+	var editor=preload("res://scripts/character_balance_ui.gd").new()
+	editor.name="CharacterBalance";editor.game=self;editor.from_pause=from_pause
+	editor.character_id=player.character_id if id<1 else clampi(id,1,12)
+	root.add_child(editor)
+
+func show_core_balance(from_pause: bool,from_map: bool=false):
+	var root=menu_base()
+	var editor=preload("res://scripts/forest/core_balance_ui.gd").new()
+	editor.name="CoreBalance";editor.game=self;editor.from_pause=from_pause;editor.from_map=from_map;root.add_child(editor)
+
+func update_core_balance(key: String,value):
+	if key=="waves" or not core_balance.has(key):return
+	var edited=core_balance.duplicate(true);edited[key]=value
+	core_balance=CoreBalance.sanitized(edited);apply_core_towers();save_settings()
+
+func resize_core_waves(count: int):
+	count=clampi(count,1,CoreBalance.MAX_WAVES)
+	while core_balance.waves.size()<count:core_balance.waves.append(CoreBalance.default_wave(core_balance.waves.size()))
+	core_balance.waves.resize(count);save_settings()
+
+func update_core_wave(index: int,type: int,count: int):
+	if index<0 or index>=core_balance.waves.size() or type<0 or type>3:return
+	core_balance.waves[index][type]=clampi(count,0,CoreBalance.MAX_ENEMIES);save_settings()
+
+func reset_core_balance():
+	core_balance=CoreBalance.defaults();apply_core_towers();save_settings()
+
+func apply_core_towers():pass
+
+func balance_value(id: int,key: String)->float:
+	return CharacterBalance.value(tuning,character_tuning,id,key)
+
+func hero_tuning(key: String)->float:
+	return balance_value(player.character_id if is_instance_valid(player) else 1,key)
+
+func update_character_tuning(id: int,key: String,value):
+	var accepted=CharacterBalance.sanitized({key:value},id)
+	if accepted.is_empty():return
+	var profile=CharacterBalance.key_for(id)
+	if profile.is_empty():return
+	if not character_tuning.has(profile):character_tuning[profile]={}
+	character_tuning[profile].merge(accepted,true)
+	if is_instance_valid(player) and player.character_id==id:player.refresh_max_health()
+	save_settings()
+
+func reset_character_tuning(id: int):
+	character_tuning.erase(CharacterBalance.key_for(id))
+	if is_instance_valid(player) and player.character_id==id:player.refresh_max_health()
+	save_settings()
 
 func load_settings():
 	var c=ConfigFile.new()
 	settings=DEFAULT_SETTINGS.duplicate()
+	character_tuning={}
+	core_balance=CoreBalance.defaults()
 	if c.load(settings_path)==OK:
 		for k in settings: settings[k]=c.get_value("settings",k,DEFAULT_SETTINGS[k])
 		for k in tuning: tuning[k]=c.get_value("prototype",k,tuning[k])
 		tuning=PrototypeTuning.sanitized(tuning)
+		var profiles=c.get_value("character_balance","profiles",{})
+		if profiles is Dictionary:character_tuning=CharacterBalance.load_profiles(profiles)
+		core_balance=CoreBalance.sanitized(c.get_value("core_balance","values",{}))
 	# Debug freeze belongs to this session, never the next playable launch.
 	tuning.freeze_ai=false
 	settings.goemon_skin=HeroSkins.valid_id(settings.goemon_skin)
+	settings.forest_camera_distance=ViewPreferences.bounded(settings.forest_camera_distance,ViewPreferences.CAMERA_DEFAULT,ViewPreferences.CAMERA_MIN,ViewPreferences.CAMERA_MAX)
+	settings.forest_hud_scale=ViewPreferences.bounded(settings.forest_hud_scale,ViewPreferences.HUD_DEFAULT,ViewPreferences.HUD_MIN,ViewPreferences.HUD_MAX)
+	settings.forest_character_screen_offset=ViewPreferences.bounded(settings.forest_character_screen_offset,ViewPreferences.CHARACTER_OFFSET_DEFAULT,ViewPreferences.CHARACTER_OFFSET_MIN,ViewPreferences.CHARACTER_OFFSET_MAX)
+	settings.forest_show_crosshair=settings.forest_show_crosshair if settings.forest_show_crosshair is bool else true
 	if is_instance_valid(player):player.character_models[1].apply_skin(settings.goemon_skin)
 	AudioServer.set_bus_volume_db(0,linear_to_db(settings.volume))
 	apply_music_setting()
@@ -1202,8 +1304,11 @@ func load_settings():
 
 func save_settings():
 	var c=ConfigFile.new()
+	c.load(settings_path)
 	for k in settings: c.set_value("settings",k,settings[k])
 	for k in tuning: c.set_value("prototype",k,false if k=="freeze_ai" else tuning[k])
+	c.set_value("character_balance","profiles",character_tuning)
+	c.set_value("core_balance","values",core_balance)
 	c.save(settings_path)
 
 func apply_quality():
@@ -1379,7 +1484,7 @@ func slash(p: Vector3,dir: Vector3,heavy: bool,combo: int,color: Color=Color("ff
 	t.tween_property(n,"rotation:y",n.rotation.y+(0.8 if combo%2 else -0.8),0.17)
 	t.chain().tween_callback(n.queue_free)
 
-func damage_number(p: Vector3,amount: int,heavy: bool):
+func damage_number(p: Vector3,amount: int,heavy: bool,critical: bool=false):
 	# Crowd damage remains per target. Only the expensive text/tween feedback
 	# is sampled, with both a contact-frame and a live-label budget.
 	var frame=Engine.get_physics_frames()
@@ -1391,12 +1496,12 @@ func damage_number(p: Vector3,amount: int,heavy: bool):
 	var label=Label3D.new()
 	label.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	label.tree_exited.connect(func():damage_numbers_live-=1,CONNECT_ONE_SHOT)
-	label.text=str(amount)
-	label.font_size=48 if heavy else 36
+	label.text=("CRIT " if critical else "")+str(amount)
+	label.font_size=52 if critical else (48 if heavy else 36)
 	label.pixel_size=0.013
 	label.billboard=BaseMaterial3D.BILLBOARD_ENABLED
 	label.no_depth_test=true
-	label.modulate=Color("ffe49a") if heavy else Color("ffffff")
+	label.modulate=Color("ffad62") if critical else (Color("ffe49a") if heavy else Color("ffffff"))
 	label.position=p
 	add_child(label)
 	var t=create_tween().set_parallel(true)
@@ -1557,13 +1662,21 @@ func attack_direction()->Vector3:
 func crosshair_aim_enabled()->bool:
 	return camera_combat() and (OS.has_feature("crosshair_aim") or bool(ProjectSettings.get_setting("goemon/experimental_crosshair",false)))
 
+func crosshair_screen_position()->Vector2:
+	return get_viewport().get_visible_rect().size*.5
+
 func crosshair_target(max_distance: float=120.0)->Vector3:
 	var locked=player.auto_aim_target()
 	if locked:return AttackChain.aim_point(locked)
 	var camera: Camera3D=camera_rig.camera
-	var center: Vector2=camera.get_viewport().get_visible_rect().size*.5
+	var center: Vector2=crosshair_screen_position()
 	var origin: Vector3=camera.project_ray_origin(center)
 	var direction: Vector3=camera.project_ray_normal(center)
+	if has_method("forest_enemy_visible"):
+		# Ignore the camera-to-hero section of the ray. A pillar behind the
+		# character must not become a target that reverses a forward attack.
+		var focus=player.global_position+Vector3.UP*1.1*player.growth_multiplier()
+		origin+=direction*maxf(0,(focus-origin).dot(direction))
 	var query=PhysicsRayQueryParameters3D.create(origin,origin+direction*max_distance,1|4)
 	var excluded: Array[RID]=[player.get_rid()]
 	if has_method("forest_enemy_visible"):
@@ -1586,26 +1699,32 @@ func projectile_direction(origin: Vector3)->Vector3:
 	return attack_direction()
 
 func throw_coin(heavy: bool,charged: bool=false,power: float=1.0,ticket: Dictionary={},automatic: bool=false):
+	# Background volleys own separate casts without replacing a melee ticket.
+	if automatic:
+		if ticket.is_empty():ticket=player.attack_chain.make_ticket("coin")
+		ticket["move_audio"]=move_audio.begin(player,"coin","giant_toss" if charged else ("coin_heavy" if heavy else "coin"))
 	if ticket.is_empty():ticket=player.attack_ticket if not player.attack_ticket.is_empty() else player.attack_chain.active_ticket
 	var from=player.global_position+Vector3.UP*1.25*player.growth_multiplier()
 	var direction=projectile_direction(from)
 	var primary_range = player.BASIC_ATTACK_RANGE_MULTIPLIER if not heavy and not charged else 1.0
 	# Key 2 always selects the closest unobstructed enemy actually in the camera.
-	var target=player.auto_aim_target(from) if player.auto_attack_enabled else (AttackChain.screen_target(player,from,tuning.coin_speed*2.0*primary_range*player.growth_multiplier()-.5) if automatic or player.soft_target or player.growth_multiplier()>1.01 or (player.quick_attacks.active and player.quick_attacks.action==2) else null)
+	var target=player.auto_aim_target(from) if player.auto_attack_enabled else (AttackChain.screen_target(player,from,hero_tuning("coin_speed")*2.0*primary_range*player.growth_multiplier()-.5) if automatic or player.soft_target or player.growth_multiplier()>1.01 or (player.quick_attacks.active and player.quick_attacks.action==2) else null)
 	if target and (automatic or (not rogue_battle_mode and not camera_combat())):direction=(AttackChain.aim_point(target)-from).normalized()
-	if not automatic:player.facing=Vector3(direction.x,0,direction.z).normalized()
+	if not automatic:
+		player.facing=Vector3(direction.x,0,direction.z).normalized()
+		player.hold_combat_aim()
 	if automatic:
 		var coin=spawn_gold_coin(from+direction*.48,direction,heavy,charged,power,false,0,ticket,false,player.progression.coin_count())
 		coin.lifetime*=primary_range
 		if player.scarf_equipped:spawn_gold_coin(from,direction.rotated(Vector3.UP,.12),false,false,1,false,0,ticket)
 	else:
-		var count=1 if charged else int(tuning.split_count if heavy else tuning.coin_count)
+		var count=1 if charged else int(hero_tuning("split_count") if heavy else hero_tuning("coin_count"))
 		for i in range(count):
 			var angle=(i-(count-1)*.5)*(.16 if heavy else .07)
 			var coin=spawn_gold_coin(from+direction*.48,direction.rotated(Vector3.UP,angle),heavy,charged,power,false,0,ticket)
 			coin.lifetime*=primary_range
 	# Coins still confirm combo hits, but only melee may create a red bonus slash.
-	sound("giant_toss" if charged else "throw",0.4)
+	sound("giant_toss" if charged else "throw",0.4,false,ticket)
 
 func spawn_gold_coin(origin: Vector3,direction: Vector3,heavy: bool=false,charged: bool=false,power: float=1.0,energy: bool=false,tilt: float=0.0,ticket: Dictionary={},cross: bool=false,count: int=1)->GoldCoin:
 	var coin: GoldCoin=preload("res://scripts/coin_volley.gd").new() if count>1 else GoldCoin.new()
@@ -1615,12 +1734,12 @@ func spawn_gold_coin(origin: Vector3,direction: Vector3,heavy: bool=false,charge
 	coin.cross_slash=cross
 	coin.heavy=heavy or charged
 	coin.piercing=charged
-	coin.damage=(tuning.charged_damage*power if charged else tuning.coin_damage*(1.2 if heavy else 1.0))*player.damage_multiplier()
-	var size_bonus=tuning.surge_coin_size if player.surge_left>0 else 1.0
-	coin.hit_radius=(tuning.charged_radius*(0.6+power*0.4) if charged else 0.3)*size_bonus*player.pickup_multiplier("range")*player.growth_multiplier()
+	coin.damage=(hero_tuning("charged_damage")*power if charged else hero_tuning("coin_damage")*(1.2 if heavy else 1.0))*player.damage_multiplier()
+	var size_bonus=HeroModel.WeaponProportions.SCALE*(hero_tuning("surge_coin_size") if player.surge_left>0 else 1.0)
+	coin.hit_radius=(hero_tuning("charged_radius")*(0.6+power*0.4) if charged else 0.3)*size_bonus*player.pickup_multiplier("range")*player.growth_multiplier()
 	coin.visual_size=(coin.hit_radius/0.45 if charged else (1.3 if heavy else 1.0)*size_bonus)
 	coin.position=origin
-	coin.velocity=direction*tuning.coin_speed*(tuning.surge_coin_speed if player.surge_left>0 else 1.0)*player.attack_speed_multiplier()
+	coin.velocity=direction*hero_tuning("coin_speed")*(hero_tuning("surge_coin_speed") if player.surge_left>0 else 1.0)*player.attack_speed_multiplier()
 	coin.lifetime=2.0*player.growth_multiplier()/player.attack_speed_multiplier()
 	add_child(coin)
 	return coin
@@ -1928,7 +2047,9 @@ func confirm_impact(victim: Ninja, point: Vector3, direction: Vector3, strength:
 	victim.impact_pause=maxf(victim.impact_pause,duration)
 	# Red pipe chains keep moving through impact; enemy recoil still sells the hit.
 	if not projectile and (rogue_battle_mode or not (player.character_id==1 and player.weapon_slot==1 and player.attack_chain.energized())):
-		player.impact_pause=maxf(player.impact_pause,duration)
+		var self_pause=duration
+		if has_method("forest_enemy_visible") and player.character_id==1 and player.pipe_contact_phase>=0:self_pause=minf(duration,.045 if player.combo==3 else .025)
+		player.impact_pause=maxf(player.impact_pause,self_pause)
 	hit_stop=maxf(hit_stop,duration)
 	camera_rig.kick(direction,[0.035,0.065,0.12][clampi(strength,0,2)])
 	sound(("coin_heavy_hit" if strength==2 else "coin_hit") if projectile else ("heavy_hit" if strength==2 else "hit"),0.7)

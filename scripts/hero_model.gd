@@ -35,9 +35,27 @@ const ROGUE_PIPE_PROFILE=preload("res://scripts/goemon_rogue_combo.gd")
 var pipe_combo_active=false
 var rogue_pipe_combo_active=false
 var pipe_combo_stage=1
+var pipe_contact_phase=-1.0
 var pipe_combo_pose: Dictionary={}
 var locomotion: RefCounted
 var locomotion_velocity=Vector3.ZERO
+const WeaponProportions=preload("res://scripts/weapon_proportions.gd")
+var pipe_visual_scale=WeaponProportions.SCALE
+var pipe_bounds: Array[Vector3]=[]
+
+func visible_pipe_reach()->float:
+	if pipe_bounds.is_empty():cache_pipe_bounds(pipe)
+	var reach=0.0
+	for corner in pipe_bounds:
+		var delta=pipe.to_global(corner)-global_position
+		reach=maxf(reach,Vector2(delta.x,delta.z).length())
+	return reach
+
+func cache_pipe_bounds(node: Node):
+	if node is MeshInstance3D:
+		var bounds: AABB=node.mesh.get_aabb()
+		for i in range(8):pipe_bounds.append(pipe.to_local(node.to_global(bounds.get_endpoint(i))))
+	for child in node.get_children():cache_pipe_bounds(child)
 
 func _init(is_ninja: bool = false, is_boss: bool = false, variant: int=0):
 	ninja = is_ninja
@@ -78,7 +96,7 @@ func _ready():
 		legs[0].position=Vector3(-0.254166,0.965830,0)
 		legs[1].position=Vector3(0.254166,0.965830,0)
 	pipe=GameAssets.place(arms[1],"weapons/golden_pipe",Vector3(0,-0.59,-0.05))
-	coin=GoldCoin.make_mesh(arms[1],0.78)
+	coin=GoldCoin.make_mesh(arms[1],0.78*WeaponProportions.SCALE)
 	coin.position=Vector3(0,-0.6,-0.19)
 	coin.hide()
 	if not ninja and not boss:
@@ -172,7 +190,7 @@ func combat_pose(attack: float,heavy: bool,combo: int,dodge: bool):
 		arms[1].rotation.y=.5;pipe.hide();return
 	if pipe_combo_active and attack>0 and not heavy and not dodge:
 		pipe_combo_stage=combo
-		pipe_combo_pose=ROGUE_PIPE_PROFILE.sample(combo,(1.0-attack)*ROGUE_PIPE_PROFILE.duration(combo)) if rogue_pipe_combo_active else PipeCombo.sample(combo,1.0-attack)
+		pipe_combo_pose=ROGUE_PIPE_PROFILE.sample(combo,(1.0-attack)*ROGUE_PIPE_PROFILE.duration(combo)) if rogue_pipe_combo_active else PipeCombo.sample(combo,1.0-attack,pipe_contact_phase)
 		# Readable legacy driver values; the articulated rig consumes the pose below.
 		arms[1].rotation.y=(1 if combo!=2 else -1)*0.8
 		pipe.visible=equipped and not chain_selected
@@ -180,6 +198,9 @@ func combat_pose(attack: float,heavy: bool,combo: int,dodge: bool):
 	if charge_requested or charge_release>=0:
 		pipe.visible=equipped and not chain_selected
 		return
+	if attack>0 and heavy and charge_slot==1 and not dodge:
+		pipe_combo_pose=ROGUE_PIPE_PROFILE.Strike.sample(3,1.0-attack,.47);pipe_combo_stage=3
+		pipe.visible=equipped;return
 	if attack > 0:
 		var t=1.0-attack
 		# A coiled wind-up, quick contact, and eased follow-through for each stroke.

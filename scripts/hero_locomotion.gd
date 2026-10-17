@@ -1,7 +1,15 @@
 class_name HeroLocomotion
 extends RefCounted
 # AnimationTree owns the authored pose. Analytical leg IK adds terrain contact;
-# combat remains an upper-body overlay and never changes hit timing or physics.
+# full-body combat poses preserve contact timing and character physics.
+const Strike = preload("res://scripts/goemon_reference_strike.gd")
+const ReferenceRun = preload("res://scripts/goemon_reference_run_body.gd")
+const UserRun = preload("res://scripts/user_stride_run.gd")
+var user_run: RefCounted
+const ReferenceJump = preload("res://scripts/goemon_reference_jump.gd")
+const GroundResponse=preload("res://scripts/ground_movement_response.gd")
+var reference_jump = ReferenceJump.new()
+var idle_breath = preload("res://scripts/goemon_idle_breath.gd").new()
 var model: Node3D
 var skeleton: Skeleton3D
 var tree: AnimationTree
@@ -24,6 +32,7 @@ var landing_weight=0.0
 var attack=0.0
 var dodge=false
 var free_feet=false
+var reference_jump_flip=-1.0
 var dt=1.0/60.0
 var dirty=true
 var ticks=0
@@ -62,6 +71,7 @@ var grounded_blend=1.0
 func _init(owner_model: Node3D):
 	model=owner_model
 	skeleton=model.skeleton
+	user_run=UserRun.new(skeleton)
 	for i in range(skeleton.get_bone_count()):
 		var name=skeleton.get_bone_name(i)
 		bones[name]=i
@@ -122,7 +132,30 @@ func gait()->Vector3:
 	var visual_speed=speed/ronin_speed_scale()
 	var run=clampf((visual_speed-2.2)/6.0,0,1)
 	var sprint=clampf((visual_speed-10.2)/7.8,0,1)
-	return Vector3(lerpf(lerpf(0.60,0.18,run),0.12,sprint),lerpf(lerpf(0.52,0.64,run),0.76,sprint),lerpf(lerpf(0.10,0.17,run),0.22,sprint))
+	var reference=reference_run_weight()
+	var travel=lerpf(lerpf(0.52,0.64,run),0.76,sprint)+.08*reference
+	return Vector3(ReferenceRun.stance_fraction(visual_speed,travel),travel,lerpf(lerpf(0.10,0.17,run),0.22,sprint)+.32*reference)
+
+func reference_run_weight()->float:
+	# The supplied side/rear references describe forward running. Preserve the
+	# separate backward/strafe clips, and release the silhouette in the air.
+	return smoothstep(2.2,8.0,speed/ronin_speed_scale())*maxf(0,-direction.z)*grounded_blend
+
+func authored_run_weight()->float:
+	if dodge or free_feet or attack>0 or model.charge_requested or model.charge_pose_weight>.001:return 0.0
+	return UserRun.weight(speed/ronin_speed_scale(),-direction.z)*grounded_blend*(1.0-air_blend)
+
+func apply_reference_run():
+	var authored=authored_run_weight()
+	if authored>.001:
+		return
+	var weight=reference_run_weight()*(1.0-air_blend)
+	if weight<.001 or dodge or free_feet:return
+	rotate_chain("Spine",pose("Spine").origin,Basis(Vector3.RIGHT,-.10*weight))
+	var arm_weight=weight*(1.0-action_arm_extension)
+	ReferenceRun.turn(skeleton,phase,arm_weight)
+	ReferenceRun.bank(skeleton,phase,arm_weight)
+	ReferenceRun.arms(skeleton,phase,arm_weight)
 
 func ronin_speed_scale()->float:
 	return 3.0 if is_instance_valid(model.ronin_scarf) and model.ronin_scarf.visible else 1.0
@@ -131,7 +164,7 @@ func update(delta: float,velocity_world: Vector3,on_floor: bool,vy: float,attack
 	dt=maxf(delta,0.0001)
 	world_velocity=Vector3(velocity_world.x,0,velocity_world.z)
 	actual_speed=world_velocity.length()
-	speed=lerpf(speed,actual_speed,1-exp(-dt*16))
+	speed=lerpf(speed,actual_speed,1-exp(-dt*GroundResponse.POSE_RESPONSE))
 	local_velocity=model.global_basis.inverse()*world_velocity
 	if actual_speed>0.08: direction=Vector3(local_velocity.x,0,local_velocity.z).normalized()
 	grounded=on_floor
@@ -152,14 +185,16 @@ func update(delta: float,velocity_world: Vector3,on_floor: bool,vy: float,attack
 	air_blend=move_toward(air_blend,0 if grounded else 1,dt*10)
 	grounded_blend=move_toward(grounded_blend,1 if grounded else 0,dt*14)
 	landing_weight=(1-smoothstep(0,0.26,land_age))*lerpf(0.3,0.85,landing_strength)
+	idle_breath.update(delta,actual_speed,grounded,arm_action or free_feet or landing_weight>.01)
 	if grounded and actual_speed>0.06:
 		var g=gait()
-		phase=fposmod(phase+actual_speed/ronin_speed_scale()*dt/(g.y/g.x),1.0)
+		var rate=UserRun.cadence(actual_speed/ronin_speed_scale()) if authored_run_weight()>.001 else actual_speed/ronin_speed_scale()/(g.y/g.x)
+		phase=fposmod(phase+rate*dt,1.0)
 	var visual_speed=speed/ronin_speed_scale()
 	var normalized_speed=lerpf(0,0.24,clampf(visual_speed/2.2,0,1)) if visual_speed<=2.2 else (lerpf(0.24,0.6,clampf((visual_speed-2.2)/8.0,0,1)) if visual_speed<10.2 else lerpf(0.6,1,clampf((visual_speed-10.2)/7.8,0,1)))
 	if grounded and speed<0.1: phase=fposmod(phase+dt*0.22,1)
 	var desired=Vector2(direction.x,direction.z)*normalized_speed
-	move_blend=move_blend.lerp(desired,1-exp(-dt*16))
+	move_blend=move_blend.lerp(desired,1-exp(-dt*GroundResponse.POSE_RESPONSE))
 	var yaw=model.global_rotation.y
 	var yaw_speed=angle_difference(old_yaw,yaw)/dt if initialized else 0.0
 	turn_lean=lerpf(turn_lean,clampf(-yaw_speed*0.025,-0.09,0.09)*clampf(speed/5,0,1),1-exp(-dt*12))
@@ -227,13 +262,14 @@ func evaluate():
 	# The authored run crouches by 18–22 cm. Restore most of that clearance
 	# before terrain IK so the short legs can swing without folding into the hips.
 	var stride_weight=clampf((speed-2.2)/6.0,0,1)*grounded_blend
-	if stride_weight>0.001:
+	if stride_weight>0.001 and authored_run_weight()<.001:
 		var lift=lerpf(.10,.14,clampf((speed-10.2)/7.8,0,1))*stride_weight
 		var lifted={}
 		for name in bones:
 			if name=="Root":continue
 			var value=pose(name);value.origin.y+=lift;lifted[name]=value
 		for name in lifted:set_pose(name,lifted[name])
+	apply_reference_run()
 	# Small anticipation and turning bank above the hips; the head counter-rotates.
 	var head_before=pose("Head")
 	var chest=pose("Spine")
@@ -275,6 +311,8 @@ func evaluate():
 		hand_pose.origin=new_elbow+(hand_pose.origin-lower.origin)*extension
 		lower.origin=new_elbow;upper.basis=upper.basis.scaled(Vector3.ONE*extension);lower.basis=lower.basis.scaled(Vector3.ONE*extension)
 		set_pose("Arm_"+arm_side,upper);set_pose("Forearm_"+arm_side,lower);set_pose("Hand_"+arm_side,hand_pose)
+	if air_blend>.001 and not dodge and (not free_feet or reference_jump_flip>=0) and attack<=0 and model.charge_pose_weight<=.001:
+		reference_jump.apply(skeleton,vertical,air_blend*ReferenceJump.flip_weight(reference_jump_flip),grounded)
 	if not model.pipe_combo_pose.is_empty():apply_pipe_combo(model.pipe_combo_pose)
 	elif model.charge_pose_weight>0.001:apply_charge_pose()
 	# Existing combat / charging controls remain the source of attack poses.
@@ -288,12 +326,53 @@ func evaluate():
 		if not grounded and absf(model.legs[i].rotation.x)>0.01:
 			var name="Leg_"+("L" if i==0 else "R")
 			rotate_chain(name,pose(name).origin,Basis(Vector3.RIGHT,model.legs[i].rotation.x*0.45))
+	# Keep the authored clip blend connected even on the last grounded frame
+	# over an edge, when a terrain probe can no longer solve that leg.
+	ReferenceJump.preserve_leg_lengths(skeleton)
 	if grounded and not dodge and not free_feet:
-		solve_ground_feet()
+		if authored_run_weight()<.999:solve_ground_feet()
 	else:
 		contact=[false,false]
 		initialized=false
+	# Apply the saved pose after the old terrain solver so transitions blend
+	# continuously and the solver cannot replace the authored knees or feet.
+	var authored=authored_run_weight()
+	if authored>.001:
+		user_run.apply(phase,authored)
+		if grounded:solve_authored_ground(authored)
+	if model.pipe_combo_pose.has("left_foot") and not dodge:
+		Strike.feet(skeleton,model.pipe_combo_pose,grounded)
+		# Attack stance is sampled, not accumulated in locomotion's planted anchors.
+		contact=[false,false];initialized=false
+	idle_breath.apply(skeleton)
 	attach_weapons()
+
+func solve_authored_ground(amount: float):
+	# Move the connected authored pose onto support terrain; never replace its
+	# knee path or heel pitch with the older procedural running leg solver.
+	var supports: Array=[]
+	for side in ["L","R"]:
+		var foot=skeleton.global_transform*pose("Foot_"+side).origin
+		supports.append(terrain(foot))
+	if not supports[0].is_empty() or not supports[1].is_empty():
+		var left: float=supports[0].position.y if not supports[0].is_empty() else supports[1].position.y
+		var right: float=supports[1].position.y if not supports[1].is_empty() else left
+		# Transfer support during toe-off and flight, continuously at both seams.
+		var transfer=smoothstep(.30,.50,phase) if phase<.5 else 1.0-smoothstep(.80,1.0,phase)
+		var height=lerpf(left,right,transfer)-model.global_position.y
+		var offset=skeleton.global_basis.inverse()*(Vector3.UP*height*amount)
+		var adjusted={}
+		for name in bones:
+			var value=pose(name);value.origin+=offset;adjusted[name]=value
+		for name in adjusted:set_pose(name,adjusted[name])
+	# At partial weight the normal ground solver owns its contact history.
+	if amount<.999:return
+	for i in range(2):
+		var planted=fposmod(phase+i*.5,1.0)<.30
+		if planted and not contact[i]:step_events+=1
+		contact[i]=planted
+	initialized=false
+	pelvis_offset=0
 
 func solve_ground_feet():
 	var g=gait()
@@ -344,7 +423,11 @@ func solve_ground_feet():
 		var p=fposmod(phase+i*0.5,1)
 		var stance=p<g.x or not moving
 		var fwd=g.y*(0.5-p/g.x) if p<g.x else g.y*(-0.5+smoothstep(0,1,(p-g.x)/(1-g.x)))
-		var lift=0.0 if p<g.x else pow(sin(PI*pow((p-g.x)/(1-g.x),.65)),1.15)*g.z
+		# Recover the heel early while it is still behind the hip, then lower
+		# it into the next forward contact. This is the raised-sole silhouette.
+		var recovery=clampf((p-g.x)/(1-g.x),0,1)
+		var arc_power=lerpf(.65,.43,reference_run_weight())
+		var lift=0.0 if p<g.x else pow(sin(PI*pow(recovery,arc_power)),1.15)*g.z
 		if not moving: fwd=0;lift=0
 		# Ground probes use the actor frame, independent of torso banking/attacks.
 		var local_point=Vector3(foot_rest.origin.x,0,0)+direction*fwd
@@ -354,6 +437,14 @@ func solve_ground_feet():
 			contact[i]=false
 			continue
 		var desired: Vector3=hit.position+Vector3.UP*(0.185+lift)
+		var recovery_weight=sin(PI*sqrt(recovery))*reference_run_weight()*(1.0-action_arm_extension) if not stance else 0.0
+		var hip_frame=Basis.IDENTITY.slerp(ReferenceRun.hip_frame(skeleton),recovery_weight)
+		if recovery_weight>.001:
+			var hip_center=pose("Pelvis").origin
+			var local_goal=local_from_world*desired
+			local_goal.x+=ReferenceRun.swing_inset(side,recovery)*reference_run_weight()*(1.0-action_arm_extension)
+			desired=world_from_skeleton*(hip_center+hip_frame*(local_goal-hip_center))
+			desired.y=hit.position.y+0.185+lift
 		if moving: settling[i]=-1
 		if stance and settling[i]<0:
 			# At magical travel speeds the contact travels with the body, so
@@ -402,7 +493,9 @@ func solve_ground_feet():
 		if not contact[i] and moving:
 			var swing=clampf((p-g.x)/(1-g.x),0,1)
 			var lateral=(local_from_world.basis*world_heading*Vector3.RIGHT).normalized()
-			foot_basis=Basis(lateral,-0.40*sin(PI*swing))*foot_basis
+			var heel_turn=lerpf(.40,1.20,reference_run_weight())
+			var heel_phase=pow(swing,lerpf(1.0,.50,reference_run_weight()))
+			foot_basis=hip_frame*Basis(lateral,-heel_turn*sin(PI*heel_phase))*foot_basis
 		# Controlled toe-off rolls around the toe rather than rotating through floor.
 		if contact[i] and moving and p/g.x>0.72:
 			var toe_roll=smoothstep(0.72,1,p/g.x)*0.25
@@ -427,13 +520,15 @@ func solve_leg(side: String,goal: Vector3,foot_basis: Basis):
 	var delta=goal-hip
 	var distance=clampf(delta.length(),0.08,(upper+lower)*0.998)
 	var axis=delta.normalized()
-	var pole=Vector3.FORWARD
+	var body_weight=reference_run_weight()*(1.0-action_arm_extension)
+	var hip_frame=Basis.IDENTITY.slerp(ReferenceRun.hip_frame(skeleton),body_weight)
+	var pole=hip_frame*Vector3.FORWARD
 	pole=(pole-axis*pole.dot(axis)).normalized()
 	var along=(upper*upper-lower*lower+distance*distance)/(2*distance)
 	var knee=hip+axis*along+pole*sqrt(maxf(0,upper*upper-along*along))
 	var ankle=hip+axis*distance
-	var upper_basis=Basis(Quaternion((k0-h0).normalized(),(knee-hip).normalized()))*rest["Leg_"+side].basis
-	var lower_basis=Basis(Quaternion((a0-k0).normalized(),(ankle-knee).normalized()))*rest["Shin_"+side].basis
+	var upper_basis=hip_frame*Basis(Quaternion((k0-h0).normalized(),hip_frame.inverse()*(knee-hip).normalized()))*rest["Leg_"+side].basis
+	var lower_basis=hip_frame*Basis(Quaternion((a0-k0).normalized(),hip_frame.inverse()*(ankle-knee).normalized()))*rest["Shin_"+side].basis
 	set_pose("Leg_"+side,Transform3D(upper_basis,hip))
 	set_pose("Shin_"+side,Transform3D(lower_basis,knee))
 	set_pose("Foot_"+side,Transform3D(foot_basis.orthonormalized(),ankle))
@@ -445,7 +540,7 @@ func attach_weapons():
 	var grip=Vector3(1.335,1.285,-0.015)
 	var grip_world=skeleton.global_transform*(delta*grip)
 	var basis_world=skeleton.global_basis*delta.basis*Basis(Vector3.BACK,PI/2)
-	model.pipe.global_transform=Transform3D(basis_world,grip_world)
+	model.pipe.global_transform=Transform3D(basis_world.scaled(Vector3.ONE*model.pipe_visual_scale),grip_world)
 	if is_instance_valid(model.chain_pipe):model.chain_pipe.global_transform=model.pipe.global_transform
 	# Coin has its own presentation scale set by charging/surge gameplay.
 	var coin_scale=model.coin.scale
@@ -453,9 +548,10 @@ func attach_weapons():
 	model.coin.scale=coin_scale
 
 func reset():
+	idle_breath.reset()
 	action_arm_extension=0;arm_action_requested=false
 	lateral_response=0;lateral_acceleration=0;previous_local_velocity=Vector3.ZERO
-	phase=0;speed=0;actual_speed=0;old_speed=0;free_feet=false
+	phase=0;speed=0;actual_speed=0;old_speed=0;free_feet=false;reference_jump_flip=-1
 	local_velocity=Vector3.ZERO;world_velocity=Vector3.ZERO
 	move_blend=Vector2.ZERO;direction=Vector3.FORWARD
 	air_blend=0;air_age=0;land_age=1;landing_weight=0
@@ -474,14 +570,18 @@ func apply_pose_body(p: Dictionary):
 	rotate_chain("Pelvis",pose("Pelvis").origin,Basis.from_euler(p.hip))
 	rotate_chain("Spine",pose("Spine").origin,Basis.from_euler(p.chest*0.45))
 	rotate_chain("Chest",pose("Chest").origin,Basis.from_euler(p.chest*0.55))
-	rotate_chain("Neck",pose("Neck").origin,Basis.from_euler(Vector3(-p.chest.x*0.4,-(p.hip.y+p.chest.y)*0.4,0)))
+	rotate_chain("Neck",pose("Neck").origin,Basis.from_euler(p.get("head",Vector3(-p.chest.x*0.4,-(p.hip.y+p.chest.y)*0.4,0))))
 	rotate_chain("Arm_L",pose("Arm_L").origin,Basis.from_euler(p.guard))
 
 func apply_pipe_combo(p: Dictionary):
+	if p.has("weight"):ReferenceRun.blend_base(skeleton,rest,Transform3D.IDENTITY,p.weight)
 	apply_pose_body(p)
 	# A continuous wrist path makes the supplied pipe trace three distinct arcs.
 	var weight=smoothstep(0,0.18,1.0-attack) if model.pipe_combo_stage==1 else 1.0
 	if model.pipe_combo_stage==3:weight=1.0-smoothstep(0.78,1,1.0-attack)
+	if p.has("weight"):
+		weight=p.weight
+		Strike.arm(skeleton,"L",p.offhand+p.offset,weight)
 	solve_combo_arm(p.wrist+p.offset,weight,p.roll,p.aim)
 
 func solve_combo_arm(target: Vector3,weight: float,roll: float,aim: Vector3,reach_limit: float=0.995):

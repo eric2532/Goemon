@@ -1,5 +1,15 @@
 # Character art direction
 
+Current user direction (2026-10-14): redesign the entire playable roster as
+"Goemon cosplaying." Reuse the exact approved Goemon body, painted face and
+hair geometry; add each class's colors, costume details and weapons, retaining
+its playstyle. This explicitly supersedes the historical anti-clone and unique
+body/face/hair instructions below. Keep the Goemon master read-only. Editable
+variants live in characters/goemon_cosplay; rebuild with
+tools/build_goemon_cosplay.py. Preserve the shared geometry, UVs and bone lengths.
+Keep recognizable face/hair visible through cosplay headgear. Earlier character
+models remain available as historical assets.
+
 Current user correction (2026-10-09, Ranger hat): replace Ranger's open hood
 with a fitted forest-green hat whose crown and rear nape panel fully cover the
 scalp, with a readable brim and optional feather. Preserve the approved v2.35
