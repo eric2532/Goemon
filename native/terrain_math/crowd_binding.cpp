@@ -4,6 +4,7 @@
 #include "crowd/instance_buffers.h"
 #include <algorithm>
 #include <chrono>
+#include <cassert>
 #include <cstring>
 #include <string>
 
@@ -96,6 +97,25 @@ template<class T> std::vector<T> vector(void* dict,const char* key,VT type){
     auto value=get(dict,key);if(!value||variant_type(value)!=type)return {};
     Blob packed;to_type(type)(&packed,value);auto result=unpack<T>(&packed,type);destructor(type)(&packed);return result;
 }
+// Retain the captured packed buffer; Godot copy-on-write protects it even when
+// a synchronous facade callback replaces or edits the source dictionary.
+template<class T> class PackedRead {
+    Blob packed_;VT type_;const T* data_=nullptr;int64_t count_=0;
+public:
+    PackedRead(void* dict,const char* key,VT type):type_(type){
+        auto value=get(dict,key);
+        if(value&&variant_type(value)==type)to_type(type)(&packed_,value);
+        else constructor(type,0)(&packed_,nullptr);
+        size_method[type](&packed_,nullptr,&count_,0);
+        if(count_)switch(type){case BYTES:data_=reinterpret_cast<const T*>(byte_read(&packed_,0));break;case F32:data_=reinterpret_cast<const T*>(float_read(&packed_,0));break;case F64:data_=reinterpret_cast<const T*>(double_read(&packed_,0));break;case I32:data_=reinterpret_cast<const T*>(int_read(&packed_,0));break;case I64:data_=reinterpret_cast<const T*>(long_read(&packed_,0));break;case V3S:data_=reinterpret_cast<const T*>(vec_read(&packed_,0));break;default:break;}
+    }
+    PackedRead(const PackedRead&)=delete;
+    ~PackedRead(){destructor(type_)(&packed_);}
+    size_t size()const{return count_;}
+    const T& operator[](size_t i)const{return data_[i];}
+    const T* begin()const{return data_;}
+    const T* end()const{return count_?data_+count_:data_;}
+};
 bool equals(void* dict,const char* key,const char* expected){
     auto value=get(dict,key);if(!value||variant_type(value)!=STR)return false;
     Blob text;to_type(STR)(&text,value);char bytes[64]{};int64_t length=string_utf8(&text,bytes,63);destructor(STR)(&text);
@@ -153,12 +173,34 @@ template<class T> void field(void* dict,const char* key,VT type,const std::vecto
     }
     put(dict,key,type,&packed);destructor(type)(&packed);
 }
+// Fill each new snapshot buffer once. Published snapshots keep their own COW
+// storage, so retaining an older Snapshot never observes a later simulation tick.
+template<class T> class PackedField {
+    Blob packed_;VT type_;T* data_=nullptr;int64_t count_=0,capacity_;
+public:
+    PackedField(VT type,int64_t capacity):type_(type),capacity_(capacity){
+        constructor(type,0)(&packed_,nullptr);int64_t error=0;const void* args[]={&capacity};resize_method[type](&packed_,args,&error,1);
+        if(capacity)switch(type){case BYTES:data_=reinterpret_cast<T*>(byte_write(&packed_,0));break;case F32:data_=reinterpret_cast<T*>(float_write(&packed_,0));break;case F64:data_=reinterpret_cast<T*>(double_write(&packed_,0));break;case I32:data_=reinterpret_cast<T*>(int_write(&packed_,0));break;case I64:data_=reinterpret_cast<T*>(long_write(&packed_,0));break;case V3S:data_=reinterpret_cast<T*>(vec_write(&packed_,0));break;default:break;}
+    }
+    PackedField(const PackedField&)=delete;
+    ~PackedField(){destructor(type_)(&packed_);}
+    void push_back(const T& value){assert(count_<capacity_);data_[count_++]=value;}
+    size_t size()const{return count_;}
+    T& operator[](size_t i){return data_[i];}
+    void publish(void* dict,const char* key){
+        if(count_!=capacity_){int64_t error=0;const void* args[]={&count_};resize_method[type_](&packed_,args,&error,1);}
+        put(dict,key,type_,&packed_);
+    }
+};
+template<class T> void field(void* dict,const char* key,VT,PackedField<T>& values){values.publish(dict,key);}
 void snapshot(army::Crowd& crowd,void* dict){
     const auto& units=crowd.packed_source();
-    std::vector<int32_t> rows_by_slot(units.size(),-1);
-    std::vector<int64_t> handles,ids;std::vector<uint8_t> teams;
-    std::vector<int32_t> kinds,actions,status;std::vector<army::Vec3> positions,velocities,pose_velocities;
-    std::vector<float> yaw,time,pose,phase,buff,render_time,stun,flash;std::vector<int32_t> indices,render_actions,air_phase,pose_rows;std::vector<double> hp,max_hp,ages;std::vector<int32_t> shelter_modes;
+    const auto count=std::count_if(units.begin(),units.end(),[](const auto& u){return u.alive;});
+    PackedField<int32_t> rows_by_slot(I32,units.size());
+    for(size_t i=0;i<units.size();++i)rows_by_slot.push_back(-1);
+    PackedField<int64_t> handles(I64,count),ids(I64,count);PackedField<uint8_t> teams(BYTES,count);
+    PackedField<int32_t> kinds(I32,count),actions(I32,count),status(I32,count);PackedField<army::Vec3> positions(V3S,count),velocities(V3S,count),pose_velocities(V3S,count);
+    PackedField<float> yaw(F32,count),time(F32,count),pose(F32,count),phase(F32,count),buff(F32,count),render_time(F32,count),stun(F32,count),flash(F32,count);PackedField<int32_t> indices(I32,count),render_actions(I32,count),air_phase(I32,count),pose_rows(I32,count);PackedField<double> hp(F64,count),max_hp(F64,count),ages(F64,count);PackedField<int32_t> shelter_modes(I32,count);
     for(const auto& u:units){
         if(!u.alive)continue;
         rows_by_slot[uint32_t(u.handle)]=int32_t(ids.size());
@@ -183,15 +225,17 @@ void snapshot(army::Crowd& crowd,void* dict){
     field(dict,"kinds",I32,kinds);field(dict,"positions",V3S,positions);field(dict,"velocities",V3S,velocities);field(dict,"pose_velocities",V3S,pose_velocities);
     field(dict,"yaw",F32,yaw);field(dict,"hp",F64,hp);field(dict,"max_hp",F64,max_hp);field(dict,"ages",F64,ages);field(dict,"shelter_modes",I32,shelter_modes);
     field(dict,"actions",I32,actions);field(dict,"action_time",F32,time);field(dict,"status",I32,status);field(dict,"pose_time",F32,pose);field(dict,"walk_phase",F32,phase);field(dict,"buff_left",F32,buff);field(dict,"action_indices",I32,indices);field(dict,"render_actions",I32,render_actions);field(dict,"render_time",F32,render_time);field(dict,"stun_left",F32,stun);field(dict,"flash_left",F32,flash);field(dict,"air_phase",I32,air_phase);field(dict,"pose_rows",I32,pose_rows);
-    std::vector<int64_t> projectile_ids,projectile_sources;std::vector<int32_t> projectile_kinds;std::vector<uint8_t> projectile_teams,projectile_power;
-    std::vector<army::Vec3> projectile_positions,projectile_directions;std::vector<float> projectile_scales,projectile_age;
+    const auto projectile_count=crowd.combat.active_projectiles().size();
+    PackedField<int64_t> projectile_ids(I64,projectile_count),projectile_sources(I64,projectile_count);PackedField<int32_t> projectile_kinds(I32,projectile_count);PackedField<uint8_t> projectile_teams(BYTES,projectile_count),projectile_power(BYTES,projectile_count);
+    PackedField<army::Vec3> projectile_positions(V3S,projectile_count),projectile_directions(V3S,projectile_count);PackedField<float> projectile_scales(F32,projectile_count),projectile_age(F32,projectile_count);
     for(const auto& p:crowd.combat.active_projectiles()){
         projectile_ids.push_back(p.id);projectile_sources.push_back(p.source_id);projectile_kinds.push_back(p.owner_kind);projectile_teams.push_back(uint8_t(p.source_team));projectile_power.push_back(uint8_t(p.power));
         projectile_age.push_back(float(p.age));projectile_positions.push_back(p.position);projectile_directions.push_back(army::length(p.flight_direction)>0?p.flight_direction:p.direction);projectile_scales.push_back(p.scale*(p.ranger?2.4f*(p.power?1.35f:1.0f):1.0f));
     }
     field(dict,"projectile_ids",I64,projectile_ids);field(dict,"projectile_sources",I64,projectile_sources);field(dict,"projectile_kinds",I32,projectile_kinds);field(dict,"projectile_teams",BYTES,projectile_teams);field(dict,"projectile_power",BYTES,projectile_power);
     field(dict,"projectile_positions",V3S,projectile_positions);field(dict,"projectile_directions",V3S,projectile_directions);field(dict,"projectile_scales",F32,projectile_scales);field(dict,"projectile_age",F32,projectile_age);
-    std::vector<army::Vec3> shield_positions;std::vector<float> shield_yaw,shield_age,shield_scales;
+    const auto shield_capacity=crowd.combat.active_counters().size()*3;
+    PackedField<army::Vec3> shield_positions(V3S,shield_capacity);PackedField<float> shield_yaw(F32,shield_capacity),shield_age(F32,shield_capacity),shield_scales(F32,shield_capacity);
     const auto& shield_tune=crowd.combat.counter_tuning();
     for(const auto& c:crowd.combat.active_counters())for(int i=0;i<3;++i){
         double age=c.age-i*shield_tune[army::K_INTERVAL];if(age<0||age>=shield_tune[army::K_TRAVEL]+shield_tune[army::K_TAIL])continue;
@@ -217,11 +261,11 @@ bool register_facade(Instance& instance,int64_t handle,const void* row,GDExtensi
 }
 int64_t sync_registered_facades(Instance& instance,void* data){
     for(auto& link:instance.facades)if(link&&!instance.crowd.valid(link->handle))link.reset();
-    auto handles=vector<int64_t>(data,"handles",I64);size_t n=handles.size();if(!n)return 0;
+    auto handles=PackedRead<int64_t>(data,"handles",I64);size_t n=handles.size();if(!n)return 0;
     if(!scalar<GDExtensionBool>(data,"shared_facades",BOOL,false))return -1;
-    auto hp=vector<double>(data,"hp",F64),maximum=vector<double>(data,"max_hp",F64);
-    auto positions=vector<army::Vec3>(data,"positions",V3S),velocities=vector<army::Vec3>(data,"velocities",V3S);
-    auto yaw=vector<float>(data,"yaw",F32);auto poses=vector<int32_t>(data,"pose_rows",I32);auto teams=vector<uint8_t>(data,"teams",BYTES);
+    auto hp=PackedRead<double>(data,"hp",F64),maximum=PackedRead<double>(data,"max_hp",F64);
+    auto positions=PackedRead<army::Vec3>(data,"positions",V3S),velocities=PackedRead<army::Vec3>(data,"velocities",V3S);
+    auto yaw=PackedRead<float>(data,"yaw",F32);auto poses=PackedRead<int32_t>(data,"pose_rows",I32);auto teams=PackedRead<uint8_t>(data,"teams",BYTES);
     if(hp.size()!=n||maximum.size()!=n||positions.size()!=n||velocities.size()!=n||yaw.size()!=n||poses.size()!=n||teams.size()!=n)return -1;
     // Validate the whole transfer before any writes. Generic/custom adapters fall
     // back to sync_facades; partial registration must never partly commit state.
@@ -243,10 +287,10 @@ int64_t sync_registered_facades(Instance& instance,void* data){
         army::Vec3 rotation;engine_call(get_rotation_bind,object,nullptr,&rotation);bool turn=std::memcmp(&rotation.y,&yaw[i],sizeof(float))!=0;rotation.y=yaw[i];
         const void* angle[]={&rotation};if(!guard||turn)engine_call(set_rotation_bind,object,angle,nullptr);
         Variant receiver,value;from_type(GDEXTENSION_VARIANT_TYPE_OBJECT)(&receiver,&object);GDExtensionBool valid=false;
-        from_type(FLOAT)(&value,&hp[i]);set_named(&receiver,&hp_name,&value,&valid);variant_destroy(&value);
-        from_type(FLOAT)(&value,&maximum[i]);set_named(&receiver,&max_hp_name,&value,&valid);variant_destroy(&value);
+        from_type(FLOAT)(&value,const_cast<void*>(static_cast<const void*>(&hp[i])));set_named(&receiver,&hp_name,&value,&valid);variant_destroy(&value);
+        from_type(FLOAT)(&value,const_cast<void*>(static_cast<const void*>(&maximum[i])));set_named(&receiver,&max_hp_name,&value,&valid);variant_destroy(&value);
         if(teams[i]==0){const void* motion[]={&velocities[i]};engine_call(set_velocity_bind,object,motion,nullptr);if(instance.crowd.timing.enabled)++instance.crowd.timing.shared_enemy_updates;}
-        else{from_type(VEC3)(&value,&velocities[i]);set_named(&receiver,&velocity_name,&value,&valid);variant_destroy(&value);if(instance.crowd.timing.enabled)++instance.crowd.timing.shared_ally_updates;}
+        else{from_type(VEC3)(&value,const_cast<void*>(static_cast<const void*>(&velocities[i])));set_named(&receiver,&velocity_name,&value,&valid);variant_destroy(&value);if(instance.crowd.timing.enabled)++instance.crowd.timing.shared_ally_updates;}
         variant_destroy(&receiver);++count;
     }
     for(auto& key:keys)variant_destroy(&key);return count;
@@ -258,11 +302,11 @@ int64_t sync_facades(army::Crowd& crowd,void* data,void* rows,void* enemies,void
     const bool facade_timing=crowd.timing.enabled&&scalar<GDExtensionBool>(data,"profile_facades",BOOL,false);
     auto started=facade_timing?Clock::now():Clock::time_point{};auto previous=started;
     auto mark=[&](double& phase){if(facade_timing){auto now=Clock::now();phase+=std::chrono::duration<double,std::milli>(now-previous).count();previous=now;}};
-    auto ids=vector<int64_t>(data,"logical_ids",I64);auto teams=vector<uint8_t>(data,"teams",BYTES);
-    auto hp=vector<double>(data,"hp",F64);auto positions=vector<army::Vec3>(data,"positions",V3S),velocities=vector<army::Vec3>(data,"velocities",V3S);
-    auto yaw=vector<float>(data,"yaw",F32);auto poses=vector<int32_t>(data,"pose_rows",I32);size_t n=ids.size();
-    auto maximum=vector<double>(data,"max_hp",F64),ages=vector<double>(data,"ages",F64);
-    auto status=vector<int32_t>(data,"status",I32),modes=vector<int32_t>(data,"shelter_modes",I32);
+    auto ids=PackedRead<int64_t>(data,"logical_ids",I64);auto teams=PackedRead<uint8_t>(data,"teams",BYTES);
+    auto hp=PackedRead<double>(data,"hp",F64);auto positions=PackedRead<army::Vec3>(data,"positions",V3S),velocities=PackedRead<army::Vec3>(data,"velocities",V3S);
+    auto yaw=PackedRead<float>(data,"yaw",F32);auto poses=PackedRead<int32_t>(data,"pose_rows",I32);size_t n=ids.size();
+    auto maximum=PackedRead<double>(data,"max_hp",F64),ages=PackedRead<double>(data,"ages",F64);
+    auto status=PackedRead<int32_t>(data,"status",I32),modes=PackedRead<int32_t>(data,"shelter_modes",I32);
     bool direct_values=maximum.size()==n&&ages.size()==n&&status.size()==n&&modes.size()==n;
     if(teams.size()!=n||hp.size()!=n||positions.size()!=n||velocities.size()!=n||yaw.size()!=n||poses.size()!=n)return 0;
     const char* texts[]={"hp","pos","velocity","facing","army_pose_row"};Variant keys[5];
@@ -275,7 +319,7 @@ int64_t sync_facades(army::Crowd& crowd,void* data,void* rows,void* enemies,void
     auto resolve=[&](const void* actor){if(crowd.timing.enabled)++crowd.timing.facade_object_lookups;return object_from_id(object_id(actor));};
     mark(crowd.timing.facade_unpack);
     for(size_t i=0;i<n;++i){
-        Variant id;from_type(INT)(&id,&ids[i]);
+        Variant id;from_type(INT)(&id,const_cast<void*>(static_cast<const void*>(&ids[i])));
         if(teams[i]==0){
             auto value=lookup(rows,row_owner,id);
             if(value&&variant_type(value)==DICT){
@@ -512,12 +556,12 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
         }
         case INSTANCE_BUFFERS:{
             void* snapshot=const_cast<void*>(args[0]);void* profiles=const_cast<void*>(args[1]);
-            auto kinds=vector<int32_t>(snapshot,"kinds",I32),actions=vector<int32_t>(snapshot,"render_actions",I32),indices=vector<int32_t>(snapshot,"action_indices",I32),phases=vector<int32_t>(snapshot,"air_phase",I32),status=vector<int32_t>(snapshot,"status",I32),poses=vector<int32_t>(snapshot,"pose_rows",I32);
-            auto teams=vector<uint8_t>(snapshot,"teams",BYTES);auto positions=vector<army::Vec3>(snapshot,"positions",V3S),velocities=vector<army::Vec3>(snapshot,"pose_velocities",V3S);
-            auto yaw=vector<float>(snapshot,"yaw",F32),render_time=vector<float>(snapshot,"render_time",F32),pose_time=vector<float>(snapshot,"pose_time",F32),walk=vector<float>(snapshot,"walk_phase",F32),flash=vector<float>(snapshot,"flash_left",F32);
-            auto hp=vector<double>(snapshot,"hp",F64),max_hp=vector<double>(snapshot,"max_hp",F64);size_t n=kinds.size();
+            auto kinds=PackedRead<int32_t>(snapshot,"kinds",I32),actions=PackedRead<int32_t>(snapshot,"render_actions",I32),indices=PackedRead<int32_t>(snapshot,"action_indices",I32),phases=PackedRead<int32_t>(snapshot,"air_phase",I32),status=PackedRead<int32_t>(snapshot,"status",I32),poses=PackedRead<int32_t>(snapshot,"pose_rows",I32);
+            auto teams=PackedRead<uint8_t>(snapshot,"teams",BYTES);auto positions=PackedRead<army::Vec3>(snapshot,"positions",V3S),velocities=PackedRead<army::Vec3>(snapshot,"pose_velocities",V3S);
+            auto yaw=PackedRead<float>(snapshot,"yaw",F32),render_time=PackedRead<float>(snapshot,"render_time",F32),pose_time=PackedRead<float>(snapshot,"pose_time",F32),walk=PackedRead<float>(snapshot,"walk_phase",F32),flash=PackedRead<float>(snapshot,"flash_left",F32);
+            auto hp=PackedRead<double>(snapshot,"hp",F64),max_hp=PackedRead<double>(snapshot,"max_hp",F64);size_t n=kinds.size();
             if(teams.size()!=n||actions.size()!=n||indices.size()!=n||phases.size()!=n||status.size()!=n||poses.size()!=n||positions.size()!=n||velocities.size()!=n||yaw.size()!=n||render_time.size()!=n||pose_time.size()!=n||walk.size()!=n||flash.size()!=n||hp.size()!=n||max_hp.size()!=n){put_bool(ret,"valid",false);break;}
-            auto profile_kinds=vector<int32_t>(profiles,"kinds",I32);auto values=vector<double>(profiles,"values",F64);
+            auto profile_kinds=PackedRead<int32_t>(profiles,"kinds",I32);auto values=PackedRead<double>(profiles,"values",F64);
             constexpr size_t stride=2+army::CLIP_COUNT*5;
             if(values.size()!=profile_kinds.size()*stride){put_bool(ret,"valid",false);break;}
             std::map<int,army::InstanceProfile> table;

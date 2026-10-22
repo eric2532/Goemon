@@ -17,6 +17,11 @@ class MetadataProbe extends ScalarProbe:
  func sync_native_metadata(data:Object,index:int,new_hp:float,new_max_hp:float,motion:Vector3,yaw:float,age:float,status:int,mode:int):
   metadata_calls+=1;scalar_calls+=1;scalar_values=[new_hp,new_max_hp,position,motion,yaw,age,status,mode]
   calls+=1;seen=data;seen_index=index
+class MutatingProbe extends Probe:
+ var source:Dictionary
+ func sync_snapshot(data:Object,index:int):
+  source.hp[1]=99999.0;source.positions[1]=Vector3(-999,-999,-999)
+  super.sync_snapshot(data,index)
 var checks=0
 var failures=0
 func check(ok:bool,label_:String):
@@ -55,6 +60,16 @@ func run():
  # death callback, must not recreate stale state or call a retired instance.
  enemies[1].free();enemies.erase(2);rows.erase(3)
  check(runtime.native.sync_facades(data,rows,enemies,allies,view)==3998 and not rows.has(3),"Missing/freed nodes are skipped and removed rows stay removed")
+ # A script callback can write the source arrays while a later adapter still
+ # needs the original capture. Native readers must retain COW ownership.
+ var edited=data.duplicate(true);var prior_hp:float=edited.hp[1];var prior_position:Vector3=edited.positions[1]
+ var captured=preload("res://scripts/forest/crowd/army_snapshot.gd").new(edited)
+ var mutator=MutatingProbe.new();var receiver=ScalarProbe.new();root.add_child(mutator);root.add_child(receiver);mutator.source=edited
+ var callbacks={int(edited.logical_ids[0]):mutator,int(edited.logical_ids[1]):receiver}
+ check(runtime.native.sync_facades(edited,{},callbacks,{},captured)==2,"Callbacks may mutate source arrays during a transfer")
+ check(receiver.scalar_values[0]==prior_hp and receiver.scalar_values[2]==prior_position,"Later scalar adapters receive the retained original packed buffers")
+ check(edited.hp[1]==99999.0,"The callback mutation actually executes")
+ mutator.free();receiver.free()
  runtime.clear()
  check(runtime.native.sync_facades(runtime.render_snapshot(),rows,enemies,allies,view)==0,"Clear produces no stale callbacks")
  for actor in probes:

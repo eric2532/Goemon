@@ -68,6 +68,7 @@ private:
     std::vector<AirNode> air_nodes_;
     int build_air_node(int first,int end);
     void build_air();
+    template<class Visitor> bool visit_air(Vec3 low,Vec3 high,Visitor&& visitor) const;
     std::vector<int> air_candidates(Vec3 low,Vec3 high,bool bounded=false) const;
     bool air_ray_clear(Vec3 from,Vec3 to,int64_t ignore) const;
     bool obstacles_clear(Vec3 point,float radius) const;

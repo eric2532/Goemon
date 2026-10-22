@@ -26,7 +26,7 @@ bool Combat::configure(KitData data){
         for(int a=0;a<6;++a){const double* v=data_.ally_primaries.data()+i*42+a*7;p.primary[a]={v[0],v[1],v[2],v[3],v[4],v[5],v[6]};}}
     enabled_=true;return true;
 }
-void Combat::clear(){nearest_entries_.clear();nearest_nodes_.clear();nearest_revision_=UINT64_MAX;nearest_contact_tests_=0;nearest_position_reads_=0;projectiles_.clear();pulses_.clear();counters_.clear();threats_.clear();first_taunt_=latest_taunt_=0;events_.clear();targets_.clear();shelters_.clear();}
+void Combat::clear(){nearest_entries_.clear();nearest_nodes_.clear();nearest_revision_=UINT64_MAX;nearest_contact_tests_=0;nearest_position_reads_=0;projectiles_.clear();pulses_.clear();counters_.clear();threats_.clear();first_taunt_=latest_taunt_=0;events_.clear();set_targets({});shelters_.clear();}
 void Combat::spawned(Unit& u){if(enabled_&&u.team==1&&u.kind==8&&!data_.dragoon.empty())u.leap_left=data_.dragoon[D_LEAP_CD];if(enabled_&&u.shelter_mode==2)u.status|=data_.status_bits[6];pose_frame(u);}
 void Combat::emit(Event event){event.serial=++serial_;events_.push_back(event);}
 HitResult Combat::hit(Crowd& crowd,int64_t handle,const Hit& incoming){
@@ -69,10 +69,34 @@ HitResult Combat::hit(Crowd& crowd,int64_t handle,const Hit& incoming){
     refresh_status(*u);
     return result;
 }
+void Combat::set_targets(std::vector<ExternalTarget> targets){
+    targets_=std::move(targets);++target_revision_;hero_row_=taunt_row_=-1;
+    for(auto& group:target_groups_)group.clear();
+    for(size_t i=0;i<targets_.size();++i){
+        const auto& row=targets_[i];if(row.hp<=0||!row.targetable)continue;
+        if(row.kind>=0&&row.kind<4)target_groups_[row.kind].push_back(i);
+        if(row.kind==0&&row.hp>0&&hero_row_<0)hero_row_=int(i);
+        if(row.taunting&&row.hp>0&&taunt_row_<0)taunt_row_=int(i);
+    }
+}
+const ExternalTarget* Combat::external_target(const Unit& unit) const{
+    if(unit.external_kind<0)return nullptr;
+    // Rows are immutable until set_targets. Validate the selection as well as
+    // the revision because taunts can retarget a unit within the same tick.
+    if(unit.external_revision==target_revision_&&unit.external_row>=0){
+        const auto& row=targets_[unit.external_row];
+        if(row.id==unit.external_target&&row.kind==unit.external_kind)return &row;
+    }
+    unit.external_revision=target_revision_;unit.external_row=-1;
+    for(size_t i=0;i<targets_.size();++i){const auto& row=targets_[i];
+        if(row.id==unit.external_target&&row.kind==unit.external_kind&&row.hp>0&&row.targetable){unit.external_row=int(i);return &row;}
+    }
+    return nullptr;
+}
 bool Combat::target(Crowd& crowd,const Unit& unit,Vec3& foot) const{
     if(unit.target_handle){auto other=crowd.unit(unit.target_handle);if(!other||other->hp<=0||other->shelter_mode==2)return false;foot=other->position;return true;}
     if(unit.external_kind<0)return false;
-    for(const auto& other:targets_)if(other.id==unit.external_target&&other.kind==unit.external_kind&&other.hp>0&&other.targetable){foot=other.kind==2?Vec3{std::clamp(unit.position.x,other.minimum.x,other.maximum.x),other.minimum.y,std::clamp(unit.position.z,other.minimum.z,other.maximum.z)}:other.foot;return true;}
+    if(auto other=external_target(unit)){foot=other->kind==2?Vec3{std::clamp(unit.position.x,other->minimum.x,other->maximum.x),other->minimum.y,std::clamp(unit.position.z,other->minimum.z,other->maximum.z)}:other->foot;return true;}
     return false;
 }
 bool Combat::melee_contact(Crowd& crowd,const Unit& unit) const{
@@ -174,23 +198,22 @@ int64_t Combat::nearest_enemy(Crowd& crowd,Vec3 origin){
 void Combat::choose_target(Crowd& crowd,Unit& unit){
     unit.target_handle=0;unit.external_kind=-1;
     // Gate leaders are inserted before hired allies in the source defender map.
-    for(const auto& other:targets_)if(other.hp>0&&other.targetable&&other.taunting){unit.external_target=other.id;unit.external_kind=other.kind;return;}
+    if(taunt_row_>=0){const auto& other=targets_[taunt_row_];unit.external_target=other.id;unit.external_kind=other.kind;return;}
     if(auto taunt=crowd.unit(first_taunt_);taunt&&taunt->buff_left>0){unit.target_handle=taunt->handle;return;}
-    const ExternalTarget* hero=nullptr;
-    for(const auto& other:targets_)if(other.kind==0&&other.hp>0&&other.targetable){hero=&other;break;}
+    const ExternalTarget* hero=hero_row_>=0?&targets_[hero_row_]:nullptr;
     if(unit.retaliation>0){
         auto found=crowd.ids_.find(unit.retaliation_source);
         if(found!=crowd.ids_.end()){
             auto& other=crowd.units_[found->second];
             if(other.alive&&other.team==1&&other.shelter_mode!=2&&horizontal(other.position,unit.position)<28){unit.target_handle=other.handle;return;}
         }
-        for(const auto& other:targets_)if(other.kind==3&&other.id==unit.retaliation_source&&other.hp>0&&other.targetable&&horizontal(other.foot,unit.position)<28){unit.external_target=other.id;unit.external_kind=other.kind;return;}
+        for(auto row:target_groups_[3]){const auto& other=targets_[row];if(other.id==unit.retaliation_source&&other.hp>0&&horizontal(other.foot,unit.position)<28){unit.external_target=other.id;unit.external_kind=other.kind;return;}}
         if(hero&&horizontal(hero->foot,unit.position)<=28){unit.external_target=hero->id;unit.external_kind=0;return;}
     }
     float score=INFINITY;
     // Original order: building edge, worker, gate defender, paid ally, hero fallback.
-    for(int kind:{2,1,3})for(const auto& other:targets_){
-        if(other.kind!=kind||other.hp<=0||!other.targetable)continue;
+    for(int kind:{2,1,3})for(auto row:target_groups_[kind]){
+        const auto& other=targets_[row];
         Vec3 point=kind==2?Vec3{std::clamp(unit.position.x,other.minimum.x,other.maximum.x),other.minimum.y,std::clamp(unit.position.z,other.minimum.z,other.maximum.z)}:other.foot;
         float distance=horizontal(unit.position,point);
         if(distance<score){score=distance;unit.external_target=other.id;unit.external_kind=kind;}

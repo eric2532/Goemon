@@ -85,25 +85,29 @@ void Terrain::build_air(){
     for(int i=0;i<int(air_order_.size());++i)air_order_[i]=i;
     if(!air_order_.empty())build_air_node(0,int(air_order_.size()));
 }
+template<class Visitor> bool Terrain::visit_air(Vec3 low,Vec3 high,Visitor&& visitor) const{
+    int x0=int(std::floor(low.x/12)),x1=int(std::floor(high.x/12)),z0=int(std::floor(low.z/12)),z1=int(std::floor(high.z/12));
+    auto outside=[&](Vec3 a,Vec3 b){return a.x>high.x||b.x<low.x||a.y>high.y||b.y<low.y||a.z>high.z||b.z<low.z;};
+    auto visit=[&](auto&& self,int index)->bool{
+        const auto& node=air_nodes_[index];if(outside(node.low,node.high))return true;
+        if(node.left>=0)return self(self,node.left)&&self(self,node.right);
+        if(air_profile.enabled)air_profile.considered+=node.count;
+        for(int j=node.first;j<node.first+node.count;++j){int row=air_order_[j];
+            if(outside(air_minimum_[row],air_maximum_[row]))continue;
+            int i=row*3;auto a=air_faces_[i],b=air_faces_[i+1],c=air_faces_[i+2];
+            // Keep the original coarse-grid eligibility, including epsilon
+            // spill at bucket boundaries. Ordered callers sort the collected rows.
+            if(int(std::floor(std::min({a.x,b.x,c.x})/12))>x1||int(std::floor(std::max({a.x,b.x,c.x})/12))<x0||int(std::floor(std::min({a.z,b.z,c.z})/12))>z1||int(std::floor(std::max({a.z,b.z,c.z})/12))<z0)continue;
+            if(!visitor(i))return false;
+        }
+        return true;
+    };
+    return air_nodes_.empty()||visit(visit,0);
+}
 std::vector<int> Terrain::air_candidates(Vec3 low,Vec3 high,bool bounded) const{
     std::vector<int> result;
     if(bounded&&!air_nodes_.empty()){
-        int x0=int(std::floor(low.x/12)),x1=int(std::floor(high.x/12)),z0=int(std::floor(low.z/12)),z1=int(std::floor(high.z/12));
-        auto outside=[&](Vec3 a,Vec3 b){return a.x>high.x||b.x<low.x||a.y>high.y||b.y<low.y||a.z>high.z||b.z<low.z;};
-        auto visit=[&](auto&& self,int index)->void{
-            const auto& node=air_nodes_[index];if(outside(node.low,node.high))return;
-            if(node.left>=0){self(self,node.left);self(self,node.right);return;}
-            if(air_profile.enabled)air_profile.considered+=node.count;
-            for(int j=node.first;j<node.first+node.count;++j){int row=air_order_[j];
-                if(outside(air_minimum_[row],air_maximum_[row]))continue;
-                int i=row*3;auto a=air_faces_[i],b=air_faces_[i+1],c=air_faces_[i+2];
-                // Keep the original coarse-grid eligibility, including epsilon
-                // spill at bucket boundaries, and restore source face order below.
-                if(int(std::floor(std::min({a.x,b.x,c.x})/12))>x1||int(std::floor(std::max({a.x,b.x,c.x})/12))<x0||int(std::floor(std::min({a.z,b.z,c.z})/12))>z1||int(std::floor(std::max({a.z,b.z,c.z})/12))<z0)continue;
-                result.push_back(i);
-            }
-        };
-        visit(visit,0);
+        visit_air(low,high,[&](int i){result.push_back(i);return true;});
     }else{
     for(int x=int(std::floor(low.x/12));x<=int(std::floor(high.x/12));++x)for(int z=int(std::floor(low.z/12));z<=int(std::floor(high.z/12));++z){
         auto it=air_grid_.find(air_key(x,z));if(it==air_grid_.end())continue;
@@ -120,8 +124,14 @@ std::vector<int> Terrain::air_candidates(Vec3 low,Vec3 high,bool bounded) const{
 }
 bool Terrain::air_ray_clear(Vec3 from,Vec3 to,int64_t ignore) const{
     Vec3 low{std::min(from.x,to.x),std::min(from.y,to.y),std::min(from.z,to.z)},high{std::max(from.x,to.x),std::max(from.y,to.y),std::max(from.z,to.z)};
-    for(int i:air_candidates(low,high,true)){if(ignore>=0&&air_owner_[i/3]==ignore)continue;float t;if(triangle_ray(from,to-from,air_faces_[i],air_faces_[i+1],air_faces_[i+2],t)&&t>.00001f&&t<.99999f)return false;}
-    return true;
+    // Visibility is boolean: stop at the first blocker without allocating and
+    // sorting every candidate face. Ordered capsule/projectile queries still
+    // collect through this same traversal.
+    return visit_air(low,high,[&](int i){
+        if(air_profile.enabled)++air_profile.kept;
+        if(ignore>=0&&air_owner_[i/3]==ignore)return true;
+        float t;return !(triangle_ray(from,to-from,air_faces_[i],air_faces_[i+1],air_faces_[i+2],t)&&t>.00001f&&t<.99999f);
+    });
 }
 Vec3 Terrain::landing(Vec3 aim,float top,bool& valid) const{
     valid=false;if(!ready_)return aim;

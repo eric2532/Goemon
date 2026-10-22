@@ -28,9 +28,7 @@ var preview_material:StandardMaterial3D
 var preview_position=Vector3.INF
 var placement_shape:CapsuleShape3D
 const QUERY_CELL=4.0
-var melee_grid:Dictionary={}
 var projectile_grid:Dictionary={}
-var melee_overflow:Array=[]
 var projectile_overflow:Array=[]
 var melee_rows:Array=[]
 var projectile_actors:Array=[]
@@ -40,8 +38,6 @@ var projectile_bounds:Array[AABB]=[]
 var projectile_minimum=Vector3.INF
 var projectile_maximum=-Vector3.INF
 var native_filter:Object
-var melee_lows=PackedVector3Array()
-var melee_highs=PackedVector3Array()
 var projectile_lows=PackedVector3Array()
 var projectile_highs=PackedVector3Array()
 func _ready():
@@ -62,13 +58,13 @@ func make_unit(slot:int):
 func valid_target(enemy)->bool:
  return is_instance_valid(enemy) and not enemy.is_queued_for_deletion() and not enemy.dead and enemy.hp>0 and not enemy.training_dummy and game.forest_enemy_visible(enemy)
 func closest_target(origin:Vector3,max_distance:float=INF):
- refresh_targets()
  # Any contact closer than this local square is necessarily indexed in it.
  # Preserve the exact native nearest-contact refinement and tie order; fall
  # back to the full snapshot when no nearby target can prove the result.
  var near_distance=minf(8.0,absf(max_distance))
  var near=_closest_from_rows(melee_candidates(origin,near_distance),origin,near_distance)
  if near!=null or absf(max_distance)<=near_distance:return near
+ refresh_targets()
  return _closest_from_rows(target_rows,origin,max_distance)
 func _closest_from_rows(rows:Array,origin:Vector3,max_distance:float):
  var best=null;var distance=max_distance*max_distance
@@ -94,26 +90,27 @@ func _closest_from_rows(rows:Array,origin:Vector3,max_distance:float):
   var gap=origin.distance_squared_to(AttackChain.aim_point(enemy,origin+Vector3.UP))
   if gap<distance:best=enemy;distance=gap
  return best
+func _target_row(enemy)->Dictionary:
+ if not is_instance_valid(enemy) or enemy.is_queued_for_deletion() or enemy.dead or enemy.hp<=0 or not game.forest_enemy_visible(enemy):return {}
+ var box:AABB=enemy.combat_bounds() if enemy.has_method("combat_bounds") else AABB(enemy.global_position-Vector3.ONE*enemy.body_radius,Vector3.ONE*enemy.body_radius*2)
+ return {"enemy":enemy,"bounds":box}
 func refresh_targets():
  var frame=Vector2i(Engine.get_physics_frames(),Engine.get_process_frames())
  if target_frame==frame and target_model==game.model and target_population==game.model.next_id:return
  native_filter=game.get("army_runtime").native if is_instance_valid(game.get("army_runtime")) else null
- melee_lows=PackedVector3Array();melee_highs=PackedVector3Array();projectile_lows=PackedVector3Array();projectile_highs=PackedVector3Array()
+ projectile_lows=PackedVector3Array();projectile_highs=PackedVector3Array()
  target_generation+=1
  target_frame=frame;target_model=game.model;target_population=game.model.next_id;target_rows.clear()
  # Active ally projectile queries retain these packed arrays by reference.
  # Replace the buffers so a nested refresh cannot mutate captured geometry.
  projectile_actors.clear();projectile_centers=PackedVector3Array();projectile_radii=PackedFloat64Array();projectile_bounds.clear();projectile_minimum=Vector3.INF;projectile_maximum=-Vector3.INF
- melee_grid.clear();projectile_grid.clear();melee_overflow.clear();projectile_overflow.clear();melee_rows.clear()
+ projectile_grid.clear();projectile_overflow.clear();melee_rows.clear()
  for enemy in game.enemies:
-  if not is_instance_valid(enemy) or enemy.is_queued_for_deletion() or enemy.dead or enemy.hp<=0 or not game.forest_enemy_visible(enemy):continue
+  var row=_target_row(enemy)
+  if row.is_empty():continue
   var has_bounds=enemy.has_method("combat_bounds")
-  var box:AABB=enemy.combat_bounds() if has_bounds else AABB(enemy.global_position-Vector3.ONE*enemy.body_radius,Vector3.ONE*enemy.body_radius*2)
-  var row={"enemy":enemy,"bounds":box}
+  var box:AABB=row.bounds
   if not enemy.training_dummy:target_rows.append(row)
-  var melee_box=box.grow(maxf(0,enemy.body_radius))
-  if native_filter!=null:melee_lows.append(melee_box.position);melee_highs.append(melee_box.end)
-  else:_index_bounds(melee_grid,melee_overflow,melee_box,melee_rows.size())
   melee_rows.append(row)
   var center:Vector3=box.get_center() if has_bounds else AttackChain.aim_point(enemy)
   var radius:float=box.size.length()*.5 if has_bounds else enemy.body_radius
@@ -150,13 +147,19 @@ func _query_grid(grid:Dictionary,overflow:Array,minimum:Vector3,maximum:Vector3,
  var indices=seen.keys();indices.sort() # Preserve native enemy/hit order.
  return indices
 func melee_candidates(center:Vector3,radius:float)->Array:
+ if center.is_finite() and is_finite(radius) and radius>=0:
+  # Resolve only local native-grid candidates; a melee sweep must not rebuild
+  # a second all-army projectile snapshot before testing its nearby victims.
+  var result=[]
+  for enemy in AttackChain.enemy_candidates(game,center,radius):
+   var row=_target_row(enemy)
+   if row.is_empty():continue
+   var box:AABB=row.bounds.grow(maxf(0,enemy.body_radius))
+   if box.position.is_finite() and box.size.is_finite() and (box.end.x<center.x-radius or box.position.x>center.x+radius or box.end.z<center.z-radius or box.position.z>center.z+radius):continue
+   result.append(row)
+  return result
  refresh_targets()
- if not center.is_finite() or radius<0 or radius>=INF:return melee_rows
- var pad=Vector3.ONE*radius
- var result=[]
- var indices=Array(native_filter.filter_boxes(melee_lows,melee_highs,Vector3(center.x-radius,-INF,center.z-radius),Vector3(center.x+radius,INF,center.z+radius))) if native_filter!=null else _query_grid(melee_grid,melee_overflow,center-pad,center+pad,melee_rows.size())
- for index in indices:result.append(melee_rows[index])
- return result
+ return melee_rows
 func projectile_candidates(minimum:Vector3,maximum:Vector3)->Array:
  # The native filter reads these owned packed bounds, never live/newer units.
  if native_filter!=null:return Array(native_filter.filter_boxes(projectile_lows,projectile_highs,minimum,maximum))
@@ -326,7 +329,7 @@ func clear():
  for unit in pool:unit.park()
  if is_instance_valid(smoke):smoke.clear()
  living_count=0;game.model.fighter_count=0;game.model.fighter_posts.clear();target_frame=Vector2i(-1,-1);target_rows.clear();target_model=null
- melee_grid.clear();projectile_grid.clear();melee_overflow.clear();projectile_overflow.clear();melee_rows.clear()
+ projectile_grid.clear();projectile_overflow.clear();melee_rows.clear()
  projectile_actors.clear();projectile_centers=PackedVector3Array();projectile_radii=PackedFloat64Array();projectile_bounds.clear()
 func prune_pool():
  var reserved=[0,0,0,0,0]

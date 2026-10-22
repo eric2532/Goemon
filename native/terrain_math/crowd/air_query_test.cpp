@@ -38,5 +38,8 @@ int main(){
  bool valid=false;auto landing=terrain.landing({1,0,1},20,valid);assert(valid&&std::abs(landing.y-12)<.0001);
  landing=terrain.landing({20,0,20},20,valid);assert(valid&&std::abs(landing.y)<.0001);
  assert(!terrain.ray_clear({-3,5,0},{3,5,0}));assert(terrain.ray_clear({-3,5,0},{3,5,0},77));
- std::cout<<"ARMY_AIR_QUERY_RESULT checks=1021 failures=0\n";
+ terrain.air_profile.kept=0;
+ assert(!terrain.ray_clear({-3,5,0},{3,5,0}));
+ assert(terrain.air_profile.kept==1); // The second wall face is never collected.
+ std::cout<<"ARMY_AIR_QUERY_RESULT checks=1023 failures=0\n";
 }

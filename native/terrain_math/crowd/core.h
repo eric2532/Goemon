@@ -38,6 +38,8 @@ struct Unit {
     float slow_factor=1;
     Handle target_handle=0;
     int64_t external_target=0;
+    mutable uint64_t external_revision=UINT64_MAX;
+    mutable int external_row=-1;
     int external_kind=-1,soldier_phase=0,soldier_shots=0;
     double phase_tick=0,attack_tick=0;
     bool action_active=false,just_started=false;

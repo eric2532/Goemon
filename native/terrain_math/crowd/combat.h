@@ -60,9 +60,10 @@ public:
     void set_shelters(std::vector<ShelterTarget> shelters){shelters_=std::move(shelters);}
     void rest_tick(Crowd& crowd,double delta);
     void clear_events(){events_.clear();}
-    void set_targets(std::vector<ExternalTarget> targets){targets_=std::move(targets);}
+    void set_targets(std::vector<ExternalTarget> targets);
 private:
     friend struct NearestQueryTest;
+    friend struct TargetDecisionTest;
     uint64_t nearest_contact_tests_=0,nearest_position_reads_=0;
     struct NearestNode {Vec3 low,high;double magnitude=10;int left=-1,right=-1,first=0,count=0;};
     struct NearestEntry {int64_t handle;Vec3 position;};
@@ -83,6 +84,10 @@ private:
     int64_t first_taunt_=0,latest_taunt_=0;
     std::vector<Event> events_;
     std::vector<ExternalTarget> targets_;
+    std::array<std::vector<size_t>,4> target_groups_;
+    int hero_row_=-1,taunt_row_=-1;
+    uint64_t target_revision_=0;
+    const ExternalTarget* external_target(const Unit& unit) const;
     std::vector<ShelterTarget> shelters_;
     int64_t nearest_enemy(Crowd& crowd,Vec3 origin);
     bool shelter(Crowd& crowd,Unit& unit,double delta,bool active=true);
