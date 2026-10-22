@@ -1,5 +1,5 @@
 extends SceneTree
-const Crowd=preload("res://scripts/forest/forest_enemy_crowd.gd")
+const Crowd=preload("res://tests/forest-shrine/reference/forest_enemy_crowd.gd")
 const Contact=preload("res://scripts/forest/forest_enemy_contact.gd")
 const Soldier=preload("res://scripts/forest/forest_thirstquencher_visual.gd")
 class Model extends RefCounted:

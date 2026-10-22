@@ -29,10 +29,10 @@ func run():
  var world=Node3D.new();root.add_child(world)
  var env=WorldEnvironment.new();env.environment=Environment.new();env.environment.background_mode=Environment.BG_COLOR;env.environment.background_color=Color("242c36");world.add_child(env)
  var camera=Camera3D.new();camera.projection=Camera3D.PROJECTION_ORTHOGONAL;camera.keep_aspect=Camera3D.KEEP_WIDTH;camera.size=14;world.add_child(camera);camera.position=Vector3(0,0,15);camera.look_at(Vector3.ZERO);camera.current=true
- crowd=load("res://scripts/forest/forest_enemy_crowd.gd").new();world.add_child(crowd)
+ crowd=load("res://tests/forest-shrine/reference/forest_enemy_crowd.gd").new();world.add_child(crowd)
  # Use the enemy steering convention, which differs from the player's +Z.
- var model=load("res://scripts/forest/forest_model.gd").new()
- var waves=load("res://scripts/forest/forest_waves.gd").new(model)
+ var model=load("res://tests/forest-shrine/reference/forest_model.gd").new()
+ var waves=load("res://tests/forest-shrine/reference/forest_waves.gd").new(model)
  var steering={"pos":Vector3.ZERO,"facing":0.0,"variant":0}
  waves.turn(steering,Vector3(0,0,15),10.0)
  var facing=Basis(Vector3.UP,steering.facing)

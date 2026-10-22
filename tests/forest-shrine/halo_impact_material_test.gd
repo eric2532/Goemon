@@ -2,7 +2,7 @@ extends SceneTree
 ## Catches generic stone/wood fallbacks, lost authored surface tags, and terrain
 ## misclassification while exercising the actual forest collider constructors.
 const Art=preload("res://scripts/forest/forest_art.gd")
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 const World=preload("res://scripts/forest/forest_world.gd")
 var checks=0
 var failures=0

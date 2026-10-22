@@ -9,8 +9,10 @@ func run():
  var fixture=load("res://tests/forest-shrine/large_army_fixture.gd").new();root.add_child(fixture);var game=await fixture.make_game("original")
  DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUT))
  for kind in KINDS:
-  var unit=game.explorer_helpers.pool.filter(func(u):return u.kit_id==kind)[0]
+  var unit=load("res://scripts/forest/crowd/army_pose_source.gd").new()
+  unit.game=game;unit.director=game.explorer_helpers;unit.kit_id=kind;unit.slot=game.explorer_helpers.KITS.find(kind);game.add_child(unit)
   var resource=bake(unit)
+  unit.free()
   var error=ResourceSaver.save(resource,OUT+str(kind)+".res",ResourceSaver.FLAG_COMPRESS)
   print("ARMY_POSE_BAKE kind=",kind," parts=",resource.get_meta("palette").size()," rows=",resource.get_meta("pose_texture").get_height()," surfaces=",resource.get_meta("mesh").get_surface_count()," error=",error)
   if error!=OK or resource.get_meta("mesh").get_surface_count()==0:failures+=1

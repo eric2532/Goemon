@@ -1,6 +1,6 @@
 extends SceneTree
 ## Catches missing HP scaling, unscaled arrows, and edits leaking into active waves.
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 var game
 var checks=0
 var failures=0

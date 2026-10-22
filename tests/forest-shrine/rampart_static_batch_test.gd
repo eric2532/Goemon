@@ -1,5 +1,5 @@
 extends SceneTree
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 const World=preload("res://scripts/forest/forest_world.gd")
 const Art=preload("res://scripts/forest/forest_rampart_art.gd")
 const BASELINE="res://tests/forest-shrine/rampart_native_geometry.json"

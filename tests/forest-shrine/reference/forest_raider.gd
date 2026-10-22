@@ -47,7 +47,7 @@ func _combat_data()->Dictionary:
 	if not fitted_pose.is_empty():return fitted_pose
 	return {"variant":variant,"pos":global_position,"facing":rotation.y,"block_contacts":_uses_block_contacts()}
 func _uses_block_contacts()->bool:
-	return is_instance_valid(game.crowd) and game.crowd.low_fidelity
+	return is_instance_valid(game.crowd) and game.crowd.get("low_fidelity")==true
 func _refresh_fitted_shapes(blocks: bool,items: Array=[]):
 	if items.is_empty():items=Contact.shapes(variant,blocks)
 	if blocks==fitted_block_contacts and fitted_shapes.size()==items.size():return
@@ -235,10 +235,10 @@ func take_hit(damage: float,dir: Vector3,heavy: bool,ticket: Dictionary={}):
 				var source=source_ref.get_ref() if source_ref is WeakRef else null
 				if is_instance_valid(source) and source.ai_controlled and game.model.defenders.has(source.get("gate_id")):
 					data.retaliation_defender=source.gate_id
-					game.model.waves.set_target(data,"defender",source.gate_id)
+					preload("res://tests/forest-shrine/reference/forest_waves.gd").new(game.model).set_target(data,"defender",source.gate_id)
 				else:
 					data.erase("retaliation_defender")
-					if game.model.waves.valid_target("hero",0,game.player.global_position):game.model.waves.set_target(data,"hero",0)
+					if preload("res://tests/forest-shrine/reference/forest_waves.gd").new(game.model).valid_target("hero",0,game.player.global_position):preload("res://tests/forest-shrine/reference/forest_waves.gd").new(game.model).set_target(data,"hero",0)
 				# Keep even combo finishers nearby; explicit bash/dash abilities
 				# retain their separate authored impulses.
 				var push=Vector3(dir.x,0,dir.z).normalized()

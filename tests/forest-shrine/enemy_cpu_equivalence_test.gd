@@ -1,6 +1,6 @@
 extends SceneTree
 ## Exact state/event comparison, including live tuning, status and geometry changes.
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 const Original=preload("res://tests/forest-shrine/enemy_cpu_reference.gd")
 var checks=0
 var failures=0

@@ -1,6 +1,6 @@
 extends SceneTree
 ## Catches the compatible canyon field silently falling back to per-sample script work.
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 const Blood=preload("res://scripts/forest/forest_blood_gulch_terrain.gd")
 class CustomField extends "res://scripts/forest/forest_blood_gulch_terrain.gd":
  func height(x:float,z:float)->float:return super.height(x,z)+.5

@@ -3,7 +3,7 @@ var checks=0
 var failures=0
 var cfg="user://gate-breach-world-%d.cfg"%OS.get_process_id()
 func _initialize():
- set_meta("forest_army_backend","legacy")
+
  run.call_deferred()
 func check(ok:bool,label_:String):
  checks+=1

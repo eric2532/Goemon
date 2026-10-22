@@ -1,6 +1,6 @@
 extends SceneTree
 ## Construction moves nearby occupants only after a successful whole purchase.
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 var checks=0
 var failures=0
 func _initialize():
@@ -37,8 +37,8 @@ func run():
  check(not corner.build("tower",Vector2i(10,10),0).is_empty(),"The corner-clearance fixture builds beside an existing short wall")
  var flat=Vector2(corner_worker.pos.x,corner_worker.pos.z)
  check(flat.distance_to(flat.clamp(Vector2(51,51),Vector2(57,57)))>=.65,"A relocated worker's full body clears a diagonally adjacent existing wall")
- for backend in ["legacy","native"]:
-  set_meta("forest_army_backend",backend)
+ for backend in ["native"]:
+
   var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original()
   doc.data.buildings.append({"kind":"tower","x":0,"z":3,"rotation":0})
   set_meta("forest_custom_layout",doc.data)

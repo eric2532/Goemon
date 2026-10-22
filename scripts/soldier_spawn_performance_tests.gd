@@ -1,7 +1,7 @@
 extends SceneTree
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
-class CountWaves extends "res://scripts/forest/forest_waves.gd":
+class CountWaves extends "res://tests/forest-shrine/reference/forest_waves.gd":
  var calls=0
  var successes=0
  func spawn_one(_reserved:Array=[])->bool:

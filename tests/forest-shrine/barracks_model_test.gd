@@ -6,7 +6,7 @@ func check(ok:bool,label_:String):
 	if not ok:failures+=1;printerr("FAIL: "+label_)
 func _initialize():run.call_deferred()
 func run():
-	var m=load("res://scripts/forest/forest_model.gd").new()
+	var m=load("res://tests/forest-shrine/reference/forest_model.gd").new()
 	preload("res://tests/forest-shrine/empty_settlement.gd").reset(m)
 	check(m.has_method("food_capacity"),"Recruitment has a shared food limit")
 	if not m.has_method("food_capacity"):finish();return

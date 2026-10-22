@@ -48,7 +48,7 @@ func capture(label_:String,point:Vector3,look:Vector3,size_:float=0):
  for i in 5:await process_frame
  RenderingServer.force_draw();root.get_texture().get_image().save_png(FOLDER+"/"+label_+".png")
 func run():
- var model=load("res://scripts/forest/forest_model.gd").new();var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_ramparts();model.reset(42,{},doc.data)
+ var model=load("res://tests/forest-shrine/reference/forest_model.gd").new();var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_ramparts();model.reset(42,{},doc.data)
  world=load("res://scripts/forest/forest_world.gd").new();world.model=model;root.add_child(world);await process_frame
  var state=collisions(world);doc.capture(model);var map_before=doc.encode();var scouting=[model.explored.duplicate(true),model.visible_cells.duplicate(true)]
  var groups={};var all_items=[]

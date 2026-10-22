@@ -7,7 +7,7 @@ func check(ok:bool,label_:String):
 	checks+=1
 	if not ok:failures+=1;printerr("FAIL: "+label_)
 func _initialize():
-	set_meta("forest_army_backend","legacy")
+
 	create_timer(60).timeout.connect(func():printerr("FAIL: shelter timeout");quit(1))
 	run.call_deferred()
 func frames():

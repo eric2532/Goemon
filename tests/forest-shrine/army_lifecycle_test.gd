@@ -14,7 +14,7 @@ func run():
  if not exposed:
   await fixture.close();fixture.queue_free();await process_frame;finish();return
  await fixture.close();fixture.queue_free();await process_frame
- set_meta("forest_army_backend","native");set_meta("forest_fighter",11)
+ set_meta("forest_fighter",11)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path="user://army-lifecycle.cfg";root.add_child(game)
  await process_frame;await process_frame;game.set_physics_process(false);game.set_process(false)
  var army=game.army_runtime;check(is_instance_valid(army),"Native mode constructs one shared runtime")

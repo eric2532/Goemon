@@ -2,7 +2,7 @@ extends SceneTree
 ## A clear physical spawn can round onto a conservative cliff cell. Chasing
 ## from that offset must enter the grid through a safe segment, not freeze.
 const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 const LAYOUT="res://assets/maps/forest_four_gates.json"
 var checks=0
 var failures=0

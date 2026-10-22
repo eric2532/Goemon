@@ -1,7 +1,7 @@
 extends SceneTree
 # Gate squads must share the army's native combat broadphase and cosmetic pose
 # budget, while explicit gameplay pose samples and original kits stay intact.
-class CountedRaider extends "res://scripts/forest/forest_raider.gd":
+class CountedRaider extends "res://tests/forest-shrine/reference/forest_raider.gd":
  var bounds_calls=0
  func combat_bounds()->AABB:
   bounds_calls+=1;return super.combat_bounds()

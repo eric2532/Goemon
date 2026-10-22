@@ -1,12 +1,12 @@
 extends SceneTree
 ## Catch whole-crowd bursts, lost logical time and stale work after reset.
-class MeasuredWaves extends "res://scripts/forest/forest_waves.gd":
+class MeasuredWaves extends "res://tests/forest-shrine/reference/forest_waves.gd":
 	var counts:Dictionary={}
 	var times:Dictionary={}
 	func tick_enemy(e:Dictionary,delta:float,_hero:Vector3):
 		counts[e.id]=int(counts.get(e.id,0))+1
 		times[e.id]=float(times.get(e.id,0))+delta
-class MeasuredModel extends "res://scripts/forest/forest_model.gd":
+class MeasuredModel extends "res://tests/forest-shrine/reference/forest_model.gd":
 	var synchronous_steps=0
 	func tick(delta:float,hero:Vector3):
 		synchronous_steps+=1;super.tick(delta,hero)

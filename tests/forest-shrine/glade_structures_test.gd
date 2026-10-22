@@ -13,7 +13,7 @@ func details(id:int)->Node3D:
   if node.transform==world.structure_nodes[id].transform:return node
  return null
 func run():
- var model=load("res://scripts/forest/forest_model.gd").new()
+ var model=load("res://tests/forest-shrine/reference/forest_model.gd").new()
  model.reset(42,{}, {"trees":[],"deposits":[],"roads":[],"buildings":[
   {"kind":"tower","x":-4,"z":0,"rotation":0},
   {"kind":"barracks","x":0,"z":0,"rotation":0},

@@ -97,7 +97,7 @@ static func part_pose(group: String,data: Dictionary)->Transform3D:
 	if Soldier.supports(int(data.variant)):return Transform3D.IDENTITY
 	if data.get("frozen",0.0)>0 and data.has("frozen_pose"):data=data.frozen_pose
 	# Lazy lookup avoids a preload cycle; reuse it across all member parts.
-	if crowd_script==null:crowd_script=load("res://scripts/forest/forest_enemy_crowd.gd")
+	if crowd_script==null:crowd_script=load("res://scripts/forest/forest_enemy_pose.gd")
 	return crowd_script.part_pose("body" if group=="capsule" else group,data)
 ## Immutable pose shared by actor physics and model-owned combat queries.
 static func prepare(data: Dictionary,formation: Dictionary={})->Dictionary:

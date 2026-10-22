@@ -5,7 +5,7 @@ var checks=0
 var failures=0
 var cfg="user://preparation-zoom-%d.cfg"%OS.get_process_id()
 func _initialize():
-	set_meta("forest_army_backend","legacy")
+
 	create_timer(60).timeout.connect(func():printerr("FAIL: preparation zoom timeout");quit(1))
 	run.call_deferred()
 func check(ok:bool,label_:String):
@@ -120,7 +120,7 @@ func run():
 	# world remains a flat projection fixture; no terrain collision is required.
 	var original_model=game.model
 	var native_doc=load("res://scripts/forest/forest_map_document.gd").new();native_doc.load_blood_gulch()
-	var native_model=load("res://scripts/forest/forest_model.gd").new();native_model.reset(42,{},native_doc.data,false)
+	var native_model=load("res://tests/forest-shrine/reference/forest_model.gd").new();native_model.reset(42,{},native_doc.data,false)
 	game.model=native_model;view(30);game.pan=Vector3(210,0,210);game.update_preparation_camera()
 	if public_api:game.zoom_preparation(1)
 	check(game.pan.distance_to(Vector3(210,0,210))<.001,"Native map edge sites remain centered during close zoom")

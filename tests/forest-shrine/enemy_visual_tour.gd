@@ -1,5 +1,5 @@
 extends SceneTree
-const Renderer=preload("res://scripts/forest/forest_enemy_crowd.gd")
+const Renderer=preload("res://tests/forest-shrine/reference/forest_enemy_crowd.gd")
 const Fixtures=preload("res://tests/forest-shrine/enemy_visual_test.gd")
 var game
 var crowd

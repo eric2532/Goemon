@@ -1,5 +1,6 @@
 extends "res://scripts/forest/crowd/army_ally_target.gd"
 ## Preparation/UI facade only; no player input, Hero, ability graph or skeleton.
+const LIVE_STATES=["prepared","appearing","acting","retreating","sheltered","bunker_leaping","returning"]
 var game:Node
 var director:Node
 var kit_id=11

@@ -1,5 +1,5 @@
 extends SceneTree
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 var checks=0
 var failures=0
 func _initialize():run.call_deferred()

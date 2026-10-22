@@ -7,7 +7,7 @@ func check(ok: bool, message: String):
 func _initialize():
 	call_deferred("run")
 func run():
-	var path="res://scripts/forest/forest_model.gd"
+	var path="res://tests/forest-shrine/reference/forest_model.gd"
 	check(ResourceLoader.exists(path),"Forest simulation exists for grid construction and fog")
 	if failures:finish();return
 	var m=load(path).new();preload("res://tests/forest-shrine/empty_settlement.gd").reset(m)

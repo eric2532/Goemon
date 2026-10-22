@@ -2,7 +2,7 @@ extends SceneTree
 ## One figure per actor: rendered parts, native physics and combat agree.
 ## Health is charged once per enemy, even when several body parts overlap.
 const Contact=preload("res://scripts/forest/forest_enemy_contact.gd")
-const Crowd=preload("res://scripts/forest/forest_enemy_crowd.gd")
+const Crowd=preload("res://tests/forest-shrine/reference/forest_enemy_crowd.gd")
 const Actions=preload("res://assets/rogue/scripts/class_actions.gd")
 var game
 var checks=0

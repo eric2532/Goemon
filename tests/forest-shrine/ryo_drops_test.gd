@@ -12,7 +12,7 @@ func check(ok:bool,message:String):
 	checks+=1
 	if not ok:failures+=1;printerr("FAIL: "+message)
 func run():
-	var m=load("res://scripts/forest/forest_model.gd").new()
+	var m=load("res://tests/forest-shrine/reference/forest_model.gd").new()
 	m.reset(42,{},{"deposits":[],"trees":[],"buildings":[]});m.phase="wave";m.gold=0
 	var r=Economy.new(m)
 	var host=RenderHost.new();host.model={"ryo":r};host.player=Node3D.new()

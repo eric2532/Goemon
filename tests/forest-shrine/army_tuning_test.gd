@@ -10,7 +10,7 @@ func run():
  var script="res://scripts/forest/crowd/army_tuning.gd"
  if not ResourceLoader.exists(script):
   check(false,"Shared ally tuning must preserve current fitted reach and visible weapon scale");finish();return
- set_meta("forest_army_backend","native")
+
  var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
  var game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path="user://army-tuning-%d.cfg"%OS.get_process_id();root.add_child(game)
  for i in 3:await process_frame
@@ -20,7 +20,7 @@ func run():
  for kind in [11,5,7,8]:
   game.character_tuning[game.CharacterBalance.key_for(kind)]={"melee_reach":2.0}
   var data:Dictionary=data_script.from_model(game.model,1,game)
-  var unit=load("res://scripts/forest/explorer_helper_unit.gd").new();unit.director=game.explorer_helpers;unit.game=game;unit.kit_id=kind;unit.slot=game.explorer_helpers.KITS.find(kind);game.add_child(unit);unit.set_physics_process(false)
+  var unit=load("res://tests/forest-shrine/reference/explorer_helper_unit.gd").new();unit.director=game.explorer_helpers;unit.game=game;unit.kit_id=kind;unit.slot=game.explorer_helpers.KITS.find(kind);game.add_child(unit);unit.set_physics_process(false)
   unit.position=Vector3.ZERO;unit.facing=Vector3.BACK;unit.model.rotation.y=PI;unit.show()
   var c=unit.active_ability;c.active=true;c.reset_run();var index=data.ally_kinds.find(kind)
   for sample in 6:

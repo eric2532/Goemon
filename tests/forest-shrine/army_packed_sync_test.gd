@@ -10,7 +10,7 @@ func check(ok:bool,label_:String):
  if not ok:failures+=1;printerr("FAIL: ",label_)
 func _initialize():run.call_deferred()
 func run():
- set_meta("forest_army_backend","legacy")
+
  var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
  var game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path="user://army-packed-%d.cfg"%OS.get_process_id();root.add_child(game)
  for i in 3:await process_frame

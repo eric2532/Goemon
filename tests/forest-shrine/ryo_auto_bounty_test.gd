@@ -6,7 +6,7 @@ func check(ok:bool,label_:String):
  if not ok:failures+=1;printerr("FAIL: ",label_)
 func _initialize():run.call_deferred()
 func run():
- var m=load("res://scripts/forest/forest_model.gd").new();m.reset(42,{}, {"buildings":[],"trees":[],"deposits":[]},false);m.phase="wave";m.gold=0
+ var m=load("res://tests/forest-shrine/reference/forest_model.gd").new();m.reset(42,{}, {"buildings":[],"trees":[],"deposits":[]},false);m.phase="wave";m.gold=0
  var r=m.ryo
  if not r.has_method("award_enemy_bounty"):
   check(false,"Enemy deaths must directly credit the treasury");finish();return

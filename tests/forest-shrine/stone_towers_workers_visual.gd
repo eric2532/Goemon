@@ -1,7 +1,7 @@
 extends SceneTree
 const Art=preload("res://scripts/forest/forest_art.gd")
 const World=preload("res://scripts/forest/forest_world.gd")
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 const Document=preload("res://scripts/forest/forest_map_document.gd")
 var stage:Node3D
 var camera:Camera3D

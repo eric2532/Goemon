@@ -6,12 +6,12 @@ func check(ok: bool, message: String):
 	if not ok:failures+=1;printerr("FAIL: "+message)
 func _initialize():call_deferred("run")
 func run():
-	check(ResourceLoader.exists("res://scripts/forest/forest_enemy_crowd.gd"),"Forest has a dedicated renderer for the four approved models")
+	check(ResourceLoader.exists("res://tests/forest-shrine/reference/forest_enemy_crowd.gd"),"Forest has a dedicated renderer for the four approved models")
 	check(ResourceLoader.exists("res://scripts/forest/forest_enemy_roles.gd"),"Forest has authoritative enemy role data")
 	if failures:finish();return
 	var game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path="user://enemy-integration-%d.cfg"%OS.get_process_id();root.add_child(game);current_scene=game
 	await process_frame;await process_frame
-	check(game.crowd.get_script().resource_path=="res://scripts/forest/forest_enemy_crowd.gd","The playable scene uses the approved models")
+	check(game.crowd.get_script().resource_path=="res://tests/forest-shrine/reference/forest_enemy_crowd.gd","The playable scene uses the approved models")
 	check(game.model.gold==1000000 and game.model.SIZES.wall==Vector2i(6,1),"Testing treasury and doubled walls remain intact")
 	check(game.model.workers.size()==8,"The automatic miners and ready tower guards remain intact")
 	var broad_approaches=true

@@ -18,7 +18,7 @@ func run():
  var native_layout=doc.data.duplicate(true)
  # Exercise editor-painted native roads even when the bundled map uses only its original paths.
  native_layout.roads=[{"x":0,"z":2}]
- var model=load("res://scripts/forest/forest_model.gd").new();model.reset(42,{},native_layout);model.workers.clear()
+ var model=load("res://tests/forest-shrine/reference/forest_model.gd").new();model.reset(42,{},native_layout);model.workers.clear()
  var world=load("res://scripts/forest/forest_world.gd").new();world.model=model;world.painterly_preview_enabled=true;root.add_child(world)
  await process_frame
  var native=world.map_features.get_node_or_null("BloodGulchTerrain")

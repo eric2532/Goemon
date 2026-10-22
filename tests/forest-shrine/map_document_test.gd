@@ -50,7 +50,7 @@ func run():
 	check(doc.load_original().is_empty() and doc.encode()==baseline,"Original Map restores the exact protected layout")
 	check(doc.play_error().is_empty(),"Protected original has valid worker routes")
 	check(doc.place("tree",Vector2i(-3,3),0).is_empty() and doc.play_error().is_empty(),"A blocked workplace entrance does not veto otherwise valid clear-ground layouts")
-	var model=load("res://scripts/forest/forest_model.gd").new();model.reset(42)
+	var model=load("res://tests/forest-shrine/reference/forest_model.gd").new();model.reset(42)
 	var copy=D.new();copy.capture(model);copy.data.title="Original Forest Shrine"
 	check(copy.encode()==baseline,"Bundled original exactly matches the pre-editor generated map")
 	doc.load_original()

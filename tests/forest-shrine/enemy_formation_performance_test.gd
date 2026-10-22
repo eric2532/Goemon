@@ -1,5 +1,5 @@
 extends SceneTree
-const Crowd=preload("res://scripts/forest/forest_enemy_crowd.gd")
+const Crowd=preload("res://tests/forest-shrine/reference/forest_enemy_crowd.gd")
 class Actor extends Node3D:
 	var forest_id=0
 	var variant=0

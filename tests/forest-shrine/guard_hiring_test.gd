@@ -5,7 +5,7 @@ var checks=0
 var failures=0
 var cfg="user://guard-hiring-%d.cfg"%OS.get_process_id()
 func _initialize():
- set_meta("forest_army_backend","legacy");set_meta("forest_painterly_preview",true)
+ set_meta("forest_painterly_preview",true)
  create_timer(60).timeout.connect(func():printerr("FAIL: guard hiring timeout");quit(1))
  run.call_deferred()
 func check(ok:bool,label_:String):

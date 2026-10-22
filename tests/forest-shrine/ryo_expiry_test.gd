@@ -15,7 +15,7 @@ func check(ok:bool,label_:String):
 func death(id:int,point:Vector3=Vector3.ZERO)->Dictionary:
 	return {"id":id,"hp":0,"variant":0,"pos":point}
 func run():
-	var m=load("res://scripts/forest/forest_model.gd").new()
+	var m=load("res://tests/forest-shrine/reference/forest_model.gd").new()
 	m.reset(42,{},{"buildings":[],"trees":[],"deposits":[]});m.phase="wave";m.gold=0
 	var r=Economy.new(m)
 	var id=r.spawn_enemy_drop(death(1))

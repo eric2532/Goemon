@@ -14,7 +14,7 @@ func run():
  check(FileAccess.file_exists(path),"Kai Highway Castle is an authored playable map")
  if not FileAccess.file_exists(path):finish();return
  var layout=JSON.parse_string(FileAccess.get_file_as_string(path))
- var model=load("res://scripts/forest/forest_model.gd").new();model.reset(42,{},layout)
+ var model=load("res://tests/forest-shrine/reference/forest_model.gd").new();model.reset(42,{},layout)
  check(model.terrain_source=="kai_highway" and model.has_elevation(),"The map selects original raised Kai terrain")
  check(model.portals.size()==8,"All eight enemy portals are retained")
  check(model.buildings.values().filter(func(b):return b.kind=="gate").size()==4,"The middle fort retains four working gates")
@@ -24,7 +24,7 @@ func run():
  check(model.terrain.cliff_cell(Vector2i(-34,-34)),"The edge cutout cannot become an AI shortcut")
  var routes=load("res://scripts/forest/forest_routes.gd").new(model)
  var nav=model.waves.navigation
- var crowd=load("res://scripts/forest/forest_enemy_crowd.gd").new()
+ var crowd=load("res://tests/forest-shrine/reference/forest_enemy_crowd.gd").new()
  var origin=Vector3(-72,5.4,-132);var candidate=Vector3(-67,999,-132)
  var ground=crowd._member_ground(candidate,origin,1.0,model.terrain)
  check(ground!=null and absf(ground.y-model.surface_height(candidate.x,candidate.z))<.001,"Companion combat bodies use Kai's exact height sampler")

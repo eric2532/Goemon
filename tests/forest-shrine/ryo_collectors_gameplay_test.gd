@@ -53,7 +53,7 @@ func capture(name_:String,focus:Vector3,offset:Vector3=Vector3(7,6,13)):
 func run():
 	visual="--visual" in OS.get_cmdline_user_args()
 	var document=load("res://scripts/forest/forest_map_document.gd").new();document.load_original()
-	set_meta("forest_army_backend","legacy");set_meta("forest_custom_layout",document.data);set_meta("forest_painterly_preview",true)
+	set_meta("forest_custom_layout",document.data);set_meta("forest_painterly_preview",true)
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=config_path
 	root.add_child(game);current_scene=game;await frames()
 	game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false)

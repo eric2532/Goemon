@@ -1,15 +1,15 @@
 extends SceneTree
-const ProjectileView=preload("res://scripts/forest/forest_enemy_arrows.gd")
+const ProjectileView=preload("res://tests/forest-shrine/reference/forest_enemy_arrows.gd")
 # Existing VFX manager loads the complete hero combat graph and retains its
 # shared resources at standalone-test shutdown. This fixture exercises the real
 # bullet GLB/audio/casing methods without initializing that unrelated manager.
-class SourceView extends "res://scripts/forest/forest_enemy_arrows.gd":
+class SourceView extends "res://tests/forest-shrine/reference/forest_enemy_arrows.gd":
  func _ready():pass
 class ViewGame extends Node3D:
  var settings={"quality":0,"volume":0.0}
  var model
  func forest_point_visible(_point:Vector3)->bool:return true
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 var failures=0
 var checks=0
 func check(ok:bool,label_:String):

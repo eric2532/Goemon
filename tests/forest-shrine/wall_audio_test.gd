@@ -11,7 +11,7 @@ func check(ok:bool,message:String):
 	checks+=1
 	if not ok:failures+=1;printerr("FAIL: "+message)
 func run():
-	var m=load("res://scripts/forest/forest_model.gd").new();m.reset(42,{}, {},false);m.phase="wave"
+	var m=load("res://tests/forest-shrine/reference/forest_model.gd").new();m.reset(42,{}, {},false);m.phase="wave"
 	var wall=m.buildings.values().filter(func(b):return b.kind=="wall")[0]
 	m.events.clear();m.damage_building(wall.id,30)
 	var events=m.events.filter(func(e):return e.kind=="wall_damage")

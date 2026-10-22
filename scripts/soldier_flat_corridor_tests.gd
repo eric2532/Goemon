@@ -1,5 +1,5 @@
 extends SceneTree
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 class ScriptGround extends "res://scripts/forest/forest_kai_terrain.gd":
  pass
 class CountingNavigation extends "res://scripts/forest/forest_enemy_navigation.gd":

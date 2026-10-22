@@ -1,7 +1,8 @@
 extends "res://scripts/game.gd"
 const ForestModel=preload("res://scripts/forest/forest_model.gd")
 const ForestWorld=preload("res://scripts/forest/forest_world.gd")
-const Raider=preload("res://scripts/forest/forest_raider.gd")
+const EnemyRoles=preload("res://scripts/forest/forest_enemy_roles.gd")
+const EnemyContact=preload("res://scripts/forest/forest_enemy_contact.gd")
 const MapDocument=preload("res://scripts/forest/forest_map_document.gd")
 const COMBAT_CAMERA_PITCH=.22
 const COMBAT_CAMERA_FOCUS_RISE=2.0
@@ -29,8 +30,6 @@ var training_dummy: Ninja
 var last_phase=""
 var model_tick_serial=0
 var world_step_elapsed=0.0
-var world_step_waves:WeakRef
-var world_slice_limit=0
 var wall_start=Vector2i(-999,-999)
 var ordinary_pause=false
 var notice=""
@@ -38,7 +37,6 @@ var roster_return_pause=false
 var settings_open=false
 var settings_from_pause=false
 var tower_arrows
-var enemy_arrows
 var camera_focused=true
 var painterly_preview=false
 var combat_warmup:Node
@@ -65,7 +63,6 @@ func _ready():
 	painterly_preview=bool(get_tree().get_meta("forest_painterly_preview",OS.has_feature("painterly_preview") or "--painterly-preview" in OS.get_cmdline_user_args()))
 	world=ForestWorld.new();world.model=model;world.painterly_preview_enabled=painterly_preview;world.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(world)
 	tower_arrows=preload("res://scripts/forest/forest_tower_arrows.gd").new();tower_arrows.game=self;add_child(tower_arrows)
-	enemy_arrows=preload("res://scripts/forest/forest_enemy_arrows.gd").new();enemy_arrows.game=self;add_child(enemy_arrows)
 	player=Hero.new();player.game=self;player.position=Vector3(0,.15,18);player.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(player)
 	selected_rogue_id=int(get_tree().get_meta("forest_fighter",1))
 	if selected_rogue_id not in player.RogueRoster.selection_ids():selected_rogue_id=1
@@ -84,12 +81,11 @@ func _ready():
 	rogue_feedback=preload("res://scripts/rogue_battle_feedback.gd").new();rogue_feedback.game=self;add_child(rogue_feedback)
 	crowd=preload("res://scripts/forest/forest_enemy_crowd.gd").new()
 	crowd.game=self;crowd.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(crowd)
-	if get_tree().get_meta("forest_army_backend","legacy")=="native":
-		army_runtime=preload("res://scripts/forest/crowd/army_coordinator.gd").new();add_child(army_runtime);army_runtime.setup(self)
+	army_runtime=preload("res://scripts/forest/crowd/army_coordinator.gd").new();add_child(army_runtime)
+	if not army_runtime.setup(self):get_tree().quit(1);return
 	# Build fitted collision hulls during scene loading, before combat. Their
 	# first use otherwise blocks a spawn frame while generating convex meshes.
-	for kind in range(Raider.Roles.COUNT):Raider.Contact.shapes(kind)
-	pursuit=EnemyPursuit.new();pursuit.game=self;add_child(pursuit);pursuit.set_physics_process(false)
+	for kind in range(EnemyRoles.COUNT):EnemyContact.shapes(kind)
 	encounters=EndlessEncounters.new();encounters.game=self;encounters.enabled=false;add_child(encounters)
 	ui=CanvasLayer.new();add_child(ui)
 	forest_ui=preload("res://scripts/forest/forest_ui.gd").new();forest_ui.game=self;ui.add_child(forest_ui)
@@ -141,8 +137,6 @@ func set_phase_view():
 			if safe_spawn.is_finite():ForestModel.ConstructionClearance.move_body(player,safe_spawn);checkpoint=safe_spawn
 		model.hero_position=player.position
 	if model.phase!="wave" and is_instance_valid(wall_audio):wall_audio.reset()
-	if model.has_method("cancel_wave_step"):model.cancel_wave_step()
-	world_step_waves=null;world_slice_limit=0
 	world_step_elapsed=0.0
 	if respawn_left>0:
 		if model.phase=="preparing":_respawn_player()
@@ -154,7 +148,6 @@ func set_phase_view():
 	if is_instance_valid(gate_defenders):gate_defenders.reconcile(model.phase=="preparing")
 	if is_instance_valid(explorer_helpers):explorer_helpers.sync_targets()
 	if model.phase!="wave" and is_instance_valid(tower_arrows):tower_arrows.clear()
-	if model.phase!="wave" and is_instance_valid(enemy_arrows):enemy_arrows.clear()
 	last_phase=model.phase;build_kind="";wall_start=Vector2i(-999,-999);ordinary_pause=false
 	world.preview.hide();model.workforce.cancel_rally();player.rogue_controls.reset();player.velocity=Vector3.ZERO
 	paused=model.phase!="wave";get_tree().paused=paused
@@ -420,7 +413,6 @@ func _process(delta):
 	_sync_camera_mouse()
 	if is_instance_valid(map_editor) and map_editor.active:map_editor.tick(delta);return
 	if not paused and is_instance_valid(tower_arrows):tower_arrows.sync(delta)
-	if not paused and is_instance_valid(enemy_arrows):enemy_arrows.sync(delta)
 	if is_instance_valid(native_ink_feedback):native_ink_feedback.tick(delta)
 	if not ordinary_pause:
 		if model.phase=="preparing":
@@ -442,33 +434,9 @@ func world_update_interval()->float:
 	if model.enemies.size()>=48 or explorer_helpers.living_count>=12:return 1.0/30
 	return 0.0
 func _advance_world(delta:float)->bool:
-	if is_instance_valid(army_runtime):
-		world_step_elapsed+=maxf(0,delta)
-		if world_step_elapsed+.000001<world_update_interval():return false
-		model.tick(world_step_elapsed,player.position);world_step_elapsed=0;model_tick_serial+=1;return true
-	# Retain the logical20/30Hz clocks, but spread the enemy loop over physics
-	# frames instead of making one frame pay for the entire crowd.
-	var sliced=model.has_method("wave_step_active")
-	if sliced:
-		if world_step_waves!=null and world_step_waves.get_ref()!=model.waves:
-			world_step_elapsed=0.0;world_slice_limit=0
-		world_step_waves=weakref(model.waves)
-		if model.phase!="wave":
-			model.cancel_wave_step();world_step_elapsed=0.0;world_slice_limit=0;return false
 	world_step_elapsed+=maxf(0,delta)
-	if sliced and model.wave_step_active():
-		if model.advance_wave_slice(world_slice_limit,player.position):world_slice_limit=0
-		model_tick_serial+=1;return true
-	if world_step_elapsed+0.000001<world_update_interval():return false
-	if sliced and model.enemies.size()>=48:
-		var frames=maxi(1,roundi(world_update_interval()*Engine.physics_ticks_per_second))
-		model.begin_wave_step(world_step_elapsed,player.position);world_step_elapsed=0.0
-		world_slice_limit=maxi(1,ceili(model.wave_step_count()/float(frames)))
-		if model.advance_wave_slice(world_slice_limit,player.position):world_slice_limit=0
-		model_tick_serial+=1;return true
-	model.tick(world_step_elapsed,player.position)
-	world_step_elapsed=0.0;model_tick_serial+=1
-	return true
+	if world_step_elapsed+.000001<world_update_interval():return false
+	model.tick(world_step_elapsed,player.position);world_step_elapsed=0;model_tick_serial+=1;return true
 func _physics_process(delta):
 	if model!=null and model.phase!=last_phase:set_phase_view()
 	if model==null:return
@@ -478,16 +446,15 @@ func _physics_process(delta):
 	_tick_player_respawn(delta)
 	gate_defenders.tick(delta);cpu_clock=_army_profile("game_defenders",cpu_clock)
 	var army_pending=false;var army_prepare_ms=0.0
-	if is_instance_valid(army_runtime) and army_runtime.can_overlap():
+	if army_runtime.can_overlap():
 		army_pending=army_runtime.begin_integration(delta)
 		if cpu_clock>0:
 			var after_prepare=_army_profile_clock();army_prepare_ms=(after_prepare-cpu_clock)/1000.0;cpu_clock=after_prepare
 	explorer_helpers.sync_targets();cpu_clock=_army_profile("game_helper_targets",cpu_clock)
 	_tick_ryo(delta);cpu_clock=_army_profile("game_loot",cpu_clock)
 	model.hero_targetable=player.hp>0 and not player.rogue_untargetable()
-	if is_instance_valid(army_runtime):
-		if army_pending:army_runtime.finish_integration()
-		else:army_runtime.integration_tick(delta)
+	if army_pending:army_runtime.finish_integration()
+	else:army_runtime.integration_tick(delta)
 	cpu_clock=_army_profile("game_army_total",cpu_clock)
 	if army_prepare_ms>0:
 		army_runtime.profile_totals["game_army_prepare"]=float(army_runtime.profile_totals.get("game_army_prepare",0))+army_prepare_ms
@@ -506,8 +473,6 @@ func _physics_process(delta):
 			"arrow":
 				tower_arrows.launch(event)
 			"arrow_impact":tower_arrows.impact(event)
-			"enemy_arrow":enemy_arrows.launch(event)
-			"enemy_arrow_impact":enemy_arrows.impact(event)
 	model.events.clear();sync_enemies()
 	if model.phase!=last_phase:set_phase_view()
 	_army_profile("game_events",cpu_clock)
@@ -538,16 +503,7 @@ func _tick_ryo(delta:float):
 			sound("pickup",.45);ryo_feedback_left=.12
 		forest_ui.sync()
 func sync_enemies():
-	if is_instance_valid(army_runtime):return
-	for data in model.enemies.values():
-		if not actors.has(data.id):
-			var actor=Raider.new();actor.game=self;actor.forest_id=data.id;actor.variant=data.variant;actor.swarm=true;actor.position=data.pos
-			actor.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(actor);actor.hp=data.hp;actor.max_hp=data.max_hp
-			actors[data.id]=actor;enemies.append(actor)
-	for id in actors.keys():
-		if not is_instance_valid(actors[id]):actors.erase(id)
-	for i in range(enemies.size()-1,-1,-1):
-		if not is_instance_valid(enemies[i]):enemies.remove_at(i)
+	army_runtime.import_arrivals()
 func forest_enemy_visible(enemy)->bool:
 	if model==null:return false
 	if model.visible_at(enemy.global_position):return true
@@ -748,7 +704,7 @@ func show_lab():
 func begin_forest():
 	if playing:return
 	# Title settings belong to the run about to start, not the preview snapshot.
-	model.reset(run_seed,core_balance,active_forest_map(),false);world.reload_map();forest_ui.sync()
+	model.reset(run_seed,core_balance,active_forest_map(),false);world.reload_map();army_runtime.reset_world();forest_ui.sync()
 	show_rogue_roster(true)
 
 func apply_core_towers():
@@ -784,7 +740,7 @@ func preview_forest_map(layout: Dictionary,preview: bool=true):
 			for z in range(-40,40):model.explored[Vector2i(x,z)]=true;model.visible_cells[Vector2i(x,z)]=true
 	else:
 		player.progression.reset(false);player.refresh_max_health();player.hp=player.max_hp;won=false;checkpoint=player.position
-	world.model=model;world.reload_map();set_phase_view()
+	world.model=model;world.reload_map();army_runtime.reset_world();set_phase_view()
 	if preview:pan=saved_pan;update_preparation_camera()
 
 func show_gate_defenders():

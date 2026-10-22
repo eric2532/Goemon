@@ -1,7 +1,7 @@
 extends SceneTree
 ## Native same-process comparison: identical frozen actors, camera and lighting.
 const Actor=preload("res://assets/rogue/scripts/actor.gd")
-const Renderer=preload("res://scripts/forest/ally_rigid_renderer.gd")
+const Renderer=preload("res://tests/forest-shrine/reference/ally_rigid_renderer.gd")
 const DEFAULT_OUT="/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Smooth Gameplay/ally-rigid-native"
 var output=DEFAULT_OUT
 var renderer

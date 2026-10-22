@@ -35,7 +35,7 @@ func run():
   var bad=soak.duplicate(true);bad.memory_samples.back()[pair[0]]+=pair[1]
   check(not metrics.violations(bad).is_empty(),"A soak rejects accumulating memory/nodes/resources column%d"%pair[0])
  var runtime=load("res://scripts/forest/crowd/army_runtime.gd").new();runtime.configure(null)
- var model=load("res://scripts/forest/forest_model.gd").new();model.reset(42,{}, {},false)
+ var model=load("res://tests/forest-shrine/reference/forest_model.gd").new();model.reset(42,{}, {},false)
  runtime.configure_kits(load("res://scripts/forest/crowd/army_kit_data.gd").from_model(model));runtime.set_navigation(1,{"width":0})
  var previous=PackedInt64Array()
  for cycle in 4:

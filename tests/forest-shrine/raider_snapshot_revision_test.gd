@@ -1,5 +1,5 @@
 extends SceneTree
-class CountedRaider extends "res://scripts/forest/forest_raider.gd":
+class CountedRaider extends "res://tests/forest-shrine/reference/forest_raider.gd":
 	var preparations=0
 	func _sync_fitted_pose():
 		preparations+=1;super._sync_fitted_pose()

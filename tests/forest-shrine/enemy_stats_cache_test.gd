@@ -1,6 +1,6 @@
 extends SceneTree
 ## Catch stale live balance values, public dictionary aliases and repeated simulation allocations.
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
 var checks=0
 var failures=0

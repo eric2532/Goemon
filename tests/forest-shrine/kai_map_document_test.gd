@@ -10,7 +10,7 @@ func _initialize():
 	create_timer(90).timeout.connect(func():printerr("FAIL: Kai map document timeout");quit(1));run.call_deferred()
 func run():
 	var D=load("res://scripts/forest/forest_map_document.gd")
-	var Model=load("res://scripts/forest/forest_model.gd")
+	var Model=load("res://tests/forest-shrine/reference/forest_model.gd")
 	var legacy=JSON.parse_string(FileAccess.get_file_as_string(D.ORIGINAL_PATH))
 	check(D.validate(legacy).is_empty(),"Legacy maps without a terrain source still load")
 	var empty_source=legacy.duplicate(true);empty_source.terrain_source=""

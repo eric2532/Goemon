@@ -6,7 +6,7 @@ class Terrain extends "res://scripts/forest/forest_blood_gulch_terrain.gd":
   var result=_sample_cliff_cell(cell)
   if cliff_cache.size()>=8192:cliff_cache.clear()
   cliff_cache[cell]=result;return result
-class Waves extends "res://scripts/forest/forest_waves.gd":
+class Waves extends "res://tests/forest-shrine/reference/forest_waves.gd":
  func role_stats(variant:int)->Dictionary:
   return _simulation_stats(variant)
  func _simulation_stats(variant:int)->Dictionary:

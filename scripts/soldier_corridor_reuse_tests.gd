@@ -1,5 +1,5 @@
 extends SceneTree
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 class Navigation extends "res://scripts/forest/forest_enemy_navigation.gd":
  var probes=0
  func terrain_clear(p:Vector3,radius:float)->bool:

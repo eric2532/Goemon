@@ -2,7 +2,7 @@ extends SceneTree
 ## Every visible low-fidelity member shares the logical enemy's health. Its
 ## corners, frozen pose and part transforms must also be physical hit regions.
 const Contact=preload("res://scripts/forest/forest_enemy_contact.gd")
-const Crowd=preload("res://scripts/forest/forest_enemy_crowd.gd")
+const Crowd=preload("res://tests/forest-shrine/reference/forest_enemy_crowd.gd")
 const Actions=preload("res://assets/rogue/scripts/class_actions.gd")
 var checks=0
 var failures=0

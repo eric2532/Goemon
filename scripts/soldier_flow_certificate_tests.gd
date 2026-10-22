@@ -1,6 +1,6 @@
 extends SceneTree
-const Model=preload("res://scripts/forest/forest_model.gd")
-class CountFlow extends "res://scripts/forest/forest_enemy_flow.gd":
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
+class CountFlow extends "res://tests/forest-shrine/reference/forest_enemy_flow.gd":
  var validations=[]
  func corridor_clear(e:Dictionary,from:Vector3,to:Vector3,on_road:bool)->bool:
   validations.append([from,to,on_road,e.variant])

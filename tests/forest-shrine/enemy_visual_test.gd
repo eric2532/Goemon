@@ -26,7 +26,7 @@ func check(ok: bool,message: String):
 	if not ok:failures+=1;printerr("FAIL: "+message)
 func _initialize():call_deferred("run")
 func run():
-	var script=load("res://scripts/forest/forest_enemy_crowd.gd")
+	var script=load("res://tests/forest-shrine/reference/forest_enemy_crowd.gd")
 	if script==null:
 		check(false,"Dedicated Forest renderer exists");finish();return
 	var game=TestGame.new();root.add_child(game)

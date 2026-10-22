@@ -1,6 +1,6 @@
 extends SceneTree
 ## Whole-scene Daruma diagnosis, including cold director spawn and first reveal.
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 var game
 var report={"fixtures":[],"frames":[]}
 func _initialize():run.call_deferred()

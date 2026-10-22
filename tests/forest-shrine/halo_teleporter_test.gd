@@ -17,7 +17,7 @@ func snapshot(node:Node)->Array:
  return result
 func run():
  var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_blood_gulch()
- var model=load("res://scripts/forest/forest_model.gd").new();model.reset(42,{},doc.data);model.workers.clear()
+ var model=load("res://tests/forest-shrine/reference/forest_model.gd").new();model.reset(42,{},doc.data);model.workers.clear()
  var before=model.portals.duplicate(true)
  var world=load("res://scripts/forest/forest_world.gd").new();world.model=model;world.painterly_preview_enabled=true;root.add_child(world)
  await process_frame

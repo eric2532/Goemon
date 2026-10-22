@@ -1,6 +1,6 @@
 extends SceneTree
-const Model=preload("res://scripts/forest/forest_model.gd")
-class CountWaves extends "res://scripts/forest/forest_waves.gd":
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
+class CountWaves extends "res://tests/forest-shrine/reference/forest_waves.gd":
  var defender_checks=0
  func valid_target(kind:String,id:int,hero:Vector3)->bool:
   if kind=="defender":defender_checks+=1

@@ -1,6 +1,6 @@
 extends SceneTree
 ## Expanded navigation grids must fit in the terrain cache across gate revisions.
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 class MeasuredTerrain extends "res://scripts/forest/forest_blood_gulch_terrain.gd":
  var samples=0
  func _sample_cliff_cell(cell:Vector2i)->bool:

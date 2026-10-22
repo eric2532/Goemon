@@ -28,7 +28,7 @@ func configure(owner_:Node):
   cadences[kind]=preload("res://scripts/user_stride_run.gd").cadence(speeds[kind]) if preload("res://scripts/user_stride_run.gd").enabled(profile["class"]) else preload("res://scripts/goemon_reference_run_body.gd").cadence(speeds[kind])
   var source_mesh:ArrayMesh=resource.get_meta("mesh")
   var lod_path="res://assets/characters/ally_crowd/lod_%d.res"%kind
-  if game.get_tree().get_meta("forest_army_mesh_lods",true) and ResourceLoader.exists(lod_path):
+  if get_tree().get_meta("forest_army_mesh_lods",true) and ResourceLoader.exists(lod_path):
    var detail:ArrayMesh=load(lod_path)
    if detail.get_meta("source_sha256","")==FileAccess.get_sha256("res://assets/characters/ally_crowd/%d.res"%kind):source_mesh=detail
   var mesh:ArrayMesh=source_mesh.duplicate()

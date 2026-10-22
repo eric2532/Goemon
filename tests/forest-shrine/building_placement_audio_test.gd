@@ -18,7 +18,7 @@ func place(kind:String)->bool:
  return false
 func run():
  var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original()
- set_meta("forest_custom_layout",doc.data);set_meta("forest_army_backend","legacy")
+ set_meta("forest_custom_layout",doc.data);
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game
  await frames();AudioServer.set_bus_mute(0,true)
  var sound=game.get_node_or_null("PlacementAudio")

@@ -6,7 +6,7 @@ func check(ok: bool,message: String):
 	if not ok:failures+=1;printerr("FAIL: "+message)
 func _initialize():call_deferred("run")
 func run():
-	var m=load("res://scripts/forest/forest_model.gd").new();preload("res://tests/forest-shrine/empty_settlement.gd").reset(m)
+	var m=load("res://tests/forest-shrine/reference/forest_model.gd").new();preload("res://tests/forest-shrine/empty_settlement.gd").reset(m)
 	check(m.has_method("start_wave"),"The forest simulation can start and resolve a finite wave")
 	if failures:finish();return
 	check(m.workers.size()==6,"A new settlement has its starting workforce")

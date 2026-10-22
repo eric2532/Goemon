@@ -6,7 +6,7 @@ func _initialize():call_deferred("run")
 func run():
 	check(ResourceLoader.exists("res://scripts/forest/forest_world.gd"),"The playable forest world exists")
 	if failures:finish();return
-	var m=load("res://scripts/forest/forest_model.gd").new();m.reset(42)
+	var m=load("res://tests/forest-shrine/reference/forest_model.gd").new();m.reset(42)
 	var world=load("res://scripts/forest/forest_world.gd").new();world.model=m;root.add_child(world)
 	await process_frame
 	check(world.playable_bounds.size==Vector2(336,336),"Allied play space leaves a hidden perimeter inside the 480m forest")

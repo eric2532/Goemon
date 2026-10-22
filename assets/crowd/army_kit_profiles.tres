@@ -411,5 +411,5 @@ metadata/source_hashes = {
 "assets/rogue/scripts/ranger_arrow_flight.gd": "598648704e393e15cfd9da49b9cd6e16553569dbd09b7504efc0dfd6f6890116",
 "scripts/melee_responsiveness.gd": "cdcc2e49c62e4a12c49b7b589ca7cbd5edf9e3f881cc5a97d9cb37a03ab1688a",
 "scripts/rogue_hero_model.gd": "291596fdc513828652ca44a66aa48172bfc6c411f3494d835cdc7717458dd369",
-"scripts/rogue_roster_combat.gd": "6b6fdd5d2bd74c1af6479001c0566d921c432a6e51f85627f46a8b7999d1893f"
+"scripts/rogue_roster_combat.gd": "7b8c69237bb4e7a25249c2569f8d6f3188f412ebfcba1d9caee9370c414fa2be"
 }

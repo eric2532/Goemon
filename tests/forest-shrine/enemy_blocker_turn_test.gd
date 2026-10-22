@@ -1,7 +1,7 @@
 extends SceneTree
 ## A waypoint and its blocking wall must not spend the same turn budget in
 ## opposite directions every tick, leaving a slow boss perpetually walking.
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 var checks=0
 var failures=0
 func _initialize():run.call_deferred()

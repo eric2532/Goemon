@@ -1,6 +1,6 @@
 extends SceneTree
 const Document=preload("res://scripts/forest/forest_map_document.gd")
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 var checks=0
 var failures=0
 var folder="user://blood-gulch-map-%d"%OS.get_process_id()

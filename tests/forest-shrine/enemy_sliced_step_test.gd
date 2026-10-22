@@ -1,7 +1,7 @@
 extends SceneTree
 ## Breaks caught: duplicated logical time, stale live targets, and lost actors
 ## when one authoritative world step spans several physics frames.
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 const EMPTY={"format":"forest_shrine_map","schema":1,"title":"Sliced world","buildings":[],"trees":[],"deposits":[]}
 const HERO=Vector3(0,0,-120)
 var checks=0

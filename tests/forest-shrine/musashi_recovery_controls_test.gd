@@ -19,7 +19,7 @@ func ground_player(p):
 	for i in 3:p.velocity=Vector3.DOWN*20;p.move_and_slide()
 	p.velocity=Vector3.ZERO
 func run():
-	set_meta("forest_army_backend","legacy")
+
 	game=load("res://scenes/forest_title.tscn").instantiate();game.settings_path=settings_file
 	root.add_child(game);current_scene=game;await frames()
 	game.begin_forest();game.choose_rogue_character(13);game.start_wave()

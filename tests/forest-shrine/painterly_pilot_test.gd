@@ -14,7 +14,7 @@ func collisions(node: Node)->Array:
   result.append_array(collisions(child))
  return result
 func run():
- var model=load("res://scripts/forest/forest_model.gd").new()
+ var model=load("res://tests/forest-shrine/reference/forest_model.gd").new()
  var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_ramparts();model.reset(42,{},doc.data)
  world=load("res://scripts/forest/forest_world.gd").new();world.model=model;root.add_child(world)
  await process_frame

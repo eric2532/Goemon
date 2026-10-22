@@ -26,7 +26,7 @@ var event_log:Array[Dictionary]=[]
 var collect_stats=false
 var observed_counts:Dictionary={}
 var event_gaps=0
-func configure(game:Node,maximum:int=4000)->void:
+func configure(game:Node,maximum:int=4000)->bool:
  game_ref=weakref(game) if game!=null else null
  if game!=null:preload("res://scripts/forest/forest_soldier_audio.gd").ensure(game)
  capacity=maximum
@@ -35,9 +35,10 @@ func configure(game:Node,maximum:int=4000)->void:
   GDExtensionManager.load_extension("res://native/terrain_math/terrain_math.gdextension")
  if not ClassDB.class_exists("GoemonCrowdRuntime"):
   push_error("Native crowd runtime is unavailable; 4000-unit support cannot be enabled")
-  return
+  return false
  if native==null:native=ClassDB.instantiate("GoemonCrowdRuntime")
  native.configure(capacity,2000)
+ return true
 func spawn(logical_id:int,team:int,kind:int,position:Vector3,hp:float,radius:float)->int:
  var h:int=native.spawn(logical_id,team,kind,position,hp,radius)
  if h!=0:handles[logical_id]=h

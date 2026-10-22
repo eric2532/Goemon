@@ -1,7 +1,7 @@
 extends "res://tests/forest-shrine/explorer_close_assist_test.gd"
 ## Removing Explorer's broadphase must query all 240 fitted hulls and fail.
 ## The counting subclass retains actual Forest bounds, geometry and contact.
-class CountedRaider extends "res://scripts/forest/forest_raider.gd":
+class CountedRaider extends "res://tests/forest-shrine/reference/forest_raider.gd":
 	var contact_queries=0
 	func combat_contact_point(point: Vector3)->Vector3:
 		contact_queries+=1

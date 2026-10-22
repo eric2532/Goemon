@@ -6,7 +6,7 @@ func check(ok: bool,message: String):
 	if not ok:failures+=1;printerr("FAIL: "+message)
 func _initialize():call_deferred("run")
 func fresh():
-	var m=load("res://scripts/forest/forest_model.gd").new();m.reset(42);m.trees.clear();m.workers.clear()
+	var m=load("res://tests/forest-shrine/reference/forest_model.gd").new();m.reset(42);m.trees.clear();m.workers.clear()
 	for b in m.buildings.values():
 		if b.id!=1:m._remove_building(b.id)
 	m.rebuild_navigation();m.update_vision(Vector3.ZERO);m.start_wave();m.waves.spawn_clock=10000
@@ -152,7 +152,7 @@ func run():
 	archer=m.waves.spawn_enemy(1,m.center(tower)+Vector3(0,0,10));archer.facing=0.0;m.waves.tick(.1,Vector3.ZERO);m.waves.tick(.8,Vector3.ZERO)
 	for i in range(15):m.waves.tick(.05,Vector3.ZERO)
 	check(worker.hp<100,"Exposed tower crew within the archer physical range is a valid ranged worker target")
-	var real=load("res://scripts/forest/forest_model.gd").new();real.reset(42);real.wave=2;real.start_wave();real.waves.spawn_clock=10000
+	var real=load("res://tests/forest-shrine/reference/forest_model.gd").new();real.reset(42);real.wave=2;real.start_wave();real.waves.spawn_clock=10000
 	var spawn_started=Time.get_ticks_usec();real.waves.spawn_one();var spawn_ms=(Time.get_ticks_usec()-spawn_started)/1000.0
 	check(real.enemies.size()==1 and real.enemies.values()[0].variant==2,"Production forest admits a reachable giant staging approach")
 	if not real.enemies.is_empty():
@@ -170,7 +170,7 @@ func run():
 	var fitted_stages: Array=m.waves.giant_staging()
 	check(not fitted_stages.has(Vector3(0,0,84)),"Giant staging validates full fitted side fists against neighboring structures")
 	# Watching the middle of the southern approach leaves far southern entries.
-	var expanded=load("res://scripts/forest/forest_model.gd").new();expanded.reset(42);expanded.wave=2;expanded.start_wave();expanded.waves.spawn_clock=10000
+	var expanded=load("res://tests/forest-shrine/reference/forest_model.gd").new();expanded.reset(42);expanded.wave=2;expanded.start_wave();expanded.waves.spawn_clock=10000
 	for x in range(-40,40):
 		for z in range(-40,40):
 			if absi(x)<30 or z<34:expanded.visible_cells[Vector2i(x,z)]=true

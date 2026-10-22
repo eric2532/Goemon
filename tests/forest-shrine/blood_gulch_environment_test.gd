@@ -13,7 +13,7 @@ func run():
  var environment_script=load("res://scripts/forest/blood_gulch_environment.gd")
  check(environment_script!=null,"Blood Gulch has a dedicated daytime environment adapter")
  if environment_script==null:quit(1);return
- var model=load("res://scripts/forest/forest_model.gd").new()
+ var model=load("res://tests/forest-shrine/reference/forest_model.gd").new()
  var layout={"buildings":[{"kind":"gate","x":0,"z":7,"rotation":0},{"kind":"tower","x":-5,"z":7,"rotation":0}],"roads":[{"x":0,"z":2}],"trees":[],"deposits":[]}
  model.reset(42,{},layout);model.workers.clear()
  var world=load("res://scripts/forest/forest_world.gd").new();world.model=model;root.add_child(world);await process_frame

@@ -1,5 +1,5 @@
 extends SceneTree
-const Unit=preload("res://scripts/forest/explorer_helper_unit.gd")
+const Unit=preload("res://tests/forest-shrine/reference/explorer_helper_unit.gd")
 class FakeGame extends Node:
  var model={"phase":"wave"}
  var camera_rig={}

@@ -9,7 +9,7 @@ static func prepare(game:Node)->Dictionary:
   if absf(reach-1)<.000001 and absf(speed-float(profiles[kind].speed))<.00001:continue
   var signature=Vector2(speed,reach)
   if not cache.has(kind) or cache[kind].signature!=signature:
-   var unit=load("res://scripts/forest/explorer_helper_unit.gd").new()
+   var unit=load("res://scripts/forest/crowd/army_pose_source.gd").new()
    unit.game=game;unit.director=game.explorer_helpers;unit.kit_id=kind;unit.slot=game.explorer_helpers.KITS.find(kind);unit.gate_id=-999999
    game.add_child(unit);unit.set_physics_process(false);unit.position=Vector3.ZERO;unit.facing=Vector3.BACK;unit.model.rotation.y=PI;unit.show()
    var row=profile(unit,profiles[kind]);var pose=preload("res://scripts/forest/crowd/army_pose_baker.gd").new().bake(unit,row)

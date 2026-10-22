@@ -1,7 +1,7 @@
 extends SceneTree
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 const Document=preload("res://scripts/forest/forest_map_document.gd")
-class CountedModel extends "res://scripts/forest/forest_model.gd":
+class CountedModel extends "res://tests/forest-shrine/reference/forest_model.gd":
  var placement_queries=0
  func placement_error(kind:String,cell:Vector2i,rotation:int)->String:
   placement_queries+=1

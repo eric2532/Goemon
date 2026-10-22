@@ -1,5 +1,5 @@
 extends SceneTree
-const Crowd=preload("res://scripts/forest/forest_enemy_crowd.gd")
+const Crowd=preload("res://tests/forest-shrine/reference/forest_enemy_crowd.gd")
 const Contact=preload("res://scripts/forest/forest_enemy_contact.gd")
 var checks=0
 var failures=0
@@ -19,7 +19,7 @@ func world_foot(e: Dictionary,group: String)->Transform3D:
 func stance(e: Dictionary,group: String)->bool:
 	return fposmod(e.walk_phase+(PI if group=="foot_r" else 0),TAU)<PI
 func run_forward():
-	var m=load("res://scripts/forest/forest_model.gd").new();m.reset(42);clear_model(m)
+	var m=load("res://tests/forest-shrine/reference/forest_model.gd").new();m.reset(42);clear_model(m)
 	var e=m.waves.spawn_enemy(2,Vector3(0,0,102));e.facing=0.0
 	var samples=0;var max_slip=0.0
 	for i in range(90):
@@ -32,7 +32,7 @@ func run_forward():
 	check(absf(e.pos.distance_to(Vector3(0,0,102))-8.1)<.001,"Ordinary forward walk retains .9m/s")
 	print("FORWARD_GAIT samples=%d max_slip_m=%.8f"%[samples,max_slip])
 func run_fixture(tight: bool):
-	var m=load("res://scripts/forest/forest_model.gd").new();m.reset(42);clear_model(m)
+	var m=load("res://tests/forest-shrine/reference/forest_model.gd").new();m.reset(42);clear_model(m)
 	var tower=m._make_building("tower",Vector2i(-1,12),0)
 	if tight:m._make_building("tower",Vector2i(-5,7),0);m._make_building("tower",Vector2i(2,7),0)
 	m.rebuild_navigation();var e=m.waves.spawn_enemy(2,Vector3(0,0,60));e.facing=0.0

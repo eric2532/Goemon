@@ -67,7 +67,7 @@ func setup():
  seed(71021);Engine.time_scale=1;Engine.physics_ticks_per_second=60;Engine.max_physics_steps_per_frame=64;Engine.max_fps=0;OS.low_processor_usage_mode=false
  root.size=Vector2i(1280,800);root.title="Goemon · Large Army Benchmark · %d enemies + %d allies"%[enemy_count,ally_count]
  if DisplayServer.get_name()!="headless":DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
- set_meta("forest_army_guard_poses",not options.has("always-write-poses"));set_meta("forest_army_parallel_movement",not options.has("serial-movement"));set_meta("forest_army_query_static",not options.has("kinematic-proxies"));set_meta("forest_army_backend","native");set_meta("forest_army_worker",not options.has("synchronous"));set_meta("forest_army_shared_snapshots",not options.has("eager-facades"));set_meta("forest_fighter",11);set_meta("forest_painterly_preview",true)
+ set_meta("forest_army_guard_poses",not options.has("always-write-poses"));set_meta("forest_army_parallel_movement",not options.has("serial-movement"));set_meta("forest_army_query_static",not options.has("kinematic-proxies"));set_meta("forest_army_worker",not options.has("synchronous"));set_meta("forest_army_shared_snapshots",not options.has("eager-facades"));set_meta("forest_fighter",11);set_meta("forest_painterly_preview",true)
  var doc=load("res://scripts/forest/forest_map_document.gd").new()
  if options.get("map","kai_highway")=="blood_gulch":doc.load_blood_gulch()
  else:doc.load_kai_highway()

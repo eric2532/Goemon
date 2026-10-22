@@ -13,7 +13,7 @@ func frames(count:int=3):
 	for i in count:await physics_frame
 func run():
 	var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original()
-	set_meta("forest_custom_layout",doc.data);set_meta("forest_army_backend","legacy")
+	set_meta("forest_custom_layout",doc.data);
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game
 	await frames()
 	var m=game.model;var p=game.player

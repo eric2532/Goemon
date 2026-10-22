@@ -1,5 +1,5 @@
 extends SceneTree
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 class Ground extends "res://scripts/forest/forest_ramparts.gd":
  var probes=0
  var level=0.0

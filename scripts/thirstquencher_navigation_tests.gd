@@ -1,5 +1,5 @@
 extends SceneTree
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 class Counter extends RefCounted:
  func building_point(_b:Dictionary,_point:Vector3)->Vector3:return Vector3.ZERO
  var calls=0

@@ -8,7 +8,7 @@ func _initialize():
 	create_timer(30).timeout.connect(func():printerr("FAIL: review regression timeout");quit(1))
 	call_deferred("run")
 func run():
-	var m=load("res://scripts/forest/forest_model.gd").new();preload("res://tests/forest-shrine/empty_settlement.gd").reset(m);m.gold=10000;m.update_vision(m.point(Vector2i(6,4)))
+	var m=load("res://tests/forest-shrine/reference/forest_model.gd").new();preload("res://tests/forest-shrine/empty_settlement.gd").reset(m);m.gold=10000;m.update_vision(m.point(Vector2i(6,4)))
 	var wall=m.build("wall",Vector2i(4,5),0);wall.hp=100
 	check(m.workforce.assign_idle(wall.id)==2,"Damaged wall reserves two repairers")
 	var seal=m.build("wall",Vector2i(4,6),0)

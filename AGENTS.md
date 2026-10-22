@@ -9,6 +9,12 @@ The user wants exactly one playable app in the build folder: `build/Goemon.app`.
 - The launchers use the current complete source on `main` and enable painterly scenery. Keep them pointed at the complete source if it moves.
 - The app delivery rules below apply when an app export is requested.
 
+## Army simulation
+
+- Normal Goemon gameplay uses the native army runtime exclusively. Do not add a legacy backend selector or fallback.
+- Original army controllers and renderers are test references under `tests/forest-shrine/reference/`; keep them excluded from game exports.
+- Preserve player controls, wave counts, hills, bridges and portals while improving the native simulation.
+
 ## App delivery rules
 
 - Publish the latest complete game with its current painterly scenery and gameplay. Do not keep separate original/preview apps or version-named app copies.
@@ -45,3 +51,13 @@ The user wants exactly one playable app in the build folder: `build/Goemon.app`.
   `build/Other Files/Asset Toolkit/`. Keep only app delivery entries at build root.
   Verify gameplay through the existing desktop launcher; do not export an app
   unless the user asks for a build or distribution.
+
+- For the rest of the gameplay catalog, use `optimize --asset gameplay`; recipes
+  and protected mesh names are in `tools/asset_pipeline/gameplay.json`. Candidates
+  stay in `build/Other Files/Asset Toolkit/Candidates/` until preservation, imported
+  motion, procedural-pose and rendered comparison checks pass. Then use
+  `activate --asset gameplay`, refresh imports and run `check` plus gameplay tests.
+  Activation publishes only useful results through `assets/optimized/routes.json`.
+  Preserve named hit regions, equipment/cloth mesh types, sparse cape morphs and
+  independently visible Ben accessories. Keep Ed's coplanar clothing meshes
+  separate. Do not bypass visual failures simply because geometry checks pass.

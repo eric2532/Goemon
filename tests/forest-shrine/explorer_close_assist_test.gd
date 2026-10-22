@@ -5,7 +5,7 @@ var game
 var checks=0
 var failures=0
 const ORIGIN=Vector3(0,.1,70)
-class InvalidGeometryRaider extends "res://scripts/forest/forest_raider.gd":
+class InvalidGeometryRaider extends "res://tests/forest-shrine/reference/forest_raider.gd":
 	var invalid_bounds=false
 	var invalid_contact=false
 	func combat_bounds()->AABB:

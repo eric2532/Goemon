@@ -31,7 +31,7 @@ func run():
 			if backend=="native":
 				runtime.spawn(row.id,0,0,point,10000,3.9);target=runtime.enemy_target(row.id)
 			else:
-				target=load("res://scripts/forest/forest_raider.gd").new();target.game=game;target.forest_id=row.id;target.variant=0;target.position=point;target.swarm=true
+				target=load("res://tests/forest-shrine/reference/forest_raider.gd").new();target.game=game;target.forest_id=row.id;target.variant=0;target.position=point;target.swarm=true
 				game.add_child(target);target.set_physics_process(false);target._sync_fitted_pose();target.hp=10000;target.max_hp=10000
 			game.actors[row.id]=target;game.enemies.append(target);targets.append(target)
 		await physics_frame;await physics_frame

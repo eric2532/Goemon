@@ -1,7 +1,7 @@
 extends SceneTree
-const Model=preload("res://scripts/forest/forest_model.gd")
-const Arrows=preload("res://scripts/forest/forest_enemy_projectiles.gd")
-class CountArrows extends "res://scripts/forest/forest_enemy_projectiles.gd":
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
+const Arrows=preload("res://tests/forest-shrine/reference/forest_enemy_projectiles.gd")
+class CountArrows extends "res://tests/forest-shrine/reference/forest_enemy_projectiles.gd":
 	var worker_checks=0
 	var candidate_checks=0
 	func worker_point(w:Dictionary)->Vector3:
@@ -13,7 +13,7 @@ class CountArrows extends "res://scripts/forest/forest_enemy_projectiles.gd":
 		return result
 # Freeze the exhaustive flight loop as an independent optimization oracle.
 # Literal fixtures below also protect priorities and same-tick damage behavior.
-class Exhaustive extends "res://scripts/forest/forest_enemy_projectiles.gd":
+class Exhaustive extends "res://tests/forest-shrine/reference/forest_enemy_projectiles.gd":
 	func tick(projectiles: Dictionary,delta: float,hero: Vector3):
 		for id in projectiles.keys():
 			var a: Dictionary=projectiles[id];var distance=minf(a.left,SPEED*delta);var steps=maxi(1,ceili(distance/.35));var impacted=false

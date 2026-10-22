@@ -1,5 +1,5 @@
 extends SceneTree
-class MeasuredRaider extends "res://scripts/forest/forest_raider.gd":
+class MeasuredRaider extends "res://tests/forest-shrine/reference/forest_raider.gd":
 	var bar_queries=0
 	func combat_contact_point(point: Vector3)->Vector3:
 		bar_queries+=1;return super.combat_contact_point(point)

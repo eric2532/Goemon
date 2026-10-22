@@ -9,7 +9,7 @@ var checks=0
 var failures=0
 var cfg="user://preparation-menu-hotkeys-%d.cfg"%OS.get_process_id()
 func _initialize():
-	set_meta("forest_army_backend","legacy")
+
 	set_meta("forest_painterly_preview",true)
 	if "--visual" in OS.get_cmdline_user_args():root.set_flag(Window.FLAG_NO_FOCUS,true)
 	create_timer(60).timeout.connect(func():printerr("FAIL: preparation menu hotkeys timeout");quit(1))

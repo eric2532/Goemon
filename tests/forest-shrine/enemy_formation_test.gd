@@ -1,6 +1,6 @@
 extends SceneTree
 # Regressions: each independent actor emits one body, with its own lifecycle.
-const Crowd=preload("res://scripts/forest/forest_enemy_crowd.gd")
+const Crowd=preload("res://tests/forest-shrine/reference/forest_enemy_crowd.gd")
 const Contact=preload("res://scripts/forest/forest_enemy_contact.gd")
 class Actor extends Node3D:
 	var forest_id=0

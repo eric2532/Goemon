@@ -1,6 +1,6 @@
 extends SceneTree
 ## A swarm may not force a fitted hull query per enemy for each ally decision.
-class CountedRaider extends "res://scripts/forest/forest_raider.gd":
+class CountedRaider extends "res://tests/forest-shrine/reference/forest_raider.gd":
  var queries=0
  var bounds_queries=0
  func combat_contact_point(point:Vector3)->Vector3:
@@ -17,7 +17,8 @@ func check(ok:bool,label_:String):
  if not ok:failures+=1;printerr("FAIL: "+label_)
 func run():
  var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
- game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game
+ var fixture=load("res://tests/forest-shrine/large_army_fixture.gd").new();root.add_child(fixture)
+ game=await fixture.make_game("original");current_scene=game
  for i in 3:await process_frame
  game.start_wave();game.model.waves.pending=999;game.model.waves.spawn_clock=100000;game.set_physics_process(false);game.player.set_physics_process(false)
  var actors=[]

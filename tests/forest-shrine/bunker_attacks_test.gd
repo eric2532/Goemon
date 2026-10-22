@@ -5,7 +5,7 @@ var failures=0
 var cfg="user://bunker-attacks-%d.cfg"%OS.get_process_id()
 var bunker:Dictionary
 func _initialize():
- set_meta("forest_army_backend","legacy")
+
  if "--visual" in OS.get_cmdline_user_args():
   set_meta("forest_painterly_preview",true);root.set_flag(Window.FLAG_NO_FOCUS,true);root.size=Vector2i(1280,800)
  create_timer(100).timeout.connect(func():printerr("FAIL: bunker attacks timeout");quit(1))

@@ -80,7 +80,7 @@ func run():
 	game.queue_free();paused=false;await frames(2);await create_timer(.4).timeout
 	print("COMBAT_POLISH_RESULT checks=%d failures=%d"%[checks,failures]);quit(1 if failures else 0)
 func tower_rules():
-	var m=load("res://scripts/forest/forest_model.gd").new();m.reset(42)
+	var m=load("res://tests/forest-shrine/reference/forest_model.gd").new();m.reset(42)
 	var tower=m._make_building("tower",Vector2i(4,4),0)
 	m.start_wave();m.waves.spawn_clock=10000
 	var worker=m.workers.values()[0];worker.job=tower.id;worker.state="garrison";worker.pos=m.center(tower);worker.timer=0

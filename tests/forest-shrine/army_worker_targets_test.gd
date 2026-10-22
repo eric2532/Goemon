@@ -33,7 +33,7 @@ func run():
  check(not data.ids.has(2) and not data.ids.has(3) and not data.ids.has(6),"Wounded, sheltered and dead workers are excluded using source targetability")
  for id in [1,4,5]:
   var index:int=data.ids.find(id);var worker:Dictionary=arena.model.workers[id]
-  var expected:Vector3=preload("res://scripts/forest/forest_enemy_projectiles.gd").new(arena.model,null).worker_point(worker)-Vector3.UP*Profile.WORKER_CONTACT_HEIGHT
+  var expected:Vector3=preload("res://tests/forest-shrine/reference/forest_enemy_projectiles.gd").new(arena.model,null).worker_point(worker)-Vector3.UP*Profile.WORKER_CONTACT_HEIGHT
   check(index>=0 and data.positions[index].is_equal_approx(expected),"Native target foot retains actual visible worker deck height")
  army.free();arena.free()
  print("ARMY_WORKER_TARGETS_RESULT checks=",checks," failures=",failures);quit(1 if failures else 0)

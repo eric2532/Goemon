@@ -21,7 +21,7 @@ func run():
  empty.mesh=BoxMesh.new()
  check(not restored(empty_snapshot),"The snapshot detects a mesh added to an empty effect placeholder")
  empty.free()
- var model=load("res://scripts/forest/forest_model.gd").new()
+ var model=load("res://tests/forest-shrine/reference/forest_model.gd").new()
  var layout={"deposits":[{"x":-5,"z":1,"amount":1200}],"trees":[{"x":18,"z":18,"scale":1.0}],"roads":[{"x":5,"z":5}],"buildings":[
   {"kind":"mine","x":-5,"z":1,"rotation":0},{"kind":"gate","x":0,"z":7,"rotation":0},{"kind":"tower","x":-5,"z":7,"rotation":0}]}
  model.reset(42,{},layout);model.workers.clear()

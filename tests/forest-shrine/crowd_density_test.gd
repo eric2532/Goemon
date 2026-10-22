@@ -1,6 +1,6 @@
 extends SceneTree
 const VisualTest=preload("res://tests/forest-shrine/enemy_visual_test.gd")
-class CountingCrowd extends "res://scripts/forest/forest_enemy_crowd.gd":
+class CountingCrowd extends "res://tests/forest-shrine/reference/forest_enemy_crowd.gd":
 	var pose_writes=0
 	func _write_pose(image: Image,index: int,group: int,pose: Transform3D):
 		pose_writes+=1;super._write_pose(image,index,group,pose)

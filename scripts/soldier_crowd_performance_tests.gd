@@ -1,5 +1,5 @@
 extends SceneTree
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 class Routes extends "res://scripts/forest/forest_routes.gd":
  var road_queries=0
  func guidance(_point:Vector3,_variant:int=0)->Array:road_queries+=1;return [Vector2i(0,19)]

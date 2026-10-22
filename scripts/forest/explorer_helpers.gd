@@ -1,6 +1,6 @@
 extends Node
 ## Paid mercenaries keep preparation positions and hunt across the battlefield.
-const Unit=preload("res://scripts/forest/explorer_helper_unit.gd")
+const Unit=preload("res://scripts/forest/crowd/army_helper_unit.gd")
 const KITS=[8,10,5,7,11]
 const COUNTS=[1,1,1,1,1]
 const COSTS=[120,60,60,150,80]
@@ -14,7 +14,6 @@ var actors:Dictionary={}
 var next_actor_id=-1000
 var summon_serial=0
 var smoke:Node3D
-var rigid_renderer:Node3D
 var target_rows:Array=[]
 var target_frame=Vector2i(-1,-1)
 var target_model
@@ -48,7 +47,6 @@ var projectile_highs=PackedVector3Array()
 func _ready():
  process_mode=Node.PROCESS_MODE_ALWAYS
  smoke=preload("res://assets/rogue/scripts/effects.gd").new();smoke.name="HelperSmoke";smoke.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(smoke);smoke.apply_quality(0);smoke.effect_budget=108
- rigid_renderer=preload("res://scripts/forest/ally_rigid_renderer.gd").new();add_child(rigid_renderer)
  placement_shape=CapsuleShape3D.new();placement_shape.radius=.4;placement_shape.height=1.85
  guard_preview=MeshInstance3D.new();guard_preview.name="GuardAreaPreview";guard_preview.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
  preview_material=StandardMaterial3D.new();preview_material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;preview_material.no_depth_test=true
@@ -56,11 +54,10 @@ func _ready():
  for slot in KITS.size():
   for i in COUNTS[slot]:make_unit(slot)
 func make_unit(slot:int):
- var unit=preload("res://scripts/forest/crowd/army_helper_unit.gd").new() if is_instance_valid(game.army_runtime) else Unit.new()
- if is_instance_valid(game.army_runtime):unit.runtime=game.army_runtime
+ var unit=Unit.new()
+ unit.runtime=game.army_runtime
  unit.name="Ally_%d"%absi(next_actor_id);unit.game=game;unit.director=self;unit.kit_id=KITS[slot];unit.slot=slot;unit.gate_id=next_actor_id;next_actor_id-=1
  unit.process_mode=Node.PROCESS_MODE_PAUSABLE;game.add_child(unit);pool.append(unit);actors[unit.gate_id]=unit
- if not is_instance_valid(game.army_runtime):rigid_renderer.register_actor(unit.model.actor)
  return unit
 func valid_target(enemy)->bool:
  return is_instance_valid(enemy) and not enemy.is_queued_for_deletion() and not enemy.dead and enemy.hp>0 and not enemy.training_dummy and game.forest_enemy_visible(enemy)
@@ -191,7 +188,7 @@ func begin_placement(slot:int)->bool:
  if slot<0 or slot>=KITS.size() or not available():return false
  if game.model.gold<COSTS[slot]:game.toast("Need %d ryo to hire a %s"%[COSTS[slot],NAMES[slot]]);return false
  if not game.model.can_recruit(2):game.toast("Need 2 food · Build a barracks");return false
- if is_instance_valid(game.army_runtime) and active_units().size()>=2000:game.toast("Ally limit reached");return false
+ if active_units().size()>=2000:game.toast("Ally limit reached");return false
  cancel_placement(false);selected_slot=slot
  game.build_kind="";game.world.preview.hide();game.forest_ui.selected_id=-1
  game.toast("%s · %d ryo · Click clear ground to assign a guard post"%[NAMES[slot],COSTS[slot]])
@@ -205,7 +202,7 @@ func placement_error(slot:int,point:Vector3,exclude:int=0)->String:
  if exclude==0:
   if game.model.gold<COSTS[slot]:return "Not enough ryo"
   if not game.model.can_recruit(2):return "Need 2 food · Build a barracks"
-  if is_instance_valid(game.army_runtime) and active_units().size()>=2000:return "Ally limit reached"
+  if active_units().size()>=2000:return "Ally limit reached"
  var m=game.model;var cell=m.cell_of(point)
  if not m.ALLIED_REGION.has_point(cell):return "Beyond the settlement boundary"
  if not m.explored.has(cell):return "Unexplored terrain"
@@ -230,7 +227,7 @@ func purchase(slot:int,point:Vector3)->bool:
  var ready=pool.filter(func(unit):return unit.slot==slot and unit.state=="idle")
  var unit=ready[0] if not ready.is_empty() else make_unit(slot)
  unit.summon(null,stand_point(point),0.0)
- if is_instance_valid(game.army_runtime) and unit.handle==0:game.toast("Ally limit reached");return false
+ if unit.handle==0:game.toast("Ally limit reached");return false
  game.model.gold-=COSTS[slot];summon_serial+=1
  cancel_placement(false);sync_targets();game.forest_ui.sync()
  game.toast("%s hired · %d ryo · Guard post assigned"%[NAMES[slot],COSTS[slot]])
@@ -306,47 +303,13 @@ func target_actor(id:int):
  var unit=actors.get(id)
  return unit if is_instance_valid(unit) and unit.state in Unit.LIVE_STATES and unit.state!="sheltered" and unit.hp>0 else null
 func sync_targets():
- if is_instance_valid(game.army_runtime) and game.army_runtime.has_method("sync_helper_mirrors"):
-  living_count=game.army_runtime.sync_helper_mirrors(game.model.defenders,game.model.fighter_posts)
-  game.model.fighter_count=living_count
-  return
- if is_instance_valid(game.army_runtime):
-  living_count=0;game.model.fighter_posts.clear()
-  for unit in pool:
-   var live=unit.state in Unit.LIVE_STATES and unit.hp>0
-   if live:living_count+=1;game.model.fighter_posts[unit.gate_id]=unit.guard_post
-   if not live or unit.state=="sheltered":game.model.defenders.erase(unit.gate_id);continue
-   if not game.model.defenders.has(unit.gate_id):game.model.defenders[unit.gate_id]={"id":unit.gate_id}
-   var row:Dictionary=game.model.defenders[unit.gate_id]
-   row.pos=unit.global_position;row.hp=unit.hp;row.targetable=not unit.rogue_untargetable();row.taunting=unit.taunting
-  game.model.fighter_count=living_count
-  return
- var living=active_units()
- living_count=living.size();game.model.fighter_count=living_count
- game.model.fighter_posts.clear()
- for unit in living:game.model.fighter_posts[unit.gate_id]=unit.guard_post
- for unit in pool:
-  if target_actor(unit.gate_id)==null:game.model.defenders.erase(unit.gate_id);continue
-  game.model.defenders[unit.gate_id]={"id":unit.gate_id,"pos":unit.global_position,"hp":unit.hp,"targetable":not unit.rogue_untargetable(),"taunting":unit.taunting if is_instance_valid(game.army_runtime) else (unit.kit_id==7 and unit.active_ability.player.buffTime>0)}
- # Particle/ribbon capacity is shared across the army; attacks and projectiles
- # have independent lifetimes and never depend on this cosmetic budget.
- var budget=mini(16,maxi(4,240/maxi(1,living_count)))
- if not is_instance_valid(game.army_runtime):
-  for unit in pool:unit.active_ability.fx.effect_budget=budget
-func activate_taunt(unit):
- sync_targets()
- for enemy in game.model.enemies.values():
-  if enemy.hp<=0:continue
-  game.model.waves.set_target(enemy,"defender",unit.gate_id)
-  enemy.action="walk";enemy.action_left=0.0;enemy.attack=false;enemy.attack_progress=0.0
-  enemy.strike_kind="";enemy.strike_id=-1;enemy.route_obstacle=-1;enemy.turn_escape=[]
-  var actor=game.actors.get(enemy.id)
-  if is_instance_valid(actor):actor.fitted_pose_dirty=true
+ living_count=game.army_runtime.sync_helper_mirrors(game.model.defenders,game.model.fighter_posts)
+ game.model.fighter_count=living_count
 func remove_taunt(unit):game.model.defenders.erase(unit.gate_id)
 func smoke_at(point:Vector3):smoke.smoke(point,6,Color("b8b0d4"))
 func rest():
  cancel_placement()
- if is_instance_valid(game.army_runtime):game.army_runtime.rest()
+ game.army_runtime.rest()
  for unit in pool:
   if unit.state=="draining":unit.park()
   elif unit.state=="sheltered":unit.set_physics_process(false)
@@ -355,7 +318,7 @@ func rest():
  sync_targets()
 func begin_wave():
  cancel_placement()
- if is_instance_valid(game.army_runtime):game.army_runtime.begin_wave()
+ game.army_runtime.begin_wave()
  for unit in active_units():unit.set_physics_process(true)
 func clear():
  cancel_placement()
@@ -375,9 +338,8 @@ func prune_pool():
 func _process(delta):
  update_placement_preview()
  if game.model.phase=="preparing":
-  if is_instance_valid(game.army_runtime):game.army_runtime.preparation_tick(delta)
+  game.army_runtime.preparation_tick(delta)
   for unit in active_units():
-   if unit.state=="sheltered" and not is_instance_valid(game.army_runtime):unit.shelter.tick(delta)
    unit.update_health_display()
  if not allies_can_remain():
   if not smoke.items.is_empty() or pool.any(func(u):return u.state!="idle"):clear()

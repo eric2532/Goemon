@@ -56,11 +56,9 @@ var sight_clock=0.0
 var sight_cache: Dictionary={}
 var gate_access_revision=-1
 var gate_access_cache:Array=[]
-var wave_step_delta=0.0
 var _construction_batch=false
 
 func reset(value: int,config: Dictionary={},layout: Dictionary={},include_mines:bool=true):
-	cancel_wave_step()
 	balance=Balance.sanitized(config)
 	mines_enabled=include_mines
 	ryo=preload("res://scripts/forest/forest_ryo_economy.gd").new(self)
@@ -470,44 +468,15 @@ func update_vision(hero: Vector3):
 			var cell=Vector2i(x,z);visible_cells[cell]=true;explored[cell]=true
 
 func start_wave()->bool:
-	if phase=="preparing":cancel_wave_step()
 	return waves.begin() if waves!=null else false
 
-func wave_step_active()->bool:
-	return waves!=null and waves.step_active
-func wave_step_count()->int:
-	return waves.step_ids.size() if wave_step_active() else 0
-func begin_wave_step(delta:float,hero:Vector3):
-	if wave_step_active() or phase!="wave" or delta<=0:return
-	hero_position=hero
-	if waves!=null and waves.begin_step(delta,hero):wave_step_delta=delta
-func cancel_wave_step():
-	wave_step_delta=0.0
-	if waves!=null:
-		waves.cancel_step()
-		if phase!="wave":waves.projectiles.clear()
-func advance_wave_slice(limit:int,hero:Vector3)->bool:
-	if not wave_step_active():return true
-	hero_position=hero
-	var delta=wave_step_delta
-	if not waves.advance_step(limit,hero):return false
-	wave_step_delta=0.0
-	if phase=="wave":
-		workforce.tick(delta,hero)
-		_tick_sight(delta,hero)
-	return true
-
 func tick(delta: float,hero: Vector3):
-	# A synchronous call owns a new interval. Drain an older sliced interval
-	# first using current targets, then consume the caller's full delta below.
-	if wave_step_active():advance_wave_slice(wave_step_count(),hero)
 	hero_position=hero
 	if phase=="preparing":
 		workforce.prepare_tick(delta)
 		if waves!=null and waves.giant_pending:waves.navigation.refresh()
 	elif phase=="wave":
-		if is_instance_valid(army_runtime):waves.tick_native(delta,hero)
-		else:waves.tick(delta,hero)
+		waves.tick(delta,hero)
 		if phase!="wave":return
 		workforce.tick(delta,hero)
 	else:return
@@ -520,11 +489,7 @@ func rally(held: bool,hero: Vector3):
 func damage_worker(id: int,amount: float):
 	if workforce!=null:workforce.damage(id,amount)
 func damage_enemy(id: int,amount: float):
-	if is_instance_valid(army_runtime):
-		army_runtime.damage_enemy(id,amount);return
-	if phase=="wave" and enemies.has(id):
-		enemies[id].hp=maxf(0,enemies[id].hp-amount)
-		if enemies[id].hp<=0:ryo.award_enemy_bounty(enemies[id])
+	if is_instance_valid(army_runtime):army_runtime.damage_enemy(id,amount)
 
 func build_wall_line(cells: Array,rotation: int)->Array:
 	if phase!="preparing" or cells.is_empty() or cells.size()>40 or gold<cells.size()*COSTS.wall:return []

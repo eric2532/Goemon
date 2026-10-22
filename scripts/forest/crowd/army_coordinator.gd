@@ -29,11 +29,17 @@ var arrival_ids:Dictionary={}
 var pending_retirements:Dictionary={}
 var retirement_rows_visited=0
 var retirement_reconcile=false
-func setup(owner_:Node):
- game=owner_;shared_snapshot_enabled=game.get_tree().get_meta("forest_army_shared_snapshots",true) if game.get_tree()!=null else true;worker_enabled=game.get_tree().get_meta("forest_army_worker",true) if game.get_tree()!=null else true;configure(game);record_events=false;pooled_presentation=true;game.model.army_runtime=self;configured_model=game.model
+func setup(owner_:Node)->bool:
+ game=owner_;shared_snapshot_enabled=game.get_tree().get_meta("forest_army_shared_snapshots",true) if game.get_tree()!=null else true;worker_enabled=game.get_tree().get_meta("forest_army_worker",true) if game.get_tree()!=null else true
+ if not configure(game):return false
+ record_events=false;pooled_presentation=true;game.model.army_runtime=self;configured_model=game.model
  native.set_parallel_movement(game.get_tree().get_meta("forest_army_parallel_movement",true))
  for row:Dictionary in game.model.enemies.values():queue_enemy_arrival(row)
  refresh_kits();game.crowd.configure_army(game)
+ return true
+func reset_world():
+ clear();configured_model=game.model;game.model.army_runtime=self;navigation_revision=-1;refresh_kits()
+ for row:Dictionary in game.model.enemies.values():queue_enemy_arrival(row)
 func refresh_kits():
  var data=preload("res://scripts/forest/crowd/army_kit_data.gd").from_model(game.model,game.tuning.enemy_damage,game)
  data.ranger[27]=1 if game.crosshair_aim_enabled() else 0

@@ -33,7 +33,7 @@ func add_occupant(slot:int):
  unit.summon(null,entrance,0);army.apply_hit(unit.handle,{"amount":unit.max_hp-20.0});army.set_pose(unit.handle,entrance,0);step(.04)
  return unit
 func run():
- set_meta("forest_army_backend","native")
+
  var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path="user://army-bunker-%d.cfg"%OS.get_process_id();root.add_child(game)
  for i in 3:await process_frame

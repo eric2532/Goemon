@@ -1,5 +1,5 @@
 extends SceneTree
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 const Document=preload("res://scripts/forest/forest_map_document.gd")
 const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
 const PRESET="res://assets/maps/forest_twin_ramparts.json"

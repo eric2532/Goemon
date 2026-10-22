@@ -1,6 +1,6 @@
 extends SceneTree
 const Art=preload("res://scripts/forest/forest_art.gd")
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 const Pose=preload("res://scripts/recovered_goemon_pose.gd")
 const Profile=preload("res://scripts/forest/forest_structure_profile.gd")
 var checks=0

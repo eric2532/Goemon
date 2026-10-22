@@ -1,7 +1,7 @@
 extends SceneTree
 ## Exercise the wave director, including staging validation; direct actor
 ## creation does not reproduce Daruma's repeated approach-search hitch.
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 const Contact=preload("res://scripts/forest/forest_enemy_contact.gd")
 var failures=0
 var checks=0

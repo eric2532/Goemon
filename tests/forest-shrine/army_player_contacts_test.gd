@@ -97,7 +97,7 @@ func compare_original_attacks(game):
    if backend=="crowd":
     runtime.spawn(row.id,0,0,row.pos,row.hp,3.9);target=runtime.enemy_target(row.id)
    else:
-    target=load("res://scripts/forest/forest_raider.gd").new();target.game=game;target.forest_id=row.id;target.variant=0;target.position=row.pos;target.swarm=true
+    target=load("res://tests/forest-shrine/reference/forest_raider.gd").new();target.game=game;target.forest_id=row.id;target.variant=0;target.position=row.pos;target.swarm=true
     game.add_child(target);target.set_physics_process(false);target._sync_fitted_pose()
    game.actors[row.id]=target;game.enemies.append(target)
    var before:float=target.hp

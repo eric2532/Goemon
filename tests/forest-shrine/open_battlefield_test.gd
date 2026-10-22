@@ -12,7 +12,7 @@ func check(ok:bool,label_:String):
 func run():
  var doc=load("res://scripts/forest/forest_map_document.gd").new()
  check(doc.load_blood_gulch().is_empty(),"Expanded default map validates")
- var model=load("res://scripts/forest/forest_model.gd").new();model.reset(42,{},doc.data);model.workers.clear()
+ var model=load("res://tests/forest-shrine/reference/forest_model.gd").new();model.reset(42,{},doc.data);model.workers.clear()
  check(is_equal_approx(float(doc.data.get("terrain_scale",1.0)),1.2),"Default battlefield is stretched 20 percent horizontally")
  check(model.visible_at(Vector3(0,0,-180)) and model.explored_at(Vector3(0,0,-180)),"Distant battlefield actors and ground are visible from the start")
  model.update_vision(Vector3(0,0,180));model.update_vision(Vector3(0,0,-180))
@@ -20,7 +20,7 @@ func run():
  check(model.placement_error("tower",Vector2i(15,2),0)!="Unexplored terrain","Unvisited terrain is no longer rejected for lack of scouting")
  check(model.waves.navigation.full_unseen(Vector3.ZERO,0),"Visible arrivals are not blocked by the former unseen-spawn requirement")
  var old=doc.data.duplicate(true);old.erase("terrain_scale")
- var legacy=load("res://scripts/forest/forest_model.gd").new();legacy.reset(42,{},old)
+ var legacy=load("res://tests/forest-shrine/reference/forest_model.gd").new();legacy.reset(42,{},old)
  check(is_equal_approx(model.terrain.spacing,3.6) and is_equal_approx(legacy.terrain.spacing,3.0),"Default uses stretched sampling while old custom maps retain original scale")
  check(model.enemy_grid.region==Rect2i(-48,-48,96,96) and legacy.enemy_grid.region==Rect2i(-40,-40,80,80),"Navigation expands with the battlefield and old map bounds stay unchanged")
  check(model.buildings[2].cell==legacy.buildings[2].cell and model.dimensions("gate",0)==Vector2i(2,1),"Castle and door footprints retain their existing size")
@@ -34,7 +34,7 @@ func run():
  var edge=Vector3(158,model.surface_height(158,234),234)
  var edge_to=edge
  check(model.terrain.disk_clear(edge,3.9) and model.waves.navigation.supported_corridor(edge,edge_to,3.9,.25).clear,"Native corridors accept supported actor footprints beyond the former boundary")
- var crowd=load("res://scripts/forest/forest_enemy_crowd.gd").new();crowd.game=world
+ var crowd=load("res://tests/forest-shrine/reference/forest_enemy_crowd.gd").new();crowd.game=world
  check(crowd._member_ground(edge,edge,3.9,model.terrain)!=null,"Legacy crowd bodies remain rendered on supported expanded-edge ground")
  crowd.free()
  var land=world.map_features.get_node("BloodGulchTerrain")

@@ -8,7 +8,7 @@ func check(ok:bool,message:String):
 	checks+=1
 	if not ok:failures+=1;printerr("FAIL: "+message)
 func fixture()->Array:
-	var model=load("res://scripts/forest/forest_model.gd").new()
+	var model=load("res://tests/forest-shrine/reference/forest_model.gd").new()
 	model.reset(42,{},{"deposits":[],"trees":[],"buildings":[]})
 	model.workers.clear();model.phase="wave";model.gold=0
 	return [model,economy_script.new(model)]

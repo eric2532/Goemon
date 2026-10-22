@@ -3,7 +3,7 @@ const GuardFixture=preload("res://tests/forest-shrine/guard_combat_fixture.gd")
 ## Test-only driver for unchanged player input and original NPC action traces.
 const Driver=preload("res://tests/forest-shrine/physics_step_driver.gd")
 const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
-class RecordedRaider extends "res://scripts/forest/forest_raider.gd":
+class RecordedRaider extends "res://tests/forest-shrine/reference/forest_raider.gd":
  var hits:Array=[]
  var trace_clock:Dictionary={}
  func take_hit(amount:float,direction:Vector3,heavy:bool,ticket:Dictionary={}):
@@ -11,6 +11,7 @@ class RecordedRaider extends "res://scripts/forest/forest_raider.gd":
   super.take_hit(amount,direction,heavy,ticket)
   hits.append([int(trace_clock.get("frame",0)),snappedf(amount,.001),snappedf(before-hp,.001),dead])
 var game
+var original_runtime
 var driver
 var tree:SceneTree
 var cfg="user://large-army-reference-%d.cfg"%OS.get_process_id()
@@ -19,7 +20,7 @@ var active_tick:Callable
 func make_game(layout:String)->Node:
  tree=get_tree();process_mode=Node.PROCESS_MODE_ALWAYS
  Engine.physics_ticks_per_second=600;Engine.time_scale=10
- tree.set_meta("forest_army_backend","legacy");tree.set_meta("forest_fighter",11)
+ tree.set_meta("forest_fighter",11)
  var doc=load("res://scripts/forest/forest_map_document.gd").new()
  if layout=="kai":doc.load_kai_highway()
  else:doc.load_original()
@@ -30,9 +31,19 @@ func make_game(layout:String)->Node:
  driver=Driver.new();driver.process_mode=Node.PROCESS_MODE_ALWAYS;add_child(driver)
  AudioServer.set_bus_mute(0,true)
  freeze_background()
+ original_runtime=game.army_runtime
+ game.model.waves=preload("res://tests/forest-shrine/reference/forest_waves.gd").new(game.model)
+ # Source controllers exist only inside this comparison fixture. The normal
+ # scene always builds native helpers and has no switch for this reference.
+ var previous_helpers=game.explorer_helpers
+ for unit in previous_helpers.pool:unit.free()
+ previous_helpers.guard_preview.free();previous_helpers.free()
+ game.explorer_helpers=preload("res://tests/forest-shrine/reference/explorer_helpers.gd").new();game.explorer_helpers.game=game;game.add_child(game.explorer_helpers)
+ freeze_background()
  game.camera_rig.camera.global_position=Vector3(0,24,80);game.camera_rig.camera.look_at(Vector3(0,1,52))
  return game
 func freeze_background():
+ if is_instance_valid(game.army_runtime):game.army_runtime.set_process(false)
  game.set_physics_process(false);game.set_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
  for unit in game.gate_defenders.units.values():unit.set_physics_process(false)
  for unit in game.explorer_helpers.pool:unit.set_physics_process(false)
@@ -158,8 +169,8 @@ func trace_scenario(id:int,scenario:String,backend:String)->Dictionary:
  for effect in tree.get_nodes_in_group("projectiles"):
   if is_instance_valid(effect):effect.queue_free()
  await tree.process_frame
- clear_targets();game.model.army_runtime=null;game.army_runtime=null
- game.crowd.set_process(false);game.crowd.low_fidelity=false # Compare the original single-soldier OBB, avoiding obsolete formation floor contacts.
+ clear_targets();game.model.army_runtime=null;game.army_runtime=original_runtime
+ game.crowd.set_process(false) # Reference targets use the original single-soldier OBB.
  var p=reset_player(id);p.set_physics_process(false);p.model.set_process(false)
  game.character_tuning={};game.tuning.critical_chance=0
  game.camera_rig.yaw=0;game.camera_rig.pitch=0;game.camera_rig.reset_follow();game.camera_rig.update_camera(1)
@@ -225,7 +236,7 @@ func trace_scenario(id:int,scenario:String,backend:String)->Dictionary:
  if p.active_ability!=null and p.active_ability.has_method("cancel"):p.active_ability.cancel()
  for effect in tree.get_nodes_in_group("projectiles"):
   if is_instance_valid(effect):effect.queue_free()
- clear_targets();game.model.army_runtime=null;game.army_runtime=null
+ clear_targets();game.model.army_runtime=null;game.army_runtime=original_runtime
  if runtime!=null:runtime.clear();runtime.queue_free()
  await tree.process_frame
  return result

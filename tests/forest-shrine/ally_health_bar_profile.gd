@@ -1,6 +1,6 @@
 extends SceneTree
 ## Same native bars and fill transforms; only GPU resource identities change.
-const Unit=preload("res://scripts/forest/explorer_helper_unit.gd")
+const Unit=preload("res://tests/forest-shrine/reference/explorer_helper_unit.gd")
 const OUT="/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Smooth Gameplay/ally-health-native"
 var bars=[]
 var source

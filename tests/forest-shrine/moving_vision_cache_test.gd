@@ -1,5 +1,5 @@
 extends SceneTree
-const Model=preload("res://scripts/forest/forest_model.gd")
+const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 class CountedModel extends Model:
 	var rays=0
 	func _line_visible(a:Vector2i,b:Vector2i,high:bool)->bool:

@@ -7,7 +7,7 @@ var failures=0
 var physics_driver
 var cfg="user://persistent-allies-%d.cfg"%OS.get_process_id()
 func _initialize():
- set_meta("forest_army_backend","legacy")
+
  Engine.physics_ticks_per_second=600;Engine.time_scale=10
  create_timer(120).timeout.connect(func():printerr("FAIL: persistent allies timeout");quit(1))
  run.call_deferred()

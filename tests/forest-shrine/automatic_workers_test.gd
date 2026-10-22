@@ -10,7 +10,7 @@ func check(ok: bool,message: String):
 func _initialize():call_deferred("run")
 
 func fresh():
-	var m=load("res://scripts/forest/forest_model.gd").new()
+	var m=load("res://tests/forest-shrine/reference/forest_model.gd").new()
 	preload("res://tests/forest-shrine/empty_settlement.gd").reset(m);m.gold=10000
 	for x in range(-15,16):
 		for y in range(-15,16):m.explored[Vector2i(x,y)]=true

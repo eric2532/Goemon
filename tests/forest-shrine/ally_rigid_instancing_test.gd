@@ -1,6 +1,6 @@
 extends SceneTree
 const Actor=preload("res://assets/rogue/scripts/actor.gd")
-const Renderer=preload("res://scripts/forest/ally_rigid_renderer.gd")
+const Renderer=preload("res://tests/forest-shrine/reference/ally_rigid_renderer.gd")
 var checks=0
 var failures=0
 func check(ok:bool,label_:String):
