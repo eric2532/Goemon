@@ -1,0 +1,35 @@
+Third-person mouse look — latest Forest Shrine v2.59.0
+
+Current controls replace the rejected free-cursor experiment. Move the mouse
+to turn the camera directly; no Alt or middle-mouse hold. The aiming reticle
+stays at screen centre. Left/right click keep their existing attacks and the
+wheel still zooms. Building, menus and loss of application focus release the
+pointer. Entering/resuming focused live combat captures it again.
+
+Forest-only starting framing: pitch 0.22 radians, existing distance 10, focus
+rise 2.0 instead of 0.35. The reticle sits above Dragoon's head, with a modest
+downward view and useful ground aim rather than the previous near-horizontal
+default. Legacy camera defaults are unchanged. Reticle/real ray still share
+crosshair_screen_position, and its mouse-ignoring overlay is retained.
+
+Dragoon's landing target is bounded to 30m horizontally at base range, scaled
+by existing range upgrades. The floor is queried after clamping so the circle
+and actual committed dive use the same terrain point. Looking down brings it
+closer; looking near the horizon reaches the cap. Triple jump height, hover,
+three-times shockwave radius, damage, animations and selected sounds remain.
+Melee keeps its existing forgiving camera-direction assistance and breaks
+away when the player turns the camera away.
+
+Evidence: tests/third-person-aim. Before implementation the new trial fixture
+reproduced six failures. 20 final checks pass in native Metal and headless,
+covering mouse-look/center ray, framing, landing cap/range upgrade/closer aim,
+committed preview, pause/focus/roster/build lifecycle. The rendered fixture
+explicitly resumes physics-frame context after screenshot capture so manual
+move_and_slide steps use physical, rather than variable render, delta.
+Existing melee 67, flight 24, preview 20, lifecycle 16, sweep 25, audio 18, music 17
+and definitive title/roster/retry checks pass. Native grounded and airborne
+screenshots were inspected. Narrow code review found no blockers.
+
+Current app: build/Goemon.app (restart to load).
+Release: build/Other Files/Forest Shrine v2.59.0/Third Person Mouse Look/Goemon.zip
+Packaged checks, app hash and previous app backup: verification.json.

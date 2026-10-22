@@ -1,0 +1,8 @@
+[configuration]
+entry_symbol = "goemon_terrain_math_init"
+compatibility_minimum = "4.6"
+reloadable = false
+
+[libraries]
+macos.debug.single = "res://native/terrain_math/bin/libgoemon_terrain_math.macos.universal.dylib"
+macos.release.single = "res://native/terrain_math/bin/libgoemon_terrain_math.macos.universal.dylib"

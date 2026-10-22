@@ -1,0 +1,45 @@
+SHARED TUCKED DOUBLE JUMP — 2026-10-16
+
+Approved source: Explorer_Double_Jump_Preview.blend,
+04_Double_Jump_Flip_Preview, frames 1–49 at 60 fps (0.8 seconds).
+Export: tools/export_tucked_double_jump.py → assets/animations/tucked_double_jump.json.
+Runtime: scripts/tucked_double_jump.gd, applied after native movement poses
+for Ninja, Ranger, and Explorer. First jumps retain their existing poses.
+
+The second-jump edge starts the full tucked forward somersault. The clip
+continues past the legacy 0.48-second flip timer, opens into the airborne
+pose, and fades back to native movement over 0.14 seconds. Actual floor
+contact ends it. Attacks, shooting, guards, dodges, charge, drinks, crouch,
+and special travel interrupt it; an interrupted flip cannot resume midway.
+Reset clears its trigger and age. Collision, velocities and jump counts
+remain native. The older model-level turn is disabled for these three.
+
+Weapons:
+- Explorer retains both exact approved hand-relative blade grips.
+- Ninja retains native blade and offhand grips throughout the turn.
+- Ranger keeps his native bow grip offset/scale, with a wrist orientation
+  that carries the bow upright beside the knee tuck. The other hand is
+  released during the somersault. Downward bow-fan attacks interrupt it.
+Key rendered poses at frames 1/9/16/22/28/39/49 were inspected side by side.
+
+Fresh verification in tests/explorer-animations/:
+272 source shared checks / 273 packaged shared checks, including full
+rotation, per-frame body matches, rotated/scaled actors, fixed grips,
+interruptions, resets, first-jump isolation and floor contact.
+34 source / 35 packaged real-gameplay checks: early and late second jumps
+for all three, floor return, attack priority and Ranger's downward fan.
+2,075 Explorer pose checks, 17 Explorer gameplay checks, 1,530 shared run
+checks, and 140 packaged melee-responsiveness checks pass.
+Independent review found no blockers; an additional 120Hz transformed and
+nonuniform-scaled sweep confirmed continuous rotation and stable grips.
+
+Existing issue discovered: scripts/ranger_carry_tests.gd fails 18 of 48
+ground-running assertions identically in the prior installed app and current
+source. Some forward/diagonal shared running directions change the torso
+and bow carry, with an approximately 0.212m hand-to-bow-root offset. The
+airborne-only flip does not change that existing behavior. Scene fixtures
+also retain their existing two-resource shutdown cleanup messages.
+
+The signed current app is build/Goemon.app; the prior app is backed up.
+Exact app paths, hashes and check counts: shared-flip-verification.json in
+tests/explorer-animations/. Restart the app to load the new animation.

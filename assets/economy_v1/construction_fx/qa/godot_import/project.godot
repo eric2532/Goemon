@@ -1,0 +1,4 @@
+[application]
+config/name="Construction FX import verification only"
+[rendering]
+renderer/rendering_method="gl_compatibility"

@@ -1,0 +1,14 @@
+{
+  "change": "Level 1 mine combat income metadata",
+  "previous_gold_per_second": 1,
+  "current_gold_per_second": 2,
+  "income_phase": "combat_only",
+  "setup_income_gold_per_second": 0,
+  "pause_income_gold_per_second": 0,
+  "blender_semantic_sha256_before": "c91e32e068ba2d1985faae69894c2e0dd07bcd8c039b3686b3abe589042c28e5",
+  "blender_semantic_sha256_after": "c91e32e068ba2d1985faae69894c2e0dd07bcd8c039b3686b3abe589042c28e5",
+  "glb_geometry_animation_binary_sha256": "c6529940872ef5f2c9a63b91f264e5389c45ae49dca6316144e5c5e696b5c16b",
+  "glb_json_change_limited_to_income_extra": true,
+  "geometry_animation_materials_unchanged": true,
+  "passed": true
+}

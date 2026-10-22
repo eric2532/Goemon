@@ -1,0 +1,31 @@
+{
+  "source": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/raw/SC06.CD.dir/FILE_016.dir/0.4.dec",
+  "sha256": "85b54829995fc482dd673019f5c9fed052f618f5f5de65f95d9d50e66c93f98c",
+  "verified_jal": {
+    "0x8017e8f4": "0x8012c588",
+    "0x8017e93c": "0x8017ece0",
+    "0x8017e944": "0x8017eda0",
+    "0x8017e950": "0x8002d4c8",
+    "0x8017eabc": "0x8017ece0",
+    "0x80181fec": "0x8017eae4",
+    "0x8017eb20": "0x8012c658"
+  },
+  "animations": {
+    "somersault": "source04@80195614",
+    "leap": "source03@80194FFC"
+  },
+  "actor_spawns": [
+    "2FD@8017E8E8",
+    "2FF@8017EB08"
+  ],
+  "particles": [
+    "8017ECE0:8particles",
+    "8017EDA0:32radial particles"
+  ],
+  "sounds": {
+    "A93": "leap voice",
+    "A94": "reposition voice",
+    "981": "radial burst"
+  },
+  "adaptations": "E input, three mobile collision-respecting hops, smoke meshes, three fireballs per leap, radius9m and90base finishing damage are playable port tuning; source motions and WAVs are recovered originals."
+}

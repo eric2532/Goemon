@@ -1,0 +1,49 @@
+{
+  "origin": "Original procedural audio, generated for this project; no sampled recordings.",
+  "approved_demo": "Building Placement Sound Demo 2026-10-22",
+  "generator": "tools/generate_building_placement_audio.py",
+  "files": [
+    {
+      "file": "tower-1.wav",
+      "sha256": "1f787daabf3b9fc60d034f65a03d2971afc3f572ee945098d073e93cca5c199c",
+      "sample_rate": 48000,
+      "channels": 1,
+      "seconds": 0.39
+    },
+    {
+      "file": "tower-2.wav",
+      "sha256": "727d3d67c15f097ff1d26809452f48463c26271513da9eadf6b978be1e285f0c",
+      "sample_rate": 48000,
+      "channels": 1,
+      "seconds": 0.39
+    },
+    {
+      "file": "tower-3.wav",
+      "sha256": "611fd8e3faae52a8544f5649e9bc99a48744cd04a8f857a0a3597d83b97c6ec0",
+      "sample_rate": 48000,
+      "channels": 1,
+      "seconds": 0.39
+    },
+    {
+      "file": "bunker-1.wav",
+      "sha256": "5c856454abd0a192fc0a3e07f20b638c466b03fa0ca2347ce0f9013f2f78fee2",
+      "sample_rate": 48000,
+      "channels": 1,
+      "seconds": 0.54
+    },
+    {
+      "file": "bunker-2.wav",
+      "sha256": "a963558b472e1fd578542da52f92a856a659921e2e9e5a204e8dcd32d435a0dc",
+      "sample_rate": 48000,
+      "channels": 1,
+      "seconds": 0.54
+    },
+    {
+      "file": "bunker-3.wav",
+      "sha256": "6a6a10c2ec900e4290728c45862bcbc84e5b69311b167558235cb1608a4a896f",
+      "sample_rate": 48000,
+      "channels": 1,
+      "seconds": 0.54
+    }
+  ]
+}

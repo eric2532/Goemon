@@ -1,0 +1,196 @@
+{
+  "source": {
+    "map": "bloodgulch.map",
+    "sha256": "50fe52406f075d975e24100a65b26ff696458023dd3509878953052ab0ef858f",
+    "bsp": "levels\\test\\bloodgulch\\bloodgulch",
+    "native_materials": 79,
+    "native_triangles": 5503,
+    "native_ground_materials": 1,
+    "rasterized_native_ground_triangles": 2425,
+    "textures": {
+      "source_blood_cliff_rock.png": {
+        "bitmap": "levels\\test\\bloodgulch\\bitmaps\\blood cliff rock",
+        "sha256": "adfde68a81df807554653adac7093c3429869743e0850d7d5e9c4311ff2e9ded"
+      },
+      "source_detail_cliff_rock.png": {
+        "bitmap": "levels\\b30\\bitmaps\\detail cliff rock",
+        "sha256": "764992676991b2fc9679538bfc01a837e9aed7b0cada247151ea8d936e49ab36"
+      },
+      "source_beavercreek_boulder.png": {
+        "bitmap": "levels\\test\\beavercreek\\bitmaps\\beavercreek boulder",
+        "sha256": "1d3a77f49cd2286365d254dcfbfb26774663970126267c5d2e5388269947ef5c"
+      },
+      "source_detail_rock_sandstone.png": {
+        "bitmap": "levels\\b30\\bitmaps\\detail rock sandstone",
+        "sha256": "3652cc28242c23e989d97debe2fd735bffe501bc4cbee10244069f210968061e"
+      },
+      "source_blood_ground.png": {
+        "bitmap": "levels\\test\\bloodgulch\\bitmaps\\blood ground",
+        "sha256": "d5d82f60ec6529b2b67f9936ee14dbeeb41d1a0210be6f28b36e7438a1b27b23"
+      },
+      "source_detail_sand.png": {
+        "bitmap": "levels\\b30\\bitmaps\\detail sand",
+        "sha256": "ddf42d2d6e88bd87e723427f1d75d714dc6563c04aa84aff085525b5912b156d"
+      },
+      "source_detail_grass.png": {
+        "bitmap": "levels\\a30\\bitmaps\\detail grass",
+        "sha256": "b38d9017e0aa93f596a12f3aecb3ef6c78c93088f10cd461d5fcfc170bff7011"
+      }
+    }
+  },
+  "coordinate_transform": {
+    "meters_per_halo_unit": 3.048,
+    "godot_axes": [
+      "halo_x",
+      "halo_z",
+      "-halo_y"
+    ],
+    "center_halo_xy": [
+      68.90423393249512,
+      -117.63783264160156
+    ],
+    "floor_baseline_meters": 0.5364030641464955
+  },
+  "battle_adaptations": {
+    "castle_pad_half_width_m": 66,
+    "pad_height_m": 0,
+    "attack_lane_half_width_m": 18,
+    "shoulder_blend_m": 18,
+    "entries_cells": [
+      [
+        -16,
+        -26,
+        2
+      ],
+      [
+        -9,
+        -26,
+        2
+      ],
+      [
+        -21,
+        -8,
+        1
+      ],
+      [
+        -21,
+        -1,
+        1
+      ],
+      [
+        21,
+        8,
+        3
+      ],
+      [
+        21,
+        15,
+        3
+      ],
+      [
+        10,
+        26,
+        0
+      ],
+      [
+        18,
+        26,
+        0
+      ]
+    ],
+    "routes_m": [
+      [
+        [
+          -96,
+          -156
+        ],
+        [
+          0,
+          -48
+        ]
+      ],
+      [
+        [
+          -54,
+          -156
+        ],
+        [
+          0,
+          -48
+        ]
+      ],
+      [
+        [
+          -126,
+          -48
+        ],
+        [
+          -48,
+          0
+        ]
+      ],
+      [
+        [
+          -126,
+          -6
+        ],
+        [
+          -48,
+          0
+        ]
+      ],
+      [
+        [
+          126,
+          48
+        ],
+        [
+          48,
+          0
+        ]
+      ],
+      [
+        [
+          126,
+          90
+        ],
+        [
+          48,
+          0
+        ]
+      ],
+      [
+        [
+          60,
+          156
+        ],
+        [
+          0,
+          48
+        ]
+      ],
+      [
+        [
+          108,
+          156
+        ],
+        [
+          0,
+          48
+        ]
+      ]
+    ],
+    "removed_scifi_base_triangles": 1688,
+    "filled_base_grid_samples": 523,
+    "removed_intrusive_cliff_triangles": 21,
+    "clipped_native_boundary_triangles": 414,
+    "unchanged_native_boundary_triangles": 955,
+    "cliff_clearance_height_m": 12,
+    "ground_cells_rendered": 8660,
+    "boundary_cap_triangles": 2800,
+    "boundary_cap_height": "Original unchanged native cliff-foot height blended continuously to adapted covered grid edges; no shoulder flattening at outer contact; source UV unchanged; navigation coverage unchanged",
+    "retained_native_boundary_triangles": 2437,
+    "ground_resampling": "3m grid; original grass UV barycentrically interpolated; identical triangle split for rendering/physics/navigation",
+    "brightness": "Native pixels preserved; shader daylight/color treatment is a separate presentation adaptation."
+  }
+}

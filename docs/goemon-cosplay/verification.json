@@ -1,0 +1,78 @@
+{
+  "source_master_sha256": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c",
+  "asset_geometry_checks": {
+    "variants": 11,
+    "passed": 11
+  },
+  "runtime_rig_checks": {
+    "checks": 72,
+    "failures": 0
+  },
+  "character_suites": [
+    {
+      "suite": "edo",
+      "summary": [
+        "EDO_REDESIGN_RESULT checks=19 failures=0"
+      ],
+      "diagnostics": [
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ]
+    },
+    {
+      "suite": "combat",
+      "summary": [
+        "ROGUE_COMBAT_UPGRADE_RESULT checks=76 failures=0"
+      ],
+      "diagnostics": []
+    },
+    {
+      "suite": "motion",
+      "summary": [
+        "FIRE_SIEGE_MOTION_RESULT checks=95 failures=0"
+      ],
+      "diagnostics": [
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details).",
+        "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+      ]
+    },
+    {
+      "suite": "roster",
+      "summary": [
+        "ROGUE_ROSTER_V235_RESULT checks=99 failures=0"
+      ],
+      "diagnostics": []
+    }
+  ],
+  "glb_sha256": {
+    "dragoon.glb": "16cb6c89f5df1c284cae12dcabeb424d6f1da277ecbfc0633bbf05b86160d8e4",
+    "edo.glb": "30809e6625fbb24237edc04110c592d90f2d0bf81cf9caab289151255ed11e37",
+    "explorer.glb": "b201b7dc4b4eb156bdc402adf620ac9c7ce35fbaed6ad0f3fa56111bc46fca60",
+    "goemon.glb": "0fe20a14052ffed3b669ddaa33f14ecf4219a76dab458f552ef1fceab3e0eb37",
+    "knight.glb": "f73c5b73c4814084a052fb8aaec6fb6b4b025cddbd6bc3c9d343974ef73f460a",
+    "mage.glb": "68a88d7b368ed968ca13d84336dafd0a13a89f69e30736840f11c0fe8e0be393",
+    "magic-swordsman.glb": "41bef01d510c04872a2398a699274c8dcae42f83267901c3c29d5ddfd32c639a",
+    "master-thief.glb": "495452f12b3df1b54769ec33f28f4bf6f207cf6f0ec62614c086751aed0b2cbd",
+    "ninja.glb": "9839c9354a15f1f30ce8922ea549832382c108c02528a362ff16f9efa997ba83",
+    "pirate.glb": "0b57d81a134f66d91944f3331a8d94e1dba6831a32f9eb641d405210b53cb953",
+    "ranger.glb": "29347cde3b4842864c0a3c734cd1c5ada0948970ba697840de003095505fee36",
+    "samurai.glb": "dbb015e365f120c776a98e3bec67f8f8b1590a74df7a1f30a611b17b2ab71ce5"
+  },
+  "packaged_rig_checks": {
+    "checks": 72,
+    "failures": 0,
+    "runner": "Godot 4.6.3 editor runtime loading exported Goemon.pck"
+  },
+  "packaged_gameplay_checks": {
+    "checks": 15,
+    "failures": 0,
+    "runner": "Release app, normal frame timing",
+    "log": "build/goemon-cosplay/verification/packaged-gameplay-retry.log",
+    "earlier_accelerated_run": {
+      "checks": 15,
+      "failures": 2,
+      "details": "Explorer secondary preview assertions; normal frame timing retry passes."
+    }
+  },
+  "macos_code_signature": "codesign --verify --deep --strict passed",
+  "packaged_pck_sha256": "f715206ca978b028934c03e80313459353999e106849d134ed5595e33cde8b37"
+}

@@ -1,0 +1,578 @@
+{
+  "source_changes": {
+    "scripts/player.gd": "Current roster selection order replaces the older ROSTER dictionary order (concurrent source change; only the two selection lines differ).",
+    "scripts/master_chief_combat.gd": "User-requested triple gun damage plus verified muzzle/crosshair trajectories (37f3a70f).",
+    "scripts/recovered_leader_combat.gd": "User-requested recovered Ed held beam, shield, vertical aim and original motion restoration (concurrent source update).",
+    "scripts/recovered_ed_beam.gd": "Current Ed beam including user-requested doubled visible and damage reach.",
+    "scripts/rogue_roster_combat.gd": "Oct22 user-requested native spatial broadphase: only bounded living/nearby candidate enumeration changes; exact contact, visibility, ordering, action logic, timing and controls preserved. New 2000-enemy query regression15 and full18-roster backend comparison864 pass."
+  },
+  "approved_source_hashes": {
+    "scripts/player.gd": "75cc401f1f531b2bc2fe0f171c3f442880aa27ffa470c9d083aa234b12bafffd",
+    "scripts/master_chief_combat.gd": "567d3c063dc3bc8e1fce9aa7a05bf06b45747bb25d7d363ec4068d4113fd03ff",
+    "scripts/recovered_leader_combat.gd": "76866cd3297f301e00964dec60fa9a1488c3a6637ef3f17b3704c5aabc05139d",
+    "scripts/recovered_ed_beam.gd": "2a47996d2529b3d965548813b0e18a00044914a823ff179d7124747b1c805f65",
+    "scripts/rogue_roster_combat.gd": "7b8c69237bb4e7a25249c2569f8d6f3188f412ebfcba1d9caee9370c414fa2be"
+  },
+  "paid_allies": {
+    "10": {
+      "count": 1,
+      "damage": 245.05,
+      "hits": [
+        [
+          22,
+          38.0,
+          38.0,
+          false
+        ],
+        [
+          37,
+          101.0,
+          101.0,
+          false
+        ],
+        [
+          49,
+          101.0,
+          106.05,
+          true
+        ]
+      ],
+      "hp": 100,
+      "samples": [
+        [
+          192.0,
+          1
+        ],
+        [
+          192.0,
+          1
+        ],
+        [
+          154.0,
+          1
+        ],
+        [
+          154.0,
+          1
+        ],
+        [
+          53.0,
+          1
+        ],
+        [
+          -53.05,
+          1
+        ],
+        [
+          -53.05,
+          1
+        ],
+        [
+          -53.05,
+          1
+        ],
+        [
+          -53.05,
+          1
+        ],
+        [
+          -53.05,
+          1
+        ]
+      ],
+      "states": [
+        "idle",
+        "bow:0",
+        "bow:1",
+        "bow:2",
+        "idle"
+      ]
+    },
+    "11": {
+      "count": 1,
+      "damage": 149.4,
+      "hits": [
+        [
+          19,
+          19.0,
+          19.0,
+          false
+        ],
+        [
+          36,
+          19.0,
+          19.95,
+          false
+        ],
+        [
+          53,
+          28.0,
+          30.8,
+          false
+        ],
+        [
+          73,
+          19.0,
+          21.85,
+          false
+        ],
+        [
+          89,
+          19.0,
+          22.8,
+          false
+        ],
+        [
+          104,
+          28.0,
+          35.0,
+          false
+        ]
+      ],
+      "hp": 200,
+      "samples": [
+        [
+          192.0,
+          1
+        ],
+        [
+          192.0,
+          1
+        ],
+        [
+          173.0,
+          1
+        ],
+        [
+          153.05,
+          1
+        ],
+        [
+          153.05,
+          1
+        ],
+        [
+          122.25,
+          1
+        ],
+        [
+          122.25,
+          1
+        ],
+        [
+          100.4,
+          1
+        ],
+        [
+          77.6,
+          1
+        ],
+        [
+          42.6,
+          1
+        ]
+      ],
+      "states": [
+        "idle",
+        "evasive-slash:0",
+        "evasive-slash:1",
+        "evasive-slash:2",
+        "evasive-slash:0",
+        "evasive-slash:1",
+        "evasive-slash:2"
+      ]
+    },
+    "5": {
+      "count": 1,
+      "damage": 207.25,
+      "hits": [
+        [
+          7,
+          76.0,
+          76.0,
+          false
+        ],
+        [
+          44,
+          25.0,
+          26.25,
+          false
+        ],
+        [
+          44,
+          25.0,
+          26.25,
+          false
+        ],
+        [
+          44,
+          25.0,
+          26.25,
+          false
+        ],
+        [
+          45,
+          25.0,
+          26.25,
+          false
+        ],
+        [
+          45,
+          25.0,
+          26.25,
+          true
+        ]
+      ],
+      "hp": 100,
+      "samples": [
+        [
+          192.0,
+          1
+        ],
+        [
+          116.0,
+          1
+        ],
+        [
+          116.0,
+          1
+        ],
+        [
+          116.0,
+          1
+        ],
+        [
+          -15.25,
+          1
+        ],
+        [
+          -15.25,
+          1
+        ],
+        [
+          -15.25,
+          1
+        ],
+        [
+          -15.25,
+          1
+        ],
+        [
+          -15.25,
+          1
+        ],
+        [
+          -15.25,
+          1
+        ]
+      ],
+      "states": [
+        "idle",
+        "dash",
+        "idle"
+      ]
+    },
+    "7": {
+      "count": 1,
+      "damage": 201.5,
+      "hits": [
+        [
+          19,
+          42.0,
+          42.0,
+          false
+        ],
+        [
+          51,
+          42.0,
+          44.1,
+          false
+        ],
+        [
+          81,
+          61.0,
+          67.1,
+          false
+        ],
+        [
+          117,
+          42.0,
+          48.3,
+          true
+        ]
+      ],
+      "hp": 500,
+      "samples": [
+        [
+          192.0,
+          1
+        ],
+        [
+          192.0,
+          1
+        ],
+        [
+          150.0,
+          1
+        ],
+        [
+          150.0,
+          1
+        ],
+        [
+          150.0,
+          1
+        ],
+        [
+          105.9,
+          1
+        ],
+        [
+          105.9,
+          1
+        ],
+        [
+          38.8,
+          1
+        ],
+        [
+          38.8,
+          1
+        ],
+        [
+          38.8,
+          1
+        ]
+      ],
+      "states": [
+        "idle",
+        "heavy:0",
+        "heavy:1",
+        "heavy:2",
+        "heavy:0"
+      ]
+    },
+    "8": {
+      "count": 1,
+      "damage": 256.0,
+      "hits": [
+        [
+          23,
+          64.0,
+          64.0,
+          false
+        ],
+        [
+          39,
+          64.0,
+          64.0,
+          false
+        ],
+        [
+          55,
+          64.0,
+          128.0,
+          true
+        ]
+      ],
+      "hp": 200,
+      "samples": [
+        [
+          192.0,
+          1
+        ],
+        [
+          192.0,
+          1
+        ],
+        [
+          128.0,
+          1
+        ],
+        [
+          128.0,
+          1
+        ],
+        [
+          64.0,
+          1
+        ],
+        [
+          -64.0,
+          1
+        ],
+        [
+          -64.0,
+          1
+        ],
+        [
+          -64.0,
+          1
+        ],
+        [
+          -64.0,
+          1
+        ],
+        [
+          -64.0,
+          1
+        ]
+      ],
+      "states": [
+        "idle",
+        "travel:lance-leap",
+        "idle"
+      ]
+    }
+  },
+  "deployment_change": "Paid one-per-purchase guards and guard-post fixture replace old free groups. The historical fixture remains untouched; reviewed current traces use the existing native actions. Differences are count, placement/opening delay, and downstream critical/chain order. Independent per-kit native/source marker tests cover actual damage, contacts and cadence.",
+  "historical_counts": {
+    "10": 3.0,
+    "11": 2.0,
+    "5": 5.0,
+    "7": 1.0,
+    "8": 1.0
+  },
+  "players": {
+    "14": {
+      "damage": 216.0,
+      "hits": [
+        [
+          28,
+          216.0,
+          216.0,
+          true
+        ]
+      ],
+      "movement": 5.312,
+      "released": true,
+      "samples": [
+        [
+          0.0,
+          0.142,
+          59.993,
+          192.0
+        ],
+        [
+          0.0,
+          -0.024,
+          56.94,
+          192.0
+        ],
+        [
+          0.0,
+          -0.024,
+          54.688,
+          192.0
+        ],
+        [
+          0.0,
+          -0.024,
+          54.688,
+          -24.0
+        ],
+        [
+          0.0,
+          -0.024,
+          54.688,
+          -24.0
+        ],
+        [
+          0.0,
+          -0.024,
+          54.688,
+          -24.0
+        ],
+        [
+          0.0,
+          -0.024,
+          54.688,
+          -24.0
+        ],
+        [
+          0.0,
+          -0.024,
+          54.688,
+          -24.0
+        ]
+      ],
+      "states": [
+        "idle",
+        "attack",
+        "idle"
+      ]
+    },
+    "18": {
+      "damage": 720.0,
+      "hits": [
+        [
+          24,
+          720.0,
+          720.0,
+          true
+        ]
+      ],
+      "movement": 5.312,
+      "released": true,
+      "samples": [
+        [
+          0.0,
+          0.142,
+          59.993,
+          192.0
+        ],
+        [
+          0.0,
+          -0.024,
+          56.94,
+          192.0
+        ],
+        [
+          0.0,
+          -0.024,
+          54.688,
+          -528.0
+        ],
+        [
+          0.0,
+          -0.024,
+          54.688,
+          -528.0
+        ],
+        [
+          0.0,
+          -0.024,
+          54.688,
+          -528.0
+        ],
+        [
+          0.0,
+          -0.024,
+          54.688,
+          -528.0
+        ],
+        [
+          0.0,
+          -0.024,
+          54.688,
+          -528.0
+        ],
+        [
+          0.0,
+          -0.024,
+          54.688,
+          -528.0
+        ]
+      ],
+      "states": [
+        "idle",
+        "attack",
+        "idle"
+      ]
+    }
+  },
+  "player_trace_changes": {
+    "14": "Current concurrent Ed beam has DAMAGE72 (216 after existing character multiplier), replacing the former DAMAGE24. The first pulse is at the same source frame28 and now kills this192HP fixture immediately; movement and controls remain identical. Preserve current stronger source while comparing both backends.",
+    "18": "Requested gun damage240\u2192720; source-muzzle ballistic correction makes this close rocket arrive at frame24 instead of25. Movement, input, and release remain identical."
+  }
+}

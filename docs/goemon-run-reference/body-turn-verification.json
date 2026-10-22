@@ -1,0 +1,56 @@
+{
+  "scope": "Current source HeroModel run and shared mapped-rig torso helper. This record does not describe an exported package.",
+  "diagnosis": {
+    "original_rig": "22 bones already include articulated pelvis, spine, chest, neck, shoulders, elbows, knees and ankles.",
+    "source_torso": "Authored run clips already counter-rotate shoulders and hips; no extra yaw was added to HeroLocomotion.",
+    "source_arms": "The reference arm override used fixed skeleton axes and lost chest-relative hand clearance during twist.",
+    "mapped_rigs": "Adapters with one Body driver need separate pelvis/spine/chest motion, supplied by goemon_reference_run_body.gd. Actual adapter integration is verified separately."
+  },
+  "changes": [
+    "Construct compact source run arm directions in the current chest orientation.",
+    "Supply a run-only body helper with opposing hip and shoulder turn and neck counter-rotation.",
+    "Measure shoulder and hip lines, head rotation, hand clearance, foot recovery, sole orientation, root movement and bone lengths.",
+    "Wait for pending Metal rendering before freeing capture fixtures."
+  ],
+  "red_green": {
+    "source_arm_regression_failures_before": 2,
+    "mapped_body_regression_failures_before": 3,
+    "reference_checks_after": 28,
+    "reference_failures_after": 0
+  },
+  "source_measurements": {
+    "run_speed": 10.2,
+    "run_shoulder_yaw_radians": [-0.453598, 0.447797],
+    "run_hip_yaw_radians": [-0.259058, 0.262951],
+    "run_opposing_turn_frames": "161 / 161",
+    "sprint_speed": 18.0,
+    "sprint_shoulder_yaw_radians": [-0.574893, 0.565225],
+    "sprint_hip_yaw_radians": [-0.325938, 0.328387],
+    "sprint_hand_outboard_clearance_m_before": 0.031517,
+    "sprint_hand_outboard_clearance_m_after": 0.188925,
+    "minimum_rear_heel_lift_m": 0.43368,
+    "maximum_leg_length_error_m": 0.000000269
+  },
+  "helper_measurements": {
+    "shoulder_yaw_radians": [-0.434683, 0.434683],
+    "hip_yaw_radians": [-0.249945, 0.249945],
+    "head_yaw_radians": [-0.048215, 0.048215],
+    "opposing_stride_frames": "120 / 120",
+    "maximum_bone_length_error_m": 0.000001029,
+    "zero_weight_preserves_pose": true
+  },
+  "regression_results": [
+    "GOEMON_RUN_REFERENCE_RESULT checks=28 failures=0",
+    "LOCOMOTION_TEST_RESULT failures=0 frames=0 samples=1171",
+    "PIPE_COMBO_RESULT failures=0 frames=0 plant_error=0.00000381481368 arm_error=0.00000207094193"
+  ],
+  "preview": {
+    "subject": "Actual source HeroModel with terrain IK",
+    "frames": 60,
+    "source_fps": 30.6,
+    "angles": ["side", "rear", "rear three-quarter"],
+    "video": "goemon-run-body-turn.mp4",
+    "gif": "goemon-run-body-turn.gif",
+    "inspected_frames": [0, 3, 6]
+  }
+}

@@ -1,0 +1,23 @@
+SAMURAI — FRESH FREE-POSING WORKBENCH / BLENDER REVIEW
+
+This works like Pirate: rotate the real body bones and move the sword separately.
+There are no arm or leg IK constraints, pinned feet, poles, or hidden body bones.
+
+Start in 01 — Idle at FRAME 0. Only frame 0 is keyed in each scene.
+02 — Run and 03 — Five-hit combo are fresh work areas with the same starting pose.
+04 — Katana detail keeps the weapon modeling view.
+The previous animations remain in docs/samurai-weapon-workbench/
+Samurai_Weapon_Workbench.blend. This file does not replace them.
+
+Arm_L/R rotates the upper arm; Forearm_L/R bends the elbow; Hand_L/R turns the wrist.
+Leg_L/R, Shin_L/R, and Foot_L/R pose the legs. Pelvis, Chest, and Head pose the body.
+Sword_Control moves/rotates the complete katana independently, like Pirate's sword.
+Hands do not automatically follow it; position the hands and grip together.
+
+R rotates; G moves; select an axis X/Y/Z if needed. Work in Pose Mode.
+A selects all bones. I inserts a complete pose (Location, Rotation, Scale).
+Auto Key is OFF. Insert a key after editing, then Command-S saves this new file.
+Model geometry, UVs, original deform-bone rest lengths, and katana size are unchanged.
+Blender review only; the playable game is unchanged.
+
+Scarf_Control: rotate (R) the trailing scarf from its neck attachment. It follows Head and is included in Whole Pose (I) keying.

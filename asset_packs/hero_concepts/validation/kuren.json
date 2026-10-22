@@ -1,0 +1,58 @@
+{
+  "character": "kuren",
+  "source_sha256": "0261ea19dc49038f65a8b02741de5fe972c2dea069ca5df46b0c1174ec38b1c9",
+  "glb_sha256": "91b531fc6b5be09b8c6d064d074f3231ae71cfaae2e98660008e748a2f445c34",
+  "status": "PASS",
+  "source": {
+    "objects": 387,
+    "triangles": 284100,
+    "vertices": 143567,
+    "bounds_min": [
+      -0.9834634065628052,
+      -0.4595632255077362,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      0.9834634065628052,
+      0.4222399890422821,
+      3.0062320232391357
+    ],
+    "nonfinite_objects": []
+  },
+  "glb_reimport": {
+    "objects": 386,
+    "triangles": 284100,
+    "vertices": 167260,
+    "bounds_min": [
+      -0.9834634065628052,
+      -0.4595632255077362,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      0.9834634065628052,
+      0.4222399890422821,
+      3.0062320232391357
+    ],
+    "nonfinite_objects": []
+  },
+  "bounds_max_error": 0.0,
+  "packed_images": [
+    "10-kuren-festival-guard.png",
+    "Kuren_accent_painted_fiber",
+    "Kuren_cloth_painted_fiber",
+    "Kuren_cream_painted_fiber",
+    "Kuren_gold_painted_fiber",
+    "Kuren_hair_painted_fiber",
+    "Kuren_leather_painted_fiber",
+    "Kuren_pants_painted_fiber",
+    "Kuren_rope_painted_fiber"
+  ],
+  "static_unrigged": true,
+  "views": [
+    "three_quarter",
+    "front",
+    "side",
+    "back",
+    "import"
+  ]
+}

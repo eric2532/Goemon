@@ -1,0 +1,2132 @@
+{
+  "machiya_open": {
+    "id": "machiya_open",
+    "category": "building",
+    "dimensions_xyz_blender_m": [
+      9.8,
+      9.105,
+      6.663
+    ],
+    "bounds_min": [
+      -4.900125026702881,
+      -5.400000095367432,
+      0.0
+    ],
+    "bounds_max": [
+      4.900125026702881,
+      3.7049999237060547,
+      6.66297721862793
+    ],
+    "triangles": 5514,
+    "pivot": "ground placement origin (0,0,0)",
+    "interior": true,
+    "collision": "authored wall/furniture boxes and ramp convex shapes in interiors.json",
+    "surfaces": 7,
+    "groups": [
+      "Floor",
+      "Interior",
+      "Roof",
+      "Wall_Back",
+      "Wall_Front",
+      "Wall_Left",
+      "Wall_Right"
+    ],
+    "body_width": 8,
+    "body_depth": 6,
+    "door_width": 3.2,
+    "door_clear_height": 2.5,
+    "floor_height": 0.36,
+    "colliders": [
+      {
+        "name": "Finished floor",
+        "group": "Floor",
+        "type": "box",
+        "position_blender": [
+          0,
+          0,
+          0.18
+        ],
+        "size_blender": [
+          8.4,
+          6.4,
+          0.36
+        ]
+      },
+      {
+        "name": "Side wall",
+        "group": "Wall_Left",
+        "type": "box",
+        "position_blender": [
+          -3.88,
+          0,
+          2.3
+        ],
+        "size_blender": [
+          0.24,
+          6,
+          4
+        ]
+      },
+      {
+        "name": "Accessible front wing",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          -2.8,
+          -2.88,
+          2.3
+        ],
+        "size_blender": [
+          2.4,
+          0.24,
+          4
+        ]
+      },
+      {
+        "name": "Side wall",
+        "group": "Wall_Right",
+        "type": "box",
+        "position_blender": [
+          3.88,
+          0,
+          2.3
+        ],
+        "size_blender": [
+          0.24,
+          6,
+          4
+        ]
+      },
+      {
+        "name": "Accessible front wing",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          2.8,
+          -2.88,
+          2.3
+        ],
+        "size_blender": [
+          2.4,
+          0.24,
+          4
+        ]
+      },
+      {
+        "name": "Rear wall",
+        "group": "Wall_Back",
+        "type": "box",
+        "position_blender": [
+          0,
+          2.88,
+          2.3
+        ],
+        "size_blender": [
+          8,
+          0.24,
+          4
+        ]
+      },
+      {
+        "name": "High doorway lintel",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          0,
+          -2.88,
+          3.8499999999999996
+        ],
+        "size_blender": [
+          3.2,
+          0.24,
+          0.8999999999999999
+        ]
+      },
+      {
+        "name": "Continuous entry ramp",
+        "group": "Floor",
+        "type": "convex",
+        "position_blender": [
+          0,
+          0,
+          0
+        ],
+        "size_blender": [
+          0,
+          0,
+          0
+        ],
+        "vertices_blender": [
+          [
+            -1.675,
+            -5.4,
+            0
+          ],
+          [
+            1.675,
+            -5.4,
+            0
+          ],
+          [
+            1.675,
+            -3.2,
+            0
+          ],
+          [
+            -1.675,
+            -3.2,
+            0
+          ],
+          [
+            -1.675,
+            -3.2,
+            0.36
+          ],
+          [
+            1.675,
+            -3.2,
+            0.36
+          ]
+        ]
+      },
+      {
+        "name": "Merchant counter",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          -2.7,
+          0.2,
+          0.91
+        ],
+        "size_blender": [
+          1.15,
+          3.35,
+          1.1
+        ]
+      },
+      {
+        "name": "Back stock",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          -1.9,
+          2.55,
+          1.5099999999999998
+        ],
+        "size_blender": [
+          3.2,
+          0.55,
+          2.3
+        ]
+      },
+      {
+        "name": "Right display",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          3.15,
+          0.8,
+          1.435
+        ],
+        "size_blender": [
+          0.65,
+          2.5,
+          2.15
+        ]
+      },
+      {
+        "name": "Rice crate",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          2.9,
+          2.25,
+          0.71
+        ],
+        "size_blender": [
+          0.88,
+          0.89,
+          0.7
+        ]
+      }
+    ],
+    "lights_blender": [
+      [
+        -2.4,
+        1.6,
+        2.7
+      ],
+      [
+        2.4,
+        1.6,
+        2.7
+      ]
+    ],
+    "route_blender": [
+      [
+        0,
+        -5.8
+      ],
+      [
+        0,
+        -1.7
+      ],
+      [
+        0,
+        0.8
+      ],
+      [
+        1.65,
+        0.8
+      ],
+      [
+        1.65,
+        -1.7
+      ],
+      [
+        0,
+        -1.7
+      ],
+      [
+        0,
+        -5.8
+      ]
+    ],
+    "furniture_tests": [
+      {
+        "start": [
+          0,
+          0
+        ],
+        "toward": [
+          -3,
+          0
+        ],
+        "stop_axis": "x",
+        "limit": -1.7
+      }
+    ],
+    "accessible_levels": [
+      0.36
+    ]
+  },
+  "inn": {
+    "id": "inn",
+    "category": "building",
+    "dimensions_xyz_blender_m": [
+      11.8,
+      10.105,
+      9.663
+    ],
+    "bounds_min": [
+      -5.900125026702881,
+      -5.900000095367432,
+      0.0
+    ],
+    "bounds_max": [
+      5.900125026702881,
+      4.204999923706055,
+      9.66297721862793
+    ],
+    "triangles": 7090,
+    "pivot": "ground placement origin (0,0,0)",
+    "interior": true,
+    "collision": "authored wall/furniture boxes and ramp convex shapes in interiors.json",
+    "surfaces": 9,
+    "groups": [
+      "Floor",
+      "Interior",
+      "Roof",
+      "UpperFloor",
+      "UpperFurniture",
+      "Wall_Back",
+      "Wall_Front",
+      "Wall_Left",
+      "Wall_Right"
+    ],
+    "body_width": 10,
+    "body_depth": 7,
+    "door_width": 3.6,
+    "door_clear_height": 3.04,
+    "floor_height": 0.36,
+    "colliders": [
+      {
+        "name": "Finished floor",
+        "group": "Floor",
+        "type": "box",
+        "position_blender": [
+          0,
+          0,
+          0.18
+        ],
+        "size_blender": [
+          10.4,
+          7.4,
+          0.36
+        ]
+      },
+      {
+        "name": "Side wall",
+        "group": "Wall_Left",
+        "type": "box",
+        "position_blender": [
+          -4.88,
+          0,
+          3.8
+        ],
+        "size_blender": [
+          0.24,
+          7,
+          7
+        ]
+      },
+      {
+        "name": "Accessible front wing",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          -3.4,
+          -3.38,
+          3.8
+        ],
+        "size_blender": [
+          3.2,
+          0.24,
+          7
+        ]
+      },
+      {
+        "name": "Side wall",
+        "group": "Wall_Right",
+        "type": "box",
+        "position_blender": [
+          4.88,
+          0,
+          3.8
+        ],
+        "size_blender": [
+          0.24,
+          7,
+          7
+        ]
+      },
+      {
+        "name": "Accessible front wing",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          3.4,
+          -3.38,
+          3.8
+        ],
+        "size_blender": [
+          3.2,
+          0.24,
+          7
+        ]
+      },
+      {
+        "name": "Rear wall",
+        "group": "Wall_Back",
+        "type": "box",
+        "position_blender": [
+          0,
+          3.38,
+          3.8
+        ],
+        "size_blender": [
+          10,
+          0.24,
+          7
+        ]
+      },
+      {
+        "name": "High doorway lintel",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          0,
+          -3.38,
+          5.35
+        ],
+        "size_blender": [
+          3.6,
+          0.24,
+          3.9
+        ]
+      },
+      {
+        "name": "Continuous entry ramp",
+        "group": "Floor",
+        "type": "convex",
+        "position_blender": [
+          0,
+          0,
+          0
+        ],
+        "size_blender": [
+          0,
+          0,
+          0
+        ],
+        "vertices_blender": [
+          [
+            -1.875,
+            -5.9,
+            0
+          ],
+          [
+            1.875,
+            -5.9,
+            0
+          ],
+          [
+            1.875,
+            -3.7,
+            0
+          ],
+          [
+            -1.875,
+            -3.7,
+            0
+          ],
+          [
+            -1.875,
+            -3.7,
+            0.36
+          ],
+          [
+            1.875,
+            -3.7,
+            0.36
+          ]
+        ]
+      },
+      {
+        "name": "Reception counter",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          -3.35,
+          -1,
+          0.91
+        ],
+        "size_blender": [
+          1.4,
+          2.4,
+          1.1
+        ]
+      },
+      {
+        "name": "Guest key cabinet",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          -3.2,
+          3.05,
+          1.5099999999999998
+        ],
+        "size_blender": [
+          2.5,
+          0.5,
+          2.3
+        ]
+      },
+      {
+        "name": "Ground guest futon",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          -2.7,
+          1.15,
+          0.5
+        ],
+        "size_blender": [
+          1.65,
+          2.35,
+          0.28
+        ]
+      },
+      {
+        "name": "Waiting bench",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          0.7,
+          2.75,
+          0.63
+        ],
+        "size_blender": [
+          2.2,
+          0.5,
+          0.54
+        ]
+      },
+      {
+        "name": "Stair smooth collision",
+        "group": "Interior",
+        "type": "convex",
+        "position_blender": [
+          0,
+          0,
+          0
+        ],
+        "size_blender": [
+          0,
+          0,
+          0
+        ],
+        "vertices_blender": [
+          [
+            2.8499999999999996,
+            -2.0,
+            0.36
+          ],
+          [
+            4.45,
+            -2.0,
+            0.36
+          ],
+          [
+            2.8499999999999996,
+            2.0,
+            0.36
+          ],
+          [
+            4.45,
+            2.0,
+            0.36
+          ],
+          [
+            2.8499999999999996,
+            2.0,
+            3.6599999999999997
+          ],
+          [
+            4.45,
+            2.0,
+            3.6599999999999997
+          ]
+        ]
+      },
+      {
+        "name": "Mezzanine floor",
+        "group": "UpperFloor",
+        "type": "box",
+        "position_blender": [
+          -0.85,
+          1.35,
+          3.57
+        ],
+        "size_blender": [
+          7.65,
+          4.0,
+          0.18
+        ]
+      },
+      {
+        "name": "Stair top landing",
+        "group": "UpperFloor",
+        "type": "box",
+        "position_blender": [
+          3.65,
+          2.6,
+          3.57
+        ],
+        "size_blender": [
+          1.6,
+          1.2,
+          0.18
+        ]
+      },
+      {
+        "name": "Upstairs guest futon",
+        "group": "UpperFurniture",
+        "type": "box",
+        "position_blender": [
+          -3.2,
+          1.8,
+          3.8
+        ],
+        "size_blender": [
+          1.65,
+          2.35,
+          0.28
+        ]
+      },
+      {
+        "name": "Upstairs guest futon",
+        "group": "UpperFurniture",
+        "type": "box",
+        "position_blender": [
+          -0.6,
+          1.8,
+          3.8
+        ],
+        "size_blender": [
+          1.65,
+          2.35,
+          0.28
+        ]
+      },
+      {
+        "name": "Mezzanine front guard",
+        "group": "UpperFloor",
+        "type": "box",
+        "position_blender": [
+          -0.85,
+          -0.67,
+          4.14
+        ],
+        "size_blender": [
+          7.65,
+          0.12,
+          0.96
+        ]
+      },
+      {
+        "name": "Stair inner rail",
+        "group": "UpperFloor",
+        "type": "box",
+        "position_blender": [
+          2.7899999999999996,
+          0.0,
+          2.5599999999999996
+        ],
+        "size_blender": [
+          0.12,
+          4.0,
+          4.4
+        ]
+      }
+    ],
+    "lights_blender": [
+      [
+        -3.0,
+        1.6,
+        2.7
+      ],
+      [
+        3.0,
+        1.6,
+        2.7
+      ]
+    ],
+    "route_blender": [
+      [
+        0,
+        -6.3
+      ],
+      [
+        0,
+        -1.8
+      ],
+      [
+        0,
+        1.1
+      ],
+      [
+        1.6,
+        1.1
+      ],
+      [
+        1.6,
+        -1.8
+      ],
+      [
+        0,
+        -1.8
+      ],
+      [
+        0,
+        -6.3
+      ]
+    ],
+    "furniture_tests": [
+      {
+        "start": [
+          0,
+          -1
+        ],
+        "toward": [
+          -4,
+          -1
+        ],
+        "stop_axis": "x",
+        "limit": -2.24
+      }
+    ],
+    "accessible_levels": [
+      0.36,
+      3.6599999999999997
+    ]
+  },
+  "tea_house_open": {
+    "id": "tea_house_open",
+    "category": "building",
+    "dimensions_xyz_blender_m": [
+      10.8,
+      9.105,
+      5.663
+    ],
+    "bounds_min": [
+      -5.400125026702881,
+      -5.400000095367432,
+      0.0
+    ],
+    "bounds_max": [
+      5.400125026702881,
+      3.7049999237060547,
+      5.66297721862793
+    ],
+    "triangles": 6118,
+    "pivot": "ground placement origin (0,0,0)",
+    "interior": true,
+    "collision": "authored wall/furniture boxes and ramp convex shapes in interiors.json",
+    "surfaces": 7,
+    "groups": [
+      "Floor",
+      "Interior",
+      "Roof",
+      "Wall_Back",
+      "Wall_Front",
+      "Wall_Left",
+      "Wall_Right"
+    ],
+    "body_width": 9,
+    "body_depth": 6,
+    "door_width": 3.4,
+    "door_clear_height": 2.5,
+    "floor_height": 0.36,
+    "colliders": [
+      {
+        "name": "Finished floor",
+        "group": "Floor",
+        "type": "box",
+        "position_blender": [
+          0,
+          0,
+          0.18
+        ],
+        "size_blender": [
+          9.4,
+          6.4,
+          0.36
+        ]
+      },
+      {
+        "name": "Side wall",
+        "group": "Wall_Left",
+        "type": "box",
+        "position_blender": [
+          -4.38,
+          0,
+          2.05
+        ],
+        "size_blender": [
+          0.24,
+          6,
+          3.5
+        ]
+      },
+      {
+        "name": "Accessible front wing",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          -3.1,
+          -2.88,
+          2.05
+        ],
+        "size_blender": [
+          2.8,
+          0.24,
+          3.5
+        ]
+      },
+      {
+        "name": "Side wall",
+        "group": "Wall_Right",
+        "type": "box",
+        "position_blender": [
+          4.38,
+          0,
+          2.05
+        ],
+        "size_blender": [
+          0.24,
+          6,
+          3.5
+        ]
+      },
+      {
+        "name": "Accessible front wing",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          3.1,
+          -2.88,
+          2.05
+        ],
+        "size_blender": [
+          2.8,
+          0.24,
+          3.5
+        ]
+      },
+      {
+        "name": "Rear wall",
+        "group": "Wall_Back",
+        "type": "box",
+        "position_blender": [
+          0,
+          2.88,
+          2.05
+        ],
+        "size_blender": [
+          9,
+          0.24,
+          3.5
+        ]
+      },
+      {
+        "name": "High doorway lintel",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          0,
+          -2.88,
+          3.5999999999999996
+        ],
+        "size_blender": [
+          3.4,
+          0.24,
+          0.3999999999999999
+        ]
+      },
+      {
+        "name": "Continuous entry ramp",
+        "group": "Floor",
+        "type": "convex",
+        "position_blender": [
+          0,
+          0,
+          0
+        ],
+        "size_blender": [
+          0,
+          0,
+          0
+        ],
+        "vertices_blender": [
+          [
+            -1.775,
+            -5.4,
+            0
+          ],
+          [
+            1.775,
+            -5.4,
+            0
+          ],
+          [
+            1.775,
+            -3.2,
+            0
+          ],
+          [
+            -1.775,
+            -3.2,
+            0
+          ],
+          [
+            -1.775,
+            -3.2,
+            0.36
+          ],
+          [
+            1.775,
+            -3.2,
+            0.36
+          ]
+        ]
+      },
+      {
+        "name": "Tea table",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          -2.85,
+          0.45,
+          0.69
+        ],
+        "size_blender": [
+          1.35,
+          1.5,
+          0.6599999999999999
+        ]
+      },
+      {
+        "name": "Guest bench",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          -2.85,
+          -0.95,
+          0.63
+        ],
+        "size_blender": [
+          1.35,
+          0.42,
+          0.54
+        ]
+      },
+      {
+        "name": "Tea table",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          2.85,
+          0.45,
+          0.69
+        ],
+        "size_blender": [
+          1.35,
+          1.5,
+          0.6599999999999999
+        ]
+      },
+      {
+        "name": "Guest bench",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          2.85,
+          -0.95,
+          0.63
+        ],
+        "size_blender": [
+          1.35,
+          0.42,
+          0.54
+        ]
+      },
+      {
+        "name": "Tea service counter",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          0,
+          2.45,
+          0.86
+        ],
+        "size_blender": [
+          4.6,
+          0.65,
+          1
+        ]
+      },
+      {
+        "name": "Tea tins",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          0,
+          2.7,
+          1.4100000000000001
+        ],
+        "size_blender": [
+          3.7,
+          0.4,
+          2.1
+        ]
+      }
+    ],
+    "lights_blender": [
+      [
+        -2.6999999999999997,
+        1.6,
+        2.7
+      ],
+      [
+        2.6999999999999997,
+        1.6,
+        2.7
+      ]
+    ],
+    "route_blender": [
+      [
+        0,
+        -5.8
+      ],
+      [
+        0,
+        -1.8
+      ],
+      [
+        0,
+        0.8
+      ],
+      [
+        1.45,
+        0.8
+      ],
+      [
+        1.45,
+        -1.8
+      ],
+      [
+        -1.45,
+        -1.8
+      ],
+      [
+        -1.45,
+        0.8
+      ],
+      [
+        0,
+        0.8
+      ],
+      [
+        0,
+        -5.8
+      ]
+    ],
+    "furniture_tests": [
+      {
+        "start": [
+          0,
+          0
+        ],
+        "toward": [
+          3,
+          0
+        ],
+        "stop_axis": "x",
+        "limit": 1.79
+      }
+    ],
+    "accessible_levels": [
+      0.36
+    ]
+  },
+  "warehouse": {
+    "id": "warehouse",
+    "category": "building",
+    "dimensions_xyz_blender_m": [
+      9.8,
+      10.105,
+      7.663
+    ],
+    "bounds_min": [
+      -4.900125026702881,
+      -5.900000095367432,
+      0.0
+    ],
+    "bounds_max": [
+      4.900125026702881,
+      4.204999923706055,
+      7.66297721862793
+    ],
+    "triangles": 3834,
+    "pivot": "ground placement origin (0,0,0)",
+    "interior": true,
+    "collision": "authored wall/furniture boxes and ramp convex shapes in interiors.json",
+    "surfaces": 7,
+    "groups": [
+      "Floor",
+      "Interior",
+      "Roof",
+      "Wall_Back",
+      "Wall_Front",
+      "Wall_Left",
+      "Wall_Right"
+    ],
+    "body_width": 8,
+    "body_depth": 7,
+    "door_width": 4,
+    "door_clear_height": 3.04,
+    "floor_height": 0.36,
+    "colliders": [
+      {
+        "name": "Finished floor",
+        "group": "Floor",
+        "type": "box",
+        "position_blender": [
+          0,
+          0,
+          0.18
+        ],
+        "size_blender": [
+          8.4,
+          7.4,
+          0.36
+        ]
+      },
+      {
+        "name": "Side wall",
+        "group": "Wall_Left",
+        "type": "box",
+        "position_blender": [
+          -3.88,
+          0,
+          2.8
+        ],
+        "size_blender": [
+          0.24,
+          7,
+          5
+        ]
+      },
+      {
+        "name": "Accessible front wing",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          -3.0,
+          -3.38,
+          2.8
+        ],
+        "size_blender": [
+          2.0,
+          0.24,
+          5
+        ]
+      },
+      {
+        "name": "Side wall",
+        "group": "Wall_Right",
+        "type": "box",
+        "position_blender": [
+          3.88,
+          0,
+          2.8
+        ],
+        "size_blender": [
+          0.24,
+          7,
+          5
+        ]
+      },
+      {
+        "name": "Accessible front wing",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          3.0,
+          -3.38,
+          2.8
+        ],
+        "size_blender": [
+          2.0,
+          0.24,
+          5
+        ]
+      },
+      {
+        "name": "Rear wall",
+        "group": "Wall_Back",
+        "type": "box",
+        "position_blender": [
+          0,
+          3.38,
+          2.8
+        ],
+        "size_blender": [
+          8,
+          0.24,
+          5
+        ]
+      },
+      {
+        "name": "High doorway lintel",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          0,
+          -3.38,
+          4.35
+        ],
+        "size_blender": [
+          4,
+          0.24,
+          1.9
+        ]
+      },
+      {
+        "name": "Continuous entry ramp",
+        "group": "Floor",
+        "type": "convex",
+        "position_blender": [
+          0,
+          0,
+          0
+        ],
+        "size_blender": [
+          0,
+          0,
+          0
+        ],
+        "vertices_blender": [
+          [
+            -2.075,
+            -5.9,
+            0
+          ],
+          [
+            2.075,
+            -5.9,
+            0
+          ],
+          [
+            2.075,
+            -3.7,
+            0
+          ],
+          [
+            -2.075,
+            -3.7,
+            0
+          ],
+          [
+            -2.075,
+            -3.7,
+            0.36
+          ],
+          [
+            2.075,
+            -3.7,
+            0.36
+          ]
+        ]
+      },
+      {
+        "name": "Left goods rack",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          -2.85,
+          0,
+          1.7599999999999998
+        ],
+        "size_blender": [
+          1.1,
+          4.4,
+          2.8
+        ]
+      },
+      {
+        "name": "Right goods rack",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          2.85,
+          0,
+          1.7599999999999998
+        ],
+        "size_blender": [
+          1.1,
+          4.4,
+          2.8
+        ]
+      },
+      {
+        "name": "Rear cargo",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          -1.25,
+          2.65,
+          0.91
+        ],
+        "size_blender": [
+          1.18,
+          1.1400000000000001,
+          1.1
+        ]
+      },
+      {
+        "name": "Cargo top",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          -1.25,
+          2.65,
+          1.81
+        ],
+        "size_blender": [
+          0.8300000000000001,
+          0.89,
+          0.7
+        ]
+      },
+      {
+        "name": "Rear cargo",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          1.25,
+          2.65,
+          0.91
+        ],
+        "size_blender": [
+          1.18,
+          1.1400000000000001,
+          1.1
+        ]
+      },
+      {
+        "name": "Cargo top",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          1.25,
+          2.65,
+          1.81
+        ],
+        "size_blender": [
+          0.8300000000000001,
+          0.89,
+          0.7
+        ]
+      }
+    ],
+    "lights_blender": [
+      [
+        -2.4,
+        1.6,
+        2.7
+      ],
+      [
+        2.4,
+        1.6,
+        2.7
+      ]
+    ],
+    "route_blender": [
+      [
+        0,
+        -6.3
+      ],
+      [
+        0,
+        -1.8
+      ],
+      [
+        0,
+        1.5
+      ],
+      [
+        -1.25,
+        1.5
+      ],
+      [
+        -1.25,
+        -1.8
+      ],
+      [
+        1.25,
+        -1.8
+      ],
+      [
+        1.25,
+        1.5
+      ],
+      [
+        0,
+        1.5
+      ],
+      [
+        0,
+        -6.3
+      ]
+    ],
+    "furniture_tests": [
+      {
+        "start": [
+          0,
+          0
+        ],
+        "toward": [
+          3,
+          0
+        ],
+        "stop_axis": "x",
+        "limit": 1.92
+      }
+    ],
+    "accessible_levels": [
+      0.36
+    ]
+  },
+  "shrine": {
+    "id": "shrine",
+    "category": "building",
+    "dimensions_xyz_blender_m": [
+      8.8,
+      9.105,
+      6.863
+    ],
+    "bounds_min": [
+      -4.400125026702881,
+      -5.400000095367432,
+      0.0
+    ],
+    "bounds_max": [
+      4.400125026702881,
+      3.7049999237060547,
+      6.862977027893066
+    ],
+    "triangles": 3986,
+    "pivot": "ground placement origin (0,0,0)",
+    "interior": true,
+    "collision": "authored wall/furniture boxes and ramp convex shapes in interiors.json",
+    "surfaces": 7,
+    "groups": [
+      "Floor",
+      "Interior",
+      "Roof",
+      "Wall_Back",
+      "Wall_Front",
+      "Wall_Left",
+      "Wall_Right"
+    ],
+    "body_width": 7,
+    "body_depth": 6,
+    "door_width": 3.2,
+    "door_clear_height": 3.04,
+    "floor_height": 0.36,
+    "colliders": [
+      {
+        "name": "Finished floor",
+        "group": "Floor",
+        "type": "box",
+        "position_blender": [
+          0,
+          0,
+          0.18
+        ],
+        "size_blender": [
+          7.4,
+          6.4,
+          0.36
+        ]
+      },
+      {
+        "name": "Side wall",
+        "group": "Wall_Left",
+        "type": "box",
+        "position_blender": [
+          -3.38,
+          0,
+          2.4
+        ],
+        "size_blender": [
+          0.24,
+          6,
+          4.2
+        ]
+      },
+      {
+        "name": "Accessible front wing",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          -2.55,
+          -2.88,
+          2.4
+        ],
+        "size_blender": [
+          1.9,
+          0.24,
+          4.2
+        ]
+      },
+      {
+        "name": "Side wall",
+        "group": "Wall_Right",
+        "type": "box",
+        "position_blender": [
+          3.38,
+          0,
+          2.4
+        ],
+        "size_blender": [
+          0.24,
+          6,
+          4.2
+        ]
+      },
+      {
+        "name": "Accessible front wing",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          2.55,
+          -2.88,
+          2.4
+        ],
+        "size_blender": [
+          1.9,
+          0.24,
+          4.2
+        ]
+      },
+      {
+        "name": "Rear wall",
+        "group": "Wall_Back",
+        "type": "box",
+        "position_blender": [
+          0,
+          2.88,
+          2.4
+        ],
+        "size_blender": [
+          7,
+          0.24,
+          4.2
+        ]
+      },
+      {
+        "name": "High doorway lintel",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          0,
+          -2.88,
+          3.95
+        ],
+        "size_blender": [
+          3.2,
+          0.24,
+          1.1
+        ]
+      },
+      {
+        "name": "Continuous entry ramp",
+        "group": "Floor",
+        "type": "convex",
+        "position_blender": [
+          0,
+          0,
+          0
+        ],
+        "size_blender": [
+          0,
+          0,
+          0
+        ],
+        "vertices_blender": [
+          [
+            -1.675,
+            -5.4,
+            0
+          ],
+          [
+            1.675,
+            -5.4,
+            0
+          ],
+          [
+            1.675,
+            -3.2,
+            0
+          ],
+          [
+            -1.675,
+            -3.2,
+            0
+          ],
+          [
+            -1.675,
+            -3.2,
+            0.36
+          ],
+          [
+            1.675,
+            -3.2,
+            0.36
+          ]
+        ]
+      },
+      {
+        "name": "Offering altar",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          0,
+          1.85,
+          0.88
+        ],
+        "size_blender": [
+          3.6,
+          0.95,
+          1.04
+        ]
+      },
+      {
+        "name": "Worship bench",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          -2.5850000000000004,
+          0,
+          0.63
+        ],
+        "size_blender": [
+          0.6,
+          1.5,
+          0.54
+        ]
+      },
+      {
+        "name": "Worship bench",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          2.5850000000000004,
+          0,
+          0.63
+        ],
+        "size_blender": [
+          0.6,
+          1.5,
+          0.54
+        ]
+      }
+    ],
+    "lights_blender": [
+      [
+        -2.1,
+        1.6,
+        2.7
+      ],
+      [
+        2.1,
+        1.6,
+        2.7
+      ]
+    ],
+    "route_blender": [
+      [
+        0,
+        -5.8
+      ],
+      [
+        0,
+        -1.2
+      ],
+      [
+        0,
+        0.6
+      ],
+      [
+        1.25,
+        0.6
+      ],
+      [
+        1.25,
+        -1.2
+      ],
+      [
+        -1.25,
+        -1.2
+      ],
+      [
+        -1.25,
+        0.6
+      ],
+      [
+        0,
+        0.6
+      ],
+      [
+        0,
+        -5.8
+      ]
+    ],
+    "furniture_tests": [
+      {
+        "start": [
+          0,
+          0
+        ],
+        "toward": [
+          0,
+          2.5
+        ],
+        "stop_axis": "y",
+        "limit": 0.99
+      }
+    ],
+    "accessible_levels": [
+      0.36
+    ]
+  },
+  "gatehouse": {
+    "id": "gatehouse",
+    "category": "building",
+    "dimensions_xyz_blender_m": [
+      13.6,
+      8.4,
+      7.613
+    ],
+    "bounds_min": [
+      -6.8001251220703125,
+      -4.199999809265137,
+      0.0
+    ],
+    "bounds_max": [
+      6.8001251220703125,
+      4.200000286102295,
+      7.612977027893066
+    ],
+    "triangles": 4236,
+    "pivot": "ground placement origin (0,0,0)",
+    "interior": true,
+    "collision": "authored wall/furniture boxes and ramp convex shapes in interiors.json",
+    "surfaces": 7,
+    "groups": [
+      "Floor",
+      "Interior",
+      "Roof",
+      "Wall_Back",
+      "Wall_Front",
+      "Wall_Left",
+      "Wall_Right"
+    ],
+    "body_width": 12,
+    "body_depth": 4,
+    "door_width": 6,
+    "door_clear_height": 3.04,
+    "floor_height": 0.36,
+    "colliders": [
+      {
+        "name": "Gate paving",
+        "group": "Floor",
+        "type": "box",
+        "position_blender": [
+          0,
+          0,
+          0.18
+        ],
+        "size_blender": [
+          12,
+          4,
+          0.36
+        ]
+      },
+      {
+        "name": "Gate approach",
+        "group": "Floor",
+        "type": "convex",
+        "position_blender": [
+          0,
+          0,
+          0
+        ],
+        "size_blender": [
+          0,
+          0,
+          0
+        ],
+        "vertices_blender": [
+          [
+            -3.0,
+            -4.2,
+            0
+          ],
+          [
+            3.0,
+            -4.2,
+            0
+          ],
+          [
+            3.0,
+            -2,
+            0
+          ],
+          [
+            -3.0,
+            -2,
+            0
+          ],
+          [
+            -3.0,
+            -2,
+            0.36
+          ],
+          [
+            3.0,
+            -2,
+            0.36
+          ]
+        ]
+      },
+      {
+        "name": "Gate exit",
+        "group": "Floor",
+        "type": "convex",
+        "position_blender": [
+          0,
+          0,
+          0
+        ],
+        "size_blender": [
+          0,
+          0,
+          0
+        ],
+        "vertices_blender": [
+          [
+            3.0,
+            4.2,
+            0
+          ],
+          [
+            -3.0,
+            4.2,
+            0
+          ],
+          [
+            -3.0,
+            2,
+            0
+          ],
+          [
+            3.0,
+            2,
+            0
+          ],
+          [
+            3.0,
+            2,
+            0.36
+          ],
+          [
+            -3.0,
+            2,
+            0.36
+          ]
+        ]
+      },
+      {
+        "name": "Guard bay outer wall",
+        "group": "Wall_Left",
+        "type": "box",
+        "position_blender": [
+          -5.88,
+          0,
+          2.2
+        ],
+        "size_blender": [
+          0.24,
+          4,
+          4
+        ]
+      },
+      {
+        "name": "Guard bay rear",
+        "group": "Wall_Back",
+        "type": "box",
+        "position_blender": [
+          -4.5,
+          1.88,
+          2.2
+        ],
+        "size_blender": [
+          3,
+          0.24,
+          4
+        ]
+      },
+      {
+        "name": "Guard bay facade",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          -4.5,
+          -1.88,
+          2.2
+        ],
+        "size_blender": [
+          3,
+          0.24,
+          4
+        ]
+      },
+      {
+        "name": "Guard bay outer wall",
+        "group": "Wall_Right",
+        "type": "box",
+        "position_blender": [
+          5.88,
+          0,
+          2.2
+        ],
+        "size_blender": [
+          0.24,
+          4,
+          4
+        ]
+      },
+      {
+        "name": "Guard bay rear",
+        "group": "Wall_Back",
+        "type": "box",
+        "position_blender": [
+          4.5,
+          1.88,
+          2.2
+        ],
+        "size_blender": [
+          3,
+          0.24,
+          4
+        ]
+      },
+      {
+        "name": "Guard bay facade",
+        "group": "Wall_Front",
+        "type": "box",
+        "position_blender": [
+          4.5,
+          -1.88,
+          2.2
+        ],
+        "size_blender": [
+          3,
+          0.24,
+          4
+        ]
+      },
+      {
+        "name": "Guard bench",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          -4.9,
+          0.85,
+          0.63
+        ],
+        "size_blender": [
+          1.7,
+          0.5,
+          0.54
+        ]
+      },
+      {
+        "name": "Guard cubby",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          -5.35,
+          -0.5,
+          1.1600000000000001
+        ],
+        "size_blender": [
+          0.6,
+          1.25,
+          1.6
+        ]
+      },
+      {
+        "name": "Guard bench",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          4.9,
+          0.85,
+          0.63
+        ],
+        "size_blender": [
+          1.7,
+          0.5,
+          0.54
+        ]
+      },
+      {
+        "name": "Guard cubby",
+        "group": "Interior",
+        "type": "box",
+        "position_blender": [
+          5.35,
+          -0.5,
+          1.1600000000000001
+        ],
+        "size_blender": [
+          0.6,
+          1.25,
+          1.6
+        ]
+      }
+    ],
+    "lights_blender": [
+      [
+        -3.5999999999999996,
+        1.6,
+        2.7
+      ],
+      [
+        3.5999999999999996,
+        1.6,
+        2.7
+      ]
+    ],
+    "route_blender": [
+      [
+        0,
+        -5
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -4,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        5
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        -5
+      ]
+    ],
+    "furniture_tests": [
+      {
+        "start": [
+          4,
+          0
+        ],
+        "toward": [
+          4,
+          1.5
+        ],
+        "stop_axis": "y",
+        "limit": 0.22
+      }
+    ],
+    "accessible_levels": [
+      0.36
+    ]
+  }
+}

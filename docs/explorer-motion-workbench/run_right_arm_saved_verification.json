@@ -1,0 +1,9 @@
+{
+  "frames_checked": 41,
+  "arm_pose_error": 1.4901161193847656e-07,
+  "blade_grip_error": 7.748603820800781e-07,
+  "loop_seam_error": 0.0,
+  "other_run_channels_unchanged": true,
+  "idle_and_jump_unchanged": true,
+  "file": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/explorer-motion-workbench/Explorer_Animation_Workbench.blend"
+}

@@ -1,0 +1,50 @@
+{
+  "source_executable": "raw/SLUS_007.26",
+  "source_executable_sha256": "66371c3a7517e9eabd7cb6cf0c5abffe7296bd4bac29c85b8bf7bb9db349714a",
+  "sound_owner": "raw/SC01.CD.dir/FILE_000.dir/4.7",
+  "sound_owner_sha256": "a49fc74f2df4d547296b626cbb8284a47067a3480a5c40357cd29dbd3d741219",
+  "notes": [
+    "WAVs decode authentic recovered retail SPU ADPCM; no synthetic or substitute sounds.",
+    "Pitch follows original custom sound-driver SPU lookup/interpolation, rounded to integer WAV sample rate.",
+    "Dry samples: original SPU ADSR, reverb, event volumes and pitch modulation are recorded/retained in tone and record bytes, not emulated.",
+    "User-selected audition choice F: original event0x493, adapted for stone wall and gate damage. Original material/object association is not established.",
+    "Production uses the original single sample, without the audition preview repetitions or silence. PCM and original22050Hz playback rate are preserved."
+  ],
+  "clips": [
+    {
+      "sound_id": "0x493",
+      "file": "wall_crack.wav",
+      "description": "Resident sound0x493",
+      "confidence": "original bank/pitch verified; semantic candidate only",
+      "source_trace": "Resident executable dispatch and SC01 owner bank resolution",
+      "dispatch_address": "0x80065768",
+      "dispatch_bytes": "01 01 00 15",
+      "resolved_sound_id": "0x493",
+      "resolved_dispatch_bytes": "01 01 00 15",
+      "record_address": "0x800c80fc",
+      "record_bytes": "c8 00 00 00 00 4a 71 00 01 17 01 01 00 00 00 00 00 00 00 00",
+      "bank_entry": 1,
+      "bank_id": "bank_9c8ce35dd2b0baf2",
+      "bank_sources": [
+        "raw/SC01.CD.dir/FILE_077.dir/2.2"
+      ],
+      "bank_sha256": "9c8ce35dd2b0baf2b9461aada33cd971baa3fca8480f3ed55ee70d1ef47b1050",
+      "lookup_index": 23,
+      "program": 2,
+      "tone": 8,
+      "tone_bytes": "00 00 7f 40 56 00 4a 4a 00 00 00 00 00 00 b1 b2 ff 80 c3 5f 02 00 15 00 c0 00 c1 00 c2 00 c3 00",
+      "sample_index": 21,
+      "sample_id": "sample_c082617d2552babe",
+      "sample_sha256": "c082617d2552babe647ce5d38d2ee6e5e24069f773cb819c13d2925d97446c7e",
+      "pitch_q8": 18944,
+      "center_note": 86,
+      "fine": 0,
+      "spu_pitch_register": 2048,
+      "original_playback_rate": 22050.0,
+      "wav_sample_rate": 22050,
+      "duration_seconds": 1.3485714285714285,
+      "sha256": "02a80082cac70e5eba2d75875dd264a3537a9226964e4abee84d945e3574486c",
+      "pcm_sha256": "b955931c73057287b1830fa8c999951396c9efcc2a885dc8cad2716c7382a070"
+    }
+  ]
+}

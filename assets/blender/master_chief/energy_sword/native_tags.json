@@ -1,0 +1,5280 @@
+{
+  "map": "a50.map",
+  "unit_facts": {
+    "halo_world_unit_meters": 3.048,
+    "jms_unit_meters": 0.03048
+  },
+  "tags": [
+    {
+      "class": "sound",
+      "path": "sound\\sfx\\impulse\\animations\\elite\\stand_sword_melee.mov",
+      "native": {
+        "flags": 0,
+        "sound_class": "object_impacts",
+        "sample_rate": "khz_22",
+        "minimum_distance": 0.8999999761581421,
+        "maximum_distance": 10.0,
+        "skip_fraction": 0.0,
+        "random_pitch_bounds": {
+          "from": 1.0,
+          "to": 1.0
+        },
+        "inner_cone_angle": 6.2831854820251465,
+        "outer_cone_angle": 6.2831854820251465,
+        "outer_cone_gain": 1.0,
+        "gain_modifier": 1.0,
+        "maximum_bend_per_second": 0.0,
+        "modifiers_when_scale_is_zero": {
+          "skip_fraction": 1.0,
+          "gain": 0.0,
+          "pitch": 1.0
+        },
+        "modifiers_when_scale_is_one": {
+          "skip_fraction": 1.0,
+          "gain": 1.0,
+          "pitch": 1.0
+        },
+        "encoding": "mono",
+        "compression": "xbox_adpcm",
+        "promotion_sound": {
+          "class": "sound",
+          "path": ""
+        },
+        "promotion_count": 0,
+        "unknown1": 0,
+        "unknown2": {
+          "size": 770,
+          "flags": 0,
+          "raw_pointer": 0,
+          "pointer": 4294967295,
+          "id": 4294967295,
+          "_flag_names": {
+            "flags": []
+          }
+        },
+        "pitch_ranges": [
+          {
+            "name": "default",
+            "natural_pitch": 1.0,
+            "bend_bounds": {
+              "from": 0.0,
+              "to": 1.0
+            },
+            "actual_permutation_count": 1,
+            "playback_rate": 1.0,
+            "unknown1": -1,
+            "unknown2": -1,
+            "permutations": [
+              {
+                "name": "stand_sword_melee_uh",
+                "skip_fraction": 0.0,
+                "gain": 1.0,
+                "compression": "xbox_adpcm",
+                "next_permutation_index": -1,
+                "unknown0": -1,
+                "unknown1": 0,
+                "unknown2": 3884254737,
+                "ogg_sample_count": 0,
+                "unknown3": 3884254737,
+                "samples": {
+                  "byte_length": 8496,
+                  "sha256": "3ebda1cb60b8f354626bbcc14918aee662ad478ca860b52bbd64091494f72727"
+                },
+                "mouth_data": {
+                  "byte_length": 0,
+                  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                },
+                "subtitle_data": {
+                  "byte_length": 0,
+                  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                },
+                "_enum_values": {
+                  "compression": 1
+                }
+              }
+            ]
+          }
+        ],
+        "_enum_values": {
+          "sound_class": 13,
+          "sample_rate": 0,
+          "encoding": 0,
+          "compression": 1
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "sound",
+      "path": "sound\\sfx\\impulse\\animations\\elite\\stand_sword_melee_oh",
+      "native": {
+        "flags": 0,
+        "sound_class": "object_impacts",
+        "sample_rate": "khz_22",
+        "minimum_distance": 0.8999999761581421,
+        "maximum_distance": 10.0,
+        "skip_fraction": 0.0,
+        "random_pitch_bounds": {
+          "from": 1.0,
+          "to": 1.0
+        },
+        "inner_cone_angle": 6.2831854820251465,
+        "outer_cone_angle": 6.2831854820251465,
+        "outer_cone_gain": 1.0,
+        "gain_modifier": 1.0,
+        "maximum_bend_per_second": 0.0,
+        "modifiers_when_scale_is_zero": {
+          "skip_fraction": 1.0,
+          "gain": 0.0,
+          "pitch": 1.0
+        },
+        "modifiers_when_scale_is_one": {
+          "skip_fraction": 1.0,
+          "gain": 1.0,
+          "pitch": 1.0
+        },
+        "encoding": "mono",
+        "compression": "xbox_adpcm",
+        "promotion_sound": {
+          "class": "sound",
+          "path": ""
+        },
+        "promotion_count": 0,
+        "unknown1": 0,
+        "unknown2": {
+          "size": 982,
+          "flags": 0,
+          "raw_pointer": 0,
+          "pointer": 4294967295,
+          "id": 4294967295,
+          "_flag_names": {
+            "flags": []
+          }
+        },
+        "pitch_ranges": [
+          {
+            "name": "default",
+            "natural_pitch": 1.0,
+            "bend_bounds": {
+              "from": 0.0,
+              "to": 1.0
+            },
+            "actual_permutation_count": 1,
+            "playback_rate": 1.0,
+            "unknown1": -1,
+            "unknown2": -1,
+            "permutations": [
+              {
+                "name": "stand_sword_melee_oh",
+                "skip_fraction": 0.0,
+                "gain": 1.0,
+                "compression": "xbox_adpcm",
+                "next_permutation_index": -1,
+                "unknown0": -1,
+                "unknown1": 0,
+                "unknown2": 3884844570,
+                "ogg_sample_count": 0,
+                "unknown3": 3884844570,
+                "samples": {
+                  "byte_length": 10836,
+                  "sha256": "64274bbec35b8422819e5d8053fec58a515377957be2836485d9b45c6e64fa6e"
+                },
+                "mouth_data": {
+                  "byte_length": 0,
+                  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                },
+                "subtitle_data": {
+                  "byte_length": 0,
+                  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                },
+                "_enum_values": {
+                  "compression": 1
+                }
+              }
+            ]
+          }
+        ],
+        "_enum_values": {
+          "sound_class": 13,
+          "sample_rate": 0,
+          "encoding": 0,
+          "compression": 1
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "weapon",
+      "path": "weapons\\energy sword\\energy sword",
+      "native": {
+        "obje_attrs": {
+          "object_type": "weap",
+          "flags": 0,
+          "bounding_radius": 0.15000000596046448,
+          "bounding_offset": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "origin_offset": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "acceleration_scale": 2.0,
+          "model": {
+            "class": "model",
+            "path": "weapons\\energy sword\\energy sword"
+          },
+          "animation_graph": {
+            "class": "model_animations",
+            "path": ""
+          },
+          "collision_model": {
+            "class": "model_collision_geometry",
+            "path": ""
+          },
+          "physics": {
+            "class": "physics",
+            "path": ""
+          },
+          "modifier_shader": {
+            "class": "shader",
+            "path": ""
+          },
+          "creation_effect": {
+            "class": "effect",
+            "path": ""
+          },
+          "render_bounding_radius": 0.15000000596046448,
+          "A_in": "none",
+          "B_in": "none",
+          "C_in": "none",
+          "D_in": "none",
+          "hud_text_message_index": 0,
+          "forced_shader_permutation_index": 0,
+          "attachments": [
+            {
+              "type": {
+                "class": "light",
+                "path": "weapons\\energy sword\\energy sword dynamic"
+              },
+              "marker": "flare",
+              "primary_scale": "A_out",
+              "secondary_scale": "none",
+              "change_color": "none",
+              "_enum_values": {
+                "primary_scale": 1,
+                "secondary_scale": 0,
+                "change_color": 0
+              }
+            }
+          ],
+          "widgets": [
+            {
+              "reference": {
+                "class": "glow",
+                "path": "weapons\\energy sword\\c energy sword glow lower"
+              }
+            },
+            {
+              "reference": {
+                "class": "glow",
+                "path": "weapons\\energy sword\\c energy sword glow"
+              }
+            }
+          ],
+          "functions": [
+            {
+              "flags": 0,
+              "period": 1.0,
+              "scale_period_by": "none",
+              "function": "one",
+              "scale_function_by": "A_in",
+              "wobble_function": "one",
+              "wobble_period": 0.0,
+              "wobble_magnitude": 0.0,
+              "square_wave_threshold": 0.0,
+              "step_count": 0,
+              "map_to": "linear",
+              "sawtooth_count": 0,
+              "add": "none",
+              "scale_result_by": "none",
+              "bounds_mode": "clip",
+              "bounds": {
+                "from": 0.0,
+                "to": 1.0
+              },
+              "turn_off_with": -1,
+              "scale_by": 0.0,
+              "usage": "blade glow",
+              "_enum_values": {
+                "scale_period_by": 0,
+                "function": 0,
+                "scale_function_by": 1,
+                "wobble_function": 0,
+                "map_to": 0,
+                "add": 0,
+                "scale_result_by": 0,
+                "bounds_mode": 0
+              },
+              "_flag_names": {
+                "flags": []
+              }
+            }
+          ],
+          "change_colors": [],
+          "predicted_resources": [
+            {
+              "type": 0,
+              "resource_index": 0,
+              "tag_index": 3964734173
+            }
+          ],
+          "_enum_values": {
+            "object_type": 2,
+            "A_in": 0,
+            "B_in": 0,
+            "C_in": 0,
+            "D_in": 0
+          },
+          "_flag_names": {
+            "flags": []
+          }
+        },
+        "item_attrs": {
+          "flags": 0,
+          "message_index": 8,
+          "sort_order": 0,
+          "scale": 0.0,
+          "hud_message_value_scale": 0,
+          "A_in": "none",
+          "B_in": "none",
+          "C_in": "none",
+          "D_in": "none",
+          "material_effects": {
+            "class": "material_effects",
+            "path": ""
+          },
+          "collision_sound": {
+            "class": "sound",
+            "path": ""
+          },
+          "detonation_delay": {
+            "from": 0.25,
+            "to": 0.5
+          },
+          "detonating_effect": {
+            "class": "effect",
+            "path": "weapons\\energy sword\\energy sword dispersal"
+          },
+          "detonation_effect": {
+            "class": "effect",
+            "path": "weapons\\energy sword\\energy sword detonation"
+          },
+          "_enum_values": {
+            "A_in": 0,
+            "B_in": 0,
+            "C_in": 0,
+            "D_in": 0
+          },
+          "_flag_names": {
+            "flags": []
+          }
+        },
+        "weap_attrs": {
+          "flags": 33792,
+          "label": "fb",
+          "secondary_trigger_mode": "normal",
+          "max_alternate_shots_loaded": 0,
+          "A_in": "ready",
+          "B_in": "none",
+          "C_in": "none",
+          "D_in": "none",
+          "ready_time": 0.0,
+          "ready_effect": {
+            "class": "NONE",
+            "path": ""
+          },
+          "heat": {
+            "recovery_threshold": 0.0,
+            "overheated_threshold": 0.0,
+            "detonation_threshold": 0.0,
+            "detonation_fraction": 0.0,
+            "loss_per_second": 0.0,
+            "illumination": 0.0,
+            "overheated": {
+              "class": "NONE",
+              "path": ""
+            },
+            "detonation": {
+              "class": "NONE",
+              "path": ""
+            }
+          },
+          "melee": {
+            "player_damage": {
+              "class": "damage_effect",
+              "path": "weapons\\energy sword\\melee"
+            },
+            "player_response": {
+              "class": "damage_effect",
+              "path": ""
+            }
+          },
+          "aiming": {
+            "actor_firing_parameters": {
+              "class": "actor_variant",
+              "path": ""
+            },
+            "near_reticle_range": 0.0,
+            "far_reticle_range": 0.0,
+            "intersection_reticle_range": 0.0,
+            "zoom_levels": 0,
+            "zoom_ranges": {
+              "from": 0.0,
+              "to": 0.0
+            },
+            "autoaim_angle": 0.0,
+            "autoaim_range": 0.0,
+            "magnetism_angle": 0.0,
+            "magnetism_range": 0.0,
+            "deviation_angle": 0.0
+          },
+          "movement": {
+            "penalized": "always",
+            "forward_penalty": 0.0,
+            "sideways_penalty": 0.0,
+            "_enum_values": {
+              "penalized": 0
+            }
+          },
+          "ai_targeting": {
+            "minimum_target_range": 0.0,
+            "looking_time_modifier": 0.0
+          },
+          "light": {
+            "power_on_time": 0.0,
+            "power_off_time": 0.0,
+            "power_on_effect": {
+              "class": "NONE",
+              "path": ""
+            },
+            "power_off_effect": {
+              "class": "NONE",
+              "path": ""
+            }
+          },
+          "age": {
+            "heat_penalty": 0.0,
+            "rate_of_fire_penalty": 0.0,
+            "misfire_start": 0.0,
+            "misfire_chance": 0.0
+          },
+          "interface": {
+            "first_person_model": {
+              "class": "model",
+              "path": ""
+            },
+            "first_person_animations": {
+              "class": "model_animations",
+              "path": ""
+            },
+            "hud_interface": {
+              "class": "weapon_hud_interface",
+              "path": ""
+            },
+            "pickup_sound": {
+              "class": "sound",
+              "path": ""
+            },
+            "zoom_in_sound": {
+              "class": "sound",
+              "path": ""
+            },
+            "zoom_out_sound": {
+              "class": "sound",
+              "path": ""
+            },
+            "active_camo_ding": 0.0,
+            "active_camo_regrowth_rate": 0.0
+          },
+          "weapon_type": "undefined",
+          "predicted_resources": [],
+          "magazines": [],
+          "triggers": [],
+          "_enum_values": {
+            "secondary_trigger_mode": 0,
+            "A_in": 6,
+            "B_in": 0,
+            "C_in": 0,
+            "D_in": 0,
+            "weapon_type": 0
+          },
+          "_flag_names": {
+            "flags": [
+              "detonates_when_dropped",
+              "ai_uses_weapon_melee_damage"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "class": "model",
+      "path": "weapons\\energy sword\\energy sword",
+      "native": {
+        "flags": 0,
+        "node_list_checksum": 1074697263,
+        "superlow_lod_cutoff": 0.0,
+        "low_lod_cutoff": 0.0,
+        "medium_lod_cutoff": 0.0,
+        "high_lod_cutoff": 0.0,
+        "superhigh_lod_cutoff": 0.0,
+        "superlow_lod_nodes": 1,
+        "low_lod_nodes": 1,
+        "medium_lod_nodes": 1,
+        "high_lod_nodes": 1,
+        "superhigh_lod_nodes": 1,
+        "base_map_u_scale": 1.0,
+        "base_map_v_scale": 1.0,
+        "markers": [
+          {
+            "name": "flare",
+            "magic_identifier": 0,
+            "marker_instances": [
+              {
+                "region_index": 0,
+                "permutation_index": 0,
+                "node_index": 1,
+                "translation": {
+                  "x": 0.29999998211860657,
+                  "y": -0.0,
+                  "z": 0.0005524199805222452
+                },
+                "rotation": {
+                  "i": 0.0,
+                  "j": 9.999999974752427e-07,
+                  "k": 0.0,
+                  "w": 1.0
+                }
+              }
+            ]
+          },
+          {
+            "name": "glow 1",
+            "magic_identifier": 0,
+            "marker_instances": [
+              {
+                "region_index": 0,
+                "permutation_index": 0,
+                "node_index": 1,
+                "translation": {
+                  "x": 0.059730127453804016,
+                  "y": -0.0,
+                  "z": 0.03299589827656746
+                },
+                "rotation": {
+                  "i": 0.0,
+                  "j": -0.09150200337171555,
+                  "k": 0.0,
+                  "w": 0.995805025100708
+                }
+              },
+              {
+                "region_index": 0,
+                "permutation_index": 0,
+                "node_index": 1,
+                "translation": {
+                  "x": 0.3750000298023224,
+                  "y": -0.0,
+                  "z": 0.010749380104243755
+                },
+                "rotation": {
+                  "i": 0.0,
+                  "j": 9.999999974752427e-07,
+                  "k": 0.0,
+                  "w": 1.0
+                }
+              },
+              {
+                "region_index": 0,
+                "permutation_index": 0,
+                "node_index": 1,
+                "translation": {
+                  "x": -0.08438489586114883,
+                  "y": 0.0,
+                  "z": 0.019569139927625656
+                },
+                "rotation": {
+                  "i": -0.0,
+                  "j": 0.2503800094127655,
+                  "k": 0.0,
+                  "w": 0.9681479930877686
+                }
+              },
+              {
+                "region_index": 0,
+                "permutation_index": 0,
+                "node_index": 1,
+                "translation": {
+                  "x": -0.0,
+                  "y": -0.0,
+                  "z": 0.06151183694601059
+                },
+                "rotation": {
+                  "i": 0.0,
+                  "j": -0.21644000709056854,
+                  "k": 0.0,
+                  "w": 0.9762960076332092
+                }
+              },
+              {
+                "region_index": 0,
+                "permutation_index": 0,
+                "node_index": 1,
+                "translation": {
+                  "x": 0.131771519780159,
+                  "y": -0.0,
+                  "z": 0.01954570971429348
+                },
+                "rotation": {
+                  "i": 0.0,
+                  "j": -0.021815000101923943,
+                  "k": 0.0,
+                  "w": 0.9997619986534119
+                }
+              }
+            ]
+          },
+          {
+            "name": "glow 2",
+            "magic_identifier": 0,
+            "marker_instances": [
+              {
+                "region_index": 0,
+                "permutation_index": 0,
+                "node_index": 1,
+                "translation": {
+                  "x": 0.13244999945163727,
+                  "y": -0.0,
+                  "z": -0.019149258732795715
+                },
+                "rotation": {
+                  "i": -0.9997619986534119,
+                  "j": 0.0,
+                  "k": -0.021815000101923943,
+                  "w": -0.0
+                }
+              },
+              {
+                "region_index": 0,
+                "permutation_index": 0,
+                "node_index": 1,
+                "translation": {
+                  "x": 0.0006815799861215055,
+                  "y": -0.0,
+                  "z": -0.061115387827157974
+                },
+                "rotation": {
+                  "i": -0.9762960076332092,
+                  "j": 0.0,
+                  "k": -0.21644000709056854,
+                  "w": -0.0
+                }
+              },
+              {
+                "region_index": 0,
+                "permutation_index": 0,
+                "node_index": 1,
+                "translation": {
+                  "x": -0.08370402455329895,
+                  "y": -9.99999993922529e-09,
+                  "z": -0.02022416889667511
+                },
+                "rotation": {
+                  "i": -0.9681479930877686,
+                  "j": -0.0,
+                  "k": 0.2503800094127655,
+                  "w": -0.0
+                }
+              },
+              {
+                "region_index": 0,
+                "permutation_index": 0,
+                "node_index": 1,
+                "translation": {
+                  "x": 0.060411710292100906,
+                  "y": -0.0,
+                  "z": -0.032599449157714844
+                },
+                "rotation": {
+                  "i": -0.995805025100708,
+                  "j": 0.0,
+                  "k": -0.09150200337171555,
+                  "w": -0.0
+                }
+              },
+              {
+                "region_index": 0,
+                "permutation_index": 0,
+                "node_index": 1,
+                "translation": {
+                  "x": 0.375,
+                  "y": -0.0,
+                  "z": -0.010352939367294312
+                },
+                "rotation": {
+                  "i": -1.0,
+                  "j": -0.0,
+                  "k": 9.999999974752427e-07,
+                  "w": -0.0
+                }
+              }
+            ]
+          },
+          {
+            "name": "ground point",
+            "magic_identifier": 0,
+            "marker_instances": [
+              {
+                "region_index": 0,
+                "permutation_index": 0,
+                "node_index": 1,
+                "translation": {
+                  "x": 0.003270719898864627,
+                  "y": -0.014718439429998398,
+                  "z": 0.0005524199805222452
+                },
+                "rotation": {
+                  "i": 0.7071070075035095,
+                  "j": 9.999999974752427e-07,
+                  "k": 9.999999974752427e-07,
+                  "w": 0.7071070075035095
+                }
+              }
+            ]
+          }
+        ],
+        "nodes": [
+          {
+            "name": "frame handle",
+            "next_sibling_node": -1,
+            "first_child_node": 1,
+            "parent_node": -1,
+            "translation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "i": 0.0,
+              "j": 0.0,
+              "k": 0.0,
+              "w": 1.0
+            },
+            "distance_from_parent": 0.0,
+            "scale": 1.0,
+            "rot_jj_kk": {
+              "i": 1.0,
+              "j": 0.0,
+              "k": 0.0
+            },
+            "rot_kk_ii": {
+              "i": 0.0,
+              "j": 1.0,
+              "k": 0.0
+            },
+            "rot_ii_jj": {
+              "i": 0.0,
+              "j": 0.0,
+              "k": 1.0
+            },
+            "translation_to_root": {
+              "x": -0.0,
+              "y": -0.0,
+              "z": -0.0
+            }
+          },
+          {
+            "name": "frame blades",
+            "next_sibling_node": -1,
+            "first_child_node": -1,
+            "parent_node": 0,
+            "translation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.008047409355640411
+            },
+            "rotation": {
+              "i": 0.0,
+              "j": 0.0,
+              "k": 0.0,
+              "w": 1.0
+            },
+            "distance_from_parent": 0.008047409355640411,
+            "scale": 1.0,
+            "rot_jj_kk": {
+              "i": 1.0,
+              "j": 0.0,
+              "k": 0.0
+            },
+            "rot_kk_ii": {
+              "i": 0.0,
+              "j": 1.0,
+              "k": 0.0
+            },
+            "rot_ii_jj": {
+              "i": 0.0,
+              "j": 0.0,
+              "k": 1.0
+            },
+            "translation_to_root": {
+              "x": -0.0,
+              "y": -0.0,
+              "z": -0.008047409355640411
+            }
+          }
+        ],
+        "regions": [
+          {
+            "name": "__unnamed",
+            "permutations": [
+              {
+                "name": "energy sword",
+                "flags": 0,
+                "permutation_set": 0,
+                "superlow_geometry_block": 0,
+                "low_geometry_block": 0,
+                "medium_geometry_block": 0,
+                "high_geometry_block": 0,
+                "superhigh_geometry_block": 0,
+                "local_markers": [],
+                "_flag_names": {
+                  "flags": []
+                }
+              }
+            ]
+          }
+        ],
+        "geometries": [
+          {
+            "parts": [
+              {
+                "flags": 0,
+                "shader_index": 0,
+                "previous_part_index": -1,
+                "next_part_index": -1,
+                "centroid_primary_node": 0,
+                "centroid_secondary_node": 0,
+                "centroid_primary_weight": 1.0,
+                "centroid_secondary_weight": 0.0,
+                "centroid_translation": {
+                  "x": 0.0003640713111963123,
+                  "y": 0.000631085888016969,
+                  "z": 0.006816849112510681
+                },
+                "uncompressed_vertices": [],
+                "compressed_vertices": [],
+                "triangles": [],
+                "model_meta_info": {
+                  "index_type": "uncompressed",
+                  "index_count": 74,
+                  "indices_offset": 2155633872,
+                  "indices_reflexive_offset": 2155618136,
+                  "vertex_type": "compressed",
+                  "vertex_count": 48,
+                  "vertices_offset": 39070272,
+                  "vertices_reflexive_offset": 2151580716,
+                  "_enum_values": {
+                    "index_type": 1,
+                    "vertex_type": 5
+                  }
+                },
+                "_flag_names": {
+                  "flags": []
+                }
+              },
+              {
+                "flags": 0,
+                "shader_index": 1,
+                "previous_part_index": -1,
+                "next_part_index": -1,
+                "centroid_primary_node": 1,
+                "centroid_secondary_node": 0,
+                "centroid_primary_weight": 0.7599999904632568,
+                "centroid_secondary_weight": 0.23999999463558197,
+                "centroid_translation": {
+                  "x": 0.04276769235730171,
+                  "y": -4.004687137459939e-10,
+                  "z": 0.03561754152178764
+                },
+                "uncompressed_vertices": [],
+                "compressed_vertices": [],
+                "triangles": [],
+                "model_meta_info": {
+                  "index_type": "uncompressed",
+                  "index_count": 91,
+                  "indices_offset": 2155633684,
+                  "indices_reflexive_offset": 2155618124,
+                  "vertex_type": "compressed",
+                  "vertex_count": 50,
+                  "vertices_offset": 39068672,
+                  "vertices_reflexive_offset": 2151580704,
+                  "_enum_values": {
+                    "index_type": 1,
+                    "vertex_type": 5
+                  }
+                },
+                "_flag_names": {
+                  "flags": []
+                }
+              },
+              {
+                "flags": 0,
+                "shader_index": 2,
+                "previous_part_index": -1,
+                "next_part_index": -1,
+                "centroid_primary_node": 1,
+                "centroid_secondary_node": 0,
+                "centroid_primary_weight": 1.0,
+                "centroid_secondary_weight": 0.0,
+                "centroid_translation": {
+                  "x": 0.05627361685037613,
+                  "y": -3.676273174768596e-11,
+                  "z": -0.028177078813314438
+                },
+                "uncompressed_vertices": [],
+                "compressed_vertices": [],
+                "triangles": [],
+                "model_meta_info": {
+                  "index_type": "uncompressed",
+                  "index_count": 70,
+                  "indices_offset": 2155633540,
+                  "indices_reflexive_offset": 2155618112,
+                  "vertex_type": "compressed",
+                  "vertex_count": 38,
+                  "vertices_offset": 39067456,
+                  "vertices_reflexive_offset": 2151580692,
+                  "_enum_values": {
+                    "index_type": 1,
+                    "vertex_type": 5
+                  }
+                },
+                "_flag_names": {
+                  "flags": []
+                }
+              }
+            ]
+          }
+        ],
+        "shaders": [
+          {
+            "shader": {
+              "class": "shader_model",
+              "path": "weapons\\energy sword\\shaders\\es handle"
+            },
+            "permutation_index": 0
+          },
+          {
+            "shader": {
+              "class": "shader_transparent_chicago",
+              "path": "weapons\\energy sword\\shaders\\es blade top"
+            },
+            "permutation_index": 0
+          },
+          {
+            "shader": {
+              "class": "shader_transparent_chicago",
+              "path": "weapons\\energy sword\\shaders\\es blade bottom"
+            },
+            "permutation_index": 0
+          }
+        ],
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "shader_model",
+      "path": "weapons\\energy sword\\shaders\\es handle",
+      "native": {
+        "shdr_attrs": {
+          "radiosity_flags": 0,
+          "radiosity_detail_level": "high",
+          "radiosity_light_power": 0.0,
+          "radiosity_light_color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "radiosity_tint_color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "material_type": "metal_thick",
+          "shader_type": "soso",
+          "_enum_values": {
+            "radiosity_detail_level": 0,
+            "material_type": 7,
+            "shader_type": 4
+          },
+          "_flag_names": {
+            "radiosity_flags": []
+          }
+        },
+        "soso_attrs": {
+          "model_shader": {
+            "flags": 0,
+            "translucency": 0.0,
+            "_flag_names": {
+              "flags": []
+            }
+          },
+          "color_change_source": "none",
+          "self_illumination": {
+            "flags": 0,
+            "color_source": "none",
+            "animation_function": "one",
+            "animation_period": 1.0,
+            "color_lower_bound": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "color_upper_bound": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "_enum_values": {
+              "color_source": 0,
+              "animation_function": 0
+            },
+            "_flag_names": {
+              "flags": []
+            }
+          },
+          "maps": {
+            "map_u_scale": 1.0,
+            "map_v_scale": 1.0,
+            "diffuse_map": {
+              "class": "bitmap",
+              "path": "weapons\\energy sword\\bitmaps\\energy sword"
+            },
+            "multipurpose_map": {
+              "class": "bitmap",
+              "path": ""
+            },
+            "detail_function": "double_biased_multiply",
+            "detail_mask": "none",
+            "detail_map_scale": 1.0,
+            "detail_map": {
+              "class": "bitmap",
+              "path": ""
+            },
+            "detail_map_v_scale": 1.0,
+            "_enum_values": {
+              "detail_function": 0,
+              "detail_mask": 0
+            }
+          },
+          "texture_scrolling": {
+            "u_animation": {
+              "source": "none",
+              "function": "one",
+              "period": 1.0,
+              "phase": 0.0,
+              "scale": 1.0,
+              "_enum_values": {
+                "source": 0,
+                "function": 0
+              }
+            },
+            "v_animation": {
+              "source": "none",
+              "function": "one",
+              "period": 1.0,
+              "phase": 0.0,
+              "scale": 1.0,
+              "_enum_values": {
+                "source": 0,
+                "function": 0
+              }
+            },
+            "rotation_animation": {
+              "source": "none",
+              "function": "one",
+              "period": 1.0,
+              "phase": 0.0,
+              "scale": 360.0,
+              "_enum_values": {
+                "source": 0,
+                "function": 0
+              }
+            },
+            "rot_animation_center": {
+              "x": 0.0,
+              "y": 0.0
+            }
+          },
+          "reflection": {
+            "falloff_distance": 0.0,
+            "cutoff_distance": 0.0,
+            "perpendicular_brightness": 0.0,
+            "perpendicular_tint_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "parallel_brightness": 0.0,
+            "parallel_tint_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "cube_map": {
+              "class": "bitmap",
+              "path": ""
+            }
+          },
+          "unknown0": 1.0,
+          "unknown1": {
+            "byte_length": 16,
+            "sha256": "84f0cb27729bce3096f319dbf291384e9b84c0af3ff9468d54fa5ac22c1cf3f4"
+          },
+          "_enum_values": {
+            "color_change_source": 0
+          }
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "weapons\\energy sword\\bitmaps\\energy sword",
+      "native": {
+        "type": "textures_2d",
+        "format": "color_key_transparency",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 0,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 128,
+        "color_plate_height": 128,
+        "compressed_color_plate_data": {
+          "byte_length": 30500,
+          "sha256": "caa492906437682a043b0b98784865a2e92f28d272bb585d42f083f529c5bb11"
+        },
+        "processed_pixel_data": {
+          "byte_length": 11008,
+          "sha256": "1d93aedf1cc4c862772e8a3c50f79ec74c123df654dfc3b7ad357748b3c75e5f"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 1,
+            "sprites": []
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 128,
+            "height": 128,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt1",
+            "flags": 131,
+            "registration_point_x": 64,
+            "registration_point_y": 64,
+            "mipmaps": 7,
+            "pixels": 18,
+            "pixels_offset": 46259200,
+            "pixels_meta_size": 11008,
+            "bitmap_id_unknown1": 3964734173,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 14
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 0,
+          "format": 0,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "shader_transparent_chicago",
+      "path": "weapons\\energy sword\\shaders\\es blade top",
+      "native": {
+        "shdr_attrs": {
+          "radiosity_flags": 0,
+          "radiosity_detail_level": "high",
+          "radiosity_light_power": 0.0,
+          "radiosity_light_color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "radiosity_tint_color": {
+            "r": 0.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "material_type": "force_field",
+          "shader_type": "schi",
+          "_enum_values": {
+            "radiosity_detail_level": 0,
+            "material_type": 10,
+            "shader_type": 6
+          },
+          "_flag_names": {
+            "radiosity_flags": []
+          }
+        },
+        "schi_attrs": {
+          "chicago_shader": {
+            "numeric_counter_limit": 0,
+            "chicago_shader_flags": 16,
+            "first_map_type": "map_2d",
+            "framebuffer_blend_function": "add",
+            "framebuffer_fade_mode": "none",
+            "framebuffer_fade_source": "none",
+            "_enum_values": {
+              "first_map_type": 0,
+              "framebuffer_blend_function": 3,
+              "framebuffer_fade_mode": 0,
+              "framebuffer_fade_source": 0
+            },
+            "_flag_names": {
+              "chicago_shader_flags": [
+                "draw_before_water"
+              ]
+            }
+          },
+          "lens_flare_spacing": 0.0,
+          "lens_flare": {
+            "class": "lens_flare",
+            "path": ""
+          },
+          "extra_layers": [],
+          "maps": [
+            {
+              "flags": 0,
+              "color_function": "current",
+              "alpha_function": "current",
+              "map_u_scale": 1.0,
+              "map_v_scale": 1.0,
+              "map_u_offset": 0.0,
+              "map_v_offset": 0.0,
+              "map_rotation": 0.0,
+              "map_bias": 0.0,
+              "bitmap": {
+                "class": "bitmap",
+                "path": "weapons\\energy sword\\bitmaps\\energy sword"
+              },
+              "u_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "v_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "rotation_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 360.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "rotation_center": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "_enum_values": {
+                "color_function": 0,
+                "alpha_function": 0
+              },
+              "_flag_names": {
+                "flags": []
+              }
+            }
+          ],
+          "extra_flags": 0,
+          "_flag_names": {
+            "extra_flags": []
+          }
+        }
+      }
+    },
+    {
+      "class": "shader_transparent_chicago",
+      "path": "weapons\\energy sword\\shaders\\es blade bottom",
+      "native": {
+        "shdr_attrs": {
+          "radiosity_flags": 0,
+          "radiosity_detail_level": "high",
+          "radiosity_light_power": 0.0,
+          "radiosity_light_color": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "radiosity_tint_color": {
+            "r": 0.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "material_type": "force_field",
+          "shader_type": "schi",
+          "_enum_values": {
+            "radiosity_detail_level": 0,
+            "material_type": 10,
+            "shader_type": 6
+          },
+          "_flag_names": {
+            "radiosity_flags": []
+          }
+        },
+        "schi_attrs": {
+          "chicago_shader": {
+            "numeric_counter_limit": 0,
+            "chicago_shader_flags": 16,
+            "first_map_type": "map_2d",
+            "framebuffer_blend_function": "add",
+            "framebuffer_fade_mode": "none",
+            "framebuffer_fade_source": "none",
+            "_enum_values": {
+              "first_map_type": 0,
+              "framebuffer_blend_function": 3,
+              "framebuffer_fade_mode": 0,
+              "framebuffer_fade_source": 0
+            },
+            "_flag_names": {
+              "chicago_shader_flags": [
+                "draw_before_water"
+              ]
+            }
+          },
+          "lens_flare_spacing": 0.0,
+          "lens_flare": {
+            "class": "lens_flare",
+            "path": ""
+          },
+          "extra_layers": [],
+          "maps": [
+            {
+              "flags": 0,
+              "color_function": "current",
+              "alpha_function": "current",
+              "map_u_scale": 1.0,
+              "map_v_scale": 1.0,
+              "map_u_offset": 0.0,
+              "map_v_offset": 0.0,
+              "map_rotation": 0.0,
+              "map_bias": 0.0,
+              "bitmap": {
+                "class": "bitmap",
+                "path": "weapons\\energy sword\\bitmaps\\energy sword"
+              },
+              "u_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "v_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "rotation_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 360.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "rotation_center": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "_enum_values": {
+                "color_function": 0,
+                "alpha_function": 0
+              },
+              "_flag_names": {
+                "flags": []
+              }
+            }
+          ],
+          "extra_flags": 0,
+          "_flag_names": {
+            "extra_flags": []
+          }
+        }
+      }
+    },
+    {
+      "class": "light",
+      "path": "weapons\\energy sword\\energy sword dynamic",
+      "native": {
+        "flags": 3,
+        "shape": {
+          "radius": 0.875,
+          "radius_modifier": {
+            "from": 1.0,
+            "to": 1.0
+          },
+          "falloff_angle": 3.1415927410125732,
+          "cutoff_angle": 3.1415927410125732,
+          "lens_flare_only_radius": 0.0,
+          "cosine_falloff_angle": -1.0,
+          "cosine_cutoff_angle": -1.0,
+          "unknown": 2.0,
+          "sine_cutoff_angle": 0.0
+        },
+        "color": {
+          "interpolation_flags": 0,
+          "color_lower_bound": {
+            "a": 1.0,
+            "r": 0.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "color_upper_bound": {
+            "a": 1.0,
+            "r": 0.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "_flag_names": {
+            "interpolation_flags": []
+          }
+        },
+        "gel_map": {
+          "primary_cube_map": {
+            "class": "bitmap",
+            "path": ""
+          },
+          "texture_animation_function": "one",
+          "texture_animation_period": 0.0,
+          "secondary_cube_map": {
+            "class": "bitmap",
+            "path": ""
+          },
+          "yaw_animation_function": "one",
+          "yaw_animation_period": 1.0,
+          "roll_animation_function": "one",
+          "roll_animation_period": 1.0,
+          "pitch_animation_function": "one",
+          "pitch_animation_period": 1.0,
+          "_enum_values": {
+            "texture_animation_function": 0,
+            "yaw_animation_function": 0,
+            "roll_animation_function": 0,
+            "pitch_animation_function": 0
+          }
+        },
+        "lens_flare": {
+          "class": "lens_flare",
+          "path": ""
+        },
+        "radiosity": {
+          "intensity": 0.0,
+          "color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          }
+        },
+        "effect_parameters": {
+          "duration": 0.0,
+          "falloff_function": "linear",
+          "_enum_values": {
+            "falloff_function": 0
+          }
+        },
+        "_flag_names": {
+          "flags": [
+            "dynamic",
+            "no_specular"
+          ]
+        }
+      }
+    },
+    {
+      "class": "glow",
+      "path": "weapons\\energy sword\\c energy sword glow lower",
+      "native": {
+        "attachment_marker": "glow 2",
+        "number_of_particles": 64,
+        "boundary_effect": "wrap",
+        "normal_particle_distribution": "uniform",
+        "trailing_particle_distribution": "vertically",
+        "glow_flags": 4,
+        "particle_rotational_velocity": {
+          "attachment": "<INVALID>",
+          "velocity": 0.0,
+          "low_multiplier": 1.0,
+          "high_multiplier": 1.0,
+          "_enum_values": {
+            "attachment": -1
+          }
+        },
+        "effect_rotational_velocity": {
+          "attachment": "<INVALID>",
+          "velocity": 1.0,
+          "low_multiplier": 1.0,
+          "high_multiplier": 1.0,
+          "_enum_values": {
+            "attachment": -1
+          }
+        },
+        "effect_translational_velocity": {
+          "attachment": "<INVALID>",
+          "velocity": 0.05000000074505806,
+          "low_multiplier": 1.0,
+          "high_multiplier": 1.0,
+          "_enum_values": {
+            "attachment": -1
+          }
+        },
+        "particle_distance_to_object": {
+          "attachment": "<INVALID>",
+          "min_distance": 0.009999999776482582,
+          "max_distance": 0.009999999776482582,
+          "low_multiplier": 1.0,
+          "high_multiplier": 1.0,
+          "_enum_values": {
+            "attachment": -1
+          }
+        },
+        "particle_size": {
+          "attachment": "<INVALID>",
+          "size_bounds": {
+            "from": 0.05000000074505806,
+            "to": 0.10999999940395355
+          },
+          "size_attachment_multiplier": {
+            "from": 1.0,
+            "to": 1.0
+          },
+          "_enum_values": {
+            "attachment": -1
+          }
+        },
+        "particle_color": {
+          "attachment": "<INVALID>",
+          "lower_bound": {
+            "a": 0.0,
+            "r": 0.0,
+            "g": 0.35686299204826355,
+            "b": 0.35686299204826355
+          },
+          "upper_bound": {
+            "a": 0.0,
+            "r": 0.0,
+            "g": 0.08627449721097946,
+            "b": 0.10980399698019028
+          },
+          "lower_scale": {
+            "a": 0.0,
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "upper_scale": {
+            "a": 0.0,
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "_enum_values": {
+            "attachment": -1
+          }
+        },
+        "color_rate_of_change": 0.0,
+        "fading_percentage_of_glow": 0.25,
+        "particle_generation_frequency": 0.0,
+        "lifetime_of_trailing_particles": 0.0,
+        "velocity_of_trailing_particles": 0.0,
+        "trailing_particle_min_time": 0.0,
+        "trailing_particle_max_time": 0.0,
+        "texture": {
+          "class": "bitmap",
+          "path": "rasterizer\\glow sprite"
+        },
+        "_enum_values": {
+          "boundary_effect": 1,
+          "normal_particle_distribution": 1,
+          "trailing_particle_distribution": 0
+        },
+        "_flag_names": {
+          "glow_flags": [
+            "particles_move_in_both_directions"
+          ]
+        }
+      }
+    },
+    {
+      "class": "glow",
+      "path": "weapons\\energy sword\\c energy sword glow",
+      "native": {
+        "attachment_marker": "glow 1",
+        "number_of_particles": 64,
+        "boundary_effect": "wrap",
+        "normal_particle_distribution": "uniform",
+        "trailing_particle_distribution": "vertically",
+        "glow_flags": 4,
+        "particle_rotational_velocity": {
+          "attachment": "<INVALID>",
+          "velocity": 0.0,
+          "low_multiplier": 1.0,
+          "high_multiplier": 1.0,
+          "_enum_values": {
+            "attachment": -1
+          }
+        },
+        "effect_rotational_velocity": {
+          "attachment": "<INVALID>",
+          "velocity": 1.0,
+          "low_multiplier": 1.0,
+          "high_multiplier": 1.0,
+          "_enum_values": {
+            "attachment": -1
+          }
+        },
+        "effect_translational_velocity": {
+          "attachment": "<INVALID>",
+          "velocity": 0.05000000074505806,
+          "low_multiplier": 1.0,
+          "high_multiplier": 1.0,
+          "_enum_values": {
+            "attachment": -1
+          }
+        },
+        "particle_distance_to_object": {
+          "attachment": "<INVALID>",
+          "min_distance": 0.009999999776482582,
+          "max_distance": 0.009999999776482582,
+          "low_multiplier": 1.0,
+          "high_multiplier": 1.0,
+          "_enum_values": {
+            "attachment": -1
+          }
+        },
+        "particle_size": {
+          "attachment": "<INVALID>",
+          "size_bounds": {
+            "from": 0.05000000074505806,
+            "to": 0.10999999940395355
+          },
+          "size_attachment_multiplier": {
+            "from": 1.0,
+            "to": 1.0
+          },
+          "_enum_values": {
+            "attachment": -1
+          }
+        },
+        "particle_color": {
+          "attachment": "<INVALID>",
+          "lower_bound": {
+            "a": 0.0,
+            "r": 0.0,
+            "g": 0.35686299204826355,
+            "b": 0.35686299204826355
+          },
+          "upper_bound": {
+            "a": 0.0,
+            "r": 0.0,
+            "g": 0.08627449721097946,
+            "b": 0.10980399698019028
+          },
+          "lower_scale": {
+            "a": 0.0,
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "upper_scale": {
+            "a": 0.0,
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "_enum_values": {
+            "attachment": -1
+          }
+        },
+        "color_rate_of_change": 0.0,
+        "fading_percentage_of_glow": 0.25,
+        "particle_generation_frequency": 0.0,
+        "lifetime_of_trailing_particles": 0.0,
+        "velocity_of_trailing_particles": 0.0,
+        "trailing_particle_min_time": 0.0,
+        "trailing_particle_max_time": 0.0,
+        "texture": {
+          "class": "bitmap",
+          "path": "rasterizer\\glow sprite"
+        },
+        "_enum_values": {
+          "boundary_effect": 1,
+          "normal_particle_distribution": 1,
+          "trailing_particle_distribution": 0
+        },
+        "_flag_names": {
+          "glow_flags": [
+            "particles_move_in_both_directions"
+          ]
+        }
+      }
+    },
+    {
+      "class": "effect",
+      "path": "weapons\\energy sword\\energy sword dispersal",
+      "native": {
+        "flags": 0,
+        "loop_start_event": 0,
+        "loop_stop_event": 0,
+        "locations": [
+          {
+            "marker_name": "ground point"
+          }
+        ],
+        "events": [
+          {
+            "skip_fraction": 0.0,
+            "delay_bounds": {
+              "from": 0.0,
+              "to": 0.0
+            },
+            "duration_bounds": {
+              "from": 0.0,
+              "to": 0.0
+            },
+            "parts": [
+              {
+                "create_in_env": "any_environment",
+                "create_in_mode": "either_mode",
+                "location": 0,
+                "flags": 0,
+                "effect_class": "sound",
+                "type": {
+                  "class": "sound",
+                  "path": "sound\\sfx\\impulse\\impacts\\elite_sword_boom"
+                },
+                "velocity_bounds": {
+                  "from": 0.0,
+                  "to": 0.0
+                },
+                "velocity_cone_angle": 0.0,
+                "angular_velocity_bounds": {
+                  "from": 0.0,
+                  "to": 0.0
+                },
+                "radius_modifier_bounds": {},
+                "A_scales_values": 0,
+                "B_scales_values": 0,
+                "_enum_values": {
+                  "create_in_env": 0,
+                  "create_in_mode": 0,
+                  "effect_class": 1936614433
+                },
+                "_flag_names": {
+                  "flags": [],
+                  "A_scales_values": [],
+                  "B_scales_values": []
+                }
+              }
+            ],
+            "particles": [
+              {
+                "create_in_env": "any_environment",
+                "create_in_mode": "either_mode",
+                "create_in_camera": "either",
+                "unknown0": 0,
+                "location": 0,
+                "unknown1": 0,
+                "relative_direction": {
+                  "y": 0.0,
+                  "p": 0.0
+                },
+                "relative_offset": {
+                  "i": 0.0,
+                  "j": 0.0,
+                  "k": 0.0
+                },
+                "relative_direction_vector": {
+                  "x": 1.0,
+                  "y": 0.0,
+                  "z": 0.0
+                },
+                "particle_type": {
+                  "class": "particle",
+                  "path": "weapons\\plasma grenade\\plasma grenade armed"
+                },
+                "flags": 2,
+                "distribution_function": "start",
+                "created_count": {
+                  "from": 5,
+                  "to": 12
+                },
+                "distribution_radius": {
+                  "from": 0.009999999776482582,
+                  "to": 0.014999999664723873
+                },
+                "velocity": {
+                  "from": 0.10000000149011612,
+                  "to": 0.15000000596046448
+                },
+                "velocity_cone_angle": 0.0872664600610733,
+                "angular_velocity": {
+                  "from": 1.3089969158172607,
+                  "to": -1.5707963705062866
+                },
+                "radius": {
+                  "from": 0.029999999329447746,
+                  "to": 0.11999999731779099
+                },
+                "tint_lower_bound": {
+                  "a": 0.6499999761581421,
+                  "r": 0.5019609928131104,
+                  "g": 1.0,
+                  "b": 1.0
+                },
+                "tint_upper_bound": {
+                  "a": 1.0,
+                  "r": 0.5019609928131104,
+                  "g": 1.0,
+                  "b": 1.0
+                },
+                "A_scales_values": 0,
+                "B_scales_values": 0,
+                "_enum_values": {
+                  "create_in_env": 0,
+                  "create_in_mode": 0,
+                  "create_in_camera": 0,
+                  "distribution_function": 0
+                },
+                "_flag_names": {
+                  "flags": [
+                    "random_initial_angle"
+                  ],
+                  "A_scales_values": [],
+                  "B_scales_values": []
+                }
+              }
+            ]
+          }
+        ],
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "effect",
+      "path": "weapons\\energy sword\\energy sword detonation",
+      "native": {
+        "flags": 2,
+        "loop_start_event": -1,
+        "loop_stop_event": -1,
+        "locations": [
+          {
+            "marker_name": "ground point"
+          },
+          {
+            "marker_name": "gravity"
+          },
+          {
+            "marker_name": "reflection"
+          },
+          {
+            "marker_name": ""
+          }
+        ],
+        "events": [
+          {
+            "skip_fraction": 0.0,
+            "delay_bounds": {
+              "from": 0.0,
+              "to": 0.0
+            },
+            "duration_bounds": {
+              "from": 0.0,
+              "to": 0.0
+            },
+            "parts": [
+              {
+                "create_in_env": "any_environment",
+                "create_in_mode": "either_mode",
+                "location": 0,
+                "flags": 0,
+                "effect_class": "particle_system",
+                "type": {
+                  "class": "particle_system",
+                  "path": "weapons\\energy sword\\explosion"
+                },
+                "velocity_bounds": {
+                  "from": 1.0,
+                  "to": 1.0
+                },
+                "velocity_cone_angle": 0.0,
+                "angular_velocity_bounds": {
+                  "from": 0.0,
+                  "to": 0.0
+                },
+                "radius_modifier_bounds": {},
+                "A_scales_values": 0,
+                "B_scales_values": 0,
+                "_enum_values": {
+                  "create_in_env": 0,
+                  "create_in_mode": 0,
+                  "effect_class": 1885566060
+                },
+                "_flag_names": {
+                  "flags": [],
+                  "A_scales_values": [],
+                  "B_scales_values": []
+                }
+              },
+              {
+                "create_in_env": "any_environment",
+                "create_in_mode": "either_mode",
+                "location": 0,
+                "flags": 0,
+                "effect_class": "light",
+                "type": {
+                  "class": "light",
+                  "path": "weapons\\plasma grenade\\explosion"
+                },
+                "velocity_bounds": {
+                  "from": 1.0,
+                  "to": 1.0
+                },
+                "velocity_cone_angle": 0.0,
+                "angular_velocity_bounds": {
+                  "from": 0.0,
+                  "to": 0.0
+                },
+                "radius_modifier_bounds": {},
+                "A_scales_values": 0,
+                "B_scales_values": 0,
+                "_enum_values": {
+                  "create_in_env": 0,
+                  "create_in_mode": 0,
+                  "effect_class": 1818847080
+                },
+                "_flag_names": {
+                  "flags": [],
+                  "A_scales_values": [],
+                  "B_scales_values": []
+                }
+              },
+              {
+                "create_in_env": "any_environment",
+                "create_in_mode": "either_mode",
+                "location": 1,
+                "flags": 1,
+                "effect_class": "decal",
+                "type": {
+                  "class": "decal",
+                  "path": "effects\\decals\\bullet holes\\plasma burn large"
+                },
+                "velocity_bounds": {
+                  "from": 1.0,
+                  "to": 1.0
+                },
+                "velocity_cone_angle": 0.0,
+                "angular_velocity_bounds": {
+                  "from": 0.0,
+                  "to": 0.0
+                },
+                "radius_modifier_bounds": {},
+                "A_scales_values": 1056964608,
+                "B_scales_values": 1059061760,
+                "_enum_values": {
+                  "create_in_env": 0,
+                  "create_in_mode": 0,
+                  "effect_class": 1684366177
+                },
+                "_flag_names": {
+                  "flags": [
+                    "face_down"
+                  ],
+                  "A_scales_values": [],
+                  "B_scales_values": []
+                }
+              }
+            ],
+            "particles": [
+              {
+                "create_in_env": "any_environment",
+                "create_in_mode": "either_mode",
+                "create_in_camera": "either",
+                "unknown0": 0,
+                "location": 0,
+                "unknown1": 0,
+                "relative_direction": {
+                  "y": 0.0,
+                  "p": 0.0
+                },
+                "relative_offset": {
+                  "i": 0.0,
+                  "j": 0.0,
+                  "k": 0.0
+                },
+                "relative_direction_vector": {
+                  "x": 1.0,
+                  "y": 0.0,
+                  "z": 0.0
+                },
+                "particle_type": {
+                  "class": "particle",
+                  "path": "effects\\particles\\energy\\tracer c generic"
+                },
+                "flags": 0,
+                "distribution_function": "start",
+                "created_count": {
+                  "from": 30,
+                  "to": 35
+                },
+                "distribution_radius": {
+                  "from": 0.0,
+                  "to": 0.0
+                },
+                "velocity": {
+                  "from": 1.0,
+                  "to": 3.0
+                },
+                "velocity_cone_angle": 1.3962633609771729,
+                "angular_velocity": {
+                  "from": 0.0,
+                  "to": 0.0
+                },
+                "radius": {
+                  "from": 0.5,
+                  "to": 0.09000000357627869
+                },
+                "tint_lower_bound": {
+                  "a": 1.0,
+                  "r": 0.0,
+                  "g": 1.0,
+                  "b": 1.0
+                },
+                "tint_upper_bound": {
+                  "a": 1.0,
+                  "r": 0.0,
+                  "g": 1.0,
+                  "b": 1.0
+                },
+                "A_scales_values": 0,
+                "B_scales_values": 0,
+                "_enum_values": {
+                  "create_in_env": 0,
+                  "create_in_mode": 0,
+                  "create_in_camera": 0,
+                  "distribution_function": 0
+                },
+                "_flag_names": {
+                  "flags": [],
+                  "A_scales_values": [],
+                  "B_scales_values": []
+                }
+              },
+              {
+                "create_in_env": "any_environment",
+                "create_in_mode": "either_mode",
+                "create_in_camera": "either",
+                "unknown0": 0,
+                "location": 3,
+                "unknown1": 0,
+                "relative_direction": {
+                  "y": 0.0,
+                  "p": 0.0
+                },
+                "relative_offset": {
+                  "i": 0.0,
+                  "j": 0.0,
+                  "k": 0.0
+                },
+                "relative_direction_vector": {
+                  "x": 1.0,
+                  "y": 0.0,
+                  "z": 0.0
+                },
+                "particle_type": {
+                  "class": "particle",
+                  "path": "effects\\particles\\energy\\plasma particle debris"
+                },
+                "flags": 0,
+                "distribution_function": "start",
+                "created_count": {
+                  "from": 30,
+                  "to": 35
+                },
+                "distribution_radius": {
+                  "from": 0.0,
+                  "to": 0.0
+                },
+                "velocity": {
+                  "from": 1.0,
+                  "to": 2.25
+                },
+                "velocity_cone_angle": 1.3962633609771729,
+                "angular_velocity": {
+                  "from": 0.0,
+                  "to": 0.0
+                },
+                "radius": {
+                  "from": 0.10000000149011612,
+                  "to": 0.30000001192092896
+                },
+                "tint_lower_bound": {
+                  "a": 1.0,
+                  "r": 0.0,
+                  "g": 1.0,
+                  "b": 1.0
+                },
+                "tint_upper_bound": {
+                  "a": 1.0,
+                  "r": 0.0,
+                  "g": 1.0,
+                  "b": 1.0
+                },
+                "A_scales_values": 0,
+                "B_scales_values": 0,
+                "_enum_values": {
+                  "create_in_env": 0,
+                  "create_in_mode": 0,
+                  "create_in_camera": 0,
+                  "distribution_function": 0
+                },
+                "_flag_names": {
+                  "flags": [],
+                  "A_scales_values": [],
+                  "B_scales_values": []
+                }
+              }
+            ]
+          }
+        ],
+        "_flag_names": {
+          "flags": [
+            "required"
+          ]
+        }
+      }
+    },
+    {
+      "class": "particle_system",
+      "path": "weapons\\energy sword\\explosion",
+      "native": {
+        "point_physics": {
+          "class": "point_physics",
+          "path": "weapons\\frag grenade\\effects\\fire explosion"
+        },
+        "system_update_physics": "default",
+        "physics_constants": [
+          {
+            "k": 0.10000000149011612
+          }
+        ],
+        "particle_types": [
+          {
+            "name": "c fire",
+            "flags": 16,
+            "initial_particle_count": 15,
+            "complex_sprite_render_modes": "rotational",
+            "radius": 1.5,
+            "particle_creation_physics": "explosion",
+            "physics_constants": [
+              {
+                "k": 0.0010000000474974513
+              },
+              {
+                "k": 0.012000000104308128
+              },
+              {
+                "k": 150.0
+              }
+            ],
+            "states": [
+              {
+                "name": "birth",
+                "duration_bounds": {
+                  "from": 0.25,
+                  "to": 0.25
+                },
+                "transition_time_bounds": {
+                  "from": 1.0,
+                  "to": 1.0
+                },
+                "scale_multiplier": 1.0,
+                "animation_rate_multiplier": 1.0,
+                "rotation_rate_multiplier": 1.0,
+                "color_multiplier": {
+                  "a": 1.0,
+                  "r": 0.050980400294065475,
+                  "g": 0.9529410004615784,
+                  "b": 1.0
+                },
+                "radius_multiplier": 1.0,
+                "minimum_particle_count": 1.0,
+                "particle_creation_rate": 0.0,
+                "particle_creation_physics": "explosion",
+                "physics_constants": [],
+                "_enum_values": {
+                  "particle_creation_physics": 1
+                }
+              },
+              {
+                "name": "death",
+                "duration_bounds": {
+                  "from": 0.25,
+                  "to": 0.25
+                },
+                "transition_time_bounds": {
+                  "from": 0.0,
+                  "to": 0.0
+                },
+                "scale_multiplier": 1.0,
+                "animation_rate_multiplier": 0.0,
+                "rotation_rate_multiplier": 0.0,
+                "color_multiplier": {
+                  "a": 0.0,
+                  "r": 0.0,
+                  "g": 1.0,
+                  "b": 1.0
+                },
+                "radius_multiplier": 1.0,
+                "minimum_particle_count": 1.0,
+                "particle_creation_rate": 0.0,
+                "particle_creation_physics": "default",
+                "physics_constants": [],
+                "_enum_values": {
+                  "particle_creation_physics": 0
+                }
+              }
+            ],
+            "particle_states": [
+              {
+                "name": "needler burst",
+                "duration_bounds": {
+                  "from": 0.0,
+                  "to": 0.0
+                },
+                "transition_time_bounds": {
+                  "from": 0.10000000149011612,
+                  "to": 0.125
+                },
+                "bitmaps": {
+                  "class": "bitmap",
+                  "path": "effects\\particles\\energy\\bitmaps\\cloud c fire"
+                },
+                "sequence_index": 0,
+                "scale": {
+                  "from": 0.0010000000474974513,
+                  "to": 0.0020000000949949026
+                },
+                "animation_rate": {
+                  "from": 30.0,
+                  "to": 30.0
+                },
+                "rotation_rate": {
+                  "from": 3.4906585216522217,
+                  "to": 6.981317043304443
+                },
+                "color_1": {
+                  "a": 1.0,
+                  "r": 0.0,
+                  "g": 1.0,
+                  "b": 1.0
+                },
+                "color_2": {
+                  "a": 1.0,
+                  "r": 0.0,
+                  "g": 1.0,
+                  "b": 1.0
+                },
+                "radius_multiplier": 1.0,
+                "physics": {
+                  "class": "point_physics",
+                  "path": "weapons\\frag grenade\\effects\\fire explosion"
+                },
+                "unknown0": 1,
+                "shader_flags": 3,
+                "framebuffer_blend_function": "add",
+                "framebuffer_fade_mode": "none",
+                "map_flags": 0,
+                "secondary_map": {
+                  "bitmap": {
+                    "class": "bitmap",
+                    "path": ""
+                  },
+                  "anchor": "with_primary",
+                  "flags": 0,
+                  "u_animation": {
+                    "source": "none",
+                    "function": "one",
+                    "period": 0.0,
+                    "phase": 0.0,
+                    "scale": 0.0,
+                    "_enum_values": {
+                      "source": 0,
+                      "function": 0
+                    }
+                  },
+                  "v_animation": {
+                    "source": "none",
+                    "function": "one",
+                    "period": 0.0,
+                    "phase": 0.0,
+                    "scale": 0.0,
+                    "_enum_values": {
+                      "source": 0,
+                      "function": 0
+                    }
+                  },
+                  "rotation_animation": {
+                    "source": "none",
+                    "function": "one",
+                    "period": 0.0,
+                    "phase": 0.0,
+                    "scale": 0.0,
+                    "_enum_values": {
+                      "source": 0,
+                      "function": 0
+                    }
+                  },
+                  "rotation_center": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "zsprite_radius_scale": 0.0,
+                  "_enum_values": {
+                    "anchor": 0
+                  },
+                  "_flag_names": {
+                    "flags": []
+                  }
+                },
+                "physics_constants": [],
+                "_enum_values": {
+                  "framebuffer_blend_function": 3,
+                  "framebuffer_fade_mode": 0
+                },
+                "_flag_names": {
+                  "shader_flags": [
+                    "sort_bias",
+                    "nonlinear_tint"
+                  ],
+                  "map_flags": []
+                }
+              },
+              {
+                "name": "needle smoke",
+                "duration_bounds": {
+                  "from": 0.0,
+                  "to": 0.0
+                },
+                "transition_time_bounds": {
+                  "from": 0.4000000059604645,
+                  "to": 0.4000000059604645
+                },
+                "bitmaps": {
+                  "class": "bitmap",
+                  "path": "effects\\particles\\energy\\bitmaps\\cloud c fire"
+                },
+                "sequence_index": 0,
+                "scale": {
+                  "from": 0.0012000000569969416,
+                  "to": 0.003000000026077032
+                },
+                "animation_rate": {
+                  "from": 30.0,
+                  "to": 30.0
+                },
+                "rotation_rate": {
+                  "from": 2.6179938316345215,
+                  "to": 4.363323211669922
+                },
+                "color_1": {
+                  "a": 1.0,
+                  "r": 0.0,
+                  "g": 1.0,
+                  "b": 1.0
+                },
+                "color_2": {
+                  "a": 1.0,
+                  "r": 0.0,
+                  "g": 1.0,
+                  "b": 1.0
+                },
+                "radius_multiplier": 1.0,
+                "physics": {
+                  "class": "point_physics",
+                  "path": "weapons\\frag grenade\\effects\\fire explosion"
+                },
+                "unknown0": 1,
+                "shader_flags": 3,
+                "framebuffer_blend_function": "add",
+                "framebuffer_fade_mode": "none",
+                "map_flags": 0,
+                "secondary_map": {
+                  "bitmap": {
+                    "class": "bitmap",
+                    "path": ""
+                  },
+                  "anchor": "with_primary",
+                  "flags": 0,
+                  "u_animation": {
+                    "source": "none",
+                    "function": "one",
+                    "period": 0.0,
+                    "phase": 0.0,
+                    "scale": 0.0,
+                    "_enum_values": {
+                      "source": 0,
+                      "function": 0
+                    }
+                  },
+                  "v_animation": {
+                    "source": "none",
+                    "function": "one",
+                    "period": 0.0,
+                    "phase": 0.0,
+                    "scale": 0.0,
+                    "_enum_values": {
+                      "source": 0,
+                      "function": 0
+                    }
+                  },
+                  "rotation_animation": {
+                    "source": "none",
+                    "function": "one",
+                    "period": 0.0,
+                    "phase": 0.0,
+                    "scale": 0.0,
+                    "_enum_values": {
+                      "source": 0,
+                      "function": 0
+                    }
+                  },
+                  "rotation_center": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "zsprite_radius_scale": 0.0,
+                  "_enum_values": {
+                    "anchor": 0
+                  },
+                  "_flag_names": {
+                    "flags": []
+                  }
+                },
+                "physics_constants": [],
+                "_enum_values": {
+                  "framebuffer_blend_function": 3,
+                  "framebuffer_fade_mode": 0
+                },
+                "_flag_names": {
+                  "shader_flags": [
+                    "sort_bias",
+                    "nonlinear_tint"
+                  ],
+                  "map_flags": []
+                }
+              },
+              {
+                "name": "death",
+                "duration_bounds": {
+                  "from": 0.0,
+                  "to": 0.0
+                },
+                "transition_time_bounds": {
+                  "from": 0.0,
+                  "to": 0.0
+                },
+                "bitmaps": {
+                  "class": "bitmap",
+                  "path": "effects\\particles\\energy\\bitmaps\\cloud c fire"
+                },
+                "sequence_index": 0,
+                "scale": {
+                  "from": 0.009999999776482582,
+                  "to": 0.019999999552965164
+                },
+                "animation_rate": {
+                  "from": 30.0,
+                  "to": 30.0
+                },
+                "rotation_rate": {
+                  "from": 1.7453292608261108,
+                  "to": 3.4906585216522217
+                },
+                "color_1": {
+                  "a": 0.0,
+                  "r": 0.0,
+                  "g": 1.0,
+                  "b": 1.0
+                },
+                "color_2": {
+                  "a": 0.0,
+                  "r": 0.0,
+                  "g": 1.0,
+                  "b": 1.0
+                },
+                "radius_multiplier": 1.0,
+                "physics": {
+                  "class": "point_physics",
+                  "path": "effects\\point physics\\hot smoke cloud"
+                },
+                "unknown0": 1,
+                "shader_flags": 3,
+                "framebuffer_blend_function": "add",
+                "framebuffer_fade_mode": "none",
+                "map_flags": 0,
+                "secondary_map": {
+                  "bitmap": {
+                    "class": "bitmap",
+                    "path": ""
+                  },
+                  "anchor": "with_primary",
+                  "flags": 0,
+                  "u_animation": {
+                    "source": "none",
+                    "function": "one",
+                    "period": 0.0,
+                    "phase": 0.0,
+                    "scale": 0.0,
+                    "_enum_values": {
+                      "source": 0,
+                      "function": 0
+                    }
+                  },
+                  "v_animation": {
+                    "source": "none",
+                    "function": "one",
+                    "period": 0.0,
+                    "phase": 0.0,
+                    "scale": 0.0,
+                    "_enum_values": {
+                      "source": 0,
+                      "function": 0
+                    }
+                  },
+                  "rotation_animation": {
+                    "source": "none",
+                    "function": "one",
+                    "period": 0.0,
+                    "phase": 0.0,
+                    "scale": 0.0,
+                    "_enum_values": {
+                      "source": 0,
+                      "function": 0
+                    }
+                  },
+                  "rotation_center": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "zsprite_radius_scale": 0.0,
+                  "_enum_values": {
+                    "anchor": 0
+                  },
+                  "_flag_names": {
+                    "flags": []
+                  }
+                },
+                "physics_constants": [],
+                "_enum_values": {
+                  "framebuffer_blend_function": 3,
+                  "framebuffer_fade_mode": 0
+                },
+                "_flag_names": {
+                  "shader_flags": [
+                    "sort_bias",
+                    "nonlinear_tint"
+                  ],
+                  "map_flags": []
+                }
+              }
+            ],
+            "_enum_values": {
+              "complex_sprite_render_modes": 1,
+              "particle_creation_physics": 1
+            },
+            "_flag_names": {
+              "flags": [
+                "particles_die_in_water"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "system_update_physics": 0
+        }
+      }
+    },
+    {
+      "class": "damage_effect",
+      "path": "weapons\\energy sword\\melee",
+      "native": {
+        "radius": {
+          "from": 0.5,
+          "to": 0.5
+        },
+        "cutoff_scale": 0.0,
+        "flags": 0,
+        "screen_flash": {
+          "type": "lighten",
+          "priority": "high",
+          "duration": 3.0,
+          "fade_function": "late",
+          "maximum_intensity": 0.5,
+          "tint_lower_bound": {
+            "a": 0.15000000596046448,
+            "r": 0.1333329975605011,
+            "g": 1.0,
+            "b": 0.6549019813537598
+          },
+          "_enum_values": {
+            "type": 1,
+            "priority": 2,
+            "fade_function": 3
+          }
+        },
+        "low_frequency_vibrate": {
+          "frequency": 0.5,
+          "duration": 0.5,
+          "fade_function": "very_late",
+          "_enum_values": {
+            "fade_function": 4
+          }
+        },
+        "high_frequency_vibrate": {
+          "frequency": 0.75,
+          "duration": 0.15000000596046448,
+          "fade_function": "early",
+          "_enum_values": {
+            "fade_function": 1
+          }
+        },
+        "temporary_camera_impulse": {
+          "duration": 0.0,
+          "fade_function": "linear",
+          "rotation": 0.0,
+          "pushback": 0.0,
+          "jitter": {
+            "from": 0.0,
+            "to": 0.0
+          },
+          "_enum_values": {
+            "fade_function": 0
+          }
+        },
+        "permanent_camera_impulse_angle": 0.0,
+        "camera_shaking": {
+          "duration": 0.0,
+          "fade_function": "linear",
+          "random_translation": 0.0,
+          "random_rotation": 0.0,
+          "wobble_function": "one",
+          "wobble_function_period": 30.0,
+          "wobble_weight": 0.0,
+          "_enum_values": {
+            "fade_function": 0,
+            "wobble_function": 0
+          }
+        },
+        "sound": {
+          "class": "sound",
+          "path": ""
+        },
+        "breaking_effect": {
+          "forward_velocity": 0.0,
+          "forward_radius": 0.0,
+          "forward_exponent": 0.0,
+          "outward_velocity": 0.0,
+          "outward_radius": 0.0,
+          "outward_exponent": 0.0
+        },
+        "damage": {
+          "priority": "emp",
+          "category": "plasma",
+          "flags": 5,
+          "aoe_core_radius": 0.0,
+          "damage_lower_bound": 151.0,
+          "damage_upper_bound": {
+            "from": 151.0,
+            "to": 151.0
+          },
+          "vehicle_passthrough_penalty": 0.0,
+          "active_camouflage_damage": 1.0,
+          "stun": 0.0,
+          "maximum_stun": 0.0,
+          "stun_time": 0.0,
+          "instantaneous_acceleration": 2.5,
+          "_enum_values": {
+            "priority": 3,
+            "category": 10
+          },
+          "_flag_names": {
+            "flags": [
+              "does_not_hurt_owner",
+              "pings_resistant_units"
+            ]
+          }
+        },
+        "damage_modifiers": {
+          "dirt": 1.0,
+          "sand": 1.0,
+          "stone": 1.0,
+          "snow": 1.0,
+          "wood": 1.0,
+          "metal_hollow": 1.0,
+          "metal_thin": 1.0,
+          "metal_thick": 1.0,
+          "rubber": 1.0,
+          "glass": 1.0,
+          "force_field": 1.0,
+          "grunt": 1.0,
+          "hunter_armor": 1.0,
+          "hunter_skin": 1.0,
+          "elite": 1.0,
+          "jackal": 1.0,
+          "jackal_energy_shield": 1.0,
+          "engineer_skin": 1.0,
+          "engineer_force_field": 1.0,
+          "flood_combat_form": 1.0,
+          "flood_carrier_form": 1.0,
+          "cyborg_armor": 1.0,
+          "cyborg_energy_shield": 1.0,
+          "human_armor": 1.0,
+          "human_skin": 1.0,
+          "sentinel": 2.0,
+          "moniter": 1.0,
+          "plastic": 1.0,
+          "water": 1.0,
+          "leaves": 1.0,
+          "elite_energy_shield": 1.0,
+          "ice": 1.0,
+          "hunter_shield": 1.0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "rasterizer\\glow sprite",
+      "native": {
+        "type": "sprites",
+        "format": "color_key_transparency",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x128",
+          "sprite_budget_count": 1,
+          "_enum_values": {
+            "sprite_budget_size": 2
+          }
+        },
+        "color_plate_width": 150,
+        "color_plate_height": 150,
+        "compressed_color_plate_data": {
+          "byte_length": 5458,
+          "sha256": "51c2fbdb6d4c270efba935dd229ecf91570b73f8b3fc36e9ef09c3d8ca0e7a6b"
+        },
+        "processed_pixel_data": {
+          "byte_length": 2688,
+          "sha256": "1e37da15f464880a36e250c51a953a803e686e3f7b07bf3eddbefc5b838bb6d7"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 4,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 0,
+            "sprites": [
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 1.0,
+                "top_side": 0.0,
+                "bottom_side": 1.0,
+                "registration_point_x": 0.5,
+                "registration_point_y": 0.515625
+              }
+            ]
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 64,
+            "height": 64,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt1",
+            "flags": 131,
+            "registration_point_x": 0,
+            "registration_point_y": 0,
+            "mipmaps": 2,
+            "pixels": 18,
+            "pixels_offset": 46270464,
+            "pixels_meta_size": 2688,
+            "bitmap_id_unknown1": 3965061858,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 14
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 3,
+          "format": 0,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "sound",
+      "path": "sound\\sfx\\impulse\\impacts\\elite_sword_boom",
+      "native": {
+        "flags": 0,
+        "sound_class": "projectile_impact",
+        "sample_rate": "khz_22",
+        "minimum_distance": 0.0,
+        "maximum_distance": 0.0,
+        "skip_fraction": 0.0,
+        "random_pitch_bounds": {
+          "from": 1.0,
+          "to": 1.0
+        },
+        "inner_cone_angle": 6.2831854820251465,
+        "outer_cone_angle": 6.2831854820251465,
+        "outer_cone_gain": 1.0,
+        "gain_modifier": 1.0,
+        "maximum_bend_per_second": 0.0,
+        "modifiers_when_scale_is_zero": {
+          "skip_fraction": 1.0,
+          "gain": 1.0,
+          "pitch": 1.0
+        },
+        "modifiers_when_scale_is_one": {
+          "skip_fraction": 1.0,
+          "gain": 1.0,
+          "pitch": 1.0
+        },
+        "encoding": "mono",
+        "compression": "xbox_adpcm",
+        "promotion_sound": {
+          "class": "sound",
+          "path": ""
+        },
+        "promotion_count": 0,
+        "unknown1": 0,
+        "unknown2": {
+          "size": 2351,
+          "flags": 0,
+          "raw_pointer": 0,
+          "pointer": 4294967295,
+          "id": 4294967295,
+          "_flag_names": {
+            "flags": []
+          }
+        },
+        "pitch_ranges": [
+          {
+            "name": "default",
+            "natural_pitch": 1.0,
+            "bend_bounds": {
+              "from": 0.0,
+              "to": 1.0
+            },
+            "actual_permutation_count": 1,
+            "playback_rate": 1.0,
+            "unknown1": -1,
+            "unknown2": -1,
+            "permutations": [
+              {
+                "name": "eliteswordvaporize",
+                "skip_fraction": 0.0,
+                "gain": 1.0,
+                "compression": "xbox_adpcm",
+                "next_permutation_index": -1,
+                "unknown0": -1,
+                "unknown1": 0,
+                "unknown2": 3965258469,
+                "ogg_sample_count": 0,
+                "unknown3": 3965258469,
+                "samples": {
+                  "byte_length": 25920,
+                  "sha256": "b2cba8f7381de91d6bed318cb9ada7080a576b3d59138f691209fedfa5b0815d"
+                },
+                "mouth_data": {
+                  "byte_length": 0,
+                  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                },
+                "subtitle_data": {
+                  "byte_length": 0,
+                  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                },
+                "_enum_values": {
+                  "compression": 1
+                }
+              }
+            ]
+          }
+        ],
+        "_enum_values": {
+          "sound_class": 0,
+          "sample_rate": 0,
+          "encoding": 0,
+          "compression": 1
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "particle",
+      "path": "weapons\\plasma grenade\\plasma grenade armed",
+      "native": {
+        "flags": 692,
+        "bitmap": {
+          "class": "bitmap",
+          "path": "effects\\particles\\energy\\bitmaps\\smoke c generic"
+        },
+        "physics": {
+          "class": "point_physics",
+          "path": "effects\\point physics\\cold smoke cloud"
+        },
+        "impact_effect": {
+          "class": "material_effects",
+          "path": ""
+        },
+        "lifespan": {
+          "from": 0.5,
+          "to": 1.0
+        },
+        "fade_in_time": 0.0,
+        "fade_out_time": 3.5,
+        "collision_effect": {
+          "class": "effect",
+          "path": ""
+        },
+        "death_effect": {
+          "class": "effect",
+          "path": ""
+        },
+        "rendering": {
+          "minimum_size": 0.0,
+          "unknown0": 64,
+          "unknown1": 4.600602988224807e-41,
+          "radius_animation": {
+            "from": 1.0,
+            "to": 1.0
+          },
+          "animation_rate": {
+            "from": 30.0,
+            "to": 30.0
+          },
+          "contact_deterioration": 0.0,
+          "fade_start_size": 5.0,
+          "fade_end_size": 4.0,
+          "first_sequence_index": 0,
+          "initial_sequence_count": 1,
+          "looping_sequence_count": 0,
+          "final_sequence_count": 0,
+          "orientation": "screen_facing",
+          "unknown2": 1,
+          "shader_flags": 0,
+          "framebuffer_blend_function": "add",
+          "framebuffer_fade_mode": "none",
+          "map_flags": 0,
+          "_enum_values": {
+            "orientation": 0,
+            "framebuffer_blend_function": 3,
+            "framebuffer_fade_mode": 0
+          },
+          "_flag_names": {
+            "shader_flags": [],
+            "map_flags": []
+          }
+        },
+        "secondary_map": {
+          "bitmap": {
+            "class": "bitmap",
+            "path": ""
+          },
+          "anchor": "with_primary",
+          "flags": 0,
+          "u_animation": {
+            "source": "none",
+            "function": "one",
+            "period": 0.0,
+            "phase": 0.0,
+            "scale": 0.0,
+            "_enum_values": {
+              "source": 0,
+              "function": 0
+            }
+          },
+          "v_animation": {
+            "source": "none",
+            "function": "one",
+            "period": 0.0,
+            "phase": 0.0,
+            "scale": 0.0,
+            "_enum_values": {
+              "source": 0,
+              "function": 0
+            }
+          },
+          "rotation_animation": {
+            "source": "none",
+            "function": "one",
+            "period": 0.0,
+            "phase": 0.0,
+            "scale": 0.0,
+            "_enum_values": {
+              "source": 0,
+              "function": 0
+            }
+          },
+          "rotation_center": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "zsprite_radius_scale": 0.0,
+          "_enum_values": {
+            "anchor": 0
+          },
+          "_flag_names": {
+            "flags": []
+          }
+        },
+        "_flag_names": {
+          "flags": [
+            "animation_starts_on_random_frame",
+            "dies_at_rest",
+            "dies_on_contact_with_structure",
+            "dies_on_contact_with_water",
+            "self_illuminated"
+          ]
+        }
+      }
+    },
+    {
+      "class": "light",
+      "path": "weapons\\plasma grenade\\explosion",
+      "native": {
+        "flags": 3,
+        "shape": {
+          "radius": 10.0,
+          "radius_modifier": {
+            "from": 1.0,
+            "to": 1.0
+          },
+          "falloff_angle": 3.1415927410125732,
+          "cutoff_angle": 3.1415927410125732,
+          "lens_flare_only_radius": 0.0,
+          "cosine_falloff_angle": -1.0,
+          "cosine_cutoff_angle": -1.0,
+          "unknown": 2.0,
+          "sine_cutoff_angle": 0.0
+        },
+        "color": {
+          "interpolation_flags": 0,
+          "color_lower_bound": {
+            "a": 0.0,
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "color_upper_bound": {
+            "a": 0.0,
+            "r": 0.5254899859428406,
+            "g": 0.9529410004615784,
+            "b": 0.9764710068702698
+          },
+          "_flag_names": {
+            "interpolation_flags": []
+          }
+        },
+        "gel_map": {
+          "primary_cube_map": {
+            "class": "bitmap",
+            "path": ""
+          },
+          "texture_animation_function": "one",
+          "texture_animation_period": 0.0,
+          "secondary_cube_map": {
+            "class": "bitmap",
+            "path": ""
+          },
+          "yaw_animation_function": "one",
+          "yaw_animation_period": 1.0,
+          "roll_animation_function": "one",
+          "roll_animation_period": 1.0,
+          "pitch_animation_function": "one",
+          "pitch_animation_period": 1.0,
+          "_enum_values": {
+            "texture_animation_function": 0,
+            "yaw_animation_function": 0,
+            "roll_animation_function": 0,
+            "pitch_animation_function": 0
+          }
+        },
+        "lens_flare": {
+          "class": "lens_flare",
+          "path": ""
+        },
+        "radiosity": {
+          "intensity": 0.0,
+          "color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          }
+        },
+        "effect_parameters": {
+          "duration": 30.0,
+          "falloff_function": "late",
+          "_enum_values": {
+            "falloff_function": 3
+          }
+        },
+        "_flag_names": {
+          "flags": [
+            "dynamic",
+            "no_specular"
+          ]
+        }
+      }
+    },
+    {
+      "class": "decal",
+      "path": "effects\\decals\\bullet holes\\plasma burn large",
+      "native": {
+        "flags": 0,
+        "type": "scratch",
+        "layer": "primary",
+        "next_decal_in_chain": {
+          "class": "decal",
+          "path": "effects\\decals\\bullet holes\\plasma burn inner glow large"
+        },
+        "radius": {
+          "from": 0.550000011920929,
+          "to": 0.550000011920929
+        },
+        "color": {
+          "intensity": {
+            "from": 1.0,
+            "to": 1.0
+          },
+          "lower_bounds": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "upper_bounds": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          }
+        },
+        "animation": {
+          "loop_frame": 0,
+          "speed": 1,
+          "lifetime": {
+            "from": 180.0,
+            "to": 180.0
+          },
+          "decay_time": {
+            "from": 20.0,
+            "to": 20.0
+          }
+        },
+        "shader": {
+          "framebuffer_blend_function": "double_multiply",
+          "shader_map": {
+            "class": "bitmap",
+            "path": "effects\\decals\\bullet holes\\bitmaps\\plasma burn large"
+          },
+          "_enum_values": {
+            "framebuffer_blend_function": 2
+          }
+        },
+        "maximum_sprite_extent": 16.0,
+        "_enum_values": {
+          "type": 0,
+          "layer": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "particle",
+      "path": "effects\\particles\\energy\\tracer c generic",
+      "native": {
+        "flags": 688,
+        "bitmap": {
+          "class": "bitmap",
+          "path": "effects\\particles\\energy\\bitmaps\\tracers c generic"
+        },
+        "physics": {
+          "class": "point_physics",
+          "path": "effects\\point physics\\cold smoke puff"
+        },
+        "impact_effect": {
+          "class": "material_effects",
+          "path": ""
+        },
+        "lifespan": {
+          "from": 0.06666669994592667,
+          "to": 0.06666669994592667
+        },
+        "fade_in_time": 0.0,
+        "fade_out_time": 0.0,
+        "collision_effect": {
+          "class": "effect",
+          "path": ""
+        },
+        "death_effect": {
+          "class": "effect",
+          "path": ""
+        },
+        "rendering": {
+          "minimum_size": 0.0,
+          "unknown0": 64,
+          "unknown1": 4.600602988224807e-41,
+          "radius_animation": {
+            "from": 1.0,
+            "to": 1.0
+          },
+          "animation_rate": {
+            "from": 30.0,
+            "to": 30.0
+          },
+          "contact_deterioration": 0.0,
+          "fade_start_size": 5.0,
+          "fade_end_size": 4.0,
+          "first_sequence_index": 0,
+          "initial_sequence_count": 1,
+          "looping_sequence_count": 0,
+          "final_sequence_count": 0,
+          "orientation": "parallel_to_direction",
+          "unknown2": 1,
+          "shader_flags": 0,
+          "framebuffer_blend_function": "add",
+          "framebuffer_fade_mode": "none",
+          "map_flags": 0,
+          "_enum_values": {
+            "orientation": 1,
+            "framebuffer_blend_function": 3,
+            "framebuffer_fade_mode": 0
+          },
+          "_flag_names": {
+            "shader_flags": [],
+            "map_flags": []
+          }
+        },
+        "secondary_map": {
+          "bitmap": {
+            "class": "bitmap",
+            "path": ""
+          },
+          "anchor": "with_primary",
+          "flags": 0,
+          "u_animation": {
+            "source": "none",
+            "function": "one",
+            "period": 0.0,
+            "phase": 0.0,
+            "scale": 0.0,
+            "_enum_values": {
+              "source": 0,
+              "function": 0
+            }
+          },
+          "v_animation": {
+            "source": "none",
+            "function": "one",
+            "period": 0.0,
+            "phase": 0.0,
+            "scale": 0.0,
+            "_enum_values": {
+              "source": 0,
+              "function": 0
+            }
+          },
+          "rotation_animation": {
+            "source": "none",
+            "function": "one",
+            "period": 0.0,
+            "phase": 0.0,
+            "scale": 0.0,
+            "_enum_values": {
+              "source": 0,
+              "function": 0
+            }
+          },
+          "rotation_center": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "zsprite_radius_scale": 0.0,
+          "_enum_values": {
+            "anchor": 0
+          },
+          "_flag_names": {
+            "flags": []
+          }
+        },
+        "_flag_names": {
+          "flags": [
+            "dies_at_rest",
+            "dies_on_contact_with_structure",
+            "dies_on_contact_with_water",
+            "self_illuminated"
+          ]
+        }
+      }
+    },
+    {
+      "class": "particle",
+      "path": "effects\\particles\\energy\\plasma particle debris",
+      "native": {
+        "flags": 3589,
+        "bitmap": {
+          "class": "bitmap",
+          "path": "scenery\\halo_destroyed\\bitmaps\\halo_burning_debris"
+        },
+        "physics": {
+          "class": "point_physics",
+          "path": "scenery\\halo_destroyed\\effects\\space debris"
+        },
+        "impact_effect": {
+          "class": "material_effects",
+          "path": ""
+        },
+        "lifespan": {
+          "from": 0.20000000298023224,
+          "to": 0.5
+        },
+        "fade_in_time": 0.10000000149011612,
+        "fade_out_time": 0.11999999731779099,
+        "collision_effect": {
+          "class": "NONE",
+          "path": ""
+        },
+        "death_effect": {
+          "class": "NONE",
+          "path": ""
+        },
+        "rendering": {
+          "minimum_size": 0.0,
+          "unknown0": 0,
+          "unknown1": 0.0,
+          "radius_animation": {
+            "from": 1.0,
+            "to": 1.0
+          },
+          "animation_rate": {
+            "from": 0.0,
+            "to": 0.0
+          },
+          "contact_deterioration": 0.0,
+          "fade_start_size": 5.0,
+          "fade_end_size": 4.0,
+          "first_sequence_index": 0,
+          "initial_sequence_count": 1,
+          "looping_sequence_count": 1,
+          "final_sequence_count": 0,
+          "orientation": "screen_facing",
+          "unknown2": 1,
+          "shader_flags": 3,
+          "framebuffer_blend_function": "add",
+          "framebuffer_fade_mode": "none",
+          "map_flags": 0,
+          "_enum_values": {
+            "orientation": 0,
+            "framebuffer_blend_function": 3,
+            "framebuffer_fade_mode": 0
+          },
+          "_flag_names": {
+            "shader_flags": [
+              "sort_bias",
+              "nonlinear_tint"
+            ],
+            "map_flags": []
+          }
+        },
+        "secondary_map": {
+          "bitmap": {
+            "class": "bitmap",
+            "path": ""
+          },
+          "anchor": "with_primary",
+          "flags": 0,
+          "u_animation": {
+            "source": "none",
+            "function": "one",
+            "period": 0.0,
+            "phase": 0.0,
+            "scale": 0.0,
+            "_enum_values": {
+              "source": 0,
+              "function": 0
+            }
+          },
+          "v_animation": {
+            "source": "none",
+            "function": "one",
+            "period": 0.0,
+            "phase": 0.0,
+            "scale": 0.0,
+            "_enum_values": {
+              "source": 0,
+              "function": 0
+            }
+          },
+          "rotation_animation": {
+            "source": "none",
+            "function": "one",
+            "period": 0.0,
+            "phase": 0.0,
+            "scale": 0.0,
+            "_enum_values": {
+              "source": 0,
+              "function": 0
+            }
+          },
+          "rotation_center": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "zsprite_radius_scale": 0.0,
+          "_enum_values": {
+            "anchor": 0
+          },
+          "_flag_names": {
+            "flags": []
+          }
+        },
+        "_flag_names": {
+          "flags": [
+            "can_animate_backwards",
+            "animation_starts_on_random_frame",
+            "self_illuminated",
+            "random_horizontal_mirroring",
+            "random_vertical_mirroring"
+          ]
+        }
+      }
+    },
+    {
+      "class": "point_physics",
+      "path": "weapons\\frag grenade\\effects\\fire explosion",
+      "native": {
+        "flags": 0,
+        "scaled_density": 59.30667495727539,
+        "water_gravity_scale": 0.9990004897117615,
+        "air_gravity_scale": 0.3749999701976776,
+        "density": 0.0005000000237487257,
+        "air_friction": 2000.0,
+        "water_friction": 2000.0,
+        "surface_friction": 0.009999999776482582,
+        "elasticity": 0.0,
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "effects\\particles\\energy\\bitmaps\\cloud c fire",
+      "native": {
+        "type": "sprites",
+        "format": "color_key_transparency",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x256",
+          "sprite_budget_count": 2,
+          "_enum_values": {
+            "sprite_budget_size": 3
+          }
+        },
+        "color_plate_width": 2762,
+        "color_plate_height": 100,
+        "compressed_color_plate_data": {
+          "byte_length": 64218,
+          "sha256": "861d0f4994cca37e0fe1fed699eb975374473e5a91348baa32e902c06a8904dd"
+        },
+        "processed_pixel_data": {
+          "byte_length": 86016,
+          "sha256": "575f6bb9faa99c739638b99f28eaefa66abf7d6c12f65e41c81f2db43a7f277e"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 4,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 0,
+            "sprites": [
+              {
+                "bitmap_index": 0,
+                "left_side": 0.703125,
+                "right_side": 0.84375,
+                "top_side": 0.84375,
+                "bottom_side": 0.984375,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.140625,
+                "top_side": 0.0,
+                "bottom_side": 0.140625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.140625,
+                "right_side": 0.28125,
+                "top_side": 0.0,
+                "bottom_side": 0.140625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.28125,
+                "right_side": 0.421875,
+                "top_side": 0.0,
+                "bottom_side": 0.140625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.140625,
+                "right_side": 0.28125,
+                "top_side": 0.140625,
+                "bottom_side": 0.28125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.421875,
+                "right_side": 0.5625,
+                "top_side": 0.140625,
+                "bottom_side": 0.28125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.703125,
+                "right_side": 0.84375,
+                "top_side": 0.140625,
+                "bottom_side": 0.28125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.140625,
+                "top_side": 0.28125,
+                "bottom_side": 0.421875,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.28125,
+                "right_side": 0.421875,
+                "top_side": 0.28125,
+                "bottom_side": 0.421875,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.5625,
+                "right_side": 0.703125,
+                "top_side": 0.28125,
+                "bottom_side": 0.421875,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.84375,
+                "right_side": 0.984375,
+                "top_side": 0.28125,
+                "bottom_side": 0.421875,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.140625,
+                "right_side": 0.28125,
+                "top_side": 0.421875,
+                "bottom_side": 0.5625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.421875,
+                "right_side": 0.5625,
+                "top_side": 0.421875,
+                "bottom_side": 0.5625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.703125,
+                "right_side": 0.84375,
+                "top_side": 0.421875,
+                "bottom_side": 0.5625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.140625,
+                "top_side": 0.5625,
+                "bottom_side": 0.703125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.28125,
+                "right_side": 0.421875,
+                "top_side": 0.5625,
+                "bottom_side": 0.703125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.5625,
+                "right_side": 0.703125,
+                "top_side": 0.5625,
+                "bottom_side": 0.703125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.84375,
+                "right_side": 0.984375,
+                "top_side": 0.5625,
+                "bottom_side": 0.703125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.140625,
+                "right_side": 0.28125,
+                "top_side": 0.703125,
+                "bottom_side": 0.84375,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.421875,
+                "right_side": 0.5625,
+                "top_side": 0.703125,
+                "bottom_side": 0.84375,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.703125,
+                "right_side": 0.84375,
+                "top_side": 0.703125,
+                "bottom_side": 0.84375,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.140625,
+                "top_side": 0.84375,
+                "bottom_side": 0.984375,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.28125,
+                "right_side": 0.421875,
+                "top_side": 0.84375,
+                "bottom_side": 0.984375,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.5625,
+                "right_side": 0.703125,
+                "top_side": 0.84375,
+                "bottom_side": 0.984375,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.84375,
+                "right_side": 0.984375,
+                "top_side": 0.84375,
+                "bottom_side": 0.984375,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.28125,
+                "right_side": 0.421875,
+                "top_side": 0.421875,
+                "bottom_side": 0.5625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.5625,
+                "right_side": 0.703125,
+                "top_side": 0.140625,
+                "bottom_side": 0.28125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.5625,
+                "right_side": 0.703125,
+                "top_side": 0.421875,
+                "bottom_side": 0.5625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.84375,
+                "right_side": 0.984375,
+                "top_side": 0.0,
+                "bottom_side": 0.140625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.84375,
+                "right_side": 0.984375,
+                "top_side": 0.421875,
+                "bottom_side": 0.5625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.84375,
+                "right_side": 0.984375,
+                "top_side": 0.140625,
+                "bottom_side": 0.28125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.140625,
+                "right_side": 0.28125,
+                "top_side": 0.5625,
+                "bottom_side": 0.703125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.140625,
+                "top_side": 0.140625,
+                "bottom_side": 0.28125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.421875,
+                "right_side": 0.5625,
+                "top_side": 0.5625,
+                "bottom_side": 0.703125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.140625,
+                "right_side": 0.28125,
+                "top_side": 0.28125,
+                "bottom_side": 0.421875,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.703125,
+                "right_side": 0.84375,
+                "top_side": 0.5625,
+                "bottom_side": 0.703125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.421875,
+                "right_side": 0.5625,
+                "top_side": 0.0,
+                "bottom_side": 0.140625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.140625,
+                "top_side": 0.703125,
+                "bottom_side": 0.84375,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.421875,
+                "right_side": 0.5625,
+                "top_side": 0.28125,
+                "bottom_side": 0.421875,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.28125,
+                "right_side": 0.421875,
+                "top_side": 0.703125,
+                "bottom_side": 0.84375,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.5625,
+                "right_side": 0.703125,
+                "top_side": 0.0,
+                "bottom_side": 0.140625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.5625,
+                "right_side": 0.703125,
+                "top_side": 0.703125,
+                "bottom_side": 0.84375,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.703125,
+                "right_side": 0.84375,
+                "top_side": 0.28125,
+                "bottom_side": 0.421875,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.84375,
+                "right_side": 0.984375,
+                "top_side": 0.703125,
+                "bottom_side": 0.84375,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.28125,
+                "right_side": 0.421875,
+                "top_side": 0.140625,
+                "bottom_side": 0.28125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.140625,
+                "right_side": 0.28125,
+                "top_side": 0.84375,
+                "bottom_side": 0.984375,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.140625,
+                "top_side": 0.421875,
+                "bottom_side": 0.5625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.421875,
+                "right_side": 0.5625,
+                "top_side": 0.84375,
+                "bottom_side": 0.984375,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.703125,
+                "right_side": 0.84375,
+                "top_side": 0.0,
+                "bottom_side": 0.140625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 1,
+                "left_side": 0.84375,
+                "right_side": 0.984375,
+                "top_side": 0.140625,
+                "bottom_side": 0.28125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 1,
+                "left_side": 0.0,
+                "right_side": 0.140625,
+                "top_side": 0.0,
+                "bottom_side": 0.140625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 1,
+                "left_side": 0.140625,
+                "right_side": 0.28125,
+                "top_side": 0.0,
+                "bottom_side": 0.140625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 1,
+                "left_side": 0.28125,
+                "right_side": 0.421875,
+                "top_side": 0.0,
+                "bottom_side": 0.140625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 1,
+                "left_side": 0.140625,
+                "right_side": 0.28125,
+                "top_side": 0.140625,
+                "bottom_side": 0.28125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 1,
+                "left_side": 0.421875,
+                "right_side": 0.5625,
+                "top_side": 0.140625,
+                "bottom_side": 0.28125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 1,
+                "left_side": 0.703125,
+                "right_side": 0.84375,
+                "top_side": 0.140625,
+                "bottom_side": 0.28125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 1,
+                "left_side": 0.0,
+                "right_side": 0.140625,
+                "top_side": 0.28125,
+                "bottom_side": 0.421875,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 1,
+                "left_side": 0.0,
+                "right_side": 0.140625,
+                "top_side": 0.140625,
+                "bottom_side": 0.28125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 1,
+                "left_side": 0.421875,
+                "right_side": 0.5625,
+                "top_side": 0.0,
+                "bottom_side": 0.140625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 1,
+                "left_side": 0.5625,
+                "right_side": 0.703125,
+                "top_side": 0.0,
+                "bottom_side": 0.140625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              }
+            ]
+          },
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 0,
+            "sprites": [
+              {
+                "bitmap_index": 1,
+                "left_side": 0.28125,
+                "right_side": 0.421875,
+                "top_side": 0.140625,
+                "bottom_side": 0.28125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 1,
+                "left_side": 0.703125,
+                "right_side": 0.84375,
+                "top_side": 0.0,
+                "bottom_side": 0.140625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 1,
+                "left_side": 0.5625,
+                "right_side": 0.703125,
+                "top_side": 0.140625,
+                "bottom_side": 0.28125,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              },
+              {
+                "bitmap_index": 1,
+                "left_side": 0.84375,
+                "right_side": 0.984375,
+                "top_side": 0.0,
+                "bottom_side": 0.140625,
+                "registration_point_x": 0.0703125,
+                "registration_point_y": 0.0703125
+              }
+            ]
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 256,
+            "height": 256,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt1",
+            "flags": 131,
+            "registration_point_x": 0,
+            "registration_point_y": 0,
+            "mipmaps": 2,
+            "pixels": 0,
+            "pixels_offset": 32359936,
+            "pixels_meta_size": 43008,
+            "bitmap_id_unknown1": 3864331489,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 14
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          },
+          {
+            "bitm_id": "bitm",
+            "width": 256,
+            "height": 256,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt1",
+            "flags": 131,
+            "registration_point_x": 0,
+            "registration_point_y": 0,
+            "mipmaps": 2,
+            "pixels": 0,
+            "pixels_offset": 32402944,
+            "pixels_meta_size": 43008,
+            "bitmap_id_unknown1": 3864331489,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 14
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 3,
+          "format": 0,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "point_physics",
+      "path": "effects\\point physics\\hot smoke cloud",
+      "native": {
+        "flags": 24,
+        "scaled_density": 59.30667495727539,
+        "water_gravity_scale": 0.9990004897117615,
+        "air_gravity_scale": 0.3749999701976776,
+        "density": 0.0005000000237487257,
+        "air_friction": 200.0,
+        "water_friction": 15000.0,
+        "surface_friction": 0.0,
+        "elasticity": 0.0,
+        "_flag_names": {
+          "flags": [
+            "uses_simple_wind",
+            "uses_damped_wind"
+          ]
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "effects\\particles\\energy\\bitmaps\\smoke c generic",
+      "native": {
+        "type": "sprites",
+        "format": "color_key_transparency",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x256",
+          "sprite_budget_count": 2,
+          "_enum_values": {
+            "sprite_budget_size": 3
+          }
+        },
+        "color_plate_width": 858,
+        "color_plate_height": 80,
+        "compressed_color_plate_data": {
+          "byte_length": 23149,
+          "sha256": "bd0b8c222703e97637901c8bb00a4489b1e48840bf110f29642c5515b3dff74d"
+        },
+        "processed_pixel_data": {
+          "byte_length": 45696,
+          "sha256": "3795cbbb6fb9052ec3bb32bfaeb3ead8837a84186d68c490ae9d0e06a89e7986"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 0,
+            "sprites": [
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.265625,
+                "top_side": 0.4375,
+                "bottom_side": 0.6484375,
+                "registration_point_x": 0.1328125,
+                "registration_point_y": 0.11328125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.265625,
+                "right_side": 0.53125,
+                "top_side": 0.0,
+                "bottom_side": 0.2109375,
+                "registration_point_x": 0.1328125,
+                "registration_point_y": 0.11328125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.53125,
+                "right_side": 0.796875,
+                "top_side": 0.0,
+                "bottom_side": 0.2109375,
+                "registration_point_x": 0.1328125,
+                "registration_point_y": 0.11328125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.265625,
+                "top_side": 0.21875,
+                "bottom_side": 0.4296875,
+                "registration_point_x": 0.1328125,
+                "registration_point_y": 0.11328125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.265625,
+                "right_side": 0.53125,
+                "top_side": 0.21875,
+                "bottom_side": 0.4296875,
+                "registration_point_x": 0.1328125,
+                "registration_point_y": 0.11328125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.53125,
+                "right_side": 0.796875,
+                "top_side": 0.21875,
+                "bottom_side": 0.4296875,
+                "registration_point_x": 0.1328125,
+                "registration_point_y": 0.11328125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.265625,
+                "top_side": 0.0,
+                "bottom_side": 0.2109375,
+                "registration_point_x": 0.1328125,
+                "registration_point_y": 0.11328125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.265625,
+                "right_side": 0.53125,
+                "top_side": 0.4375,
+                "bottom_side": 0.6484375,
+                "registration_point_x": 0.1328125,
+                "registration_point_y": 0.11328125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.53125,
+                "right_side": 0.796875,
+                "top_side": 0.4375,
+                "bottom_side": 0.6484375,
+                "registration_point_x": 0.1328125,
+                "registration_point_y": 0.11328125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.265625,
+                "top_side": 0.65625,
+                "bottom_side": 0.8671875,
+                "registration_point_x": 0.1328125,
+                "registration_point_y": 0.11328125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.265625,
+                "right_side": 0.53125,
+                "top_side": 0.65625,
+                "bottom_side": 0.8671875,
+                "registration_point_x": 0.1328125,
+                "registration_point_y": 0.11328125
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.53125,
+                "right_side": 0.796875,
+                "top_side": 0.65625,
+                "bottom_side": 0.8671875,
+                "registration_point_x": 0.1328125,
+                "registration_point_y": 0.11328125
+              },
+              {
+                "bitmap_index": 1,
+                "left_side": 0.0,
+                "right_side": 0.9375,
+                "top_side": 0.0,
+                "bottom_side": 0.71875,
+                "registration_point_x": 0.46875,
+                "registration_point_y": 0.390625
+              }
+            ]
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 256,
+            "height": 256,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt1",
+            "flags": 131,
+            "registration_point_x": 0,
+            "registration_point_y": 0,
+            "mipmaps": 2,
+            "pixels": 0,
+            "pixels_offset": 32737280,
+            "pixels_meta_size": 43008,
+            "bitmap_id_unknown1": 3866952969,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 14
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          },
+          {
+            "bitm_id": "bitm",
+            "width": 64,
+            "height": 64,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt1",
+            "flags": 131,
+            "registration_point_x": 0,
+            "registration_point_y": 0,
+            "mipmaps": 2,
+            "pixels": 0,
+            "pixels_offset": 32780288,
+            "pixels_meta_size": 2688,
+            "bitmap_id_unknown1": 3866952969,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 14
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 3,
+          "format": 0,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "point_physics",
+      "path": "effects\\point physics\\cold smoke cloud",
+      "native": {
+        "flags": 24,
+        "scaled_density": 136.4053497314453,
+        "water_gravity_scale": 0.9977026581764221,
+        "air_gravity_scale": -0.022222235798835754,
+        "density": 0.0011500000255182385,
+        "air_friction": 200.0,
+        "water_friction": 15000.0,
+        "surface_friction": 0.0,
+        "elasticity": 0.0,
+        "_flag_names": {
+          "flags": [
+            "uses_simple_wind",
+            "uses_damped_wind"
+          ]
+        }
+      }
+    },
+    {
+      "class": "decal",
+      "path": "effects\\decals\\bullet holes\\plasma burn inner glow large",
+      "native": {
+        "flags": 0,
+        "type": "scratch",
+        "layer": "secondary",
+        "next_decal_in_chain": {
+          "class": "decal",
+          "path": "effects\\decals\\bullet holes\\plasma burn outer glow large"
+        },
+        "radius": {
+          "from": 0.75,
+          "to": 0.75
+        },
+        "color": {
+          "intensity": {
+            "from": 1.0,
+            "to": 1.0
+          },
+          "lower_bounds": {
+            "r": 0.5764709711074829,
+            "g": 0.5764709711074829,
+            "b": 0.5764709711074829
+          },
+          "upper_bounds": {
+            "r": 0.5764709711074829,
+            "g": 0.5764709711074829,
+            "b": 0.5764709711074829
+          }
+        },
+        "animation": {
+          "loop_frame": 0,
+          "speed": 1,
+          "lifetime": {
+            "from": 1.0,
+            "to": 1.0
+          },
+          "decay_time": {
+            "from": 1.0,
+            "to": 1.0
+          }
+        },
+        "shader": {
+          "framebuffer_blend_function": "add",
+          "shader_map": {
+            "class": "bitmap",
+            "path": "effects\\decals\\bullet holes\\bitmaps\\plasma burn inner glow"
+          },
+          "_enum_values": {
+            "framebuffer_blend_function": 3
+          }
+        },
+        "maximum_sprite_extent": 16.0,
+        "_enum_values": {
+          "type": 0,
+          "layer": 1
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "effects\\decals\\bullet holes\\bitmaps\\plasma burn large",
+      "native": {
+        "type": "sprites",
+        "format": "explicit_alpha",
+        "usage": "alpha_blend",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x64",
+          "sprite_budget_count": 1,
+          "_enum_values": {
+            "sprite_budget_size": 1
+          }
+        },
+        "color_plate_width": 25,
+        "color_plate_height": 25,
+        "compressed_color_plate_data": {
+          "byte_length": 570,
+          "sha256": "e4e9914396e8f86ac3f7756638894fccd794d3efa664cd873aedbfa6a9a7875b"
+        },
+        "processed_pixel_data": {
+          "byte_length": 1408,
+          "sha256": "0a5c527684c3d43a89d3d91a4895e6da20bfb379d25f7cd73cec5eaab1bb5fda"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "double_multiply",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 0,
+            "sprites": [
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.5,
+                "top_side": 0.0,
+                "bottom_side": 0.5,
+                "registration_point_x": 0.25,
+                "registration_point_y": 0.3125
+              }
+            ]
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 32,
+            "height": 32,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt3",
+            "flags": 131,
+            "registration_point_x": 0,
+            "registration_point_y": 0,
+            "mipmaps": 2,
+            "pixels": 0,
+            "pixels_offset": 35837440,
+            "pixels_meta_size": 1408,
+            "bitmap_id_unknown1": 3895723712,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 15
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 3,
+          "format": 1,
+          "usage": 0,
+          "sprite_usage": 2
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "effects\\particles\\energy\\bitmaps\\tracers c generic",
+      "native": {
+        "type": "sprites",
+        "format": "color_key_transparency",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x64",
+          "sprite_budget_count": 1,
+          "_enum_values": {
+            "sprite_budget_size": 1
+          }
+        },
+        "color_plate_width": 500,
+        "color_plate_height": 45,
+        "compressed_color_plate_data": {
+          "byte_length": 2056,
+          "sha256": "e5df83b8a4794e5b16b468c9b0436d31c07ec6cc823d2d4ccf8bc399fb14e70c"
+        },
+        "processed_pixel_data": {
+          "byte_length": 2688,
+          "sha256": "f588a2242b6d36740c0793f6616c2f2c8234f782b75a26d5c9d063b38212cc0a"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 0,
+            "sprites": [
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.5,
+                "top_side": 0.625,
+                "bottom_side": 0.890625,
+                "registration_point_x": 0.296875,
+                "registration_point_y": 0.171875
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.859375,
+                "top_side": 0.0,
+                "bottom_side": 0.265625,
+                "registration_point_x": 0.40625,
+                "registration_point_y": 0.171875
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.84375,
+                "top_side": 0.3125,
+                "bottom_side": 0.578125,
+                "registration_point_x": 0.328125,
+                "registration_point_y": 0.171875
+              }
+            ]
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 64,
+            "height": 64,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt1",
+            "flags": 131,
+            "registration_point_x": 0,
+            "registration_point_y": 0,
+            "mipmaps": 2,
+            "pixels": 0,
+            "pixels_offset": 32734208,
+            "pixels_meta_size": 2688,
+            "bitmap_id_unknown1": 3866690821,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 14
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 3,
+          "format": 0,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "point_physics",
+      "path": "effects\\point physics\\cold smoke puff",
+      "native": {
+        "flags": 16,
+        "scaled_density": 118.61334991455078,
+        "water_gravity_scale": 0.9980019927024841,
+        "air_gravity_scale": 0.04761902242898941,
+        "density": 0.0010000000474974513,
+        "air_friction": 350.0,
+        "water_friction": 17500.0,
+        "surface_friction": 0.0,
+        "elasticity": 0.0,
+        "_flag_names": {
+          "flags": [
+            "uses_damped_wind"
+          ]
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "scenery\\halo_destroyed\\bitmaps\\halo_burning_debris",
+      "native": {
+        "type": "sprites",
+        "format": "color_key_transparency",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x128",
+          "sprite_budget_count": 1,
+          "_enum_values": {
+            "sprite_budget_size": 2
+          }
+        },
+        "color_plate_width": 271,
+        "color_plate_height": 69,
+        "compressed_color_plate_data": {
+          "byte_length": 7813,
+          "sha256": "cda25b0bb5984236990fb21315f1486bc46dbbed0dfb923fba2dc728e89581ff"
+        },
+        "processed_pixel_data": {
+          "byte_length": 10752,
+          "sha256": "29558785c0d2ecac1dc145a94b7106d48e0c7d6b49c8a15562e5dce9aed10712"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 4,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 0,
+            "sprites": [
+              {
+                "bitmap_index": 0,
+                "left_side": 0.5,
+                "right_side": 0.9609375,
+                "top_side": 0.5,
+                "bottom_side": 0.984375,
+                "registration_point_x": 0.2421875,
+                "registration_point_y": 0.25
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.46875,
+                "top_side": 0.0,
+                "bottom_side": 0.4921875,
+                "registration_point_x": 0.25,
+                "registration_point_y": 0.25
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.46875,
+                "right_side": 0.9453125,
+                "top_side": 0.0,
+                "bottom_side": 0.484375,
+                "registration_point_x": 0.25,
+                "registration_point_y": 0.25
+              },
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.4765625,
+                "top_side": 0.5,
+                "bottom_side": 0.984375,
+                "registration_point_x": 0.25,
+                "registration_point_y": 0.25
+              }
+            ]
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 128,
+            "height": 128,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt1",
+            "flags": 131,
+            "registration_point_x": 0,
+            "registration_point_y": 0,
+            "mipmaps": 2,
+            "pixels": 18,
+            "pixels_offset": 46273536,
+            "pixels_meta_size": 10752,
+            "bitmap_id_unknown1": 3965651691,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 14
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 3,
+          "format": 0,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "point_physics",
+      "path": "scenery\\halo_destroyed\\effects\\space debris",
+      "native": {
+        "flags": 56,
+        "scaled_density": 130.47467041015625,
+        "water_gravity_scale": 0.9978024363517761,
+        "air_gravity_scale": 0.0,
+        "density": 0.0010999999940395355,
+        "air_friction": 200.0,
+        "water_friction": 0.0,
+        "surface_friction": 0.0,
+        "elasticity": 0.0,
+        "_flag_names": {
+          "flags": [
+            "uses_simple_wind",
+            "uses_damped_wind",
+            "no_gravity"
+          ]
+        }
+      }
+    },
+    {
+      "class": "decal",
+      "path": "effects\\decals\\bullet holes\\plasma burn outer glow large",
+      "native": {
+        "flags": 0,
+        "type": "scratch",
+        "layer": "light",
+        "next_decal_in_chain": {
+          "class": "decal",
+          "path": ""
+        },
+        "radius": {
+          "from": 0.25,
+          "to": 0.25
+        },
+        "color": {
+          "intensity": {
+            "from": 1.0,
+            "to": 1.0
+          },
+          "lower_bounds": {
+            "r": 0.5,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "upper_bounds": {
+            "r": 0.5,
+            "g": 1.0,
+            "b": 1.0
+          }
+        },
+        "animation": {
+          "loop_frame": 0,
+          "speed": 1,
+          "lifetime": {
+            "from": 2.75,
+            "to": 2.75
+          },
+          "decay_time": {
+            "from": 2.0,
+            "to": 2.0
+          }
+        },
+        "shader": {
+          "framebuffer_blend_function": "add",
+          "shader_map": {
+            "class": "bitmap",
+            "path": "effects\\decals\\bullet holes\\bitmaps\\plasma burn outer glow"
+          },
+          "_enum_values": {
+            "framebuffer_blend_function": 3
+          }
+        },
+        "maximum_sprite_extent": 16.0,
+        "_enum_values": {
+          "type": 0,
+          "layer": 2
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "effects\\decals\\bullet holes\\bitmaps\\plasma burn inner glow",
+      "native": {
+        "type": "sprites",
+        "format": "color_key_transparency",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 1,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 32,
+        "color_plate_height": 32,
+        "compressed_color_plate_data": {
+          "byte_length": 1386,
+          "sha256": "7e85cd5db079240c4823d6cf3ffca045000a91ce0a6ddb25637641a948d509dd"
+        },
+        "processed_pixel_data": {
+          "byte_length": 768,
+          "sha256": "9cc6a5429dc7ec916899de6f3a520503bce0f40d590558cf321c2abcbaebbe7f"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 4,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 0,
+            "sprites": [
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 0.75,
+                "top_side": 0.0,
+                "bottom_side": 0.75,
+                "registration_point_x": 0.375,
+                "registration_point_y": 0.40625
+              }
+            ]
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 32,
+            "height": 32,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt1",
+            "flags": 131,
+            "registration_point_x": 0,
+            "registration_point_y": 0,
+            "mipmaps": 2,
+            "pixels": 18,
+            "pixels_offset": 33084928,
+            "pixels_meta_size": 768,
+            "bitmap_id_unknown1": 3870426430,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 14
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 3,
+          "format": 0,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "effects\\decals\\bullet holes\\bitmaps\\plasma burn outer glow",
+      "native": {
+        "type": "sprites",
+        "format": "color_key_transparency",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x64",
+          "sprite_budget_count": 1,
+          "_enum_values": {
+            "sprite_budget_size": 1
+          }
+        },
+        "color_plate_width": 75,
+        "color_plate_height": 75,
+        "compressed_color_plate_data": {
+          "byte_length": 2570,
+          "sha256": "03eeb0a7c28c235b3af08a2d066451fddef8abc2f74f33e0590c893adcda3c78"
+        },
+        "processed_pixel_data": {
+          "byte_length": 2688,
+          "sha256": "6db5756a89dada5d7e42549086ff54826ac98629d6910667ba4a91f914b67853"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 0,
+            "sprites": [
+              {
+                "bitmap_index": 0,
+                "left_side": 0.0,
+                "right_side": 1.0,
+                "top_side": 0.0,
+                "bottom_side": 1.0,
+                "registration_point_x": 0.5,
+                "registration_point_y": 0.53125
+              }
+            ]
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 64,
+            "height": 64,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt1",
+            "flags": 131,
+            "registration_point_x": 0,
+            "registration_point_y": 0,
+            "mipmaps": 2,
+            "pixels": 0,
+            "pixels_offset": 33081856,
+            "pixels_meta_size": 2688,
+            "bitmap_id_unknown1": 3870360893,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 14
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 3,
+          "format": 0,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    }
+  ]
+}

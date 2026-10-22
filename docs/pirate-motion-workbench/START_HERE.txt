@@ -1,0 +1,17 @@
+PIRATE — APPROVED POSES AND THREE-HIT COMBO / BLENDER REVIEW
+
+Scene dropdown:
+01 — Idle: your approved frame 0; original idle action retained.
+02 — Jump: approved Explorer jump, now assigned to Pirate; frames 1–91.
+03 — Gun Shot: your source frames 0 and 1 connected across 0–24, with recoil.
+04 — Sword Slash: three hits over frames 0–72; contacts 13 / 29 / 48.
+
+Hit 1 preserves your source slash poses 0 / 1 / 2 at frames 0 / 8 / 16,
+including your head movement and leg lift. Hits 2 and 3 both swing right.
+The second hit changes the lead leg; the last hit has a stronger body turn.
+Your original 03_Gun_Shot and 04_Sword_Slash actions are retained unchanged.
+
+Space plays. Sword_Control and Gun_Control move the weapons. Edit the arm,
+forearm, hand, head and leg bones in Pose Mode, then I records the pose.
+The sword remains 2.2x and pistol 1.8x their first review sizes.
+This workbench is for Blender review; game integration is a separate step.

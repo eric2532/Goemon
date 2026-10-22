@@ -1,0 +1,21 @@
+BEN — ORIGINAL BRAVE FENCER MUSASHI USA ASSET RECOVERY
+
+Ben_Recovered.blend: editable original textured character, rigid part armature and 30 source motion actions.
+Ben_Recovered.glb: same packed textures, 17 joints (Root plus 16 rigid parts), 30 animation clips.
+Ben_Assembled.png: source idle pose.
+Ben_Motion_19.png: original guandao and deployed propeller.
+
+Source: raw/SC06.CD.dir/FILE_030.dir/0.4.dec in Musashi Asset Recovery.
+Overlay RAM load base 0x80128158, as specified by the original-source splat config.
+Body list RAM 0x8018E4B0 / file 0x66358: 12 parts. Accessory list file 0x6638C: 4 parts.
+The original 12 source body meshes include the guandao. The four additional original meshes form the propeller apparatus. The 16-part poses support their binding in source list order. Accessory display is reconstructed from whether a source pose contains 12 or 16 parts; runtime attachment logic has not been reproduced.
+
+Transforms are source baked actor-space positions and Euler angles, twelve bytes per part: signed 16-bit XYZ position, then three signed 16-bit angles masked to 4095. This is the engine func_80020248 layout. Coordinate conversion matches the recovered GLBs, with one source unit presented as one centimetre. Each rigid mesh is attached to a source-index bone; all bones are parented directly to an editable Root. An anatomical parent hierarchy is not invented.
+
+Motion command bank file 0x760DC..0x77F94 contains 30 physically distinct sequences. Commands are eight bytes: pose/stream pointer and signed 16-bit duration/control at +4. Source interpreter func_8012AAAC handles looping (-1), stream jumps (-4), and holding the previous pose (-5). Normal source durations are 1; duration 0 indefinitely holds its pose. The preview gives that final pose one tick. Stream jumps are followed; each repeated command state ends one exported traversal. Numerical action names retain source addresses because semantic action names are not verified.
+
+There are 896 distinct source poses, comprising 12-part body poses and 16-part body/propeller poses. Keys are held, exported at nominal 30 fps. Emulator comparison, exact runtime timing, root travel, hitboxes, sound and gameplay effects remain outside this recovery. Static hold and loop behavior are retained in the source manifest for future integration.
+
+Verification: 15,604 evaluated Blender bone matrices compared against decoded source transforms; maximum matrix-element difference 0.000000552. Independent GLB evaluation passed 17,312 joint/frame transform checks with maximum difference 0.000000847, and all 896 pose source hashes were checked. All original embedded texture RGBA pixels are preserved exactly in the exported GLB. No repainting, recoloring or replacement textures. GLB animation times start at zero. These checks validate the reconstruction against the recovered bytes; they are not emulator playback verification.
+
+Research, scripts, per-pose provenance, hashes and detailed verification are in ../Research/Ben/. No repository source or playable app was changed.

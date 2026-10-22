@@ -1,0 +1,58 @@
+{
+  "character": "banji",
+  "source_sha256": "38f2db6dfbbcc72c5f9a2677e7bf37d33da13259153618ea43d67a74bc9edb4c",
+  "glb_sha256": "4270779601bfc816a5ca264d1174b2d3c36c1e18fe877aef5c03b39486147819",
+  "status": "PASS",
+  "source": {
+    "objects": 338,
+    "triangles": 272484,
+    "vertices": 137763,
+    "bounds_min": [
+      -0.9834634065628052,
+      -0.45978790521621704,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      0.9834634065628052,
+      0.4201233983039856,
+      2.649310827255249
+    ],
+    "nonfinite_objects": []
+  },
+  "glb_reimport": {
+    "objects": 337,
+    "triangles": 272484,
+    "vertices": 161034,
+    "bounds_min": [
+      -0.9834634065628052,
+      -0.45978790521621704,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      0.9834634065628052,
+      0.4201233983039856,
+      2.649310827255249
+    ],
+    "nonfinite_objects": []
+  },
+  "bounds_max_error": 0.0,
+  "packed_images": [
+    "06-banji-clockwork-runner.png",
+    "Banji_accent_painted_fiber",
+    "Banji_cloth_painted_fiber",
+    "Banji_cream_painted_fiber",
+    "Banji_gold_painted_fiber",
+    "Banji_hair_painted_fiber",
+    "Banji_leather_painted_fiber",
+    "Banji_pants_painted_fiber",
+    "Banji_rope_painted_fiber"
+  ],
+  "static_unrigged": true,
+  "views": [
+    "three_quarter",
+    "front",
+    "side",
+    "back",
+    "import"
+  ]
+}

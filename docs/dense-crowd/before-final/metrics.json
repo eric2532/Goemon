@@ -1,0 +1,26 @@
+[
+	{
+		"actors_ms": 1.94843333333333,
+		"count": 80,
+		"crowd_ms": 1.9036,
+		"draw_calls": 764.0,
+		"frame_median_ms": 16.683,
+		"frame_p95_ms": 17.039,
+		"live_frame_median_ms": 16.648,
+		"live_frame_p95_ms": 17.162,
+		"primitives": 10095507.0,
+		"simulation_ms": 2.3535
+	},
+	{
+		"actors_ms": 4.9206,
+		"count": 240,
+		"crowd_ms": 5.5007,
+		"draw_calls": 766.0,
+		"frame_median_ms": 19.068,
+		"frame_p95_ms": 23.213,
+		"live_frame_median_ms": 46.343,
+		"live_frame_p95_ms": 93.274,
+		"primitives": 28553328.0,
+		"simulation_ms": 4.20316666666667
+	}
+]

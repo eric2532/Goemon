@@ -1,0 +1,27 @@
+{
+  "id": "kogane",
+  "name": "Kogane",
+  "breed": "shiba",
+  "gear": "scout",
+  "source": "assets/blender/dogs/kogane.blend",
+  "model": "assets/models/dogs/kogane.glb",
+  "portrait": "assets/ui/dogs/kogane.png",
+  "triangles": 12076,
+  "meshes": 1,
+  "materials": 4,
+  "bones": 28,
+  "deform_bones": 24,
+  "animations": {
+    "idle": 2.0,
+    "run": 0.8,
+    "attack": 1.0,
+    "hurt": 0.45,
+    "death": 0.9
+  },
+  "attack_contact": 0.38,
+  "run_reference_speed": 2.4,
+  "forward": "Godot -Z",
+  "reference": "asset_packs/ninja_dogs/references/01-kogane-shadow-scout.png",
+  "reference_sha256": "f33214f409a645ef72c1e20f7bb86b2db25df7e27dd1e567e1225d8b87dd2e79",
+  "glb_sha256": "cfc95d10284febc35c429dfb53866e77b17f59ec110860940388d1582006514a"
+}

@@ -1,0 +1,126 @@
+<div id="edo-cinder-review">
+  <h3>Edo · fuller side profile</h3>
+  <div class="viz-controls" role="group" aria-label="Viewing angle">
+    <button type="button" class="btn" data-angle="0">Front</button>
+    <button type="button" class="btn" data-angle="-35">Three-quarter</button>
+    <button type="button" class="btn" data-angle="-90" aria-pressed="true">Side</button>
+    <button type="button" class="btn" data-angle="180">Back</button>
+  </div>
+  <div class="edo-stage" role="img" aria-label="Rotatable 3D comparison of Edo before and after a volume revision: deeper chest and back, fuller head profile and hips, and a curved crimson jacket. Previous model on the left, revised model on the right. Drag to rotate."></div>
+  <div class="viz-controls">
+    <label class="form-check"><input type="checkbox" class="form-check-input" data-clay><span class="form-check-label">Clay shapes</span></label>
+    <label class="form-label">Compare <select class="form-select" data-compare aria-label="Compare Edo"><option value="previous" selected>Previous Edo</option><option value="goemon">Goemon</option><option value="none">Revised Edo only</option></select></label>
+    <label class="form-label">View distance <input class="form-range" type="range" min="85" max="240" value="100" data-distance aria-label="View distance"></label>
+  </div>
+  <div class="viz-controls">
+    <label class="form-label">Rotation <input class="form-range" type="range" min="-180" max="180" value="-90" data-rotation aria-label="Character rotation"></label>
+    <span class="text-small text-muted" data-status aria-live="polite">Loading 3D model…</span>
+  </div>
+  <script type="application/octet-stream" data-model>__MODEL_GZIP__</script>
+</div>
+<style>
+#edo-cinder-review .edo-stage {width:100%;height:clamp(380px,72vw,580px);touch-action:none;cursor:grab;}
+#edo-cinder-review .edo-stage:active {cursor:grabbing;}
+#edo-cinder-review canvas {display:block;width:100%;height:100%;}
+</style>
+<script>
+(async()=>{
+  const root=document.getElementById('edo-cinder-review');
+  const stage=root.querySelector('.edo-stage'), status=root.querySelector('[data-status]');
+  try {
+    if(!window.THREE) await new Promise((resolve,reject)=>{
+      const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';s.onload=resolve;s.onerror=()=>reject(new Error('3D library could not load.'));document.head.appendChild(s);
+    });
+    const T=window.THREE;
+    const bytes=Uint8Array.from(atob(root.querySelector('[data-model]').textContent.trim()),c=>c.charCodeAt(0));
+    const payload=JSON.parse(await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text());
+    const scene=new T.Scene(), camera=new T.OrthographicCamera(-2,2,2,-2,.01,100);
+    camera.position.set(0,2.15,-8);camera.lookAt(0,1.63,0);
+    const renderer=new T.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));renderer.outputEncoding=T.sRGBEncoding;
+    stage.appendChild(renderer.domElement);
+    scene.add(new T.AmbientLight(0xffffff,.45));
+    const key=new T.DirectionalLight(0xffeedc,1.0);key.position.set(-3,6,-5);scene.add(key);
+    const fill=new T.DirectionalLight(0xdbe9ff,.28);fill.position.set(4,3,-2);scene.add(fill);
+    const rim=new T.DirectionalLight(0xffdbc0,.45);rim.position.set(1,4,4);scene.add(rim);
+    const allMeshes=[], textureLoads=[];
+    function loadModel(data){
+      const group=new T.Group(),mats={},textures={};
+      for(const [name,url] of Object.entries(data.textures)){
+        const texture=new T.Texture();textures[name]=texture;texture.encoding=T.sRGBEncoding;
+        textureLoads.push(new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>{texture.image=im;texture.needsUpdate=true;resolve();};im.onerror=()=>reject(new Error('A model texture could not load.'));im.src=url;}));
+      }
+      for(const [name,m] of Object.entries(data.materials)){
+        const color=new T.Color().setRGB(...m.color);
+        mats[name]=new T.MeshLambertMaterial({color,map:m.texture?textures[m.texture]:null,side:T.DoubleSide});
+      }
+      for(const m of data.meshes){
+        const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(m.p,3));g.setAttribute('normal',new T.Float32BufferAttribute(m.n,3));g.setAttribute('uv',new T.Float32BufferAttribute(m.uv,2));
+        const mesh=new T.Mesh(g,mats[m.material]);mesh.name=m.name;mesh.userData.colorMaterial=mesh.material;allMeshes.push(mesh);group.add(mesh);
+      }
+      scene.add(group);return group;
+    }
+    const edo=loadModel(payload.edo),goemon=loadModel(payload.goemon),previous=loadModel(payload.previous);
+    await Promise.all(textureLoads);
+    const clay=new T.MeshLambertMaterial({color:0xcccccc,side:T.DoubleSide});
+    const ringMaterial=new T.MeshBasicMaterial({color:0x888888,transparent:true,opacity:.16,side:T.DoubleSide});
+    const rings=[];
+    for(const model of [edo,goemon]){
+      const ring=new T.Mesh(new T.RingGeometry(.68,.69,64),ringMaterial);ring.rotation.x=-Math.PI/2;ring.position.y=.01;scene.add(ring);rings.push(ring);
+    }
+    let angle=-90,elevation=0,distance=100,compare='previous',clayMode=false;
+    const rotation=root.querySelector('[data-rotation]'),zoom=root.querySelector('[data-distance]'),compareInput=root.querySelector('[data-compare]'),clayInput=root.querySelector('[data-clay]');
+    function render(){
+      const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;
+      renderer.setSize(w,h,false);
+      const paired=compare!=='none';
+      const extent=Math.max(3.78,(paired?5.25:2.25)*h/w)*distance/100;
+      camera.left=-extent*w/h/2;camera.right=extent*w/h/2;camera.top=extent/2;camera.bottom=-extent/2;camera.updateProjectionMatrix();
+      camera.position.set(0,1.63+elevation,-8);camera.lookAt(0,1.63,0);
+      edo.position.x=paired?-1.10:0;goemon.position.x=previous.position.x=1.10;
+      goemon.visible=compare==='goemon';previous.visible=compare==='previous';
+      edo.rotation.y=goemon.rotation.y=previous.rotation.y=angle*Math.PI/180;
+      rings[0].position.x=edo.position.x;rings[1].position.x=1.10;rings[1].visible=paired;
+      renderer.render(scene,camera);
+      root.dataset.ready='true';root.dataset.angle=String(angle);root.dataset.comparison=String(compare);root.dataset.clay=String(clayMode);
+    }
+    function theme(){
+      const css=getComputedStyle(root),color=css.getPropertyValue('--muted-foreground').trim();
+      // Resolve theme CSS through a temporary element, including oklch()/light-dark().
+      const probe=document.createElement('span');probe.style.color='var(--muted-foreground)';root.appendChild(probe);
+      const c=getComputedStyle(probe).color;probe.remove();
+      if(c){ringMaterial.color.setStyle(c);clay.color.setStyle(c).lerp(new T.Color(1,1,1),.32);}
+      render();
+    }
+    function sync(){
+      rotation.value=String(Math.round(angle));zoom.value=String(distance);compareInput.value=compare;clayInput.checked=clayMode;
+      for(const b of root.querySelectorAll('[data-angle]'))b.setAttribute('aria-pressed',String(Math.abs(Number(b.dataset.angle)-angle)<1));
+      for(const mesh of allMeshes)mesh.material=clayMode?clay:mesh.userData.colorMaterial;
+      status.textContent=compare==='previous'?'Previous · left / Revised · right':compare==='goemon'?'Goemon · left / Revised Edo · right':'Drag to rotate · unrigged design prototype';render();
+    }
+    function persist(){
+      window.openai?.setWidgetState?.({modelContent:{prototype:'Edo Cinder Duelist volume pass',comparison:compare,clay:clayMode},privateContent:{angle,distance,elevation}})?.catch(()=>{});
+    }
+    function restore(state){
+      const m=state?.modelContent,p=state?.privateContent;
+      if(m?.prototype!=='Edo Cinder Duelist volume pass'){sync();return;}
+      if(m){if(['none','previous','goemon'].includes(m.comparison))compare=m.comparison;clayMode=!!m.clay;}
+      if(p){if(Number.isFinite(p.angle))angle=Math.max(-180,Math.min(180,p.angle));if(Number.isFinite(p.distance))distance=Math.max(85,Math.min(240,p.distance));if(Number.isFinite(p.elevation))elevation=Math.max(-1.4,Math.min(3,p.elevation));}
+      sync();
+    }
+    for(const b of root.querySelectorAll('[data-angle]'))b.addEventListener('click',()=>{angle=Number(b.dataset.angle);sync();persist();});
+    rotation.addEventListener('input',()=>{angle=Number(rotation.value);sync();});rotation.addEventListener('change',persist);
+    zoom.addEventListener('input',()=>{distance=Number(zoom.value);render();});zoom.addEventListener('change',persist);
+    compareInput.addEventListener('change',()=>{compare=compareInput.value;sync();persist();});
+    clayInput.addEventListener('change',()=>{clayMode=clayInput.checked;sync();persist();});
+    let drag=null;
+    stage.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,a:angle,h:elevation};stage.setPointerCapture(e.pointerId);});
+    stage.addEventListener('pointermove',e=>{if(!drag)return;angle=((drag.a+(e.clientX-drag.x)*.45+540)%360)-180;elevation=Math.max(-1.4,Math.min(3,drag.h+(e.clientY-drag.y)*.018));sync();});
+    stage.addEventListener('pointerup',()=>{drag=null;persist();});stage.addEventListener('pointercancel',()=>{drag=null;});
+    window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState)restore(e.detail.globals.widgetState);});
+    const observer=new ResizeObserver(render);observer.observe(stage);
+    new MutationObserver(theme).observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});
+    restore(window.openai?.widgetState);theme();
+  }catch(e){status.textContent='3D preview unavailable: '+e.message;status.setAttribute('role','alert');root.dataset.error=e.message;}
+})();
+</script>

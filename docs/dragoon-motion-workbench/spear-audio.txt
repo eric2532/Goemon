@@ -1,0 +1,32 @@
+Dragoon spear audio — latest Forest Shrine v2.59.0
+
+User-selected source: https://www.youtube.com/watch?v=meRwEzTTneI
+Title: Spear, by Sounds of the Stickman. Five discrete effects.
+
+Grounded left click uses the three source thrusts as combo variations, with a
+stronger third hit. Grounded right click blends both cleaves with a quieter
+thrust into one broad strike at first contact. It sounds once for the entire
+three-hit swing; the asset contains no spaced damage-contact cues, so hit-stop
+and attack-speed boosts do not put later audio beats ahead of gameplay.
+
+The new files are scoped to Dragoon. Other characters keep their original
+sounds, and airborne Dragon Leap keeps its separate slam. Move and shared
+recordings, gains and mutes retain their existing priority. No user recordings
+or settings are modified by the build. Sound Studio previews the new defaults.
+
+Source timings, processing, original video sound attributions and hashes:
+assets/rogue/audio/dragoon_spear.source.json
+Rebuild from decoded source WAV with tools/build_dragoon_lance_audio.py.
+All four assets: stereo 48 kHz PCM16, short fades, no clipped samples.
+
+Evidence: tests/dragoon-audio/lance_audio_test.gd exercises actual grounded
+attacks, contact timing, previews, isolated custom WAVs, mutes and character
+isolation. Missing feature first reproduced (18 checks, 8 failures). Source and
+native audio checks pass (18 checks). Existing sweep (25), paired move sound
+(46) and title/building music (17) suites pass. Short real-time voice assertions
+are run serially; concurrent native render startup can expire their short
+fixture voices before assertions. Packaged checks and app backup/hash are
+recorded in tests/dragoon-audio/verification.json.
+
+Current app: build/Goemon.app (restart to load).
+Release: build/Other Files/Forest Shrine v2.59.0/Dragoon Spear Audio/Goemon.zip

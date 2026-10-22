@@ -1,0 +1,75 @@
+{
+  "room_id": "0x12c",
+  "name": "Kai Highway",
+  "direct_exit_to_fuji": "0x12d",
+  "model_file": "0161.bin (file ID 0xa2)",
+  "display_list": "0x08005d08",
+  "rom_sha256": "1603be37427a33548857fc3d2e8867ede71121c353fb631b79b44f1d94845d80",
+  "vertices": 1466,
+  "triangles": 861,
+  "surfaces": 49,
+  "textures": 21,
+  "opcodes": {
+    "0xe7": 95,
+    "0xfd": 24,
+    "0xf5": 83,
+    "0xe6": 24,
+    "0xf3": 24,
+    "0xf2": 24,
+    "0xb6": 1,
+    "0xb7": 1,
+    "0xbb": 2,
+    "0xba": 8,
+    "0xfc": 2,
+    "0xbc": 40,
+    "0x3": 40,
+    "0xfa": 40,
+    "0x4": 109,
+    "0xb1": 419,
+    "0xbf": 23,
+    "0xb8": 1
+  },
+  "scope": "Original static terrain; actors, collision and animated skybox not yet reconstructed.",
+  "adaptation": {
+    "horizontal_scale": 0.14,
+    "vertical_scale": 0.04,
+    "origin_source": [
+      -173,
+      3
+    ],
+    "castle_clearing_half_width": 66,
+    "height_spacing": 3.0,
+    "portals": 8,
+    "road_width": 30,
+    "road_terrain_half_width": 24
+  },
+  "derived_tiles": {
+    "grass": {
+      "source": "texture_09003000_32x64.png",
+      "crop": [
+        0,
+        0,
+        32,
+        32
+      ]
+    },
+    "earth": {
+      "source": "texture_09004000_32x64.png",
+      "crop": [
+        0,
+        30,
+        32,
+        64
+      ]
+    },
+    "planks": {
+      "source": "texture_0a003000_32x64.png",
+      "crop": [
+        0,
+        0,
+        32,
+        32
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "frames_checked": 41,
+  "arm_basis_error": 1.4901161193847656e-07,
+  "right_blade_grip_error": 7.748603820800781e-07,
+  "other_body_bones_error": 0.0,
+  "loop_seam_error": 0.0,
+  "source_pose_error": 3.4458935260772705e-07,
+  "other_actions_preserved": true,
+  "backup_action": "Run_Before_Right_Arm_20261016_133321",
+  "snapshot": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/explorer-motion-workbench/Explorer_Before_Right_Arm_Run_20261016_133225.blend",
+  "arm_bones": [
+    "Clavicle_R",
+    "Arm_R",
+    "Forearm_R",
+    "Hand_R"
+  ],
+  "playback_range": [
+    1,
+    40
+  ]
+}

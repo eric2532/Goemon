@@ -1,0 +1,262 @@
+{
+  "unit": "meters",
+  "blender_bounds": [
+    [
+      -0.1432746946811676,
+      -0.20038928091526031,
+      -0.4032256603240967
+    ],
+    [
+      0.4494601786136627,
+      1.37876558303833,
+      0.21025557816028595
+    ]
+  ],
+  "animations": [
+    "firing",
+    "idle",
+    "ready"
+  ],
+  "nodes": 46,
+  "native_source": "User-supplied Halo Combat Evolved Xbox disc, maps/a50.map",
+  "native_mesh_tag": "weapons\\energy sword\\energy sword",
+  "materials": [
+    "es handle",
+    "es blade top",
+    "es blade bottom"
+  ],
+  "native_bitmap": "source_data/weapons/energy sword/bitmaps/energy sword.png",
+  "adaptation": "Retail CE sword interface first_person_model and first_person_animations are empty. Native Chief pistol idle/ready/melee arm clips are adapted to a one-handed sword grip; firing means melee swing, not an original sword FP animation.",
+  "grip": "Chief native right-hand pistol grip, left support arm omitted; sword model rigidly follows frame gun",
+  "sword_attachment_jms": [
+    [
+      0.8987939953804016,
+      -0.41193416714668274,
+      -0.14993177354335785,
+      -1.25
+    ],
+    [
+      0.0,
+      0.3420201539993286,
+      -0.9396926164627075,
+      0.0
+    ],
+    [
+      0.4383711814880371,
+      0.8445900678634644,
+      0.30740565061569214,
+      -2.5
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "swing_sound_native_tag": "sound\\sfx\\impulse\\animations\\elite\\stand_sword_melee.mov",
+  "retail_blade_shader": "shader_transparent_chicago framebuffer_blend_function=add",
+  "native_melee_damage": 151,
+  "native_damage_radius_m": 1.524,
+  "native_glow_anchors": [
+    "SwordGlow1_0",
+    "SwordGlow1_1",
+    "SwordGlow1_2",
+    "SwordGlow1_3",
+    "SwordGlow1_4",
+    "SwordGlow2_0",
+    "SwordGlow2_1",
+    "SwordGlow2_2",
+    "SwordGlow2_3",
+    "SwordGlow2_4"
+  ],
+  "native_glow_markers": [
+    {
+      "name": "flare",
+      "parent": 1,
+      "position": [
+        30.0,
+        -0.0,
+        0.055242
+      ],
+      "rotation": [
+        0.0,
+        1e-06,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "glow 1",
+      "parent": 1,
+      "position": [
+        5.97301,
+        -0.0,
+        3.29959
+      ],
+      "rotation": [
+        0.0,
+        -0.091502,
+        0.0,
+        0.995805
+      ]
+    },
+    {
+      "name": "glow 1",
+      "parent": 1,
+      "position": [
+        37.5,
+        -0.0,
+        1.074938
+      ],
+      "rotation": [
+        0.0,
+        1e-06,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "glow 1",
+      "parent": 1,
+      "position": [
+        -8.43849,
+        0.0,
+        1.956914
+      ],
+      "rotation": [
+        -0.0,
+        0.25038,
+        0.0,
+        0.968148
+      ]
+    },
+    {
+      "name": "glow 1",
+      "parent": 1,
+      "position": [
+        -0.0,
+        -0.0,
+        6.15118
+      ],
+      "rotation": [
+        0.0,
+        -0.21644,
+        0.0,
+        0.976296
+      ]
+    },
+    {
+      "name": "glow 1",
+      "parent": 1,
+      "position": [
+        13.17715,
+        -0.0,
+        1.954571
+      ],
+      "rotation": [
+        0.0,
+        -0.021815,
+        0.0,
+        0.999762
+      ]
+    },
+    {
+      "name": "glow 2",
+      "parent": 1,
+      "position": [
+        13.245,
+        -0.0,
+        -1.914926
+      ],
+      "rotation": [
+        -0.999762,
+        0.0,
+        -0.021815,
+        -0.0
+      ]
+    },
+    {
+      "name": "glow 2",
+      "parent": 1,
+      "position": [
+        0.068158,
+        -0.0,
+        -6.11154
+      ],
+      "rotation": [
+        -0.976296,
+        0.0,
+        -0.21644,
+        -0.0
+      ]
+    },
+    {
+      "name": "glow 2",
+      "parent": 1,
+      "position": [
+        -8.3704,
+        -1e-06,
+        -2.022417
+      ],
+      "rotation": [
+        -0.968148,
+        -0.0,
+        0.25038,
+        -0.0
+      ]
+    },
+    {
+      "name": "glow 2",
+      "parent": 1,
+      "position": [
+        6.04117,
+        -0.0,
+        -3.25994
+      ],
+      "rotation": [
+        -0.995805,
+        0.0,
+        -0.091502,
+        -0.0
+      ]
+    },
+    {
+      "name": "glow 2",
+      "parent": 1,
+      "position": [
+        37.5,
+        -0.0,
+        -1.035294
+      ],
+      "rotation": [
+        -1.0,
+        -0.0,
+        1e-06,
+        -0.0
+      ]
+    },
+    {
+      "name": "ground point",
+      "parent": 1,
+      "position": [
+        0.327072,
+        -1.471844,
+        0.055242
+      ],
+      "rotation": [
+        0.707107,
+        1e-06,
+        1e-06,
+        0.707107
+      ]
+    }
+  ],
+  "original_model_vertices": 136,
+  "original_model_triangles": 128,
+  "first_person_clip_seconds": {
+    "idle": 2.0,
+    "ready": 1.1666666666666667,
+    "firing": 1.5
+  }
+}

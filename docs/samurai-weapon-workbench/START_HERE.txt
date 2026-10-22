@@ -1,0 +1,27 @@
+SAMURAI — EDITABLE KATANA ANIMATIONS / BLENDER ONLY
+
+Use the Scene dropdown at the top right:
+  01 — Idle              1–61, looping two-handed low guard
+  02 — Run               1–25, looping run with the katana drawn
+  03 — Five-hit combo    1–105, five distinct editable strikes
+  04 — Katana detail     weapon modeling view
+
+The scabbard is removed from all active views. Its old geometry is archived.
+The maroon katana and original character meshes stay unchanged.
+
+Select Katana_Control in Pose Mode to move/rotate the katana; both hands follow.
+Foot_IK_L / Foot_IK_R move the feet. Pelvis / Chest / Head adjust weight and posture.
+Small Elbow_Pole and Knee_Pole bones choose the bend direction.
+R rotates, G moves, I records a pose. Space plays. Command-S saves.
+Auto Key is OFF. After edits, insert Location and Rotation keys on the changed controls.
+
+Combo contact frames: 12 / 30 / 48 / 66 / 87.
+Each has windup and follow-through markers. Frame 105 returns to the idle pose.
+Run contacts: 1 / 13; passing poses: 7 / 19; loop: 25.
+Actions 01_Idle, 02_Run and 03_Five_Hit_Combo are also in the Action Editor.
+
+These are editable animation drafts, not game integration. Original body meshes,
+painted UVs and deform-bone rest lengths are preserved. Only non-deforming
+animation controls and IK constraints were added to this working copy.
+
+Latest size revision: the complete katana is 20% larger than the approved animation draft. Both grip targets are refitted. Clip timing and hit markers are unchanged.

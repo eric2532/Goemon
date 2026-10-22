@@ -1,0 +1,3992 @@
+{
+  "map": "bloodgulch.map",
+  "sha256": "50fe52406f075d975e24100a65b26ff696458023dd3509878953052ab0ef858f",
+  "tags": [
+    {
+      "class": "scenery",
+      "path": "scenery\\teleporter_base\\teleporter_base",
+      "native": {
+        "obje_attrs": {
+          "object_type": "scen",
+          "flags": 0,
+          "bounding_radius": 0.699999988079071,
+          "bounding_offset": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "origin_offset": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "acceleration_scale": 0.0,
+          "model": {
+            "class": "model",
+            "path": "scenery\\teleporter_base\\teleporter_base"
+          },
+          "animation_graph": {
+            "class": "model_animations",
+            "path": ""
+          },
+          "collision_model": {
+            "class": "model_collision_geometry",
+            "path": "scenery\\teleporter_base\\teleporter_base"
+          },
+          "physics": {
+            "class": "physics",
+            "path": ""
+          },
+          "modifier_shader": {
+            "class": "shader",
+            "path": ""
+          },
+          "creation_effect": {
+            "class": "effect",
+            "path": ""
+          },
+          "render_bounding_radius": 0.699999988079071,
+          "A_in": "none",
+          "B_in": "none",
+          "C_in": "none",
+          "D_in": "none",
+          "hud_text_message_index": 0,
+          "forced_shader_permutation_index": 0,
+          "attachments": [],
+          "widgets": [],
+          "functions": [],
+          "change_colors": [],
+          "predicted_resources": [
+            {
+              "type": 0,
+              "resource_index": 0,
+              "tag_index": 3789160550
+            },
+            {
+              "type": 0,
+              "resource_index": 0,
+              "tag_index": 3789226087
+            },
+            {
+              "type": 0,
+              "resource_index": 0,
+              "tag_index": 3789291624
+            },
+            {
+              "type": 0,
+              "resource_index": 0,
+              "tag_index": 3789357161
+            },
+            {
+              "type": 0,
+              "resource_index": 0,
+              "tag_index": 3789488235
+            },
+            {
+              "type": 0,
+              "resource_index": 0,
+              "tag_index": 3789553772
+            },
+            {
+              "type": 0,
+              "resource_index": 0,
+              "tag_index": 3789619309
+            },
+            {
+              "type": 0,
+              "resource_index": 0,
+              "tag_index": 3789750383
+            },
+            {
+              "type": 0,
+              "resource_index": 0,
+              "tag_index": 3789815920
+            },
+            {
+              "type": 0,
+              "resource_index": 0,
+              "tag_index": 3789881457
+            }
+          ],
+          "_enum_values": {
+            "object_type": 6,
+            "A_in": 0,
+            "B_in": 0,
+            "C_in": 0,
+            "D_in": 0
+          },
+          "_flag_names": {
+            "flags": []
+          }
+        }
+      }
+    },
+    {
+      "class": "model",
+      "path": "scenery\\teleporter_base\\teleporter_base",
+      "native": {
+        "flags": 0,
+        "node_list_checksum": 6803404,
+        "superlow_lod_cutoff": 0.0,
+        "low_lod_cutoff": 0.0,
+        "medium_lod_cutoff": 0.0,
+        "high_lod_cutoff": 0.0,
+        "superhigh_lod_cutoff": 0.0,
+        "superlow_lod_nodes": 0,
+        "low_lod_nodes": 0,
+        "medium_lod_nodes": 0,
+        "high_lod_nodes": 0,
+        "superhigh_lod_nodes": 0,
+        "base_map_u_scale": 3.7961959838867188,
+        "base_map_v_scale": 2.0,
+        "markers": [],
+        "nodes": [
+          {
+            "name": "frame teleporter",
+            "next_sibling_node": -1,
+            "first_child_node": -1,
+            "parent_node": -1,
+            "translation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "i": 0.0,
+              "j": 0.0,
+              "k": 0.0,
+              "w": 1.0
+            },
+            "distance_from_parent": 0.0,
+            "scale": 1.0,
+            "rot_jj_kk": {
+              "i": 1.0,
+              "j": 0.0,
+              "k": 0.0
+            },
+            "rot_kk_ii": {
+              "i": 0.0,
+              "j": 1.0,
+              "k": 0.0
+            },
+            "rot_ii_jj": {
+              "i": 0.0,
+              "j": 0.0,
+              "k": 1.0
+            },
+            "translation_to_root": {
+              "x": -0.0,
+              "y": -0.0,
+              "z": -0.0
+            }
+          }
+        ],
+        "regions": [
+          {
+            "name": "__unnamed",
+            "permutations": [
+              {
+                "name": "teleporter_base",
+                "flags": 0,
+                "permutation_set": 0,
+                "superlow_geometry_block": 0,
+                "low_geometry_block": 0,
+                "medium_geometry_block": 0,
+                "high_geometry_block": 0,
+                "superhigh_geometry_block": 0,
+                "local_markers": [],
+                "_flag_names": {
+                  "flags": []
+                }
+              }
+            ]
+          }
+        ],
+        "geometries": [
+          {
+            "parts": [
+              {
+                "flags": 0,
+                "shader_index": 0,
+                "previous_part_index": -1,
+                "next_part_index": -1,
+                "centroid_primary_node": 0,
+                "centroid_secondary_node": 0,
+                "centroid_primary_weight": 1.0,
+                "centroid_secondary_weight": 0.0,
+                "centroid_translation": {
+                  "x": 0.0014527091989293694,
+                  "y": -0.012561327777802944,
+                  "z": 0.014830519445240498
+                },
+                "uncompressed_vertices": [],
+                "compressed_vertices": [],
+                "triangles": [],
+                "model_meta_info": {
+                  "index_type": "uncompressed",
+                  "index_count": 5,
+                  "indices_offset": 2154340304,
+                  "indices_reflexive_offset": 2154075628,
+                  "vertex_type": "compressed",
+                  "vertex_count": 6,
+                  "vertices_offset": 41414976,
+                  "vertices_reflexive_offset": 2151445216,
+                  "_enum_values": {
+                    "index_type": 1,
+                    "vertex_type": 5
+                  }
+                },
+                "_flag_names": {
+                  "flags": []
+                }
+              },
+              {
+                "flags": 0,
+                "shader_index": 1,
+                "previous_part_index": -1,
+                "next_part_index": -1,
+                "centroid_primary_node": 0,
+                "centroid_secondary_node": 0,
+                "centroid_primary_weight": 1.0,
+                "centroid_secondary_weight": 0.0,
+                "centroid_translation": {
+                  "x": 0.0012382334098219872,
+                  "y": -0.011359616182744503,
+                  "z": 0.06486105173826218
+                },
+                "uncompressed_vertices": [],
+                "compressed_vertices": [],
+                "triangles": [],
+                "model_meta_info": {
+                  "index_type": "uncompressed",
+                  "index_count": 185,
+                  "indices_offset": 2154339924,
+                  "indices_reflexive_offset": 2154075616,
+                  "vertex_type": "compressed",
+                  "vertex_count": 126,
+                  "vertices_offset": 41410944,
+                  "vertices_reflexive_offset": 2151445204,
+                  "_enum_values": {
+                    "index_type": 1,
+                    "vertex_type": 5
+                  }
+                },
+                "_flag_names": {
+                  "flags": []
+                }
+              },
+              {
+                "flags": 0,
+                "shader_index": 2,
+                "previous_part_index": -1,
+                "next_part_index": -1,
+                "centroid_primary_node": 0,
+                "centroid_secondary_node": 0,
+                "centroid_primary_weight": 1.0,
+                "centroid_secondary_weight": 0.0,
+                "centroid_translation": {
+                  "x": 0.0011083208955824375,
+                  "y": -0.01312907412648201,
+                  "z": 0.0204846803098917
+                },
+                "uncompressed_vertices": [],
+                "compressed_vertices": [],
+                "triangles": [],
+                "model_meta_info": {
+                  "index_type": "uncompressed",
+                  "index_count": 236,
+                  "indices_offset": 2154339444,
+                  "indices_reflexive_offset": 2154075604,
+                  "vertex_type": "compressed",
+                  "vertex_count": 158,
+                  "vertices_offset": 41405888,
+                  "vertices_reflexive_offset": 2151445192,
+                  "_enum_values": {
+                    "index_type": 1,
+                    "vertex_type": 5
+                  }
+                },
+                "_flag_names": {
+                  "flags": []
+                }
+              },
+              {
+                "flags": 0,
+                "shader_index": 3,
+                "previous_part_index": -1,
+                "next_part_index": -1,
+                "centroid_primary_node": 0,
+                "centroid_secondary_node": 0,
+                "centroid_primary_weight": 1.0,
+                "centroid_secondary_weight": 0.0,
+                "centroid_translation": {
+                  "x": 0.001238237484358251,
+                  "y": -0.011359618976712227,
+                  "z": 0.036728404462337494
+                },
+                "uncompressed_vertices": [],
+                "compressed_vertices": [],
+                "triangles": [],
+                "model_meta_info": {
+                  "index_type": "uncompressed",
+                  "index_count": 62,
+                  "indices_offset": 2154339312,
+                  "indices_reflexive_offset": 2154075592,
+                  "vertex_type": "compressed",
+                  "vertex_count": 42,
+                  "vertices_offset": 41404544,
+                  "vertices_reflexive_offset": 2151445180,
+                  "_enum_values": {
+                    "index_type": 1,
+                    "vertex_type": 5
+                  }
+                },
+                "_flag_names": {
+                  "flags": []
+                }
+              },
+              {
+                "flags": 0,
+                "shader_index": 4,
+                "previous_part_index": -1,
+                "next_part_index": -1,
+                "centroid_primary_node": 0,
+                "centroid_secondary_node": 0,
+                "centroid_primary_weight": 1.0,
+                "centroid_secondary_weight": 0.0,
+                "centroid_translation": {
+                  "x": -0.03131483495235443,
+                  "y": -0.022291840985417366,
+                  "z": 0.38254958391189575
+                },
+                "uncompressed_vertices": [],
+                "compressed_vertices": [],
+                "triangles": [],
+                "model_meta_info": {
+                  "index_type": "uncompressed",
+                  "index_count": 15,
+                  "indices_offset": 2154339276,
+                  "indices_reflexive_offset": 2154075580,
+                  "vertex_type": "compressed",
+                  "vertex_count": 14,
+                  "vertices_offset": 41404096,
+                  "vertices_reflexive_offset": 2151445168,
+                  "_enum_values": {
+                    "index_type": 1,
+                    "vertex_type": 5
+                  }
+                },
+                "_flag_names": {
+                  "flags": []
+                }
+              }
+            ]
+          }
+        ],
+        "shaders": [
+          {
+            "shader": {
+              "class": "shader_transparent_generic",
+              "path": "scenery\\teleporter_shield\\shaders\\teleporter_shield"
+            },
+            "permutation_index": 0
+          },
+          {
+            "shader": {
+              "class": "shader_environment",
+              "path": "scenery\\teleporter_base\\shaders\\teleporter_base"
+            },
+            "permutation_index": 0
+          },
+          {
+            "shader": {
+              "class": "shader_environment",
+              "path": "levels\\b30\\shaders\\metal flat generic"
+            },
+            "permutation_index": 0
+          },
+          {
+            "shader": {
+              "class": "shader_environment",
+              "path": "levels\\b30\\shaders\\metal strips decorative wide"
+            },
+            "permutation_index": 0
+          },
+          {
+            "shader": {
+              "class": "shader_transparent_chicago",
+              "path": "scenery\\teleporter_base\\shaders\\teleporter_cone"
+            },
+            "permutation_index": 0
+          }
+        ],
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "model_collision_geometry",
+      "path": "scenery\\teleporter_base\\teleporter_base",
+      "native": {
+        "flags": 0,
+        "indirect_damage_material": -1,
+        "body": {
+          "maximum_body_vitality": 0.0,
+          "body_system_shock": 0.0,
+          "friendly_damage_resistance": 0.0,
+          "localized_damage_effect": {
+            "class": "effect",
+            "path": ""
+          },
+          "area_damage_effect_threshold": 0.0,
+          "area_damage_effect": {
+            "class": "effect",
+            "path": ""
+          },
+          "body_damaged_threshold": 0.0,
+          "body_damaged_effect": {
+            "class": "effect",
+            "path": ""
+          },
+          "body_depleted_effect": {
+            "class": "effect",
+            "path": ""
+          },
+          "body_destroyed_threshold": 0.0,
+          "body_destroyed_effect": {
+            "class": "effect",
+            "path": ""
+          }
+        },
+        "shield": {
+          "maximum_shield_vitality": 0.0,
+          "shield_material_type": "dirt",
+          "shield_failure_function": "linear",
+          "shield_failure_threshold": 0.0,
+          "shield_failing_leak_fraction": 0.0,
+          "minimum_stun_damage": 0.0,
+          "stun_time": 0.0,
+          "recharge_time": 0.0,
+          "shield_damaged_threshold": 0.0,
+          "shield_damaged_effect": {
+            "class": "effect",
+            "path": ""
+          },
+          "shield_depleted_effect": {
+            "class": "effect",
+            "path": ""
+          },
+          "shield_recharging_effect": {
+            "class": "effect",
+            "path": ""
+          },
+          "shield_recharge_rate": 1.0,
+          "_enum_values": {
+            "shield_material_type": 0,
+            "shield_failure_function": 0
+          }
+        },
+        "materials": [
+          {
+            "name": "collision_zone",
+            "flags": 0,
+            "material_type": "metal_thin",
+            "shield_leak_percentage": 0.0,
+            "shield_damage_multiplier": 0.0,
+            "body_damage_multiplier": 0.0,
+            "_enum_values": {
+              "material_type": 6
+            },
+            "_flag_names": {
+              "flags": []
+            }
+          }
+        ],
+        "regions": [
+          {
+            "name": "__unnamed",
+            "flags": 0,
+            "damage_threshold": 0.0,
+            "destroyed_effect": {
+              "class": "effect",
+              "path": ""
+            },
+            "permutations": [
+              {
+                "name": "collision_volume"
+              }
+            ],
+            "_flag_names": {
+              "flags": []
+            }
+          }
+        ],
+        "modifiers": [],
+        "pathfinding_box": {
+          "x": {
+            "from": 0.0,
+            "to": 0.0
+          },
+          "y": {
+            "from": 0.0,
+            "to": 0.0
+          },
+          "z": {
+            "from": 0.0,
+            "to": 0.0
+          }
+        },
+        "pathfinding_spheres": [
+          {
+            "node": 0,
+            "center": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "radius": 0.5249999761581421
+          }
+        ],
+        "nodes": [
+          {
+            "name": "frame teleporter",
+            "region": 0,
+            "parent_node": -1,
+            "next_sibling_node": -1,
+            "first_child_node": -1,
+            "unknown0": 0,
+            "unknown1": -1,
+            "bsps": [
+              {
+                "bsp3d_nodes": {
+                  "size": 5,
+                  "pointer": 2154973292,
+                  "id": 0
+                },
+                "planes": {
+                  "size": 5,
+                  "pointer": 2154973352,
+                  "id": 0
+                },
+                "leaves": {
+                  "size": 5,
+                  "pointer": 2154973432,
+                  "id": 0
+                },
+                "bsp2d_references": {
+                  "size": 5,
+                  "pointer": 2154973472,
+                  "id": 0
+                },
+                "bsp2d_nodes": {
+                  "size": 0,
+                  "pointer": 0,
+                  "id": 0
+                },
+                "surfaces": {
+                  "size": 5,
+                  "pointer": 2154973512,
+                  "id": 0
+                },
+                "edges": {
+                  "size": 9,
+                  "pointer": 2154973572,
+                  "id": 0
+                },
+                "vertices": {
+                  "size": 6,
+                  "pointer": 2154973788,
+                  "id": 0
+                }
+              }
+            ]
+          }
+        ],
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "shader_transparent_generic",
+      "path": "scenery\\teleporter_shield\\shaders\\teleporter_shield",
+      "native": {
+        "shdr_attrs": {
+          "radiosity_flags": 0,
+          "radiosity_detail_level": "high",
+          "radiosity_light_power": 10.0,
+          "radiosity_light_color": {
+            "r": 0.062745101749897,
+            "g": 0.8196079730987549,
+            "b": 0.019607799127697945
+          },
+          "radiosity_tint_color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "material_type": "force_field",
+          "shader_type": "sotr",
+          "_enum_values": {
+            "radiosity_detail_level": 0,
+            "material_type": 10,
+            "shader_type": 5
+          },
+          "_flag_names": {
+            "radiosity_flags": []
+          }
+        },
+        "sotr_attrs": {
+          "generic_transparent_shader": {
+            "numeric_counter_limit": 0,
+            "flags": 4,
+            "first_map_type": "map_2d",
+            "framebuffer_blend_function": "add",
+            "framebuffer_fade_mode": "fade_when_parallel",
+            "framebuffer_fade_source": "none",
+            "_enum_values": {
+              "first_map_type": 0,
+              "framebuffer_blend_function": 3,
+              "framebuffer_fade_mode": 2,
+              "framebuffer_fade_source": 0
+            },
+            "_flag_names": {
+              "flags": [
+                "two_sided"
+              ]
+            }
+          },
+          "lens_flare_spacing": 0.0,
+          "lens_flare": {
+            "class": "lens_flare",
+            "path": ""
+          },
+          "extra_layers": [],
+          "maps": [
+            {
+              "flags": 0,
+              "map_u_scale": 1.0,
+              "map_v_scale": 1.0,
+              "map_u_offset": 0.0,
+              "map_v_offset": 0.0,
+              "map_rotation": 0.0,
+              "map_bias": 0.0,
+              "bitmap": {
+                "class": "bitmap",
+                "path": "levels\\a50\\devices\\prison door\\bitmaps\\energy plasma"
+              },
+              "u_animation": {
+                "source": "none",
+                "function": "slide",
+                "period": 10.0,
+                "phase": 0.0,
+                "scale": -1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 6
+                }
+              },
+              "v_animation": {
+                "source": "none",
+                "function": "slide",
+                "period": 6.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 6
+                }
+              },
+              "rotation_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "rotation_center": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "_flag_names": {
+                "flags": []
+              }
+            },
+            {
+              "flags": 0,
+              "map_u_scale": 1.0,
+              "map_v_scale": 1.0,
+              "map_u_offset": 0.0,
+              "map_v_offset": 0.0,
+              "map_rotation": 0.0,
+              "map_bias": 0.0,
+              "bitmap": {
+                "class": "bitmap",
+                "path": "levels\\a50\\devices\\prison door\\bitmaps\\energy plasma"
+              },
+              "u_animation": {
+                "source": "none",
+                "function": "slide",
+                "period": 11.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 6
+                }
+              },
+              "v_animation": {
+                "source": "none",
+                "function": "slide",
+                "period": 7.0,
+                "phase": 0.0,
+                "scale": -1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 6
+                }
+              },
+              "rotation_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "rotation_center": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "_flag_names": {
+                "flags": []
+              }
+            },
+            {
+              "flags": 0,
+              "map_u_scale": 1.0,
+              "map_v_scale": 1.0,
+              "map_u_offset": 0.0,
+              "map_v_offset": 0.0,
+              "map_rotation": 0.0,
+              "map_bias": 0.0,
+              "bitmap": {
+                "class": "bitmap",
+                "path": "scenery\\teleporter_shield\\bitmaps\\teleporter_shield_energy mask"
+              },
+              "u_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "v_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "rotation_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 360.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "rotation_center": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "_flag_names": {
+                "flags": []
+              }
+            },
+            {
+              "flags": 0,
+              "map_u_scale": 1.0,
+              "map_v_scale": 1.0,
+              "map_u_offset": 0.0,
+              "map_v_offset": 0.0,
+              "map_rotation": 0.0,
+              "map_bias": 0.0,
+              "bitmap": {
+                "class": "bitmap",
+                "path": "scenery\\teleporter_shield\\bitmaps\\teleporter_shield"
+              },
+              "u_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "v_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "rotation_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 360.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "rotation_center": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "_flag_names": {
+                "flags": []
+              }
+            }
+          ],
+          "stages": [
+            {
+              "flags": 4,
+              "color0_source": "none",
+              "color0_anim_function": "one",
+              "color0_anim_period": 1.0,
+              "color0_anim_lower_bound": {
+                "a": 0.4000000059604645,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.3499999940395355
+              },
+              "color0_anim_upper_bound": {
+                "a": 1.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 1.0
+              },
+              "color1": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color": {
+                "input_A": {
+                  "input": "constant_alpha_0",
+                  "mapped_to": "one_minus_clamp_x",
+                  "_enum_values": {
+                    "input": 23,
+                    "mapped_to": 1
+                  }
+                },
+                "input_B": {
+                  "input": "map_alpha_2",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 17,
+                    "mapped_to": 0
+                  }
+                },
+                "input_C": {
+                  "input": "constant_alpha_0",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 23,
+                    "mapped_to": 0
+                  }
+                },
+                "input_D": {
+                  "input": "map_alpha_0",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 15,
+                    "mapped_to": 0
+                  }
+                },
+                "output_AB": {
+                  "output": "discard",
+                  "function": "multiply",
+                  "_enum_values": {
+                    "output": 0,
+                    "function": 0
+                  }
+                },
+                "output_CD": {
+                  "output": "discard",
+                  "function": "multiply",
+                  "_enum_values": {
+                    "output": 0,
+                    "function": 0
+                  }
+                },
+                "output_AB_CD_mux_sum": "scratch_color_0",
+                "output_mapping": "identity",
+                "_enum_values": {
+                  "output_AB_CD_mux_sum": 1,
+                  "output_mapping": 0
+                }
+              },
+              "alpha": {
+                "input_A": {
+                  "input": "constant_alpha_0",
+                  "mapped_to": "one_minus_clamp_x",
+                  "_enum_values": {
+                    "input": 23,
+                    "mapped_to": 1
+                  }
+                },
+                "input_B": {
+                  "input": "one_half",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 2,
+                    "mapped_to": 0
+                  }
+                },
+                "input_C": {
+                  "input": "constant_alpha_0",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 23,
+                    "mapped_to": 0
+                  }
+                },
+                "input_D": {
+                  "input": "map_blue_1",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 6,
+                    "mapped_to": 0
+                  }
+                },
+                "output_AB": "discard",
+                "output_CD": "discard",
+                "output_AB_CD_mux_sum": "scratch_alpha_0",
+                "output_mapping": "identity",
+                "_enum_values": {
+                  "output_AB": 0,
+                  "output_CD": 0,
+                  "output_AB_CD_mux_sum": 1,
+                  "output_mapping": 0
+                }
+              },
+              "_enum_values": {
+                "color0_source": 0,
+                "color0_anim_function": 0
+              },
+              "_flag_names": {
+                "flags": [
+                  "a_out_controls_color0_animation"
+                ]
+              }
+            },
+            {
+              "flags": 0,
+              "color0_source": "none",
+              "color0_anim_function": "one",
+              "color0_anim_period": 1.0,
+              "color0_anim_lower_bound": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color0_anim_upper_bound": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color1": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color": {
+                "input_A": {
+                  "input": "map_alpha_3",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 18,
+                    "mapped_to": 0
+                  }
+                },
+                "input_B": {
+                  "input": "one_half",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 2,
+                    "mapped_to": 0
+                  }
+                },
+                "input_C": {
+                  "input": "map_alpha_3",
+                  "mapped_to": "one_minus_clamp_x",
+                  "_enum_values": {
+                    "input": 18,
+                    "mapped_to": 1
+                  }
+                },
+                "input_D": {
+                  "input": "scratch_color_0",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 11,
+                    "mapped_to": 0
+                  }
+                },
+                "output_AB": {
+                  "output": "discard",
+                  "function": "multiply",
+                  "_enum_values": {
+                    "output": 0,
+                    "function": 0
+                  }
+                },
+                "output_CD": {
+                  "output": "discard",
+                  "function": "multiply",
+                  "_enum_values": {
+                    "output": 0,
+                    "function": 0
+                  }
+                },
+                "output_AB_CD_mux_sum": "scratch_color_0",
+                "output_mapping": "identity",
+                "_enum_values": {
+                  "output_AB_CD_mux_sum": 1,
+                  "output_mapping": 0
+                }
+              },
+              "alpha": {
+                "input_A": {
+                  "input": "map_blue_3",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 8,
+                    "mapped_to": 0
+                  }
+                },
+                "input_B": {
+                  "input": "one_half",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 2,
+                    "mapped_to": 0
+                  }
+                },
+                "input_C": {
+                  "input": "map_blue_3",
+                  "mapped_to": "one_minus_clamp_x",
+                  "_enum_values": {
+                    "input": 8,
+                    "mapped_to": 1
+                  }
+                },
+                "input_D": {
+                  "input": "scratch_blue_0",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 11,
+                    "mapped_to": 0
+                  }
+                },
+                "output_AB": "discard",
+                "output_CD": "discard",
+                "output_AB_CD_mux_sum": "scratch_alpha_0",
+                "output_mapping": "identity",
+                "_enum_values": {
+                  "output_AB": 0,
+                  "output_CD": 0,
+                  "output_AB_CD_mux_sum": 1,
+                  "output_mapping": 0
+                }
+              },
+              "_enum_values": {
+                "color0_source": 0,
+                "color0_anim_function": 0
+              },
+              "_flag_names": {
+                "flags": []
+              }
+            },
+            {
+              "flags": 0,
+              "color0_source": "none",
+              "color0_anim_function": "one",
+              "color0_anim_period": 1.0,
+              "color0_anim_lower_bound": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color0_anim_upper_bound": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color1": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color": {
+                "input_A": {
+                  "input": "scratch_color_0",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 11,
+                    "mapped_to": 0
+                  }
+                },
+                "input_B": {
+                  "input": "one",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 1,
+                    "mapped_to": 0
+                  }
+                },
+                "input_C": {
+                  "input": "scratch_alpha_0",
+                  "mapped_to": "one_half_minus_clamp_x",
+                  "_enum_values": {
+                    "input": 21,
+                    "mapped_to": 5
+                  }
+                },
+                "input_D": {
+                  "input": "one",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 1,
+                    "mapped_to": 0
+                  }
+                },
+                "output_AB": {
+                  "output": "discard",
+                  "function": "multiply",
+                  "_enum_values": {
+                    "output": 0,
+                    "function": 0
+                  }
+                },
+                "output_CD": {
+                  "output": "discard",
+                  "function": "multiply",
+                  "_enum_values": {
+                    "output": 0,
+                    "function": 0
+                  }
+                },
+                "output_AB_CD_mux_sum": "scratch_color_0",
+                "output_mapping": "identity",
+                "_enum_values": {
+                  "output_AB_CD_mux_sum": 1,
+                  "output_mapping": 0
+                }
+              },
+              "alpha": {
+                "input_A": {
+                  "input": "scratch_blue_0",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 11,
+                    "mapped_to": 0
+                  }
+                },
+                "input_B": {
+                  "input": "one",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 1,
+                    "mapped_to": 0
+                  }
+                },
+                "input_C": {
+                  "input": "scratch_alpha_0",
+                  "mapped_to": "one_half_minus_clamp_x",
+                  "_enum_values": {
+                    "input": 21,
+                    "mapped_to": 5
+                  }
+                },
+                "input_D": {
+                  "input": "one",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 1,
+                    "mapped_to": 0
+                  }
+                },
+                "output_AB": "discard",
+                "output_CD": "discard",
+                "output_AB_CD_mux_sum": "scratch_alpha_0",
+                "output_mapping": "identity",
+                "_enum_values": {
+                  "output_AB": 0,
+                  "output_CD": 0,
+                  "output_AB_CD_mux_sum": 1,
+                  "output_mapping": 0
+                }
+              },
+              "_enum_values": {
+                "color0_source": 0,
+                "color0_anim_function": 0
+              },
+              "_flag_names": {
+                "flags": []
+              }
+            },
+            {
+              "flags": 2,
+              "color0_source": "none",
+              "color0_anim_function": "one",
+              "color0_anim_period": 1.0,
+              "color0_anim_lower_bound": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color0_anim_upper_bound": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color1": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color": {
+                "input_A": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "input_B": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "input_C": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "input_D": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "output_AB": {
+                  "output": "discard",
+                  "function": "multiply",
+                  "_enum_values": {
+                    "output": 0,
+                    "function": 0
+                  }
+                },
+                "output_CD": {
+                  "output": "discard",
+                  "function": "multiply",
+                  "_enum_values": {
+                    "output": 0,
+                    "function": 0
+                  }
+                },
+                "output_AB_CD_mux_sum": "discard",
+                "output_mapping": "identity",
+                "_enum_values": {
+                  "output_AB_CD_mux_sum": 0,
+                  "output_mapping": 0
+                }
+              },
+              "alpha": {
+                "input_A": {
+                  "input": "scratch_blue_0",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 11,
+                    "mapped_to": 0
+                  }
+                },
+                "input_B": {
+                  "input": "scratch_blue_0",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 11,
+                    "mapped_to": 0
+                  }
+                },
+                "input_C": {
+                  "input": "scratch_alpha_0",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 21,
+                    "mapped_to": 0
+                  }
+                },
+                "input_D": {
+                  "input": "scratch_alpha_0",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 21,
+                    "mapped_to": 0
+                  }
+                },
+                "output_AB": "discard",
+                "output_CD": "discard",
+                "output_AB_CD_mux_sum": "scratch_alpha_0",
+                "output_mapping": "scale_by_four",
+                "_enum_values": {
+                  "output_AB": 0,
+                  "output_CD": 0,
+                  "output_AB_CD_mux_sum": 1,
+                  "output_mapping": 3
+                }
+              },
+              "_enum_values": {
+                "color0_source": 0,
+                "color0_anim_function": 0
+              },
+              "_flag_names": {
+                "flags": [
+                  "alpha_mux"
+                ]
+              }
+            },
+            {
+              "flags": 2,
+              "color0_source": "none",
+              "color0_anim_function": "one",
+              "color0_anim_period": 1.0,
+              "color0_anim_lower_bound": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color0_anim_upper_bound": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color1": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color": {
+                "input_A": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "input_B": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "input_C": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "input_D": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "output_AB": {
+                  "output": "discard",
+                  "function": "multiply",
+                  "_enum_values": {
+                    "output": 0,
+                    "function": 0
+                  }
+                },
+                "output_CD": {
+                  "output": "discard",
+                  "function": "multiply",
+                  "_enum_values": {
+                    "output": 0,
+                    "function": 0
+                  }
+                },
+                "output_AB_CD_mux_sum": "discard",
+                "output_mapping": "identity",
+                "_enum_values": {
+                  "output_AB_CD_mux_sum": 0,
+                  "output_mapping": 0
+                }
+              },
+              "alpha": {
+                "input_A": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "input_B": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "input_C": {
+                  "input": "scratch_blue_0",
+                  "mapped_to": "clamp_x_times_two_minus_one",
+                  "_enum_values": {
+                    "input": 11,
+                    "mapped_to": 2
+                  }
+                },
+                "input_D": {
+                  "input": "scratch_blue_0",
+                  "mapped_to": "clamp_x_times_two_minus_one",
+                  "_enum_values": {
+                    "input": 11,
+                    "mapped_to": 2
+                  }
+                },
+                "output_AB": "discard",
+                "output_CD": "discard",
+                "output_AB_CD_mux_sum": "scratch_alpha_0",
+                "output_mapping": "identity",
+                "_enum_values": {
+                  "output_AB": 0,
+                  "output_CD": 0,
+                  "output_AB_CD_mux_sum": 1,
+                  "output_mapping": 0
+                }
+              },
+              "_enum_values": {
+                "color0_source": 0,
+                "color0_anim_function": 0
+              },
+              "_flag_names": {
+                "flags": [
+                  "alpha_mux"
+                ]
+              }
+            },
+            {
+              "flags": 0,
+              "color0_source": "none",
+              "color0_anim_function": "one",
+              "color0_anim_period": 1.0,
+              "color0_anim_lower_bound": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color0_anim_upper_bound": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color1": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color": {
+                "input_A": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "input_B": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "input_C": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "input_D": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "output_AB": {
+                  "output": "discard",
+                  "function": "multiply",
+                  "_enum_values": {
+                    "output": 0,
+                    "function": 0
+                  }
+                },
+                "output_CD": {
+                  "output": "discard",
+                  "function": "multiply",
+                  "_enum_values": {
+                    "output": 0,
+                    "function": 0
+                  }
+                },
+                "output_AB_CD_mux_sum": "discard",
+                "output_mapping": "identity",
+                "_enum_values": {
+                  "output_AB_CD_mux_sum": 0,
+                  "output_mapping": 0
+                }
+              },
+              "alpha": {
+                "input_A": {
+                  "input": "scratch_blue_0",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 11,
+                    "mapped_to": 0
+                  }
+                },
+                "input_B": {
+                  "input": "one",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 1,
+                    "mapped_to": 0
+                  }
+                },
+                "input_C": {
+                  "input": "scratch_blue_0",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 11,
+                    "mapped_to": 0
+                  }
+                },
+                "input_D": {
+                  "input": "scratch_blue_0",
+                  "mapped_to": "one_minus_clamp_x",
+                  "_enum_values": {
+                    "input": 11,
+                    "mapped_to": 1
+                  }
+                },
+                "output_AB": "discard",
+                "output_CD": "discard",
+                "output_AB_CD_mux_sum": "scratch_alpha_0",
+                "output_mapping": "identity",
+                "_enum_values": {
+                  "output_AB": 0,
+                  "output_CD": 0,
+                  "output_AB_CD_mux_sum": 1,
+                  "output_mapping": 0
+                }
+              },
+              "_enum_values": {
+                "color0_source": 0,
+                "color0_anim_function": 0
+              },
+              "_flag_names": {
+                "flags": []
+              }
+            },
+            {
+              "flags": 4,
+              "color0_source": "none",
+              "color0_anim_function": "one",
+              "color0_anim_period": 1.0,
+              "color0_anim_lower_bound": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.3294120132923126,
+                "b": 0.4235289990901947
+              },
+              "color0_anim_upper_bound": {
+                "a": 0.0,
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0
+              },
+              "color1": {
+                "a": 0.0,
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "color": {
+                "input_A": {
+                  "input": "scratch_alpha_0",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 21,
+                    "mapped_to": 0
+                  }
+                },
+                "input_B": {
+                  "input": "map_color_3",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 8,
+                    "mapped_to": 0
+                  }
+                },
+                "input_C": {
+                  "input": "constant_color_0",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 13,
+                    "mapped_to": 0
+                  }
+                },
+                "input_D": {
+                  "input": "map_color_3",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 8,
+                    "mapped_to": 0
+                  }
+                },
+                "output_AB": {
+                  "output": "discard",
+                  "function": "multiply",
+                  "_enum_values": {
+                    "output": 0,
+                    "function": 0
+                  }
+                },
+                "output_CD": {
+                  "output": "discard",
+                  "function": "multiply",
+                  "_enum_values": {
+                    "output": 0,
+                    "function": 0
+                  }
+                },
+                "output_AB_CD_mux_sum": "scratch_color_0",
+                "output_mapping": "identity",
+                "_enum_values": {
+                  "output_AB_CD_mux_sum": 1,
+                  "output_mapping": 0
+                }
+              },
+              "alpha": {
+                "input_A": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "input_B": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "input_C": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "input_D": {
+                  "input": "zero",
+                  "mapped_to": "clamp_x",
+                  "_enum_values": {
+                    "input": 0,
+                    "mapped_to": 0
+                  }
+                },
+                "output_AB": "discard",
+                "output_CD": "discard",
+                "output_AB_CD_mux_sum": "discard",
+                "output_mapping": "identity",
+                "_enum_values": {
+                  "output_AB": 0,
+                  "output_CD": 0,
+                  "output_AB_CD_mux_sum": 0,
+                  "output_mapping": 0
+                }
+              },
+              "_enum_values": {
+                "color0_source": 0,
+                "color0_anim_function": 0
+              },
+              "_flag_names": {
+                "flags": [
+                  "a_out_controls_color0_animation"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "class": "shader_environment",
+      "path": "scenery\\teleporter_base\\shaders\\teleporter_base",
+      "native": {
+        "shdr_attrs": {
+          "radiosity_flags": 0,
+          "radiosity_detail_level": "high",
+          "radiosity_light_power": 0.0,
+          "radiosity_light_color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "radiosity_tint_color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "material_type": "metal_thin",
+          "shader_type": "senv",
+          "_enum_values": {
+            "radiosity_detail_level": 0,
+            "material_type": 6,
+            "shader_type": 3
+          },
+          "_flag_names": {
+            "radiosity_flags": []
+          }
+        },
+        "senv_attrs": {
+          "environment_shader": {
+            "flags": 1,
+            "type": "normal",
+            "_enum_values": {
+              "type": 0
+            },
+            "_flag_names": {
+              "flags": [
+                "alpha_tested"
+              ]
+            }
+          },
+          "lens_flare_spacing": 0.0,
+          "lens_flare": {
+            "class": "lens_flare",
+            "path": ""
+          },
+          "diffuse": {
+            "diffuse_flags": 0,
+            "base_map": {
+              "class": "bitmap",
+              "path": "scenery\\teleporter_base\\bitmaps\\teleporter_base"
+            },
+            "detail_map_function": "double_biased_multiply",
+            "primary_detail_map_scale": 1.0,
+            "primary_detail_map": {
+              "class": "bitmap",
+              "path": ""
+            },
+            "secondary_detail_map_scale": 1.0,
+            "secondary_detail_map": {
+              "class": "bitmap",
+              "path": ""
+            },
+            "micro_detail_map_function": "double_biased_multiply",
+            "micro_detail_map_scale": 16.0,
+            "micro_detail_map": {
+              "class": "bitmap",
+              "path": "levels\\b30\\bitmaps\\detail brushed metal"
+            },
+            "material_color": {
+              "r": 1.0,
+              "g": 1.0,
+              "b": 1.0
+            },
+            "_enum_values": {
+              "detail_map_function": 0,
+              "micro_detail_map_function": 0
+            },
+            "_flag_names": {
+              "diffuse_flags": []
+            }
+          },
+          "bump_properties": {
+            "map_scale": 1.0,
+            "map": {
+              "class": "bitmap",
+              "path": "scenery\\teleporter_base\\bitmaps\\teleporter_base bump"
+            },
+            "map_scale_x": 1.0,
+            "map_scale_y": 1.0
+          },
+          "texture_scrolling": {
+            "u_animation": {
+              "function": "one",
+              "period": 1.0,
+              "scale": 1.0,
+              "_enum_values": {
+                "function": 0
+              }
+            },
+            "v_animation": {
+              "function": "one",
+              "period": 1.0,
+              "scale": 1.0,
+              "_enum_values": {
+                "function": 0
+              }
+            }
+          },
+          "self_illumination": {
+            "flags": 0,
+            "primary_on_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "primary_off_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "primary_animation": {
+              "function": "one",
+              "period": 1.0,
+              "phase": 0.0,
+              "_enum_values": {
+                "function": 0
+              }
+            },
+            "secondary_on_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "secondary_off_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "secondary_animation": {
+              "function": "one",
+              "period": 1.0,
+              "phase": 0.0,
+              "_enum_values": {
+                "function": 0
+              }
+            },
+            "plasma_on_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "plasma_off_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "plasma_animation": {
+              "function": "one",
+              "period": 1.0,
+              "phase": 0.0,
+              "_enum_values": {
+                "function": 0
+              }
+            },
+            "map_scale": 1.0,
+            "map": {
+              "class": "bitmap",
+              "path": ""
+            },
+            "_flag_names": {
+              "flags": []
+            }
+          },
+          "specular": {
+            "specular_flags": 0,
+            "brightness": 0.5,
+            "perpendicular_tint_color": {
+              "r": 0.8823530077934265,
+              "g": 0.800000011920929,
+              "b": 0.8901960253715515
+            },
+            "parallel_tint_color": {
+              "r": 0.49411800503730774,
+              "g": 0.6588240265846252,
+              "b": 0.8196079730987549
+            },
+            "_flag_names": {
+              "specular_flags": []
+            }
+          },
+          "reflection": {
+            "reflection_flags": 0,
+            "reflection_type": "bumped_cubemap",
+            "lightmap_brightness_scale": 0.0,
+            "perpendicular_brightness": 0.44999998807907104,
+            "parallel_brightness": 0.3499999940395355,
+            "cube_map": {
+              "class": "bitmap",
+              "path": "levels\\b30\\bitmaps\\cube map forerunner interiors"
+            },
+            "_enum_values": {
+              "reflection_type": 0
+            },
+            "_flag_names": {
+              "reflection_flags": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "class": "shader_environment",
+      "path": "levels\\b30\\shaders\\metal flat generic",
+      "native": {
+        "shdr_attrs": {
+          "radiosity_flags": 0,
+          "radiosity_detail_level": "medium",
+          "radiosity_light_power": 0.0,
+          "radiosity_light_color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "radiosity_tint_color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "material_type": "metal_thick",
+          "shader_type": "senv",
+          "_enum_values": {
+            "radiosity_detail_level": 1,
+            "material_type": 7,
+            "shader_type": 3
+          },
+          "_flag_names": {
+            "radiosity_flags": []
+          }
+        },
+        "senv_attrs": {
+          "environment_shader": {
+            "flags": 0,
+            "type": "normal",
+            "_enum_values": {
+              "type": 0
+            },
+            "_flag_names": {
+              "flags": []
+            }
+          },
+          "lens_flare_spacing": 0.0,
+          "lens_flare": {
+            "class": "lens_flare",
+            "path": ""
+          },
+          "diffuse": {
+            "diffuse_flags": 0,
+            "base_map": {
+              "class": "bitmap",
+              "path": "levels\\b30\\bitmaps\\metal flat generic"
+            },
+            "detail_map_function": "double_biased_multiply",
+            "primary_detail_map_scale": 1.0,
+            "primary_detail_map": {
+              "class": "bitmap",
+              "path": ""
+            },
+            "secondary_detail_map_scale": 1.0,
+            "secondary_detail_map": {
+              "class": "bitmap",
+              "path": ""
+            },
+            "micro_detail_map_function": "double_biased_multiply",
+            "micro_detail_map_scale": 16.0,
+            "micro_detail_map": {
+              "class": "bitmap",
+              "path": "levels\\b30\\bitmaps\\detail metal sratches"
+            },
+            "material_color": {
+              "r": 1.0,
+              "g": 1.0,
+              "b": 1.0
+            },
+            "_enum_values": {
+              "detail_map_function": 0,
+              "micro_detail_map_function": 0
+            },
+            "_flag_names": {
+              "diffuse_flags": []
+            }
+          },
+          "bump_properties": {
+            "map_scale": 1.0,
+            "map": {
+              "class": "bitmap",
+              "path": "levels\\b30\\bitmaps\\metal flat generic bump"
+            },
+            "map_scale_x": 1.0,
+            "map_scale_y": 1.0
+          },
+          "texture_scrolling": {
+            "u_animation": {
+              "function": "one",
+              "period": 1.0,
+              "scale": 1.0,
+              "_enum_values": {
+                "function": 0
+              }
+            },
+            "v_animation": {
+              "function": "one",
+              "period": 1.0,
+              "scale": 1.0,
+              "_enum_values": {
+                "function": 0
+              }
+            }
+          },
+          "self_illumination": {
+            "flags": 0,
+            "primary_on_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "primary_off_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "primary_animation": {
+              "function": "one",
+              "period": 1.0,
+              "phase": 0.0,
+              "_enum_values": {
+                "function": 0
+              }
+            },
+            "secondary_on_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "secondary_off_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "secondary_animation": {
+              "function": "one",
+              "period": 1.0,
+              "phase": 0.0,
+              "_enum_values": {
+                "function": 0
+              }
+            },
+            "plasma_on_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "plasma_off_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "plasma_animation": {
+              "function": "one",
+              "period": 1.0,
+              "phase": 0.0,
+              "_enum_values": {
+                "function": 0
+              }
+            },
+            "map_scale": 1.0,
+            "map": {
+              "class": "bitmap",
+              "path": ""
+            },
+            "_flag_names": {
+              "flags": []
+            }
+          },
+          "specular": {
+            "specular_flags": 0,
+            "brightness": 1.0,
+            "perpendicular_tint_color": {
+              "r": 0.37647101283073425,
+              "g": 0.48235300183296204,
+              "b": 0.6509799957275391
+            },
+            "parallel_tint_color": {
+              "r": 0.22745099663734436,
+              "g": 0.4274510145187378,
+              "b": 0.3019610047340393
+            },
+            "_flag_names": {
+              "specular_flags": []
+            }
+          },
+          "reflection": {
+            "reflection_flags": 0,
+            "reflection_type": "bumped_cubemap",
+            "lightmap_brightness_scale": 0.0,
+            "perpendicular_brightness": 0.44999998807907104,
+            "parallel_brightness": 0.3499999940395355,
+            "cube_map": {
+              "class": "bitmap",
+              "path": "levels\\b30\\bitmaps\\cube map forerunner interiors"
+            },
+            "_enum_values": {
+              "reflection_type": 0
+            },
+            "_flag_names": {
+              "reflection_flags": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "class": "shader_environment",
+      "path": "levels\\b30\\shaders\\metal strips decorative wide",
+      "native": {
+        "shdr_attrs": {
+          "radiosity_flags": 0,
+          "radiosity_detail_level": "medium",
+          "radiosity_light_power": 0.0,
+          "radiosity_light_color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "radiosity_tint_color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "material_type": "metal_thick",
+          "shader_type": "senv",
+          "_enum_values": {
+            "radiosity_detail_level": 1,
+            "material_type": 7,
+            "shader_type": 3
+          },
+          "_flag_names": {
+            "radiosity_flags": []
+          }
+        },
+        "senv_attrs": {
+          "environment_shader": {
+            "flags": 0,
+            "type": "normal",
+            "_enum_values": {
+              "type": 0
+            },
+            "_flag_names": {
+              "flags": []
+            }
+          },
+          "lens_flare_spacing": 0.0,
+          "lens_flare": {
+            "class": "lens_flare",
+            "path": ""
+          },
+          "diffuse": {
+            "diffuse_flags": 0,
+            "base_map": {
+              "class": "bitmap",
+              "path": "levels\\b30\\bitmaps\\metal strips decorative wide"
+            },
+            "detail_map_function": "double_biased_multiply",
+            "primary_detail_map_scale": 1.0,
+            "primary_detail_map": {
+              "class": "bitmap",
+              "path": ""
+            },
+            "secondary_detail_map_scale": 1.0,
+            "secondary_detail_map": {
+              "class": "bitmap",
+              "path": ""
+            },
+            "micro_detail_map_function": "double_biased_multiply",
+            "micro_detail_map_scale": 16.0,
+            "micro_detail_map": {
+              "class": "bitmap",
+              "path": "levels\\b30\\bitmaps\\detail tech panels"
+            },
+            "material_color": {
+              "r": 1.0,
+              "g": 1.0,
+              "b": 1.0
+            },
+            "_enum_values": {
+              "detail_map_function": 0,
+              "micro_detail_map_function": 0
+            },
+            "_flag_names": {
+              "diffuse_flags": []
+            }
+          },
+          "bump_properties": {
+            "map_scale": 1.0,
+            "map": {
+              "class": "bitmap",
+              "path": "levels\\b30\\bitmaps\\metal strips decorative wide bump"
+            },
+            "map_scale_x": 1.0,
+            "map_scale_y": 1.0
+          },
+          "texture_scrolling": {
+            "u_animation": {
+              "function": "one",
+              "period": 1.0,
+              "scale": 1.0,
+              "_enum_values": {
+                "function": 0
+              }
+            },
+            "v_animation": {
+              "function": "one",
+              "period": 1.0,
+              "scale": 1.0,
+              "_enum_values": {
+                "function": 0
+              }
+            }
+          },
+          "self_illumination": {
+            "flags": 0,
+            "primary_on_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "primary_off_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "primary_animation": {
+              "function": "one",
+              "period": 1.0,
+              "phase": 0.0,
+              "_enum_values": {
+                "function": 0
+              }
+            },
+            "secondary_on_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "secondary_off_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "secondary_animation": {
+              "function": "one",
+              "period": 1.0,
+              "phase": 0.0,
+              "_enum_values": {
+                "function": 0
+              }
+            },
+            "plasma_on_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "plasma_off_color": {
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "plasma_animation": {
+              "function": "one",
+              "period": 1.0,
+              "phase": 0.0,
+              "_enum_values": {
+                "function": 0
+              }
+            },
+            "map_scale": 1.0,
+            "map": {
+              "class": "bitmap",
+              "path": ""
+            },
+            "_flag_names": {
+              "flags": []
+            }
+          },
+          "specular": {
+            "specular_flags": 0,
+            "brightness": 0.5,
+            "perpendicular_tint_color": {
+              "r": 0.8823530077934265,
+              "g": 0.800000011920929,
+              "b": 0.8901960253715515
+            },
+            "parallel_tint_color": {
+              "r": 0.49411800503730774,
+              "g": 0.6588240265846252,
+              "b": 0.8196079730987549
+            },
+            "_flag_names": {
+              "specular_flags": []
+            }
+          },
+          "reflection": {
+            "reflection_flags": 0,
+            "reflection_type": "bumped_cubemap",
+            "lightmap_brightness_scale": 0.0,
+            "perpendicular_brightness": 0.3499999940395355,
+            "parallel_brightness": 0.25,
+            "cube_map": {
+              "class": "bitmap",
+              "path": "levels\\b30\\bitmaps\\cube map forerunner interiors"
+            },
+            "_enum_values": {
+              "reflection_type": 0
+            },
+            "_flag_names": {
+              "reflection_flags": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "class": "shader_transparent_chicago",
+      "path": "scenery\\teleporter_base\\shaders\\teleporter_cone",
+      "native": {
+        "shdr_attrs": {
+          "radiosity_flags": 0,
+          "radiosity_detail_level": "high",
+          "radiosity_light_power": 1.0,
+          "radiosity_light_color": {
+            "r": 0.6156859993934631,
+            "g": 0.9607840180397034,
+            "b": 0.5294119715690613
+          },
+          "radiosity_tint_color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "material_type": "dirt",
+          "shader_type": "schi",
+          "_enum_values": {
+            "radiosity_detail_level": 0,
+            "material_type": 0,
+            "shader_type": 6
+          },
+          "_flag_names": {
+            "radiosity_flags": []
+          }
+        },
+        "schi_attrs": {
+          "chicago_shader": {
+            "numeric_counter_limit": 0,
+            "chicago_shader_flags": 4,
+            "first_map_type": "map_2d",
+            "framebuffer_blend_function": "add",
+            "framebuffer_fade_mode": "fade_when_parallel",
+            "framebuffer_fade_source": "none",
+            "_enum_values": {
+              "first_map_type": 0,
+              "framebuffer_blend_function": 3,
+              "framebuffer_fade_mode": 2,
+              "framebuffer_fade_source": 0
+            },
+            "_flag_names": {
+              "chicago_shader_flags": [
+                "two_sided"
+              ]
+            }
+          },
+          "lens_flare_spacing": 0.0,
+          "lens_flare": {
+            "class": "lens_flare",
+            "path": ""
+          },
+          "extra_layers": [],
+          "maps": [
+            {
+              "flags": 0,
+              "color_function": "multiply",
+              "alpha_function": "multiply",
+              "map_u_scale": 1.0,
+              "map_v_scale": 1.0,
+              "map_u_offset": 0.0,
+              "map_v_offset": 0.0,
+              "map_rotation": 0.0,
+              "map_bias": 0.0,
+              "bitmap": {
+                "class": "bitmap",
+                "path": "scenery\\teleporter_base\\bitmaps\\base volumetric dust"
+              },
+              "u_animation": {
+                "source": "none",
+                "function": "slide",
+                "period": 6.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 6
+                }
+              },
+              "v_animation": {
+                "source": "none",
+                "function": "slide",
+                "period": -20.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 6
+                }
+              },
+              "rotation_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 360.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "rotation_center": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "_enum_values": {
+                "color_function": 2,
+                "alpha_function": 2
+              },
+              "_flag_names": {
+                "flags": []
+              }
+            },
+            {
+              "flags": 0,
+              "color_function": "multiply",
+              "alpha_function": "multiply",
+              "map_u_scale": 1.0,
+              "map_v_scale": 1.0,
+              "map_u_offset": 0.0,
+              "map_v_offset": 0.0,
+              "map_rotation": 0.0,
+              "map_bias": 0.0,
+              "bitmap": {
+                "class": "bitmap",
+                "path": "scenery\\teleporter_base\\bitmaps\\base volumetric dust"
+              },
+              "u_animation": {
+                "source": "none",
+                "function": "slide",
+                "period": -4.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 6
+                }
+              },
+              "v_animation": {
+                "source": "none",
+                "function": "slide",
+                "period": 15.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 6
+                }
+              },
+              "rotation_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 360.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "rotation_center": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "_enum_values": {
+                "color_function": 2,
+                "alpha_function": 2
+              },
+              "_flag_names": {
+                "flags": []
+              }
+            },
+            {
+              "flags": 0,
+              "color_function": "current",
+              "alpha_function": "current",
+              "map_u_scale": 1.0,
+              "map_v_scale": 1.0499999523162842,
+              "map_u_offset": 0.0,
+              "map_v_offset": 0.0,
+              "map_rotation": 0.0,
+              "map_bias": 0.0,
+              "bitmap": {
+                "class": "bitmap",
+                "path": "scenery\\teleporter_base\\bitmaps\\teleporter_dust"
+              },
+              "u_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "v_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 1.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "rotation_animation": {
+                "source": "none",
+                "function": "one",
+                "period": 1.0,
+                "phase": 0.0,
+                "scale": 360.0,
+                "_enum_values": {
+                  "source": 0,
+                  "function": 0
+                }
+              },
+              "rotation_center": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "_enum_values": {
+                "color_function": 0,
+                "alpha_function": 0
+              },
+              "_flag_names": {
+                "flags": []
+              }
+            }
+          ],
+          "extra_flags": 0,
+          "_flag_names": {
+            "extra_flags": []
+          }
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "levels\\a50\\devices\\prison door\\bitmaps\\energy plasma",
+      "native": {
+        "type": "textures_2d",
+        "format": "explicit_alpha",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 0,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 128,
+        "color_plate_height": 128,
+        "compressed_color_plate_data": {
+          "byte_length": 14344,
+          "sha256": "218f5671a9213abdb9d6593e47af98d793cbe237539405e9053f53a010dbe2ee"
+        },
+        "processed_pixel_data": {
+          "byte_length": 21888,
+          "sha256": "2d1cefc9bab22cad153b4cdb4f17783983fa8ff07e79d4a744607660638089a9"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 1,
+            "sprites": []
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 128,
+            "height": 128,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt3",
+            "flags": 131,
+            "registration_point_x": 64,
+            "registration_point_y": 64,
+            "mipmaps": 7,
+            "pixels": 18,
+            "pixels_offset": 3665408,
+            "pixels_meta_size": 21888,
+            "bitmap_id_unknown1": 3788636254,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 15
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 0,
+          "format": 1,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "scenery\\teleporter_shield\\bitmaps\\teleporter_shield_energy mask",
+      "native": {
+        "type": "textures_2d",
+        "format": "explicit_alpha",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 0,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 128,
+        "color_plate_height": 128,
+        "compressed_color_plate_data": {
+          "byte_length": 16953,
+          "sha256": "f7623403daf44bdb57004c28015dbd596411c35de4ec057c014bbec3fb0c9d49"
+        },
+        "processed_pixel_data": {
+          "byte_length": 21888,
+          "sha256": "9340350743f72c387f04118a0c576e8f8371e02dba0f999bbbe121b133aaed5c"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 1,
+            "sprites": []
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 128,
+            "height": 128,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt3",
+            "flags": 131,
+            "registration_point_x": 64,
+            "registration_point_y": 64,
+            "mipmaps": 7,
+            "pixels": 18,
+            "pixels_offset": 3687424,
+            "pixels_meta_size": 21888,
+            "bitmap_id_unknown1": 3788701791,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 15
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 0,
+          "format": 1,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "scenery\\teleporter_shield\\bitmaps\\teleporter_shield",
+      "native": {
+        "type": "textures_2d",
+        "format": "explicit_alpha",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 0,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 256,
+        "color_plate_height": 256,
+        "compressed_color_plate_data": {
+          "byte_length": 57099,
+          "sha256": "a5abfaad8b0c82dc1d9b3d56ce8935c8b6e83c6f2433f095d66c1a05bd578554"
+        },
+        "processed_pixel_data": {
+          "byte_length": 87424,
+          "sha256": "ca91973ccc41ecf7684b8801fcfa8adcd4ed461a129c7b507e2617cbc9045514"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 1,
+            "sprites": []
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 256,
+            "height": 256,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt3",
+            "flags": 131,
+            "registration_point_x": 128,
+            "registration_point_y": 128,
+            "mipmaps": 8,
+            "pixels": 18,
+            "pixels_offset": 3709440,
+            "pixels_meta_size": 87424,
+            "bitmap_id_unknown1": 3788767328,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 15
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 0,
+          "format": 1,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "scenery\\teleporter_base\\bitmaps\\teleporter_base",
+      "native": {
+        "type": "textures_2d",
+        "format": "explicit_alpha",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 0,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 256,
+        "color_plate_height": 256,
+        "compressed_color_plate_data": {
+          "byte_length": 64775,
+          "sha256": "7aad4471d3607f5d2ec0047df3e6bc26cde3bd1c716bf40355b6eb142b1f4710"
+        },
+        "processed_pixel_data": {
+          "byte_length": 87424,
+          "sha256": "6c02e5796315fd30d60ad742b056965e409e1dc956a5d24b58144cfebebe2d01"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 1,
+            "sprites": []
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 256,
+            "height": 256,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt3",
+            "flags": 131,
+            "registration_point_x": 128,
+            "registration_point_y": 128,
+            "mipmaps": 8,
+            "pixels": 18,
+            "pixels_offset": 3796992,
+            "pixels_meta_size": 87424,
+            "bitmap_id_unknown1": 3789160550,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 15
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 0,
+          "format": 1,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "levels\\b30\\bitmaps\\detail brushed metal",
+      "native": {
+        "type": "textures_2d",
+        "format": "color_key_transparency",
+        "usage": "detail_map",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.5,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 0,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 128,
+        "color_plate_height": 128,
+        "compressed_color_plate_data": {
+          "byte_length": 19684,
+          "sha256": "935b86d71cdcf16ec837d6f285605918150bfd7b18c1120674ac3b7c372cb590"
+        },
+        "processed_pixel_data": {
+          "byte_length": 11008,
+          "sha256": "75b37eec2155e38fe20b7b8d6a0fc865ba3e296b02b69dc230eef3f1fe72f217"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 1,
+            "sprites": []
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 128,
+            "height": 128,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt1",
+            "flags": 131,
+            "registration_point_x": 64,
+            "registration_point_y": 64,
+            "mipmaps": 7,
+            "pixels": 18,
+            "pixels_offset": 3884544,
+            "pixels_meta_size": 11008,
+            "bitmap_id_unknown1": 3789226087,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 14
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 0,
+          "format": 0,
+          "usage": 3,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "scenery\\teleporter_base\\bitmaps\\teleporter_base bump",
+      "native": {
+        "type": "textures_2d",
+        "format": "color_32bit",
+        "usage": "height_map",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.05000000074505806
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 0,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 256,
+        "color_plate_height": 256,
+        "compressed_color_plate_data": {
+          "byte_length": 14054,
+          "sha256": "4633208b0570638b952ab00908939b77c8f9dc27763a7364909f2f9c4a451794"
+        },
+        "processed_pixel_data": {
+          "byte_length": 87424,
+          "sha256": "0d43c357ba35f46efba9c55f9558d293401bc18b11a54ab04ef725b0cd5a1fe0"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 1,
+            "sprites": []
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 256,
+            "height": 256,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "p8_bump",
+            "flags": 141,
+            "registration_point_x": 128,
+            "registration_point_y": 128,
+            "mipmaps": 8,
+            "pixels": 18,
+            "pixels_offset": 3895808,
+            "pixels_meta_size": 87424,
+            "bitmap_id_unknown1": 3789291624,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 17
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "palletized",
+                "swizzled",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 0,
+          "format": 4,
+          "usage": 2,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "levels\\b30\\bitmaps\\cube map forerunner interiors",
+      "native": {
+        "type": "cubemaps",
+        "format": "color_16bit",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 0,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 256,
+        "color_plate_height": 192,
+        "compressed_color_plate_data": {
+          "byte_length": 25985,
+          "sha256": "7fb65c2e0629ba1f06367cebf8a05081a3e676de9a4e57cf4e2dd0a231354b34"
+        },
+        "processed_pixel_data": {
+          "byte_length": 66048,
+          "sha256": "f3bb0a51829ffd0dac9e1c1f92046c224134929583d8fd9855e133fd92173c1e"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 1,
+            "sprites": []
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 64,
+            "height": 64,
+            "depth": 1,
+            "type": "cubemap",
+            "format": "r5g6b5",
+            "flags": 137,
+            "registration_point_x": 0,
+            "registration_point_y": 0,
+            "mipmaps": 6,
+            "pixels": 18,
+            "pixels_offset": 3983360,
+            "pixels_meta_size": 66048,
+            "bitmap_id_unknown1": 3789357161,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 2,
+              "format": 6
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "swizzled",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 2,
+          "format": 3,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "levels\\b30\\bitmaps\\metal flat generic",
+      "native": {
+        "type": "textures_2d",
+        "format": "interpolated_alpha",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 0,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 256,
+        "color_plate_height": 256,
+        "compressed_color_plate_data": {
+          "byte_length": 132810,
+          "sha256": "70e4b8104af6aa05ef4064429b24a3691cfdf8691eff7b86527571bf7bb6bf8b"
+        },
+        "processed_pixel_data": {
+          "byte_length": 87424,
+          "sha256": "d4b388f0af374650b6f3a6e225d86529d0480f82355f602974ce9f8f2d476e79"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 1,
+            "sprites": []
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 256,
+            "height": 256,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt5",
+            "flags": 131,
+            "registration_point_x": 128,
+            "registration_point_y": 128,
+            "mipmaps": 8,
+            "pixels": 18,
+            "pixels_offset": 4049408,
+            "pixels_meta_size": 87424,
+            "bitmap_id_unknown1": 3789488235,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 16
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 0,
+          "format": 2,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "levels\\b30\\bitmaps\\detail metal sratches",
+      "native": {
+        "type": "textures_2d",
+        "format": "color_key_transparency",
+        "usage": "detail_map",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 0,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 256,
+        "color_plate_height": 256,
+        "compressed_color_plate_data": {
+          "byte_length": 58402,
+          "sha256": "0293d50b23c2af992994a108ed1f7de35ac87a0ec46cc90e6cf475dcf74a5178"
+        },
+        "processed_pixel_data": {
+          "byte_length": 174848,
+          "sha256": "380986ecfed700f875fc95db13ee3abf7e5cf3c79c2c89dba2ac98e7912b4fc2"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 1,
+            "sprites": []
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 256,
+            "height": 256,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "r5g6b5",
+            "flags": 137,
+            "registration_point_x": 128,
+            "registration_point_y": 128,
+            "mipmaps": 8,
+            "pixels": 0,
+            "pixels_offset": 4136960,
+            "pixels_meta_size": 174848,
+            "bitmap_id_unknown1": 3789553772,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 6
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "swizzled",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 0,
+          "format": 0,
+          "usage": 3,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "levels\\b30\\bitmaps\\metal flat generic bump",
+      "native": {
+        "type": "textures_2d",
+        "format": "color_32bit",
+        "usage": "height_map",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.004000000189989805
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 0,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 256,
+        "color_plate_height": 256,
+        "compressed_color_plate_data": {
+          "byte_length": 52167,
+          "sha256": "30f014ab657c93f190b1388146bbaf3883bc7b21c3ec2262924ef48db3906927"
+        },
+        "processed_pixel_data": {
+          "byte_length": 87424,
+          "sha256": "8f661f82f171c56a636b7ead322115fc56c86dda7f727c56a0dfeb7b13ba6a9e"
+        },
+        "blur_filter_size": 2.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 1,
+            "sprites": []
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 256,
+            "height": 256,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "p8_bump",
+            "flags": 141,
+            "registration_point_x": 128,
+            "registration_point_y": 128,
+            "mipmaps": 8,
+            "pixels": 18,
+            "pixels_offset": 4312064,
+            "pixels_meta_size": 87424,
+            "bitmap_id_unknown1": 3789619309,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 17
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "palletized",
+                "swizzled",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 0,
+          "format": 4,
+          "usage": 2,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "levels\\b30\\bitmaps\\metal strips decorative wide",
+      "native": {
+        "type": "textures_2d",
+        "format": "explicit_alpha",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 0,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 512,
+        "color_plate_height": 512,
+        "compressed_color_plate_data": {
+          "byte_length": 574343,
+          "sha256": "ccde4d960f61e464e99d56c23f968e3fa8754747e0ffeec8981454e454b1b94d"
+        },
+        "processed_pixel_data": {
+          "byte_length": 349568,
+          "sha256": "57e705892f267ce5d6965d75ab7dafcb695e6566488bad3568d1e3380ddc156b"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 1,
+            "sprites": []
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 512,
+            "height": 512,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt3",
+            "flags": 131,
+            "registration_point_x": 256,
+            "registration_point_y": 256,
+            "mipmaps": 9,
+            "pixels": 18,
+            "pixels_offset": 4399616,
+            "pixels_meta_size": 349568,
+            "bitmap_id_unknown1": 3789750383,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 15
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 0,
+          "format": 1,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "levels\\b30\\bitmaps\\detail tech panels",
+      "native": {
+        "type": "textures_2d",
+        "format": "color_key_transparency",
+        "usage": "detail_map",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.4000000059604645,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 0,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 256,
+        "color_plate_height": 256,
+        "compressed_color_plate_data": {
+          "byte_length": 48788,
+          "sha256": "1d291ff617b67ceb764917314131a1585c516925c6f73202990698948029a624"
+        },
+        "processed_pixel_data": {
+          "byte_length": 43776,
+          "sha256": "3753234aa32319c3b9f1b89111b5074d324fb7851c55c2bec84567525e3945be"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 1,
+            "sprites": []
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 256,
+            "height": 256,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt1",
+            "flags": 131,
+            "registration_point_x": 128,
+            "registration_point_y": 128,
+            "mipmaps": 8,
+            "pixels": 18,
+            "pixels_offset": 4749312,
+            "pixels_meta_size": 43776,
+            "bitmap_id_unknown1": 3789815920,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 14
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 0,
+          "format": 0,
+          "usage": 3,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "levels\\b30\\bitmaps\\metal strips decorative wide bump",
+      "native": {
+        "type": "textures_2d",
+        "format": "color_32bit",
+        "usage": "height_map",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.007499999832361937
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 0,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 512,
+        "color_plate_height": 512,
+        "compressed_color_plate_data": {
+          "byte_length": 68247,
+          "sha256": "56b43b77785fe7c6548a536bfd77aed92daaa5f3187ab7b287f060ff3e1bf17d"
+        },
+        "processed_pixel_data": {
+          "byte_length": 349568,
+          "sha256": "4d92f271ca56e1a365dd3a44d77c4cec609161e6b1b2b57d3b0dc54e70b95477"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 1,
+            "sprites": []
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 512,
+            "height": 512,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "p8_bump",
+            "flags": 141,
+            "registration_point_x": 256,
+            "registration_point_y": 256,
+            "mipmaps": 9,
+            "pixels": 18,
+            "pixels_offset": 4793344,
+            "pixels_meta_size": 349568,
+            "bitmap_id_unknown1": 3789881457,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 17
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "palletized",
+                "swizzled",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 0,
+          "format": 4,
+          "usage": 2,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "scenery\\teleporter_base\\bitmaps\\base volumetric dust",
+      "native": {
+        "type": "textures_2d",
+        "format": "color_32bit",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 0,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 64,
+        "color_plate_height": 64,
+        "compressed_color_plate_data": {
+          "byte_length": 6400,
+          "sha256": "75cba001b1366abb0d0893c7aaaae0b7e7057d3adcb810365aa343ffb6a7a5b2"
+        },
+        "processed_pixel_data": {
+          "byte_length": 2816,
+          "sha256": "c9c7d228ee1f7cbc8b94c0d71d504bf0f02be818fd778441e00982a2921f9222"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 1,
+            "sprites": []
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 64,
+            "height": 64,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "dxt1",
+            "flags": 131,
+            "registration_point_x": 32,
+            "registration_point_y": 32,
+            "mipmaps": 6,
+            "pixels": 0,
+            "pixels_offset": 5143040,
+            "pixels_meta_size": 2816,
+            "bitmap_id_unknown1": 3790012531,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 14
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "compressed",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 0,
+          "format": 4,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    },
+    {
+      "class": "bitmap",
+      "path": "scenery\\teleporter_base\\bitmaps\\teleporter_dust",
+      "native": {
+        "type": "textures_2d",
+        "format": "color_32bit",
+        "usage": "default",
+        "flags": 0,
+        "post_processing": {
+          "detail_fade_factor": 0.0,
+          "sharpen_amount": 0.0,
+          "bump_height": 0.0
+        },
+        "sprite_processing": {
+          "sprite_budget_size": "x32",
+          "sprite_budget_count": 0,
+          "_enum_values": {
+            "sprite_budget_size": 0
+          }
+        },
+        "color_plate_width": 32,
+        "color_plate_height": 32,
+        "compressed_color_plate_data": {
+          "byte_length": 686,
+          "sha256": "636caa873773a9fd59332ebbaa7fc07c9ede7a528d2895fbe4967f2036691a15"
+        },
+        "processed_pixel_data": {
+          "byte_length": 5504,
+          "sha256": "6ddf7de1d672e1d305b18ec093535b901d5834e557f742fd578baa1c1908d210"
+        },
+        "blur_filter_size": 0.0,
+        "alpha_bias": 0.0,
+        "mipmap_levels": 0,
+        "sprite_usage": "blend_add_subtract_max",
+        "sprite_spacing": 0,
+        "sequences": [
+          {
+            "sequence_name": "",
+            "first_bitmap_index": 0,
+            "bitmap_count": 1,
+            "sprites": []
+          }
+        ],
+        "bitmaps": [
+          {
+            "bitm_id": "bitm",
+            "width": 32,
+            "height": 32,
+            "depth": 1,
+            "type": "texture_2d",
+            "format": "x8r8g8b8",
+            "flags": 137,
+            "registration_point_x": 16,
+            "registration_point_y": 16,
+            "mipmaps": 5,
+            "pixels": 18,
+            "pixels_offset": 5146112,
+            "pixels_meta_size": 5504,
+            "bitmap_id_unknown1": 3790078068,
+            "bitmap_data_pointer": 4294967295,
+            "bitmap_id_unknown2": 0,
+            "base_address": 1073751810,
+            "_enum_values": {
+              "bitm_id": 1651078253,
+              "type": 0,
+              "format": 10
+            },
+            "_flag_names": {
+              "flags": [
+                "power_of_2_dim",
+                "swizzled",
+                "prefer_low_detail"
+              ]
+            }
+          }
+        ],
+        "_enum_values": {
+          "type": 0,
+          "format": 4,
+          "usage": 1,
+          "sprite_usage": 0
+        },
+        "_flag_names": {
+          "flags": []
+        }
+      }
+    }
+  ]
+}

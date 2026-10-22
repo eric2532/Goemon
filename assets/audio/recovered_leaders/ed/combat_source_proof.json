@@ -1,0 +1,279 @@
+{
+  "source": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/raw/SC06.CD.dir/FILE_016.dir/0.4.dec",
+  "source_sha256": "85b54829995fc482dd673019f5c9fed052f618f5f5de65f95d9d50e66c93f98c",
+  "original_actor_fps": {
+    "nominal": 30,
+    "evidence": "func80014390 setsD_800B9A18=2;boot.c mainloop dispatch followed byVSync(D_800B9A18), NTSC60Hz /2. Existing source06 export30fps matches."
+  },
+  "animation": {
+    "id": "Ed_source_06",
+    "source_address": "0x801963ec",
+    "source_offset": 451220,
+    "frames": [
+      {
+        "tick": 0,
+        "hold_ticks": 1,
+        "pose": "0x80195eec",
+        "command_address": "0x801963ec",
+        "source_pointer_word": "0x81195eec"
+      },
+      {
+        "tick": 1,
+        "hold_ticks": 1,
+        "pose": "0x80195f3c",
+        "command_address": "0x801963f4",
+        "source_pointer_word": "0x81195f3c"
+      },
+      {
+        "tick": 2,
+        "hold_ticks": 1,
+        "pose": "0x80195f8c",
+        "command_address": "0x801963fc",
+        "source_pointer_word": "0x81195f8c"
+      },
+      {
+        "tick": 3,
+        "hold_ticks": 1,
+        "pose": "0x80195fdc",
+        "command_address": "0x80196404",
+        "source_pointer_word": "0x81195fdc"
+      },
+      {
+        "tick": 4,
+        "hold_ticks": 1,
+        "pose": "0x8019602c",
+        "command_address": "0x8019640c",
+        "source_pointer_word": "0x8119602c"
+      },
+      {
+        "tick": 5,
+        "hold_ticks": 1,
+        "pose": "0x8019607c",
+        "command_address": "0x80196414",
+        "source_pointer_word": "0x8119607c"
+      },
+      {
+        "tick": 6,
+        "hold_ticks": 1,
+        "pose": "0x801960cc",
+        "command_address": "0x8019641c",
+        "source_pointer_word": "0x811960cc"
+      },
+      {
+        "tick": 7,
+        "hold_ticks": 1,
+        "pose": "0x8019611c",
+        "command_address": "0x80196424",
+        "source_pointer_word": "0x8119611c"
+      },
+      {
+        "tick": 8,
+        "hold_ticks": 1,
+        "pose": "0x8019616c",
+        "command_address": "0x8019642c",
+        "source_pointer_word": "0x8119616c"
+      },
+      {
+        "tick": 9,
+        "hold_ticks": 1,
+        "pose": "0x801961bc",
+        "command_address": "0x80196434",
+        "source_pointer_word": "0x811961bc"
+      },
+      {
+        "tick": 10,
+        "hold_ticks": 1,
+        "pose": "0x8019620c",
+        "command_address": "0x8019643c",
+        "source_pointer_word": "0x8119620c"
+      },
+      {
+        "tick": 11,
+        "hold_ticks": 1,
+        "pose": "0x8019625c",
+        "command_address": "0x80196444",
+        "source_pointer_word": "0x8119625c"
+      },
+      {
+        "tick": 12,
+        "hold_ticks": 1,
+        "pose": "0x801962ac",
+        "command_address": "0x8019644c",
+        "source_pointer_word": "0x811962ac"
+      },
+      {
+        "tick": 13,
+        "hold_ticks": 1,
+        "pose": "0x801962fc",
+        "command_address": "0x80196454",
+        "source_pointer_word": "0x811962fc"
+      },
+      {
+        "tick": 14,
+        "hold_ticks": 1,
+        "pose": "0x8019634c",
+        "command_address": "0x8019645c",
+        "source_pointer_word": "0x8119634c"
+      },
+      {
+        "tick": 15,
+        "hold_ticks": 1,
+        "pose": "0x8019639c",
+        "command_address": "0x80196464",
+        "source_pointer_word": "0x8119639c"
+      }
+    ],
+    "ticks": 16,
+    "terminal": "loop",
+    "loop_start_tick": 0,
+    "table_indices": [
+      6
+    ],
+    "events": [],
+    "external_timing": false
+  },
+  "actor_phases": [
+    {
+      "state": 5,
+      "entry": "8017E1D8",
+      "animation": "801963EC",
+      "ticks": 210,
+      "sounds": [
+        "start0x97E@8017E240",
+        "voice0xA92@8017E24C(inactiveUS,requestedrestored)",
+        "start0x97F@8017E2A8at30actor ticks"
+      ],
+      "notes": "Source06 loops continuously; aim updates yaw duringstate5. Beamgeometrybeginsatstate5entry with4tickscale-in;97F delayedstart is auxiliaryloop, not onsetofvisiblebeam."
+    },
+    {
+      "state": 6,
+      "entry": "8017E4AC",
+      "animation": "801963EC",
+      "ticks": 16,
+      "sounds": [
+        "stop0x97E@8017E4E0 via soundcommand4"
+      ],
+      "notes": "Same loopingpose during shrink/fade."
+    },
+    {
+      "state": 7,
+      "entry": "8017E4FC",
+      "animation": "80195E24",
+      "sounds": [
+        "stop0x97F@80181D98 via soundcommand4, thenrecovery",
+        "startA97@8017E534"
+      ],
+      "notes": "No separate confirmed beamendSFX;A97 is subsequent recoveryevent."
+    }
+  ],
+  "geometry": {
+    "source_functions": [
+      "8017F784",
+      "801800E0",
+      "801807C4",
+      "80180BF0",
+      "80180D24"
+    ],
+    "origin": "Beam actor tracksEd rootXYZ, sourceY=-48 offset (at.01sourceunits=>+0.48gameY). CopiesEd yaw. No provenhand-boneorigininthispath.",
+    "direction": "Beam-localnegativeZ, transformedbymodelmatrix+0x54; beammodelrotation+0x14 increments120/4096turns peractorupdate forspinningeffect.",
+    "visual": "5segments: localZ+64,-64,-192,-320,-448,-576;2stripquads persegment (801807C4\u219280180894).",
+    "hit_volume": "3x3parallelsegments X,Y=-44,0,+44; Z=-640..0. Functions80180BF0\u219280180D24 transformwithbeammodelmatrix+54 thenintersectplayer.",
+    "environment": "Up to7successive128unitnegativeZprobes (max896units) in801800E0;sourcevisualstops/flaresatenvironmentcontact.",
+    "scale": ".01 recovered modelunits gives collisionlength6.4,halfwidth.44. ExistingEdo38length/1.4radius isplayableadaptation, not literalROMdimensions.",
+    "damage": "Onhit,80180D9C usesflags0x4201;80180DA8 setsparameter90passedto8012F568\u2192D_80126B98. Not claimedas90HP; fullplayerdamagehandlernottraced."
+  },
+  "sound_sequence": {
+    "compound_97e": "Twooneshotlayers, thennativeSPUlooplayer. 82command setsinfinite loopanchor atfollowing83wait60;loops waitcommand, doesNOTretriggerinitiallayers. Soundcommand4 stopsgroup.",
+    "sustain_97f": "NativeSPUADPCMloop, not a releasesound. Originalflags6start/block1and3end/block301 prove28..8456PCMframes.",
+    "caution": "Earlier recovery filenamesrelease/charge were eventinterpretations; correctedhere byfullstateandADPCMtrace."
+  },
+  "outputs": [
+    {
+      "file": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Leader Combat Corrections/Ed/ed_beam_sustain_97f_native_loop.wav",
+      "sample_rate": 22050,
+      "pcm_frames": 8456,
+      "seconds": 0.3834920634920635,
+      "loop_begin": 28,
+      "loop_end": 8456,
+      "loop_end_semantics": "exclusive for Godot; RIFFsmpl stores end-1",
+      "sha256": "b5b9bd7df3ee4e3a409f9f76378b86569cbc26abb11ebfef6c1c086f6dc4f09d",
+      "sound_id": "0x97F",
+      "source_sample_id": "sample_cf4dc02262cd725d",
+      "source_sample_sha256": "cf4dc02262cd725d3b054dd6ea146fe11e1b3edbc53652aafc3d1cbdde73371f",
+      "source_pitch_q8": 17152,
+      "source_playback_rate": 22050.0,
+      "proof": {
+        "start_adpcm_block": 1,
+        "end_adpcm_block": 301,
+        "start_flag": 6,
+        "end_flag": 3,
+        "source_vag": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/audio/samples_vag/sample_cf4dc02262cd725d.vag"
+      },
+      "notes": "Exact previously recovered PCM and playback pitch, with original SPU ADPCM loop bounds. Dry; hardware ADSR/reverb and table-driven modulation not emulated."
+    },
+    {
+      "file": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Leader Combat Corrections/Ed/ed_beam_bed_97e_native_loop.wav",
+      "sample_rate": 11025,
+      "pcm_frames": 7476,
+      "seconds": 0.6780952380952381,
+      "loop_begin": 28,
+      "loop_end": 7476,
+      "loop_end_semantics": "exclusive for Godot; RIFFsmpl stores end-1",
+      "sha256": "778d322cb513552b1778387738dbcbd6b10cf741d8e601356893774b1e4d2e83",
+      "sound_id": "0x97E",
+      "source_sample_id": "sample_4a93ecbea8cca70e",
+      "source_sample_sha256": "4a93ecbea8cca70e5ab497ea62b2fe6076a0cec49ffa62d6b696782bdbe7752e",
+      "source_pitch_q8": 13568,
+      "source_playback_rate": 11025.0,
+      "proof": {
+        "start_adpcm_block": 1,
+        "end_adpcm_block": 266,
+        "start_flag": 6,
+        "end_flag": 3,
+        "source_vag": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/audio/samples_vag/sample_4a93ecbea8cca70e.vag"
+      },
+      "notes": "Exact previously recovered PCM and playback pitch, with original SPU ADPCM loop bounds. Dry; hardware ADSR/reverb and table-driven modulation not emulated."
+    },
+    {
+      "file": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Leader Combat Corrections/Ed/ed_beam_start_97e_oneshots_dry.wav",
+      "sample_rate": 44100,
+      "pcm_frames": 130540,
+      "seconds": 2.960090702947846,
+      "loop_begin": null,
+      "loop_end": null,
+      "loop_end_semantics": "exclusive for Godot; RIFFsmpl stores end-1",
+      "sha256": "80d32a72f19088209e4e2f43e0e591231ef1fa955b0939c8865a4c48eafb77bf",
+      "sound_id": "0x97E layers0/1",
+      "notes": "Source-authored initial one-shot layers with original pitches and 1soundtick spacing; gain/headroom adaptation. Play once, neverloop."
+    },
+    {
+      "file": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Leader Combat Corrections/Ed/ed_beam_sustain_97e_97f_dry_blend.wav",
+      "sample_rate": 44100,
+      "pcm_frames": 1281056,
+      "seconds": 29.04888888888889,
+      "loop_begin": 0,
+      "loop_end": 1281056,
+      "loop_end_semantics": "exclusive for Godot; RIFFsmpl stores end-1",
+      "sha256": "1a4781fe25d919c75599704a23a2bb53f5fa32b095d9d0bd4cd09d7c723d5bd0",
+      "sound_id": "0x97E loopinglayer +0x97F",
+      "source_period_frames": [
+        29792,
+        16856
+      ],
+      "notes": "Optional steady-state adaptation for a single sustainedaudio slot. Exact native PCMloop periods and source pitches, relative source eventvolumes98/92,phase-resetalignment and.4headroom. Original startoffset97E at2soundticks and97F at30actor ticks is not encoded. No SPU ADSR/reverb/modulation. Prefer separate native loops for originaleventtiming."
+    },
+    {
+      "file": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Leader Combat Corrections/Ed/ed_beam_voice_a92_restored.wav",
+      "sample_rate": 22050,
+      "pcm_frames": 16268,
+      "seconds": 0.7377777777777778,
+      "loop_begin": null,
+      "loop_end": null,
+      "loop_end_semantics": "exclusive for Godot; RIFFsmpl stores end-1",
+      "sha256": "0526a39e6300ccc5d62930f402fff1af3d4dbb05beb1b0aa4781a2b53747b44d",
+      "sound_id": "0xA92",
+      "source_call": "8017E24C",
+      "notes": "Exact Ed beam actor voice call and ownerrecord. US dispatchkind0 suppresses originalplayback; restoration explicitlyrequestedbyuser. Same sourcePCM asactive A91. Playonce atcast, neverloop."
+    }
+  ]
+}

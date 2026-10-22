@@ -1,0 +1,72 @@
+{
+  "source_executable": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/raw/SLUS_007.26",
+  "source_executable_sha256": "66371c3a7517e9eabd7cb6cf0c5abffe7296bd4bac29c85b8bf7bb9db349714a",
+  "sound_owner": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/raw/SC01.CD.dir/FILE_000.dir/4.7",
+  "sound_owner_sha256": "a49fc74f2df4d547296b626cbb8284a47067a3480a5c40357cd29dbd3d741219",
+  "notes": [
+    "WAVs decode authentic recovered retail SPU ADPCM; no synthetic or substitute sounds.",
+    "Pitch follows original custom sound-driver SPU lookup/interpolation, rounded to integer WAV sample rate.",
+    "Original type10 pitch motion applied at60 gameplay ticks/sec with linear resampling; SPU ADSR, Gaussian interpolation, reverb and event volume are not emulated.",
+    "Sword contact type1/type2 sounds are shared material/contact variants. Do not assert different sword identities.",
+    "Entity-hit437 is shared by basic Fusion and Lumina; 438 is selected by stronger combo and439 by advanced descriptors. Environment482/483 are separate.",
+    "Combat0x5F3 is kind0/inactive in this US executable, but points at the same voice record as active0x5F4.",
+    "No confirmed jump voice recovered; candidate_voice_5f7 must not be labelled original jump voice.",
+    "0x451 is damage/knockback reaction, not a confirmed landing sound. 0x5F5/5F6 is exertion/stronger-attack audio, not a source-confirmed hurt voice.",
+    "Confirmed landing material0 is0x41E (scene-resolved0x481); source8015AC48 and8015B950 enter animationtable9 then call80161CD0 with groundmaterial actor+16E.",
+    "Original source calls swing/voice during attack initialization, including air attack initializers. Delaying to animation release is a runtime adaptation."
+  ],
+  "clips": [
+    {
+      "sound_id": "0x6AA",
+      "file": "death_scream.wav",
+      "description": "Thirstquencher soldier death scream with original type10 pitch motion",
+      "confidence": "Shared ordinary soldier death initializer verified in retail executable; user confirmed this playback",
+      "source_trace": "Shared soldier death80182420 loads6AA at801824B0 and calls8002D4C8 at801824B4. Pitch record+16 points800C7F34;800316F8 case10 initializes,800314DC steps,80031988 case10 releases.",
+      "dispatch_address": "0x80065fc4",
+      "dispatch_bytes": "06 00 03 5e",
+      "resolved_sound_id": "0x965",
+      "resolved_dispatch_bytes": "01 01 00 23",
+      "record_address": "0x800c8214",
+      "record_bytes": "c8 00 00 00 00 47 64 00 01 1b 01 00 00 00 00 00 34 7f 0c 80",
+      "bank_entry": 1,
+      "bank_id": "bank_9c8ce35dd2b0baf2",
+      "bank_sources": [
+        "raw/SC01.CD.dir/FILE_077.dir/2.2"
+      ],
+      "bank_sha256": "9c8ce35dd2b0baf2b9461aada33cd971baa3fca8480f3ed55ee70d1ef47b1050",
+      "lookup_index": 27,
+      "program": 2,
+      "tone": 10,
+      "tone_bytes": "00 00 7f 40 59 00 4d 4d 00 00 00 00 00 00 b1 b2 ff a5 ec 5f 02 00 14 00 c0 00 c1 00 c2 00 c3 00",
+      "sample_index": 20,
+      "sample_id": "sample_36f24b81e1c2c91b",
+      "sample_sha256": "36f24b81e1c2c91b5fa3c391811dae022c39461253052df8b6ba7c07b45f1b51",
+      "pitch_q8": 18176,
+      "center_note": 89,
+      "fine": 0,
+      "spu_pitch_register": 1448,
+      "original_playback_rate": 15590.0390625,
+      "wav_sample_rate": 44100,
+      "duration_seconds": 0.36986394557823127,
+      "pitch_modulation": {
+        "applied": true,
+        "pointer": "0x800c7f34",
+        "words": [
+          10,
+          8,
+          512,
+          2304,
+          30,
+          2048,
+          256,
+          16,
+          24
+        ],
+        "tick_rate": 60,
+        "trace": "800316F8 case10 initializes;800314DC steps;80031988 case10 handles key-off"
+      },
+      "sha256": "63f03abc79632457b0c374446a66a5b073fc4cea3f9db080086623d9ebc6f130"
+    }
+  ],
+  "user_confirmed": "Eric confirmed this pitch-bend playback matches the soldier scream on2026-10-21"
+}

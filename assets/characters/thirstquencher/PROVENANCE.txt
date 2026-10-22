@@ -1,0 +1,90 @@
+THIRSTQUENCHER SOLDIERS — USER-SUPPLIED BRAVE FENCER MUSASHI (USA) ROM
+
+Faithful recovery of the three ordinary soldier mesh variants. No recolors or
+substitute models are used. Source textures, vertex colors, mesh triangles and
+rigid part poses are preserved through the existing source TMD/VRAM conversion.
+
+Recovery source:
+/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery
+raw/SC01.CD.dir/FILE_077.dir/0.4.dec (tutorial forest overlay)
+Load address 0x80128158. Exact blob and exported GLB SHA-256 are in manifest.json.
+Disc checksums remain preserved at that recovery root/disc_checksums.json.
+
+Ordinary source subtype 0 / Soldier1 red: model list 0x801A0058.
+Ordinary source subtype 1 / Soldier2 blue: model list 0x8019B314.
+Ordinary source subtype 2 / Soldier3 green: model list 0x801AEF38.
+Each is a distinct ROM model list of 11 source TMD parts. The nearby red unarmed
+and alternate blue lists are not substituted for these ordinary variants.
+
+The manifest identifies all 11 original TMD addresses and converted model IDs.
+The GLBs embed the recovered texture images and preserve untextured vertex RGB.
+The prior TMD converter stores untextured PSX display RGB divided by255 directly
+in COLOR_0 (no sRGB-to-linear conversion); textured modulation uses RGB/128.
+Runtime shaders should apply display/linear transfer deliberately. PNG pixels
+retain original 5bit palette colors expanded by bit replication.
+Each editable Blender master contains 11 rigid part bones plus Root. Flat bone
+parenting is reconstructed because source transforms are baked actor-space;
+it does not claim an original anatomical hierarchy. Mesh source_part_index
+and corresponding Part_00...Part_10 bone names preserve a stable association.
+Every exported vertex has one joint influence of weight 1.0.
+
+Complete source soldier pose-stream library found in this overlay:
+25 common numeric actions in Soldier1 and Soldier2; Soldier3 retains all 27,
+including its two exclusive streams at 0x801B0F40 and 0x801B0FC8. All discovered
+source streams and held poses are preserved. The sidecars retain source frame
+pointers, pose hashes, packed position/Euler values, durations, terminal words,
+stream hashes and source command addresses. An audit of overlay LUI/ADDIU
+references found no additional entrypoints inside these streams.
+
+Source format interpretation:
+func_80020A28 decodes 8-byte packed part transforms; bit24 of pose pointers
+selects that packed format. Position is signed8 XYZ. Rotation is XYZ Euler in
+12-bit turns. Source pose streams contain (pointer,signed16 duration,u16 flags)
+pairs. func_8012AAAC handles their control records. These soldier streams use
+flags0 and -1 loop termination. Attack/hurt/death completion is controlled by
+actor AI state timers, not by changing the source stream's loop terminator.
+
+Coordinate contract:
+One source unit is represented as 0.01 meter. Blender C=(x,z,-y) converts source
+to Blender Z-up. glTF export converts Blender to Y-up. Source forward -Z becomes
+glTF/Godot +Z; rotate actor Y by PI for a controller facing Godot -Z.
+Part local bounds in manifest.json use Blender Z-up meters; convert their
+corners (x,z,-y) for glTF Y-up. Baked actor-space source matrices are recoverable
+exactly from the sidecar angle/position records and this transform contract.
+
+Timing and semantic mapping:
+All animations retain discrete STEP keys. One source tick is presented at
+nominal 30Hz. The semantic aliases do not rename or remove numeric actions.
+Idle AFDD0 is used for sentry waiting after reload; walk AFF18 accompanies
+source patrol velocity(0,0,-4); run AFFC0 accompanies pursuit velocity(0,0,-8).
+The overlay confirms B0118/B01E0 melee, B0D50 firing, B0E48 reload, B02A8 hurt,
+and B09D0 common death/tumble. Other reaction labels remain deliberately broad.
+Gameplay contact/event timing is retained separately in gameplay_events, since
+AI timers can differ from full animation duration. Do not assume every source
+loop should run forever during gameplay or every retained clip is an attack.
+
+Source reference used for engine/AI interpretation (existing pinned recovery):
+https://github.com/Druthulu/BFM-decomp/tree/b6a28f96bac70af70573826f767a96cf212fd5e3
+Generic engine func_80020A28, func_80020DA4; overlay func_8012AAAC,
+func_8012A828. Behavior notes and disassembly are preserved with the project
+recovery reports. Ordinary enhanced1H/2H/3H Soda Fountain soldiers are separate
+characters and are outside these three ordinary variant exports.
+
+Verification:
+19,679 source part/frame skeleton comparisons across the three rigs passed,
+maximum matrix error 5.96e-7. Export verification confirms 12 joints each,
+all vertices single rigid weight1.0, all animations STEP, and time origin0.
+A separate GLB skinning round-trip compared another19,679 part/frame matrices
+against decoded ROM poses after coordinate conversion and inversebind matrices:
+maximum error9.98e-7, all below1e-5. See build/Other Files/Musashi Soldiers/
+source_glb_roundtrip.json, export_verification.json and rig_build.log.
+No source files, raw assets, saved game/user data or existing character masters
+were changed during this extraction.
+
+Reproduction from the latest painterly source worktree:
+python3 tools/recover_thirstquencher_soldiers.py --recovery-root <recovery root>
+Blender --background --python tools/recover_thirstquencher_rigs.py
+Blender --background --python tools/recover_thirstquencher_contact_sheet.py
+
+For independent GLB/source round-trip verification (requires NumPy):
+python3 tools/recover_thirstquencher_verify.py

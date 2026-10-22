@@ -1,0 +1,3105 @@
+{
+  "rom_sha256": "1603be37427a33548857fc3d2e8867ede71121c353fb631b79b44f1d94845d80",
+  "method": "Original ROM MIPS audio sequencer executed with Unicorn. Original N64 ADPCM samples and predictor books, pitch, duration, volume ramps and pan preserved. Dry offline stereo PCM rendering uses linear resampling and equal-power pan; original RSP interpolation/filter and room reverb are not emulated. Not a bit-exact emulator capture. No synthesized replacement sounds.",
+  "source_action_proof": {
+    "method": "Execute original USA ROM MIPS sound dispatch and Sasuke event curves.\nOnly RNG choice, sound APIs, allocation, action switching and animation-length\nqueries are fixtures. Character lookup, random-group lookup, event decoding,\nattack voice selection, charge thresholds and release guards execute ROM code.\n",
+    "rom_sha256": "1603be37427a33548857fc3d2e8867ede71121c353fb631b79b44f1d94845d80",
+    "source_files": {
+      "0010.bin": "d5ad065ecf55538bf64e971fed1906d41f15eac02a57727187546d580e61ade7",
+      "0011.bin": "1fe5547a5899a34c0cb94c3ca56576d88509c4cff9f7682202627e0df0eddc4e",
+      "0295.bin": "616cb13cc5ed6a3ca00f7ec4eeb93188fe33c47fa9e4a481129a98e62851a50f"
+    },
+    "character_lookup": {
+      "character_index": 2,
+      "function": "0x801DD6E0",
+      "table": "0x80204060",
+      "cases": [
+        {
+          "sound_index": "0x0",
+          "event": "0x201",
+          "table_address": "0x80204064"
+        },
+        {
+          "sound_index": "0x1",
+          "event": "0x38b",
+          "table_address": "0x8020406c"
+        },
+        {
+          "sound_index": "0x2",
+          "event": "0x38c",
+          "table_address": "0x80204074"
+        },
+        {
+          "sound_index": "0x3",
+          "event": "0x38c",
+          "table_address": "0x8020407c"
+        },
+        {
+          "sound_index": "0x4",
+          "event": "0x388",
+          "table_address": "0x80204084"
+        },
+        {
+          "sound_index": "0x5",
+          "event": "0x388",
+          "table_address": "0x8020408c"
+        },
+        {
+          "sound_index": "0x6",
+          "event": "0x388",
+          "table_address": "0x80204094"
+        },
+        {
+          "sound_index": "0x7",
+          "event": "0x38f",
+          "table_address": "0x8020409c"
+        },
+        {
+          "sound_index": "0x8",
+          "event": "0x389",
+          "table_address": "0x802040a4"
+        },
+        {
+          "sound_index": "0x9",
+          "event": "0x392",
+          "table_address": "0x802040ac"
+        },
+        {
+          "sound_index": "0xa",
+          "event": "0x38a",
+          "table_address": "0x802040b4"
+        },
+        {
+          "sound_index": "0xb",
+          "event": "0x38a",
+          "table_address": "0x802040bc"
+        },
+        {
+          "sound_index": "0xc",
+          "event": "0x392",
+          "table_address": "0x802040c4"
+        },
+        {
+          "sound_index": "0xd",
+          "event": "0x387",
+          "table_address": "0x802040cc"
+        },
+        {
+          "sound_index": "0xe",
+          "event": "0x387",
+          "table_address": "0x802040d4"
+        },
+        {
+          "sound_index": "0xf",
+          "event": "0x387",
+          "table_address": "0x802040dc"
+        },
+        {
+          "sound_index": "0x10",
+          "event": "0x201",
+          "table_address": "0x802040e4"
+        },
+        {
+          "sound_index": "0x11",
+          "event": "0x201",
+          "table_address": "0x802040ec"
+        },
+        {
+          "sound_index": "0x12",
+          "event": "0x201",
+          "table_address": "0x802040f4"
+        },
+        {
+          "sound_index": "0x13",
+          "event": "0x393",
+          "table_address": "0x802040fc"
+        },
+        {
+          "sound_index": "0x14",
+          "event": "0x393",
+          "table_address": "0x80204104"
+        },
+        {
+          "sound_index": "0x15",
+          "event": "0x393",
+          "table_address": "0x8020410c"
+        },
+        {
+          "sound_index": "0x16",
+          "event": "0x390",
+          "table_address": "0x80204114"
+        },
+        {
+          "sound_index": "0x17",
+          "event": "0x395",
+          "table_address": "0x8020411c"
+        },
+        {
+          "sound_index": "0x18",
+          "event": "0x3aa",
+          "table_address": "0x80204124"
+        },
+        {
+          "sound_index": "0x19",
+          "event": "0x394",
+          "table_address": "0x8020412c"
+        },
+        {
+          "sound_index": "0x1a",
+          "event": "0x393",
+          "table_address": "0x80204134"
+        },
+        {
+          "sound_index": "0x1b",
+          "event": "0x210",
+          "table_address": "0x8020413c"
+        },
+        {
+          "sound_index": "0x1c",
+          "event": "0x210",
+          "table_address": "0x80204144"
+        },
+        {
+          "sound_index": "0x1d",
+          "event": "0x211",
+          "table_address": "0x8020414c"
+        },
+        {
+          "sound_index": "0x1e",
+          "event": "0x218",
+          "table_address": "0x80204154"
+        },
+        {
+          "sound_index": "0x1f",
+          "event": "0x210",
+          "table_address": "0x8020415c"
+        },
+        {
+          "sound_index": "0x20",
+          "event": "0x210",
+          "table_address": "0x80204164"
+        },
+        {
+          "sound_index": "0x21",
+          "event": "0x21f",
+          "table_address": "0x8020416c"
+        },
+        {
+          "sound_index": "0x22",
+          "event": "0x220",
+          "table_address": "0x80204174"
+        },
+        {
+          "sound_index": "0x23",
+          "event": "0x228",
+          "table_address": "0x8020417c"
+        },
+        {
+          "sound_index": "0x24",
+          "event": "0x213",
+          "table_address": "0x80204184"
+        },
+        {
+          "sound_index": "0x25",
+          "event": "0x202",
+          "table_address": "0x8020418c"
+        },
+        {
+          "sound_index": "0x26",
+          "event": "0x158",
+          "table_address": "0x80204194"
+        },
+        {
+          "sound_index": "0x27",
+          "event": "0x288",
+          "table_address": "0x8020419c"
+        },
+        {
+          "sound_index": "0x28",
+          "event": "0x2b8",
+          "table_address": "0x802041a4"
+        },
+        {
+          "sound_index": "0x29",
+          "event": "0x2b9",
+          "table_address": "0x802041ac"
+        },
+        {
+          "sound_index": "0x2a",
+          "event": "0x279",
+          "table_address": "0x802041b4"
+        },
+        {
+          "sound_index": "0x2b",
+          "event": "0x27a",
+          "table_address": "0x802041bc"
+        },
+        {
+          "sound_index": "0x2c",
+          "event": "0x25b",
+          "table_address": "0x802041c4"
+        },
+        {
+          "sound_index": "0x2d",
+          "event": "0x2af",
+          "table_address": "0x802041cc"
+        },
+        {
+          "sound_index": "0x2e",
+          "event": "0x220",
+          "table_address": "0x802041d4"
+        },
+        {
+          "sound_index": "0x2f",
+          "event": "0x38b",
+          "table_address": "0x802041dc"
+        },
+        {
+          "sound_index": "0x30",
+          "event": "0x38e",
+          "table_address": "0x802041e4"
+        },
+        {
+          "sound_index": "0x31",
+          "event": "0x201",
+          "table_address": "0x802041ec"
+        },
+        {
+          "sound_index": "0x32",
+          "event": "0x201",
+          "table_address": "0x802041f4"
+        },
+        {
+          "sound_index": "0x33",
+          "event": "0x201",
+          "table_address": "0x802041fc"
+        },
+        {
+          "sound_index": "0x34",
+          "event": "0x201",
+          "table_address": "0x80204204"
+        },
+        {
+          "sound_index": "0x35",
+          "event": "0x201",
+          "table_address": "0x8020420c"
+        },
+        {
+          "sound_index": "0x36",
+          "event": "0x201",
+          "table_address": "0x80204214"
+        }
+      ]
+    },
+    "random_group_lookup": {
+      "function": "0x801DD830",
+      "table": "0x80204324",
+      "cases": [
+        {
+          "group": 1,
+          "choice": 0,
+          "events": [
+            "0x38b"
+          ]
+        },
+        {
+          "group": 1,
+          "choice": 1,
+          "events": [
+            "0x38c"
+          ]
+        },
+        {
+          "group": 1,
+          "choice": 2,
+          "events": [
+            "0x38c"
+          ]
+        },
+        {
+          "group": 2,
+          "choice": 0,
+          "events": [
+            "0x388"
+          ]
+        },
+        {
+          "group": 2,
+          "choice": 1,
+          "events": [
+            "0x388"
+          ]
+        },
+        {
+          "group": 2,
+          "choice": 2,
+          "events": [
+            "0x388"
+          ]
+        },
+        {
+          "group": 3,
+          "choice": 0,
+          "events": [
+            "0x392"
+          ]
+        },
+        {
+          "group": 3,
+          "choice": 1,
+          "events": [
+            "0x38a"
+          ]
+        },
+        {
+          "group": 4,
+          "choice": 0,
+          "events": [
+            "0x387"
+          ]
+        },
+        {
+          "group": 4,
+          "choice": 1,
+          "events": [
+            "0x387"
+          ]
+        },
+        {
+          "group": 4,
+          "choice": 2,
+          "events": [
+            "0x387"
+          ]
+        },
+        {
+          "group": 5,
+          "choice": 0,
+          "events": [
+            "0x201"
+          ]
+        },
+        {
+          "group": 5,
+          "choice": 1,
+          "events": [
+            "0x201"
+          ]
+        },
+        {
+          "group": 5,
+          "choice": 2,
+          "events": [
+            "0x201"
+          ]
+        },
+        {
+          "group": 6,
+          "choice": 0,
+          "events": [
+            "0x393"
+          ]
+        },
+        {
+          "group": 6,
+          "choice": 1,
+          "events": [
+            "0x393"
+          ]
+        },
+        {
+          "group": 6,
+          "choice": 2,
+          "events": [
+            "0x393"
+          ]
+        }
+      ]
+    },
+    "kunai_sound_curves": {
+      "function": "0x801DD720 -> 0x80032B20 -> 0x801DD6E0",
+      "cases": [
+        {
+          "action": "0x68",
+          "group": 1,
+          "event_pointer": "0x90026f0",
+          "cues": [
+            {
+              "frame": 2,
+              "events": [
+                "0x210"
+              ]
+            }
+          ]
+        },
+        {
+          "action": "0x69",
+          "group": 2,
+          "event_pointer": "0x9002710",
+          "cues": [
+            {
+              "frame": 6,
+              "events": [
+                "0x210"
+              ]
+            }
+          ]
+        },
+        {
+          "action": "0x6a",
+          "group": 3,
+          "event_pointer": "0x9002730",
+          "cues": [
+            {
+              "frame": 7,
+              "events": [
+                "0x218",
+                "0x211"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "kunai_entry_voices": {
+      "function": "0x801E3834",
+      "cases": [
+        {
+          "initializer_index": 10,
+          "group": 4,
+          "choice": 0,
+          "attack_class": "0x24",
+          "events": [
+            "0x387"
+          ]
+        },
+        {
+          "initializer_index": 10,
+          "group": 4,
+          "choice": 1,
+          "attack_class": "0x24",
+          "events": [
+            "0x387"
+          ]
+        },
+        {
+          "initializer_index": 10,
+          "group": 4,
+          "choice": 2,
+          "attack_class": "0x24",
+          "events": [
+            "0x387"
+          ]
+        },
+        {
+          "initializer_index": 11,
+          "group": 0,
+          "choice": 0,
+          "attack_class": "0x24",
+          "events": []
+        },
+        {
+          "initializer_index": 11,
+          "group": 0,
+          "choice": 1,
+          "attack_class": "0x24",
+          "events": []
+        },
+        {
+          "initializer_index": 11,
+          "group": 0,
+          "choice": 2,
+          "attack_class": "0x24",
+          "events": []
+        },
+        {
+          "initializer_index": 12,
+          "group": 6,
+          "choice": 0,
+          "attack_class": "0x24",
+          "events": [
+            "0x393"
+          ]
+        },
+        {
+          "initializer_index": 12,
+          "group": 6,
+          "choice": 1,
+          "attack_class": "0x24",
+          "events": [
+            "0x393"
+          ]
+        },
+        {
+          "initializer_index": 12,
+          "group": 6,
+          "choice": 2,
+          "attack_class": "0x24",
+          "events": [
+            "0x393"
+          ]
+        }
+      ]
+    },
+    "kunai_tier_collision_receipts": {
+      "upgrade_address": "0x8015C6B4",
+      "function": "0x801E3834",
+      "cases": [
+        {
+          "upgrade": 0,
+          "initializer_index": 10,
+          "attack_class": "0x19",
+          "confirmed_victim_event": "0x221"
+        },
+        {
+          "upgrade": 0,
+          "initializer_index": 11,
+          "attack_class": "0x19",
+          "confirmed_victim_event": "0x221"
+        },
+        {
+          "upgrade": 0,
+          "initializer_index": 12,
+          "attack_class": "0x19",
+          "confirmed_victim_event": "0x221"
+        },
+        {
+          "upgrade": 1,
+          "initializer_index": 10,
+          "attack_class": "0x23",
+          "confirmed_victim_event": "0x221"
+        },
+        {
+          "upgrade": 1,
+          "initializer_index": 11,
+          "attack_class": "0x23",
+          "confirmed_victim_event": "0x221"
+        },
+        {
+          "upgrade": 1,
+          "initializer_index": 12,
+          "attack_class": "0x23",
+          "confirmed_victim_event": "0x221"
+        },
+        {
+          "upgrade": 2,
+          "initializer_index": 10,
+          "attack_class": "0x24",
+          "confirmed_victim_event": "0x221"
+        },
+        {
+          "upgrade": 2,
+          "initializer_index": 11,
+          "attack_class": "0x24",
+          "confirmed_victim_event": "0x221"
+        },
+        {
+          "upgrade": 2,
+          "initializer_index": 12,
+          "attack_class": "0x24",
+          "confirmed_victim_event": "0x221"
+        }
+      ]
+    },
+    "projectile_release_guards": [
+      {
+        "action": "0x90",
+        "handler": "0x801f5d70",
+        "frame": 4,
+        "choice": 0,
+        "events": [
+          "0x387",
+          "0x20b"
+        ],
+        "effect_selector": "0xe",
+        "repeat_events": []
+      },
+      {
+        "action": "0x90",
+        "handler": "0x801f5d70",
+        "frame": 4,
+        "choice": 1,
+        "events": [
+          "0x387",
+          "0x20b"
+        ],
+        "effect_selector": "0xe",
+        "repeat_events": []
+      },
+      {
+        "action": "0x90",
+        "handler": "0x801f5d70",
+        "frame": 4,
+        "choice": 2,
+        "events": [
+          "0x387",
+          "0x20b"
+        ],
+        "effect_selector": "0xe",
+        "repeat_events": []
+      },
+      {
+        "action": "0x91",
+        "handler": "0x801f5d9c",
+        "frame": 4,
+        "choice": 0,
+        "events": [
+          "0x387",
+          "0x20b"
+        ],
+        "effect_selector": "0xf",
+        "repeat_events": []
+      },
+      {
+        "action": "0x91",
+        "handler": "0x801f5d9c",
+        "frame": 4,
+        "choice": 1,
+        "events": [
+          "0x387",
+          "0x20b"
+        ],
+        "effect_selector": "0xf",
+        "repeat_events": []
+      },
+      {
+        "action": "0x91",
+        "handler": "0x801f5d9c",
+        "frame": 4,
+        "choice": 2,
+        "events": [
+          "0x387",
+          "0x20b"
+        ],
+        "effect_selector": "0xf",
+        "repeat_events": []
+      },
+      {
+        "action": "0x92",
+        "handler": "0x801f5dc8",
+        "frame": 11,
+        "choice": 0,
+        "events": [
+          "0x387",
+          "0x20b"
+        ],
+        "effect_selector": "0x10",
+        "repeat_events": []
+      },
+      {
+        "action": "0x92",
+        "handler": "0x801f5dc8",
+        "frame": 11,
+        "choice": 1,
+        "events": [
+          "0x387",
+          "0x20b"
+        ],
+        "effect_selector": "0x10",
+        "repeat_events": []
+      },
+      {
+        "action": "0x92",
+        "handler": "0x801f5dc8",
+        "frame": 11,
+        "choice": 2,
+        "events": [
+          "0x387",
+          "0x20b"
+        ],
+        "effect_selector": "0x10",
+        "repeat_events": []
+      },
+      {
+        "action": "0x93",
+        "handler": "0x801f603c",
+        "frame": 8,
+        "choice": 0,
+        "events": [
+          "0x393",
+          "0x103"
+        ],
+        "effect_selector": "0x1a",
+        "repeat_events": []
+      },
+      {
+        "action": "0x93",
+        "handler": "0x801f603c",
+        "frame": 8,
+        "choice": 1,
+        "events": [
+          "0x393",
+          "0x103"
+        ],
+        "effect_selector": "0x1a",
+        "repeat_events": []
+      },
+      {
+        "action": "0x93",
+        "handler": "0x801f603c",
+        "frame": 8,
+        "choice": 2,
+        "events": [
+          "0x393",
+          "0x103"
+        ],
+        "effect_selector": "0x1a",
+        "repeat_events": []
+      },
+      {
+        "action": "0x97",
+        "handler": "0x801f6068",
+        "frame": 9,
+        "choice": 0,
+        "events": [
+          "0x393",
+          "0x103"
+        ],
+        "effect_selector": "0x1b",
+        "repeat_events": []
+      },
+      {
+        "action": "0x97",
+        "handler": "0x801f6068",
+        "frame": 9,
+        "choice": 1,
+        "events": [
+          "0x393",
+          "0x103"
+        ],
+        "effect_selector": "0x1b",
+        "repeat_events": []
+      },
+      {
+        "action": "0x97",
+        "handler": "0x801f6068",
+        "frame": 9,
+        "choice": 2,
+        "events": [
+          "0x393",
+          "0x103"
+        ],
+        "effect_selector": "0x1b",
+        "repeat_events": []
+      }
+    ],
+    "charge_thresholds": {
+      "function": "0x801DC27C",
+      "cases": [
+        {
+          "held": true,
+          "counter_before": 13,
+          "state": 0,
+          "events": [],
+          "effect_selectors": []
+        },
+        {
+          "held": true,
+          "counter_before": 14,
+          "state": 1,
+          "events": [
+            "0x24c"
+          ],
+          "effect_selectors": [
+            "0x11"
+          ]
+        },
+        {
+          "held": true,
+          "counter_before": 59,
+          "state": 2,
+          "events": [],
+          "effect_selectors": []
+        },
+        {
+          "held": false,
+          "counter_before": 59,
+          "state": 0,
+          "events": [],
+          "effect_selectors": []
+        },
+        {
+          "held": false,
+          "counter_before": 60,
+          "state": 3,
+          "events": [],
+          "effect_selectors": []
+        }
+      ]
+    },
+    "hair_entry": {
+      "function": "0x801E2F64",
+      "events": [
+        "0x213"
+      ],
+      "voice_events": [],
+      "attack_class": "0x15"
+    },
+    "jetpack_entry": {
+      "function": "0x801E75D4",
+      "events": [
+        "0x21f",
+        "0x14f",
+        "0x394"
+      ],
+      "effect_selectors": [
+        "0x16"
+      ]
+    },
+    "jetpack_stop": {
+      "source_start": "0x801EDDCC",
+      "stop_after_sound": "0x801EDDE0",
+      "events": [
+        "0x814f"
+      ],
+      "meaning": "High bit0x8000 stops active event14F; no fabricated stopping sound."
+    },
+    "confirmed_contacts": {
+      "callback": "0x8021AB18",
+      "cases": [
+        {
+          "kind": "kunai_tier1",
+          "source_attack_class": "0x19",
+          "events": [
+            "0x221"
+          ]
+        },
+        {
+          "kind": "kunai_tier2",
+          "source_attack_class": "0x23",
+          "events": [
+            "0x221"
+          ]
+        },
+        {
+          "kind": "kunai_tier3",
+          "source_attack_class": "0x24",
+          "events": [
+            "0x221"
+          ]
+        },
+        {
+          "kind": "hair",
+          "source_attack_class": "0x15",
+          "events": [
+            "0x24f"
+          ]
+        },
+        {
+          "kind": "bomb",
+          "source_attack_class": "0x1c",
+          "events": [
+            "0x24f"
+          ]
+        },
+        {
+          "kind": "ice_freeze",
+          "source_attack_class": "0x1a",
+          "events": [
+            "0x221"
+          ]
+        }
+      ]
+    },
+    "bomb_collision_receipt": {
+      "source_start": "0x801EBFE4",
+      "stop_after_collision_setup": "0x801EC000",
+      "attack_class": "0x1C",
+      "confirmed_victim_event": "0x24F"
+    },
+    "bomb_detonation": {
+      "source_start": "0x801EC234",
+      "stop_after_sound": "0x801EC250",
+      "events": [
+        "0x104"
+      ],
+      "note": "Bomb update detonation branch emits positional104 before explosion visual setup."
+    }
+  },
+  "files": {
+    "event_103.wav": {
+      "events": [
+        "103"
+      ],
+      "duration": 0.6946031746031746,
+      "mix_gain": 1.0,
+      "sha256": "6ee9c845a4f2d81b2532750832918ceb0ff5f2605ae606e288d092196571532d",
+      "event_sources": [
+        {
+          "event": "0x103",
+          "duration": 0.6946031746031746,
+          "peak_before_mastergain": 0.4721103812850323,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 8,
+              "sample_address": "0x1cc6f8",
+              "adpcm_sha256": "7d5d535cf875a7795f6aa1fdcbcb385833ce759e37977f451bf53a51a7f16401",
+              "loop": null
+            },
+            {
+              "bank": 1,
+              "instrument": 33,
+              "sample_address": "0x201718",
+              "adpcm_sha256": "afad0f259ad53702441157e1f1dc0ff1497810fa62a10334b69fd07f0aa01b4b",
+              "loop": [
+                3,
+                34978,
+                4294967295
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "event_104.wav": {
+      "events": [
+        "104"
+      ],
+      "duration": 1.8448299319727892,
+      "mix_gain": 1.0,
+      "sha256": "e552c6e1b1b097244858432907cf473eccb5420f30e7a60e7d298d0b66075c11",
+      "event_sources": [
+        {
+          "event": "0x104",
+          "duration": 1.8448299319727892,
+          "peak_before_mastergain": 0.7577890393527007,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 0,
+              "instrument": 18,
+              "sample_address": "0xaa7b8",
+              "adpcm_sha256": "131a51bc49b1c2de0a814c431811ea8b9e0917a4c3d1757525737d8ac6bd2fa4",
+              "loop": [
+                12691,
+                17761,
+                4294967295
+              ]
+            },
+            {
+              "bank": 1,
+              "instrument": 6,
+              "sample_address": "0x1c62b0",
+              "adpcm_sha256": "f1a2c0b25bfdc05aaf275ccba998f9ad87f964cd2f91b1fb9ea1a757131fa287",
+              "loop": [
+                16088,
+                21303,
+                4294967295
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "event_14f.wav": {
+      "events": [
+        "14f"
+      ],
+      "duration": 1.5449659863945577,
+      "mix_gain": 1.0,
+      "sha256": "a9315e7a3afe1c8ad7788b573db0f0cf282b786e80895b6fb3391014e551e8ae",
+      "event_sources": [
+        {
+          "event": "0x14f",
+          "duration": 1.5449659863945577,
+          "peak_before_mastergain": 0.7156768789165604,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 5,
+              "sample_address": "0x1bf3c8",
+              "adpcm_sha256": "eab06c7395452c80bcdf66bb5ad17025d290a45567ae9d645c543580dca5101d",
+              "loop": [
+                36178,
+                50454,
+                4294967295
+              ]
+            },
+            {
+              "bank": 1,
+              "instrument": 46,
+              "sample_address": "0x21b158",
+              "adpcm_sha256": "4e8948ac16a5841195089a20e287bd089fb43497f1131486a3346091d9195ff1",
+              "loop": [
+                2,
+                17728,
+                4294967295
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "event_158.wav": {
+      "events": [
+        "158"
+      ],
+      "duration": 6.294875283446712,
+      "mix_gain": 1.0,
+      "sha256": "16222f0884f4e62d5191817cfbe5c0987640d46678e620f346f1b6ecd943b29e",
+      "event_sources": [
+        {
+          "event": "0x158",
+          "duration": 6.294875283446712,
+          "peak_before_mastergain": 0.7125959779299796,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 0,
+              "instrument": 116,
+              "sample_address": "0x1857d8",
+              "adpcm_sha256": "70669892ed70563ade06e0bbcf168dc79c177fb86b4fa9d4a4543169b9596003",
+              "loop": [
+                5325,
+                8372,
+                4294967295
+              ]
+            },
+            {
+              "bank": 0,
+              "instrument": 119,
+              "sample_address": "0x18b5f0",
+              "adpcm_sha256": "130ec77af6bce7811e67d8186acdd18e2f7fb0563da1881b2e94817e3d0e12b4",
+              "loop": [
+                8994,
+                15761,
+                4294967295
+              ]
+            },
+            {
+              "bank": 1,
+              "instrument": 21,
+              "sample_address": "0x1e95d0",
+              "adpcm_sha256": "bb77a60068ed0a6535ec3e4b6ca057f8261fa66f2b9405bdf502f423fb277ba7",
+              "loop": [
+                20485,
+                25481,
+                4294967295
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "event_202.wav": {
+      "events": [
+        "202"
+      ],
+      "duration": 0.4449659863945578,
+      "mix_gain": 1.0,
+      "sha256": "0ad7d588603ffc9618200108a916e5199e54aa5c1ab709b321f0ccc44e713fb8",
+      "event_sources": [
+        {
+          "event": "0x202",
+          "duration": 0.4449659863945578,
+          "peak_before_mastergain": 0.7031718254597605,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 47,
+              "sample_address": "0x21d858",
+              "adpcm_sha256": "f2c0650bc521c251a69d623e4f8f82d500baf189e3be80d56ee1a3bf9291d338",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_20b.wav": {
+      "events": [
+        "20b"
+      ],
+      "duration": 0.7946938775510204,
+      "mix_gain": 1.0,
+      "sha256": "11635047181cc26331cd7d6945a93ccee58bfcea274fc557ce9956892cd6b96e",
+      "event_sources": [
+        {
+          "event": "0x20b",
+          "duration": 0.7946938775510204,
+          "peak_before_mastergain": 0.6502012203346896,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 8,
+              "sample_address": "0x1cc6f8",
+              "adpcm_sha256": "7d5d535cf875a7795f6aa1fdcbcb385833ce759e37977f451bf53a51a7f16401",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_210.wav": {
+      "events": [
+        "210"
+      ],
+      "duration": 0.834671201814059,
+      "mix_gain": 1.0,
+      "sha256": "d018931b16b45fd2a959e264aba5ab6feb91448898aa56dba84907fc0582c8d8",
+      "event_sources": [
+        {
+          "event": "0x210",
+          "duration": 0.834671201814059,
+          "peak_before_mastergain": 0.5161065969333998,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 9,
+              "sample_address": "0x1ce038",
+              "adpcm_sha256": "2788a40231ff2d7eadbbb15a9fc0c0070b188118c50ac46bd49fcf8ecf93b5ca",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_211.wav": {
+      "events": [
+        "211"
+      ],
+      "duration": 0.794875283446712,
+      "mix_gain": 1.0,
+      "sha256": "9e0127e7b36ab26a737db20a92890de08682d862f5e122933a7c48b423ee411a",
+      "event_sources": [
+        {
+          "event": "0x211",
+          "duration": 0.794875283446712,
+          "peak_before_mastergain": 0.5161065969333998,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 9,
+              "sample_address": "0x1ce038",
+              "adpcm_sha256": "2788a40231ff2d7eadbbb15a9fc0c0070b188118c50ac46bd49fcf8ecf93b5ca",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_212.wav": {
+      "events": [
+        "212"
+      ],
+      "duration": 0.6449206349206349,
+      "mix_gain": 1.0,
+      "sha256": "f18dc3feb9621754de5f3a9801632eaa38bb01204d47ec3d8f5b4ffc4a3cce3b",
+      "event_sources": [
+        {
+          "event": "0x212",
+          "duration": 0.6449206349206349,
+          "peak_before_mastergain": 0.3787969569503784,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 8,
+              "sample_address": "0x1cc6f8",
+              "adpcm_sha256": "7d5d535cf875a7795f6aa1fdcbcb385833ce759e37977f451bf53a51a7f16401",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_213.wav": {
+      "events": [
+        "213"
+      ],
+      "duration": 0.79421768707483,
+      "mix_gain": 1.0,
+      "sha256": "a79faff8a9a787c8e4522535285ae84b2b6873ffc017de639ebcc7a3f45f04a8",
+      "event_sources": [
+        {
+          "event": "0x213",
+          "duration": 0.79421768707483,
+          "peak_before_mastergain": 0.4261733141726485,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 19,
+              "sample_address": "0x1e6128",
+              "adpcm_sha256": "723726c318ad86f9d4c1e590199806d8587eff63b0487547e126bdcfcf3cf529",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_218.wav": {
+      "events": [
+        "218"
+      ],
+      "duration": 0.08997732426303855,
+      "mix_gain": 1.0,
+      "sha256": "55f539c7d3b4e827edb788e1c503dea3d7fc61502ca78af91638e64246ca16b6",
+      "event_sources": [
+        {
+          "event": "0x218",
+          "duration": 0.08997732426303855,
+          "peak_before_mastergain": 0.3603613782199477,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 36,
+              "sample_address": "0x20b9e8",
+              "adpcm_sha256": "1e05b8f9dab04b15eb52543d53d42db46535be2f13a0a7ad821ca329e234be4f",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_21f.wav": {
+      "events": [
+        "21f"
+      ],
+      "duration": 0.09498866213151927,
+      "mix_gain": 1.0,
+      "sha256": "8b28afcfa32b0837b67efb7a5648ddc2e4a6b613fd9f4ec95459a6e94f189b57",
+      "event_sources": [
+        {
+          "event": "0x21f",
+          "duration": 0.09498866213151927,
+          "peak_before_mastergain": 0.48573843899492736,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 36,
+              "sample_address": "0x20b9e8",
+              "adpcm_sha256": "1e05b8f9dab04b15eb52543d53d42db46535be2f13a0a7ad821ca329e234be4f",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_220.wav": {
+      "events": [
+        "220"
+      ],
+      "duration": 0.16498866213151928,
+      "mix_gain": 1.0,
+      "sha256": "bce2b1986e2175294e38549a554d7ac229595a2ffd7ad5df8a6a986481101b4a",
+      "event_sources": [
+        {
+          "event": "0x220",
+          "duration": 0.16498866213151928,
+          "peak_before_mastergain": 0.4433726534111458,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 36,
+              "sample_address": "0x20b9e8",
+              "adpcm_sha256": "1e05b8f9dab04b15eb52543d53d42db46535be2f13a0a7ad821ca329e234be4f",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_221.wav": {
+      "events": [
+        "221"
+      ],
+      "duration": 0.719297052154195,
+      "mix_gain": 1.0,
+      "sha256": "27b97d7b65fab242753d1699a86d18248a56185c2b80febed7487f7b5ea70b12",
+      "event_sources": [
+        {
+          "event": "0x221",
+          "duration": 0.719297052154195,
+          "peak_before_mastergain": 0.5156022489903674,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 56,
+              "sample_address": "0x22bf88",
+              "adpcm_sha256": "c2e158c3ad7db9bbf15e9beaef2e09e5f8b18166d4867e66769e052aa55fbb24",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_228.wav": {
+      "events": [
+        "228"
+      ],
+      "duration": 0.15494331065759637,
+      "mix_gain": 1.0,
+      "sha256": "2dc17e2eb17b5c1fb73c9bce2ee15fe9433ac00b69aca34a0c39e7f4f224af27",
+      "event_sources": [
+        {
+          "event": "0x228",
+          "duration": 0.15494331065759637,
+          "peak_before_mastergain": 0.4804099594692007,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 37,
+              "sample_address": "0x20c6c0",
+              "adpcm_sha256": "052c3c36484a1ea41f4f50e01da3b2ea75b2130661ed2bdad603f5b559485eec",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_24c.wav": {
+      "events": [
+        "24c"
+      ],
+      "duration": 2.044965986394558,
+      "mix_gain": 1.0,
+      "sha256": "df0339210f800f89ea076e4764bbad1649b721a396cb1f8c4d1d64c056e2d6c3",
+      "event_sources": [
+        {
+          "event": "0x24c",
+          "duration": 2.044965986394558,
+          "peak_before_mastergain": 0.3180448707551637,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 33,
+              "sample_address": "0x201718",
+              "adpcm_sha256": "afad0f259ad53702441157e1f1dc0ff1497810fa62a10334b69fd07f0aa01b4b",
+              "loop": [
+                3,
+                34978,
+                4294967295
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "event_24d.wav": {
+      "events": [
+        "24d"
+      ],
+      "duration": 2.0599773242630386,
+      "mix_gain": 1.0,
+      "sha256": "abecb60116b8eafa29c925974001482b5ec9f6a010e92683d78c57a61b02da73",
+      "event_sources": [
+        {
+          "event": "0x24d",
+          "duration": 2.0599773242630386,
+          "peak_before_mastergain": 0.4080794574915883,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 33,
+              "sample_address": "0x201718",
+              "adpcm_sha256": "afad0f259ad53702441157e1f1dc0ff1497810fa62a10334b69fd07f0aa01b4b",
+              "loop": [
+                3,
+                34978,
+                4294967295
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "event_24e.wav": {
+      "events": [
+        "24e"
+      ],
+      "duration": 2.0599773242630386,
+      "mix_gain": 1.0,
+      "sha256": "abecb60116b8eafa29c925974001482b5ec9f6a010e92683d78c57a61b02da73",
+      "event_sources": [
+        {
+          "event": "0x24e",
+          "duration": 2.0599773242630386,
+          "peak_before_mastergain": 0.4080794574915883,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 33,
+              "sample_address": "0x201718",
+              "adpcm_sha256": "afad0f259ad53702441157e1f1dc0ff1497810fa62a10334b69fd07f0aa01b4b",
+              "loop": [
+                3,
+                34978,
+                4294967295
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "event_24f.wav": {
+      "events": [
+        "24f"
+      ],
+      "duration": 0.6844897959183673,
+      "mix_gain": 1.0,
+      "sha256": "5608ebb169e8757368a6eda485da18025ef4d27fd83b69a08764b2b5ada44ba9",
+      "event_sources": [
+        {
+          "event": "0x24f",
+          "duration": 0.6844897959183673,
+          "peak_before_mastergain": 0.6976350394325183,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 25,
+              "sample_address": "0x1f1428",
+              "adpcm_sha256": "0ca03fe4afe19c2ea00b39d98e02c88d3aa79d1951c9bbad223f9ad06d38de1a",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_25b.wav": {
+      "events": [
+        "25b"
+      ],
+      "duration": 0.22993197278911565,
+      "mix_gain": 1.0,
+      "sha256": "834643aa86699af714d706f039e4d1700679ee775cb4f0132d6020f729a536c2",
+      "event_sources": [
+        {
+          "event": "0x25b",
+          "duration": 0.22993197278911565,
+          "peak_before_mastergain": 0.3342522732004679,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 0,
+              "instrument": 106,
+              "sample_address": "0x1743f8",
+              "adpcm_sha256": "87221a1199309b8e6d95a4bdd0b7643cc76bd3ade703c58f7b4e5a689b765890",
+              "loop": [
+                8306,
+                10588,
+                4294967295
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "event_279.wav": {
+      "events": [
+        "279"
+      ],
+      "duration": 2.7170521541950112,
+      "mix_gain": 1.0,
+      "sha256": "1ca1f94f980c73d0c76f4dca4d1680070d09a0a991e938722963a4f397820f0b",
+      "event_sources": [
+        {
+          "event": "0x279",
+          "duration": 2.7170521541950112,
+          "peak_before_mastergain": 0.46256023102024213,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 27,
+              "sample_address": "0x1f3378",
+              "adpcm_sha256": "604b525872bd498f27aba52e80a6ee53d39902729377d58a184ad8d616690dd6",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_27a.wav": {
+      "events": [
+        "27a"
+      ],
+      "duration": 2.393628117913832,
+      "mix_gain": 1.0,
+      "sha256": "fe28b0aa996d9087122b63f1a967dc78fdab0756823dcc744ad0858a065ac455",
+      "event_sources": [
+        {
+          "event": "0x27a",
+          "duration": 2.393628117913832,
+          "peak_before_mastergain": 0.4391407902958607,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 27,
+              "sample_address": "0x1f3378",
+              "adpcm_sha256": "604b525872bd498f27aba52e80a6ee53d39902729377d58a184ad8d616690dd6",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_288.wav": {
+      "events": [
+        "288"
+      ],
+      "duration": 0.4949659863945578,
+      "mix_gain": 1.0,
+      "sha256": "7de3de78a69effc80c9f6ccc47b6cb7fd543fe21aba6cd40204df073e95895f3",
+      "event_sources": [
+        {
+          "event": "0x288",
+          "duration": 0.4949659863945578,
+          "peak_before_mastergain": 0.2824751767384964,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 52,
+              "sample_address": "0x226aa0",
+              "adpcm_sha256": "7668fc8d59668be4f3351d11a495844c85a2c54d7d6552883fffce7c7e819561",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_2af.wav": {
+      "events": [
+        "2af"
+      ],
+      "duration": 0.5449659863945578,
+      "mix_gain": 1.0,
+      "sha256": "722593b02c2edcecb5e1408b4f6b982133c345aa65fbe7fae5f9689376460f6b",
+      "event_sources": [
+        {
+          "event": "0x2af",
+          "duration": 0.5449659863945578,
+          "peak_before_mastergain": 0.27476602890748897,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 18,
+              "sample_address": "0x1e4ab8",
+              "adpcm_sha256": "3ae42569234403f861229d1b92f71eb8f0e4834328e4449e9f883f996256b24f",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_2b8.wav": {
+      "events": [
+        "2b8"
+      ],
+      "duration": 0.7267346938775511,
+      "mix_gain": 1.0,
+      "sha256": "7db8b04d8337f26a53f59debd874ee955a2e168c44d3680e2a3fa0c91e5a8c71",
+      "event_sources": [
+        {
+          "event": "0x2b8",
+          "duration": 0.7267346938775511,
+          "peak_before_mastergain": 0.21070294441832815,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 77,
+              "sample_address": "0x24d850",
+              "adpcm_sha256": "c4a8c02d79b721a041d33716c23b2cf44c3fb7b6ab254b4ec80dec2167d9f198",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_2b9.wav": {
+      "events": [
+        "2b9"
+      ],
+      "duration": 0.7267346938775511,
+      "mix_gain": 1.0,
+      "sha256": "7db8b04d8337f26a53f59debd874ee955a2e168c44d3680e2a3fa0c91e5a8c71",
+      "event_sources": [
+        {
+          "event": "0x2b9",
+          "duration": 0.7267346938775511,
+          "peak_before_mastergain": 0.21070294441832815,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 77,
+              "sample_address": "0x24d850",
+              "adpcm_sha256": "c4a8c02d79b721a041d33716c23b2cf44c3fb7b6ab254b4ec80dec2167d9f198",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_387.wav": {
+      "events": [
+        "387"
+      ],
+      "duration": 0.39206349206349206,
+      "mix_gain": 1.0,
+      "sha256": "90623795ae40110452783919a63e46bb0d54923a025ea099c1bcd217f9cfbb5b",
+      "event_sources": [
+        {
+          "event": "0x387",
+          "duration": 0.39206349206349206,
+          "peak_before_mastergain": 0.5180567576896876,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 163,
+              "sample_address": "0x391118",
+              "adpcm_sha256": "0ec597e91518541bc432b6adb779436d9251d2801158134300a64418e21e508b",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_388.wav": {
+      "events": [
+        "388"
+      ],
+      "duration": 0.554875283446712,
+      "mix_gain": 1.0,
+      "sha256": "fe119eb9620e88f6cd6c97e8497600875098847079d741f0382704c6476a2f07",
+      "event_sources": [
+        {
+          "event": "0x388",
+          "duration": 0.554875283446712,
+          "peak_before_mastergain": 0.5974164938719184,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 164,
+              "sample_address": "0x391ba8",
+              "adpcm_sha256": "39626925267b7e5b7de5df6ee0ede55a1da124b5de2074584f28f7902a45f6e6",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_389.wav": {
+      "events": [
+        "389"
+      ],
+      "duration": 0.3517687074829932,
+      "mix_gain": 1.0,
+      "sha256": "1c01bcdd249b4fa737b66d51c984f58cc71f599b337a69ad293ebc92543c10f8",
+      "event_sources": [
+        {
+          "event": "0x389",
+          "duration": 0.3517687074829932,
+          "peak_before_mastergain": 0.3155243773522664,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 204,
+              "sample_address": "0x3e4368",
+              "adpcm_sha256": "3fbefa5b53b8abd0ccf0181567ad2f50dc54ba1af2b5e3e3de62d0759aad4e6b",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_38a.wav": {
+      "events": [
+        "38a"
+      ],
+      "duration": 0.45301587301587304,
+      "mix_gain": 1.0,
+      "sha256": "c00d89f0218dd7f307c34c2a1777ced16302a7355f4cf9e466f2eb8d05a71169",
+      "event_sources": [
+        {
+          "event": "0x38a",
+          "duration": 0.45301587301587304,
+          "peak_before_mastergain": 0.5784394720929462,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 165,
+              "sample_address": "0x392b48",
+              "adpcm_sha256": "f7a3d5dcf37f240aaef47552b170cde7e163817fdd58c04f696c182114115f1b",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_38b.wav": {
+      "events": [
+        "38b"
+      ],
+      "duration": 0.2529705215419501,
+      "mix_gain": 1.0,
+      "sha256": "a7d110a614b3f1cb7ba65d1531749bb38ef3b67398271fd415cc155508d58073",
+      "event_sources": [
+        {
+          "event": "0x38b",
+          "duration": 0.2529705215419501,
+          "peak_before_mastergain": 0.5919945597624032,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 205,
+              "sample_address": "0x3e4cb0",
+              "adpcm_sha256": "3fddcc5b6e90b2fc409d6b51bdffde7edcfc556c4d2827fb65774170867385f4",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_38c.wav": {
+      "events": [
+        "38c"
+      ],
+      "duration": 0.21494331065759636,
+      "mix_gain": 1.0,
+      "sha256": "f00e1d62636d76904d48a16237dc09ce266c8aba424fcd4e47785980217be040",
+      "event_sources": [
+        {
+          "event": "0x38c",
+          "duration": 0.21494331065759636,
+          "peak_before_mastergain": 0.5925978475086826,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 206,
+              "sample_address": "0x3e52f8",
+              "adpcm_sha256": "d9f30d63959221be7bd29947141b962f7e92fcc6aaca935b25eec3b91f3a20b5",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_38e.wav": {
+      "events": [
+        "38e"
+      ],
+      "duration": 0.7943764172335601,
+      "mix_gain": 1.0,
+      "sha256": "512559f1e602c3e2ad4869c6d0532e8449507c68762a005fd0803f773bcdd9aa",
+      "event_sources": [
+        {
+          "event": "0x38e",
+          "duration": 0.7943764172335601,
+          "peak_before_mastergain": 0.5977216693569001,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 166,
+              "sample_address": "0x3937b8",
+              "adpcm_sha256": "a21ea4cd4b86923c92b2685d5e1cedbb12a23081c8026a09f10eeacf300c4a89",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_38f.wav": {
+      "events": [
+        "38f"
+      ],
+      "duration": 0.4529024943310658,
+      "mix_gain": 1.0,
+      "sha256": "2aaa931c8576ae7f9ab69a4dad578634ce32c4898803cc482d8bf8afd1877b1e",
+      "event_sources": [
+        {
+          "event": "0x38f",
+          "duration": 0.4529024943310658,
+          "peak_before_mastergain": 0.6049907852077284,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 167,
+              "sample_address": "0x394ea8",
+              "adpcm_sha256": "7d64db62443817e229ec05d578e9286eea007cd5f3e6b769ad534a315216dd56",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_390.wav": {
+      "events": [
+        "390"
+      ],
+      "duration": 0.7345578231292517,
+      "mix_gain": 1.0,
+      "sha256": "6269000ededff8a7c28d44d8017b6bf75c597b9db78c4f397bbf3442c0da5e3b",
+      "event_sources": [
+        {
+          "event": "0x390",
+          "duration": 0.7345578231292517,
+          "peak_before_mastergain": 0.5932003121950538,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 208,
+              "sample_address": "0x3e5cd8",
+              "adpcm_sha256": "d5b23f1b4a9ba157ed418059314eddcba2cd7e20de1afa9c177ea314c7647f13",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_392.wav": {
+      "events": [
+        "392"
+      ],
+      "duration": 0.8949659863945578,
+      "mix_gain": 1.0,
+      "sha256": "b4b9e1f6f1a2200c2f202b7f7a38d838030e638825b06ad749198b8431d30537",
+      "event_sources": [
+        {
+          "event": "0x392",
+          "duration": 0.8949659863945578,
+          "peak_before_mastergain": 0.5786005832241746,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 168,
+              "sample_address": "0x395b18",
+              "adpcm_sha256": "c846db91274500a46fcbcd4a9792180f823ca4fc09c08d54a5706cc27c110a71",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_393.wav": {
+      "events": [
+        "393"
+      ],
+      "duration": 0.32424036281179136,
+      "mix_gain": 1.0,
+      "sha256": "effc4a77c98fee0e8e65293316908a93b52296eb4cc71e26590e4a8c5f77768f",
+      "event_sources": [
+        {
+          "event": "0x393",
+          "duration": 0.32424036281179136,
+          "peak_before_mastergain": 0.6035340321204082,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 169,
+              "sample_address": "0x397528",
+              "adpcm_sha256": "fa391f6ffd63404b6b189ab14914b6817b23e91e30bd1549e5d6923dd91ff963",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_394.wav": {
+      "events": [
+        "394"
+      ],
+      "duration": 0.6748299319727891,
+      "mix_gain": 1.0,
+      "sha256": "ae58d6a2b403b4148f31cf6c36632c24ea01e5afae9aedc163861b90dd1d4fd9",
+      "event_sources": [
+        {
+          "event": "0x394",
+          "duration": 0.6748299319727891,
+          "peak_before_mastergain": 0.6061083502704084,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 170,
+              "sample_address": "0x397d98",
+              "adpcm_sha256": "d74b9db61ed73c4a3954b58b43d43241756b8dd8662c5960e6fb45d4de2e2507",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_395.wav": {
+      "events": [
+        "395"
+      ],
+      "duration": 0.6243083900226757,
+      "mix_gain": 1.0,
+      "sha256": "03a8138be8fa60ec755765e984dd44caad9367ecc36cc9a5cb597b0ab5ad7d2e",
+      "event_sources": [
+        {
+          "event": "0x395",
+          "duration": 0.6243083900226757,
+          "peak_before_mastergain": 0.6125041707487455,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 210,
+              "sample_address": "0x3e7e10",
+              "adpcm_sha256": "145c0fdbcde5ec40fd9a87600ba716e167ce2ad35c20371853c05762808695ae",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "event_3aa.wav": {
+      "events": [
+        "3aa"
+      ],
+      "duration": 2.449092970521542,
+      "mix_gain": 1.0,
+      "sha256": "fdb04f5519a8024477243f709207e67b4ab501f2819d39bd32e6913fcd9f8f38",
+      "event_sources": [
+        {
+          "event": "0x3aa",
+          "duration": 2.449092970521542,
+          "peak_before_mastergain": 0.4782299061546493,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 183,
+              "sample_address": "0x3b3f38",
+              "adpcm_sha256": "d183da28544c3a985f330e482194092b8e99d36d18367db7c3339f810b7dba4f",
+              "loop": [
+                8025,
+                10449,
+                4294967295
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "jump_a.wav": {
+      "events": [
+        "21f",
+        "38b"
+      ],
+      "duration": 0.2529705215419501,
+      "mix_gain": 1.0,
+      "sha256": "1e7bab36e0f6e53c7ff08778ae0b243ea6b7244a7f93ea535011ffa55f904f95",
+      "event_sources": [
+        {
+          "event": "0x21f",
+          "duration": 0.09498866213151927,
+          "peak_before_mastergain": 0.48573843899492736,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 36,
+              "sample_address": "0x20b9e8",
+              "adpcm_sha256": "1e05b8f9dab04b15eb52543d53d42db46535be2f13a0a7ad821ca329e234be4f",
+              "loop": null
+            }
+          ]
+        },
+        {
+          "event": "0x38b",
+          "duration": 0.2529705215419501,
+          "peak_before_mastergain": 0.5919945597624032,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 205,
+              "sample_address": "0x3e4cb0",
+              "adpcm_sha256": "3fddcc5b6e90b2fc409d6b51bdffde7edcfc556c4d2827fb65774170867385f4",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "jump_b.wav": {
+      "events": [
+        "21f",
+        "38c"
+      ],
+      "duration": 0.21494331065759636,
+      "mix_gain": 1.0,
+      "sha256": "63c8113b5c71c6d6e603a692daed202ec64fc214824546a4de872e41c6d3e53b",
+      "event_sources": [
+        {
+          "event": "0x21f",
+          "duration": 0.09498866213151927,
+          "peak_before_mastergain": 0.48573843899492736,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 36,
+              "sample_address": "0x20b9e8",
+              "adpcm_sha256": "1e05b8f9dab04b15eb52543d53d42db46535be2f13a0a7ad821ca329e234be4f",
+              "loop": null
+            }
+          ]
+        },
+        {
+          "event": "0x38c",
+          "duration": 0.21494331065759636,
+          "peak_before_mastergain": 0.5925978475086826,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 206,
+              "sample_address": "0x3e52f8",
+              "adpcm_sha256": "d9f30d63959221be7bd29947141b962f7e92fcc6aaca935b25eec3b91f3a20b5",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "kunai_finish.wav": {
+      "events": [
+        "218",
+        "211"
+      ],
+      "duration": 0.794875283446712,
+      "mix_gain": 1.0,
+      "sha256": "484d65cca250bc1b5985e31234a76b4f5d83710deb59e2127f1a07e8a80a2f22",
+      "event_sources": [
+        {
+          "event": "0x218",
+          "duration": 0.08997732426303855,
+          "peak_before_mastergain": 0.3603613782199477,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 36,
+              "sample_address": "0x20b9e8",
+              "adpcm_sha256": "1e05b8f9dab04b15eb52543d53d42db46535be2f13a0a7ad821ca329e234be4f",
+              "loop": null
+            }
+          ]
+        },
+        {
+          "event": "0x211",
+          "duration": 0.794875283446712,
+          "peak_before_mastergain": 0.5161065969333998,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 9,
+              "sample_address": "0x1ce038",
+              "adpcm_sha256": "2788a40231ff2d7eadbbb15a9fc0c0070b188118c50ac46bd49fcf8ecf93b5ca",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "bomb_release.wav": {
+      "events": [
+        "387",
+        "20b"
+      ],
+      "duration": 0.7946938775510204,
+      "mix_gain": 1.0,
+      "sha256": "414e7fed9f4ef687a4e915ac424ae5563fa3be310ce40d50f605a66c5494fd15",
+      "event_sources": [
+        {
+          "event": "0x387",
+          "duration": 0.39206349206349206,
+          "peak_before_mastergain": 0.5180567576896876,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 163,
+              "sample_address": "0x391118",
+              "adpcm_sha256": "0ec597e91518541bc432b6adb779436d9251d2801158134300a64418e21e508b",
+              "loop": null
+            }
+          ]
+        },
+        {
+          "event": "0x20b",
+          "duration": 0.7946938775510204,
+          "peak_before_mastergain": 0.6502012203346896,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 8,
+              "sample_address": "0x1cc6f8",
+              "adpcm_sha256": "7d5d535cf875a7795f6aa1fdcbcb385833ce759e37977f451bf53a51a7f16401",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    },
+    "ice_release.wav": {
+      "events": [
+        "393",
+        "103"
+      ],
+      "duration": 0.6946031746031746,
+      "mix_gain": 1.0,
+      "sha256": "8778c0e6f7b0eddbe2e17b4892c4d09c26f5d76ecf5c4ae060fa8fc016b4009e",
+      "event_sources": [
+        {
+          "event": "0x393",
+          "duration": 0.32424036281179136,
+          "peak_before_mastergain": 0.6035340321204082,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 169,
+              "sample_address": "0x397528",
+              "adpcm_sha256": "fa391f6ffd63404b6b189ab14914b6817b23e91e30bd1549e5d6923dd91ff963",
+              "loop": null
+            }
+          ]
+        },
+        {
+          "event": "0x103",
+          "duration": 0.6946031746031746,
+          "peak_before_mastergain": 0.4721103812850323,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 8,
+              "sample_address": "0x1cc6f8",
+              "adpcm_sha256": "7d5d535cf875a7795f6aa1fdcbcb385833ce759e37977f451bf53a51a7f16401",
+              "loop": null
+            },
+            {
+              "bank": 1,
+              "instrument": 33,
+              "sample_address": "0x201718",
+              "adpcm_sha256": "afad0f259ad53702441157e1f1dc0ff1497810fa62a10334b69fd07f0aa01b4b",
+              "loop": [
+                3,
+                34978,
+                4294967295
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "jetpack_weapon.wav": {
+      "events": [
+        "21f",
+        "14f"
+      ],
+      "duration": 1.5449659863945577,
+      "mix_gain": 1.0,
+      "sha256": "ffe297d3baf990ace0b31efdd6efa1a246e058d403835921aa0f727288916655",
+      "event_sources": [
+        {
+          "event": "0x21f",
+          "duration": 0.09498866213151927,
+          "peak_before_mastergain": 0.48573843899492736,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 36,
+              "sample_address": "0x20b9e8",
+              "adpcm_sha256": "1e05b8f9dab04b15eb52543d53d42db46535be2f13a0a7ad821ca329e234be4f",
+              "loop": null
+            }
+          ]
+        },
+        {
+          "event": "0x14f",
+          "duration": 1.5449659863945577,
+          "peak_before_mastergain": 0.7156768789165604,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 5,
+              "sample_address": "0x1bf3c8",
+              "adpcm_sha256": "eab06c7395452c80bcdf66bb5ad17025d290a45567ae9d645c543580dca5101d",
+              "loop": [
+                36178,
+                50454,
+                4294967295
+              ]
+            },
+            {
+              "bank": 1,
+              "instrument": 46,
+              "sample_address": "0x21b158",
+              "adpcm_sha256": "4e8948ac16a5841195089a20e287bd089fb43497f1131486a3346091d9195ff1",
+              "loop": [
+                2,
+                17728,
+                4294967295
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "jetpack_entry.wav": {
+      "events": [
+        "21f",
+        "14f",
+        "394"
+      ],
+      "duration": 1.5449659863945577,
+      "mix_gain": 0.8623415447411538,
+      "sha256": "bd121b9ff2b851f46b7438be3521d7d77f7d4a1de94eca4b74e503c2690a7806",
+      "event_sources": [
+        {
+          "event": "0x21f",
+          "duration": 0.09498866213151927,
+          "peak_before_mastergain": 0.48573843899492736,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 36,
+              "sample_address": "0x20b9e8",
+              "adpcm_sha256": "1e05b8f9dab04b15eb52543d53d42db46535be2f13a0a7ad821ca329e234be4f",
+              "loop": null
+            }
+          ]
+        },
+        {
+          "event": "0x14f",
+          "duration": 1.5449659863945577,
+          "peak_before_mastergain": 0.7156768789165604,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 1,
+              "instrument": 5,
+              "sample_address": "0x1bf3c8",
+              "adpcm_sha256": "eab06c7395452c80bcdf66bb5ad17025d290a45567ae9d645c543580dca5101d",
+              "loop": [
+                36178,
+                50454,
+                4294967295
+              ]
+            },
+            {
+              "bank": 1,
+              "instrument": 46,
+              "sample_address": "0x21b158",
+              "adpcm_sha256": "4e8948ac16a5841195089a20e287bd089fb43497f1131486a3346091d9195ff1",
+              "loop": [
+                2,
+                17728,
+                4294967295
+              ]
+            }
+          ]
+        },
+        {
+          "event": "0x394",
+          "duration": 0.6748299319727891,
+          "peak_before_mastergain": 0.6061083502704084,
+          "mastergain": 0.9,
+          "format": "44100 Hz stereo s16le",
+          "method": "Original ROM MIPS event engine in Unicorn; source ADPCM decoded with original predictor book; dry libultra API control trace; offline linear resampling, equal-power pan, linear volume ramps. No source RSP interpolation/filter/reverb emulation.",
+          "sources": [
+            {
+              "bank": 2,
+              "instrument": 170,
+              "sample_address": "0x397d98",
+              "adpcm_sha256": "d74b9db61ed73c4a3954b58b43d43241756b8dd8662c5960e6fb45d4de2e2507",
+              "loop": null
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "silent_event": "201 renders all-zero PCM and is represented by null runtime slots, without packaging a fake audible replacement.",
+  "jetpack_sustain": "Event14F is finite. Two original internally looping ADPCM layers run from0.03s to source stop1.525s; no external WAV loop is added. Original callback high-bit814F stops it early.",
+  "adaptation_silence": "The runtime dash/step/environment_hit aliases intentionally return null because this adaptation has no verified native source action for them. Shared game pickup/orb sounds are outside this character library.",
+  "shared_charge_sustain_proof": {
+    "charge_sustain_verification.json": {
+      "sha256": "0e6a377edcf820e953ecc3168d83b52ebded120aa88a933f311c21246008e85c",
+      "proof": {
+        "source_function": "0x801EC860",
+        "source_initializer": "0x801EC5B4 allocates3 actors;0x801EE4AC zeroes their counters;actor+61 indices0/1/2",
+        "method": "Original effect handler executed up to render work; only model scale helper and sound API hooked. All cadence/state/actor branches original.",
+        "results": [
+          {
+            "charge_state": 0,
+            "actor_index": 0,
+            "effect_tick_before": 0,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 0,
+            "effect_tick_before": 28,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 0,
+            "effect_tick_before": 29,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 0,
+            "effect_tick_before": 30,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 0,
+            "effect_tick_before": 58,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 0,
+            "effect_tick_before": 59,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 0,
+            "effect_tick_before": 60,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 0,
+            "effect_tick_before": 89,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 1,
+            "effect_tick_before": 0,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 1,
+            "effect_tick_before": 28,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 1,
+            "effect_tick_before": 29,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 1,
+            "effect_tick_before": 30,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 1,
+            "effect_tick_before": 58,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 1,
+            "effect_tick_before": 59,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 1,
+            "effect_tick_before": 60,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 1,
+            "effect_tick_before": 89,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 2,
+            "effect_tick_before": 0,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 2,
+            "effect_tick_before": 28,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 2,
+            "effect_tick_before": 29,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 2,
+            "effect_tick_before": 30,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 2,
+            "effect_tick_before": 58,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 2,
+            "effect_tick_before": 59,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 2,
+            "effect_tick_before": 60,
+            "event_ids": []
+          },
+          {
+            "charge_state": 0,
+            "actor_index": 2,
+            "effect_tick_before": 89,
+            "event_ids": []
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 0,
+            "effect_tick_before": 0,
+            "event_ids": []
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 0,
+            "effect_tick_before": 28,
+            "event_ids": []
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 0,
+            "effect_tick_before": 29,
+            "event_ids": [
+              "0x24d"
+            ]
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 0,
+            "effect_tick_before": 30,
+            "event_ids": []
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 0,
+            "effect_tick_before": 58,
+            "event_ids": []
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 0,
+            "effect_tick_before": 59,
+            "event_ids": [
+              "0x24e"
+            ]
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 0,
+            "effect_tick_before": 60,
+            "event_ids": []
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 0,
+            "effect_tick_before": 89,
+            "event_ids": [
+              "0x24d"
+            ]
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 1,
+            "effect_tick_before": 0,
+            "event_ids": []
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 1,
+            "effect_tick_before": 28,
+            "event_ids": []
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 1,
+            "effect_tick_before": 29,
+            "event_ids": [
+              "0x24d"
+            ]
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 1,
+            "effect_tick_before": 30,
+            "event_ids": []
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 1,
+            "effect_tick_before": 58,
+            "event_ids": []
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 1,
+            "effect_tick_before": 59,
+            "event_ids": [
+              "0x24e"
+            ]
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 1,
+            "effect_tick_before": 60,
+            "event_ids": []
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 1,
+            "effect_tick_before": 89,
+            "event_ids": [
+              "0x24d"
+            ]
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 2,
+            "effect_tick_before": 0,
+            "event_ids": []
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 2,
+            "effect_tick_before": 28,
+            "event_ids": []
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 2,
+            "effect_tick_before": 29,
+            "event_ids": [
+              "0x24d"
+            ]
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 2,
+            "effect_tick_before": 30,
+            "event_ids": []
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 2,
+            "effect_tick_before": 58,
+            "event_ids": []
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 2,
+            "effect_tick_before": 59,
+            "event_ids": [
+              "0x24e"
+            ]
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 2,
+            "effect_tick_before": 60,
+            "event_ids": []
+          },
+          {
+            "charge_state": 1,
+            "actor_index": 2,
+            "effect_tick_before": 89,
+            "event_ids": [
+              "0x24d"
+            ]
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 0,
+            "effect_tick_before": 0,
+            "event_ids": []
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 0,
+            "effect_tick_before": 28,
+            "event_ids": []
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 0,
+            "effect_tick_before": 29,
+            "event_ids": [
+              "0x24d"
+            ]
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 0,
+            "effect_tick_before": 30,
+            "event_ids": []
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 0,
+            "effect_tick_before": 58,
+            "event_ids": []
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 0,
+            "effect_tick_before": 59,
+            "event_ids": [
+              "0x24e"
+            ]
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 0,
+            "effect_tick_before": 60,
+            "event_ids": []
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 0,
+            "effect_tick_before": 89,
+            "event_ids": [
+              "0x24d"
+            ]
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 1,
+            "effect_tick_before": 0,
+            "event_ids": []
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 1,
+            "effect_tick_before": 28,
+            "event_ids": []
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 1,
+            "effect_tick_before": 29,
+            "event_ids": [
+              "0x24d"
+            ]
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 1,
+            "effect_tick_before": 30,
+            "event_ids": []
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 1,
+            "effect_tick_before": 58,
+            "event_ids": []
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 1,
+            "effect_tick_before": 59,
+            "event_ids": [
+              "0x24e"
+            ]
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 1,
+            "effect_tick_before": 60,
+            "event_ids": []
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 1,
+            "effect_tick_before": 89,
+            "event_ids": [
+              "0x24d"
+            ]
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 2,
+            "effect_tick_before": 0,
+            "event_ids": []
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 2,
+            "effect_tick_before": 28,
+            "event_ids": []
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 2,
+            "effect_tick_before": 29,
+            "event_ids": [
+              "0x24d"
+            ]
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 2,
+            "effect_tick_before": 30,
+            "event_ids": []
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 2,
+            "effect_tick_before": 58,
+            "event_ids": []
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 2,
+            "effect_tick_before": 59,
+            "event_ids": [
+              "0x24e"
+            ]
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 2,
+            "effect_tick_before": 60,
+            "event_ids": []
+          },
+          {
+            "charge_state": 2,
+            "actor_index": 2,
+            "effect_tick_before": 89,
+            "event_ids": [
+              "0x24d"
+            ]
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 0,
+            "effect_tick_before": 0,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 0,
+            "effect_tick_before": 28,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 0,
+            "effect_tick_before": 29,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 0,
+            "effect_tick_before": 30,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 0,
+            "effect_tick_before": 58,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 0,
+            "effect_tick_before": 59,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 0,
+            "effect_tick_before": 60,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 0,
+            "effect_tick_before": 89,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 1,
+            "effect_tick_before": 0,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 1,
+            "effect_tick_before": 28,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 1,
+            "effect_tick_before": 29,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 1,
+            "effect_tick_before": 30,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 1,
+            "effect_tick_before": 58,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 1,
+            "effect_tick_before": 59,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 1,
+            "effect_tick_before": 60,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 1,
+            "effect_tick_before": 89,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 2,
+            "effect_tick_before": 0,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 2,
+            "effect_tick_before": 28,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 2,
+            "effect_tick_before": 29,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 2,
+            "effect_tick_before": 30,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 2,
+            "effect_tick_before": 58,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 2,
+            "effect_tick_before": 59,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 2,
+            "effect_tick_before": 60,
+            "event_ids": []
+          },
+          {
+            "charge_state": 3,
+            "actor_index": 2,
+            "effect_tick_before": 89,
+            "event_ids": []
+          }
+        ],
+        "conclusion": "While charge state1or2, every actor calls24D at effect ticks30/90/etc and24E at60/120/etc. Release states0or3 suppress cues. Effect spawned at held tick15: first periodiccue is ~heldtick45(1.5s), then every1s. Three same-ID calls are simultaneous."
+      }
+    },
+    "charge_sustain_queue_verification.json": {
+      "sha256": "b689fe42c022d265aa35bb729b5540bc00ac7c65f94863a5e78d9ce184db0e58",
+      "proof": {
+        "24d": {
+          "single_api_calls": 240,
+          "triple_queue_api_calls": 240,
+          "identical": true
+        },
+        "24e": {
+          "single_api_calls": 240,
+          "triple_queue_api_calls": 240,
+          "identical": true
+        }
+      }
+    }
+  }
+}

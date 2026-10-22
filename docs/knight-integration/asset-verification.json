@@ -1,0 +1,17 @@
+{
+  "shared_geometry_uv_weights_preserved": true,
+  "bone_rest_positions_preserved": true,
+  "cloth_morphs": [
+    "Back_Billow",
+    "Left_Edge_Flutter",
+    "Right_Edge_Flutter",
+    "Hem_Sway"
+  ],
+  "pinned_shoulder_vertices": 14,
+  "packed_images": [
+    "goe128_2.png",
+    "goe128_2.png.002",
+    "Knight | flat painted lion shield",
+    "Knight | flat painted lion shield.001"
+  ]
+}

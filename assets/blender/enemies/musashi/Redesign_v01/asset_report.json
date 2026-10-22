@@ -1,0 +1,11 @@
+{
+  "asset_id": "EDO_EMBER_V01",
+  "base_commit": "65fa8b1",
+  "rig_rest_unchanged": true,
+  "bone_count": 16,
+  "vertices": 11767,
+  "triangles": 22969,
+  "source_note": "Blender 5.2 original unreadable by installed Blender 4.3; shipped GLB imported for exact skeleton and before surface. Original source preserved.",
+  "reference": "Ed, Brave Fencer Musashi artwork; user-facing name Edo",
+  "preview_only": true
+}

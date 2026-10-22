@@ -1,0 +1,36 @@
+{
+  "source": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/blender/characters/kai.blend",
+  "source_sha256": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c",
+  "height": 3.300000208571637,
+  "ground": -1.783677383571103e-08,
+  "meshes": [
+    {
+      "name": "Skin",
+      "bounds_min": [
+        -1.5541151762008667,
+        -0.7850843071937561,
+        -1.783677383571103e-08
+      ],
+      "bounds_max": [
+        1.496622920036316,
+        0.52527916431427,
+        2.3505859375
+      ],
+      "vertices": 240
+    },
+    {
+      "name": "Hair_Normal",
+      "bounds_min": [
+        -1.025057315826416,
+        -0.9199243187904358,
+        2.11405086517334
+      ],
+      "bounds_max": [
+        0.9778197407722473,
+        0.8164615631103516,
+        3.3000001907348633
+      ],
+      "vertices": 71
+    }
+  ]
+}

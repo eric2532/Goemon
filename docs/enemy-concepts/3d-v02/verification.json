@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "primitives_checked": 163,
+  "scale_factor": 4,
+  "height_m": 23.10000228881836,
+  "width_m": 27.73089027404785,
+  "depth_m": 15.082108974456787,
+  "height_vs_goemon": 7.00000025115662,
+  "face_uvs_and_embedded_texture": "unchanged",
+  "topology": "unchanged",
+  "previous_asset_and_gameplay_files": "unchanged"
+}

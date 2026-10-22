@@ -1,0 +1,413 @@
+{
+  "schema_version": 1,
+  "source": "raw/SC01.CD.dir/FILE_077.dir/0.4.dec",
+  "source_base": "0x80128158",
+  "source_sha256": "126605c1871a3f852578793886cb599af05d09e8c2cccf256257bbd414757ed9",
+  "source_units_to_meters": 0.01,
+  "fps": 30,
+  "coordinate_note": "Source front-Z -> glTF/Godot+Z. Imported source geometry C=(x,z,-y) in Blender; glTF Y-up export yields source(x,-y,-z). Rotate rootY byPI for Godot-Z.",
+  "color_note": "Original untextured PSXdisplay RGB/255 preserved in COLOR_0; runtime should explicitly linearize for color-managed shading.",
+  "projectiles": [
+    {
+      "id": "casing",
+      "glb": "res://assets/characters/thirstquencher/projectiles/casing.glb",
+      "model_list_address": "0x801b1560",
+      "tmd_address": "0x801b1438",
+      "source_model": "model_4540cc8cc3f17802d9c6",
+      "source_tmd_sha256": "e3764089c26f9729d4e821e48e660b31a3fa8eb1b03d4473977e2da531dc1e93",
+      "source_vertices": 8,
+      "source_polygons": 6,
+      "local_bounds_min_blender": [
+        -0.019999999552965164,
+        -0.03999999910593033,
+        -0.019999999552965164
+      ],
+      "local_bounds_max_blender": [
+        0.019999999552965164,
+        0.03999999910593033,
+        0.019999999552965164
+      ],
+      "registry_type": "0xbc",
+      "source_velocity_units_per_tick": [
+        -4.5,
+        -8,
+        0
+      ],
+      "source_lifetime_ticks": 90,
+      "source_euler_step_per_tick": [
+        -128,
+        4,
+        5
+      ],
+      "motion_note": "Casing motion is runtime actor translation/rotation rather than a recovered pose stream; this GLB preserves original static geometry.",
+      "glb_sha256": "5d26b800dd2e5bc1e78b4c5bfae67a153fb3effacf56e9115f1e86b207e0e770"
+    },
+    {
+      "id": "bullet",
+      "glb": "res://assets/characters/thirstquencher/projectiles/bullet.glb",
+      "model_list_address": "0x801b1430",
+      "tmd_address": "0x801b12c0",
+      "source_model": "model_c38210cf919c2bb5bae4",
+      "source_tmd_sha256": "9e18200e566116c7ae6a18e91edc0b6db0814545d5bebdc64721a98a637061e0",
+      "source_vertices": 6,
+      "source_polygons": 8,
+      "tmd_scale_word": 3,
+      "native_libgs_applies_tmd_scale": false,
+      "prior_converter_geometry_correction": 0.125,
+      "scale_evidence": "Native func_80056F18 does not read object+0x18scale; actorinit80185428 defaults Q12XYZ1000 via8001C214/8001C9D0. LIBGS ignores TMDscale word.",
+      "local_bounds_min_blender": [
+        -0.07999999821186066,
+        -0.1599999964237213,
+        -0.07999999821186066
+      ],
+      "local_bounds_max_blender": [
+        0.07999999821186066,
+        0.3199999928474426,
+        0.07999999821186066
+      ],
+      "part_bone": "Part_00",
+      "animation": {
+        "name": "Source__801b1208",
+        "source_address": "0x801b1208",
+        "ticks": 16,
+        "terminal": "loop",
+        "stream_sha256": "e4e59d6a06b6d5e446b28f2a5a477f648aac290064825dbbc4f8478088d59896",
+        "frames": [
+          {
+            "tick": 0,
+            "hold_ticks": 1,
+            "pose": "0x801b1188",
+            "command_address": "0x801b1208"
+          },
+          {
+            "tick": 1,
+            "hold_ticks": 1,
+            "pose": "0x801b1190",
+            "command_address": "0x801b1210"
+          },
+          {
+            "tick": 2,
+            "hold_ticks": 1,
+            "pose": "0x801b1198",
+            "command_address": "0x801b1218"
+          },
+          {
+            "tick": 3,
+            "hold_ticks": 1,
+            "pose": "0x801b11a0",
+            "command_address": "0x801b1220"
+          },
+          {
+            "tick": 4,
+            "hold_ticks": 1,
+            "pose": "0x801b11a8",
+            "command_address": "0x801b1228"
+          },
+          {
+            "tick": 5,
+            "hold_ticks": 1,
+            "pose": "0x801b11b0",
+            "command_address": "0x801b1230"
+          },
+          {
+            "tick": 6,
+            "hold_ticks": 1,
+            "pose": "0x801b11b8",
+            "command_address": "0x801b1238"
+          },
+          {
+            "tick": 7,
+            "hold_ticks": 1,
+            "pose": "0x801b11c0",
+            "command_address": "0x801b1240"
+          },
+          {
+            "tick": 8,
+            "hold_ticks": 1,
+            "pose": "0x801b11c8",
+            "command_address": "0x801b1248"
+          },
+          {
+            "tick": 9,
+            "hold_ticks": 1,
+            "pose": "0x801b11d0",
+            "command_address": "0x801b1250"
+          },
+          {
+            "tick": 10,
+            "hold_ticks": 1,
+            "pose": "0x801b11d8",
+            "command_address": "0x801b1258"
+          },
+          {
+            "tick": 11,
+            "hold_ticks": 1,
+            "pose": "0x801b11e0",
+            "command_address": "0x801b1260"
+          },
+          {
+            "tick": 12,
+            "hold_ticks": 1,
+            "pose": "0x801b11e8",
+            "command_address": "0x801b1268"
+          },
+          {
+            "tick": 13,
+            "hold_ticks": 1,
+            "pose": "0x801b11f0",
+            "command_address": "0x801b1270"
+          },
+          {
+            "tick": 14,
+            "hold_ticks": 1,
+            "pose": "0x801b11f8",
+            "command_address": "0x801b1278"
+          },
+          {
+            "tick": 15,
+            "hold_ticks": 1,
+            "pose": "0x801b1200",
+            "command_address": "0x801b1280"
+          }
+        ],
+        "poses": [
+          {
+            "address": "0x801b1188",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "angles": [
+              0,
+              0,
+              0
+            ],
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          },
+          {
+            "address": "0x801b1190",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "angles": [
+              0,
+              0,
+              256
+            ],
+            "sha256": "5eb6da0e0e522104c6d50b0748e6893762f7f2c00a7163a46ccbb535bfd61a0d"
+          },
+          {
+            "address": "0x801b1198",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "angles": [
+              0,
+              0,
+              512
+            ],
+            "sha256": "9d4ac218fb54041e3a70a8e14db1ea1af9f570f4842b4702ef9323f1ad8f0ec4"
+          },
+          {
+            "address": "0x801b11a0",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "angles": [
+              0,
+              0,
+              768
+            ],
+            "sha256": "4779cee98e83f1a1592de4f293107545fabab96772e43de89f3437b35f08938f"
+          },
+          {
+            "address": "0x801b11a8",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "angles": [
+              0,
+              0,
+              1024
+            ],
+            "sha256": "a06f129fc52abf6085679d7cd71dc41ec7580c7f5f73efef6d02dde22bb00994"
+          },
+          {
+            "address": "0x801b11b0",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "angles": [
+              0,
+              0,
+              1280
+            ],
+            "sha256": "3478af7d895d85fb71e1c84813ac8dce11a4fcd1be230cf3cba471ea702c8bd3"
+          },
+          {
+            "address": "0x801b11b8",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "angles": [
+              0,
+              0,
+              1536
+            ],
+            "sha256": "a3fd08764e225228ee3e534d14ba14b56418d9f2c40c4b529cc9df6acafaff13"
+          },
+          {
+            "address": "0x801b11c0",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "angles": [
+              0,
+              0,
+              1792
+            ],
+            "sha256": "9db4153983d9b27cd8cf2dd3ed43a2c93c8681834c69b28aa38ab437c7e38ebd"
+          },
+          {
+            "address": "0x801b11c8",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "angles": [
+              0,
+              0,
+              2048
+            ],
+            "sha256": "b1b0bee5378188f5250138bcce25855f2617f9c55b20b9628e13d367c47404a9"
+          },
+          {
+            "address": "0x801b11d0",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "angles": [
+              0,
+              0,
+              2304
+            ],
+            "sha256": "5ebd3f124ad2bed749370c01be52315ec724ad95c88a75f8566d9592a8a451c3"
+          },
+          {
+            "address": "0x801b11d8",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "angles": [
+              0,
+              0,
+              2560
+            ],
+            "sha256": "1fdfd601af3bc480d52aa5a42cfba0b9fa501b3137c74bd4a08a46c096a0e60e"
+          },
+          {
+            "address": "0x801b11e0",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "angles": [
+              0,
+              0,
+              2816
+            ],
+            "sha256": "64f732bef1835478bfd0f3ae8f81d9b37f9febaadae86d0214206bf054ac800c"
+          },
+          {
+            "address": "0x801b11e8",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "angles": [
+              0,
+              0,
+              3072
+            ],
+            "sha256": "bfc8eb98ff2c59a56f2f0e8239a5a36f5f8367591cd0385696f0896be69c2c96"
+          },
+          {
+            "address": "0x801b11f0",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "angles": [
+              0,
+              0,
+              3328
+            ],
+            "sha256": "e1e2fcca2e12c7c12744e99b39bc6f9d3c7e82459fb16f23830f5597d446173f"
+          },
+          {
+            "address": "0x801b11f8",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "angles": [
+              0,
+              0,
+              3584
+            ],
+            "sha256": "69a09126689952b095ff6aaa91b2bbd9c2c7bd220ddb5c62ecf1f4e42f61b7fc"
+          },
+          {
+            "address": "0x801b1200",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "angles": [
+              0,
+              0,
+              3840
+            ],
+            "sha256": "59fbe83123db45a66db30617ef9c0022e9175d1086b77ae2c5917396ef7f4e31"
+          }
+        ]
+      },
+      "verification": {
+        "matrix_checks": 16,
+        "max_matrix_error": 2.384185791015625e-07
+      },
+      "source_speed_units_per_tick": 16,
+      "source_lifetime_ticks": 100,
+      "source_damage": 25,
+      "registry_type": "0x20",
+      "initializer": "0x80185428",
+      "update_callback": "0x801855a0",
+      "glb_sha256": "32ef8ad488c90863b1768337d574b9e8120b5f46305676fc4c7939d241630304"
+    }
+  ]
+}

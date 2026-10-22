@@ -1,0 +1,90 @@
+[
+  {
+    "action": "01_Idle",
+    "start": 1,
+    "end": 61,
+    "loop": true,
+    "keys": [
+      1,
+      16,
+      31,
+      46,
+      61
+    ],
+    "markers": {
+      "Ready / loop start": 1,
+      "Breathe in": 16,
+      "Neutral": 31,
+      "Breathe out": 46,
+      "Loop end": 61
+    }
+  },
+  {
+    "action": "02_Run",
+    "start": 1,
+    "end": 25,
+    "loop": true,
+    "keys": [
+      1,
+      4,
+      7,
+      10,
+      13,
+      16,
+      19,
+      22,
+      25
+    ],
+    "markers": {
+      "Right contact": 1,
+      "Passing A": 7,
+      "Left contact": 13,
+      "Passing B": 19,
+      "Loop end": 25
+    }
+  },
+  {
+    "action": "03_Five_Hit_Combo",
+    "start": 1,
+    "end": 105,
+    "loop": false,
+    "keys": [
+      1,
+      6,
+      12,
+      16,
+      23,
+      30,
+      34,
+      41,
+      48,
+      52,
+      59,
+      66,
+      70,
+      78,
+      87,
+      92,
+      105
+    ],
+    "markers": {
+      "Ready": 1,
+      "Hit 1 \u2014 windup": 6,
+      "HIT 1 \u2014 downward diagonal": 12,
+      "Hit 1 \u2014 follow-through": 16,
+      "Hit 2 \u2014 windup": 23,
+      "HIT 2 \u2014 rising return": 30,
+      "Hit 2 \u2014 follow-through": 34,
+      "Hit 3 \u2014 windup": 41,
+      "HIT 3 \u2014 horizontal sweep": 48,
+      "Hit 3 \u2014 follow-through": 52,
+      "Hit 4 \u2014 thrust preparation": 59,
+      "HIT 4 \u2014 forward thrust": 66,
+      "Hit 4 \u2014 follow-through": 70,
+      "Hit 5 \u2014 raised windup": 78,
+      "HIT 5 \u2014 heavy finishing cut": 87,
+      "Hit 5 \u2014 follow-through": 92,
+      "Return to idle": 105
+    }
+  }
+]

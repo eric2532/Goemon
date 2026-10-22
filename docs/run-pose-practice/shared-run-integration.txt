@@ -1,0 +1,46 @@
+Shared approved running animation — Forest Shrine v2.59.0 hub
+
+Current launch app: build/Goemon.app (restart to load this update).
+Archive: build/Other Files/Forest Shrine v2.59.0/Shared Run/Goemon.zip
+The previous main app is retained under build/Other Files with a timestamped
+Goemon-v2.59.0-before-Shared-Run name.
+
+Shared approved Blender run: Goemon, Edo, Pirate, Ninja, Mage, Dragoon,
+Ranger, Explorer and Master Thief.
+Exceptions, preserving their previous movement: Purple Sword (Magic Swordsman),
+Knight and Samurai. This supersedes the previous Goemon/Edo-only scope.
+
+The seven added classes sample the same saved poses, body bounce and cadence.
+Their extra class stance tilts and bounces fade out while running; weapons follow
+their actual hands. Ranger now uses the shared arm swing during running, per the
+new scope. Native attacks, aiming, skills, airborne poses, crouching, rolls and
+other special moves retain their own controls. Idle and slow walking keep their
+previous cadence. Movement speeds and gameplay timing were not changed.
+
+Editable animation and re-export instructions remain in game-integration.txt.
+
+Validation:
+- 1,781 roster checks passed in the workspace and the exported app PCK.
+  Includes every run frame at run/sprint speeds for all seven added classes,
+  cadence, removal of extra class body transforms, idle/slow-walk timing and
+  24 complete 22-bone before/after pose comparisons for the three exceptions.
+- Original Goemon/Edo source-pose tests: 250 checks, 0 failures.
+- Ground contacts and slope seams: 5 checks, 0 failures.
+- Movement/controller response: 139 checks, 0 failures.
+- Costume runtime: 72 checks, 0 failures.
+- Forest hub startup/roster/preparation/combat/retry: 0 failures.
+- Jump suite: 178 checks, 2 existing failures (Samurai spreads L/R arm beside
+  the shoulder). Shared-run landing assertions now compare with the actual
+  approved Blender poses rather than the old narrower hand separation.
+- Full-body strikes: 98 checks, 1 existing failure (Knight pulls the free arm
+  behind the body). These same Samurai/Knight failures predate this rollout.
+- Earlier known Knight running shoulder/hip assertion failures and the unrelated
+  ForestEnemyCrowd forest_id error remain recorded in game-integration.txt.
+- Code review confirmed the exclusion, weapon and low-speed cadence changes.
+- Inspected a twelve-character Godot render in roster-preview/000.png.
+- macOS export completed. Installed app is version 2.59.0; code signing verified.
+
+Historical Ranger steady-carry and all-roster cadence comparison expectations are
+superseded by this user's explicit shared-run rollout. The exception fixture
+checks that the three dedicated carries themselves remain unchanged.
+Detailed current logs: roster-preview/.

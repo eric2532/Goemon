@@ -1,0 +1,80 @@
+{
+  "character": "Ed",
+  "original_source_actions": 13,
+  "derived_actions": [
+    {
+      "action": "Derived_Walk",
+      "duration_seconds": 0.8,
+      "ticks": 24,
+      "loop": true,
+      "note": "Native source01 walking poses retimed with continuous interpolation, foot plane normalized; actor root remains stationary."
+    },
+    {
+      "action": "Derived_Run",
+      "duration_seconds": 0.6,
+      "ticks": 18,
+      "loop": true,
+      "note": "Authored two-step gait on the original rigid parts; alternating thigh/boot hinges and opposite arm swing. No source geometry or textures changed; stationary actor root."
+    },
+    {
+      "action": "Derived_JumpRise",
+      "duration_seconds": 0.4,
+      "ticks": 12,
+      "loop": false,
+      "note": "Authored jump takeoff and leg tuck; vertical travel is entirely controller physics."
+    },
+    {
+      "action": "Derived_JumpAir",
+      "duration_seconds": 0.6666666666666666,
+      "ticks": 20,
+      "loop": true,
+      "note": "Authored held airborne tuck with small limb breathing; actor root stays stationary."
+    },
+    {
+      "action": "Derived_JumpFall",
+      "duration_seconds": 0.4,
+      "ticks": 12,
+      "loop": false,
+      "note": "Authored extension from airborne tuck toward landing; controller supplies falling motion."
+    },
+    {
+      "action": "Derived_Land",
+      "duration_seconds": 0.4,
+      "ticks": 12,
+      "loop": false,
+      "note": "Authored short impact compression and recovery with feet kept on the local floor; stationary actor root."
+    },
+    {
+      "action": "Derived_Beam",
+      "duration_seconds": 0.8,
+      "ticks": 24,
+      "loop": false,
+      "note": "Native source06 crossed-arm charge adapted to a readable two-hand forward beam release. Fire gameplay beam at tick10 (0.333s).",
+      "release_tick": 10,
+      "release_seconds": 0.3333333333333333
+    },
+    {
+      "action": "Derived_Fireball",
+      "duration_seconds": 1.0,
+      "ticks": 30,
+      "loop": false,
+      "note": "Authored one-hand windup, forward throw and recovery on the original rigid part rig. Release gameplay projectile at tick14 (0.467s).",
+      "release_tick": 14,
+      "release_seconds": 0.4666666666666667
+    }
+  ],
+  "source_sha256": "85b54829995fc482dd673019f5c9fed052f618f5f5de65f95d9d50e66c93f98c",
+  "root_motion": "No animation curves on object Ed or Root bone. All eight derived clips keep actor root stationary; locomotion and jump height belong to controller physics.",
+  "geometry_and_textures": "Original recovered source meshes and image bytes retained. Derived actions only change part transforms.",
+  "source_action_mapping": {
+    "idle": "Ed_source_00__80193ce4",
+    "walk": "Ed_source_01__8019426c",
+    "cast_open": "Ed_source_02__801947f4",
+    "energetic_leap": "Ed_source_03__80194ffc",
+    "somersault": "Ed_source_04__80195614",
+    "recover": "Ed_source_05__80195e24",
+    "cast_crossed": "Ed_source_06__801963ec",
+    "recoil": "Ed_source_07__80196974",
+    "fall_back": "Ed_source_08__8019799c"
+  }
+}

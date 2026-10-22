@@ -1,0 +1,24 @@
+{
+  "protected_object_count": 13,
+  "all_non_weapon_geometry_uv_weights_materials_and_bones_unchanged": true,
+  "grip_transform_unchanged": true,
+  "blade_tip_matches_existing_combat_axis": true,
+  "glb_reimport_valid": true,
+  "geometry": {
+    "vertices": 1253,
+    "triangles": 2426,
+    "material_slots": 7
+  },
+  "materials": [
+    "Ninja_Violet_Satin_silver",
+    "Ninja_Violet_Honed_edge",
+    "Ninja_Violet_Spine_steel",
+    "Ninja_Violet_Purple_handle",
+    "Ninja_Violet_Graphite_inset",
+    "Ninja_Violet_Violet_panel",
+    "Ninja_Violet_Lavender_seam"
+  ],
+  "editable_blend": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/ninja-purple-weapon/ninja-purple-weapon.blend",
+  "live_blend": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/blender/characters/goemon_cosplay/ninja.blend",
+  "live_glb": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/models/characters/goemon_cosplay/ninja.glb"
+}

@@ -1,0 +1,112 @@
+[
+  {
+    "name": "banji",
+    "status": "PASS",
+    "sha256": "4270779601bfc816a5ca264d1174b2d3c36c1e18fe877aef5c03b39486147819",
+    "mesh_count": 337,
+    "node_count": 337,
+    "embedded_images": 8,
+    "external_resources": 0,
+    "animations": 0,
+    "skins": 0
+  },
+  {
+    "name": "gaku",
+    "status": "PASS",
+    "sha256": "917c57e05d8f5ceefd9503c184429cd76f3256df844304ea0ad0a65f1d344366",
+    "mesh_count": 440,
+    "node_count": 440,
+    "embedded_images": 8,
+    "external_resources": 0,
+    "animations": 0,
+    "skins": 0
+  },
+  {
+    "name": "izumi",
+    "status": "PASS",
+    "sha256": "771ddc0c36fd8d00cdab1573d63c24a6deae26b090b6eef77915e66d9d5c5098",
+    "mesh_count": 411,
+    "node_count": 411,
+    "embedded_images": 8,
+    "external_resources": 0,
+    "animations": 0,
+    "skins": 0
+  },
+  {
+    "name": "kuren",
+    "status": "PASS",
+    "sha256": "91b531fc6b5be09b8c6d064d074f3231ae71cfaae2e98660008e748a2f445c34",
+    "mesh_count": 386,
+    "node_count": 386,
+    "embedded_images": 8,
+    "external_resources": 0,
+    "animations": 0,
+    "skins": 0
+  },
+  {
+    "name": "nagi",
+    "status": "PASS",
+    "sha256": "31ee35adc93ab40470b392915e6cff60199f1b1b2fa6f277305b37e98dca0d11",
+    "mesh_count": 364,
+    "node_count": 364,
+    "embedded_images": 6,
+    "external_resources": 0,
+    "animations": 0,
+    "skins": 0
+  },
+  {
+    "name": "raku",
+    "status": "PASS",
+    "sha256": "1304142651acc2ec2fa7f7554ad44204cbbfbbe6f47181463499be02d46987d0",
+    "mesh_count": 404,
+    "node_count": 404,
+    "embedded_images": 8,
+    "external_resources": 0,
+    "animations": 0,
+    "skins": 0
+  },
+  {
+    "name": "roan",
+    "status": "PASS",
+    "sha256": "2a935d85dfb60f4ede37dc350967666dde8a97aa554ac08647e30d564b3ab875",
+    "mesh_count": 528,
+    "node_count": 528,
+    "embedded_images": 7,
+    "external_resources": 0,
+    "animations": 0,
+    "skins": 0
+  },
+  {
+    "name": "sen",
+    "status": "PASS",
+    "sha256": "004e393e135a953471497b7aa3f0d1d4a098c49322cf7f05c3892b28a6b86aad",
+    "mesh_count": 369,
+    "node_count": 369,
+    "embedded_images": 8,
+    "external_resources": 0,
+    "animations": 0,
+    "skins": 0
+  },
+  {
+    "name": "shiro",
+    "status": "PASS",
+    "sha256": "1fffc1f6d73dc02271cf5f29c9e278c7102af0b808f231ff848295f0d19c6080",
+    "mesh_count": 342,
+    "node_count": 342,
+    "embedded_images": 8,
+    "external_resources": 0,
+    "animations": 0,
+    "skins": 0
+  },
+  {
+    "name": "touma",
+    "status": "PASS",
+    "sha256": "bc0d63da5a610a830f566852f95e3161c807f0e2adec1c7879d4bf92e29f4722",
+    "mesh_count": 419,
+    "node_count": 419,
+    "embedded_images": 8,
+    "external_resources": 0,
+    "animations": 0,
+    "skins": 0
+  }
+]

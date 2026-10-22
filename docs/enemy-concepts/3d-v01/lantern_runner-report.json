@@ -1,0 +1,26 @@
+{
+  "asset": "lantern_runner",
+  "role": "Shrine rusher",
+  "source": "assets/blender/enemies/forest_redesign_v01/lantern_runner.blend",
+  "export": "assets/models/enemies/forest_redesign_v01/lantern_runner.glb",
+  "bounds_min": [
+    -1.4751449823379517,
+    -0.906683623790741,
+    0.0
+  ],
+  "bounds_max": [
+    1.0332319736480713,
+    1.641666293144226,
+    5.115000247955322
+  ],
+  "height": 5.115000247955322,
+  "height_vs_goemon": 1.549999977172512,
+  "triangles": 30484,
+  "meshes": 56,
+  "materials": 8,
+  "face_meshes": [
+    "Root_painted_face"
+  ],
+  "notes": "Rounded oval paper shell; UV-painted face follows shell curvature; single articulated wooden leg; physical curved tongue; smooth rounded bamboo ribs. Asset-only, no gameplay integration.",
+  "rigging": "Named separate rigid parts; no gameplay integration or skeletal animation supplied."
+}

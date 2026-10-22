@@ -1,0 +1,191 @@
+{
+  "source": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/raw/SC06.CD.dir/FILE_016.dir/0.4.dec",
+  "sha256": "85b54829995fc482dd673019f5c9fed052f618f5f5de65f95d9d50e66c93f98c",
+  "actor_table": "0x8018D6D4, header pointer at0x8018923C",
+  "effect_table": "0x8018D4D4, header pointer at0x80189240",
+  "chain": [
+    {
+      "actor": "0x2FD",
+      "spawn": "0x8017E8E8",
+      "handler": "0x80180DE8",
+      "effect": "0x5D",
+      "visual": "Purple charge sprite, attached to Ed during the initial leap"
+    },
+    {
+      "actor": "0x2FF",
+      "spawn": "0x8017EB08",
+      "handler": "0x80181068",
+      "effect": "0x5E",
+      "visual": "Orange/yellow bouncing fireball; scale-in and bounce/contact handlers"
+    },
+    {
+      "actor": "0x303",
+      "spawn_loop": "0x80181018",
+      "count": 8,
+      "spacing_degrees": 45,
+      "handler": "0x80181804",
+      "effect": "0x60",
+      "visual": "Animated outward fire;90actor ticks lifetime;five vertical collision probes per outward actor"
+    }
+  ],
+  "radial_dust_particles": "0x8017EDA0 emits32 particles; this is separate from the ball-to-eight-fire-actors chain",
+  "verified_calls": {
+    "0x8017e8f4": "0x8012c588",
+    "0x8017eb20": "0x8012c658",
+    "0x80182674": "0x80132ef4",
+    "0x8018284c": "0x80132ef4",
+    "0x801827ec": "0x80181018",
+    "0x80181038": "0x8012c658",
+    "0x80182aac": "0x80132ef4"
+  },
+  "texture_coverage": "100% of recovered charge/ball/fire texels and referenced palette entries are present in the original scene PAC uploads",
+  "fire_animation": [
+    {
+      "frame": 0,
+      "texture_origin_words": [
+        768,
+        256
+      ],
+      "ticks": 1,
+      "flags": "0x1"
+    },
+    {
+      "frame": 1,
+      "texture_origin_words": [
+        784,
+        256
+      ],
+      "ticks": 1,
+      "flags": "0x1"
+    },
+    {
+      "frame": 2,
+      "texture_origin_words": [
+        800,
+        256
+      ],
+      "ticks": 1,
+      "flags": "0x1"
+    },
+    {
+      "frame": 3,
+      "texture_origin_words": [
+        816,
+        256
+      ],
+      "ticks": 1,
+      "flags": "0x1"
+    },
+    {
+      "frame": 4,
+      "texture_origin_words": [
+        768,
+        320
+      ],
+      "ticks": 1,
+      "flags": "0x1"
+    },
+    {
+      "frame": 5,
+      "texture_origin_words": [
+        784,
+        320
+      ],
+      "ticks": 1,
+      "flags": "0x1"
+    },
+    {
+      "frame": 6,
+      "texture_origin_words": [
+        800,
+        320
+      ],
+      "ticks": 1,
+      "flags": "0x1"
+    },
+    {
+      "frame": 7,
+      "texture_origin_words": [
+        816,
+        320
+      ],
+      "ticks": 1,
+      "flags": "0x1"
+    },
+    {
+      "frame": 8,
+      "texture_origin_words": [
+        768,
+        384
+      ],
+      "ticks": 1,
+      "flags": "0x1"
+    },
+    {
+      "frame": 9,
+      "texture_origin_words": [
+        784,
+        384
+      ],
+      "ticks": 1,
+      "flags": "0x1"
+    },
+    {
+      "frame": 10,
+      "texture_origin_words": [
+        800,
+        384
+      ],
+      "ticks": 1,
+      "flags": "0x1"
+    },
+    {
+      "frame": 11,
+      "texture_origin_words": [
+        816,
+        384
+      ],
+      "ticks": 1,
+      "flags": "0x1"
+    },
+    {
+      "frame": 12,
+      "texture_origin_words": [
+        768,
+        448
+      ],
+      "ticks": 1,
+      "flags": "0x1"
+    },
+    {
+      "frame": 13,
+      "texture_origin_words": [
+        784,
+        448
+      ],
+      "ticks": 1,
+      "flags": "0x1"
+    },
+    {
+      "frame": 14,
+      "texture_origin_words": [
+        800,
+        448
+      ],
+      "ticks": 1,
+      "flags": "0x1"
+    },
+    {
+      "frame": 15,
+      "texture_origin_words": [
+        816,
+        448
+      ],
+      "ticks": 1,
+      "flags": "0x81"
+    }
+  ],
+  "runtime_comparison": "Current E is adapted: three hops, three generic fireballs per volley, one EdoFireExplosion at completion. It does not instantiate original2FF bouncing ball or303 outward fire actors.",
+  "status": "ROM investigation and original sprite recovery only; game source and canonical app unchanged this turn.",
+  "limits": "Observed behavior traced from static ROM instructions, not an emulator capture. Original damage interpretation and full collision/timing still require a complete gameplay port."
+}

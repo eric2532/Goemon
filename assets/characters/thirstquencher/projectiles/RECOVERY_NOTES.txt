@@ -1,0 +1,10 @@
+Original Thirstquencher gunshot recovery
+
+Authentic recovered retail SPU ADPCM sample; no synthesis or substitute audio.
+Pitch follows original custom driver SPU lookup/interpolation, rounded to integer WAV sample rate.
+Dry sample: original SPU ADSR/reverb/volume modulation not emulated; original tone and record bytes retained.
+
+gunshot_43a.wav: 0x43A — Ordinary blue Thirstquencher Soldier gunshot
+  bank_9c8ce35dd2b0baf2; program 2, tone 6, sample 15; 11025 Hz; 0.399s
+  SC01 FILE077 func_80181BE4 ordinary Soldier2 firing; registrytype0x20 bullet initializer80185428
+  Confidence: source firing call confirmed; bank/pitch source-resolved

@@ -1,0 +1,28 @@
+Original Musashi audio from the supplied USA retail disc.
+
+Reproduce dry samples with tools/recover_musashi_audio.py. Optional --sound
+arguments recover specific original dispatch IDs; audio_provenance.json retains
+source addresses, banks, sample hashes, pitch/driver records and runtime aliases.
+
+Fusion swings:0x400/0x446. Fourth-Fusion initializer voice:0x5F6, apex
+follow-through:0x447, strong contact selector3:0x439. The third cut retains
+0x438. Lumina initializer:0x455. Both swords share normal enemy contact0x437.
+Rotation body event at tick11 triggers0x9DA. Identical dry PCM0x439/9DA shares
+lumina_rotation.wav; confirmed0x5F6 shares the existing voice_exertion.wav.
+
+Actual SC01 terrain0 footsteps use0x406/407 at original opcode8 markers.
+Actual air landing61774->61D20 uses0x42E. These events share the identical
+foot_contact.wav in the selected chapter bank. The older land.wav filename is
+retained for0x41E ground-stop/skid (5AC48->61CD0); it is no longer used as the
+ordinary landing default. Other terrain banks have not been mapped to the host
+landscape. Source actor/material dispatch, rather than filename, identifies use.
+
+Normal Fusion/Lumina call0x5F3, inactive in this US executable: their voice
+defaults are silent. No confirmed jump voice is supplied. Damage/knockback uses
+0x451. Existing custom recordings, mute and gain preferences remain available;
+o synthesized grunt or substitute sound is introduced. Off-player voice policy
+remains the host game's existing rule. Full story dialogue is not integrated.
+
+Decoded original PCM and driver-derived playback rates are retained; integer
+WAV rates are rounded. No replacement synthesis/denoising/normalization is used.
+SPU ADSR, reverb, event volume and full hardware interpolation are not emulated.

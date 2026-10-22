@@ -1,0 +1,27 @@
+Ben — original Brave Fencer Musashi USA recovery, playable derivative.
+Source: raw/SC06.CD.dir/FILE_030.dir/0.4.dec in the preserved Musashi Asset Recovery.
+16 rigid parts;30 source clips +10 adapted controller clips. Source-unit presentation is one centimetre; the local game fits each
+model to its existing character controller. The original stores actor-space rigid
+part poses, so all source-index part bones remain direct children of an editable
+Root. Original anatomical parent links are not invented.
+
+All original geometry, vertex-color arrays and embedded texture pixels are
+preserved. Runtime source_palette.gdshader interprets the legacy recovered raw
+vertex RGB as display RGB, applies textured packet modulation in display space,
+and compensates for the Forest Filmic/exposure curve. It does not repaint the
+textures or apply a new character color scheme. Eight native Metal calibration
+swatches match source colors exactly; source texture pixel hashes are verified.
+
+Original clips retain their numeric source-address names, pose transforms and
+held timing keys. Derived_* clips are explicitly authored player adaptations:
+in-place gaits, rise/air/fall/landing and release gestures. Ben additionally has
+in-place propeller deployment, flight, retraction and throwing. Runtime supplies
+all movement and flight height, smoothing state boundaries over70ms.
+New hitboxes, cast timing, projectiles, beam rendering and combat effects belong
+to this local game; this is not the original boss AI running unchanged.
+
+Editable .blend, recovered-only and playable GLBs, source manifests, per-pose
+hashes, reproduction scripts and detailed validation live in:
+build/Other Files/Ed and Ben/Ben/ and Research/Ben/.
+Those are preserved alongside the user's original raw recovery. No ROM data
+or editable source asset was removed.

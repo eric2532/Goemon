@@ -1,0 +1,66 @@
+{
+  "verified_at": "2026-10-14T03:06:50.953302+08:00",
+  "change": "Stronger shared waist/spine/shoulder turn, wider hand clearance at the hip, and subtle inward airborne foot arc across all twelve characters.",
+  "engine": "Godot 4.6.3",
+  "packaged_tests": {
+    "goemon_run_coordination_tests": {
+      "checks": 72,
+      "failures": 0,
+      "log": "build/run-coordination/verification/packaged-goemon_run_coordination_tests.log"
+    },
+    "goemon_run_pacing_tests": {
+      "checks": 202,
+      "failures": 0,
+      "log": "build/run-coordination/verification/packaged-goemon_run_pacing_tests.log"
+    },
+    "goemon_unified_run_tests": {
+      "checks": 131,
+      "failures": 0,
+      "log": "build/run-coordination/verification/packaged-goemon_unified_run_tests.log"
+    }
+  },
+  "packaged_run_checks": 405,
+  "source_regressions": {
+    "attack_checks": 77,
+    "jump_checks": 178,
+    "terrain_locomotion_samples": 1171,
+    "failures": 0
+  },
+  "native_startup": {
+    "frames": 120,
+    "exit_code": 0,
+    "log": "build/run-coordination/verification/native-startup.log"
+  },
+  "preview": {
+    "frames": 120,
+    "fps": 30,
+    "duration_seconds": 4,
+    "playback_speed": 1,
+    "closeup_captures": 122,
+    "roster_captures": 122,
+    "paired_pose_captures": 2,
+    "decode_checks": "passed",
+    "visual_review": "Rear, side and rear three-quarter views inspected, including the arm passing the hip and opposite stride peaks."
+  },
+  "artifacts": {
+    "app": "build/goemon-cosplay/Goemon Cosplay.app",
+    "zip": "build/goemon-cosplay/Goemon Cosplay.zip",
+    "pck_sha256": "5b044b507dfbacddfecd692c8811cb39f22f89422c06f3d023d614fe54045f61",
+    "zip_sha256": "819b764ab072ba8f9a55fa2fa492af3bf118d09047d75eae73f96e8974fd3102",
+    "zip_crc": "passed",
+    "zip_pck_matches_tested_package": true,
+    "codesign_deep_strict": "passed"
+  },
+  "preservation": {
+    "settings_and_recordings_files": 16,
+    "all_hashes_unchanged": true,
+    "kai_blend_sha256": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c"
+  },
+  "review": "Independent focused review approved coordination, partial blends, transitions, weapon attachment, and jump/combat gating with no actionable findings.",
+  "source_files": {
+    "scripts/goemon_reference_run_body.gd": "89cb9ecbf98d9dd97a05aa8387348bb09eb46d56d745c11a28fd886372e08216",
+    "scripts/hero_locomotion.gd": "16bff8df51068145dd058c0b83f6aaf494450c84dd104597ba41345d89b65c14",
+    "scripts/goemon_cosplay_rig.gd": "59379625af236deeaec61f07f8ebf47583fc93dc0859cc85862570ad507a2bae",
+    "assets/characters/musashi/animations/goemon_cosplay_motion.gd": "7cf532f618c9ed8711986f9ea25df6df492b14210a8abf4a6cb9b0fd72d3b45e"
+  }
+}

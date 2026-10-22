@@ -1,0 +1,30 @@
+{
+  "frames": 34,
+  "fps": 60,
+  "previous_core_hold": [
+    7,
+    9
+  ],
+  "new_core_hold": [
+    7,
+    12
+  ],
+  "hold_time_multiplier": 2.5,
+  "deep_extension_frame": 18,
+  "deep_extension_m": 0.14,
+  "extension_direction_rig": [
+    0.08905907720327377,
+    0.9951608180999756,
+    0.04151306673884392
+  ],
+  "max_shoulder_advance_m": 0.13455427020910887,
+  "core_pose_error": 2.980232238769531e-07,
+  "impact_leg_error": 2.384185791015625e-07,
+  "hand_grip_error": 5.960464477539062e-07,
+  "deep_displacement_error": 2.0494387563937704e-08,
+  "recovery_error": 2.980232238769531e-07,
+  "windup_error": 5.960464477539062e-07,
+  "arm_segment_length_error": 9.198510536601034e-08,
+  "backup": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/dragoon-motion-workbench/Dragoon_Strike_Before_Deep_Extension_20261015_164535.blend",
+  "action": "03_Lance_Thrust_1"
+}

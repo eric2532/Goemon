@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cip1440iqn5fo"
+path="res://.godot/imported/frag2.wav-a451f4db4ff82d20d1c028c3a850e789.sample"
+
+[deps]
+
+source_file="res://assets/characters/master_chief/effects/sound/sfx/weapons/frag grenade/expl/frag2.wav"
+dest_files=["res://.godot/imported/frag2.wav-a451f4db4ff82d20d1c028c3a850e789.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

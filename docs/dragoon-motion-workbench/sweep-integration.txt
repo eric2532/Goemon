@@ -1,0 +1,41 @@
+Dragoon controls and Azure Lance Sweep — latest Forest Shrine v2.59.0
+
+Grounded LMB: approved Lance Pierce thrust, unchanged.
+Grounded RMB / 3: Azure Lance Sweep, replacing the old automatic leap.
+Airborne LMB or RMB / 3: Dragon Leap toward the crosshair landing point.
+Both aerial buttons ignore ground cooldowns and do not start a new timer.
+Space: one jump at 3x ordinary height; hold to hover at apex / while descending.
+Dragon Leap retains the 3x landing shockwave radii (12.6 / 16.2 / 19.8m base).
+
+Sweep reuses the approved Blender thrust action. Its upper-body bones and lance
+rotate together from left to right; approved lower-body pose and hand grips stay
+coherent. No original Blender source, mesh, UVs or rest skeleton are changed.
+The new sweep lasts .84s, with contacts at .22 / .34 / .46 authored combat seconds.
+It deals three times normal thrust base damage per contact (37 x 3 = 111), with
+three hits for 333 total base damage before the existing character/critical/combo
+multipliers. One cast ticket owns all contacts, so the move earns one combo link.
+Hits respect the forward semicircle, reach and solid cover; oversized boosted
+steps still resolve three contacts, and canceled moves cannot release later hits.
+The blue energy crescents match the wide frontal sweep. Grounded cooldown remains
+2.6s, with the existing Dragon Leap buff still clearing Sweep/Back Flip cooldowns.
+
+Sound Studio adds a separate Azure Lance Sweep Weapon/Voice pair. Existing
+secondary recordings remain assigned to airborne Dragon Leap; its original voice
+plays once on landing. Both aerial HUD icons show ready and say Dragon Leap.
+
+Tests under tests/dragoon-sweep:
+- Pre-change red mismatch confirmed ground leap / missing aerial LMB / sweep.
+- 25 real sweep/control checks: exact per-contact damage, both sides of arc,
+  excluded behind/far enemies, cover, cancellation, coarse tick, both buttons and rapid dive landings.
+- 24 flight regressions, 23 repeat/radius regressions, 23 HUD regressions.
+- 1,872 approved source pose checks and 21 animation/gameplay checks.
+- 46 paired audio checks, including new Sweep weapon/voice and preserved Leap.
+- Inspected four native game screenshots left / first-hit / crossing / right.
+- Independent narrow review reported no blocking findings.
+Some existing scene test harnesses emit ObjectDB cleanup warnings at shutdown;
+all functional assertions and clean isolated pose checks are retained in logs.
+
+Current app: build/Goemon.app (restart to load).
+Release ZIP: build/Other Files/Forest Shrine v2.59.0/Dragoon Lance Sweep/Goemon.zip
+Installed app/PCK, previous app and final packaged checks: verification.json in
+ tests/dragoon-sweep.

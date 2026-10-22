@@ -1,0 +1,10 @@
+Original Thirstquencher death sound recovery
+
+Authentic recovered retail SPU ADPCM sample; no synthesis or substitute audio.
+Pitch follows original custom driver SPU lookup/interpolation, rounded to integer WAV sample rate.
+Dry sample: original SPU ADSR/reverb/volume modulation not emulated; original tone and record bytes retained.
+
+soldier_death_6aa.wav: 0x6AA — Ordinary Thirstquencher Soldier death/tumble sound
+  bank_9c8ce35dd2b0baf2; program 2, tone 10, sample 20; 15590 Hz; 0.490s
+  SC01 FILE077 func_80182420 shared ordinary death entry; 801824B0 loads a0=0x6AA; 801824B4 calls8002D4C8 after Source__801b09d0 tumble setup; ordinary subtypes0/1/2 share this entry
+  Confidence: shared ordinary death entry confirmed in retail bytes; bank and pitch source-resolved

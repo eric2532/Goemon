@@ -1,0 +1,8 @@
+{
+  "assets/blender/characters/kai.blend": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c",
+  "assets/models/characters/kai.glb": "2ab5c57b8786c22ed33cfcb3ccd6c57cbd6902ff0adf892b133e260a27295178",
+  "assets/models/characters/goemon_cosplay/goemon.glb": "0fe20a14052ffed3b669ddaa33f14ecf4219a76dab458f552ef1fceab3e0eb37",
+  "scripts/forest/forest_waves.gd": "0f11762113472e18e94b60c2326ec2bfd5d39c288b0cd6bfa0675b1186d1025d",
+  "scripts/enemy_crowd.gd": "72d626e69e8982e1f73be4f46d3ef253c75e2043268edae01d6f592f6b4aa4d8",
+  "assets/materials/original_enemy_crowd.gdshader": "8eb98edf45c9a4ab0b4ad777833f336f8f1225b4152d0fabd12afcbbf684a56b"
+}

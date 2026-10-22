@@ -1,0 +1,13 @@
+{
+  "saved_file_verified": true,
+  "frames_checked": 34,
+  "core_hold_multiplier": 2.5,
+  "core_error": 4.172325134277344e-07,
+  "fixed_leg_error": 4.172325134277344e-07,
+  "hand_grip_error": 4.76837158203125e-07,
+  "arm_segment_length_error": 3.051271407761291e-07,
+  "return_to_start_error": 2.682209014892578e-07,
+  "lance_advance_m": 0.14,
+  "other_clips_unchanged": true,
+  "mesh_uv_bone_lengths_unchanged": true
+}

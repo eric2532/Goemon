@@ -1,0 +1,23 @@
+{
+  "source_sha256": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c",
+  "original_unchanged": true,
+  "rig_rest_matrices_identical": true,
+  "bones": 22,
+  "animations": 24,
+  "new_geometry": true,
+  "meshes": {
+    "Skin": {
+      "vertices": 10656,
+      "triangles": 19434
+    },
+    "Hair_Normal": {
+      "vertices": 3944,
+      "triangles": 7264
+    },
+    "Hair_Gold": {
+      "vertices": 3944,
+      "triangles": 7264
+    }
+  },
+  "hair_locks": 31
+}

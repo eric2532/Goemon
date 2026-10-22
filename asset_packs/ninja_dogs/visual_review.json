@@ -1,0 +1,145 @@
+{
+  "scope": "Static reference comparison and six-view render inspection. Visual fidelity is interpreted, not identical to the illustration. No animation or deformation tests.",
+  "reviewed": [
+    {
+      "id": "01",
+      "name": "Kogane",
+      "notes": "Orange/cream Shiba, lowered scout stance, curl, indigo scarf, scroll and two smoke bombs retained. Face and paws are rounder and less expressive than the drawing; scarf weave and fur markings are simplified.",
+      "views_reviewed": [
+        "reference_comparison",
+        "front",
+        "side",
+        "threequarter",
+        "rear",
+        "backthreequarter",
+        "portrait"
+      ]
+    },
+    {
+      "id": "02",
+      "name": "Daigo",
+      "notes": "Akita bulk, cream ruff, pale curl, brow helmet and laced shoulder/chest armor retained. Armor is cleaner, shallower and more regular than the concept; etched wear and layered ornamental density are reduced.",
+      "views_reviewed": [
+        "reference_comparison",
+        "front",
+        "side",
+        "threequarter",
+        "rear",
+        "backthreequarter",
+        "portrait"
+      ]
+    },
+    {
+      "id": "03",
+      "name": "Kage",
+      "notes": "Tall shepherd ears, long muzzle, low tail, brindled coat, plum hood, leaf mantle and pouches retained. Leaf edges are graphic and the fur lacks the illustrated fine brindling; body is more upright than the concept.",
+      "views_reviewed": [
+        "reference_comparison",
+        "front",
+        "side",
+        "threequarter",
+        "rear",
+        "backthreequarter",
+        "portrait"
+      ]
+    },
+    {
+      "id": "04",
+      "name": "Arashi",
+      "notes": "Raised forepaw, dark saddle coat, teal scarf, map, satchel and three vials retained. Nose and expression are simpler; tail is paler and head less raised than the drawing. Glass-like vial appearance is simplified to opaque color.",
+      "views_reviewed": [
+        "reference_comparison",
+        "front",
+        "side",
+        "threequarter",
+        "rear",
+        "backthreequarter",
+        "portrait"
+      ]
+    },
+    {
+      "id": "05",
+      "name": "Haku",
+      "notes": "White Kishu, pointed ears, slender legs, navy cloth and side sword retained. Sword straps were fitted and pale blue ties added. Torso and head are fuller and less angular than the drawing; tiny embroidered and sword details are simplified.",
+      "views_reviewed": [
+        "reference_comparison",
+        "front",
+        "side",
+        "threequarter",
+        "rear",
+        "backthreequarter",
+        "portrait"
+      ]
+    },
+    {
+      "id": "06",
+      "name": "Suzu",
+      "notes": "White spitz, enlarged ruff and plume, cream/red panels, bell, tassels and three floating paper wards retained. Corrected a detached ward flower after shifting the paper clear of the ear. The mane is strand-like rather than painterly soft clumps, cloth panels are more rigid, and there is no animated glow.",
+      "views_reviewed": [
+        "reference_comparison",
+        "front",
+        "side",
+        "threequarter",
+        "rear",
+        "backthreequarter",
+        "portrait"
+      ]
+    },
+    {
+      "id": "07",
+      "name": "Maboro",
+      "notes": "Black-and-white Chin markings, white blaze, violet eyes, feathered ears, flowing white tail, purple scarf and crescent clasp retained. Rotated ear feathering with the head to clear the eye. Body is longer, muzzle more forward and coat less silky than the drawing; spectral duplicate is omitted.",
+      "views_reviewed": [
+        "reference_comparison",
+        "front",
+        "side",
+        "threequarter",
+        "rear",
+        "backthreequarter",
+        "portrait"
+      ]
+    },
+    {
+      "id": "08",
+      "name": "Iwa",
+      "notes": "Heavy tan mastiff body, dark jowls, dropped ears, short tail, chest armor and curved side shield retained. Unified muzzle and dropped-ear revisions replace earlier separate jowl volumes. Wrinkles, shield outline, ornament and armor wear are much simpler than the drawing; the head remains more rounded and stylized. Added upper and lower leather suspension straps so the chest armor connects visibly to the harness.",
+      "views_reviewed": [
+        "reference_comparison",
+        "front",
+        "side",
+        "threequarter",
+        "rear",
+        "backthreequarter",
+        "portrait"
+      ]
+    },
+    {
+      "id": "09",
+      "name": "Mine",
+      "notes": "Gray/cream husky, pale curl, raised paw on rock, open mouth, navy kit, rope coil, hook and ankle wraps retained. Rope revised to an open continuous spiral and rock contact adjusted. Teeth are omitted and tongue is recessed; the mouth is less expressive than the concept. Rope lay, rock facets, coat and embroidery are simplified.",
+      "views_reviewed": [
+        "reference_comparison",
+        "front",
+        "side",
+        "threequarter",
+        "rear",
+        "backthreequarter",
+        "portrait"
+      ]
+    },
+    {
+      "id": "10",
+      "name": "Hayate",
+      "notes": "Long dark sighthound silhouette, white underside, swept ears, extended running pose, streaming tail/scarf and ankle bells retained. Revised tucked abdomen and fitted light harness. Muzzle, limb joints and coat feathering remain simpler and fuller than the drawing. This is a frozen airborne pose, not a running animation; illustrated wind wisps are omitted.",
+      "views_reviewed": [
+        "reference_comparison",
+        "front",
+        "side",
+        "threequarter",
+        "rear",
+        "backthreequarter",
+        "portrait"
+      ]
+    }
+  ]
+}

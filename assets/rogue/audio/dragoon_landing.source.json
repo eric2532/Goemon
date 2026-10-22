@@ -1,0 +1,79 @@
+{
+  "title": "Landing Sound Effects",
+  "channel": "Celestial SFX",
+  "source_url": "https://www.youtube.com/watch?v=FW4tiK_N9kc",
+  "retrieved_on": "2026-10-17",
+  "source_wav_sha256": "8165f61b29f8185acd425062f88d2c4534365f9efbbf07c479d3c9d7c8221eb1",
+  "source_effect_count": 6,
+  "source_effect_windows_seconds": [
+    [
+      1.16,
+      1.58
+    ],
+    [
+      2.84,
+      3.5
+    ],
+    [
+      4.36,
+      5.55
+    ],
+    [
+      6.465,
+      7.31
+    ],
+    [
+      8.31,
+      8.75
+    ],
+    [
+      10.1,
+      10.72
+    ]
+  ],
+  "selected_effect": 4,
+  "selected_seconds": [
+    6.465,
+    7.31
+  ],
+  "usage": "Dragoon Dragon Leap: one three-layer strike at actual landing contact; normal jumps and grounded sweep unchanged.",
+  "processing": "Landing: 65 Hz high-pass / 10 kHz low-pass, 2 ms / 25 ms fades, -10 dBFS peak. Composite: thud, existing spear pierce and lance sweep at 0/8/16 ms, -7.5 dBFS final peak. Stereo 48 kHz PCM16, no looping. Native landing voice/take routing retained.",
+  "license": "Not established by download; user supplied this source for the prototype.",
+  "generator": "tools/build_dragoon_landing_audio.py",
+  "landing": {
+    "file": "landing-dragoon.wav",
+    "duration_seconds": 0.845,
+    "peak_dbfs": -10.0,
+    "sha256": "9d9359d6b4f047ab323b57a5feac4f12b762236e2122b6ec727426eea5116cc9"
+  },
+  "impact": {
+    "file": "landing-strike-dragoon.wav",
+    "duration_seconds": 0.845,
+    "peak_dbfs": -7.5,
+    "sha256": "e70cda31f0e19c292c69b5b6d664026733a7fb50ddbe7f32a87b77f0328d757e"
+  },
+  "layers": [
+    {
+      "file": "landing-dragoon.wav",
+      "role": "Landing body / ground impact",
+      "gain": 1.0,
+      "offset_seconds": 0,
+      "sha256": "9d9359d6b4f047ab323b57a5feac4f12b762236e2122b6ec727426eea5116cc9"
+    },
+    {
+      "file": "thrust-dragoon-2.wav",
+      "role": "Spear piercing impact",
+      "gain": 0.65,
+      "offset_seconds": 0.008,
+      "sha256": "5b2e97ab2ad114c2f8d984cf98833c9d622be8dbde984ea3640e90c2cd9d3253"
+    },
+    {
+      "file": "sweep-dragoon.wav",
+      "role": "Lance attack / air cut",
+      "gain": 0.45,
+      "offset_seconds": 0.016,
+      "sha256": "a97643e7266e41cf707cca3e2fbfbd01a2d9dd12c659cd8fd840a817c535ac52"
+    }
+  ],
+  "existing_spear_source_manifest": "dragoon_spear.source.json"
+}

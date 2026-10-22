@@ -1,0 +1,58 @@
+{
+  "character": "gaku",
+  "source_sha256": "3a54fd33b6a8cf02d6d28c0adf84d7e81bb81a58c3db8bdfecb5292a6fcf7875",
+  "glb_sha256": "917c57e05d8f5ceefd9503c184429cd76f3256df844304ea0ad0a65f1d344366",
+  "status": "PASS",
+  "source": {
+    "objects": 441,
+    "triangles": 352136,
+    "vertices": 178143,
+    "bounds_min": [
+      -0.9834634065628052,
+      -0.5021397471427917,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      1.1852377653121948,
+      0.44863975048065186,
+      2.572180986404419
+    ],
+    "nonfinite_objects": []
+  },
+  "glb_reimport": {
+    "objects": 440,
+    "triangles": 352136,
+    "vertices": 205846,
+    "bounds_min": [
+      -0.9834634065628052,
+      -0.5021397471427917,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      1.1852377653121948,
+      0.44863975048065186,
+      2.572180986404419
+    ],
+    "nonfinite_objects": []
+  },
+  "bounds_max_error": 0.0,
+  "packed_images": [
+    "04-gaku-iron-pilgrim.png",
+    "Gaku_accent_painted_fiber",
+    "Gaku_cloth_painted_fiber",
+    "Gaku_cream_painted_fiber",
+    "Gaku_gold_painted_fiber",
+    "Gaku_hair_painted_fiber",
+    "Gaku_leather_painted_fiber",
+    "Gaku_pants_painted_fiber",
+    "Gaku_rope_painted_fiber"
+  ],
+  "static_unrigged": true,
+  "views": [
+    "three_quarter",
+    "front",
+    "side",
+    "back",
+    "import"
+  ]
+}

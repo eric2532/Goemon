@@ -1,0 +1,223 @@
+{
+ "deposits": [],
+ "format": "forest_shrine_map",
+ "schema": 1,
+ "title": "Blood Gulch Castle",
+ "buildings": [
+  {
+   "kind": "gate",
+   "x": 0,
+   "z": 8,
+   "rotation": 0,
+   "span": 0
+  },
+  {
+   "kind": "wall",
+   "x": -8,
+   "z": 8,
+   "rotation": 0,
+   "span": 6
+  },
+  {
+   "kind": "wall",
+   "x": -2,
+   "z": 8,
+   "rotation": 0,
+   "span": 2
+  },
+  {
+   "kind": "wall",
+   "x": 2,
+   "z": 8,
+   "rotation": 0,
+   "span": 6
+  },
+  {
+   "kind": "tower",
+   "x": -4,
+   "z": 5,
+   "rotation": 2,
+   "span": 0
+  },
+  {
+   "kind": "tower",
+   "x": 3,
+   "z": 5,
+   "rotation": 2,
+   "span": 0
+  },
+  {
+   "kind": "gate",
+   "x": -8,
+   "z": 0,
+   "rotation": 3,
+   "span": 0
+  },
+  {
+   "kind": "wall",
+   "x": -8,
+   "z": -8,
+   "rotation": 3,
+   "span": 6
+  },
+  {
+   "kind": "wall",
+   "x": -8,
+   "z": -2,
+   "rotation": 3,
+   "span": 2
+  },
+  {
+   "kind": "wall",
+   "x": -8,
+   "z": 2,
+   "rotation": 3,
+   "span": 6
+  },
+  {
+   "kind": "tower",
+   "x": -6,
+   "z": -4,
+   "rotation": 1,
+   "span": 0
+  },
+  {
+   "kind": "tower",
+   "x": -6,
+   "z": 3,
+   "rotation": 1,
+   "span": 0
+  },
+  {
+   "kind": "gate",
+   "x": -1,
+   "z": -8,
+   "rotation": 2,
+   "span": 0
+  },
+  {
+   "kind": "wall",
+   "x": 3,
+   "z": -8,
+   "rotation": 2,
+   "span": 6
+  },
+  {
+   "kind": "wall",
+   "x": 1,
+   "z": -8,
+   "rotation": 2,
+   "span": 2
+  },
+  {
+   "kind": "wall",
+   "x": -7,
+   "z": -8,
+   "rotation": 2,
+   "span": 6
+  },
+  {
+   "kind": "tower",
+   "x": 3,
+   "z": -6,
+   "rotation": 0,
+   "span": 0
+  },
+  {
+   "kind": "tower",
+   "x": -4,
+   "z": -6,
+   "rotation": 0,
+   "span": 0
+  },
+  {
+   "kind": "gate",
+   "x": 8,
+   "z": -1,
+   "rotation": 1,
+   "span": 0
+  },
+  {
+   "kind": "wall",
+   "x": 8,
+   "z": 3,
+   "rotation": 1,
+   "span": 6
+  },
+  {
+   "kind": "wall",
+   "x": 8,
+   "z": 1,
+   "rotation": 1,
+   "span": 2
+  },
+  {
+   "kind": "wall",
+   "x": 8,
+   "z": -7,
+   "rotation": 1,
+   "span": 6
+  },
+  {
+   "kind": "tower",
+   "x": 5,
+   "z": 3,
+   "rotation": 3,
+   "span": 0
+  },
+  {
+   "kind": "tower",
+   "x": 5,
+   "z": -4,
+   "rotation": 3,
+   "span": 0
+  }
+ ],
+ "trees": [],
+ "roads": [],
+ "portals": [
+  {
+   "x": -19,
+   "z": -31,
+   "rotation": 2
+  },
+  {
+   "x": -11,
+   "z": -31,
+   "rotation": 2
+  },
+  {
+   "x": -25,
+   "z": -10,
+   "rotation": 1
+  },
+  {
+   "x": -25,
+   "z": -1,
+   "rotation": 1
+  },
+  {
+   "x": 25,
+   "z": 10,
+   "rotation": 3
+  },
+  {
+   "x": 25,
+   "z": 18,
+   "rotation": 3
+  },
+  {
+   "x": 12,
+   "z": 31,
+   "rotation": 0
+  },
+  {
+   "x": 22,
+   "z": 31,
+   "rotation": 0
+  }
+ ],
+ "ramparts": [],
+ "terrain_source": "blood_gulch",
+ "terrain_scale": 1.2
+}

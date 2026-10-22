@@ -1,0 +1,37 @@
+extends "res://scripts/recovered_leaders_tests.gd"
+const Fixture=preload("res://scripts/recovered_leader_projectile_tests.gd")
+func event(down: bool)->InputEventAction:
+ var e=InputEventAction.new();e.action="equip";e.pressed=down;return e
+func run():
+ game=load("res://scenes/forest_title.tscn").instantiate();game.settings_path="user://ben-axes-%s.cfg"%OS.get_process_id()
+ root.add_child(game);current_scene=game;await frames(5)
+ game.begin_forest();game.choose_rogue_character(15);game.start_wave();game.tuning.invincible=true;game.tuning.freeze_ai=true;game.character_tuning={};await frames(10)
+ var p=game.player;p.set_physics_process(false);p.model.set_process(false);p.position=Vector3(0,80,0)
+ check(SoundLibrary.slots_for(15).has("ben_axe_voice"),"Axe voice has independent Sound Studio recording, mute and gain controls")
+ var c=p.active_ability;c.input(event(true));c.input(event(false));c.tick(.42)
+ check(not c.is_attacking() and get_nodes_in_group("leader_projectiles").size()==3,"Tapping E finishes one original star fan without axes")
+ for shot in get_nodes_in_group("leader_projectiles"):shot.free()
+ c.input(event(true));c.tick(.42)
+ check(c.mode=="axes" and "source_15__" in c.clip,"Holding E continues into Ben's separate native axe-throw motion")
+ c.input(event(false));c.tick(.32)
+ check(get_nodes_in_group("leader_projectiles").size()==3,"Axe throw retains its native key20 windup")
+ c.tick(.02)
+ var axes=get_nodes_in_group("leader_projectiles").filter(func(shot):return shot.get("axe")==true)
+ check(axes.size()==1,"First native axe releases at key20 at doubled attack speed")
+ c.tick(1.2)
+ axes=get_nodes_in_group("leader_projectiles").filter(func(shot):return shot.get("axe")==true)
+ check(axes.size()==3 and not c.is_attacking(),"The source15 sequence throws exactly three axes then exits")
+ if not axes.is_empty():
+  check(axes[0].find_child("SourceAxe",true,false)!=null and axes[0].damage==168,"Axe uses the recovered double-bladed model and doubled projectile damage")
+  var before=axes[0].ornament.rotation.y;axes[0]._update_visual(1.0/30.0)
+  check(absf(axes[0].ornament.rotation.y-before)>1.17,"Native axe spins67.5degrees per source update")
+  var victim=Fixture.Victim.new();victim.position=axes[0].global_position+axes[0].velocity.normalized()*8;game.add_child(victim);victim.hp=1000;game.enemies.append(victim)
+  axes[0]._physics_process(.5)
+  check(victim.hp==832,"The recovered axe deals168damage through its real swept contact volume")
+  game.enemies.erase(victim);victim.free()
+ c.cancel();p.flying=false;p.model.was_grounded=true;p.model.was_flying=false;p.model.landing_clock=-1
+ p.model.animate(0,0,true,0,0,false,0,false)
+ check("source_12__" in p.model.current_clip,"Ben returns to the ROM boss's native ready idle")
+ for shot in get_nodes_in_group("leader_projectiles"):shot.free()
+ stop_audio(game);game.move_audio.stop();await create_timer(.35).timeout;current_scene=null;game.queue_free();await frames(4)
+ print("BEN_AXE_RESULT checks=",checks," failures=",failures);quit(1 if failures else 0)

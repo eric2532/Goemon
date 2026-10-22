@@ -1,0 +1,59 @@
+{
+  "verified_at": "2026-10-14T03:29:41.888559+08:00",
+  "change": "Approximately12% faster shared run and sprint cadence across all12 characters, preserving current pose amplitudes and travel speed.",
+  "run_cycles_per_second": {
+    "before": 1.65,
+    "after": 1.85
+  },
+  "sprint_cycles_per_second": {
+    "before": 2.05,
+    "after": 2.3
+  },
+  "packaged_tests": {
+    "goemon_run_pacing_tests": {
+      "exit_code": 0,
+      "result": [
+        "GOEMON_RUN_PACING_RESULT checks=202 failures=0"
+      ]
+    },
+    "goemon_run_coordination_tests": {
+      "exit_code": 0,
+      "result": [
+        "GOEMON_RUN_COORDINATION_RESULT checks=72 failures=0"
+      ]
+    }
+  },
+  "total_checks": 274,
+  "native_startup": {
+    "frames": 120,
+    "exit_code": 0
+  },
+  "preview": {
+    "path": "docs/run-cadence/run-and-sprint.mp4",
+    "frames": 120,
+    "fps": 30,
+    "duration_seconds": 4,
+    "playback_speed": 1,
+    "decode": "passed",
+    "visual_review": "Rear, side and rear three-quarter running and sprint poses inspected."
+  },
+  "artifacts": {
+    "app": "build/goemon-cosplay/Goemon Cosplay.app",
+    "zip": "build/goemon-cosplay/Goemon Cosplay.zip",
+    "pck_sha256": "958eba694d696c38081c1bcfb2233fc0422dd0539248ed554a42bff5eba4b59f",
+    "zip_sha256": "f0c2c08e5b6b68f0e72791cea1baa97d99f2251133bcacd7b8dedb05755bd394",
+    "zip_crc": "passed",
+    "zip_matches_tested_export": true,
+    "codesign_deep_strict": "passed"
+  },
+  "preservation": {
+    "settings_and_recording_files": 16,
+    "all_hashes_unchanged": true,
+    "previous_settlement_and_recording_sources_unchanged": true,
+    "previous_app_and_zip": "build/run-cadence/previous"
+  },
+  "source_files": {
+    "scripts/goemon_reference_run_body.gd": "08fb8efc8933d87032f3f4f996aba200e9897fa867be32fc812c8a3b3805b6a3",
+    "scripts/goemon_run_pacing_tests.gd": "06ccb0b37d3ac219c9e2705e75c5d6671fa2f660494126d98795a9a68ae9c0d6"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "rotation_damage_type": "0x0b",
+  "overlap_function": "0x80164acc",
+  "damage_route": [
+    "0x8014c3a4",
+    "0x8014c43c",
+    "0x8014c4ac"
+  ],
+  "entry_function": "0x80156044",
+  "emit_function": "0x80156848",
+  "branch": "Original contact flags &6 emits actor6. Successful-hit branch flags&1 selects its actor from action descriptor byte8.",
+  "metal_flash": {
+    "actor": 6,
+    "handler": "0x80168744",
+    "draw_function": "0x80168828",
+    "primitive_function": "0x800173dc",
+    "triangles": [
+      [
+        [
+          0,
+          0,
+          2
+        ],
+        [
+          -3,
+          0,
+          36
+        ],
+        [
+          3,
+          0,
+          40
+        ]
+      ]
+    ],
+    "triangle_rgb8": [
+      [
+        64,
+        64,
+        16
+      ],
+      [
+        255,
+        192,
+        64
+      ],
+      [
+        255,
+        192,
+        64
+      ]
+    ],
+    "rotation_pairs_source": [
+      [
+        640,
+        512
+      ],
+      [
+        384,
+        1536
+      ],
+      [
+        384,
+        2560
+      ],
+      [
+        640,
+        3584
+      ]
+    ],
+    "rotation_table": "0x80181bec",
+    "rotation_axis_order": "XZ; Y=0; original func80049CAC then concatenated owner rotation",
+    "render_scales_fixed12": [
+      4096,
+      6144,
+      8192
+    ],
+    "blend_flags": "0x50000000",
+    "texture": null,
+    "child_sparks": {
+      "actor": 8,
+      "count": 2,
+      "emitted_only_on_init": true
+    }
+  },
+  "spark_lines": {
+    "actor": 8,
+    "handler": "0x80168d58",
+    "draw_function": "0x80168f40",
+    "draw_updates": 5,
+    "rgb8_start": [
+      8,
+      0,
+      0
+    ],
+    "rgb8_end": [
+      192,
+      128,
+      128
+    ],
+    "blend_flags": "0x50000000",
+    "texture": null,
+    "initial_velocity_magnitude_source": 36,
+    "path": "Random rotated direction from original rand; line joins previous and current source positions before position integration."
+  },
+  "note": "Recovered common metal/block contact flash plus child line sparks. Successful-hit actor selection varies per original action descriptor; no universal hit-flash parity claim."
+}

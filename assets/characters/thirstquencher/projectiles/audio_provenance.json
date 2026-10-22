@@ -1,0 +1,47 @@
+{
+  "source_executable": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/raw/SLUS_007.26",
+  "source_executable_sha256": "66371c3a7517e9eabd7cb6cf0c5abffe7296bd4bac29c85b8bf7bb9db349714a",
+  "sound_owner": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/raw/SC01.CD.dir/FILE_000.dir/4.7",
+  "sound_owner_sha256": "a49fc74f2df4d547296b626cbb8284a47067a3480a5c40357cd29dbd3d741219",
+  "notes": [
+    "Authentic recovered retail SPU ADPCM sample; no synthesis or substitute audio.",
+    "Pitch follows original custom driver SPU lookup/interpolation, rounded to integer WAV sample rate.",
+    "Dry sample: original SPU ADSR/reverb/volume modulation not emulated; original tone and record bytes retained."
+  ],
+  "clips": [
+    {
+      "sound_id": "0x43A",
+      "file": "assets/characters/thirstquencher/projectiles/gunshot_43a.wav",
+      "description": "Ordinary blue Thirstquencher Soldier gunshot",
+      "confidence": "source firing call confirmed; bank/pitch source-resolved",
+      "source_trace": "SC01 FILE077 func_80181BE4 ordinary Soldier2 firing; registrytype0x20 bullet initializer80185428",
+      "dispatch_address": "0x80065604",
+      "dispatch_bytes": "06 00 03 36",
+      "resolved_sound_id": "0x490",
+      "resolved_dispatch_bytes": "01 01 00 11",
+      "record_address": "0x800c80ac",
+      "record_bytes": "c8 00 00 00 00 47 63 00 01 15 01 00 00 00 00 00 00 00 00 00",
+      "bank_entry": 1,
+      "bank_id": "bank_9c8ce35dd2b0baf2",
+      "bank_sources": [
+        "raw/SC01.CD.dir/FILE_077.dir/2.2"
+      ],
+      "bank_sha256": "9c8ce35dd2b0baf2b9461aada33cd971baa3fca8480f3ed55ee70d1ef47b1050",
+      "lookup_index": 21,
+      "program": 2,
+      "tone": 6,
+      "tone_bytes": "00 00 7f 40 5f 00 47 47 00 00 00 00 00 00 b1 b2 ff 80 ca 5f 02 00 0f 00 c0 00 c1 00 c2 00 c3 00",
+      "sample_index": 15,
+      "sample_id": "sample_32dc8bb72ba102f2",
+      "sample_sha256": "32dc8bb72ba102f215ff4e92522cbb26bec122d8f4e05a6f638a2134e58cb949",
+      "pitch_q8": 18176,
+      "center_note": 95,
+      "fine": 0,
+      "spu_pitch_register": 1024,
+      "original_playback_rate": 11025.0,
+      "wav_sample_rate": 11025,
+      "duration_seconds": 0.3987301587301587,
+      "sha256": "edcb3d7642c5806c985e6cb8cffd0ea5a532a34efe97aed682b050bc392df77e"
+    }
+  ]
+}

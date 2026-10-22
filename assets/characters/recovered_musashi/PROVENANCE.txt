@@ -1,0 +1,77 @@
+Playable Musashi — recovered source derivative
+
+This asset comes from the user's supplied Brave Fencer Musashi (USA) disc image.
+The original recovery is preserved separately under:
+build/Other Files/Musashi Asset Recovery/animation_recovery/
+
+Recovered GLB SHA-256:
+a949f17483c4b884f3ca556ddd1a650874b8ef577cd2fca086310e17ffe7dd97
+Resident source blob: raw/MAIN.CD.dir/FILE_010.dir/1.1
+Resident source SHA-256:
+f8bcfa41b6a637ed78f327737875ea05998088443c2776e18247c0f45a64014a
+Part pointer list: 0x800DE2A4. Resident load base: 0x800CEDF8.
+
+31 rigid body/weapon parts, 31 editable part bones plus Root, and 68 recovered
+source motion actions. All 64 original actions and held poses are retained.
+The part-bone hierarchy is a reconstructed editing rig because the source pose
+format stores baked actor-space transforms rather than anatomical parent links.
+
+The game displays this rig at 1.8x scale, with a half-turn to match its -Z forward
+convention. Original animations are selected for idle, slow/run/sprint cycles,
+standing/moving jumps, a double-jump flip, falling, landing, three Fusion cuts,
+and grounded/airborne Lumina swings. Gameplay names are local mappings; physics,
+damage, enemies, and effects belong to this game's controller.
+This is a basic playable sword kit; original assimilation and scroll mechanics,
+facial texture swaps, and all original PS1 gameplay are not implemented.
+
+Requested reference palette: bright clothing reds, navy-indigo hair and brows
+(#25275B), warm golden skin matching the original face atlas (#FFC67B), clean
+whites, yellow gold and cool silver. tools/style_recovered_musashi.py creates
+this derivative from the preserved GLB, encoding all untextured display RGB
+in linear space. Geometry, texture pixels, rig weights and all 64 motion
+sequences remain unchanged. Portrait is rendered from the styled game asset.
+
+Motion update: tools/recover_musashi_motion_continuations.py appends four actions
+without changing the first 64 or their binary animation data. It recovers the
+standing jump continuation at 0x800D4AD4 (original stream 0x800D4A9C, loop tick 8),
+moving jump continuation at 0x800D4B70 (stream 0x800D4B48, loop tick 7), and Fusion
+cuts at 0x800D4CE4 / 0x800D4D38 that omit the model-list prefix. Original stream
+base/PC are retained for opcode 6; inherited weapon flags and visibility events
+16-19/25-26 are applied. motion_sources.json records addresses and pose hashes.
+1,550 new joint/frame transformations round-trip against source matrices.
+
+Runtime uses continuous stride phase, starts runs from their first pose, holds
+the jump's pause pose during ascent, resumes its continuation on descent, and
+plays landing only after floor contact. Each new airborne jump restarts the
+source flip. Fusion contacts follow event 20 at ticks 2/3/6. Ground and air
+Lumina use the recovered two-handed overhead release Extra__800d5098, with
+swing audio at tick 13 and adapted contact at tick 15 of its 22-tick duration.
+The visible trail samples each drawn blade: Fusion part22 and Lumina part25.
+Air Fusion starts active at tick 0. Clip duration and
+damage advance on the same clock, including attack-speed bonuses. Playback
+uses the recovery's nominal 30 Hz timing; emulator-exact timing and a complete
+recreation of the original game's combat mechanics are not claimed.
+Source interpretation follows the pinned BFM-decomp revision:
+https://github.com/Druthulu/BFM-decomp/tree/b6a28f96bac70af70573826f767a96cf212fd5e3
+Relevant functions: 8015A3C8, 80161124, 8015AE2C, 8015B858, 801555F4, 8015444C.
+
+Runtime materials use reference_palette.gdshader to compensate for the Forest
+scene's Filmic tonemapper and exposure. This keeps the display-authored palette
+consistent with the portrait while leaving the scenery's grading unchanged.
+The inverse curve follows Godot 4.6's official tonemap_filmic implementation:
+https://github.com/godotengine/godot/blob/4.6-stable/servers/rendering/renderer_rd/shaders/effects/tonemap.glsl
+Rendered screenshot checks verify golden skin and navy hair within three RGB
+levels of their authored display values. No original texture pixels are edited.
+
+Reproduction:
+python3 tools/style_recovered_musashi.py --source <recovered GLB> \
+  --output assets/characters/recovered_musashi/musashi.glb
+python3 tools/recover_musashi_motion_continuations.py --recovery-root <recovery directory> \
+  --glb assets/characters/recovered_musashi/musashi.glb \
+  --report assets/characters/recovered_musashi/motion_sources.json
+Blender --background --python tools/render_recovered_musashi_portrait.py -- \
+  assets/characters/recovered_musashi/musashi.glb <portrait output PNG>
+
+Controls: WASD move; Shift sprint; Space jump/double jump; C evade;
+LMB / hold LMB sword combo; RMB heavy sword strike; Q fighter selection.
+Edo remains a separate fighter. Musashi's stable character ID is 13.

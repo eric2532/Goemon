@@ -1,0 +1,23 @@
+{
+  "source_map": "bloodgulch.map",
+  "source_sha256": "50fe52406f075d975e24100a65b26ff696458023dd3509878953052ab0ef858f",
+  "tag": "weapons\\rocket launcher\\explosion",
+  "falloff_radius_halo_units": 0.5,
+  "cutoff_radius_halo_units": 2.0,
+  "occlusion_core_radius_halo_units": 0.6000000238418579,
+  "metres_per_halo_unit": 3.048,
+  "engine_reference": {
+    "revision": "6ec42856d73e258e5a8c7e9cd19161f46d89d0e4",
+    "path": "source/objects/damage.c",
+    "functions": [
+      "area_of_effect_cause_damage",
+      "area_of_effect_cause_damage_to_object"
+    ]
+  },
+  "adaptation": {
+    "arena_scale": 3.0,
+    "full_damage_radius_metres": 4.572,
+    "cutoff_radius_metres": 18.288,
+    "note": "Larger Goemon enemies; separate arena adaptation, not the retail Halo radius."
+  }
+}

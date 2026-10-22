@@ -1,0 +1,8 @@
+{
+  "character": "pirate",
+  "jump": "02_Jump_Explorer",
+  "idle_source_frame": 0,
+  "gun_shot": "03_Gun_Shot_User",
+  "three_hit_slash": "04_Three_Hit_Slash",
+  "review_only": true
+}

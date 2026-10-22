@@ -1,0 +1,224 @@
+{
+  "title": "Musashi normal digital-pad movement source trace",
+  "revision": "2026-10-22",
+  "source_image": "Brave Fencer Musashi USA SLUS-00726",
+  "overlay": {
+    "file": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+    "load_address": "0x80128158",
+    "sha256": "66a047a6242db0d212e27087b7576b19dbc12e399ae0d4f64f370e70bea35069"
+  },
+  "clock": {
+    "nominal_hz": 30,
+    "status": "Source-traced nominal NTSC 30 Hz: boot.c main calls GameModeDispatch once per frame then VSync(D_800B9A18); 800.c:func_80014390 initializes D_800B9A18=2. Actual runtime cadence has not been measured against a running original executable.",
+    "godot_bridge": "Compute original state on 30 Hz boundaries, hold velocity between boundaries, integrate CharacterBody3D collisions on every host physics frame.",
+    "source_evidence": {
+      "loop": "tools/BFM-source/src/boot.c:main (0x80010178), GameModeDispatch then VSync(p->unkA3E8)",
+      "initialization": "tools/BFM-source/src/800.c:func_80014390, D_800B9A18=2",
+      "address_identity": "0x800AF630 + 0xA3E8 = 0x800B9A18",
+      "interpretation": "Two NTSC VBlanks per game update; nominal 30 updates/sec. Runtime stalls and any untraced mode overrides are outside this proof."
+    }
+  },
+  "units": {
+    "source_coordinates": "16.16 fixed point; Y increases downward",
+    "geometry_scale": 0.01,
+    "model_scale": 1.8,
+    "meters_per_source_unit": 0.018,
+    "velocity_conversion": "source_fixed * (0.018 * 30 / 65536)"
+  },
+  "actual_translation_units": [
+    {
+      "file": "tools/BFM-source/src/ov_SC01_000/ov_SC01_000_jr_801588CC.c",
+      "functions": [
+        "80159BE4 idle vector / idle entry"
+      ]
+    },
+    {
+      "file": "tools/BFM-source/src/ov_SC01_000/ov_SC01_000_jr_80159C84.c",
+      "functions": [
+        "8015A2D8 run entry"
+      ]
+    },
+    {
+      "file": "tools/BFM-source/src/ov_SC01_000/ov_SC01_000_jr_8015A3C8.c",
+      "functions": [
+        "8015A3C8 ground update",
+        "8015AC48 stop/skid",
+        "8015AD3C jump dispatch"
+      ]
+    },
+    {
+      "file": "tools/BFM-source/src/ov_SC01_000/ov_SC01_000_jr_8015AE2C.c",
+      "functions": [
+        "8015AE2C air update",
+        "8015B950 landing recovery"
+      ]
+    },
+    {
+      "file": "tools/BFM-source/src/ov_SC01_000/ov_SC01_000_jr_8015C32C.c",
+      "functions": [
+        "80161C24 alternating footstep audio",
+        "80161CD0 stop/skid audio",
+        "80161D20 floor contact audio"
+      ]
+    }
+  ],
+  "entry_tables": {
+    "0x80181208": [
+      0,
+      0,
+      0
+    ],
+    "0x80181218": [
+      0,
+      0,
+      -524288
+    ],
+    "0x80181228": [
+      0,
+      0,
+      -262144
+    ]
+  },
+  "ground": {
+    "run_entry_forward_fixed": -524288,
+    "digital_acceleration_fixed_per_tick": -4096,
+    "normal_limit_fixed": -720896,
+    "cautious_limit_fixed": -262144,
+    "guard_vector_fixed": -262144,
+    "world_run_max_m_per_second": 5.94,
+    "world_cautious_m_per_second": 2.16,
+    "turn": "Direction applies immediately. Digital release enters idle and clears displacement; no added acceleration/friction smoothing.",
+    "gait": "Table8 when 2C < -0x94000, Table7 when < -0x70000, otherwise Table6. Initial digital run entry selects Table7."
+  },
+  "jump": {
+    "entry_function": "shared/ov/func_8015ADB0.h",
+    "launch_fixed": -1179648,
+    "entry_integrates_y": false,
+    "air_gravity_fixed_per_tick": 106496,
+    "rising_release_extra_fixed_per_tick": 65536,
+    "soft_terminal_old_value_test": "80148038 checks old vertical velocity <= 0x1EFFFF before adding positive gravity; one-step overshoot is retained.",
+    "maximum_held_first_jump_height_m": 1.6335
+  },
+  "air": {
+    "no_direction": "Horizontal vector and direction persist. No friction is added.",
+    "direction": "80148AFC writes direction immediately; if forward 2C > -0x80000 force -0x80000 then subtract 0x10000, else subtract 0x1000; cap -0xBA000.",
+    "forward_limit_fixed": -761856
+  },
+  "double_jump": {
+    "equipment": "L-Belt",
+    "equipment_flag": "0x1E",
+    "source_gate": "shared/ov/func_8014A51C.h checks equipment flag 0x1E, no 0x400 actor flag, actor byte A8 < 0x19, byte223 == 0, and pressed pad AC bit0x40.",
+    "entry_function": "shared/ov/func_8015B858.h",
+    "launch_fixed": -917504,
+    "same_tick_gravity": true,
+    "recovered_clip": "Recovered__800d4be0",
+    "restoration_policy": "L-Belt is always available; one second jump per airborne interval. The original unmapped A8/223 actor restrictions are not emulated."
+  },
+  "footsteps": {
+    "interpreter": "5444C opcode8 sets B8 flag0x2000; ground 5A3C8 calls 61C24.",
+    "table": "0x801816C0 / 0x801816C2 in actual SC01 TU",
+    "material_pairs_hex": [
+      [
+        "406",
+        "407"
+      ],
+      [
+        "408",
+        "409"
+      ],
+      [
+        "40A",
+        "40B"
+      ],
+      [
+        "40C",
+        "40D"
+      ],
+      [
+        "40E",
+        "40F"
+      ],
+      [
+        "410",
+        "411"
+      ],
+      [
+        "412",
+        "413"
+      ],
+      [
+        "414",
+        "415"
+      ]
+    ],
+    "gaits": [
+      {
+        "clip": "Table_06__800d48dc",
+        "loop_ticks": 20,
+        "footfall_ticks": [
+          2,
+          12
+        ]
+      },
+      {
+        "clip": "Table_07__800d4944",
+        "loop_ticks": 16,
+        "footfall_ticks": [
+          2,
+          10
+        ]
+      },
+      {
+        "clip": "Table_08__800d499c",
+        "loop_ticks": 16,
+        "footfall_ticks": [
+          3,
+          10
+        ]
+      }
+    ],
+    "floor_contact_ids_hex": [
+      "42E",
+      "42F",
+      "430",
+      "431",
+      "432",
+      "433",
+      "434",
+      "435"
+    ],
+    "stop_skid_ids_hex": [
+      "41E",
+      "41F",
+      "420",
+      "421",
+      "422",
+      "423",
+      "424",
+      "425"
+    ]
+  },
+  "limitations": [
+    "Nominal 30 Hz is statically source-traced via VSync(2), but has no emulator timing cross-check.",
+    "Host camera/WASD and mouse guard strafing are intentional input adaptations; mouse guard facing preservation is not claimed as original pad behavior.",
+    "Godot capsule floor/ceiling/wall response replaces original terrain and collision routines.",
+    "Original terrain IDs, low-resource stat speed limits, slippery scene302A, carrying, swim, climbing, knockback and scripted movement are not implemented in this normal movement profile.",
+    "L-Belt A8/223 eligibility restrictions are unmapped and deliberately omitted; second jump is always available once per air interval.",
+    "Recovered animation and original sound bytes are available; rendering/sound integration is handled by the model/combat caller."
+  ],
+  "full_speed_stop": {
+    "entry": "8015A3C8 release ->8015ABD4 ->8015AC48 ->Table9 (800D49F4)",
+    "source_vector_address": "0x80181238",
+    "source_vector": [
+      0,
+      0,
+      -262144
+    ],
+    "body_poses": 12,
+    "integrated_updates": 11,
+    "source_units_travelled": 44,
+    "world_meters": 0.792,
+    "ordering": "Actual80146128 calls actor callback8016F14C at801462D4, then54418 at801462DC. Entry54150->54190->54418 consumespose0; commonbodyupdate consumespose1 thatsameframe. Next11callbacks integrate4units; subsequentcallback observes terminal8000 andclearsvector.",
+    "limits": "Normal full-speed release only; special slippery/stat/item predicates remain outside this normal movement profile."
+  }
+}

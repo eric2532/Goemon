@@ -1,0 +1,521 @@
+{
+  "source_project": "../Rogue",
+  "source_date": "2026-10-04",
+  "note": "Explorer and Ninja blade audio was remixed on 2026-10-15 from the user-selected video; see audio/explorer_ninja_slashes.source.json. Knight sword swing audio was replaced on 2026-10-15 from the user-selected video; see audio/knight_sword.source.json. Model, portrait, data, audio, icon and shader bytes are copied unchanged. Native scripts have resource-path adaptations; audio ambience is opt-in because Sonic owns its soundtrack. Source project is not modified. Source script hashes record original contents.",
+  "files": [
+    {
+      "source": "public/models/pirate.glb",
+      "path": "models/pirate.glb",
+      "sha256": "7910bd4ac5e862f53e5c8548b0323b64a73550af361d6cebdd6bd3905aacae67"
+    },
+    {
+      "source": "public/art/pirate-portrait.png",
+      "path": "portraits/pirate-portrait.png",
+      "sha256": "2a2f6959cfb61357b201895c7f511076d7e9eb50b729786fb2c8180709078035"
+    },
+    {
+      "source": "public/models/samurai.glb",
+      "path": "models/samurai.glb",
+      "sha256": "b0f98ccc06f8bd3830e8f9415f97b9f0dbb0bda0f2a2bdc59dd3212b3a99f797"
+    },
+    {
+      "source": "public/art/samurai-portrait.png",
+      "path": "portraits/samurai-portrait.png",
+      "sha256": "5865063a2971385dbdb05e277dfa57b1242fb82724df2c8cd18014545a02450d"
+    },
+    {
+      "source": "public/models/ninja.glb",
+      "path": "models/ninja.glb",
+      "sha256": "3adea82f7efcd395d14b5889d31af8bcfbce96e135594ccadad91c667f464343"
+    },
+    {
+      "source": "public/art/ninja-portrait.png",
+      "path": "portraits/ninja-portrait.png",
+      "sha256": "54bffc16df0118c9e37433f37739267a9945c6b2884bdbbabc8e5437d2c1925d"
+    },
+    {
+      "source": "public/models/mage.glb",
+      "path": "models/mage.glb",
+      "sha256": "7a022a500c9d7c9cd09594c479bd574ff0af2630cf4c5ff03a9fd2dfe5541a1e"
+    },
+    {
+      "source": "public/art/mage-portrait.png",
+      "path": "portraits/mage-portrait.png",
+      "sha256": "1eb2cd00efbc00d8fbe9b8455676ed4bb58d1305202576a272ad9b3065d225eb"
+    },
+    {
+      "source": "public/models/knight.glb",
+      "path": "models/knight.glb",
+      "sha256": "fac896150e3d8bb252e3c4dc2203a59f005e42049b453d1ec5a9f5013eded491"
+    },
+    {
+      "source": "public/art/knight-portrait.png",
+      "path": "portraits/knight-portrait.png",
+      "sha256": "22849647214325cd8a924ecc764c450e973f6e1323be542b296887e37da41cba"
+    },
+    {
+      "source": "public/models/dragoon.glb",
+      "path": "models/dragoon.glb",
+      "sha256": "e4c7e36e411678376f8fc914b655ff2606c331d69bc8c9e4ea6faf2275d377c2"
+    },
+    {
+      "source": "public/art/dragoon-portrait.png",
+      "path": "portraits/dragoon-portrait.png",
+      "sha256": "9727fde6a48b79a2cb87e2807a2d70d9984eceff16180ed73c18b7836deb3f50"
+    },
+    {
+      "source": "public/models/magic-swordsman.glb",
+      "path": "models/magic-swordsman.glb",
+      "sha256": "e3c7badaa6930361bf7f2e3e2eff074046bebc4dd9ab1fedd87dee122ff20a5d"
+    },
+    {
+      "source": "public/art/magic-swordsman-portrait.png",
+      "path": "portraits/magic-swordsman-portrait.png",
+      "sha256": "c2ca3550f699e24deafa66a395a977a7961d25e523bf47476e9ec6604415b36d"
+    },
+    {
+      "source": "public/models/ranger.glb",
+      "path": "models/ranger.glb",
+      "sha256": "bcfb107ca88529fa77ad90edf4120d4335c3cf97646abbde4cd1bfadb63c98aa"
+    },
+    {
+      "source": "public/art/ranger-portrait.png",
+      "path": "portraits/ranger-portrait.png",
+      "sha256": "0112a32ea4fbd8d904663eaf540ffdf5214915aad65346556c0f8b473c00d903"
+    },
+    {
+      "source": "public/models/explorer.glb",
+      "path": "models/explorer.glb",
+      "sha256": "bbfacde51b1b7b211e000bd125b79618fd0e53993f82dc40e7c8b90f1a72e137"
+    },
+    {
+      "source": "public/art/explorer-portrait.png",
+      "path": "portraits/explorer-portrait.png",
+      "sha256": "0453deaf2d69ad5d1fd89aa606f3d4ef81c3c4f58df8ebc3c217568f90bb681d"
+    },
+    {
+      "source": "public/models/master-thief.glb",
+      "path": "models/master-thief.glb",
+      "sha256": "b856dab13c44dae5b4d30658e8db3f2ad703cfffc4cceaab8d97d124db2b4f7a"
+    },
+    {
+      "source": "public/art/master-thief-portrait.png",
+      "path": "portraits/master-thief-portrait.png",
+      "sha256": "e9968e1860eca423e24db755be976889ec2c93eacd7b52d4873854c07207248a"
+    },
+    {
+      "source": "godot/data/classes.json",
+      "path": "data/classes.json",
+      "sha256": "e69c847b4477c9e46b0009fe8838f8e2752e6fe71c09c70064a43770ea3b6cc5"
+    },
+    {
+      "source": "godot/scripts/actor.gd",
+      "path": "scripts/actor.gd",
+      "sha256": "225f2860cb33b361feff3bfa85bab622a8e5d2bbaffa3e593726962f175498b9"
+    },
+    {
+      "source": "godot/scripts/effects.gd",
+      "path": "scripts/effects.gd",
+      "sha256": "a5a340d5e2a6774b3fa7c45eaa6a004ccb5e1d609ae516c6d6bd5267f6df6027"
+    },
+    {
+      "source": "godot/scripts/audio.gd",
+      "path": "scripts/audio.gd",
+      "sha256": "2713d5f3ff9df91f9d4c785f208447d0652945776cf6e4d6a77d0667da146e06"
+    },
+    {
+      "source": "godot/assets/audio/ambience.wav",
+      "path": "audio/ambience.wav",
+      "sha256": "8190d61ce0dff2aa10edabf861bc5b29247a0d31dfb04541e69ffbe7b07ecc77"
+    },
+    {
+      "source": "https://www.youtube.com/watch?v=EgRvVq8mStE",
+      "path": "audio/blade-explorer-0.wav",
+      "sha256": "439e3c6ba6f0e3cd84127cf0a3890c2a27ad8cf2af411efe1ae68fbcc6bf5527",
+      "original_source": "godot/assets/audio/blade-explorer-0.wav",
+      "original_sha256": "1a9f7d7ebbf5a59304ac9e43026eba41d5f19069266a0ffa45b2cc0fc28da8e5",
+      "processing_manifest": "audio/explorer_ninja_slashes.source.json"
+    },
+    {
+      "source": "https://www.youtube.com/watch?v=EgRvVq8mStE",
+      "path": "audio/blade-explorer-1.wav",
+      "sha256": "87538b4c5a5760a71ba7b7ce032dd3efccd72ac8c70f4a29d4db48513fcb1264",
+      "original_source": "godot/assets/audio/blade-explorer-1.wav",
+      "original_sha256": "c05a6ac20001576892bbb3be453c044055501401b8533245eae9c1b2b77a5f92",
+      "processing_manifest": "audio/explorer_ninja_slashes.source.json"
+    },
+    {
+      "source": "https://www.youtube.com/watch?v=EgRvVq8mStE",
+      "path": "audio/blade-explorer-2.wav",
+      "sha256": "b61f7253c28712ba383e2b2b889959604f8b34eb592c9d2ee98f9c198aedc7f7",
+      "original_source": "godot/assets/audio/blade-explorer-2.wav",
+      "original_sha256": "de8b1fda79161979725689231bb2a31da9b02443386dd0a6c236bca268e8b4ff",
+      "processing_manifest": "audio/explorer_ninja_slashes.source.json"
+    },
+    {
+      "source": "https://www.youtube.com/watch?v=TAe0P6uDax4",
+      "path": "audio/blade-knight-0.wav",
+      "sha256": "ccbbfccead461ffd4aa3be1006dd01fc55474d4b5886e436492a0c163b18bb59",
+      "original_source": "godot/assets/audio/blade-knight-0.wav",
+      "original_sha256": "8e7612e01fd2abe6de104fb21c271f2b74c5d6e5d6f04688493b9939fc0ab029",
+      "processing_manifest": "audio/knight_sword.source.json"
+    },
+    {
+      "source": "https://www.youtube.com/watch?v=TAe0P6uDax4",
+      "path": "audio/blade-knight-1.wav",
+      "sha256": "09f72c3278916bae51ac5450fc87adc9bb44b578d29d928c630bca9574089732",
+      "original_source": "godot/assets/audio/blade-knight-1.wav",
+      "original_sha256": "b87cf9fe4d751858ec05ac7af04f6f0fdd0fb4ba082cf7a244e722a1c792fbf5",
+      "processing_manifest": "audio/knight_sword.source.json"
+    },
+    {
+      "source": "https://www.youtube.com/watch?v=TAe0P6uDax4",
+      "path": "audio/blade-knight-2.wav",
+      "sha256": "bf94bf99538c360151133ff69675b8a6251a4eea2c45ac0e2d4c97a87537e266",
+      "original_source": "godot/assets/audio/blade-knight-2.wav",
+      "original_sha256": "f8ca6c2763f386d46ddf76c576a35c1718da1b983606c3bb5ae30b96b89f70f8",
+      "processing_manifest": "audio/knight_sword.source.json"
+    },
+    {
+      "source": "godot/assets/audio/blade-magic-swordsman-0.wav",
+      "path": "audio/blade-magic-swordsman-0.wav",
+      "sha256": "6adc372502a1c0595d27fc433df7a05e6bab104392a89b334ffc08b6f5bba468"
+    },
+    {
+      "source": "godot/assets/audio/blade-magic-swordsman-1.wav",
+      "path": "audio/blade-magic-swordsman-1.wav",
+      "sha256": "7c2234bbd285abcfbebf64f197272875d03dd71ca54dcd16219267155c4ac9d5"
+    },
+    {
+      "source": "godot/assets/audio/blade-magic-swordsman-2.wav",
+      "path": "audio/blade-magic-swordsman-2.wav",
+      "sha256": "f478e554cc7c94496409abdb0ecead3660da5a210dcb05ae3455ad5fe93e26d6"
+    },
+    {
+      "source": "godot/assets/audio/blade-master-thief-0.wav",
+      "path": "audio/blade-master-thief-0.wav",
+      "sha256": "ce3bd40bc37e09e42672a2e8370a5771b48a5d4104c1339387e9457bff3e6296"
+    },
+    {
+      "source": "godot/assets/audio/blade-master-thief-1.wav",
+      "path": "audio/blade-master-thief-1.wav",
+      "sha256": "6437d278d927070406679c674b32bb7f9b24ce3fa80df608d44a051c02e9ae21"
+    },
+    {
+      "source": "godot/assets/audio/blade-master-thief-2.wav",
+      "path": "audio/blade-master-thief-2.wav",
+      "sha256": "793e3f1046930706cc0c669bccd2cf55a58c55ce66810351115abea3412bcc79"
+    },
+    {
+      "source": "https://www.youtube.com/watch?v=EgRvVq8mStE",
+      "path": "audio/blade-ninja-0.wav",
+      "sha256": "a63a4e5b7709aeaf4f5d535d317988eb4045fccea51fc8973dce99e21714007b",
+      "original_source": "godot/assets/audio/blade-ninja-0.wav",
+      "original_sha256": "c0a401b1998d69956ca444e86856a8b9eefe37044b8774e73e96917cdd805235",
+      "processing_manifest": "audio/explorer_ninja_slashes.source.json"
+    },
+    {
+      "source": "https://www.youtube.com/watch?v=EgRvVq8mStE",
+      "path": "audio/blade-ninja-1.wav",
+      "sha256": "bf5feae3a3677e1698287a279dc911e8d3e5d3d2835925999501aa80c4022d9e",
+      "original_source": "godot/assets/audio/blade-ninja-1.wav",
+      "original_sha256": "96a74111b6f21789315c640fee02ac83a3fddec0f7d3b47c30fe6f9f405d9098",
+      "processing_manifest": "audio/explorer_ninja_slashes.source.json"
+    },
+    {
+      "source": "https://www.youtube.com/watch?v=EgRvVq8mStE",
+      "path": "audio/blade-ninja-2.wav",
+      "sha256": "422222af97e43fbfa7853e07a09c2c3d647ecd1b1ba66daa585dca2ae9809811",
+      "original_source": "godot/assets/audio/blade-ninja-2.wav",
+      "original_sha256": "7af453963174a97a3d947bdbe4d4f1c84e150d59f8f4bf87586a3e922c2fb004",
+      "processing_manifest": "audio/explorer_ninja_slashes.source.json"
+    },
+    {
+      "source": "godot/assets/audio/blade-pirate-0.wav",
+      "path": "audio/blade-pirate-0.wav",
+      "sha256": "e21cbef1af33813b18fa651e0b86eaf5616e59915715b31c30dcc249b74fbee7"
+    },
+    {
+      "source": "godot/assets/audio/blade-pirate-1.wav",
+      "path": "audio/blade-pirate-1.wav",
+      "sha256": "8a1efc8ac45a6d95b884eb881b7c5dabeb75bbf9ae419d5fe40afe617122d0e6"
+    },
+    {
+      "source": "godot/assets/audio/blade-pirate-2.wav",
+      "path": "audio/blade-pirate-2.wav",
+      "sha256": "782446104ecf6e5aa421d30fc988ffff4e6ed0dd9bea0a20c3c60a692e7e541c"
+    },
+    {
+      "source": "godot/assets/audio/blade-samurai-0.wav",
+      "path": "audio/blade-samurai-0.wav",
+      "sha256": "f5d81744cef8a2099875f3e64f512decc031505c5b96232259c2f947566b9364"
+    },
+    {
+      "source": "godot/assets/audio/blade-samurai-1.wav",
+      "path": "audio/blade-samurai-1.wav",
+      "sha256": "04fed518a91babdbc7032df29d2a31973d0493df6f74fc854ae9fe4ecba84eb3"
+    },
+    {
+      "source": "godot/assets/audio/blade-samurai-2.wav",
+      "path": "audio/blade-samurai-2.wav",
+      "sha256": "dab095231bdd8dc363352ef099699245b1c05a049f917dabc4bd9e22650b7c9f"
+    },
+    {
+      "source": "godot/assets/audio/bow-power.wav",
+      "path": "audio/bow-power.wav",
+      "sha256": "22ed42c9192ce17047d2499d8e462eb9616fd8dd857fec304cad059c3554e90e"
+    },
+    {
+      "source": "godot/assets/audio/bow-rapid.wav",
+      "path": "audio/bow-rapid.wav",
+      "sha256": "02d355b13c4ad71e62896d22bf626d93679ad5ec16e34dab3ab616b09bc27be3"
+    },
+    {
+      "source": "godot/assets/audio/cast-mage.wav",
+      "path": "audio/cast-mage.wav",
+      "sha256": "ccb383c0ff845f8cd4ef815316e878119179c7c56b9e2606503bfc11ada40c19"
+    },
+    {
+      "source": "godot/assets/audio/cast-magic-swordsman.wav",
+      "path": "audio/cast-magic-swordsman.wav",
+      "sha256": "ffa1f3b9c16efc9fe6fa94d096e1cb5c120f467c9d39b0e46e9212fce72b8527"
+    },
+    {
+      "source": "godot/assets/audio/click.wav",
+      "path": "audio/click.wav",
+      "sha256": "d3577e77be4c42930c89c8c3a1cc8504f54cfba77e191ce67ace28b350c22ac1"
+    },
+    {
+      "source": "godot/assets/audio/death.wav",
+      "path": "audio/death.wav",
+      "sha256": "028ccde3489c509506d47bee26f90f882cfeda38c8e98ac9e809b0370135a2c4"
+    },
+    {
+      "source": "godot/assets/audio/defeat.wav",
+      "path": "audio/defeat.wav",
+      "sha256": "02f92ce211ef56d322615f746d3f0a20ce60952f18b12b0d4a6b40c705a1a3eb"
+    },
+    {
+      "source": "godot/assets/audio/drink.wav",
+      "path": "audio/drink.wav",
+      "sha256": "5d3ebc07b407d93bf2cc89c0191b3d91a6a0f48a8eafc616e1fdd68e7a139be8"
+    },
+    {
+      "source": "godot/assets/audio/enemyAttack.wav",
+      "path": "audio/enemyAttack.wav",
+      "sha256": "3e7f85a257059f01d3bdb852e6d5e3fa842e35272962865d933a85d4bca478fd"
+    },
+    {
+      "source": "godot/assets/audio/fire.wav",
+      "path": "audio/fire.wav",
+      "sha256": "3961bfe24db39624cbff277b0e776d086ceb49ef41d5ff56ac74315027bf22e8"
+    },
+    {
+      "source": "godot/assets/audio/heavy.wav",
+      "path": "audio/heavy.wav",
+      "sha256": "c5701668addec607acc809001fd2ebfa9d49ec5756cb1f96f71224e7f198d319"
+    },
+    {
+      "source": "godot/assets/audio/hit.wav",
+      "path": "audio/hit.wav",
+      "sha256": "14c6c05acda8179e418d10612bbb447de2176c91376d10142250d38a5872360c"
+    },
+    {
+      "source": "godot/assets/audio/hover.wav",
+      "path": "audio/hover.wav",
+      "sha256": "e635d2410dead9dc8897af02c483b8cf0348808ecd4d72352a5732e4e5b1a6cf"
+    },
+    {
+      "source": "godot/assets/audio/hurt.wav",
+      "path": "audio/hurt.wav",
+      "sha256": "b9642f91dc885cb18e273bfed9426c3768a4c895b82387669bc39e6df28c80b4"
+    },
+    {
+      "source": "godot/assets/audio/ice.wav",
+      "path": "audio/ice.wav",
+      "sha256": "6cc38e1061ca8a684163d31049b4cbbf0c7d25b7b483b47b4a7348f3b1f58b49"
+    },
+    {
+      "source": "godot/assets/audio/lightning.wav",
+      "path": "audio/lightning.wav",
+      "sha256": "84836d56abce64f452d66f4f856ad6010ad0414e2abe77043c444a4bf2f7884a"
+    },
+    {
+      "source": "godot/assets/audio/pierce.wav",
+      "path": "audio/pierce.wav",
+      "sha256": "5378d32e84b910dac5f83998618c09bd119f9fec6e857ff0d1518e7c5ae0c436"
+    },
+    {
+      "source": "godot/assets/audio/reward.wav",
+      "path": "audio/reward.wav",
+      "sha256": "e3b361652fbff0f3f05ef306ba7b15cab3fd6abb42e1ef1a54eef19f87d9467a"
+    },
+    {
+      "source": "godot/assets/audio/roll.wav",
+      "path": "audio/roll.wav",
+      "sha256": "39a28e89816bf79a9bca52269bb3157842646954a8e0091a98e008568b209279"
+    },
+    {
+      "source": "godot/assets/audio/shield.wav",
+      "path": "audio/shield.wav",
+      "sha256": "74a8b368dcef1acdeb970afbf382216f6a973fd9bcb769ca6e2bac24b373803d"
+    },
+    {
+      "source": "godot/assets/audio/shot.wav",
+      "path": "audio/shot.wav",
+      "sha256": "d6ea07dd6985c91405b91705a77abf83cd5e3316c0935dccde742147108c98d8"
+    },
+    {
+      "source": "godot/assets/audio/shuriken.wav",
+      "path": "audio/shuriken.wav",
+      "sha256": "fcb905f043d33fdc9aa67ced88cb562cb4af6db0d0f1b9d13430bb93482e01d6"
+    },
+    {
+      "source": "godot/assets/audio/slam.wav",
+      "path": "audio/slam.wav",
+      "sha256": "5e655d025b91f2b7eacf48fe8856790e2efb1f2c871b5056e5f71aeb57ed408a"
+    },
+    {
+      "source": "godot/assets/audio/spawn.wav",
+      "path": "audio/spawn.wav",
+      "sha256": "1ee5f6595a1a0c03bbc6c45e287b6723a7aa2a2ae643db86a777d2fb6bc503bb"
+    },
+    {
+      "source": "godot/assets/audio/swing.wav",
+      "path": "audio/swing.wav",
+      "sha256": "4ab0ddedc28530589ddf6b507b484ff607bd5894117e908a1155afbb065f9ed2"
+    },
+    {
+      "source": "godot/assets/audio/thrust.wav",
+      "path": "audio/thrust.wav",
+      "sha256": "25b51cbe1eac2657f54b4768ee01a429b428de51571fc83655ea356a4b5a9fd5"
+    },
+    {
+      "source": "godot/assets/audio/victory.wav",
+      "path": "audio/victory.wav",
+      "sha256": "587b5b7d839224d35f8c6716d21b9e2644c83072669c8e3444c588c07c1355f6"
+    },
+    {
+      "source": "godot/assets/icons/blades.svg",
+      "path": "icons/blades.svg",
+      "sha256": "019e34bd8010cdd32be9d8850dc1b0c949daabfdc3e407bfb44dc8d793dd118f"
+    },
+    {
+      "source": "godot/assets/icons/bow.svg",
+      "path": "icons/bow.svg",
+      "sha256": "7606f4cbdbfc28ce50d9f0902c4b4c9646a27017edb386a50225a4c8f3ff3a66"
+    },
+    {
+      "source": "godot/assets/icons/compass.svg",
+      "path": "icons/compass.svg",
+      "sha256": "1a6e3719aae64049160c736d80843497031af9e59721cdc6193b85ab502b0f49"
+    },
+    {
+      "source": "godot/assets/icons/drink.svg",
+      "path": "icons/drink.svg",
+      "sha256": "27f79b433b3640964d44781b67690b05f60770ba2f8decc8437144774ef9be14"
+    },
+    {
+      "source": "godot/assets/icons/fire.svg",
+      "path": "icons/fire.svg",
+      "sha256": "3fdfe64df8f684089a95ad2e13fa9958d6506407d5f0c3f8846f73f1863b11c4"
+    },
+    {
+      "source": "godot/assets/icons/flintlock.svg",
+      "path": "icons/flintlock.svg",
+      "sha256": "69883ff20028fac3fc2ee6586d70028cdb2efd97d45aae7e794c296b9b631a05"
+    },
+    {
+      "source": "godot/assets/icons/hook.svg",
+      "path": "icons/hook.svg",
+      "sha256": "f1b011386f7d000b3dacd085034f30718e860e8585f1c656029642b2db0434b0"
+    },
+    {
+      "source": "godot/assets/icons/ice.svg",
+      "path": "icons/ice.svg",
+      "sha256": "95fdcd44eb8fe7d5761885c5deb12daee3cd7747b3308b9c5e87f0d36cb92aa6"
+    },
+    {
+      "source": "godot/assets/icons/lance.svg",
+      "path": "icons/lance.svg",
+      "sha256": "05e60f0f9de3f7af668bb236cc686d140400c5e70fc496e7a8f65d56033b5c79"
+    },
+    {
+      "source": "godot/assets/icons/lightning.svg",
+      "path": "icons/lightning.svg",
+      "sha256": "e4e36633623f59bd99296d85f708c2d808c24d1ce7daf6b3fad88479792c4ab7"
+    },
+    {
+      "source": "godot/assets/icons/pipe.svg",
+      "path": "icons/pipe.svg",
+      "sha256": "0319e5fd9839209188e097f35813a215b8273c27157855b9478798f11b962e98"
+    },
+    {
+      "source": "godot/assets/icons/rain.svg",
+      "path": "icons/rain.svg",
+      "sha256": "51d014ea5984a28ca9fc84eabe359072581982ee6c8588498d38df6fb57ef546"
+    },
+    {
+      "source": "godot/assets/icons/roll.svg",
+      "path": "icons/roll.svg",
+      "sha256": "1217b23aea5bba065d388e7e99d7330d823ef5fa422901402965b5cfeceae0d3"
+    },
+    {
+      "source": "godot/assets/icons/shield.svg",
+      "path": "icons/shield.svg",
+      "sha256": "ff20ab9d1f7782b1ca619081102a8fb7f447cd64ec6431040bfdf48ae30e0569"
+    },
+    {
+      "source": "godot/assets/icons/shuriken.svg",
+      "path": "icons/shuriken.svg",
+      "sha256": "ac06c8169e36a577bf08aee197814f54dff5822fb9a1307aca39f88478d8b86d"
+    },
+    {
+      "source": "godot/assets/icons/spark.svg",
+      "path": "icons/spark.svg",
+      "sha256": "e5445ac87d245b935f5f3e912e84d9f29d3d19fb9ee3ca61e33dc50e920775a8"
+    },
+    {
+      "source": "godot/assets/icons/staff.svg",
+      "path": "icons/staff.svg",
+      "sha256": "dd3f4be4d98ca30c1ee4a6c768d9c3283a536376eb25a694b580abac0da5107b"
+    },
+    {
+      "source": "godot/assets/icons/stance.svg",
+      "path": "icons/stance.svg",
+      "sha256": "02d9ceb43df8fa579c34bb5a3bb82dc2c9db72fb539ebddffa68d02f6c75fe5b"
+    },
+    {
+      "source": "godot/assets/icons/sword.svg",
+      "path": "icons/sword.svg",
+      "sha256": "479f9a05799d88bdffada231639bd6fbccaedba67217d13c75b65b47d3b174ff"
+    },
+    {
+      "source": "godot/assets/icons/wave.svg",
+      "path": "icons/wave.svg",
+      "sha256": "4616afe8e7d96795b1c64c75fdcdd6a2d772b8103132722bae371cb198fe1bfa"
+    },
+    {
+      "source": "godot/shaders/blade_trail.gdshader",
+      "path": "shaders/blade_trail.gdshader",
+      "sha256": "e0d54dfe16893ed2a5be34c63bb33819dcfedc28f18dd94148e035526b2180f6"
+    },
+    {
+      "source": "godot/scripts/class_actions.gd",
+      "path": "scripts/class_actions.gd",
+      "sha256": "21e3e47563bdbe7409579183b53e0c4fbe40914ed9bdf095b0c7b77890bc7f05"
+    },
+    {
+      "path": "audio/blade-explorer-special.wav",
+      "source": "https://www.youtube.com/watch?v=EgRvVq8mStE",
+      "sha256": "033e72133b9ff6ff53ffae4f9840bb257e2f527a7bad035fd42e45eee2bbc685",
+      "processing_manifest": "audio/explorer_ninja_slashes.source.json"
+    },
+    {
+      "path": "audio/blade-ninja-special.wav",
+      "source": "https://www.youtube.com/watch?v=EgRvVq8mStE",
+      "sha256": "b8354d0e3c0ef9172274dc6a11cbe2bf43ade03db0ac94f7def9c0aaf526f4d9",
+      "processing_manifest": "audio/explorer_ninja_slashes.source.json"
+    }
+  ]
+}

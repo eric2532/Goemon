@@ -1,0 +1,22 @@
+[
+	{
+		"actors_ms": 1.72636666666667,
+		"count": 80,
+		"crowd_ms": 2.09626666666667,
+		"draw_calls": 764.0,
+		"frame_median_ms": 16.663,
+		"frame_p95_ms": 26.79,
+		"primitives": 10095507.0,
+		"simulation_ms": 3.26803333333333
+	},
+	{
+		"actors_ms": 5.3713,
+		"count": 240,
+		"crowd_ms": 5.8685,
+		"draw_calls": 765.0,
+		"frame_median_ms": 29.572,
+		"frame_p95_ms": 36.415,
+		"primitives": 28553316.0,
+		"simulation_ms": 5.11393333333333
+	}
+]

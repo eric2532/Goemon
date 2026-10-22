@@ -1,0 +1,53 @@
+{
+  "ed_shield": {
+    "actor": "0x30A",
+    "spawn": "0x801823B8",
+    "mesh_tmd": "0x80192B24",
+    "model_list": "0x801937DC",
+    "colors": "Native five blue rings: phase-199 mod1536; band offsets307; RGB floor(B/4),floor(B/2),B. Recreated from80181478/801816DC.",
+    "blend": "Semitransparency adapted; exact PS1 ABR unverified.",
+    "lifetime": "Attached for the adapted held beam; no residual protection."
+  },
+  "ben_axe": {
+    "actor": "0x30D",
+    "motion": "source15 0x8019EF7C",
+    "mesh_tmd": "0x8018E4F8",
+    "model_list": "0x8018F000",
+    "releases": [
+      20,
+      49,
+      78
+    ],
+    "complete": 87,
+    "spin_degrees_per_source_tick": 67.5,
+    "speed_metres_per_second": 7.2,
+    "lifetime_seconds": 4,
+    "voice": "A8D source called8017F0F0; recovered ben_kick_voice.wav (old inferred label)"
+  },
+  "controls": "Tap E: star fan. Continue holding E: three-axe sequence, repeated while held. RMB: bombs.",
+  "evidence": "Static local ROM instructions and original recovered meshes; no emulator claim.",
+  "source_overlays": {
+    "SC06/016": "85b54829995fc482dd673019f5c9fed052f618f5f5de65f95d9d50e66c93f98c",
+    "SC06/030": "a54de1064d035f8c9cd52100c2e4f363c25b42f664cb59b3b6ca100fe2b85743"
+  },
+  "asset_sha256": {
+    "assets/characters/recovered_leaders/ed/beam_shield.glb": "74a8413f3f579c0e24150409b5d0d8177d3bdda62aa821944adb3fd9d9e95dda",
+    "assets/characters/recovered_leaders/ben/axe.glb": "e8521418e384d264d09e8709ef86e82575537d62905b1bde6546a9b377bd976c"
+  },
+  "motion_audit": {
+    "ed": "Native idle00, walking01 (retimed/smoothed), beam06, assault04/03, recovery05; run and ordinary jump/fireball animations are controller adaptations.",
+    "ben": "Native boss ready idle12 restored. Walk/run/jump are authored adaptations; no native walking loop found. Propeller18/17/19/20 and both ground throws14/15 retained."
+  },
+  "port_tuning": {
+    "ben_attack_rate": 2,
+    "ben_damage_vs_previous": 2,
+    "ben_max_lunge_metres": 3,
+    "ed_invulnerable_modes": [
+      "held_beam",
+      "smoke_assault"
+    ],
+    "axe_damage_base": 28,
+    "axe_origin": "Adapted hand release matching the existing projectile port.",
+    "axe_audio_limit": "Native A8D entry voice restored; original93E projection-conditioned periodic flight sound is not recreated."
+  }
+}

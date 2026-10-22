@@ -1,0 +1,122 @@
+{
+  "version": "2.45.0",
+  "repository": "eric2532/Goemon",
+  "branch": "codex/fire-siege-mvp",
+  "publication_date": "2026-10-11",
+  "fresh_source_checks": [
+    {
+      "suite": "state",
+      "assertions_passed": 65,
+      "assertion_failures": 0,
+      "exit_code": 0,
+      "strict_runner_passed": true,
+      "shutdown_diagnostics": []
+    },
+    {
+      "suite": "structures",
+      "assertions_passed": 71,
+      "assertion_failures": 0,
+      "exit_code": 0,
+      "strict_runner_passed": true,
+      "shutdown_diagnostics": []
+    },
+    {
+      "suite": "integration",
+      "assertions_passed": 72,
+      "assertion_failures": 0,
+      "exit_code": 0,
+      "strict_runner_passed": true,
+      "shutdown_diagnostics": []
+    },
+    {
+      "suite": "campaign",
+      "assertions_passed": 117,
+      "assertion_failures": 0,
+      "exit_code": 0,
+      "strict_runner_passed": true,
+      "shutdown_diagnostics": []
+    },
+    {
+      "suite": "controls",
+      "assertions_passed": 136,
+      "assertion_failures": 0,
+      "exit_code": 0,
+      "strict_runner_passed": false,
+      "shutdown_diagnostics": [
+        "ERROR: 15 resources still in use at exit (run with --verbose for details)."
+      ]
+    },
+    {
+      "suite": "three-gates",
+      "assertions_passed": 59,
+      "assertion_failures": 0,
+      "exit_code": 0,
+      "strict_runner_passed": true,
+      "shutdown_diagnostics": []
+    },
+    {
+      "suite": "auto-build",
+      "assertions_passed": 14,
+      "assertion_failures": 0,
+      "exit_code": 0,
+      "shutdown_diagnostics": []
+    },
+    {
+      "suite": "auto-attack",
+      "assertions_passed": 57,
+      "assertion_failures": 0,
+      "exit_code": 0,
+      "shutdown_diagnostics": [
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details).",
+        "ERROR: 12 resources still in use at exit (run with --verbose for details)."
+      ]
+    },
+    {
+      "suite": "ranger",
+      "assertions_passed": 93,
+      "assertion_failures": 0,
+      "exit_code": 0,
+      "shutdown_diagnostics": []
+    },
+    {
+      "suite": "builder",
+      "assertions_passed": 25,
+      "assertion_failures": 0,
+      "exit_code": 0,
+      "shutdown_diagnostics": []
+    },
+    {
+      "suite": "equipment",
+      "assertions_passed": 63,
+      "assertion_failures": 0,
+      "exit_code": 0,
+      "shutdown_diagnostics": [
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details).",
+        "ERROR: 6 resources still in use at exit (run with --verbose for details)."
+      ]
+    },
+    {
+      "suite": "map-document",
+      "assertions_passed": 30,
+      "assertion_failures": 0,
+      "exit_code": 0,
+      "shutdown_diagnostics": []
+    }
+  ],
+  "fresh_assertions_passed": 802,
+  "acceptance_runner_exit_code": 1,
+  "acceptance_runner_note": "controls: all 136 assertions pass; strict runner flags Godot resources still in use at exit. This is shutdown cleanup, not a gameplay assertion failure.",
+  "prior_source_checks": 660,
+  "exported_package_checks": 660,
+  "exported_package_assertion_failures": 0,
+  "rendered_construction_checks": 12,
+  "packaged_version": "2.45.0",
+  "archive_sha256": "1666647fb8252dc65a559a81119295e6fdda371d354c0d4528cc2df0a13c4b1c",
+  "executable_sha256": "823aaab20fe802656832940cfcd8ab6641b7733cea4feed3617a322244b699e8",
+  "pck_sha256": "8ee5a86b287b4272c92760c7d1f38c245f113c7d3d54f54ffc85cf95759baafe",
+  "screenshots": [
+    "03-completed-solid-tower.png",
+    "01-subtle-empty-sites.png",
+    "02-translucent-tower-counterclockwise-ring.png"
+  ]
+}

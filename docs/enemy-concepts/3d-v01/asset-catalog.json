@@ -1,0 +1,197 @@
+{
+  "status": "3D assets only; not installed into gameplay",
+  "goemon_reference_height_m": 3.300000208571637,
+  "assets": [
+    {
+      "asset": "masked_raider",
+      "role": "Oversized masked forest infantry",
+      "source": "assets/blender/enemies/forest_redesign_v01/masked_raider.blend",
+      "export": "assets/models/enemies/forest_redesign_v01/masked_raider.glb",
+      "bounds_min": [
+        -1.4453238248825073,
+        -1.151633858680725,
+        -7.450580596923828e-09
+      ],
+      "bounds_max": [
+        1.8009235858917236,
+        0.7752647995948792,
+        4.619999885559082
+      ],
+      "height": 4.619999893009663,
+      "height_vs_goemon": 1.3999998790937562,
+      "triangles": 41873,
+      "meshes": 119,
+      "materials": 11,
+      "face_meshes": [
+        "Thin curved wood mask painted face"
+      ],
+      "notes": [
+        "Curved 45mm wooden face shell UV-mapped with painted angry eyes, brows, mouth and red markings; no floating facial features.",
+        "Full rounded cranium, deep padded ribcage and pelvis, short stout limbs and large hands/sandals; designed specifically to hold volume in profile.",
+        "Anatomical left wooden shoulder armor; anatomical right wooden club; indigo worn wrap jacket, hemp rope belt, red tied sash and swept topknot.",
+        "Height is exactly 1.40 times measured read-only Goemon master; asset-only approval, no game or gameplay integration.",
+        "Editable generator and packed PNG textures; separate named rigid meshes without skeletal rig."
+      ],
+      "rigging": "Named separate rigid parts; no gameplay integration or skeletal animation supplied."
+    },
+    {
+      "asset": "reed_archer",
+      "role": "Forest ranged enemy concept",
+      "source": "assets/blender/enemies/forest_redesign_v01/reed_archer.blend",
+      "export": "assets/models/enemies/forest_redesign_v01/reed_archer.glb",
+      "bounds_min": [
+        -1.616258978843689,
+        -1.4334027767181396,
+        0.0
+      ],
+      "bounds_max": [
+        1.6187440156936646,
+        1.363996148109436,
+        4.455000400543213
+      ],
+      "height": 4.455000400543213,
+      "height_vs_goemon": 1.3500000360519682,
+      "triangles": 43156,
+      "meshes": 202,
+      "materials": 14,
+      "face_meshes": [
+        "Head_full_3D_skull_with_painted_face"
+      ],
+      "notes": [
+        "Concept turnaround interpretation only; no game integration.",
+        "Compact roughly three-head anatomy, rounded skull/ribcage/pelvis, short sturdy legs and large sandals/hands.",
+        "Angry eyes and brows are painted directly on the closed head UV surface; no separate eyes or flat face panel.",
+        "Wide straw kasa, layered patched olive cloak, russet mouth scarf, rear quiver, bow in anatomical LEFT hand (-X, screen-right in front review).",
+        "Packed PNG artwork. Goemon source/master untouched. Height includes kasa crown."
+      ],
+      "rigging": "Named separate rigid parts; no gameplay integration or skeletal animation supplied."
+    },
+    {
+      "asset": "daruma_breaker",
+      "role": "Siege / heavy stone-fist breaker",
+      "source": "assets/blender/enemies/forest_redesign_v02/daruma_breaker.blend",
+      "export": "assets/models/enemies/forest_redesign_v02/daruma_breaker.glb",
+      "bounds_min": [
+        -13.841012001037598,
+        -7.963709354400635,
+        0.0
+      ],
+      "bounds_max": [
+        13.889878273010254,
+        7.118399620056152,
+        23.10000228881836
+      ],
+      "height": 23.10000228881836,
+      "height_vs_goemon": 7.00000025115662,
+      "triangles": 37176,
+      "meshes": 93,
+      "materials": 9,
+      "face_meshes": [
+        "Body_round_daruma_painted_shell"
+      ],
+      "notes": [
+        "Approved turnaround interpreted as a broad spherical red daruma, with compact feet, massive rounded stone fists and reinforced braided-rope harness.",
+        "Entire face, eyebrows, eyes, moustache, nose and \u798f belly glyph are pigment on the curved body shell; no separate face planes or raised facial parts.",
+        "Full shell UV atlas wraps through a plain-red rear; back contains only iron hardware and rope bindings.",
+        "Concept-only asset kit: no gameplay wiring, collision shapes, skeleton or animations.",
+        "Uniform 4x scale in width, depth and height compared with v01. Approximately 7x Goemon height. Face UVs and textures preserved."
+      ],
+      "rigging": "Named separate rigid parts; no gameplay integration or skeletal animation supplied.",
+      "width": 27.73089027404785,
+      "depth": 15.082108974456787,
+      "face_texture": "assets/textures/enemies/forest_redesign_v01/daruma_breaker_shell.png",
+      "face_mapping": "Full shell latitude/longitude UV with horizontally correct front-facing \u798f emblem; no geometry overlay.",
+      "linear_scale_vs_v01": 4.0,
+      "previous_source": "assets/blender/enemies/forest_redesign_v01/daruma_breaker.blend",
+      "previous_dimensions": [
+        6.932722568511963,
+        3.7705272436141968,
+        5.77500057220459
+      ],
+      "implementation_status": "Asset revision only. Wait for explicit user instruction to start gameplay implementation."
+    },
+    {
+      "asset": "lantern_runner",
+      "role": "Shrine rusher",
+      "source": "assets/blender/enemies/forest_redesign_v01/lantern_runner.blend",
+      "export": "assets/models/enemies/forest_redesign_v01/lantern_runner.glb",
+      "bounds_min": [
+        -1.4751449823379517,
+        -0.906683623790741,
+        0.0
+      ],
+      "bounds_max": [
+        1.0332319736480713,
+        1.641666293144226,
+        5.115000247955322
+      ],
+      "height": 5.115000247955322,
+      "height_vs_goemon": 1.549999977172512,
+      "triangles": 30484,
+      "meshes": 56,
+      "materials": 8,
+      "face_meshes": [
+        "Root_painted_face"
+      ],
+      "notes": "Rounded oval paper shell; UV-painted face follows shell curvature; single articulated wooden leg; physical curved tongue; smooth rounded bamboo ribs. Asset-only, no gameplay integration.",
+      "rigging": "Named separate rigid parts; no gameplay integration or skeletal animation supplied."
+    }
+  ],
+  "validation": "Verified embedded face textures, UVs, normals, actual exported sizes, Godot import and rendered preview. See verification.json.",
+  "limitations": [
+    "Static concept models, no skeleton or animation clips",
+    "Multi-part materials and meshes are retained for editing; runtime batching/optimization remains for integration."
+  ],
+  "gameplay_design": "docs/enemy-concepts/enemy-design-v01.md",
+  "implementation_status": "Implemented and verified in Goemon2.55.0.",
+  "planned_enemy_roles": [
+    {
+      "asset_id": "masked_raider",
+      "name": "Masked Raider",
+      "primary_targets": [
+        "main_character"
+      ],
+      "health_tier": "high",
+      "behavior": "Prioritizes pursuing and attacking the main character."
+    },
+    {
+      "asset_id": "reed_archer",
+      "name": "Reed Archer",
+      "primary_targets": [
+        "workers"
+      ],
+      "health_tier": "low",
+      "behavior": "Prioritizes killing workers."
+    },
+    {
+      "asset_id": "daruma_breaker",
+      "name": "Daruma Breaker",
+      "primary_targets": [
+        "towers",
+        "walls"
+      ],
+      "health_tier": "high",
+      "behavior": "Prioritizes destroying towers and walls.",
+      "movement_requirement": "Very slow walking",
+      "health_requirement": "Very large health pool",
+      "proposed_prototype_values": {
+        "status": "Draft playtest values, not implemented",
+        "movement_speed_m_per_s": 0.75,
+        "max_hp": 3000,
+        "speed_increases_across_waves": false
+      }
+    },
+    {
+      "asset_id": "lantern_runner",
+      "name": "Lantern Runner",
+      "primary_targets": [
+        "shrine"
+      ],
+      "health_tier": "low",
+      "behavior": "Rushes to the main base to attack the shrine."
+    }
+  ],
+  "latest_revision": "Massive Daruma v02 and other v01 models selected for authorized runtime integration.",
+  "written_spec": "docs/superpowers/specs/2026-10-14-forest-enemy-redesign-design.md",
+  "runtime_build": "build/Goemon.app"
+}

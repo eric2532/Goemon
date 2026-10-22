@@ -1,0 +1,356 @@
+{
+  "source_backup": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/blender/enemies/musashi/Archive/Musashi_Development_Backup.blend",
+  "source_sha256": "e66de6f044963805c1ba4b358700786e982d94f392cdc3de1bfd166b6cff66a6",
+  "geometry_hashes": {
+    "Camera \u2022 reference three quarter": "44dc1e75da55f6e0dd574b498c91cd4812ca3fa9152c613d15f65ef5987461ef",
+    "Closure rivet 00": "f7f169343157e21dde4001c9f2753c05f5028de7d8aaa6ffa133cda3da4b5917",
+    "Closure rivet 01": "25a351d4a07e00a10cba0cac6463b4e40ddbf0a55f95af6a9f382e062f99db2f",
+    "Closure rivet 02": "e6f530a66c46096c5344200a8bd35f5fe570fc150b27238158ac809c9e2901b3",
+    "Collar \u2022 single old gold stud": "eecce81bcacf813c243381388f9f91f0dcddc27865fd9e1276de258fcf660709",
+    "Far eye \u2022 reference white triangle": "58e71ac3c3d6279c05fe39d4e183afba945ccab34a1e9e2f39bc2c715f31346d",
+    "Far eyebrow \u2022 fine separate accent": "332b9fb4d4f0fd58d78eb60c798e4824cee751ced561a624ba4fb0aac01ded91",
+    "Far iris \u2022 narrow offset": "aa08bacc2fdfdc5b07947e113a488fc6a9f3576536fa6e6ce37c71d04500d92a",
+    "Far lower corner \u2022 restrained": "4f183529aebb748042f8a824dc789017463939ff67168be7156002d814d8ebeb",
+    "Far pupil \u2022 vertical offset": "b73066a71faf5d73111b6b7f054eb9f43403a5caded0c074874ede978e500459",
+    "Far under-eye \u2022 small accent": "d8a48e16f695a532071e6031d577f94408ee5b548d1c06fae5388b824cec5386",
+    "Far upper lid \u2022 thin reference diagonal": "1617e12f1392554155e1806cbe0da193fc55124f9398d97002d3ae1c79996989",
+    "Frog knot 00": "7e59a90e1b7f76c051eb8ac2f0bc19e5ec4c55450af05bf54248b1e47035db5e",
+    "Frog knot 00.001": "9a9d62a5f472ecafb6f608b639010d473e10471e51360707b742b91a43b218ea",
+    "Frog knot 01": "bf9b9669037fd8b3f3368122781d2a150a84f199ef7671d313bbe583137e8361",
+    "Frog knot 01.001": "0b01879a13112b4522b0140d098e56eeb5737c82e244954805415903694f9d04",
+    "Frog knot 02": "d143d6653402f3986f133117aa4f5cf76ef517c9bd4fade4d4ea339af4584dff",
+    "Frog knot 02.001": "e8258f2e67fae9bee10f2267db34a9680727edd88f4530307a1bd3080c789cf2",
+    "Hair \u2022 layered continuous sculpt": "6a88a4b896acb86a2a6579bb42993e550c4cc425c6ada908b6912ae0cfa2fd67",
+    "Hair \u2022 local ear overlap": "edb2958947d158e0c3e133d7daf717a4aac0871339429a1149bd3fedde6ffc8f",
+    "Head \u2022 tapered angular cheeks": "bbbeff18688d2dc76d0a629b6e338ae17da0486c64da31075e78290e41435870",
+    "Jacket \u2022 dark open edging": "6cfc64e3d97aeab85ebfdf1e8ece412e9cdc5e8a38feecf673a580a83f596d3a",
+    "Jacket \u2022 dark open edging.001": "83eaf981b34b51769e73454af0aa89e8493d4686677e3d4f651b08a1c3d82bf4",
+    "Jacket \u2022 diagonal right lapel": "89d79a21b8fc8d7c0414bb4e59a3594321dbed2cc0d5eb12dcfc02408add8142",
+    "Jacket \u2022 open crimson body": "1ecbbf3e79317e161a0dec4c37800cc0a5290966bd3ebbaf18a9dfed79fbc772",
+    "Jacket \u2022 oversized raised collar with inner shirt": "4040437e1814d58f8ad0888f81623e09f528711c45e58acd651450f930cd65ee",
+    "L ankle \u2022 wrapped cloth": "9a4da8cd95d38425656c101b91de8bc8d1fc135ba0c35a3f2a6d0b26adada857",
+    "L ear": "bd986d1754dfba3edb7c32e54aa2f183acd92f4021f3b7d97b950f85ef1ba41e",
+    "L ear inset": "b85504807fd5ccbd867209ae72a62f002d435c15c5c8566b4f59ec03a9d895a6",
+    "L flame \u2022 inner fork": "efdb5034cc3e32decb1f677d52233e16853dc0b1a69b03f510cfe1f3befebcfc",
+    "L flame \u2022 large fork": "668e4ddfa97d76e1ea0b199cbdd98bc31d7bded3c3c261a15e1f5d39e7afa5e2",
+    "L flame \u2022 outer side lick": "4c60c2de8662d4b1a933b13c8e0e8d94214139927baa2ebc8ba3803d7ceec7c4",
+    "L hand \u2022 simplified soft mitten": "7909565d66fe4d7ba5c892dc9a4348ca5973f70e9029e7118242edaafabd584c",
+    "L shoe \u2022 broad toe box": "6966f916014eb1f408bb0631410682e78b6c8bf04827b4f918397757e17df7c9",
+    "L shoe \u2022 indigo instep": "e76e7dabf6b0cb98cdaa4d051b36e49e9d13a7d385f77d4c4450fa17c0dd59d0",
+    "L shoe \u2022 sole welt": "b758c459b9d68078d86dc8cd07f921eda63afefc0abfc06c8511aac751e82926",
+    "L shoe \u2022 thick rounded sole": "e86ec64f6e2fc3f0ae5004c22914a3c4d31ef6926531ad2e1eba1101050b26db",
+    "L shoe \u2022 toe stitch": "6eb2d80193f3c2a15916c242b91c2e0b3060e32571da5cd6506d84c7e0a22267",
+    "L sleeve \u2022 cuff edging": "26dac68f03c287492d4416dad3379fb64d46a819a44917e2586dad909a757967",
+    "L sleeve \u2022 long fold": "72f8d5f25efee25e9022a744edbb43affa3074568aa4a97ac1c25e381a052fc1",
+    "L sleeve \u2022 oversized hanging shape": "8b64b66364d87c4f8e060aca6eef8271270175c6e34f6f317268dc950d6ae787",
+    "L wrap \u2022 overlap 1": "55ec18c80b5ce8acaacdd18a01be83a61089e455b0864662feadd436d021394b",
+    "L wrap \u2022 overlap 2": "ec350aa1d00d2f387e53b41a09da165611621ccb0f803d750206249dc373d371",
+    "L wrap \u2022 overlap 3": "f1fff42b0d226bb3aa9085a71267cc5d6cd910a5a5acadf0e5a4a18ad649c34b",
+    "L wrap \u2022 overlap 4": "eed94de7978a9a9107c39644bbb8f23cce0bc432f5a376c69a2928f4cdfab4a1",
+    "L wrap \u2022 overlap 5": "a63b911969c0a5a456bb45462bf9d17da007b9bfbd27a6c10551272b9b22d415",
+    "L wrap \u2022 overlap 6": "2f4e5f6200ee58da98b99bec6391420d0c3d1fc9ca420e9264a0e0d6228a80cc",
+    "Lapel \u2022 tailored seam": "6c54102b2b018b5fc07a219a4d5e41e94a0b42a8d15f15a98b7b32575c2cf842",
+    "Mouth \u2022 lifted asymmetric smirk": "7d8a9716cbd572521100409f2ea0f6ce8f26e9a725650457c86df31c6a9179dc",
+    "Near eye \u2022 reference white trapezoid": "d49fb30fc5dac550a4a77caf7d954d6334ee500f0ae0acfbad2d3d020688eccc",
+    "Near eyebrow \u2022 fine separate accent": "5f1c1b79381a1a6bc89a17685437a2da4b33efc6696703c533ded1e175d49249",
+    "Near iris \u2022 narrow offset": "a21b21abaa1437ec86caf8974fcca912ca36027ea41e2841cc0ee00dc5361158",
+    "Near lower corner \u2022 reference angle": "4dce7578cc668786ec4f13fab8be4cb6b259bacbce48cb4a8dff49567a8abebf",
+    "Near pupil \u2022 vertical offset": "81247e73ee58b0de4cee7740ae4fe55c66618ddaa18b376947c0c305e30a2832",
+    "Near under-eye \u2022 horizontal lower mark": "b7c9fcd43107504ebf5681f65bc70e8860734ab8b123f54011bee0dcbc8a249b",
+    "Near under-eye \u2022 horizontal upper mark": "29c673adc34e87995233b1edc1217c6f80cac684d06e053fecbe89b105799019",
+    "Near upper lid \u2022 thin reference diagonal": "2dd067615d01d4ed3784d925355f90ba720dfd96ce8b43237d18de3c6e9ba695",
+    "Neck": "686482d711beaeb5e18ed85ca458b3134cee7ce0debd2a147490f0e93503f1e3",
+    "Nose \u2022 tiny warm plane": "92fcd8d030e73c1639dcee722d00bb1080955c3d8c6c97d275661399b148fa19",
+    "R ankle \u2022 wrapped cloth": "081c1da97d4bc91753743ae139d4297c3c101ad687e44026f894dbf3d028f9ba",
+    "R ear": "3f0d016d8b98d38a2a7af744090dd5c8dca0805409df890fb5626e9162bb8d9c",
+    "R ear inset": "7de5cfbf728024672685a3a4e6940277eebc4c807defa2edff0c04f2ac4bd61e",
+    "R flame \u2022 inner fork": "75e52634beedc31a7ef5de1d4f8c4f7f4ba3e87f0456a9656a7550bf4d29d057",
+    "R flame \u2022 large fork": "e2442c9195a0b0a791963618f566b978c984093a6f8fa69a8ed051df6e3ad2c4",
+    "R flame \u2022 outer side lick": "2ce3c5785065843e6d1b749d9f1edfb0d10739b184a3a8ffd58b6edac392b06e",
+    "R hand \u2022 simplified soft mitten": "5f6c155c050221001fc638cd5fbd509bc20383a1ce3b4132861de2fc47446dd1",
+    "R shoe \u2022 broad toe box": "94014b01bdaceaf4933cef3bcd1e2f68dd6de8e1449a2330ca1749b777abcad1",
+    "R shoe \u2022 indigo instep": "ceb1b2e509f74ea5fc4a25ca459c1512ca295fcd0ebfc85ef241dea83a57351a",
+    "R shoe \u2022 sole welt": "ff7b413cb45e73809ae1b1014231bc04e47143d5760ab326895af0b9c5480b95",
+    "R shoe \u2022 thick rounded sole": "ba10980d1ee2af7df3d5bf8063a39eb9e12884d2f93ae4b122f6c28fe82d41b0",
+    "R shoe \u2022 toe stitch": "9954a9541566900b7ed52063369828615b58ff672d23114dc6a50cd34cf1d3bb",
+    "R sleeve \u2022 cuff edging": "23617d3424b0eb13e7521fbb02183356e1169382ecb09ce2ee45c06faa7bc118",
+    "R sleeve \u2022 long fold": "d6fc7b9c0c7d3e16b57296f36bc5da53e75938abd892fba01a5f125fd1a12670",
+    "R sleeve \u2022 oversized hanging shape": "24eef9793fe1915062666751287732a67020a3fc99fe2ccac6e7d462819535ca",
+    "R wrap \u2022 overlap 1": "9e1f8e98142cadcceaab56385592eb77003b0ce863a6a305a009b6bd195a096e",
+    "R wrap \u2022 overlap 2": "54e331f2551ca7d98c4a57e2dea38e99b5ce5ffdb74facb8439727c04d615279",
+    "R wrap \u2022 overlap 3": "1945fe554a6381e72d49c4b758ec5def507b320cc4e112095d1eb0ad65e3ce09",
+    "R wrap \u2022 overlap 4": "2c10c10b21b788d01350e9e72dbb4d4e264a8ba135f6a8323bec5ac062d150fa",
+    "R wrap \u2022 overlap 5": "ce1f930f44b1c7604be2f1ee012d7272075faca4482f37eab38441bddda3033f",
+    "R wrap \u2022 overlap 6": "ee8196aae4f3ef45ef210188fc5c180ebc9dc81b85ba3298df1b8d829934536e",
+    "Shirt \u2022 lower irregular hem": "7b215179897aeebbb404d0e03d030fc6eac1a7c1d59fe947f4e119db9dac1e19",
+    "Trousers \u2022 revised continuous balloon mass": "0058bfa4a3f58aa0a6d03d896e81ebb40c7bedd76f615b08fbaff977bf276780",
+    "Vest closure 01 \u2022 strap": "6e268e35deff15fe2caeecb15e4d022c0def61186f4652c8d872ac770f5e4c68",
+    "Vest closure 02 \u2022 strap": "b3c02ca9576fb5d64e3246751afdfedf61944e59aacbc5285af0e9b2f67d43d8",
+    "Vest closure 03 \u2022 strap": "d2aefd0c3120b92f21a2c176c90e15b553429a7753fa2ce83a57d8324d34fb42",
+    "Vest \u2022 lower piping": "4c5f3e2b02b6ca19ef61b867ff0b05d86ff8233face8c6911b1289c85ea99240",
+    "Vest \u2022 sculpted padded torso": "a97af7689e36b577e4674a4b76bf763c0642fc333b9911e5b68d2121c1a5741f"
+  },
+  "source_material_bindings": {
+    "Closure rivet 00": [
+      "Closure rivets"
+    ],
+    "Closure rivet 01": [
+      "Closure rivets"
+    ],
+    "Closure rivet 02": [
+      "Closure rivets"
+    ],
+    "Collar \u2022 single old gold stud": [
+      "Flames \u2022 warm orange"
+    ],
+    "Far eye \u2022 reference white triangle": [
+      "Face graphics \u2022 warm ivory"
+    ],
+    "Far eyebrow \u2022 fine separate accent": [
+      "Face graphics \u2022 dark olive ink"
+    ],
+    "Far iris \u2022 narrow offset": [
+      "Face graphics \u2022 blue charcoal iris"
+    ],
+    "Far lower corner \u2022 restrained": [
+      "Precision \u2022 muted lower contour"
+    ],
+    "Far pupil \u2022 vertical offset": [
+      "Face graphics \u2022 pupil"
+    ],
+    "Far under-eye \u2022 small accent": [
+      "Precision \u2022 muted lower contour"
+    ],
+    "Far upper lid \u2022 thin reference diagonal": [
+      "Face graphics \u2022 dark olive ink"
+    ],
+    "Frog knot 00": [
+      "Closures \u2022 black leather"
+    ],
+    "Frog knot 00.001": [
+      "Closures \u2022 black leather"
+    ],
+    "Frog knot 01": [
+      "Closures \u2022 black leather"
+    ],
+    "Frog knot 01.001": [
+      "Closures \u2022 black leather"
+    ],
+    "Frog knot 02": [
+      "Closures \u2022 black leather"
+    ],
+    "Frog knot 02.001": [
+      "Closures \u2022 black leather"
+    ],
+    "Hair \u2022 layered continuous sculpt": [
+      "Hair only \u2022 muted green black",
+      "Hair only \u2022 quiet middle planes",
+      "Hair only \u2022 front clumps"
+    ],
+    "Hair \u2022 local ear overlap": [
+      "Hair only \u2022 muted green black"
+    ],
+    "Head \u2022 tapered angular cheeks": [
+      "Face only \u2022 broad warm graphic planes"
+    ],
+    "Jacket \u2022 dark open edging": [
+      "Jacket \u2022 charcoal burgundy edging"
+    ],
+    "Jacket \u2022 dark open edging.001": [
+      "Jacket \u2022 charcoal burgundy edging"
+    ],
+    "Jacket \u2022 diagonal right lapel": [
+      "Jacket \u2022 muted crimson"
+    ],
+    "Jacket \u2022 open crimson body": [
+      "Jacket \u2022 muted crimson"
+    ],
+    "Jacket \u2022 oversized raised collar with inner shirt": [
+      "Shirt & wraps \u2022 aged ivory",
+      "Jacket \u2022 muted crimson"
+    ],
+    "L ankle \u2022 wrapped cloth": [
+      "Shirt & wraps \u2022 aged ivory"
+    ],
+    "L ear": [
+      "Face only \u2022 flat warm ochre"
+    ],
+    "L ear inset": [
+      "Face only \u2022 muted ear shadow"
+    ],
+    "L flame \u2022 inner fork": [
+      "Flames \u2022 warm orange"
+    ],
+    "L flame \u2022 large fork": [
+      "Flames \u2022 old gold"
+    ],
+    "L flame \u2022 outer side lick": [
+      "Flames \u2022 warm orange"
+    ],
+    "L hand \u2022 simplified soft mitten": [
+      "Skin \u2022 warm peach"
+    ],
+    "L shoe \u2022 broad toe box": [
+      "Shoes \u2022 charcoal"
+    ],
+    "L shoe \u2022 indigo instep": [
+      "Shoes \u2022 indigo panels"
+    ],
+    "L shoe \u2022 sole welt": [
+      "Shoes \u2022 charcoal"
+    ],
+    "L shoe \u2022 thick rounded sole": [
+      "Soles \u2022 warm black"
+    ],
+    "L shoe \u2022 toe stitch": [
+      "Jacket \u2022 charcoal burgundy edging"
+    ],
+    "L sleeve \u2022 cuff edging": [
+      "Jacket \u2022 charcoal burgundy edging"
+    ],
+    "L sleeve \u2022 long fold": [
+      "Jacket \u2022 creases"
+    ],
+    "L sleeve \u2022 oversized hanging shape": [
+      "Jacket \u2022 muted crimson"
+    ],
+    "L wrap \u2022 overlap 1": [
+      "Cloth highlights"
+    ],
+    "L wrap \u2022 overlap 2": [
+      "Cloth highlights"
+    ],
+    "L wrap \u2022 overlap 3": [
+      "Cloth highlights"
+    ],
+    "L wrap \u2022 overlap 4": [
+      "Cloth highlights"
+    ],
+    "L wrap \u2022 overlap 5": [
+      "Cloth highlights"
+    ],
+    "L wrap \u2022 overlap 6": [
+      "Cloth highlights"
+    ],
+    "Lapel \u2022 tailored seam": [
+      "Jacket \u2022 creases"
+    ],
+    "Mouth \u2022 lifted asymmetric smirk": [
+      "Face graphics \u2022 dark olive ink"
+    ],
+    "Near eye \u2022 reference white trapezoid": [
+      "Face graphics \u2022 warm ivory"
+    ],
+    "Near eyebrow \u2022 fine separate accent": [
+      "Face graphics \u2022 dark olive ink"
+    ],
+    "Near iris \u2022 narrow offset": [
+      "Face graphics \u2022 blue charcoal iris"
+    ],
+    "Near lower corner \u2022 reference angle": [
+      "Precision \u2022 muted lower contour"
+    ],
+    "Near pupil \u2022 vertical offset": [
+      "Face graphics \u2022 pupil"
+    ],
+    "Near under-eye \u2022 horizontal lower mark": [
+      "Precision \u2022 small olive cheek marks"
+    ],
+    "Near under-eye \u2022 horizontal upper mark": [
+      "Precision \u2022 small olive cheek marks"
+    ],
+    "Near upper lid \u2022 thin reference diagonal": [
+      "Face graphics \u2022 dark olive ink"
+    ],
+    "Neck": [
+      "Skin \u2022 warm peach"
+    ],
+    "Nose \u2022 tiny warm plane": [
+      "Face only \u2022 tiny nose plane"
+    ],
+    "R ankle \u2022 wrapped cloth": [
+      "Shirt & wraps \u2022 aged ivory"
+    ],
+    "R ear": [
+      "Ear only \u2022 soft warm planes"
+    ],
+    "R ear inset": [
+      "Ear only \u2022 simple muted rose accent"
+    ],
+    "R flame \u2022 inner fork": [
+      "Flames \u2022 warm orange"
+    ],
+    "R flame \u2022 large fork": [
+      "Flames \u2022 old gold"
+    ],
+    "R flame \u2022 outer side lick": [
+      "Flames \u2022 warm orange"
+    ],
+    "R hand \u2022 simplified soft mitten": [
+      "Skin \u2022 warm peach"
+    ],
+    "R shoe \u2022 broad toe box": [
+      "Shoes \u2022 charcoal"
+    ],
+    "R shoe \u2022 indigo instep": [
+      "Shoes \u2022 indigo panels"
+    ],
+    "R shoe \u2022 sole welt": [
+      "Shoes \u2022 charcoal"
+    ],
+    "R shoe \u2022 thick rounded sole": [
+      "Soles \u2022 warm black"
+    ],
+    "R shoe \u2022 toe stitch": [
+      "Jacket \u2022 charcoal burgundy edging"
+    ],
+    "R sleeve \u2022 cuff edging": [
+      "Jacket \u2022 charcoal burgundy edging"
+    ],
+    "R sleeve \u2022 long fold": [
+      "Jacket \u2022 creases"
+    ],
+    "R sleeve \u2022 oversized hanging shape": [
+      "Jacket \u2022 muted crimson"
+    ],
+    "R wrap \u2022 overlap 1": [
+      "Cloth highlights"
+    ],
+    "R wrap \u2022 overlap 2": [
+      "Cloth highlights"
+    ],
+    "R wrap \u2022 overlap 3": [
+      "Cloth highlights"
+    ],
+    "R wrap \u2022 overlap 4": [
+      "Cloth highlights"
+    ],
+    "R wrap \u2022 overlap 5": [
+      "Cloth highlights"
+    ],
+    "R wrap \u2022 overlap 6": [
+      "Cloth highlights"
+    ],
+    "Shirt \u2022 lower irregular hem": [
+      "Shirt & wraps \u2022 aged ivory"
+    ],
+    "Trousers \u2022 revised continuous balloon mass": [
+      "Trousers \u2022 burgundy"
+    ],
+    "Vest closure 01 \u2022 strap": [
+      "Closures \u2022 black leather"
+    ],
+    "Vest closure 02 \u2022 strap": [
+      "Closures \u2022 black leather"
+    ],
+    "Vest closure 03 \u2022 strap": [
+      "Closures \u2022 black leather"
+    ],
+    "Vest \u2022 lower piping": [
+      "Jacket \u2022 charcoal burgundy edging"
+    ],
+    "Vest \u2022 sculpted padded torso": [
+      "Vest \u2022 warm charcoal"
+    ]
+  }
+}

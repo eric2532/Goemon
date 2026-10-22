@@ -1,0 +1,66 @@
+{
+  "format_version": 1,
+  "source": {
+    "rom_sha256": "1603be37427a33548857fc3d2e8867ede71121c353fb631b79b44f1d94845d80",
+    "model": {
+      "index": 287,
+      "original_offset": 11442916,
+      "original_offset_hex": "0xae9ae4",
+      "original_end": 11469084,
+      "compressed": true,
+      "original_size": 26168,
+      "decompressed_offset": 14808368,
+      "decompressed_size": 47440,
+      "sha256": "36475dd78e2007f8469f6ee9ba6497f56581c3ea534dddfca97ea56f075d175a"
+    },
+    "static_pic_bank_sha256": "3163718e77c0dd3c1d4a133259cac931ce9722ca14e51bf6a12d266ac4149f7f",
+    "static_pic_decoder": "Original ROM80014D70+80014DD8 executed via Unicorn",
+    "facial_textures": {
+      "11": {
+        "pic_id": "0x823f",
+        "rom_offset": "0xaf111c",
+        "size": 4096,
+        "format": "RGBA5551",
+        "width": 32,
+        "height": 64
+      },
+      "12": {
+        "file": "face_823f.png",
+        "pic_id": "0x823f",
+        "rom_offset": "0xaf111c",
+        "size": 4096,
+        "format": "RGBA5551",
+        "width": 32,
+        "height": 64,
+        "raw_sha256": "a9ebceda06968ed666d40cbb0cc60a697c7802850e17848751b600ab7cdcac11"
+      }
+    }
+  },
+  "body_parts": 13,
+  "height_metres": 3.2206185,
+  "actions": 232,
+  "source_scale": 0.015158092494675741,
+  "pointer_bones": {
+    "Pelvis": "0x9004f48",
+    "Chest": "0x9005a28",
+    "Head": "0x90050f8",
+    "Arm_R": "0x9005498",
+    "Forearm_R": "0x90055b8",
+    "Arm_L": "0x9005748",
+    "Forearm_L": "0x9005868",
+    "Leg_R": "0x90047f8",
+    "Shin_R": "0x9004ac8",
+    "Foot_R": "0x9004930",
+    "Leg_L": "0x9004bb0",
+    "Shin_L": "0x9004e48",
+    "Foot_L": "0x9004cd0"
+  },
+  "preserved_sources": {
+    "assets/blender/characters/kai.blend": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c",
+    "assets/blender/characters/goemon_cosplay/master-thief.blend": "b1210933462e5af6113eb5f50b31373481640877c5f9441a91a287a98b57887a",
+    "assets/characters/recovered_goemon/body/body.json": "737fe44e9cf0e1d604a118a4450acdb06d253bff3246da0d9df982724f25960e",
+    "assets/characters/recovered_goemon/motion.json": "f0d3527e42f8a4bd22548401153c95bb8bd2769345bb43568d8f92e2c6aa346a"
+  },
+  "rig": "Independent named bones match native global matrices, including squash/stretch; each body part is bound100% to one bone.",
+  "preview": "Blender nearest texture sampling; original N64 three-point filter remains a runtime shader. Source UVs, tile modes, images and face selections preserved."
+}

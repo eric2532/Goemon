@@ -1,0 +1,36 @@
+Halo: Combat Evolved assets for the user's local Goemon build
+
+Source: user-supplied /Users/eric/Downloads/Halo - Combat Evolved (USA).7z,
+containing an original Xbox disc image. Extracted from maps/bloodgulch.map.
+Original archive is preserved unchanged. No remote game asset download was used.
+
+Microsoft/Bungie own the Halo character, geometry, textures, animations and audio.
+They are not covered by OpenCE's source-code license. These extracted assets are
+not original Goemon artwork and this integration does not grant redistribution
+rights. No OpenCE engine code is linked, copied, compiled or distributed in Goemon.
+
+OpenCE was read as a reference for the Xbox file formats and engine mechanics:
+https://github.com/OpenCommunityEdition/OpenCE
+Read revision: 6ec42856d73e258e5a8c7e9cd19161f46d89d0e4
+At this revision OpenCE is AGPL-3.0-or-later; its README explicitly excludes Halo
+maps and other Microsoft-owned content from that license.
+
+Extraction tools: Refinery 2.6.0 and Reclaimer 2.11.2 (GPL-3.0 tools, not shipped).
+https://github.com/Sigmmma/refinery
+https://github.com/Sigmmma/reclaimer
+Blender 5.2.2 converts decoded source models to embedded-texture glTF.
+JMS/JMA quaternion convention was cross-checked against the MIT-licensed Halo
+Asset Blender Development Toolset; no addon implementation is bundled.
+https://github.com/General-101/Halo-Asset-Blender-Development-Toolset
+
+Editable source: assets/blender/master_chief (excluded from game export/import).
+Reproduction: tools/halo/extract_user_disc.py, decode_extracted_assets.py,
+build_master_chief.py. See tools/halo/README.txt for commands and fidelity notes.
+
+Three-weapon extension: rocket launcher, M6D pistol, shotgun, cyborg hands,
+first-person native idle/firing/ready clips, native rocket projectile and firing
+samples were recovered from the same user-supplied bloodgulch map. The rocket
+explosion uses the map's referenced sound/sfx/weapons/frag grenade/expl sample.
+Weapon HUD silhouettes are new code-native SVGs. Combat values, rocket sweep,
+splash occlusion, pellet spread/falloff and transient effects adapt these assets
+to Goemon's enemies and world; they do not reproduce the Halo game engine.

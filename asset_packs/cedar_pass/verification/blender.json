@@ -1,0 +1,200 @@
+[
+  {
+    "id": "machiya_open",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 5514,
+    "ground_pivots": true,
+    "surfaces": 7,
+    "collision_proxies": 12
+  },
+  {
+    "id": "inn",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 7090,
+    "ground_pivots": true,
+    "surfaces": 9,
+    "collision_proxies": 19
+  },
+  {
+    "id": "tea_house_open",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 6118,
+    "ground_pivots": true,
+    "surfaces": 7,
+    "collision_proxies": 14
+  },
+  {
+    "id": "warehouse",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 3834,
+    "ground_pivots": true,
+    "surfaces": 7,
+    "collision_proxies": 14
+  },
+  {
+    "id": "shrine",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 3986,
+    "ground_pivots": true,
+    "surfaces": 7,
+    "collision_proxies": 11
+  },
+  {
+    "id": "gatehouse",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 4236,
+    "ground_pivots": true,
+    "surfaces": 7,
+    "collision_proxies": 13
+  },
+  {
+    "id": "cedar",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 84,
+    "ground_pivots": true,
+    "surfaces": 1,
+    "collision_proxies": 0
+  },
+  {
+    "id": "sakura",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 364,
+    "ground_pivots": true,
+    "surfaces": 1,
+    "collision_proxies": 0
+  },
+  {
+    "id": "cloud_pine",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 384,
+    "ground_pivots": true,
+    "surfaces": 1,
+    "collision_proxies": 0
+  },
+  {
+    "id": "bamboo_cluster",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 1236,
+    "ground_pivots": true,
+    "surfaces": 1,
+    "collision_proxies": 0
+  },
+  {
+    "id": "river_rock",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 52,
+    "ground_pivots": true,
+    "surfaces": 1,
+    "collision_proxies": 0
+  },
+  {
+    "id": "moss_boulder",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 52,
+    "ground_pivots": true,
+    "surfaces": 1,
+    "collision_proxies": 0
+  },
+  {
+    "id": "split_crag",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 80,
+    "ground_pivots": true,
+    "surfaces": 1,
+    "collision_proxies": 0
+  },
+  {
+    "id": "cliff_step",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 52,
+    "ground_pivots": true,
+    "surfaces": 1,
+    "collision_proxies": 0
+  },
+  {
+    "id": "twin_summit",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 136,
+    "ground_pivots": true,
+    "surfaces": 1,
+    "collision_proxies": 0
+  },
+  {
+    "id": "long_ridge",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 272,
+    "ground_pivots": true,
+    "surfaces": 1,
+    "collision_proxies": 0
+  },
+  {
+    "id": "sacred_peak",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 68,
+    "ground_pivots": true,
+    "surfaces": 1,
+    "collision_proxies": 0
+  },
+  {
+    "id": "lantern",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 512,
+    "ground_pivots": true,
+    "surfaces": 1,
+    "collision_proxies": 0
+  },
+  {
+    "id": "well",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 1060,
+    "ground_pivots": true,
+    "surfaces": 1,
+    "collision_proxies": 0
+  },
+  {
+    "id": "cart",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 508,
+    "ground_pivots": true,
+    "surfaces": 1,
+    "collision_proxies": 0
+  },
+  {
+    "id": "fence",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 156,
+    "ground_pivots": true,
+    "surfaces": 1,
+    "collision_proxies": 0
+  },
+  {
+    "id": "torii",
+    "source_reopened": true,
+    "export_reimported": true,
+    "triangles": 1412,
+    "ground_pivots": true,
+    "surfaces": 1,
+    "collision_proxies": 0
+  }
+]

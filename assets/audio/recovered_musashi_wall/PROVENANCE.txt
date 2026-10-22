@@ -1,0 +1,6 @@
+Authentic Brave Fencer Musashi USA impact, chosen by the user as audition F (0x493) for wall and gate damage.
+Event0x493: bank_9c8ce35dd2b0baf2, sample12 (sample_c082617d2552babe).
+Original playback rate22050Hz; duration1.348571seconds. Decoded PCM is unchanged; the production asset is a single play, without preview repetitions.
+The original material/object association is unconfirmed; wall cracking is the local adaptation.
+Reproduce: python3 tools/recover_musashi_audio.py --sound 0x493:wall_crack --out <artifact directory>
+See audio_provenance.json for the exact ROM records and hashes.

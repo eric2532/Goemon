@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "area": "Tidefall only",
+  "authorship": "Original Blender geometry; original Edo texture kit",
+  "assets": [
+    {
+      "asset_id": "town_props/tidefall_gate",
+      "source": "assets/blender/town_props/tidefall_gate.blend",
+      "runtime": "assets/models/town_props/tidefall_gate.glb",
+      "thumbnail": "docs/town-props/tidefall_gate.png",
+      "triangles": 1092,
+      "meshes": 1,
+      "materials": 6,
+      "bytes": 245952,
+      "sha256": "7394b21bbcef1f04717b33385d9c4befa388c716c0c1c4fc400beaefefb104e9",
+      "source_sha256": "ee4e5cec15fafb8f455c9f59d5b660fc260b4da082283f6158b903123cef4500"
+    },
+    {
+      "asset_id": "town_props/noodle_stall",
+      "source": "assets/blender/town_props/noodle_stall.blend",
+      "runtime": "assets/models/town_props/noodle_stall.glb",
+      "thumbnail": "docs/town-props/noodle_stall.png",
+      "triangles": 686,
+      "meshes": 1,
+      "materials": 4,
+      "bytes": 169256,
+      "sha256": "f2f409f1c940ad24ec52da93d087120c1295ebfc8e10a1f640cc7354bc183c33",
+      "source_sha256": "58f5be07c8468b46f682825e8c993239742cb6561d171fea39fa8b14bbf6c934"
+    },
+    {
+      "asset_id": "town_props/dumpling_stall",
+      "source": "assets/blender/town_props/dumpling_stall.blend",
+      "runtime": "assets/models/town_props/dumpling_stall.glb",
+      "thumbnail": "docs/town-props/dumpling_stall.png",
+      "triangles": 1286,
+      "meshes": 1,
+      "materials": 5,
+      "bytes": 251020,
+      "sha256": "d9ac7a5828efde299990fbcf6f789c8991847ed46d922a7514a669dcecb536ff",
+      "source_sha256": "dbb3e188c62816c61373e0f736539e6098298b65537a5e93d121893eb589f81e"
+    },
+    {
+      "asset_id": "town_props/paper_lantern",
+      "source": "assets/blender/town_props/paper_lantern.blend",
+      "runtime": "assets/models/town_props/paper_lantern.glb",
+      "thumbnail": "docs/town-props/paper_lantern.png",
+      "triangles": 452,
+      "meshes": 1,
+      "materials": 3,
+      "bytes": 111136,
+      "sha256": "a9a2c026f054bf002f6e531422144ef2134931392eb652618ded775fde2216d9",
+      "source_sha256": "cc65f3bdebd001f84579822479172e02d86c7f0509c835a6f1fafb8b0c5fcbb9"
+    },
+    {
+      "asset_id": "town_props/indigo_noren",
+      "source": "assets/blender/town_props/indigo_noren.blend",
+      "runtime": "assets/models/town_props/indigo_noren.glb",
+      "thumbnail": "docs/town-props/indigo_noren.png",
+      "triangles": 168,
+      "meshes": 1,
+      "materials": 3,
+      "bytes": 94048,
+      "sha256": "4f5d5939b791d60cc671971b64cbeedffb7b3947b26f51163e47ff3ba2f1b9e0",
+      "source_sha256": "00ee39d1466ede766217b6bbbb82e9df397007ce919cb28043982b0aa6ff5116"
+    },
+    {
+      "asset_id": "town_props/bowl_shop_sign",
+      "source": "assets/blender/town_props/bowl_shop_sign.blend",
+      "runtime": "assets/models/town_props/bowl_shop_sign.glb",
+      "thumbnail": "docs/town-props/bowl_shop_sign.png",
+      "triangles": 96,
+      "meshes": 1,
+      "materials": 4,
+      "bytes": 115172,
+      "sha256": "1ccfa485184f9d3ef04f5601eb2b969466349258bfeabaf1a82adff91ed17e6f",
+      "source_sha256": "a95077463e1a201125ebd81fe1a28e7dc76572fee43e19d1ce05b4ec275908d7"
+    },
+    {
+      "asset_id": "town_props/wayside_shrine",
+      "source": "assets/blender/town_props/wayside_shrine.blend",
+      "runtime": "assets/models/town_props/wayside_shrine.glb",
+      "thumbnail": "docs/town-props/wayside_shrine.png",
+      "triangles": 272,
+      "meshes": 1,
+      "materials": 7,
+      "bytes": 211444,
+      "sha256": "c7a3ec70535fa983cc8d73b620e71aa429b96741198033b10b911705c454e1aa",
+      "source_sha256": "6e061bf35d25f817e624db826f99249294d9db3874226353b049ea0409b47e38"
+    },
+    {
+      "asset_id": "town_props/stone_lantern",
+      "source": "assets/blender/town_props/stone_lantern.blend",
+      "runtime": "assets/models/town_props/stone_lantern.glb",
+      "thumbnail": "docs/town-props/stone_lantern.png",
+      "triangles": 204,
+      "meshes": 1,
+      "materials": 2,
+      "bytes": 73828,
+      "sha256": "0a1230c43c68c60093640c20f3397033887791993855bd8f72a40859658fbe41",
+      "source_sha256": "0f0b78331f91e4e04cab5c6b5fbc117b887f165a04a7134251598907323813b7"
+    },
+    {
+      "asset_id": "town_props/offering_box",
+      "source": "assets/blender/town_props/offering_box.blend",
+      "runtime": "assets/models/town_props/offering_box.glb",
+      "thumbnail": "docs/town-props/offering_box.png",
+      "triangles": 156,
+      "meshes": 1,
+      "materials": 3,
+      "bytes": 93784,
+      "sha256": "765f8a6da9b00885afeaa49b0690599844c09e83cc02baf11bbec84364ce596a",
+      "source_sha256": "73c7c9b7539fa4b1bdf8fccb2ba2cb86189d22908ad458321c5727e599e267c6"
+    }
+  ]
+}

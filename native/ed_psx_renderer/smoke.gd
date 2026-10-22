@@ -1,0 +1,20 @@
+extends SceneTree
+func _initialize():
+ var loaded=GDExtensionManager.load_extension("res://native/ed_psx_renderer/ed_psx_renderer.gdextension")
+ assert(loaded==OK or ClassDB.class_exists("EdPsxRasterizer"))
+ var raster=ClassDB.instantiate("EdPsxRasterizer")
+ var indices=PackedByteArray();indices.resize(65536);indices.fill(1)
+ var palette=PackedByteArray();palette.resize(24*32);palette.encode_u16(2,0x80b6)
+ raster.configure(8,8,indices,palette)
+ var packets=PackedInt32Array([0x36,0,0,0,0,0,0,106,119,136,4,0,0,0,106,119,136,0,4,0,0,106,119,136])
+ var image:PackedByteArray=raster.render(packets)
+ assert(image.size()==256)
+ assert(image.slice(36,40)==PackedByteArray([18,4,0,255]))
+ var covered=0
+ for i in range(3,image.size(),4):covered+=int(image[i]==255)
+ assert(covered==10)
+ assert(raster.render(PackedInt32Array([1])).is_empty())
+ image=raster.render(PackedInt32Array());assert(image.size()==256 and image.count(0)==256)
+ for i in 1000:raster.render(packets)
+ print("ED_PSX_BINDING_SMOKE_PASS: configure/render, exact native texture modulation, top-left coverage, malformed-input and1000call lifetime checks")
+ quit()

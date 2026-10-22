@@ -1,0 +1,51 @@
+{
+  "soldier_overlay": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/raw/SC01.CD.dir/FILE_077.dir/0.4.dec",
+  "soldier_overlay_sha256": "126605c1871a3f852578793886cb599af05d09e8c2cccf256257bbd414757ed9",
+  "death_call_address": "0x801824B0",
+  "death_call_bytes": "aa 06 04 24 32 b5 00 0c 21 28 00 00",
+  "source_executable": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/raw/SLUS_007.26",
+  "source_executable_sha256": "66371c3a7517e9eabd7cb6cf0c5abffe7296bd4bac29c85b8bf7bb9db349714a",
+  "sound_owner": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/raw/SC01.CD.dir/FILE_000.dir/4.7",
+  "sound_owner_sha256": "a49fc74f2df4d547296b626cbb8284a47067a3480a5c40357cd29dbd3d741219",
+  "notes": [
+    "Authentic recovered retail SPU ADPCM sample; no synthesis or substitute audio.",
+    "Pitch follows original custom driver SPU lookup/interpolation, rounded to integer WAV sample rate.",
+    "Dry sample: original SPU ADSR/reverb/volume modulation not emulated; original tone and record bytes retained."
+  ],
+  "clips": [
+    {
+      "sound_id": "0x6AA",
+      "file": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Soldier Audio/soldier_death_6aa.wav",
+      "description": "Ordinary Thirstquencher Soldier death/tumble sound",
+      "confidence": "shared ordinary death entry confirmed in retail bytes; bank and pitch source-resolved",
+      "source_trace": "SC01 FILE077 func_80182420 shared ordinary death entry; 801824B0 loads a0=0x6AA; 801824B4 calls8002D4C8 after Source__801b09d0 tumble setup; ordinary subtypes0/1/2 share this entry",
+      "dispatch_address": "0x80065fc4",
+      "dispatch_bytes": "06 00 03 5e",
+      "resolved_sound_id": "0x965",
+      "resolved_dispatch_bytes": "01 01 00 23",
+      "record_address": "0x800c8214",
+      "record_bytes": "c8 00 00 00 00 47 64 00 01 1b 01 00 00 00 00 00 34 7f 0c 80",
+      "bank_entry": 1,
+      "bank_id": "bank_9c8ce35dd2b0baf2",
+      "bank_sources": [
+        "raw/SC01.CD.dir/FILE_077.dir/2.2"
+      ],
+      "bank_sha256": "9c8ce35dd2b0baf2b9461aada33cd971baa3fca8480f3ed55ee70d1ef47b1050",
+      "lookup_index": 27,
+      "program": 2,
+      "tone": 10,
+      "tone_bytes": "00 00 7f 40 59 00 4d 4d 00 00 00 00 00 00 b1 b2 ff a5 ec 5f 02 00 14 00 c0 00 c1 00 c2 00 c3 00",
+      "sample_index": 20,
+      "sample_id": "sample_36f24b81e1c2c91b",
+      "sample_sha256": "36f24b81e1c2c91b5fa3c391811dae022c39461253052df8b6ba7c07b45f1b51",
+      "pitch_q8": 18176,
+      "center_note": 89,
+      "fine": 0,
+      "spu_pitch_register": 1448,
+      "original_playback_rate": 15590.0390625,
+      "wav_sample_rate": 15590,
+      "duration_seconds": 0.490314304041052,
+      "sha256": "31b7f29c49f8cf95b1d64f94542353459bed6248a0c9685d1478c1b5d4185a88"
+    }
+  ]
+}

@@ -1,0 +1,432 @@
+{
+  "source_sha256": "f8bcfa41b6a637ed78f327737875ea05998088443c2776e18247c0f45a64014a",
+  "added": [
+    {
+      "frames": [
+        {
+          "tick": 0,
+          "pose": "0x800eb9e8",
+          "address": "0x800d4ad4"
+        },
+        {
+          "tick": 1,
+          "pose": "0x800ebae8",
+          "address": "0x800d4ad8"
+        },
+        {
+          "tick": 2,
+          "pose": "0x800ebbe8",
+          "address": "0x800d4adc"
+        },
+        {
+          "tick": 3,
+          "pose": "0x800ebce8",
+          "address": "0x800d4ae0"
+        },
+        {
+          "tick": 4,
+          "pose": "0x800ebde8",
+          "address": "0x800d4aec"
+        },
+        {
+          "tick": 8,
+          "pose": "0x800f19e8",
+          "address": "0x800d4af8"
+        },
+        {
+          "tick": 9,
+          "pose": "0x800f1ae8",
+          "address": "0x800d4afc"
+        },
+        {
+          "tick": 10,
+          "pose": "0x800f1be8",
+          "address": "0x800d4b00"
+        },
+        {
+          "tick": 11,
+          "pose": "0x800f1ae8",
+          "address": "0x800d4b04"
+        }
+      ],
+      "events": [
+        {
+          "address": "0x800d4ae4",
+          "tick": 4,
+          "opcode": 3
+        },
+        {
+          "address": "0x800d4af0",
+          "tick": 8,
+          "opcode": 3
+        },
+        {
+          "address": "0x800d4b08",
+          "tick": 12,
+          "opcode": 6
+        }
+      ],
+      "ticks": 12,
+      "terminal": "loop",
+      "loop_tick": 8,
+      "name": "Source__800d4ad4",
+      "stream": "0x800d4a9c",
+      "entry": "0x800d4ad4",
+      "inherited_opcodes": [
+        4,
+        19,
+        7,
+        2
+      ],
+      "pose_hashes": {
+        "0x800eb9e8": "6280de141785489bad98d2f12a3d754acd577e654a181176ae0caf87247ba223",
+        "0x800ebae8": "dbafa6563dfc4c4928aff6d0041983af0c1011d3170af7944cfc485abdddefc1",
+        "0x800ebbe8": "797bcdcbd78a569e667816f9baeef475bcd35930478851d7eb340319dd006ac2",
+        "0x800ebce8": "2e5a63c134999f88ed071c2b54f4c6231b6c9844400e2cd539ecd2243e4a3c75",
+        "0x800ebde8": "f395a7e9e656aa3bbdc18111d2eb72d582ded2e0bed25eb467427b7a8450ffd5",
+        "0x800f19e8": "352bdbd55abb80b1b936411d2248b6b6d028c168ac2811f5e021e9f3798655da",
+        "0x800f1ae8": "97894480b67f6ba186e16693b35c7c821a8b39eb7eb0c2ec26db9dee4e7c85fa",
+        "0x800f1be8": "f3fd5217fc2f447ed6f20e62629a0022124c6faa506c98a74c2dcd87e09ff66b"
+      }
+    },
+    {
+      "frames": [
+        {
+          "tick": 0,
+          "pose": "0x800ed1e8",
+          "address": "0x800d4b70"
+        },
+        {
+          "tick": 1,
+          "pose": "0x800ed2e8",
+          "address": "0x800d4b74"
+        },
+        {
+          "tick": 2,
+          "pose": "0x800ed3e8",
+          "address": "0x800d4b78"
+        },
+        {
+          "tick": 3,
+          "pose": "0x800ed4e8",
+          "address": "0x800d4b84"
+        },
+        {
+          "tick": 7,
+          "pose": "0x800f1ce8",
+          "address": "0x800d4b90"
+        },
+        {
+          "tick": 8,
+          "pose": "0x800f1de8",
+          "address": "0x800d4b94"
+        },
+        {
+          "tick": 9,
+          "pose": "0x800f1ee8",
+          "address": "0x800d4b98"
+        },
+        {
+          "tick": 10,
+          "pose": "0x800f1de8",
+          "address": "0x800d4b9c"
+        }
+      ],
+      "events": [
+        {
+          "address": "0x800d4b7c",
+          "tick": 3,
+          "opcode": 3
+        },
+        {
+          "address": "0x800d4b88",
+          "tick": 7,
+          "opcode": 3
+        },
+        {
+          "address": "0x800d4ba0",
+          "tick": 11,
+          "opcode": 6
+        }
+      ],
+      "ticks": 11,
+      "terminal": "loop",
+      "loop_tick": 7,
+      "name": "Source__800d4b70",
+      "stream": "0x800d4b48",
+      "entry": "0x800d4b70",
+      "inherited_opcodes": [
+        4,
+        19,
+        2
+      ],
+      "pose_hashes": {
+        "0x800ed1e8": "9b30bd5ac240b944cf0a50a45f08df4460ab6d79d91a41944596f4d4fe2d91ad",
+        "0x800ed2e8": "b3ad057ec5da224a08eec269a0cb2683f9d256e53cc72e516ea7e8ed21fefa8b",
+        "0x800ed3e8": "57ce41e639fbcd993b9d57c67aa0ca23262dd37ed84192e784ebad0c14a1b1f4",
+        "0x800ed4e8": "c7ad5d23d1e149df11bf3e9ee5b4614e5b66d2c092fddedb1fbae52ea9ecf001",
+        "0x800f1ce8": "e6d63b395a55ae56dc334370c0c11e113450f271900b0840b74463de6a192801",
+        "0x800f1de8": "033a8a6b289b2f71f4dd6e0ef0c051c85ddba595cb5b08fb3785b320b0c23ed9",
+        "0x800f1ee8": "8653452efcc980e691bfcc113e1c8a76d445b9d5dbd5a40d673fdb11861b877d"
+      }
+    },
+    {
+      "frames": [
+        {
+          "tick": 0,
+          "pose": "0x800e6ce8",
+          "address": "0x800d4ce8"
+        },
+        {
+          "tick": 1,
+          "pose": "0x800e6de8",
+          "address": "0x800d4cec"
+        },
+        {
+          "tick": 2,
+          "pose": "0x800e6ee8",
+          "address": "0x800d4cf0"
+        },
+        {
+          "tick": 3,
+          "pose": "0x800e6fe8",
+          "address": "0x800d4cfc"
+        },
+        {
+          "tick": 4,
+          "pose": "0x800e70e8",
+          "address": "0x800d4d00"
+        },
+        {
+          "tick": 5,
+          "pose": "0x800e71e8",
+          "address": "0x800d4d04"
+        },
+        {
+          "tick": 6,
+          "pose": "0x800e72e8",
+          "address": "0x800d4d08"
+        },
+        {
+          "tick": 7,
+          "pose": "0x800e73e8",
+          "address": "0x800d4d0c"
+        },
+        {
+          "tick": 8,
+          "pose": "0x800e74e8",
+          "address": "0x800d4d10"
+        },
+        {
+          "tick": 9,
+          "pose": "0x800e75e8",
+          "address": "0x800d4d14"
+        },
+        {
+          "tick": 10,
+          "pose": "0x800e76e8",
+          "address": "0x800d4d18"
+        },
+        {
+          "tick": 11,
+          "pose": "0x800e77e8",
+          "address": "0x800d4d24"
+        },
+        {
+          "tick": 12,
+          "pose": "0x800e78e8",
+          "address": "0x800d4d28"
+        },
+        {
+          "tick": 13,
+          "pose": "0x800e79e8",
+          "address": "0x800d4d2c"
+        },
+        {
+          "tick": 14,
+          "pose": "0x800e7ae8",
+          "address": "0x800d4d30"
+        }
+      ],
+      "events": [
+        {
+          "address": "0x800d4ce4",
+          "tick": 0,
+          "opcode": 19
+        },
+        {
+          "address": "0x800d4cf4",
+          "tick": 3,
+          "opcode": 7
+        },
+        {
+          "address": "0x800d4cf8",
+          "tick": 3,
+          "opcode": 20
+        },
+        {
+          "address": "0x800d4d1c",
+          "tick": 11,
+          "opcode": 7
+        },
+        {
+          "address": "0x800d4d20",
+          "tick": 11,
+          "opcode": 20
+        }
+      ],
+      "ticks": 15,
+      "terminal": "stop",
+      "loop_tick": 0,
+      "name": "Source__800d4ce4",
+      "stream": "0x800d4ce4",
+      "entry": "0x800d4ce4",
+      "inherited_opcodes": [],
+      "pose_hashes": {
+        "0x800e6ce8": "99903e33a8d4721f87b1ad2294a396c20eb76b1da19eee72a75b2bc46de633ae",
+        "0x800e6de8": "c4180c18ecb1eedbf6e2879cfbd29cab24bf000af772edda3ff50bc1484382e2",
+        "0x800e6ee8": "c410448891473dd62246d201a441d115197d0215385bfd689e1209e9de6c30c0",
+        "0x800e6fe8": "996d8b7886fee1430015bf14305421efbdb4d72723bebf86f45e752fa0bd6ceb",
+        "0x800e70e8": "28d69bac5963983a26690027a9f42a7ba651c744ac2bd34565773f6067e68b0c",
+        "0x800e71e8": "eb9e20ebe81205492908df0e333b66e592de221120ea043711d8c999bae4bbf6",
+        "0x800e72e8": "f27f4f7508fe7da983021da718efc05fc226d19dacb55d4d98243dbcd6a472af",
+        "0x800e73e8": "d418c97984e2e8c05ea56bb5aa77651ae361b45452176bbfbe69bc5d844bd335",
+        "0x800e74e8": "54c7412f8def1cc794dc03c6d0f8bca172227ae53c9d1a2eebd5ce3ec3fe57c9",
+        "0x800e75e8": "f4cc61471c433a7f940ac1c95b8b2a2eb0b22a3582cbae7b95c240549cbfff15",
+        "0x800e76e8": "acedc88b92ac5e0703edeac2c1ad35e2c2387aa035eb89111dc2f52948e9b723",
+        "0x800e77e8": "1e88857c26eaa91ea9960473a4080f22d66b8f3e194a960aa104a0d33b9202a6",
+        "0x800e78e8": "ea7b7ec225ca0e5604b7daaa41a3e52d87ad4a059c1d4b6b6560c394c8d84198",
+        "0x800e79e8": "a306d0430d5fcb67c48b50683b717a64b76bb72576d30da0864838c8098daa62",
+        "0x800e7ae8": "01c7c0b33115e59be0d8f2c1cad1f9b7d830898fdcb68de05c9cebb0217dd766"
+      }
+    },
+    {
+      "frames": [
+        {
+          "tick": 0,
+          "pose": "0x800e7be8",
+          "address": "0x800d4d3c"
+        },
+        {
+          "tick": 1,
+          "pose": "0x800e7ce8",
+          "address": "0x800d4d40"
+        },
+        {
+          "tick": 2,
+          "pose": "0x800e7de8",
+          "address": "0x800d4d44"
+        },
+        {
+          "tick": 3,
+          "pose": "0x800e7ee8",
+          "address": "0x800d4d48"
+        },
+        {
+          "tick": 4,
+          "pose": "0x800e7fe8",
+          "address": "0x800d4d4c"
+        },
+        {
+          "tick": 5,
+          "pose": "0x800e80e8",
+          "address": "0x800d4d50"
+        },
+        {
+          "tick": 6,
+          "pose": "0x800e81e8",
+          "address": "0x800d4d5c"
+        },
+        {
+          "tick": 7,
+          "pose": "0x800e82e8",
+          "address": "0x800d4d60"
+        },
+        {
+          "tick": 8,
+          "pose": "0x800e83e8",
+          "address": "0x800d4d64"
+        },
+        {
+          "tick": 9,
+          "pose": "0x800e84e8",
+          "address": "0x800d4d68"
+        },
+        {
+          "tick": 10,
+          "pose": "0x800e85e8",
+          "address": "0x800d4d6c"
+        },
+        {
+          "tick": 11,
+          "pose": "0x800e86e8",
+          "address": "0x800d4d78"
+        },
+        {
+          "tick": 12,
+          "pose": "0x800e87e8",
+          "address": "0x800d4d7c"
+        },
+        {
+          "tick": 13,
+          "pose": "0x800e88e8",
+          "address": "0x800d4d80"
+        }
+      ],
+      "events": [
+        {
+          "address": "0x800d4d38",
+          "tick": 0,
+          "opcode": 19
+        },
+        {
+          "address": "0x800d4d54",
+          "tick": 6,
+          "opcode": 7
+        },
+        {
+          "address": "0x800d4d58",
+          "tick": 6,
+          "opcode": 20
+        },
+        {
+          "address": "0x800d4d70",
+          "tick": 11,
+          "opcode": 7
+        },
+        {
+          "address": "0x800d4d74",
+          "tick": 11,
+          "opcode": 20
+        }
+      ],
+      "ticks": 14,
+      "terminal": "stop",
+      "loop_tick": 0,
+      "name": "Source__800d4d38",
+      "stream": "0x800d4d38",
+      "entry": "0x800d4d38",
+      "inherited_opcodes": [],
+      "pose_hashes": {
+        "0x800e7be8": "49b9af60f52b0b6df0e4c9a193e312edd0b753b907da5b47aa2a33d5c604efd8",
+        "0x800e7ce8": "55cdc28091745aa2dd3d0c6ea53a3e07fc7809ac54c7432440fa8de12a8c58b2",
+        "0x800e7de8": "ddece9fb97f7005fc037f66cb6725fd0cbbe26845ed9759a0195c8fcf7e4fe88",
+        "0x800e7ee8": "f0cda3cebd563ddd7fa37577675cd8eb3876c368197e16d6583a92fb404307dd",
+        "0x800e7fe8": "742ce0239597aab0e233503dd9849499941278037c7823749a06af89ffd10344",
+        "0x800e80e8": "7f71e36dad17f23fc209aafe64bed4956534c3faf50d4036f21d2e8983a2b702",
+        "0x800e81e8": "34f102d087659991d7f52288167a4a8ca6e8a67c6b7f425eb059d91506728d12",
+        "0x800e82e8": "7a933380fef26f6d8dbb9ebdc75dc4920616f7b2036de9611587a25c617130c2",
+        "0x800e83e8": "60c788f05abdc1dcf464ab2d50f62e48a05e775fe7403006e7253645a7ba286b",
+        "0x800e84e8": "66fe97ffa5d3595318f4000187b0c7163218979cd42eccaee5d916d459db5342",
+        "0x800e85e8": "f9ca654464db66d2c958f0cffc61867c96cd552955fb15b89cc1d31e1835ce81",
+        "0x800e86e8": "980d02720d5f12a145d18b3579f8f6b3155a1d6ec825c7616a8df76aaeb81953",
+        "0x800e87e8": "0573af6720f6272d0930dc0dc306910721961c0a82cd4ba9d65d5c2222066579",
+        "0x800e88e8": "e1a61906c2707980d9540053f679a54b963fc6667c63502fdac216db263b9549"
+      }
+    }
+  ],
+  "unchanged_original_actions": 64,
+  "joint_frame_checks": 1550,
+  "maximum_transform_error": 1.6063539387545234e-15,
+  "glb_sha256": "3abbe8bd7bfe341a68ecadcdef6452a954dc0da0f04b3445af901e6366c236ed"
+}

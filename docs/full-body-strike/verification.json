@@ -1,0 +1,78 @@
+{
+  "verified_at": "2026-10-14T03:45:53.002910+08:00",
+  "change": "Shared full-body basic melee choreography with forward/right shoulder drive, lead-left/trailing-right stance, head follow-through, rear free arm and smooth recovery. Goemon heavy pipe also uses the full-body strike; native two-hand grips and Explorer mirror remain supported.",
+  "tests": {
+    "strike": {
+      "checks": 98,
+      "failures": 0,
+      "log": "build/full-body-strike/verification/poses.log"
+    },
+    "alignment": {
+      "checks": 77,
+      "failures": 0,
+      "log": "build/full-body-strike/verification/alignment.log"
+    },
+    "run": {
+      "checks": 202,
+      "failures": 0,
+      "log": "build/full-body-strike/verification/run.log"
+    },
+    "jump": {
+      "checks": 178,
+      "failures": 0,
+      "log": "build/full-body-strike/verification/jump.log"
+    },
+    "packaged_strike": {
+      "checks": 98,
+      "failures": 0,
+      "log": "build/full-body-strike/verification/packaged-poses.log"
+    },
+    "packaged_alignment": {
+      "checks": 77,
+      "failures": 0,
+      "log": "build/full-body-strike/verification/packaged-alignment.log"
+    }
+  },
+  "source_checks_total": 555,
+  "review": "Independent review: earlier endpoint and two-hand-grip findings fixed; current 98-check focused suite independently passed, no remaining blockers.",
+  "preview": {
+    "video": "docs/full-body-strike/full-body-swing.mp4",
+    "fps": 30,
+    "frames": 99,
+    "duration_seconds": 3.3,
+    "playback_speed": 1,
+    "decode": "passed",
+    "visual_review": "Front three-quarter, side and rear three-quarter wind-up/contact/follow-through inspected; melee roster contact grid inspected."
+  },
+  "native_startup": {
+    "frames": 120,
+    "exit_code": 0
+  },
+  "artifacts": {
+    "app": "build/goemon-cosplay/Goemon Cosplay.app",
+    "zip": "build/goemon-cosplay/Goemon Cosplay.zip",
+    "pck_sha256": "962cc1029d7259d57702104c355bb56bf8f1f5e101805059797ab989e7f8436a",
+    "zip_sha256": "1c50b2a9c65d7e8a4e097655be2fad528978b8f630b1d5fcfaf3324c95ee80e7",
+    "zip_crc": "passed",
+    "zip_matches_tested_export": true,
+    "codesign_deep_strict": "passed"
+  },
+  "preservation": {
+    "settings_and_recording_files": 16,
+    "all_hashes_unchanged": true,
+    "run_cadence_unchanged": true,
+    "goemon_sound_and_recording_code_unchanged": true,
+    "original_blender_sha256": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c",
+    "previous_app_and_zip": "build/full-body-strike/previous"
+  },
+  "source_files": {
+    "scripts/goemon_reference_strike.gd": "d6a452bb5f82d4ee69e5fc15bd6a0111a3c913c0443266f68bef9c28a7a3f6c9",
+    "scripts/pipe_combo.gd": "8ed73a1e2321df8236c2b3511e33045e8a31dfcf19cd2617e22d1b5b7ad17dd8",
+    "scripts/goemon_rogue_combo.gd": "5eee46276e20fbbc9fe6a6825d2ddf454d076089613675e80ec43e3bf9f5f01e",
+    "scripts/goemon_cosplay_rig.gd": "f8246b766245eafa1cf011ac3b2400ec0e3ec6e5518e58d8d303e8907d167274",
+    "scripts/hero_model.gd": "b1a702f5c5cbf5c2b6d1f67036e38b66a63c816c2e936ca18ddcb303fc2b72ef",
+    "scripts/hero_locomotion.gd": "cf31ef50b865030076f3f607ec6b34615860af4a962ae73efb6552c1e43d83b4",
+    "scripts/goemon_full_body_strike_tests.gd": "5f442a79023fd81aff95cedc490a2cc19ba2178c80f568c7e7c9793eebb59de0",
+    "scripts/goemon_full_body_strike_tour.gd": "7dbf9f90aae3e9a0697bdfd5725109a5ebb2ddd22cb70fee5b21fe1df22e2f00"
+  }
+}

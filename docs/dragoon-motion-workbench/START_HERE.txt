@@ -1,0 +1,18 @@
+DRAGOON EDITABLE ANIMATIONS
+
+Choose an action in the bottom Action Editor. Space plays. Pose Mode: select a bone, R to rotate, I to key. Lance_Control moves the lance. Set End to the chosen action end. Full instructions: START_HERE text.
+
+ACTIONS
+01_Idle: frames 1–217
+02_Jump: frames 1–91
+03_Lance_Thrust_1: frames 1–23
+04_Lance_Thrust_2: frames 1–23
+05_Lance_Thrust_3: frames 1–23
+06_Azure_Leap: frames 1–45
+07_Azure_Plunge: frames 1–45
+
+Start with 01_Idle at frame 55. Select Chest, press R then X, move slightly, Enter, then I to store the pose. Space previews. Ctrl+Z undoes. Ctrl+S saves this work copy.
+
+Edit the rig bones, not Skin or Costume geometry. The dedicated Lance_Control bone carries the weapon and is keyed in each action. Arm and hand poses have FK controls, not IK: rotate the upper arm and forearm as needed. All clips are in place; the game controller owns jump travel and collision. Jump uses a representative takeoff/apex/landing velocity preview.
+
+The source snapshot preserves your earlier unsaved weapon-object adjustment. Only this work copy aligns the weapon object to its game transform for the captured poses. Existing meshes, UVs, original bone lengths and game assets are preserved. No game integration has been performed.

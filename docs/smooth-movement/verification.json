@@ -1,0 +1,299 @@
+{
+  "verified_at": "2026-10-14T12:21:00.999952+08:00",
+  "change": "Quicker ground acceleration, braking, reversal and body turning for all 12 characters; reduced locomotion blend delay. Existing run cadence and speed settings retained. Attack lunge momentum including boosted finisher tails and grounded damage takeoff retain prior response; air steering and committed dash/guard remain unchanged.",
+  "tests": {
+    "response": {
+      "checks": 139,
+      "failures": 0,
+      "log": "build/smooth-movement/verification/response.log"
+    },
+    "run": {
+      "checks": 202,
+      "failures": 0,
+      "log": "build/smooth-movement/verification/run.log"
+    },
+    "breathing": {
+      "checks": 86,
+      "failures": 0,
+      "log": "build/smooth-movement/verification/breathing.log"
+    },
+    "strike": {
+      "checks": 98,
+      "failures": 0,
+      "log": "build/smooth-movement/verification/strike.log"
+    },
+    "jump": {
+      "checks": 178,
+      "failures": 0,
+      "log": "build/smooth-movement/verification/jump.log"
+    },
+    "alignment": {
+      "checks": 77,
+      "failures": 0,
+      "log": "build/smooth-movement/verification/alignment.log"
+    },
+    "packaged-response": {
+      "checks": 139,
+      "failures": 0,
+      "log": "build/smooth-movement/verification/packaged-response.log"
+    },
+    "packaged-run": {
+      "checks": 202,
+      "failures": 0,
+      "log": "build/smooth-movement/verification/packaged-run.log"
+    },
+    "packaged-alignment": {
+      "checks": 77,
+      "failures": 0,
+      "log": "build/smooth-movement/verification/packaged-alignment.log"
+    }
+  },
+  "source_checks": 780,
+  "packaged_checks": 418,
+  "response_before": [
+    {
+      "character": 1,
+      "reverse_ms": 433.333333333333,
+      "speed": 10.2,
+      "start_ms": 266.666666666667,
+      "stop_distance": 1.00000143051147,
+      "stop_ms": 216.666666666667,
+      "yaw_error": 0.00728503068024722
+    },
+    {
+      "character": 2,
+      "reverse_ms": 433.333333333333,
+      "speed": 10.2,
+      "start_ms": 266.666666666667,
+      "stop_distance": 1.00000143051147,
+      "stop_ms": 216.666666666667,
+      "yaw_error": 0.00728503068024722
+    },
+    {
+      "character": 3,
+      "reverse_ms": 316.666666666667,
+      "speed": 10.2,
+      "start_ms": 150.0,
+      "stop_distance": 0.465833187103271,
+      "stop_ms": 116.666666666667,
+      "yaw_error": 0.0373059829049787
+    },
+    {
+      "character": 4,
+      "reverse_ms": 316.666666666667,
+      "speed": 10.0019417475728,
+      "start_ms": 150.0,
+      "stop_distance": 0.446027755737305,
+      "stop_ms": 116.666666666667,
+      "yaw_error": 0.0373059829049787
+    },
+    {
+      "character": 5,
+      "reverse_ms": 350.0,
+      "speed": 11.5864077669903,
+      "start_ms": 183.333333333333,
+      "stop_distance": 0.612858772277832,
+      "stop_ms": 133.333333333333,
+      "yaw_error": 0.0233940203958234
+    },
+    {
+      "character": 6,
+      "reverse_ms": 316.666666666667,
+      "speed": 10.3980582524272,
+      "start_ms": 166.666666666667,
+      "stop_distance": 0.485638618469238,
+      "stop_ms": 116.666666666667,
+      "yaw_error": 0.0373059829049787
+    },
+    {
+      "character": 7,
+      "reverse_ms": 283.333333333333,
+      "speed": 9.20970873786408,
+      "start_ms": 150.0,
+      "stop_distance": 0.371642827987671,
+      "stop_ms": 100.0,
+      "yaw_error": 0.0594905932718
+    },
+    {
+      "character": 8,
+      "reverse_ms": 316.666666666667,
+      "speed": 10.2990291262136,
+      "start_ms": 166.666666666667,
+      "stop_distance": 0.475736618041992,
+      "stop_ms": 116.666666666667,
+      "yaw_error": 0.0373059829049787
+    },
+    {
+      "character": 9,
+      "reverse_ms": 316.666666666667,
+      "speed": 10.1009708737864,
+      "start_ms": 150.0,
+      "stop_distance": 0.455930233001709,
+      "stop_ms": 116.666666666667,
+      "yaw_error": 0.0373059829049787
+    },
+    {
+      "character": 10,
+      "reverse_ms": 333.333333333333,
+      "speed": 11.0912621359223,
+      "start_ms": 166.666666666667,
+      "stop_distance": 0.555091857910156,
+      "stop_ms": 116.666666666667,
+      "yaw_error": 0.0295421202951154
+    },
+    {
+      "character": 11,
+      "reverse_ms": 350.0,
+      "speed": 11.2893203883495,
+      "start_ms": 166.666666666667,
+      "stop_distance": 0.578198432922363,
+      "stop_ms": 133.333333333333,
+      "yaw_error": 0.0233940203958234
+    },
+    {
+      "character": 12,
+      "reverse_ms": 300.0,
+      "speed": 9.50679611650485,
+      "start_ms": 150.0,
+      "stop_distance": 0.39651346206665,
+      "stop_ms": 100.0,
+      "yaw_error": 0.047109993296214
+    }
+  ],
+  "response_after": [
+    {
+      "character": 1,
+      "reverse_ms": 183.333333333333,
+      "speed": 10.2,
+      "start_ms": 133.333333333333,
+      "stop_distance": 0.382500171661377,
+      "stop_ms": 100.0,
+      "yaw_error": 0.0556537230783185
+    },
+    {
+      "character": 2,
+      "reverse_ms": 183.333333333333,
+      "speed": 10.2,
+      "start_ms": 133.333333333333,
+      "stop_distance": 0.382500171661377,
+      "stop_ms": 100.0,
+      "yaw_error": 0.0556537230783185
+    },
+    {
+      "character": 3,
+      "reverse_ms": 183.333333333333,
+      "speed": 10.2,
+      "start_ms": 133.333333333333,
+      "stop_distance": 0.382500171661377,
+      "stop_ms": 100.0,
+      "yaw_error": 0.0556537230783185
+    },
+    {
+      "character": 4,
+      "reverse_ms": 183.333333333333,
+      "speed": 10.0019417475728,
+      "start_ms": 133.333333333333,
+      "stop_distance": 0.375072956085205,
+      "stop_ms": 100.0,
+      "yaw_error": 0.0556537230783185
+    },
+    {
+      "character": 5,
+      "reverse_ms": 183.333333333333,
+      "speed": 11.5864077669903,
+      "start_ms": 133.333333333333,
+      "stop_distance": 0.434490203857422,
+      "stop_ms": 100.0,
+      "yaw_error": 0.0556537230783185
+    },
+    {
+      "character": 6,
+      "reverse_ms": 183.333333333333,
+      "speed": 10.3980582524272,
+      "start_ms": 133.333333333333,
+      "stop_distance": 0.389927387237549,
+      "stop_ms": 100.0,
+      "yaw_error": 0.0556537230783185
+    },
+    {
+      "character": 7,
+      "reverse_ms": 183.333333333333,
+      "speed": 9.20970873786408,
+      "start_ms": 133.333333333333,
+      "stop_distance": 0.345364093780518,
+      "stop_ms": 100.0,
+      "yaw_error": 0.0556537230783185
+    },
+    {
+      "character": 8,
+      "reverse_ms": 183.333333333333,
+      "speed": 10.2990291262136,
+      "start_ms": 133.333333333333,
+      "stop_distance": 0.386213779449463,
+      "stop_ms": 100.0,
+      "yaw_error": 0.0556537230783185
+    },
+    {
+      "character": 9,
+      "reverse_ms": 183.333333333333,
+      "speed": 10.1009708737864,
+      "start_ms": 133.333333333333,
+      "stop_distance": 0.378786563873291,
+      "stop_ms": 100.0,
+      "yaw_error": 0.0556537230783185
+    },
+    {
+      "character": 10,
+      "reverse_ms": 183.333333333333,
+      "speed": 11.0912621359223,
+      "start_ms": 133.333333333333,
+      "stop_distance": 0.415922164916992,
+      "stop_ms": 100.0,
+      "yaw_error": 0.0556537230783185
+    },
+    {
+      "character": 11,
+      "reverse_ms": 183.333333333333,
+      "speed": 11.2893203883495,
+      "start_ms": 133.333333333333,
+      "stop_distance": 0.423349857330322,
+      "stop_ms": 100.0,
+      "yaw_error": 0.0556537230783185
+    },
+    {
+      "character": 12,
+      "reverse_ms": 183.333333333333,
+      "speed": 9.50679611650485,
+      "start_ms": 133.333333333333,
+      "stop_distance": 0.356505155563354,
+      "stop_ms": 100.0,
+      "yaw_error": 0.0556537230783185
+    }
+  ],
+  "review": "Independent scoped review found no remaining blockers after protecting Goemon attack and hit impulses.",
+  "native_startup": {
+    "frames": 120,
+    "exit_code": 0
+  },
+  "preview": {
+    "path": "docs/smooth-movement/movement-preview.mp4",
+    "frames": 120,
+    "fps": 30,
+    "duration": 4,
+    "visual_review": "Inspected start, turn, reversal and planted idle from the actual controller; 60 physics steps per simulated second."
+  },
+  "preservation": {
+    "unchanged_hashes": 21,
+    "settings_recordings_run_cadence_original_model": true,
+    "previous_app_and_zip": "build/smooth-movement/previous"
+  },
+  "artifacts": {
+    "app": "build/goemon-cosplay/Goemon Cosplay.app",
+    "zip": "build/goemon-cosplay/Goemon Cosplay.zip",
+    "pck_sha256": "78b133b17022736b51a0cd422a7c6acbf838e9be7ecdcde4dbc2b6dce28a7f83",
+    "zip_sha256": "777cb27ea29f9ba2e999512b8c13af1a36f40f81cbe56b1f90fc7fdbf06e3d28",
+    "zip_crc": "passed",
+    "zip_matches_tested_pck": true,
+    "codesign_deep_strict": "passed"
+  }
+}

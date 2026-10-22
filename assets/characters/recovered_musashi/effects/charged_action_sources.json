@@ -1,0 +1,546 @@
+{
+  "schema_version": 1,
+  "source_region": "USA SLUS-007.26",
+  "sources": {
+    "norm_module": {
+      "path": "raw/MAIN.CD.dir/FILE_042.dir/0.1",
+      "sha256": "f9d3559e59926092f513e1b425b26ef43d192a344e050c3c7f6d09eec13c91e7"
+    },
+    "resident": {
+      "path": "raw/MAIN.CD.dir/FILE_010.dir/1.1",
+      "sha256": "f8bcfa41b6a637ed78f327737875ea05998088443c2776e18247c0f45a64014a"
+    },
+    "overlay": {
+      "path": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "sha256": "66a047a6242db0d212e27087b7576b19dbc12e399ae0d4f64f370e70bea35069"
+    }
+  },
+  "lumina_rotation": {
+    "name": "Lumina Rotation",
+    "entry_chain": [
+      "0x80149d10",
+      "0x80175150",
+      "0x80175184",
+      "0x80175218",
+      "0x800ccb20"
+    ],
+    "entry_note": "Full charge128, Norm scroll selection1; index EC0\u22121 into80182298. MAIN/42 is loaded into800CCB1C by resident800D0488.",
+    "module_init": "0x800ccb20",
+    "module_update": "0x800ccba0",
+    "spin_update": "0x800ccbf0",
+    "windup": {
+      "source_address": "0x800d5360",
+      "source_offset": 25960,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f1fe8",
+          "command_address": "0x800d5374"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f20e8",
+          "command_address": "0x800d5380"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f21e8",
+          "command_address": "0x800d5384"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f22e8",
+          "command_address": "0x800d5388"
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f23e8",
+          "command_address": "0x800d538c"
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f24e8",
+          "command_address": "0x800d5390"
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f25e8",
+          "command_address": "0x800d5394"
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f26e8",
+          "command_address": "0x800d5398"
+        }
+      ],
+      "ticks": 8,
+      "terminal": "pause",
+      "events": [
+        {
+          "command_address": "0x800d5360",
+          "word": "0x4",
+          "tick": 0,
+          "op": "model_list",
+          "pointer": "0x800de2a4"
+        },
+        {
+          "command_address": "0x800d5368",
+          "word": "0xf",
+          "tick": 0,
+          "op": "event_15",
+          "argument": "0x15"
+        },
+        {
+          "command_address": "0x800d5370",
+          "word": "0x13",
+          "tick": 0,
+          "op": "event_19"
+        },
+        {
+          "command_address": "0x800d5378",
+          "word": "0x12",
+          "tick": 1,
+          "op": "event_18"
+        },
+        {
+          "command_address": "0x800d537c",
+          "word": "0x7",
+          "tick": 1,
+          "op": "event_7"
+        },
+        {
+          "command_address": "0x800d539c",
+          "word": "0x14",
+          "tick": 8,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d53a0",
+          "word": "0x2",
+          "tick": 8,
+          "op": "pause"
+        }
+      ],
+      "unsupported": []
+    },
+    "recovery": {
+      "source_address": "0x800d53a4",
+      "source_offset": 26028,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f27e8",
+          "command_address": "0x800d53a8"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f28e8",
+          "command_address": "0x800d53b0"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f29e8",
+          "command_address": "0x800d53b4"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f2ae8",
+          "command_address": "0x800d53b8"
+        }
+      ],
+      "ticks": 4,
+      "terminal": "stop",
+      "events": [
+        {
+          "command_address": "0x800d53a4",
+          "word": "0x14",
+          "tick": 0,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d53ac",
+          "word": "0x13",
+          "tick": 1,
+          "op": "event_19"
+        },
+        {
+          "command_address": "0x800d53bc",
+          "word": "0x0",
+          "tick": 4,
+          "op": "stop"
+        }
+      ],
+      "unsupported": []
+    },
+    "spin": {
+      "held_pose": "0x800f26e8",
+      "starts_after_stream_pause": true,
+      "speed_start": 256,
+      "acceleration_per_tick": 30,
+      "speed_samples": [
+        286,
+        316,
+        346,
+        376,
+        406,
+        436,
+        466,
+        496,
+        526,
+        556
+      ],
+      "cumulative_angle_samples": [
+        286,
+        602,
+        948,
+        1324,
+        1730,
+        2166,
+        2632,
+        3128,
+        3654,
+        4210
+      ],
+      "rotation_limit": 4096,
+      "fixed_angle_one_turn": 4096,
+      "contact_each_spin_tick": true,
+      "contact_function": "0x80155fb0",
+      "contact_geometry": {
+        "selector": 2,
+        "descriptor_address": "0x80180c30",
+        "function": "0x80156b74",
+        "world_transform": "0x80156ecc",
+        "center_source": [
+          0,
+          -30,
+          0
+        ],
+        "tip_source": [
+          0,
+          -30,
+          -82
+        ],
+        "previous_yaw_actor_field": "0x24a",
+        "description": "Sweep between previous and current tip as owner yaw changes; previous tip is rotated by saved previous yaw minus current yaw before world transform."
+      },
+      "contact_descriptor": "(status byte80078EC0 &0x7F)\u22121, namespace0x10000",
+      "reset_owner_yaw_on_following_tick": true,
+      "resume_by_animation_flag": 1,
+      "animation_event_note": "Opcode2 pauses at800D53A0; reset code writes B8=1 and resumes the four-frame tail at800D53A4."
+    },
+    "ribbon_actor": 5,
+    "ribbon_descriptor": 8,
+    "sound_id": "0x450",
+    "effect_note": "Ordinary Rotation uses Lumina ribbon descriptor8. It does not create vortex actor0x19 or shock-ring actor0x1D.",
+    "blade_scale": {
+      "function": "0x800ccd60",
+      "start": 4096,
+      "part_index": 25,
+      "part_role": "drawn Lumina",
+      "actor_field": "0xf6",
+      "global_address": "0x80126c4e",
+      "renderer_function": "0x80020598",
+      "matrix_scale_function": "0x80020f34",
+      "scale_kind": "uniform scale of part25 local matrix only; body and other parts unchanged",
+      "timer_values_fixed12": [
+        4242,
+        4388,
+        4534,
+        4681,
+        4827,
+        4973,
+        5120
+      ],
+      "holds_after_timer": 7,
+      "hold_value_fixed12": 5120,
+      "reset_on_exit_fixed12": 4096,
+      "reset_function": "0x801752bc",
+      "formula": "4096 + trunc(sourceEffectTimer*1024/7)",
+      "effect_timer_starts_at_event7": true,
+      "effect_timer_duration": 7
+    }
+  },
+  "mighty_strike": {
+    "name": "Mighty Strike",
+    "manual_source": "https://db.hfsplay.fr/files/2020/03/27/Brave_Fencer_Musashi_USA_X7SbnlS.pdf",
+    "manual_pdf_page": 16,
+    "manual_description": "Charge the gauge, then attack with Lumina immediately after a successful defense.",
+    "guard_hit_entry": "0x80160334",
+    "guard_hit_init": "0x80160410",
+    "guard_hit_update": "0x80160534",
+    "guard_state": "0x1b",
+    "counter_state": "0x13",
+    "counter_window_source_ticks": 8,
+    "counter_condition": "Original guard-recoil update checks charge80078EBF==128 and attack pressed mask0x90 before decrementing the eight-tick timer.",
+    "guard_flash_actor": 6,
+    "guard_flash_sound": "0x43d",
+    "init": "0x8015f080",
+    "update": "0x8015f118",
+    "body": {
+      "source_address": "0x800d552c",
+      "source_offset": 26420,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f04e8",
+          "command_address": "0x800d5538"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f05e8",
+          "command_address": "0x800d5540"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f06e8",
+          "command_address": "0x800d5544"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f07e8",
+          "command_address": "0x800d5548"
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f08e8",
+          "command_address": "0x800d554c"
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f09e8",
+          "command_address": "0x800d5550"
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f0ae8",
+          "command_address": "0x800d5554"
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f0be8",
+          "command_address": "0x800d5558"
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f0ce8",
+          "command_address": "0x800d555c"
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f0de8",
+          "command_address": "0x800d5560"
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f0ee8",
+          "command_address": "0x800d5568"
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f0fe8",
+          "command_address": "0x800d5570"
+        },
+        {
+          "tick": 12,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f10e8",
+          "command_address": "0x800d5574"
+        },
+        {
+          "tick": 13,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f11e8",
+          "command_address": "0x800d5578"
+        },
+        {
+          "tick": 14,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f12e8",
+          "command_address": "0x800d557c"
+        },
+        {
+          "tick": 15,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f13e8",
+          "command_address": "0x800d5580"
+        },
+        {
+          "tick": 16,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f14e8",
+          "command_address": "0x800d5584"
+        },
+        {
+          "tick": 17,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f15e8",
+          "command_address": "0x800d5588"
+        },
+        {
+          "tick": 18,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f16e8",
+          "command_address": "0x800d558c"
+        },
+        {
+          "tick": 19,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f17e8",
+          "command_address": "0x800d5598"
+        },
+        {
+          "tick": 20,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f18e8",
+          "command_address": "0x800d559c"
+        }
+      ],
+      "ticks": 21,
+      "terminal": "stop",
+      "events": [
+        {
+          "command_address": "0x800d552c",
+          "word": "0x4",
+          "tick": 0,
+          "op": "model_list",
+          "pointer": "0x800de2a4"
+        },
+        {
+          "command_address": "0x800d5534",
+          "word": "0x13",
+          "tick": 0,
+          "op": "event_19"
+        },
+        {
+          "command_address": "0x800d553c",
+          "word": "0x12",
+          "tick": 1,
+          "op": "event_18"
+        },
+        {
+          "command_address": "0x800d5564",
+          "word": "0x14",
+          "tick": 10,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d556c",
+          "word": "0x7",
+          "tick": 11,
+          "op": "event_7"
+        },
+        {
+          "command_address": "0x800d5590",
+          "word": "0x14",
+          "tick": 19,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d5594",
+          "word": "0x13",
+          "tick": 19,
+          "op": "event_19"
+        },
+        {
+          "command_address": "0x800d55a0",
+          "word": "0x0",
+          "tick": 21,
+          "op": "stop"
+        }
+      ],
+      "unsupported": []
+    },
+    "effect_spawn_tick": 11,
+    "ribbon_actor": 5,
+    "ribbon_descriptor": 7,
+    "blade_scale": {
+      "part_index": 25,
+      "fixed12": 6635,
+      "actor_field": "0xf6",
+      "global_address": "0x80126c4e",
+      "renderer_function": "0x80020598",
+      "init": "0x8015f080",
+      "reset": "0x8015f260",
+      "reset_fixed12": 4096,
+      "scale_kind": "uniform scale of part25 local matrix only"
+    },
+    "effect_actors": [
+      {
+        "id": 25,
+        "variant": 0
+      },
+      {
+        "id": 25,
+        "variant": 1
+      },
+      {
+        "id": 29,
+        "variant": 0
+      }
+    ],
+    "effect_sound": "0x9da",
+    "effects_geometry_source": "special_sources.json rotation (legacy key; geometry is the Mighty Strike counter effect)",
+    "correction": "Earlier local recovery called Table23 Rotation; original guard-recoil branch identifies it as Mighty Strike."
+  },
+  "limitations": [
+    "Logical source phases are exact. Host-frame ordering at the pause/resume boundary needs runtime verification.",
+    "The direct number-key shortcut is a host convenience; original Mighty Strike requires a successful charged block."
+  ]
+}

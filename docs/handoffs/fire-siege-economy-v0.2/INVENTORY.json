@@ -1,0 +1,745 @@
+{
+  "schema_version": 1,
+  "repository": "eric2532/Goemon",
+  "base_commit": "81b9f0b69ea6b0fef3c3b832d24641ca64eb8640",
+  "scope": "Retained economy assets, provenance, and editing/integrity instructions; superseded gameplay handoff removed.",
+  "excludes_self": true,
+  "files": [
+    {
+      "path": "assets/economy_v1/arrow_tower/ORIGIN.md",
+      "bytes": 461,
+      "sha256": "6673615a8806fcc69e94c3f75d8b41a30c5ca461197f0155190448bfb6975df2",
+      "git_blob_sha1": "ab60848366e913046b812d43181618d122cc3030",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/README.md",
+      "bytes": 10918,
+      "sha256": "5a1e7a2e555a8a46ed1565744b7cb578c1cba40d5c0b29e43cd54edbff7741c0",
+      "git_blob_sha1": "7697b4b2db95688076c1175ecd3d0d288634aace",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/SHA256SUMS.json",
+      "bytes": 3527,
+      "sha256": "c1cfff8ca1dd97b64d0a660e05c3a253a01abb30695963452615fc88f463794c",
+      "git_blob_sha1": "e08ea2e14855d4c374be9b26c80b298dd8d06cc2",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/arrow_launch_closeup.png",
+      "bytes": 1189002,
+      "sha256": "c6da8b4bd991ec541fa1bcaa4781b9449e5aa8d06042d6ff3608412149e63bcd",
+      "git_blob_sha1": "72650712f1dfed757d6197af677be22ec6b5a981",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/asset_manifest.json",
+      "bytes": 29548,
+      "sha256": "ae941ed9815033a6ee31679c589dd2f905f0b34b580083f8454233a1c6e86eac",
+      "git_blob_sha1": "dd6ccc25d1224c9b259a4d8569c5e7a3f809b7ca",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/exports/arrow_projectile.glb",
+      "bytes": 11380,
+      "sha256": "7fa83171db3d411ebf4e998e4e1908e7f4f1c4caf0ce3c6188094a640df52f2f",
+      "git_blob_sha1": "f3030a299558ce7a3bfa57d1074aea09ce4ce967",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/exports/tower_build_recoil_reverse.glb",
+      "bytes": 1771336,
+      "sha256": "cc93e9b39778580fb524a24f9139bda991805fd08917eeeac0e777da2b782136",
+      "git_blob_sha1": "20b69572e5ffe9f2e85a9c719b7a58cd2e8e956d",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/exports/tower_stage_assembling.glb",
+      "bytes": 691064,
+      "sha256": "1bf5fd52062fbd3ceac4ed4687354e4a9817d2678d938d0605d02821c25885a1",
+      "git_blob_sha1": "d24a008f00e9af9be9dc4519e4c12de98bf640fb",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/exports/tower_stage_complete.glb",
+      "bytes": 1009700,
+      "sha256": "af1ba1152ab580c2d1c625005645a5a10b5185a3903e2c7e2e67cf3675715b48",
+      "git_blob_sha1": "ef0a2192942001ffa6c7f82147252cc803832373",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/exports/tower_stage_empty.glb",
+      "bytes": 91208,
+      "sha256": "b669639cf389671b257f091d00d789e3635f28ca21d94b87c3cf59bbb2a6d989",
+      "git_blob_sha1": "7d110af19c42943a7dc83eb05e472ebcb86ff8a1",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/exports/tower_stage_frame.glb",
+      "bytes": 373008,
+      "sha256": "ca8f0a67ba422e6d229d1090ba7b115dae674ab52cb0577b17af5efd495a0db5",
+      "git_blob_sha1": "ab2902171ef98206cd24a58674e3f62eaa6ed22c",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/exports/tower_wall_mount.glb",
+      "bytes": 53608,
+      "sha256": "2d2d144286ef4643551d52f691234fd18f96c002ccbb8161f3e7e69f879c3085",
+      "git_blob_sha1": "e38991a1ea933bf691a9482e6282812cc2cfa60e",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/firesiege_arrow_tower_v1.blend.gz",
+      "bytes": 293465,
+      "sha256": "58e817f7fd43797313245753f906599fbd8356fbc99ca5289eb314fb1a80a42e",
+      "git_blob_sha1": "766c73e7173df927873b53ddaa7cf66cb47d10b4",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/godot_validation/.gdignore",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/godot_validation/arrow_payload_report.json",
+      "bytes": 519,
+      "sha256": "325eff7ac05de3aae8b072500b18e311bf7892d1c8675294339e0d09be8331fe",
+      "git_blob_sha1": "3c2cdfd3afd2b283495a7f37b2f9d44b80c9c458",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/godot_validation/blender_metadata_report.json",
+      "bytes": 590,
+      "sha256": "4d64e352948776ef47a5d4eec7ea119e171326d3a6bccf07883860878626ba2f",
+      "git_blob_sha1": "2691962fb958d1db9b72f175ce7310b0debc770a",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/godot_validation/check_tower.gd",
+      "bytes": 7638,
+      "sha256": "b82cf9222789086c6a150d81f0501e030fedc3b9448ccecd22815311a3beb8e6",
+      "git_blob_sha1": "4c46ab7f21b5813fdcde7b53620dbd1b05877b01",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/godot_validation/gameplay_metadata_report.json",
+      "bytes": 1981,
+      "sha256": "bd490e97e15ef75fe9f001fdc13c05a3880542dac4572e758526e2990c7970d5",
+      "git_blob_sha1": "ff675500990ba9964f207e4d5f7759a9ee19d604",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/godot_validation/godot_import_report.json",
+      "bytes": 8028,
+      "sha256": "ffb584e503ee710a3f1ad4e2f16848e3819f7699eddfb80962f9216261f6f4fc",
+      "git_blob_sha1": "eb07341b3e626b38fe2a36631ec9f82741829989",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/godot_validation/project.godot",
+      "bytes": 118,
+      "sha256": "fbc0193778a9e558a44740dfbcedcf6ece523cb16479882c02b6e908af4a57d2",
+      "git_blob_sha1": "f800b7324029e849d1a9f4ba2306527411f62110",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/scripts/.gdignore",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/scripts/build_tower.py",
+      "bytes": 21227,
+      "sha256": "40d46ffc766ad672c02bab9138e809183508d7a1cd18b160a8c997808588d57f",
+      "git_blob_sha1": "50590b9c22ea5996ec6a845f003f39a31f6f0643",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/scripts/export_standalone_arrow.py",
+      "bytes": 1872,
+      "sha256": "1efb5e473925033cba95a1856f672cb1808bf67f62e6be787f2ba93580f72d25",
+      "git_blob_sha1": "206cfbf696cc5ffe451cd19b59eb385f59c9e3bd",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/scripts/finalize_and_preview.py",
+      "bytes": 3185,
+      "sha256": "8692e1121c9039f2779c20a1c9d8884cfaa4180f3097bf10abc152d8c358c11e",
+      "git_blob_sha1": "e319475f405d1c325d4851caff115b4b6bf4d515",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/scripts/normalize_gltf_time.py",
+      "bytes": 1514,
+      "sha256": "2e63bde3b0e1a181059464bd3b021d8444f9dbbf3a063d553b522f2956cc7b11",
+      "git_blob_sha1": "aec7f36c27f726ac53d446a78b63004883bf5b8d",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/scripts/prune_arrow_payload.py",
+      "bytes": 3072,
+      "sha256": "cc41c7f3ba5c17f21dd5db138a8f82ef3989bf1f227fbeae8f5964b7ae7f0f19",
+      "git_blob_sha1": "81250316cc0605f2de0ed6152d30c35afa27a1a4",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/scripts/render_preview.py",
+      "bytes": 890,
+      "sha256": "f63fa71002b35d98a5ae9302195e007c29dc9a3e6ace142b87aba1e2b0ad7009",
+      "git_blob_sha1": "f588ac12cbdf66880ebd1e1c5afd59f43506eca0",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/scripts/render_workbench_views.py",
+      "bytes": 1159,
+      "sha256": "2be875c899caa08e8cf0bd545003dedec6565198e73c91bd1b709439bdd6381d",
+      "git_blob_sha1": "4b6f733ff2c2ed0429beeb6903a9b97f1b1dbb83",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/scripts/update_gameplay_metadata.py",
+      "bytes": 2790,
+      "sha256": "a9dafc887195ec6076a7bd3d0823aebfb57a08ddc3e8e3fa00c87f7145858239",
+      "git_blob_sha1": "8d0aacd5de4d8b6ead50e73d58117c914b3abc51",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/scripts/verify_tower.py",
+      "bytes": 2965,
+      "sha256": "9397194cf34fa13b07dec269a3c5dcee452ba4f116b461f51fd98144654ed493",
+      "git_blob_sha1": "8c08521d9a7509d084ec0da4d14cdc543705ba53",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/tower_asset_views.png",
+      "bytes": 1499741,
+      "sha256": "9843d8b808087b2fbd699b47cb8ad7f6a8b4bca3a06bdd71abcc57d0d8f670b5",
+      "git_blob_sha1": "39a3fdc1451f8ca157c3d363a5e604c606adf91e",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/arrow_tower/verification_report.json",
+      "bytes": 3913,
+      "sha256": "c51686ca854ab8c74f0095a36e134773b9e7700aeb0eeeca890a71dc4fc7e301",
+      "git_blob_sha1": "9a7274a5d70ac43328255b3f1c694f7e2c28ba7d",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/FireSiege_ConstructionFX_v1.blend.gz",
+      "bytes": 346092,
+      "sha256": "6be9979c8c9a020540af95e803feb7406699a9f2fd536a6e3d50790e073da401",
+      "git_blob_sha1": "debdd95fd9c5269a5e024cc3b04074c812aa6e21",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/IMPLEMENTATION_NOTES.md",
+      "bytes": 8984,
+      "sha256": "e21bc9f23fbf113717017aa2e1c99148467c36188d4ac3cc1eaa6a3a85d9517e",
+      "git_blob_sha1": "2cf064870bd38f671359b8e6f1f431489d6a376f",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/README.md",
+      "bytes": 2539,
+      "sha256": "d68d9953f0fa7b66d9ce00b1446b8cede4fc693eecd8dc119b5f82b9369de6c4",
+      "git_blob_sha1": "139abace559bd293e210166322f050cbdfa0488c",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/asset_manifest.json",
+      "bytes": 1601,
+      "sha256": "3c9ad2db91d6eec56171d8a3209a206465845299eac4f31e6eca03179f9ac06e",
+      "git_blob_sha1": "7048dfb7b298809a341c2ccdede18e959a15a168",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/exports/FS_FX_BPrompt.glb",
+      "bytes": 117980,
+      "sha256": "3b037b5ae1610a17748d5e1671bc58a78a04ef29645668c85f039289a917bcb1",
+      "git_blob_sha1": "1dbce53f1ff94fb553170a730e46e5c90121bd4c",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/exports/FS_FX_CompletionPulse.glb",
+      "bytes": 211708,
+      "sha256": "2b9017939242e0d0e6c5084aa1319247ecdd0b6c8da696519984919d084f9e6c",
+      "git_blob_sha1": "da59ca555741e73068c379f749931dd0d9c7d159",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/exports/FS_FX_Hammer_BuildLoop.glb",
+      "bytes": 155856,
+      "sha256": "498c7e91ba55def1c5c2547ea1a4b1f657974885ca7011b4acb1cf7214f23a42",
+      "git_blob_sha1": "c91d18e77f3cdc17cab207348b5ea90fecd6721c",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/exports/FS_FX_ProgressFrame.glb",
+      "bytes": 50460,
+      "sha256": "973d68a3dddcaf8c0ca3d6aeaf0dfd2138a309059c71346f41c35fc056621a4d",
+      "git_blob_sha1": "d4a3ce1a1099d5af3f6b5fa9848b21e7673725db",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/previews/.gdignore",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/previews/FS_ConstructionFX_ContactSheet.png",
+      "bytes": 1516446,
+      "sha256": "9e9abb140294372e0393c6ae21467cebc0edd140c9fc3ab4ffd5cd7ee534baf2",
+      "git_blob_sha1": "38793cff5410cb80225db26e9a492ab77fcf91da",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/qa/.gdignore",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/qa/godot_import/check_assets.gd",
+      "bytes": 4731,
+      "sha256": "20ec683d5d16556ea5fb007daaa837b9bd8398d0ccdde04fbd40e2c1bb90645d",
+      "git_blob_sha1": "aed4d608febbacd2955a9288dd7476c48809b7d1",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/qa/godot_import/project.godot",
+      "bytes": 126,
+      "sha256": "8263f5cf484e0310215ef0ede8015f5ae83fa5437516dfaf3aac925893b00879",
+      "git_blob_sha1": "90140347ed4de3b603cc6d59992219c114267a54",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/qa/godot_import_report.json",
+      "bytes": 3491,
+      "sha256": "692458a2ba306163d70f40009e436c10495c3c77dba68e3fd3eac0a45f86966c",
+      "git_blob_sha1": "af74200b8b39a6cd7a3552b4868872bdf76cda81",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/qa/roundtrip_report.json",
+      "bytes": 1463,
+      "sha256": "2e7980404912cb91abdf22e30059568a3dabe33ace41e71938cddb4fcf043cf5",
+      "git_blob_sha1": "40bbb7dda0bb5eec41578711a6ffc01e9c0d6829",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/scripts/.gdignore",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/scripts/build_fx.py",
+      "bytes": 17552,
+      "sha256": "d416d37dc2918ca632fdb3e3d0741c0cac631fbfa3ea77dc31eb2194c146ccfe",
+      "git_blob_sha1": "ead50e753afa21ea6e44a02545a01f596e72bff2",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/scripts/package_deliverables.py",
+      "bytes": 1706,
+      "sha256": "8648f0d7479e80bc565d6e91b2cfc1b663816be71b115805aea236c2f636f92d",
+      "git_blob_sha1": "3716449a081c4b71f9e048e64c2827787a8ee140",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/scripts/render_previews.py",
+      "bytes": 868,
+      "sha256": "fd8fed9d3dcee68ca4b4ba401593d8cadf9bd0c8cbfcda3438eecf2edfdc1156",
+      "git_blob_sha1": "8d29d174f94119051fb5b59304c4236383da77a3",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/construction_fx/scripts/verify_roundtrip.py",
+      "bytes": 3341,
+      "sha256": "67862af4ba6d7ada89be05966d8fccc50add5a4b7fe0546ff67f6da8005816a0",
+      "git_blob_sha1": "9ab4957fde550e6b24487eb7c80f168bde317b4b",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/ORIGIN.md",
+      "bytes": 825,
+      "sha256": "f78640b1845b4495910393ce651e8de691317258adfabe0fcf9e626f748824c0",
+      "git_blob_sha1": "2cc1a470d8e8cb804495aa47401efe2f6f206d29",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/README.md",
+      "bytes": 8894,
+      "sha256": "3ca44bfec03a2e3c4eb3cb76e31ba1f260d529d7acb45d40d1f86b3d1a1fca6f",
+      "git_blob_sha1": "6525d958a6eba93b77a16f2a90461f515b182131",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/build_goldmine.py",
+      "bytes": 22492,
+      "sha256": "0adc87482c5dc42c7ca7b07a59177693ebc0e20c7bf70dcc3f294ff691d953d0",
+      "git_blob_sha1": "582d718202befc4dad22ad01b3bfaf165ed42e79",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/fix_godot_hidden_scale.py",
+      "bytes": 1919,
+      "sha256": "8a85e30f989ffd73f638541d61da46d31b3424d376b5a5ddcb2da5f98a1e4006",
+      "git_blob_sha1": "29127f69f122ea5080b5bd57e55aa40fa2fbb5f9",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/goldmine_metrics.json",
+      "bytes": 1384,
+      "sha256": "bd0750c3b60e5456511d458ad03537881880c7beca7b5c19aef6cab2998647dd",
+      "git_blob_sha1": "17235c824bbb33ca3a25235d804f2bad887a235f",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/goldmine_overview.png",
+      "bytes": 1648324,
+      "sha256": "866a466f93ce609c11a62410de5856ba663488215eed394fe0fc2494e60bd992",
+      "git_blob_sha1": "39bb323d4a5477251c737c572c20f7ad2cf29f2f",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/goldmine_v1.blend.gz",
+      "bytes": 254446,
+      "sha256": "141386b24bb87ec5233150be7ea2549cff714b685dfacb5a3c1fadc2c1a18494",
+      "git_blob_sha1": "e83c81df373b01af5581cd5ca0e895a036c390ab",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/goldmine_v1.glb",
+      "bytes": 1121244,
+      "sha256": "bf5d35b5ef670dc00bb8b3c397913dd57672fb3fc976202f4ac8be2726b975bf",
+      "git_blob_sha1": "39f0cc131c77200572b859afe28c1ed53bcc3ee6",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/make_overview.py",
+      "bytes": 1370,
+      "sha256": "91085b02f8a014040dfbaa90e3449740cd4ff6c116fd90fa693f5c480a699ed7",
+      "git_blob_sha1": "10334d81b9b576dfca0c1a4275a931c4d7b05a68",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/manifest.json",
+      "bytes": 4463,
+      "sha256": "5d5a77dfd1635d33c3bdc8ceb988a1583f02fd24b3b074bf83e38a4e3beb7145",
+      "git_blob_sha1": "21f889a26a33c69a06fb55249af432e3a775659f",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/normalize_glb_time.py",
+      "bytes": 1134,
+      "sha256": "a339de9d4260a5edc8efbfe8fafd3246270afc84c30ce0410d1d77ef18c0a33f",
+      "git_blob_sha1": "ec2f743c6aee2b322b087a04c9bc0bace21d31b9",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/render_goldmine.py",
+      "bytes": 2025,
+      "sha256": "e693a1a55cbb5d62c7aef889f1ff7b5fafec1737debf399290944d822081338d",
+      "git_blob_sha1": "5a0b2fbccf7aa7675bb87d73b35112e26eb62828",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/revise_combat_income.py",
+      "bytes": 3168,
+      "sha256": "276fdd9816d1d222ec9cf41c0fee8b24932eb513bb2fc784b0fcf5537b4c3890",
+      "git_blob_sha1": "845128b7407e7b0d628692373384ae5be5054c35",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/update_economy_metadata.py",
+      "bytes": 1464,
+      "sha256": "c8c1d7f8f11739f89281aa02d22a7b3a07d894022f01c1f7c8bcaa360dccd5ff",
+      "git_blob_sha1": "5971135553a55230ef197d68fc4ab5d40bda3659",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/verification/.gdignore",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/verification/GODOT_QA.md",
+      "bytes": 2750,
+      "sha256": "4cdd279ea7e0f5190f360e8a8a5b76762c2c874c5d7b87279883e5b447c03b81",
+      "git_blob_sha1": "e99e645cfead8551aee18ba9da20603d1ae8c1bc",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/verification/animation_contract.json",
+      "bytes": 543,
+      "sha256": "10e2a734e2d18c1be1fc7013d9ad0f02837f8483abbcb3099ec13c9c1cc4d0b1",
+      "git_blob_sha1": "a5a7ef7f3974f86ffb42b6df07658bed3ad9af54",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/verification/economy_metadata_revision.json",
+      "bytes": 661,
+      "sha256": "beb481d6acd8bffff3b7294292f1daa0bc79e1fda885e0652c8eb73c427b3cd5",
+      "git_blob_sha1": "498282ebef282e4b08200c803193033da008ab5c",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/verification/godot_editor_playback_report.json",
+      "bytes": 13911,
+      "sha256": "252c9d98ac6359b108176ebc388fc7d08d48a9c8b474f29417f17ea860568355",
+      "git_blob_sha1": "6962f2efa43a827fe3a70a4836ab6751d46bfa20",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/verification/godot_import/check_mine.gd",
+      "bytes": 9042,
+      "sha256": "8fdefa683bd55e6191dd0536bc280a987c8dedc718ad867a4cf943e4104e472e",
+      "git_blob_sha1": "8fa99badfec55b0fd554eec32d5afe255bc62e9f",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/verification/godot_import/project.godot",
+      "bytes": 127,
+      "sha256": "801484093a5cfa963352877c3405895a76382dfe9ce0b0ea026513c3642fcfe0",
+      "git_blob_sha1": "e78bcd9fb20aa60d5c17e2cb70310ec33a229b7b",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/verification/godot_import_report.json",
+      "bytes": 13828,
+      "sha256": "385ecd48e620add61516fc78cc9dfb0aca4c0196a2623eed94cf86cf1cc9ccb5",
+      "git_blob_sha1": "a154ddba6162776084cdf03ebdc2ca3885a64606",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/verification/godot_import_settings.json",
+      "bytes": 466,
+      "sha256": "7a7af9f9fd925d1ae2edaae48fb34f5fd095a53015b1c3963ce299d48a413962",
+      "git_blob_sha1": "ec229c1f985afa2a621b569b6316c748e00ff3f0",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/verification/reimport_report.json",
+      "bytes": 2302,
+      "sha256": "47566a859ab0cac447a16bec6db3d7c09414d58bb9f6076498a19dcad3c1bfb0",
+      "git_blob_sha1": "cdc2ee793f90b12b2d42de2309bf2446fc10b95b",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/verify_glb_contract.py",
+      "bytes": 2391,
+      "sha256": "f35abb2a7ef51ab0c11d659bf51f5abd5309f86295fbb812f5e8963af40a0900",
+      "git_blob_sha1": "6b5d678295dfd80338d1914c9c791d8868187f88",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/gold_mine/verify_goldmine.py",
+      "bytes": 2412,
+      "sha256": "05146b3a152190046b7fc70d346db1f8de6e6604a60fd5e6e0fbec8ee74019b8",
+      "git_blob_sha1": "65d4cc0f61ad5f58b8dbf710c0bcde6b779d5b2b",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/presentation/.gdignore",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/presentation/combined_demo/FireSiege_Combined_Construction_Demo.blend.gz",
+      "bytes": 1155234,
+      "sha256": "63e960ab24eb17336a8bf7e4d9167fd2d0e6e2691d542cecec239b947230a2a5",
+      "git_blob_sha1": "47152f1ea88b162ed018acaf11ad424f7a57bf2b",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/presentation/combined_demo/README.md",
+      "bytes": 2085,
+      "sha256": "8f9bbe1906da34d30bfbffa9be49f6acc0722d48f500577fd21e2c83b9c04ad6",
+      "git_blob_sha1": "263001e5ac623459a6b93b7305cd165082eaba0d",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/presentation/combined_demo/previews/FS_Combined_Construction_Hero.png",
+      "bytes": 1381975,
+      "sha256": "69bc794faf24fcfd3bb666ff7d55c9a7359e12786a22d91b9d00b814cb03e4b2",
+      "git_blob_sha1": "30d75b88ffd3cc7c05e824c6250b6960809668e3",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/presentation/combined_demo/qa/combined_demo_report.json",
+      "bytes": 1168,
+      "sha256": "369a6f164de082ff8d9daa0ac4158a2e23203c065f2892d1b4a492aff7a7b3e1",
+      "git_blob_sha1": "1ad0b7feb69565bccd7f961d7feb22c6a2e34fb9",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/presentation/combined_demo/qa/metadata_refresh_report.json",
+      "bytes": 1711,
+      "sha256": "5bb8d14bdff69f9b8c50838ac5eb5a5c67f89efecc5b7b498d80e91acdbd096f",
+      "git_blob_sha1": "674aaec0ed6e45aa11639754e28707f416b85c18",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/presentation/combined_demo/qa/source_manifest.json",
+      "bytes": 1182,
+      "sha256": "2a01b33abcb14e07d5ed874b24ecff205c380f845a95cfb10d9735074611faa9",
+      "git_blob_sha1": "938abc1ccbac6915c118f41de462b644069a3ab4",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/presentation/combined_demo/scripts/build_combined_demo.py",
+      "bytes": 10391,
+      "sha256": "a3e65cfee899172b30828e748a75a0569cfa4d1cc91bd4f17d464e263968ff6e",
+      "git_blob_sha1": "66207d1535af0fbaa523c3a3edb428b3f53f8014",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "assets/economy_v1/presentation/combined_demo/scripts/verify_combined_demo.py",
+      "bytes": 1713,
+      "sha256": "b73e21c4efde705e20b4e42ebf5849ffcd536d2b898bf0fa840e139e00430382",
+      "git_blob_sha1": "353ce10927581b213dd1795f810bbebfb085b291",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/handoffs/fire-siege-economy-v0.2/.gdignore",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/handoffs/fire-siege-economy-v0.2/PROVENANCE.md",
+      "bytes": 1410,
+      "sha256": "ccb07c7dfc627a5f2eaa9c464656dda34c8a7421745992f03b0d882db8f4fdb0",
+      "git_blob_sha1": "131fd7c2106b9a25d9a84e638983e6c08d1e9e1d",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/handoffs/fire-siege-economy-v0.2/README.md",
+      "bytes": 874,
+      "sha256": "43e19c7df8f87cd930178e5ec724f3aab8323cfa1ec85588164eac88e48d370e",
+      "git_blob_sha1": "d096579ee4fe1248e68c2d82823a2d5866c07a9d",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/handoffs/fire-siege-economy-v0.2/SOURCE_PROVENANCE.json",
+      "bytes": 27105,
+      "sha256": "086437222f3e0ed36b78015229feb25f764e43d9db8bae73f5e68fecf2600b64",
+      "git_blob_sha1": "51100e488475c107814bb46b0c0e753b241bd663",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "docs/handoffs/fire-siege-economy-v0.2/verify_inventory.py",
+      "bytes": 2591,
+      "sha256": "4899d75b0bdc956b09ae1c170bc434f006fd6e804ff269d62d76aa72b6c85a76",
+      "git_blob_sha1": "28e605fec3f2c627bcfba86577996473bfbb3f6e",
+      "mode": "100644",
+      "type": "blob"
+    }
+  ]
+}

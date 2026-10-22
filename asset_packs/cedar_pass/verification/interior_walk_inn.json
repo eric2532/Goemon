@@ -1,0 +1,23 @@
+{
+  "camera_base": "res://scripts/camera.gd",
+  "camera_script_sha256": "df1feccd5427e0c616de75e5103767c3655e1c9dca9f3880f81d2b68e58f8462",
+  "capsule_height": 1.85000002384186,
+  "capsule_radius": 0.379999995231628,
+  "controller": "res://scripts/player.gd",
+  "failures": [],
+  "player_script_sha256": "bc8bdd53967f7ed566c188b673765deffaa238944251e9c63950472ef21d8558",
+  "rooms": {
+    "inn": {
+      "camera_samples": 4,
+      "corner_recoveries": 4,
+      "diagonal_entries": 2,
+      "furniture_tests": 1,
+      "jump_inputs": 0,
+      "repeated_routes": 3,
+      "sprint_entry_exit": true,
+      "stairs_no_jump": true
+    }
+  },
+  "run_speed": 10.2,
+  "walked_metres": 194.022290221299
+}

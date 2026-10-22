@@ -1,0 +1,130 @@
+{
+  "goldmine_v1.blend": {
+    "bytes": 254577,
+    "sha256": "463cac23454a49ec1573412494a2dbb36649a9d5271bdb2d5b017fbf64c1ac43"
+  },
+  "goldmine_v1.glb": {
+    "bytes": 1121244,
+    "sha256": "bf5d35b5ef670dc00bb8b3c397913dd57672fb3fc976202f4ac8be2726b975bf"
+  },
+  "goldmine_preview.mp4": {
+    "bytes": 1322157,
+    "sha256": "a2818c239c6ed618fb2bd4c2e572abe21fb86f8fef9564b2348a72821ca9e5b7"
+  },
+  "goldmine_overview.png": {
+    "bytes": 1648324,
+    "sha256": "866a466f93ce609c11a62410de5856ba663488215eed394fe0fc2494e60bd992"
+  },
+  "README.md": {
+    "bytes": 8894,
+    "sha256": "3ca44bfec03a2e3c4eb3cb76e31ba1f260d529d7acb45d40d1f86b3d1a1fca6f"
+  },
+  "ORIGIN.md": {
+    "bytes": 825,
+    "sha256": "f78640b1845b4495910393ce651e8de691317258adfabe0fcf9e626f748824c0"
+  },
+  "goldmine_metrics.json": {
+    "bytes": 1384,
+    "sha256": "bd0750c3b60e5456511d458ad03537881880c7beca7b5c19aef6cab2998647dd"
+  },
+  "build_goldmine.py": {
+    "bytes": 22492,
+    "sha256": "0adc87482c5dc42c7ca7b07a59177693ebc0e20c7bf70dcc3f294ff691d953d0"
+  },
+  "render_goldmine.py": {
+    "bytes": 2025,
+    "sha256": "e693a1a55cbb5d62c7aef889f1ff7b5fafec1737debf399290944d822081338d"
+  },
+  "make_overview.py": {
+    "bytes": 1370,
+    "sha256": "91085b02f8a014040dfbaa90e3449740cd4ff6c116fd90fa693f5c480a699ed7"
+  },
+  "verify_goldmine.py": {
+    "bytes": 2412,
+    "sha256": "05146b3a152190046b7fc70d346db1f8de6e6604a60fd5e6e0fbec8ee74019b8"
+  },
+  "verify_glb_contract.py": {
+    "bytes": 2391,
+    "sha256": "f35abb2a7ef51ab0c11d659bf51f5abd5309f86295fbb812f5e8963af40a0900"
+  },
+  "normalize_glb_time.py": {
+    "bytes": 1134,
+    "sha256": "a339de9d4260a5edc8efbfe8fafd3246270afc84c30ce0410d1d77ef18c0a33f"
+  },
+  "fix_godot_hidden_scale.py": {
+    "bytes": 1919,
+    "sha256": "8a85e30f989ffd73f638541d61da46d31b3424d376b5a5ddcb2da5f98a1e4006"
+  },
+  "renders/construction.png": {
+    "bytes": 2054541,
+    "sha256": "e14a023fe1e422edf044b5f4974ddec1d5cd2156ee7a07f9549116d53b2d4dc7"
+  },
+  "renders/front.png": {
+    "bytes": 1985590,
+    "sha256": "ad8b96bc73708ceb0dc78176199d5e33057a7e1e67277d6b40c7b5bcc7958063"
+  },
+  "renders/front_three_quarter.png": {
+    "bytes": 1954983,
+    "sha256": "7cae53e658c4fc9543e65ba9d102aafb6987601ca8df4df6d0b5ce3044f605e2"
+  },
+  "renders/rear_three_quarter.png": {
+    "bytes": 1848052,
+    "sha256": "b608261e33f904fb89851528d60c5062dd96a158f2fb6083770bff98ba444009"
+  },
+  "renders/reinforced_proposal.png": {
+    "bytes": 1975315,
+    "sha256": "ca4377b0ea8b75628ba36391a154f4bf677d13f364c5ca8b1122adb56153520e"
+  },
+  "renders/unbuilt.png": {
+    "bytes": 2028838,
+    "sha256": "47cf3ef4d9e469c4e66f6ffcacc20a6890735221c680f89d20700ddb62428973"
+  },
+  "verification/reimport_report.json": {
+    "bytes": 2302,
+    "sha256": "47566a859ab0cac447a16bec6db3d7c09414d58bb9f6076498a19dcad3c1bfb0"
+  },
+  "verification/glb_reimport.png": {
+    "bytes": 1288183,
+    "sha256": "e27e6373050076cd542a0bac0c680dd50780636e220b9d01820a6f7763a96867"
+  },
+  "verification/animation_contract.json": {
+    "bytes": 543,
+    "sha256": "10e2a734e2d18c1be1fc7013d9ad0f02837f8483abbcb3099ec13c9c1cc4d0b1"
+  },
+  "verification/GODOT_QA.md": {
+    "bytes": 2750,
+    "sha256": "4cdd279ea7e0f5190f360e8a8a5b76762c2c874c5d7b87279883e5b447c03b81"
+  },
+  "verification/godot_import_report.json": {
+    "bytes": 13828,
+    "sha256": "385ecd48e620add61516fc78cc9dfb0aca4c0196a2623eed94cf86cf1cc9ccb5"
+  },
+  "verification/godot_editor_playback_report.json": {
+    "bytes": 13911,
+    "sha256": "252c9d98ac6359b108176ebc388fc7d08d48a9c8b474f29417f17ea860568355"
+  },
+  "verification/godot_import_settings.json": {
+    "bytes": 466,
+    "sha256": "7a7af9f9fd925d1ae2edaae48fb34f5fd095a53015b1c3963ce299d48a413962"
+  },
+  "verification/godot_import/check_mine.gd": {
+    "bytes": 9042,
+    "sha256": "8fdefa683bd55e6191dd0536bc280a987c8dedc718ad867a4cf943e4104e472e"
+  },
+  "verification/godot_import/project.godot": {
+    "bytes": 127,
+    "sha256": "801484093a5cfa963352877c3405895a76382dfe9ce0b0ea026513c3642fcfe0"
+  },
+  "verification/economy_metadata_revision.json": {
+    "bytes": 661,
+    "sha256": "beb481d6acd8bffff3b7294292f1daa0bc79e1fda885e0652c8eb73c427b3cd5"
+  },
+  "revise_combat_income.py": {
+    "bytes": 3168,
+    "sha256": "276fdd9816d1d222ec9cf41c0fee8b24932eb513bb2fc784b0fcf5537b4c3890"
+  },
+  "update_economy_metadata.py": {
+    "bytes": 1464,
+    "sha256": "c8c1d7f8f11739f89281aa02d22a7b3a07d894022f01c1f7c8bcaa360dccd5ff"
+  }
+}

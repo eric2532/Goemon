@@ -1,0 +1,116 @@
+{
+  "verified_at": "2026-10-14T03:26:54.479558+08:00",
+  "engine": "Godot 4.6.3",
+  "changes": [
+    "Twelve character recording profiles with independent takes, gains, relevant slots and active-character playback.",
+    "Preparation keys 1 mine, 2 tower, 3 wall, 4 gate, 5 worker; R rotates.",
+    "Three-cell walls with continuous corner collision and retained wall ends when cutting gates.",
+    "Main base 3000 HP with health dock above menu.",
+    "Idle workers seek reachable useful jobs; explicit crew reassignment available.",
+    "Tower decks and roofs have matching landing collision."
+  ],
+  "packaged_tests": {
+    "building": {
+      "exit_code": 0,
+      "summary": [
+        "FOREST_SETTLEMENT_UPDATE_RESULT checks=17 failures=0"
+      ],
+      "log": "build/settlement-update/verification/packaged-building.log"
+    },
+    "workers": {
+      "exit_code": 0,
+      "summary": [
+        "FOREST_AUTOMATIC_WORKERS_RESULT checks=40 failures=0"
+      ],
+      "log": "build/settlement-update/verification/packaged-workers.log"
+    },
+    "recording": {
+      "exit_code": 0,
+      "summary": [
+        "CHARACTER_SOUND_RESULT checks=39 failures=0"
+      ],
+      "log": "build/settlement-update/verification/packaged-recording.log"
+    },
+    "recording_gameplay": {
+      "exit_code": 0,
+      "summary": [
+        "CHARACTER_SOUND_GAMEPLAY_RESULT checks=9 failures=0"
+      ],
+      "log": "build/settlement-update/verification/packaged-recording_gameplay.log"
+    },
+    "run_coordination": {
+      "exit_code": 0,
+      "summary": [
+        "GOEMON_RUN_COORDINATION_RESULT checks=72 failures=0"
+      ],
+      "log": "build/settlement-update/verification/packaged-run_coordination.log"
+    },
+    "ui": {
+      "exit_code": 0,
+      "summary": [
+        "FOREST_SETTLEMENT_UI_RESULT failures=0"
+      ],
+      "log": "build/settlement-update/verification/packaged-ui.log"
+    },
+    "definitive": {
+      "exit_code": 0,
+      "summary": [
+        "FOREST_DEFINITIVE_RESULT failures=0"
+      ],
+      "log": "build/settlement-update/verification/packaged-definitive.log"
+    }
+  },
+  "native_sound_studio": {
+    "failures": 0,
+    "capture": "Generated PCM passed through actual muted capture bus; physical microphone input not exercised.",
+    "log": "build/settlement-update/verification/packaged-sound-studio.log"
+  },
+  "native_startup": {
+    "frames": 120,
+    "exit_code": 0,
+    "log": "build/settlement-update/verification/native-startup.log"
+  },
+  "artifacts": {
+    "app": "build/goemon-cosplay/Goemon Cosplay.app",
+    "zip": "build/goemon-cosplay/Goemon Cosplay.zip",
+    "pck_sha256": "ec09980c3592f293764033bdc889ae825f17fec18948c2f63caeade33b68276b",
+    "zip_sha256": "d8844b9f4b9695812ac7e7d138c238e7a41d2e5c836cb5b9698471aa527ad2c1",
+    "zip_crc": "passed",
+    "zip_pck_matches_tested_export": true,
+    "codesign_deep_strict": "passed"
+  },
+  "preservation": {
+    "settings_and_recording_files": 16,
+    "all_hashes_unchanged": true,
+    "previous_run_coordination_sources_unchanged": true,
+    "kai_blend_sha256": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c",
+    "previous_app_and_zip": "build/settlement-update/previous"
+  },
+  "visual_review": [
+    "docs/settlement-update/settlement-menu.png",
+    "docs/settlement-update/tower-deck.png",
+    "docs/settlement-update/character-recording-hub.png"
+  ],
+  "source_regressions": {
+    "forest_suites": "Model, simulation, crosshair, default boot, fog targeting, integration, lifecycle, modern combat, review regression, rogue combat, transitions, world and rendered atmosphere all passed.",
+    "rogue_fixture": "Old 3m target failed four short weapons in previous shipped PCK too. Moved fixture to1.5m within physical reach;64/64 pass.",
+    "cleanup_notes": "Several source/headless test processes report existing resource cleanup warnings at exit; targeted assertions and native app runs pass."
+  },
+  "review": "Independent review covered forest changes and recording routing; corner joins, preparation sight, explicit worker reassignment and Samurai bow default-preview mismatch resolved.",
+  "build_indexing": "Generated build folder excluded using build/.gdignore; reimported to ensure global SoundLibrary and SoundStudio classes resolve to scripts/, not backup copies.",
+  "source_files": {
+    "scripts/forest/forest_art.gd": "3aa37c2213bc818bb4176cdc630ae351d6295dfe1b0b12ad2d14c161707862f6",
+    "scripts/forest/forest_game.gd": "a2792e40be2b48e27a70982e6cbd098f4ca2fd46408b39ca4f27198cd83be1af",
+    "scripts/forest/forest_model.gd": "d2183932b6b88b0908b857d3857b50bab869eb25e4beb552d51097e9601ca9ec",
+    "scripts/forest/forest_ui.gd": "d0025448adb30c6e344d7bd701dde1c6eee8b79f07c219c63244acfe0a500abd",
+    "scripts/forest/forest_workforce.gd": "2be23fe64621099d17146f96d275545b28505dd2647acff5567e0a29b652e817",
+    "scripts/forest/forest_world.gd": "8f9bd32b2efb62c98294591217df0eda383b8fa158d1cf32f07d59d0f4338b5e",
+    "scripts/sound_library.gd": "dbe447fcff1e6a90c50eeed7d3f509c5730a081b2e0e775afb91ae86204e8f9e",
+    "scripts/sound_studio.gd": "726b229e6fb100e3730d9441b203c96b70f2abd3334686728f43597d7f5a71fb",
+    "scripts/game.gd": "6477249bd05a15c8761c36537ae06a45ca93586ce402496c7c4f30ae679bb65c",
+    "scripts/rogue_roster_combat.gd": "83910ce2bbe04896a67accee176af5f439f982ded5aa515acf7ccde2c3cd1ccf",
+    "scripts/goemon_rogue_combo.gd": "11abc619e59a7da7574e323bbe14f9bbf8967a2c547e5b958ce8f46fecc08a1a",
+    "assets/rogue/scripts/audio.gd": "817aebf8770f8625425934c9dca15932c99525537d2b63646965bdaab3ee9695",
+    "assets/vfx/fire_beam/fire_beam.gd": "03f3d547a7430d67a9e1185829491c30e6819311874f4a68d54a08cc495b470f"
+  }
+}

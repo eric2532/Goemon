@@ -1,0 +1,7 @@
+{
+  "hero": {"triangles": 12000, "surfaces": 8, "texture_edge": 1024},
+  "enemy": {"triangles": 6000, "surfaces": 4, "texture_edge": 512},
+  "building": {"triangles": 15000, "surfaces": 32, "texture_edge": 1024},
+  "scenery": {"triangles": 8000, "surfaces": 8, "texture_edge": 1024},
+  "prop": {"triangles": 3000, "surfaces": 4, "texture_edge": 512}
+}

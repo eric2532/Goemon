@@ -1,0 +1,28 @@
+{
+  "title": "Sword Swing | Free Sound Effect",
+  "source_url": "https://www.youtube.com/watch?v=TAe0P6uDax4",
+  "retrieved_on": "2026-10-15",
+  "usage": "Knight sword swing combo hits 1, 2 and 3 in source order",
+  "processing": "Trimmed separate swings; 3 ms fade-in and 20 ms fade-out; common -7.39 dB gain (maximum peak about -9 dBFS); stereo 48 kHz PCM16 WAV",
+  "license": "Not established by this download",
+  "samples": [
+    {
+      "path": "audio/blade-knight-0.wav",
+      "source_start_seconds": 1.335,
+      "source_end_seconds": 1.98,
+      "sha256": "ccbbfccead461ffd4aa3be1006dd01fc55474d4b5886e436492a0c163b18bb59"
+    },
+    {
+      "path": "audio/blade-knight-1.wav",
+      "source_start_seconds": 3.05,
+      "source_end_seconds": 3.78,
+      "sha256": "09f72c3278916bae51ac5450fc87adc9bb44b578d29d928c630bca9574089732"
+    },
+    {
+      "path": "audio/blade-knight-2.wav",
+      "source_start_seconds": 4.77,
+      "source_end_seconds": 5.27,
+      "sha256": "bf94bf99538c360151133ff69675b8a6251a4eea2c45ac0e2d4c97a87537e266"
+    }
+  ]
+}

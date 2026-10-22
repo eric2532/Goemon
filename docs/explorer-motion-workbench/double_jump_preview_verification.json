@@ -1,0 +1,24 @@
+{
+  "preview_only": true,
+  "action": "04_Double_Jump_Flip_Preview",
+  "frames_checked": 49,
+  "fps": 60,
+  "duration_seconds": 0.8,
+  "turn_degrees": 360,
+  "direction": "forward somersault",
+  "pose_error": 8.940696716308594e-07,
+  "blade_grip_error": 1.0132789611816406e-06,
+  "airborne_endpoint_error": 5.364418029785156e-07,
+  "max_bone_step_m": 0.4061317265949076,
+  "all_existing_actions_preserved": true,
+  "source_snapshot": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/explorer-motion-workbench/Explorer_Before_Double_Jump_20261016_142101.blend",
+  "markers": {
+    "Air / second jump": 1,
+    "Tuck knees": 9,
+    "Quarter turn": 16,
+    "Upside down": 22,
+    "Three-quarter turn": 28,
+    "Full 360": 39,
+    "Open / airborne": 49
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "character": "roan",
+  "source_sha256": "64e8e090d277a499cdc4452b9b538fde802ad85b5506eb35d44d5ce289884b4c",
+  "glb_sha256": "2a935d85dfb60f4ede37dc350967666dde8a97aa554ac08647e30d564b3ab875",
+  "status": "PASS",
+  "source": {
+    "objects": 529,
+    "triangles": 362440,
+    "vertices": 183895,
+    "bounds_min": [
+      -0.9834634065628052,
+      -0.5459535121917725,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      0.9834634065628052,
+      0.472697377204895,
+      2.818694591522217
+    ],
+    "nonfinite_objects": []
+  },
+  "glb_reimport": {
+    "objects": 528,
+    "triangles": 362440,
+    "vertices": 218667,
+    "bounds_min": [
+      -0.9834634065628052,
+      -0.5459535121917725,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      0.9834634065628052,
+      0.472697377204895,
+      2.818694591522217
+    ],
+    "nonfinite_objects": []
+  },
+  "bounds_max_error": 0.0,
+  "packed_images": [
+    "08-roan-mountain-striker.png",
+    "Roan_accent_painted_fiber",
+    "Roan_cloth_painted_fiber",
+    "Roan_cream_painted_fiber",
+    "Roan_hair_painted_fiber",
+    "Roan_leather_painted_fiber",
+    "Roan_pants_painted_fiber",
+    "Roan_rope_painted_fiber"
+  ],
+  "static_unrigged": true,
+  "views": [
+    "three_quarter",
+    "front",
+    "side",
+    "back",
+    "import"
+  ]
+}

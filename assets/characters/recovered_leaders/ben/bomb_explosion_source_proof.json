@@ -1,0 +1,484 @@
+{
+  "source": "raw/SC06.CD.dir/FILE_030.dir/0.4.dec",
+  "source_sha256": "a54de1064d035f8c9cd52100c2e4f363c25b42f664cb59b3b6ca100fe2b85743",
+  "pac_sha256": "936ff5eba5859e1abcb9d8f11aea62137a0ae1b399313fe3243dc2d4981174cf",
+  "actor": "0x30B",
+  "common_texture_source": "raw/MAIN.CD.dir/FILE_010",
+  "common_texture_sha256": "97933aae35fd27e3917866e4f9c7ef5716850c7efda3f96719496c9ba5b86246",
+  "tick_seconds": 0.03333333333333333,
+  "timing_caveat": "30Hz follows existing reconstruction convention; actor tick counts are original instructions.",
+  "danger": {
+    "start_handler": "0x801808F0",
+    "palette_handler": "0x80180940",
+    "palette_upload_call": "0x801809C4 -> 0x800599B8",
+    "palette_target_rect": "0x80185AB0 = (352,317,16,1)",
+    "palette_table": "0x80185928",
+    "palette_offset_table": "0x80185DC8",
+    "duration_ticks": 30,
+    "palettes": [
+      {
+        "index": 0,
+        "source_offset": 160,
+        "rgba_sha256": "1b15f6e4eb860177c7d571f6672d9b455f671331b9e1b19055d321f1c51d0f0a",
+        "palette": [
+          0,
+          4228,
+          5285,
+          6375,
+          8488,
+          9578,
+          10701,
+          12848,
+          3373,
+          8689,
+          15062,
+          33183,
+          33791,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "index": 1,
+        "source_offset": 192,
+        "rgba_sha256": "80ef5a0a4aa6735bb642be8c8963a0346856367bee294992c66f0f5f5eb0b30d",
+        "palette": [
+          0,
+          5289,
+          6346,
+          7435,
+          8492,
+          9582,
+          10672,
+          12819,
+          4400,
+          8659,
+          13975,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "index": 2,
+        "source_offset": 224,
+        "rgba_sha256": "4d190dbd4ec55660be61e7be308384463a5cc5d8c4188f2979d8260786be330d",
+        "palette": [
+          0,
+          7406,
+          7439,
+          8496,
+          9553,
+          10610,
+          10676,
+          12790,
+          6484,
+          9686,
+          13913,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "index": 3,
+        "source_offset": 256,
+        "rgba_sha256": "c00d7d5304745cbaee02e5f745c46766acff1c5a34ffd5d067a6a3e71c618131",
+        "palette": [
+          0,
+          8500,
+          9524,
+          9557,
+          10613,
+          10646,
+          11703,
+          12761,
+          8567,
+          10681,
+          12827,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "index": 4,
+        "source_offset": 288,
+        "rgba_sha256": "6eed485b71f19f3c586baec77e56adf39c5f28d1552fc93ba0629b748a65510d",
+        "palette": [
+          0,
+          13782,
+          14806,
+          14839,
+          15895,
+          15896,
+          16953,
+          16986,
+          13849,
+          15930,
+          17020,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "index": 5,
+        "source_offset": 320,
+        "rgba_sha256": "ce6a5f43014ad125ae88ad89669735be09592fff86adebee45daf8d59ff34571",
+        "palette": [
+          0,
+          20121,
+          21145,
+          21146,
+          21178,
+          21178,
+          22235,
+          22236,
+          20155,
+          21212,
+          22269,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "index": 6,
+        "source_offset": 288,
+        "rgba_sha256": "6eed485b71f19f3c586baec77e56adf39c5f28d1552fc93ba0629b748a65510d",
+        "palette": [
+          0,
+          13782,
+          14806,
+          14839,
+          15895,
+          15896,
+          16953,
+          16986,
+          13849,
+          15930,
+          17020,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "index": 7,
+        "source_offset": 256,
+        "rgba_sha256": "c00d7d5304745cbaee02e5f745c46766acff1c5a34ffd5d067a6a3e71c618131",
+        "palette": [
+          0,
+          8500,
+          9524,
+          9557,
+          10613,
+          10646,
+          11703,
+          12761,
+          8567,
+          10681,
+          12827,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "index": 8,
+        "source_offset": 224,
+        "rgba_sha256": "4d190dbd4ec55660be61e7be308384463a5cc5d8c4188f2979d8260786be330d",
+        "palette": [
+          0,
+          7406,
+          7439,
+          8496,
+          9553,
+          10610,
+          10676,
+          12790,
+          6484,
+          9686,
+          13913,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "index": 9,
+        "source_offset": 192,
+        "rgba_sha256": "80ef5a0a4aa6735bb642be8c8963a0346856367bee294992c66f0f5f5eb0b30d",
+        "palette": [
+          0,
+          5289,
+          6346,
+          7435,
+          8492,
+          9582,
+          10672,
+          12819,
+          4400,
+          8659,
+          13975,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "display_palette_indices": [
+      9,
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1,
+      0,
+      9,
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1,
+      0,
+      9,
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1
+    ]
+  },
+  "terminal": {
+    "spawn_handler": "0x8017FBA4",
+    "effect_id": "0x23",
+    "effect_dispatch_config": "0x80181E0C -> 0x80185E38 +0x64 -> 0x8018A290",
+    "handler": "0x8014350C",
+    "init": "0x8014358C",
+    "descriptor": "0x80183664",
+    "animation": "0x80183760[0] -> 0x80183670",
+    "count": 4,
+    "source_scale_fixed": 28672,
+    "source_scale_factor": 7,
+    "source_quad_extent_units": 31,
+    "source_offset_units": [
+      -16,
+      -16
+    ],
+    "source_to_world": 0.01,
+    "sprite_pixels": 32,
+    "duration_ticks": 10,
+    "frame_ticks": 1,
+    "source_blend_flags": "0x50000000: semitransparent, additive mode1",
+    "spawn_xz_range_units": [
+      -80,
+      79
+    ],
+    "spawn_up_range_units": [
+      0,
+      159
+    ],
+    "frames": [
+      {
+        "index": 0,
+        "texture_word_origin": [
+          592,
+          256
+        ],
+        "palette": [
+          352,
+          400,
+          16,
+          1
+        ],
+        "ticks": 1,
+        "last_frame": false,
+        "rgba_sha256": "41d1b91c404ada0bfa0dd0da5b107f5a5e7a4ad6a91070f24f565991cf005f60",
+        "nontransparent_pixels": 201
+      },
+      {
+        "index": 1,
+        "texture_word_origin": [
+          592,
+          288
+        ],
+        "palette": [
+          352,
+          401,
+          16,
+          1
+        ],
+        "ticks": 1,
+        "last_frame": false,
+        "rgba_sha256": "71bf89b38b1835881e041e2eaf80dbe46585185c9a93ba11a2036e7ec3b434c6",
+        "nontransparent_pixels": 372
+      },
+      {
+        "index": 2,
+        "texture_word_origin": [
+          592,
+          320
+        ],
+        "palette": [
+          352,
+          402,
+          16,
+          1
+        ],
+        "ticks": 1,
+        "last_frame": false,
+        "rgba_sha256": "ab178b95c21dd89e1ec73f09816f05e108ddbf8ae9d56784324d8fcd457053e7",
+        "nontransparent_pixels": 424
+      },
+      {
+        "index": 3,
+        "texture_word_origin": [
+          592,
+          352
+        ],
+        "palette": [
+          352,
+          403,
+          16,
+          1
+        ],
+        "ticks": 1,
+        "last_frame": false,
+        "rgba_sha256": "7e0fa217ec74ad17ab659aea3784b9ba726c2fdd22ed8ba86e571594716d390b",
+        "nontransparent_pixels": 455
+      },
+      {
+        "index": 4,
+        "texture_word_origin": [
+          592,
+          384
+        ],
+        "palette": [
+          352,
+          404,
+          16,
+          1
+        ],
+        "ticks": 1,
+        "last_frame": false,
+        "rgba_sha256": "ba5e99d41b7dc9786db2004b2e1c0297e75ee2cf6670c83027c4f4cc69a9986e",
+        "nontransparent_pixels": 488
+      },
+      {
+        "index": 5,
+        "texture_word_origin": [
+          600,
+          256
+        ],
+        "palette": [
+          352,
+          405,
+          16,
+          1
+        ],
+        "ticks": 1,
+        "last_frame": false,
+        "rgba_sha256": "559b2ce5a3438df425bfad21c551dff59b74185f195bfa5e74d0822610bdfb0b",
+        "nontransparent_pixels": 477
+      },
+      {
+        "index": 6,
+        "texture_word_origin": [
+          600,
+          288
+        ],
+        "palette": [
+          352,
+          406,
+          16,
+          1
+        ],
+        "ticks": 1,
+        "last_frame": false,
+        "rgba_sha256": "6f9b9f968b0dc89515be24d5c7507aff00027f14e19a1c8b687175a539198a48",
+        "nontransparent_pixels": 445
+      },
+      {
+        "index": 7,
+        "texture_word_origin": [
+          600,
+          320
+        ],
+        "palette": [
+          352,
+          407,
+          16,
+          1
+        ],
+        "ticks": 1,
+        "last_frame": false,
+        "rgba_sha256": "645d4c4fbbc714f25937e4c0497bb199cd49c3dd6a1338925e7f0534bc0222f0",
+        "nontransparent_pixels": 361
+      },
+      {
+        "index": 8,
+        "texture_word_origin": [
+          600,
+          352
+        ],
+        "palette": [
+          352,
+          408,
+          16,
+          1
+        ],
+        "ticks": 1,
+        "last_frame": false,
+        "rgba_sha256": "7c7055e52795d43210e9d0b52b75a4b617caefa0a2910fc4c18ea817f2bc1b3e",
+        "nontransparent_pixels": 125
+      },
+      {
+        "index": 9,
+        "texture_word_origin": [
+          600,
+          384
+        ],
+        "palette": [
+          352,
+          409,
+          16,
+          1
+        ],
+        "ticks": 1,
+        "last_frame": true,
+        "rgba_sha256": "af97530f2f9107330e146c8bd6ea069bf2b599dbbde29f39c67c105d486dc90c",
+        "nontransparent_pixels": 52
+      }
+    ]
+  }
+}

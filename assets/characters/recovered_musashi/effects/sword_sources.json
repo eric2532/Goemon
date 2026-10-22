@@ -1,0 +1,4609 @@
+{
+  "schema_version": 1,
+  "title": "Retail USA Musashi sword ribbons",
+  "source": {
+    "overlay": {
+      "path": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "base": "0x80128158",
+      "sha256": "66a047a6242db0d212e27087b7576b19dbc12e399ae0d4f64f370e70bea35069"
+    },
+    "resident": {
+      "path": "raw/MAIN.CD.dir/FILE_010.dir/1.1",
+      "base": "0x800cedf8",
+      "sha256": "f8bcfa41b6a637ed78f327737875ea05998088443c2776e18247c0f45a64014a"
+    },
+    "executable": {
+      "path": "raw/SLUS_007.26",
+      "sha256": "66371c3a7517e9eabd7cb6cf0c5abffe7296bd4bac29c85b8bf7bb9db349714a"
+    },
+    "decomp_revision": "b6a28f96bac70af70573826f767a96cf212fd5e3",
+    "actual_translation_unit": "src/ov_SC01_000/ov_SC01_000_jr_8015C32C.c",
+    "note": "Actual SC01 initializer bodies at801681FC/80168430 override shared variants; raw USA bytes are authoritative."
+  },
+  "native_hz": 30,
+  "instruction_evidence": [
+    {
+      "address": "0x80166704",
+      "little_endian_word": "0x3c025000",
+      "meaning": "lui v0,0x5000: quad flags"
+    },
+    {
+      "address": "0x80166a2c",
+      "little_endian_word": "0x240200f4",
+      "meaning": "addiu v0,zero,244: initial ring brightness"
+    },
+    {
+      "address": "0x801668b0",
+      "little_endian_word": "0x2631fff0",
+      "meaning": "addiu s1,s1,-16: age brightness decrement"
+    },
+    {
+      "address": "0x80166b44",
+      "little_endian_word": "0x2c62000f",
+      "meaning": "sltiu v0,v1,15: segment-count saturation"
+    },
+    {
+      "address": "0x80166b60",
+      "little_endian_word": "0x2442fff0",
+      "meaning": "addiu v0,v0,-16: fade decrement"
+    },
+    {
+      "address": "0x80166b6c",
+      "little_endian_word": "0x2c820010",
+      "meaning": "sltiu v0,a0,16: fade completion threshold"
+    }
+  ],
+  "primitive": {
+    "kind": "untextured_gouraud_quad",
+    "ps1_type": "POLY_G4",
+    "flags": "0x50000000",
+    "semitransparent": true,
+    "gpu_abr": 1,
+    "gpu_blend": "background_plus_foreground",
+    "alpha_parameter": null,
+    "texture": null,
+    "clut": null,
+    "vertex_order": [
+      "new_endpoint_0",
+      "new_endpoint_1",
+      "old_endpoint_0",
+      "old_endpoint_1"
+    ],
+    "triangle_indices": [
+      0,
+      1,
+      2,
+      1,
+      3,
+      2
+    ]
+  },
+  "ring": {
+    "address": "0x801a4740",
+    "record_bytes": 196,
+    "capacity_pairs": 16,
+    "maximum_segments": 15,
+    "initial_intensity": 244,
+    "intensity_decrement_per_segment": 16,
+    "fade_decrement_per_tick": 16,
+    "fade_stop_below": 16,
+    "maximum_fade_ticks": 15,
+    "samples_per_record_tick": 2,
+    "record_rule": "Advance index, store midpoint whose outer-inner direction is normalized to4096 then divided by descriptor divisor; advance again and store current pair; clamp count to15.",
+    "fade_rule": "Subtract16 from brightness. Stop when<16; otherwise reduce segment count by1 if count>=2 and brightness>>4<count.",
+    "static_sample_suppression": false
+  },
+  "colors": {
+    "format": "RGB8",
+    "fusion_flag": "0x81",
+    "fusion_default": [
+      [
+        [
+          122,
+          122,
+          244
+        ],
+        [
+          122,
+          122,
+          244
+        ],
+        [
+          106,
+          106,
+          228
+        ],
+        [
+          106,
+          106,
+          228
+        ]
+      ],
+      [
+        [
+          106,
+          106,
+          228
+        ],
+        [
+          106,
+          106,
+          228
+        ],
+        [
+          90,
+          90,
+          212
+        ],
+        [
+          90,
+          90,
+          212
+        ]
+      ],
+      [
+        [
+          90,
+          90,
+          212
+        ],
+        [
+          90,
+          90,
+          212
+        ],
+        [
+          74,
+          74,
+          196
+        ],
+        [
+          74,
+          74,
+          196
+        ]
+      ],
+      [
+        [
+          74,
+          74,
+          196
+        ],
+        [
+          74,
+          74,
+          196
+        ],
+        [
+          58,
+          58,
+          180
+        ],
+        [
+          58,
+          58,
+          180
+        ]
+      ],
+      [
+        [
+          58,
+          58,
+          180
+        ],
+        [
+          58,
+          58,
+          180
+        ],
+        [
+          42,
+          42,
+          164
+        ],
+        [
+          42,
+          42,
+          164
+        ]
+      ],
+      [
+        [
+          42,
+          42,
+          164
+        ],
+        [
+          42,
+          42,
+          164
+        ],
+        [
+          26,
+          26,
+          148
+        ],
+        [
+          26,
+          26,
+          148
+        ]
+      ],
+      [
+        [
+          26,
+          26,
+          148
+        ],
+        [
+          26,
+          26,
+          148
+        ],
+        [
+          10,
+          10,
+          132
+        ],
+        [
+          10,
+          10,
+          132
+        ]
+      ],
+      [
+        [
+          10,
+          10,
+          132
+        ],
+        [
+          10,
+          10,
+          132
+        ],
+        [
+          0,
+          0,
+          116
+        ],
+        [
+          0,
+          0,
+          116
+        ]
+      ],
+      [
+        [
+          0,
+          0,
+          116
+        ],
+        [
+          0,
+          0,
+          116
+        ],
+        [
+          0,
+          0,
+          100
+        ],
+        [
+          0,
+          0,
+          100
+        ]
+      ],
+      [
+        [
+          0,
+          0,
+          100
+        ],
+        [
+          0,
+          0,
+          100
+        ],
+        [
+          0,
+          0,
+          84
+        ],
+        [
+          0,
+          0,
+          84
+        ]
+      ],
+      [
+        [
+          0,
+          0,
+          84
+        ],
+        [
+          0,
+          0,
+          84
+        ],
+        [
+          0,
+          0,
+          68
+        ],
+        [
+          0,
+          0,
+          68
+        ]
+      ],
+      [
+        [
+          0,
+          0,
+          68
+        ],
+        [
+          0,
+          0,
+          68
+        ],
+        [
+          0,
+          0,
+          52
+        ],
+        [
+          0,
+          0,
+          52
+        ]
+      ],
+      [
+        [
+          0,
+          0,
+          52
+        ],
+        [
+          0,
+          0,
+          52
+        ],
+        [
+          0,
+          0,
+          36
+        ],
+        [
+          0,
+          0,
+          36
+        ]
+      ],
+      [
+        [
+          0,
+          0,
+          36
+        ],
+        [
+          0,
+          0,
+          36
+        ],
+        [
+          0,
+          0,
+          20
+        ],
+        [
+          0,
+          0,
+          20
+        ]
+      ],
+      [
+        [
+          0,
+          0,
+          20
+        ],
+        [
+          0,
+          0,
+          20
+        ],
+        [
+          0,
+          0,
+          4
+        ],
+        [
+          0,
+          0,
+          4
+        ]
+      ]
+    ],
+    "fusion_flag_set": [
+      [
+        [
+          244,
+          244,
+          152
+        ],
+        [
+          244,
+          244,
+          152
+        ],
+        [
+          228,
+          228,
+          136
+        ],
+        [
+          228,
+          228,
+          136
+        ]
+      ],
+      [
+        [
+          228,
+          228,
+          142
+        ],
+        [
+          228,
+          228,
+          142
+        ],
+        [
+          212,
+          212,
+          126
+        ],
+        [
+          212,
+          212,
+          126
+        ]
+      ],
+      [
+        [
+          212,
+          212,
+          132
+        ],
+        [
+          212,
+          212,
+          132
+        ],
+        [
+          196,
+          196,
+          116
+        ],
+        [
+          196,
+          196,
+          116
+        ]
+      ],
+      [
+        [
+          196,
+          196,
+          122
+        ],
+        [
+          196,
+          196,
+          122
+        ],
+        [
+          180,
+          180,
+          106
+        ],
+        [
+          180,
+          180,
+          106
+        ]
+      ],
+      [
+        [
+          180,
+          180,
+          112
+        ],
+        [
+          180,
+          180,
+          112
+        ],
+        [
+          164,
+          164,
+          96
+        ],
+        [
+          164,
+          164,
+          96
+        ]
+      ],
+      [
+        [
+          164,
+          164,
+          102
+        ],
+        [
+          164,
+          164,
+          102
+        ],
+        [
+          148,
+          148,
+          86
+        ],
+        [
+          148,
+          148,
+          86
+        ]
+      ],
+      [
+        [
+          148,
+          148,
+          92
+        ],
+        [
+          148,
+          148,
+          92
+        ],
+        [
+          132,
+          132,
+          76
+        ],
+        [
+          132,
+          132,
+          76
+        ]
+      ],
+      [
+        [
+          132,
+          132,
+          82
+        ],
+        [
+          132,
+          132,
+          82
+        ],
+        [
+          116,
+          116,
+          66
+        ],
+        [
+          116,
+          116,
+          66
+        ]
+      ],
+      [
+        [
+          116,
+          116,
+          72
+        ],
+        [
+          116,
+          116,
+          72
+        ],
+        [
+          100,
+          100,
+          56
+        ],
+        [
+          100,
+          100,
+          56
+        ]
+      ],
+      [
+        [
+          100,
+          100,
+          62
+        ],
+        [
+          100,
+          100,
+          62
+        ],
+        [
+          84,
+          84,
+          46
+        ],
+        [
+          84,
+          84,
+          46
+        ]
+      ],
+      [
+        [
+          84,
+          84,
+          52
+        ],
+        [
+          84,
+          84,
+          52
+        ],
+        [
+          68,
+          68,
+          36
+        ],
+        [
+          68,
+          68,
+          36
+        ]
+      ],
+      [
+        [
+          68,
+          68,
+          42
+        ],
+        [
+          68,
+          68,
+          42
+        ],
+        [
+          52,
+          52,
+          26
+        ],
+        [
+          52,
+          52,
+          26
+        ]
+      ],
+      [
+        [
+          52,
+          52,
+          32
+        ],
+        [
+          52,
+          52,
+          32
+        ],
+        [
+          36,
+          36,
+          16
+        ],
+        [
+          36,
+          36,
+          16
+        ]
+      ],
+      [
+        [
+          36,
+          36,
+          22
+        ],
+        [
+          36,
+          36,
+          22
+        ],
+        [
+          20,
+          20,
+          6
+        ],
+        [
+          20,
+          20,
+          6
+        ]
+      ],
+      [
+        [
+          20,
+          20,
+          12
+        ],
+        [
+          20,
+          20,
+          12
+        ],
+        [
+          4,
+          4,
+          0
+        ],
+        [
+          4,
+          4,
+          0
+        ]
+      ]
+    ],
+    "lumina": [
+      [
+        [
+          244,
+          122,
+          122
+        ],
+        [
+          244,
+          122,
+          122
+        ],
+        [
+          228,
+          106,
+          106
+        ],
+        [
+          228,
+          106,
+          106
+        ]
+      ],
+      [
+        [
+          228,
+          106,
+          106
+        ],
+        [
+          228,
+          106,
+          106
+        ],
+        [
+          212,
+          90,
+          90
+        ],
+        [
+          212,
+          90,
+          90
+        ]
+      ],
+      [
+        [
+          212,
+          90,
+          90
+        ],
+        [
+          212,
+          90,
+          90
+        ],
+        [
+          196,
+          74,
+          74
+        ],
+        [
+          196,
+          74,
+          74
+        ]
+      ],
+      [
+        [
+          196,
+          74,
+          74
+        ],
+        [
+          196,
+          74,
+          74
+        ],
+        [
+          180,
+          58,
+          58
+        ],
+        [
+          180,
+          58,
+          58
+        ]
+      ],
+      [
+        [
+          180,
+          58,
+          58
+        ],
+        [
+          180,
+          58,
+          58
+        ],
+        [
+          164,
+          42,
+          42
+        ],
+        [
+          164,
+          42,
+          42
+        ]
+      ],
+      [
+        [
+          164,
+          42,
+          42
+        ],
+        [
+          164,
+          42,
+          42
+        ],
+        [
+          148,
+          26,
+          26
+        ],
+        [
+          148,
+          26,
+          26
+        ]
+      ],
+      [
+        [
+          148,
+          26,
+          26
+        ],
+        [
+          148,
+          26,
+          26
+        ],
+        [
+          132,
+          10,
+          10
+        ],
+        [
+          132,
+          10,
+          10
+        ]
+      ],
+      [
+        [
+          132,
+          10,
+          10
+        ],
+        [
+          132,
+          10,
+          10
+        ],
+        [
+          116,
+          0,
+          0
+        ],
+        [
+          116,
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          116,
+          0,
+          0
+        ],
+        [
+          116,
+          0,
+          0
+        ],
+        [
+          100,
+          0,
+          0
+        ],
+        [
+          100,
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          100,
+          0,
+          0
+        ],
+        [
+          100,
+          0,
+          0
+        ],
+        [
+          84,
+          0,
+          0
+        ],
+        [
+          84,
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          84,
+          0,
+          0
+        ],
+        [
+          84,
+          0,
+          0
+        ],
+        [
+          68,
+          0,
+          0
+        ],
+        [
+          68,
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          68,
+          0,
+          0
+        ],
+        [
+          68,
+          0,
+          0
+        ],
+        [
+          52,
+          0,
+          0
+        ],
+        [
+          52,
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          52,
+          0,
+          0
+        ],
+        [
+          52,
+          0,
+          0
+        ],
+        [
+          36,
+          0,
+          0
+        ],
+        [
+          36,
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          36,
+          0,
+          0
+        ],
+        [
+          36,
+          0,
+          0
+        ],
+        [
+          20,
+          0,
+          0
+        ],
+        [
+          20,
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          20,
+          0,
+          0
+        ],
+        [
+          20,
+          0,
+          0
+        ],
+        [
+          4,
+          0,
+          0
+        ],
+        [
+          4,
+          0,
+          0
+        ]
+      ]
+    ],
+    "note": "Color is per vertex and age; Fusion alternate selection is save flag0x81, not attack number or equipment."
+  },
+  "lifecycle": {
+    "states": [
+      "initialize descriptor and clear previous same-weapon effect",
+      "wait delay then seed ring",
+      "decrement duration and record or enter fade",
+      "fade and draw until no quads"
+    ],
+    "record_ticks_semantics": "Duration is decremented before recording; an uninterrupted descriptor records duration-1 updates after seeding.",
+    "owner_active_flag": "0x2 at owner+0x44",
+    "activation": "Effect actor initialization/wait states; separate from contact opcode0x14.",
+    "fusion_four_continuations": "Keep existing actor through rise/apex/drop/land; do not restart for each animation stream.",
+    "rotation_continuation": "Ordinary Rotation uses descriptor8 through paused windup, dynamic held-pose spin and rotation_end; do not restart at the tail. Mighty Strike counter uses descriptor7."
+  },
+  "endpoints": {
+    "format": "signed byte xyz pair in 16-byte pose header",
+    "fusion_offset": 0,
+    "lumina_offset": 8,
+    "source_units_per_gltf_unit": 100,
+    "gltf_position_conversion": "(x,-y,-z)*0.01, same double conversion used by source_transform in recovered body GLB",
+    "world_transform": "Apply recovered model rotation and translation; actor world points remain independent of later movement.",
+    "sampling": "Use last frame whose tick<=clip time*30; STEP poses hold through next frame tick. Externally clocked continuation poses hold until their native state advances.",
+    "midpoint": "Average both endpoints with previous pair using arithmetic shift>>1. Normalize outer-minus-inner to4096, divide each axis by original descriptor divisor with truncation towardzero, then add midpoint inner."
+  },
+  "weapons": {
+    "fusion": {
+      "effect_actor": 4,
+      "dispatch": "0x80166618",
+      "descriptors": [
+        {
+          "descriptor": 0,
+          "delay_ticks": 2,
+          "record_ticks": 6,
+          "length_divisor": 116,
+          "trail_index": 0
+        },
+        {
+          "descriptor": 1,
+          "delay_ticks": 1,
+          "record_ticks": 10,
+          "length_divisor": 128,
+          "trail_index": 1
+        },
+        {
+          "descriptor": 2,
+          "delay_ticks": 1,
+          "record_ticks": 12,
+          "length_divisor": 120,
+          "trail_index": 0
+        },
+        {
+          "descriptor": 3,
+          "delay_ticks": 1,
+          "record_ticks": 24,
+          "length_divisor": 126,
+          "trail_index": 1
+        },
+        {
+          "descriptor": 4,
+          "delay_ticks": 1,
+          "record_ticks": 10,
+          "length_divisor": 116,
+          "trail_index": 0
+        },
+        {
+          "descriptor": 5,
+          "delay_ticks": 1,
+          "record_ticks": 6,
+          "length_divisor": 116,
+          "trail_index": 1
+        },
+        {
+          "descriptor": 6,
+          "delay_ticks": 1,
+          "record_ticks": 30,
+          "length_divisor": 116,
+          "trail_index": 0
+        },
+        {
+          "descriptor": 7,
+          "delay_ticks": 1,
+          "record_ticks": 255,
+          "length_divisor": 116,
+          "trail_index": 1
+        },
+        {
+          "descriptor": 8,
+          "delay_ticks": 1,
+          "record_ticks": 9,
+          "length_divisor": 116,
+          "trail_index": 0
+        },
+        {
+          "descriptor": 9,
+          "delay_ticks": 5,
+          "record_ticks": 255,
+          "length_divisor": 120,
+          "trail_index": 1
+        }
+      ],
+      "pose_header_offset": 0
+    },
+    "lumina": {
+      "effect_actor": 5,
+      "dispatch": "0x80166654",
+      "descriptors": [
+        {
+          "descriptor": 0,
+          "delay_ticks": 2,
+          "record_ticks": 11,
+          "length_divisor": 60,
+          "trail_index": 2
+        },
+        {
+          "descriptor": 1,
+          "delay_ticks": 2,
+          "record_ticks": 12,
+          "length_divisor": 60,
+          "trail_index": 2
+        },
+        {
+          "descriptor": 2,
+          "delay_ticks": 2,
+          "record_ticks": 12,
+          "length_divisor": 60,
+          "trail_index": 2
+        },
+        {
+          "descriptor": 3,
+          "delay_ticks": 2,
+          "record_ticks": 12,
+          "length_divisor": 60,
+          "trail_index": 2
+        },
+        {
+          "descriptor": 4,
+          "delay_ticks": 2,
+          "record_ticks": 12,
+          "length_divisor": 60,
+          "trail_index": 2
+        },
+        {
+          "descriptor": 5,
+          "delay_ticks": 2,
+          "record_ticks": 12,
+          "length_divisor": 60,
+          "trail_index": 2
+        },
+        {
+          "descriptor": 6,
+          "delay_ticks": 2,
+          "record_ticks": 12,
+          "length_divisor": 60,
+          "trail_index": 2
+        },
+        {
+          "descriptor": 7,
+          "delay_ticks": 3,
+          "record_ticks": 10,
+          "length_divisor": 39,
+          "trail_index": 2
+        },
+        {
+          "descriptor": 8,
+          "delay_ticks": 2,
+          "record_ticks": 16,
+          "length_divisor": 49,
+          "trail_index": 2
+        },
+        {
+          "descriptor": 9,
+          "delay_ticks": 1,
+          "record_ticks": 255,
+          "length_divisor": 60,
+          "trail_index": 2
+        },
+        {
+          "descriptor": 10,
+          "delay_ticks": 4,
+          "record_ticks": 12,
+          "length_divisor": 60,
+          "trail_index": 2
+        },
+        {
+          "descriptor": 11,
+          "delay_ticks": 4,
+          "record_ticks": 15,
+          "length_divisor": 60,
+          "trail_index": 2
+        },
+        {
+          "descriptor": 12,
+          "delay_ticks": 1,
+          "record_ticks": 30,
+          "length_divisor": 60,
+          "trail_index": 2
+        },
+        {
+          "descriptor": 13,
+          "delay_ticks": 5,
+          "record_ticks": 255,
+          "length_divisor": 81,
+          "trail_index": 2
+        }
+      ],
+      "pose_header_offset": 8
+    }
+  },
+  "clips": {
+    "fusion_1": {
+      "clip": "Extra__800d4c94",
+      "stream": "0x800d4c94",
+      "weapon": "fusion",
+      "effect_descriptor": 0,
+      "ticks": 12,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e60e8",
+          "pose_header_sha256": "65bfa6d3473c9eb39a81368476a9064058aa1fce813f10227fbd991d0458f661",
+          "endpoints_source": [
+            [
+              7,
+              0,
+              -19
+            ],
+            [
+              -16,
+              -16,
+              -8
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e61e8",
+          "pose_header_sha256": "9fc6c46a91e875efd8cd48b0785d554a6c1a47a36fcbfbf01b30520e192cee1f",
+          "endpoints_source": [
+            [
+              34,
+              -23,
+              -13
+            ],
+            [
+              3,
+              -26,
+              -18
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e62e8",
+          "pose_header_sha256": "bc1464a3674589e992acc8c219137811cf145e0f1dbfcf9d06138508e70b4702",
+          "endpoints_source": [
+            [
+              32,
+              -34,
+              16
+            ],
+            [
+              14,
+              -32,
+              -8
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e63e8",
+          "pose_header_sha256": "a1778e3a3d50ac5b6f59e3036b76d349b21f68cc65d1ff1fdbd45b22a6add32f",
+          "endpoints_source": [
+            [
+              44,
+              -36,
+              -20
+            ],
+            [
+              13,
+              -32,
+              -20
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e64e8",
+          "pose_header_sha256": "cfcc0aad2dcdc245e4f2fa3099743d31b8a1bbfc86d706067456188cbf426219",
+          "endpoints_source": [
+            [
+              3,
+              -29,
+              -60
+            ],
+            [
+              -6,
+              -30,
+              -30
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e65e8",
+          "pose_header_sha256": "7b73d020dcc58c14052c52e9b0b1ffc641381c278ee98d9508aca992afb3f439",
+          "endpoints_source": [
+            [
+              -40,
+              -32,
+              -38
+            ],
+            [
+              -29,
+              -32,
+              -9
+            ]
+          ]
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e66e8",
+          "pose_header_sha256": "2d60ef1af5832d1c92c96235ca61f55c59834a36341c0c461d7f0d370046eccf",
+          "endpoints_source": [
+            [
+              -53,
+              -35,
+              -14
+            ],
+            [
+              -29,
+              -32,
+              5
+            ]
+          ]
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e67e8",
+          "pose_header_sha256": "13a3c9bafca62dc6ce7a3485f80058d92b9e3bd638a3e53d27dd0819a8aa71e3",
+          "endpoints_source": [
+            [
+              -53,
+              -35,
+              9
+            ],
+            [
+              -23,
+              -33,
+              17
+            ]
+          ]
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e68e8",
+          "pose_header_sha256": "a8f089d2dc75361854fdce4844bdbbb64d98e962d4197cd70ea0798415543f43",
+          "endpoints_source": [
+            [
+              -49,
+              -28,
+              30
+            ],
+            [
+              -19,
+              -29,
+              20
+            ]
+          ]
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e69e8",
+          "pose_header_sha256": "8432f65c61cd106d284a8d5d834fa22fb3a399c22b6a347d71b88ea9e9039a80",
+          "endpoints_source": [
+            [
+              -51,
+              -14,
+              13
+            ],
+            [
+              -21,
+              -23,
+              12
+            ]
+          ]
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e6ae8",
+          "pose_header_sha256": "d9b0c4bb3ef247203d59fa8d8c31157b986c5c0e5570a60a3577ec4c4cde3f0d",
+          "endpoints_source": [
+            [
+              -11,
+              6,
+              -19
+            ],
+            [
+              -16,
+              -16,
+              1
+            ]
+          ]
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e6be8",
+          "pose_header_sha256": "0a58c4faf7c69259cc00480e931796144f7cbd6838f23f2bc7b7f7fa9de125db",
+          "endpoints_source": [
+            [
+              6,
+              2,
+              -12
+            ],
+            [
+              -15,
+              -15,
+              0
+            ]
+          ]
+        }
+      ],
+      "terminal": "stop",
+      "externally_clocked": false,
+      "continuation_of": null
+    },
+    "fusion_2": {
+      "clip": "Source__800d4ce4",
+      "stream": "0x800d4ce4",
+      "weapon": "fusion",
+      "effect_descriptor": 1,
+      "ticks": 15,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e6ce8",
+          "pose_header_sha256": "1627c857ded0b373cd83a49d9bb0eb9da522cf7b91cc5d58ed387d9dbdcf0111",
+          "endpoints_source": [
+            [
+              -46,
+              -30,
+              32
+            ],
+            [
+              -16,
+              -32,
+              24
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e6de8",
+          "pose_header_sha256": "5810688370cd7f20ce0bd79e84ada877be4e9f7c59050dd43742217f6432b0f1",
+          "endpoints_source": [
+            [
+              -26,
+              -8,
+              36
+            ],
+            [
+              -9,
+              -32,
+              26
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e6ee8",
+          "pose_header_sha256": "dfeb444876d6c4096934374126797e5e93793a95278b5f1ca4936ad522c72037",
+          "endpoints_source": [
+            [
+              17,
+              -11,
+              34
+            ],
+            [
+              0,
+              -37,
+              27
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e6fe8",
+          "pose_header_sha256": "a8e3d7ccbd95ea729fd1035fa12e61ad105834cc5d79cba1bb739e466c9642f8",
+          "endpoints_source": [
+            [
+              14,
+              -21,
+              44
+            ],
+            [
+              -4,
+              -40,
+              27
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e70e8",
+          "pose_header_sha256": "760ca1d5da4b871574c23129230f408d146f76c9ee9ff19a0b0b8817489bd756",
+          "endpoints_source": [
+            [
+              12,
+              -38,
+              47
+            ],
+            [
+              -8,
+              -44,
+              24
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e71e8",
+          "pose_header_sha256": "75a7de977bae2332ea4248c75ad82f1e8b62cac123fb26c44aaf5fdfa9859021",
+          "endpoints_source": [
+            [
+              9,
+              -52,
+              40
+            ],
+            [
+              -12,
+              -47,
+              19
+            ]
+          ]
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e72e8",
+          "pose_header_sha256": "a9fc47b6874e97930c49d83e503830d5ba881a346401435752597312c85f3958",
+          "endpoints_source": [
+            [
+              -23,
+              -71,
+              22
+            ],
+            [
+              -20,
+              -46,
+              4
+            ]
+          ]
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e73e8",
+          "pose_header_sha256": "d1d62bc3c634695af5359484f4f9012cbf4a2af784e8755f988088bef2d8e991",
+          "endpoints_source": [
+            [
+              -31,
+              -67,
+              -15
+            ],
+            [
+              -19,
+              -38,
+              -13
+            ]
+          ]
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e74e8",
+          "pose_header_sha256": "208da5ff1f4034cf467df44c859f6ece984ff660cc36209c92672e928d90268b",
+          "endpoints_source": [
+            [
+              -1,
+              -32,
+              -53
+            ],
+            [
+              -3,
+              -17,
+              -25
+            ]
+          ]
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e75e8",
+          "pose_header_sha256": "2c51c8d7efe57dc1804ffd623f2e8e66b797646daa737220a567ad4a52e48ede",
+          "endpoints_source": [
+            [
+              17,
+              -4,
+              -49
+            ],
+            [
+              6,
+              -12,
+              -20
+            ]
+          ]
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e76e8",
+          "pose_header_sha256": "e5d3c769baec17b52f5d0913cea702ac356278c12a84eee6efca7f1713c0ac75",
+          "endpoints_source": [
+            [
+              20,
+              -4,
+              -48
+            ],
+            [
+              7,
+              -12,
+              -20
+            ]
+          ]
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e77e8",
+          "pose_header_sha256": "f4285bd7ba0118aa3560d555d3863326f8ad0fe952939fce9f1db119d1259637",
+          "endpoints_source": [
+            [
+              17,
+              -4,
+              -49
+            ],
+            [
+              6,
+              -12,
+              -20
+            ]
+          ]
+        },
+        {
+          "tick": 12,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e78e8",
+          "pose_header_sha256": "ac97b983f492c9dbbef9dc538fac3a972b4f5eb1eafd15521bf5bc0d6165e189",
+          "endpoints_source": [
+            [
+              10,
+              -10,
+              -39
+            ],
+            [
+              -6,
+              -11,
+              -12
+            ]
+          ]
+        },
+        {
+          "tick": 13,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e79e8",
+          "pose_header_sha256": "5a9c4ab24ce9526ea2a153c7febd9b8130e3c8eac97f53d0dbbd1a2e2878e3d5",
+          "endpoints_source": [
+            [
+              3,
+              -9,
+              -38
+            ],
+            [
+              -11,
+              -13,
+              -11
+            ]
+          ]
+        },
+        {
+          "tick": 14,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e7ae8",
+          "pose_header_sha256": "aecbdf21bb6cd7d56b8ce0084c61e3593022355fc09d0bdf398f527ad6bddb2d",
+          "endpoints_source": [
+            [
+              3,
+              -8,
+              -34
+            ],
+            [
+              -14,
+              -16,
+              -9
+            ]
+          ]
+        }
+      ],
+      "terminal": "stop",
+      "externally_clocked": false,
+      "continuation_of": null
+    },
+    "fusion_3": {
+      "clip": "Source__800d4d38",
+      "stream": "0x800d4d38",
+      "weapon": "fusion",
+      "effect_descriptor": 2,
+      "ticks": 14,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e7be8",
+          "pose_header_sha256": "6473985242f037d3198848cb21e106a75a6c9681204585974a804df09fd2bdb8",
+          "endpoints_source": [
+            [
+              1,
+              -14,
+              -48
+            ],
+            [
+              7,
+              -20,
+              -18
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e7ce8",
+          "pose_header_sha256": "bba695a6c002957883777bab8544b0e8fb138ff531481b7aefe3d23ff013ab3e",
+          "endpoints_source": [
+            [
+              -2,
+              -10,
+              -42
+            ],
+            [
+              7,
+              -23,
+              -16
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e7de8",
+          "pose_header_sha256": "51906d035a7eab2c745ab1a16764dbf9743c4a0238a09aaff5dc78dd098e6b5d",
+          "endpoints_source": [
+            [
+              6,
+              -5,
+              -37
+            ],
+            [
+              10,
+              -25,
+              -14
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e7ee8",
+          "pose_header_sha256": "877d77aa1ff3c5f2d5933fb6b251821b33bc5a0f54f0651f196ef461b1a5198a",
+          "endpoints_source": [
+            [
+              28,
+              -6,
+              -28
+            ],
+            [
+              13,
+              -27,
+              -11
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e7fe8",
+          "pose_header_sha256": "d0aa14ffaa2fe22152fced14f356eb51b8afd1536027f13e736c8cf00442c4d6",
+          "endpoints_source": [
+            [
+              29,
+              -9,
+              -31
+            ],
+            [
+              13,
+              -28,
+              -11
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e80e8",
+          "pose_header_sha256": "fd54f04f4553dbeb9cc19726541b33209f09405d21fe72120d8fe4808d29c268",
+          "endpoints_source": [
+            [
+              15,
+              -13,
+              -40
+            ],
+            [
+              11,
+              -28,
+              -13
+            ]
+          ]
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e81e8",
+          "pose_header_sha256": "b8d1305530f26361cdfb33221d9c6ec12f00b84922b908fadf1a4dbfb4cb984d",
+          "endpoints_source": [
+            [
+              -7,
+              -27,
+              -52
+            ],
+            [
+              1,
+              -27,
+              -22
+            ]
+          ]
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e82e8",
+          "pose_header_sha256": "2609526d4654dd4b9c58bda0a72b7fc02a7ac96453187e57eed051b70d636800",
+          "endpoints_source": [
+            [
+              -20,
+              -30,
+              -60
+            ],
+            [
+              -9,
+              -29,
+              -31
+            ]
+          ]
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e83e8",
+          "pose_header_sha256": "2609526d4654dd4b9c58bda0a72b7fc02a7ac96453187e57eed051b70d636800",
+          "endpoints_source": [
+            [
+              -20,
+              -30,
+              -60
+            ],
+            [
+              -9,
+              -29,
+              -31
+            ]
+          ]
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e84e8",
+          "pose_header_sha256": "2609526d4654dd4b9c58bda0a72b7fc02a7ac96453187e57eed051b70d636800",
+          "endpoints_source": [
+            [
+              -20,
+              -30,
+              -60
+            ],
+            [
+              -9,
+              -29,
+              -31
+            ]
+          ]
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e85e8",
+          "pose_header_sha256": "6bf1ef6c1dd71c7ed1ec7caae3fbeefd1726155daf0b5d68c687e536fdce2d28",
+          "endpoints_source": [
+            [
+              -32,
+              -31,
+              -53
+            ],
+            [
+              -11,
+              -28,
+              -30
+            ]
+          ]
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e86e8",
+          "pose_header_sha256": "6da5d3d991c5a0d0561467129fdefbb19849c028165c06219f52ded933c1704c",
+          "endpoints_source": [
+            [
+              -37,
+              -29,
+              -47
+            ],
+            [
+              -12,
+              -26,
+              -28
+            ]
+          ]
+        },
+        {
+          "tick": 12,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e87e8",
+          "pose_header_sha256": "92d4d100335bcb34b9f3aff9fb7530233157c9e6d17727b6e81d7208c51dab65",
+          "endpoints_source": [
+            [
+              -39,
+              -24,
+              -42
+            ],
+            [
+              -15,
+              -24,
+              -22
+            ]
+          ]
+        },
+        {
+          "tick": 13,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e88e8",
+          "pose_header_sha256": "54e66e9cf17fcea11b040a95c83ac6448a0c465c30afbcdec89eb3ddff891868",
+          "endpoints_source": [
+            [
+              -39,
+              -40,
+              -37
+            ],
+            [
+              -18,
+              -26,
+              -19
+            ]
+          ]
+        }
+      ],
+      "terminal": "stop",
+      "externally_clocked": false,
+      "continuation_of": null
+    },
+    "fusion_4": {
+      "clip": "Recovered__800d4d88",
+      "stream": "0x800d4d88",
+      "weapon": "fusion",
+      "effect_descriptor": 3,
+      "ticks": 6,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e8ae8",
+          "pose_header_sha256": "0ad8b34568d07ad97bb9f46af4eada3ab663ce492c19629f45c32adf98269f80",
+          "endpoints_source": [
+            [
+              -4,
+              -37,
+              -55
+            ],
+            [
+              -5,
+              -27,
+              -26
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e8be8",
+          "pose_header_sha256": "8c53b4ba4367f8c83ef6d3b142a6e17b93aa44ae82923d49b8dc51e275689625",
+          "endpoints_source": [
+            [
+              -3,
+              -42,
+              -52
+            ],
+            [
+              -3,
+              -27,
+              -24
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e8ce8",
+          "pose_header_sha256": "57378564192952b016e6149a03fd2c290905e97b7163aa32fed260626b96d0d4",
+          "endpoints_source": [
+            [
+              -1,
+              -47,
+              -48
+            ],
+            [
+              -2,
+              -28,
+              -23
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e8de8",
+          "pose_header_sha256": "26b24a0cd36c8e50730550c7cd36e2b125b1f8afcf9f2b553460f944b2fa1a46",
+          "endpoints_source": [
+            [
+              0,
+              -51,
+              -43
+            ],
+            [
+              0,
+              -28,
+              -21
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e8ee8",
+          "pose_header_sha256": "e27622b0bb7d271ea55ac19bb0320c20ee1ac42c4af554990c8703f27b84ca09",
+          "endpoints_source": [
+            [
+              0,
+              -54,
+              -37
+            ],
+            [
+              0,
+              -28,
+              -20
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e8fe8",
+          "pose_header_sha256": "faf7be43f27bae5c33119d2cea6939b9c1b50517e14f70a0192bd63b033c90f9",
+          "endpoints_source": [
+            [
+              0,
+              -55,
+              -35
+            ],
+            [
+              0,
+              -29,
+              -17
+            ]
+          ]
+        }
+      ],
+      "terminal": "stop",
+      "externally_clocked": false,
+      "continuation_of": null
+    },
+    "fusion_4_rise": {
+      "clip": "Recovered__800d4da8",
+      "stream": "0x800d4da8",
+      "weapon": "fusion",
+      "effect_descriptor": 3,
+      "ticks": 1,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e90e8",
+          "pose_header_sha256": "faf7be43f27bae5c33119d2cea6939b9c1b50517e14f70a0192bd63b033c90f9",
+          "endpoints_source": [
+            [
+              0,
+              -55,
+              -35
+            ],
+            [
+              0,
+              -29,
+              -17
+            ]
+          ]
+        }
+      ],
+      "terminal": "stop",
+      "externally_clocked": false,
+      "continuation_of": "fusion_4"
+    },
+    "fusion_4_apex": {
+      "clip": "Recovered__800d4db4",
+      "stream": "0x800d4db4",
+      "weapon": "fusion",
+      "effect_descriptor": 3,
+      "ticks": 6,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800ee0e8",
+          "pose_header_sha256": "a89b9efa973cce8e16544cca3d3da5a25630ceac4434565f6ed77c2d3eafdc75",
+          "endpoints_source": [
+            [
+              0,
+              -25,
+              -50
+            ],
+            [
+              0,
+              -23,
+              -19
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800ee1e8",
+          "pose_header_sha256": "de74ef6c59f0a65efcb346e6e960cadcf952adc4e8013a1b170af94ad6a39047",
+          "endpoints_source": [
+            [
+              0,
+              9,
+              -37
+            ],
+            [
+              0,
+              -8,
+              -11
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800ee2e8",
+          "pose_header_sha256": "096fc3b8a8c48108fe93f1bb6b04e8355017df8c8b511e17389d55bd705c32da",
+          "endpoints_source": [
+            [
+              0,
+              25,
+              0
+            ],
+            [
+              0,
+              -5,
+              4
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800ee3e8",
+          "pose_header_sha256": "8cf64462a3a9c24193d0e8dcb97372befa4901c7a5d2c14e0b39f39262072a75",
+          "endpoints_source": [
+            [
+              0,
+              5,
+              40
+            ],
+            [
+              0,
+              -15,
+              17
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800ee4e8",
+          "pose_header_sha256": "f73a21b7feaa43768b439b754e17372e41fb6eb2a0da91798b938d634ebd7e92",
+          "endpoints_source": [
+            [
+              0,
+              -29,
+              49
+            ],
+            [
+              0,
+              -29,
+              18
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800ee5e8",
+          "pose_header_sha256": "5767a02d114159e40bc19fae032c6763f6db8b9ba6f34a61beb8660454bee6ac",
+          "endpoints_source": [
+            [
+              0,
+              -64,
+              29
+            ],
+            [
+              0,
+              -41,
+              8
+            ]
+          ]
+        }
+      ],
+      "terminal": "stop",
+      "externally_clocked": false,
+      "continuation_of": "fusion_4"
+    },
+    "fusion_4_drop": {
+      "clip": "Recovered__800d4dd4",
+      "stream": "0x800d4dd4",
+      "weapon": "fusion",
+      "effect_descriptor": 3,
+      "ticks": 5,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800ee6e8",
+          "pose_header_sha256": "b70b5c8c3815099508b89ed30894bb20cd19b9050cb2c2a5b823cffbf55a16f7",
+          "endpoints_source": [
+            [
+              0,
+              -73,
+              0
+            ],
+            [
+              0,
+              -42,
+              -4
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800ee7e8",
+          "pose_header_sha256": "3238ba803e3ec51a6b5e3d229398aa55bd889636ce65e28bdfb81f7f938f57c0",
+          "endpoints_source": [
+            [
+              0,
+              -66,
+              -30
+            ],
+            [
+              0,
+              -38,
+              -15
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800ee8e8",
+          "pose_header_sha256": "ac23c2227959eaf74409b2a14b2be1443b568c6f7f3141e3e5d4dbf44ef73609",
+          "endpoints_source": [
+            [
+              0,
+              -55,
+              -43
+            ],
+            [
+              0,
+              -37,
+              -18
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800ee9e8",
+          "pose_header_sha256": "9981b21defb5ad7f39324aed90ee179addd5a63987a6d1fcaba744c5410cffcd",
+          "endpoints_source": [
+            [
+              0,
+              -33,
+              -52
+            ],
+            [
+              0,
+              -28,
+              -21
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800eeae8",
+          "pose_header_sha256": "023e299952ed3c46a0e271b52e00060444e3f58f307d0c598f55b1859209422d",
+          "endpoints_source": [
+            [
+              0,
+              -12,
+              -52
+            ],
+            [
+              0,
+              -19,
+              -22
+            ]
+          ]
+        }
+      ],
+      "terminal": "pause",
+      "externally_clocked": false,
+      "continuation_of": "fusion_4"
+    },
+    "fusion_4_land": {
+      "clip": "Recovered__800d4df4",
+      "stream": "0x800d4df4",
+      "weapon": "fusion",
+      "effect_descriptor": 3,
+      "ticks": 5,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800eebe8",
+          "pose_header_sha256": "692b93cf5b91d701be81868f52a4bc68570b4d8dcf36bc8b02f1a52d1602f1a0",
+          "endpoints_source": [
+            [
+              0,
+              -4,
+              -51
+            ],
+            [
+              0,
+              -11,
+              -21
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800eece8",
+          "pose_header_sha256": "e181aa05adfdfcc4f697a5e7186786f56fe280fc604e37257ec27a564a014f33",
+          "endpoints_source": [
+            [
+              0,
+              -3,
+              -50
+            ],
+            [
+              -1,
+              -5,
+              -19
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800eede8",
+          "pose_header_sha256": "c3808003b8b829b763fdb721f73fb049fe8284ef26e1581b5f8d9df5ef04933c",
+          "endpoints_source": [
+            [
+              0,
+              -2,
+              -47
+            ],
+            [
+              -5,
+              -7,
+              -16
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800eeee8",
+          "pose_header_sha256": "73d5d9a330f52ab71200855dc5600f5b79621136c9338643ca8fa57767de2fe1",
+          "endpoints_source": [
+            [
+              4,
+              -9,
+              -43
+            ],
+            [
+              -7,
+              -10,
+              -14
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800eefe8",
+          "pose_header_sha256": "c66b09408702f21da0d392a4bb04798d15bdb6411662ed3bee2ea2f848d1da8c",
+          "endpoints_source": [
+            [
+              13,
+              -15,
+              -34
+            ],
+            [
+              -8,
+              -14,
+              -11
+            ]
+          ]
+        }
+      ],
+      "terminal": "stop",
+      "externally_clocked": false,
+      "continuation_of": "fusion_4"
+    },
+    "air_fusion": {
+      "clip": "Table_11__800d4e94",
+      "stream": "0x800d4e94",
+      "weapon": "fusion",
+      "effect_descriptor": 5,
+      "ticks": 10,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f4fe8",
+          "pose_header_sha256": "efded28d747edcd1af5ee6eadbd1c8a892e1b56d7decdc91940c9ff72204951c",
+          "endpoints_source": [
+            [
+              34,
+              -21,
+              -13
+            ],
+            [
+              3,
+              -26,
+              -18
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f50e8",
+          "pose_header_sha256": "295356dca1502cf0e4c48f075f0c59f21bac3e59d288e77c15ce8bb6b3a3967b",
+          "endpoints_source": [
+            [
+              30,
+              -6,
+              8
+            ],
+            [
+              11,
+              -22,
+              -10
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f51e8",
+          "pose_header_sha256": "6c9e8f26e20cdbaf4c609fa10b023b08661be2315873c984d7e6a98580b9c331",
+          "endpoints_source": [
+            [
+              41,
+              -15,
+              -21
+            ],
+            [
+              12,
+              -26,
+              -20
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f52e8",
+          "pose_header_sha256": "74254bd97acb4fee2a0236c4ef235fcb553cb7338589bf21c3149362f508acba",
+          "endpoints_source": [
+            [
+              -3,
+              -31,
+              -61
+            ],
+            [
+              -7,
+              -31,
+              -30
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f53e8",
+          "pose_header_sha256": "85eb06228a951b0ac0f8e28586c8ff9602fb91633b84f7b007c1997476c3792d",
+          "endpoints_source": [
+            [
+              -39,
+              -38,
+              -38
+            ],
+            [
+              -28,
+              -35,
+              -9
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f54e8",
+          "pose_header_sha256": "7b49a28568efcacbfae0f4e63af1b38961783bde1458776fa2f7f4e6023801bf",
+          "endpoints_source": [
+            [
+              -53,
+              -53,
+              -5
+            ],
+            [
+              -28,
+              -39,
+              6
+            ]
+          ]
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f55e8",
+          "pose_header_sha256": "1c7c28ac52c04744b155b84c978eb60ae95024015efd6f8185be958e95014772",
+          "endpoints_source": [
+            [
+              -51,
+              -48,
+              13
+            ],
+            [
+              -22,
+              -38,
+              17
+            ]
+          ]
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f56e8",
+          "pose_header_sha256": "ea3b22c3bdb96f411626d689c017921dd19f595fd3a9273d264e79a68f322a1c",
+          "endpoints_source": [
+            [
+              -48,
+              -24,
+              31
+            ],
+            [
+              -19,
+              -28,
+              20
+            ]
+          ]
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f57e8",
+          "pose_header_sha256": "1c0b7f17a78363c6dd6285a6dfa9c0649445b74804e604c0604dfd29d0ce9e08",
+          "endpoints_source": [
+            [
+              -50,
+              -10,
+              15
+            ],
+            [
+              -21,
+              -22,
+              12
+            ]
+          ]
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f58e8",
+          "pose_header_sha256": "3aea5770878dd81dd9cfdacc7109bc4b7829ff8806acb48b2db3f91d818d6b0c",
+          "endpoints_source": [
+            [
+              -12,
+              6,
+              -20
+            ],
+            [
+              -17,
+              -15,
+              1
+            ]
+          ]
+        }
+      ],
+      "terminal": "stop",
+      "externally_clocked": false,
+      "continuation_of": null
+    },
+    "moving_air_fusion": {
+      "clip": "Table_12__800d4ed4",
+      "stream": "0x800d4ed4",
+      "weapon": "fusion",
+      "effect_descriptor": 5,
+      "ticks": 10,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f59e8",
+          "pose_header_sha256": "efded28d747edcd1af5ee6eadbd1c8a892e1b56d7decdc91940c9ff72204951c",
+          "endpoints_source": [
+            [
+              34,
+              -21,
+              -13
+            ],
+            [
+              3,
+              -26,
+              -18
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f5ae8",
+          "pose_header_sha256": "4c521e4c2e315596d339a16900c73e4d66dcd270736e086e0f10a43b6719feab",
+          "endpoints_source": [
+            [
+              32,
+              -19,
+              14
+            ],
+            [
+              13,
+              -27,
+              -8
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f5be8",
+          "pose_header_sha256": "4f9668d9e89b963239308632d7e859ccae7ebc5a571b11ef2424546d01592df1",
+          "endpoints_source": [
+            [
+              44,
+              -24,
+              -20
+            ],
+            [
+              13,
+              -29,
+              -20
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f5ce8",
+          "pose_header_sha256": "74254bd97acb4fee2a0236c4ef235fcb553cb7338589bf21c3149362f508acba",
+          "endpoints_source": [
+            [
+              -3,
+              -31,
+              -61
+            ],
+            [
+              -7,
+              -31,
+              -30
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f5de8",
+          "pose_header_sha256": "cad35e5539c8fa19570866573d57c6552ad0beb16e699b68cf5f8c7c8f57a6e9",
+          "endpoints_source": [
+            [
+              -40,
+              -36,
+              -39
+            ],
+            [
+              -29,
+              -34,
+              -9
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f5ee8",
+          "pose_header_sha256": "cbf3eba896fecdf9f05b78201e711a5f7adfd13112cc1154d0cd15b395558cb8",
+          "endpoints_source": [
+            [
+              -54,
+              -39,
+              -12
+            ],
+            [
+              -29,
+              -34,
+              5
+            ]
+          ]
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f5fe8",
+          "pose_header_sha256": "89275d43067b6f4be3e480a046604b205c4e4be26893d89866b74b45074b223f",
+          "endpoints_source": [
+            [
+              -54,
+              -38,
+              12
+            ],
+            [
+              -24,
+              -34,
+              16
+            ]
+          ]
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f60e8",
+          "pose_header_sha256": "ee3efab1be4e7755ea2a53734c4ed60f0f033b36876b2dbcf3aa0e0b83e70641",
+          "endpoints_source": [
+            [
+              -49,
+              -35,
+              30
+            ],
+            [
+              -20,
+              -31,
+              20
+            ]
+          ]
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f61e8",
+          "pose_header_sha256": "13179a7b766f9b773684a495481a793a691cc66b96f124466edc903766fe2fc9",
+          "endpoints_source": [
+            [
+              -53,
+              -19,
+              14
+            ],
+            [
+              -22,
+              -25,
+              12
+            ]
+          ]
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f62e8",
+          "pose_header_sha256": "d46a2fbf7bdd14ab66dcb36e4e96fb817f26582460caf995157347e28f98c5a6",
+          "endpoints_source": [
+            [
+              -10,
+              3,
+              -21
+            ],
+            [
+              -16,
+              -16,
+              1
+            ]
+          ]
+        }
+      ],
+      "terminal": "stop",
+      "externally_clocked": false,
+      "continuation_of": null
+    },
+    "lumina": {
+      "clip": "Extra__800d4f14",
+      "stream": "0x800d4f14",
+      "weapon": "lumina",
+      "effect_descriptor": 0,
+      "ticks": 21,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801057e8",
+          "pose_header_sha256": "2e554950a59de1a0bf9c08d16e449a1e06b4e6735bfd31076e09a081d97e0596",
+          "endpoints_source": [
+            [
+              -41,
+              -19,
+              -2
+            ],
+            [
+              21,
+              -23,
+              25
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801058e8",
+          "pose_header_sha256": "46d3f57f764f58cda4029b0eec2f5ffd3f832aedf43fb2d4601f7b67277328d0",
+          "endpoints_source": [
+            [
+              -37,
+              -20,
+              -4
+            ],
+            [
+              21,
+              -29,
+              29
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801059e8",
+          "pose_header_sha256": "2ae69898cc39afb90470e851ce753ee4fd7ce7e49dcb3ab79e09df07ea7f0d59",
+          "endpoints_source": [
+            [
+              4,
+              -26,
+              72
+            ],
+            [
+              15,
+              -45,
+              7
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ae8",
+          "pose_header_sha256": "c833ddb8465ab0d3c6763e67c679aa8c6bc4ea7feba1942ec9db6f1c7411c9a3",
+          "endpoints_source": [
+            [
+              5,
+              -27,
+              68
+            ],
+            [
+              17,
+              -49,
+              3
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105be8",
+          "pose_header_sha256": "b216209bbd53954aab2f36c14d7c2d1afb968780da89a70a658edc7d9097fd2b",
+          "endpoints_source": [
+            [
+              5,
+              -31,
+              65
+            ],
+            [
+              18,
+              -51,
+              0
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ce8",
+          "pose_header_sha256": "091b62bb0037a33fa46b10ffb65d180e3870617b8ee8d016adc53470245f5157",
+          "endpoints_source": [
+            [
+              14,
+              -47,
+              64
+            ],
+            [
+              17,
+              -51,
+              -4
+            ]
+          ]
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105de8",
+          "pose_header_sha256": "ebb94304e902f390522ee406a50db896144b4175c9c765bf364a598426bf14f5",
+          "endpoints_source": [
+            [
+              19,
+              -63,
+              60
+            ],
+            [
+              16,
+              -49,
+              -7
+            ]
+          ]
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ee8",
+          "pose_header_sha256": "6a5f9acd2b131ba4bf54da5f25d02d9dfe833a3797daed6238a7074d9c307fa7",
+          "endpoints_source": [
+            [
+              23,
+              -77,
+              52
+            ],
+            [
+              16,
+              -48,
+              -9
+            ]
+          ]
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105fe8",
+          "pose_header_sha256": "be9823136ce3621cc3f31f92907f84982e95c231184dd80e671c3ab099d971be",
+          "endpoints_source": [
+            [
+              23,
+              -78,
+              52
+            ],
+            [
+              16,
+              -49,
+              -10
+            ]
+          ]
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801060e8",
+          "pose_header_sha256": "5d0c44379b9a0273cbef327b50d98a2225edc15eaf34bea154366128d4299117",
+          "endpoints_source": [
+            [
+              23,
+              -83,
+              -44
+            ],
+            [
+              6,
+              -25,
+              -12
+            ]
+          ]
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801061e8",
+          "pose_header_sha256": "55bf27013014dbd16574f74521e30848f905047f940ef412c845ffc624a19eca",
+          "endpoints_source": [
+            [
+              9,
+              -42,
+              -80
+            ],
+            [
+              3,
+              -21,
+              -15
+            ]
+          ]
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801062e8",
+          "pose_header_sha256": "ed5e1f70c6e26abdd25da060295cebec53e82c0dddfe25e58c553ec4879bd84e",
+          "endpoints_source": [
+            [
+              -5,
+              -12,
+              -86
+            ],
+            [
+              0,
+              -17,
+              -18
+            ]
+          ]
+        },
+        {
+          "tick": 12,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801063e8",
+          "pose_header_sha256": "2c14f924a9c896229a87c3bf99b8561bcc8fb969b1bf30db1bbfee5e59c72802",
+          "endpoints_source": [
+            [
+              -7,
+              -5,
+              -85
+            ],
+            [
+              -1,
+              -17,
+              -17
+            ]
+          ]
+        },
+        {
+          "tick": 13,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801064e8",
+          "pose_header_sha256": "5759e28274a1b7bb2c614e247a1dc1184eeeec600e241dfc6e335c9ca1a1afa0",
+          "endpoints_source": [
+            [
+              -6,
+              -8,
+              -85
+            ],
+            [
+              0,
+              -18,
+              -17
+            ]
+          ]
+        },
+        {
+          "tick": 14,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801065e8",
+          "pose_header_sha256": "4dd481d48c16892c385606b1d0f66358de60bbc4afebaa49f0fd0f46b6181a85",
+          "endpoints_source": [
+            [
+              4,
+              -11,
+              -80
+            ],
+            [
+              5,
+              -19,
+              -11
+            ]
+          ]
+        },
+        {
+          "tick": 15,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801066e8",
+          "pose_header_sha256": "ccf75bfe044ee829eeeddd830e138d1456603078f6703c25fcbf31b5060e0bf0",
+          "endpoints_source": [
+            [
+              7,
+              -17,
+              -70
+            ],
+            [
+              11,
+              -23,
+              -1
+            ]
+          ]
+        },
+        {
+          "tick": 16,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801067e8",
+          "pose_header_sha256": "750e18af77cc96fbb9d364953c82e788826a6f03c104e85851a383f333bbd87d",
+          "endpoints_source": [
+            [
+              8,
+              -14,
+              -60
+            ],
+            [
+              15,
+              -23,
+              7
+            ]
+          ]
+        },
+        {
+          "tick": 17,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801068e8",
+          "pose_header_sha256": "f78b7d95a3e90507477d78f0449e3e72e7610d3f81afce888eef3d9a4b1b7bb8",
+          "endpoints_source": [
+            [
+              13,
+              -15,
+              -48
+            ],
+            [
+              14,
+              -24,
+              20
+            ]
+          ]
+        },
+        {
+          "tick": 18,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801069e8",
+          "pose_header_sha256": "08be27d1cf283cde773d8455f36b7bc1647823b8937998b8d9b8079dffc22358",
+          "endpoints_source": [
+            [
+              -31,
+              -19,
+              9
+            ],
+            [
+              36,
+              -33,
+              5
+            ]
+          ]
+        },
+        {
+          "tick": 19,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106ae8",
+          "pose_header_sha256": "c9d239f0a740502b169926c5b39662e4183a44b262e57446697e9c5c83b329fe",
+          "endpoints_source": [
+            [
+              -39,
+              -19,
+              16
+            ],
+            [
+              29,
+              -23,
+              13
+            ]
+          ]
+        },
+        {
+          "tick": 20,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106be8",
+          "pose_header_sha256": "ae76e90083e1773e3f797fc5d6a02a45bc67d2ec4e1e743903c0746000392496",
+          "endpoints_source": [
+            [
+              36,
+              -37,
+              -52
+            ],
+            [
+              22,
+              -18,
+              12
+            ]
+          ]
+        }
+      ],
+      "terminal": "pause",
+      "externally_clocked": false,
+      "continuation_of": null
+    },
+    "air_lumina": {
+      "clip": "Extra__800d4f8c",
+      "stream": "0x800d4f8c",
+      "weapon": "lumina",
+      "effect_descriptor": 5,
+      "ticks": 17,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801057e8",
+          "pose_header_sha256": "2e554950a59de1a0bf9c08d16e449a1e06b4e6735bfd31076e09a081d97e0596",
+          "endpoints_source": [
+            [
+              -41,
+              -19,
+              -2
+            ],
+            [
+              21,
+              -23,
+              25
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801058e8",
+          "pose_header_sha256": "46d3f57f764f58cda4029b0eec2f5ffd3f832aedf43fb2d4601f7b67277328d0",
+          "endpoints_source": [
+            [
+              -37,
+              -20,
+              -4
+            ],
+            [
+              21,
+              -29,
+              29
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105be8",
+          "pose_header_sha256": "b216209bbd53954aab2f36c14d7c2d1afb968780da89a70a658edc7d9097fd2b",
+          "endpoints_source": [
+            [
+              5,
+              -31,
+              65
+            ],
+            [
+              18,
+              -51,
+              0
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ee8",
+          "pose_header_sha256": "6a5f9acd2b131ba4bf54da5f25d02d9dfe833a3797daed6238a7074d9c307fa7",
+          "endpoints_source": [
+            [
+              23,
+              -77,
+              52
+            ],
+            [
+              16,
+              -48,
+              -9
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105fe8",
+          "pose_header_sha256": "be9823136ce3621cc3f31f92907f84982e95c231184dd80e671c3ab099d971be",
+          "endpoints_source": [
+            [
+              23,
+              -78,
+              52
+            ],
+            [
+              16,
+              -49,
+              -10
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801060e8",
+          "pose_header_sha256": "5d0c44379b9a0273cbef327b50d98a2225edc15eaf34bea154366128d4299117",
+          "endpoints_source": [
+            [
+              23,
+              -83,
+              -44
+            ],
+            [
+              6,
+              -25,
+              -12
+            ]
+          ]
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801061e8",
+          "pose_header_sha256": "55bf27013014dbd16574f74521e30848f905047f940ef412c845ffc624a19eca",
+          "endpoints_source": [
+            [
+              9,
+              -42,
+              -80
+            ],
+            [
+              3,
+              -21,
+              -15
+            ]
+          ]
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801062e8",
+          "pose_header_sha256": "ed5e1f70c6e26abdd25da060295cebec53e82c0dddfe25e58c553ec4879bd84e",
+          "endpoints_source": [
+            [
+              -5,
+              -12,
+              -86
+            ],
+            [
+              0,
+              -17,
+              -18
+            ]
+          ]
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801063e8",
+          "pose_header_sha256": "2c14f924a9c896229a87c3bf99b8561bcc8fb969b1bf30db1bbfee5e59c72802",
+          "endpoints_source": [
+            [
+              -7,
+              -5,
+              -85
+            ],
+            [
+              -1,
+              -17,
+              -17
+            ]
+          ]
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801064e8",
+          "pose_header_sha256": "5759e28274a1b7bb2c614e247a1dc1184eeeec600e241dfc6e335c9ca1a1afa0",
+          "endpoints_source": [
+            [
+              -6,
+              -8,
+              -85
+            ],
+            [
+              0,
+              -18,
+              -17
+            ]
+          ]
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801065e8",
+          "pose_header_sha256": "4dd481d48c16892c385606b1d0f66358de60bbc4afebaa49f0fd0f46b6181a85",
+          "endpoints_source": [
+            [
+              4,
+              -11,
+              -80
+            ],
+            [
+              5,
+              -19,
+              -11
+            ]
+          ]
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801066e8",
+          "pose_header_sha256": "ccf75bfe044ee829eeeddd830e138d1456603078f6703c25fcbf31b5060e0bf0",
+          "endpoints_source": [
+            [
+              7,
+              -17,
+              -70
+            ],
+            [
+              11,
+              -23,
+              -1
+            ]
+          ]
+        },
+        {
+          "tick": 12,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801067e8",
+          "pose_header_sha256": "750e18af77cc96fbb9d364953c82e788826a6f03c104e85851a383f333bbd87d",
+          "endpoints_source": [
+            [
+              8,
+              -14,
+              -60
+            ],
+            [
+              15,
+              -23,
+              7
+            ]
+          ]
+        },
+        {
+          "tick": 13,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801068e8",
+          "pose_header_sha256": "f78b7d95a3e90507477d78f0449e3e72e7610d3f81afce888eef3d9a4b1b7bb8",
+          "endpoints_source": [
+            [
+              13,
+              -15,
+              -48
+            ],
+            [
+              14,
+              -24,
+              20
+            ]
+          ]
+        },
+        {
+          "tick": 14,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801069e8",
+          "pose_header_sha256": "08be27d1cf283cde773d8455f36b7bc1647823b8937998b8d9b8079dffc22358",
+          "endpoints_source": [
+            [
+              -31,
+              -19,
+              9
+            ],
+            [
+              36,
+              -33,
+              5
+            ]
+          ]
+        },
+        {
+          "tick": 15,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106ae8",
+          "pose_header_sha256": "c9d239f0a740502b169926c5b39662e4183a44b262e57446697e9c5c83b329fe",
+          "endpoints_source": [
+            [
+              -39,
+              -19,
+              16
+            ],
+            [
+              29,
+              -23,
+              13
+            ]
+          ]
+        },
+        {
+          "tick": 16,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106be8",
+          "pose_header_sha256": "ae76e90083e1773e3f797fc5d6a02a45bc67d2ec4e1e743903c0746000392496",
+          "endpoints_source": [
+            [
+              36,
+              -37,
+              -52
+            ],
+            [
+              22,
+              -18,
+              12
+            ]
+          ]
+        }
+      ],
+      "terminal": "pause",
+      "externally_clocked": false,
+      "continuation_of": null
+    },
+    "rotation": {
+      "clip": "Extra__800d5360",
+      "stream": "0x800d5360",
+      "weapon": "lumina",
+      "effect_descriptor": 8,
+      "ticks": 8,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f1fe8",
+          "pose_header_sha256": "fa3cc31d260e220084d853358e3c11e03ec89aba18c70440e956cef2719c4b3d",
+          "endpoints_source": [
+            [
+              -52,
+              -21,
+              -15
+            ],
+            [
+              21,
+              -21,
+              24
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f20e8",
+          "pose_header_sha256": "e28b8a225e2a8b647f8ef29efe8675ebd90ac43e4419b06c863ef81dece3e5fa",
+          "endpoints_source": [
+            [
+              -49,
+              0,
+              -5
+            ],
+            [
+              23,
+              -28,
+              23
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f21e8",
+          "pose_header_sha256": "989d5fe20f47af1c2688790138969a600c1e813ddf1020a193e6f3083830cd3e",
+          "endpoints_source": [
+            [
+              20,
+              -52,
+              78
+            ],
+            [
+              28,
+              -35,
+              -2
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f22e8",
+          "pose_header_sha256": "2b84b12e94746d129a473b8d32d82b8d138aaa93cb6cbd9433ad6045bb5ac699",
+          "endpoints_source": [
+            [
+              51,
+              -59,
+              73
+            ],
+            [
+              23,
+              -34,
+              -1
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f23e8",
+          "pose_header_sha256": "e85d097980342f9093a60b832833549b4dee4994b12bafd381bf6fd85d4f184c",
+          "endpoints_source": [
+            [
+              73,
+              -46,
+              63
+            ],
+            [
+              20,
+              -35,
+              0
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f24e8",
+          "pose_header_sha256": "a52dcf94247ce9db224713d2ae84a9650223f5c66b42c88dcf01eef17ba2875a",
+          "endpoints_source": [
+            [
+              78,
+              -29,
+              -50
+            ],
+            [
+              15,
+              -32,
+              5
+            ]
+          ]
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f25e8",
+          "pose_header_sha256": "147c6f342dd86a74f390cdd90f6b5f1cc60a6298bc987e4869813aa6608976f9",
+          "endpoints_source": [
+            [
+              58,
+              -37,
+              -72
+            ],
+            [
+              11,
+              -31,
+              -2
+            ]
+          ]
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f26e8",
+          "pose_header_sha256": "7e995f09e503f93d3a046836b3973e9f04f7f452613b3c45c1ec4b357116eb57",
+          "endpoints_source": [
+            [
+              -5,
+              -33,
+              -94
+            ],
+            [
+              13,
+              -32,
+              -12
+            ]
+          ]
+        }
+      ],
+      "terminal": "pause",
+      "externally_clocked": false,
+      "continuation_of": null
+    },
+    "rotation_end": {
+      "clip": "Recovered__800d53a4",
+      "stream": "0x800d53a4",
+      "weapon": "lumina",
+      "effect_descriptor": 8,
+      "ticks": 4,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f27e8",
+          "pose_header_sha256": "ed4c7cd61fad0f07858e062e12e70f545177524a647669b38a3c4109897d5ef4",
+          "endpoints_source": [
+            [
+              12,
+              -36,
+              -67
+            ],
+            [
+              19,
+              -27,
+              0
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f28e8",
+          "pose_header_sha256": "b170c676f4c197710074aa06a4c997c0177ffa60c3b265bc83b3680f18a44d21",
+          "endpoints_source": [
+            [
+              -28,
+              -12,
+              31
+            ],
+            [
+              31,
+              -26,
+              2
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f29e8",
+          "pose_header_sha256": "825dd89189b2b5608bc5c8925ebec8870d7d75811707f595a76ab9617e412fdf",
+          "endpoints_source": [
+            [
+              24,
+              -36,
+              -54
+            ],
+            [
+              18,
+              -17,
+              11
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f2ae8",
+          "pose_header_sha256": "0c564cb23da76719892310d27789c39a9e47060d226b86564145d9cfdbb09730",
+          "endpoints_source": [
+            [
+              21,
+              -39,
+              -57
+            ],
+            [
+              16,
+              -13,
+              6
+            ]
+          ]
+        }
+      ],
+      "terminal": "stop",
+      "externally_clocked": false,
+      "continuation_of": "rotation"
+    },
+    "counter": {
+      "clip": "Table_23__800d552c",
+      "stream": "0x800d552c",
+      "weapon": "lumina",
+      "effect_descriptor": 7,
+      "ticks": 21,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f04e8",
+          "pose_header_sha256": "986c1b3140919bcedc3582e7c66eafc9b40a5637f1c960c7d17f92c4bf4ebca6",
+          "endpoints_source": [
+            [
+              -75,
+              -16,
+              -17
+            ],
+            [
+              21,
+              -23,
+              25
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f05e8",
+          "pose_header_sha256": "b36f8f7491d05398938db08f880b8c8f962cc8a47dee23e683758451340bb5e7",
+          "endpoints_source": [
+            [
+              -69,
+              -15,
+              -22
+            ],
+            [
+              21,
+              -29,
+              29
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f06e8",
+          "pose_header_sha256": "ebcd7cc9b7f2990fd995c118735ebb9454476c55323d66b8801da9038d615e23",
+          "endpoints_source": [
+            [
+              34,
+              -13,
+              106
+            ],
+            [
+              11,
+              -46,
+              8
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f07e8",
+          "pose_header_sha256": "53eac445e5d46499bb1024d2a4e8a8ab9ed77af9d6dbee9553f0649776fc1784",
+          "endpoints_source": [
+            [
+              3,
+              -14,
+              103
+            ],
+            [
+              16,
+              -50,
+              3
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f08e8",
+          "pose_header_sha256": "eed2d7c8ce269223a4938f8bd7d7901ad6a53d5979275fad112693909101fd0e",
+          "endpoints_source": [
+            [
+              -18,
+              -31,
+              97
+            ],
+            [
+              20,
+              -51,
+              0
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f09e8",
+          "pose_header_sha256": "e8ef56986d66a5bb777f9a9f9f3bf3261e9c6150e7f65e158a5fc5b35e117540",
+          "endpoints_source": [
+            [
+              -3,
+              -49,
+              99
+            ],
+            [
+              19,
+              -50,
+              -4
+            ]
+          ]
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f0ae8",
+          "pose_header_sha256": "f9312334c9574d4deb9aa3669a5444e1adc269e6c2fe7871a10a9ff43be1a191",
+          "endpoints_source": [
+            [
+              7,
+              -73,
+              94
+            ],
+            [
+              18,
+              -50,
+              -7
+            ]
+          ]
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f0be8",
+          "pose_header_sha256": "0368e2bda276273ea1b616b0d36115de281a64d036ada45d99109a74f16cda17",
+          "endpoints_source": [
+            [
+              11,
+              -95,
+              83
+            ],
+            [
+              18,
+              -49,
+              -10
+            ]
+          ]
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f0ce8",
+          "pose_header_sha256": "4d1d6ca473600ed73fec9936a380db1ee3f45809dde372c929d0ed1bbb19fd97",
+          "endpoints_source": [
+            [
+              14,
+              -96,
+              83
+            ],
+            [
+              18,
+              -50,
+              -11
+            ]
+          ]
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f0de8",
+          "pose_header_sha256": "1fff2ebfca7c3b8a4ea645ac84bcc2277fbba58a6c4500e5c01f1d4337626ccf",
+          "endpoints_source": [
+            [
+              -4,
+              -116,
+              -66
+            ],
+            [
+              11,
+              -21,
+              -21
+            ]
+          ]
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f0ee8",
+          "pose_header_sha256": "01e4d4e7bcbe5c80159a514ef4a74d11448a970ec658c25371761be84d01c7c9",
+          "endpoints_source": [
+            [
+              -3,
+              -76,
+              -104
+            ],
+            [
+              8,
+              -16,
+              -18
+            ]
+          ]
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f0fe8",
+          "pose_header_sha256": "8eea75ea0017d9af55c388f9c042f1c9679116403fa29b74222f4749b7a4fec9",
+          "endpoints_source": [
+            [
+              0,
+              -6,
+              -120
+            ],
+            [
+              5,
+              -16,
+              -15
+            ]
+          ]
+        },
+        {
+          "tick": 12,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f10e8",
+          "pose_header_sha256": "57767e76047f2675d903d9c3e59939461c7ac37cb6140b24ced3f5553dc2a063",
+          "endpoints_source": [
+            [
+              -1,
+              -7,
+              -120
+            ],
+            [
+              5,
+              -16,
+              -15
+            ]
+          ]
+        },
+        {
+          "tick": 13,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f11e8",
+          "pose_header_sha256": "07c38ea4a7f3d856f75e0e22b54f57152ba414fa521a274c157716b39f3f161a",
+          "endpoints_source": [
+            [
+              -4,
+              -10,
+              -120
+            ],
+            [
+              5,
+              -16,
+              -15
+            ]
+          ]
+        },
+        {
+          "tick": 14,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f12e8",
+          "pose_header_sha256": "1422383e4d364e281d581903bf35df4e8a71cffee140fb76e727d271b54417ba",
+          "endpoints_source": [
+            [
+              -9,
+              -15,
+              -119
+            ],
+            [
+              6,
+              -15,
+              -14
+            ]
+          ]
+        },
+        {
+          "tick": 15,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f13e8",
+          "pose_header_sha256": "6d96f2e26b2b53a2c5d15e96697859380634af5c4a6b3a5e162bdf6470186e0a",
+          "endpoints_source": [
+            [
+              -7,
+              -9,
+              -104
+            ],
+            [
+              14,
+              -23,
+              -1
+            ]
+          ]
+        },
+        {
+          "tick": 16,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f14e8",
+          "pose_header_sha256": "22178fdc3cf3d932d59adc07776038e4bfeae1b62732cf1bff441841466012bd",
+          "endpoints_source": [
+            [
+              17,
+              -8,
+              -97
+            ],
+            [
+              13,
+              -24,
+              7
+            ]
+          ]
+        },
+        {
+          "tick": 17,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f15e8",
+          "pose_header_sha256": "5cb92a6bb15f99ad71693d491f8cc215045c62173dfacd87ce798a39cbc9f692",
+          "endpoints_source": [
+            [
+              25,
+              -1,
+              -82
+            ],
+            [
+              13,
+              -25,
+              20
+            ]
+          ]
+        },
+        {
+          "tick": 18,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f16e8",
+          "pose_header_sha256": "d8925d59b7e8dba3faf6b36b2a99663e216cb128e5325dc1efb218fb261dc38a",
+          "endpoints_source": [
+            [
+              -67,
+              -12,
+              12
+            ],
+            [
+              36,
+              -33,
+              5
+            ]
+          ]
+        },
+        {
+          "tick": 19,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f17e8",
+          "pose_header_sha256": "865395460d44f4218945611173afd930853e92e0f28c7165cd414bde259f9bc7",
+          "endpoints_source": [
+            [
+              -75,
+              -17,
+              18
+            ],
+            [
+              29,
+              -23,
+              13
+            ]
+          ]
+        },
+        {
+          "tick": 20,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f18e8",
+          "pose_header_sha256": "a274875954c4262f59c35cf011497f811c7874acaadd31a09196276fa78baf1c",
+          "endpoints_source": [
+            [
+              44,
+              -46,
+              -87
+            ],
+            [
+              22,
+              -18,
+              12
+            ]
+          ]
+        }
+      ],
+      "terminal": "stop",
+      "externally_clocked": false,
+      "continuation_of": null
+    }
+  },
+  "raw_assets": [
+    {
+      "path": "sword/timing_and_length_tables.bin",
+      "source": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "address": "0x80181b6c",
+      "source_offset": 367124,
+      "byte_length": 76,
+      "sha256": "cdfbd33d2335bb73580dcb2d32b0d14d3ea648c8f8083a57b1ea6b3226123555",
+      "purpose": "Two original byte-pair delay/duration tables and length-divisor tables"
+    },
+    {
+      "path": "sword/draw_gouraud_ribbon.bin",
+      "source": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "address": "0x80166690",
+      "source_offset": 255288,
+      "byte_length": 772,
+      "sha256": "2d1300cde9193b90c88e3add8a34b723ebca3ee69b8d0155bb82af381c73197e",
+      "purpose": "draw_gouraud_ribbon"
+    },
+    {
+      "path": "sword/record_midpoint_and_fade.bin",
+      "source": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "address": "0x80166994",
+      "source_offset": 256060,
+      "byte_length": 1476,
+      "sha256": "e53f4c9ce6239941a06f90818b9eab64ab8445018c8c4e39bb103becd039262b",
+      "purpose": "record_midpoint_and_fade"
+    },
+    {
+      "path": "sword/fusion_states.bin",
+      "source": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "address": "0x801681fc",
+      "source_offset": 262308,
+      "byte_length": 564,
+      "sha256": "4a11944dc8e1a6b88cf5bf4e8df03f40f96288e1e5ce2f4937f3176d7ba3eaed",
+      "purpose": "fusion_states"
+    },
+    {
+      "path": "sword/lumina_states.bin",
+      "source": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "address": "0x80168430",
+      "source_offset": 262872,
+      "byte_length": 528,
+      "sha256": "f877b0961c86ff1d2ec589ca3c0904b9bf23efac967ba49a1c39a114ebc49ecd",
+      "purpose": "lumina_states"
+    },
+    {
+      "path": "sword/endpoint_header_selection.bin",
+      "source": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "address": "0x801484b0",
+      "source_offset": 131928,
+      "byte_length": 264,
+      "sha256": "dd6e9beca9b840083a0ef65a614e5635a7c19642239a3bf501429dede42d300a",
+      "purpose": "endpoint_header_selection"
+    },
+    {
+      "path": "sword/signed_endpoint_decoder.bin",
+      "source": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "address": "0x801485b8",
+      "source_offset": 132192,
+      "byte_length": 124,
+      "sha256": "954e335134558cc4ded10e5b58d801c26fcdf342c553425769ffac91f3010a69",
+      "purpose": "signed_endpoint_decoder"
+    },
+    {
+      "path": "sword/endpoint_rotation.bin",
+      "source": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "address": "0x80165fa4",
+      "source_offset": 253516,
+      "byte_length": 116,
+      "sha256": "81f495dda49f3a40bbf8b781f0b22848cfa1ac171e6e4d912469af14baad94a3",
+      "purpose": "endpoint_rotation"
+    },
+    {
+      "path": "sword/endpoint_world_transform.bin",
+      "source": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "address": "0x80149350",
+      "source_offset": 135672,
+      "byte_length": 36,
+      "sha256": "ca5079f9128efd5886e92e7a7cc1a7fb1d81aacff384abce7772611418b9f487",
+      "purpose": "endpoint_world_transform"
+    },
+    {
+      "path": "sword/endpoint_gte_transform.bin",
+      "source": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "address": "0x8012f14c",
+      "source_offset": 28660,
+      "byte_length": 64,
+      "sha256": "e8c1ff0adf71c5ee8634a6573cb006825b0d7e0b1cdd0b43cbff9cc5279a766a",
+      "purpose": "endpoint_gte_transform"
+    },
+    {
+      "path": "sword/ground_fusion_initializer.bin",
+      "source": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "address": "0x801555f4",
+      "source_offset": 185500,
+      "byte_length": 548,
+      "sha256": "708692f2d2d4279b44d7137d984fe1315166f3214c0f777cc593d9b240a9ccd6",
+      "purpose": "ground_fusion_initializer"
+    },
+    {
+      "path": "sword/ground_lumina_initializer.bin",
+      "source": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "address": "0x80157e38",
+      "source_offset": 195808,
+      "byte_length": 124,
+      "sha256": "b442a7fffdb3b327f7385d8551d406b0ec9a5500e3a92443e39210c93aca972f",
+      "purpose": "ground_lumina_initializer"
+    },
+    {
+      "path": "sword/air_fusion_initializer.bin",
+      "source": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "address": "0x8015b6f4",
+      "source_offset": 210332,
+      "byte_length": 192,
+      "sha256": "024cbceb7e883f1a73fd48410134cb709695aa10c32bae852440ba1ac552a1fb",
+      "purpose": "air_fusion_initializer"
+    },
+    {
+      "path": "sword/air_lumina_initializer.bin",
+      "source": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "address": "0x8015b7b4",
+      "source_offset": 210524,
+      "byte_length": 188,
+      "sha256": "e2e8694d33acde7beddbe456744b22d52f205ce3bcab2526aad54a00962dd8b9",
+      "purpose": "air_lumina_initializer"
+    },
+    {
+      "path": "sword/effect_actor_dispatch.bin",
+      "source": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "address": "0x801a1d3c",
+      "source_offset": 498660,
+      "byte_length": 28,
+      "sha256": "2fed9b5e02c9b97f2e7c70ca7ee03afec7504edeb21c1a07af21e0dad0a280cd",
+      "purpose": "Effect queue type4 and5 select 80166618 and80166654"
+    },
+    {
+      "path": "sword/trail_state_dispatch.bin",
+      "source": "raw/SC01.CD.dir/FILE_000.dir/0.4.dec",
+      "address": "0x80181bb8",
+      "source_offset": 367200,
+      "byte_length": 32,
+      "sha256": "e6930dff7d3647633740614dbfa7921e289827a3d0b8215c0226e7de6e03e7fb",
+      "purpose": "Four-state Fusion and Lumina dispatch tables"
+    },
+    {
+      "path": "sword/poly_g4_builder.bin",
+      "source": "raw/SLUS_007.26",
+      "address": "0x80017758",
+      "source_offset": 32600,
+      "byte_length": 368,
+      "sha256": "7cfa2f778860ded3f26aa68929721c8ade82c586167a1d8035b7b2daa86c1481",
+      "purpose": "Untextured POLY_G4; RGB byte ordering and submission flags"
+    },
+    {
+      "path": "sword/primitive_additive_submit.bin",
+      "source": "raw/SLUS_007.26",
+      "address": "0x80018094",
+      "source_offset": 34964,
+      "byte_length": 256,
+      "sha256": "71f6173fe63ac65906671fe5f0b56ce7c799199153af963059b76599a72d9015",
+      "purpose": "0x40000000 enables semitransparency, flag bits28..29 select ABR"
+    },
+    {
+      "path": "sword/pose_headers.bin",
+      "source": "raw/MAIN.CD.dir/FILE_010.dir/1.1",
+      "format": "repeated little-endian u32 VRAM address + 16 raw pose-header bytes",
+      "byte_length": 2760,
+      "count": 138,
+      "sha256": "d3c12e994b84a57525485d44f6be06848a8f6db9f588bbe2fe080ea71b00f5c9"
+    }
+  ],
+  "limitations": [
+    "Source quad topology/colors/tables and signed pose endpoints are recovered. Host rasterization, PS1 color quantization/dithering and GTE integer precision require separate parity validation.",
+    "Absolute first effect tick depends on original actor-queue update order; manifest exposes wait/init/record phases instead of claiming contact-frame alignment.",
+    "The semantic in-game name of save flag0x81 is not established here; do not infer it from full equipment.",
+    "This manifest covers sword ribbons, including ordinary Rotation and Mighty Strike. Collision/contact flashes and the Mighty Strike vortex have independent source paths."
+  ]
+}

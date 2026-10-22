@@ -1,0 +1,245 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "source": "assets/economy_v1/gold_mine/goldmine_v1.glb",
+      "output": "assets/optimized/goldmine.glb",
+      "source_sha256": "bf5d35b5ef670dc00bb8b3c397913dd57672fb3fc976202f4ac8be2726b975bf",
+      "output_sha256": "eba6c3d5813d75fbbf6b2d44506c9a7dd0e39f14e753bca5440329b879b7bcc4",
+      "before": {
+        "path": "assets/economy_v1/gold_mine/goldmine_v1.glb",
+        "sha256": "bf5d35b5ef670dc00bb8b3c397913dd57672fb3fc976202f4ac8be2726b975bf",
+        "bytes": 1121244,
+        "category": "building",
+        "triangles": 9404,
+        "vertices": 21562,
+        "mesh_instances": 248,
+        "surfaces": 421,
+        "materials": 18,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "skins": 0,
+        "joints": [],
+        "animations": 4,
+        "issues": [
+          "surfaces 421 > budget 32"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/goldmine.glb",
+        "sha256": "eba6c3d5813d75fbbf6b2d44506c9a7dd0e39f14e753bca5440329b879b7bcc4",
+        "bytes": 957416,
+        "category": "building",
+        "triangles": 9404,
+        "vertices": 21562,
+        "mesh_instances": 14,
+        "surfaces": 49,
+        "materials": 18,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "skins": 0,
+        "joints": [],
+        "animations": 4,
+        "issues": [
+          "surfaces 49 > budget 32"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 1.1755571538429876e-07,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "goldmine"
+    },
+    {
+      "source": "assets/characters/recovered_musashi/musashi.glb",
+      "output": "assets/optimized/musashi.glb",
+      "source_sha256": "916f16e6127f8ac2c37064d8d979d657b314b8d60e970090228a309f0991455e",
+      "output_sha256": "ab6ee24ef4e666c03bfb208eabbc31b4e574f0b33cef2ba9adc5c3e5aaf6fa4f",
+      "before": {
+        "path": "assets/characters/recovered_musashi/musashi.glb",
+        "sha256": "916f16e6127f8ac2c37064d8d979d657b314b8d60e970090228a309f0991455e",
+        "bytes": 3235548,
+        "category": "hero",
+        "triangles": 724,
+        "vertices": 2172,
+        "mesh_instances": 31,
+        "surfaces": 43,
+        "materials": 43,
+        "duplicate_materials": 37,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "e7a1fe9d59c36f19425775da36f7ab6d428d033a3ba0cda6b06fe3ba4ff5f69e",
+            "bytes": 27739,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_1",
+            "sha256": "034861d3f8bfdabb78522bcc5f5abe0353857567f07c1ee0a4e383ec2b8e0078",
+            "bytes": 28156,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "Image_0",
+            "sha256": "a9b3e42538b2df01306934cc1d462c7d99f96808cf55e0c682e28f7946db54f0",
+            "bytes": 27969,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 3,
+            "name": "Image_0",
+            "sha256": "e82802e31e46235c9225c1a82becece5a35ee1717788682ab34c5e112c5b6f2f",
+            "bytes": 27983,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 4,
+            "name": "Image_0",
+            "sha256": "fd1c2ea011df6313607aa7e4beff15904f22f0157c8848b1737fa0bc667bc07a",
+            "bytes": 28011,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 1747625,
+        "skins": 1,
+        "joints": [
+          32
+        ],
+        "animations": 79,
+        "issues": [
+          "surfaces 43 > budget 8"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/musashi.glb",
+        "sha256": "ab6ee24ef4e666c03bfb208eabbc31b4e574f0b33cef2ba9adc5c3e5aaf6fa4f",
+        "bytes": 3197792,
+        "category": "hero",
+        "triangles": 724,
+        "vertices": 2172,
+        "mesh_instances": 1,
+        "surfaces": 9,
+        "materials": 6,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "e7a1fe9d59c36f19425775da36f7ab6d428d033a3ba0cda6b06fe3ba4ff5f69e",
+            "bytes": 27739,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_1",
+            "sha256": "034861d3f8bfdabb78522bcc5f5abe0353857567f07c1ee0a4e383ec2b8e0078",
+            "bytes": 28156,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "Image_0",
+            "sha256": "a9b3e42538b2df01306934cc1d462c7d99f96808cf55e0c682e28f7946db54f0",
+            "bytes": 27969,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 3,
+            "name": "Image_0",
+            "sha256": "e82802e31e46235c9225c1a82becece5a35ee1717788682ab34c5e112c5b6f2f",
+            "bytes": 27983,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 4,
+            "name": "Image_0",
+            "sha256": "fd1c2ea011df6313607aa7e4beff15904f22f0157c8848b1737fa0bc667bc07a",
+            "bytes": 28011,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 1747625,
+        "skins": 1,
+        "joints": [
+          32
+        ],
+        "animations": 79,
+        "issues": [
+          "surfaces 9 > budget 8"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 3.6726886754046006e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "musashi"
+    }
+  ]
+}

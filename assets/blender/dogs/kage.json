@@ -1,0 +1,27 @@
+{
+  "id": "kage",
+  "name": "Kage",
+  "breed": "shepherd",
+  "gear": "leaves",
+  "source": "assets/blender/dogs/kage.blend",
+  "model": "assets/models/dogs/kage.glb",
+  "portrait": "assets/ui/dogs/kage.png",
+  "triangles": 11796,
+  "meshes": 1,
+  "materials": 4,
+  "bones": 28,
+  "deform_bones": 24,
+  "animations": {
+    "idle": 2.0,
+    "run": 0.8,
+    "attack": 1.0,
+    "hurt": 0.45,
+    "death": 0.9
+  },
+  "attack_contact": 0.38,
+  "run_reference_speed": 2.4,
+  "forward": "Godot -Z",
+  "reference": "asset_packs/ninja_dogs/references/03-kage-bramble-ambusher.png",
+  "reference_sha256": "9038b78ffceaac93cbc6d7e9671c0216181e3d9b1b0384e6ae7d9cc593ebcee9",
+  "glb_sha256": "553c816219b2a00cb6c4d3860ffd8288bfbe400357713b9867d7c7fdbe01c725"
+}

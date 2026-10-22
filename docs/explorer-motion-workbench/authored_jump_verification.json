@@ -1,0 +1,62 @@
+{
+  "source_inputs": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/explorer-motion-workbench/jump_user_inputs.json",
+  "snapshot": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/explorer-motion-workbench/Explorer_Before_Connected_Jump_20261016_135537.blend",
+  "backup_action": "Jump_Before_Connecting_20261016_135537",
+  "confirmed_mapping": {
+    "launch_landing": "keyed frame 1",
+    "airborne": "captured live frame 3"
+  },
+  "anchors": [
+    [
+      1,
+      "launch"
+    ],
+    [
+      7,
+      "launch"
+    ],
+    [
+      22,
+      "air"
+    ],
+    [
+      43,
+      "air"
+    ],
+    [
+      60,
+      "air"
+    ],
+    [
+      76,
+      "launch"
+    ],
+    [
+      80,
+      "launch"
+    ],
+    [
+      91,
+      "idle"
+    ]
+  ],
+  "markers": {
+    "Launch / landing pose": 1,
+    "Push off": 7,
+    "Airborne pose": 22,
+    "Apex": 43,
+    "Descent": 60,
+    "Land": 76,
+    "Recover": 80,
+    "Return to idle": 91
+  },
+  "frames_checked": 91,
+  "fps": 60,
+  "duration_seconds": 1.5,
+  "exact_user_pose_error": 5.811452865600586e-07,
+  "blade_grip_error": 1.0989606380462646e-06,
+  "weapon_follow_error": 0.0,
+  "max_bone_step_m": 0.1560072311639437,
+  "idle_run_unchanged": true,
+  "in_place": true
+}

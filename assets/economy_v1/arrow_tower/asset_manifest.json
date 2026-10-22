@@ -1,0 +1,1187 @@
+{
+  "asset": "Fire Siege Japanese-inspired arrow tower",
+  "version": "1.0",
+  "native_format": "Blender 4.3.2",
+  "units": "meters",
+  "blender_axes": {
+    "up": "+Z",
+    "forward": "-Y",
+    "pivot": "ground-center (0,0,0)"
+  },
+  "gltf_axes": {
+    "up": "+Y",
+    "forward": "+Z",
+    "conversion": "standard Blender glTF axis conversion"
+  },
+  "core_footprint_m": [
+    2.8,
+    2.75
+  ],
+  "bounds_complete_m": {
+    "min": [
+      -1.7750000953674316,
+      -1.7200000286102295,
+      0.0
+    ],
+    "max": [
+      1.7750000953674316,
+      1.7050000429153442,
+      3.7850000858306885
+    ]
+  },
+  "mesh_count": 170,
+  "evaluated_vertices": 10369,
+  "evaluated_triangles": 20052,
+  "materials": [
+    "FS_Timber_Cedar",
+    "FS_Timber_Edge",
+    "FS_Timber_Endgrain",
+    "FS_Iron",
+    "FS_Iron_Edge",
+    "FS_Stone_Gray",
+    "FS_Stone_Light",
+    "FS_Roof_Slate",
+    "FS_Roof_Slate_Light",
+    "FS_Rope",
+    "FS_Gold"
+  ],
+  "stages": {
+    "empty": 0,
+    "frame": 1,
+    "assembling": 2,
+    "complete": 3
+  },
+  "stage_scene_note": "Each STAGE scene owns a discrete independently inspectable collection. GLB stage exports contain cumulative parts at that stage.",
+  "animation": {
+    "fps": 24,
+    "frame_start": 1,
+    "frame_end": 180,
+    "build": [
+      1,
+      72
+    ],
+    "fire": [
+      79,
+      91
+    ],
+    "reverse": [
+      109,
+      180
+    ],
+    "gltf_clip": "Tower_Build_Recoil_Reverse",
+    "animated_channels": "scale/location, no visibility keys needed",
+    "gltf_duration_seconds": 7.458333333333333,
+    "progress_to_seconds": "p * 71 / 24",
+    "channel_count": 313,
+    "godot_import_fps": 24,
+    "start_seconds": 0,
+    "reverse_progress_to_seconds": "108 / 24 + (1 - p) * 71 / 24",
+    "godot_default_30fps_note": "Resampling softens short endpoints. Verified exact timing uses import bake FPS 24."
+  },
+  "mounting": "Ground version includes four stone feet. Wall collar is separate GLB, pivot at wall top; remove stone_foot_* meshes for wall placement, attach collar and tower at same wall-top origin. Wall mesh is not included.",
+  "sockets": {
+    "SOCKET_ARROW_MUZZLE": [
+      0,
+      -1.73,
+      1.86
+    ],
+    "SOCKET_BUILD_FX": [
+      0,
+      0,
+      3.9
+    ],
+    "launcher_upgrade_pivot": [
+      0,
+      -0.05,
+      0.59
+    ]
+  },
+  "gameplay_not_implemented": {
+    "starting_towers": 0,
+    "wall_sites": 4,
+    "entrance_sites": 8,
+    "input": "Hold B; release progress decays, resume from remaining",
+    "cost_on_completion_gold": 5,
+    "enemy_hp": 100,
+    "arrow_damage": 50,
+    "fire_interval_seconds": 0.5,
+    "shots_per_second": 2,
+    "combat_drain": {
+      "required": true,
+      "basis": "time-based per built tower during combat",
+      "gold_per_second": null,
+      "zero_wallet_behavior": null,
+      "status": "rate and zero-wallet behavior unresolved"
+    }
+  },
+  "upgrade_note": "Cannon level count unresolved; no fixed upgrade levels encoded.",
+  "parts": [
+    {
+      "stable_id": "firesiege.tower.stone_foot_l_f",
+      "name": "stone_foot_L_F",
+      "stage_min": 0,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.stone_foot_l_b",
+      "name": "stone_foot_L_B",
+      "stage_min": 0,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.stone_foot_r_f",
+      "name": "stone_foot_R_F",
+      "stage_min": 0,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.stone_foot_r_b",
+      "name": "stone_foot_R_B",
+      "stage_min": 0,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.base_beam_front",
+      "name": "base_beam_front",
+      "stage_min": 0,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.base_beam_back",
+      "name": "base_beam_back",
+      "stage_min": 0,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.base_beam_left",
+      "name": "base_beam_left",
+      "stage_min": 0,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.base_beam_right",
+      "name": "base_beam_right",
+      "stage_min": 0,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.deck_plank_00",
+      "name": "deck_plank_00",
+      "stage_min": 0,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.deck_plank_01",
+      "name": "deck_plank_01",
+      "stage_min": 0,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.deck_plank_02",
+      "name": "deck_plank_02",
+      "stage_min": 0,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.deck_plank_03",
+      "name": "deck_plank_03",
+      "stage_min": 0,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.deck_plank_04",
+      "name": "deck_plank_04",
+      "stage_min": 0,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.deck_plank_05",
+      "name": "deck_plank_05",
+      "stage_min": 0,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.deck_plank_06",
+      "name": "deck_plank_06",
+      "stage_min": 0,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.post_lf",
+      "name": "post_LF",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.post_iron_lf_low",
+      "name": "post_iron_LF_low",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.bolt_lf_low_x",
+      "name": "bolt_LF_low_X",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.bolt_lf_low_y",
+      "name": "bolt_LF_low_Y",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.post_iron_lf_high",
+      "name": "post_iron_LF_high",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.bolt_lf_high_x",
+      "name": "bolt_LF_high_X",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.bolt_lf_high_y",
+      "name": "bolt_LF_high_Y",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.post_cap_lf",
+      "name": "post_cap_LF",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.post_lb",
+      "name": "post_LB",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.post_iron_lb_low",
+      "name": "post_iron_LB_low",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.bolt_lb_low_x",
+      "name": "bolt_LB_low_X",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.bolt_lb_low_y",
+      "name": "bolt_LB_low_Y",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.post_iron_lb_high",
+      "name": "post_iron_LB_high",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.bolt_lb_high_x",
+      "name": "bolt_LB_high_X",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.bolt_lb_high_y",
+      "name": "bolt_LB_high_Y",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.post_cap_lb",
+      "name": "post_cap_LB",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.post_rf",
+      "name": "post_RF",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.post_iron_rf_low",
+      "name": "post_iron_RF_low",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.bolt_rf_low_x",
+      "name": "bolt_RF_low_X",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.bolt_rf_low_y",
+      "name": "bolt_RF_low_Y",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.post_iron_rf_high",
+      "name": "post_iron_RF_high",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.bolt_rf_high_x",
+      "name": "bolt_RF_high_X",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.bolt_rf_high_y",
+      "name": "bolt_RF_high_Y",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.post_cap_rf",
+      "name": "post_cap_RF",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.post_rb",
+      "name": "post_RB",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.post_iron_rb_low",
+      "name": "post_iron_RB_low",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.bolt_rb_low_x",
+      "name": "bolt_RB_low_X",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.bolt_rb_low_y",
+      "name": "bolt_RB_low_Y",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.post_iron_rb_high",
+      "name": "post_iron_RB_high",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.bolt_rb_high_x",
+      "name": "bolt_RB_high_X",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.bolt_rb_high_y",
+      "name": "bolt_RB_high_Y",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.post_cap_rb",
+      "name": "post_cap_RB",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.upper_beam_front",
+      "name": "upper_beam_front",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.upper_beam_back",
+      "name": "upper_beam_back",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.upper_beam_left",
+      "name": "upper_beam_left",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.upper_beam_right",
+      "name": "upper_beam_right",
+      "stage_min": 1,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.knee_lf",
+      "name": "knee_LF",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.knee_rf",
+      "name": "knee_RF",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.knee_lb",
+      "name": "knee_LB",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.knee_rb",
+      "name": "knee_RB",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.rail_left",
+      "name": "rail_left",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.baluster_left0",
+      "name": "baluster_left0",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.baluster_left1",
+      "name": "baluster_left1",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.baluster_left2",
+      "name": "baluster_left2",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.sill_left",
+      "name": "sill_left",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.rail_right",
+      "name": "rail_right",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.baluster_right0",
+      "name": "baluster_right0",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.baluster_right1",
+      "name": "baluster_right1",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.baluster_right2",
+      "name": "baluster_right2",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.sill_right",
+      "name": "sill_right",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.rail_back",
+      "name": "rail_back",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.baluster_back0",
+      "name": "baluster_back0",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.baluster_back1",
+      "name": "baluster_back1",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.baluster_back2",
+      "name": "baluster_back2",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.front_deck_lip",
+      "name": "front_deck_lip",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.side_iron_foot_left",
+      "name": "side_iron_foot_left",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.side_iron_foot_right",
+      "name": "side_iron_foot_right",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_0_0",
+      "name": "roof_L_0_0",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_0_1",
+      "name": "roof_L_0_1",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_0_2",
+      "name": "roof_L_0_2",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_0_3",
+      "name": "roof_L_0_3",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_0_4",
+      "name": "roof_L_0_4",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_1_0",
+      "name": "roof_L_1_0",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_1_1",
+      "name": "roof_L_1_1",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_1_2",
+      "name": "roof_L_1_2",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_1_3",
+      "name": "roof_L_1_3",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_1_4",
+      "name": "roof_L_1_4",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_2_0",
+      "name": "roof_L_2_0",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_2_1",
+      "name": "roof_L_2_1",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_2_2",
+      "name": "roof_L_2_2",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_2_3",
+      "name": "roof_L_2_3",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_2_4",
+      "name": "roof_L_2_4",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_3_0",
+      "name": "roof_L_3_0",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_3_1",
+      "name": "roof_L_3_1",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_3_2",
+      "name": "roof_L_3_2",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_3_3",
+      "name": "roof_L_3_3",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_l_3_4",
+      "name": "roof_L_3_4",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.fascia_l_front0",
+      "name": "fascia_L_front0",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.fascia_l_front1",
+      "name": "fascia_L_front1",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.fascia_l_front2",
+      "name": "fascia_L_front2",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.fascia_l_front3",
+      "name": "fascia_L_front3",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.eave_tip_l_front",
+      "name": "eave_tip_L_front",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.fascia_l_back0",
+      "name": "fascia_L_back0",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.fascia_l_back1",
+      "name": "fascia_L_back1",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.fascia_l_back2",
+      "name": "fascia_L_back2",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.fascia_l_back3",
+      "name": "fascia_L_back3",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.eave_tip_l_back",
+      "name": "eave_tip_L_back",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_eave_l",
+      "name": "roof_eave_L",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_0_0",
+      "name": "roof_R_0_0",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_0_1",
+      "name": "roof_R_0_1",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_0_2",
+      "name": "roof_R_0_2",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_0_3",
+      "name": "roof_R_0_3",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_0_4",
+      "name": "roof_R_0_4",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_1_0",
+      "name": "roof_R_1_0",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_1_1",
+      "name": "roof_R_1_1",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_1_2",
+      "name": "roof_R_1_2",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_1_3",
+      "name": "roof_R_1_3",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_1_4",
+      "name": "roof_R_1_4",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_2_0",
+      "name": "roof_R_2_0",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_2_1",
+      "name": "roof_R_2_1",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_2_2",
+      "name": "roof_R_2_2",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_2_3",
+      "name": "roof_R_2_3",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_2_4",
+      "name": "roof_R_2_4",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_3_0",
+      "name": "roof_R_3_0",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_3_1",
+      "name": "roof_R_3_1",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_3_2",
+      "name": "roof_R_3_2",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_3_3",
+      "name": "roof_R_3_3",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_r_3_4",
+      "name": "roof_R_3_4",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.fascia_r_front0",
+      "name": "fascia_R_front0",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.fascia_r_front1",
+      "name": "fascia_R_front1",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.fascia_r_front2",
+      "name": "fascia_R_front2",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.fascia_r_front3",
+      "name": "fascia_R_front3",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.eave_tip_r_front",
+      "name": "eave_tip_R_front",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.fascia_r_back0",
+      "name": "fascia_R_back0",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.fascia_r_back1",
+      "name": "fascia_R_back1",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.fascia_r_back2",
+      "name": "fascia_R_back2",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.fascia_r_back3",
+      "name": "fascia_R_back3",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.eave_tip_r_back",
+      "name": "eave_tip_R_back",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_eave_r",
+      "name": "roof_eave_R",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.roof_ridge",
+      "name": "roof_ridge",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.ridge_finial_front",
+      "name": "ridge_finial_front",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.gable_left_front",
+      "name": "gable_left_front",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.gable_right_front",
+      "name": "gable_right_front",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.ridge_finial_back",
+      "name": "ridge_finial_back",
+      "stage_min": 3,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.gable_left_back",
+      "name": "gable_left_back",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.gable_right_back",
+      "name": "gable_right_back",
+      "stage_min": 2,
+      "parent": "TOWER_ROOT"
+    },
+    {
+      "stable_id": "firesiege.tower.launcher_turntable",
+      "name": "launcher_turntable",
+      "stage_min": 2,
+      "parent": "LAUNCHER_YAW"
+    },
+    {
+      "stable_id": "firesiege.tower.launcher_wood_plate",
+      "name": "launcher_wood_plate",
+      "stage_min": 2,
+      "parent": "LAUNCHER_YAW"
+    },
+    {
+      "stable_id": "firesiege.tower.launcher_pedestal",
+      "name": "launcher_pedestal",
+      "stage_min": 2,
+      "parent": "LAUNCHER_YAW"
+    },
+    {
+      "stable_id": "firesiege.tower.launcher_pedestal_iron",
+      "name": "launcher_pedestal_iron",
+      "stage_min": 2,
+      "parent": "LAUNCHER_YAW"
+    },
+    {
+      "stable_id": "firesiege.tower.launcher_fork_l",
+      "name": "launcher_fork_L",
+      "stage_min": 2,
+      "parent": "LAUNCHER_YAW"
+    },
+    {
+      "stable_id": "firesiege.tower.launcher_axle_l",
+      "name": "launcher_axle_L",
+      "stage_min": 2,
+      "parent": "LAUNCHER_YAW"
+    },
+    {
+      "stable_id": "firesiege.tower.launcher_fork_r",
+      "name": "launcher_fork_R",
+      "stage_min": 2,
+      "parent": "LAUNCHER_YAW"
+    },
+    {
+      "stable_id": "firesiege.tower.launcher_axle_r",
+      "name": "launcher_axle_R",
+      "stage_min": 2,
+      "parent": "LAUNCHER_YAW"
+    },
+    {
+      "stable_id": "firesiege.tower.crossbow_stock",
+      "name": "crossbow_stock",
+      "stage_min": 2,
+      "parent": "LAUNCHER_RECOIL"
+    },
+    {
+      "stable_id": "firesiege.tower.crossbow_slide",
+      "name": "crossbow_slide",
+      "stage_min": 2,
+      "parent": "LAUNCHER_RECOIL"
+    },
+    {
+      "stable_id": "firesiege.tower.crossbow_lock",
+      "name": "crossbow_lock",
+      "stage_min": 2,
+      "parent": "LAUNCHER_RECOIL"
+    },
+    {
+      "stable_id": "firesiege.tower.bow_limb_l0",
+      "name": "bow_limb_L0",
+      "stage_min": 2,
+      "parent": "LAUNCHER_RECOIL"
+    },
+    {
+      "stable_id": "firesiege.tower.bow_limb_l1",
+      "name": "bow_limb_L1",
+      "stage_min": 2,
+      "parent": "LAUNCHER_RECOIL"
+    },
+    {
+      "stable_id": "firesiege.tower.bow_limb_l2",
+      "name": "bow_limb_L2",
+      "stage_min": 2,
+      "parent": "LAUNCHER_RECOIL"
+    },
+    {
+      "stable_id": "firesiege.tower.bow_tip_l",
+      "name": "bow_tip_L",
+      "stage_min": 2,
+      "parent": "LAUNCHER_RECOIL"
+    },
+    {
+      "stable_id": "firesiege.tower.bow_string_l",
+      "name": "bow_string_L",
+      "stage_min": 2,
+      "parent": "LAUNCHER_RECOIL"
+    },
+    {
+      "stable_id": "firesiege.tower.limb_iron_binding_l",
+      "name": "limb_iron_binding_L",
+      "stage_min": 2,
+      "parent": "LAUNCHER_RECOIL"
+    },
+    {
+      "stable_id": "firesiege.tower.bow_limb_r0",
+      "name": "bow_limb_R0",
+      "stage_min": 2,
+      "parent": "LAUNCHER_RECOIL"
+    },
+    {
+      "stable_id": "firesiege.tower.bow_limb_r1",
+      "name": "bow_limb_R1",
+      "stage_min": 2,
+      "parent": "LAUNCHER_RECOIL"
+    },
+    {
+      "stable_id": "firesiege.tower.bow_limb_r2",
+      "name": "bow_limb_R2",
+      "stage_min": 2,
+      "parent": "LAUNCHER_RECOIL"
+    },
+    {
+      "stable_id": "firesiege.tower.bow_tip_r",
+      "name": "bow_tip_R",
+      "stage_min": 2,
+      "parent": "LAUNCHER_RECOIL"
+    },
+    {
+      "stable_id": "firesiege.tower.bow_string_r",
+      "name": "bow_string_R",
+      "stage_min": 2,
+      "parent": "LAUNCHER_RECOIL"
+    },
+    {
+      "stable_id": "firesiege.tower.limb_iron_binding_r",
+      "name": "limb_iron_binding_R",
+      "stage_min": 2,
+      "parent": "LAUNCHER_RECOIL"
+    },
+    {
+      "stable_id": "firesiege.tower.crossbow_front_brace",
+      "name": "crossbow_front_brace",
+      "stage_min": 2,
+      "parent": "LAUNCHER_RECOIL"
+    },
+    {
+      "stable_id": "firesiege.tower.arrow_shaft",
+      "name": "arrow_shaft",
+      "stage_min": 2,
+      "parent": "ARROW_PROJECTILE"
+    },
+    {
+      "stable_id": "firesiege.tower.arrow_head",
+      "name": "arrow_head",
+      "stage_min": 2,
+      "parent": "ARROW_PROJECTILE"
+    },
+    {
+      "stable_id": "firesiege.tower.arrow_fletching_0",
+      "name": "arrow_fletching_0",
+      "stage_min": 2,
+      "parent": "ARROW_PROJECTILE"
+    },
+    {
+      "stable_id": "firesiege.tower.arrow_fletching_1",
+      "name": "arrow_fletching_1",
+      "stage_min": 2,
+      "parent": "ARROW_PROJECTILE"
+    },
+    {
+      "stable_id": "firesiege.tower.arrow_fletching_2",
+      "name": "arrow_fletching_2",
+      "stage_min": 2,
+      "parent": "ARROW_PROJECTILE"
+    }
+  ],
+  "verification": "PASS: Blender fresh import of all seven GLBs; Godot 4.6.3 isolated import/seek at 24 FPS. See verification_report.json and godot_validation/godot_import_report.json.",
+  "nominal_site_m": [
+    2.8,
+    2.8
+  ],
+  "revision": "1.2: confirmed L1 gameplay cadence documented; visual and animation data unchanged",
+  "godot_validation": {
+    "engine": "Godot 4.6.3",
+    "status": "PASS",
+    "scope": "Isolated GLB import and AnimationPlayer seek only",
+    "report": "godot_validation/godot_import_report.json",
+    "stable_id_metadata": "Retained in GLB extras; Godot default does not expose arbitrary extras as node metadata. Use retained unique node names and this manifest."
+  },
+  "standalone_arrow": {
+    "file": "exports/arrow_projectile.glb",
+    "blender_scene": "03_ARROW_PROJECTILE",
+    "root": "ARROW_PROJECTILE_ROOT",
+    "tip_socket": "SOCKET_ARROW_TIP",
+    "pivot": "leading tip at (0,0,0)",
+    "blender_forward": "-Y",
+    "gltf_forward": "+Z",
+    "mesh_count": 5,
+    "godot_dimensions_m": [
+      0.24,
+      0.155884504,
+      2.28
+    ],
+    "godot_bounds_m": {
+      "min": [
+        -0.12,
+        -0.077942252,
+        -2.28
+      ],
+      "max": [
+        0.12,
+        0.077942252,
+        0
+      ]
+    },
+    "spawn": "Independent world/projectile parent. Copy muzzle global transform, fly along its global +Z. Hide embedded preview arrow until visual reload.",
+    "payload": {
+      "scenes": 1,
+      "nodes": 7,
+      "meshes": 5,
+      "bytes": 11380
+    }
+  }
+}

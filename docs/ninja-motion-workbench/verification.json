@@ -1,0 +1,9 @@
+{
+  "actions": 3,
+  "original_bones": 22,
+  "position_error_m": 5.693491704024471e-06,
+  "rotation_error_radians": 0.0,
+  "weapon_matrix_error": 4.6193599700927734e-07,
+  "geometry_uvs_bone_lengths_preserved": true,
+  "weapon_controls_follow_hands": true
+}

@@ -1,0 +1,32 @@
+{
+  "source_frame": 123,
+  "backup_file": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/dragoon-motion-workbench/Dragoon_Before_Breathing_20261015_160244.blend",
+  "backup_action": "Idle_Before_Breathing_20261015_160244",
+  "base_action": "00_Idle_Approved_Base",
+  "action": "01_Idle",
+  "fps": 60,
+  "period_frames": 216,
+  "period_seconds": 3.6,
+  "key_pose_frames": [
+    1,
+    19,
+    37,
+    55,
+    73,
+    91,
+    109,
+    127,
+    145,
+    163,
+    181,
+    199,
+    217
+  ],
+  "frames_verified": 217,
+  "neutral_pose_error": 7.152557373046875e-07,
+  "feet_error": 1.7881393432617188e-07,
+  "weapon_grip_error": 1.2665987014770508e-06,
+  "loop_seam_error": 0.0,
+  "max_chest_displacement_m": 0.008205133968255873,
+  "other_actions_preserved": true
+}

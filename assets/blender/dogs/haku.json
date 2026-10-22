@@ -1,0 +1,27 @@
+{
+  "id": "haku",
+  "name": "Haku",
+  "breed": "kishu",
+  "gear": "blade",
+  "source": "assets/blender/dogs/haku.blend",
+  "model": "assets/models/dogs/haku.glb",
+  "portrait": "assets/ui/dogs/haku.png",
+  "triangles": 11688,
+  "meshes": 1,
+  "materials": 4,
+  "bones": 28,
+  "deform_bones": 24,
+  "animations": {
+    "idle": 2.0,
+    "run": 0.8,
+    "attack": 1.0,
+    "hurt": 0.45,
+    "death": 0.9
+  },
+  "attack_contact": 0.38,
+  "run_reference_speed": 2.4,
+  "forward": "Godot -Z",
+  "reference": "asset_packs/ninja_dogs/references/05-haku-blade-guard.png",
+  "reference_sha256": "6a6ca4be1e86b3de842bb93a6a12b54c5763e54905dc65562647175f33224be7",
+  "glb_sha256": "a0f11a745b9308d5bda24ae77c3196e557a2625fa280b5e0ea8204cf3c9d7d83"
+}

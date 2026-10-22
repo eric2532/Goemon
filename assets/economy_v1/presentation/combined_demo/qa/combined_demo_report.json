@@ -1,0 +1,68 @@
+{
+  "status": "PASS",
+  "fps": 24,
+  "sources_current": true,
+  "states": [
+    {
+      "frame": 1,
+      "progress": 0,
+      "fill_scales": [
+        9.999999747378752e-06,
+        9.999999747378752e-06
+      ],
+      "visible_mesh_counts": {
+        "Tower": 15,
+        "Mine": 57
+      }
+    },
+    {
+      "frame": 49,
+      "progress": 0.7,
+      "fill_scales": [
+        0.699999988079071,
+        0.699999988079071
+      ],
+      "visible_mesh_counts": {
+        "Tower": 105,
+        "Mine": 145
+      }
+    },
+    {
+      "frame": 73,
+      "progress": 0.4,
+      "fill_scales": [
+        0.4000000059604645,
+        0.4000000059604645
+      ],
+      "visible_mesh_counts": {
+        "Tower": 51,
+        "Mine": 90
+      }
+    },
+    {
+      "frame": 121,
+      "progress": 1,
+      "fill_scales": [
+        1.0,
+        1.0
+      ],
+      "visible_mesh_counts": {
+        "Tower": 170,
+        "Mine": 205
+      }
+    },
+    {
+      "frame": 145,
+      "progress": 1,
+      "fill_scales": [
+        1.0,
+        1.0
+      ],
+      "visible_mesh_counts": {
+        "Tower": 170,
+        "Mine": 205
+      }
+    }
+  ],
+  "completion_ring_playback": "PASS"
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "machiya_open",
+    "category": "building",
+    "dimensions_xyz_blender_m": [
+      9.917,
+      8.21,
+      6.701
+    ],
+    "bounds_min": [
+      -4.958604335784912,
+      -4.505000114440918,
+      0.0
+    ],
+    "bounds_max": [
+      4.958604335784912,
+      3.7049999237060547,
+      6.701450347900391
+    ],
+    "triangles": 4826,
+    "pivot": "ground center (0,0,0)",
+    "interior": true,
+    "collision": "separate wall/floor boxes; keep doorway clear",
+    "surfaces": 1
+  },
+  {
+    "id": "cedar",
+    "category": "tree",
+    "dimensions_xyz_blender_m": [
+      4.6,
+      4.6,
+      7.669
+    ],
+    "bounds_min": [
+      -2.299999952316284,
+      -2.299999952316284,
+      -0.01869538426399231
+    ],
+    "bounds_max": [
+      2.299999952316284,
+      2.299999952316284,
+      7.650000095367432
+    ],
+    "triangles": 84,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "trunk capsule only",
+    "surfaces": 1
+  },
+  {
+    "id": "moss_boulder",
+    "category": "rock",
+    "dimensions_xyz_blender_m": [
+      2.878,
+      2.302,
+      2.4
+    ],
+    "bounds_min": [
+      -1.3104168176651,
+      -1.165030837059021,
+      0.0
+    ],
+    "bounds_max": [
+      1.5677648782730103,
+      1.1368811130523682,
+      2.4000000953674316
+    ],
+    "triangles": 52,
+    "pivot": "ground center (0,0,0)",
+    "interior": false,
+    "collision": "static trimesh or simplified convex hull",
+    "surfaces": 1
+  }
+]

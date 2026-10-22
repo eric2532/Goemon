@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-14",
+  "app": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Goemon.app",
+  "zip": "/Users/eric/Desktop/Projects_Codex/Sonic/build/combat-polish/Goemon Combat Polish.zip",
+  "rollback_app": "/Users/eric/Desktop/Projects_Codex/Sonic/build/combat-polish/previous/Goemon.app",
+  "changes": [
+    "15% larger Goemon pipe/chain presentation, koban and all native class weapons; original body scale preserved",
+    "Melee weapon-tip contact and secondary sword contact use the actual enlarged pose; Goemon heavy/wide contact remains physical",
+    "Koban visuals and hit radius enlarged together; ranged travel distances retained",
+    "Tower arrows visibly travel at 70 m/s, apply existing 18 damage once on arrival, with gold trails, sparks, impact sound and directional recoil",
+    "Purple sword wave winds up, releases at sword contact, derives its cutting angle from actual posed sword-tip motion, then travels with a fading trail"
+  ],
+  "source_checks": {
+    "green": "COMBAT_POLISH_RESULT checks=66 failures=0",
+    "alignment": "GOEMON_ATTACK_ALIGNMENT_RESULT checks=77 failures=0",
+    "class-combat": "ROGUE_COMBAT_UPGRADE_RESULT checks=81 failures=0",
+    "roster": "ROGUE_ROSTER_V235_RESULT checks=100 failures=0",
+    "simulation": "FOREST_SIMULATION_RESULT checks=34 failures=0",
+    "forest-review": "FOREST_REVIEW_RESULT checks=15 failures=0",
+    "modern-combat": "FOREST_MODERN_COMBAT_RESULT checks=20 failures=0",
+    "forest-roster": "FOREST_ROGUE_RESULT checks=64 failures=0",
+    "lifecycle": "FOREST_DEFINITIVE_RESULT failures=0",
+    "transitions": "FOREST_TRANSITION_RESULT failures=0"
+  },
+  "packaged_checks": {
+    "polish": "66 checks, 0 failures",
+    "alignment": "77 checks, 0 failures",
+    "native_macos_launch": "Apple M3 / Metal, clean launch and exit",
+    "signature": "codesign --verify --deep --strict passed",
+    "archive": "unzip -tq passed",
+    "architecture": [
+      "x86_64",
+      "arm64"
+    ]
+  },
+  "legacy_suites": {
+    "combat": {
+      "pre_existing": true,
+      "failures": [
+        "One physical left-click produces exactly three strikes (22 + 22 + 30)",
+        "Holding LMB completes the press-triggered combo without charging",
+        "Releasing held LMB does not trigger a phantom charged sweep",
+        "Player damage multiplier affects all three real hits"
+      ],
+      "baseline_failure_count": 4,
+      "current_failure_count": 4
+    },
+    "chain": {
+      "pre_existing": true,
+      "failures": [
+        "LMB throws an attached, extending chain pipe",
+        "Throw pierces multiple enemies along its path and excludes off-path targets",
+        "RMB hits a wide forward fan once; rear and out-of-range enemies are safe",
+        "R throw adds a 120-damage endpoint blast to the 90-damage piercing tip: HP 10000/10000",
+        "R fan swing has fire on its moving pipe head",
+        "Powered fan applies its stronger fire attack damage",
+        "Chain throw obeys damage orbs, boosted=false",
+        "Chain throw obeys damage orbs, boosted=true",
+        "Weapon switching cancels and hides an active chain",
+        "1 restores the original pipe",
+        "All 20 newer attack slots save and play custom recordings at original pitch",
+        "Held beam loops the selected custom recording",
+        "Recording search exposes and selects the five chain-weapon sounds"
+      ],
+      "baseline_failure_count": 13,
+      "current_failure_count": 13
+    }
+  },
+  "preferences_preserved": {
+    "/Users/eric/Library/Application Support/Godot/app_userdata/Azure Ember/settings.cfg": true,
+    "/Users/eric/Library/Application Support/Godot/app_userdata/Azure Ember/sound_studio.cfg": true
+  },
+  "pck_sha256": "6619bfc9022c82936c34fe35f77b91f3e27ceb9658581b3173b398c988da1e9f",
+  "previews": {
+    "purple_wave": "purple-sword-wave.gif",
+    "tower_arrows": "tower-arrows.gif",
+    "all_weapons": "roster/melee-roster-contact.png"
+  },
+  "review": "Independent review found and verified correction of heavy contact using the wrong pose; no remaining actionable findings."
+}

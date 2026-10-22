@@ -1,0 +1,530 @@
+[
+	{
+		"enterable": true,
+		"id": "tidefall-open-01",
+		"position": [
+			-40.0,
+			-0.0590036399662495,
+			35.0
+		],
+		"scale": 4,
+		"variant": "open_teahouse"
+	},
+	{
+		"enterable": true,
+		"id": "tidefall-open-02",
+		"position": [
+			-116.0,
+			6.74386405944824,
+			14.0
+		],
+		"scale": 4,
+		"variant": "open_teahouse"
+	},
+	{
+		"enterable": true,
+		"id": "tidefall-open-03",
+		"position": [
+			62.0,
+			4.14058542251587,
+			18.0
+		],
+		"scale": 4,
+		"variant": "open_teahouse"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-01",
+		"position": [
+			122.0,
+			9.09493923187256,
+			-8.0
+		],
+		"scale": 4,
+		"variant": "timber_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-02",
+		"position": [
+			-160.0,
+			9.56819629669189,
+			-8.0
+		],
+		"scale": 4,
+		"variant": "noren_shop"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-03",
+		"position": [
+			182.0,
+			9.18024730682373,
+			-8.0
+		],
+		"scale": 4,
+		"variant": "corner_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-04",
+		"position": [
+			-220.0,
+			8.03570079803467,
+			-8.0
+		],
+		"scale": 4,
+		"variant": "plaster_storehouse"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-05",
+		"position": [
+			242.0,
+			9.13250064849854,
+			-8.0
+		],
+		"scale": 4,
+		"variant": "two_story_inn"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-06",
+		"position": [
+			-268.0,
+			9.48931407928467,
+			-8.0
+		],
+		"scale": 4,
+		"variant": "timber_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-07",
+		"position": [
+			-160.0,
+			11.2257471084595,
+			-56.0
+		],
+		"scale": 4,
+		"variant": "noren_shop"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-08",
+		"position": [
+			182.0,
+			11.8580656051636,
+			-56.0
+		],
+		"scale": 4,
+		"variant": "corner_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-09",
+		"position": [
+			-220.0,
+			12.1272678375244,
+			-56.0
+		],
+		"scale": 4,
+		"variant": "plaster_storehouse"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-10",
+		"position": [
+			242.0,
+			11.8870401382446,
+			-56.0
+		],
+		"scale": 4,
+		"variant": "two_story_inn"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-11",
+		"position": [
+			-268.0,
+			11.0911378860474,
+			-56.0
+		],
+		"scale": 4,
+		"variant": "timber_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-12",
+		"position": [
+			-40.0,
+			12.6672096252441,
+			-104.0
+		],
+		"scale": 4,
+		"variant": "noren_shop"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-13",
+		"position": [
+			62.0,
+			14.459174156189,
+			-104.0
+		],
+		"scale": 4,
+		"variant": "corner_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-14",
+		"position": [
+			182.0,
+			14.5162143707275,
+			-104.0
+		],
+		"scale": 4,
+		"variant": "plaster_storehouse"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-15",
+		"position": [
+			-220.0,
+			14.5367250442505,
+			-104.0
+		],
+		"scale": 4,
+		"variant": "two_story_inn"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-16",
+		"position": [
+			242.0,
+			14.51842212677,
+			-104.0
+		],
+		"scale": 4,
+		"variant": "timber_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-17",
+		"position": [
+			-268.0,
+			14.457781791687,
+			-104.0
+		],
+		"scale": 4,
+		"variant": "noren_shop"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-18",
+		"position": [
+			242.0,
+			15.2447814941406,
+			-152.0
+		],
+		"scale": 4,
+		"variant": "corner_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-19",
+		"position": [
+			-268.0,
+			15.5117340087891,
+			-152.0
+		],
+		"scale": 4,
+		"variant": "plaster_storehouse"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-20",
+		"position": [
+			-40.0,
+			12.9308004379272,
+			-200.0
+		],
+		"scale": 4,
+		"variant": "two_story_inn"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-21",
+		"position": [
+			62.0,
+			14.6980867385864,
+			-200.0
+		],
+		"scale": 4,
+		"variant": "timber_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-22",
+		"position": [
+			-100.0,
+			15.859468460083,
+			-200.0
+		],
+		"scale": 4,
+		"variant": "noren_shop"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-23",
+		"position": [
+			122.0,
+			15.4764270782471,
+			-200.0
+		],
+		"scale": 4,
+		"variant": "corner_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-24",
+		"position": [
+			-160.0,
+			14.7273893356323,
+			-200.0
+		],
+		"scale": 4,
+		"variant": "plaster_storehouse"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-25",
+		"position": [
+			242.0,
+			15.440037727356,
+			-200.0
+		],
+		"scale": 4,
+		"variant": "two_story_inn"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-26",
+		"position": [
+			-268.0,
+			14.6934814453125,
+			-200.0
+		],
+		"scale": 4,
+		"variant": "timber_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-27",
+		"position": [
+			62.0,
+			15.4550752639771,
+			-248.0
+		],
+		"scale": 4,
+		"variant": "noren_shop"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-28",
+		"position": [
+			-100.0,
+			15.3247365951538,
+			-248.0
+		],
+		"scale": 4,
+		"variant": "corner_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-29",
+		"position": [
+			122.0,
+			15.3387928009033,
+			-248.0
+		],
+		"scale": 4,
+		"variant": "plaster_storehouse"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-30",
+		"position": [
+			242.0,
+			15.3751306533813,
+			-248.0
+		],
+		"scale": 4,
+		"variant": "two_story_inn"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-31",
+		"position": [
+			-268.0,
+			15.7203178405762,
+			-248.0
+		],
+		"scale": 4,
+		"variant": "timber_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-32",
+		"position": [
+			242.0,
+			15.3716688156128,
+			-296.0
+		],
+		"scale": 4,
+		"variant": "noren_shop"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-33",
+		"position": [
+			-268.0,
+			15.7147779464722,
+			-296.0
+		],
+		"scale": 4,
+		"variant": "corner_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-34",
+		"position": [
+			-40.0,
+			12.9371118545532,
+			-344.0
+		],
+		"scale": 4,
+		"variant": "plaster_storehouse"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-35",
+		"position": [
+			62.0,
+			14.7077531814575,
+			-344.0
+		],
+		"scale": 4,
+		"variant": "two_story_inn"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-36",
+		"position": [
+			-100.0,
+			15.8628578186035,
+			-344.0
+		],
+		"scale": 4,
+		"variant": "timber_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-37",
+		"position": [
+			122.0,
+			15.478590965271,
+			-344.0
+		],
+		"scale": 4,
+		"variant": "noren_shop"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-38",
+		"position": [
+			-160.0,
+			14.7342767715454,
+			-344.0
+		],
+		"scale": 4,
+		"variant": "corner_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-39",
+		"position": [
+			-220.0,
+			15.8555698394775,
+			-344.0
+		],
+		"scale": 4,
+		"variant": "plaster_storehouse"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-40",
+		"position": [
+			242.0,
+			15.4420852661133,
+			-344.0
+		],
+		"scale": 4,
+		"variant": "two_story_inn"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-41",
+		"position": [
+			-268.0,
+			14.7035856246948,
+			-344.0
+		],
+		"scale": 4,
+		"variant": "timber_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-42",
+		"position": [
+			242.0,
+			15.2387027740479,
+			-392.0
+		],
+		"scale": 4,
+		"variant": "noren_shop"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-43",
+		"position": [
+			-268.0,
+			15.502007484436,
+			-392.0
+		],
+		"scale": 4,
+		"variant": "corner_house"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-44",
+		"position": [
+			-76.0,
+			7.44895124435425,
+			8.0
+		],
+		"scale": 4,
+		"variant": "plaster_storehouse"
+	},
+	{
+		"enterable": false,
+		"id": "tidefall-building-45",
+		"position": [
+			-124.0,
+			10.6996202468872,
+			-40.0
+		],
+		"scale": 4,
+		"variant": "two_story_inn"
+	}
+]

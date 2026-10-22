@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dfh5lqglfynlm"
+path="res://.godot/imported/brown2_3.wav-8574928c16d2f0994b09b58701958dbe.sample"
+
+[deps]
+
+source_file="res://assets/characters/master_chief/effects/sound/sfx/weapons/assault rifle/fire/brown2_3.wav"
+dest_files=["res://.godot/imported/brown2_3.wav-8574928c16d2f0994b09b58701958dbe.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

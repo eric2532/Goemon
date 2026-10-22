@@ -1,0 +1,48 @@
+EdPsxRasterizer — isolated Godot 4.6 C-ABI extension
+
+Build: zsh native/ed_psx_renderer/build.sh
+Binding smoke: godot --headless --path . --script native/ed_psx_renderer/smoke.gd
+Class: EdPsxRasterizer, parent RefCounted.
+Resource: res://native/ed_psx_renderer/ed_psx_renderer.gdextension
+
+configure(width:int,height:int,indices:PackedByteArray,palettes:PackedByteArray)
+Copies configuration. Extents must be1..2048. Indices contains exactly65536
+bytes in a256x256 row-major page, each0..15. Palettes contains16 little-endian
+RGB555 words per row; Ed supplies24 rows (main16 then companion8). Every
+nonzero word must have STP1. Zero words are transparent. Invalid configuration
+clears the renderer; subsequent render calls return an empty array.
+
+render(triangles:PackedInt32Array)->PackedByteArray
+Each triangle is24 integers:
+ mode,palette_row,dither,
+ x0,y0,u0,v0,r0,g0,b0,
+ x1,y1,u1,v1,r1,g1,b1,
+ x2,y2,u2,v2,r2,g2,b2
+Coordinates are integer screen positions. UV and RGB are unsigned bytes.
+Mode uses GPU packet bits: bit2 textured, bit0 raw texture, bit1 semi-transparent,
+bit4 Gouraud. The caller handles culling, quad splitting, original OT ordering,
+native drawing-area clipping and the modern camera/world visibility adapter.
+Both windings render. Zero-area and native-oversized polygons contribute nothing.
+
+The only supported compositing operation is the recovered Ed ABR1 operation.
+Opaque packets, invalid palette rows, malformed sizes and invalid attribute
+ranges return an empty byte array. A valid empty triangle list returns a full
+clear image. Flat primitives use vertex0 color. Source effects set dither0.
+
+Returned bytes are row-major RGBA8, with RGB bytes0..31 (saturated foreground
+sum) and alpha255 for covered pixels, including black fragments. Texel word0
+does not set coverage. Each primitive is quantized BEFORE adding to the sum.
+Upload as raw data (no sRGB conversion), sample nearest, then combine with the
+finished scene's RGB555 background using the dedicated canvas compositor.
+
+Rasterization uses integer sample coordinates, top/left inclusion, affine UV
+and Gouraud gradients truncated toQ12, and attribute+0.5 initialization.
+No floating point is used in raster coverage, interpolation or color arithmetic.
+
+Verification artifacts are in build/Other Files/Ed Original Restore:
+ ed-psx-rasterizer-test.log — literal native arithmetic/edge/gradient fixtures.
+ ed-psx-binding-smoke.log — actual Godot C-ABI calls and1000-call lifetime check.
+ duckstation-reference/comparison.log —20,000 triangles /81,920,000 pixels,
+ zero differences against unmodified upstream software-rasterizer code.
+The reference implementation is only in the local test artifacts. It is not
+included in this extension or the delivered app.

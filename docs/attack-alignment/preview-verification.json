@@ -1,0 +1,26 @@
+{
+  "scope": "Studio capture of all twelve current imported character rigs using production pose adapters. Pose review only; gameplay damage and collision are verified by the separate runtime suites.",
+  "renderer": "Godot 4.6.3, Metal Forward+, Apple M3",
+  "characters": ["Goemon", "Edo", "Pirate", "Samurai", "Ninja", "Mage", "Knight", "Dragoon", "Magic Swordsman", "Ranger", "Explorer", "Master Thief"],
+  "pose_sources": {
+    "goemon": "HeroModel with pipe_combo_active, rogue_pipe_combo_active and equipped enabled; goemon_rogue_combo timing and production HeroLocomotion. First contact is 0.15 / 0.48 progress.",
+    "edo": "MusashiModel and real MusashiCombat FIREBALL / MOVING states, sampled through goemon_cosplay_motion.",
+    "native_classes": "Actual imported Actor models; class_actions PRIMARY / SAMURAI_CUTS and rogue_roster_combat COMBO data; primary flag enables articulated costume posing. Mage uses its release shot state, Ranger uses its bow attack state."
+  },
+  "captures": 122,
+  "capture_failures": 0,
+  "resolution": [1680, 1260],
+  "attack_frames": 60,
+  "run_frames": 60,
+  "sample_rate": 30,
+  "playback_fps": 15,
+  "playback_speed": 0.5,
+  "stills": ["attack-contact.png", "run-three-quarter.png"],
+  "videos": ["all-twelve-attack.mp4", "all-twelve-run.mp4"],
+  "gifs": ["all-twelve-attack.gif", "all-twelve-run.gif"],
+  "visual_review": {
+    "inspected": ["attack-contact.png", "attack frame 020", "attack frame 049", "run-three-quarter.png"],
+    "observations": "All twelve labels and full bodies are visible. Inspected poses show turning torsos, bent elbows, raised rear heels and bent knees. Weapons remain attached in the inspected frames; long weapons stay within their panels. Initial Goemon contact preview used the older profile and was replaced before final encoding with the active Rogue pipe profile.",
+    "limits": "This studio intentionally shows pose and equipment, without live projectile effects or damage targets. Native figures run in place; original Goemon uses its terrain foot IK with actual model translation."
+  }
+}

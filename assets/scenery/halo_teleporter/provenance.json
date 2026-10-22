@@ -1,0 +1,42 @@
+{
+  "map_sha256": "50fe52406f075d975e24100a65b26ff696458023dd3509878953052ab0ef858f",
+  "model_tag": "scenery\\teleporter_base\\teleporter_base",
+  "vertices": 346,
+  "triangles": 184,
+  "jms_unit_meters": 0.03048,
+  "images": {
+    "teleporter_base": {
+      "tag": "scenery\\teleporter_base\\bitmaps\\teleporter_base",
+      "sha256": "517556541a79c517858921005466f6ff639e3b1b34853ab9a4d49a93de787033"
+    },
+    "metal_flat": {
+      "tag": "levels\\b30\\bitmaps\\metal flat generic",
+      "sha256": "560c6eb6e3704a7da1156fada44f11cdddd27189d78a3e44540878aa12bb547b"
+    },
+    "metal_strips": {
+      "tag": "levels\\b30\\bitmaps\\metal strips decorative wide",
+      "sha256": "c375a724168796a35838de6cf78f8d3630c18613de9d4f666039dd24f03ff261"
+    },
+    "shield": {
+      "tag": "scenery\\teleporter_shield\\bitmaps\\teleporter_shield",
+      "sha256": "a147f5e03d1f93f8255140229723c531aa516f8cda7a912030c1b52cb39e5dcc"
+    },
+    "energy_mask": {
+      "tag": "scenery\\teleporter_shield\\bitmaps\\teleporter_shield_energy mask",
+      "sha256": "8e58458156741d8ff0d8943384324f9018fb4a8b0431a96e7d0406902ad34e27"
+    },
+    "plasma": {
+      "tag": "levels\\a50\\devices\\prison door\\bitmaps\\energy plasma",
+      "sha256": "0d1be53cec772e1490e9858e2d735ad808f58a79f683fae28e324c0c6f7ad76c"
+    },
+    "volumetric_dust": {
+      "tag": "scenery\\teleporter_base\\bitmaps\\base volumetric dust",
+      "sha256": "e81bae2caaa7429f676bd2cd45bc18a0f3afef44a16110b3f49b92bedb2636d6"
+    },
+    "teleporter_dust": {
+      "tag": "scenery\\teleporter_base\\bitmaps\\teleporter_dust",
+      "sha256": "ead47a293b7892d9f2263ea011514f6a627bafc6f859d2262c0978b9c7aac993"
+    }
+  },
+  "adaptation": "Uniform 10x scene scale. Original mesh, UVs and pixels. Godot translations of native generic/Chicago additive shaders and scrolling periods; no audio or gameplay collision."
+}

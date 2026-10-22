@@ -1,0 +1,8 @@
+{
+  "actions": 3,
+  "original_bones": 22,
+  "position_error_m": 5.693491704024471e-06,
+  "rotation_error_radians": 0.0,
+  "bow_matrix_error": 8.940696716308594e-07,
+  "geometry_uvs_bone_lengths_preserved": true
+}

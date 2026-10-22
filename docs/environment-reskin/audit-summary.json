@@ -1,0 +1,30 @@
+{
+  "baseline_commit": "0da35bc7eaa93c68bf6939b5238989af16920919",
+  "seed": 90824,
+  "areas": {
+    "0": {
+      "exact_collision_shapes": 712,
+      "terrain_height_samples": 8343,
+      "all_recorded_fields_identical": true,
+      "record_sha256": "e813509eaad238fcbe7597d12e5da774b1c863dbd895616df9d963b373144f12"
+    },
+    "1": {
+      "exact_collision_shapes": 242,
+      "terrain_height_samples": 8343,
+      "all_recorded_fields_identical": true,
+      "record_sha256": "ccc981c8d304ab5851812b905fb29367c6bca3085b872fa65224a64b422714ab"
+    },
+    "2": {
+      "exact_collision_shapes": 429,
+      "terrain_height_samples": 8343,
+      "all_recorded_fields_identical": true,
+      "record_sha256": "03ef894dbc8a4cc10c5af681b857dcf8d1f1d1222c8306f0c3fb1962422d05d1"
+    },
+    "3": {
+      "exact_collision_shapes": 490,
+      "terrain_height_samples": 8343,
+      "all_recorded_fields_identical": true,
+      "record_sha256": "7568953ef92f9786d5d53e0db5ba30b6ecac3e6eda3605dda5b0354ef150f7c4"
+    }
+  }
+}

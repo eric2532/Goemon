@@ -1,0 +1,53 @@
+Current scope update: see shared-run-integration.txt. The approved run now
+extends to everyone except Magic Swordsman, Knight and Samurai.
+
+Goemon / Edo approved running animation — 2026-10-15
+
+Installed into the current Forest Shrine v2.59.0 hub build:
+  build/Goemon.app
+Release archive:
+  build/Other Files/Forest Shrine v2.59.0/User Stride Run/Goemon.zip
+The previous main app was preserved in build/Other Files with the
+Goemon-v2.59.0-before-User-Run timestamped name. Restart the app to load this update.
+
+Editable source: docs/run-pose-practice/Goemon_Run_Animated.blend
+Action: Run_User_Strides. Runtime frames 0–59, frame 60 duplicates 0 for interpolation.
+Exported samples: assets/animations/goemon_edo_run.json
+Re-export after saving intentional animation edits:
+  /Applications/Blender.app/Contents/MacOS/Blender --background docs/run-pose-practice/Goemon_Run_Animated.blend --python tools/export_user_run.py
+Then rebuild the macOS preset. Blender edits do not automatically update the app.
+
+Scope: Goemon HeroLocomotion and Edo goemon_cosplay_motion only. Other classes'
+run adapters, character masters, combat timing, movement speeds and controls stay
+unchanged. The loop preserves the authored body/limb poses; its exported endpoint
+closes on the first pose even if an edited Blender end key has drifted. Support
+height transfers continuously between the feet without replacing the knee path.
+
+Validation:
+- 250 actual skeleton/source pose checks passed at running and sprinting speeds,
+  covering all frames, loop closure, jump release and repeated sampling.
+- The same 250 checks passed against the exported app PCK using Godot 4.6.1.
+- 5 ground checks passed in source and packaged PCK: blended-speed footstep counts
+  and slope support seams. Contact counts are 4–5 in two seconds; the slope seam
+  difference is 0.000106 m.
+- Movement response: 139 checks, 0 failures.
+- Roster/costume runtime: 72 checks, 0 failures.
+- Steady weapon runs: 90 checks, 0 failures.
+- Forest Shrine definitive startup/roster/preparation/combat/retry: 0 failures.
+- Edo primary casting alignment: 59 checks, 0 assertion failures.
+- Rendered both actual gameplay rigs; preview is game-preview/goemon-edo-run.gif.
+- macOS export completed successfully. Installed app is version 2.59.0 and passed
+  codesign --verify --deep --strict.
+
+Existing unrelated issues observed (Samurai/Knight failures were also reproduced
+with the pre-change adapters):
+- goemon_jump_reference_tests: Samurai spreads L/R arm beside the shoulder (2).
+- goemon_full_body_strike_tests: Knight pulls the free arm behind the body (1).
+- goemon_attack_alignment_tests: Knight running shoulder/hip turn assertions (2).
+- Edo casting suite emits a ForestEnemyCrowd._process error at
+  scripts/forest/forest_enemy_crowd.gd:226: Ninja lacks forest_id. Casting assertions
+  still pass; this crowd path was not changed here.
+The headless editor also reports an unset Blender importer path while scanning
+excluded source .blend files. The exported animation uses included JSON samples,
+not the Blender importer; release export and packaged runtime checks passed.
+Detailed logs are in game-preview/.

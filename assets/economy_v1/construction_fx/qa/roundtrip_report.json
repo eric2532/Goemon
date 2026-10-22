@@ -1,0 +1,66 @@
+{
+  "status": "PASS",
+  "blender_version": "4.3.2",
+  "checks": [
+    {
+      "file": "FS_FX_Hammer_BuildLoop.glb",
+      "bytes": 155856,
+      "meshes": 16,
+      "triangles": 2184,
+      "root": "FX_HammerRoot",
+      "animations": [
+        "Build_HammerLoop"
+      ],
+      "animation_paths": [
+        "rotation"
+      ],
+      "roundtrip_import": "PASS",
+      "loop_motion_and_matching_endpoints": "PASS"
+    },
+    {
+      "file": "FS_FX_ProgressFrame.glb",
+      "bytes": 50460,
+      "meshes": 6,
+      "triangles": 664,
+      "root": "FX_ProgressRoot",
+      "animations": [],
+      "animation_paths": [],
+      "roundtrip_import": "PASS",
+      "left_anchor_at_local_x_zero": "PASS"
+    },
+    {
+      "file": "FS_FX_BPrompt.glb",
+      "bytes": 117980,
+      "meshes": 3,
+      "triangles": 3376,
+      "root": "FX_BPromptRoot",
+      "animations": [],
+      "animation_paths": [],
+      "roundtrip_import": "PASS"
+    },
+    {
+      "file": "FS_FX_CompletionPulse.glb",
+      "bytes": 211708,
+      "meshes": 12,
+      "triangles": 1736,
+      "root": "FX_CompletionRoot",
+      "animations": [
+        "Complete_GoldPulse"
+      ],
+      "animation_paths": [
+        "rotation",
+        "scale",
+        "translation",
+        "weights"
+      ],
+      "roundtrip_import": "PASS",
+      "ring_morph_hidden_visible_hidden": "PASS",
+      "ring_weight_samples": [
+        1.0,
+        0.0,
+        0.36444443464279175,
+        1.0
+      ]
+    }
+  ]
+}

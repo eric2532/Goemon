@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dts0ln75sotrh"
+path="res://.godot/imported/2xsniper.wav-902e41a29b88fbcebf3be88cbaf1d6fe.sample"
+
+[deps]
+
+source_file="res://assets/characters/master_chief/effects/sound/sfx/weapons/sniper rifle/sniper_2x_zoom/2xsniper.wav"
+dest_files=["res://.godot/imported/2xsniper.wav-902e41a29b88fbcebf3be88cbaf1d6fe.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

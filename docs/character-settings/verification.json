@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-14",
+  "app": "/Users/eric/Desktop/Projects_Codex/Sonic/build/goemon-cosplay/Goemon Cosplay.app",
+  "archive": "/Users/eric/Desktop/Projects_Codex/Sonic/build/goemon-cosplay/Goemon Cosplay.zip",
+  "godot": "4.6.3",
+  "pck_sha256": "addda62281660c0cd929154f0c9c9e9a9f6e4beea494d868478405baed4c5238",
+  "code_signature": "verified --deep --strict",
+  "zip_integrity": "passed; PCK matches app",
+  "settings_checks": 32,
+  "settings_failures": 0,
+  "rendered_settings_exit": 0,
+  "packaged_settings_exit": 0,
+  "release_app_start_and_shutdown_exit": 0,
+  "preservation": {
+    "settings_files": 2,
+    "recordings": 14,
+    "changed": []
+  },
+  "regressions": [
+    {
+      "suite": "forest-definitive",
+      "exit": 0,
+      "summary": [
+        "FOREST_DEFINITIVE_RESULT failures=0"
+      ],
+      "errors": []
+    },
+    {
+      "suite": "forest-transitions",
+      "exit": 0,
+      "summary": [
+        "FOREST_TRANSITION_RESULT failures=0"
+      ],
+      "errors": []
+    },
+    {
+      "suite": "forest-modern-combat",
+      "exit": 0,
+      "summary": [
+        "FOREST_MODERN_COMBAT_RESULT checks=20 failures=0"
+      ],
+      "errors": []
+    },
+    {
+      "suite": "class-combat-settings",
+      "exit": 0,
+      "summary": [
+        "ROGUE_COMBAT_UPGRADE_RESULT checks=76 failures=0"
+      ],
+      "errors": []
+    },
+    {
+      "suite": "music-settings",
+      "exit": 0,
+      "summary": [
+        "MUSIC_SETTINGS_RESULT failures=0"
+      ],
+      "errors": []
+    }
+  ],
+  "sound_studio": {
+    "failures": 0,
+    "capture_fixture": "synthetic audio; microphone not recorded"
+  },
+  "notes": [
+    "Initial visual test hit Metal shader-cache cleanup during immediate teardown after a final capture. Allowing pending rendering to finish before teardown resolved it; latest rendered test exits 0."
+  ]
+}

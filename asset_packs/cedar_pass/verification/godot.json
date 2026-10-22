@@ -1,0 +1,139 @@
+{
+  "assembled_meshes": 61,
+  "assets": [
+    {
+      "dimensions_match": true,
+      "id": "machiya_open",
+      "surfaces": 7,
+      "triangles": 5514
+    },
+    {
+      "dimensions_match": true,
+      "id": "inn",
+      "surfaces": 9,
+      "triangles": 7090
+    },
+    {
+      "dimensions_match": true,
+      "id": "tea_house_open",
+      "surfaces": 7,
+      "triangles": 6118
+    },
+    {
+      "dimensions_match": true,
+      "id": "warehouse",
+      "surfaces": 7,
+      "triangles": 3834
+    },
+    {
+      "dimensions_match": true,
+      "id": "shrine",
+      "surfaces": 7,
+      "triangles": 3986
+    },
+    {
+      "dimensions_match": true,
+      "id": "gatehouse",
+      "surfaces": 7,
+      "triangles": 4236
+    },
+    {
+      "dimensions_match": true,
+      "id": "cedar",
+      "surfaces": 1,
+      "triangles": 84
+    },
+    {
+      "dimensions_match": true,
+      "id": "sakura",
+      "surfaces": 1,
+      "triangles": 364
+    },
+    {
+      "dimensions_match": true,
+      "id": "cloud_pine",
+      "surfaces": 1,
+      "triangles": 384
+    },
+    {
+      "dimensions_match": true,
+      "id": "bamboo_cluster",
+      "surfaces": 1,
+      "triangles": 1236
+    },
+    {
+      "dimensions_match": true,
+      "id": "river_rock",
+      "surfaces": 1,
+      "triangles": 52
+    },
+    {
+      "dimensions_match": true,
+      "id": "moss_boulder",
+      "surfaces": 1,
+      "triangles": 52
+    },
+    {
+      "dimensions_match": true,
+      "id": "split_crag",
+      "surfaces": 1,
+      "triangles": 80
+    },
+    {
+      "dimensions_match": true,
+      "id": "cliff_step",
+      "surfaces": 1,
+      "triangles": 52
+    },
+    {
+      "dimensions_match": true,
+      "id": "twin_summit",
+      "surfaces": 1,
+      "triangles": 136
+    },
+    {
+      "dimensions_match": true,
+      "id": "long_ridge",
+      "surfaces": 1,
+      "triangles": 272
+    },
+    {
+      "dimensions_match": true,
+      "id": "sacred_peak",
+      "surfaces": 1,
+      "triangles": 68
+    },
+    {
+      "dimensions_match": true,
+      "id": "lantern",
+      "surfaces": 1,
+      "triangles": 512
+    },
+    {
+      "dimensions_match": true,
+      "id": "well",
+      "surfaces": 1,
+      "triangles": 1060
+    },
+    {
+      "dimensions_match": true,
+      "id": "cart",
+      "surfaces": 1,
+      "triangles": 508
+    },
+    {
+      "dimensions_match": true,
+      "id": "fence",
+      "surfaces": 1,
+      "triangles": 156
+    },
+    {
+      "dimensions_match": true,
+      "id": "torii",
+      "surfaces": 1,
+      "triangles": 1412
+    }
+  ],
+  "authored_movement_test": "verification/interior_walk.json",
+  "showcase_loaded": true
+}

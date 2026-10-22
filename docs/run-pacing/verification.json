@@ -1,0 +1,74 @@
+{
+  "verified_at": "2026-10-14T02:57:32.812246+08:00",
+  "change": "Shared alternating inward forward-arm / outward rear-arm swing, raised hands, slower distance-driven cadence and smooth stop transitions for all twelve characters.",
+  "engine": "Godot 4.6.3",
+  "packaged_tests": {
+    "character_balance_tests": {
+      "checks": 32,
+      "failures": 0,
+      "log": "build/run-pacing/verification/packaged-character_balance_tests.log"
+    },
+    "edo_primary_alignment_tests": {
+      "checks": 59,
+      "failures": 0,
+      "log": "build/run-pacing/verification/packaged-edo_primary_alignment_tests.log"
+    },
+    "goemon_attack_alignment_tests": {
+      "checks": 77,
+      "failures": 0,
+      "log": "build/run-pacing/verification/packaged-goemon_attack_alignment_tests.log"
+    },
+    "goemon_jump_reference_tests": {
+      "checks": 178,
+      "failures": 0,
+      "log": "build/run-pacing/verification/packaged-goemon_jump_reference_tests.log"
+    },
+    "goemon_run_pacing_tests": {
+      "checks": 202,
+      "failures": 0,
+      "log": "build/run-pacing/verification/packaged-goemon_run_pacing_tests.log"
+    },
+    "goemon_unified_run_tests": {
+      "checks": 131,
+      "failures": 0,
+      "log": "build/run-pacing/verification/packaged-goemon_unified_run_tests.log"
+    }
+  },
+  "packaged_total_checks": 679,
+  "native_startup": {
+    "exit_code": 0,
+    "frames": 120,
+    "log": "build/run-pacing/verification/native-startup.log"
+  },
+  "codesign_deep_strict": "passed",
+  "preview": {
+    "rate_fps": 30,
+    "decoded_frames": 120,
+    "duration_seconds": 4,
+    "playback_speed": 1,
+    "run_speed": 10.2,
+    "sprint_speed": 18.0,
+    "run_cadence": 1.65,
+    "sprint_cadence": 2.05,
+    "key_poses": "docs/run-pacing/goemon-run-arm-key-poses.png",
+    "visual_inspection": "Front forearm folds inward; opposite rear arm opens outward; mirrored half-stride poses inspected from rear and rear three-quarter views."
+  },
+  "artifacts": {
+    "app": "build/goemon-cosplay/Goemon Cosplay.app",
+    "zip": "build/goemon-cosplay/Goemon Cosplay.zip",
+    "pck_sha256": "3ed4469a2200e5da8a795ac6831031cc0f589eed634fc8211dae19412c66000c",
+    "zip_sha256": "8372bf241ac065ba1c70304cbdfc6c9ae5b4d99a5235c0b4bcc53b3af7531960",
+    "zip_crc": "passed",
+    "zip_pck_matches_tested_package": true
+  },
+  "preservation": {
+    "settings_and_recordings_files": 16,
+    "all_hashes_unchanged": true,
+    "kai_blend_sha256": "9f7088ff693b982f79e25874f67f46f9fd65d0fc906ca255d85cc6b6f8cef54c"
+  },
+  "diagnostics": [
+    "Packaged Edo attack tests passed all 59 assertions but emitted ObjectDB/two-resource cleanup warnings at headless exit. An isolated source run passed with clean shutdown. Broader roster runs similarly reported audio resource cleanup warnings. Native app startup completed without these warnings.",
+    "Export ignored the existing nested Godot validation project under assets/economy_v1/arrow_tower/godot_validation."
+  ],
+  "review": "Focused independent review approved shared arm sweep, cadence, stopping transitions, joint lengths and held-weapon attachment."
+}

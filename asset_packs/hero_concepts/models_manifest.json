@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "path": "blend/sen.blend",
+      "bytes": 3555297,
+      "sha256": "d991a07538734478c4ef39c41fd0a8dd688af0bcba3a5315ed2a43c2fcbaf7f6"
+    },
+    {
+      "path": "glb/sen.glb",
+      "bytes": 6749528,
+      "sha256": "004e393e135a953471497b7aa3f0d1d4a098c49322cf7f05c3892b28a6b86aad"
+    },
+    {
+      "path": "blend/raku.blend",
+      "bytes": 3664916,
+      "sha256": "9e8e88fa031c42dd7fd95b159444b918684cf049fec4315dd47cc0aee8f12121"
+    },
+    {
+      "path": "glb/raku.glb",
+      "bytes": 7992728,
+      "sha256": "1304142651acc2ec2fa7f7554ad44204cbbfbbe6f47181463499be02d46987d0"
+    },
+    {
+      "path": "blend/izumi.blend",
+      "bytes": 3636912,
+      "sha256": "be928a11b8e9fc7828405c6f0c8dafe6b03272daa89eb4352369621253eda104"
+    },
+    {
+      "path": "glb/izumi.glb",
+      "bytes": 8014468,
+      "sha256": "771ddc0c36fd8d00cdab1573d63c24a6deae26b090b6eef77915e66d9d5c5098"
+    },
+    {
+      "path": "blend/gaku.blend",
+      "bytes": 3395511,
+      "sha256": "3a54fd33b6a8cf02d6d28c0adf84d7e81bb81a58c3db8bdfecb5292a6fcf7875"
+    },
+    {
+      "path": "glb/gaku.glb",
+      "bytes": 8576092,
+      "sha256": "917c57e05d8f5ceefd9503c184429cd76f3256df844304ea0ad0a65f1d344366"
+    },
+    {
+      "path": "blend/shiro.blend",
+      "bytes": 3694390,
+      "sha256": "403437965cfd56ac8151d433968fa461f88bad0fb22ef09644c0561bedbfb85e"
+    },
+    {
+      "path": "glb/shiro.glb",
+      "bytes": 6719580,
+      "sha256": "1fffc1f6d73dc02271cf5f29c9e278c7102af0b808f231ff848295f0d19c6080"
+    },
+    {
+      "path": "blend/banji.blend",
+      "bytes": 3852294,
+      "sha256": "38f2db6dfbbcc72c5f9a2677e7bf37d33da13259153618ea43d67a74bc9edb4c"
+    },
+    {
+      "path": "glb/banji.glb",
+      "bytes": 7181876,
+      "sha256": "4270779601bfc816a5ca264d1174b2d3c36c1e18fe877aef5c03b39486147819"
+    },
+    {
+      "path": "blend/touma.blend",
+      "bytes": 3634116,
+      "sha256": "f93e85359c7b20d325dd0e78d6b89a47def134fa960f998d207c5328dffeab6d"
+    },
+    {
+      "path": "glb/touma.glb",
+      "bytes": 7828660,
+      "sha256": "bc0d63da5a610a830f566852f95e3161c807f0e2adec1c7879d4bf92e29f4722"
+    },
+    {
+      "path": "blend/roan.blend",
+      "bytes": 3665824,
+      "sha256": "64e8e090d277a499cdc4452b9b538fde802ad85b5506eb35d44d5ce289884b4c"
+    },
+    {
+      "path": "glb/roan.glb",
+      "bytes": 9226216,
+      "sha256": "2a935d85dfb60f4ede37dc350967666dde8a97aa554ac08647e30d564b3ab875"
+    },
+    {
+      "path": "blend/nagi.blend",
+      "bytes": 3772006,
+      "sha256": "48a49ecfdea61b601b3aad73c17bc510e81c764d47c40a2bbdf9d244d4c4f0c3"
+    },
+    {
+      "path": "glb/nagi.glb",
+      "bytes": 7316360,
+      "sha256": "31ee35adc93ab40470b392915e6cff60199f1b1b2fa6f277305b37e98dca0d11"
+    },
+    {
+      "path": "blend/kuren.blend",
+      "bytes": 4248806,
+      "sha256": "0261ea19dc49038f65a8b02741de5fe972c2dea069ca5df46b0c1174ec38b1c9"
+    },
+    {
+      "path": "glb/kuren.glb",
+      "bytes": 7457332,
+      "sha256": "91b531fc6b5be09b8c6d064d074f3231ae71cfaae2e98660008e748a2f445c34"
+    }
+  ]
+}

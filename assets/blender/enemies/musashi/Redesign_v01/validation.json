@@ -1,0 +1,85 @@
+{
+  "originals": {
+    "assets/blender/enemies/musashi/Final/Musashi_Final.blend": {
+      "sha256": "3542e31714cc4571e076f5b99b0dc81eb7cdbd859cf9d38393102f2b14d2004c",
+      "unchanged": true
+    },
+    "assets/blender/enemies/musashi/Musashi_Playable.blend": {
+      "sha256": "cd8aa8e356c799065d71b7f6deee364c9970f8c4c1dcade8eb1a831ec8d8df7d",
+      "unchanged": true
+    },
+    "assets/blender/enemies/musashi/Edo_Playable_Refined.blend": {
+      "sha256": "cd98e022e4109a8f1b03175bd80a60885bcb2eb7d292e2e4c2cd9fed0771cd64",
+      "unchanged": true
+    },
+    "assets/characters/musashi/model/edo_refined.glb": {
+      "sha256": "dba688fe28ba29dc783cb8f927870d22cc98e1d19f921db783bfab50550c6654",
+      "unchanged": true
+    },
+    "assets/characters/musashi/animations/motion.gd": {
+      "sha256": "360fdc7b76d029c06e98e1be5d48fc23c3e0c4ff6b53fcbb13dbfddeb44ca0ec",
+      "unchanged": true
+    },
+    "assets/characters/musashi/combat/musashi_combat.gd": {
+      "sha256": "5a055b8d0fc34a2f26f598f1836e1fdbc5d9ae8e0d85a001e3c6b3bdc468f596",
+      "unchanged": true
+    },
+    "scripts/player.gd": {
+      "sha256": "bc8bdd53967f7ed566c188b673765deffaa238944251e9c63950472ef21d8558",
+      "unchanged": true
+    }
+  },
+  "before_bounds": [
+    [
+      -0.4830787479877472,
+      -0.4195306897163391,
+      -0.010615288279950619
+    ],
+    [
+      0.5319303870201111,
+      0.2940305173397064,
+      2.1872611045837402
+    ]
+  ],
+  "after_bounds": [
+    [
+      -0.44140997529029846,
+      -0.2370000034570694,
+      0.0
+    ],
+    [
+      0.48937997221946716,
+      0.27199986577033997,
+      2.197999954223633
+    ]
+  ],
+  "normalized_weights": true,
+  "all_vertices_skinned": true,
+  "uv_maps": 1,
+  "bone_names": [
+    "Root",
+    "Hips",
+    "Chest",
+    "Arm_L",
+    "Forearm_L",
+    "Hand_L",
+    "Arm_R",
+    "Forearm_R",
+    "Hand_R",
+    "Head",
+    "Leg_L",
+    "Shin_L",
+    "Foot_L",
+    "Leg_R",
+    "Shin_R",
+    "Foot_R"
+  ],
+  "packed_images": [
+    [
+      "musashi_painted",
+      true
+    ]
+  ],
+  "external_libraries": 0,
+  "bone_animation_source": "Existing unmodified MusashiMotion; GLB contains no root-motion/attack tracks."
+}

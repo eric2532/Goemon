@@ -1,0 +1,1696 @@
+{
+  "schema_version": 1,
+  "source": "raw/SC01.CD.dir/FILE_077.dir/0.4.dec",
+  "source_base": "0x80128158",
+  "source_sha256": "126605c1871a3f852578793886cb599af05d09e8c2cccf256257bbd414757ed9",
+  "source_units_to_meters": 0.01,
+  "fps": 30,
+  "facing_note": "Source front -Z maps through Blender C=(x,z,-y), then glTF export to Godot +Z. Rotate Y by PI for Godot -Z controller.",
+  "timing_note": "Held discrete source poses; one tick presented at nominal30Hz. Source stream duration is signed16; -1 loops. Event/combat gating is in overlay code, not pose stream.",
+  "transform_note": "Packed8byte perpart actor-space XYZ; position signed8, Euler angles12bits. Blender transform C*EulerXYZ*C^-1, C=(x,z,-y), translation=C*position*.01. glTF Y-up conversion is applied by exporter. Flat part bones deliberately preserve baked actor-space transforms.",
+  "variants": [
+    {
+      "id": 1,
+      "name": "Thirstquencher Soldier 1",
+      "color": "red",
+      "glb": "res://assets/characters/thirstquencher/soldier_1.glb",
+      "model_list_address": "0x801a0058",
+      "parts": [
+        {
+          "index": 0,
+          "bone_name": "Part_00",
+          "source_address": "0x8019dd50",
+          "source_model": "model_40e425ef9c1229edaa2e",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_40e425ef9c1229edaa2e.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/aa09c5e4ef13c94552e3.tmd",
+          "local_bounds_min": [
+            -0.14000000059604645,
+            -0.14000000059604645,
+            -0.12999999523162842
+          ],
+          "local_bounds_max": [
+            0.14000000059604645,
+            0.14000000059604645,
+            0.1599999964237213
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "shoulder_a",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 1,
+          "bone_name": "Part_01",
+          "source_address": "0x8019e018",
+          "source_model": "model_8ad5b70b71c88069780d",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_8ad5b70b71c88069780d.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/b95b79fbed4aa1384ed4.tmd",
+          "local_bounds_min": [
+            -0.14000000059604645,
+            -0.14000000059604645,
+            -0.12999999523162842
+          ],
+          "local_bounds_max": [
+            0.14000000059604645,
+            0.14000000059604645,
+            0.1599999964237213
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "shoulder_b",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 2,
+          "bone_name": "Part_02",
+          "source_address": "0x8019e2e0",
+          "source_model": "model_3a8bbb6c35c2d6bbb960",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_3a8bbb6c35c2d6bbb960.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/e0740d8da23fdccc15b9.tmd",
+          "local_bounds_min": [
+            -0.29999998211860657,
+            -0.3100000023841858,
+            -0.26999998092651367
+          ],
+          "local_bounds_max": [
+            0.29999998211860657,
+            0.25,
+            0.25999999046325684
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "torso",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 3,
+          "bone_name": "Part_03",
+          "source_address": "0x8019e810",
+          "source_model": "model_389254afe14793020071",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_389254afe14793020071.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/b79392b591b905d3599c.tmd",
+          "local_bounds_min": [
+            -0.12999999523162842,
+            -0.3199999928474426,
+            -0.11999999731779099
+          ],
+          "local_bounds_max": [
+            0.12999999523162842,
+            0.08999999612569809,
+            0.11999999731779099
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "shoe_a",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 4,
+          "bone_name": "Part_04",
+          "source_address": "0x8019eae8",
+          "source_model": "model_9f37a7ae206cf5d1fe57",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_9f37a7ae206cf5d1fe57.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/3925c36cd821fff5661f.tmd",
+          "local_bounds_min": [
+            -0.12999999523162842,
+            -0.3199999928474426,
+            -0.11999999731779099
+          ],
+          "local_bounds_max": [
+            0.12999999523162842,
+            0.08999999612569809,
+            0.11999999731779099
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "shoe_b",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 5,
+          "bone_name": "Part_05",
+          "source_address": "0x8019edc0",
+          "source_model": "model_df9051a02b14012511aa",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_df9051a02b14012511aa.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/9f63c0d9b7c555eb0d8a.tmd",
+          "local_bounds_min": [
+            -0.07999999821186066,
+            -0.07999999821186066,
+            -0.05999999865889549
+          ],
+          "local_bounds_max": [
+            0.07999999821186066,
+            0.07999999821186066,
+            0.22999998927116394
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "leg_a",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 6,
+          "bone_name": "Part_06",
+          "source_address": "0x8019f144",
+          "source_model": "model_8666ea034c10aebf2e3e",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_8666ea034c10aebf2e3e.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/bf714e13a84e9c15af76.tmd",
+          "local_bounds_min": [
+            -0.07999999821186066,
+            -0.07999999821186066,
+            -0.05999999865889549
+          ],
+          "local_bounds_max": [
+            0.07999999821186066,
+            0.07999999821186066,
+            0.22999998927116394
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "leg_b",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 7,
+          "bone_name": "Part_07",
+          "source_address": "0x8019f4c8",
+          "source_model": "model_92eed435463751dac3d1",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_92eed435463751dac3d1.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/aff46e9e9a2b109911f9.tmd",
+          "local_bounds_min": [
+            -0.1899999976158142,
+            -0.19999998807907104,
+            -0.17000000178813934
+          ],
+          "local_bounds_max": [
+            0.1899999976158142,
+            0.1599999964237213,
+            0.14000000059604645
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "head_face",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 8,
+          "bone_name": "Part_08",
+          "source_address": "0x8019f8f0",
+          "source_model": "model_5ad6eef35a25fdb0861f",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_5ad6eef35a25fdb0861f.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/cc350e1aa88aee5ac2d4.tmd",
+          "local_bounds_min": [
+            -0.12999999523162842,
+            -0.17999999225139618,
+            -0.12999999523162842
+          ],
+          "local_bounds_max": [
+            0.12999999523162842,
+            0.17999999225139618,
+            0.14999999105930328
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "forearm_hand_a",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 9,
+          "bone_name": "Part_09",
+          "source_address": "0x8019fb30",
+          "source_model": "model_2e899cfc27b7f055bf79",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_2e899cfc27b7f055bf79.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/66add10053f7771be61b.tmd",
+          "local_bounds_min": [
+            -0.12999999523162842,
+            -0.17999999225139618,
+            -0.12999999523162842
+          ],
+          "local_bounds_max": [
+            0.12999999523162842,
+            0.17999999225139618,
+            0.14999999105930328
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "forearm_hand_b",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 10,
+          "bone_name": "Part_10",
+          "source_address": "0x8019fd70",
+          "source_model": "model_da28b96b2e7a25a4978c",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_da28b96b2e7a25a4978c.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/6955d82aed81920a5bec.tmd",
+          "local_bounds_min": [
+            -0.029999999329447746,
+            -0.4399999976158142,
+            -0.12999999523162842
+          ],
+          "local_bounds_max": [
+            0.029999999329447746,
+            0.0,
+            0.12999999523162842
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "weapon",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        }
+      ],
+      "clips": [
+        {
+          "name": "Source__801afd28",
+          "source_address": "0x801afd28",
+          "ticks": 20,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "combo_prepare",
+          "stream_sha256": "94d02bb69d25ddbf5fc6c93e952c398ba474ea9d0fee718ddc5316c01e7688e9",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801afdd0",
+          "source_address": "0x801afdd0",
+          "ticks": 40,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "idle_approximate",
+          "stream_sha256": "3eba69345950a93a73382fdd0874437414fa54a0682c5d5d32fdebb5c6ba037d",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801aff18",
+          "source_address": "0x801aff18",
+          "ticks": 20,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "patrol",
+          "stream_sha256": "cc46cabbcf19763a2bfdf2bac217758d7b4f0408f4253fa28e4fb9019490475a",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801affc0",
+          "source_address": "0x801affc0",
+          "ticks": 16,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "pursuit",
+          "stream_sha256": "673535a266262ec1ba4207d543ea9d636fe0a86e586f57c13a4cc4e077772bae",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0048",
+          "source_address": "0x801b0048",
+          "ticks": 25,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "alert",
+          "stream_sha256": "887ba74ba9b2f73694c64412fbc92a730b74a27887a481d970b761592440a714",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0118",
+          "source_address": "0x801b0118",
+          "ticks": 24,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "melee_a",
+          "stream_sha256": "aaab5a8af645f25066758785f75bffaf8a807a9a3a867ad84bb2c4358e3362c5",
+          "gameplay_events": [
+            {
+              "tick": 13,
+              "kind": "melee_contact",
+              "timer_initial": 20,
+              "timer_value": 7,
+              "source": "overlay meleeA state"
+            }
+          ]
+        },
+        {
+          "name": "Source__801b01e0",
+          "source_address": "0x801b01e0",
+          "ticks": 24,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "melee_b",
+          "stream_sha256": "b6038fe71c32e0d91876f823e108e28dd1542b7ebd30cbce376a221634539f86",
+          "gameplay_events": [
+            {
+              "tick": 14,
+              "kind": "melee_contact",
+              "timer_initial": 24,
+              "timer_value": 10,
+              "source": "overlay meleeB state"
+            }
+          ]
+        },
+        {
+          "name": "Source__801b02a8",
+          "source_address": "0x801b02a8",
+          "ticks": 16,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "hurt",
+          "stream_sha256": "9f241281f356194d7d5c858828afca849f60fda437436246b2cd72c617fb69bf",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0330",
+          "source_address": "0x801b0330",
+          "ticks": 50,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "special_state",
+          "stream_sha256": "96a7f7ecc6b5b0f3c08ffc88cfa6f263a067fdcd568cfbe3ca403d946d3ab85c",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b04c8",
+          "source_address": "0x801b04c8",
+          "ticks": 16,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "3e695e4cdac4739a8a8280d31b3f0bd304bef3a366a5da98577afe16e3954293",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0550",
+          "source_address": "0x801b0550",
+          "ticks": 50,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "1806a65c1fa74864f504dc570d5fdeec14e48d276520f442a75b4bfe793e8c7b",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b06e8",
+          "source_address": "0x801b06e8",
+          "ticks": 50,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "special_hurt",
+          "stream_sha256": "a832d3ba56989a5f6eaab0d504682e263e624c428189db677c7dfdb7e440f0a8",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0880",
+          "source_address": "0x801b0880",
+          "ticks": 16,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "18f8b4b0592eb8ead277e175202fd97ade42954612cb7b8cb59d04f783257297",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0908",
+          "source_address": "0x801b0908",
+          "ticks": 24,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "special_hurt",
+          "stream_sha256": "7e164f6f65baea041fdfffeeaa50e1287b9116eaae420a3c33dc6dad29b3588f",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b09d0",
+          "source_address": "0x801b09d0",
+          "ticks": 12,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "death_tumble",
+          "stream_sha256": "3b7be8864fef502ebcb3f9d8e55d46e0dc6d7d3eef9d9bd9d714f5feb990d9f7",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0a38",
+          "source_address": "0x801b0a38",
+          "ticks": 20,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "ea2c48056c45025db1be53f331ce2ad0d7ac9f6c02053cdac65f7a3fdebcc873",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0ae0",
+          "source_address": "0x801b0ae0",
+          "ticks": 30,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "cbb06934bf0ff3383521877e425935150f269583a4f4825a8f4f2e473d50c761",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0bd8",
+          "source_address": "0x801b0bd8",
+          "ticks": 2,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "06db68b4d6acf839e8417e369c368c204da37175a2cae9402d07b71cbbaf4dbc",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0bf0",
+          "source_address": "0x801b0bf0",
+          "ticks": 12,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "87a7b868806297cf04618e46a58849f8b73c6e4e1072f56cc06c5fbc7ffb8aa3",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0c58",
+          "source_address": "0x801b0c58",
+          "ticks": 30,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "3d6c4221e688e4c5a6f82af0545fdb4f1fa410457d1971a639cd394eacefd158",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0d50",
+          "source_address": "0x801b0d50",
+          "ticks": 30,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "gunfire",
+          "stream_sha256": "9029543e89b6a6f7c91b222467b381609374f50a2017ca85e5482bedc0347be9",
+          "gameplay_events": [
+            {
+              "tick": 15,
+              "kind": "muzzle_effect",
+              "timer_initial": 30,
+              "timer_value": 15,
+              "source": "func_80181BE4"
+            },
+            {
+              "tick": 18,
+              "kind": "projectile",
+              "timer_initial": 30,
+              "timer_value": 12,
+              "source": "func_80181BE4"
+            }
+          ]
+        },
+        {
+          "name": "Source__801b0e48",
+          "source_address": "0x801b0e48",
+          "ticks": 30,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "reload",
+          "stream_sha256": "675936e4d4bfa80ddeabdbaeeda9119bed516bd375fc8bc72ee1ef71694eebd4",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b1090",
+          "source_address": "0x801b1090",
+          "ticks": 12,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "6027dc324f5cdd65e26482d0a5043c4e207db1eeb4758d2652540d2c97b15b04",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b10f8",
+          "source_address": "0x801b10f8",
+          "ticks": 12,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "ddc5df3304ec31de5c84a6500a16449a9423d9bac830c40852f1e90b0e238ba9",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b1160",
+          "source_address": "0x801b1160",
+          "ticks": 2,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "a0e52074b05b2a25c513ea08678fdee91ad168ee3dcedcb31e02a804a1f6e11c",
+          "gameplay_events": []
+        }
+      ],
+      "semantics": {
+        "idle": "Source__801afdd0",
+        "walk": "Source__801aff18",
+        "run": "Source__801affc0",
+        "alert": "Source__801b0048",
+        "combo_prepare": "Source__801afd28",
+        "attack": [
+          "Source__801b0118",
+          "Source__801b01e0"
+        ],
+        "hurt": [
+          "Source__801b02a8",
+          "Source__801b0908",
+          "Source__801b06e8"
+        ],
+        "death": "Source__801b09d0",
+        "fire": "Source__801b0d50",
+        "reload": "Source__801b0e48"
+      },
+      "motion_sources": "res://assets/characters/thirstquencher/soldier_1_motion.json",
+      "glb_sha256": "f9384af0fb10a43e926c118d6edf27dd8e6812fc3b8098494ca068bf774d46ec",
+      "verification": {
+        "matrix_checks": 6413,
+        "max_matrix_error": 9.979129707016199e-07,
+        "parts": 11,
+        "bones": 12,
+        "animations": 25,
+        "variant": 1,
+        "glb_source_skin_matrix_checks": 6413,
+        "all_clips_step": true
+      },
+      "semantic_note": "Idle/walk/run are approximate aliases inferred from visible motion and AI roles. Numeric source action addresses remain authoritative."
+    },
+    {
+      "id": 2,
+      "name": "Thirstquencher Soldier 2",
+      "color": "blue",
+      "glb": "res://assets/characters/thirstquencher/soldier_2.glb",
+      "model_list_address": "0x8019b314",
+      "parts": [
+        {
+          "index": 0,
+          "bone_name": "Part_00",
+          "source_address": "0x801991cc",
+          "source_model": "model_40e425ef9c1229edaa2e",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_40e425ef9c1229edaa2e.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/aa09c5e4ef13c94552e3.tmd",
+          "local_bounds_min": [
+            -0.14000000059604645,
+            -0.14000000059604645,
+            -0.12999999523162842
+          ],
+          "local_bounds_max": [
+            0.14000000059604645,
+            0.14000000059604645,
+            0.1599999964237213
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "shoulder_a",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 1,
+          "bone_name": "Part_01",
+          "source_address": "0x80199494",
+          "source_model": "model_8ad5b70b71c88069780d",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_8ad5b70b71c88069780d.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/b95b79fbed4aa1384ed4.tmd",
+          "local_bounds_min": [
+            -0.14000000059604645,
+            -0.14000000059604645,
+            -0.12999999523162842
+          ],
+          "local_bounds_max": [
+            0.14000000059604645,
+            0.14000000059604645,
+            0.1599999964237213
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "shoulder_b",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 2,
+          "bone_name": "Part_02",
+          "source_address": "0x8019975c",
+          "source_model": "model_211c6d1f7ba675323a53",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_211c6d1f7ba675323a53.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/d677469e1f7fed65d0c8.tmd",
+          "local_bounds_min": [
+            -0.29999998211860657,
+            -0.3100000023841858,
+            -0.26999998092651367
+          ],
+          "local_bounds_max": [
+            0.29999998211860657,
+            0.25,
+            0.25999999046325684
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "torso",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 3,
+          "bone_name": "Part_03",
+          "source_address": "0x80199c8c",
+          "source_model": "model_389254afe14793020071",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_389254afe14793020071.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/b79392b591b905d3599c.tmd",
+          "local_bounds_min": [
+            -0.12999999523162842,
+            -0.3199999928474426,
+            -0.11999999731779099
+          ],
+          "local_bounds_max": [
+            0.12999999523162842,
+            0.08999999612569809,
+            0.11999999731779099
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "shoe_a",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 4,
+          "bone_name": "Part_04",
+          "source_address": "0x80199f64",
+          "source_model": "model_9f37a7ae206cf5d1fe57",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_9f37a7ae206cf5d1fe57.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/3925c36cd821fff5661f.tmd",
+          "local_bounds_min": [
+            -0.12999999523162842,
+            -0.3199999928474426,
+            -0.11999999731779099
+          ],
+          "local_bounds_max": [
+            0.12999999523162842,
+            0.08999999612569809,
+            0.11999999731779099
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "shoe_b",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 5,
+          "bone_name": "Part_05",
+          "source_address": "0x8019a23c",
+          "source_model": "model_df9051a02b14012511aa",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_df9051a02b14012511aa.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/9f63c0d9b7c555eb0d8a.tmd",
+          "local_bounds_min": [
+            -0.07999999821186066,
+            -0.07999999821186066,
+            -0.05999999865889549
+          ],
+          "local_bounds_max": [
+            0.07999999821186066,
+            0.07999999821186066,
+            0.22999998927116394
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "leg_a",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 6,
+          "bone_name": "Part_06",
+          "source_address": "0x8019a5c0",
+          "source_model": "model_8666ea034c10aebf2e3e",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_8666ea034c10aebf2e3e.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/bf714e13a84e9c15af76.tmd",
+          "local_bounds_min": [
+            -0.07999999821186066,
+            -0.07999999821186066,
+            -0.05999999865889549
+          ],
+          "local_bounds_max": [
+            0.07999999821186066,
+            0.07999999821186066,
+            0.22999998927116394
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "leg_b",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 7,
+          "bone_name": "Part_07",
+          "source_address": "0x8019a944",
+          "source_model": "model_92eed435463751dac3d1",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_92eed435463751dac3d1.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/aff46e9e9a2b109911f9.tmd",
+          "local_bounds_min": [
+            -0.1899999976158142,
+            -0.19999998807907104,
+            -0.17000000178813934
+          ],
+          "local_bounds_max": [
+            0.1899999976158142,
+            0.1599999964237213,
+            0.14000000059604645
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "head_face",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 8,
+          "bone_name": "Part_08",
+          "source_address": "0x8019ad6c",
+          "source_model": "model_5ad6eef35a25fdb0861f",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_5ad6eef35a25fdb0861f.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/cc350e1aa88aee5ac2d4.tmd",
+          "local_bounds_min": [
+            -0.12999999523162842,
+            -0.17999999225139618,
+            -0.12999999523162842
+          ],
+          "local_bounds_max": [
+            0.12999999523162842,
+            0.17999999225139618,
+            0.14999999105930328
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "forearm_hand_a",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 9,
+          "bone_name": "Part_09",
+          "source_address": "0x8019afac",
+          "source_model": "model_2e899cfc27b7f055bf79",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_2e899cfc27b7f055bf79.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/66add10053f7771be61b.tmd",
+          "local_bounds_min": [
+            -0.12999999523162842,
+            -0.17999999225139618,
+            -0.12999999523162842
+          ],
+          "local_bounds_max": [
+            0.12999999523162842,
+            0.17999999225139618,
+            0.14999999105930328
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "forearm_hand_b",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 10,
+          "bone_name": "Part_10",
+          "source_address": "0x8019b1ec",
+          "source_model": "model_e1edb89f33089f8e432d",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_e1edb89f33089f8e432d.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/cfb3ec47c0daeb2a33e7.tmd",
+          "local_bounds_min": [
+            -0.03999999910593033,
+            -0.11999999731779099,
+            -0.19999998807907104
+          ],
+          "local_bounds_max": [
+            0.03999999910593033,
+            0.0,
+            0.11999999731779099
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "weapon",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        }
+      ],
+      "clips": [
+        {
+          "name": "Source__801afd28",
+          "source_address": "0x801afd28",
+          "ticks": 20,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "combo_prepare",
+          "stream_sha256": "94d02bb69d25ddbf5fc6c93e952c398ba474ea9d0fee718ddc5316c01e7688e9",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801afdd0",
+          "source_address": "0x801afdd0",
+          "ticks": 40,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "idle_approximate",
+          "stream_sha256": "3eba69345950a93a73382fdd0874437414fa54a0682c5d5d32fdebb5c6ba037d",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801aff18",
+          "source_address": "0x801aff18",
+          "ticks": 20,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "patrol",
+          "stream_sha256": "cc46cabbcf19763a2bfdf2bac217758d7b4f0408f4253fa28e4fb9019490475a",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801affc0",
+          "source_address": "0x801affc0",
+          "ticks": 16,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "pursuit",
+          "stream_sha256": "673535a266262ec1ba4207d543ea9d636fe0a86e586f57c13a4cc4e077772bae",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0048",
+          "source_address": "0x801b0048",
+          "ticks": 25,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "alert",
+          "stream_sha256": "887ba74ba9b2f73694c64412fbc92a730b74a27887a481d970b761592440a714",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0118",
+          "source_address": "0x801b0118",
+          "ticks": 24,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "melee_a",
+          "stream_sha256": "aaab5a8af645f25066758785f75bffaf8a807a9a3a867ad84bb2c4358e3362c5",
+          "gameplay_events": [
+            {
+              "tick": 13,
+              "kind": "melee_contact",
+              "timer_initial": 20,
+              "timer_value": 7,
+              "source": "overlay meleeA state"
+            }
+          ]
+        },
+        {
+          "name": "Source__801b01e0",
+          "source_address": "0x801b01e0",
+          "ticks": 24,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "melee_b",
+          "stream_sha256": "b6038fe71c32e0d91876f823e108e28dd1542b7ebd30cbce376a221634539f86",
+          "gameplay_events": [
+            {
+              "tick": 14,
+              "kind": "melee_contact",
+              "timer_initial": 24,
+              "timer_value": 10,
+              "source": "overlay meleeB state"
+            }
+          ]
+        },
+        {
+          "name": "Source__801b02a8",
+          "source_address": "0x801b02a8",
+          "ticks": 16,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "hurt",
+          "stream_sha256": "9f241281f356194d7d5c858828afca849f60fda437436246b2cd72c617fb69bf",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0330",
+          "source_address": "0x801b0330",
+          "ticks": 50,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "special_state",
+          "stream_sha256": "96a7f7ecc6b5b0f3c08ffc88cfa6f263a067fdcd568cfbe3ca403d946d3ab85c",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b04c8",
+          "source_address": "0x801b04c8",
+          "ticks": 16,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "3e695e4cdac4739a8a8280d31b3f0bd304bef3a366a5da98577afe16e3954293",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0550",
+          "source_address": "0x801b0550",
+          "ticks": 50,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "1806a65c1fa74864f504dc570d5fdeec14e48d276520f442a75b4bfe793e8c7b",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b06e8",
+          "source_address": "0x801b06e8",
+          "ticks": 50,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "special_hurt",
+          "stream_sha256": "a832d3ba56989a5f6eaab0d504682e263e624c428189db677c7dfdb7e440f0a8",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0880",
+          "source_address": "0x801b0880",
+          "ticks": 16,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "18f8b4b0592eb8ead277e175202fd97ade42954612cb7b8cb59d04f783257297",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0908",
+          "source_address": "0x801b0908",
+          "ticks": 24,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "special_hurt",
+          "stream_sha256": "7e164f6f65baea041fdfffeeaa50e1287b9116eaae420a3c33dc6dad29b3588f",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b09d0",
+          "source_address": "0x801b09d0",
+          "ticks": 12,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "death_tumble",
+          "stream_sha256": "3b7be8864fef502ebcb3f9d8e55d46e0dc6d7d3eef9d9bd9d714f5feb990d9f7",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0a38",
+          "source_address": "0x801b0a38",
+          "ticks": 20,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "ea2c48056c45025db1be53f331ce2ad0d7ac9f6c02053cdac65f7a3fdebcc873",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0ae0",
+          "source_address": "0x801b0ae0",
+          "ticks": 30,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "cbb06934bf0ff3383521877e425935150f269583a4f4825a8f4f2e473d50c761",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0bd8",
+          "source_address": "0x801b0bd8",
+          "ticks": 2,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "06db68b4d6acf839e8417e369c368c204da37175a2cae9402d07b71cbbaf4dbc",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0bf0",
+          "source_address": "0x801b0bf0",
+          "ticks": 12,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "87a7b868806297cf04618e46a58849f8b73c6e4e1072f56cc06c5fbc7ffb8aa3",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0c58",
+          "source_address": "0x801b0c58",
+          "ticks": 30,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "3d6c4221e688e4c5a6f82af0545fdb4f1fa410457d1971a639cd394eacefd158",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0d50",
+          "source_address": "0x801b0d50",
+          "ticks": 30,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "gunfire",
+          "stream_sha256": "9029543e89b6a6f7c91b222467b381609374f50a2017ca85e5482bedc0347be9",
+          "gameplay_events": [
+            {
+              "tick": 15,
+              "kind": "muzzle_effect",
+              "timer_initial": 30,
+              "timer_value": 15,
+              "source": "func_80181BE4"
+            },
+            {
+              "tick": 18,
+              "kind": "projectile",
+              "timer_initial": 30,
+              "timer_value": 12,
+              "source": "func_80181BE4"
+            }
+          ]
+        },
+        {
+          "name": "Source__801b0e48",
+          "source_address": "0x801b0e48",
+          "ticks": 30,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "reload",
+          "stream_sha256": "675936e4d4bfa80ddeabdbaeeda9119bed516bd375fc8bc72ee1ef71694eebd4",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b1090",
+          "source_address": "0x801b1090",
+          "ticks": 12,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "6027dc324f5cdd65e26482d0a5043c4e207db1eeb4758d2652540d2c97b15b04",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b10f8",
+          "source_address": "0x801b10f8",
+          "ticks": 12,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "ddc5df3304ec31de5c84a6500a16449a9423d9bac830c40852f1e90b0e238ba9",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b1160",
+          "source_address": "0x801b1160",
+          "ticks": 2,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "a0e52074b05b2a25c513ea08678fdee91ad168ee3dcedcb31e02a804a1f6e11c",
+          "gameplay_events": []
+        }
+      ],
+      "semantics": {
+        "idle": "Source__801afdd0",
+        "walk": "Source__801aff18",
+        "run": "Source__801affc0",
+        "alert": "Source__801b0048",
+        "combo_prepare": "Source__801afd28",
+        "attack": [
+          "Source__801b0d50"
+        ],
+        "hurt": [
+          "Source__801b02a8",
+          "Source__801b0908",
+          "Source__801b06e8"
+        ],
+        "death": "Source__801b09d0",
+        "fire": "Source__801b0d50",
+        "reload": "Source__801b0e48"
+      },
+      "motion_sources": "res://assets/characters/thirstquencher/soldier_2_motion.json",
+      "glb_sha256": "30a9c99fa1df0daba1605ceab0f751cd276e7b40278b59c6049312c0219fe4da",
+      "verification": {
+        "matrix_checks": 6413,
+        "max_matrix_error": 9.979129707016199e-07,
+        "parts": 11,
+        "bones": 12,
+        "animations": 25,
+        "variant": 2,
+        "glb_source_skin_matrix_checks": 6413,
+        "all_clips_step": true
+      },
+      "semantic_note": "Idle/walk/run are approximate aliases inferred from visible motion and AI roles. Numeric source action addresses remain authoritative."
+    },
+    {
+      "id": 3,
+      "name": "Thirstquencher Soldier 3",
+      "color": "green",
+      "glb": "res://assets/characters/thirstquencher/soldier_3.glb",
+      "model_list_address": "0x801aef38",
+      "parts": [
+        {
+          "index": 0,
+          "bone_name": "Part_00",
+          "source_address": "0x801acb2c",
+          "source_model": "model_6f4b178cd9101c1e2345",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_6f4b178cd9101c1e2345.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/be31a1430a10e2f40168.tmd",
+          "local_bounds_min": [
+            -0.14000000059604645,
+            -0.14000000059604645,
+            -0.12999999523162842
+          ],
+          "local_bounds_max": [
+            0.14000000059604645,
+            0.14000000059604645,
+            0.1599999964237213
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "shoulder_a",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 1,
+          "bone_name": "Part_01",
+          "source_address": "0x801acde0",
+          "source_model": "model_727eb667aa05f58bf82c",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_727eb667aa05f58bf82c.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/015b9b6bd00adf201aa1.tmd",
+          "local_bounds_min": [
+            -0.14000000059604645,
+            -0.14000000059604645,
+            -0.12999999523162842
+          ],
+          "local_bounds_max": [
+            0.14000000059604645,
+            0.14000000059604645,
+            0.1599999964237213
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "shoulder_b",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 2,
+          "bone_name": "Part_02",
+          "source_address": "0x801ad094",
+          "source_model": "model_27ab459db6b313974919",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_27ab459db6b313974919.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/d05b7164fcf4c8f1eb95.tmd",
+          "local_bounds_min": [
+            -0.29999998211860657,
+            -0.3100000023841858,
+            -0.26999998092651367
+          ],
+          "local_bounds_max": [
+            0.29999998211860657,
+            0.25,
+            0.25999999046325684
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "torso",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 3,
+          "bone_name": "Part_03",
+          "source_address": "0x801ad5bc",
+          "source_model": "model_468a57b249d13acefd0c",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_468a57b249d13acefd0c.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/497f42f8b97227c4c9be.tmd",
+          "local_bounds_min": [
+            -0.12999999523162842,
+            -0.3199999928474426,
+            -0.11999999731779099
+          ],
+          "local_bounds_max": [
+            0.12999999523162842,
+            0.08999999612569809,
+            0.11999999731779099
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "shoe_a",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 4,
+          "bone_name": "Part_04",
+          "source_address": "0x801ad87c",
+          "source_model": "model_b355c66901c1f955b6d5",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_b355c66901c1f955b6d5.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/3975c5cfbe84fcb432c6.tmd",
+          "local_bounds_min": [
+            -0.12999999523162842,
+            -0.3199999928474426,
+            -0.11999999731779099
+          ],
+          "local_bounds_max": [
+            0.12999999523162842,
+            0.08999999612569809,
+            0.11999999731779099
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "shoe_b",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 5,
+          "bone_name": "Part_05",
+          "source_address": "0x801adb3c",
+          "source_model": "model_9ee4dd7d05c3fec6ab7d",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_9ee4dd7d05c3fec6ab7d.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/2ed87149d3a3fe2b9fb3.tmd",
+          "local_bounds_min": [
+            -0.07999999821186066,
+            -0.07999999821186066,
+            -0.05999999865889549
+          ],
+          "local_bounds_max": [
+            0.07999999821186066,
+            0.07999999821186066,
+            0.22999998927116394
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "leg_a",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 6,
+          "bone_name": "Part_06",
+          "source_address": "0x801adeac",
+          "source_model": "model_624a33d12de33d6d0c9d",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_624a33d12de33d6d0c9d.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/66b49d3fbeb6a6ed177a.tmd",
+          "local_bounds_min": [
+            -0.07999999821186066,
+            -0.07999999821186066,
+            -0.05999999865889549
+          ],
+          "local_bounds_max": [
+            0.07999999821186066,
+            0.07999999821186066,
+            0.22999998927116394
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "leg_b",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 7,
+          "bone_name": "Part_07",
+          "source_address": "0x801ae21c",
+          "source_model": "model_be06dfd03ec425c9d3a3",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_be06dfd03ec425c9d3a3.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/dba4122bb813070d0c75.tmd",
+          "local_bounds_min": [
+            -0.1899999976158142,
+            -0.19999998807907104,
+            -0.17000000178813934
+          ],
+          "local_bounds_max": [
+            0.1899999976158142,
+            0.1599999964237213,
+            0.14000000059604645
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "head_face",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 8,
+          "bone_name": "Part_08",
+          "source_address": "0x801ae63c",
+          "source_model": "model_5ad6eef35a25fdb0861f",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_5ad6eef35a25fdb0861f.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/cc350e1aa88aee5ac2d4.tmd",
+          "local_bounds_min": [
+            -0.12999999523162842,
+            -0.17999999225139618,
+            -0.12999999523162842
+          ],
+          "local_bounds_max": [
+            0.12999999523162842,
+            0.17999999225139618,
+            0.14999999105930328
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "forearm_hand_a",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 9,
+          "bone_name": "Part_09",
+          "source_address": "0x801ae87c",
+          "source_model": "model_2e899cfc27b7f055bf79",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_2e899cfc27b7f055bf79.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/66add10053f7771be61b.tmd",
+          "local_bounds_min": [
+            -0.12999999523162842,
+            -0.17999999225139618,
+            -0.12999999523162842
+          ],
+          "local_bounds_max": [
+            0.12999999523162842,
+            0.17999999225139618,
+            0.14999999105930328
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "forearm_hand_b",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        },
+        {
+          "index": 10,
+          "bone_name": "Part_10",
+          "source_address": "0x801aeabc",
+          "source_model": "model_498a43ccf8c926d27cb0",
+          "glb": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/glb/model_498a43ccf8c926d27cb0.glb",
+          "tmd": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Musashi Asset Recovery/converted/models/tmd/82dc91b2f815e7d95c03.tmd",
+          "local_bounds_min": [
+            -0.029999999329447746,
+            -0.8199999928474426,
+            -0.07000000029802322
+          ],
+          "local_bounds_max": [
+            0.029999999329447746,
+            0.41999998688697815,
+            0.07000000029802322
+          ],
+          "bounds_space": "Blender Z-up, part-local meters; glTF Y-up is (x,z,-y)",
+          "visual_role": "weapon",
+          "visual_role_note": "Descriptive visual inference; source part index and numeric bone name authoritative."
+        }
+      ],
+      "clips": [
+        {
+          "name": "Source__801afd28",
+          "source_address": "0x801afd28",
+          "ticks": 20,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "combo_prepare",
+          "stream_sha256": "94d02bb69d25ddbf5fc6c93e952c398ba474ea9d0fee718ddc5316c01e7688e9",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801afdd0",
+          "source_address": "0x801afdd0",
+          "ticks": 40,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "idle_approximate",
+          "stream_sha256": "3eba69345950a93a73382fdd0874437414fa54a0682c5d5d32fdebb5c6ba037d",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801aff18",
+          "source_address": "0x801aff18",
+          "ticks": 20,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "patrol",
+          "stream_sha256": "cc46cabbcf19763a2bfdf2bac217758d7b4f0408f4253fa28e4fb9019490475a",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801affc0",
+          "source_address": "0x801affc0",
+          "ticks": 16,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "pursuit",
+          "stream_sha256": "673535a266262ec1ba4207d543ea9d636fe0a86e586f57c13a4cc4e077772bae",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0048",
+          "source_address": "0x801b0048",
+          "ticks": 25,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "alert",
+          "stream_sha256": "887ba74ba9b2f73694c64412fbc92a730b74a27887a481d970b761592440a714",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0118",
+          "source_address": "0x801b0118",
+          "ticks": 24,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "melee_a",
+          "stream_sha256": "aaab5a8af645f25066758785f75bffaf8a807a9a3a867ad84bb2c4358e3362c5",
+          "gameplay_events": [
+            {
+              "tick": 13,
+              "kind": "melee_contact",
+              "timer_initial": 20,
+              "timer_value": 7,
+              "source": "overlay meleeA state"
+            }
+          ]
+        },
+        {
+          "name": "Source__801b01e0",
+          "source_address": "0x801b01e0",
+          "ticks": 24,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "melee_b",
+          "stream_sha256": "b6038fe71c32e0d91876f823e108e28dd1542b7ebd30cbce376a221634539f86",
+          "gameplay_events": [
+            {
+              "tick": 14,
+              "kind": "melee_contact",
+              "timer_initial": 24,
+              "timer_value": 10,
+              "source": "overlay meleeB state"
+            }
+          ]
+        },
+        {
+          "name": "Source__801b02a8",
+          "source_address": "0x801b02a8",
+          "ticks": 16,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "hurt",
+          "stream_sha256": "9f241281f356194d7d5c858828afca849f60fda437436246b2cd72c617fb69bf",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0330",
+          "source_address": "0x801b0330",
+          "ticks": 50,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "special_state",
+          "stream_sha256": "96a7f7ecc6b5b0f3c08ffc88cfa6f263a067fdcd568cfbe3ca403d946d3ab85c",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b04c8",
+          "source_address": "0x801b04c8",
+          "ticks": 16,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "3e695e4cdac4739a8a8280d31b3f0bd304bef3a366a5da98577afe16e3954293",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0550",
+          "source_address": "0x801b0550",
+          "ticks": 50,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "1806a65c1fa74864f504dc570d5fdeec14e48d276520f442a75b4bfe793e8c7b",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b06e8",
+          "source_address": "0x801b06e8",
+          "ticks": 50,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "special_hurt",
+          "stream_sha256": "a832d3ba56989a5f6eaab0d504682e263e624c428189db677c7dfdb7e440f0a8",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0880",
+          "source_address": "0x801b0880",
+          "ticks": 16,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "18f8b4b0592eb8ead277e175202fd97ade42954612cb7b8cb59d04f783257297",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0908",
+          "source_address": "0x801b0908",
+          "ticks": 24,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "special_hurt",
+          "stream_sha256": "7e164f6f65baea041fdfffeeaa50e1287b9116eaae420a3c33dc6dad29b3588f",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b09d0",
+          "source_address": "0x801b09d0",
+          "ticks": 12,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "death_tumble",
+          "stream_sha256": "3b7be8864fef502ebcb3f9d8e55d46e0dc6d7d3eef9d9bd9d714f5feb990d9f7",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0a38",
+          "source_address": "0x801b0a38",
+          "ticks": 20,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "ea2c48056c45025db1be53f331ce2ad0d7ac9f6c02053cdac65f7a3fdebcc873",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0ae0",
+          "source_address": "0x801b0ae0",
+          "ticks": 30,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "cbb06934bf0ff3383521877e425935150f269583a4f4825a8f4f2e473d50c761",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0bd8",
+          "source_address": "0x801b0bd8",
+          "ticks": 2,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "06db68b4d6acf839e8417e369c368c204da37175a2cae9402d07b71cbbaf4dbc",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0bf0",
+          "source_address": "0x801b0bf0",
+          "ticks": 12,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "87a7b868806297cf04618e46a58849f8b73c6e4e1072f56cc06c5fbc7ffb8aa3",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0c58",
+          "source_address": "0x801b0c58",
+          "ticks": 30,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "3d6c4221e688e4c5a6f82af0545fdb4f1fa410457d1971a639cd394eacefd158",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0d50",
+          "source_address": "0x801b0d50",
+          "ticks": 30,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "gunfire",
+          "stream_sha256": "9029543e89b6a6f7c91b222467b381609374f50a2017ca85e5482bedc0347be9",
+          "gameplay_events": [
+            {
+              "tick": 15,
+              "kind": "muzzle_effect",
+              "timer_initial": 30,
+              "timer_value": 15,
+              "source": "func_80181BE4"
+            },
+            {
+              "tick": 18,
+              "kind": "projectile",
+              "timer_initial": 30,
+              "timer_value": 12,
+              "source": "func_80181BE4"
+            }
+          ]
+        },
+        {
+          "name": "Source__801b0e48",
+          "source_address": "0x801b0e48",
+          "ticks": 30,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "reload",
+          "stream_sha256": "675936e4d4bfa80ddeabdbaeeda9119bed516bd375fc8bc72ee1ef71694eebd4",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0f40",
+          "source_address": "0x801b0f40",
+          "ticks": 16,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "a6b300f09d361db96de3df6299f5056dab40f996c9445be774f6f0729c581d69",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b0fc8",
+          "source_address": "0x801b0fc8",
+          "ticks": 24,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "2dd08b94034a650ea605e5949eb4bad17525f659ddf43f58d1a536c74f07f25d",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b1090",
+          "source_address": "0x801b1090",
+          "ticks": 12,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "6027dc324f5cdd65e26482d0a5043c4e207db1eeb4758d2652540d2c97b15b04",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b10f8",
+          "source_address": "0x801b10f8",
+          "ticks": 12,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "ddc5df3304ec31de5c84a6500a16449a9423d9bac830c40852f1e90b0e238ba9",
+          "gameplay_events": []
+        },
+        {
+          "name": "Source__801b1160",
+          "source_address": "0x801b1160",
+          "ticks": 2,
+          "terminal": "loop",
+          "events": [],
+          "semantic": "unmapped",
+          "stream_sha256": "a0e52074b05b2a25c513ea08678fdee91ad168ee3dcedcb31e02a804a1f6e11c",
+          "gameplay_events": []
+        }
+      ],
+      "semantics": {
+        "idle": "Source__801afdd0",
+        "walk": "Source__801aff18",
+        "run": "Source__801affc0",
+        "alert": "Source__801b0048",
+        "combo_prepare": "Source__801afd28",
+        "attack": [
+          "Source__801b0118"
+        ],
+        "hurt": [
+          "Source__801b02a8",
+          "Source__801b0908",
+          "Source__801b06e8"
+        ],
+        "death": "Source__801b09d0",
+        "fire": "Source__801b0d50",
+        "reload": "Source__801b0e48"
+      },
+      "motion_sources": "res://assets/characters/thirstquencher/soldier_3_motion.json",
+      "glb_sha256": "2b160fd434389860448aed7c18c714c226dc60e72c1f8b8295c6297394182c6b",
+      "verification": {
+        "matrix_checks": 6853,
+        "max_matrix_error": 9.979129707016199e-07,
+        "parts": 11,
+        "bones": 12,
+        "animations": 27,
+        "variant": 3,
+        "glb_source_skin_matrix_checks": 6853,
+        "all_clips_step": true
+      },
+      "semantic_note": "Idle/walk/run are approximate aliases inferred from visible motion and AI roles. Numeric source action addresses remain authoritative."
+    }
+  ]
+}

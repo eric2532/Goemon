@@ -1,0 +1,154 @@
+{
+  "hero": "mage",
+  "triangles": 6196,
+  "mesh_batches": 8,
+  "source": "assets/blender/rogue/mage.blend",
+  "removed_microdetails": [
+    "Robe embroidered gold border",
+    "Robe embroidered star",
+    "Robe embroidered star.001",
+    "Robe embroidered star.002",
+    "Robe embroidered gold border.001",
+    "Robe embroidered star.003",
+    "Robe embroidered star.004",
+    "Robe embroidered star.005",
+    "Ivory skirt stitched fold",
+    "Ivory skirt stitched fold.001",
+    "Jaw planes.002",
+    "Cheekbone.004",
+    "Eye socket.004",
+    "Eye white.004",
+    "Iris.004",
+    "Pupil.004",
+    "Confident eyebrow.004",
+    "Cheekbone.005",
+    "Eye socket.005",
+    "Eye white.005",
+    "Iris.005",
+    "Pupil.005",
+    "Confident eyebrow.005",
+    "Carved nose.002",
+    "Calm upper lip.001",
+    "Lower lip highlight.001"
+  ],
+  "head_scale": 1.65,
+  "body_width": 1.24,
+  "body_depth": 1.43,
+  "pivot_roles": [
+    "Mage",
+    "Body",
+    "Leg_R",
+    "Leg_L",
+    "Arm_R",
+    "Arm_L",
+    "Head",
+    "Weapon_Cutlass",
+    "Weapon_Pistol"
+  ],
+  "face_method": "UV-painted skull",
+  "head_shape": "Soft compact jaw with rounded cheek transition and small nose; broad silver curtain locks beneath celestial hat",
+  "roster_generator": "tools/sculpt_rogue_roster.py",
+  "facial_depth_revision": "approved-2.34.1-roster-rollout",
+  "painted_atlas_changed": false,
+  "export_face_uv_check": {
+    "uv_set": 0,
+    "distinct_coordinates": 718,
+    "u_span": 0.3253333349712193,
+    "v_span": 0.3166666626930237,
+    "single_head_uv_set": true
+  },
+  "pivot_invariance": true,
+  "body_and_weapon_geometry_invariance": true,
+  "unchanged_components": 118,
+  "adjusted_accessories": [],
+  "replaced_head_components": [
+    "Mage silver hair back",
+    "Silver hair swept sidelock",
+    "Hair silver sculpted strand",
+    "Hair silver sculpted strand.001",
+    "Hair silver sculpted strand.002",
+    "Silver hair swept sidelock.001",
+    "Hair silver sculpted strand.003",
+    "Hair silver sculpted strand.004",
+    "Hair silver sculpted strand.005",
+    "Mage silver swept fringe",
+    "Face framing hair L",
+    "Ear framing hair L",
+    "Face framing hair R",
+    "Ear framing hair R"
+  ],
+  "roster_mesh_checks": [
+    {
+      "name": "Carved head.002",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.10869877453936717
+    },
+    {
+      "name": "Roster mage temple -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.005529785365557278
+    },
+    {
+      "name": "Roster mage ear sweep -1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.002802570804027183
+    },
+    {
+      "name": "Roster mage temple 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.005593763685525367
+    },
+    {
+      "name": "Roster mage ear sweep 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.0027775322386377043
+    },
+    {
+      "name": "Roster mage silver side parted fringe",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.005434412081851398
+    },
+    {
+      "name": "Roster mage small silver fringe",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.002160305119816928
+    },
+    {
+      "name": "Roster mage long rear lock 0",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.009916298714627104
+    },
+    {
+      "name": "Roster mage long rear lock 1",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.009765432235721948
+    },
+    {
+      "name": "Roster mage long rear lock 2",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.009709528392898613
+    },
+    {
+      "name": "Roster mage long rear lock 3",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.009762905012564337
+    },
+    {
+      "name": "Roster mage solid rear hair mass",
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "signed_volume": 0.10353317545071239
+    }
+  ]
+}

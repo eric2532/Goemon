@@ -1,0 +1,467 @@
+{
+  "source": "raw/SC06.CD.dir/FILE_030.dir/0.4.dec",
+  "source_sha256": "a54de1064d035f8c9cd52100c2e4f363c25b42f664cb59b3b6ca100fe2b85743",
+  "animation_fps_convention": 30,
+  "animation_fps_status": "Existing reconstruction convention; source state counters and frames verified, original world-frame rate not independently proven here.",
+  "sound_sequencer_hz": 60,
+  "sound_sequencer_evidence": "SDK VBlank callback80042CE8 iterates8slots. Boot80010A98 installs8001096C atslot4 via80042610/80042D60.8001096C calls8002CDD8 ->8002CFE4 ->80031BE0 ->8003388C.",
+  "ground_throw": {
+    "animation_index": 14,
+    "animation_address": "0x8019EEAC",
+    "release_tick": 10,
+    "actor_id": "0x30C",
+    "projectile": "Four-point shuriken; distinct from blue air bombs.",
+    "fan_count": 3,
+    "heading_offsets_psx": [
+      -256,
+      0,
+      256
+    ],
+    "heading_offsets_degrees": [
+      -22.5,
+      0,
+      22.5
+    ],
+    "source_sfx": "0x945",
+    "source_voice": "0xA8C",
+    "spawn_call": "0x8017EFE4",
+    "sound_call": "0x8017F078",
+    "velocity_source_units_per_tick": 24,
+    "lifetime_ticks": 120,
+    "spin_degrees_per_tick": 67.5,
+    "homing": false,
+    "gravity": false,
+    "model": "ben_ground_projectile_30C_source.glb",
+    "model_source_address": "0x8018F008",
+    "model_source_bounds": [
+      [
+        -52,
+        -11,
+        -52
+      ],
+      [
+        52,
+        11,
+        52
+      ]
+    ],
+    "model_scale_to_current_world": 0.01,
+    "own_hit_sound": null
+  },
+  "air_bombs": {
+    "animation_index": 19,
+    "animation_address": "0x8019F51C",
+    "source_pose_window_ticks": [
+      11,
+      16
+    ],
+    "release_tick": 16,
+    "source_actor": "0x30B",
+    "count_per_original_barrage": 20,
+    "source_handler": "0x8017E120 state3",
+    "source_spawn_call": "0x8017E7F4",
+    "source_launch_sound_call": "0x8017E8C8",
+    "source_launch_sound": "0x943",
+    "own_throw_voice": null,
+    "source_angle_per_tick": 32,
+    "threshold_interval": 215,
+    "target_points_source": "0x80185B18",
+    "target_order_source": "0x80185B6C",
+    "target_patterns_xz": [
+      [
+        [
+          -386,
+          391
+        ],
+        [
+          -386,
+          -381
+        ],
+        [
+          395,
+          368
+        ],
+        [
+          395,
+          -386
+        ],
+        [
+          -386,
+          112
+        ],
+        [
+          -258,
+          -263
+        ],
+        [
+          395,
+          -140
+        ],
+        [
+          256,
+          257
+        ],
+        [
+          -258,
+          259
+        ],
+        [
+          -386,
+          -135
+        ],
+        [
+          256,
+          -260
+        ],
+        [
+          395,
+          99
+        ],
+        [
+          -258,
+          4
+        ],
+        [
+          0,
+          -269
+        ],
+        [
+          256,
+          -2
+        ],
+        [
+          -131,
+          -392
+        ],
+        [
+          131,
+          -383
+        ],
+        [
+          -131,
+          377
+        ],
+        [
+          131,
+          397
+        ],
+        [
+          0,
+          -3
+        ]
+      ],
+      [
+        [
+          -386,
+          391
+        ],
+        [
+          -386,
+          -381
+        ],
+        [
+          395,
+          368
+        ],
+        [
+          395,
+          -386
+        ],
+        [
+          -386,
+          112
+        ],
+        [
+          -258,
+          -263
+        ],
+        [
+          395,
+          -140
+        ],
+        [
+          256,
+          257
+        ],
+        [
+          -258,
+          259
+        ],
+        [
+          -386,
+          -135
+        ],
+        [
+          256,
+          -260
+        ],
+        [
+          395,
+          99
+        ],
+        [
+          0,
+          -269
+        ],
+        [
+          256,
+          -2
+        ],
+        [
+          0,
+          250
+        ],
+        [
+          -131,
+          -392
+        ],
+        [
+          131,
+          -383
+        ],
+        [
+          -131,
+          377
+        ],
+        [
+          131,
+          397
+        ],
+        [
+          0,
+          -3
+        ]
+      ],
+      [
+        [
+          -386,
+          391
+        ],
+        [
+          -386,
+          -381
+        ],
+        [
+          395,
+          368
+        ],
+        [
+          395,
+          -386
+        ],
+        [
+          -386,
+          112
+        ],
+        [
+          -258,
+          -263
+        ],
+        [
+          395,
+          -140
+        ],
+        [
+          256,
+          257
+        ],
+        [
+          -258,
+          259
+        ],
+        [
+          -386,
+          -135
+        ],
+        [
+          256,
+          -260
+        ],
+        [
+          395,
+          99
+        ],
+        [
+          -258,
+          4
+        ],
+        [
+          256,
+          -2
+        ],
+        [
+          0,
+          250
+        ],
+        [
+          -131,
+          -392
+        ],
+        [
+          131,
+          -383
+        ],
+        [
+          -131,
+          377
+        ],
+        [
+          131,
+          397
+        ],
+        [
+          0,
+          -3
+        ]
+      ],
+      [
+        [
+          -386,
+          391
+        ],
+        [
+          -386,
+          -381
+        ],
+        [
+          395,
+          368
+        ],
+        [
+          395,
+          -386
+        ],
+        [
+          -386,
+          112
+        ],
+        [
+          -258,
+          -263
+        ],
+        [
+          395,
+          -140
+        ],
+        [
+          256,
+          257
+        ],
+        [
+          -258,
+          259
+        ],
+        [
+          -386,
+          -135
+        ],
+        [
+          256,
+          -260
+        ],
+        [
+          395,
+          99
+        ],
+        [
+          -258,
+          4
+        ],
+        [
+          0,
+          -269
+        ],
+        [
+          0,
+          250
+        ],
+        [
+          -131,
+          -392
+        ],
+        [
+          131,
+          -383
+        ],
+        [
+          -131,
+          377
+        ],
+        [
+          131,
+          397
+        ],
+        [
+          0,
+          -3
+        ]
+      ]
+    ],
+    "target_y": -386,
+    "trajectory": "For t=1..32: fixed_position = initial_fixed + velocity_fixed*t; y additionally subtracts sin_psx(t*64)*2048; velocity_fixed=(target-initial_integer)<<11. All axes reach target at32ticks, sine term returns0.",
+    "flight_ticks": 32,
+    "hold_ticks": 128,
+    "explosion_after_ticks": 160,
+    "explosion_sound": "0x940",
+    "end_sound": "0x941",
+    "explosion_radius_phase_ticks": 30,
+    "homing": false,
+    "spin_body_not_aim": true,
+    "assumed_update_simulation": {
+      "advance_animation_before_handler": true,
+      "first_tick_one_based": true,
+      "spawn_ticks": [
+        6,
+        12,
+        19,
+        26,
+        32,
+        39,
+        46,
+        53,
+        59,
+        66,
+        73,
+        79,
+        86,
+        93,
+        100,
+        106,
+        113,
+        120,
+        126,
+        133
+      ],
+      "reset_ticks": [
+        1,
+        7,
+        14,
+        21,
+        27,
+        34,
+        41,
+        48,
+        54,
+        61,
+        68,
+        74,
+        81,
+        88,
+        95,
+        101,
+        108,
+        115,
+        121,
+        128
+      ],
+      "notes": "Tick numbers are a static simulation of instruction order; first tick may shift one world frame depending caller. Source releaseframe16 and interval215/32are exact."
+    }
+  },
+  "recommendation": [
+    "LMB polearm; E source14 three-shuriken fan with945 andA8C; RMB held source19 blue-bomb barrage with943 per bomb and940 per detonation.",
+    "Bomb sprite original flight PNG is source-confirmed blue bomb with green fuse, not authored black sphere.",
+    "Original barrage distributes20 bombs over21possible fixed arena points, with4possible20point selections. Recenter/scale these targets around current terrain as gameplay adaptation; body heading rotation does not steer bomb velocity.",
+    "Do not use source07 derived throw for this barrage. Use preserved source19 and its11..16 throwing window.",
+    "A8C belongs to shuriken throw. There is no own voice call in source19 bomb-spawn handler; adding it to bombs is adaptation."
+  ]
+}

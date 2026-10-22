@@ -1,0 +1,9 @@
+# Movement cancels and faster Shadow Cut
+
+C uses each character’s existing evade to interrupt unfinished attacks as soon as its cooldown permits. Space preserves the current attack and buffers a grounded, double, cloak or wall jump when available. Jumping can accompany attacks; committed special dash/leap trajectories retain their existing movement rules. Only evade clears waiting input and attacker hit pause. Native Goemon combos, chain attacks and leaps, Edo casts, Rogue melee, charging, dives, travel and offensive dash-strikes can be interrupted. Cancelling a leap stays at the current position. Ordinary running and double jumps retain horizontal momentum; cancelling locked attack travel removes its attack impulse.
+
+An interrupted windup or Ninja dash cannot deal its abandoned future contact/finishing hit. Released arrows, fireballs and shield faces retain their existing lifetime. Cancelling preserves buffs and cooldowns and does not refund the used secondary. Auto-attack modes retain their explicit repeated-attack behavior.
+
+Ninja Shadow Cut: duration 0.42 → 0.14 seconds; speed 27 → 81 m/s. Distance remains 11.34 m, path damage remains 76 per target and finishing damage remains a separate 76 hit. The same native collision sweeps, authored pose endpoints and purple finishing footprint remain. Explorer’s dash timing is unchanged. Dash poses no longer inherit a generic ranged-shot recovery timer.
+
+Verification: attack_movement_cancel_test.gd covers all twelve characters, real cancelled damage, cooldowns, preserved projectiles and jump momentum, attack continuation and airborne takeoff. Existing no-backlog, Ninja piercing/authored animation, Knight guard, camera, responsiveness and gate defender tests cover related behavior. Flat-ground movement fixtures explicitly select Original Map. Run the authored visual test with --fixed-fps 60 because it drives 1/60-second kinematic steps manually.

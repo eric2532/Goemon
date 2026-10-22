@@ -1,0 +1,32 @@
+{
+  "asset": "reed_archer",
+  "role": "Forest ranged enemy concept",
+  "source": "assets/blender/enemies/forest_redesign_v01/reed_archer.blend",
+  "export": "assets/models/enemies/forest_redesign_v01/reed_archer.glb",
+  "bounds_min": [
+    -1.616258978843689,
+    -1.4334027767181396,
+    0.0
+  ],
+  "bounds_max": [
+    1.6187440156936646,
+    1.363996148109436,
+    4.455000400543213
+  ],
+  "height": 4.455000400543213,
+  "height_vs_goemon": 1.3500000360519682,
+  "triangles": 43156,
+  "meshes": 202,
+  "materials": 14,
+  "face_meshes": [
+    "Head_full_3D_skull_with_painted_face"
+  ],
+  "notes": [
+    "Concept turnaround interpretation only; no game integration.",
+    "Compact roughly three-head anatomy, rounded skull/ribcage/pelvis, short sturdy legs and large sandals/hands.",
+    "Angry eyes and brows are painted directly on the closed head UV surface; no separate eyes or flat face panel.",
+    "Wide straw kasa, layered patched olive cloak, russet mouth scarf, rear quiver, bow in anatomical LEFT hand (-X, screen-right in front review).",
+    "Packed PNG artwork. Goemon source/master untouched. Height includes kasa crown."
+  ],
+  "rigging": "Named separate rigid parts; no gameplay integration or skeletal animation supplied."
+}

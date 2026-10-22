@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "file": "exports/arrow_projectile.glb",
+  "bytes": 11380,
+  "scene_count": 1,
+  "default_scene": 0,
+  "node_count": 7,
+  "mesh_definition_count": 5,
+  "cleanup": "Unreachable scenes, nodes, meshes, materials, accessors and binary buffer slices removed deterministically from the previously verified default arrow scene; retained arrow transforms and mesh data unchanged.",
+  "godot_tip_and_shape_reverified": true,
+  "sha256": "7fa83171db3d411ebf4e998e4e1908e7f4f1c4caf0ce3c6188094a640df52f2f"
+}

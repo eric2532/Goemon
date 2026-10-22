@@ -1,0 +1,19 @@
+{
+  "action": "03_Lance_Thrust_1",
+  "core_pose_action": "Poke_Hit_Approved",
+  "start_pose_action": "Poke_Start_Approved",
+  "source_file": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/dragoon-motion-workbench/Dragoon_Approved_Hit_20261015_163228.blend",
+  "frames": 23,
+  "fps": 60,
+  "contact_frame": 7,
+  "exact_core_hold": [
+    7,
+    8,
+    9
+  ],
+  "start_error": 2.980232238769531e-07,
+  "hit_pose_error": 2.384185791015625e-07,
+  "leg_pose_error": 1.7881393432617188e-07,
+  "recovery_error": 2.980232238769531e-07,
+  "all_frames_finite": true
+}

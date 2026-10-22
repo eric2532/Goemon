@@ -1,0 +1,58 @@
+{
+  "character": "izumi",
+  "source_sha256": "be928a11b8e9fc7828405c6f0c8dafe6b03272daa89eb4352369621253eda104",
+  "glb_sha256": "771ddc0c36fd8d00cdab1573d63c24a6deae26b090b6eef77915e66d9d5c5098",
+  "status": "PASS",
+  "source": {
+    "objects": 412,
+    "triangles": 310248,
+    "vertices": 156985,
+    "bounds_min": [
+      -0.9000446200370789,
+      -0.5965968370437622,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      0.9000446200370789,
+      0.48992761969566345,
+      2.818694591522217
+    ],
+    "nonfinite_objects": []
+  },
+  "glb_reimport": {
+    "objects": 411,
+    "triangles": 310248,
+    "vertices": 180464,
+    "bounds_min": [
+      -0.9000446200370789,
+      -0.5965968370437622,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      0.9000446200370789,
+      0.48992761969566345,
+      2.818694591522217
+    ],
+    "nonfinite_objects": []
+  },
+  "bounds_max_error": 0.0,
+  "packed_images": [
+    "03-izumi-frost-scout.png",
+    "Izumi_accent_painted_fiber",
+    "Izumi_cloth_painted_fiber",
+    "Izumi_cream_painted_fiber",
+    "Izumi_gold_painted_fiber",
+    "Izumi_hair_painted_fiber",
+    "Izumi_leather_painted_fiber",
+    "Izumi_pants_painted_fiber",
+    "Izumi_rope_painted_fiber"
+  ],
+  "static_unrigged": true,
+  "views": [
+    "three_quarter",
+    "front",
+    "side",
+    "back",
+    "import"
+  ]
+}

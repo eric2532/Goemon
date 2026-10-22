@@ -1,0 +1,52 @@
+{
+  "units": "meters",
+  "blender_up": "+Z",
+  "blender_front": "-Y",
+  "gltf_up": "+Y",
+  "gltf_front": "+Z",
+  "files": [
+    {
+      "file": "FS_FX_Hammer_BuildLoop.glb",
+      "root": "FX_HammerRoot",
+      "clip": "Build_HammerLoop",
+      "duration_seconds": 1,
+      "pivot": "FX_HammerSwingPivot / grip center",
+      "bytes": 155856,
+      "sha256": "498c7e91ba55def1c5c2547ea1a4b1f657974885ca7011b4acb1cf7214f23a42"
+    },
+    {
+      "file": "FS_FX_ProgressFrame.glb",
+      "root": "FX_ProgressRoot",
+      "fill": "ProgressFill",
+      "input": "scale.x = progress, anchored left",
+      "width_m": 2.2,
+      "bytes": 50460,
+      "sha256": "973d68a3dddcaf8c0ca3d6aeaf0dfd2138a309059c71346f41c35fc056621a4d"
+    },
+    {
+      "file": "FS_FX_BPrompt.glb",
+      "root": "FX_BPromptRoot",
+      "optional": true,
+      "bytes": 117980,
+      "sha256": "3b037b5ae1610a17748d5e1671bc58a78a04ef29645668c85f039289a917bcb1"
+    },
+    {
+      "file": "FS_FX_CompletionPulse.glb",
+      "root": "FX_CompletionRoot",
+      "clip": "Complete_GoldPulse",
+      "duration_seconds": 1,
+      "geometry": "TRS sparks + ring morph targets",
+      "radius_m": 1.5,
+      "bytes": 211708,
+      "sha256": "2b9017939242e0d0e6c5084aa1319247ecdd0b6c8da696519984919d084f9e6c"
+    }
+  ],
+  "preview": "Demo pedestal is a placeholder. Preview pacing is illustrative, not gameplay values.",
+  "qa": {
+    "blender_roundtrip": "PASS",
+    "blender_version": "4.3.2",
+    "godot_asset_import_hammer_and_completion_playback": "PASS",
+    "godot_version": "4.6.3",
+    "gameplay_integration": "NOT PERFORMED"
+  }
+}

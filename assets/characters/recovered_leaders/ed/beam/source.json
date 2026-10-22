@@ -1,0 +1,376 @@
+{
+  "source": "raw/SC06.CD.dir/FILE_016.dir/0.4.dec",
+  "source_sha256": "85b54829995fc482dd673019f5c9fed052f618f5f5de65f95d9d50e66c93f98c",
+  "source_pac": "raw/SC06.CD.dir/FILE_016",
+  "source_pac_sha256": "19fd358a02f76db0ab97d656000bad6484bcb39e0ffca51da7008e9721ccd1d2",
+  "texture_page": {
+    "tpage": "0x3b",
+    "word_origin": [
+      704,
+      256
+    ],
+    "pixels": [
+      256,
+      256
+    ],
+    "indices": "indices.png",
+    "encoding": "RGBA8, red = integer index 0..15 (divide sampled red by 1/255); no sRGB conversion; nearest filtering; GLB UV uses (native_uv+0.5)/256"
+  },
+  "models": {
+    "main": {
+      "tmd_address": "0x801913bc",
+      "tmd_sha256": "9d3b270b2227e64cf04b63dffb50c2813cb4ef7663803537f8a551abe89eb942",
+      "glb_sha256": "aeb6cce459cd5f7c92c7af4e1c01645f53f92c22e1fdf30846970b9ab3bfc363",
+      "vertices": 49,
+      "polygons": 48,
+      "tmd_scale_word": 0,
+      "primitive_modes": [
+        "0x36",
+        "0x3e"
+      ],
+      "clut": "0x57d6",
+      "tpage": "0x3b",
+      "bpp": 4,
+      "blend_mode": "ABR1: background + foreground (saturating)",
+      "uv_bounds": [
+        0,
+        64,
+        63,
+        127
+      ],
+      "referenced_texel_coverage": 1.0
+    },
+    "companion": {
+      "tmd_address": "0x80191cc4",
+      "tmd_sha256": "83dbec278d151bcd357b4372d7a5a907be6f56bfe5d978caf3b086fd9f9be38d",
+      "glb_sha256": "45e42b223c88c236c019239ae689b975bd825e16b29f30c09f6320569acda8a8",
+      "vertices": 49,
+      "polygons": 96,
+      "tmd_scale_word": 0,
+      "primitive_modes": [
+        "0x27",
+        "0x2f"
+      ],
+      "clut": "0x5816",
+      "tpage": "0x3b",
+      "bpp": 4,
+      "blend_mode": "ABR1: background + foreground (saturating)",
+      "uv_bounds": [
+        0,
+        128,
+        63,
+        191
+      ],
+      "referenced_texel_coverage": 1.0
+    }
+  },
+  "coordinate_conversion": "GLB position=(source_x,-source_y,-source_z), unscaled native units. TMDscale0. Native beam front source-Z becomes GLB+Z; rotateYPI when placing in Godot-Z direction.",
+  "native_lighting": {
+    "room_descriptor": "0x801891dc",
+    "room_lookup": "0x801457a4 \u2192 0x80184e4c default for SC06 room IDs",
+    "light_matrix_q12": [
+      [
+        0,
+        -4096,
+        0
+      ],
+      [
+        0,
+        -1365,
+        -3900
+      ],
+      [
+        0,
+        4096,
+        0
+      ]
+    ],
+    "color_matrix_q12": [
+      [
+        401,
+        2875,
+        819
+      ],
+      [
+        819,
+        2875,
+        401
+      ],
+      [
+        1220,
+        3276,
+        1638
+      ]
+    ],
+    "background_q12": [
+      2048,
+      2048,
+      2048
+    ],
+    "normal_storage": "main.glb and beam_shield.glb COLOR_0.r=normal_index/255; *_normals.png2xN stores converted native Q12 normal+4096 low RGB bytes atx0,high RGB bytes atx1. This survives Godot8-bit vertex color import exactly. Companion unlit.",
+    "matrix_stages": "Quantized actor rotation, native per-axis scale (80020F34), light matrix product (80052F04/80048EAC), normal light transform, color matrix plus background, per-channel RGB modulation; right shift12 and IR saturation at every GTE stage.",
+    "main_emitters": [
+      "0x8004fd30 NCCT@0x8004fe2c RGB128",
+      "0x800503f0 NCCS@0x80050534 NCCT@0x80050564 RGB128"
+    ],
+    "rotation_adapter": "Native roll uses literal ROM Q12 sine/cosine values without column normalization. The current port aim basis is separately quantized to Q12; this is not an emulator replay of original room actor angles.",
+    "shield_glb_sha256": "4894bdda61bd610ab7c984252a54c11d97766677c605235910dc4252f668d1dc"
+  },
+  "main_palette": {
+    "file": "main_palettes.png",
+    "source_address": "0x80188e6c",
+    "clut_vram": [
+      352,
+      351
+    ],
+    "source_words": [
+      32950,
+      33112,
+      33373,
+      40734,
+      49151,
+      57343,
+      40734,
+      33373,
+      32950,
+      33112,
+      33373,
+      40734,
+      49151,
+      57343,
+      40734,
+      33373
+    ],
+    "frame_count": 16,
+    "row_mapping": "row=(visible_actor_tick-1)&15; palette index i = source[(i-visible_actor_tick)&15]; actorinit phase0, decremented before upload each active update",
+    "source_functions": [
+      "0x8017f784",
+      "0x8017f858",
+      "0x8017f898"
+    ],
+    "rgba_sha256": "41e86439779501441e72a3137ecf2c9c7f646e3ebb0abf023209fb97bafafd81"
+  },
+  "companion_palette": {
+    "file": "companion_palettes.png",
+    "source_address": "0x80188eac",
+    "descriptor_array": "0x80188fac",
+    "clut_vram": [
+      352,
+      352
+    ],
+    "source_words": [
+      [
+        0,
+        33055,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        33055,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        33055,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        33055,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        33055,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        33055,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        33055,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        33055,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "frame_count": 8,
+    "row_mapping": "row=D_800B99DA&7 (global frame counter, not actor-local age)",
+    "source_function": "0x8017f694",
+    "rgba_sha256": "abf7a863402102690b88904927146577ae9a3b050a3f81c99ad936672a52f9f7"
+  },
+  "rgba_palette_encoding": "PSX RGB555 expanded by (v<<3)|(v>>2); alpha0 iff word==0, else255. Bit15=1 on every nonzero color; additive semi-transparency is selected by primitive bit1 and TPAGE ABR1, not alpha opacity.",
+  "strips": {
+    "renderer": "0x80180894",
+    "primitive": "POLY_G4 0x3a",
+    "textured": false,
+    "center_color_address": "0x8019e288",
+    "center_rgb": [
+      255,
+      64,
+      0
+    ],
+    "edge_color_address": "0x8019e28c",
+    "edge_rgb": [
+      0,
+      0,
+      0
+    ],
+    "segment0_start_rgb": [
+      0,
+      0,
+      0
+    ],
+    "blend": "func8012E28C(depth,1) \u2192 GetTPage(0,1,0,0) \u2192 ABR1 background+foreground"
+  },
+  "shield": {
+    "actor": "0x30a",
+    "tmd_address": "0x80192b24",
+    "initializer": "0x80182990",
+    "attribute": "0x50000000",
+    "renderer": "0x800243ec",
+    "draw_mode": "0xe100002a",
+    "blend": "ABR1 background+foreground; source has no fixed opacity factor",
+    "backface_culling": true,
+    "backface_evidence": "TMD flags4 lacks double-sided bit2; native G3/G4 emitters reject NCLIP<=0; recovered glTF doubleSided=false",
+    "color_update": "0x80181478",
+    "color_function": "0x801816dc",
+    "native_y_to_band": {
+      "0": 0,
+      "-57": 1,
+      "-106": 2,
+      "-139": 3,
+      "-150": 4
+    },
+    "phase": "(-199*visible_actor_tick+307*band) modulo1536; visible_actor_tick starts1",
+    "rgb": "(blue>>2,blue>>1,blue); blue in six256step phases:0,ramp0..255,255,255,ramp255..0,0",
+    "release": "Subtract256 from Q12 intensity4096 per actor tick; multiply and rightshift12 each integer color channel separately, reaching0 at tick16; geometry remains full size",
+    "verification": "tools/verify_ed_beam_assets.py executes original MIPS function for all1536phases times17Q12release levels (26112cases)",
+    "rendering_limit": "Dedicated native affine RGB555 rasterization preserves the recovered foreground arithmetic. Display presentation intentionally filters that foreground and adds it to the full-resolution encoded scene without quantizing the background; camera projection and world visibility remain port adapters."
+  },
+  "limits": [
+    "Extracted exactly from local disc data and static disassembly; no original in-game emulator reference image.",
+    "The user requested smoother presentation: native foreground pixels are filtered over the full-resolution scene instead of reproducing nearest-neighbor RGB555 display compositing.",
+    "Modern camera projection, the authorized longer reach and whole-primitive visibility against the painterly world remain explicit port adapters; the original scene ordering table is not replayed."
+  ],
+  "dedicated_renderer": {
+    "backend": "native/ed_psx_renderer/ed_psx_renderer.gdextension",
+    "class": "EdPsxRasterizer",
+    "pixel_rules": "Integer screen sampling and top-left coverage; affine UV/Gouraud gradients truncated to Q12 with attribute+0.5 initialization; transparent texel zero skipped; texture modulation and RGB555 quantization per primitive before saturating ABR1 accumulation.",
+    "buffer": "RGBA8 data: RGB bytes0..31 saturated foreground contribution, alpha255 coverage. The raw native buffer is unchanged; display samples it with linear filtering and no sRGB conversion.",
+    "compositor": "CanvasLayer after scene tone mapping and before HUD; filtered foreground RGB5/31 is added to the full-resolution encoded scene and clamped to1. Zero foreground preserves the scene exactly. Background pixels are neither downsampled nor quantized. HDR2D uses explicit display encode/decode.",
+    "native_dither": false,
+    "native_destination_mask_test": false,
+    "reference_verification": "20,000 deterministic triangles and81,920,000 pixels compared with unmodified DuckStation software rasterizer: zero RGB555 or coverage mismatches."
+  }
+}

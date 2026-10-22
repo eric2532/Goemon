@@ -1,0 +1,94 @@
+{
+  "source": {
+    "identity-green": {
+      "checks": 41,
+      "failures": 0
+    },
+    "critical-green": {
+      "checks": 47,
+      "failures": 0
+    },
+    "polish": {
+      "checks": 66,
+      "failures": 0
+    },
+    "alignment": {
+      "checks": 77,
+      "failures": 0
+    },
+    "upgrade": {
+      "checks": 81,
+      "failures": 0
+    },
+    "roster": {
+      "checks": 100,
+      "failures": 0
+    },
+    "samurai": {
+      "checks": 58,
+      "failures": 0
+    },
+    "fullbody": {
+      "checks": 98,
+      "failures": 0
+    },
+    "balance": {
+      "checks": 32,
+      "failures": 0
+    }
+  },
+  "source_checks": 600,
+  "packaged": {
+    "packaged-identity": {
+      "checks": 41,
+      "failures": 0
+    },
+    "packaged-critical": {
+      "checks": 47,
+      "failures": 0
+    },
+    "packaged-polish": {
+      "checks": 66,
+      "failures": 0
+    }
+  },
+  "packaged_checks": 154,
+  "native_launch": "passed; universal arm64/x86_64; strict code signature verified",
+  "current_app": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Goemon.app",
+  "previous_app": "/Users/eric/Desktop/Projects_Codex/Sonic/build/class-identity/previous/Goemon.app",
+  "archive": "/Users/eric/Desktop/Projects_Codex/Sonic/build/class-identity/Goemon Class Identity.zip",
+  "preview": "two-handed-run.gif",
+  "run": "Both hands on low sword hilt across front of torso; blade trails anatomical right; verified steady speeds 2,3,5.1,10.2,18",
+  "combos": {
+    "Samurai": {
+      "hits": 5,
+      "base_damage": [
+        34,
+        34,
+        34,
+        34,
+        49
+      ]
+    },
+    "Magic Swordsman": {
+      "hits": 3,
+      "base_damage": [
+        42,
+        42,
+        61
+      ]
+    }
+  },
+  "critical": {
+    "default_percent": 5,
+    "range_percent": [
+      0,
+      100
+    ],
+    "damage_multiplier": 2,
+    "saved_per_fighter": true,
+    "roll": "Each enemy damage contact; caster chance captured in attack ticket; towers excluded"
+  },
+  "preferences_unchanged": true,
+  "scope": "Targeted regression suites. Legacy broad combat/chain failures from previous task documented in docs/combat-polish/verification.json; not rerun here."
+}

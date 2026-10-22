@@ -1,0 +1,17 @@
+{
+  "repository": "https://github.com/eric2532/Goemon",
+  "branch": "feat/ninja-dog-models",
+  "commit": "f511c4849a6225f1e3f71de2bc5c3589f690d246",
+  "imported": "2026-10-04",
+  "purpose": "Original models and references retained for the rebuilt animated castle-companion roster. Game assets are under assets/models/dogs, with editable rebuilds under assets/blender/dogs.",
+  "selection": [
+    "references",
+    "sources",
+    "exports",
+    "tools",
+    "README.md",
+    "asset_manifest.json",
+    "visual_review.json",
+    "previews/model_lineup.jpg"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "verified_utc": "2026-09-30T20:54:43.381217+00:00",
+  "project": "/Users/eric/Desktop/Projects_Codex/Sonic",
+  "branch": "feat/original-enemies-town-cap",
+  "base_commit": "32c02225e8ec9924d770de53c3df6237cb426cc2",
+  "working_changes": "Uncommitted colored V05 and 48-building town integration; no push/merge",
+  "processes": [
+    {
+      "pid": 69211,
+      "elapsed": "01:51",
+      "command": "/Applications/Godot.app/Contents/MacOS/Godot --path /Users/eric/Desktop/Projects_Codex/Sonic --log-file /tmp/goemon-town-v05-runtime.log"
+    }
+  ],
+  "runtime_log": "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org\nMetal 4.0 - Forward+ - Using Device #0: Apple - Apple M3 (Apple9)\n\n",
+  "native_render_verified": true,
+  "live_window_inspection": "Not invoked, to avoid previously blocked Godot permissions",
+  "passed_checks": 165,
+  "preexisting_generated_files_preserved": 4
+}

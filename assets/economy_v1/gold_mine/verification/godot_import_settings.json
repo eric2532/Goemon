@@ -1,0 +1,20 @@
+{
+  "godot_version_verified": "4.6.3",
+  "editor_import_parameters": {
+    "animation/remove_immutable_tracks": false,
+    "nodes/use_name_suffixes": false
+  },
+  "runtime_generate_scene_arguments": {
+    "bake_fps": 30.0,
+    "trimming": false,
+    "remove_immutable_tracks": false
+  },
+  "hidden_scale_epsilon": 1e-05,
+  "explicit_loop_mode": "Animation.LOOP_LINEAR",
+  "clip_names": [
+    "build",
+    "reverse_build",
+    "work_loop",
+    "upgrade_preview"
+  ]
+}

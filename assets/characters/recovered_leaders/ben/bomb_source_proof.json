@@ -1,0 +1,94 @@
+{
+  "source": "raw/SC06.CD.dir/FILE_030",
+  "source_sha256": "936ff5eba5859e1abcb9d8f11aea62137a0ae1b399313fe3243dc2d4981174cf",
+  "actor": "0x30B",
+  "init": "0x801807B4",
+  "sprite_descriptor": "0x80185DA0",
+  "descriptor_bytes": "ff 3c 3f 3f 80 02 00 01 e0 ff c0 ff",
+  "renderer": "0x8001EFE0",
+  "texture_word_origin": [
+    640,
+    256
+  ],
+  "texture_size_pixels": [
+    64,
+    64
+  ],
+  "bpp": 4,
+  "clut": [
+    352,
+    316,
+    16,
+    1
+  ],
+  "tpage": "0x3A",
+  "clut_id": "0x4F16",
+  "notes": [
+    "Renderer derivespalette fromdescriptorhighbyte3C:paletteY0x100+0x3C=316,paletteX0x16*16=352.",
+    "Renderer usesUVend=start+width63,notwidthminus1; covers64texels. Plane spans63sourceunits square,anchor(-32,-64)."
+  ],
+  "flight": {
+    "path": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Leader Combat Corrections/Ben/ben_air_bomb_30B_flight.png",
+    "coverage": 1.0,
+    "palette_values": [
+      0,
+      40960,
+      49152,
+      54272,
+      59424,
+      64576,
+      64704,
+      64896,
+      36352,
+      37536,
+      38848,
+      65440,
+      64543,
+      33791,
+      35229,
+      33964
+    ],
+    "rgba_sha256": "e2099087bcf07483e7612c8b267df7eff77c02aac281289c1457e34fa89dcf18"
+  },
+  "alternate": {
+    "path": "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Leader Combat Corrections/Ben/ben_air_bomb_30B_alternate.png",
+    "coverage": 1.0,
+    "palette_values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "rgba_sha256": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe"
+  },
+  "relevant_uploads": [
+    {
+      "type": 0,
+      "entry": 1,
+      "x": 640,
+      "y": 256,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "type": 0,
+      "entry": 1,
+      "x": 352,
+      "y": 288,
+      "w": 32,
+      "h": 32
+    }
+  ]
+}

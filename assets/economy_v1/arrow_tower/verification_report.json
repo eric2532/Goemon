@@ -1,0 +1,168 @@
+{
+  "status": "PASSED",
+  "method": "Import every supplied GLB into a fresh Blender 4.3.2 scene; verify geometry bounds, unique stable IDs, mesh counts, animation scale/translation channels and forward/reverse end states; parse binary glTF version/header.",
+  "files": [
+    {
+      "file": "arrow_projectile.glb",
+      "bytes": 11380,
+      "mesh_nodes": 5,
+      "stable_ids_unique": true,
+      "bounds_blender_m": {
+        "min": [
+          -0.11999999731779099,
+          0.0,
+          -0.07794225215911865
+        ],
+        "max": [
+          0.11999999731779099,
+          2.2799999713897705,
+          0.07794225215911865
+        ]
+      },
+      "animations": [],
+      "visible_scale_mesh_counts_by_frame": {},
+      "passed": true
+    },
+    {
+      "file": "tower_build_recoil_reverse.glb",
+      "bytes": 1771336,
+      "mesh_nodes": 170,
+      "stable_ids_unique": true,
+      "bounds_blender_m": {
+        "min": [
+          -1.7750000953674316,
+          -1.7200000286102295,
+          0.0
+        ],
+        "max": [
+          1.7750000953674316,
+          1.7050000429153442,
+          3.7850000858306885
+        ]
+      },
+      "animations": [
+        {
+          "name": "Tower_Build_Recoil_Reverse",
+          "channel_count": 313
+        }
+      ],
+      "visible_scale_mesh_counts_by_frame": {
+        "1": 15,
+        "29": 51,
+        "52": 105,
+        "72": 170,
+        "82": 170,
+        "91": 170,
+        "108": 170,
+        "180": 15
+      },
+      "passed": true
+    },
+    {
+      "file": "tower_stage_assembling.glb",
+      "bytes": 691064,
+      "mesh_nodes": 105,
+      "stable_ids_unique": true,
+      "bounds_blender_m": {
+        "min": [
+          -1.399999976158142,
+          -1.7200000286102295,
+          0.0
+        ],
+        "max": [
+          1.399999976158142,
+          1.375,
+          3.4869816303253174
+        ]
+      },
+      "animations": [],
+      "visible_scale_mesh_counts_by_frame": {},
+      "passed": true
+    },
+    {
+      "file": "tower_stage_complete.glb",
+      "bytes": 1009700,
+      "mesh_nodes": 170,
+      "stable_ids_unique": true,
+      "bounds_blender_m": {
+        "min": [
+          -1.7750000953674316,
+          -1.7200000286102295,
+          0.0
+        ],
+        "max": [
+          1.7750000953674316,
+          1.7050000429153442,
+          3.7850000858306885
+        ]
+      },
+      "animations": [],
+      "visible_scale_mesh_counts_by_frame": {},
+      "passed": true
+    },
+    {
+      "file": "tower_stage_empty.glb",
+      "bytes": 91208,
+      "mesh_nodes": 15,
+      "stable_ids_unique": true,
+      "bounds_blender_m": {
+        "min": [
+          -1.399999976158142,
+          -1.375,
+          0.0
+        ],
+        "max": [
+          1.399999976158142,
+          1.375,
+          0.5699999928474426
+        ]
+      },
+      "animations": [],
+      "visible_scale_mesh_counts_by_frame": {},
+      "passed": true
+    },
+    {
+      "file": "tower_stage_frame.glb",
+      "bytes": 373008,
+      "mesh_nodes": 51,
+      "stable_ids_unique": true,
+      "bounds_blender_m": {
+        "min": [
+          -1.399999976158142,
+          -1.375,
+          0.0
+        ],
+        "max": [
+          1.399999976158142,
+          1.375,
+          3.009999990463257
+        ]
+      },
+      "animations": [],
+      "visible_scale_mesh_counts_by_frame": {},
+      "passed": true
+    },
+    {
+      "file": "tower_wall_mount.glb",
+      "bytes": 53608,
+      "mesh_nodes": 10,
+      "stable_ids_unique": true,
+      "bounds_blender_m": {
+        "min": [
+          -1.3300000429153442,
+          -1.1673721075057983,
+          -0.6200000047683716
+        ],
+        "max": [
+          1.3300000429153442,
+          1.1673721075057983,
+          0.2861138582229614
+        ]
+      },
+      "animations": [],
+      "visible_scale_mesh_counts_by_frame": {},
+      "passed": true
+    }
+  ],
+  "engine_integration_tested": false
+}

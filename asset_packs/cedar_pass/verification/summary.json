@@ -1,0 +1,44 @@
+{
+  "revision": 2,
+  "previous_pack_commit": "034d81a125bcbf3cf8e4a25b2f98202c67e6b789",
+  "blender": "4.3.2",
+  "godot": "4.6.3",
+  "assets": 22,
+  "triangles": 37206,
+  "render_meshes": 60,
+  "editable_sources_reopened": 22,
+  "display_sources_reopened": [
+    "contact_sheet",
+    "interior_contact_sheet",
+    "showcase"
+  ],
+  "glbs_reimported": 22,
+  "actual_player_suite": {
+    "failures": 0,
+    "rooms": 6,
+    "walked_metres": 1056.02672832937,
+    "repeated_circuits": 18,
+    "diagonal_entry_exit_pairs": 12,
+    "corner_recoveries": 24,
+    "camera_yaws": 24,
+    "furniture_block_and_escape_tests": 6,
+    "sprint_entry_exit_pairs": 6,
+    "slow_walk_entry_exit_pairs": 6,
+    "jump_inputs": 0,
+    "inn_stairs_and_guest_corridor": true
+  },
+  "inn_floor_supplement": {
+    "failures": 0,
+    "walked_metres": 194.022290221299
+  },
+  "source_player_camera_and_character_unchanged": true,
+  "rendered_views": "previews/interiors; exterior-to-interior actual-Goemon sequence and six furnished cutaways",
+  "scope": "Only asset_packs/cedar_pass; no main-world integration, character edits, Mac work or push",
+  "limitations": [
+    "Lab requires original Goemon checkout; asset viewer and Blender sources are self-contained",
+    "Mac-only V05 and enlarged town not available; validate integration separately",
+    "Inside camera uses the supplied isolated adapter derived from ActionCamera",
+    "Visible stairs use smooth convex collision for reliable walking; cosmetic small objects have simplified collision",
+    "No rooftop traversal, navmesh, LODs or device frame-time profiling"
+  ]
+}

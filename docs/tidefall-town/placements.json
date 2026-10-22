@@ -1,0 +1,242 @@
+[
+	{
+		"asset_id": "town/two_story_inn",
+		"instance_id": "tidefall-building-01",
+		"position_xyz": [
+			-15.0,
+			0.455868095159531,
+			45.0
+		],
+		"yaw_radians": 1.57079637050629
+	},
+	{
+		"asset_id": "town/corner_house",
+		"instance_id": "tidefall-building-02",
+		"position_xyz": [
+			10.0,
+			1.46892964839935,
+			50.0
+		],
+		"yaw_radians": -1.57079637050629
+	},
+	{
+		"asset_id": "town/noren_shop",
+		"instance_id": "tidefall-building-03",
+		"position_xyz": [
+			-15.0,
+			0.372608065605164,
+			30.0
+		],
+		"yaw_radians": 1.57079637050629
+	},
+	{
+		"asset_id": "town/noren_shop",
+		"instance_id": "tidefall-building-04",
+		"position_xyz": [
+			10.0,
+			1.67490613460541,
+			30.0
+		],
+		"yaw_radians": -1.57079637050629
+	},
+	{
+		"asset_id": "town/timber_house",
+		"instance_id": "tidefall-building-05",
+		"position_xyz": [
+			-15.0,
+			1.52008903026581,
+			15.0
+		],
+		"yaw_radians": 1.57079637050629
+	},
+	{
+		"asset_id": "town/plaster_storehouse",
+		"instance_id": "tidefall-building-06",
+		"position_xyz": [
+			5.0,
+			2.10862278938293,
+			15.0
+		],
+		"yaw_radians": -1.57079637050629
+	},
+	{
+		"asset_id": "town/two_story_inn",
+		"instance_id": "tidefall-building-07",
+		"position_xyz": [
+			-60.0,
+			3.31621289253235,
+			60.0
+		],
+		"yaw_radians": 1.57079637050629
+	},
+	{
+		"asset_id": "town/plaster_storehouse",
+		"instance_id": "tidefall-building-08",
+		"position_xyz": [
+			-15.0,
+			4.37916851043701,
+			-14.0
+		],
+		"yaw_radians": 1.57079637050629
+	},
+	{
+		"asset_id": "town/noren_shop",
+		"instance_id": "tidefall-building-09",
+		"position_xyz": [
+			10.0,
+			3.66660976409912,
+			-20.0
+		],
+		"yaw_radians": -1.57079637050629
+	},
+	{
+		"asset_id": "town/timber_house",
+		"instance_id": "tidefall-building-10",
+		"position_xyz": [
+			10.0,
+			4.47655820846558,
+			-33.0
+		],
+		"yaw_radians": -1.57079637050629
+	},
+	{
+		"asset_id": "town/timber_house",
+		"instance_id": "tidefall-building-11",
+		"position_xyz": [
+			39.0,
+			-0.334603995084763,
+			60.0
+		],
+		"yaw_radians": 1.57079637050629
+	},
+	{
+		"asset_id": "town/corner_house",
+		"instance_id": "tidefall-building-12",
+		"position_xyz": [
+			56.0,
+			5.10047340393066,
+			45.0
+		],
+		"yaw_radians": -1.57079637050629
+	},
+	{
+		"asset_id": "town/plaster_storehouse",
+		"instance_id": "tidefall-building-13",
+		"position_xyz": [
+			39.0,
+			2.38227272033691,
+			45.0
+		],
+		"yaw_radians": 1.57079637050629
+	},
+	{
+		"asset_id": "town/noren_shop",
+		"instance_id": "tidefall-building-14",
+		"position_xyz": [
+			56.0,
+			5.11131143569946,
+			30.0
+		],
+		"yaw_radians": -1.57079637050629
+	},
+	{
+		"asset_id": "town/noren_shop",
+		"instance_id": "tidefall-building-15",
+		"position_xyz": [
+			39.0,
+			2.50282049179077,
+			30.0
+		],
+		"yaw_radians": 1.57079637050629
+	},
+	{
+		"asset_id": "town/timber_house",
+		"instance_id": "tidefall-building-16",
+		"position_xyz": [
+			56.0,
+			5.94378089904785,
+			15.0
+		],
+		"yaw_radians": -1.57079637050629
+	},
+	{
+		"asset_id": "town/timber_house",
+		"instance_id": "tidefall-building-17",
+		"position_xyz": [
+			39.0,
+			2.97562766075134,
+			15.0
+		],
+		"yaw_radians": 1.57079637050629
+	},
+	{
+		"asset_id": "town/plaster_storehouse",
+		"instance_id": "tidefall-building-18",
+		"position_xyz": [
+			56.0,
+			6.81329822540283,
+			0.0
+		],
+		"yaw_radians": -1.57079637050629
+	},
+	{
+		"asset_id": "town/corner_house",
+		"instance_id": "tidefall-building-19",
+		"position_xyz": [
+			39.0,
+			3.23289847373962,
+			0.0
+		],
+		"yaw_radians": 1.57079637050629
+	},
+	{
+		"asset_id": "town/two_story_inn",
+		"instance_id": "tidefall-building-20",
+		"position_xyz": [
+			56.0,
+			7.69247198104858,
+			-15.0
+		],
+		"yaw_radians": -1.57079637050629
+	},
+	{
+		"asset_id": "town/corner_house",
+		"instance_id": "tidefall-building-21",
+		"position_xyz": [
+			-60.0,
+			5.56746053695679,
+			45.0
+		],
+		"yaw_radians": 1.57079637050629
+	},
+	{
+		"asset_id": "town/timber_house",
+		"instance_id": "tidefall-building-22",
+		"position_xyz": [
+			-60.0,
+			5.58721303939819,
+			30.0
+		],
+		"yaw_radians": 1.57079637050629
+	},
+	{
+		"asset_id": "town/noren_shop",
+		"instance_id": "tidefall-building-23",
+		"position_xyz": [
+			-60.0,
+			6.39045810699463,
+			15.0
+		],
+		"yaw_radians": 1.57079637050629
+	},
+	{
+		"asset_id": "town/plaster_storehouse",
+		"instance_id": "tidefall-building-24",
+		"position_xyz": [
+			-60.0,
+			7.21022748947144,
+			0.0
+		],
+		"yaw_radians": 1.57079637050629
+	}
+]

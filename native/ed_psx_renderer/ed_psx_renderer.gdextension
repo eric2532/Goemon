@@ -1,0 +1,8 @@
+[configuration]
+entry_symbol = "ed_psx_renderer_init"
+compatibility_minimum = "4.6"
+reloadable = false
+
+[libraries]
+macos.debug.single = "res://native/ed_psx_renderer/bin/libed_psx_renderer.macos.universal.dylib"
+macos.release.single = "res://native/ed_psx_renderer/bin/libed_psx_renderer.macos.universal.dylib"

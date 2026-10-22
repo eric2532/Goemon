@@ -1,0 +1,48 @@
+extends "res://scripts/recovered_leaders_tests.gd"
+const Fixture=preload("res://scripts/recovered_leader_projectile_tests.gd")
+
+func run():
+ game=load("res://scenes/forest_title.tscn").instantiate();game.settings_path="user://ed-vertical-aim-%s.cfg"%OS.get_process_id()
+ root.add_child(game);current_scene=game;await frames(5)
+ game.begin_forest();game.choose_rogue_character(14);game.start_wave();game.tuning.invincible=true;game.tuning.freeze_ai=true;game.tuning.critical_chance=0;game.character_tuning={};await frames(5)
+ var p=game.player;var rig=game.camera_rig;var c=p.active_ability
+ p.set_physics_process(false);rig.set_process(false);p.model.set_process(false)
+ p.position=Vector3(0,100,0);p.velocity=Vector3.ZERO;rig.yaw=0;rig.distance=14;rig.current_distance=14;rig.reset_follow()
+ rig.pitch=-.6;rig.update_camera(1)
+ c.primary_held=true;c.start_attack(false);var beam=c.beam
+ var source_fit=p.model.rig_visual.scale.x
+ check(beam.global_position.distance_to(p.global_position+Vector3.UP*.49*source_fit*p.growth_multiplier())<.0001,"Native beam48-unit origin includes Ed's one-unit feet normalization")
+ check(beam.shield.global_position.distance_to(p.model.rig_visual.global_position)<.0001,"Native shield shares the imported actor root after feet normalization")
+ var up_aim=game.projectile_direction(beam.global_position)
+ check(up_aim.y>.4,"Forest camera provides an upward three-dimensional crosshair ray")
+ check(beam.direction.y>.4 and beam.direction.dot(up_aim)>.9999,"Ed's actual held beam converges on the upward crosshair")
+ var upper=Fixture.Victim.new();upper.position=beam.global_position+up_aim*6;game.add_child(upper);upper.hp=1000;game.enemies.append(upper)
+ var beyond=Fixture.Victim.new();beyond.position=beam.global_position+up_aim*(beam.maximum_length(p)+2);game.add_child(beyond);beyond.hp=1000;game.enemies.append(beyond)
+ c.tick(.14)
+ check(upper.hp==784,"Upward held beam damages a real fitted target above Ed for 216 damage")
+ check(beyond.hp==1000,"Upward aiming respects the new doubled beam reach")
+ var distant=Fixture.Victim.new();distant.position=beam.global_position+up_aim*(beam.maximum_length(p)*.8);game.add_child(distant);distant.hp=1000;game.enemies.append(distant)
+ c.tick(.2)
+ check(distant.hp==784,"Upward aim damages a fitted target beyond the former beam reach")
+ var upper_after=upper.hp
+ var ticket=beam.attack_ticket
+ rig.pitch=.7;rig.update_camera(1)
+ var down_aim=game.projectile_direction(beam.global_position)
+ var lower=Fixture.Victim.new();lower.position=beam.global_position+down_aim*6;game.add_child(lower);lower.hp=1000;game.enemies.append(lower)
+ c.tick(.2)
+ check(is_instance_valid(c.beam) and c.beam==beam and beam.attack_ticket==ticket,"Sweeping vertically preserves the same held cast and attack ticket")
+ check(beam.direction.y<-.4 and beam.direction.dot(down_aim)>.9999,"The held beam follows downward camera aim immediately")
+ check(lower.hp==784 and upper.hp==upper_after,"Downward sweep hits the lower target without continuing to hit the old upper target")
+ check((beam.visual.to_global(Vector3(0,0,-784))-beam.global_position).normalized().dot(beam.direction)>.9999,"Native visual and three-dimensional damage path share the same aim")
+ check(is_zero_approx(p.facing.y) and is_zero_approx(p.model.rotation.x),"Vertical beam steering keeps Ed's grounded movement and model upright")
+ p.ai_controlled=true;p.ai_aim=beam.global_position+Vector3(10,12,0);beam.update_path()
+ check(beam.direction.y>.7 and beam.direction.x>.6,"Allied Ed aims at his own elevated world target instead of the player's crosshair")
+ p.buildings_broken=50;p.scale=Vector3.ONE*p.growth_multiplier();beam.advance(0)
+ check(beam.global_position.distance_to(p.global_position+Vector3.UP*.49*source_fit*p.growth_multiplier())<.0001,"Growth applies the normalized native beam origin once")
+ check(beam.shield.global_position.distance_to(p.model.rig_visual.global_position)<.0001,"Grown shield still shares Ed's source root")
+ check(beam.shield.global_basis.get_scale().is_equal_approx(Vector3.ONE*.01*source_fit*p.growth_multiplier()),"Shield inherits character growth exactly once")
+ check(beam.shield.global_basis.orthonormalized().is_equal_approx(Basis.IDENTITY),"Native shield preserves source world orientation independently of Ed's yaw")
+ p.ai_controlled=false;c.cancel()
+ for victim in [upper,lower,beyond,distant]:game.enemies.erase(victim);victim.free()
+ stop_audio(game);game.move_audio.stop();await create_timer(.35).timeout;current_scene=null;game.queue_free();await frames(3)
+ print("ED_BEAM_VERTICAL_AIM_RESULT checks=",checks," failures=",failures);quit(1 if failures else 0)

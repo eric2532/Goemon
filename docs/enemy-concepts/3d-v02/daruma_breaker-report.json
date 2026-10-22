@@ -1,0 +1,44 @@
+{
+  "asset": "daruma_breaker",
+  "role": "Siege / heavy stone-fist breaker",
+  "source": "assets/blender/enemies/forest_redesign_v02/daruma_breaker.blend",
+  "export": "assets/models/enemies/forest_redesign_v02/daruma_breaker.glb",
+  "bounds_min": [
+    -13.841012001037598,
+    -7.963709354400635,
+    0.0
+  ],
+  "bounds_max": [
+    13.889878273010254,
+    7.118399620056152,
+    23.10000228881836
+  ],
+  "height": 23.10000228881836,
+  "height_vs_goemon": 7.00000025115662,
+  "triangles": 37176,
+  "meshes": 93,
+  "materials": 9,
+  "face_meshes": [
+    "Body_round_daruma_painted_shell"
+  ],
+  "notes": [
+    "Approved turnaround interpreted as a broad spherical red daruma, with compact feet, massive rounded stone fists and reinforced braided-rope harness.",
+    "Entire face, eyebrows, eyes, moustache, nose and \u798f belly glyph are pigment on the curved body shell; no separate face planes or raised facial parts.",
+    "Full shell UV atlas wraps through a plain-red rear; back contains only iron hardware and rope bindings.",
+    "Concept-only asset kit: no gameplay wiring, collision shapes, skeleton or animations.",
+    "Uniform 4x scale in width, depth and height compared with v01. Approximately 7x Goemon height. Face UVs and textures preserved."
+  ],
+  "rigging": "Named separate rigid parts; no gameplay integration or skeletal animation supplied.",
+  "width": 27.73089027404785,
+  "depth": 15.082108974456787,
+  "face_texture": "assets/textures/enemies/forest_redesign_v01/daruma_breaker_shell.png",
+  "face_mapping": "Full shell latitude/longitude UV with horizontally correct front-facing \u798f emblem; no geometry overlay.",
+  "linear_scale_vs_v01": 4.0,
+  "previous_source": "assets/blender/enemies/forest_redesign_v01/daruma_breaker.blend",
+  "previous_dimensions": [
+    6.932722568511963,
+    3.7705272436141968,
+    5.77500057220459
+  ],
+  "implementation_status": "Asset revision only. Wait for explicit user instruction to start gameplay implementation."
+}

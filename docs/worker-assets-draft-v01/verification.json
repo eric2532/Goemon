@@ -1,0 +1,56 @@
+{
+  "live_files_unchanged": 607,
+  "concurrent_live_changes_observed": [
+    "scripts/player.gd",
+    "scripts/game.gd",
+    "scripts/forest/forest_game.gd",
+    "scripts/forest/forest_world.gd",
+    "scripts/forest/forest_ui.gd",
+    "export_presets.cfg",
+    "build/Goemon.app/Contents/Resources/Goemon.pck",
+    "build/Goemon.app/Contents/MacOS/Goemon"
+  ],
+  "existing_worker_renderer_and_model_assets_unchanged": true,
+  "runtime_references_to_draft": [],
+  "source_meshes": 9,
+  "export_meshes": 9,
+  "export_triangles": 40620,
+  "source_bounds": [
+    [
+      -0.9716654419898987,
+      -0.860605001449585,
+      0.0
+    ],
+    [
+      0.9719366431236267,
+      0.8055586218833923,
+      3.0
+    ]
+  ],
+  "export_bounds": [
+    [
+      -0.9716654419898987,
+      -0.860605001449585,
+      0.0
+    ],
+    [
+      0.9719366431236267,
+      0.8055586218833923,
+      3.000000238418579
+    ]
+  ],
+  "height": 3.000000238418579,
+  "painted_face": true,
+  "packed_texture_images": [
+    "worker-angry-face.png",
+    "worker-basket-weave.png",
+    "worker-linen.png",
+    "worker-teal-cloth.png",
+    "worker-trouser-cloth.png",
+    "worker-woven-straw.png"
+  ],
+  "connected_body_parts": true,
+  "export_contains_studio": false,
+  "skeletal_animation": false,
+  "game_integration": false
+}

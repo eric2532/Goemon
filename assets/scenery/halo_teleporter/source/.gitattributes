@@ -1,0 +1,2 @@
+# Preserve native JMS export line endings without flagging every CRLF as space.
+*.jms -text whitespace=cr-at-eol

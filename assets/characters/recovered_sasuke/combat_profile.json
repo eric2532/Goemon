@@ -1,0 +1,5617 @@
+{
+  "logic_hz": 30,
+  "source_action_table": "802005A0 (overlay0010)",
+  "source_handler_table": "80203B90",
+  "source_model_file": 295,
+  "source_motion_file": 298,
+  "actions": {
+    "0": {
+      "frame_count": 20,
+      "rate": 0.4,
+      "transition_ticks": 48,
+      "pointer": "0x7000758",
+      "handler": "0x801dda68"
+    },
+    "1": {
+      "frame_count": 24,
+      "rate": 0.8,
+      "transition_ticks": 29,
+      "pointer": "0x7000f10",
+      "handler": "0x801dda88"
+    },
+    "2": {
+      "frame_count": 21,
+      "rate": 1.0,
+      "transition_ticks": 20,
+      "pointer": "0x7001884",
+      "handler": "0x801e0ed8"
+    },
+    "3": {
+      "frame_count": 21,
+      "rate": 1.0,
+      "transition_ticks": 20,
+      "pointer": "0x7001884",
+      "handler": "0x801e0f00"
+    },
+    "4": {
+      "frame_count": 28,
+      "rate": 0.4,
+      "transition_ticks": 68,
+      "pointer": "0x700249c",
+      "handler": "0x801e0f28"
+    },
+    "5": {
+      "frame_count": 26,
+      "rate": 0.3,
+      "transition_ticks": 84,
+      "pointer": "0x7002f84",
+      "handler": "0x801e0f88"
+    },
+    "6": {
+      "frame_count": 42,
+      "rate": 0.4,
+      "transition_ticks": 103,
+      "pointer": "0x7004174",
+      "handler": "0x801e0fc0"
+    },
+    "7": {
+      "frame_count": 21,
+      "rate": 0.2,
+      "transition_ticks": 100,
+      "pointer": "0x70045b8",
+      "handler": "0x801e0ff8"
+    },
+    "8": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e1030"
+    },
+    "9": {
+      "frame_count": 21,
+      "rate": 1.4,
+      "transition_ticks": 15,
+      "pointer": "0x7004eb4",
+      "handler": "0x801e1078"
+    },
+    "10": {
+      "frame_count": 21,
+      "rate": 1.4,
+      "transition_ticks": 15,
+      "pointer": "0x7004eb4",
+      "handler": "0x801e10c0"
+    },
+    "11": {
+      "frame_count": 20,
+      "rate": 0.8,
+      "transition_ticks": 24,
+      "pointer": "0x70057cc",
+      "handler": "0x801e1108"
+    },
+    "12": {
+      "frame_count": 23,
+      "rate": 0.4,
+      "transition_ticks": 55,
+      "pointer": "0x70061e4",
+      "handler": "0x801ddd5c"
+    },
+    "13": {
+      "frame_count": 21,
+      "rate": 0.6,
+      "transition_ticks": 34,
+      "pointer": "0x7001884",
+      "handler": "0x801ddd7c"
+    },
+    "14": {
+      "frame_count": 21,
+      "rate": 0.6,
+      "transition_ticks": 34,
+      "pointer": "0x7006bd4",
+      "handler": "0x801ddd9c"
+    },
+    "15": {
+      "frame_count": 21,
+      "rate": 1.4,
+      "transition_ticks": 15,
+      "pointer": "0x70075e0",
+      "handler": "0x801dddbc"
+    },
+    "16": {
+      "frame_count": 6,
+      "rate": 0.8,
+      "transition_ticks": 7,
+      "pointer": "0x7007a28",
+      "handler": "0x801dddec"
+    },
+    "17": {
+      "frame_count": 12,
+      "rate": 1.2,
+      "transition_ticks": 10,
+      "pointer": "0x70080ac",
+      "handler": "0x801ddfa8"
+    },
+    "18": {
+      "frame_count": 15,
+      "rate": 1.2,
+      "transition_ticks": 12,
+      "pointer": "0x7008848",
+      "handler": "0x801de104"
+    },
+    "19": {
+      "frame_count": 18,
+      "rate": 1.0,
+      "transition_ticks": 17,
+      "pointer": "0x7009118",
+      "handler": "0x801dec44"
+    },
+    "20": {
+      "frame_count": 23,
+      "rate": 0.6,
+      "transition_ticks": 37,
+      "pointer": "0x70098b8",
+      "handler": "0x801dece0"
+    },
+    "21": {
+      "frame_count": 23,
+      "rate": 0.9,
+      "transition_ticks": 25,
+      "pointer": "0x700a2e0",
+      "handler": "0x801dee08"
+    },
+    "22": {
+      "frame_count": 18,
+      "rate": 1.1,
+      "transition_ticks": 16,
+      "pointer": "0x700ab64",
+      "handler": "0x801def18"
+    },
+    "23": {
+      "frame_count": 5,
+      "rate": 4.0,
+      "transition_ticks": 1,
+      "pointer": "0x700af64",
+      "handler": "0x801df028"
+    },
+    "24": {
+      "frame_count": 5,
+      "rate": 4.0,
+      "transition_ticks": 1,
+      "pointer": "0x700af64",
+      "handler": "0x801df0b0"
+    },
+    "25": {
+      "frame_count": 9,
+      "rate": 1.2,
+      "transition_ticks": 7,
+      "pointer": "0x700b2ec",
+      "handler": "0x801df234"
+    },
+    "26": {
+      "frame_count": 4,
+      "rate": 2.0,
+      "transition_ticks": 2,
+      "pointer": "0x700b684",
+      "handler": "0x801df120"
+    },
+    "27": {
+      "frame_count": 10,
+      "rate": 0.4,
+      "transition_ticks": 23,
+      "pointer": "0x700bc44",
+      "handler": "0x801df5a4"
+    },
+    "28": {
+      "frame_count": 9,
+      "rate": 0.6,
+      "transition_ticks": 14,
+      "pointer": "0x700c168",
+      "handler": "0x801df3d8"
+    },
+    "29": {
+      "frame_count": 12,
+      "rate": 0.9,
+      "transition_ticks": 13,
+      "pointer": "0x700c7e8",
+      "handler": "0x801de644"
+    },
+    "30": {
+      "frame_count": 12,
+      "rate": 1.1,
+      "transition_ticks": 10,
+      "pointer": "0x700c7e8",
+      "handler": "0x801de694"
+    },
+    "31": {
+      "frame_count": 12,
+      "rate": 1.4,
+      "transition_ticks": 8,
+      "pointer": "0x700c7e8",
+      "handler": "0x801de6e4"
+    },
+    "32": {
+      "frame_count": 19,
+      "rate": 1.0,
+      "transition_ticks": 18,
+      "pointer": "0x700d0c0",
+      "handler": "0x801de70c"
+    },
+    "33": {
+      "frame_count": 19,
+      "rate": 1.0,
+      "transition_ticks": 18,
+      "pointer": "0x700d0c0",
+      "handler": "0x801de75c"
+    },
+    "34": {
+      "frame_count": 19,
+      "rate": 1.0,
+      "transition_ticks": 18,
+      "pointer": "0x700d0c0",
+      "handler": "0x801de7ac"
+    },
+    "35": {
+      "frame_count": 5,
+      "rate": 0.6,
+      "transition_ticks": 7,
+      "pointer": "0x700d47c",
+      "handler": "0x801de7d4"
+    },
+    "36": {
+      "frame_count": 16,
+      "rate": 1.0,
+      "transition_ticks": 15,
+      "pointer": "0x700db0c",
+      "handler": "0x801de858"
+    },
+    "37": {
+      "frame_count": 26,
+      "rate": 1.0,
+      "transition_ticks": 25,
+      "pointer": "0x700e36c",
+      "handler": "0x801e147c"
+    },
+    "38": {
+      "frame_count": 5,
+      "rate": 1.0,
+      "transition_ticks": 4,
+      "pointer": "0x700e6dc",
+      "handler": "0x801de940"
+    },
+    "39": {
+      "frame_count": 26,
+      "rate": 1.0,
+      "transition_ticks": 25,
+      "pointer": "0x700efd0",
+      "handler": "0x801e1488"
+    },
+    "40": {
+      "frame_count": 29,
+      "rate": 1.0,
+      "transition_ticks": 28,
+      "pointer": "0x700fb6c",
+      "handler": "0x801dea28"
+    },
+    "41": {
+      "frame_count": 25,
+      "rate": 1.0,
+      "transition_ticks": 24,
+      "pointer": "0x70105b0",
+      "handler": "0x801e1494"
+    },
+    "42": {
+      "frame_count": 43,
+      "rate": 1.0,
+      "transition_ticks": 42,
+      "pointer": "0x7011604",
+      "handler": "0x801deabc"
+    },
+    "43": {
+      "frame_count": 30,
+      "rate": 1.0,
+      "transition_ticks": 29,
+      "pointer": "0x7012114",
+      "handler": "0x801e14a0"
+    },
+    "44": {
+      "frame_count": 35,
+      "rate": 0.4,
+      "transition_ticks": 85,
+      "pointer": "0x7012ea4",
+      "handler": "0x801deb50"
+    },
+    "45": {
+      "frame_count": 35,
+      "rate": 1.0,
+      "transition_ticks": 34,
+      "pointer": "0x7012ea4",
+      "handler": "0x801deb80"
+    },
+    "46": {
+      "frame_count": 35,
+      "rate": 1.0,
+      "transition_ticks": 34,
+      "pointer": "0x7012ea4",
+      "handler": "0x801deba0"
+    },
+    "47": {
+      "frame_count": 5,
+      "rate": 0.6,
+      "transition_ticks": 7,
+      "pointer": "0x700d47c",
+      "handler": "0x801debc0"
+    },
+    "48": {
+      "frame_count": 30,
+      "rate": 0.8,
+      "transition_ticks": 37,
+      "pointer": "0x70138a4",
+      "handler": "0x801dec24"
+    },
+    "49": {
+      "frame_count": 14,
+      "rate": 1.0,
+      "transition_ticks": 13,
+      "pointer": "0x7013d5c",
+      "handler": "0x801e0810"
+    },
+    "50": {
+      "frame_count": 14,
+      "rate": 0.6,
+      "transition_ticks": 22,
+      "pointer": "0x7014468",
+      "handler": "0x801e08b0"
+    },
+    "51": {
+      "frame_count": 23,
+      "rate": 1.0,
+      "transition_ticks": 22,
+      "pointer": "0x7014a20",
+      "handler": "0x801e081c"
+    },
+    "52": {
+      "frame_count": 24,
+      "rate": 1.4,
+      "transition_ticks": 17,
+      "pointer": "0x7015344",
+      "handler": "0x801e08bc"
+    },
+    "53": {
+      "frame_count": 13,
+      "rate": 0.6,
+      "transition_ticks": 20,
+      "pointer": "0x70159e0",
+      "handler": "0x801e0690"
+    },
+    "54": {
+      "frame_count": 19,
+      "rate": 1.0,
+      "transition_ticks": 18,
+      "pointer": "0x70163a8",
+      "handler": "0x801e0708"
+    },
+    "55": {
+      "frame_count": 13,
+      "rate": 0.6,
+      "transition_ticks": 20,
+      "pointer": "0x7016a60",
+      "handler": "0x801e06cc"
+    },
+    "56": {
+      "frame_count": 24,
+      "rate": 0.4,
+      "transition_ticks": 58,
+      "pointer": "0x7017144",
+      "handler": "0x801e0664"
+    },
+    "57": {
+      "frame_count": 20,
+      "rate": 0.4,
+      "transition_ticks": 48,
+      "pointer": "0x7000758",
+      "handler": "0x801e0628"
+    },
+    "58": {
+      "frame_count": 19,
+      "rate": 654.36,
+      "transition_ticks": 1,
+      "pointer": "0x70163a8",
+      "handler": "0x801e0794"
+    },
+    "59": {
+      "frame_count": 17,
+      "rate": 0.2,
+      "transition_ticks": 80,
+      "pointer": "0x7017894",
+      "handler": "0x801ddc38"
+    },
+    "60": {
+      "frame_count": 32,
+      "rate": 1.0,
+      "transition_ticks": 31,
+      "pointer": "0x70185ac",
+      "handler": "0x801ddbb0"
+    },
+    "61": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7018ff8",
+      "handler": "0x801ddb28"
+    },
+    "62": {
+      "frame_count": 24,
+      "rate": 0.6,
+      "transition_ticks": 39,
+      "pointer": "0x701981c",
+      "handler": "0x801ddaa8"
+    },
+    "63": {
+      "frame_count": 13,
+      "rate": 0.6,
+      "transition_ticks": 20,
+      "pointer": "0x7019ee0",
+      "handler": "0x801ddb08"
+    },
+    "64": {
+      "frame_count": 19,
+      "rate": 0.6,
+      "transition_ticks": 30,
+      "pointer": "0x701a77c",
+      "handler": "0x801ddac8"
+    },
+    "65": {
+      "frame_count": 13,
+      "rate": 0.6,
+      "transition_ticks": 20,
+      "pointer": "0x701ae38",
+      "handler": "0x801ddae8"
+    },
+    "66": {
+      "frame_count": 37,
+      "rate": 0.7,
+      "transition_ticks": 52,
+      "pointer": "0x701b750",
+      "handler": "0x801df610"
+    },
+    "67": {
+      "frame_count": 13,
+      "rate": 0.6,
+      "transition_ticks": 20,
+      "pointer": "0x701bbc8",
+      "handler": "0x801df6d0"
+    },
+    "68": {
+      "frame_count": 16,
+      "rate": 2.0,
+      "transition_ticks": 8,
+      "pointer": "0x701c0c4",
+      "handler": "0x801df748"
+    },
+    "69": {
+      "frame_count": 16,
+      "rate": 653.36,
+      "transition_ticks": 1,
+      "pointer": "0x701c0c4",
+      "handler": "0x801df7e0"
+    },
+    "70": {
+      "frame_count": 20,
+      "rate": 2.0,
+      "transition_ticks": 10,
+      "pointer": "0x701c904",
+      "handler": "0x801dfe44"
+    },
+    "71": {
+      "frame_count": 15,
+      "rate": 0.2,
+      "transition_ticks": 70,
+      "pointer": "0x701d02c",
+      "handler": "0x801dff70"
+    },
+    "72": {
+      "frame_count": 20,
+      "rate": 653.36,
+      "transition_ticks": 1,
+      "pointer": "0x701c904",
+      "handler": "0x801e01a0"
+    },
+    "73": {
+      "frame_count": 20,
+      "rate": 2.0,
+      "transition_ticks": 10,
+      "pointer": "0x701d8b4",
+      "handler": "0x801e01f0"
+    },
+    "74": {
+      "frame_count": 23,
+      "rate": 0.2,
+      "transition_ticks": 110,
+      "pointer": "0x701e2dc",
+      "handler": "0x801e026c"
+    },
+    "75": {
+      "frame_count": 20,
+      "rate": 653.36,
+      "transition_ticks": 1,
+      "pointer": "0x701d8b4",
+      "handler": "0x801e04d0"
+    },
+    "76": {
+      "frame_count": 10,
+      "rate": 2.0,
+      "transition_ticks": 5,
+      "pointer": "0x701e80c",
+      "handler": "0x801e0544"
+    },
+    "77": {
+      "frame_count": 10,
+      "rate": 653.36,
+      "transition_ticks": 1,
+      "pointer": "0x701e80c",
+      "handler": "0x801e05d4"
+    },
+    "78": {
+      "frame_count": 26,
+      "rate": 0.8,
+      "transition_ticks": 32,
+      "pointer": "0x701f37c",
+      "handler": "0x801df950"
+    },
+    "79": {
+      "frame_count": 26,
+      "rate": 0.4,
+      "transition_ticks": 63,
+      "pointer": "0x701fce4",
+      "handler": "0x801dfa1c"
+    },
+    "80": {
+      "frame_count": 9,
+      "rate": 0.6,
+      "transition_ticks": 14,
+      "pointer": "0x70202ac",
+      "handler": "0x801dfbc4"
+    },
+    "81": {
+      "frame_count": 16,
+      "rate": 1.0,
+      "transition_ticks": 15,
+      "pointer": "0x7020a38",
+      "handler": "0x801dfc70"
+    },
+    "82": {
+      "frame_count": 17,
+      "rate": 0.4,
+      "transition_ticks": 40,
+      "pointer": "0x7021280",
+      "handler": "0x801dfcd8"
+    },
+    "83": {
+      "frame_count": 20,
+      "rate": 0.4,
+      "transition_ticks": 48,
+      "pointer": "0x7000758",
+      "handler": "0x801dd890"
+    },
+    "84": {
+      "frame_count": 20,
+      "rate": 0.4,
+      "transition_ticks": 48,
+      "pointer": "0x7000758",
+      "handler": "0x801dd988"
+    },
+    "85": {
+      "frame_count": 20,
+      "rate": 0.4,
+      "transition_ticks": 48,
+      "pointer": "0x70219f0",
+      "handler": "0x801dda08"
+    },
+    "86": {
+      "frame_count": 20,
+      "rate": 0.4,
+      "transition_ticks": 48,
+      "pointer": "0x7000758",
+      "handler": "0x801dda28"
+    },
+    "87": {
+      "frame_count": 20,
+      "rate": 0.4,
+      "transition_ticks": 48,
+      "pointer": "0x7022158",
+      "handler": "0x801dda48"
+    },
+    "88": {
+      "frame_count": 9,
+      "rate": 1.0,
+      "transition_ticks": 8,
+      "pointer": "0x7022878",
+      "handler": "0x801de1f4"
+    },
+    "89": {
+      "frame_count": 10,
+      "rate": 1.0,
+      "transition_ticks": 9,
+      "pointer": "0x7023020",
+      "handler": "0x801de220"
+    },
+    "90": {
+      "frame_count": 11,
+      "rate": 1.0,
+      "transition_ticks": 10,
+      "pointer": "0x7023848",
+      "handler": "0x801de24c"
+    },
+    "91": {
+      "frame_count": 11,
+      "rate": 1.6,
+      "transition_ticks": 7,
+      "pointer": "0x7024038",
+      "handler": "0x801de47c"
+    },
+    "92": {
+      "frame_count": 13,
+      "rate": 1.6,
+      "transition_ticks": 8,
+      "pointer": "0x70248f8",
+      "handler": "0x801de49c"
+    },
+    "93": {
+      "frame_count": 27,
+      "rate": 1.6,
+      "transition_ticks": 17,
+      "pointer": "0x70256e4",
+      "handler": "0x801de4bc"
+    },
+    "94": {
+      "frame_count": 15,
+      "rate": 1.0,
+      "transition_ticks": 14,
+      "pointer": "0x7025e4c",
+      "handler": "0x801de59c"
+    },
+    "95": {
+      "frame_count": 15,
+      "rate": 1.0,
+      "transition_ticks": 14,
+      "pointer": "0x70263e4",
+      "handler": "0x801defc8"
+    },
+    "96": {
+      "frame_count": 9,
+      "rate": 1.0,
+      "transition_ticks": 8,
+      "pointer": "0x7026d54",
+      "handler": "0x801de270"
+    },
+    "97": {
+      "frame_count": 10,
+      "rate": 1.0,
+      "transition_ticks": 9,
+      "pointer": "0x70277f4",
+      "handler": "0x801de2cc"
+    },
+    "98": {
+      "frame_count": 11,
+      "rate": 1.0,
+      "transition_ticks": 10,
+      "pointer": "0x702834c",
+      "handler": "0x801de32c"
+    },
+    "99": {
+      "frame_count": 11,
+      "rate": 1.6,
+      "transition_ticks": 7,
+      "pointer": "0x7028b78",
+      "handler": "0x801de4dc"
+    },
+    "100": {
+      "frame_count": 13,
+      "rate": 1.6,
+      "transition_ticks": 8,
+      "pointer": "0x7029430",
+      "handler": "0x801de4fc"
+    },
+    "101": {
+      "frame_count": 27,
+      "rate": 1.6,
+      "transition_ticks": 17,
+      "pointer": "0x702a214",
+      "handler": "0x801de51c"
+    },
+    "102": {
+      "frame_count": 14,
+      "rate": 1.0,
+      "transition_ticks": 13,
+      "pointer": "0x702abe0",
+      "handler": "0x801de5bc"
+    },
+    "103": {
+      "frame_count": 15,
+      "rate": 1.0,
+      "transition_ticks": 14,
+      "pointer": "0x70263e4",
+      "handler": "0x801defe8"
+    },
+    "104": {
+      "frame_count": 9,
+      "rate": 1.0,
+      "transition_ticks": 8,
+      "pointer": "0x702b604",
+      "handler": "0x801de374"
+    },
+    "105": {
+      "frame_count": 10,
+      "rate": 1.0,
+      "transition_ticks": 9,
+      "pointer": "0x702c0c0",
+      "handler": "0x801de3d4"
+    },
+    "106": {
+      "frame_count": 11,
+      "rate": 1.0,
+      "transition_ticks": 10,
+      "pointer": "0x702cbec",
+      "handler": "0x801de434"
+    },
+    "107": {
+      "frame_count": 11,
+      "rate": 1.6,
+      "transition_ticks": 7,
+      "pointer": "0x702d418",
+      "handler": "0x801de53c"
+    },
+    "108": {
+      "frame_count": 13,
+      "rate": 1.6,
+      "transition_ticks": 8,
+      "pointer": "0x702dcd4",
+      "handler": "0x801de55c"
+    },
+    "109": {
+      "frame_count": 27,
+      "rate": 1.6,
+      "transition_ticks": 17,
+      "pointer": "0x702eaac",
+      "handler": "0x801de57c"
+    },
+    "110": {
+      "frame_count": 15,
+      "rate": 1.0,
+      "transition_ticks": 14,
+      "pointer": "0x702f4d4",
+      "handler": "0x801de600"
+    },
+    "111": {
+      "frame_count": 15,
+      "rate": 1.0,
+      "transition_ticks": 14,
+      "pointer": "0x70263e4",
+      "handler": "0x801df008"
+    },
+    "112": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f44e0"
+    },
+    "113": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f4528"
+    },
+    "114": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f4550"
+    },
+    "115": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f4578"
+    },
+    "116": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f459c"
+    },
+    "117": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f4688"
+    },
+    "118": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f4754"
+    },
+    "119": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f45c0"
+    },
+    "120": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f45e4"
+    },
+    "121": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f460c"
+    },
+    "122": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f4634"
+    },
+    "123": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f4658"
+    },
+    "124": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f4fa4"
+    },
+    "125": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f4ffc"
+    },
+    "126": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f4fd0"
+    },
+    "127": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f5024"
+    },
+    "128": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f507c"
+    },
+    "129": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f5050"
+    },
+    "130": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f5314"
+    },
+    "131": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f5400"
+    },
+    "132": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f54c0"
+    },
+    "133": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f54ec"
+    },
+    "134": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f5518"
+    },
+    "135": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f553c"
+    },
+    "136": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f555c"
+    },
+    "137": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f557c"
+    },
+    "138": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f559c"
+    },
+    "139": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f55bc"
+    },
+    "140": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f55dc"
+    },
+    "141": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f5600"
+    },
+    "142": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f56b8"
+    },
+    "143": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f56ec"
+    },
+    "144": {
+      "frame_count": 16,
+      "rate": 1.0,
+      "transition_ticks": 15,
+      "pointer": "0x702fcb4",
+      "handler": "0x801f5d70"
+    },
+    "145": {
+      "frame_count": 13,
+      "rate": 1.0,
+      "transition_ticks": 12,
+      "pointer": "0x703012c",
+      "handler": "0x801f5d9c"
+    },
+    "146": {
+      "frame_count": 19,
+      "rate": 1.0,
+      "transition_ticks": 18,
+      "pointer": "0x7030910",
+      "handler": "0x801f5dc8"
+    },
+    "147": {
+      "frame_count": 10,
+      "rate": 1.6,
+      "transition_ticks": 6,
+      "pointer": "0x7030ec0",
+      "handler": "0x801f603c"
+    },
+    "148": {
+      "frame_count": 11,
+      "rate": 1.6,
+      "transition_ticks": 7,
+      "pointer": "0x70314c4",
+      "handler": "0x801f6094"
+    },
+    "149": {
+      "frame_count": 9,
+      "rate": 1.0,
+      "transition_ticks": 8,
+      "pointer": "0x700b2ec",
+      "handler": "0x801f60f4"
+    },
+    "150": {
+      "frame_count": 17,
+      "rate": 1.2,
+      "transition_ticks": 14,
+      "pointer": "0x7031b5c",
+      "handler": "0x801f6144"
+    },
+    "151": {
+      "frame_count": 17,
+      "rate": 1.0,
+      "transition_ticks": 16,
+      "pointer": "0x70322b0",
+      "handler": "0x801f6068"
+    },
+    "152": {
+      "frame_count": 9,
+      "rate": 1.0,
+      "transition_ticks": 8,
+      "pointer": "0x700b2ec",
+      "handler": "0x801f611c"
+    },
+    "153": {
+      "frame_count": 17,
+      "rate": 1.2,
+      "transition_ticks": 14,
+      "pointer": "0x7031b5c",
+      "handler": "0x801f6170"
+    },
+    "154": {
+      "frame_count": 15,
+      "rate": 1.0,
+      "transition_ticks": 14,
+      "pointer": "0x70329f8",
+      "handler": "0x801f5eb8"
+    },
+    "155": {
+      "frame_count": 5,
+      "rate": 1.0,
+      "transition_ticks": 4,
+      "pointer": "0x7032e10",
+      "handler": "0x801f5f2c"
+    },
+    "156": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f634c"
+    },
+    "157": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6374"
+    },
+    "158": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6398"
+    },
+    "159": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f63b8"
+    },
+    "160": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f63e0"
+    },
+    "161": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6404"
+    },
+    "162": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f61a0"
+    },
+    "163": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f62b4"
+    },
+    "164": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6668"
+    },
+    "165": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6694"
+    },
+    "166": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f66c0"
+    },
+    "167": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f66ec"
+    },
+    "168": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6718"
+    },
+    "169": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6744"
+    },
+    "170": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f683c"
+    },
+    "171": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f68b4"
+    },
+    "172": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f692c"
+    },
+    "173": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6970"
+    },
+    "174": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f69ec"
+    },
+    "175": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6a5c"
+    },
+    "176": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6b34"
+    },
+    "177": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6ad0"
+    },
+    "178": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6c58"
+    },
+    "179": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6cc4"
+    },
+    "180": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6d68"
+    },
+    "181": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6df0"
+    },
+    "182": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6e60"
+    },
+    "183": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6ec4"
+    },
+    "184": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6f30"
+    },
+    "185": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801f6fb4"
+    },
+    "186": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e0944"
+    },
+    "187": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e0bf8"
+    },
+    "188": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e11b0"
+    },
+    "189": {
+      "frame_count": 21,
+      "rate": 1.0,
+      "transition_ticks": 20,
+      "pointer": "0x70075e0",
+      "handler": "0x801e11bc"
+    },
+    "190": {
+      "frame_count": 6,
+      "rate": 1.0,
+      "transition_ticks": 5,
+      "pointer": "0x7007a28",
+      "handler": "0x801e11c8"
+    },
+    "191": {
+      "frame_count": 24,
+      "rate": 1.0,
+      "transition_ticks": 23,
+      "pointer": "0x7000f10",
+      "handler": "0x801e11d4"
+    },
+    "192": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e11e0"
+    },
+    "193": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e11ec"
+    },
+    "194": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e11f8"
+    },
+    "195": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e1204"
+    },
+    "196": {
+      "frame_count": 20,
+      "rate": 0.4,
+      "transition_ticks": 48,
+      "pointer": "0x7000758",
+      "handler": "0x801e1210"
+    },
+    "197": {
+      "frame_count": 26,
+      "rate": 0.8,
+      "transition_ticks": 32,
+      "pointer": "0x701f37c",
+      "handler": "0x801e121c"
+    },
+    "198": {
+      "frame_count": 26,
+      "rate": 0.4,
+      "transition_ticks": 63,
+      "pointer": "0x701fce4",
+      "handler": "0x801e12e8"
+    },
+    "199": {
+      "frame_count": 9,
+      "rate": 0.6,
+      "transition_ticks": 14,
+      "pointer": "0x70202ac",
+      "handler": "0x801e132c"
+    },
+    "200": {
+      "frame_count": 16,
+      "rate": 1.0,
+      "transition_ticks": 15,
+      "pointer": "0x7020a38",
+      "handler": "0x801e1370"
+    },
+    "201": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e14ac"
+    },
+    "202": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e14b8"
+    },
+    "203": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e14c4"
+    },
+    "204": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e14d0"
+    },
+    "205": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e14dc"
+    },
+    "206": {
+      "frame_count": 47,
+      "rate": 0.6,
+      "transition_ticks": 77,
+      "pointer": "0x7034004",
+      "handler": "0x801e0ce4"
+    },
+    "207": {
+      "frame_count": 17,
+      "rate": 0.4,
+      "transition_ticks": 40,
+      "pointer": "0x70347fc",
+      "handler": "0x801e0d5c"
+    },
+    "208": {
+      "frame_count": 17,
+      "rate": 1.0,
+      "transition_ticks": 16,
+      "pointer": "0x70347fc",
+      "handler": "0x801e0df8"
+    },
+    "209": {
+      "frame_count": 17,
+      "rate": 1.0,
+      "transition_ticks": 16,
+      "pointer": "0x70347fc",
+      "handler": "0x801e0e60"
+    },
+    "210": {
+      "frame_count": 48,
+      "rate": 1.0,
+      "transition_ticks": 47,
+      "pointer": "0x7035970",
+      "handler": "0x801e1414"
+    },
+    "211": {
+      "frame_count": 11,
+      "rate": 1.0,
+      "transition_ticks": 10,
+      "pointer": "0x7035cd8",
+      "handler": "0x801e14e8"
+    },
+    "212": {
+      "frame_count": 11,
+      "rate": 1.0,
+      "transition_ticks": 10,
+      "pointer": "0x7035cd8",
+      "handler": "0x801e14f4"
+    },
+    "213": {
+      "frame_count": 14,
+      "rate": 1.0,
+      "transition_ticks": 13,
+      "pointer": "0x7036458",
+      "handler": "0x801e1500"
+    },
+    "214": {
+      "frame_count": 25,
+      "rate": 1.0,
+      "transition_ticks": 24,
+      "pointer": "0x7036efc",
+      "handler": "0x801e150c"
+    },
+    "215": {
+      "frame_count": 26,
+      "rate": 1.0,
+      "transition_ticks": 25,
+      "pointer": "0x701f37c",
+      "handler": "0x801e13d0"
+    },
+    "216": {
+      "frame_count": 5,
+      "rate": 4.0,
+      "transition_ticks": 1,
+      "pointer": "0x700af64",
+      "handler": "0x801e1518"
+    },
+    "217": {
+      "frame_count": 9,
+      "rate": 2.5,
+      "transition_ticks": 4,
+      "pointer": "0x700b2ec",
+      "handler": "0x801e1524"
+    },
+    "218": {
+      "frame_count": 4,
+      "rate": 2.0,
+      "transition_ticks": 2,
+      "pointer": "0x700b684",
+      "handler": "0x801e1530"
+    },
+    "219": {
+      "frame_count": 4,
+      "rate": 2.0,
+      "transition_ticks": 2,
+      "pointer": "0x700b684",
+      "handler": "0x801e153c"
+    },
+    "220": {
+      "frame_count": 35,
+      "rate": 0.4,
+      "transition_ticks": 85,
+      "pointer": "0x7012ea4",
+      "handler": "0x801e1548"
+    },
+    "221": {
+      "frame_count": 21,
+      "rate": 1.4,
+      "transition_ticks": 15,
+      "pointer": "0x70075e0",
+      "handler": "0x801e1458"
+    },
+    "222": {
+      "frame_count": 5,
+      "rate": 1.0,
+      "transition_ticks": 4,
+      "pointer": "0x700d47c",
+      "handler": "0x801e1554"
+    },
+    "223": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e1560"
+    },
+    "224": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e156c"
+    },
+    "225": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e1578"
+    },
+    "226": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e1584"
+    },
+    "227": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e1590"
+    },
+    "228": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e159c"
+    },
+    "229": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e15a8"
+    },
+    "230": {
+      "frame_count": 20,
+      "rate": 1.0,
+      "transition_ticks": 19,
+      "pointer": "0x7000758",
+      "handler": "0x801e15b4"
+    },
+    "231": {
+      "frame_count": 14,
+      "rate": 1.0,
+      "transition_ticks": 13,
+      "pointer": "0x7036458",
+      "handler": "0x801e15c0"
+    }
+  },
+  "gold_combo": {
+    "actions": [
+      104,
+      105,
+      106
+    ],
+    "recoveries": [
+      107,
+      108,
+      109
+    ],
+    "sound_frames": [
+      2,
+      6,
+      7
+    ],
+    "render_row": "80204438",
+    "weapon_level": 2,
+    "display_lists": [
+      "09002AA8",
+      "09002BC8"
+    ],
+    "texture": "file80+44F0"
+  },
+  "bomb": {
+    "action": 144,
+    "air_action": 145,
+    "crouch_action": 146,
+    "release_frames": [
+      4,
+      4,
+      11
+    ],
+    "handler": "801F5DF4",
+    "effect_selector": 14,
+    "native_max_live_bombs": 3,
+    "native_fuse_ticks": 90,
+    "source_gravity_per_tick_squared": -0.6666666666666666,
+    "source_gravity_address": "8020BA74 read801EC0C0",
+    "source_initial_velocity": [
+      0,
+      5,
+      3
+    ]
+  },
+  "ice": {
+    "action": 147,
+    "air_action": 149,
+    "crouch_action": 150,
+    "recovery": 148,
+    "release_frame": 8,
+    "effect_selector": 26,
+    "speed_source_units_per_tick": 8,
+    "lifetime_ticks": 60,
+    "handler": "801F603C ->801F50A4"
+  },
+  "hail": {
+    "action": 151,
+    "air_action": 152,
+    "crouch_action": 153,
+    "recovery": 148,
+    "release_frame": 9,
+    "effect_selector": 27,
+    "count": 3,
+    "lifetime_ticks": 45,
+    "angle_step_units": 64,
+    "angle_units_per_turn": 1024,
+    "handler": "801F6068 ->801F50A4;801F0408 three source projectiles;801F07F8 spread",
+    "angle_proof": "80003F30 masks&03FF;801F07F8 rotates3vectors at960/1024/1088 =>-22.5/0/+22.5degrees"
+  },
+  "hair": {
+    "action": 154,
+    "collision": "0900157C",
+    "sound": 531,
+    "initializer": "801E2F64",
+    "direction_note": "forward6F(sameclip5F) /up9A, originalhair geometry and collision headers1390/157C",
+    "forward_action": 111
+  },
+  "super_jump": {
+    "action": 155,
+    "effect_selector": 22,
+    "entry": "801E75D4 character2 branch801E76D4",
+    "update": "801F5F4C",
+    "native_initial_upward_parameter": 2.5
+  },
+  "adaptations": [
+    "Damage amounts and freeze duration are scaled to this game; native ROM damage is not copied.",
+    "Six original source collision spheres per frame are swept against fitted Godot hurt volumes with world cover.",
+    "Pause, roster change and focus loss cancel held or pending attacks. Released projectiles retain source ownership and their launch damage snapshot.",
+    "The E hold threshold is two seconds. Native spell resource requirements are unlocked.",
+    "R launches at 24m/s with this game gravity 30 and world collisions. The source Super Jump motion and jetpack are retained.",
+    "Native bomb and ice geometry is retained. Combat impact bursts use existing Godot feedback.",
+    "Melee range settings and pickups extend native weapon parts and collision spheres about their source blade handle or head anchor. Default 1x remains source exact."
+  ],
+  "collision_spheres": {
+    "104": {
+      "header": "0x9001e38",
+      "frames": [
+        [
+          {
+            "radius": 13.796875,
+            "center": [
+              19.5625,
+              35.375,
+              49.25
+            ]
+          },
+          {
+            "radius": 13.796875,
+            "center": [
+              39.4375,
+              18.1875,
+              59.25
+            ]
+          },
+          {
+            "radius": 13.796875,
+            "center": [
+              29.65625,
+              26.6875,
+              54.28125
+            ]
+          },
+          {
+            "radius": 13.796875,
+            "center": [
+              -15.71875,
+              50.28125,
+              -55.1875
+            ]
+          },
+          {
+            "radius": 13.796875,
+            "center": [
+              -10.53125,
+              40.96875,
+              -81.1875
+            ]
+          },
+          {
+            "radius": 13.796875,
+            "center": [
+              -13.09375,
+              45.59375,
+              -68.375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.74609375,
+            "center": [
+              34.46875,
+              29.21875,
+              32.84375
+            ]
+          },
+          {
+            "radius": 13.74609375,
+            "center": [
+              55.90625,
+              11.21875,
+              31.9375
+            ]
+          },
+          {
+            "radius": 13.74609375,
+            "center": [
+              45.3125,
+              20.09375,
+              32.375
+            ]
+          },
+          {
+            "radius": 23.56640625,
+            "center": [
+              -56.125,
+              66.84375,
+              2.0625
+            ]
+          },
+          {
+            "radius": 23.56640625,
+            "center": [
+              -96.0625,
+              67.90625,
+              -24.53125
+            ]
+          },
+          {
+            "radius": 23.56640625,
+            "center": [
+              -76.34375,
+              67.40625,
+              -11.40625
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.6171875,
+            "center": [
+              43.4375,
+              29.4375,
+              18.59375
+            ]
+          },
+          {
+            "radius": 13.6171875,
+            "center": [
+              63.96875,
+              14.875,
+              6.9375
+            ]
+          },
+          {
+            "radius": 13.6171875,
+            "center": [
+              53.84375,
+              22.09375,
+              12.65625
+            ]
+          },
+          {
+            "radius": 40.6484375,
+            "center": [
+              -31.09375,
+              67.0,
+              58.65625
+            ]
+          },
+          {
+            "radius": 40.6484375,
+            "center": [
+              -94.90625,
+              67.28125,
+              111.4375
+            ]
+          },
+          {
+            "radius": 40.6484375,
+            "center": [
+              -63.46875,
+              67.15625,
+              85.34375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.453125,
+            "center": [
+              46.90625,
+              40.90625,
+              -5.71875
+            ]
+          },
+          {
+            "radius": 13.453125,
+            "center": [
+              58.78125,
+              38.8125,
+              -30.3125
+            ]
+          },
+          {
+            "radius": 13.453125,
+            "center": [
+              52.90625,
+              39.84375,
+              -18.1875
+            ]
+          },
+          {
+            "radius": 51.2734375,
+            "center": [
+              -8.90625,
+              62.4375,
+              79.0625
+            ]
+          },
+          {
+            "radius": 51.2734375,
+            "center": [
+              -49.3125,
+              63.75,
+              175.34375
+            ]
+          },
+          {
+            "radius": 51.2734375,
+            "center": [
+              -29.46875,
+              63.125,
+              127.8125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.28515625,
+            "center": [
+              30.28125,
+              53.5,
+              -28.21875
+            ]
+          },
+          {
+            "radius": 13.28515625,
+            "center": [
+              27.0,
+              63.40625,
+              -53.1875
+            ]
+          },
+          {
+            "radius": 13.28515625,
+            "center": [
+              28.59375,
+              58.53125,
+              -40.84375
+            ]
+          },
+          {
+            "radius": 44.5390625,
+            "center": [
+              22.84375,
+              54.1875,
+              74.84375
+            ]
+          },
+          {
+            "radius": 44.5390625,
+            "center": [
+              54.0,
+              54.125,
+              160.03125
+            ]
+          },
+          {
+            "radius": 44.5390625,
+            "center": [
+              38.5625,
+              54.1875,
+              118.03125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.15625,
+            "center": [
+              13.25,
+              61.6875,
+              -34.3125
+            ]
+          },
+          {
+            "radius": 13.15625,
+            "center": [
+              1.4375,
+              75.875,
+              -53.71875
+            ]
+          },
+          {
+            "radius": 13.15625,
+            "center": [
+              7.25,
+              68.875,
+              -44.125
+            ]
+          },
+          {
+            "radius": 31.4609375,
+            "center": [
+              36.59375,
+              47.03125,
+              60.40625
+            ]
+          },
+          {
+            "radius": 31.4609375,
+            "center": [
+              78.84375,
+              43.09375,
+              108.40625
+            ]
+          },
+          {
+            "radius": 31.4609375,
+            "center": [
+              57.96875,
+              45.0625,
+              84.75
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.10546875,
+            "center": [
+              15.46875,
+              60.46875,
+              -33.75
+            ]
+          },
+          {
+            "radius": 13.10546875,
+            "center": [
+              3.90625,
+              73.6875,
+              -53.84375
+            ]
+          },
+          {
+            "radius": 13.10546875,
+            "center": [
+              9.59375,
+              67.15625,
+              -43.90625
+            ]
+          },
+          {
+            "radius": 21.453125,
+            "center": [
+              37.125,
+              41.03125,
+              51.9375
+            ]
+          },
+          {
+            "radius": 21.453125,
+            "center": [
+              70.0625,
+              34.28125,
+              79.8125
+            ]
+          },
+          {
+            "radius": 21.453125,
+            "center": [
+              53.78125,
+              37.625,
+              66.09375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.16796875,
+            "center": [
+              16.125,
+              59.1875,
+              -35.09375
+            ]
+          },
+          {
+            "radius": 13.16796875,
+            "center": [
+              5.0,
+              72.4375,
+              -55.59375
+            ]
+          },
+          {
+            "radius": 13.16796875,
+            "center": [
+              10.46875,
+              65.90625,
+              -45.46875
+            ]
+          },
+          {
+            "radius": 17.3984375,
+            "center": [
+              36.875,
+              38.59375,
+              45.21875
+            ]
+          },
+          {
+            "radius": 17.3984375,
+            "center": [
+              64.84375,
+              29.625,
+              65.0625
+            ]
+          },
+          {
+            "radius": 17.3984375,
+            "center": [
+              51.03125,
+              34.0625,
+              55.3125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.38671875,
+            "center": [
+              17.1875,
+              58.8125,
+              -38.0625
+            ]
+          },
+          {
+            "radius": 13.38671875,
+            "center": [
+              5.5625,
+              71.1875,
+              -59.40625
+            ]
+          },
+          {
+            "radius": 13.38671875,
+            "center": [
+              11.28125,
+              65.09375,
+              -48.84375
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              35.6875,
+              39.40625,
+              42.34375
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              60.0,
+              31.96875,
+              60.53125
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              47.96875,
+              35.65625,
+              51.59375
+            ]
+          }
+        ]
+      ],
+      "count": 6,
+      "frame_count": 9,
+      "active_frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "105": {
+      "header": "0x9002008",
+      "frames": [
+        [
+          {
+            "radius": 13.796875,
+            "center": [
+              11.65625,
+              59.28125,
+              -44.8125
+            ]
+          },
+          {
+            "radius": 13.796875,
+            "center": [
+              -3.71875,
+              71.59375,
+              -64.84375
+            ]
+          },
+          {
+            "radius": 13.796875,
+            "center": [
+              3.8125,
+              65.53125,
+              -54.9375
+            ]
+          },
+          {
+            "radius": 14.46875,
+            "center": [
+              30.125,
+              39.40625,
+              44.25
+            ]
+          },
+          {
+            "radius": 14.46875,
+            "center": [
+              46.96875,
+              30.625,
+              66.78125
+            ]
+          },
+          {
+            "radius": 14.46875,
+            "center": [
+              38.65625,
+              34.96875,
+              55.65625
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.9375,
+            "center": [
+              -0.3125,
+              59.53125,
+              -47.15625
+            ]
+          },
+          {
+            "radius": 13.9375,
+            "center": [
+              -21.21875,
+              72.5,
+              -61.3125
+            ]
+          },
+          {
+            "radius": 13.9375,
+            "center": [
+              -10.90625,
+              66.125,
+              -54.3125
+            ]
+          },
+          {
+            "radius": 13.9453125,
+            "center": [
+              18.375,
+              41.6875,
+              52.96875
+            ]
+          },
+          {
+            "radius": 13.9453125,
+            "center": [
+              26.53125,
+              28.875,
+              76.96875
+            ]
+          },
+          {
+            "radius": 13.9453125,
+            "center": [
+              22.5,
+              35.1875,
+              65.125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 14.2109375,
+            "center": [
+              -21.0,
+              57.125,
+              -40.625
+            ]
+          },
+          {
+            "radius": 14.2109375,
+            "center": [
+              -42.5625,
+              75.96875,
+              -44.78125
+            ]
+          },
+          {
+            "radius": 14.2109375,
+            "center": [
+              -31.9375,
+              66.6875,
+              -42.71875
+            ]
+          },
+          {
+            "radius": 13.46484375,
+            "center": [
+              4.625,
+              32.96875,
+              49.21875
+            ]
+          },
+          {
+            "radius": 13.46484375,
+            "center": [
+              1.40625,
+              19.96875,
+              73.15625
+            ]
+          },
+          {
+            "radius": 13.46484375,
+            "center": [
+              2.96875,
+              26.40625,
+              61.34375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 15.96875,
+            "center": [
+              0.46875,
+              68.8125,
+              -41.03125
+            ]
+          },
+          {
+            "radius": 15.96875,
+            "center": [
+              -28.6875,
+              79.875,
+              -50.15625
+            ]
+          },
+          {
+            "radius": 15.96875,
+            "center": [
+              -14.28125,
+              74.4375,
+              -45.625
+            ]
+          },
+          {
+            "radius": 13.2421875,
+            "center": [
+              -23.46875,
+              30.25,
+              41.53125
+            ]
+          },
+          {
+            "radius": 13.2421875,
+            "center": [
+              -37.96875,
+              20.9375,
+              62.28125
+            ]
+          },
+          {
+            "radius": 13.2421875,
+            "center": [
+              -30.8125,
+              25.5625,
+              52.03125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 20.55859375,
+            "center": [
+              48.5625,
+              93.3125,
+              -0.34375
+            ]
+          },
+          {
+            "radius": 20.55859375,
+            "center": [
+              53.46875,
+              112.21875,
+              -37.40625
+            ]
+          },
+          {
+            "radius": 20.55859375,
+            "center": [
+              51.0,
+              102.875,
+              -19.125
+            ]
+          },
+          {
+            "radius": 13.2109375,
+            "center": [
+              -35.75,
+              40.75,
+              38.84375
+            ]
+          },
+          {
+            "radius": 13.2109375,
+            "center": [
+              -55.59375,
+              33.28125,
+              55.4375
+            ]
+          },
+          {
+            "radius": 13.2109375,
+            "center": [
+              -45.8125,
+              36.96875,
+              47.25
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 35.50390625,
+            "center": [
+              34.0,
+              77.4375,
+              66.34375
+            ]
+          },
+          {
+            "radius": 35.50390625,
+            "center": [
+              94.46875,
+              98.78125,
+              99.78125
+            ]
+          },
+          {
+            "radius": 35.50390625,
+            "center": [
+              64.65625,
+              88.25,
+              83.21875
+            ]
+          },
+          {
+            "radius": 13.3203125,
+            "center": [
+              -44.625,
+              39.375,
+              14.53125
+            ]
+          },
+          {
+            "radius": 13.3203125,
+            "center": [
+              -68.8125,
+              27.09375,
+              14.625
+            ]
+          },
+          {
+            "radius": 13.3203125,
+            "center": [
+              -56.90625,
+              33.1875,
+              14.5625
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 52.5546875,
+            "center": [
+              -0.1875,
+              61.375,
+              80.71875
+            ]
+          },
+          {
+            "radius": 52.5546875,
+            "center": [
+              18.5,
+              61.3125,
+              186.125
+            ]
+          },
+          {
+            "radius": 52.5546875,
+            "center": [
+              9.34375,
+              61.34375,
+              134.09375
+            ]
+          },
+          {
+            "radius": 13.50390625,
+            "center": [
+              -41.75,
+              45.25,
+              -9.15625
+            ]
+          },
+          {
+            "radius": 13.50390625,
+            "center": [
+              -63.25,
+              35.96875,
+              -23.59375
+            ]
+          },
+          {
+            "radius": 13.50390625,
+            "center": [
+              -52.65625,
+              40.5625,
+              -16.46875
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 52.5546875,
+            "center": [
+              -28.875,
+              50.6875,
+              75.125
+            ]
+          },
+          {
+            "radius": 52.5546875,
+            "center": [
+              -83.53125,
+              38.78125,
+              166.375
+            ]
+          },
+          {
+            "radius": 52.5546875,
+            "center": [
+              -56.46875,
+              44.65625,
+              121.40625
+            ]
+          },
+          {
+            "radius": 13.7109375,
+            "center": [
+              -31.625,
+              56.28125,
+              -24.21875
+            ]
+          },
+          {
+            "radius": 13.7109375,
+            "center": [
+              -46.59375,
+              52.625,
+              -47.5
+            ]
+          },
+          {
+            "radius": 13.7109375,
+            "center": [
+              -39.1875,
+              54.4375,
+              -36.0
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 42.53125,
+            "center": [
+              -35.9375,
+              45.1875,
+              65.875
+            ]
+          },
+          {
+            "radius": 42.53125,
+            "center": [
+              -102.4375,
+              33.59375,
+              120.15625
+            ]
+          },
+          {
+            "radius": 42.53125,
+            "center": [
+              -69.59375,
+              39.3125,
+              93.4375
+            ]
+          },
+          {
+            "radius": 13.875,
+            "center": [
+              -28.34375,
+              58.125,
+              -28.90625
+            ]
+          },
+          {
+            "radius": 13.875,
+            "center": [
+              -40.0,
+              55.09375,
+              -54.46875
+            ]
+          },
+          {
+            "radius": 13.875,
+            "center": [
+              -34.25,
+              56.59375,
+              -41.875
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 30.328125,
+            "center": [
+              -35.3125,
+              41.09375,
+              57.90625
+            ]
+          },
+          {
+            "radius": 30.328125,
+            "center": [
+              -86.78125,
+              27.59375,
+              89.34375
+            ]
+          },
+          {
+            "radius": 30.328125,
+            "center": [
+              -61.34375,
+              34.25,
+              73.875
+            ]
+          },
+          {
+            "radius": 13.9453125,
+            "center": [
+              -29.9375,
+              57.25,
+              -31.5625
+            ]
+          },
+          {
+            "radius": 13.9453125,
+            "center": [
+              -42.03125,
+              52.125,
+              -56.75
+            ]
+          },
+          {
+            "radius": 13.9453125,
+            "center": [
+              -36.03125,
+              54.65625,
+              -44.34375
+            ]
+          }
+        ]
+      ],
+      "count": 6,
+      "frame_count": 10,
+      "active_frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "106": {
+      "header": "0x9002214",
+      "frames": [
+        [
+          {
+            "radius": 19.59375,
+            "center": [
+              -28.78125,
+              40.75,
+              48.90625
+            ]
+          },
+          {
+            "radius": 19.59375,
+            "center": [
+              -53.71875,
+              31.125,
+              78.5
+            ]
+          },
+          {
+            "radius": 19.59375,
+            "center": [
+              -41.375,
+              35.875,
+              63.9375
+            ]
+          },
+          {
+            "radius": 13.5,
+            "center": [
+              -34.9375,
+              48.21875,
+              -35.46875
+            ]
+          },
+          {
+            "radius": 13.5,
+            "center": [
+              -49.03125,
+              34.5625,
+              -54.71875
+            ]
+          },
+          {
+            "radius": 13.5,
+            "center": [
+              -42.0625,
+              41.28125,
+              -45.25
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.9765625,
+            "center": [
+              -18.1875,
+              51.75,
+              54.21875
+            ]
+          },
+          {
+            "radius": 13.9765625,
+            "center": [
+              -20.34375,
+              49.96875,
+              82.5625
+            ]
+          },
+          {
+            "radius": 13.9765625,
+            "center": [
+              -19.25,
+              50.84375,
+              68.59375
+            ]
+          },
+          {
+            "radius": 13.9453125,
+            "center": [
+              -48.375,
+              51.9375,
+              -20.3125
+            ]
+          },
+          {
+            "radius": 13.9453125,
+            "center": [
+              -70.8125,
+              38.46875,
+              -31.375
+            ]
+          },
+          {
+            "radius": 13.9453125,
+            "center": [
+              -59.71875,
+              45.09375,
+              -25.9375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 12.36328125,
+            "center": [
+              12.9375,
+              53.59375,
+              53.8125
+            ]
+          },
+          {
+            "radius": 12.36328125,
+            "center": [
+              35.5,
+              43.375,
+              58.28125
+            ]
+          },
+          {
+            "radius": 12.36328125,
+            "center": [
+              24.375,
+              48.40625,
+              56.0625
+            ]
+          },
+          {
+            "radius": 16.4296875,
+            "center": [
+              -48.59375,
+              87.40625,
+              -16.0
+            ]
+          },
+          {
+            "radius": 16.4296875,
+            "center": [
+              -74.25,
+              104.625,
+              -28.84375
+            ]
+          },
+          {
+            "radius": 16.4296875,
+            "center": [
+              -61.59375,
+              96.125,
+              -22.53125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 11.15625,
+            "center": [
+              20.84375,
+              47.03125,
+              49.59375
+            ]
+          },
+          {
+            "radius": 11.15625,
+            "center": [
+              34.09375,
+              28.59375,
+              49.375
+            ]
+          },
+          {
+            "radius": 11.15625,
+            "center": [
+              27.5625,
+              37.6875,
+              49.4375
+            ]
+          },
+          {
+            "radius": 21.05859375,
+            "center": [
+              -38.03125,
+              101.25,
+              -20.84375
+            ]
+          },
+          {
+            "radius": 21.05859375,
+            "center": [
+              -51.875,
+              134.1875,
+              -44.5625
+            ]
+          },
+          {
+            "radius": 21.05859375,
+            "center": [
+              -45.03125,
+              117.90625,
+              -32.875
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 10.32421875,
+            "center": [
+              39.96875,
+              30.5,
+              29.21875
+            ]
+          },
+          {
+            "radius": 10.32421875,
+            "center": [
+              51.75,
+              17.875,
+              17.1875
+            ]
+          },
+          {
+            "radius": 10.32421875,
+            "center": [
+              45.9375,
+              24.125,
+              23.125
+            ]
+          },
+          {
+            "radius": 27.859375,
+            "center": [
+              -21.8125,
+              105.28125,
+              -21.9375
+            ]
+          },
+          {
+            "radius": 27.859375,
+            "center": [
+              -23.25,
+              127.03125,
+              -74.3125
+            ]
+          },
+          {
+            "radius": 27.859375,
+            "center": [
+              -22.53125,
+              116.25,
+              -48.5
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 9.81640625,
+            "center": [
+              46.03125,
+              25.59375,
+              -0.59375
+            ]
+          },
+          {
+            "radius": 9.81640625,
+            "center": [
+              50.28125,
+              21.78125,
+              -19.75
+            ]
+          },
+          {
+            "radius": 9.81640625,
+            "center": [
+              48.1875,
+              23.6875,
+              -10.3125
+            ]
+          },
+          {
+            "radius": 35.57421875,
+            "center": [
+              -17.5,
+              105.9375,
+              -10.75
+            ]
+          },
+          {
+            "radius": 35.57421875,
+            "center": [
+              -20.21875,
+              125.75,
+              -80.40625
+            ]
+          },
+          {
+            "radius": 35.57421875,
+            "center": [
+              -18.875,
+              115.9375,
+              -46.0625
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 9.59765625,
+            "center": [
+              39.78125,
+              38.4375,
+              -27.75
+            ]
+          },
+          {
+            "radius": 9.59765625,
+            "center": [
+              35.65625,
+              45.40625,
+              -45.5625
+            ]
+          },
+          {
+            "radius": 9.59765625,
+            "center": [
+              37.6875,
+              41.96875,
+              -36.75
+            ]
+          },
+          {
+            "radius": 43.34375,
+            "center": [
+              -18.25,
+              105.15625,
+              7.78125
+            ]
+          },
+          {
+            "radius": 43.34375,
+            "center": [
+              -27.46875,
+              146.3125,
+              -69.75
+            ]
+          },
+          {
+            "radius": 43.34375,
+            "center": [
+              -22.875,
+              125.9375,
+              -31.53125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 9.62109375,
+            "center": [
+              25.53125,
+              62.09375,
+              -35.875
+            ]
+          },
+          {
+            "radius": 9.62109375,
+            "center": [
+              14.4375,
+              75.15625,
+              -45.4375
+            ]
+          },
+          {
+            "radius": 9.62109375,
+            "center": [
+              19.90625,
+              68.6875,
+              -40.6875
+            ]
+          },
+          {
+            "radius": 50.30859375,
+            "center": [
+              -32.71875,
+              89.40625,
+              50.875
+            ]
+          },
+          {
+            "radius": 50.30859375,
+            "center": [
+              -77.5,
+              181.5625,
+              50.4375
+            ]
+          },
+          {
+            "radius": 50.30859375,
+            "center": [
+              -55.375,
+              136.09375,
+              50.5625
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 9.84765625,
+            "center": [
+              7.78125,
+              80.15625,
+              -26.34375
+            ]
+          },
+          {
+            "radius": 9.84765625,
+            "center": [
+              -8.5,
+              91.875,
+              -26.65625
+            ]
+          },
+          {
+            "radius": 9.84765625,
+            "center": [
+              -0.46875,
+              86.09375,
+              -26.5
+            ]
+          },
+          {
+            "radius": 52.4453125,
+            "center": [
+              -7.34375,
+              28.625,
+              81.90625
+            ]
+          },
+          {
+            "radius": 52.4453125,
+            "center": [
+              -3.75,
+              29.09375,
+              188.65625
+            ]
+          },
+          {
+            "radius": 52.4453125,
+            "center": [
+              -5.5625,
+              28.9375,
+              136.0
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 10.234375,
+            "center": [
+              -3.625,
+              84.6875,
+              -13.21875
+            ]
+          },
+          {
+            "radius": 10.234375,
+            "center": [
+              -22.46875,
+              92.3125,
+              -8.625
+            ]
+          },
+          {
+            "radius": 10.234375,
+            "center": [
+              -13.1875,
+              88.53125,
+              -10.875
+            ]
+          },
+          {
+            "radius": 43.703125,
+            "center": [
+              7.6875,
+              12.0,
+              75.4375
+            ]
+          },
+          {
+            "radius": 43.703125,
+            "center": [
+              23.0,
+              3.59375,
+              162.71875
+            ]
+          },
+          {
+            "radius": 43.703125,
+            "center": [
+              15.40625,
+              7.8125,
+              119.65625
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 10.73828125,
+            "center": [
+              -4.78125,
+              84.59375,
+              -6.625
+            ]
+          },
+          {
+            "radius": 10.73828125,
+            "center": [
+              -24.78125,
+              91.28125,
+              -0.75
+            ]
+          },
+          {
+            "radius": 10.73828125,
+            "center": [
+              -14.90625,
+              87.96875,
+              -3.625
+            ]
+          },
+          {
+            "radius": 33.09375,
+            "center": [
+              11.625,
+              9.90625,
+              70.96875
+            ]
+          },
+          {
+            "radius": 33.09375,
+            "center": [
+              25.0625,
+              3.0625,
+              136.65625
+            ]
+          },
+          {
+            "radius": 33.09375,
+            "center": [
+              18.40625,
+              6.5,
+              104.25
+            ]
+          }
+        ]
+      ],
+      "count": 6,
+      "frame_count": 11,
+      "active_frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "110": {
+      "header": "0x90023b8",
+      "frames": [
+        [
+          {
+            "radius": 13.796875,
+            "center": [
+              19.5625,
+              35.375,
+              49.25
+            ]
+          },
+          {
+            "radius": 13.796875,
+            "center": [
+              39.4375,
+              18.1875,
+              59.25
+            ]
+          },
+          {
+            "radius": 13.796875,
+            "center": [
+              29.65625,
+              26.6875,
+              54.28125
+            ]
+          },
+          {
+            "radius": 13.796875,
+            "center": [
+              -15.71875,
+              50.28125,
+              -55.1875
+            ]
+          },
+          {
+            "radius": 13.796875,
+            "center": [
+              -10.53125,
+              40.96875,
+              -81.1875
+            ]
+          },
+          {
+            "radius": 13.796875,
+            "center": [
+              -13.09375,
+              45.59375,
+              -68.375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.78515625,
+            "center": [
+              34.46875,
+              29.1875,
+              32.84375
+            ]
+          },
+          {
+            "radius": 13.78515625,
+            "center": [
+              55.96875,
+              11.15625,
+              31.9375
+            ]
+          },
+          {
+            "radius": 13.78515625,
+            "center": [
+              45.375,
+              20.0625,
+              32.34375
+            ]
+          },
+          {
+            "radius": 23.56640625,
+            "center": [
+              -56.125,
+              66.84375,
+              2.0625
+            ]
+          },
+          {
+            "radius": 23.56640625,
+            "center": [
+              -96.0625,
+              67.90625,
+              -24.53125
+            ]
+          },
+          {
+            "radius": 23.56640625,
+            "center": [
+              -76.34375,
+              67.40625,
+              -11.40625
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.75,
+            "center": [
+              43.4375,
+              29.4375,
+              16.1875
+            ]
+          },
+          {
+            "radius": 13.75,
+            "center": [
+              64.1875,
+              14.71875,
+              4.40625
+            ]
+          },
+          {
+            "radius": 13.75,
+            "center": [
+              53.96875,
+              22.0,
+              10.1875
+            ]
+          },
+          {
+            "radius": 40.6484375,
+            "center": [
+              -31.09375,
+              67.0,
+              56.25
+            ]
+          },
+          {
+            "radius": 40.6484375,
+            "center": [
+              -94.90625,
+              67.28125,
+              109.03125
+            ]
+          },
+          {
+            "radius": 40.6484375,
+            "center": [
+              -63.46875,
+              67.15625,
+              82.9375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.69921875,
+            "center": [
+              46.90625,
+              40.90625,
+              -8.15625
+            ]
+          },
+          {
+            "radius": 13.69921875,
+            "center": [
+              59.03125,
+              38.75,
+              -33.21875
+            ]
+          },
+          {
+            "radius": 13.69921875,
+            "center": [
+              53.03125,
+              39.8125,
+              -20.84375
+            ]
+          },
+          {
+            "radius": 51.2734375,
+            "center": [
+              -8.90625,
+              62.4375,
+              76.6875
+            ]
+          },
+          {
+            "radius": 51.2734375,
+            "center": [
+              -49.3125,
+              63.75,
+              172.96875
+            ]
+          },
+          {
+            "radius": 51.2734375,
+            "center": [
+              -29.46875,
+              63.125,
+              125.40625
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.63671875,
+            "center": [
+              30.25,
+              53.53125,
+              -30.6875
+            ]
+          },
+          {
+            "radius": 13.63671875,
+            "center": [
+              26.90625,
+              63.6875,
+              -56.3125
+            ]
+          },
+          {
+            "radius": 13.63671875,
+            "center": [
+              28.53125,
+              58.6875,
+              -43.65625
+            ]
+          },
+          {
+            "radius": 44.953125,
+            "center": [
+              22.875,
+              54.1875,
+              72.53125
+            ]
+          },
+          {
+            "radius": 44.953125,
+            "center": [
+              54.34375,
+              54.125,
+              158.5
+            ]
+          },
+          {
+            "radius": 44.953125,
+            "center": [
+              38.75,
+              54.1875,
+              116.125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.5703125,
+            "center": [
+              13.21875,
+              61.75,
+              -36.78125
+            ]
+          },
+          {
+            "radius": 13.5703125,
+            "center": [
+              1.03125,
+              76.375,
+              -56.8125
+            ]
+          },
+          {
+            "radius": 13.5703125,
+            "center": [
+              7.03125,
+              69.15625,
+              -46.90625
+            ]
+          },
+          {
+            "radius": 32.28515625,
+            "center": [
+              36.71875,
+              47.03125,
+              58.125
+            ]
+          },
+          {
+            "radius": 32.28515625,
+            "center": [
+              80.09375,
+              42.96875,
+              107.375
+            ]
+          },
+          {
+            "radius": 32.28515625,
+            "center": [
+              58.625,
+              45.0,
+              83.125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.50390625,
+            "center": [
+              15.4375,
+              60.5,
+              -36.21875
+            ]
+          },
+          {
+            "radius": 13.50390625,
+            "center": [
+              3.5,
+              74.125,
+              -56.90625
+            ]
+          },
+          {
+            "radius": 13.50390625,
+            "center": [
+              9.375,
+              67.40625,
+              -46.6875
+            ]
+          },
+          {
+            "radius": 21.453125,
+            "center": [
+              37.125,
+              41.03125,
+              49.53125
+            ]
+          },
+          {
+            "radius": 21.453125,
+            "center": [
+              70.0625,
+              34.28125,
+              77.4375
+            ]
+          },
+          {
+            "radius": 21.453125,
+            "center": [
+              53.78125,
+              37.625,
+              63.6875
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.44140625,
+            "center": [
+              16.09375,
+              59.21875,
+              -37.53125
+            ]
+          },
+          {
+            "radius": 13.44140625,
+            "center": [
+              4.71875,
+              72.75,
+              -58.46875
+            ]
+          },
+          {
+            "radius": 13.44140625,
+            "center": [
+              10.3125,
+              66.09375,
+              -48.125
+            ]
+          },
+          {
+            "radius": 17.11328125,
+            "center": [
+              36.84375,
+              38.59375,
+              42.78125
+            ]
+          },
+          {
+            "radius": 17.11328125,
+            "center": [
+              64.34375,
+              29.78125,
+              62.3125
+            ]
+          },
+          {
+            "radius": 17.11328125,
+            "center": [
+              50.75,
+              34.15625,
+              52.6875
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.38671875,
+            "center": [
+              17.1875,
+              58.8125,
+              -38.0625
+            ]
+          },
+          {
+            "radius": 13.38671875,
+            "center": [
+              5.5625,
+              71.1875,
+              -59.40625
+            ]
+          },
+          {
+            "radius": 13.38671875,
+            "center": [
+              11.28125,
+              65.09375,
+              -48.84375
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              35.6875,
+              39.40625,
+              42.34375
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              60.0,
+              31.96875,
+              60.53125
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              47.96875,
+              35.65625,
+              51.59375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.38671875,
+            "center": [
+              17.1875,
+              58.8125,
+              -38.0625
+            ]
+          },
+          {
+            "radius": 13.38671875,
+            "center": [
+              5.5625,
+              71.1875,
+              -59.40625
+            ]
+          },
+          {
+            "radius": 13.38671875,
+            "center": [
+              11.28125,
+              65.09375,
+              -48.84375
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              35.6875,
+              39.40625,
+              42.34375
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              60.0,
+              31.96875,
+              60.53125
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              47.96875,
+              35.65625,
+              51.59375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.38671875,
+            "center": [
+              17.1875,
+              58.8125,
+              -38.0625
+            ]
+          },
+          {
+            "radius": 13.38671875,
+            "center": [
+              5.5625,
+              71.1875,
+              -59.40625
+            ]
+          },
+          {
+            "radius": 13.38671875,
+            "center": [
+              11.28125,
+              65.09375,
+              -48.84375
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              35.6875,
+              39.40625,
+              42.34375
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              60.0,
+              31.96875,
+              60.53125
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              47.96875,
+              35.65625,
+              51.59375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.38671875,
+            "center": [
+              17.1875,
+              58.8125,
+              -38.0625
+            ]
+          },
+          {
+            "radius": 13.38671875,
+            "center": [
+              5.5625,
+              71.1875,
+              -59.40625
+            ]
+          },
+          {
+            "radius": 13.38671875,
+            "center": [
+              11.28125,
+              65.09375,
+              -48.84375
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              35.6875,
+              39.40625,
+              42.34375
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              60.0,
+              31.96875,
+              60.53125
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              47.96875,
+              35.65625,
+              51.59375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.38671875,
+            "center": [
+              17.1875,
+              58.8125,
+              -38.0625
+            ]
+          },
+          {
+            "radius": 13.38671875,
+            "center": [
+              5.5625,
+              71.1875,
+              -59.40625
+            ]
+          },
+          {
+            "radius": 13.38671875,
+            "center": [
+              11.28125,
+              65.09375,
+              -48.84375
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              35.6875,
+              39.40625,
+              42.34375
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              60.0,
+              31.96875,
+              60.53125
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              47.96875,
+              35.65625,
+              51.59375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.38671875,
+            "center": [
+              17.1875,
+              58.8125,
+              -38.0625
+            ]
+          },
+          {
+            "radius": 13.38671875,
+            "center": [
+              5.5625,
+              71.1875,
+              -59.40625
+            ]
+          },
+          {
+            "radius": 13.38671875,
+            "center": [
+              11.28125,
+              65.09375,
+              -48.84375
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              35.6875,
+              39.40625,
+              42.34375
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              60.0,
+              31.96875,
+              60.53125
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              47.96875,
+              35.65625,
+              51.59375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 13.38671875,
+            "center": [
+              17.1875,
+              58.8125,
+              -38.0625
+            ]
+          },
+          {
+            "radius": 13.38671875,
+            "center": [
+              5.5625,
+              71.1875,
+              -59.40625
+            ]
+          },
+          {
+            "radius": 13.38671875,
+            "center": [
+              11.28125,
+              65.09375,
+              -48.84375
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              35.6875,
+              39.40625,
+              42.34375
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              60.0,
+              31.96875,
+              60.53125
+            ]
+          },
+          {
+            "radius": 15.34375,
+            "center": [
+              47.96875,
+              35.65625,
+              51.59375
+            ]
+          }
+        ]
+      ],
+      "count": 6,
+      "frame_count": 15,
+      "active_frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    },
+    "111": {
+      "header": "0x9001390",
+      "frames": [
+        [
+          {
+            "radius": 0.54296875,
+            "center": [
+              -0.53125,
+              107.34375,
+              31.15625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.03125,
+              62.1875,
+              30.53125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.03125,
+              62.25,
+              30.59375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.03125,
+              62.3125,
+              30.65625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.03125,
+              62.375,
+              30.71875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.0,
+              62.4375,
+              30.78125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 0.375,
+            "center": [
+              -1.75,
+              97.5625,
+              61.6875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.53125,
+              55.9375,
+              44.1875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.53125,
+              55.96875,
+              44.28125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.53125,
+              56.0,
+              44.375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.53125,
+              56.03125,
+              44.4375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.53125,
+              56.0625,
+              44.53125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 4.4921875,
+            "center": [
+              -2.59375,
+              75.46875,
+              88.21875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.8125,
+              46.875,
+              52.96875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.8125,
+              46.875,
+              53.0625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.8125,
+              46.875,
+              53.15625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.8125,
+              46.875,
+              53.25
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.8125,
+              46.875,
+              53.3125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 24.4921875,
+            "center": [
+              -1.59375,
+              49.125,
+              207.0625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.625,
+              47.03125,
+              65.4375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.625,
+              47.0625,
+              88.09375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.625,
+              47.0625,
+              110.34375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.59375,
+              47.0625,
+              132.90625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.59375,
+              47.0625,
+              154.8125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 34.4921875,
+            "center": [
+              -1.59375,
+              47.375,
+              307.34375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.59375,
+              47.3125,
+              76.15625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.59375,
+              47.3125,
+              118.4375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.59375,
+              47.34375,
+              160.0
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.59375,
+              47.34375,
+              202.125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.59375,
+              47.34375,
+              243.0
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 34.4921875,
+            "center": [
+              -1.625,
+              47.4375,
+              307.1875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.625,
+              47.4375,
+              76.03125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.625,
+              47.4375,
+              118.28125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.625,
+              47.4375,
+              159.875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.625,
+              47.4375,
+              201.96875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.625,
+              47.4375,
+              242.84375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 34.4921875,
+            "center": [
+              -1.6875,
+              47.5625,
+              307.0625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.65625,
+              47.625,
+              75.90625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.65625,
+              47.625,
+              118.1875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.65625,
+              47.59375,
+              159.75
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.6875,
+              47.59375,
+              201.84375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.6875,
+              47.59375,
+              242.75
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 30.8046875,
+            "center": [
+              -1.75,
+              50.75,
+              206.125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.6875,
+              47.8125,
+              65.375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.6875,
+              47.8125,
+              88.78125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.71875,
+              47.8125,
+              111.8125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.71875,
+              47.78125,
+              135.125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.71875,
+              47.78125,
+              157.78125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 4.4921875,
+            "center": [
+              -2.3125,
+              84.25,
+              85.09375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.65625,
+              48.84375,
+              52.5625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.6875,
+              49.5,
+              54.375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.6875,
+              50.09375,
+              56.1875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.6875,
+              50.71875,
+              57.96875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.71875,
+              51.34375,
+              59.75
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 1.27734375,
+            "center": [
+              -0.90625,
+              94.09375,
+              66.15625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.09375,
+              53.15625,
+              46.6875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.09375,
+              53.1875,
+              46.78125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.09375,
+              53.21875,
+              46.84375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.09375,
+              53.25,
+              46.9375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.09375,
+              53.28125,
+              47.03125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 1.16015625,
+            "center": [
+              0.6875,
+              104.4375,
+              37.5
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.375,
+              59.25,
+              34.5625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.375,
+              59.3125,
+              34.625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.375,
+              59.34375,
+              34.6875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.34375,
+              59.40625,
+              34.78125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.34375,
+              59.46875,
+              34.84375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 2.94140625,
+            "center": [
+              2.5,
+              103.6875,
+              4.15625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              0.5625,
+              61.0625,
+              19.375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              0.5625,
+              61.15625,
+              19.40625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              0.59375,
+              61.21875,
+              19.4375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              0.59375,
+              61.3125,
+              19.5
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              0.59375,
+              61.375,
+              19.53125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 4.16015625,
+            "center": [
+              2.34375,
+              100.71875,
+              -6.6875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              0.53125,
+              60.625,
+              14.3125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              0.53125,
+              60.71875,
+              14.34375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              0.53125,
+              60.78125,
+              14.375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              0.5625,
+              60.875,
+              14.40625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              0.5625,
+              60.96875,
+              14.4375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 4.921875,
+            "center": [
+              1.5625,
+              101.75,
+              -4.71875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              0.125,
+              61.1875,
+              15.375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              0.15625,
+              61.28125,
+              15.40625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              0.15625,
+              61.375,
+              15.4375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              0.15625,
+              61.4375,
+              15.46875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              0.15625,
+              61.53125,
+              15.5
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 5.33203125,
+            "center": [
+              -0.96875,
+              102.53125,
+              -3.25
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.0,
+              61.625,
+              16.21875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.0,
+              61.71875,
+              16.25
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.0,
+              61.8125,
+              16.28125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.0,
+              61.90625,
+              16.3125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.0,
+              61.96875,
+              16.34375
+            ]
+          }
+        ]
+      ],
+      "count": 6,
+      "frame_count": 15,
+      "active_frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    },
+    "154": {
+      "header": "0x900157c",
+      "frames": [
+        [
+          {
+            "radius": 21.0078125,
+            "center": [
+              0.25,
+              153.8125,
+              -42.15625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.65625,
+              113.5,
+              -10.875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.65625,
+              113.59375,
+              -10.84375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.65625,
+              113.6875,
+              -10.84375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.65625,
+              113.78125,
+              -10.8125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.65625,
+              113.875,
+              -10.8125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 24.22265625,
+            "center": [
+              0.1875,
+              163.9375,
+              -18.03125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.6875,
+              116.46875,
+              0.65625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.6875,
+              116.5625,
+              0.6875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.6875,
+              116.625,
+              0.71875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.6875,
+              116.71875,
+              0.78125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.6875,
+              116.8125,
+              0.8125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 27.87109375,
+            "center": [
+              0.09375,
+              203.40625,
+              2.84375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.6875,
+              121.53125,
+              10.3125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.6875,
+              130.3125,
+              10.5625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.65625,
+              138.90625,
+              10.78125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.625,
+              147.65625,
+              11.03125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.59375,
+              156.125,
+              11.25
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 34.0078125,
+            "center": [
+              -0.21875,
+              362.46875,
+              18.40625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.75,
+              134.53125,
+              16.6875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.78125,
+              174.53125,
+              17.375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              213.84375,
+              18.0625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.84375,
+              253.6875,
+              18.71875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.875,
+              292.375,
+              19.40625
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 37.87109375,
+            "center": [
+              -0.375,
+              356.875,
+              25.8125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.75,
+              129.46875,
+              19.65625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.75,
+              169.46875,
+              20.59375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.75,
+              208.78125,
+              21.5
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.75,
+              248.625,
+              22.40625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.75,
+              287.28125,
+              23.3125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 34.08984375,
+            "center": [
+              -0.5,
+              357.71875,
+              21.0
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              129.96875,
+              17.9375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.875,
+              169.96875,
+              18.78125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.90625,
+              209.28125,
+              19.625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.96875,
+              249.125,
+              20.5
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.0,
+              287.78125,
+              21.3125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 28.98046875,
+            "center": [
+              -0.34375,
+              280.0625,
+              -5.875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              122.875,
+              7.71875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.875,
+              147.28125,
+              7.125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.90625,
+              171.28125,
+              6.5625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.9375,
+              195.5625,
+              6.0
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.0,
+              219.15625,
+              5.4375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 24.1015625,
+            "center": [
+              -0.125,
+              192.53125,
+              -47.90625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              114.09375,
+              -10.875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.875,
+              123.4375,
+              -12.625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.9375,
+              132.65625,
+              -14.375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.0,
+              141.96875,
+              -16.09375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -1.03125,
+              151.0,
+              -17.8125
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 21.0078125,
+            "center": [
+              -0.03125,
+              140.375,
+              -60.1875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              107.625,
+              -20.4375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              107.625,
+              -20.4375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.78125,
+              107.65625,
+              -20.46875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.78125,
+              107.65625,
+              -20.46875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.78125,
+              107.65625,
+              -20.46875
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 19.8359375,
+            "center": [
+              0.0,
+              137.25,
+              -65.21875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              108.1875,
+              -23.21875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              108.1875,
+              -23.21875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              108.21875,
+              -23.21875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              108.21875,
+              -23.21875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              108.21875,
+              -23.21875
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 19.5078125,
+            "center": [
+              0.0,
+              136.4375,
+              -66.5
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              108.25,
+              -23.90625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              108.28125,
+              -23.9375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              108.3125,
+              -23.9375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              108.34375,
+              -23.9375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              108.375,
+              -23.9375
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 19.7421875,
+            "center": [
+              0.0,
+              134.8125,
+              -66.21875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              106.8125,
+              -23.53125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              106.875,
+              -23.53125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              106.90625,
+              -23.5625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              106.96875,
+              -23.5625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.8125,
+              107.0,
+              -23.5625
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 20.2578125,
+            "center": [
+              -0.03125,
+              134.15625,
+              -66.25
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.84375,
+              106.5,
+              -23.375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.84375,
+              106.5625,
+              -23.375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.84375,
+              106.65625,
+              -23.375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.84375,
+              106.71875,
+              -23.40625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.84375,
+              106.78125,
+              -23.40625
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 20.7734375,
+            "center": [
+              -0.03125,
+              132.1875,
+              -67.4375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.875,
+              105.71875,
+              -23.84375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.84375,
+              105.8125,
+              -23.84375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.84375,
+              105.90625,
+              -23.875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.84375,
+              105.96875,
+              -23.875
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.84375,
+              106.0625,
+              -23.90625
+            ]
+          }
+        ],
+        [
+          {
+            "radius": 21.0078125,
+            "center": [
+              -0.03125,
+              130.0625,
+              -68.9375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.875,
+              104.96875,
+              -24.53125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.875,
+              105.0625,
+              -24.53125
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.875,
+              105.15625,
+              -24.5625
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.875,
+              105.25,
+              -24.59375
+            ]
+          },
+          {
+            "radius": 14.109375,
+            "center": [
+              -0.875,
+              105.3125,
+              -24.59375
+            ]
+          }
+        ]
+      ],
+      "count": 6,
+      "frame_count": 15,
+      "active_frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    }
+  },
+  "collision_provenance": "Original full sphere decoder80033590 calling80033F24(unsigned radius) and800340FC(signed center), includingBE1C constant radius; source headers8020452C[char2][attack] selected801E3834. Six spheres perframe, radius/256 and center/32 from80033590; native actor scale and heading apply.",
+  "hurt": {
+    "action": 29,
+    "source": "801DA84C ordinaryhit initializer, setsupwardparameter3 and calls1D at801DA8D4. Stronghit801DA924calls20withupward7."
+  },
+  "death": {
+    "action": 45,
+    "source": "801D9E28 zerosHPglobal8015C5E4,deathprep801E30E4;801D9E74 setsaction2D and801DEB80 deathupdater;fatalcollision801DA5D8 same2D."
+  }
+}

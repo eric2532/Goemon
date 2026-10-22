@@ -1,0 +1,18 @@
+{
+  "asset_id": "EDO_POSTURE_SHOULDERS_V05",
+  "findings": [
+    "V04 high near-horizontal shoulders crowd the neck and read as a shrug.",
+    "Existing idle sets Arm side angles to +/-.17 radians inward and forearm flexion .26 radians, placing fists close to hips."
+  ],
+  "geometry_changes": [
+    "Lower outer shoulder by up to .067 units, taper toward neck, gently move shoulder back.",
+    "Narrow upper collar region to expose neck transition; locally relax shoulder surface.",
+    "Small forward/outward lower-sleeve and hand adjustment; stance narrows by .016 per foot."
+  ],
+  "bones_unchanged": true,
+  "triangles": 46790,
+  "head_face_hair_unchanged": true,
+  "pelvis_topology_unchanged": true,
+  "idle_adapter": "Optional preview-only relaxed idle. Existing gameplay adapter unchanged; non-idle actions delegate unchanged.",
+  "default_replacement": false
+}

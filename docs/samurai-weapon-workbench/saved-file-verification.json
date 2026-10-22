@@ -1,0 +1,16 @@
+{
+  "saved_blend_opens": true,
+  "body_geometry_uvs_weights_unchanged": true,
+  "rest_skeleton_unchanged": true,
+  "katana_blade_length_multiplier": 1.55,
+  "sheath_unchanged_when_katana_scale_doubled": true,
+  "blade_vertices_and_edge_midpoints_inside_scabbard": true,
+  "minimum_internal_clearance": 0.006755453068763018,
+  "finite_mesh_coordinates": true,
+  "reference_packed": true,
+  "original_blend_sha256": "f6404fcbc1b49d4de36edb81f9a79a8640c9764e1a46fef44d428e23fab59bfa",
+  "scenes": [
+    "01 \u2014 Samurai with maroon katana",
+    "02 \u2014 Katana and fitted scabbard"
+  ]
+}

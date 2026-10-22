@@ -1,0 +1,33 @@
+{
+  "status": "ASSET DRAFT ONLY \u2014 NOT IMPLEMENTED",
+  "height": 3.0,
+  "bounds_min": [
+    -0.9716654419898987,
+    -0.860605001449585,
+    0.0
+  ],
+  "bounds_max": [
+    0.9719366431236267,
+    0.8055586218833923,
+    3.0
+  ],
+  "height_vs_goemon": 0.9090908516331615,
+  "source": "source/worker-angry-draft.blend",
+  "export": "export/worker-angry-draft.glb",
+  "optional_prop": "export/worker-pickaxe.glb",
+  "rigging": "Named rigid-part pivots, no skeletal animation",
+  "mesh_groups": [
+    "Worker_Body_Geometry",
+    "Worker_Head_Geometry",
+    "Worker_Hat_Geometry",
+    "Worker_Arm_L_Geometry",
+    "Worker_Arm_R_Geometry",
+    "Worker_Leg_L_Geometry",
+    "Worker_Leg_R_Geometry",
+    "Worker_Basket_Geometry",
+    "Worker_Gold_Cargo_Geometry"
+  ],
+  "triangles": 40620,
+  "face": "Angry eyebrows, narrowed eyes and frown painted directly on closed 3D skull; integrated nose",
+  "live_implementation": false
+}

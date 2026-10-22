@@ -1,0 +1,58 @@
+ORDINARY BLUE THIRSTQUENCHER SOLDIER — ORIGINAL ATTACK ASSETS
+
+Recovered from the user's Brave Fencer Musashi (USA) ROM. Separate assets;
+no existing soldier GLB, soldier manifest, runtime resource, or game script
+was changed by this attack-asset extraction.
+
+Source: raw/SC01.CD.dir/FILE_077.dir/0.4.dec at RAM base0x80128158.
+Exact source and GLB/TMD hashes are in projectile_manifest.json.
+
+bullet.glb / bullet.blend:
+Registrytype0x20, initializer80185428, updatecallback801855A0.
+Original 1part modellist801B1430 → TMD801B12C0.
+6original vertices,8polygons: orange/white elongated bipyramid projectile.
+Source action Source__801b1208 retains all16 original one-tick packed poses
+at801B1188..801B1200, followed by sourceFFFF loop. Original rotation advances
+256/4096turn around sourceZ each tick. One rigid partbone plus Root, STEPkeys,
+nominal30Hz. Gameplay movement is source16units/tick,100tick lifetime, damage25.
+The prior converter expanded TMDscale word3 by2^3; nativeLIBGS ignores that
+word. This bullet reverses that conversion with geometryfactor1/8, preserving
+all16poses. Nativeactor Q12XYZscale defaults1000 (1.0), so originalgeometry
+bounds at .01meter/sourceunit are .16x.48x.16m before actorvisualscaling.
+Source func80056F18 never reads object+0x18scale; init80185428 uses
+8001C214/8001C9D0 defaults. Sonyprimaryreference: LIBGS ignores scale word,
+https://psx.arthus.net/sdk/Psy-Q/DOCS/Devrefs/Filefrmt.pdf
+
+casing.glb / casing.blend:
+Original1part modellist801B1560 → TMD801B1438.
+8originalvertices,6polygons: gold rectangular cartridge/casing.
+No pose-stream animation is invented. Source actor motion is runtime velocity
+(-4.5,-8,0)sourceunits/tick,90ticks, Euler increment(-128,+4,+5)per tick.
+The static GLB is suitable for applying that native motion at runtime.
+
+Both meshes retain source vertex colors and triangles. They are untextured;
+there is no replacement bullet/casing texture. One sourceunit=.01meter.
+Untextured PSX display RGB is stored asRGB/255 in COLOR_0 without linearization.
+The actor renderer must apply the intended color transfer explicitly.
+Coordinates/source forward conventions are recorded in projectile_manifest.json.
+
+Gunshot sourceSFX0x43A:
+SC01 FILE077 ordinary gun firing calls this sound. It resolves through the
+chapter owner to0x490, bank1/program2/tone6/sample15, original sampleID
+sample_32dc8bb72ba102f2. The recovered mono16bitPCM WAV is11025Hz,4396frames,
+0.398730seconds. Original driver SPUpitch register1024 gives11025Hz. This is
+a direct decode of preserved retail ADPCM, with no synthesis or substitution.
+Audio provenance retains original dispatch,record,tone bytes, all sample/bank
+hashes and pitch parameters. Original SPU ADSR/reverb/volumemodulation are not
+emulated in this dry sample.
+
+Verification: all16 exported bullet skin matrices match decoded sourceposes
+within3.18e-7. GLB action begins at0 and usesSTEP interpolation. Casing has
+one static mesh and no invented animation. Reports and independently scaled
+visual preview: build/Other Files/Musashi Soldiers/projectile_verification.json
+and original_bullet_and_casing.png.
+
+Reproduction:
+Blender --background --python tools/recover_thirstquencher_projectiles.py
+python3 tools/recover_thirstquencher_gunshot.py --out assets/characters/thirstquencher/projectiles
+Blender --background --python tools/recover_thirstquencher_projectile_preview.py

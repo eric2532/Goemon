@@ -1,0 +1,28 @@
+{
+  "source_frame": 0,
+  "mirrored_frames": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30
+  ],
+  "max_mirror_error": 2.384185791015625e-07,
+  "max_frame_error": 2.384185791015625e-07,
+  "backup": "/Users/eric/Desktop/Projects_Codex/Sonic/docs/run-pose-practice/Goemon_Run_Practice_before_mirror_20261015_142558.blend"
+}

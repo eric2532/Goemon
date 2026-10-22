@@ -1,0 +1,58 @@
+{
+  "character": "touma",
+  "source_sha256": "f93e85359c7b20d325dd0e78d6b89a47def134fa960f998d207c5328dffeab6d",
+  "glb_sha256": "bc0d63da5a610a830f566852f95e3161c807f0e2adec1c7879d4bf92e29f4722",
+  "status": "PASS",
+  "source": {
+    "objects": 420,
+    "triangles": 314516,
+    "vertices": 159289,
+    "bounds_min": [
+      -0.9148281812667847,
+      -0.5965979099273682,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      1.1041918992996216,
+      0.4899998605251312,
+      2.572162628173828
+    ],
+    "nonfinite_objects": []
+  },
+  "glb_reimport": {
+    "objects": 419,
+    "triangles": 314516,
+    "vertices": 181160,
+    "bounds_min": [
+      -0.9148281812667847,
+      -0.5965979099273682,
+      0.01752401329576969
+    ],
+    "bounds_max": [
+      1.1041918992996216,
+      0.4899998605251312,
+      2.572162628173828
+    ],
+    "nonfinite_objects": []
+  },
+  "bounds_max_error": 0.0,
+  "packed_images": [
+    "07-touma-reed-wanderer.png",
+    "Touma_accent_painted_fiber",
+    "Touma_cloth_painted_fiber",
+    "Touma_cream_painted_fiber",
+    "Touma_gold_painted_fiber",
+    "Touma_hair_painted_fiber",
+    "Touma_leather_painted_fiber",
+    "Touma_pants_painted_fiber",
+    "Touma_rope_painted_fiber"
+  ],
+  "static_unrigged": true,
+  "views": [
+    "three_quarter",
+    "front",
+    "side",
+    "back",
+    "import"
+  ]
+}

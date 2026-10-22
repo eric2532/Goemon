@@ -1,0 +1,62 @@
+[
+  {
+    "scene": "01 \u2014 Idle",
+    "action": "01_Idle",
+    "start": 1,
+    "end": 217,
+    "markers": {
+      "Start": 1,
+      "Inhale": 55,
+      "Neutral": 109,
+      "Exhale": 163,
+      "Loop": 217
+    }
+  },
+  {
+    "scene": "02 \u2014 Jump",
+    "action": "02_Jump_Explorer",
+    "start": 1,
+    "end": 91,
+    "markers": {
+      "Launch / landing": 1,
+      "Push off": 7,
+      "Airborne": 22,
+      "Apex": 43,
+      "Descent": 60,
+      "Land": 76,
+      "Recover": 80,
+      "User idle": 91
+    }
+  },
+  {
+    "scene": "03 \u2014 Gun Shot",
+    "action": "03_Gun_Shot_User",
+    "start": 0,
+    "end": 24,
+    "markers": {
+      "User start pose": 0,
+      "Fire": 4,
+      "Recoil": 6,
+      "User end pose": 24
+    }
+  },
+  {
+    "scene": "04 \u2014 Sword Slash",
+    "action": "04_Three_Hit_Slash",
+    "start": 0,
+    "end": 72,
+    "markers": {
+      "User ready": 0,
+      "Hit 1 windup": 8,
+      "Hit 1 contact": 13,
+      "User follow through": 16,
+      "Hit 2 windup": 24,
+      "Hit 2 contact RIGHT": 29,
+      "Hit 2 follow through": 32,
+      "Finisher windup": 42,
+      "Hit 3 contact RIGHT": 48,
+      "Finisher follow through": 52,
+      "User idle": 72
+    }
+  }
+]
