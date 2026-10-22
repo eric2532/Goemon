@@ -51,7 +51,7 @@ class GLB:
         binary = next((data for kind, data in chunks[1:] if kind == 0x004e4942), b'')
         if len(doc.get('buffers', [])) > 1 or any('uri' in b for b in doc.get('buffers', [])):
             raise ValueError('GLB external/multiple buffers are unsupported; embed buffers first')
-        if doc.get('buffers', [{}])[0].get('byteLength', 0) > len(binary):
+        if doc.get('buffers') and doc['buffers'][0].get('byteLength', 0) > len(binary):
             raise ValueError('Truncated GLB binary buffer')
         result = cls(doc, binary, path)
         for view in doc.get('bufferViews', []):

@@ -113,7 +113,7 @@ func run():
 	for mesh in models[0].find_children("*","MeshInstance3D",true,false):
 		if not mesh.visible:continue
 		var box=mesh.global_transform*mesh.get_aabb();bounds=box if first else bounds.merge(box);first=false
-	target=bounds.get_center();distance_value=maxf(bounds.size.length()*1.7,1.0);orbit(angle.value)
+	target=bounds.get_center();distance_value=maxf(bounds.size.length()*2.3,1.0);orbit(angle.value)
 	readout.text="Same camera / lighting / animation time. Drag the timeline and angle slider. Gear masks: 0 original, 31 all equipment."
 	if options.has("capture"):
 		capturing=true
@@ -144,7 +144,7 @@ func capture_sweep():
 				var metrics=before.compute_image_metrics(after,false)
 				# Perfect matches yield infinite PSNR, which is not portable JSON.
 				metrics.erase("peak_snr")
-				captures.append({"clip":clip,"seconds":seconds,"angle":degrees,"before":name+"-before.png","after":name+"-after.png","metrics":metrics})
+				captures.append({"clip":clip,"seconds":seconds,"angle":degrees,"before":name+"-before.png","after":name+"-after.png","metrics":metrics,"draw_calls_before":views[0].get_render_info(Viewport.RENDER_INFO_TYPE_VISIBLE,Viewport.RENDER_INFO_DRAW_CALLS_IN_FRAME),"draw_calls_after":views[1].get_render_info(Viewport.RENDER_INFO_TYPE_VISIBLE,Viewport.RENDER_INFO_DRAW_CALLS_IN_FRAME)})
 	var report={"asset":options.asset,"before":options.before,"after":options.after,"captures":captures,"renderer":RenderingServer.get_video_adapter_name(),"notes":"Pixel metrics are review evidence; file preservation and imported animation tests are separate gates."}
 	var file=FileAccess.open(output+"/comparison.json",FileAccess.WRITE)
 	if file==null:fail("Cannot write comparison report");return

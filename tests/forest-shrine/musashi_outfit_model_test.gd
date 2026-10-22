@@ -23,7 +23,7 @@ func run():
 	for material in a.palette_materials:
 		if material.has_meta("source_clut"):cluts.append(material.get_meta("source_clut"))
 	cluts.sort();check(cluts==[16918,16982,17046,17174,17238],"Each original equipment CLUT retains its independent binding")
-	for mask in [1,2,4,8,16,31]:
+	for mask in range(1,32):
 		a.set_outfit_mask(mask)
 		check(pages(a)!=original,"Original equipment flag %d changes the model's actual textures"%mask)
 		check(pages(b)==original,"Appearance flag %d does not modify another Musashi instance"%mask)

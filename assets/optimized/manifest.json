@@ -19,6 +19,7 @@
         "duplicate_materials": 0,
         "textures": [],
         "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
         "skins": 0,
         "joints": [],
         "animations": 4,
@@ -39,6 +40,7 @@
         "duplicate_materials": 0,
         "textures": [],
         "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
         "skins": 0,
         "joints": [],
         "animations": 4,
@@ -49,6 +51,7 @@
       "preservation": {
         "passed": true,
         "checks": {
+          "scene_membership": true,
           "nodes_and_sockets": true,
           "skins_and_bind_poses": true,
           "animation_samples": true,
@@ -67,7 +70,7 @@
       "source": "assets/characters/recovered_musashi/musashi.glb",
       "output": "assets/optimized/musashi.glb",
       "source_sha256": "916f16e6127f8ac2c37064d8d979d657b314b8d60e970090228a309f0991455e",
-      "output_sha256": "ab6ee24ef4e666c03bfb208eabbc31b4e574f0b33cef2ba9adc5c3e5aaf6fa4f",
+      "output_sha256": "f4121027989752f5d66b396a62b3034a7cd5f34cf08a8f629164f353364b2374",
       "before": {
         "path": "assets/characters/recovered_musashi/musashi.glb",
         "sha256": "916f16e6127f8ac2c37064d8d979d657b314b8d60e970090228a309f0991455e",
@@ -137,6 +140,9 @@
           }
         ],
         "texture_rgba8_mip_estimate_bytes": 1747625,
+        "texture_dimensions": [
+          "256x256"
+        ],
         "skins": 1,
         "joints": [
           32
@@ -148,8 +154,8 @@
       },
       "after": {
         "path": "assets/optimized/musashi.glb",
-        "sha256": "ab6ee24ef4e666c03bfb208eabbc31b4e574f0b33cef2ba9adc5c3e5aaf6fa4f",
-        "bytes": 3197792,
+        "sha256": "f4121027989752f5d66b396a62b3034a7cd5f34cf08a8f629164f353364b2374",
+        "bytes": 3197620,
         "category": "hero",
         "triangles": 724,
         "vertices": 2172,
@@ -215,6 +221,9 @@
           }
         ],
         "texture_rgba8_mip_estimate_bytes": 1747625,
+        "texture_dimensions": [
+          "256x256"
+        ],
         "skins": 1,
         "joints": [
           32
@@ -227,6 +236,7 @@
       "preservation": {
         "passed": true,
         "checks": {
+          "scene_membership": true,
           "nodes_and_sockets": true,
           "skins_and_bind_poses": true,
           "animation_samples": true,

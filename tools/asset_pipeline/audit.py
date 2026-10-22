@@ -33,9 +33,9 @@ def category(path):
     return 'prop'
 
 
-def scene_nodes(doc):
+def scene_nodes(doc, scene_index=None):
     if not doc.get('scenes'): return list(range(len(doc.get('nodes', []))))
-    seen, stack = set(), list(doc['scenes'][doc.get('scene', 0)].get('nodes', []))
+    seen, stack = set(), list(doc['scenes'][doc.get('scene', 0) if scene_index is None else scene_index].get('nodes', []))
     while stack:
         i = stack.pop()
         if i in seen: continue
@@ -66,6 +66,7 @@ def audit_asset(path, budgets=None):
            'mesh_instances': len(instances), 'surfaces': len(primitives), 'materials': len(materials),
            'duplicate_materials': len(materials)-len(signatures), 'textures': textures,
            'texture_rgba8_mip_estimate_bytes': sum(t['rgba8_mip_estimate_bytes'] or 0 for t in {t['sha256']: t for t in textures}.values()),
+           'texture_dimensions': sorted({'%dx%d' % tuple(t['dimensions']) for t in textures if t['dimensions']}),
            'skins': len(doc.get('skins', [])), 'joints': [len(s.get('joints', [])) for s in doc.get('skins', [])],
            'animations': len(doc.get('animations', [])), 'issues': issues}
     if budgets is None: budgets = json.loads(Path(__file__).with_name('budgets.json').read_text())
@@ -87,9 +88,13 @@ def audit(paths, budgets=None, project=None):
         try:
             row = audit_asset(path, budgets)
             if project:
-                rel = str(path.resolve().relative_to(Path(project).resolve()))
-                row['referenced_by'] = [p for p, text in references.items() if 'res://'+rel in text]
-                row['reference_status'] = 'direct reference' if row['referenced_by'] else 'unresolved (may load dynamically)'
+                try:
+                    rel = str(path.resolve().relative_to(Path(project).resolve()))
+                    row['referenced_by'] = [p for p, text in references.items() if 'res://'+rel in text]
+                    row['reference_status'] = 'direct reference' if row['referenced_by'] else 'unresolved (may load dynamically)'
+                except ValueError:
+                    row['referenced_by'] = []
+                    row['reference_status'] = 'outside project; usage unresolved'
             rows.append(row)
             for t in row['textures']: hashes[t['sha256']].append({'asset': str(path), 'image': t['index']})
         except (OSError, ValueError, KeyError, IndexError, struct.error) as exc: errors.append({'path': str(path), 'error': str(exc)})
@@ -100,7 +105,7 @@ def audit(paths, budgets=None, project=None):
 def write_report(report, output):
     output = Path(output); output.mkdir(parents=True, exist_ok=True)
     (output/'audit.json').write_text(json.dumps(report, indent=2))
-    columns = ['path','category','triangles','mesh_instances','surfaces','materials','duplicate_materials','texture_rgba8_mip_estimate_bytes','animations','issues']
+    columns = ['path','category','triangles','mesh_instances','surfaces','materials','duplicate_materials','texture_dimensions','texture_rgba8_mip_estimate_bytes','animations','issues']
     rows = ''.join('<tr>'+''.join('<td>'+html.escape(str(row.get(c,'')))+'</td>' for c in columns)+'</tr>' for row in report['assets'])
     document = '''<!doctype html><meta charset="utf-8"><title>Goemon asset audit</title>
 <style>body{font:14px system-ui;background:#182129;color:#e4ebed;margin:28px}input{padding:8px;width:420px}table{border-collapse:collapse;margin-top:18px}th,td{padding:8px;border-bottom:1px solid #40505a;text-align:left}th{cursor:pointer;position:sticky;top:0;background:#26353f}td:first-child{max-width:490px;overflow-wrap:anywhere}</style>

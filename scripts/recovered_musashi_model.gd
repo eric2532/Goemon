@@ -104,7 +104,7 @@ static func install_palette_for(visual:Node)->Array[ShaderMaterial]:
 				material.set_shader_parameter("tint_color",original.albedo_color)
 				material.set_shader_parameter("textured",original.albedo_texture!=null)
 				if original.albedo_texture!=null:material.set_shader_parameter("albedo_texture",original.albedo_texture)
-				if "clut_" in original.resource_name:material.set_meta("source_clut",str(original.resource_name).get_slice("clut_",1).to_int())
+				if original.albedo_texture!=null and "clut_" in original.resource_name:material.set_meta("source_clut",str(original.resource_name).get_slice("clut_",1).to_int())
 				cache[original]=material;materials.append(material)
 			mesh.set_surface_override_material(surface,cache[original])
 

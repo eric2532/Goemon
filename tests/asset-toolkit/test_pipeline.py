@@ -176,7 +176,40 @@ class PipelineTests(unittest.TestCase):
         model.write(self.source)
         result=importlib.import_module('asset_pipeline.optimize').optimize(self.source,self.output)
         self.assertEqual(result['after']['surfaces'],1)
+        self.assertEqual(len(glb.read(self.output).doc['textures']),1)
         self.assertTrue(result['preservation']['passed'])
+
+    def test_audits_glb_outside_project_without_claiming_it_is_unused(self):
+        fixture(self.source)
+        report=importlib.import_module('asset_pipeline.audit').audit([self.source],project=Path(self.tmp.name)/'another-project')
+        self.assertEqual(len(report['assets']),1)
+        self.assertEqual(report['errors'],[])
+        self.assertIn('outside project',report['assets'][0]['reference_status'])
+
+    def test_preservation_rejects_removed_scene_roots(self):
+        fixture(self.source)
+        opt=importlib.import_module('asset_pipeline.optimize')
+        opt.optimize(self.source,self.output)
+        glb=importlib.import_module('asset_pipeline.glb').GLB
+        candidate=glb.read(self.output);candidate.doc['scenes'][0]['nodes']=[]
+        self.assertFalse(opt.validate_preservation(glb.read(self.source),candidate)['passed'])
+
+    def test_preservation_rejects_new_transform_on_original_node(self):
+        fixture(self.source)
+        opt=importlib.import_module('asset_pipeline.optimize')
+        opt.optimize(self.source,self.output)
+        glb=importlib.import_module('asset_pipeline.glb').GLB
+        candidate=glb.read(self.output);candidate.doc['nodes'][0]['scale']=[100,100,100]
+        self.assertFalse(opt.validate_preservation(glb.read(self.source),candidate)['passed'])
+
+    def test_preservation_rejects_unreachable_generated_mesh_root(self):
+        fixture(self.source,skinned=True)
+        glb=importlib.import_module('asset_pipeline.glb').GLB
+        source=glb.read(self.source);source.doc['nodes'][0].pop('children');source.doc['scenes'][0]['nodes']=[0,1,2];source.write(self.source)
+        opt=importlib.import_module('asset_pipeline.optimize');opt.optimize(self.source,self.output)
+        candidate=glb.read(self.output)
+        candidate.doc['scenes'][0]['nodes']=[i for i in candidate.doc['scenes'][0]['nodes'] if i<len(source.doc['nodes'])]
+        self.assertFalse(opt.validate_preservation(source,candidate)['passed'])
 
 
 if __name__ == '__main__': unittest.main()

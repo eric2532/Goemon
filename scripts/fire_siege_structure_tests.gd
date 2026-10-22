@@ -2,6 +2,7 @@ extends SceneTree
 ## Scene-node regression checks; real Ninja damage and physics-world obstruction.
 
 class FixtureGame extends Node3D:
+	var player=null
 	var enemies: Array=[]
 	var tuning={"enemy_hp":20.0,"boss_hp_mult":1.0}
 	var kills=0

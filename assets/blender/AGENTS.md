@@ -93,3 +93,11 @@ painted face artwork stays unchanged. Do not restore full round cheeks.
 User approved the complete 2.29.3 design. Preserve its exact faces, skull shapes,
 costumes and hairstyles. The only requested follow-up is slightly more side hair
 over the ears; keep that adjustment small and retain the visible ear lobes.
+
+## Post-export asset checks
+
+After an authorized export, follow the root AGENTS.md asset audit pipeline and
+`tools/asset_pipeline/README.md`. Audit the generated GLB, regenerate any supported
+optimized derivative, run preservation/import tests, and compare animated views
+before gameplay integration. Keep editable Blender masters and approved UV/face
+artwork intact. Optimization is not permission to redesign a locked master.

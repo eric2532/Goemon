@@ -8,7 +8,7 @@ from pathlib import Path
 import struct
 import tempfile
 
-from .audit import audit_asset
+from .audit import audit_asset, scene_nodes
 from .glb import GLB, digest, texture_slots
 
 
@@ -51,26 +51,28 @@ def parents(doc):
 def geometry_records(model):
     """Compare oriented corner attributes in their unchanged parent's coordinates."""
     doc = model.doc; parent = parents(doc); corners = []
-    for i,n in enumerate(doc['nodes']):
-        if 'mesh' not in n: continue
-        m = matrix(n)
-        for p in doc['meshes'][n['mesh']]['primitives']:
-            if p.get('mode',4) != 4: raise ValueError('Preservation check requires triangle lists')
-            attrs = {k: model.accessor(v) for k,v in p['attributes'].items()}
-            indices = [r[0] for r in model.accessor(p['indices'])] if 'indices' in p else list(range(len(attrs['POSITION'])))
-            if len(indices)%3: raise ValueError('Incomplete triangle indices')
-            mat = model.material_key(p['material']) if 'material' in p else ''
-            for start in range(0,len(indices),3):
-                tri = indices[start:start+3]
-                if determinant(m) < 0: tri = [tri[0],tri[2],tri[1]]
-                values=[]
-                for index in tri:
-                    vertex=[]
-                    for semantic,rows in sorted(attrs.items()):
-                        value = transformed(rows[index],m,semantic) if semantic in ('POSITION','NORMAL','TANGENT') else rows[index]
-                        vertex.append((semantic,tuple(float(x) for x in value)))
-                    values.append(vertex)
-                corners.append(((parent.get(i),n.get('skin'),mat,tuple(sorted(attrs))),values))
+    for scene_index in range(max(1,len(doc.get('scenes',[])))):
+        for i in scene_nodes(doc,scene_index):
+            n=doc['nodes'][i]
+            if 'mesh' not in n: continue
+            m = matrix(n)
+            for p in doc['meshes'][n['mesh']]['primitives']:
+                if p.get('mode',4) != 4: raise ValueError('Preservation check requires triangle lists')
+                attrs = {k: model.accessor(v) for k,v in p['attributes'].items()}
+                indices = [r[0] for r in model.accessor(p['indices'])] if 'indices' in p else list(range(len(attrs['POSITION'])))
+                if len(indices)%3: raise ValueError('Incomplete triangle indices')
+                mat = model.material_key(p['material']) if 'material' in p else ''
+                for start in range(0,len(indices),3):
+                    tri = indices[start:start+3]
+                    if determinant(m) < 0: tri = [tri[0],tri[2],tri[1]]
+                    values=[]
+                    for index in tri:
+                        vertex=[]
+                        for semantic,rows in sorted(attrs.items()):
+                            value = transformed(rows[index],m,semantic) if semantic in ('POSITION','NORMAL','TANGENT') else rows[index]
+                            vertex.append((semantic,tuple(float(x) for x in value)))
+                        values.append(vertex)
+                    corners.append(((scene_index,parent.get(i),n.get('skin'),mat,tuple(sorted(attrs))),values))
     return corners
 
 
@@ -101,14 +103,18 @@ def validate_preservation(before, after):
     b,a = before.doc,after.doc
     node_ok = len(a['nodes']) >= len(b['nodes'])
     for i,n in enumerate(b['nodes']):
-        for key,value in n.items():
-            if key in ('mesh','skin','children'): continue
-            node_ok = node_ok and a['nodes'][i].get(key) == value
+        if i >= len(a['nodes']):node_ok=False;break
+        excluded = {'mesh','skin','children'}
+        node_ok = node_ok and {k:v for k,v in n.items() if k not in excluded} == {k:v for k,v in a['nodes'][i].items() if k not in excluded}
         node_ok = node_ok and all(c in a['nodes'][i].get('children',[]) for c in n.get('children',[]))
+    scene_ok = b.get('scene',0)==a.get('scene',0) and len(b.get('scenes',[]))==len(a.get('scenes',[]))
+    for original,candidate in zip(b.get('scenes',[]),a.get('scenes',[])):
+        scene_ok = scene_ok and {k:v for k,v in original.items() if k!='nodes'}=={k:v for k,v in candidate.items() if k!='nodes'}
+        scene_ok = scene_ok and all(i in candidate.get('nodes',[]) for i in original.get('nodes',[]))
     def skins(model):
         return [{**s, 'inverseBindMatrices': model.accessor(s['inverseBindMatrices']) if 'inverseBindMatrices' in s else None} for s in model.doc.get('skins',[])]
     geometry = compare_geometry(before,after)
-    checks = {'nodes_and_sockets': node_ok, 'skins_and_bind_poses': skins(before)==skins(after),
+    checks = {'scene_membership': scene_ok, 'nodes_and_sockets': node_ok, 'skins_and_bind_poses': skins(before)==skins(after),
               'animation_samples': before.animation_digest()==after.animation_digest(),
               'texture_bytes': [digest(before.image_bytes(i)) for i in b.get('images',[])] == [digest(after.image_bytes(i)) for i in a.get('images',[])],
               'oriented_corner_attributes': geometry['passed']}
@@ -195,6 +201,11 @@ def optimize(source, destination):
     for mesh in doc['meshes']:
         for p in mesh['primitives']:
             if 'material'in p:p['material']=material_map[p['material']]
+    texture_refs = [(container,key) for material in doc.get('materials',[]) for container,key in texture_slots(material)]
+    used = sorted({container[key]['index'] for container,key in texture_refs})
+    texture_map = {old:new for new,old in enumerate(used)}
+    if 'textures' in doc:doc['textures'] = [doc['textures'][i] for i in used]
+    for container,key in texture_refs:container[key]['index'] = texture_map[container[key]['index']]
     model.compact()
     preservation=validate_preservation(before,model)
     if not preservation['passed']:raise ValueError('Preservation validation failed: '+json.dumps(preservation))
