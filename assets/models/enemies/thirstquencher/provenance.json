@@ -1,0 +1,17 @@
+[
+  {
+    "variant": 1,
+    "source_sha256": "875de83be5bf540e541eb3be89d01f74f303a36939c10a3eff32056c99474834",
+    "glb_sha256": "03ff93b49f81ad1952b8ff8a8c43f2cd57e9924fd547685ecede371de8995502"
+  },
+  {
+    "variant": 2,
+    "source_sha256": "070741955a34682764f5101dd75ba5cae281dbc1e79739619526714d38044000",
+    "glb_sha256": "682d999f7a921c36e0ad0f4aaef11e5c0c5ba4f1cdcbd646ed2b8966caab3592"
+  },
+  {
+    "variant": 3,
+    "source_sha256": "d8a843283c7a59ba3e099f053ec8ecf044f4376f2d507d3dfa63fb57b0b68540",
+    "glb_sha256": "7ef3b5ba3b64c69465ddf721c8ce1906b4e71146c0ec13c1d630bbbd2a5ff5f1"
+  }
+]

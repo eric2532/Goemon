@@ -1,6 +1,6 @@
 extends "res://tests/forest-shrine/persistent_helpers_test.gd"
 func run():
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game;await frames()
  game.start_wave();game.model.waves.pending=999;game.model.waves.spawn_clock=100000;freeze();game.set_process(false)
  var h=game.explorer_helpers;var unit=h.pool.filter(func(u):return u.kit_id==11)[0]

@@ -45,9 +45,9 @@ class BloodGulchAssets(unittest.TestCase):
        self.assertEqual(data['covered'][at],1,'Attack corridor footprint must be covered')
        self.assertLess(abs(data['heights'][at]),.01,'Ordinary and giant footprints need level approaches')
  def test_bundled_castle_and_baked_resources(self):
-  self.assertTrue((ROOT/'assets/maps/forest_blood_gulch.json').exists(), 'Blood Gulch castle preset must exist')
-  layout=json.loads((ROOT/'assets/maps/forest_blood_gulch.json').read_text())
-  original=json.loads((ROOT/'assets/maps/forest_four_gates.json').read_text())
+  self.assertTrue((ROOT/'tests/forest-shrine/reference/maps/forest_blood_gulch.json').exists(), 'Blood Gulch castle preset must exist')
+  layout=json.loads((ROOT/'tests/forest-shrine/reference/maps/forest_blood_gulch.json').read_text())
+  original=json.loads((ROOT/'tests/forest-shrine/reference/maps/forest_four_gates.json').read_text())
   self.assertEqual(layout['terrain_source'],'blood_gulch')
   self.assertEqual(layout['buildings'],[b for b in original['buildings'] if b['kind']!='mine'])
   self.assertEqual(len(layout['portals']),8)

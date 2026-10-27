@@ -3,6 +3,11 @@ extends RefCounted
 ## original target/material distinctions are documented with the assets.
 const ROOT="res://assets/audio/recovered_musashi/"
 const FILES={
+	"musashi_dkick_hit":"dkick_impact",
+	"musashi_fence":"fence_launch", "musashi_fence_hit":"fence_impact",
+	"musashi_homing":"homing_launch", "musashi_homing_hit":"homing_impact",
+	"musashi_grenade":"grenade_throw", "musashi_grenade_hit":"grenade_explode",
+	"musashi_three_way":"three_way_fire",
 	"swing":"fusion_swing", "heavy_swing":"lumina_swing",
 	"hit":"sword_hit", "heavy_hit":"sword_hit", "fusion_finisher_hit":"fusion_finisher_hit",
 	"environment_hit":"sword_environment_hit", "hurt":"voice_hurt", "jump":"", "land":"foot_contact",
@@ -15,10 +20,5 @@ const FILES={
 	"move_primary_4_weapon":"fusion_air_swing", "move_primary_4_voice":"voice_exertion",
 	"move_heavy_voice":"", "move_rotation_weapon":"lumina_spin", "move_rotation_voice":""
 }
-static var cache={}
-static func stream_for(slot: String)->AudioStream:
-	if not FILES.has(slot):return null
-	var file: String=FILES[slot]
-	if file.is_empty():return null
-	if not cache.has(file):cache[file]=load(ROOT+file+".wav")
-	return cache[file]
+static func stream_for(slot:String)->AudioStream:
+	return preload("res://scripts/character_audio_bank.gd").event(ROOT,FILES,slot)

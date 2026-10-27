@@ -22,7 +22,7 @@ func motion_sample(unit,population:int,kind:String)->Vector3:
  return Vector3(unit.global_position.x,peak,unit.global_position.z)
 func _initialize():run.call_deferred()
 func run():
- var d=load("res://scripts/forest/forest_map_document.gd").new();d.load_original();set_meta("forest_custom_layout",d.data)
+ var d=load("res://tests/forest-shrine/reference/map_document.gd").new();d.load_original();set_meta("forest_custom_layout",d.data)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game
  for i in 3:await process_frame
  var h=game.explorer_helpers;GuardFixture.deploy(h,3);var u=h.active_units(3)[0];var c=u.active_ability
@@ -37,7 +37,6 @@ func run():
  var failed=not arm.transform.is_equal_approx(idle) or guarded.is_equal_approx(idle)
  game.start_wave();game.model.waves.pending=999;game.model.waves.spawn_clock=100000
  game.set_physics_process(false);game.player.set_physics_process(false)
- for actor in game.gate_defenders.units.values():actor.set_physics_process(false)
  GuardFixture.deploy(h,1)
  var ranger=h.active_units(1)[0];ranger.set_physics_process(false);ranger.state="acting";ranger.opening=false
  ranger.active_ability.cancel();ranger.active_ability.player.cooldowns.drink=5.0

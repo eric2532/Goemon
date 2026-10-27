@@ -1,0 +1,1344 @@
+{
+  "physics_address": 2911528,
+  "physics": {
+    "jump2_timer": 60,
+    "pos_error": 2.0,
+    "lim_h_spd": 16.0,
+    "lim_v_spd": 16.0,
+    "max_x_spd": 3.0,
+    "max_psh_spd": 0.6000000238418579,
+    "jmp_y_spd": 1.659999966621399,
+    "nocon_speed": 3.0,
+    "slide_speed": 0.23000000417232513,
+    "jog_speed": 0.46000000834465027,
+    "run_speed": 1.3899999856948853,
+    "rush_speed": 2.299999952316284,
+    "crash_speed": 3.700000047683716,
+    "dash_speed": 5.090000152587891,
+    "jmp_addit": 0.07599999755620956,
+    "run_accel": 0.05000000074505806,
+    "air_accel": 0.03099999949336052,
+    "slow_down": -0.05999999865889549,
+    "run_break": -0.18000000715255737,
+    "air_break": -0.17000000178813934,
+    "air_resist_air": -0.02800000086426735,
+    "air_resist": -0.00800000037997961,
+    "air_resist_y": -0.009999999776482582,
+    "air_resist_z": -0.4000000059604645,
+    "grd_frict": -0.10000000149011612,
+    "grd_frict_z": -0.6000000238418579,
+    "lim_frict": -0.2824999988079071,
+    "rat_bound": 0.30000001192092896,
+    "rad": 4.0,
+    "height": 10.0,
+    "weight": 0.07999999821186066,
+    "eyes_height": 7.0,
+    "center_height": 5.400000095367432
+  },
+  "animations_address": 3493920,
+  "animations": [
+    {
+      "id": 0,
+      "clip": "Sonic Stand",
+      "parts": 73,
+      "mode": 3,
+      "next": 0,
+      "transition": 0.0625,
+      "rate": 0.5
+    },
+    {
+      "id": 1,
+      "clip": "Sonic Begin Alternate Stand",
+      "parts": 73,
+      "mode": 4,
+      "next": 2,
+      "transition": 0.25,
+      "rate": 0.25
+    },
+    {
+      "id": 2,
+      "clip": "Sonic Alternate Stand",
+      "parts": 73,
+      "mode": 3,
+      "next": 2,
+      "transition": 0.25,
+      "rate": 0.25
+    },
+    {
+      "id": 3,
+      "clip": "Sonic Look Around",
+      "parts": 73,
+      "mode": 4,
+      "next": 0,
+      "transition": 0.25,
+      "rate": 1.0
+    },
+    {
+      "id": 4,
+      "clip": "Sonic Begin Idle",
+      "parts": 73,
+      "mode": 4,
+      "next": 5,
+      "transition": 0.25,
+      "rate": 0.25
+    },
+    {
+      "id": 5,
+      "clip": "Sonic Idle",
+      "parts": 73,
+      "mode": 4,
+      "next": 6,
+      "transition": 0.25,
+      "rate": 0.25
+    },
+    {
+      "id": 6,
+      "clip": "Sonic Begin Idle",
+      "parts": 73,
+      "mode": 6,
+      "next": 0,
+      "transition": 0.25,
+      "rate": 0.25
+    },
+    {
+      "id": 7,
+      "clip": "Sonic Stand on Upward Slope",
+      "parts": 73,
+      "mode": 3,
+      "next": 7,
+      "transition": 0.25,
+      "rate": 1.0
+    },
+    {
+      "id": 8,
+      "clip": "Sonic Stand on Downward Slope",
+      "parts": 73,
+      "mode": 3,
+      "next": 8,
+      "transition": 0.25,
+      "rate": 1.0
+    },
+    {
+      "id": 9,
+      "clip": "Sonic Walk",
+      "parts": 73,
+      "mode": 10,
+      "next": 9,
+      "transition": 0.25,
+      "rate": 3.4000000953674316
+    },
+    {
+      "id": 10,
+      "clip": "Sonic Speedwalk",
+      "parts": 73,
+      "mode": 10,
+      "next": 10,
+      "transition": 0.25,
+      "rate": 1.399999976158142
+    },
+    {
+      "id": 11,
+      "clip": "Sonic Jog",
+      "parts": 73,
+      "mode": 10,
+      "next": 11,
+      "transition": 0.25,
+      "rate": 0.800000011920929
+    },
+    {
+      "id": 12,
+      "clip": "Sonic Run",
+      "parts": 73,
+      "mode": 10,
+      "next": 12,
+      "transition": 0.25,
+      "rate": 0.5
+    },
+    {
+      "id": 13,
+      "clip": "Sonic Sprint",
+      "parts": 73,
+      "mode": 9,
+      "next": 13,
+      "transition": 0.5,
+      "rate": 0.5
+    },
+    {
+      "id": 14,
+      "clip": "Sonic Spring Launch",
+      "parts": 74,
+      "mode": 10,
+      "next": 14,
+      "transition": 0.25,
+      "rate": 0.20000000298023224
+    },
+    {
+      "id": 15,
+      "clip": "Sonic Spring Launch",
+      "parts": 74,
+      "mode": 9,
+      "next": 15,
+      "transition": 0.25,
+      "rate": 0.699999988079071
+    },
+    {
+      "id": 16,
+      "clip": "Sonic Jump Spin (Curled Model)",
+      "parts": 73,
+      "mode": 3,
+      "next": 16,
+      "transition": 0.25,
+      "rate": 1.0
+    },
+    {
+      "id": 17,
+      "clip": "Sonic Begin Falling From Spring Launch",
+      "parts": 73,
+      "mode": 4,
+      "next": 18,
+      "transition": 0.125,
+      "rate": 1.0
+    },
+    {
+      "id": 18,
+      "clip": "Sonic Fall",
+      "parts": 73,
+      "mode": 3,
+      "next": 18,
+      "transition": 0.25,
+      "rate": 1.0
+    },
+    {
+      "id": 19,
+      "clip": "Sonic Landing",
+      "parts": 73,
+      "mode": 4,
+      "next": 0,
+      "transition": 1.0,
+      "rate": 1.0
+    },
+    {
+      "id": 20,
+      "clip": "Sonic Brake",
+      "parts": 73,
+      "mode": 4,
+      "next": 0,
+      "transition": 0.25,
+      "rate": 1.0
+    },
+    {
+      "id": 21,
+      "clip": "Sonic Begin Push",
+      "parts": 73,
+      "mode": 4,
+      "next": 22,
+      "transition": 0.125,
+      "rate": 3.0
+    },
+    {
+      "id": 22,
+      "clip": "Sonic Push",
+      "parts": 73,
+      "mode": 3,
+      "next": 22,
+      "transition": 0.25,
+      "rate": 1.0
+    },
+    {
+      "id": 23,
+      "clip": "Sonic Damage",
+      "parts": 73,
+      "mode": 5,
+      "next": 23,
+      "transition": 1.0,
+      "rate": 1.0
+    },
+    {
+      "id": 24,
+      "clip": "Sonic Land After Damage",
+      "parts": 73,
+      "mode": 4,
+      "next": 0,
+      "transition": 1.0,
+      "rate": 1.0
+    },
+    {
+      "id": 25,
+      "clip": "Sonic Brake",
+      "parts": 73,
+      "mode": 3,
+      "next": 25,
+      "transition": 0.25,
+      "rate": 1.0
+    },
+    {
+      "id": 26,
+      "clip": "Sonic Caught in Wind",
+      "parts": 73,
+      "mode": 3,
+      "next": 26,
+      "transition": 0.0625,
+      "rate": 1.0
+    },
+    {
+      "id": 27,
+      "clip": "Sonic Hit Wall",
+      "parts": 73,
+      "mode": 4,
+      "next": 28,
+      "transition": 0.5,
+      "rate": 1.0
+    },
+    {
+      "id": 28,
+      "clip": "Sonic Recover From Hitting Wall",
+      "parts": 73,
+      "mode": 4,
+      "next": 0,
+      "transition": 0.0625,
+      "rate": 1.0
+    },
+    {
+      "id": 29,
+      "clip": "Sonic Uncurl",
+      "parts": 73,
+      "mode": 4,
+      "next": 1,
+      "transition": 0.0625,
+      "rate": 1.0
+    },
+    {
+      "id": 30,
+      "clip": "Sonic Turn Around",
+      "parts": 73,
+      "mode": 4,
+      "next": 0,
+      "transition": 1.0,
+      "rate": 0.8999999761581421
+    },
+    {
+      "id": 31,
+      "clip": "Sonic Skidding on Slope",
+      "parts": 73,
+      "mode": 3,
+      "next": 31,
+      "transition": 0.0625,
+      "rate": 1.0
+    },
+    {
+      "id": 32,
+      "clip": "Sonic Spin (Jumpball)",
+      "parts": 1,
+      "mode": 3,
+      "next": 32,
+      "transition": 0.5,
+      "rate": 1.0
+    },
+    {
+      "id": 33,
+      "clip": "Sonic Pick Up/Put Down Object",
+      "parts": 73,
+      "mode": 4,
+      "next": 37,
+      "transition": 0.5,
+      "rate": 1.0
+    },
+    {
+      "id": 34,
+      "clip": "Sonic Run with Object",
+      "parts": 73,
+      "mode": 3,
+      "next": 34,
+      "transition": 0.5,
+      "rate": 1.0
+    },
+    {
+      "id": 35,
+      "clip": "Sonic Brake with Object",
+      "parts": 73,
+      "mode": 4,
+      "next": 37,
+      "transition": 0.5,
+      "rate": 1.0
+    },
+    {
+      "id": 36,
+      "clip": "Sonic Turn Around with Object",
+      "parts": 73,
+      "mode": 4,
+      "next": 37,
+      "transition": 0.5,
+      "rate": 1.0
+    },
+    {
+      "id": 37,
+      "clip": "Sonic Stand with Object",
+      "parts": 73,
+      "mode": 3,
+      "next": 37,
+      "transition": 0.5,
+      "rate": 0.0
+    },
+    {
+      "id": 38,
+      "clip": "Sonic Walk with Object",
+      "parts": 73,
+      "mode": 3,
+      "next": 38,
+      "transition": 0.5,
+      "rate": 1.0
+    },
+    {
+      "id": 39,
+      "clip": "Sonic Jump Spin (Curled Model)",
+      "parts": 73,
+      "mode": 3,
+      "next": 16,
+      "transition": 0.25,
+      "rate": 1.0
+    },
+    {
+      "id": 41,
+      "clip": "Sonic Jump Spin (Curled Model)",
+      "parts": 73,
+      "mode": 3,
+      "next": 16,
+      "transition": 0.25,
+      "rate": 1.0
+    },
+    {
+      "id": 43,
+      "clip": "Sonic Jump Spin (Curled Model)",
+      "parts": 73,
+      "mode": 3,
+      "next": 16,
+      "transition": 0.25,
+      "rate": 1.0
+    },
+    {
+      "id": 47,
+      "clip": "Sonic Hold Onto Pulley/Helicopter",
+      "parts": 73,
+      "mode": 3,
+      "next": 47,
+      "transition": 0.5,
+      "rate": 0.5
+    },
+    {
+      "id": 48,
+      "clip": "Sonic Pull",
+      "parts": 73,
+      "mode": 3,
+      "next": 48,
+      "transition": 0.5,
+      "rate": 1.0
+    },
+    {
+      "id": 49,
+      "clip": "Sonic Shake Tree",
+      "parts": 73,
+      "mode": 3,
+      "next": 49,
+      "transition": 0.5,
+      "rate": 0.5
+    },
+    {
+      "id": 50,
+      "clip": "Sonic Begin Shaking Object",
+      "parts": 73,
+      "mode": 4,
+      "next": 51,
+      "transition": 0.5,
+      "rate": 0.5
+    },
+    {
+      "id": 51,
+      "clip": "Sonic Shake Object",
+      "parts": 73,
+      "mode": 3,
+      "next": 51,
+      "transition": 0.5,
+      "rate": 0.5
+    },
+    {
+      "id": 52,
+      "clip": "Sonic Stop Shaking Object",
+      "parts": 73,
+      "mode": 4,
+      "next": 37,
+      "transition": 0.5,
+      "rate": 0.5
+    },
+    {
+      "id": 53,
+      "clip": "Sonic Begin Holding Tree",
+      "parts": 73,
+      "mode": 4,
+      "next": 54,
+      "transition": 0.5,
+      "rate": 0.5
+    },
+    {
+      "id": 54,
+      "clip": "Sonic Hold Tree",
+      "parts": 73,
+      "mode": 3,
+      "next": 54,
+      "transition": 0.5,
+      "rate": 0.5
+    },
+    {
+      "id": 55,
+      "clip": "Sonic Jump with Object",
+      "parts": 73,
+      "mode": 3,
+      "next": 55,
+      "transition": 0.5,
+      "rate": 1.0
+    },
+    {
+      "id": 56,
+      "clip": "Sonic Begin Falling with Object",
+      "parts": 73,
+      "mode": 4,
+      "next": 57,
+      "transition": 0.5,
+      "rate": 1.0
+    },
+    {
+      "id": 57,
+      "clip": "Sonic Falling with Object",
+      "parts": 73,
+      "mode": 3,
+      "next": 57,
+      "transition": 0.5,
+      "rate": 1.0
+    },
+    {
+      "id": 58,
+      "clip": "Sonic Landing with Object",
+      "parts": 73,
+      "mode": 4,
+      "next": 37,
+      "transition": 0.5,
+      "rate": 1.0
+    },
+    {
+      "id": 59,
+      "clip": "Sonic Ground Throw (Overhand)",
+      "parts": 73,
+      "mode": 4,
+      "next": 0,
+      "transition": 0.5,
+      "rate": 1.0
+    },
+    {
+      "id": 60,
+      "clip": "Sonic Ground Throw (Underhand)",
+      "parts": 73,
+      "mode": 4,
+      "next": 0,
+      "transition": 0.5,
+      "rate": 1.0
+    },
+    {
+      "id": 61,
+      "clip": "Sonic Midair Throw (Overhand)",
+      "parts": 73,
+      "mode": 4,
+      "next": 18,
+      "transition": 0.5,
+      "rate": 1.0
+    },
+    {
+      "id": 62,
+      "clip": "Sonic Midair Throw (Underhand)",
+      "parts": 73,
+      "mode": 4,
+      "next": 18,
+      "transition": 0.5,
+      "rate": 1.0
+    },
+    {
+      "id": 63,
+      "clip": "Sonic Pick Up/Put Down Object",
+      "parts": 73,
+      "mode": 6,
+      "next": 0,
+      "transition": 1.0,
+      "rate": 1.0
+    },
+    {
+      "id": 64,
+      "clip": "Sonic Light Speed Dash",
+      "parts": 73,
+      "mode": 3,
+      "next": 31,
+      "transition": 1.0,
+      "rate": 1.0
+    },
+    {
+      "id": 65,
+      "clip": "Sonic Jump into Bumper Car",
+      "parts": 73,
+      "mode": 5,
+      "next": 65,
+      "transition": 1.0,
+      "rate": 0.30000001192092896
+    },
+    {
+      "id": 66,
+      "clip": "Sonic Climb Monkeybars",
+      "parts": 73,
+      "mode": 12,
+      "next": 66,
+      "transition": 1.0,
+      "rate": 1.0
+    },
+    {
+      "id": 67,
+      "clip": "Sonic Hold Monkeybars (Left Side Forward)",
+      "parts": 73,
+      "mode": 3,
+      "next": 67,
+      "transition": 0.25,
+      "rate": 0.25
+    },
+    {
+      "id": 68,
+      "clip": "Sonic Hold Monkeybars (Right Side Forward)",
+      "parts": 73,
+      "mode": 3,
+      "next": 68,
+      "transition": 0.25,
+      "rate": 0.25
+    },
+    {
+      "id": 69,
+      "clip": "Sonic Climb Ladder",
+      "parts": 73,
+      "mode": 12,
+      "next": 69,
+      "transition": 1.0,
+      "rate": 1.0
+    },
+    {
+      "id": 70,
+      "clip": "Sonic Launched",
+      "parts": 73,
+      "mode": 3,
+      "next": 70,
+      "transition": 1.0,
+      "rate": 0.5
+    },
+    {
+      "id": 71,
+      "clip": "Sonic Slipping on Ice",
+      "parts": 73,
+      "mode": 9,
+      "next": 71,
+      "transition": 0.5,
+      "rate": 2.0
+    },
+    {
+      "id": 72,
+      "clip": "Sonic Land on Jump Panel",
+      "parts": 73,
+      "mode": 4,
+      "next": 74,
+      "transition": 1.0,
+      "rate": 1.0
+    },
+    {
+      "id": 73,
+      "clip": "Sonic Jump off Jump Panel",
+      "parts": 73,
+      "mode": 5,
+      "next": 73,
+      "transition": 1.0,
+      "rate": 2.0
+    },
+    {
+      "id": 74,
+      "clip": "Sonic Alternate Stand",
+      "parts": 73,
+      "mode": 3,
+      "next": 74,
+      "transition": 0.25,
+      "rate": 1.0
+    },
+    {
+      "id": 77,
+      "clip": "Sonic Begin Holding Tree",
+      "parts": 73,
+      "mode": 4,
+      "next": 78,
+      "transition": 0.125,
+      "rate": 1.0
+    },
+    {
+      "id": 78,
+      "clip": "Sonic Hold Tree",
+      "parts": 73,
+      "mode": 3,
+      "next": 78,
+      "transition": 0.125,
+      "rate": 1.0
+    },
+    {
+      "id": 79,
+      "clip": "Sonic Hold onto Horizontal Rocket",
+      "parts": 73,
+      "mode": 3,
+      "next": 79,
+      "transition": 0.125,
+      "rate": 1.0
+    },
+    {
+      "id": 80,
+      "clip": "Sonic Hold onto Vertical Rocket",
+      "parts": 73,
+      "mode": 3,
+      "next": 80,
+      "transition": 0.125,
+      "rate": 1.0
+    },
+    {
+      "id": 81,
+      "clip": "Sonic Captured by Egg Keeper",
+      "parts": 73,
+      "mode": 3,
+      "next": 81,
+      "transition": 0.125,
+      "rate": 1.0
+    },
+    {
+      "id": 82,
+      "clip": "Sonic Damage",
+      "parts": 73,
+      "mode": 5,
+      "next": 82,
+      "transition": 1.0,
+      "rate": 15.0
+    },
+    {
+      "id": 83,
+      "clip": "Sonic Spring Launch",
+      "parts": 74,
+      "mode": 10,
+      "next": 83,
+      "transition": 1.0,
+      "rate": 0.20000000298023224
+    },
+    {
+      "id": 84,
+      "clip": "Sonic Breathe Air Bubble",
+      "parts": 73,
+      "mode": 4,
+      "next": 18,
+      "transition": 1.0,
+      "rate": 0.25
+    },
+    {
+      "id": 85,
+      "clip": "Sonic Drown",
+      "parts": 73,
+      "mode": 5,
+      "next": 85,
+      "transition": 1.0,
+      "rate": 0.5
+    },
+    {
+      "id": 86,
+      "clip": "Sonic Damage",
+      "parts": 73,
+      "mode": 5,
+      "next": 86,
+      "transition": 1.0,
+      "rate": 1.0
+    },
+    {
+      "id": 87,
+      "clip": "Sonic Death",
+      "parts": 73,
+      "mode": 5,
+      "next": 87,
+      "transition": 0.25,
+      "rate": 1.0
+    },
+    {
+      "id": 125,
+      "clip": "Sonic Spring Launch",
+      "parts": 74,
+      "mode": 10,
+      "next": 125,
+      "transition": 0.25,
+      "rate": 0.20000000298023224
+    },
+    {
+      "id": 130,
+      "clip": "0021DAD0",
+      "parts": 73,
+      "mode": 4,
+      "next": 131,
+      "transition": 1.0,
+      "rate": 1.0
+    },
+    {
+      "id": 131,
+      "clip": "0021EBF4",
+      "parts": 73,
+      "mode": 3,
+      "next": 131,
+      "transition": 1.0,
+      "rate": 0.5
+    },
+    {
+      "id": 132,
+      "clip": "00220068",
+      "parts": 73,
+      "mode": 4,
+      "next": 0,
+      "transition": 1.0,
+      "rate": 1.0
+    },
+    {
+      "id": 133,
+      "clip": "002223BC",
+      "parts": 73,
+      "mode": 4,
+      "next": 0,
+      "transition": 1.0,
+      "rate": 1.0
+    }
+  ],
+  "clip_frames": {
+    "Metal Sonic Hover": 8,
+    "Sonic Stand": 32,
+    "Sonic Look Around": 66,
+    "Sonic Walk": 32,
+    "Sonic Speedwalk": 32,
+    "Sonic Jog": 32,
+    "Sonic Run": 32,
+    "Sonic Brake": 33,
+    "Sonic Jump Spin (Curled Model)": 32,
+    "Sonic Begin Falling From Spring Launch": 33,
+    "Sonic Fall": 32,
+    "Sonic Landing": 16,
+    "Sonic Sprint": 33,
+    "Sonic Hit Wall": 46,
+    "Sonic Begin Push": 33,
+    "Sonic Push": 32,
+    "Sonic Turn Around": 16,
+    "Sonic Uncurl": 16,
+    "Sonic Damage": 22,
+    "Sonic Land After Damage": 38,
+    "Sonic Death": 70,
+    "Sonic Recover From Hitting Wall": 33,
+    "Sonic Skidding on Slope": 16,
+    "Sonic Begin Alternate Stand": 20,
+    "Sonic Alternate Stand": 16,
+    "Sonic Stand on Upward Slope": 16,
+    "Sonic Stand on Downward Slope": 16,
+    "Sonic Begin Idle": 20,
+    "Sonic Idle": 39,
+    "0021DAD0": 8,
+    "0021EBF4": 9,
+    "00220068": 11,
+    "002223BC": 25,
+    "Sonic Caught in Wind": 33,
+    "Sonic Pick Up/Put Down Object": 33,
+    "Sonic Run with Object": 32,
+    "Sonic Stand with Object": 16,
+    "Sonic Walk with Object": 32,
+    "Sonic Jump with Object": 32,
+    "Sonic Begin Falling with Object": 33,
+    "Sonic Falling with Object": 33,
+    "Sonic Landing with Object": 16,
+    "Sonic Brake with Object": 33,
+    "Sonic Turn Around with Object": 16,
+    "Sonic Ground Throw (Overhand)": 60,
+    "Sonic Ground Throw (Underhand)": 50,
+    "Sonic Midair Throw (Overhand)": 26,
+    "Sonic Midair Throw (Underhand)": 21,
+    "Sonic Begin Holding Tree": 8,
+    "Sonic Hold Tree": 16,
+    "Sonic Pull": 32,
+    "Sonic Shake Tree": 16,
+    "Sonic Climb Ladder": 32,
+    "Sonic Launched": 16,
+    "Sonic Hold onto Vertical Rocket": 16,
+    "Sonic Hold onto Horizontal Rocket": 16,
+    "Sonic Level Clear Pose": 65,
+    "Sonic Level Clear Pose to Standing": 11,
+    "Sonic Jump into Bumper Car": 16,
+    "Sonic Hold Onto Pulley/Helicopter": 17,
+    "Sonic Captured by Egg Keeper": 63,
+    "Sonic Climb Monkeybars": 64,
+    "Sonic Hold Monkeybars (Right Side Forward)": 15,
+    "Sonic Hold Monkeybars (Left Side Forward)": 15,
+    "Sonic Slipping on Ice": 32,
+    "Sonic Land on Jump Panel": 31,
+    "Sonic Jump off Jump Panel": 17,
+    "Sonic Breathe Air Bubble": 17,
+    "Sonic Light Speed Dash": 9,
+    "Sonic Begin Shaking Object": 14,
+    "Sonic Shake Object": 16,
+    "Sonic Stop Shaking Object": 15,
+    "Sonic Drown": 75,
+    "Sonic Spring Launch": 7,
+    "Sonic Spin (Jumpball)": 7
+  },
+  "welds": [
+    {
+      "a": 1472972,
+      "b": 1473368,
+      "pairs": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ]
+    },
+    {
+      "a": 1473368,
+      "b": 1479420,
+      "pairs": [
+        [
+          0,
+          10
+        ],
+        [
+          1,
+          11
+        ],
+        [
+          4,
+          14
+        ],
+        [
+          5,
+          15
+        ]
+      ]
+    },
+    {
+      "a": 1465752,
+      "b": 1466148,
+      "pairs": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ]
+    },
+    {
+      "a": 1466148,
+      "b": 1472272,
+      "pairs": [
+        [
+          0,
+          10
+        ],
+        [
+          1,
+          11
+        ],
+        [
+          4,
+          14
+        ],
+        [
+          5,
+          15
+        ]
+      ]
+    },
+    {
+      "a": 1458936,
+      "b": 1459332,
+      "pairs": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ]
+    },
+    {
+      "a": 1459332,
+      "b": 1465052,
+      "pairs": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ]
+    },
+    {
+      "a": 1452148,
+      "b": 1452544,
+      "pairs": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ]
+    },
+    {
+      "a": 1452544,
+      "b": 1458260,
+      "pairs": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ]
+    },
+    {
+      "a": 1462916,
+      "b": 1461352,
+      "pairs": [
+        [
+          2,
+          3
+        ],
+        [
+          12,
+          8
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          17,
+          13
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          23,
+          30
+        ],
+        [
+          29,
+          29
+        ],
+        [
+          28,
+          28
+        ],
+        [
+          30,
+          32
+        ],
+        [
+          31,
+          31
+        ]
+      ]
+    },
+    {
+      "a": 1456124,
+      "b": 1454576,
+      "pairs": [
+        [
+          2,
+          3
+        ],
+        [
+          12,
+          8
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          17,
+          13
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          23,
+          30
+        ],
+        [
+          29,
+          29
+        ],
+        [
+          28,
+          28
+        ],
+        [
+          30,
+          32
+        ],
+        [
+          31,
+          31
+        ]
+      ]
+    },
+    {
+      "a": 1470216,
+      "b": 1468912,
+      "pairs": [
+        [
+          11,
+          50
+        ],
+        [
+          4,
+          15
+        ],
+        [
+          8,
+          12
+        ],
+        [
+          5,
+          54
+        ],
+        [
+          1,
+          55
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          0,
+          14
+        ]
+      ]
+    },
+    {
+      "a": 1477364,
+      "b": 1476088,
+      "pairs": [
+        [
+          11,
+          50
+        ],
+        [
+          4,
+          15
+        ],
+        [
+          8,
+          12
+        ],
+        [
+          5,
+          54
+        ],
+        [
+          1,
+          55
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          0,
+          14
+        ]
+      ]
+    },
+    {
+      "a": 1596460,
+      "b": 1594668,
+      "pairs": [
+        [
+          2,
+          3
+        ],
+        [
+          12,
+          8
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          17,
+          13
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          38,
+          27
+        ],
+        [
+          29,
+          19
+        ],
+        [
+          39,
+          28
+        ]
+      ]
+    },
+    {
+      "a": 1599776,
+      "b": 1597972,
+      "pairs": [
+        [
+          2,
+          3
+        ],
+        [
+          12,
+          8
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          17,
+          13
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          38,
+          27
+        ],
+        [
+          29,
+          19
+        ],
+        [
+          39,
+          28
+        ]
+      ]
+    },
+    {
+      "a": 1473368,
+      "b": 1601240,
+      "pairs": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ]
+    }
+  ]
+}

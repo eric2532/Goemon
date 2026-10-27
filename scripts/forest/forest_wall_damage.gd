@@ -16,16 +16,18 @@ var _indices=PackedInt32Array()
 var _length:float
 var _center:float
 var _is_gate:bool=false
+var _castle:bool=false
 
 func setup(building:Dictionary,length_:float=Profile.GATE_DOOR_WIDTH,center_x:float=0.0):
 	name="WallDamage"
 	_length=length_;_center=center_x;_is_gate=building.kind=="gate"
+	_castle=building.get("enemy_castle",false)
 	if _is_gate:_gate=get_parent().get_node("GateDoor")
 	var rng=RandomNumberGenerator.new();rng.seed=int(building.id)*7919+113
 	var height=Profile.GATE_DOOR_HEIGHT if _is_gate else 15.3
 	# A fracture in each masonry bay makes the first hit legible at eye level
 	# from either approach, even on a long six-cell wall section.
-	var bays=maxi(1,ceili(_length/6.0))
+	var bays=maxi(1,ceili(_length/(3.0 if _castle else 6.0)))
 	for side in [-1.0,1.0]:
 		for bay in (bays if _is_gate else bays+1):
 			var x=_center+_length*((bay+.5)/bays-.5) if _is_gate else _center+_length*(float(bay)/bays-.5)
@@ -59,13 +61,15 @@ func sync_health(hp:float,max_hp:float,delta:float):
 	visible=stage>0
 	if stage==0:impact_left=0.0
 	if impact_left!=previous_impact:_material.set_shader_parameter("impact",impact_left/IMPACT_SECONDS)
-	if _is_gate and is_instance_valid(_gate):position.y=_gate.position.y-Profile.GATE_CLOSED_Y
+	if _is_gate and is_instance_valid(_gate):
+		position.y=_gate.position.y-Profile.GATE_CLOSED_Y
+		get_node("Fractures").transparency=_gate.transparency
 
 func _fracture(rng:RandomNumberGenerator,x:float,height:float,side:float,endcap:bool):
 	var face_width=(Profile.GATE_DOOR_THICKNESS if _is_gate else Profile.WALL_THICKNESS) if endcap else _length
 	var min_x=-face_width*.5+.07 if endcap else _center-_length*.5+.08
 	var max_x=face_width*.5-.07 if endcap else _center+_length*.5-.08
-	var spread=minf(1.45,face_width*.28)
+	var spread=minf(2.6 if _is_gate else 1.45,face_width*.28)
 	var point=Vector2(x+rng.randf_range(-.15,.15),.9 if not _is_gate else .3)
 	point.x=clampf(point.x,min_x,max_x)
 	var steps=18
@@ -75,7 +79,7 @@ func _fracture(rng:RandomNumberGenerator,x:float,height:float,side:float,endcap:
 		var drift=clampf(point.x-x+rng.randf_range(-.68,.68),-spread*.58,spread*.58)
 		var next=Vector2(clampf(x+drift,min_x,max_x),y)
 		var tier=1 if i<=5 else (2 if i<=9 else (3 if i<=13 else 4))
-		_ribbon(point,next,(.16 if not endcap else .12)*rng.randf_range(.7,1.05),tier,side,endcap)
+		_ribbon(point,next,(.16 if not endcap else .12)*rng.randf_range(.7,1.05)*(3.0 if _is_gate else 1.0),tier,side,endcap)
 		trunk.append(next);point=next
 	# Branches start at existing joints; sharp asymmetric forks avoid a painted
 	# zigzag pattern while each new tier extends the same persistent damage.
@@ -86,14 +90,18 @@ func _fracture(rng:RandomNumberGenerator,x:float,height:float,side:float,endcap:
 		var tip=Vector2(clampf(start.x+sign_*reach,min_x,max_x),minf(height-.12,start.y+rng.randf_range(.4,1.3)))
 		var middle=start.lerp(tip,.5)+Vector2(sign_*.12,-.22)
 		middle.x=clampf(middle.x,min_x,max_x)
-		var tier=2 if branch<=6 else (3 if branch<=12 else 4)
-		_ribbon(start,middle,.11,tier,side,endcap)
-		_ribbon(middle,tip,.065,tier,side,endcap)
+		var tier=1 if _castle and branch==3 else (2 if branch<=6 else (3 if branch<=12 else 4))
+		_ribbon(start,middle,.30 if _is_gate else .11,tier,side,endcap)
+		_ribbon(middle,tip,.20 if _is_gate else .065,tier,side,endcap)
 		if branch in [6,12]:
 			var fork=Vector2(clampf(middle.x+sign_*reach*.5,min_x,max_x),maxf(.25,middle.y-.8))
-			_ribbon(middle,fork,.06,mini(4,tier+1),side,endcap)
+			_ribbon(middle,fork,.18 if _is_gate else .06,mini(4,tier+1),side,endcap)
 
 func _surface(point:Vector2,side:float,endcap:bool)->Vector3:
+	if _is_gate:
+		var half_width=(Profile.GATE_DOOR_THICKNESS if endcap else _length)*.5
+		point.x=clampf(point.x,-half_width+.02,half_width-.02)
+		point.y=clampf(point.y,.02,Profile.GATE_DOOR_HEIGHT-.02)
 	if endcap:return Vector3(_center+side*(_length*.5+.018),point.y,point.x)
 	var depth=Profile.GATE_DOOR_THICKNESS*.5 if _is_gate else Profile.WALL_THICKNESS*.5
 	if not _is_gate:
@@ -104,6 +112,7 @@ func _surface(point:Vector2,side:float,endcap:bool)->Vector3:
 	return Vector3(point.x,point.y,side*(depth+.018))
 
 func _ribbon(from:Vector2,to:Vector2,width:float,tier:int,side:float,endcap:bool):
+	if _castle:width*=1.8
 	var tangent=(to-from).normalized();var across=Vector2(-tangent.y,tangent.x)*width*.5
 	var normal=Vector3(side,0,0) if endcap else Vector3(0,0,side)
 	# Small subdivisions keep ribbons on the base and buttress surfaces.

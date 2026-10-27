@@ -66,7 +66,7 @@ func shot(label_: String):
  game.camera_rig.camera.global_transform=previous_camera
 func run():
  # These movement fixtures use flat ground, independent of raised-route map presets.
- var map_doc=load("res://scripts/forest/forest_map_document.gd").new();map_doc.load_original();set_meta("forest_custom_layout",map_doc.data)
+ var map_doc=load("res://tests/forest-shrine/reference/map_document.gd").new();map_doc.load_original();set_meta("forest_custom_layout",map_doc.data)
  for argument in OS.get_cmdline_user_args():
   if argument.begins_with("--output="):output=argument.trim_prefix("--output=")
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=config_path;root.add_child(game);current_scene=game

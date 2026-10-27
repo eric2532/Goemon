@@ -28,12 +28,11 @@ func capture(label_:String):
 	RenderingServer.force_draw();await process_frame
 	root.get_texture().get_image().save_png(evidence.path_join(label_+".png"))
 func run():
-	set_meta("forest_custom_layout",JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_four_gates.json")))
+	set_meta("forest_custom_layout",JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_four_gates.json")))
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game;await frames()
 	AudioServer.set_bus_mute(0,true)
 	game.start_wave();game.model.waves.spawn_clock=100000
 	game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
-	for unit in game.gate_defenders.units.values():unit.set_physics_process(false)
 	var m=game.model
 	check(m.portals.size()==8 and m.waves.boss_pending.size()==8,"The real four-gate scene schedules all eight portal bosses")
 	check(m.waves.spawn_one(),"The first portal releases a live boss")

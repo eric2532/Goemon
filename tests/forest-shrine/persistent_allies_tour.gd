@@ -8,7 +8,7 @@ func frames(n=3):
  for i in n:await process_frame
 func run():
  if DisplayServer.get_name()=="headless":quit(1);return
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data);set_meta("forest_painterly_preview",true)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data);set_meta("forest_painterly_preview",true)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game;await frames()
  game.start_wave();game.model.waves.spawn_clock=100000;game.model.waves.pending=999
  game.player.position=Vector3(0,.15,78);game.player.invuln=100;game.player.set_physics_process(false)

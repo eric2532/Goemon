@@ -6,25 +6,38 @@ func run():
  root.add_child(game);current_scene=game;await frames(5)
  game.begin_forest();game.choose_rogue_character(15);game.start_wave();game.tuning.invincible=true;game.tuning.freeze_ai=true;game.tuning.critical_chance=0;game.character_tuning={};await frames(10)
  var p=game.player;p.set_physics_process(false);p.model.set_process(false)
- p.position=Vector3(0,20,0);p.facing=Vector3.FORWARD
+ p.position=Vector3(0,80,0);p.facing=Vector3.FORWARD
  var c=p.active_ability;c.cancel();c.start_utility();c.release_fan()
  var stars=get_nodes_in_group("leader_projectiles").filter(func(shot):return shot.shuriken)
  check(stars.size()==3 and is_equal_approx(stars[0].damage,168),"Ben shuriken damage doubles from84to168")
  if not stars.is_empty():check(stars[0].ornament.scale.x>3.5 and stars[0].hit_radius>1.4,"Ben shuriken visuals and contact volume fit his enlarged body")
- c.cancel();c.start_attack(true);var launch_sounds=game.voice_idx;c.release_bomb(Vector3(6,20,0))
+ p.ai_controlled=true
+ for forward in [Vector3.FORWARD,Vector3.RIGHT]:
+  p.facing=forward;c._prepare_bomb_targets()
+  var nearest=INF
+  for target in c.barrage_targets:nearest=minf(nearest,(target-p.position).dot(forward))
+  check(c.barrage_targets.size()==20 and is_equal_approx(nearest,6.08),"The full bomb pattern shifts two metres forward in the direction Ben faces")
+ p.ai_controlled=false;p.facing=Vector3.FORWARD
+ var bomb_floor=Geo.box(game,Vector3(6,79.9,0),Vector3(30,.2,30),Geo.mat("888888"),true);await frames(2)
+ c.cancel();c.start_attack(true);var launch_sounds=game.voice_idx;c.release_bomb(Vector3(6,80,0))
  check(game.voice_idx==launch_sounds+1 and game.last_sound_voice.stream.resource_path.ends_with("/ben/bomb_throw.wav"),"Each bomb plays its source-confirmed943release sound exactly once")
  check(is_equal_approx(game.last_sound_voice.pitch_scale,1.0),"Bomb release retains the original sample pitch instead of generic menu sound variation")
  var release_sounds=game.voice_idx
  var bombs=get_nodes_in_group("leader_projectiles").filter(func(shot):return shot.bomb)
  check(not bombs.is_empty() and is_equal_approx(bombs.back().damage,276),"Ben bomb damage doubles from138to276")
- if not bombs.is_empty():check(bombs.back().blast_radius>9.3 and bombs.back().ornament.scale.x>3.5,"Ben bomb and blast scale with his enlarged model")
+ if not bombs.is_empty():check(is_equal_approx(bombs.back().blast_radius,5.2*preload("res://scripts/character_proportions.gd").BEN_MODEL_SCALE*p.pickup_multiplier("range")*p.growth_multiplier()) and bombs.back().ornament.scale.x>3.5,"Ben's blast radius doubles while keeping model growth and range pickups")
+ var inside=Fixture.Victim.new();inside.position=Vector3(20,80,0);game.add_child(inside);inside.hp=1000;game.enemies.append(inside)
+ var outside=Fixture.Victim.new();outside.position=Vector3(26,80,0);game.add_child(outside);outside.hp=1000;game.enemies.append(outside)
  bombs.back()._physics_process(.99)
  check(game.voice_idx==release_sounds,"Bomb fuse adds no warning or menu-like cue between release and explosion")
  bombs.back()._physics_process(.01)
  check(game.last_sound_voice.stream.resource_path.ends_with("/ben/bomb_end.wav"),"Detonation plays the low explosion boom without the remaining940warning chirp")
+ check(inside.hp==724 and outside.hp==1000,"The enlarged blast hits fourteen metres away, beyond its former range, and stops outside the new radius")
  var detonation_sounds=game.voice_idx;bombs.back()._physics_process(.1)
  check(game.voice_idx==detonation_sounds,"One bomb plays exactly one sound rather than a warning followed by a second boom")
- check(is_equal_approx(bombs.back().bomb_effect.scale.x,bombs.back().blast_radius*.5),"Visible explosion size follows its full damage radius, including range pickups")
+ check(is_instance_valid(bombs.back().bomb_effect) and is_equal_approx(bombs.back().bomb_effect.scale.x,bombs.back().blast_radius*.5),"Visible explosion size follows its full damage radius, including range pickups")
+ game.enemies.erase(inside);inside.free();game.enemies.erase(outside);outside.free()
+ bomb_floor.free()
  check(p.melee_strike_reach()>10.3,"Ben polearm damage reach matches his scaled weapon")
  c.cancel();c.start_attack(false)
  var victim=Fixture.Victim.new();victim.position=p.position+p.facing*8;game.add_child(victim);victim.hp=1000;game.enemies.append(victim)

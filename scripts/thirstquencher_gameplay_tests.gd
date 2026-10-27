@@ -44,7 +44,7 @@ func run():
  m=fresh();attack(m,1,Vector3(60,0,45),4)
  var launches=hits(m,"enemy_arrow").filter(func(e):return e.get("soldier_bullet",false))
  check(launches.size()==3,"Blue source attack emits three source bullets and reloads")
- if launches.size()==3:check(launches[0].from.distance_to(Vector3(60,4.32,57.408))<.00001,"Three-times soldier uses enlarged source root muzzle")
+ if launches.size()==3:check(launches[0].from.distance_to(Vector3(60,1.44,59.136))<.00001,"Smaller soldier uses scaled source root muzzle")
  check(hits(m,"enemy_arrow_impact").filter(func(e):return e.get("muzzle",false)).size()==3,"Each shot displays its earlier original muzzle effect")
  # A source contact must revalidate target position at event time, not the start snapshot.
  m=fresh();var e=m.waves.spawn_enemy(0,Vector3(60,0,60));e.facing=0
@@ -101,7 +101,7 @@ func run():
   var shot:Dictionary=m.waves.projectiles.values()[0];var before:Vector3=shot.pos
   m.waves.arrows.tick(m.waves.projectiles,.1,Vector3(60,0,30))
   check(shot.pos.distance_to(before)>0.8639 and shot.pos.distance_to(before)<.8641,"Source bullet advances8.64m/s independent of generic arrow speed")
-  check(shot.pos.y<4.32 and shot.direction.is_equal_approx(before.direction_to(Vector3(60,1.3,30))),"Enlarged muzzle aims down to current ground target in three dimensions")
+  check(shot.pos.y<1.44 and shot.direction.is_equal_approx(before.direction_to(Vector3(60,1.3,30))),"Scaled muzzle aims down to current ground target in three dimensions")
   var committed:Vector3=shot.direction
   m.waves.arrows.tick(m.waves.projectiles,.1,Vector3(80,0,30))
   check(shot.direction.is_equal_approx(committed),"Source shot keeps its launch direction after the target dodges")
@@ -124,12 +124,12 @@ func run():
  check(absf(generic.pos.distance_to(old)-3.6)<.0001,"Existing generic projectiles retain36m/s aimed flight")
  m=fresh()
  m.waves.projectiles[888]={"id":888,"pos":Vector3(60,1.3,60),"from":Vector3(60,1.3,60),"direction":Vector3.FORWARD,"age":0.0,"life":100.0/30,"left":28.8,"soldier_bullet":true,"target_kind":"hero","target_id":0,"damage":25}
- m.waves.arrows.tick(m.waves.projectiles,0,Vector3(60,0,61.5))
- check(hits(m,"hero_hit").size()==1,"Enlarged32-unit source bullet tail reaches1.728 metres behind its root")
+ m.waves.arrows.tick(m.waves.projectiles,0,Vector3(60,0,60.8))
+ check(hits(m,"hero_hit").size()==1,"Scaled32-unit source bullet tail reaches.576 metres behind its root")
  m=fresh()
  m.waves.projectiles[888]={"id":888,"pos":Vector3(60,1.3,60),"from":Vector3(60,1.3,60),"direction":Vector3.FORWARD,"age":0.0,"life":100.0/30,"left":28.8,"soldier_bullet":true,"target_kind":"hero","target_id":0,"damage":25}
- m.waves.arrows.tick(m.waves.projectiles,0,Vector3(60.6,0,61.5))
- check(hits(m,"hero_hit").is_empty(),"Enlarged bullet tail retains actual .576 metre hero capsule radius")
+ m.waves.arrows.tick(m.waves.projectiles,0,Vector3(60.6,0,60.8))
+ check(hits(m,"hero_hit").is_empty(),"Scaled bullet tail retains actual .576 metre hero capsule radius")
  var fixture=ViewGame.new();fixture.model=m;root.add_child(fixture)
  var view=SourceView.new();view.game=fixture;fixture.add_child(view)
  var warm=view.has_method("load_source_resources")
@@ -137,14 +137,14 @@ func run():
  if warm:
   view.load_source_resources()
   check(view.bullet_scene!=null and view.casing_scene!=null and view.gunshot!=null,"Bullet casing and source audio are loaded before the first shot")
- view.launch({"id":999,"from":Vector3(60,4.32,57.408),"to":Vector3(60,1.44,30),"direction":Vector3.FORWARD,"facing":0.0,"soldier_bullet":true})
+ view.launch({"id":999,"from":Vector3(60,1.44,59.136),"to":Vector3(60,1.44,30),"direction":Vector3.FORWARD,"facing":0.0,"soldier_bullet":true})
  check(view.visuals.has(999) and view.visuals[999].get_meta("soldier_bullet",false),"Source projectile event selects recovered bullet visual rather than reed arrow")
- check(view.visuals[999].get_child(0).scale.is_equal_approx(Vector3.ONE*5.4),"Source bullet visual follows enlarged soldier scale")
+ check(view.visuals[999].get_child(0).scale.is_equal_approx(Vector3.ONE*1.8),"Source bullet visual follows smaller soldier scale")
  check(view.has_method("play_gunshot"),"Source gunshot sound has an explicit original-audio playback path")
  check(view.casings.size()==1,"Visible source gunshot creates its original cosmetic casing")
  if view.casings.size()==1:
-  check(view.casings[0].node.get_child(0).scale.is_equal_approx(Vector3.ONE*5.4),"Source casing visual follows enlarged soldier scale")
-  check(view.casings[0].node.position.is_equal_approx(Vector3(60,4.32,58.272)),"Casing ejects from enlarged source gun origin")
+  check(view.casings[0].node.get_child(0).scale.is_equal_approx(Vector3.ONE*1.8),"Source casing visual follows smaller soldier scale")
+  check(view.casings[0].node.position.is_equal_approx(Vector3(60,1.44,59.424)),"Casing ejects from smaller source gun origin")
  view._tick_casings(1.0/30.0)
  if view.casings.size()==1:
   var expected=Basis.from_euler(Vector3(PI/16.0,-PI/512.0,5.0*TAU/4096.0),EULER_ORDER_XYZ)

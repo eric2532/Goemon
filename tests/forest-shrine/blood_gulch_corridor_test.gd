@@ -39,7 +39,7 @@ func domain_edges():
    var point=Vector3(x,0,0)
    check((not native.sample(point,point,radius,.25,true,false).is_empty())==inset.has_point(Vector2(point.x,point.z)),"Native boundary rounding and edge inclusion match Rect2 clearance")
 func run():
- var layout=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_blood_gulch.json"))
+ var layout=JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_blood_gulch.json"))
  var m=Model.new();m.reset(90824,{},layout)
  var nav=m.waves.navigation;var corridors=nav.terrain_corridors
  var rng=RandomNumberGenerator.new();rng.seed=451982

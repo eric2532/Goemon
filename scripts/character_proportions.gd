@@ -9,4 +9,5 @@ const BEN_MODEL_SCALE=BEN_HEIGHT/1.8
 const EDO_MODEL_SCALE=EDO_HEIGHT/3.3
 
 # Host presentation request; source pose timings and fixed-point values stay original.
-const MUSASHI_SIZE=3.0
+const MUSASHI_SIZE=2.04
+const KOJIRO_SIZE=.9

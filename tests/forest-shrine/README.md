@@ -15,6 +15,17 @@ godot --headless --path . --script tests/forest-shrine/map_document_test.gd -- -
 
 Choose additional `*_test.gd` scripts for the affected feature. Native render, captured-pointer, shader, and visual checks require a real window. The commands retained below include both headless and native variants; they are alternatives, not a mandatory full-suite sequence.
 
+Team leveling and rendered card/reset acceptance:
+
+```sh
+godot --headless --path . --script res://tests/forest-shrine/team_progression_test.gd
+"/Users/eric/Desktop/Play Goemon.command" --script res://tests/forest-shrine/team_leveling_gameplay_test.gd
+```
+
+The [team leveling spec](../../docs/team-leveling-spec.md) records the initial
+curve, shared bonuses, and reset semantics. Logs and captures belong under
+`build/Other Files/Team Leveling/`.
+
 ## Existing command reference
 
 ```sh

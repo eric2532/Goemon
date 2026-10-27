@@ -22,6 +22,10 @@ struct Unit {
     Vec3 position,velocity;
     Vec3 pose_velocity;
     Vec3 goal,guard_post;
+    Vec3 target_goal;
+    Vec3 approach_minimum,approach_maximum;
+    int64_t approach_target=0;
+    bool approach_ready=false;
     float guard_radius=0;
     int shelter_mode=0;int64_t shelter_id=-1;Vec3 shelter_exit;double shelter_retry=0;
     double bunker_shot=0,bunker_age=0;int64_t bunker_damage=0;bool bunker_pending=false;int bunker_stage=0;Vec3 bunker_launch,bunker_aim;
@@ -29,6 +33,7 @@ struct Unit {
     int support_layer=-1;
     bool has_goal=false,routing=false;
     double hp=0,max_hp=0;
+    double enemy_health_scale=1,enemy_damage_scale=1;
     float radius=0,yaw=0;
     double action_time=0,live_delta=0,think_left=0,frozen=0,slow_left=0,stun=0,invuln=0;
     double pose_time=0,walk_phase=0;
@@ -44,12 +49,18 @@ struct Unit {
     double phase_tick=0,attack_tick=0;
     bool action_active=false,just_started=false;
     Vec3 knockback,motion_impulse;
+    float knockback_decay=8;
     int combo_serial=0,chain_count=0;
     double chain_left=0,combo_left=0,hit_pause=0,attack_damage=0;
     bool primary_hit=false,cast_confirmed=false;
     uint64_t rng=0;
     double pending_drift=0,age=0,skill_left=0,utility_left=0,utility_wait=0,roll_left=0,buff_left=0,special_time=0;
     bool opening=true,ninja_opened=false,suppress_primary=false;
+    int mirror_actions=0;
+    double mirror_wait=0;
+    float mirror_speed=0,mirror_reach=0;
+    Vec3 mirror_approach;
+    bool mirror_busy=false;
     bool appearance_started=false;double appearance_left=0;
     Vec3 dash_previous,dash_direction;
     std::vector<Handle> action_hits;
@@ -65,7 +76,7 @@ struct Unit {
     bool alive=false;
 };
 struct StepTiming {
-    bool enabled=false;uint64_t steps=0,facade_object_lookups=0,shared_enemy_updates=0,shared_ally_updates=0,movement_jobs=0,facade_field_reads=0;
+    bool enabled=false;uint64_t steps=0,facade_object_lookups=0,shared_enemy_updates=0,shared_ally_updates=0,movement_jobs=0,facade_field_reads=0,facade_health_writes=0;
     double total=0,grid=0,decisions=0,movement=0,combat=0,animation=0;
     double facade_total=0,facade_unpack=0,facade_rows=0,facade_lookup=0,facade_pose=0,facade_fields=0,facade_callbacks=0;
 };
@@ -77,11 +88,13 @@ public:
     void finish_step();
     void configure(int capacity,int team_limit);
     Handle spawn(int64_t logical_id,int team,int kind,Vec3 position,double hp,double radius);
+    bool set_enemy_scaling(Handle handle,double health_scale,double damage_scale);
     void despawn(Handle handle);
     bool valid(Handle handle) const;
     void clear();
     void rest_allies();
     void set_guard(Handle handle,Vec3 point,float radius);
+    bool set_mirror(Handle handle,int actions,float speed,float reach,Vec3 approach);
     std::vector<Unit> snapshot() const;
     const std::vector<Unit>& packed_source() const{return units_;}
     std::vector<Handle> query(Vec3 minimum,Vec3 maximum,int team,bool ordered=true);
@@ -102,8 +115,8 @@ private:
     std::vector<uint32_t> free_,visited_;
     std::array<int,2> counts_{};
     std::unordered_map<int64_t,uint32_t> ids_;
-    std::unordered_map<uint64_t,std::vector<uint32_t>> grid_;
-    std::vector<uint32_t> overflow_;
+    std::unordered_map<uint64_t,std::array<std::vector<uint32_t>,2>> grid_;
+    std::array<std::vector<uint32_t>,2> overflow_;
     Generation generation_;
     uint32_t visit_=0;
     int team_limit_=0;
@@ -112,7 +125,8 @@ private:
     void rebuild_grid();
     std::unique_ptr<CrowdWorker> worker_;
     std::unique_ptr<MovementWorker> movement_worker_;
-    std::array<std::vector<uint32_t>,2> movement_visited_;
-    std::array<uint32_t,2> movement_visit_{};
+    struct MovementNeighbor {Vec3 position;float radius;int64_t logical_id;int team;uint32_t slot;};
+    struct MovementCell {std::array<std::vector<MovementNeighbor>,2> neighbors;std::array<bool,2> ready{};};
+    std::unordered_map<uint64_t,MovementCell> movement_cells_;
 };
 }

@@ -6,6 +6,7 @@ var game
 var title:Label
 var ammo:Label
 var instructions:Label
+var slots:Label
 var health:ProgressBar
 var health_value:Label
 func _ready():
@@ -18,7 +19,7 @@ func _ready():
 	title.add_theme_color_override("font_color",CYAN)
 	ammo=make_label(weapon,"∞  AMMO",31,Vector2(0,23));ammo.name="ChiefAmmo"
 	instructions=make_label(weapon,"HOLD LMB · FIRE",13,Vector2(0,67))
-	make_label(weapon,"1 ROCKET · 2 PISTOL · 3 SHOTGUN · 4 RIFLE · 5 SWORD",12,Vector2(0,87))
+	slots=make_label(weapon,"1 ROCKET · 2 PISTOL · 3 SHOTGUN · 4 RIFLE · 5 SWORD",12,Vector2(0,87))
 	var vital=Control.new();vital.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(vital)
 	vital.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	vital.offset_left=-150;vital.offset_right=150;vital.offset_top=26;vital.offset_bottom=72
@@ -40,6 +41,7 @@ func active()->bool:
 func sync():
 	visible=active()
 	if not visible:return
+	slots.visible=game.player.spell_loadout.assignments(18).is_empty()
 	title.text=preload("res://scripts/master_chief_weapons.gd").data(game.player.master_chief_combat.weapon_slot).label
 	var melee=game.player.master_chief_combat.weapon_slot==5
 	ammo.text="PLASMA BLADE" if melee else "∞  AMMO"

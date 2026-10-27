@@ -9,7 +9,6 @@ func frames(n=3):
  for i in n:await process_frame
 func freeze():
  game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
- for u in game.gate_defenders.units.values():u.set_physics_process(false)
  for u in game.explorer_helpers.pool:u.set_physics_process(false)
  for e in game.actors.values():e.set_physics_process(false)
 func measure(label_:String,disable_visuals:bool=false):
@@ -36,7 +35,7 @@ func measure(label_:String,disable_visuals:bool=false):
 func run():
  for arg in OS.get_cmdline_user_args():
   if arg.begins_with("--out="):out=arg.trim_prefix("--out=")
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data);set_meta("forest_painterly_preview",true)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data);set_meta("forest_painterly_preview",true)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game;await frames()
  game.start_wave();game.model.waves.pending=999;game.model.waves.spawn_clock=100000;game.player.position=Vector3(0,.15,78);game.model.update_vision(game.player.position);freeze();game.set_process(false)
  game.camera_rig.camera.global_position=Vector3(24,20,102);game.camera_rig.camera.look_at(Vector3(0,2,64));AudioServer.set_bus_mute(0,true)

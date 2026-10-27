@@ -23,8 +23,12 @@ def material_key(material):
 
 
 def texture_slots(material):
-    pbr = material.get('pbrMetallicRoughness', {})
-    return [(container,key) for container,keys in ((pbr,('baseColorTexture','metallicRoughnessTexture')), (material,('normalTexture','occlusionTexture','emissiveTexture'))) for key in keys if key in container]
+    result=[]
+    for key,value in material.items():
+        if not isinstance(value,dict):continue
+        if key.endswith('Texture') and 'index' in value:result.append((material,key))
+        else:result.extend(texture_slots(value))
+    return result
 
 
 class GLB:
@@ -68,17 +72,30 @@ class GLB:
 
     def accessor(self, index):
         a = self.doc['accessors'][index]
-        if 'sparse' in a: raise ValueError('Sparse accessors need expansion before optimization')
         if a['type'] not in WIDTHS or a['componentType'] not in FORMATS:
             raise ValueError('Unsupported GLB accessor format')
         width, fmt = WIDTHS[a['type']], FORMATS[a['componentType']]
         size = struct.calcsize('<' + fmt * width)
-        if 'bufferView' not in a: return [tuple(0 for _ in range(width))] * a['count']
-        view = self.doc['bufferViews'][a['bufferView']]
-        start, stride = a.get('byteOffset', 0), view.get('byteStride', size)
-        if start < 0 or stride < size or start + max(0, a['count']-1)*stride + (size if a['count'] else 0) > view['byteLength']:
-            raise ValueError('GLB accessor outside bufferView')
-        return [struct.unpack_from('<' + fmt*width, self.binary, view.get('byteOffset', 0)+start+i*stride) for i in range(a['count'])]
+        if 'bufferView' not in a:
+            rows=[tuple(0 for _ in range(width)) for _ in range(a['count'])]
+        else:
+            view = self.doc['bufferViews'][a['bufferView']]
+            start, stride = a.get('byteOffset', 0), view.get('byteStride', size)
+            if start < 0 or stride < size or start + max(0, a['count']-1)*stride + (size if a['count'] else 0) > view['byteLength']:
+                raise ValueError('GLB accessor outside bufferView')
+            rows=[struct.unpack_from('<' + fmt*width, self.binary, view.get('byteOffset', 0)+start+i*stride) for i in range(a['count'])]
+        if 'sparse' in a:
+            sparse=a['sparse'];indices=sparse['indices'];values=sparse['values']
+            if indices['componentType'] not in (5121,5123,5125) or sparse['count']>a['count']:raise ValueError('Invalid sparse GLB accessor')
+            iv=self.doc['bufferViews'][indices['bufferView']];vv=self.doc['bufferViews'][values['bufferView']]
+            ifmt='<'+FORMATS[indices['componentType']];isize=struct.calcsize(ifmt)
+            if indices.get('byteOffset',0)+sparse['count']*isize>iv['byteLength'] or values.get('byteOffset',0)+sparse['count']*size>vv['byteLength']:raise ValueError('Sparse accessor outside bufferView')
+            previous=-1
+            for i in range(sparse['count']):
+                index=struct.unpack_from(ifmt,self.binary,iv.get('byteOffset',0)+indices.get('byteOffset',0)+i*isize)[0]
+                if index<=previous or index>=len(rows):raise ValueError('Invalid sparse GLB index order/range')
+                rows[index]=struct.unpack_from('<'+fmt*width,self.binary,vv.get('byteOffset',0)+values.get('byteOffset',0)+i*size);previous=index
+        return rows
 
     def append_accessor(self, rows, template):
         a = {k: template[k] for k in ('componentType', 'type', 'normalized') if k in template}
@@ -146,7 +163,8 @@ class GLB:
         for obj, key in refs: obj[key] = mapping[obj[key]]
         view_refs = [(a, 'bufferView') for a in self.doc['accessors'] if 'bufferView' in a]
         view_refs += [(im, 'bufferView') for im in self.doc.get('images', []) if 'bufferView' in im]
-        if any('sparse' in a for a in self.doc['accessors']): raise ValueError('Sparse accessors cannot be compacted')
+        for a in self.doc['accessors']:
+            if 'sparse' in a:view_refs.extend((a['sparse'][k],'bufferView') for k in ('indices','values'))
         order = sorted({obj[key] for obj, key in view_refs})
         mapping, views, blob = {}, [], bytearray()
         for old in order:

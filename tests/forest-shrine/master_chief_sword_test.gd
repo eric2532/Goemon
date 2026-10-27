@@ -18,6 +18,7 @@ func spawn(at:Vector3):
 	game.model.visible_cells[game.model.cell_of(at)]=true;game.sync_enemies();await frames()
 	var actor=game.actors[data.id];actor.set_physics_process(false);actor._sync_fitted_pose();return actor
 func place(actor,at:Vector3):
+	game.army_runtime.native.set_pose(actor.handle,at,0)
 	game.model.enemies[actor.forest_id].pos=at;actor.position=at
 	game.model.visible_cells[game.model.cell_of(at)]=true;actor._sync_fitted_pose()
 func reset_swing():
@@ -36,7 +37,7 @@ func run():
 	game.camera_rig.yaw=0;game.camera_rig.pitch=0;game.camera_rig.set_process(false);game.camera_rig.update_camera(0)
 	# Use one fitted soldier for directional/occlusion fixtures, rather than a
 	# whole formation whose front rank can extend across the player's position.
-	game.crowd.low_fidelity=false;game.crowd.set_process(false);await frames()
+	game.crowd.set_process(false);await frames()
 	var combat=hero.master_chief_combat;var view=game.camera_rig.first_person_viewmodel;var commands=[]
 	game.forest_ui.loadout_slot_selected.connect(func(slot):commands.append(slot))
 	await key(5)

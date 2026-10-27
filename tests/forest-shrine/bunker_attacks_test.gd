@@ -42,11 +42,10 @@ func capture(label_:String):
  await frames();await RenderingServer.frame_post_draw
  root.get_texture().get_image().save_png("/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Menu Assets/bunker-"+label_+".png")
 func run():
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game;await frames()
  AudioServer.set_bus_mute(0,true)
  game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false);game.explorer_helpers.set_process(false)
- for u in game.gate_defenders.units.values():u.set_physics_process(false)
  game.model.gold=5000;bunker=game.model.build("barracks",Vector2i(12,10),0);game.world.sync(0);await physics_frame
  for slot in [1,2]:
   var u=await fighter(slot);var e=await enemy_at(Vector3(0,0,20))

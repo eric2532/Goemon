@@ -1,15 +1,26 @@
 extends "res://tests/forest-shrine/explorer_close_assist_test.gd"
+func fresh(hero_id:int=11):
+ game.army_runtime.clear()
+ await super.fresh(hero_id)
+func target(offset:Vector3,variant:int=0):
+ var row=game.model.waves.spawn_enemy(variant,ORIGIN+offset);row.hp=10000;row.max_hp=10000
+ game.sync_enemies();game.army_runtime.sync_targets()
+ var actor=game.actors[row.id]
+ game.army_runtime.set_pose(actor.handle,ORIGIN+offset,0)
+ game.army_runtime.apply_hit(actor.handle,{"element":"ice","status_seconds":100})
+ game.model.update_vision(ORIGIN)
+ return actor
 func run():
  game=load("res://scenes/forest_shrine.tscn").instantiate();root.add_child(game);current_scene=game
  await frames(3);game.start_wave();game.model.waves.spawn_clock=10000;game.model.waves.pending=0
  game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
  game.tuning.invincible=true;game.tuning.critical_chance=0.0;game.player.smoke_mode=true;game.player.smoke_move=Vector2.ZERO
  await fresh(8);var c=game.player.active_ability
- var basic=target(Vector3(0,0,-2.5));c.action("cutlass");c.tick(.101,false)
+ var basic=target(Vector3(1,0,-5.0));c.action("cutlass");c.tick(.101,false)
  var normal=10000.0-float(basic.hp)
  check(normal>0,"Baseline is real normal lance damage")
  await fresh(8);c=game.player.active_ability
- var victim=target(Vector3(0,0,-2.5));var left=target(Vector3(-2,0,-2.5));var right=target(Vector3(2,0,-2.5));var behind=target(Vector3(0,0,3));var far=target(Vector3(0,0,-12))
+ var victim=target(Vector3(1,0,-5.0));var left=target(Vector3(-2,0,-5.0));var right=target(Vector3(2,0,-5.0));var behind=target(Vector3(0,0,3));var far=target(Vector3(0,0,-12))
  c.action("flintlock")
  check(c.player.travel==null and c.player.attack!=null and c.player.attack.get("style","")=="dragoon-sweep","Grounded RMB starts a sweep instead of a leap")
  if c.player.attack!=null:
@@ -23,7 +34,7 @@ func run():
   var hp: float=victim.hp
   c.tick(.6,false);c.tick(1.0,false)
   check(victim.hp==hp,"Sweep never repeats extra hits after recovery")
- await fresh(8);c=game.player.active_ability;victim=target(Vector3(0,0,-2.5))
+ await fresh(8);c=game.player.active_ability;victim=target(Vector3(1,0,-5.0))
  c.action("flintlock");c.tick(2.0,false)
  check(is_equal_approx(10000-float(victim.hp),normal*9),"A large boosted tick still resolves exactly three hits")
  for button in ["cutlass","flintlock"]:
@@ -44,14 +55,14 @@ func run():
     check(c.visual_actor.cosplay_rig.dragoon_motion.last_clip=="jump_strike","Rapid "+button+" dive uses its approved landing pose")
     break
   check(landed,"Rapid "+button+" dive returns to the floor")
- await fresh(8);c=game.player.active_ability;victim=target(Vector3(0,0,-2.5))
+ await fresh(8);c=game.player.active_ability;victim=target(Vector3(1,0,-5.0))
  var wall=StaticBody3D.new();wall.collision_layer=1;wall.collision_mask=0
  var shape=CollisionShape3D.new();var box=BoxShape3D.new();box.size=Vector3(8,6,.3);shape.shape=box;wall.add_child(shape);game.add_child(wall);wall.position=ORIGIN+Vector3(0,2,-1.3);await frames()
  c.action("flintlock");c.tick(1.0,false)
  check(victim.hp==10000,"All sweep hits respect solid cover")
  wall.queue_free();await frames()
  # A canceled stroke cannot release delayed hits.
- await fresh(8);c=game.player.active_ability;victim=target(Vector3(0,0,-2.5))
+ await fresh(8);c=game.player.active_ability;victim=target(Vector3(1,0,-5.0))
  c.action("flintlock");c.tick(.1,false);c.action("roll");c.tick(1.0,false)
  check(victim.hp==10000,"Dodging before contact cancels all sweep damage")
  await fresh(8);c=game.player.active_ability

@@ -70,7 +70,7 @@ func lose_roof():
 	# Authored roofs are separate pieces. Remove one roof and its matching collision.
 	var candidates=[]
 	for node in building.find_children("*","Node3D",true,false):
-		if (node is MeshInstance3D and str(node.name).trim_prefix("CP_")=="Roof") or node.scene_file_path.ends_with("/edo/roof.glb"):
+		if (node is MeshInstance3D and str(node.name).trim_prefix("CP_")=="Roof") or GameAssets.source_model_path(node.scene_file_path).ends_with("/edo/roof.glb"):
 			candidates.append(node)
 	if candidates.is_empty():return
 	candidates.sort_custom(func(a,b):return a.global_position.y>b.global_position.y)
@@ -78,7 +78,7 @@ func lose_roof():
 	for node in building.find_children("*","Node3D",true,false):
 		if node is StaticBody3D and (roof.is_ancestor_of(node) or "roof" in str(node.name).to_lower()):
 			node.collision_layer=0;node.collision_mask=0
-		elif node.scene_file_path.ends_with("/architecture/temple_roof.glb") and absf(node.global_position.y-roof.global_position.y)<.1:
+		elif GameAssets.source_model_path(node.scene_file_path).ends_with("/architecture/temple_roof.glb") and absf(node.global_position.y-roof.global_position.y)<.1:
 			for body in node.find_children("*","StaticBody3D",true,false):body.collision_layer=0;body.collision_mask=0
 	world.get_parent().burst(roof.global_position+Vector3.UP,Color("bea07a"),10,1.4)
 	world.invalidate_building_navigation()

@@ -9,11 +9,38 @@ The user wants exactly one playable app in the build folder: `build/Goemon.app`.
 - The launchers use the current complete source on `main` and enable painterly scenery. Keep them pointed at the complete source if it moves.
 - The app delivery rules below apply when an app export is requested.
 
+## Playable map
+
+- Wind Meadow Valley is the only bundled playable map; keep its standard and large sizes.
+- Retired layouts belong only in excluded regression fixtures under `tests/forest-shrine/reference/maps/`. Do not restore their preset buttons or export them. Preserve user-saved maps and reusable scenery.
+
 ## Army simulation
 
 - Normal Goemon gameplay uses the native army runtime exclusively. Do not add a legacy backend selector or fallback.
 - Original army controllers and renderers are test references under `tests/forest-shrine/reference/`; keep them excluded from game exports.
 - Preserve player controls, wave counts, hills, bridges and portals while improving the native simulation.
+
+## Performance memory and teaching
+
+- On 2026-10-23 the user reported that general gameplay feels really smooth and asked us to remember the work and teach them how to maintain it.
+- Read `docs/goemon-performance-guide.md` before future performance work or character/skill changes. Preserve the current feel and explain the measured bottleneck, the smallest fix, and how the user can verify it in plain language.
+- Update that guide when new evidence changes the advice. Distinguish the user's gameplay experience, historical measurements, and freshly verified results; do not imply that old stress tests passed on current source.
+
+## Character and skill performance
+
+- Enemies and bosses must reuse the native army lifecycle, queries, combat and
+  pooled presentation. Add type/attack data instead of another simulation or
+  renderer per enemy. Reuse the editable rigid-enemy Blender export/bake workflow
+  in `docs/recovered-monsters.md` for compatible recovered assets; preserve the
+  existing specialized boss patterns inside the same native owner.
+- Apply these rules whenever changing a character, weapon, animation or skill. Reuse existing character, combat, effect, projectile and pooling systems before adding new machinery.
+- Reuse existing animations, combos and attack patterns where compatible with the requested design before authoring replacements. Inspect source/destination rigs and weapon contracts; reuse compatible motion directly or retarget and correct grips, feet and proportions during asset preparation. Do not assume copying animation also copies gameplay behavior.
+- Follow `docs/BLENDER_PIPELINE.md`, `assets/blender/AGENTS.md` and the nearest asset/workbench guide before animation transfers. Preserve editable originals and user edits; use the matching exporter for GLB/authored pose data, rebuild affected army pose bakes and optimized derivatives, then run preservation, motion/contact and rendered gameplay checks. Avoid adding per-unit runtime retargeting when prepared animation data works. Reuse combat logic while keeping hit timing, damage, reach, cooldowns and travel under the existing controller unless the user requests changes.
+- Load/setup models and resources when selected or initialized; play animations and adjust existing shader parameters during combat. Avoid repeated asset loading, scene reconstruction and material creation in frame, attack and hit loops. Occasional setup on character selection is fine; do not add pools without a repeated workload that needs them.
+- Reuse or pool frequently repeated effects/projectiles. Reset position, target, damage, timers, visibility and other per-use state, and clear obsolete callbacks/references so reuse cannot cause stale hits or leaks.
+- Share immutable meshes/materials and batch army visuals where supported. Keep per-character visual changes isolated through existing instance parameters or owned overrides; never mutate a shared material in a way that changes other characters accidentally.
+- Keep target searches local and reuse current snapshots; do not scan or copy the whole army for each character's skill. Preserve exact hit checks, damage, cooldowns, animation timing and event delivery.
+- Verify repeated use and, when the skill is used by allies/enemies, simultaneous army use. Check correctness, appearance, frame-time spikes and resource growth through the desktop launcher, with focused tests and before/after profiling appropriate to the change. Do not claim smoothness from headless tests alone or silently reduce army counts, art quality or skill behavior to pass.
 
 ## App delivery rules
 
@@ -23,6 +50,12 @@ The user wants exactly one playable app in the build folder: `build/Goemon.app`.
 - Move superseded app bundles and app-only export ZIPs to macOS Trash; do not empty Trash. Do not create `Before ...` copies, parallel apps, or retained release ZIPs unless the user explicitly asks.
 - Keep logs, screenshots, reports, and other development artifacts in `build/Other Files/`. Leave only `Goemon.app` and `Other Files` as visible entries at the build folder root.
 - Preserve source files, editable assets, saved maps, preferences, and user data during cleanup. Use Git for source history.
+
+## Asset reuse
+
+- User direction (2026-10-23): whenever buildings, scenery or other assets are similar, reuse existing assets instead of creating everything anew. Inspect the current library, editable masters and runtime contracts before authoring new geometry.
+- Reuse compatible whole models first, then existing modular walls, blocks, doors, arches, roof pieces, timber, foliage, textures and materials. Build variations by assembling those parts or using existing instance parameters; create only the pieces the requested design actually lacks.
+- Keep one authoritative editable source per reusable asset and reference its exported mesh/resource for repeated placements. Preserve origins, dimensions, sockets, collision/navigation and gameplay ownership; isolate variations so editing a shared material cannot change unrelated assets. Record useful pieces and their source/export paths in the nearest asset guide.
 
 ## Game art inspiration
 

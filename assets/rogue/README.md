@@ -13,6 +13,25 @@ Imported on 2026-10-04 from the sibling `../Rogue` project to support Sonic's op
 
 The project bridge is in `scripts/rogue_roster.gd`, `scripts/rogue_hero_model.gd`, and `scripts/rogue_roster_combat.gd`. Sonic keeps its original playable IDs 1–2; these ten classes use IDs 3–12. The model wrapper turns the native +Z-facing actor by π so Sonic's existing -Z-facing movement convention remains consistent.
 
+## Magic Swordsman energy and sound (2026-10-24)
+
+The sword ribbon and traveling wave reuse `scripts/effects.gd` and
+`shaders/magic_ink_brush.gdshader`. The owned `purple_energy` material parameter
+adds a white-violet edge, dark core and moving filaments; other palettes keep it
+disabled. The wave uses two prepared `_blade` crescents in the longitudinal XZ
+plane: the bright convex rim leads in +Z and both pointed tips trail behind.
+Five upright/diagonal rolls cycle around the flight direction; they never turn
+the cutting edge backward or steer the projectile. Reuse the existing projectile
+cache, clock reset, reduced-flash setting and authored blade-tip sampling.
+No model, rig, Blender master, animation or combat data was replaced.
+
+`scripts/sound_library.gd` in the project root maps character 9's sword/dive
+slots to `assets/audio/recovered_musashi/lumina_swing.wav` and wave slots to
+`lumina_rotation.wav`. The latter is the cue Musashi's **Mighty Strike** counter
+actually plays. Existing recording, gain, mute and move-ticket rules apply.
+Verify with `tests/forest-shrine/magic_energy_test.gd` through the desktop Play
+launcher; its reports and captures live in `build/Other Files/Asset Toolkit/Purple Energy/`.
+
 ## Goemon art direction (2026-10-07)
 
 The active roster now loads `styled/models/` and `styled/portraits/`. These are

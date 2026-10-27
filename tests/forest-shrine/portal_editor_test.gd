@@ -43,7 +43,7 @@ func run():
 	check(not editor.document.dirty,"Portal map saves through normal editor controls")
 	if "--visual" in OS.get_cmdline_user_args():await shot("workspace")
 	editor.play_map();await settle();game.start_wave();game.model.waves.spawn_clock=0;game.model.waves.tick(.001,game.player.position)
-	check(game.model.enemies.size()==3 and game.model.enemies.values().all(func(e):return e.get("portal_index",-1)==0),"A live wave releases its first batch through the authored portal")
+	check(not game.model.enemies.is_empty() and game.model.enemies.size()<=10 and game.model.waves.spawn_groups[0].members.size()==game.model.enemies.size() and game.model.enemies.values().all(func(e):return e.get("portal_index",-1)==0),"A live wave begins its ten-enemy group through the authored portal")
 	if "--visual" in OS.get_cmdline_user_args():
 		game.model.phase="preparing";game.set_phase_view();game.open_map_editor();await settle();await shot("portal")
 	await finish()

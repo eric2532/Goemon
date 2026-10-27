@@ -1,11 +1,8 @@
 extends RefCounted
 ## Authored layout only; never serializes live run progress or engine objects.
 const Model=preload("res://scripts/forest/forest_model.gd")
-const RAMPARTS_PATH="res://assets/maps/forest_twin_ramparts.json"
-const FOUR_GATES_PATH="res://assets/maps/forest_four_gates.json"
-const BLOOD_GULCH_PATH="res://assets/maps/forest_blood_gulch.json"
-const KAI_HIGHWAY_PATH="res://assets/maps/forest_kai_highway.json"
-const ORIGINAL_PATH="res://assets/maps/forest_shrine_original.json"
+const WIND_MEADOW_LARGE_PATH="res://assets/maps/forest_wind_meadow_large.json"
+const WIND_MEADOW_PATH="res://assets/maps/forest_wind_meadow.json"
 const MAP_FOLDER="user://forest_maps"
 const MAX_BYTES=524288
 const KINDS=["tower","wall","gate","mine","barracks","tree","deposit","portal","road"]
@@ -22,20 +19,18 @@ var dirty: bool:
 func _init(allow_mines:bool=true):include_mines=allow_mines
 func encode()->String:return JSON.stringify(data)
 func capture(model):
-	data={"format":"forest_shrine_map","schema":1,"title":"My Forest Map","buildings":[],"trees":[],"deposits":[],"portals":model.portals.duplicate(true),"ramparts":model.ramparts.duplicate(true),"roads":[]}
+	data={"format":"forest_shrine_map","schema":1,"title":"My Forest Map","buildings":[],"trees":[],"deposits":[],"portals":model.portals.map(func(p):return {"x":p.x,"z":p.z,"rotation":p.rotation}),"ramparts":model.ramparts.duplicate(true),"roads":[]}
 	if not model.terrain_source.is_empty():data.terrain_source=model.terrain_source
-	if model.terrain_source=="blood_gulch" and not is_equal_approx(model.terrain_scale,1.0):data.terrain_scale=model.terrain_scale
+	if model.terrain_source in ["blood_gulch","wind_meadow"] and not is_equal_approx(model.terrain_scale,1.0):data.terrain_scale=model.terrain_scale
+	if model.map_expansion!=1.0:data.map_expansion=model.map_expansion
 	for b in model.buildings.values():
 		if b.kind!="shrine":data.buildings.append({"kind":b.kind,"x":b.cell.x,"z":b.cell.y,"rotation":b.rotation,"span":b.get("span",0)})
 	for c in model.trees:data.trees.append({"x":c.x,"z":c.y,"scale":model.trees[c]})
 	for c in model.deposits:data.deposits.append({"x":c.x,"z":c.y,"amount":maxi(1,model.deposits[c])})
 	for c in model.roads:data.roads.append({"x":c.x,"z":c.y})
 	history.clear();future.clear();path="";saved_text=encode()
-func load_original()->String:return read_file(ORIGINAL_PATH)
-func load_ramparts()->String:return read_file(RAMPARTS_PATH)
-func load_four_gates()->String:return read_file(FOUR_GATES_PATH)
-func load_blood_gulch()->String:return read_file(BLOOD_GULCH_PATH)
-func load_kai_highway()->String:return read_file(KAI_HIGHWAY_PATH)
+func load_wind_meadow_large()->String:return read_file(WIND_MEADOW_LARGE_PATH)
+func load_wind_meadow()->String:return read_file(WIND_MEADOW_PATH)
 func read_file(file_path: String)->String:
 	var file=FileAccess.open(file_path,FileAccess.READ)
 	if file==null:return "Could not open this map."
@@ -60,23 +55,28 @@ static func integer(value,minimum: int,maximum: int)->bool:
 static func validate(value)->String:
 	if not value is Dictionary or value.get("format")!="forest_shrine_map" or value.get("schema")!=1:return "Unsupported Forest map format."
 	if not value.get("title") is String or value.title.strip_edges().is_empty() or value.title.length()>48:return "Map names need 1–48 characters."
-	if value.has("terrain_source") and (not value.terrain_source is String or value.terrain_source not in ["","kai_highway","blood_gulch"]):return "Unsupported map terrain source."
+	if value.has("terrain_source") and (not value.terrain_source is String or value.terrain_source not in ["","kai_highway","blood_gulch","wind_meadow"]):return "Unsupported map terrain source."
 	var scale_=value.get("terrain_scale",1.0)
-	if not (scale_ is float or scale_ is int) or not is_finite(float(scale_)) or scale_<1.0 or scale_>1.25:return "Unsupported terrain scale."
-	if value.get("terrain_source","")!="blood_gulch" and not is_equal_approx(float(scale_),1.0):return "Terrain scaling requires Blood Gulch."
-	var region=Model.region_for(value.get("terrain_source",""),float(scale_));var low=region.position.x+1;var high=region.end.x-1
-	var build_region=Model.building_region_for(value.get("terrain_source",""),float(scale_))
+	if not (scale_ is float or scale_ is int) or not is_finite(float(scale_)) or scale_<1.0 or (scale_>1.25 and not (value.get("terrain_source","")=="wind_meadow" and scale_ in [2.0,3.0])):return "Unsupported terrain scale."
+	if value.get("terrain_source","") not in ["blood_gulch","wind_meadow"] and not is_equal_approx(float(scale_),1.0):return "Terrain scaling requires a supported valley or canyon."
+	if value.get("terrain_source","")=="wind_meadow" and scale_ not in [1.0,2.0,3.0]:return "Unsupported valley scale."
+	var expansion=value.get("map_expansion",1.0)
+	if not (expansion is float or expansion is int) or expansion not in Model.WindMeadowTerrain.EXPANSIONS:return "Unsupported map expansion."
+	if expansion!=1.0 and value.get("terrain_source","")!="wind_meadow":return "Map expansion requires Wind Meadow Valley."
+	var region=Model.region_for(value.get("terrain_source",""),float(scale_)*expansion);var low=region.position.x+1;var high=region.end.x-1
+	var build_region=Model.building_region_for(value.get("terrain_source",""),float(scale_)*expansion)
 	for key in ["buildings","trees","deposits"]:
 		if not value.get(key) is Array:return "Map object lists are missing."
 	if value.buildings.size()>512 or value.trees.size()>4096 or value.deposits.size()>64:return "This map has too many objects."
 	for key in ["portals","roads"]:
 		if value.has(key) and not value[key] is Array:return "Invalid portal or road list."
-	if value.get("portals",[]).size()>16 or value.get("roads",[]).size()>4096:return "Use at most 16 portals and 4096 road tiles."
+	if value.get("portals",[]).size()>16 or value.get("roads",[]).size()>8192:return "Use at most 16 portals and 8192 road tiles."
+	if value.get("terrain_source","")=="wind_meadow" and value.get("portals",[]).size()<4:return "The valley needs at least four enemy strongholds."
 	var terrain_error=Model.Ramparts.validation_error(value.get("ramparts",[]))
 	if not terrain_error.is_empty():return terrain_error
-	var terrain=Model.create_terrain(value.get("terrain_source",""),float(scale_));terrain.configure(value.get("ramparts",[]))
-	for cell in [Vector2i(-1,-1),Vector2i(0,-1),Vector2i(1,-1),Vector2i(-1,0),Vector2i(0,0),Vector2i(1,0),Vector2i(-1,1),Vector2i(0,1),Vector2i(1,1),Model.TRAINING_DUMMY_CELL,Vector2i(0,2),Vector2i(0,3)]:
-		if terrain.overlaps_tile(cell):return "Keep the base, hero start and training dummy at ground level."
+	var terrain=Model.create_terrain(value.get("terrain_source",""),float(scale_),expansion);terrain.configure(value.get("ramparts",[]))
+	for cell in [Vector2i(-1,-1),Vector2i(0,-1),Vector2i(1,-1),Vector2i(-1,0),Vector2i(0,0),Vector2i(1,0),Vector2i(-1,1),Vector2i(0,1),Vector2i(1,1),Vector2i(0,2),Vector2i(0,3)]:
+		if terrain.overlaps_tile(cell):return "Keep the base and hero start at ground level."
 	var road_cells={}
 	for item in value.get("roads",[]):
 		if not item is Dictionary or not integer(item.get("x"),low,high) or not integer(item.get("z"),low,high):return "A road tile is outside the map."
@@ -85,7 +85,6 @@ static func validate(value)->String:
 		road_cells[cell]=true
 	var model=Model.new();var occupied={};var deposits={}
 	for c in model.footprint("shrine",Vector2i(-1,-1),0):occupied[c]="shrine"
-	occupied[Model.TRAINING_DUMMY_CELL]="training dummy"
 	for group in ["deposits","buildings","portals","trees"]:
 		for item in value.get(group,[]):
 			if not item is Dictionary or not integer(item.get("x"),low,high) or not integer(item.get("z"),low,high):return "An object is outside the map."
@@ -104,17 +103,18 @@ static func validate(value)->String:
 				if not building_ground_error.is_empty():return building_ground_error
 				for tile in footprint:
 					if not build_region.has_point(tile):return "Keep the whole building inside the map."
-					if occupied.has(tile) and not (item.kind=="mine" and occupied[tile]=="deposit"):return "Objects overlap, or touch the base or training dummy."
+					if occupied.has(tile) and not (item.kind=="mine" and occupied[tile]=="deposit"):return "Objects overlap, or touch the base."
 					occupied[tile]=item.kind
 			elif group=="portals":
 				if not integer(item.get("rotation"),0,3):return "Invalid portal rotation."
-				for tile in Model.portal_cells(item):
+				var portal=item.duplicate();portal.castle=value.get("terrain_source","")=="wind_meadow" and scale_ in [2.0,3.0]
+				for tile in Model.portal_cells(portal):
 					if tile.x<low or tile.x>high or tile.y<low or tile.y>high or occupied.has(tile):return "Keep the portal arch and exit clear of objects and protected ground."
 					occupied[tile]="portal"
 			else:
 				var scale_value=item.get("scale")
 				if not (scale_value is float or scale_value is int) or not is_finite(float(scale_value)) or scale_value<.5 or scale_value>2:return "Invalid tree size."
-				if terrain.overlaps_tile(c):return "Place trees on clear, level ground." if value.get("terrain_source","") in ["kai_highway","blood_gulch"] else "Keep trees off raised wall routes."
+				if terrain.overlaps_tile(c):return "Place trees on clear, level ground." if value.get("terrain_source","") in ["kai_highway","blood_gulch","wind_meadow"] else "Keep trees off raised wall routes."
 				if occupied.has(c) or road_cells.has(c):return "Trees overlap an object, road or protected ground."
 				occupied[c]="tree"
 	for item in value.buildings:
@@ -185,7 +185,7 @@ func object_at(cell: Vector2i)->Dictionary:
 	if cell in model.footprint("shrine",Vector2i(-1,-1),0):return {"group":"shrine","index":-1}
 	for i in range(data.portals.size()):
 		var portal=data.portals[i]
-		if absi(cell.x-int(portal.x))<=2 and absi(cell.y-int(portal.z))<=2:return {"group":"portals","index":i}
+		if cell in Model.portal_cells(portal):return {"group":"portals","index":i}
 	for i in range(data.buildings.size()):
 		var item=data.buildings[i]
 		if cell in model.footprint(item.kind,Vector2i(item.x,item.z),int(item.rotation),int(item.get("span",0))):return {"group":"buildings","index":i}

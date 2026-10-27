@@ -14,7 +14,7 @@ func run():
  check(batch.multimesh.instance_count==4 and batch.multimesh.visible_instance_count==3,"Batch capacity grows geometrically while retaining every live body")
  runtime.despawn(handles[2]);renderer.present(runtime.render_snapshot(),[])
  check(batch.multimesh.instance_count==4 and batch.multimesh.visible_instance_count==2,"Population changes reuse the GPU allocation")
- for handle in handles.slice(0,2):runtime.set_pose(handle,Vector3(100,0,0),0)
+ for handle in handles.slice(0,2):runtime.set_pose(handle,Vector3(renderer.CELL*3,0,0),0)
  renderer.present(runtime.render_snapshot(),[])
  check(not batch.visible and renderer.counts().units==2,"An empty spatial batch leaves the render queue without removing any unit")
  runtime.set_pose(handles[0],Vector3.ZERO,0);renderer.present(runtime.render_snapshot(),[])

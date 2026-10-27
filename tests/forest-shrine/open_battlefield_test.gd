@@ -10,7 +10,7 @@ func check(ok:bool,label_:String):
  checks+=1
  if not ok:failures+=1;printerr("FAIL: "+label_)
 func run():
- var doc=load("res://scripts/forest/forest_map_document.gd").new()
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new()
  check(doc.load_blood_gulch().is_empty(),"Expanded default map validates")
  var model=load("res://tests/forest-shrine/reference/forest_model.gd").new();model.reset(42,{},doc.data);model.workers.clear()
  check(is_equal_approx(float(doc.data.get("terrain_scale",1.0)),1.2),"Default battlefield is stretched 20 percent horizontally")
@@ -26,7 +26,7 @@ func run():
  check(model.buildings[2].cell==legacy.buildings[2].cell and model.dimensions("gate",0)==Vector2i(2,1),"Castle and door footprints retain their existing size")
  check(model.enemy_grid.is_point_solid(Vector2i(46,46)) and model.waves.navigation.clearance_grid(0).is_point_solid(Vector2i(46,46)),"Expanded grid cells outside the canyon stay physically blocked")
  var captured=doc.data.duplicate(true);doc.capture(model)
- var restored=load("res://scripts/forest/forest_map_document.gd").new()
+ var restored=load("res://tests/forest-shrine/reference/map_document.gd").new()
  check(restored.decode(doc.encode()).is_empty() and is_equal_approx(float(restored.data.get("terrain_scale",1.0)),1.2),"Editor capture/save/reload preserves the stretched map")
  var invalid=captured.duplicate(true);invalid.terrain_scale=0
  check(not restored.validate(invalid).is_empty(),"Invalid terrain scale is rejected before changing a map")

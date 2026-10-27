@@ -1,5 +1,5 @@
 extends Node
-## Paid mercenaries keep preparation positions and hunt across the battlefield.
+## Paid mercenaries spawn at the castle and defend their nearby guard area.
 const Unit=preload("res://scripts/forest/crowd/army_helper_unit.gd")
 const KITS=[8,10,5,7,11]
 const COUNTS=[1,1,1,1,1]
@@ -7,6 +7,8 @@ const COSTS=[120,60,60,150,80]
 const GUARD_RADIUS=18.0
 const NAMES=["Dragoon","Ranger","Ninja","Knight","Explorer"]
 const HEALTH=[200,100,100,500,200]
+const HEROES=[1,13,28,31,32]
+var legendary_heroes
 const LABELS=["Dragoon · 200 HP · Spear combat","Ranger · 100 HP · Rapid shots","Ninja · 100 HP · Shadow Cut","Knight · 500 HP · Shield counters","Explorer · 200 HP · Blade combos"]
 var game
 var pool:Array=[]
@@ -49,11 +51,12 @@ func _ready():
  guard_preview.material_override=preview_material;game.add_child(guard_preview);guard_preview.hide()
  for slot in KITS.size():
   for i in COUNTS[slot]:make_unit(slot)
+ legendary_heroes=preload("res://scripts/warcraft_mirrors.gd").new(game.player,0)
 func make_unit(slot:int):
  var unit=Unit.new()
  unit.runtime=game.army_runtime
  unit.name="Ally_%d"%absi(next_actor_id);unit.game=game;unit.director=self;unit.kit_id=KITS[slot];unit.slot=slot;unit.gate_id=next_actor_id;next_actor_id-=1
- unit.process_mode=Node.PROCESS_MODE_PAUSABLE;game.add_child(unit);pool.append(unit);actors[unit.gate_id]=unit
+ unit.process_mode=Node.PROCESS_MODE_PAUSABLE;game.army_runtime.actor_root.add_child(unit);pool.append(unit);actors[unit.gate_id]=unit
  return unit
 func valid_target(enemy)->bool:
  return is_instance_valid(enemy) and not enemy.is_queued_for_deletion() and not enemy.dead and enemy.hp>0 and not enemy.training_dummy and game.forest_enemy_visible(enemy)
@@ -177,16 +180,50 @@ func allies_can_remain()->bool:
  return game.playing and game.model.phase in ["wave","preparing"] and (game.player.hp>0 or game.respawn_left>0)
 func available()->bool:
  var editor=is_instance_valid(game.map_editor) and game.map_editor.active
- var panel=game.forest_ui.get_node_or_null("GateDefenderPanel")
- return game.playing and game.model.phase=="preparing" and game.player.hp>0 and not editor and not is_instance_valid(panel) and not game.transitioning and not game.ordinary_pause and not game.settings_open and not game.rogue_roster_open and not game.won
+ return game.playing and game.model.phase=="preparing" and game.player.hp>0 and not editor and not game.transitioning and not game.ordinary_pause and not game.settings_open and not game.rogue_roster_open and not game.won
 func placement_active()->bool:return selected_slot>=0 or moving_actor!=0
 func cancel_placement(close_shop:bool=true):
  selected_slot=-1;moving_actor=0;placement_hint="";preview_position=Vector3.INF
  if is_instance_valid(guard_preview):guard_preview.hide()
  if close_shop and is_instance_valid(game.forest_ui):game.forest_ui.close_guard_shop()
-func request(slot:int)->bool:
- # Retain the command entry point, but it only selects paid map placement.
- return begin_placement(slot)
+func request(slot:int,reward:bool=false)->bool:
+ if reward:
+  if slot<0 or slot>=KITS.size() or not game.playing or game.model.phase not in ["preparing","wave"]:return false
+ elif not begin_placement(slot):return false
+ cancel_placement(false)
+ var point=castle_point(slot,reward)
+ if point.is_finite():return purchase(slot,point,reward)
+ game.toast("No clear space for five mercenaries · Choose another card" if reward else "No clear space near the castle");return false
+func castle_point(slot:int,reward:bool,spacing:float=1.4)->Vector3:
+ var m=game.model;var home=m.center(m.shrine())
+ # Search outward only on recruitment; retain placement's terrain/body checks.
+ for radius in range(1,16):
+  for x in range(-radius,radius+1):
+   for z in range(-radius,radius+1):
+    if maxi(absi(x),absi(z))!=radius:continue
+    var point=home+Vector3(x*2.0,0,z*2.0)
+    if Vector2(point.x-game.player.position.x,point.z-game.player.position.z).length()<spacing:continue
+    if spacing>1.4 and active_units().any(func(unit):return unit.position.distance_to(stand_point(point))<spacing):continue
+    if legendary_heroes!=null and legendary_heroes.bodies.any(func(body):return body.leased and body.position.distance_to(stand_point(point))<maxf(spacing,clampf(body.model.scale.x*1.25,1.4,8.0))):continue
+    if placement_error(slot,point,0,reward).is_empty():return stand_point(point)
+ return Vector3.INF
+func grant_hero(rng:RandomNumberGenerator)->bool:
+ var previous=rng.state;var character:int=HEROES[rng.randi_range(0,HEROES.size()-1)]
+ var point=castle_point(0,true,clampf(game.balance_value(character,"model_scale")*1.25,1.4,8.0))
+ if not point.is_finite():rng.state=previous;game.toast("No clear space for a hero · Choose another card");return false
+ if not legendary_heroes.reinforce(character,point):
+  rng.state=previous;game.toast("Hero could not arrive · Choose another card");return false
+ return true
+func grant_random(count:int,rng:RandomNumberGenerator)->bool:
+ var previous=active_units();var rng_state=rng.state;var serial=summon_serial
+ if previous.size()+count>2000:game.toast("Ally limit reached · Choose another card or make room");return false
+ for i in count:
+  if request(rng.randi_range(0,KITS.size()-1),true):continue
+  # Keep the card unspent if any recruit cannot safely arrive.
+  for unit in active_units():
+   if not previous.has(unit):unit.park()
+  rng.state=rng_state;summon_serial=serial;sync_targets();return false
+ return true
 func begin_placement(slot:int)->bool:
  if slot<0 or slot>=KITS.size() or not available():return false
  if game.model.gold<COSTS[slot]:game.toast("Need %d ryo to hire a %s"%[COSTS[slot],NAMES[slot]]);return false
@@ -198,42 +235,45 @@ func begin_placement(slot:int)->bool:
  return true
 func stand_point(point:Vector3)->Vector3:
  return Vector3(point.x,game.model.surface_height(point.x,point.z)+.12,point.z)
-func placement_error(slot:int,point:Vector3,exclude:int=0)->String:
+func placement_error(slot:int,point:Vector3,exclude:int=0,reward:bool=false)->String:
  if slot<0 or slot>=KITS.size():return "Choose an ally"
- if not available():return "Assign guards during preparation"
+ if reward:
+  if not game.playing or game.model.phase not in ["preparing","wave"]:return "Battle has ended"
+ elif not available():return "Assign guards during preparation"
  if not point.is_finite():return "Choose clear ground"
  if exclude==0:
-  if game.model.gold<COSTS[slot]:return "Not enough ryo"
-  if not game.model.can_recruit(2):return "Need 2 food · Build a barracks"
+  if not reward and game.model.gold<COSTS[slot]:return "Not enough ryo"
+  if not reward and not game.model.can_recruit(2):return "Need 2 food · Build a barracks"
   if active_units().size()>=2000:return "Ally limit reached"
  var m=game.model;var cell=m.cell_of(point)
  if not m.ALLIED_REGION.has_point(cell):return "Beyond the settlement boundary"
  if not m.explored.has(cell):return "Unexplored terrain"
  if m.allied_grid.is_point_solid(cell):return "Choose walkable ground"
  if m.occupancy.has(cell) and m.buildings[m.occupancy[cell]].kind!="gate":return "A building occupies this spot"
- if cell==m.TRAINING_DUMMY_CELL:return "Keep the training dummy clear"
  for portal in m.portals:
   if cell in m.portal_cells(portal):return "Keep the spawn portal clear"
  var stand=stand_point(point)
  for unit in active_units():
   if unit.gate_id==exclude:continue
   if unit.global_position.distance_to(stand)<1.4 or unit.guard_post.distance_to(stand)<1.4:return "Another ally guards this spot"
- for unit in game.gate_defenders.units.values():
-  if is_instance_valid(unit) and unit.position.distance_to(stand)<1.4:return "A gate defender occupies this spot"
+ if legendary_heroes!=null:
+  for body in legendary_heroes.bodies:
+   if body.leased and body.global_position.distance_to(stand)<1.4:return "A hero occupies this spot"
  var query=PhysicsShapeQueryParameters3D.new();query.shape=placement_shape;query.collision_mask=1
  query.transform=Transform3D(Basis.IDENTITY,stand+Vector3.UP*.95)
  if not game.get_world_3d().direct_space_state.intersect_shape(query,1).is_empty():return "A wall or obstacle blocks this spot"
  return ""
-func purchase(slot:int,point:Vector3)->bool:
- var reason=placement_error(slot,point)
+func purchase(slot:int,point:Vector3,reward:bool=false)->bool:
+ var reason=placement_error(slot,point,0,reward)
  if not reason.is_empty():game.toast(reason);return false
- var ready=pool.filter(func(unit):return unit.slot==slot and unit.state=="idle")
+ var ready=pool.filter(func(unit):return unit.slot==slot and unit.is_idle())
  var unit=ready[0] if not ready.is_empty() else make_unit(slot)
  unit.summon(null,stand_point(point),0.0)
  if unit.handle==0:game.toast("Ally limit reached");return false
- game.model.gold-=COSTS[slot];summon_serial+=1
+ if not reward:game.model.gold-=COSTS[slot]
+ summon_serial+=1
  cancel_placement(false);sync_targets();game.forest_ui.sync()
- game.toast("%s hired · %d ryo · Guard post assigned"%[NAMES[slot],COSTS[slot]])
+ if not reward:game.toast("%s hired · %d ryo · Defending the castle"%[NAMES[slot],COSTS[slot]])
  return true
 func relocate(actor_id:int,point:Vector3)->bool:
  var unit=target_actor(actor_id)
@@ -325,6 +365,7 @@ func begin_wave():
  for unit in active_units():unit.set_physics_process(true)
 func clear():
  cancel_placement()
+ if legendary_heroes!=null:legendary_heroes.clear()
  target_generation+=1
  for unit in pool:unit.park()
  if is_instance_valid(smoke):smoke.clear()
@@ -334,10 +375,12 @@ func clear():
 func prune_pool():
  var reserved=[0,0,0,0,0]
  for unit in pool.duplicate():
-  if unit.state!="idle":continue
+  if not unit.is_idle():continue
   reserved[unit.slot]+=1
   if reserved[unit.slot]<=COUNTS[unit.slot]:continue
   pool.erase(unit);actors.erase(unit.gate_id);unit.queue_free()
+func _exit_tree():
+ if legendary_heroes!=null:legendary_heroes.dispose()
 func _process(delta):
  update_placement_preview()
  if game.model.phase=="preparing":
@@ -345,7 +388,7 @@ func _process(delta):
   for unit in active_units():
    unit.update_health_display()
  if not allies_can_remain():
-  if not smoke.items.is_empty() or pool.any(func(u):return u.state!="idle"):clear()
+  if not smoke.items.is_empty() or pool.any(func(u):return not u.is_idle()) or (legendary_heroes!=null and legendary_heroes.left>0):clear()
   return
  if (game.model.phase=="preparing" or not game.paused) and not game.ordinary_pause and not game.settings_open and not game.rogue_roster_open and not game.transitioning:smoke.tick(delta)
  prune_pool()

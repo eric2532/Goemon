@@ -1,7 +1,7 @@
 extends RefCounted
 ## Repairs use the accessible edge of a structure, not its decorative entrance.
 const INTERVAL=.25
-const HEALTH_PER_RYO=10.0
+const HEALTH_PER_RYO=12.5
 var reference: WeakRef
 var m:
 	get:return reference.get_ref()
@@ -57,33 +57,28 @@ func restore(w: Dictionary):
 	if not b.is_empty() and m.workforce.job_is_safe(b):m.workforce._assign(w,b)
 func dispatch():
 	if m.gold<1:return
-	for b in m.buildings.values():
-		if not repairable(b) or m.workforce.capacity(b)<=0:continue
-		var slots=m.workforce.capacity(b)-m.workforce.count_job(b.id)
-		if slots<=0:continue
-		var candidates=[]
-		for w in m.workers.values():
-			if w.follow or w.state in ["wounded","retreat","follow","move"] or w.job==b.id:continue
-			var current: Dictionary=m.buildings.get(w.job,{})
-			# Keep one defender on each occupied tower when every worker is busy.
-			var kind: String=current.get("kind","")
-			if w.job!=-1 and kind not in ["mine","tower"]:continue
-			if kind=="tower" and m.workforce.count_job(w.job)<=1:continue
+	var candidates=[]
+	for w in m.workers.values():
+		if w.follow or w.state in ["wounded","retreat","follow","move"]:continue
+		var current:Dictionary=m.buildings.get(w.job,{})
+		var kind:String=current.get("kind","")
+		if w.job!=-1 and kind not in ["mine","tower"]:continue
+		candidates.append({"worker":w,"priority":0 if w.job==-1 else (2 if kind=="tower" else 1)})
+	candidates.sort_custom(func(a,b):return a.priority<b.priority if a.priority!=b.priority else a.worker.id<b.worker.id)
+	for candidate in candidates:
+		var w:Dictionary=candidate.worker
+		# Retain the last guard on each occupied tower.
+		if candidate.priority==2 and m.workforce.count_job(w.job)<=1:continue
+		var best={};var distance=INF
+		for b in m.buildings.values():
+			if not repairable(b) or m.workforce.count_job(b.id)>=m.workforce.capacity(b):continue
 			var target=destination(w,b)
-			if target.is_empty():continue
-			candidates.append({"worker":w,"priority":0 if w.job==-1 else (2 if kind=="tower" else 1),"distance":target.distance})
-		candidates.sort_custom(func(a,b_):
-			if a.priority!=b_.priority:return a.priority<b_.priority
-			if a.distance!=b_.distance:return a.distance<b_.distance
-			return a.worker.id<b_.worker.id)
-		for candidate in candidates:
-			if slots<=0:break
-			if candidate.priority==2 and m.workforce.count_job(candidate.worker.job)<=1:continue
-			if m.workforce._assign(candidate.worker,b,true):slots-=1
+			if not target.is_empty() and target.distance<distance:best=b;distance=target.distance
+		if not best.is_empty():m.workforce._assign(w,best,true)
 func tick(w: Dictionary,b: Dictionary,delta: float):
 	if not repairable(b) or (b.hp<=0 and not b.get("breached",false)) or b.hp>=b.max_hp or m.gold<1:
 		m.workforce.release_job(w);return
-	w.timer+=delta
+	w.timer+=delta*m.team_progression.multiplier("worker_repair")
 	var pulses=mini(int(floor((w.timer+.000001)/INTERVAL)),mini(int(m.gold),ceili((b.max_hp-b.hp)/HEALTH_PER_RYO)))
 	if pulses>0:
 		var restored=minf(pulses*HEALTH_PER_RYO,b.max_hp-b.hp)

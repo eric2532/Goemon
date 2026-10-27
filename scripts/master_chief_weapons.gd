@@ -9,7 +9,7 @@ const SLOTS={
 	5:{"key":"energy_sword","label":"ENERGY SWORD","interval":.7,"range":3.6,"damage":151.0,"recoil":.002,"kick":.012,"melee":true},
 }
 static func data(slot:int)->Dictionary:return SLOTS.get(slot,SLOTS[1])
-static func model_path(slot:int)->String:return ROOT+data(slot).key+"_fp.glb"
+static func model_path(slot:int)->String:return GameAssets.model_path(ROOT+data(slot).key+"_fp.glb")
 static func sound_path(slot:int)->String:return ROOT+data(slot).key+("_swing.wav" if data(slot).get("melee",false) else "_shot.wav")
 static func icon_path(slot:int)->String:return ROOT+data(slot).key+"_icon.svg"
 

@@ -1,15 +1,10 @@
-extends Node
+extends "res://scripts/character_combat.gd"
 ## Recovered Sasuke action clocks and source visual sweeps. Controls, enemy
 ## damage/freeze amounts and collision response adapt the native kit to this game.
 const Profile=preload("res://scripts/recovered_sasuke_combat_profile.gd")
 const Projectile=preload("res://scripts/recovered_sasuke_projectile.gd")
 const ChargeFX=preload("res://scripts/recovered_goemon_charge_vfx.gd")
-var hero: Hero
-var game: Node
-var active=false:
-	set(value):
-		active=value
-		if not value:cancel()
+const ProjectilePool=preload("res://scripts/character_projectile_pool.gd")
 var primary_held=false
 var ice_held=false
 var queued_primary=false
@@ -38,8 +33,10 @@ var have_previous_root=false
 var cached_reach_scale=-1.0
 var cached_melee_reach=3.3
 
-func _notification(what: int):
-	if what==NOTIFICATION_APPLICATION_FOCUS_OUT:cancel()
+func prepare_projectiles():
+	for kind in ["bomb","ice","hail"]:
+		ProjectilePool.service(game).warm(hero,Projectile,"sasuke/"+kind,{"kind":kind,"visual_source":cast_model()},3)
+
 func input(event: InputEvent):
 	release_input(event)
 	if not active or event.is_echo() or hero.dodge_time>0:return
@@ -81,7 +78,7 @@ func start_hair(forward: bool=false):
 	_sound("sasuke_hair_forward" if forward else "sasuke_hair_up")
 func start_super_jump():
 	_begin("super_jump",0x9b)
-	launch_clock=0;launch_velocity=24.0;launch_started=false
+	launch_clock=0;launch_velocity=24.0*skill_factor("travel_speed");launch_started=false
 	hero.jump_buffer=0;hero.jump_windup=0;hero.coyote=0;hero.jumps_used=1
 	hero.velocity.y=launch_velocity
 	_sound("sasuke_super_jump")
@@ -96,7 +93,7 @@ func _begin(kind: String,action: int):
 	if kind in ["ice_charge","super_jump"]:hero.attack_duration=Profile.CHARGE_SECONDS
 	hero.attack_left=maxf(.05,hero.attack_duration)
 	hero.facing=hero.combat_attack_direction()
-	if is_instance_valid(hero.model):hero.model.rotation.y=atan2(-hero.facing.x,-hero.facing.z)
+	if is_instance_valid(cast_model()):cast_model().rotation.y=atan2(-hero.facing.x,-hero.facing.z)
 	if hero.attack_chain!=null:hero.attack_ticket=hero.attack_chain.begin("sasuke_"+kind,_move_key(kind))
 	else:hero.attack_ticket={"source_hero":weakref(hero),"action":"sasuke_"+kind,"allied":hero.ai_controlled,"chain_enabled":false}
 func tick_timers(delta: float):combo_timer=maxf(0,combo_timer-delta)
@@ -115,7 +112,7 @@ func tick(delta: float,after_pose: bool=false):
 		if elapsed>=Profile.duration(action_id):finish_attack()
 		return
 	if not is_attacking():
-		if primary_held or hero.auto_attack_running():primary_attack()
+		if primary_held or (spell_owner==null and hero.auto_attack_running()):primary_attack()
 		return
 	var previous=elapsed
 	elapsed+=delta*hero.attack_speed_multiplier()
@@ -149,14 +146,14 @@ func tick(delta: float,after_pose: bool=false):
 	if elapsed+0.000001>=Profile.duration(action_id):
 		if pending_from>=0:_sweep(pending_from,pending_until);pending_from=-1;pending_until=-1
 		if mode=="primary" and action_id in Profile.combo_actions():
-			if (primary_held or queued_primary or hero.auto_attack_running()) and combo<2:
+			if (primary_held or queued_primary or (spell_owner==null and hero.auto_attack_running())) and combo<2:
 				queued_primary=false;finish_attack();primary_attack();return
 			action_id=0x6b+combo;mode="recovery";elapsed=0;hero.attack_duration=Profile.duration(action_id);return
 		if mode in ["ice","hail"] and action_id in [0x93,0x97]:
 			action_id=0x94;mode="recovery";elapsed=0;hero.attack_duration=Profile.duration(action_id);return
 		finish_attack()
 		if queued_bomb:queued_bomb=false;start_bomb()
-		elif queued_primary or primary_held or hero.auto_attack_running():queued_primary=false;primary_attack()
+		elif queued_primary or primary_held or (spell_owner==null and hero.auto_attack_running()):queued_primary=false;primary_attack()
 func _release_projectiles():
 	var count=3 if mode=="hail" else 1
 	var alive=0
@@ -165,24 +162,26 @@ func _release_projectiles():
 	if alive>=3:return
 	count=mini(count,3-alive)
 	for index in count:
-		var p=Projectile.new();p.hero=hero;p.game=game;p.kind=mode;p.attack_ticket=hero.attack_ticket
-		p.damage_scale=hero.damage_multiplier()
+		var launch={"visual_source":cast_model(),"kind":mode,"attack_ticket":hero.attack_ticket,"damage_scale":hero.damage_multiplier()}
 		var native_scale=.01515809
-		if is_instance_valid(hero.model) and hero.model.get("source_scale")!=null:native_scale=hero.model.source_scale
+		if is_instance_valid(cast_model()) and cast_model().get("source_scale")!=null:native_scale=cast_model().source_scale
 		var direction=hero.facing
 		if mode=="hail":direction=direction.rotated(Vector3.UP,float(index-1)*TAU*64.0/1024.0)
-		p.position=hero.global_position+Vector3.UP*(80.0*native_scale)+hero.facing*(50.0*native_scale)
-		p.velocity=direction*(8.0*30.0*native_scale)
+		launch.position=hero.global_position+Vector3.UP*(80.0*native_scale)+hero.facing*(50.0*native_scale)
+		launch.velocity=direction*(8.0*30.0*native_scale)
 		if mode=="bomb":
-			p.position=hero.global_position+Vector3.UP*(75*native_scale)+hero.facing*.5
-			p.velocity=hero.velocity+hero.facing*(3.0*30.0*native_scale)+Vector3.UP*(5.0*30.0*native_scale)
-			p.bomb_gravity=(2.0/3.0)*30.0*30.0*native_scale
-		game.add_child(p)
+			launch.position=hero.global_position+Vector3.UP*(75*native_scale)+hero.facing*.5
+			launch.velocity=hero.velocity+hero.facing*(3.0*30.0*native_scale)+Vector3.UP*(5.0*30.0*native_scale)
+			launch.bomb_gravity=(2.0/3.0)*30.0*30.0*native_scale
+		launch.visual_scale=preload("res://scripts/weapon_proportions.gd").RECOVERED_SKILL_SCALE*hero.range_multiplier()
+		launch.hit_radius=(.25 if mode=="bomb" else .14)*launch.visual_scale
+		launch.blast_radius=2.3*launch.visual_scale
+		ProjectilePool.service(game).launch(hero,Projectile,"sasuke/"+mode,launch)
 func _sweep(from: float,until: float):
-	if not is_instance_valid(hero.model) or until<from:return
+	if not is_instance_valid(cast_model()) or until<from:return
 	var source: Dictionary=Profile.data().get("collision_spheres",{}).get(str(action_id),{})
 	if source.is_empty():return
-	var model=hero.model
+	var model=cast_model()
 	var root_now=model.global_transform
 	if not have_previous_root:previous_root=root_now;have_previous_root=true
 	var count=clampi(ceili((until-from)*120.0),1,128)
@@ -206,9 +205,12 @@ func _source_spheres(source: Dictionary,at: float,root_at: Transform3D)->Array:
 	var frame=clampf(at*30.0*Profile.rate(action_id),0,float(source.frame_count)-1.0)
 	var first=floori(frame);var second=mini(first+1,int(source.frame_count)-1);var weight=frame-first
 	var result=[]
-	var model=hero.model
+	var model=cast_model()
 	var reach=reach_scale()
-	var pose: Dictionary=model.sampler.sample_source(action_id,at) if not is_equal_approx(reach,1.0) else {}
+	var pose: Dictionary={}
+	if not is_equal_approx(reach,1.0):
+		for pointer in (["0x90063d8"] if mode in ["hair_up","hair_forward"] else ["0x9002aa8","0x9002bc8"]):
+			if model.sampler.has_part(action_id,pointer):pose[pointer]=model.sampler.sample_part(action_id,at,pointer)
 	for index in int(source.count):
 		var a: Dictionary=source.frames[first][index];var b: Dictionary=source.frames[second][index]
 		var center_a=Vector3(a.center[0],a.center[1],a.center[2])
@@ -225,8 +227,9 @@ func _source_spheres(source: Dictionary,at: float,root_at: Transform3D)->Array:
 		result.append({"center":center,"radius":maxf(0,radius)})
 	return result
 func _contact_segment(from: Vector3,to: Vector3,radius: float)->bool:
+	radius*=skill_factor("hit_area")
 	var scored=false
-	for enemy in game.enemies:
+	for enemy in AttackChain.segment_enemy_candidates(game,from,to,radius):
 		if not is_instance_valid(enemy) or enemy.dead or hero.struck_targets.has(enemy.get_instance_id()):continue
 		var contact=AttackChain.segment_contact(enemy,from,to,radius)
 		if contact.is_empty():continue
@@ -245,8 +248,11 @@ func _clear_line(point: Vector3)->bool:
 	ray.exclude=[hero.get_rid()]
 	return hero.get_world_3d().direct_space_state.intersect_ray(ray).is_empty()
 func _ensure_charge_effect():
-	if is_instance_valid(hero.model) and hero.model.get("rig_visual")!=null:
-		charge_fx=ChargeFX.create(hero.model.rig_visual,hero.model.source_scale,hero.model.source_offset)
+	if is_instance_valid(cast_model()) and cast_model().get("rig_visual")!=null:
+		charge_fx=ChargeFX.create(cast_model().rig_visual,cast_model().source_scale,cast_model().source_offset)
+		var factor=preload("res://scripts/weapon_proportions.gd").RECOVERED_SKILL_SCALE
+		charge_fx.scale=Vector3.ONE*factor
+		charge_fx.position=(Vector3(0,50,0)*cast_model().source_scale+cast_model().source_offset)*(1.0-factor)
 func _move_key(kind: String)->String:
 	return {"primary":"primary_%d"%(combo+1),"bomb":"secondary","ice_charge":"utility","ice":"utility","hail":"ice_charged","hair_up":"hair_up","hair_forward":"hair_forward","super_jump":"skill"}.get(kind,kind)
 func _release_voice(fallback: String):
@@ -262,22 +268,22 @@ func ground_attack_velocity()->Vector3:
 	return Vector3.ZERO if mode in ["primary","hair_up","hair_forward","ice_charge","ice","hail","bomb"] and hero.is_on_floor() else Vector3.INF
 func reach_scale()->float:
 	if not is_instance_valid(hero) or not is_instance_valid(game) or game.get("tuning")==null:return 1.0
-	return hero.pickup_multiplier("range")*hero.melee_reach_setting()
+	return preload("res://scripts/weapon_proportions.gd").RECOVERED_SKILL_SCALE*hero.pickup_multiplier("range")*hero.melee_reach_setting()
 func melee_reach()->float:
 	var reach=reach_scale()
-	if not is_equal_approx(reach,cached_reach_scale) and is_instance_valid(hero.model):
+	if not is_equal_approx(reach,cached_reach_scale) and is_instance_valid(cast_model()):
 		var maximum=0.0
 		for attack in Profile.combo_actions():
 			var source: Dictionary=Profile.data().collision_spheres[str(attack)]
 			for frame in int(source.frame_count):
-				var pose: Dictionary=hero.model.sampler.sample_source(attack,float(frame)/(30.0*Profile.rate(attack)))
+				var pose: Dictionary=cast_model().sampler.sample_source(attack,float(frame)/(30.0*Profile.rate(attack)))
 				for index in int(source.count):
 					var sphere: Dictionary=source.frames[frame][index]
 					var pointer="0x9002aa8" if index<3 else "0x9002bc8"
 					var anchor: Vector3=pose[pointer].origin
 					var center=Vector3(sphere.center[0],sphere.center[1],sphere.center[2])
 					center=anchor+(center-anchor)*reach
-					maximum=maxf(maximum,(center.z+float(sphere.radius)*reach)*hero.model.source_scale)
+					maximum=maxf(maximum,(center.z+float(sphere.radius)*reach)*cast_model().source_scale)
 		cached_reach_scale=reach;cached_melee_reach=maximum*.9
 	return cached_melee_reach*hero.growth_multiplier()
 func controls_vertical_motion()->bool:return mode=="super_jump"
@@ -301,5 +307,5 @@ func hit():
 	cancel();mode="hurt";action_id=0x1d;elapsed=0
 func die():
 	cancel();mode="dead";action_id=0x2d;elapsed=Profile.duration(action_id)
-	if is_instance_valid(hero.model):hero.model.apply_native_pose(action_id,elapsed)
+	if is_instance_valid(cast_model()):cast_model().apply_native_pose(action_id,elapsed)
 func interrupt_for_dodge():cancel()

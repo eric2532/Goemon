@@ -47,12 +47,13 @@ func run():
 	lib.discard();game.player.musashi.cancel_beam()
 	game.show_settings(false);game.show_sound_studio(false);await frames(3)
 	var picker=game.menu.find_child("SoundCharacter",true,false)
-	check(picker!=null and picker.get_selected_id()==2,"Forest Settings opens recording hub on the currently active Edo")
+	check(picker!=null and picker.get_selected_id()==1 and 2 not in lib.Roster.selection_ids(),"Studio uses the visible Goemon hub when the active legacy fighter is hidden")
 	check(not lib.recording and not lib.mic.playing,"Forest recording menu leaves microphone stopped")
 	if DisplayServer.get_name()!="headless" and "--visual" in OS.get_cmdline_user_args():
 		picker.select(8);picker.item_selected.emit(8)
 		await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png("res://build/settlement-update/character-recording-forest.png")
+		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://build/Other Files/Asset Toolkit/Sound Studio Defaults/"))
+		root.get_texture().get_image().save_png("res://build/Other Files/Asset Toolkit/Sound Studio Defaults/character-recording-forest.png")
 	game.clear_menu();await frames(2)
 	stop_audio(game);lib.cancel();lib.game=null
 	game.queue_free();await frames(3);lib.free()

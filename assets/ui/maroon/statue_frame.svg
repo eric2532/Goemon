@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="112" viewBox="0 0 640 112">
+<defs><linearGradient id="silver" x2="0" y2="1"><stop stop-color="#ffffff"/><stop offset=".38" stop-color="#bfc7d5"/><stop offset=".65" stop-color="#656775"/><stop offset="1" stop-color="#f3e8ee"/></linearGradient><linearGradient id="wine" x2="0" y2="1"><stop stop-color="#512036" stop-opacity=".97"/><stop offset="1" stop-color="#1c0914" stop-opacity=".97"/></linearGradient></defs>
+<path d="M48 20H292L320 4L348 20H592L614 44L630 56L614 68L592 100H48L26 68L10 56L26 44Z" fill="url(#wine)" stroke="url(#silver)" stroke-width="2"/>
+<path d="M56 28H292M348 28H584M56 93H584" stroke="#e6e4ec" stroke-opacity=".5"/>
+<g fill="none" stroke="url(#silver)" stroke-width="3"><path d="M58 17Q27 16 22 39L8 46L19 57L6 72L26 71Q29 101 61 102M582 17Q613 16 618 39L632 46L621 57L634 72L614 71Q611 101 579 102"/><path d="M52 32L32 57L52 87M588 32L608 57L588 87"/></g>
+<path d="M320 7L331 18L320 29L309 18Z" fill="#d9dce6" stroke="#fcf3f6"/>
+<path d="M320 12L326 18L320 24L314 18Z" fill="#8e314e"/>
+</svg>

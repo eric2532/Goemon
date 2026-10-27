@@ -50,7 +50,7 @@ func run():
  for frame in 150:model.waves.tick(1.0/30,Vector3.ZERO)
  check(group.all(func(e):return e.pos.z<180-float(model.waves.role_stats(0).speed)*2.5 and model.waves.navigation.move_clear(e.pos,Roles.footprint_radius(e.variant))) and group.any(func(e):return absf(e.pos.x)>3),"A narrow painted road permits a safe broad formation on open ground")
  # Continuous edge/step checks matter on all four rotated rampart approaches.
- var doc=Document.new();doc.read_file("res://assets/maps/forest_four_gates.json")
+ var doc=Document.new();doc.read_file("res://tests/forest-shrine/reference/maps/forest_four_gates.json")
  for portal_index in [0,2,4,6]:
   model=marching_model(doc.data);var portal=model.portals[portal_index];var origin=model.waves.routes.exit_point(portal,0);origin.y=model.surface_height(origin.x,origin.z);group=[]
   for index in 7:

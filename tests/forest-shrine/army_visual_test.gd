@@ -3,11 +3,14 @@ extends SceneTree
 const OUT="/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Large Army Rebuild/"
 const Soldier=preload("res://scripts/forest/forest_thirstquencher_visual.gd")
 var failures=0
+var enemy_size=1.0
 func _initialize():run.call_deferred()
 func capture()->Image:
  await RenderingServer.frame_post_draw;await RenderingServer.frame_post_draw
  var image=root.get_texture().get_image();image.resize(640,480);return image
 func run():
+ for arg in OS.get_cmdline_user_args():
+  if arg.begins_with("--enemy-size="):enemy_size=clampf(arg.trim_prefix("--enemy-size=").to_float(),.25,3.0)
  if RenderingServer.get_rendering_device()==null:printerr("ARMY_VISUAL_RESULT requires native GPU");quit(1);return
  root.size=Vector2i(640,480);root.use_taa=false;root.screen_space_aa=Viewport.SCREEN_SPACE_AA_DISABLED
  var fixture=load("res://tests/forest-shrine/large_army_fixture.gd").new();root.add_child(fixture);var game=await fixture.make_game("kai")
@@ -16,6 +19,7 @@ func run():
  for helper in game.explorer_helpers.pool:helper.hide()
  var runtime=load("res://scripts/forest/crowd/army_runtime.gd").new();runtime.configure(null)
  var renderer=load("res://scripts/forest/crowd/army_renderer.gd").new();root.add_child(renderer);renderer.configure(game);renderer.use_native_buffers(runtime.native);renderer.presentation.hide()
+ var profiles=load("res://scripts/forest/crowd/army_kit_data.gd").from_model(game.model);profiles.enemy_size=enemy_size;renderer.configure_profiles(profiles)
  if "--legacy-pack" in OS.get_cmdline_user_args():renderer.native_packer=null;renderer.health.hide()
  var supports={"flat":Vector3(0,0,60)}
  var terrain=game.model.terrain
@@ -67,7 +71,7 @@ func run():
    print("ARMY_VISUAL kind=",kind," support=",layout," height=",point.y," pixels=",union," silhouette_error=",error," mean_color_error=",colors," draw_calls=",RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME))
    sheet.blit_rect(source,Rect2i(0,0,640,480),Vector2i((slot%4)*640,(slot/4)*960));sheet.blit_rect(native,Rect2i(0,0,640,480),Vector2i((slot%4)*640,(slot/4)*960+480));slot+=1
    if kind in [0,1,3]:original.queue_free()
-  sheet.save_png(OUT+"army_visual_"+("gd_" if "--legacy-pack" in OS.get_cmdline_user_args() else "native_")+layout+".png")
+  sheet.save_png(OUT+"army_visual_"+("gd_" if "--legacy-pack" in OS.get_cmdline_user_args() else "native_")+("size_%.2f_"%enemy_size if enemy_size!=1 else "")+layout+".png")
  runtime.clear();runtime.free();renderer.queue_free();await fixture.close();fixture.queue_free();await process_frame
  print("ARMY_VISUAL_RESULT failures=",failures);quit(1 if failures else 0)
 func cpu_soldier(kind:int)->ArrayMesh:
@@ -76,7 +80,7 @@ func cpu_soldier(kind:int)->ArrayMesh:
   var a=mesh.surface_get_arrays(surface);var vertices:PackedVector3Array=a[Mesh.ARRAY_VERTEX];var normals:PackedVector3Array=a[Mesh.ARRAY_NORMAL]
   for i in vertices.size():
    var part=roundi(a[Mesh.ARRAY_TEX_UV2][i].x);var x=image.get_pixel(part*3,row);var y=image.get_pixel(part*3+1,row);var z=image.get_pixel(part*3+2,row)
-   var basis=Basis(Vector3(x.r,x.g,x.b),Vector3(y.r,y.g,y.b),Vector3(z.r,z.g,z.b));vertices[i]=basis*vertices[i]+Vector3(x.a,y.a,z.a);normals[i]=(basis*normals[i]).normalized()
+   var basis=Basis(Vector3(x.r,x.g,x.b),Vector3(y.r,y.g,y.b),Vector3(z.r,z.g,z.b));vertices[i]=(basis*vertices[i]+Vector3(x.a,y.a,z.a))*enemy_size;normals[i]=(basis*normals[i]).normalized()
   a[Mesh.ARRAY_VERTEX]=vertices;a[Mesh.ARRAY_NORMAL]=normals
   result.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,a)
   var material:ShaderMaterial=reference.surface_get_material(surface)

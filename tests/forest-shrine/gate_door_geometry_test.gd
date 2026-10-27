@@ -11,8 +11,9 @@ func check(ok:bool,message:String):
 func ray(gate:Node3D,from:Vector3,to:Vector3,mask:int)->Dictionary:
 	return gate.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(gate.to_global(from),gate.to_global(to),mask))
 func run():
-	for rotation in 4:
-		var gate=Art.building({"kind":"gate","id":100+rotation,"rotation":rotation});root.add_child(gate)
+	for variant in 8:
+		var rotation=variant%4
+		var gate=Art.building({"kind":"gate","id":100+variant,"rotation":rotation,"wind_meadow":variant>=4});root.add_child(gate)
 		var door=gate.get_node("GateDoor")
 		check(door.mesh.size.x>=9.5 and door.mesh.size.y>=11.0,"Door %d fills the larger entrance"%rotation)
 		check(is_zero_approx(door.position.y-door.mesh.size.y*.5),"Closed door %d reaches the ground"%rotation)

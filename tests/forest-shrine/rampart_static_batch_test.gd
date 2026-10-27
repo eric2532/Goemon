@@ -58,7 +58,7 @@ func fixture(map_path:String)->Dictionary:
  parent.free();world.free()
  return result
 func run():
- var maps=["res://assets/maps/forest_twin_ramparts.json","res://assets/maps/forest_four_gates.json"]
+ var maps=["res://tests/forest-shrine/reference/maps/forest_twin_ramparts.json","res://tests/forest-shrine/reference/maps/forest_four_gates.json"]
  var baseline={}
  if "--capture-native" in OS.get_cmdline_user_args():
   for map_path in maps:

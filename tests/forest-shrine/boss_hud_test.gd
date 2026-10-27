@@ -17,7 +17,7 @@ func run():
   m.balance["bosses_per_portal"]=bosses_per_portal;ui.sync()
   check(ui.find_child("EnemyHub",true,false)==null,"Boss settings do not restore the removed enemy-count panel")
  if "--preparation-only" in OS.get_cmdline_user_args():await finish();return
- m.balance["bosses_per_portal"]=1;m.balance["waves"]=[[0,0,0,0]]
+ m.balance["bosses_per_portal"]=1;m.balance["waves"]=[[0,0,0,0,0,0,0,1]]
  check(m.start_wave(),"A real portal-boss wave starts")
  var living=m.waves.spawn_enemy(4,Vector3(0,0,52))
  ui.sync()

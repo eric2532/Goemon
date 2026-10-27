@@ -40,7 +40,7 @@ func capture(label_: String):
  await frames();await RenderingServer.frame_post_draw
  check(root.get_texture().get_image().save_png("/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/bow-ninja-dash-20261017/"+label_+".png")==OK,"Native capture "+label_)
 func run():
- var original=load("res://scripts/forest/forest_map_document.gd").new();original.load_original();set_meta("forest_custom_layout",original.data)
+ var original=load("res://tests/forest-shrine/reference/map_document.gd").new();original.load_original();set_meta("forest_custom_layout",original.data)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=config_path;root.add_child(game);current_scene=game
  await frames();game.start_wave();game.model.waves.pending=0;game.model.waves.spawn_clock=10000
  game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)

@@ -8,7 +8,7 @@ func check(ok:bool,label_:String):
  checks+=1
  if not ok:failures+=1;printerr("FAIL: ",label_)
 func run():
- var layout=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_kai_highway.json"))
+ var layout=JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_kai_highway.json"))
  for role in [0,1,3]:
   for index in 8:
    var m=Model.new();m.reset(42,{},layout);m.workers.clear();m.defenders.clear();m.hero_targetable=false

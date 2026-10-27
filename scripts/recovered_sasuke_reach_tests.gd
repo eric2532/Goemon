@@ -1,6 +1,7 @@
 extends SceneTree
 ## Catches range settings scaling hit volumes while leaving visible blades unchanged.
 var failures=0
+const SIZE=preload("res://scripts/weapon_proportions.gd").RECOVERED_SKILL_SCALE
 class ReachGame:
  extends Node
  var tuning={}
@@ -29,6 +30,9 @@ func run():
  caster.requested_reach=2.0;caster.powerups['range']=3.0;model.combat=combat
  check(is_equal_approx(model.reach_scale(),combat.reach_scale()),'Lightweight controller fallback keeps visible and contact reach paired')
  var arena=ReachGame.new();root.add_child(arena);combat.game=arena
+ caster.requested_reach=1;caster.powerups['range']=0
+ check(is_equal_approx(model.reach_scale(),SIZE),'Default gameplay weapons use the shared skill size')
+ caster.requested_reach=2/SIZE;caster.powerups['range']=3
  check(is_equal_approx(model.reach_scale(),3),'Melee setting and live range pickup combine once')
  model.apply_native_pose(0x68,time)
  var extended:Array=model.weapon_segments(0x68,time)
@@ -60,11 +64,11 @@ func run():
    var actual=model.rig_visual.transform*(model.native_parts[pointer].transform*Vector3(0,5,0))
    hair_exact=hair_exact and actual.distance_to(expected)<.00005
  check(hair_exact,'Both native hair moves extend tuft and shaft around the unchanged native hair attachment')
- caster.requested_reach=1;caster.powerups['range']=0
+ caster.requested_reach=1/SIZE;caster.powerups['range']=0
  var exact=true
  for action in [0x68,0x69,0x6a,0x6e,0x6f,0x9a]:
   var raw:Dictionary=model.sampler.sample_source(action,.1);var scaled:Dictionary=model.scaled_source_pose(action,.1)
   for pointer in raw:exact=exact and close_(raw[pointer],scaled[pointer])
- check(exact,'Returning to1x preserves every source matrix without drift')
+ check(exact,'Explicit source-size setting preserves every source matrix without drift')
  model.combat=null;combat.free();caster.queue_free();arena.queue_free();model.queue_free();await process_frame
  print('SASUKE_REACH_RESULT failures=',failures);quit(1 if failures else 0)

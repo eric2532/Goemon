@@ -23,11 +23,11 @@ func clear():
 func _material()->ShaderMaterial:
  var result=ShaderMaterial.new();result.shader=preload('res://scripts/recovered_musashi_effect.gdshader')
  return result
-func spawn(transform:Transform3D):
+func spawn(transform:Transform3D,effect_scale:float=1.0):
  clear();spawn_transform=transform
  var anchor=data().get("spawn_anchor_source",[0,-6,-120])
  spawn_transform.origin=transform*(Vector3(anchor[0],-anchor[1],-anchor[2])*.01)
- spawn_transform.basis=Basis.IDENTITY.scaled(transform.basis.get_scale())
+ spawn_transform.basis=Basis.IDENTITY.scaled(transform.basis.get_scale()*effect_scale)
  var native=data().vortex_mesh
  for variant in 2:
   var surface=SurfaceTool.new();surface.begin(Mesh.PRIMITIVE_TRIANGLES)

@@ -1,0 +1,702 @@
+{
+  "sonic": {
+    "source": "assets/models/characters/sonic/sonic.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Playable Sonic; original 73 clips and prepared native weld skin"
+  },
+  "arrow-tower": {
+    "source": "assets/economy_v1/arrow_tower/exports/tower_build_recoil_reverse.glb",
+    "preserve_mesh_nodes": "^ARROW_PROJECTILE$",
+    "usage": "Build/reverse, yaw, recoil and arrow attachment"
+  },
+  "tower-mount": {
+    "source": "assets/economy_v1/arrow_tower/exports/tower_wall_mount.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Wall-mounted towers"
+  },
+  "arrow": {
+    "source": "assets/economy_v1/arrow_tower/exports/arrow_projectile.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Tower shots"
+  },
+  "build-hammer": {
+    "source": "assets/economy_v1/construction_fx/exports/FS_FX_Hammer_BuildLoop.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Construction feedback"
+  },
+  "completion-fx": {
+    "source": "assets/economy_v1/construction_fx/exports/FS_FX_CompletionPulse.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Construction feedback"
+  },
+  "leader-ed": {
+    "source": "assets/characters/recovered_leaders/ed/model.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Playable recovered leader; Ben accessory visibility remains independent"
+  },
+  "leader-ben": {
+    "source": "assets/characters/recovered_leaders/ben/model.glb",
+    "preserve_mesh_nodes": "^1[2-5]_source_part_",
+    "usage": "Playable recovered leader; Ben accessory visibility remains independent"
+  },
+  "chief-assault-rifle-fp": {
+    "source": "assets/characters/master_chief/assault_rifle_fp.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Playable Chief and selectable first-person weapons"
+  },
+  "chief-energy-sword-fp": {
+    "source": "assets/characters/master_chief/energy_sword_fp.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Playable Chief and selectable first-person weapons"
+  },
+  "chief-pistol-fp": {
+    "source": "assets/characters/master_chief/pistol_fp.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Playable Chief and selectable first-person weapons"
+  },
+  "chief-shotgun-fp": {
+    "source": "assets/characters/master_chief/shotgun_fp.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Playable Chief and selectable first-person weapons"
+  },
+  "chief-master-chief": {
+    "source": "assets/characters/master_chief/master_chief.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Playable Chief and selectable first-person weapons"
+  },
+  "chief-rocket-projectile": {
+    "source": "assets/characters/master_chief/rocket_projectile.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Playable Chief and selectable first-person weapons"
+  },
+  "chief-rocket-launcher-fp": {
+    "source": "assets/characters/master_chief/rocket_launcher_fp.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Playable Chief and selectable first-person weapons"
+  },
+  "roster-ninja": {
+    "source": "assets/models/characters/goemon_cosplay/ninja.glb",
+    "preserve_mesh_nodes": "^(Skin|Hair_Normal|Hair_Gold|Knight_Long_Dark_Navy_Cape|Weapon_Pistol_Geometry|ScarfTail_Geometry|Katana_Hilt)$",
+    "usage": "Playable/defender roster; preserve cape morphs, equipment and cloth meshes"
+  },
+  "roster-dragoon": {
+    "source": "assets/models/characters/goemon_cosplay/dragoon.glb",
+    "preserve_mesh_nodes": "^(Skin|Hair_Normal|Hair_Gold|Knight_Long_Dark_Navy_Cape|Weapon_Pistol_Geometry|ScarfTail_Geometry|Katana_Hilt)$",
+    "usage": "Playable/defender roster; preserve cape morphs, equipment and cloth meshes"
+  },
+  "roster-magic-swordsman": {
+    "source": "assets/models/characters/goemon_cosplay/magic-swordsman.glb",
+    "preserve_mesh_nodes": "^(Skin|Hair_Normal|Hair_Gold|Knight_Long_Dark_Navy_Cape|Weapon_Pistol_Geometry|ScarfTail_Geometry|Katana_Hilt)$",
+    "usage": "Playable/defender roster; preserve cape morphs, equipment and cloth meshes"
+  },
+  "roster-explorer": {
+    "source": "assets/models/characters/goemon_cosplay/explorer.glb",
+    "preserve_mesh_nodes": "^(Skin|Hair_Normal|Hair_Gold|Knight_Long_Dark_Navy_Cape|Weapon_Pistol_Geometry|ScarfTail_Geometry|Katana_Hilt)$",
+    "usage": "Playable/defender roster; preserve cape morphs, equipment and cloth meshes"
+  },
+  "roster-pirate": {
+    "source": "assets/models/characters/goemon_cosplay/pirate.glb",
+    "preserve_mesh_nodes": "^(Skin|Hair_Normal|Hair_Gold|Knight_Long_Dark_Navy_Cape|Weapon_Pistol_Geometry|ScarfTail_Geometry|Katana_Hilt)$",
+    "usage": "Playable/defender roster; preserve cape morphs, equipment and cloth meshes"
+  },
+  "roster-master-thief": {
+    "source": "assets/models/characters/goemon_cosplay/master-thief.glb",
+    "preserve_mesh_nodes": "^(Skin|Hair_Normal|Hair_Gold|Knight_Long_Dark_Navy_Cape|Weapon_Pistol_Geometry|ScarfTail_Geometry|Katana_Hilt)$",
+    "usage": "Playable/defender roster; preserve cape morphs, equipment and cloth meshes"
+  },
+  "roster-mage": {
+    "source": "assets/models/characters/goemon_cosplay/mage.glb",
+    "preserve_mesh_nodes": "^(Skin|Hair_Normal|Hair_Gold|Knight_Long_Dark_Navy_Cape|Weapon_Pistol_Geometry|ScarfTail_Geometry|Katana_Hilt)$",
+    "usage": "Playable/defender roster; preserve cape morphs, equipment and cloth meshes"
+  },
+  "roster-samurai": {
+    "source": "assets/models/characters/goemon_cosplay/samurai.glb",
+    "preserve_mesh_nodes": "^(Skin|Hair_Normal|Hair_Gold|Knight_Long_Dark_Navy_Cape|Weapon_Pistol_Geometry|ScarfTail_Geometry|Katana_Hilt)$",
+    "usage": "Playable/defender roster; preserve cape morphs, equipment and cloth meshes"
+  },
+  "roster-ranger": {
+    "source": "assets/models/characters/goemon_cosplay/ranger.glb",
+    "preserve_mesh_nodes": "^(Skin|Hair_Normal|Hair_Gold|Knight_Long_Dark_Navy_Cape|Weapon_Pistol_Geometry|ScarfTail_Geometry|Katana_Hilt)$",
+    "usage": "Playable/defender roster; preserve cape morphs, equipment and cloth meshes"
+  },
+  "roster-knight": {
+    "source": "assets/models/characters/goemon_cosplay/knight.glb",
+    "preserve_mesh_nodes": "^(Skin|Hair_Normal|Hair_Gold|Knight_Long_Dark_Navy_Cape|Weapon_Pistol_Geometry|ScarfTail_Geometry|Katana_Hilt)$",
+    "usage": "Playable/defender roster; preserve cape morphs, equipment and cloth meshes"
+  },
+  "cedar-pass-well": {
+    "source": "assets/models/cedar_pass/well.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-tea-house-open": {
+    "source": "assets/models/cedar_pass/tea_house_open.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-machiya-open": {
+    "source": "assets/models/cedar_pass/machiya_open.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-gatehouse": {
+    "source": "assets/models/cedar_pass/gatehouse.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-shrine": {
+    "source": "assets/models/cedar_pass/shrine.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-cliff-step": {
+    "source": "assets/models/cedar_pass/cliff_step.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-sakura": {
+    "source": "assets/models/cedar_pass/sakura.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-twin-summit": {
+    "source": "assets/models/cedar_pass/twin_summit.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-warehouse": {
+    "source": "assets/models/cedar_pass/warehouse.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-bamboo-cluster": {
+    "source": "assets/models/cedar_pass/bamboo_cluster.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-cedar": {
+    "source": "assets/models/cedar_pass/cedar.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-moss-boulder": {
+    "source": "assets/models/cedar_pass/moss_boulder.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-fence": {
+    "source": "assets/models/cedar_pass/fence.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-split-crag": {
+    "source": "assets/models/cedar_pass/split_crag.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-torii": {
+    "source": "assets/models/cedar_pass/torii.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-cart": {
+    "source": "assets/models/cedar_pass/cart.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-river-rock": {
+    "source": "assets/models/cedar_pass/river_rock.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-long-ridge": {
+    "source": "assets/models/cedar_pass/long_ridge.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-inn": {
+    "source": "assets/models/cedar_pass/inn.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-cloud-pine": {
+    "source": "assets/models/cedar_pass/cloud_pine.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-sacred-peak": {
+    "source": "assets/models/cedar_pass/sacred_peak.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "cedar-pass-lantern": {
+    "source": "assets/models/cedar_pass/lantern.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: cedar_pass"
+  },
+  "edo-noren": {
+    "source": "assets/models/edo/noren.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: edo"
+  },
+  "edo-roof": {
+    "source": "assets/models/edo/roof.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: edo"
+  },
+  "edo-cherry-tree": {
+    "source": "assets/models/edo/cherry_tree.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: edo"
+  },
+  "edo-shoji": {
+    "source": "assets/models/edo/shoji.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: edo"
+  },
+  "edo-green-tree": {
+    "source": "assets/models/edo/green_tree.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: edo"
+  },
+  "edo-moss-rock": {
+    "source": "assets/models/edo/moss_rock.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: edo"
+  },
+  "edo-grotto-bay": {
+    "source": "assets/models/edo/grotto_bay.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: edo"
+  },
+  "edo-grass-tuft": {
+    "source": "assets/models/edo/grass_tuft.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: edo"
+  },
+  "edo-bamboo": {
+    "source": "assets/models/edo/bamboo.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: edo"
+  },
+  "edo-torii": {
+    "source": "assets/models/edo/torii.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: edo"
+  },
+  "edo-bridge-deck": {
+    "source": "assets/models/edo/bridge_deck.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: edo"
+  },
+  "edo-palm": {
+    "source": "assets/models/edo/palm.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: edo"
+  },
+  "edo-lantern": {
+    "source": "assets/models/edo/lantern.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: edo"
+  },
+  "town-two-story-inn": {
+    "source": "assets/models/town/two_story_inn.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: town"
+  },
+  "town-noren-shop": {
+    "source": "assets/models/town/noren_shop.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: town"
+  },
+  "town-plaster-storehouse": {
+    "source": "assets/models/town/plaster_storehouse.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: town"
+  },
+  "town-open-teahouse": {
+    "source": "assets/models/town/open_teahouse.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: town"
+  },
+  "town-corner-house": {
+    "source": "assets/models/town/corner_house.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: town"
+  },
+  "town-timber-house": {
+    "source": "assets/models/town/timber_house.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: town"
+  },
+  "town-props-indigo-noren": {
+    "source": "assets/models/town_props/indigo_noren.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: town_props"
+  },
+  "town-props-paper-lantern": {
+    "source": "assets/models/town_props/paper_lantern.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: town_props"
+  },
+  "town-props-bowl-shop-sign": {
+    "source": "assets/models/town_props/bowl_shop_sign.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: town_props"
+  },
+  "town-props-noodle-stall": {
+    "source": "assets/models/town_props/noodle_stall.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: town_props"
+  },
+  "town-props-dumpling-stall": {
+    "source": "assets/models/town_props/dumpling_stall.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: town_props"
+  },
+  "town-props-wayside-shrine": {
+    "source": "assets/models/town_props/wayside_shrine.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: town_props"
+  },
+  "town-props-tidefall-gate": {
+    "source": "assets/models/town_props/tidefall_gate.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: town_props"
+  },
+  "town-props-offering-box": {
+    "source": "assets/models/town_props/offering_box.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: town_props"
+  },
+  "town-props-stone-lantern": {
+    "source": "assets/models/town_props/stone_lantern.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: town_props"
+  },
+  "defense-fire-stream": {
+    "source": "assets/models/defense/fire_stream.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: defense"
+  },
+  "defense-fire-tower": {
+    "source": "assets/models/defense/fire_tower.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: defense"
+  },
+  "defense-heroes-roan": {
+    "source": "assets/models/defense_heroes/roan.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: defense_heroes"
+  },
+  "defense-heroes-shiro": {
+    "source": "assets/models/defense_heroes/shiro.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: defense_heroes"
+  },
+  "defense-heroes-raku": {
+    "source": "assets/models/defense_heroes/raku.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: defense_heroes"
+  },
+  "defense-heroes-banji": {
+    "source": "assets/models/defense_heroes/banji.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: defense_heroes"
+  },
+  "defense-heroes-touma": {
+    "source": "assets/models/defense_heroes/touma.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: defense_heroes"
+  },
+  "defense-heroes-kuren": {
+    "source": "assets/models/defense_heroes/kuren.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: defense_heroes"
+  },
+  "defense-heroes-gaku": {
+    "source": "assets/models/defense_heroes/gaku.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: defense_heroes"
+  },
+  "defense-heroes-izumi": {
+    "source": "assets/models/defense_heroes/izumi.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: defense_heroes"
+  },
+  "defense-heroes-nagi": {
+    "source": "assets/models/defense_heroes/nagi.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: defense_heroes"
+  },
+  "defense-heroes-sen": {
+    "source": "assets/models/defense_heroes/sen.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: defense_heroes"
+  },
+  "dogs-hayate": {
+    "source": "assets/models/dogs/hayate.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: dogs"
+  },
+  "dogs-iwa": {
+    "source": "assets/models/dogs/iwa.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: dogs"
+  },
+  "dogs-maboro": {
+    "source": "assets/models/dogs/maboro.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: dogs"
+  },
+  "dogs-haku": {
+    "source": "assets/models/dogs/haku.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: dogs"
+  },
+  "dogs-kogane": {
+    "source": "assets/models/dogs/kogane.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: dogs"
+  },
+  "dogs-daigo": {
+    "source": "assets/models/dogs/daigo.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: dogs"
+  },
+  "dogs-mine": {
+    "source": "assets/models/dogs/mine.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: dogs"
+  },
+  "dogs-kage": {
+    "source": "assets/models/dogs/kage.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: dogs"
+  },
+  "dogs-suzu": {
+    "source": "assets/models/dogs/suzu.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: dogs"
+  },
+  "dogs-arashi": {
+    "source": "assets/models/dogs/arashi.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: dogs"
+  },
+  "architecture-torii": {
+    "source": "assets/models/architecture/torii.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: architecture"
+  },
+  "architecture-temple-roof": {
+    "source": "assets/models/architecture/temple_roof.glb",
+    "preserve_mesh_nodes": "(?i)roof",
+    "usage": "Gameplay catalog: architecture"
+  },
+  "environments-cherry-tree": {
+    "source": "assets/models/environments/cherry_tree.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: environments"
+  },
+  "environments-green-tree": {
+    "source": "assets/models/environments/green_tree.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: environments"
+  },
+  "environments-moss-rock": {
+    "source": "assets/models/environments/moss_rock.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: environments"
+  },
+  "environments-palm": {
+    "source": "assets/models/environments/palm.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: environments"
+  },
+  "weapons-golden-pipe": {
+    "source": "assets/models/weapons/golden_pipe.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Gameplay catalog: weapons"
+  },
+  "weapons-chain-pipe": {
+    "source": "assets/models/weapons/chain_pipe.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Gameplay catalog: weapons"
+  },
+  "weapons-koban": {
+    "source": "assets/models/weapons/koban.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Gameplay catalog: weapons"
+  },
+  "costumes-ronin-scarf": {
+    "source": "assets/models/costumes/ronin_scarf.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Gameplay catalog: costumes"
+  },
+  "vfx-smoke-billow-2": {
+    "source": "assets/models/vfx/smoke_billow_2.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: vfx"
+  },
+  "vfx-edo-fire-burst": {
+    "source": "assets/models/vfx/edo_fire_burst.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: vfx"
+  },
+  "vfx-smoke-billow-1": {
+    "source": "assets/models/vfx/smoke_billow_1.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: vfx"
+  },
+  "vfx-smoke-billow-0": {
+    "source": "assets/models/vfx/smoke_billow_0.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Gameplay catalog: vfx"
+  },
+  "enemy-straw-hat-bandit": {
+    "source": "assets/models/enemies/original_set/straw_hat_bandit.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Crowd source; named limbs drive shader animation"
+  },
+  "enemy-lantern-yokai": {
+    "source": "assets/models/enemies/original_set/lantern_yokai.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Crowd source; named limbs drive shader animation"
+  },
+  "enemy-daruma-bruiser": {
+    "source": "assets/models/enemies/original_set/daruma_bruiser.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Crowd source; named limbs drive shader animation"
+  },
+  "enemy-masked-foot-soldier": {
+    "source": "assets/models/enemies/original_set/masked_foot_soldier.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Crowd source; named limbs drive shader animation"
+  },
+  "enemy-armored-oni": {
+    "source": "assets/models/enemies/neon_set/armored_oni.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Crowd source; named limbs drive shader animation"
+  },
+  "enemy-cyber-ronin": {
+    "source": "assets/models/enemies/neon_set/cyber_ronin.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Crowd source; named limbs drive shader animation"
+  },
+  "soldier-soldier_2": {
+    "source": "assets/characters/thirstquencher/soldier_2.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Native soldier contact hull source; renderer already batches recovered JSON"
+  },
+  "soldier-light-1": {
+    "source": "assets/models/enemies/thirstquencher/soldier_1.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Approved light-polish source; native soldier bake keeps rigid part IDs and batches into three texture groups"
+  },
+  "soldier-light-2": {
+    "source": "assets/models/enemies/thirstquencher/soldier_2.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Approved light-polish source; native soldier bake keeps rigid part IDs and batches into three texture groups"
+  },
+  "soldier-light-3": {
+    "source": "assets/models/enemies/thirstquencher/soldier_3.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Approved light-polish source; native soldier bake keeps rigid part IDs and batches into three texture groups"
+  },
+  "soldier-soldier_3": {
+    "source": "assets/characters/thirstquencher/soldier_3.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Native soldier contact hull source; renderer already batches recovered JSON"
+  },
+  "soldier-soldier_1": {
+    "source": "assets/characters/thirstquencher/soldier_1.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Native soldier contact hull source; renderer already batches recovered JSON"
+  },
+  "effect-projectiles-casing": {
+    "source": "assets/characters/thirstquencher/projectiles/casing.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Playable projectile/effect attachments"
+  },
+  "effect-projectiles-bullet": {
+    "source": "assets/characters/thirstquencher/projectiles/bullet.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Playable projectile/effect attachments"
+  },
+  "effect-ed-beam_shield": {
+    "source": "assets/characters/recovered_leaders/ed/beam_shield.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Playable projectile/effect attachments"
+  },
+  "effect-ben-projectile": {
+    "source": "assets/characters/recovered_leaders/ben/projectile.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Playable projectile/effect attachments"
+  },
+  "effect-ben-axe": {
+    "source": "assets/characters/recovered_leaders/ben/axe.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Playable projectile/effect attachments"
+  },
+  "effect-beam-companion": {
+    "source": "assets/characters/recovered_leaders/ed/beam/companion.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Playable projectile/effect attachments"
+  },
+  "effect-beam-main": {
+    "source": "assets/characters/recovered_leaders/ed/beam/main.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Playable projectile/effect attachments"
+  },
+  "worker-equipment": {
+    "source": "assets/models/forest/rom_worker_equipment.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Named hat/pickaxe meshes use native worker transforms"
+  },
+  "thief-equipment": {
+    "source": "assets/models/characters/rom_goemon_base/master_thief_equipment.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Native Master Thief equipment"
+  },
+  "skin-kai": {
+    "source": "assets/models/characters/kai.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Original game skin switching requires named Skin/Hair meshes"
+  },
+  "skin-ren_rival": {
+    "source": "assets/models/characters/ren_rival.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Original game skin switching requires named Skin/Hair meshes"
+  },
+  "edo-legacy": {
+    "source": "assets/characters/musashi/model/musashi.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Retained selectable Edo; existing one-surface mesh"
+  },
+  "kojiro": {
+    "source": "assets/models/characters/kojiro/kojiro.glb",
+    "preserve_mesh_nodes": "^Part_[0-9]+$",
+    "usage": "Playable Kojiro; all 15 original rigid parts and 21 authored clips remain independently animated"
+  },
+  "warcraft-blademaster": {
+    "source": "assets/models/characters/warcraft/blademaster/blademaster.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Playable Warcraft hero; preserve each geoset for authored form/effect visibility and all original skin actions"
+  },
+  "warcraft-demon-hunter": {
+    "source": "assets/models/characters/warcraft/demon-hunter/demon-hunter.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Playable Warcraft hero; preserve each geoset for authored form/effect visibility and all original skin actions"
+  },
+  "warcraft-peasant": {
+    "source": "assets/models/characters/warcraft/peasant/peasant.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Human Peasant workforce; native skin, 22 actions and independent tool/cargo visibility"
+  },
+  "illidan-first-person": {
+    "source": "assets/models/characters/warcraft/demon-hunter/first_person.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Player meta hands only; authored relaxed/cast clips, finger skin and Muzzle socket. Separate editable first-person sculpt."
+  }
+}

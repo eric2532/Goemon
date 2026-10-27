@@ -40,6 +40,10 @@ func run():
  check(world.get_node_or_null("WarmSoldierBullet")!=null and world.get_node_or_null("WarmSoldierCasing")!=null,"Original bullet skinning and casing graphics are prepared before the first gunshot")
  var sparks=world.find_children("*","MultiMeshInstance3D",true,false)
  check(sparks.any(func(node):return node.material_override is ShaderMaterial and node.material_override.shader.resource_path.ends_with("energy_sparks.gdshader")),"The instanced impact-spark graphics are prepared")
+ for kit in [preload("res://scripts/forest/dark_lumina_kit.gd"),preload("res://scripts/forest/dark_lumina_3_kit.gd")]:
+  for key in kit.meshes:
+   var sample=world.get_node_or_null("WarmBoss_"+str(kit.ROLE)+"_"+key)
+   check(sample is MultiMeshInstance3D and sample.multimesh.mesh==kit.meshes[key] and sample.multimesh.use_custom_data,"Boss graphics warm the existing mesh and shader: "+key)
  check(world.find_children("*","CollisionObject3D",true,false).is_empty() and world.find_children("*","AudioStreamPlayer",true,false).is_empty(),"Warmup samples contain no collision bodies or playing combat sounds")
  world.queue_free();warmup.queue_free()
  for i in 8:await process_frame

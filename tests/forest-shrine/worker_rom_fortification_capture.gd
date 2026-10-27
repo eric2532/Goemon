@@ -1,6 +1,6 @@
 extends SceneTree
 const Art=preload("res://scripts/forest/forest_art.gd")
-var out="/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Worker ROM and Fortifications"
+var out="/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Asset Toolkit/Warcraft/Peasant"
 var camera:Camera3D
 var stage:Node3D
 func _initialize():run.call_deferred()

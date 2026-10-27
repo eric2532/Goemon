@@ -1,0 +1,39 @@
+{
+  "unit": "hpea",
+  "model": "Units/Human/Peasant/Peasant.mdx",
+  "event": "SNDXAREP",
+  "sound_label": "Repair",
+  "work_offset_seconds": 0.234,
+  "samples": [
+    {
+      "path": "Abilities/Spells/Other/Repair/PeonRepair1.wav",
+      "archive": "war3.mpq",
+      "bytes": 3816,
+      "sha256": "72b112ac59bb8080e61d6fa5354589123c590499f3b75a8827fc879e4566c788",
+      "file": "PeonRepair1.wav",
+      "sample_rate": 22050,
+      "frames": 1835,
+      "pcm_sha256": "b74fd56f04b2ade0f3c53b330d2959c3d0dc7bb1fa4a6d65eee6c240eb989a08"
+    },
+    {
+      "path": "Abilities/Spells/Other/Repair/PeonRepair2.wav",
+      "archive": "war3.mpq",
+      "bytes": 2814,
+      "sha256": "38643dd0222070244987d79993399503ec66de2394bdbbe45b15641be961b58d",
+      "file": "PeonRepair2.wav",
+      "sample_rate": 22050,
+      "frames": 1334,
+      "pcm_sha256": "730db391620732ce2ce6fdfb3b01e266f45986d79bba2653bb03c0c60c10ba2f"
+    },
+    {
+      "path": "Abilities/Spells/Other/Repair/PeonRepair3.wav",
+      "archive": "war3.mpq",
+      "bytes": 4930,
+      "sha256": "c27f28089f89a264796d29a09a7ac71988ab2b0333d1b4ac23130ea9ca7da651",
+      "file": "PeonRepair3.wav",
+      "sample_rate": 22050,
+      "frames": 2392,
+      "pcm_sha256": "740ab767adcf9e0c4eff30079fd95c5a43f4b7a0d3eb60f7db42d29f29a00700"
+    }
+  ]
+}

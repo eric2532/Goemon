@@ -1,6 +1,7 @@
 extends SceneTree
 var checks=0
 var failures=0
+const SIZE=preload("res://scripts/weapon_proportions.gd").RECOVERED_SKILL_SCALE
 func check(ok:bool,label:String):
  checks+=1
  if not ok:failures+=1;push_error(label)
@@ -13,6 +14,7 @@ func run():
  p.velocity=Vector3.ZERO
  var c=p.active_ability;var m=p.model
  var front=fixture.add_target(p.position+Vector3.FORWARD*3.9);front.hp=10000;front.max_hp=10000
+ var far=fixture.add_target(p.position+Vector3.FORWARD*3.9*SIZE);far.hp=10000;far.max_hp=10000
  var back=fixture.add_target(p.position+Vector3.BACK*3.9);back.hp=10000;back.max_hp=10000
  await physics_frame;await physics_frame
  c.select_number(1)
@@ -31,17 +33,18 @@ func run():
   m.animate(0,0,true,0,1,true,1,false)
   check(absf(wrapf(m.body.rotation.y+angles[i]*TAU/4096.0,-PI,PI))<.0001,'rig body really turns with native yaw%d'%i)
  check(back.hp<10000,'later sweep reaches the target behind')
+ check(far.hp<10000,'enlarged spin also contacts enemies near the new outer blade reach')
  var bone=m.skeleton.find_bone('Part_25_weapon_attachment')
- check(m.skeleton.get_bone_pose_scale(bone).is_equal_approx(Vector3.ONE*1.25),'spin scales only drawn Lumina by source maximum1.25')
+ check(m.skeleton.get_bone_pose_scale(bone).is_equal_approx(Vector3.ONE*1.25*SIZE),'spin scales only drawn Lumina by source maximum1.25 times shared skill size')
  m.animate(0,0,true,0,1,true,1,false)
- check(m.skeleton.get_bone_pose_scale(bone).is_equal_approx(Vector3.ONE*1.25),'paused pose resampling does not compound sword scale')
+ check(m.skeleton.get_bone_pose_scale(bone).is_equal_approx(Vector3.ONE*1.25*SIZE),'paused pose resampling does not compound sword scale')
  check(m.rotation_effect.vortices.is_empty(),'ordinary Rotation does not borrow Mighty Strike vortex')
  c.tick(1.0/30.0);m.animate(0,0,true,0,1,true,1,false)
  check(c.action_key=='rotation_end' and c.clip=='Recovered__800d53a4' and m.body.rotation.y==0,'following source update restores facing and resumes original tail')
  c.tick(4.0/30.0);check(not c.is_attacking(),'four tail ticks end spin')
  c.select_number(2)
  c.tick(1.0/30.0);m.animate(0,0,true,0,1,true,1,false)
- check(m.skeleton.get_bone_pose_scale(bone).is_equal_approx(Vector3.ONE*(0x19EB/4096.0)),'Mighty Strike uses original1.62x Lumina size')
+ check(m.skeleton.get_bone_pose_scale(bone).is_equal_approx(Vector3.ONE*(0x19EB/4096.0)*SIZE),'Mighty Strike uses original1.62x Lumina ratio times shared skill size')
  check(c.mode=='counter' and c.clip=='Table_23__800d552c','2 selects distinct original Mighty Strike stream')
  check(m.sword_trail.length_divisor==39,'Mighty Strike uses descriptor7')
  c.tick(9.0/30.0);check(m.rotation_effect.vortices.is_empty(),'counter effects wait for source11')

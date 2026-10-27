@@ -32,7 +32,7 @@ func _ready():
 	library=game.sound_library
 	if library.character_id not in library.Roster.selection_ids():library.select_character(1)
 	var panel=Panel.new();panel.position=Vector2(45,58);panel.size=Vector2(1220,785);panel.mouse_filter=Control.MOUSE_FILTER_IGNORE
-	var style=StyleBoxFlat.new();style.bg_color=Color(0.025,0.075,0.10,0.96);style.border_color=Color("827750");style.set_border_width_all(1);style.set_corner_radius_all(12);panel.add_theme_stylebox_override("panel",style);add_child(panel)
+	var style=StyleBoxFlat.new();style.bg_color=Color(.16,.045,.10,.94);style.border_color=Color("c9c5d2");style.set_border_width_all(1);style.set_corner_radius_all(12);panel.add_theme_stylebox_override("panel",style);add_child(panel)
 	game.label_at(self,"SOUND STUDIO",Vector2(80,95),42)
 	hub_title=game.label_at(self,"",Vector2(82,154),20,Color("dfc384"))
 	characters=OptionButton.new();characters.name="SoundCharacter";characters.position=Vector2(80,205);characters.size=Vector2(330,42);add_child(characters)
@@ -71,7 +71,7 @@ func _ready():
 
 func make_layer(key: String,x: float,title: String):
 	var card=Panel.new();card.position=Vector2(x,357);card.size=Vector2(360,328);card.mouse_filter=Control.MOUSE_FILTER_IGNORE
-	var style=StyleBoxFlat.new();style.bg_color=Color("102d36");style.border_color=Color("526c68");style.set_border_width_all(1);style.set_corner_radius_all(8);card.add_theme_stylebox_override("panel",style);add_child(card)
+	var style=StyleBoxFlat.new();style.bg_color=Color(.16,.045,.09,.95);style.border_color=Color("c9c5d2");style.set_border_width_all(1);style.set_corner_radius_all(8);card.add_theme_stylebox_override("panel",style);add_child(card)
 	var controls={}
 	controls.title=game.label_at(self,title,Vector2(x+18,370),24,Color("dfc384"))
 	controls.state=game.label_at(self,"",Vector2(x+18,410),16);controls.state.size=Vector2(324,40);controls.state.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
@@ -89,8 +89,9 @@ func make_layer(key: String,x: float,title: String):
 		var target=layer_slot(key)
 		if not target.is_empty():library.listen(game.sound_preview(library.character_id,target),target),145)
 	controls.record=game.button_at(self,"● Record",Vector2(x+180,569),func():choose_layer(key);library.begin(slot),162)
-	controls.reset=game.button_at(self,"Restore default" if key=="weapon" else "Reset to silence",Vector2(x+18,628),func():library.reset_slot(layer_slot(key)),324)
+	controls.reset=game.button_at(self,"Restore default",Vector2(x+18,628),func():library.reset_slot(layer_slot(key)),324)
 	controls.reset.size.y=40;controls.reset.add_theme_font_size_override("font_size",17)
+	controls.reset.tooltip_text="Use the built-in sound at 100% volume with no mute."
 	layers[key]=controls
 
 func layer_slot(key: String)->String:
@@ -122,7 +123,7 @@ func refresh_devices():
 	refresh()
 
 func refresh():
-	hub_title.text=library.character_name(library.character_id)+" · choose a move, then record either layer"
+	hub_title.text=library.character_name(library.character_id)+" · record your sound or restore its built-in default"
 	characters.disabled=library.recording
 	status_label.text=library.status
 	stop_button.disabled=not library.recording
@@ -135,10 +136,11 @@ func refresh():
 	paired_preview.disabled=library.recording or move_key.is_empty() or slots.item_count==0
 	for key in layers:
 		var c=layers[key];var target=layer_slot(key);var available=not target.is_empty() and slots.item_count>0
-		var recorded=available and library.custom.has(target)
+		var preview_stream=game.sound_preview(library.character_id,target) if available else null
+		var playback=library.playback_for(library.character_id,target,preview_stream) if available else {}
+		var recorded=available and playback.recorded
 		c.title.text=("Sound" if move_key.is_empty() else "Weapon") if key=="weapon" else "Character voice"
-		c.state.text=("Recorded · your take" if recorded else ("Silent until you record" if key=="voice" else "Existing weapon sound")) if available else "Select a move to add character voice"
-		if available and key=="weapon" and move_key.is_empty():c.state.text="Recorded · your take" if recorded else "Existing sound"
+		c.state.text=("Recorded · your take" if recorded else ("Built-in default" if preview_stream!=null else "Silent by default")) if available else "No separate voice layer for this sound"
 		if available and library.recording and library.active_slot==target:c.state.text="Recording this layer…"
 		elif available and library.take and library.take_slot==target:c.state.text="Take ready · listen, then save below"
 		c.volume.editable=available and not library.recording
@@ -147,8 +149,8 @@ func refresh():
 		c.mute.disabled=not available or library.recording
 		c.mute.set_pressed_no_signal(available and library.is_muted_for(library.character_id,target))
 		c.record.disabled=not available or library.recording or devices.item_count==0
-		c.play.disabled=not available or library.recording or game.sound_preview(library.character_id,target)==null
-		c.reset.disabled=not available or library.recording or (not recorded and is_equal_approx(c.volume.value,1.0) and not c.mute.button_pressed)
+		c.play.disabled=not available or library.recording or preview_stream==null
+		c.reset.disabled=not available or library.recording or (not recorded and is_equal_approx(playback.gain,1.0) and not c.mute.button_pressed and not (preview_stream!=null and playback.muted))
 	record_button=layers[active_layer].record;reset_button=layers[active_layer].reset
 	volume=layers[active_layer].volume;volume_label=layers[active_layer].value
 	for i in range(slots.item_count):
@@ -164,15 +166,16 @@ func refresh():
 func refresh_slots():
 	var previous=layer_slot("weapon")
 	slots.clear();list_labels.clear()
-	var paired={};var shared={}
+	var paired={}
+	var visible=library.studio_slots_for(library.character_id)
 	for key in library.moves_for(library.character_id):
 		var move=library.moves_for(library.character_id)[key]
+		if not visible.has(move.weapon):continue
 		list_labels[move.weapon]=move.label
 		paired[move.weapon]=true;paired[move.voice]=true
-		shared[move.legacy]=true
-	for key in library.slots_for(library.character_id):
+	for key in visible:
 		if paired.has(key):continue
-		list_labels[key]=("Shared weapon · " if shared.has(key) else "Other · ")+library.slots_for(library.character_id)[key]
+		list_labels[key]="Effect · "+visible[key]
 	var selected=false
 	for key in list_labels:
 		if not search.text.is_empty() and not search.text.to_lower() in list_labels[key].to_lower():continue

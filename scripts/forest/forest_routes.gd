@@ -12,7 +12,7 @@ func _init(model):reference=weakref(model)
 static func direction(portal: Dictionary)->Vector3:
 	return [Vector3.FORWARD,Vector3.RIGHT,Vector3.BACK,Vector3.LEFT][int(portal.rotation)%4]
 static func exit_point(portal: Dictionary,variant: int)->Vector3:
-	return Vector3(portal.x*6,0,portal.z*6)+direction(portal)*(18.0 if variant==2 else 6.0)
+	return Vector3(portal.x*6,0,portal.z*6)+direction(portal)*float(portal.get("spawn_distance",18.0 if variant==2 else 6.0))
 func guidance(point: Vector3,variant: int=0)->Array:
 	if revision!=m.navigation_revision:road_cache.clear();gate_cache.clear();revision=m.navigation_revision
 	var start: Vector2i=m.cell_of(point)
@@ -33,7 +33,7 @@ func guidance(point: Vector3,variant: int=0)->Array:
 		if distance<best:best=distance;end=cell
 		for step in [Vector2i.UP,Vector2i.RIGHT,Vector2i.DOWN,Vector2i.LEFT]:
 			var next=cell+step
-			if m.roads.has(next) and not parents.has(next) and (not m.has_elevation() or (not m.enemy_grid.is_point_solid(next) and m.waves.navigation.terrain_clear(m.point(next),Roles.footprint_radius(variant)) and m.terrain.step_clear(m.point(cell),m.point(next)))):parents[next]=cell;queue.append(next)
+			if m.roads.has(next) and not parents.has(next) and (not m.has_elevation() or (not m.enemy_grid.is_point_solid(next) and m.waves.navigation.terrain_clear(m.point(next),Roles.footprint_radius(variant,m.balance.enemy_size_mult)) and m.terrain.step_clear(m.point(cell),m.point(next)))):parents[next]=cell;queue.append(next)
 	var path=[];var cursor=end
 	while cursor!=anchor:path.push_front(cursor);cursor=parents[cursor]
 	path.push_front(anchor)
@@ -46,16 +46,17 @@ func spawn(variant: int,reserved: Array,portal_index: int=-1)->bool:
 	var navigation=m.waves.navigation
 	for offset in range(1 if portal_index>=0 else m.portals.size()):
 		var index=portal_index if portal_index>=0 else (portal_cursor+offset)%m.portals.size();var portal: Dictionary=m.portals[index]
+		if float(portal.get("hp",1.0))<=0:continue
 		var forward=direction(portal);var side=Vector3(-forward.z,0,forward.x)
 		for lateral in ([0] if variant in [2,4] else [0,3,-3,6,-6,9,-9,12,-12]):
 			var point=exit_point(portal,variant)+side*lateral
 			point.y=m.surface_height(point.x,point.z)
 			if m.trees.has(m.cell_of(point)):continue
 			var facing=atan2(-forward.x,-forward.z);var probe={"pos":point,"variant":variant,"facing":facing}
-			if not navigation.move_clear(point,Roles.footprint_radius(variant)) or navigation.fitted_blocker(probe,point)>=0:continue
+			if not navigation.move_clear(point,Roles.footprint_radius(variant,m.balance.enemy_size_mult)) or navigation.fitted_blocker(probe,point)>=0:continue
 			var clear=true
-			var radius=Roles.visibility_radius(variant)
-			if m.hero_position.y-point.y<Roles.height(variant)+3 and m.waves.horizontal_distance(point,m.hero_position)<radius+1.2:continue
+			var radius=Roles.visibility_radius(variant,m.balance.enemy_size_mult)
+			if m.hero_position.y-point.y<Roles.height(variant,m.balance.enemy_size_mult)+3 and m.waves.horizontal_distance(point,m.hero_position)<radius+1.2:continue
 			for worker in m.workers.values():
 				if worker.state!="wounded" and m.waves.horizontal_distance(point,worker.pos)<radius+1.0:clear=false;break
 			if not clear:continue
@@ -63,7 +64,7 @@ func spawn(variant: int,reserved: Array,portal_index: int=-1)->bool:
 			for position in reserved:
 				if position.distance_to(point)<1.8:clear=false;break
 			if not clear:continue
-			var enemy=m.waves.spawn_enemy(variant,point);enemy.facing=facing;enemy.portal_index=index;enemy.road_path=[];m.waves.register_spawn(enemy)
+			var enemy=m.waves.spawn_enemy(variant,point,index);enemy.facing=facing;enemy.portal_index=index;enemy.road_path=[];m.waves.register_spawn(enemy)
 			portal_cursor=(index+1)%m.portals.size();reserved.append(point);return true
 	return false
 func gate_target(enemy: Dictionary)->int:
@@ -75,7 +76,7 @@ func gate_target(enemy: Dictionary)->int:
 		var gate: Dictionary=m.buildings[selected]
 		if gate.get("breached",false) and enemy.get("crossing_gate",-1)==selected and not navigation.gate_crossing_complete(enemy,gate):return selected
 		if navigation.gate_exterior(enemy,gate) and enemy.get("entry_gate_nav",-1)==m.navigation_revision:return selected
-	var key=Vector3i(start.x,start.y,roundi(Roles.footprint_radius(int(enemy.variant))*1000))
+	var key=Vector3i(start.x,start.y,roundi(Roles.footprint_radius(int(enemy.variant),m.balance.enemy_size_mult)*1000))
 	if revision!=m.navigation_revision:road_cache.clear();gate_cache.clear();revision=m.navigation_revision
 	var cached: Dictionary=gate_cache.get(key,{})
 	if not cached.is_empty():
@@ -115,12 +116,13 @@ func movement_path(enemy: Dictionary)->Array:
 	return path
 static func validate_portals(model)->String:
 	if model.portals.is_empty():return ""
-	var nav=model.waves.navigation;var contacts=nav.approach_points(2,model.shrine());var routes=load("res://scripts/forest/forest_routes.gd").new(model)
+	var variant=Roles.HAYA_WOLF
+	var radius=Roles.footprint_radius(variant,model.balance.enemy_size_mult)
+	var nav=model.waves.navigation;var contacts=nav.approach_points(variant,model.shrine());var routes=load("res://scripts/forest/forest_routes.gd").new(model)
 	for portal in model.portals:
-		var point=exit_point(portal,2);point.y=model.surface_height(point.x,point.z);var forward=direction(portal);var probe={"pos":point,"variant":2,"facing":atan2(-forward.x,-forward.z)}
-		if not nav.move_clear(point,8.5) or nav.fitted_blocker(probe,point)>=0:return "Clear a five-tile-wide exit in front of each portal for the giant."
+		var point=exit_point(portal,variant);point.y=model.surface_height(point.x,point.z);var forward=direction(portal);var probe={"pos":point,"variant":variant,"facing":atan2(-forward.x,-forward.z)}
+		if not nav.move_clear(point,radius) or nav.fitted_blocker(probe,point)>=0:return "Clear an exit in front of each portal for ordinary enemies."
 		if not nav.has_approach(probe,contacts):return "Keep a clear approach from every portal to the base."
-		for variant in [0,2]:
-			for cell in routes.guidance(exit_point(portal,variant),variant):
-				if not nav.terrain_clear(model.point(cell),8.5 if not model.has_elevation() else Roles.footprint_radius(variant)):return "Widen the portal road near (%d, %d) to five tiles and clear nearby trees."%[cell.x,cell.y]
+		for cell in routes.guidance(point,variant):
+			if not nav.terrain_clear(model.point(cell),radius):return "Widen the portal road near (%d, %d) and clear nearby trees."%[cell.x,cell.y]
 	return ""

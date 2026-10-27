@@ -27,7 +27,7 @@ func run():
  var camera_before=game.camera_rig.camera.transform
  game.ui.hide();await capture("gate-tower-before")
  button.pressed.emit();await frames()
- check(game.painterly_preview and game.world.painterly_pilot.enabled and button.text=="Painterly: On","Building button enables the preview and reflects its state")
+ check(game.painterly_preview and game.world.painterly_pilot.enabled and button.text=="PAINTERLY: ON","Building button enables the preview and reflects its state")
  check(game.player.hp==hp and game.player.position==position_ and game.player.character_id==selected,"Toggle preserves the fighter, position and health")
  check(game.camera_rig.camera.transform==camera_before,"Comparison leaves camera framing unchanged")
  await capture("gate-tower-painterly")
@@ -37,9 +37,9 @@ func run():
  await capture("gate-eye-level-painterly")
  game.toggle_painterly_preview();await capture("gate-eye-level-before")
  check(not game.painterly_preview and not game.world.painterly_pilot.enabled,"The same button returns to the current look")
- game.open_map_editor();await frames();game.map_editor.load_original();await frames()
+ game.open_map_editor();await frames();preload("res://tests/forest-shrine/reference/map_document.gd").load_editor(game.map_editor,preload("res://tests/forest-shrine/reference/map_document.gd").ORIGINAL_PATH);await frames()
  check(game.model.ramparts.is_empty(),"Original Map remains accessible in the editor")
- game.map_editor.load_ramparts();await frames();game.map_editor.close_discard();await frames()
+ preload("res://tests/forest-shrine/reference/map_document.gd").load_editor(game.map_editor,preload("res://tests/forest-shrine/reference/map_document.gd").RAMPARTS_PATH);await frames();game.map_editor.close_discard();await frames()
  check(game.model.ramparts.size()==5,"Current Twin Ramparts map also remains accessible")
  game.toggle_painterly_preview();game.start_wave();game.model.waves.pending=0;game.model.waves.spawn_clock=10000
  check(game.model.phase=="wave" and game.world.painterly_pilot.enabled,"Normal wave gameplay starts while the art pilot is enabled")

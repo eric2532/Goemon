@@ -119,9 +119,9 @@ func repair_rate_and_funds():
 	var door=build_(m,"gate",Vector2i(-1,6));door.hp-=200
 	var w: Dictionary=m.workers.values()[0];w.pos=m.point(Vector2i(0,5))
 	m.gold=20;m.workforce.auto_assign();work(m,1)
-	check(is_equal_approx(door.hp,1840) and m.gold==16,"One worker restores 40 HP per second for four integer ryo during preparation")
+	check(is_equal_approx(door.hp,2350) and m.gold==16,"One worker restores 50 HP per second for four integer ryo during preparation")
 	m.gold=2;var before=door.hp;work(m,1)
-	check(is_equal_approx(door.hp,before+20) and m.gold==0,"Insufficient funds stop repair exactly at the affordable health without negative gold")
+	check(is_equal_approx(door.hp,before+25) and m.gold==0,"Insufficient funds stop repair exactly at the affordable health without negative gold")
 	before=door.hp;work(m,2)
 	check(door.hp==before and m.gold==0 and w.job==-1,"Unfunded repair workers release the job and never heal for free")
 	m.gold=10;door.hp=door.max_hp-3;m.workforce.auto_assign();work(m,1)
@@ -132,7 +132,7 @@ func repair_rate_and_funds():
 	m.gold=10;m.workforce.auto_assign();before=door.hp;work(m,.2)
 	check(door.hp==before and m.gold==10,"Time without funds cannot accumulate a free immediate repair burst")
 	work(m,.05)
-	check(door.hp==before+10 and m.gold==9,"Funding a new repair starts the normal quarter-second paid cadence")
+	check(door.hp==before+12.5 and m.gold==9,"Funding a new repair starts the normal quarter-second paid cadence")
 	m=fresh();keep_workers(m,2);door=build_(m,"gate",Vector2i(-1,6));door.hp-=10
 	for worker in m.workers.values():worker.pos=m.point(Vector2i(0,5))
 	m.gold=1;m.workforce.auto_assign();work(m,.5)
@@ -148,9 +148,9 @@ func breached_removed_and_rebuilt_doors():
 	m.damage_building(door.id,10000)
 	check(m.buildings.has(original_id) and door.hp==0 and door.breached,"A destroyed door retains its repairable building ID at zero health")
 	m.phase="preparing";var before=m.gold;work(m,1)
-	check(w.job==door.id and door.hp==40 and m.gold==before-4 and door.breached,"A borrowed miner rebuilds the same zero-health door with the normal paid cadence")
+	check(w.job==door.id and door.hp==50 and m.gold==before-4 and door.breached,"A borrowed miner rebuilds the same zero-health door with the normal paid cadence")
 	work(m,50)
-	check(door.hp==2000 and not door.breached and door.id==original_id and w.job==mine.id,"Completing the breached door preserves its ID and restores the borrowed miner's prior job")
+	check(door.hp==2500 and not door.breached and door.id==original_id and w.job==mine.id,"Completing the breached door preserves its ID and restores the borrowed miner's prior job")
 	# Explicit map removal must still cancel an obsolete repair reservation.
 	door.hp-=100;w.pos=m.point(Vector2i(0,5));m.workforce.auto_assign()
 	m._remove_building(door.id);m.rebuild_navigation();before=m.gold;work(m,1)

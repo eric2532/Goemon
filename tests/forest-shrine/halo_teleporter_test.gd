@@ -16,7 +16,7 @@ func snapshot(node:Node)->Array:
   for slot in mesh.mesh.get_surface_count():result.append(mesh.get_active_material(slot))
  return result
 func run():
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_blood_gulch()
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_blood_gulch()
  var model=load("res://tests/forest-shrine/reference/forest_model.gd").new();model.reset(42,{},doc.data);model.workers.clear()
  var before=model.portals.duplicate(true)
  var world=load("res://scripts/forest/forest_world.gd").new();world.model=model;world.painterly_preview_enabled=true;root.add_child(world)

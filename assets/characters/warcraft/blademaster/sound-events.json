@@ -1,0 +1,38 @@
+[
+  {
+    "animation": "Attack Slam",
+    "sound": "CriticalStrike",
+    "offset_seconds": 0.733,
+    "path": "Units/Orc/HeroBladeMaster/CriticalStrike.wav"
+  },
+  {
+    "animation": "Death",
+    "sound": "HeroBladeMasterDeath",
+    "offset_seconds": 0.0,
+    "path": "Units/Orc/HeroBladeMaster/HeroBladeMasterDeath.wav"
+  },
+  {
+    "animation": "Attack",
+    "sound": "HeroBladeMasterAttack1",
+    "offset_seconds": 0.0,
+    "path": "Units/Orc/HeroBladeMaster/HeroBladeMasterAttack1.wav"
+  },
+  {
+    "animation": "Attack 2",
+    "sound": "HeroBladeMasterAttack2",
+    "offset_seconds": 0.0,
+    "path": "Units/Orc/HeroBladeMaster/HeroBladeMasterAttack2.wav"
+  },
+  {
+    "animation": "Attack Walk Stand Spin",
+    "sound": "Whirlwind",
+    "offset_seconds": 0.0,
+    "path": "Units/Orc/HeroBladeMaster/BladeMasterWhirlwind.wav"
+  },
+  {
+    "animation": "Dissipate",
+    "sound": "OrcDissipate",
+    "offset_seconds": 0.0,
+    "path": "Sound/Units/Orc/OrcDissipate1.wav"
+  }
+]

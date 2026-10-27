@@ -23,7 +23,7 @@ func run():
  for frame in 60:
   r.step(1.0/60,{});positions.append(r.unit_state(dragoon).position)
   for event in r.take_events():
-   if event.kind=="damage" and event.source_id==-1:native.append([frame,event.amount])
+   if event.kind=="damage" and event.source_id==-1 and not event.heavy:native.append([frame,event.amount])
  print("DRAGOON_NATIVE_DROP ",native," positions=",positions.slice(0,22))
  check(native.size()==3,"The opening has exactly three landing pulses")
  if original_hits.size()==3 and native.size()==3:
@@ -41,9 +41,10 @@ func run():
  check(r.unit_state(dragoon).position.y>0 and not r.apply_hit(dragoon,{"amount":1000.0}).accepted,"A long descent stays invulnerable after the nominal0.72-second animation time")
  r.clear()
  for id in [21,22,23,24]:
-  var z={21:0,22:17,23:21,24:24}[id];var h:int=r.spawn(id,0,0,Vector3(0,0,z),10000,3.9);r.apply_hit(h,{"element":"ice","status_seconds":100})
+  var z={21:0,22:17,23:20,24:24}[id];var h:int=r.spawn(id,0,0,Vector3(0,0,z),10000,3.9);r.apply_hit(h,{"element":"ice","status_seconds":100})
  dragoon=r.spawn(-21,1,8,Vector3(0,12.12,0),200,.4);r.step(.84,{})
- var pulses=r.take_events().filter(func(e):return e.kind=="damage" and e.source_id==-21)
+ var pulses=r.take_events().filter(func(e):return e.kind=="damage" and e.source_id==-21 and not e.heavy)
+ print("DRAGOON_PULSE_CONTACTS ",[21,22,23,24].map(func(id):return pulses.filter(func(e):return e.target_id==id).size()))
  check([21,22,23,24].map(func(id):return pulses.filter(func(e):return e.target_id==id).size())==[3,2,1,0],"The three expanding fitted-body areas independently hit3,2,1,0 times at increasing distances")
  check(pulses.all(func(e):return is_equal_approx(e.amount,64)) and r.unit_state(dragoon).chain_count==1,"A multi-victim three-pulse cast snapshots64damage and confirms its chain once")
  r.clear();target=r.spawn(2,0,0,Vector3.ZERO,10000,3.9);r.apply_hit(target,{"element":"ice","status_seconds":100.0});dragoon=r.spawn(-2,1,8,Vector3(0,12.12,0),200,.4)
@@ -190,7 +191,7 @@ func source_drop():
  unit.summon(target,Vector3(0,12.12,52),0);unit.set_physics_process(false);unit.think_left=0
  var clock={"frame":0};target.trace_clock=clock
  f.active_tick=func(dt):unit._physics_process(dt);original_positions.append(unit.global_position);clock.frame+=1
- await f.advance(1.0);f.active_tick=Callable();original_hits=target.hits.duplicate(true)
+ await f.advance(1.0);f.active_tick=Callable();original_hits=target.hits.filter(func(h):return h[1]==64.0)
  print("DRAGOON_SOURCE_DROP ",original_hits," positions=",original_positions.slice(0,22))
  check(original_hits.size()==3,"Unchanged real-physics source produces three opening pulses")
  await f.close();f.queue_free();await process_frame

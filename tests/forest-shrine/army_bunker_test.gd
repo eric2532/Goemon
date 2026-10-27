@@ -34,11 +34,10 @@ func add_occupant(slot:int):
  return unit
 func run():
 
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path="user://army-bunker-%d.cfg"%OS.get_process_id();root.add_child(game)
  for i in 3:await process_frame
  game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false);game.crowd.set_process(false)
- for u in game.gate_defenders.units.values():u.set_physics_process(false)
  game.model.gold=5000;bunker=game.model.build("barracks",Vector2i(12,10),0);game.world.sync(0)
  army=game.army_runtime;army.record_events=true;game.tuning.critical_chance=0
  for slot in [1,2]:

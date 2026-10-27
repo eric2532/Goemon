@@ -1,0 +1,32 @@
+{
+  "controller": "0x801ac47c",
+  "palette_update": "0x801a9b80",
+  "clut": 21974,
+  "palette_rect": [
+    352,
+    343,
+    16,
+    1
+  ],
+  "rotation_entries": 4,
+  "frames": 4,
+  "fps": 30,
+  "sampled_patch": [
+    32,
+    224,
+    96,
+    256
+  ],
+  "source_sha256": {
+    "raw/MAIN.CD.dir/FILE_003": "2e11b08eec1a7af748b1fc6b4656aaea092ee9eb47aaa6ca78b8e1516905dc06",
+    "raw/SC07.CD.dir/FILE_000": "ea62439554a05f8b00c174fc353994e098514a8c1578c1337cfa385c5bfed4ec",
+    "raw/SC07.CD.dir/FILE_002": "5b8d0dfaa71afea34c24f973d0e9cea757b766131ba6b9b6acb73c163e608b24",
+    "raw/SC07.CD.dir/FILE_004": "1ff4ad8ee6d0e1ff99588f05f23a921179b420c265891aee6d91aa54a3d85ef3"
+  },
+  "frame_rgba_sha256": [
+    "69e43fe0f361a31f0997ed0857e2cccfcb4b59aaec06cdfb7d90e051a94af8f4",
+    "0d35033ddf7d213a3dc8567bf69d90c93aad9fab386c689d4f8d51a53e384b8b",
+    "e05cea83a16c40015a852a5c324371b2f5a7a32a9dab5cc688acb1d87b6ad2ec",
+    "2b5b493f582a8a0350e523b166276d47fea745525666cf9ad4827e2b7bd7086c"
+  ]
+}

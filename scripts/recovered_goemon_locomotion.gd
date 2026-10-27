@@ -66,7 +66,7 @@ func evaluate():
 		elif slot==2:
 			source_action=actor.original_coin_action if has_actor else Profile.coin_action(grounded,actual_speed>.25);source_time=elapsed
 		elif has_actor and actor.chain_pipe_combat.active:
-			var chain_pose:Dictionary=Profile.chain_at(elapsed,actor.chain_pipe_combat.duration,not grounded)
+			var chain_pose:Dictionary=actor.chain_pipe_combat.pose()
 			source_action=chain_pose.action;source_time=chain_pose.time_seconds
 	elif model.transform_age>=0:
 		var first:float=Profile.action_duration(0x82)

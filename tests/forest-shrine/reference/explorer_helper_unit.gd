@@ -1,6 +1,7 @@
 extends "res://scripts/player.gd"
 ## Mortal persistent mercenary; its native player kit hunts across the map.
 var director:Node
+var steering=preload("res://tests/forest-shrine/reference/forest_ally_steering.gd").new()
 var kit_id=5
 var slot=0
 var state="idle"
@@ -38,6 +39,7 @@ func ensure_character(id:int):
 func refresh_max_health(_heal_growth:bool=false):
  max_hp=float(director.HEALTH[slot]);hp=minf(hp,max_hp)
 func _ready():
+ steering.game=game
  ai_controlled=true
  super._ready()
  select_character(kit_id)
@@ -113,18 +115,18 @@ func think():
  var c=active_ability;var p=c.player
  ai_target=director.closest_guard_target(self);auto_attack_enabled=false;c.secondary_held=false
  if ai_target==null:
-  game.gate_defenders.set_destination(self,guard_post)
+  steering.set_destination(self,guard_post)
   return
  ai_aim=AttackChain.aim_point(ai_target,global_position+Vector3.UP)
  var offset=ai_aim-global_position;offset.y=0
- var gap=offset.length();var reach=game.gate_defenders.primary_range(self)
+ var gap=offset.length();var reach=steering.primary_range(self)
  auto_attack_enabled=gap<=reach+.8 and absf(ai_aim.y-global_position.y-1.3)<(12 if kit_id==10 else 3.5)
  var goal=global_position
  if kit_id==10:
   if gap>19:goal+=offset.normalized()*(gap-17)
   elif gap<7:goal-=offset.normalized()*4
  else:goal+=offset.normalized()*maxf(0,gap-reach*.7)
- game.gate_defenders.set_destination(self,goal)
+ steering.set_destination(self,goal)
  if kit_id==11:return # Explorers are dedicated primary-combo fighters.
  if p.travel!=null or p.roll>0:return
  var threat=false
@@ -145,7 +147,7 @@ func think():
  if kit_id==8 and gap>7 and gap<24 and leap_left<=0 and is_on_floor() and p.cooldowns.flintlock<=0:
   jump_buffer=.15;pending_thrust=true;leap_left=5;auto_attack_enabled=false;return
  var buff_before=float(p.buffTime)
- game.gate_defenders.use_special(self,gap)
+ steering.use_special(self,gap)
  if kit_id==7 and p.buffTime>buff_before:director.activate_taunt(self)
 func _physics_process(delta):
  if state=="idle":return

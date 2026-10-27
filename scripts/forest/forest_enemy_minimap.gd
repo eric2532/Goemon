@@ -35,12 +35,22 @@ func refresh():
  if not is_instance_valid(game) or game.model==null:return
  var model=game.model
  player_marker=map_position(game.player.global_position)
+ var runtime=game.get("army_runtime");var view=runtime.snapshot_view if is_instance_valid(runtime) else null
+ var handles:Dictionary=runtime.handles if view!=null else {}
+ var dimensions=Vector2(model.navigation_region.size)*model.CELL
+ var origin=(Vector2(model.navigation_region.position)+Vector2(model.navigation_region.size)*.5-Vector2.ONE*.5)*model.CELL
+ var middle=size*.5;var half=middle-Vector2.ONE*7.0
  # Read simulation positions directly, including portals outside shared sight.
  # Friendly units and the immortal training dummy are not wave enemies.
  for enemy in model.enemies.values():
   if enemy.hp<=0:continue
   var point:Vector3=enemy.pos
-  markers.append(map_position(point))
+  if view!=null:
+   var handle:int=handles.get(enemy.id,0);var slot:int=handle&0xffffffff
+   var index:int=view.rows_by_slot[slot] if handle!=0 and slot<view.rows_by_slot.size() else -1
+   if index>=0 and index<view.handles.size() and view.handles[index]==handle:point=view.positions[index]
+  var offset=(Vector2(point.x,point.z)-origin)/dimensions
+  markers.append(middle+(offset*half*2.0).clamp(-half,half))
  # Reuse one instanced circle mesh, avoiding hundreds of separate canvas draws.
  if markers.size()>dot_instances.instance_count:dot_instances.instance_count=nearest_po2(markers.size())
  dot_instances.visible_instance_count=markers.size()
@@ -77,6 +87,13 @@ func _draw():
  draw_rect(rect,BACKGROUND)
  draw_rect(rect,RIM,false,1.5)
  if dot_instances.mesh!=null:draw_multimesh(dot_instances,null)
+ if is_instance_valid(game) and game.model.has_enemy_camps():
+  for camp in game.model.portals:
+   var point=map_position(Vector3(camp.x*6,0,camp.z*6))
+   draw_rect(Rect2(point-Vector2.ONE*4,Vector2.ONE*8),DOT if camp.hp>0 else Color("6e8e72"))
+  if game.model.enemy_camps_prototype:
+   var statue=map_position(Vector3(0,0,198))
+   draw_rect(Rect2(statue-Vector2.ONE*5,Vector2.ONE*10),Color("f3cf78"),false,2)
  # Draw the player last so they remain visible when enemies overlap them.
  var radius=clampf(size.x/168.0*4.2,3.6,5.0)
  var diamond=PackedVector2Array([player_marker+Vector2(0,-radius),player_marker+Vector2(radius,0),player_marker+Vector2(0,radius),player_marker+Vector2(-radius,0)])

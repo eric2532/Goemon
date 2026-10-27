@@ -1,0 +1,236 @@
+{
+  "source": "raw/SC03.CD.dir/FILE_014.dir/0.4.dec",
+  "source_sha256": "cacb53492f7179bc06548abf37336f997135ae155af6f735d84d4290bbe0468d",
+  "pac_sha256": "1adcbdd2e788dba02dd7d986823239564fd3032cd7b04c6270d122dad6160e1d",
+  "sprites": {
+    "homing": {
+      "address": "0x80190590",
+      "frames": 1,
+      "width": 32,
+      "height": 32,
+      "descriptors": [
+        {
+          "raw": "ff4a1f1fe0020001f0fff0ff",
+          "clut": 21142,
+          "rect": [
+            736,
+            256,
+            32,
+            32
+          ],
+          "origin": [
+            -16,
+            -16
+          ]
+        }
+      ],
+      "rgba_sha256": "6b0968d22e3ce7ff9fb637aebdc3707707e58d6747ddb73994c3c0469e3f58e0"
+    },
+    "spark": {
+      "address": "0x801905e4",
+      "frames": 1,
+      "width": 16,
+      "height": 16,
+      "descriptors": [
+        {
+          "raw": "ff480f0fe8020001f8fff8ff",
+          "clut": 21014,
+          "rect": [
+            744,
+            256,
+            16,
+            16
+          ],
+          "origin": [
+            -8,
+            -8
+          ]
+        }
+      ],
+      "rgba_sha256": "7cb4eff4f4b8a11ea7c1f3440de142c1d26a4e93424ee2c6fd66b0d77da697f5"
+    },
+    "wave": {
+      "address": "0x80190720",
+      "frames": 8,
+      "width": 80,
+      "height": 64,
+      "descriptors": [
+        {
+          "raw": "ff494f3f40030001d8ffe0ff",
+          "clut": 21078,
+          "rect": [
+            832,
+            256,
+            80,
+            64
+          ],
+          "origin": [
+            -40,
+            -32
+          ]
+        },
+        {
+          "raw": "ff494f3f40034001d8ffe0ff",
+          "clut": 21078,
+          "rect": [
+            832,
+            320,
+            80,
+            64
+          ],
+          "origin": [
+            -40,
+            -32
+          ]
+        },
+        {
+          "raw": "ff494f3f40038001d8ffe0ff",
+          "clut": 21078,
+          "rect": [
+            832,
+            384,
+            80,
+            64
+          ],
+          "origin": [
+            -40,
+            -32
+          ]
+        },
+        {
+          "raw": "ff494f3f4003c001d8ffe0ff",
+          "clut": 21078,
+          "rect": [
+            832,
+            448,
+            80,
+            64
+          ],
+          "origin": [
+            -40,
+            -32
+          ]
+        },
+        {
+          "raw": "ff494f3f54030001d8ffe0ff",
+          "clut": 21078,
+          "rect": [
+            852,
+            256,
+            80,
+            64
+          ],
+          "origin": [
+            -40,
+            -32
+          ]
+        },
+        {
+          "raw": "ff494f3f54034001d8ffe0ff",
+          "clut": 21078,
+          "rect": [
+            852,
+            320,
+            80,
+            64
+          ],
+          "origin": [
+            -40,
+            -32
+          ]
+        },
+        {
+          "raw": "ff494f3f54038001d8ffe0ff",
+          "clut": 21078,
+          "rect": [
+            852,
+            384,
+            80,
+            64
+          ],
+          "origin": [
+            -40,
+            -32
+          ]
+        },
+        {
+          "raw": "ff494f3f5403c001d8ffe0ff",
+          "clut": 21078,
+          "rect": [
+            852,
+            448,
+            80,
+            64
+          ],
+          "origin": [
+            -40,
+            -32
+          ]
+        }
+      ],
+      "rgba_sha256": "b2afc4edade7df812b40a4b6acc1f69021a2f7649e8c5e8fdebd51a106d52f36"
+    },
+    "wind": {
+      "addresses": [
+        "0x801907e8",
+        "0x80190fe8"
+      ],
+      "palette_address": "0x801917e8",
+      "palette": [
+        0,
+        36928,
+        41088,
+        44224,
+        48417,
+        51588,
+        53702,
+        54793,
+        56907,
+        57998,
+        60146,
+        62262,
+        63353,
+        64443,
+        64477,
+        65535
+      ],
+      "frames": 2,
+      "width": 64,
+      "height": 64,
+      "rgba_sha256": "c2b22af4c018f78a0261d276fc4767e1e4782b99b2876c767157b87a29052503"
+    }
+  },
+  "dust": {
+    "source": "raw/MAIN.CD.dir/FILE_010.dir/1.1",
+    "source_sha256": "f8bcfa41b6a637ed78f327737875ea05998088443c2776e18247c0f45a64014a",
+    "caller": "0x80186ed4",
+    "actor": "0x205",
+    "handler": "0x80144558",
+    "sprite": "0x800d387c",
+    "frames": "0x800d3888",
+    "texture": "assets/characters/recovered_musashi/assimilation/rocket_trail.png",
+    "texture_sha256": "9fb84db40df904e094562c19dcfe7d64ace34cbc23c6405cde603c016618d611",
+    "clut_row": 412,
+    "frame_ticks": 1,
+    "frame_count": 10,
+    "scale": 3,
+    "emission_ticks": 1,
+    "side_speed_units_per_tick": 16
+  },
+  "trail": {
+    "renderer": "0x80187ee8",
+    "ticks": 16,
+    "initial_rgb": [
+      240,
+      120,
+      240
+    ],
+    "decrement": 15,
+    "blend": "additive",
+    "blade_part": 14
+  },
+  "notes": [
+    "Original textures, palette, origins and source addresses; no replacement particle artwork.",
+    "Godot billboarding, projection, lighting and blending are host-renderer adaptations."
+  ]
+}

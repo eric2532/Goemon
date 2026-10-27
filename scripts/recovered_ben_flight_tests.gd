@@ -1,5 +1,5 @@
 extends "res://scripts/recovered_leaders_tests.gd"
-## Real controller: grounded bomb takeoff, hover, descent and direct Space takeover.
+## Real controller: grounded bomb throws, voluntary flight and faster descent.
 func input_(action: String,down: bool):
  if down:Input.action_press(action)
  else:Input.action_release(action)
@@ -16,14 +16,14 @@ func run():
  await frames(20)
  var c=p.active_ability;var floor_y=p.position.y
  check(p.is_on_floor(),"Ben starts the bomb test grounded")
- input_("heavy_attack",true);await frames(20)
- check(c.bomb_phase=="deploy" and absf(p.position.y-floor_y)<.1 and shots()==0,"Opening the propeller holds the floor without spawning bombs")
+ input_("heavy_attack",true);await frames(5)
+ check(c.bomb_phase=="deploy" and p.is_on_floor() and absf(p.position.y-floor_y)<.1 and shots()==0,"Ground bombs retain a short windup without lifting Ben")
+ await frames(28)
+ check(c.bomb_phase=="barrage" and p.is_on_floor() and absf(p.position.y-floor_y)<.1 and shots()>0,"Ben throws bombs directly from the floor after windup")
  await frames(45)
- check(p.position.y>floor_y+.4 and c.bomb_phase=="deploy","The original ascent raises Ben through collision-aware controller movement")
- await frames(45)
- check(c.bomb_phase=="barrage" and p.position.y>floor_y+.7 and shots()>0,"Bombs release from an airborne source19 hover")
+ check(c.bomb_phase=="barrage" and p.is_on_floor() and absf(p.position.y-floor_y)<.1 and shots()>0,"Holding RMB sustains the barrage without an automatic takeoff")
  var count=shots();input_("heavy_attack",false);await frames(10)
- check(c.bomb_phase=="land" and shots()<=count,"Release starts descent and prevents further bomb throws")
+ check(not c.is_attacking() and p.is_on_floor() and shots()<=count,"Releasing a grounded barrage stops throws without a flight landing phase")
  await frames(170)
  check(not c.is_attacking() and p.is_on_floor() and absf(p.position.y-floor_y)<.15,"The full descent and retraction restore grounded control")
  var extra_landing=false
@@ -37,24 +37,25 @@ func run():
  var lift_start=p.position.y;var steady_lift=true
  for i in 64:
   await physics_frame
-  steady_lift=steady_lift and absf(p.velocity.y-5)<.02
- check(c.bomb_phase=="barrage" and steady_lift and absf(p.position.y-lift_start-64.0/60.0*5)<.05,"Space-held bombing preserves normal ascent speed without bob feedback or runaway height")
+  steady_lift=steady_lift and absf(p.velocity.y-15)<.02
+ check(c.bomb_phase=="barrage" and steady_lift and absf(p.position.y-lift_start-64.0/60.0*15)<.05,"Space-held bombing uses faster ascent without bob feedback or runaway height")
  input_("sprint",true)
  var boost_start=p.position.y;var steady_boost=true
  for i in 24:
   await physics_frame
-  steady_boost=steady_boost and absf(p.velocity.y-8)<.02
- check(steady_boost and absf(p.position.y-boost_start-24.0/60.0*8)<.05,"Shift keeps the normal boosted flight speed during bombing")
+  steady_boost=steady_boost and absf(p.velocity.y-24)<.02
+ check(steady_boost and absf(p.position.y-boost_start-24.0/60.0*24)<.05,"Shift keeps the faster boosted ascent during bombing")
  input_("sprint",false);input_("heavy_attack",false);await frames(2)
  check(not c.is_attacking() and p.flying,"Releasing RMB while Space remains held preserves direct flight")
  input_("jump",false);await frames(240)
  check(p.is_on_floor(),"Releasing Space returns Ben to the floor after takeover")
- input_("heavy_attack",true);await frames(110);input_("heavy_attack",false);await frames(4)
+ input_("jump",true);await frames(20);input_("heavy_attack",true);await frames(10)
+ input_("jump",false);input_("heavy_attack",false);await frames(2)
  check(c.bomb_phase=="land","The input interruption test reaches automatic bomb descent")
  input_("heavy_attack",true)
  check(c.mode=="bombs" and c.bomb_phase!="land","RMB during descent immediately starts a fresh barrage instead of waiting for retraction")
- await frames(14)
- check(c.barrage_fired>0,"The restarted airborne barrage releases bombs on its own schedule")
+ await frames(55)
+ check(c.barrage_fired>0,"The restarted barrage releases bombs on its own schedule")
  input_("heavy_attack",false);await frames(2);input_("equip",true)
  check(c.mode=="fan" and c.bomb_phase.is_empty(),"E interrupts bomb descent with the distinct three-star throw")
  input_("equip",false);await frames(25)

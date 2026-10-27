@@ -10,7 +10,7 @@ func check(ok:bool,note:String):
  checks+=1;print("PASS: " if ok else "FAIL: ",note)
  if not ok:failures+=1
 func run():
- var path="res://assets/maps/forest_kai_highway.json"
+ var path="res://tests/forest-shrine/reference/maps/forest_kai_highway.json"
  check(FileAccess.file_exists(path),"Kai Highway Castle is an authored playable map")
  if not FileAccess.file_exists(path):finish();return
  var layout=JSON.parse_string(FileAccess.get_file_as_string(path))

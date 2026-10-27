@@ -34,7 +34,7 @@ func view(size_:float=120.0):
 	game.preparation_size=size_;game.pan=Vector3.ZERO;game.update_preparation_camera()
 func run():
 	root.size=Vector2i(1440,900)
-	var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+	var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game
 	await frames();AudioServer.set_bus_mute(0,true)
 	var screen=root.get_visible_rect().size;var at=screen*Vector2(.61,.43)
@@ -95,31 +95,13 @@ func run():
 			game.set(flag,true);before=game.preparation_size
 			check(not game.zoom_preparation(1) and not game.reset_preparation_zoom() and game.preparation_size==before,"Preparation API respects %s"%flag)
 			game.set(flag,false)
-	var zoom_in=game.forest_ui.find_child("PreparationZoomIn",true,false)
-	var zoom_out=game.forest_ui.find_child("PreparationZoomOut",true,false)
-	var zoom_reset=game.forest_ui.find_child("PreparationZoomReset",true,false)
-	check(zoom_in is Button and zoom_out is Button and zoom_reset is Button,"Preparation exposes discoverable zoom in, zoom out, and map buttons")
-	if zoom_in!=null and zoom_out!=null and zoom_reset!=null:
-		view();await frames();count=game.model.buildings.size();gold=game.model.gold
-		await click(zoom_in);check(game.preparation_size<120,"Clicking the plus button magnifies the map")
-		await click(zoom_out);check(absf(game.preparation_size-120)<.001,"Clicking the minus button restores the scale")
-		check(game.model.buildings.size()==count and game.model.gold==gold,"Zoom buttons consume clicks without placing the selected building")
-		if public_api:game.zoom_preparation(100)
-		await frames();check(zoom_in.disabled and not zoom_out.disabled,"Close limit disables only further zoom in")
-		await click(zoom_reset)
-		check(game.preparation_size==120 and not zoom_in.disabled,"Map button restores context and enables close zoom again")
-		for dimensions in [Vector2i(960,600),Vector2i(1280,800)]:
-			root.size=dimensions;await frames()
-			check(root.get_visible_rect().encloses(zoom_in.get_global_rect()) and root.get_visible_rect().encloses(zoom_out.get_global_rect()),"Zoom buttons remain reachable at %s"%dimensions)
-		game.map_editor.active=true;game.forest_ui.sync()
-		check(not zoom_in.is_visible_in_tree(),"Preparation zoom controls hide while editing a map")
-		game.map_editor.active=false;game.forest_ui.sync()
+	check(game.forest_ui.find_child("PreparationZoom",true,false)==null,"Map zoom uses wheel, pinch and keys without a button strip")
 	view(30);game.pan=Vector3(210,0,210);game.update_preparation_camera();game.zoom_preparation(1)
 	check(game.pan.distance_to(Vector3(210,0,210))<.001,"Original-map clear outer ground can be centered during close construction")
 	# Use a real native-map model to check its wider camera domain. The current
 	# world remains a flat projection fixture; no terrain collision is required.
 	var original_model=game.model
-	var native_doc=load("res://scripts/forest/forest_map_document.gd").new();native_doc.load_blood_gulch()
+	var native_doc=load("res://tests/forest-shrine/reference/map_document.gd").new();native_doc.load_blood_gulch()
 	var native_model=load("res://tests/forest-shrine/reference/forest_model.gd").new();native_model.reset(42,{},native_doc.data,false)
 	game.model=native_model;view(30);game.pan=Vector3(210,0,210);game.update_preparation_camera()
 	if public_api:game.zoom_preparation(1)
@@ -132,7 +114,6 @@ func run():
 	var prep_size=game.preparation_size;var distance=game.camera_rig.distance;wheel(at)
 	check(game.preparation_size==prep_size and game.camera_rig.camera.projection==Camera3D.PROJECTION_PERSPECTIVE,"Combat wheel input never switches back to the build camera")
 	check(game.camera_rig.distance<distance,"Combat keeps its existing wheel zoom")
-	if zoom_in!=null:check(not zoom_in.is_visible_in_tree(),"Preparation zoom buttons hide during combat")
 	if public_api:check(not game.zoom_preparation(1) and not game.reset_preparation_zoom(),"Preparation buttons cannot modify the combat camera")
 	await finish()
 func finish():

@@ -176,8 +176,7 @@ func allies_can_remain()->bool:
  return game.playing and game.model.phase in ["wave","preparing"] and (game.player.hp>0 or game.respawn_left>0)
 func available()->bool:
  var editor=is_instance_valid(game.map_editor) and game.map_editor.active
- var panel=game.forest_ui.get_node_or_null("GateDefenderPanel")
- return game.playing and game.model.phase=="preparing" and game.player.hp>0 and not editor and not is_instance_valid(panel) and not game.transitioning and not game.ordinary_pause and not game.settings_open and not game.rogue_roster_open and not game.won
+ return game.playing and game.model.phase=="preparing" and game.player.hp>0 and not editor and not game.transitioning and not game.ordinary_pause and not game.settings_open and not game.rogue_roster_open and not game.won
 func placement_active()->bool:return selected_slot>=0 or moving_actor!=0
 func cancel_placement(close_shop:bool=true):
  selected_slot=-1;moving_actor=0;placement_hint="";preview_position=Vector3.INF
@@ -217,8 +216,6 @@ func placement_error(slot:int,point:Vector3,exclude:int=0)->String:
  for unit in active_units():
   if unit.gate_id==exclude:continue
   if unit.global_position.distance_to(stand)<1.4 or unit.guard_post.distance_to(stand)<1.4:return "Another ally guards this spot"
- for unit in game.gate_defenders.units.values():
-  if is_instance_valid(unit) and unit.position.distance_to(stand)<1.4:return "A gate defender occupies this spot"
  var query=PhysicsShapeQueryParameters3D.new();query.shape=placement_shape;query.collision_mask=1
  query.transform=Transform3D(Basis.IDENTITY,stand+Vector3.UP*.95)
  if not game.get_world_3d().direct_space_state.intersect_shape(query,1).is_empty():return "A wall or obstacle blocks this spot"

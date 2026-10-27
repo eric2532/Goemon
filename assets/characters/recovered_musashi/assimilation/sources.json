@@ -1,0 +1,566 @@
+{
+  "clips": {
+    "dkick": {
+      "source_address": "0x800cb26c",
+      "source_offset": -15244,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800cb2f4",
+          "command_address": "0x800cb284"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800cb3f4",
+          "command_address": "0x800cb288"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800cb4f4",
+          "command_address": "0x800cb28c"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800cb3f4",
+          "command_address": "0x800cb294"
+        }
+      ],
+      "ticks": 4,
+      "terminal": "loop",
+      "events": [
+        {
+          "command_address": "0x800cb26c",
+          "word": "0x4",
+          "tick": 0,
+          "op": "model_list",
+          "pointer": "0x800de2a4"
+        },
+        {
+          "command_address": "0x800cb274",
+          "word": "0xf",
+          "tick": 0,
+          "op": "event_15",
+          "argument": "0x1"
+        },
+        {
+          "command_address": "0x800cb27c",
+          "word": "0x13",
+          "tick": 0,
+          "op": "event_19"
+        },
+        {
+          "command_address": "0x800cb280",
+          "word": "0x14",
+          "tick": 0,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800cb290",
+          "word": "0x14",
+          "tick": 3,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800cb298",
+          "word": "0x1",
+          "tick": 4,
+          "op": "loop"
+        }
+      ],
+      "unsupported": []
+    },
+    "fence": {
+      "source_address": "0x800cb858",
+      "source_offset": -13728,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e60e8",
+          "command_address": "0x800cb864"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e61e8",
+          "command_address": "0x800cb868"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e62e8",
+          "command_address": "0x800cb874"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e63e8",
+          "command_address": "0x800cb878"
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e64e8",
+          "command_address": "0x800cb87c"
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e65e8",
+          "command_address": "0x800cb880"
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e66e8",
+          "command_address": "0x800cb884"
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e67e8",
+          "command_address": "0x800cb888"
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e68e8",
+          "command_address": "0x800cb88c"
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e69e8",
+          "command_address": "0x800cb894"
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e6ae8",
+          "command_address": "0x800cb898"
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e6be8",
+          "command_address": "0x800cb89c"
+        }
+      ],
+      "ticks": 12,
+      "terminal": "stop",
+      "events": [
+        {
+          "command_address": "0x800cb858",
+          "word": "0x4",
+          "tick": 0,
+          "op": "model_list",
+          "pointer": "0x800de2a4"
+        },
+        {
+          "command_address": "0x800cb860",
+          "word": "0x13",
+          "tick": 0,
+          "op": "event_19"
+        },
+        {
+          "command_address": "0x800cb86c",
+          "word": "0x7",
+          "tick": 2,
+          "op": "event_7"
+        },
+        {
+          "command_address": "0x800cb870",
+          "word": "0x14",
+          "tick": 2,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800cb890",
+          "word": "0x14",
+          "tick": 9,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800cb8a0",
+          "word": "0x0",
+          "tick": 12,
+          "op": "stop"
+        }
+      ],
+      "unsupported": []
+    },
+    "three_raise": {
+      "source_address": "0x800cbb44",
+      "source_offset": -12980,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800cbc38",
+          "command_address": "0x800cbb50"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800cbd38",
+          "command_address": "0x800cbb54"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800cbe38",
+          "command_address": "0x800cbb58"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800cbf38",
+          "command_address": "0x800cbb5c"
+        }
+      ],
+      "ticks": 4,
+      "terminal": "stop",
+      "events": [
+        {
+          "command_address": "0x800cbb44",
+          "word": "0x4",
+          "tick": 0,
+          "op": "model_list",
+          "pointer": "0x800de2a4"
+        },
+        {
+          "command_address": "0x800cbb4c",
+          "word": "0x13",
+          "tick": 0,
+          "op": "event_19"
+        },
+        {
+          "command_address": "0x800cbb60",
+          "word": "0x0",
+          "tick": 4,
+          "op": "stop"
+        }
+      ],
+      "unsupported": []
+    },
+    "three_lower": {
+      "source_address": "0x800cbb64",
+      "source_offset": -12948,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800cbf38",
+          "command_address": "0x800cbb70"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800cbe38",
+          "command_address": "0x800cbb74"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800cbd38",
+          "command_address": "0x800cbb78"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800cbc38",
+          "command_address": "0x800cbb7c"
+        }
+      ],
+      "ticks": 4,
+      "terminal": "stop",
+      "events": [
+        {
+          "command_address": "0x800cbb64",
+          "word": "0x4",
+          "tick": 0,
+          "op": "model_list",
+          "pointer": "0x800de2a4"
+        },
+        {
+          "command_address": "0x800cbb6c",
+          "word": "0x13",
+          "tick": 0,
+          "op": "event_19"
+        },
+        {
+          "command_address": "0x800cbb80",
+          "word": "0x0",
+          "tick": 4,
+          "op": "stop"
+        }
+      ],
+      "unsupported": []
+    },
+    "three_fire": {
+      "source_address": "0x800cbb84",
+      "source_offset": -12916,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800cc038",
+          "command_address": "0x800cbb90"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800cc138",
+          "command_address": "0x800cbb94"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800cc238",
+          "command_address": "0x800cbb9c"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800cc338",
+          "command_address": "0x800cbba0"
+        }
+      ],
+      "ticks": 4,
+      "terminal": "loop",
+      "events": [
+        {
+          "command_address": "0x800cbb84",
+          "word": "0x4",
+          "tick": 0,
+          "op": "model_list",
+          "pointer": "0x800de2a4"
+        },
+        {
+          "command_address": "0x800cbb8c",
+          "word": "0x13",
+          "tick": 0,
+          "op": "event_19"
+        },
+        {
+          "command_address": "0x800cbb98",
+          "word": "0x7",
+          "tick": 2,
+          "op": "event_7"
+        },
+        {
+          "command_address": "0x800cbba4",
+          "word": "0x1",
+          "tick": 4,
+          "op": "loop"
+        }
+      ],
+      "unsupported": []
+    },
+    "throw": {
+      "source_address": "0x800d57f4",
+      "source_offset": 27132,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f88e8",
+          "command_address": "0x800d5804"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f89e8",
+          "command_address": "0x800d5808"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f8ae8",
+          "command_address": "0x800d580c"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f8be8",
+          "command_address": "0x800d5810"
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f8ce8",
+          "command_address": "0x800d5814"
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f8de8",
+          "command_address": "0x800d5820"
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f8ee8",
+          "command_address": "0x800d5824"
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f8fe8",
+          "command_address": "0x800d5828"
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f90e8",
+          "command_address": "0x800d582c"
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f91e8",
+          "command_address": "0x800d5830"
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f92e8",
+          "command_address": "0x800d5834"
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800f93e8",
+          "command_address": "0x800d5838"
+        }
+      ],
+      "ticks": 12,
+      "terminal": "stop",
+      "events": [
+        {
+          "command_address": "0x800d57f4",
+          "word": "0x4",
+          "tick": 0,
+          "op": "model_list",
+          "pointer": "0x800de2a4"
+        },
+        {
+          "command_address": "0x800d57fc",
+          "word": "0x10",
+          "tick": 0,
+          "op": "event_16"
+        },
+        {
+          "command_address": "0x800d5800",
+          "word": "0x13",
+          "tick": 0,
+          "op": "event_19"
+        },
+        {
+          "command_address": "0x800d5818",
+          "word": "0x11",
+          "tick": 5,
+          "op": "event_17"
+        },
+        {
+          "command_address": "0x800d581c",
+          "word": "0x7",
+          "tick": 5,
+          "op": "event_7"
+        },
+        {
+          "command_address": "0x800d583c",
+          "word": "0x0",
+          "tick": 12,
+          "op": "stop"
+        }
+      ],
+      "unsupported": []
+    }
+  },
+  "models": {
+    "dkick": {
+      "module": 32,
+      "offset": 2028,
+      "polygons": 96,
+      "textured_polygons": 0
+    },
+    "three_way": {
+      "module": 38,
+      "offset": 5680,
+      "polygons": 36,
+      "textured_polygons": 0
+    },
+    "homing": {
+      "module": 39,
+      "offset": 4472,
+      "polygons": 25,
+      "textured_polygons": 5
+    },
+    "grenade": {
+      "module": 40,
+      "offset": 3084,
+      "polygons": 18,
+      "textured_polygons": 13
+    }
+  },
+  "joint_frame_checks": 1426,
+  "maximum_float32_transform_error": 2.067287329099443e-07,
+  "sources": {
+    "32": "2afa7f1f6f2fd1ed10cde1836ea38832465be8f943c897c98b5e2a0cf68e8907",
+    "33": "c6413cf6bdf0c5fb19be12e0fea2cfcf4ac0ae7a5cb9a5b85e17ba457cea736b",
+    "38": "ee1972af3e09777e262f197f4d4d1f39a2ecaeb8d89ff27e2805c46a78302a53",
+    "39": "9a0a5d3108adf3de9f25a16cac1e7356d9baac312bcd1195a3b451e4b6abdb9a",
+    "40": "d925229d830292eb5e038ca912e330f3a6e7d5e5c9771dbc6985da43e6dbbaf1"
+  },
+  "resident_sha256": "f8bcfa41b6a637ed78f327737875ea05998088443c2776e18247c0f45a64014a",
+  "notes": [
+    "Original source pose ticks at30Hz; original geometry and CLUT pixels.",
+    "Host targeting, terrain, damage scaling and input are adapted to Goemon.",
+    "Dry decoded source audio does not emulate the full PS1 SPU mixer."
+  ]
+}

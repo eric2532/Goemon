@@ -11,12 +11,11 @@ func settle(unit):
  for i in 8:unit.move_and_slide()
  unit.velocity=Vector3.ZERO;unit.jump_buffer=0;unit.ai_move=Vector3.ZERO
 func run():
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
  var game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game
  for i in 3:await process_frame
  game.start_wave();game.model.waves.pending=999;game.model.waves.spawn_clock=100000
  game.set_physics_process(false);game.player.set_physics_process(false)
- for guard in game.gate_defenders.units.values():guard.set_physics_process(false)
  var unit=game.explorer_helpers.pool.filter(func(u):return u.kit_id==10)[0]
  unit.set_physics_process(false);unit.state="acting";unit.opening=false;unit.think_left=100;unit.ai_target=null;unit.auto_attack_enabled=false
  var optimized=unit.active_ability;optimized.cancel();optimized.active=true

@@ -250,6 +250,5035 @@
         }
       },
       "asset": "musashi"
+    },
+    {
+      "source": "assets/economy_v1/arrow_tower/exports/tower_build_recoil_reverse.glb",
+      "output": "assets/optimized/arrow-tower.glb",
+      "source_sha256": "cc93e9b39778580fb524a24f9139bda991805fd08917eeeac0e777da2b782136",
+      "output_sha256": "f3d7ece23e2d2e049eed8a233d5a50e97a5db212d82950eb76ba7c50876d0a8c",
+      "before": {
+        "path": "assets/economy_v1/arrow_tower/exports/tower_build_recoil_reverse.glb",
+        "sha256": "cc93e9b39778580fb524a24f9139bda991805fd08917eeeac0e777da2b782136",
+        "bytes": 1771336,
+        "category": "building",
+        "triangles": 20052,
+        "vertices": 25708,
+        "mesh_instances": 170,
+        "surfaces": 170,
+        "materials": 9,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 1,
+        "issues": [
+          "triangles 20052 > budget 15000",
+          "surfaces 170 > budget 32"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/arrow-tower.glb",
+        "sha256": "f3d7ece23e2d2e049eed8a233d5a50e97a5db212d82950eb76ba7c50876d0a8c",
+        "bytes": 1967916,
+        "category": "prop",
+        "triangles": 20052,
+        "vertices": 25708,
+        "mesh_instances": 156,
+        "surfaces": 158,
+        "materials": 9,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 1,
+        "issues": [
+          "triangles 20052 > budget 3000",
+          "surfaces 158 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 5.960464477539063e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "arrow-tower",
+      "preserve_mesh_nodes": "^ARROW_PROJECTILE$"
+    },
+    {
+      "source": "assets/economy_v1/arrow_tower/exports/tower_wall_mount.glb",
+      "output": "assets/optimized/tower-mount.glb",
+      "source_sha256": "2d2d144286ef4643551d52f691234fd18f96c002ccbb8161f3e7e69f879c3085",
+      "output_sha256": "cc2a61246e82a38486c6bc4c3ddf7dbeba5383aaeae74a2cdb68e07b0c440353",
+      "before": {
+        "path": "assets/economy_v1/arrow_tower/exports/tower_wall_mount.glb",
+        "sha256": "2d2d144286ef4643551d52f691234fd18f96c002ccbb8161f3e7e69f879c3085",
+        "bytes": 53608,
+        "category": "building",
+        "triangles": 1080,
+        "vertices": 1290,
+        "mesh_instances": 10,
+        "surfaces": 10,
+        "materials": 3,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "after": {
+        "path": "assets/optimized/tower-mount.glb",
+        "sha256": "cc2a61246e82a38486c6bc4c3ddf7dbeba5383aaeae74a2cdb68e07b0c440353",
+        "bytes": 60092,
+        "category": "prop",
+        "triangles": 1080,
+        "vertices": 1290,
+        "mesh_instances": 1,
+        "surfaces": 3,
+        "materials": 3,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 5.9017316367260264e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "tower-mount",
+      "preserve_mesh_nodes": ""
+    },
+    {
+      "source": "assets/economy_v1/arrow_tower/exports/arrow_projectile.glb",
+      "output": "assets/optimized/arrow.glb",
+      "source_sha256": "7fa83171db3d411ebf4e998e4e1908e7f4f1c4caf0ce3c6188094a640df52f2f",
+      "output_sha256": "47d3c5e1ce2111e0fdf4991653cbc1ad8cc0b910e2465069999aecb27d7cd10f",
+      "before": {
+        "path": "assets/economy_v1/arrow_tower/exports/arrow_projectile.glb",
+        "sha256": "7fa83171db3d411ebf4e998e4e1908e7f4f1c4caf0ce3c6188094a640df52f2f",
+        "bytes": 11380,
+        "category": "building",
+        "triangles": 120,
+        "vertices": 169,
+        "mesh_instances": 5,
+        "surfaces": 5,
+        "materials": 3,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "after": {
+        "path": "assets/optimized/arrow.glb",
+        "sha256": "47d3c5e1ce2111e0fdf4991653cbc1ad8cc0b910e2465069999aecb27d7cd10f",
+        "bytes": 11284,
+        "category": "prop",
+        "triangles": 120,
+        "vertices": 169,
+        "mesh_instances": 1,
+        "surfaces": 3,
+        "materials": 3,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 1.1920928955078125e-07,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "arrow",
+      "preserve_mesh_nodes": ""
+    },
+    {
+      "source": "assets/economy_v1/construction_fx/exports/FS_FX_Hammer_BuildLoop.glb",
+      "output": "assets/optimized/build-hammer.glb",
+      "source_sha256": "498c7e91ba55def1c5c2547ea1a4b1f657974885ca7011b4acb1cf7214f23a42",
+      "output_sha256": "dffccade721db0e8ee3e464291a8e0ea35b239eae34622d67fc6979b911c2402",
+      "before": {
+        "path": "assets/economy_v1/construction_fx/exports/FS_FX_Hammer_BuildLoop.glb",
+        "sha256": "498c7e91ba55def1c5c2547ea1a4b1f657974885ca7011b4acb1cf7214f23a42",
+        "bytes": 155856,
+        "category": "building",
+        "triangles": 2184,
+        "vertices": 4312,
+        "mesh_instances": 16,
+        "surfaces": 16,
+        "materials": 5,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 1,
+        "issues": []
+      },
+      "after": {
+        "path": "assets/optimized/build-hammer.glb",
+        "sha256": "dffccade721db0e8ee3e464291a8e0ea35b239eae34622d67fc6979b911c2402",
+        "bytes": 171780,
+        "category": "prop",
+        "triangles": 2184,
+        "vertices": 4312,
+        "mesh_instances": 1,
+        "surfaces": 5,
+        "materials": 5,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 1,
+        "issues": [
+          "surfaces 5 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 2.9802322387695312e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "build-hammer",
+      "preserve_mesh_nodes": ""
+    },
+    {
+      "source": "assets/characters/recovered_leaders/ben/model.glb",
+      "output": "assets/optimized/leader-ben.glb",
+      "source_sha256": "90fffae3f1aa8903b9382b184891e4dd3ca51ed0d41225d627363c4a95d854db",
+      "output_sha256": "47611e3316f8a71a4747c89f5fcc73deac4bfec135768848f9486abb025e0342",
+      "before": {
+        "path": "assets/characters/recovered_leaders/ben/model.glb",
+        "sha256": "90fffae3f1aa8903b9382b184891e4dd3ca51ed0d41225d627363c4a95d854db",
+        "bytes": 1474244,
+        "category": "hero",
+        "triangles": 356,
+        "vertices": 1068,
+        "mesh_instances": 16,
+        "surfaces": 23,
+        "materials": 23,
+        "duplicate_materials": 14,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "27cc94a122b1c728ecc2d60488d8ec62342bf75812787d3bcfeca104ad01f1d7",
+            "bytes": 12220,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_0",
+            "sha256": "114500119eb56368dfff4a9c2a18880598dc7a512c3018c0580b89e81185328b",
+            "bytes": 11395,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "Image_0",
+            "sha256": "a6b552d695bde7aa1259a27794689c2aab046ed260c4fd275896ec8a78f1165f",
+            "bytes": 11070,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 3,
+            "name": "Image_1",
+            "sha256": "891144f5c103f5bca99907fdd85b9a17ab01ff7dffdfe3a3127e049cb6ded617",
+            "bytes": 11102,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 4,
+            "name": "Image_0",
+            "sha256": "dc716c74e7ede1271b1d888dda08f8f927eac0a581d7ff412642d3b2042b97bc",
+            "bytes": 11108,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 5,
+            "name": "Image_1",
+            "sha256": "3aae16cd2e4bc0f0509d09e0181875fb2903a81331606e316a2e4f562e9cc9b3",
+            "bytes": 9884,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 6,
+            "name": "Image_2",
+            "sha256": "cefc4bca13bd29dcca3747a803ce383b3af7605a6d9b4b63f963439faac9b16f",
+            "bytes": 10487,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 2446675,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          17
+        ],
+        "animations": 40,
+        "issues": [
+          "surfaces 23 > budget 8"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/leader-ben.glb",
+        "sha256": "47611e3316f8a71a4747c89f5fcc73deac4bfec135768848f9486abb025e0342",
+        "bytes": 1448532,
+        "category": "prop",
+        "triangles": 356,
+        "vertices": 756,
+        "mesh_instances": 5,
+        "surfaces": 14,
+        "materials": 9,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "27cc94a122b1c728ecc2d60488d8ec62342bf75812787d3bcfeca104ad01f1d7",
+            "bytes": 12220,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_0",
+            "sha256": "114500119eb56368dfff4a9c2a18880598dc7a512c3018c0580b89e81185328b",
+            "bytes": 11395,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "Image_0",
+            "sha256": "a6b552d695bde7aa1259a27794689c2aab046ed260c4fd275896ec8a78f1165f",
+            "bytes": 11070,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 3,
+            "name": "Image_1",
+            "sha256": "891144f5c103f5bca99907fdd85b9a17ab01ff7dffdfe3a3127e049cb6ded617",
+            "bytes": 11102,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 4,
+            "name": "Image_0",
+            "sha256": "dc716c74e7ede1271b1d888dda08f8f927eac0a581d7ff412642d3b2042b97bc",
+            "bytes": 11108,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 5,
+            "name": "Image_1",
+            "sha256": "3aae16cd2e4bc0f0509d09e0181875fb2903a81331606e316a2e4f562e9cc9b3",
+            "bytes": 9884,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 6,
+            "name": "Image_2",
+            "sha256": "cefc4bca13bd29dcca3747a803ce383b3af7605a6d9b4b63f963439faac9b16f",
+            "bytes": 10487,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 2446675,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          17
+        ],
+        "animations": 40,
+        "issues": [
+          "surfaces 14 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 3.197069919913531e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "leader-ben",
+      "preserve_mesh_nodes": "^1[2-5]_source_part_"
+    },
+    {
+      "source": "assets/characters/master_chief/assault_rifle_fp.glb",
+      "output": "assets/optimized/chief-assault-rifle-fp.glb",
+      "source_sha256": "453f67c011e6355478d1c58adef26e5f940c85d81b6920011101fa938a9ed917",
+      "output_sha256": "422a504aef950527a897e5fdfe0b7c5f59e35ad4742306f6d020e4ae393735f3",
+      "before": {
+        "path": "assets/characters/master_chief/assault_rifle_fp.glb",
+        "sha256": "453f67c011e6355478d1c58adef26e5f940c85d81b6920011101fa938a9ed917",
+        "bytes": 1054704,
+        "category": "hero",
+        "triangles": 3576,
+        "vertices": 3158,
+        "mesh_instances": 2,
+        "surfaces": 10,
+        "materials": 10,
+        "duplicate_materials": 1,
+        "textures": [
+          {
+            "index": 0,
+            "name": "cyborg hands",
+            "sha256": "734240064f8ed7f3d06f1ef668378a89514fe3e91e3907d23f9a4617830fa5b5",
+            "bytes": 159028,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 1,
+            "name": "cyborg hands_chief_olive",
+            "sha256": "4211b00d9e3d3537eefb4d7219bca8e47c380be27ec40dd25b57969b7dadea86",
+            "bytes": 232599,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 2,
+            "name": "assault rifle_fp",
+            "sha256": "c899485ba30c07f4f378cc043af93a3fccab1b35319ca1d10167b98cbfd59195",
+            "bytes": 150893,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 3,
+            "name": "compass_additive",
+            "sha256": "73313bc39a2568a7738011da0efe9ef64b54477452c67689ad46996a2b44b377",
+            "bytes": 1933,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 4,
+            "name": "ar_data_additive",
+            "sha256": "5a7e5dfdb213cc372cff36c310cae95003f61e3aaf5c53b2bef594766aa17c8c",
+            "bytes": 19160,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 5,
+            "name": "numbers_additive",
+            "sha256": "b2beadc2838b2a55f0cc181ef52311232b03e74833eae5c5e17eae5e15fd899c",
+            "bytes": 1065,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 6,
+            "name": "numbers_zero_additive",
+            "sha256": "a77f9bbac3c50ae5a2bdf8299472d2c7f98a51bc65403a94cc78b14e83a1d65e",
+            "bytes": 901,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 7,
+            "name": "icons_additive",
+            "sha256": "5a7e5dfdb213cc372cff36c310cae95003f61e3aaf5c53b2bef594766aa17c8c",
+            "bytes": 19160,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 8,
+            "name": "display_fp",
+            "sha256": "a78f9380ee5d597f21d53345ab45ffebfcb58c1d0faa64d2c91f5d172e04c8da",
+            "bytes": 11311,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 4958888,
+        "texture_dimensions": [
+          "256x256",
+          "512x512",
+          "64x64"
+        ],
+        "skins": 1,
+        "joints": [
+          42
+        ],
+        "animations": 6,
+        "issues": [
+          "surfaces 10 > budget 8"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/chief-assault-rifle-fp.glb",
+        "sha256": "422a504aef950527a897e5fdfe0b7c5f59e35ad4742306f6d020e4ae393735f3",
+        "bytes": 1074696,
+        "category": "prop",
+        "triangles": 3576,
+        "vertices": 3152,
+        "mesh_instances": 1,
+        "surfaces": 9,
+        "materials": 9,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "cyborg hands",
+            "sha256": "734240064f8ed7f3d06f1ef668378a89514fe3e91e3907d23f9a4617830fa5b5",
+            "bytes": 159028,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 1,
+            "name": "cyborg hands_chief_olive",
+            "sha256": "4211b00d9e3d3537eefb4d7219bca8e47c380be27ec40dd25b57969b7dadea86",
+            "bytes": 232599,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 2,
+            "name": "assault rifle_fp",
+            "sha256": "c899485ba30c07f4f378cc043af93a3fccab1b35319ca1d10167b98cbfd59195",
+            "bytes": 150893,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 3,
+            "name": "compass_additive",
+            "sha256": "73313bc39a2568a7738011da0efe9ef64b54477452c67689ad46996a2b44b377",
+            "bytes": 1933,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 4,
+            "name": "ar_data_additive",
+            "sha256": "5a7e5dfdb213cc372cff36c310cae95003f61e3aaf5c53b2bef594766aa17c8c",
+            "bytes": 19160,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 5,
+            "name": "numbers_additive",
+            "sha256": "b2beadc2838b2a55f0cc181ef52311232b03e74833eae5c5e17eae5e15fd899c",
+            "bytes": 1065,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 6,
+            "name": "numbers_zero_additive",
+            "sha256": "a77f9bbac3c50ae5a2bdf8299472d2c7f98a51bc65403a94cc78b14e83a1d65e",
+            "bytes": 901,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 7,
+            "name": "icons_additive",
+            "sha256": "5a7e5dfdb213cc372cff36c310cae95003f61e3aaf5c53b2bef594766aa17c8c",
+            "bytes": 19160,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 8,
+            "name": "display_fp",
+            "sha256": "a78f9380ee5d597f21d53345ab45ffebfcb58c1d0faa64d2c91f5d172e04c8da",
+            "bytes": 11311,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 4958888,
+        "texture_dimensions": [
+          "256x256",
+          "512x512",
+          "64x64"
+        ],
+        "skins": 1,
+        "joints": [
+          42
+        ],
+        "animations": 6,
+        "issues": [
+          "triangles 3576 > budget 3000",
+          "surfaces 9 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 3.318199248703024e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "chief-assault-rifle-fp",
+      "preserve_mesh_nodes": ""
+    },
+    {
+      "source": "assets/characters/master_chief/energy_sword_fp.glb",
+      "output": "assets/optimized/chief-energy-sword-fp.glb",
+      "source_sha256": "78341e683637bcd5543f93275451129d5800ce05ecf8584813b069ee05a4b497",
+      "output_sha256": "54de0ad37c3ed45e7a2886418b713eb83df990dfd0b8d3419842e31a3685509b",
+      "before": {
+        "path": "assets/characters/master_chief/energy_sword_fp.glb",
+        "sha256": "78341e683637bcd5543f93275451129d5800ce05ecf8584813b069ee05a4b497",
+        "bytes": 633200,
+        "category": "hero",
+        "triangles": 934,
+        "vertices": 861,
+        "mesh_instances": 2,
+        "surfaces": 5,
+        "materials": 5,
+        "duplicate_materials": 1,
+        "textures": [
+          {
+            "index": 0,
+            "name": "cyborg hands",
+            "sha256": "734240064f8ed7f3d06f1ef668378a89514fe3e91e3907d23f9a4617830fa5b5",
+            "bytes": 159028,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 1,
+            "name": "cyborg hands_chief_olive",
+            "sha256": "4211b00d9e3d3537eefb4d7219bca8e47c380be27ec40dd25b57969b7dadea86",
+            "bytes": 232599,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 2,
+            "name": "energy sword",
+            "sha256": "5a71cb3fa97174821d8e4d48947698ed4f16894eaeff276681088ff8b9f89e6a",
+            "bytes": 16619,
+            "dimensions": [
+              128,
+              128
+            ],
+            "rgba8_mip_estimate_bytes": 87381
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 2883583,
+        "texture_dimensions": [
+          "128x128",
+          "512x512"
+        ],
+        "skins": 1,
+        "joints": [
+          46
+        ],
+        "animations": 3,
+        "issues": []
+      },
+      "after": {
+        "path": "assets/optimized/chief-energy-sword-fp.glb",
+        "sha256": "54de0ad37c3ed45e7a2886418b713eb83df990dfd0b8d3419842e31a3685509b",
+        "bytes": 637392,
+        "category": "prop",
+        "triangles": 934,
+        "vertices": 861,
+        "mesh_instances": 1,
+        "surfaces": 4,
+        "materials": 4,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "cyborg hands",
+            "sha256": "734240064f8ed7f3d06f1ef668378a89514fe3e91e3907d23f9a4617830fa5b5",
+            "bytes": 159028,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 1,
+            "name": "cyborg hands_chief_olive",
+            "sha256": "4211b00d9e3d3537eefb4d7219bca8e47c380be27ec40dd25b57969b7dadea86",
+            "bytes": 232599,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 2,
+            "name": "energy sword",
+            "sha256": "5a71cb3fa97174821d8e4d48947698ed4f16894eaeff276681088ff8b9f89e6a",
+            "bytes": 16619,
+            "dimensions": [
+              128,
+              128
+            ],
+            "rgba8_mip_estimate_bytes": 87381
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 2883583,
+        "texture_dimensions": [
+          "128x128",
+          "512x512"
+        ],
+        "skins": 1,
+        "joints": [
+          46
+        ],
+        "animations": 3,
+        "issues": []
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 3.870615050693971e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "chief-energy-sword-fp",
+      "preserve_mesh_nodes": ""
+    },
+    {
+      "source": "assets/characters/master_chief/pistol_fp.glb",
+      "output": "assets/optimized/chief-pistol-fp.glb",
+      "source_sha256": "b7e0a67f505a0d9580d56eb0e72dce28910f5bd2f6e8daa06ac91d83475e0069",
+      "output_sha256": "c5fc7067839dbd5fc9dbde4b95d8893837134d842e836c01d3052522bc4fd4a0",
+      "before": {
+        "path": "assets/characters/master_chief/pistol_fp.glb",
+        "sha256": "b7e0a67f505a0d9580d56eb0e72dce28910f5bd2f6e8daa06ac91d83475e0069",
+        "bytes": 831508,
+        "category": "hero",
+        "triangles": 3170,
+        "vertices": 3174,
+        "mesh_instances": 2,
+        "surfaces": 5,
+        "materials": 5,
+        "duplicate_materials": 1,
+        "textures": [
+          {
+            "index": 0,
+            "name": "cyborg hands",
+            "sha256": "734240064f8ed7f3d06f1ef668378a89514fe3e91e3907d23f9a4617830fa5b5",
+            "bytes": 159028,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 1,
+            "name": "cyborg hands_chief_olive",
+            "sha256": "4211b00d9e3d3537eefb4d7219bca8e47c380be27ec40dd25b57969b7dadea86",
+            "bytes": 232599,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 2,
+            "name": "pistol",
+            "sha256": "1bd31ecde7d983ce978c31ff363f9ffa3d2d75bae8bf7a97607f1449b923995b",
+            "bytes": 118909,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 3,
+            "name": "bullet",
+            "sha256": "658ba560542e2f957c2818300ac83e74939708d5525b7e5205640276acc6ef65",
+            "bytes": 6089,
+            "dimensions": [
+              128,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 43690
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 4237993,
+        "texture_dimensions": [
+          "128x64",
+          "512x512"
+        ],
+        "skins": 1,
+        "joints": [
+          44
+        ],
+        "animations": 3,
+        "issues": []
+      },
+      "after": {
+        "path": "assets/optimized/chief-pistol-fp.glb",
+        "sha256": "c5fc7067839dbd5fc9dbde4b95d8893837134d842e836c01d3052522bc4fd4a0",
+        "bytes": 849296,
+        "category": "prop",
+        "triangles": 3170,
+        "vertices": 3174,
+        "mesh_instances": 1,
+        "surfaces": 4,
+        "materials": 4,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "cyborg hands",
+            "sha256": "734240064f8ed7f3d06f1ef668378a89514fe3e91e3907d23f9a4617830fa5b5",
+            "bytes": 159028,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 1,
+            "name": "cyborg hands_chief_olive",
+            "sha256": "4211b00d9e3d3537eefb4d7219bca8e47c380be27ec40dd25b57969b7dadea86",
+            "bytes": 232599,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 2,
+            "name": "pistol",
+            "sha256": "1bd31ecde7d983ce978c31ff363f9ffa3d2d75bae8bf7a97607f1449b923995b",
+            "bytes": 118909,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 3,
+            "name": "bullet",
+            "sha256": "658ba560542e2f957c2818300ac83e74939708d5525b7e5205640276acc6ef65",
+            "bytes": 6089,
+            "dimensions": [
+              128,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 43690
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 4237993,
+        "texture_dimensions": [
+          "128x64",
+          "512x512"
+        ],
+        "skins": 1,
+        "joints": [
+          44
+        ],
+        "animations": 3,
+        "issues": [
+          "triangles 3170 > budget 3000"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 3.870615050693971e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "chief-pistol-fp",
+      "preserve_mesh_nodes": ""
+    },
+    {
+      "source": "assets/characters/master_chief/master_chief.glb",
+      "output": "assets/optimized/chief-master-chief.glb",
+      "source_sha256": "671b35215a6b9236e65f194ce0f1d3c5382eefb074e3abce82bee0ea916e0fc7",
+      "output_sha256": "bc5514049cc9c0fac9dbaeb2c412b55b5361caffa5eff315725a4199b0a43ec5",
+      "before": {
+        "path": "assets/characters/master_chief/master_chief.glb",
+        "sha256": "671b35215a6b9236e65f194ce0f1d3c5382eefb074e3abce82bee0ea916e0fc7",
+        "bytes": 783576,
+        "category": "hero",
+        "triangles": 2748,
+        "vertices": 3045,
+        "mesh_instances": 2,
+        "surfaces": 10,
+        "materials": 9,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "assault rifle_fp",
+            "sha256": "c899485ba30c07f4f378cc043af93a3fccab1b35319ca1d10167b98cbfd59195",
+            "bytes": 150893,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 1,
+            "name": "display_fp",
+            "sha256": "a78f9380ee5d597f21d53345ab45ffebfcb58c1d0faa64d2c91f5d172e04c8da",
+            "bytes": 11311,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "compass_additive",
+            "sha256": "73313bc39a2568a7738011da0efe9ef64b54477452c67689ad46996a2b44b377",
+            "bytes": 1933,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 3,
+            "name": "numbers_zero_additive",
+            "sha256": "a77f9bbac3c50ae5a2bdf8299472d2c7f98a51bc65403a94cc78b14e83a1d65e",
+            "bytes": 901,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 4,
+            "name": "ar_data_additive",
+            "sha256": "5a7e5dfdb213cc372cff36c310cae95003f61e3aaf5c53b2bef594766aa17c8c",
+            "bytes": 19160,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 5,
+            "name": "bolt",
+            "sha256": "f2dd65c72c1cb38ddd79e48fb854ac982ce7268e878c83a994cdbf572e5f394e",
+            "bytes": 1137,
+            "dimensions": [
+              128,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 6,
+            "name": "cyborg_chief_olive",
+            "sha256": "da0e83bfd106b167c492b1b7f35aa110add6d48f3d98b9c69c092d6ec31662a6",
+            "bytes": 315200,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 3560787,
+        "texture_dimensions": [
+          "128x32",
+          "256x256",
+          "512x512",
+          "64x64"
+        ],
+        "skins": 1,
+        "joints": [
+          22
+        ],
+        "animations": 3,
+        "issues": [
+          "surfaces 10 > budget 8"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/chief-master-chief.glb",
+        "sha256": "bc5514049cc9c0fac9dbaeb2c412b55b5361caffa5eff315725a4199b0a43ec5",
+        "bytes": 799472,
+        "category": "prop",
+        "triangles": 2748,
+        "vertices": 3045,
+        "mesh_instances": 1,
+        "surfaces": 9,
+        "materials": 9,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "assault rifle_fp",
+            "sha256": "c899485ba30c07f4f378cc043af93a3fccab1b35319ca1d10167b98cbfd59195",
+            "bytes": 150893,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 1,
+            "name": "display_fp",
+            "sha256": "a78f9380ee5d597f21d53345ab45ffebfcb58c1d0faa64d2c91f5d172e04c8da",
+            "bytes": 11311,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "compass_additive",
+            "sha256": "73313bc39a2568a7738011da0efe9ef64b54477452c67689ad46996a2b44b377",
+            "bytes": 1933,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 3,
+            "name": "numbers_zero_additive",
+            "sha256": "a77f9bbac3c50ae5a2bdf8299472d2c7f98a51bc65403a94cc78b14e83a1d65e",
+            "bytes": 901,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 4,
+            "name": "ar_data_additive",
+            "sha256": "5a7e5dfdb213cc372cff36c310cae95003f61e3aaf5c53b2bef594766aa17c8c",
+            "bytes": 19160,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 5,
+            "name": "bolt",
+            "sha256": "f2dd65c72c1cb38ddd79e48fb854ac982ce7268e878c83a994cdbf572e5f394e",
+            "bytes": 1137,
+            "dimensions": [
+              128,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 6,
+            "name": "cyborg_chief_olive",
+            "sha256": "da0e83bfd106b167c492b1b7f35aa110add6d48f3d98b9c69c092d6ec31662a6",
+            "bytes": 315200,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 3560787,
+        "texture_dimensions": [
+          "128x32",
+          "256x256",
+          "512x512",
+          "64x64"
+        ],
+        "skins": 1,
+        "joints": [
+          22
+        ],
+        "animations": 3,
+        "issues": [
+          "surfaces 9 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 3.673048054597672e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "chief-master-chief",
+      "preserve_mesh_nodes": ""
+    },
+    {
+      "source": "assets/characters/master_chief/rocket_launcher_fp.glb",
+      "output": "assets/optimized/chief-rocket-launcher-fp.glb",
+      "source_sha256": "5580129ab763d550a189341198a7dcd2ba021beb230e696b4d060ccc1bdf0ba1",
+      "output_sha256": "944d05eff97bf7841076c04b8ae25ae18884bb6e589c0007b66ea0ad866ae7f1",
+      "before": {
+        "path": "assets/characters/master_chief/rocket_launcher_fp.glb",
+        "sha256": "5580129ab763d550a189341198a7dcd2ba021beb230e696b4d060ccc1bdf0ba1",
+        "bytes": 956144,
+        "category": "hero",
+        "triangles": 3788,
+        "vertices": 4524,
+        "mesh_instances": 2,
+        "surfaces": 6,
+        "materials": 6,
+        "duplicate_materials": 2,
+        "textures": [
+          {
+            "index": 0,
+            "name": "cyborg hands",
+            "sha256": "734240064f8ed7f3d06f1ef668378a89514fe3e91e3907d23f9a4617830fa5b5",
+            "bytes": 159028,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 1,
+            "name": "cyborg hands_chief_olive",
+            "sha256": "4211b00d9e3d3537eefb4d7219bca8e47c380be27ec40dd25b57969b7dadea86",
+            "bytes": 232599,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 2,
+            "name": "rocket launcher",
+            "sha256": "d40deb27725d8292acde8da0059c655640b16a141bade155a098d968e6b63089",
+            "bytes": 182275,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 3,
+            "name": "rocket launcher decal",
+            "sha256": "ee93876a1332f4b9981fbbb92c98c895807283b35cea97f70f0421f75a3591c3",
+            "bytes": 10641,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 4543828,
+        "texture_dimensions": [
+          "256x256",
+          "512x512"
+        ],
+        "skins": 1,
+        "joints": [
+          42
+        ],
+        "animations": 3,
+        "issues": []
+      },
+      "after": {
+        "path": "assets/optimized/chief-rocket-launcher-fp.glb",
+        "sha256": "944d05eff97bf7841076c04b8ae25ae18884bb6e589c0007b66ea0ad866ae7f1",
+        "bytes": 976172,
+        "category": "prop",
+        "triangles": 3788,
+        "vertices": 4520,
+        "mesh_instances": 1,
+        "surfaces": 4,
+        "materials": 4,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "cyborg hands",
+            "sha256": "734240064f8ed7f3d06f1ef668378a89514fe3e91e3907d23f9a4617830fa5b5",
+            "bytes": 159028,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 1,
+            "name": "cyborg hands_chief_olive",
+            "sha256": "4211b00d9e3d3537eefb4d7219bca8e47c380be27ec40dd25b57969b7dadea86",
+            "bytes": 232599,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 2,
+            "name": "rocket launcher",
+            "sha256": "d40deb27725d8292acde8da0059c655640b16a141bade155a098d968e6b63089",
+            "bytes": 182275,
+            "dimensions": [
+              512,
+              512
+            ],
+            "rgba8_mip_estimate_bytes": 1398101
+          },
+          {
+            "index": 3,
+            "name": "rocket launcher decal",
+            "sha256": "ee93876a1332f4b9981fbbb92c98c895807283b35cea97f70f0421f75a3591c3",
+            "bytes": 10641,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 4543828,
+        "texture_dimensions": [
+          "256x256",
+          "512x512"
+        ],
+        "skins": 1,
+        "joints": [
+          42
+        ],
+        "animations": 3,
+        "issues": [
+          "triangles 3788 > budget 3000"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 3.7844392952735006e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "chief-rocket-launcher-fp",
+      "preserve_mesh_nodes": ""
+    },
+    {
+      "source": "assets/models/characters/goemon_cosplay/samurai.glb",
+      "output": "assets/optimized/roster-samurai.glb",
+      "source_sha256": "7b1a9e8732242f85621964443979fd1ab3b8e6c6bcd61c453e280be5d4ed06fc",
+      "output_sha256": "17a5327d282ef3fbebbd8091fef0373691efcdab69e35f86de43d7a998a5d320",
+      "before": {
+        "path": "assets/models/characters/goemon_cosplay/samurai.glb",
+        "sha256": "7b1a9e8732242f85621964443979fd1ab3b8e6c6bcd61c453e280be5d4ed06fc",
+        "bytes": 410772,
+        "category": "hero",
+        "triangles": 6374,
+        "vertices": 12125,
+        "mesh_instances": 7,
+        "surfaces": 17,
+        "materials": 15,
+        "duplicate_materials": 1,
+        "textures": [
+          {
+            "index": 0,
+            "name": "samurai",
+            "sha256": "f00cba017853c47d681ad830da79e99e628b075a0d67c1891af9f9ed8e5356bf",
+            "bytes": 854,
+            "dimensions": [
+              128,
+              128
+            ],
+            "rgba8_mip_estimate_bytes": 87381
+          },
+          {
+            "index": 1,
+            "name": "goemon_original",
+            "sha256": "20caab829d320a397df097b5df627c1b8c444f9d1f72dba6965da7c1fd74d388",
+            "bytes": 9905,
+            "dimensions": [
+              128,
+              128
+            ],
+            "rgba8_mip_estimate_bytes": 87381
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 174762,
+        "texture_dimensions": [
+          "128x128"
+        ],
+        "skins": 1,
+        "joints": [
+          22
+        ],
+        "animations": 0,
+        "issues": [
+          "surfaces 17 > budget 8"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/roster-samurai.glb",
+        "sha256": "17a5327d282ef3fbebbd8091fef0373691efcdab69e35f86de43d7a998a5d320",
+        "bytes": 449480,
+        "category": "prop",
+        "triangles": 6374,
+        "vertices": 12125,
+        "mesh_instances": 7,
+        "surfaces": 17,
+        "materials": 14,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "samurai",
+            "sha256": "f00cba017853c47d681ad830da79e99e628b075a0d67c1891af9f9ed8e5356bf",
+            "bytes": 854,
+            "dimensions": [
+              128,
+              128
+            ],
+            "rgba8_mip_estimate_bytes": 87381
+          },
+          {
+            "index": 1,
+            "name": "goemon_original",
+            "sha256": "20caab829d320a397df097b5df627c1b8c444f9d1f72dba6965da7c1fd74d388",
+            "bytes": 9905,
+            "dimensions": [
+              128,
+              128
+            ],
+            "rgba8_mip_estimate_bytes": 87381
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 174762,
+        "texture_dimensions": [
+          "128x128"
+        ],
+        "skins": 1,
+        "joints": [
+          22
+        ],
+        "animations": 0,
+        "issues": [
+          "triangles 6374 > budget 3000",
+          "surfaces 17 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "roster-samurai",
+      "preserve_mesh_nodes": "^(Skin|Hair_Normal|Hair_Gold|Knight_Long_Dark_Navy_Cape|Weapon_Pistol_Geometry|ScarfTail_Geometry|Katana_Hilt)$"
+    },
+    {
+      "source": "assets/models/cedar_pass/tea_house_open.glb",
+      "output": "assets/optimized/cedar-pass-tea-house-open.glb",
+      "source_sha256": "aeba5c663e6a6ed5bc1097966ec50fb4f8573bef15eaf212c6fcfa463d97c619",
+      "output_sha256": "668dfb9d9bcd9a29d3f2660d0b12257ac81d87b5e10866e84a0463aa84d8073c",
+      "before": {
+        "path": "assets/models/cedar_pass/tea_house_open.glb",
+        "sha256": "aeba5c663e6a6ed5bc1097966ec50fb4f8573bef15eaf212c6fcfa463d97c619",
+        "bytes": 526796,
+        "category": "prop",
+        "triangles": 6118,
+        "vertices": 10992,
+        "mesh_instances": 7,
+        "surfaces": 7,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": [
+          "triangles 6118 > budget 3000",
+          "surfaces 7 > budget 4"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/cedar-pass-tea-house-open.glb",
+        "sha256": "668dfb9d9bcd9a29d3f2660d0b12257ac81d87b5e10866e84a0463aa84d8073c",
+        "bytes": 557868,
+        "category": "prop",
+        "triangles": 6118,
+        "vertices": 10950,
+        "mesh_instances": 2,
+        "surfaces": 2,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": [
+          "triangles 6118 > budget 3000"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 2.1073738365462447e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "cedar-pass-tea-house-open",
+      "preserve_mesh_nodes": "(?i)roof"
+    },
+    {
+      "source": "assets/models/cedar_pass/machiya_open.glb",
+      "output": "assets/optimized/cedar-pass-machiya-open.glb",
+      "source_sha256": "b40758da05dfde6e31b381550cb722bc6094583974f8a4a46684af568034b607",
+      "output_sha256": "eb70dd200ad6129fdd9839ec4fc41773ef3c48cd04bd06c7310b75628782d442",
+      "before": {
+        "path": "assets/models/cedar_pass/machiya_open.glb",
+        "sha256": "b40758da05dfde6e31b381550cb722bc6094583974f8a4a46684af568034b607",
+        "bytes": 475624,
+        "category": "prop",
+        "triangles": 5514,
+        "vertices": 9912,
+        "mesh_instances": 7,
+        "surfaces": 7,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": [
+          "triangles 5514 > budget 3000",
+          "surfaces 7 > budget 4"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/cedar-pass-machiya-open.glb",
+        "sha256": "eb70dd200ad6129fdd9839ec4fc41773ef3c48cd04bd06c7310b75628782d442",
+        "bytes": 502040,
+        "category": "prop",
+        "triangles": 5514,
+        "vertices": 9846,
+        "mesh_instances": 2,
+        "surfaces": 2,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": [
+          "triangles 5514 > budget 3000"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 2.1073738365462447e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "cedar-pass-machiya-open",
+      "preserve_mesh_nodes": "(?i)roof"
+    },
+    {
+      "source": "assets/models/cedar_pass/gatehouse.glb",
+      "output": "assets/optimized/cedar-pass-gatehouse.glb",
+      "source_sha256": "ee557d6dba2b091bd9e5f27b8fde514e20123d3f3203fc7f39a42abd54b03f86",
+      "output_sha256": "da7cbaad52b88115aaac5b63a1c6d37c8a58e98d5d7d5d8615c0a55ded0b2f00",
+      "before": {
+        "path": "assets/models/cedar_pass/gatehouse.glb",
+        "sha256": "ee557d6dba2b091bd9e5f27b8fde514e20123d3f3203fc7f39a42abd54b03f86",
+        "bytes": 371464,
+        "category": "prop",
+        "triangles": 4236,
+        "vertices": 7716,
+        "mesh_instances": 7,
+        "surfaces": 7,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": [
+          "triangles 4236 > budget 3000",
+          "surfaces 7 > budget 4"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/cedar-pass-gatehouse.glb",
+        "sha256": "da7cbaad52b88115aaac5b63a1c6d37c8a58e98d5d7d5d8615c0a55ded0b2f00",
+        "bytes": 390292,
+        "category": "prop",
+        "triangles": 4236,
+        "vertices": 7656,
+        "mesh_instances": 2,
+        "surfaces": 2,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": [
+          "triangles 4236 > budget 3000"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 2.1073738365462447e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "cedar-pass-gatehouse",
+      "preserve_mesh_nodes": "(?i)roof"
+    },
+    {
+      "source": "assets/models/cedar_pass/shrine.glb",
+      "output": "assets/optimized/cedar-pass-shrine.glb",
+      "source_sha256": "1e442de5e08292c7128a327829a575a7742bbe522166772c81454a7328e8e7ec",
+      "output_sha256": "4835bfec252c57c35fd5946630a318591968c2ea48735d59b7c3ead8bb8e6084",
+      "before": {
+        "path": "assets/models/cedar_pass/shrine.glb",
+        "sha256": "1e442de5e08292c7128a327829a575a7742bbe522166772c81454a7328e8e7ec",
+        "bytes": 343904,
+        "category": "prop",
+        "triangles": 3986,
+        "vertices": 7128,
+        "mesh_instances": 7,
+        "surfaces": 7,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": [
+          "triangles 3986 > budget 3000",
+          "surfaces 7 > budget 4"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/cedar-pass-shrine.glb",
+        "sha256": "4835bfec252c57c35fd5946630a318591968c2ea48735d59b7c3ead8bb8e6084",
+        "bytes": 362264,
+        "category": "prop",
+        "triangles": 3986,
+        "vertices": 7086,
+        "mesh_instances": 2,
+        "surfaces": 2,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": [
+          "triangles 3986 > budget 3000"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 2.1073738365462447e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "cedar-pass-shrine",
+      "preserve_mesh_nodes": "(?i)roof"
+    },
+    {
+      "source": "assets/models/cedar_pass/warehouse.glb",
+      "output": "assets/optimized/cedar-pass-warehouse.glb",
+      "source_sha256": "c300529c6b305e5b90370350cfd56c22a97e0499305f9590a2378905523d4487",
+      "output_sha256": "82463594aa5d83a75d22f6f4f8df8cdbb859503ce0176e82a2705607e515750f",
+      "before": {
+        "path": "assets/models/cedar_pass/warehouse.glb",
+        "sha256": "c300529c6b305e5b90370350cfd56c22a97e0499305f9590a2378905523d4487",
+        "bytes": 341988,
+        "category": "prop",
+        "triangles": 3834,
+        "vertices": 7104,
+        "mesh_instances": 7,
+        "surfaces": 7,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": [
+          "triangles 3834 > budget 3000",
+          "surfaces 7 > budget 4"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/cedar-pass-warehouse.glb",
+        "sha256": "82463594aa5d83a75d22f6f4f8df8cdbb859503ce0176e82a2705607e515750f",
+        "bytes": 358592,
+        "category": "prop",
+        "triangles": 3834,
+        "vertices": 7044,
+        "mesh_instances": 2,
+        "surfaces": 2,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": [
+          "triangles 3834 > budget 3000"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 2.1073738365462447e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "cedar-pass-warehouse",
+      "preserve_mesh_nodes": "(?i)roof"
+    },
+    {
+      "source": "assets/models/cedar_pass/inn.glb",
+      "output": "assets/optimized/cedar-pass-inn.glb",
+      "source_sha256": "e16e439bd9fb6b6a16b889c32825475a5bda35c26daeb3b33adf0fe52e54efb3",
+      "output_sha256": "edf392a2d6016284f114e846fb42da3024a3734bd72c3886b15cf6502590d7de",
+      "before": {
+        "path": "assets/models/cedar_pass/inn.glb",
+        "sha256": "e16e439bd9fb6b6a16b889c32825475a5bda35c26daeb3b33adf0fe52e54efb3",
+        "bytes": 616884,
+        "category": "prop",
+        "triangles": 7090,
+        "vertices": 12864,
+        "mesh_instances": 9,
+        "surfaces": 9,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": [
+          "triangles 7090 > budget 3000",
+          "surfaces 9 > budget 4"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/cedar-pass-inn.glb",
+        "sha256": "edf392a2d6016284f114e846fb42da3024a3734bd72c3886b15cf6502590d7de",
+        "bytes": 651428,
+        "category": "prop",
+        "triangles": 7090,
+        "vertices": 12810,
+        "mesh_instances": 2,
+        "surfaces": 2,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": [
+          "triangles 7090 > budget 3000"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 2.1073738365462447e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "cedar-pass-inn",
+      "preserve_mesh_nodes": "(?i)roof"
+    },
+    {
+      "source": "assets/models/environments/cherry_tree.glb",
+      "output": "assets/optimized/environments-cherry-tree.glb",
+      "source_sha256": "562df928b0f7da41b0f5a88e3a335415722898005de54451a8cd503fc7fb610c",
+      "output_sha256": "93fb8f0aa4d1d5d0789e1d489e88b8e03b56a95d1f8f7ed249930f35d70073c6",
+      "before": {
+        "path": "assets/models/environments/cherry_tree.glb",
+        "sha256": "562df928b0f7da41b0f5a88e3a335415722898005de54451a8cd503fc7fb610c",
+        "bytes": 253964,
+        "category": "scenery",
+        "triangles": 1992,
+        "vertices": 5448,
+        "mesh_instances": 2,
+        "surfaces": 2,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "after": {
+        "path": "assets/optimized/environments-cherry-tree.glb",
+        "sha256": "93fb8f0aa4d1d5d0789e1d489e88b8e03b56a95d1f8f7ed249930f35d70073c6",
+        "bytes": 265220,
+        "category": "prop",
+        "triangles": 1992,
+        "vertices": 5448,
+        "mesh_instances": 1,
+        "surfaces": 1,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 3.134251180814118e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "environments-cherry-tree",
+      "preserve_mesh_nodes": ""
+    },
+    {
+      "source": "assets/models/environments/green_tree.glb",
+      "output": "assets/optimized/environments-green-tree.glb",
+      "source_sha256": "9e04dcd0a80bc226460186c1ccd2acef45e9b7e58c95807b2c4bd58a69c1203e",
+      "output_sha256": "da1797936bb4deb876a52bcf30c3c4ab7dec9934a596910bf04933fe960733df",
+      "before": {
+        "path": "assets/models/environments/green_tree.glb",
+        "sha256": "9e04dcd0a80bc226460186c1ccd2acef45e9b7e58c95807b2c4bd58a69c1203e",
+        "bytes": 253964,
+        "category": "scenery",
+        "triangles": 1992,
+        "vertices": 5448,
+        "mesh_instances": 2,
+        "surfaces": 2,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "after": {
+        "path": "assets/optimized/environments-green-tree.glb",
+        "sha256": "da1797936bb4deb876a52bcf30c3c4ab7dec9934a596910bf04933fe960733df",
+        "bytes": 265220,
+        "category": "prop",
+        "triangles": 1992,
+        "vertices": 5448,
+        "mesh_instances": 1,
+        "surfaces": 1,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 3.134251180814118e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "environments-green-tree",
+      "preserve_mesh_nodes": ""
+    },
+    {
+      "source": "assets/models/environments/palm.glb",
+      "output": "assets/optimized/environments-palm.glb",
+      "source_sha256": "ab1555aa7fb7f0f97384a83cf7f8c84332d5532eef43459fa7c45da65602701e",
+      "output_sha256": "a2f8912f8e5443266e983a8c683f6e9b8edd505410bd339430f58f81ed4dd086",
+      "before": {
+        "path": "assets/models/environments/palm.glb",
+        "sha256": "ab1555aa7fb7f0f97384a83cf7f8c84332d5532eef43459fa7c45da65602701e",
+        "bytes": 73524,
+        "category": "scenery",
+        "triangles": 784,
+        "vertices": 1512,
+        "mesh_instances": 2,
+        "surfaces": 2,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "after": {
+        "path": "assets/optimized/environments-palm.glb",
+        "sha256": "a2f8912f8e5443266e983a8c683f6e9b8edd505410bd339430f58f81ed4dd086",
+        "bytes": 77536,
+        "category": "prop",
+        "triangles": 784,
+        "vertices": 1512,
+        "mesh_instances": 1,
+        "surfaces": 1,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 3.2760320567426504e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "environments-palm",
+      "preserve_mesh_nodes": ""
+    },
+    {
+      "source": "assets/characters/thirstquencher/soldier_2.glb",
+      "output": "assets/optimized/soldier-soldier_2.glb",
+      "source_sha256": "30a9c99fa1df0daba1605ceab0f751cd276e7b40278b59c6049312c0219fe4da",
+      "output_sha256": "267dd5a128a098e05340ef43eca7ffd54dd26152efc65391a004c1fd0c331f89",
+      "before": {
+        "path": "assets/characters/thirstquencher/soldier_2.glb",
+        "sha256": "30a9c99fa1df0daba1605ceab0f751cd276e7b40278b59c6049312c0219fe4da",
+        "bytes": 609684,
+        "category": "hero",
+        "triangles": 356,
+        "vertices": 1068,
+        "mesh_instances": 11,
+        "surfaces": 13,
+        "materials": 13,
+        "duplicate_materials": 10,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "6471062f49d319c3f79d39118905f1d94fa84a10341491e3ab34541392c6c11e",
+            "bytes": 30365,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_0",
+            "sha256": "5f57720bfd73931f4253a1f28feefebc635a8e88d86c28b7e09425d4cc923125",
+            "bytes": 42061,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 699050,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          12
+        ],
+        "animations": 25,
+        "issues": [
+          "surfaces 13 > budget 8"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/soldier-soldier_2.glb",
+        "sha256": "267dd5a128a098e05340ef43eca7ffd54dd26152efc65391a004c1fd0c331f89",
+        "bytes": 594804,
+        "category": "prop",
+        "triangles": 356,
+        "vertices": 750,
+        "mesh_instances": 11,
+        "surfaces": 13,
+        "materials": 3,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "6471062f49d319c3f79d39118905f1d94fa84a10341491e3ab34541392c6c11e",
+            "bytes": 30365,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_0",
+            "sha256": "5f57720bfd73931f4253a1f28feefebc635a8e88d86c28b7e09425d4cc923125",
+            "bytes": 42061,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 699050,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          12
+        ],
+        "animations": 25,
+        "issues": [
+          "surfaces 13 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "soldier-soldier_2",
+      "preserve_mesh_nodes": ".*"
+    },
+    {
+      "source": "assets/characters/thirstquencher/soldier_3.glb",
+      "output": "assets/optimized/soldier-soldier_3.glb",
+      "source_sha256": "2b160fd434389860448aed7c18c714c226dc60e72c1f8b8295c6297394182c6b",
+      "output_sha256": "3d3228e83b2db472e63fac32062635c830940ddd9ae948222f977131ae864764",
+      "before": {
+        "path": "assets/characters/thirstquencher/soldier_3.glb",
+        "sha256": "2b160fd434389860448aed7c18c714c226dc60e72c1f8b8295c6297394182c6b",
+        "bytes": 648960,
+        "category": "hero",
+        "triangles": 390,
+        "vertices": 1170,
+        "mesh_instances": 11,
+        "surfaces": 13,
+        "materials": 13,
+        "duplicate_materials": 10,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "5a3d9eeed3bbf79cf9c45632de82ca3a310dcbd648051494f8db54bf68dd70af",
+            "bytes": 30612,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_0",
+            "sha256": "5f57720bfd73931f4253a1f28feefebc635a8e88d86c28b7e09425d4cc923125",
+            "bytes": 42061,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 699050,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          12
+        ],
+        "animations": 27,
+        "issues": [
+          "surfaces 13 > budget 8"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/soldier-soldier_3.glb",
+        "sha256": "3d3228e83b2db472e63fac32062635c830940ddd9ae948222f977131ae864764",
+        "bytes": 631684,
+        "category": "prop",
+        "triangles": 390,
+        "vertices": 806,
+        "mesh_instances": 11,
+        "surfaces": 13,
+        "materials": 3,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "5a3d9eeed3bbf79cf9c45632de82ca3a310dcbd648051494f8db54bf68dd70af",
+            "bytes": 30612,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_0",
+            "sha256": "5f57720bfd73931f4253a1f28feefebc635a8e88d86c28b7e09425d4cc923125",
+            "bytes": 42061,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 699050,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          12
+        ],
+        "animations": 27,
+        "issues": [
+          "surfaces 13 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "soldier-soldier_3",
+      "preserve_mesh_nodes": ".*"
+    },
+    {
+      "source": "assets/characters/thirstquencher/soldier_1.glb",
+      "output": "assets/optimized/soldier-soldier_1.glb",
+      "source_sha256": "f9384af0fb10a43e926c118d6edf27dd8e6812fc3b8098494ca068bf774d46ec",
+      "output_sha256": "acda636589757e02038adaa187bbade6cebda01d56c14789d5edd6b618119d61",
+      "before": {
+        "path": "assets/characters/thirstquencher/soldier_1.glb",
+        "sha256": "f9384af0fb10a43e926c118d6edf27dd8e6812fc3b8098494ca068bf774d46ec",
+        "bytes": 607628,
+        "category": "hero",
+        "triangles": 374,
+        "vertices": 1122,
+        "mesh_instances": 11,
+        "surfaces": 13,
+        "materials": 13,
+        "duplicate_materials": 10,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "d355e18933024894766bdb3bfacfaa40237f2cda997a12b2b7edd1e6340be77c",
+            "bytes": 25498,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_0",
+            "sha256": "5f57720bfd73931f4253a1f28feefebc635a8e88d86c28b7e09425d4cc923125",
+            "bytes": 42061,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 699050,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          12
+        ],
+        "animations": 25,
+        "issues": [
+          "surfaces 13 > budget 8"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/soldier-soldier_1.glb",
+        "sha256": "acda636589757e02038adaa187bbade6cebda01d56c14789d5edd6b618119d61",
+        "bytes": 591760,
+        "category": "prop",
+        "triangles": 374,
+        "vertices": 780,
+        "mesh_instances": 11,
+        "surfaces": 13,
+        "materials": 3,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "d355e18933024894766bdb3bfacfaa40237f2cda997a12b2b7edd1e6340be77c",
+            "bytes": 25498,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_0",
+            "sha256": "5f57720bfd73931f4253a1f28feefebc635a8e88d86c28b7e09425d4cc923125",
+            "bytes": 42061,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 699050,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          12
+        ],
+        "animations": 25,
+        "issues": [
+          "surfaces 13 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "soldier-soldier_1",
+      "preserve_mesh_nodes": ".*"
+    },
+    {
+      "source": "assets/characters/thirstquencher/projectiles/casing.glb",
+      "output": "assets/optimized/effect-projectiles-casing.glb",
+      "source_sha256": "5d26b800dd2e5bc1e78b4c5bfae67a153fb3effacf56e9115f1e86b207e0e770",
+      "output_sha256": "80fc91f4a089e6e4cef21590b92d774f4815a47f46398d0c880ab5cf339369a8",
+      "before": {
+        "path": "assets/characters/thirstquencher/projectiles/casing.glb",
+        "sha256": "5d26b800dd2e5bc1e78b4c5bfae67a153fb3effacf56e9115f1e86b207e0e770",
+        "bytes": 2684,
+        "category": "hero",
+        "triangles": 12,
+        "vertices": 36,
+        "mesh_instances": 1,
+        "surfaces": 1,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "after": {
+        "path": "assets/optimized/effect-projectiles-casing.glb",
+        "sha256": "80fc91f4a089e6e4cef21590b92d774f4815a47f46398d0c880ab5cf339369a8",
+        "bytes": 2408,
+        "category": "prop",
+        "triangles": 12,
+        "vertices": 24,
+        "mesh_instances": 1,
+        "surfaces": 1,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "effect-projectiles-casing",
+      "preserve_mesh_nodes": ".*"
+    },
+    {
+      "source": "assets/characters/recovered_leaders/ed/beam_shield.glb",
+      "output": "assets/optimized/effect-ed-beam_shield.glb",
+      "source_sha256": "4894bdda61bd610ab7c984252a54c11d97766677c605235910dc4252f668d1dc",
+      "output_sha256": "6b3a41400d0f0109fc9a03dd3f031bb53b883fc4eb60a0282744d5040c831fc5",
+      "before": {
+        "path": "assets/characters/recovered_leaders/ed/beam_shield.glb",
+        "sha256": "4894bdda61bd610ab7c984252a54c11d97766677c605235910dc4252f668d1dc",
+        "bytes": 13284,
+        "category": "hero",
+        "triangles": 112,
+        "vertices": 336,
+        "mesh_instances": 1,
+        "surfaces": 1,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "after": {
+        "path": "assets/optimized/effect-ed-beam_shield.glb",
+        "sha256": "6b3a41400d0f0109fc9a03dd3f031bb53b883fc4eb60a0282744d5040c831fc5",
+        "bytes": 5108,
+        "category": "prop",
+        "triangles": 112,
+        "vertices": 65,
+        "mesh_instances": 1,
+        "surfaces": 1,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [],
+        "texture_rgba8_mip_estimate_bytes": 0,
+        "texture_dimensions": [],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "effect-ed-beam_shield",
+      "preserve_mesh_nodes": ".*"
+    },
+    {
+      "source": "assets/characters/recovered_leaders/ben/axe.glb",
+      "output": "assets/optimized/effect-ben-axe.glb",
+      "source_sha256": "e8521418e384d264d09e8709ef86e82575537d62905b1bde6546a9b377bd976c",
+      "output_sha256": "ed2042fed7d3a855e9eff2d7a3c80440a17aecf9b7af27b1cf595ee4af90ae63",
+      "before": {
+        "path": "assets/characters/recovered_leaders/ben/axe.glb",
+        "sha256": "e8521418e384d264d09e8709ef86e82575537d62905b1bde6546a9b377bd976c",
+        "bytes": 21312,
+        "category": "hero",
+        "triangles": 88,
+        "vertices": 264,
+        "mesh_instances": 1,
+        "surfaces": 1,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "0",
+            "sha256": "42fe526c5d4bd76708e18da2279b818cbb347a96cdd08d0cb0fdcf8660ec484a",
+            "bytes": 11574,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 349525,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "after": {
+        "path": "assets/optimized/effect-ben-axe.glb",
+        "sha256": "ed2042fed7d3a855e9eff2d7a3c80440a17aecf9b7af27b1cf595ee4af90ae63",
+        "bytes": 15744,
+        "category": "prop",
+        "triangles": 88,
+        "vertices": 53,
+        "mesh_instances": 1,
+        "surfaces": 1,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "0",
+            "sha256": "42fe526c5d4bd76708e18da2279b818cbb347a96cdd08d0cb0fdcf8660ec484a",
+            "bytes": 11574,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 349525,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "effect-ben-axe",
+      "preserve_mesh_nodes": ".*"
+    },
+    {
+      "source": "assets/characters/recovered_leaders/ed/beam/companion.glb",
+      "output": "assets/optimized/effect-beam-companion.glb",
+      "source_sha256": "45e42b223c88c236c019239ae689b975bd825e16b29f30c09f6320569acda8a8",
+      "output_sha256": "d012b4e24965775c3f18103827d88c5b4bb9d0bd8d3e79c55519ae963d31c01b",
+      "before": {
+        "path": "assets/characters/recovered_leaders/ed/beam/companion.glb",
+        "sha256": "45e42b223c88c236c019239ae689b975bd825e16b29f30c09f6320569acda8a8",
+        "bytes": 24312,
+        "category": "hero",
+        "triangles": 160,
+        "vertices": 480,
+        "mesh_instances": 1,
+        "surfaces": 1,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "0",
+            "sha256": "804912e300e512f3e4b312d06b3bc4e1e8a44eb746b58b1485124348839b1552",
+            "bytes": 7683,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 349525,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "after": {
+        "path": "assets/optimized/effect-beam-companion.glb",
+        "sha256": "d012b4e24965775c3f18103827d88c5b4bb9d0bd8d3e79c55519ae963d31c01b",
+        "bytes": 13568,
+        "category": "prop",
+        "triangles": 160,
+        "vertices": 81,
+        "mesh_instances": 1,
+        "surfaces": 1,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "0",
+            "sha256": "804912e300e512f3e4b312d06b3bc4e1e8a44eb746b58b1485124348839b1552",
+            "bytes": 7683,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 349525,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "effect-beam-companion",
+      "preserve_mesh_nodes": ".*"
+    },
+    {
+      "source": "assets/characters/recovered_leaders/ed/beam/main.glb",
+      "output": "assets/optimized/effect-beam-main.glb",
+      "source_sha256": "aeb6cce459cd5f7c92c7af4e1c01645f53f92c22e1fdf30846970b9ab3bfc363",
+      "output_sha256": "16054498a5d4718834a67dc62acca2271082f153378892de4997c7eaed30dd23",
+      "before": {
+        "path": "assets/characters/recovered_leaders/ed/beam/main.glb",
+        "sha256": "aeb6cce459cd5f7c92c7af4e1c01645f53f92c22e1fdf30846970b9ab3bfc363",
+        "bytes": 22680,
+        "category": "hero",
+        "triangles": 80,
+        "vertices": 240,
+        "mesh_instances": 1,
+        "surfaces": 1,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "0",
+            "sha256": "8a354a57e4e6bb04d6ceeb5025a11d38611ab48259c199ee3bf8b480fcc859b7",
+            "bytes": 10525,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 349525,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "after": {
+        "path": "assets/optimized/effect-beam-main.glb",
+        "sha256": "16054498a5d4718834a67dc62acca2271082f153378892de4997c7eaed30dd23",
+        "bytes": 16856,
+        "category": "prop",
+        "triangles": 80,
+        "vertices": 82,
+        "mesh_instances": 1,
+        "surfaces": 1,
+        "materials": 1,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "0",
+            "sha256": "8a354a57e4e6bb04d6ceeb5025a11d38611ab48259c199ee3bf8b480fcc859b7",
+            "bytes": 10525,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 349525,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 0,
+        "joints": [],
+        "animations": 0,
+        "issues": []
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "effect-beam-main",
+      "preserve_mesh_nodes": ".*"
+    },
+    {
+      "source": "assets/characters/recovered_leaders/ed/model.glb",
+      "output": "assets/optimized/leader-ed.glb",
+      "source_sha256": "a31cde0644ff495c06ec529b0773306d53ae50c50295bdff28ad17b3f98a3ef3",
+      "output_sha256": "552900712eb5e030f025b9d5bbf8823d70c14148febcab93074ab1dedcb7aab2",
+      "before": {
+        "path": "assets/characters/recovered_leaders/ed/model.glb",
+        "sha256": "a31cde0644ff495c06ec529b0773306d53ae50c50295bdff28ad17b3f98a3ef3",
+        "bytes": 502396,
+        "category": "hero",
+        "triangles": 300,
+        "vertices": 900,
+        "mesh_instances": 10,
+        "surfaces": 17,
+        "materials": 17,
+        "duplicate_materials": 11,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "a0b8c44cf9bc6ad3a0165412d89be2c025d9fc79ee14a1d6ee5d533bfe35de43",
+            "bytes": 10148,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_1",
+            "sha256": "a14f32d983a332162df96bdb355a0f8eb127ca4d6c3afb640a8de1db9153e0b6",
+            "bytes": 7890,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "Image_0",
+            "sha256": "008691e74637c6567dec1805fafb4d9e9bbfe16a82a779c4d12e7f90eb3b580d",
+            "bytes": 10977,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 3,
+            "name": "Image_0",
+            "sha256": "a14f32d983a332162df96bdb355a0f8eb127ca4d6c3afb640a8de1db9153e0b6",
+            "bytes": 7890,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 4,
+            "name": "Image_1",
+            "sha256": "008691e74637c6567dec1805fafb4d9e9bbfe16a82a779c4d12e7f90eb3b580d",
+            "bytes": 10977,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 5,
+            "name": "Image_0",
+            "sha256": "cd84e35f2a72b80d2502bd1b8f6b34b2f9cd191a99c552b054f8e053e3b39032",
+            "bytes": 12860,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 6,
+            "name": "Image_0",
+            "sha256": "ca09e6cc69f9b3093b1d9227d0ff2692835055af701b330f8ebb5b9d810acdb0",
+            "bytes": 11784,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 7,
+            "name": "Image_1",
+            "sha256": "fc88b82e82122ce46583da59dc80e143f17ad972160c196f8e3316def6318957",
+            "bytes": 12389,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 8,
+            "name": "Image_2",
+            "sha256": "cd84e35f2a72b80d2502bd1b8f6b34b2f9cd191a99c552b054f8e053e3b39032",
+            "bytes": 12860,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 2097150,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          11
+        ],
+        "animations": 21,
+        "issues": [
+          "surfaces 17 > budget 8"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/leader-ed.glb",
+        "sha256": "552900712eb5e030f025b9d5bbf8823d70c14148febcab93074ab1dedcb7aab2",
+        "bytes": 491176,
+        "category": "prop",
+        "triangles": 300,
+        "vertices": 691,
+        "mesh_instances": 10,
+        "surfaces": 17,
+        "materials": 6,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "a0b8c44cf9bc6ad3a0165412d89be2c025d9fc79ee14a1d6ee5d533bfe35de43",
+            "bytes": 10148,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_1",
+            "sha256": "a14f32d983a332162df96bdb355a0f8eb127ca4d6c3afb640a8de1db9153e0b6",
+            "bytes": 7890,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "Image_0",
+            "sha256": "008691e74637c6567dec1805fafb4d9e9bbfe16a82a779c4d12e7f90eb3b580d",
+            "bytes": 10977,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 3,
+            "name": "Image_0",
+            "sha256": "a14f32d983a332162df96bdb355a0f8eb127ca4d6c3afb640a8de1db9153e0b6",
+            "bytes": 7890,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 4,
+            "name": "Image_1",
+            "sha256": "008691e74637c6567dec1805fafb4d9e9bbfe16a82a779c4d12e7f90eb3b580d",
+            "bytes": 10977,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 5,
+            "name": "Image_0",
+            "sha256": "cd84e35f2a72b80d2502bd1b8f6b34b2f9cd191a99c552b054f8e053e3b39032",
+            "bytes": 12860,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 6,
+            "name": "Image_0",
+            "sha256": "ca09e6cc69f9b3093b1d9227d0ff2692835055af701b330f8ebb5b9d810acdb0",
+            "bytes": 11784,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 7,
+            "name": "Image_1",
+            "sha256": "fc88b82e82122ce46583da59dc80e143f17ad972160c196f8e3316def6318957",
+            "bytes": 12389,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 8,
+            "name": "Image_2",
+            "sha256": "cd84e35f2a72b80d2502bd1b8f6b34b2f9cd191a99c552b054f8e053e3b39032",
+            "bytes": 12860,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 2097150,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          11
+        ],
+        "animations": 21,
+        "issues": [
+          "surfaces 17 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "leader-ed",
+      "preserve_mesh_nodes": ".*"
+    },
+    {
+      "source": "assets/models/enemies/thirstquencher/soldier_1.glb",
+      "output": "assets/optimized/soldier-light-1.glb",
+      "source_sha256": "03ff93b49f81ad1952b8ff8a8c43f2cd57e9924fd547685ecede371de8995502",
+      "output_sha256": "2ca4b6c4260748d8c27c143c91fcd83fb0925c46622b9607b03d0ba2a3c96c7a",
+      "before": {
+        "path": "assets/models/enemies/thirstquencher/soldier_1.glb",
+        "sha256": "03ff93b49f81ad1952b8ff8a8c43f2cd57e9924fd547685ecede371de8995502",
+        "bytes": 658380,
+        "category": "enemy",
+        "triangles": 2982,
+        "vertices": 1675,
+        "mesh_instances": 11,
+        "surfaces": 13,
+        "materials": 13,
+        "duplicate_materials": 10,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "d355e18933024894766bdb3bfacfaa40237f2cda997a12b2b7edd1e6340be77c",
+            "bytes": 25498,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_0",
+            "sha256": "5f57720bfd73931f4253a1f28feefebc635a8e88d86c28b7e09425d4cc923125",
+            "bytes": 42061,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 699050,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          12
+        ],
+        "animations": 25,
+        "issues": [
+          "surfaces 13 > budget 4"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/soldier-light-1.glb",
+        "sha256": "2ca4b6c4260748d8c27c143c91fcd83fb0925c46622b9607b03d0ba2a3c96c7a",
+        "bytes": 675764,
+        "category": "prop",
+        "triangles": 2982,
+        "vertices": 1675,
+        "mesh_instances": 11,
+        "surfaces": 13,
+        "materials": 3,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "d355e18933024894766bdb3bfacfaa40237f2cda997a12b2b7edd1e6340be77c",
+            "bytes": 25498,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_0",
+            "sha256": "5f57720bfd73931f4253a1f28feefebc635a8e88d86c28b7e09425d4cc923125",
+            "bytes": 42061,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 699050,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          12
+        ],
+        "animations": 25,
+        "issues": [
+          "surfaces 13 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "soldier-light-1",
+      "preserve_mesh_nodes": ".*"
+    },
+    {
+      "source": "assets/models/enemies/thirstquencher/soldier_2.glb",
+      "output": "assets/optimized/soldier-light-2.glb",
+      "source_sha256": "682d999f7a921c36e0ad0f4aaef11e5c0c5ba4f1cdcbd646ed2b8966caab3592",
+      "output_sha256": "a0f35800fe1c0a07629c73166c01520cba6151ace0be1d1b74d5dcd9f537bcf7",
+      "before": {
+        "path": "assets/models/enemies/thirstquencher/soldier_2.glb",
+        "sha256": "682d999f7a921c36e0ad0f4aaef11e5c0c5ba4f1cdcbd646ed2b8966caab3592",
+        "bytes": 660336,
+        "category": "enemy",
+        "triangles": 2916,
+        "vertices": 1630,
+        "mesh_instances": 11,
+        "surfaces": 13,
+        "materials": 13,
+        "duplicate_materials": 10,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "6471062f49d319c3f79d39118905f1d94fa84a10341491e3ab34541392c6c11e",
+            "bytes": 30365,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_0",
+            "sha256": "5f57720bfd73931f4253a1f28feefebc635a8e88d86c28b7e09425d4cc923125",
+            "bytes": 42061,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 699050,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          12
+        ],
+        "animations": 25,
+        "issues": [
+          "surfaces 13 > budget 4"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/soldier-light-2.glb",
+        "sha256": "a0f35800fe1c0a07629c73166c01520cba6151ace0be1d1b74d5dcd9f537bcf7",
+        "bytes": 677388,
+        "category": "prop",
+        "triangles": 2916,
+        "vertices": 1630,
+        "mesh_instances": 11,
+        "surfaces": 13,
+        "materials": 3,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "6471062f49d319c3f79d39118905f1d94fa84a10341491e3ab34541392c6c11e",
+            "bytes": 30365,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_0",
+            "sha256": "5f57720bfd73931f4253a1f28feefebc635a8e88d86c28b7e09425d4cc923125",
+            "bytes": 42061,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 699050,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          12
+        ],
+        "animations": 25,
+        "issues": [
+          "surfaces 13 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "soldier-light-2",
+      "preserve_mesh_nodes": ".*"
+    },
+    {
+      "source": "assets/models/enemies/thirstquencher/soldier_3.glb",
+      "output": "assets/optimized/soldier-light-3.glb",
+      "source_sha256": "7ef3b5ba3b64c69465ddf721c8ce1906b4e71146c0ec13c1d630bbbd2a5ff5f1",
+      "output_sha256": "b23d4ec738cd7f3eb3913c9c72804086abb4f0ab58b8f578505886fe349ef3d9",
+      "before": {
+        "path": "assets/models/enemies/thirstquencher/soldier_3.glb",
+        "sha256": "7ef3b5ba3b64c69465ddf721c8ce1906b4e71146c0ec13c1d630bbbd2a5ff5f1",
+        "bytes": 697152,
+        "category": "enemy",
+        "triangles": 2998,
+        "vertices": 1683,
+        "mesh_instances": 11,
+        "surfaces": 13,
+        "materials": 13,
+        "duplicate_materials": 10,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "5a3d9eeed3bbf79cf9c45632de82ca3a310dcbd648051494f8db54bf68dd70af",
+            "bytes": 30612,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_0",
+            "sha256": "5f57720bfd73931f4253a1f28feefebc635a8e88d86c28b7e09425d4cc923125",
+            "bytes": 42061,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 699050,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          12
+        ],
+        "animations": 27,
+        "issues": [
+          "surfaces 13 > budget 4"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/soldier-light-3.glb",
+        "sha256": "b23d4ec738cd7f3eb3913c9c72804086abb4f0ab58b8f578505886fe349ef3d9",
+        "bytes": 714672,
+        "category": "prop",
+        "triangles": 2998,
+        "vertices": 1683,
+        "mesh_instances": 11,
+        "surfaces": 13,
+        "materials": 3,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "5a3d9eeed3bbf79cf9c45632de82ca3a310dcbd648051494f8db54bf68dd70af",
+            "bytes": 30612,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_0",
+            "sha256": "5f57720bfd73931f4253a1f28feefebc635a8e88d86c28b7e09425d4cc923125",
+            "bytes": 42061,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 699050,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          12
+        ],
+        "animations": 27,
+        "issues": [
+          "surfaces 13 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "soldier-light-3",
+      "preserve_mesh_nodes": ".*"
+    },
+    {
+      "source": "assets/models/characters/sonic/sonic.glb",
+      "output": "assets/optimized/sonic.glb",
+      "source_sha256": "5c7121b311b662b8704be30b8beb1f8e134045fd5684165abfba8458d7e61e4d",
+      "output_sha256": "7140941788faca50702202b5b69ee231c16f87c776c590a681c75e9ae165c81f",
+      "before": {
+        "path": "assets/models/characters/sonic/sonic.glb",
+        "sha256": "5c7121b311b662b8704be30b8beb1f8e134045fd5684165abfba8458d7e61e4d",
+        "bytes": 4117460,
+        "category": "hero",
+        "triangles": 1993,
+        "vertices": 2667,
+        "mesh_instances": 28,
+        "surfaces": 42,
+        "materials": 42,
+        "duplicate_materials": 32,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_6",
+            "sha256": "806836b316b13dc6a7b89f71127222ce4ca23671cc3cea10564df1303c74d24f",
+            "bytes": 416,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 1,
+            "name": "Image_9",
+            "sha256": "7a181150a580b58db73ab6668aefdacc7df028f67d63e6116d7b4ca015c376a3",
+            "bytes": 2222,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 2,
+            "name": "Image_7",
+            "sha256": "c3f699e0713fc2d3fa2dcfffd90ebc6f64e6f2b99c4e9324134a5cd8bcdd6c87",
+            "bytes": 433,
+            "dimensions": [
+              16,
+              16
+            ],
+            "rgba8_mip_estimate_bytes": 1365
+          },
+          {
+            "index": 3,
+            "name": "Image_2",
+            "sha256": "fc3cd9c556c935ca732eda967884115fe4a8232d65fac7c23da0b43da289707a",
+            "bytes": 963,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 4,
+            "name": "Image_10",
+            "sha256": "9ac99fc08a40d188d5f19ae2ab7cf3aa258e576d21e3dea59647ad5ac6732b6b",
+            "bytes": 693,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 5,
+            "name": "Image_3",
+            "sha256": "18ab68d820def831318f86d00530fff4ab0c74a0133120dac7257c75c49efb9d",
+            "bytes": 916,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 6,
+            "name": "Image_4",
+            "sha256": "c0a155c80729ee35d3d03f52ad7cdf2c2baa07cd971d3ed91a2ce6d6ee7499a7",
+            "bytes": 234,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 7,
+            "name": "Image_5",
+            "sha256": "b6f6a92b5efb794119fbefc8e69d6d406f2e217c1d60ec3b6c0d8adaa8fd06d0",
+            "bytes": 3347,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 8,
+            "name": "Image_15",
+            "sha256": "89387d72221436f4c2eb6f63a194a65e955e4472248df88c42d3feb747a8c9e0",
+            "bytes": 17907,
+            "dimensions": [
+              128,
+              128
+            ],
+            "rgba8_mip_estimate_bytes": 87381
+          },
+          {
+            "index": 9,
+            "name": "Image_13",
+            "sha256": "d98c4e532cec860f8a7fc4f0f8b0e09deb99426aeeacd06263752684c045d9f8",
+            "bytes": 979,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 197970,
+        "texture_dimensions": [
+          "128x128",
+          "16x16",
+          "32x32",
+          "64x64"
+        ],
+        "skins": 1,
+        "joints": [
+          73
+        ],
+        "animations": 73,
+        "issues": [
+          "surfaces 42 > budget 8"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/sonic.glb",
+        "sha256": "7140941788faca50702202b5b69ee231c16f87c776c590a681c75e9ae165c81f",
+        "bytes": 4061488,
+        "category": "prop",
+        "triangles": 1993,
+        "vertices": 2263,
+        "mesh_instances": 1,
+        "surfaces": 10,
+        "materials": 10,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_6",
+            "sha256": "806836b316b13dc6a7b89f71127222ce4ca23671cc3cea10564df1303c74d24f",
+            "bytes": 416,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 1,
+            "name": "Image_9",
+            "sha256": "7a181150a580b58db73ab6668aefdacc7df028f67d63e6116d7b4ca015c376a3",
+            "bytes": 2222,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 2,
+            "name": "Image_7",
+            "sha256": "c3f699e0713fc2d3fa2dcfffd90ebc6f64e6f2b99c4e9324134a5cd8bcdd6c87",
+            "bytes": 433,
+            "dimensions": [
+              16,
+              16
+            ],
+            "rgba8_mip_estimate_bytes": 1365
+          },
+          {
+            "index": 3,
+            "name": "Image_2",
+            "sha256": "fc3cd9c556c935ca732eda967884115fe4a8232d65fac7c23da0b43da289707a",
+            "bytes": 963,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 4,
+            "name": "Image_10",
+            "sha256": "9ac99fc08a40d188d5f19ae2ab7cf3aa258e576d21e3dea59647ad5ac6732b6b",
+            "bytes": 693,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 5,
+            "name": "Image_3",
+            "sha256": "18ab68d820def831318f86d00530fff4ab0c74a0133120dac7257c75c49efb9d",
+            "bytes": 916,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 6,
+            "name": "Image_4",
+            "sha256": "c0a155c80729ee35d3d03f52ad7cdf2c2baa07cd971d3ed91a2ce6d6ee7499a7",
+            "bytes": 234,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 7,
+            "name": "Image_5",
+            "sha256": "b6f6a92b5efb794119fbefc8e69d6d406f2e217c1d60ec3b6c0d8adaa8fd06d0",
+            "bytes": 3347,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 8,
+            "name": "Image_15",
+            "sha256": "89387d72221436f4c2eb6f63a194a65e955e4472248df88c42d3feb747a8c9e0",
+            "bytes": 17907,
+            "dimensions": [
+              128,
+              128
+            ],
+            "rgba8_mip_estimate_bytes": 87381
+          },
+          {
+            "index": 9,
+            "name": "Image_13",
+            "sha256": "d98c4e532cec860f8a7fc4f0f8b0e09deb99426aeeacd06263752684c045d9f8",
+            "bytes": 979,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 197970,
+        "texture_dimensions": [
+          "128x128",
+          "16x16",
+          "32x32",
+          "64x64"
+        ],
+        "skins": 1,
+        "joints": [
+          73
+        ],
+        "animations": 73,
+        "issues": [
+          "surfaces 10 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 3.650042390557218e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "sonic",
+      "preserve_mesh_nodes": ""
+    },
+    {
+      "source": "assets/models/characters/kojiro/kojiro.glb",
+      "output": "assets/optimized/kojiro.glb",
+      "source_sha256": "e89ed84f2e73f48687c3a66aac4dbd9ac7a617f7c542950c76dd12d1c3fa864a",
+      "output_sha256": "715632badffa8447d02efed62f4ce30789d7ded48fb59e067c667f0ca54129e5",
+      "before": {
+        "path": "assets/models/characters/kojiro/kojiro.glb",
+        "sha256": "e89ed84f2e73f48687c3a66aac4dbd9ac7a617f7c542950c76dd12d1c3fa864a",
+        "bytes": 852384,
+        "category": "hero",
+        "triangles": 500,
+        "vertices": 1500,
+        "mesh_instances": 15,
+        "surfaces": 20,
+        "materials": 20,
+        "duplicate_materials": 16,
+        "textures": [
+          {
+            "index": 0,
+            "name": "0",
+            "sha256": "057e070b7fc6f7b84b9a7bba8e6d1e1303c4ac87647e99877581add9946eeaaa",
+            "bytes": 34046,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "1",
+            "sha256": "78c0f29ae1bcd9ae57ee3881b28af9c650033708804f7b4592ecf170590024f3",
+            "bytes": 35003,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "2",
+            "sha256": "78c0f29ae1bcd9ae57ee3881b28af9c650033708804f7b4592ecf170590024f3",
+            "bytes": 35003,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 3,
+            "name": "3",
+            "sha256": "78c0f29ae1bcd9ae57ee3881b28af9c650033708804f7b4592ecf170590024f3",
+            "bytes": 35003,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 4,
+            "name": "4",
+            "sha256": "993f7e62f244fea6f0192f3f0aabb5c923f6fb87e6d535fae2bc3a0afa791fa3",
+            "bytes": 33970,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 1048575,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 0,
+        "joints": [],
+        "animations": 23,
+        "issues": [
+          "surfaces 20 > budget 8"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/kojiro.glb",
+        "sha256": "715632badffa8447d02efed62f4ce30789d7ded48fb59e067c667f0ca54129e5",
+        "bytes": 813656,
+        "category": "prop",
+        "triangles": 500,
+        "vertices": 445,
+        "mesh_instances": 15,
+        "surfaces": 20,
+        "materials": 4,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "0",
+            "sha256": "057e070b7fc6f7b84b9a7bba8e6d1e1303c4ac87647e99877581add9946eeaaa",
+            "bytes": 34046,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "1",
+            "sha256": "78c0f29ae1bcd9ae57ee3881b28af9c650033708804f7b4592ecf170590024f3",
+            "bytes": 35003,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "2",
+            "sha256": "78c0f29ae1bcd9ae57ee3881b28af9c650033708804f7b4592ecf170590024f3",
+            "bytes": 35003,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 3,
+            "name": "3",
+            "sha256": "78c0f29ae1bcd9ae57ee3881b28af9c650033708804f7b4592ecf170590024f3",
+            "bytes": 35003,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 4,
+            "name": "4",
+            "sha256": "993f7e62f244fea6f0192f3f0aabb5c923f6fb87e6d535fae2bc3a0afa791fa3",
+            "bytes": 33970,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 1048575,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 0,
+        "joints": [],
+        "animations": 23,
+        "issues": [
+          "surfaces 20 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "kojiro",
+      "preserve_mesh_nodes": "^Part_[0-9]+$"
+    },
+    {
+      "source": "assets/models/characters/warcraft/peasant/peasant.glb",
+      "output": "assets/optimized/warcraft-peasant.glb",
+      "source_sha256": "be599088d71c1c199c621f95bd695ef9df3cb75336cd4b6d55df015f68147ec0",
+      "output_sha256": "eee06f59e0ec050f75d592d223c9057008be8d355dd0941388317a3f4d60567e",
+      "before": {
+        "path": "assets/models/characters/warcraft/peasant/peasant.glb",
+        "sha256": "be599088d71c1c199c621f95bd695ef9df3cb75336cd4b6d55df015f68147ec0",
+        "bytes": 1635876,
+        "category": "hero",
+        "triangles": 452,
+        "vertices": 589,
+        "mesh_instances": 6,
+        "surfaces": 6,
+        "materials": 6,
+        "duplicate_materials": 3,
+        "textures": [
+          {
+            "index": 0,
+            "name": "peasant_00",
+            "sha256": "84775f9cda563fa8214c257183ef6ebfee169c8f097387c6debb9d8e7b401bd7",
+            "bytes": 166359,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "peasant_01",
+            "sha256": "4f5bcde1ad37a2acecc9560f7b13ffcd8269942cb713d48489a84864f9808dac",
+            "bytes": 162318,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "peasant_02",
+            "sha256": "84775f9cda563fa8214c257183ef6ebfee169c8f097387c6debb9d8e7b401bd7",
+            "bytes": 166359,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 3,
+            "name": "peasant_03",
+            "sha256": "84775f9cda563fa8214c257183ef6ebfee169c8f097387c6debb9d8e7b401bd7",
+            "bytes": 166359,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 4,
+            "name": "peasant_04",
+            "sha256": "84775f9cda563fa8214c257183ef6ebfee169c8f097387c6debb9d8e7b401bd7",
+            "bytes": 166359,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 5,
+            "name": "peasant_05",
+            "sha256": "e43575ea82073593f258b16a815a4fc7fa87d2d7462693db589984baecc87a80",
+            "bytes": 51009,
+            "dimensions": [
+              128,
+              128
+            ],
+            "rgba8_mip_estimate_bytes": 87381
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 786431,
+        "texture_dimensions": [
+          "128x128",
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          42
+        ],
+        "animations": 22,
+        "issues": []
+      },
+      "after": {
+        "path": "assets/optimized/warcraft-peasant.glb",
+        "sha256": "eee06f59e0ec050f75d592d223c9057008be8d355dd0941388317a3f4d60567e",
+        "bytes": 1636384,
+        "category": "prop",
+        "triangles": 452,
+        "vertices": 579,
+        "mesh_instances": 6,
+        "surfaces": 6,
+        "materials": 3,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "peasant_00",
+            "sha256": "84775f9cda563fa8214c257183ef6ebfee169c8f097387c6debb9d8e7b401bd7",
+            "bytes": 166359,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "peasant_01",
+            "sha256": "4f5bcde1ad37a2acecc9560f7b13ffcd8269942cb713d48489a84864f9808dac",
+            "bytes": 162318,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "peasant_02",
+            "sha256": "84775f9cda563fa8214c257183ef6ebfee169c8f097387c6debb9d8e7b401bd7",
+            "bytes": 166359,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 3,
+            "name": "peasant_03",
+            "sha256": "84775f9cda563fa8214c257183ef6ebfee169c8f097387c6debb9d8e7b401bd7",
+            "bytes": 166359,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 4,
+            "name": "peasant_04",
+            "sha256": "84775f9cda563fa8214c257183ef6ebfee169c8f097387c6debb9d8e7b401bd7",
+            "bytes": 166359,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 5,
+            "name": "peasant_05",
+            "sha256": "e43575ea82073593f258b16a815a4fc7fa87d2d7462693db589984baecc87a80",
+            "bytes": 51009,
+            "dimensions": [
+              128,
+              128
+            ],
+            "rgba8_mip_estimate_bytes": 87381
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 786431,
+        "texture_dimensions": [
+          "128x128",
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          42
+        ],
+        "animations": 22,
+        "issues": [
+          "surfaces 6 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "warcraft-peasant",
+      "preserve_mesh_nodes": ".*"
+    },
+    {
+      "source": "assets/models/characters/warcraft/blademaster/blademaster.glb",
+      "output": "assets/optimized/warcraft-blademaster.glb",
+      "source_sha256": "7f53f26d2657e7e9824dae5e25d91e968d9980e1b9ab681abf1e96cc8ae61b4a",
+      "output_sha256": "553c4f0f5fa3e63bac87a6479a0bf930657763a2f3a3422f21096b7599336e4e",
+      "before": {
+        "path": "assets/models/characters/warcraft/blademaster/blademaster.glb",
+        "sha256": "7f53f26d2657e7e9824dae5e25d91e968d9980e1b9ab681abf1e96cc8ae61b4a",
+        "bytes": 1892452,
+        "category": "hero",
+        "triangles": 543,
+        "vertices": 664,
+        "mesh_instances": 9,
+        "surfaces": 9,
+        "materials": 9,
+        "duplicate_materials": 3,
+        "textures": [
+          {
+            "index": 0,
+            "name": "blademaster_00",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 1,
+            "name": "blademaster_01",
+            "sha256": "3d09703f991786f6fed8075d6a2e204964158880ded60c719022f097f674f4fb",
+            "bytes": 150527,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "blademaster_02",
+            "sha256": "8ae7f75323cb71a164b7634338fed129c97a02375bcb6a7eca5cb76990242c96",
+            "bytes": 146015,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 3,
+            "name": "blademaster_03",
+            "sha256": "3d09703f991786f6fed8075d6a2e204964158880ded60c719022f097f674f4fb",
+            "bytes": 150527,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 4,
+            "name": "blademaster_04",
+            "sha256": "065356f0285d62f1b87f0e738fe235a2c6b0121ef7d55f1bee4f1a76849b4469",
+            "bytes": 157559,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 5,
+            "name": "blademaster_05",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 6,
+            "name": "blademaster_06",
+            "sha256": "a4693ef5621ef0bf4efdc068f3bbb60d99469c7e845d19f181d352bed7ccd785",
+            "bytes": 19201,
+            "dimensions": [
+              128,
+              128
+            ],
+            "rgba8_mip_estimate_bytes": 87381
+          },
+          {
+            "index": 7,
+            "name": "blademaster_07",
+            "sha256": "214a0ba18ea3cab37c665cb6c6e98688ad461736cf3fe237783d7f05455499ec",
+            "bytes": 1933,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 8,
+            "name": "blademaster_08",
+            "sha256": "214a0ba18ea3cab37c665cb6c6e98688ad461736cf3fe237783d7f05455499ec",
+            "bytes": 1933,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 1146878,
+        "texture_dimensions": [
+          "128x128",
+          "256x256",
+          "32x32"
+        ],
+        "skins": 1,
+        "joints": [
+          84
+        ],
+        "animations": 14,
+        "issues": [
+          "surfaces 9 > budget 8"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/warcraft-blademaster.glb",
+        "sha256": "553c4f0f5fa3e63bac87a6479a0bf930657763a2f3a3422f21096b7599336e4e",
+        "bytes": 1893296,
+        "category": "prop",
+        "triangles": 543,
+        "vertices": 654,
+        "mesh_instances": 9,
+        "surfaces": 9,
+        "materials": 6,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "blademaster_00",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 1,
+            "name": "blademaster_01",
+            "sha256": "3d09703f991786f6fed8075d6a2e204964158880ded60c719022f097f674f4fb",
+            "bytes": 150527,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "blademaster_02",
+            "sha256": "8ae7f75323cb71a164b7634338fed129c97a02375bcb6a7eca5cb76990242c96",
+            "bytes": 146015,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 3,
+            "name": "blademaster_03",
+            "sha256": "3d09703f991786f6fed8075d6a2e204964158880ded60c719022f097f674f4fb",
+            "bytes": 150527,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 4,
+            "name": "blademaster_04",
+            "sha256": "065356f0285d62f1b87f0e738fe235a2c6b0121ef7d55f1bee4f1a76849b4469",
+            "bytes": 157559,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 5,
+            "name": "blademaster_05",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 6,
+            "name": "blademaster_06",
+            "sha256": "a4693ef5621ef0bf4efdc068f3bbb60d99469c7e845d19f181d352bed7ccd785",
+            "bytes": 19201,
+            "dimensions": [
+              128,
+              128
+            ],
+            "rgba8_mip_estimate_bytes": 87381
+          },
+          {
+            "index": 7,
+            "name": "blademaster_07",
+            "sha256": "214a0ba18ea3cab37c665cb6c6e98688ad461736cf3fe237783d7f05455499ec",
+            "bytes": 1933,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 8,
+            "name": "blademaster_08",
+            "sha256": "214a0ba18ea3cab37c665cb6c6e98688ad461736cf3fe237783d7f05455499ec",
+            "bytes": 1933,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 1146878,
+        "texture_dimensions": [
+          "128x128",
+          "256x256",
+          "32x32"
+        ],
+        "skins": 1,
+        "joints": [
+          84
+        ],
+        "animations": 14,
+        "issues": [
+          "surfaces 9 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "warcraft-blademaster",
+      "preserve_mesh_nodes": ".*"
+    },
+    {
+      "source": "assets/models/characters/warcraft/demon-hunter/demon-hunter.glb",
+      "output": "assets/optimized/warcraft-demon-hunter.glb",
+      "source_sha256": "43c6019979282c94c87cf37b4d0f06c473effd0e937eed82bda1f3909f81ecc9",
+      "output_sha256": "6c1742ece016bb4b00a0a8f15fbe85e81748bd53455c9648467ef986af0a9d19",
+      "before": {
+        "path": "assets/models/characters/warcraft/demon-hunter/demon-hunter.glb",
+        "sha256": "43c6019979282c94c87cf37b4d0f06c473effd0e937eed82bda1f3909f81ecc9",
+        "bytes": 5700824,
+        "category": "hero",
+        "triangles": 1874,
+        "vertices": 2170,
+        "mesh_instances": 17,
+        "surfaces": 17,
+        "materials": 17,
+        "duplicate_materials": 11,
+        "textures": [
+          {
+            "index": 0,
+            "name": "demon-hunter_00",
+            "sha256": "fa284eb72b1d47fca7771e8e19d6943ac8cce17cf7685ac9743df0dd3df5970f",
+            "bytes": 175966,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "demon-hunter_01",
+            "sha256": "fa284eb72b1d47fca7771e8e19d6943ac8cce17cf7685ac9743df0dd3df5970f",
+            "bytes": 175966,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "demon-hunter_02",
+            "sha256": "a705077c18c8d934b0aa6ea1e70a5bc10420c29f4cad89ed4eac9fa6105ff3c1",
+            "bytes": 291,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 3,
+            "name": "demon-hunter_03",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 4,
+            "name": "demon-hunter_04",
+            "sha256": "fa284eb72b1d47fca7771e8e19d6943ac8cce17cf7685ac9743df0dd3df5970f",
+            "bytes": 175966,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 5,
+            "name": "demon-hunter_05",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 6,
+            "name": "demon-hunter_06",
+            "sha256": "fa284eb72b1d47fca7771e8e19d6943ac8cce17cf7685ac9743df0dd3df5970f",
+            "bytes": 175966,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 7,
+            "name": "demon-hunter_07",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 8,
+            "name": "demon-hunter_08",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 9,
+            "name": "demon-hunter_09",
+            "sha256": "3cf15e60f2428e36e89b126211a5fe2371483b042bcd3cb8f21bbf78d433d0dd",
+            "bytes": 3255,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 10,
+            "name": "demon-hunter_10",
+            "sha256": "fcbb75d23fb006aa2232abe45d22f13fbbabd37a54985ab7f840968fb32d505f",
+            "bytes": 4750,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 11,
+            "name": "demon-hunter_11",
+            "sha256": "aec09f9fd9d721def895fdc2ae7731ef6b0c4a8c34bf4d300896bdbc18187a58",
+            "bytes": 17293,
+            "dimensions": [
+              128,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 43690
+          },
+          {
+            "index": 12,
+            "name": "demon-hunter_12",
+            "sha256": "aec09f9fd9d721def895fdc2ae7731ef6b0c4a8c34bf4d300896bdbc18187a58",
+            "bytes": 17293,
+            "dimensions": [
+              128,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 43690
+          },
+          {
+            "index": 13,
+            "name": "demon-hunter_13",
+            "sha256": "aec09f9fd9d721def895fdc2ae7731ef6b0c4a8c34bf4d300896bdbc18187a58",
+            "bytes": 17293,
+            "dimensions": [
+              128,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 43690
+          },
+          {
+            "index": 14,
+            "name": "demon-hunter_14",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 15,
+            "name": "demon-hunter_15",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 16,
+            "name": "demon-hunter_16",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 447827,
+        "texture_dimensions": [
+          "128x64",
+          "256x256",
+          "32x32",
+          "64x64"
+        ],
+        "skins": 1,
+        "joints": [
+          302
+        ],
+        "animations": 24,
+        "issues": [
+          "surfaces 17 > budget 8"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/warcraft-demon-hunter.glb",
+        "sha256": "6c1742ece016bb4b00a0a8f15fbe85e81748bd53455c9648467ef986af0a9d19",
+        "bytes": 5698232,
+        "category": "prop",
+        "triangles": 1874,
+        "vertices": 2150,
+        "mesh_instances": 17,
+        "surfaces": 17,
+        "materials": 6,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "demon-hunter_00",
+            "sha256": "fa284eb72b1d47fca7771e8e19d6943ac8cce17cf7685ac9743df0dd3df5970f",
+            "bytes": 175966,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "demon-hunter_01",
+            "sha256": "fa284eb72b1d47fca7771e8e19d6943ac8cce17cf7685ac9743df0dd3df5970f",
+            "bytes": 175966,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "demon-hunter_02",
+            "sha256": "a705077c18c8d934b0aa6ea1e70a5bc10420c29f4cad89ed4eac9fa6105ff3c1",
+            "bytes": 291,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 3,
+            "name": "demon-hunter_03",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 4,
+            "name": "demon-hunter_04",
+            "sha256": "fa284eb72b1d47fca7771e8e19d6943ac8cce17cf7685ac9743df0dd3df5970f",
+            "bytes": 175966,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 5,
+            "name": "demon-hunter_05",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 6,
+            "name": "demon-hunter_06",
+            "sha256": "fa284eb72b1d47fca7771e8e19d6943ac8cce17cf7685ac9743df0dd3df5970f",
+            "bytes": 175966,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 7,
+            "name": "demon-hunter_07",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 8,
+            "name": "demon-hunter_08",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 9,
+            "name": "demon-hunter_09",
+            "sha256": "3cf15e60f2428e36e89b126211a5fe2371483b042bcd3cb8f21bbf78d433d0dd",
+            "bytes": 3255,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 10,
+            "name": "demon-hunter_10",
+            "sha256": "fcbb75d23fb006aa2232abe45d22f13fbbabd37a54985ab7f840968fb32d505f",
+            "bytes": 4750,
+            "dimensions": [
+              64,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 21845
+          },
+          {
+            "index": 11,
+            "name": "demon-hunter_11",
+            "sha256": "aec09f9fd9d721def895fdc2ae7731ef6b0c4a8c34bf4d300896bdbc18187a58",
+            "bytes": 17293,
+            "dimensions": [
+              128,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 43690
+          },
+          {
+            "index": 12,
+            "name": "demon-hunter_12",
+            "sha256": "aec09f9fd9d721def895fdc2ae7731ef6b0c4a8c34bf4d300896bdbc18187a58",
+            "bytes": 17293,
+            "dimensions": [
+              128,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 43690
+          },
+          {
+            "index": 13,
+            "name": "demon-hunter_13",
+            "sha256": "aec09f9fd9d721def895fdc2ae7731ef6b0c4a8c34bf4d300896bdbc18187a58",
+            "bytes": 17293,
+            "dimensions": [
+              128,
+              64
+            ],
+            "rgba8_mip_estimate_bytes": 43690
+          },
+          {
+            "index": 14,
+            "name": "demon-hunter_14",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 15,
+            "name": "demon-hunter_15",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 16,
+            "name": "demon-hunter_16",
+            "sha256": "773c677ea11035ef96068a6b59da587a37dbdf7c364ef0dd91d40d80ad99151d",
+            "bytes": 1053,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 447827,
+        "texture_dimensions": [
+          "128x64",
+          "256x256",
+          "32x32",
+          "64x64"
+        ],
+        "skins": 1,
+        "joints": [
+          302
+        ],
+        "animations": 24,
+        "issues": [
+          "surfaces 17 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "warcraft-demon-hunter",
+      "preserve_mesh_nodes": ".*"
     }
   ]
 }

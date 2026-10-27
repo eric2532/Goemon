@@ -41,11 +41,12 @@ func fresh(surge:bool=false):
  contacts.clear();contact_bonuses.clear()
  if surge:p.activate_surge()
 func setup_fixture():
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game;await frames()
  game.start_wave();game.model.waves.pending=999;game.model.waves.spawn_clock=100000
  game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
  var p=game.player;p.select_character(1);p.set_auto_attack(false);game.tuning.critical_chance=0;game.character_tuning={}
+ preload("res://tests/forest-shrine/training_dummy_fixture.gd").install(game)
  var dummy=game.training_dummy;dummy.home=ORIGIN+Vector3(0,0,-2);dummy.position=dummy.home;dummy.set_physics_process(false)
  game.model.update_vision(ORIGIN)
  game.camera_rig.yaw=0;game.camera_rig.camera.position=ORIGIN+Vector3(0,2.4,10);game.camera_rig.camera.look_at(ORIGIN+Vector3(0,1,-20))

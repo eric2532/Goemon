@@ -8,26 +8,36 @@ var wave_total: Label
 func _ready():
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	game.label_at(self,"CORE GAME BALANCE",Vector2(64,56),38)
-	game.label_at(self,"Saved automatically · Enemy multipliers: next wave · Towers: immediate.\nGold, wave composition and portal boss settings: next run.",Vector2(67,110),18,Color("dfc384"))
+	game.label_at(self,"Saved automatically · Enemy multipliers and size: next wave · Towers: immediate.\nEnemy fort health, gold, group sizes and wave composition: next run.",Vector2(67,110),18,Color("dfc384"))
 	var economy=column(Vector2(64,168),Vector2(620,570),"ECONOMY, TOWERS & ENEMIES")
 	for row in Balance.ROWS:
+		if row[0] in ["spawn_group_start","spawn_group_growth","boss_health","boss_speed"]:continue
 		var spin=number_row(economy,row[1],"Core_"+row[0],row[2],row[3],row[4],game.core_balance[row[0]],row[4]<1)
+		if row[0]=="enemy_wall_health":spin.tooltip_text="Health of each enemy wall panel, gate and tower. Breaching one leaves the keep and reinforcements active. Applies next run."
+		if row[0]=="enemy_castle_health":spin.tooltip_text="Health of the keep inside each enemy castle. Destroy all enemy keeps to win. Applies next run."
 		spin.value_changed.connect(func(value):game.update_core_balance(row[0],value))
-	var note=Label.new();note.text="Enemy health and movement × include portal bosses.\nEnemy damage × includes melee hits and arrows.\nEach tower worker fires their own arrows.\nTower health edits preserve damage percentage.";note.add_theme_font_size_override("font_size",17);economy.add_child(note)
+	var enemies=Button.new();enemies.name="CoreEnemyBalance";enemies.text="Individual enemy balance";enemies.custom_minimum_size.y=44;economy.add_child(enemies)
+	enemies.pressed.connect(func():game.show_enemy_balance(from_pause))
+	var note=Label.new();note.text="Enemy size: ordinary enemies (1× = current size).\nEach enemy has its own wave count.\nBarracks repeat the Wave 1 reinforcement mix.\nMovement and damage × include Skullpion.\nEach tower worker fires their own arrows.\nTower health edits preserve damage percentage.";note.add_theme_font_size_override("font_size",17);economy.add_child(note)
 	var waves=column(Vector2(747,168),Vector2(620,570),"WAVE COMPOSITION")
+	for row in Balance.ROWS:
+		if row[0] not in ["spawn_group_start","spawn_group_growth"]:continue
+		var spin=number_row(waves,row[1],"Core_"+row[0],row[2],row[3],row[4],game.core_balance[row[0]])
+		spin.value_changed.connect(func(value):game.update_core_balance(row[0],value))
+	var groups=Label.new();groups.text="Each spot grows independently after its group attacks.\nGrowth 0 keeps groups fixed. Numbered waves reset growth.\nCounts below are totals; barracks repeat the Wave 1 mix.";groups.add_theme_font_size_override("font_size",17);waves.add_child(groups)
 	var count=number_row(waves,"Number of waves","Core_wave_count",1,Balance.MAX_WAVES,1,game.core_balance.waves.size())
 	count.value_changed.connect(func(value):
 		game.resize_core_waves(int(value));refresh_waves())
 	wave_total=Label.new();wave_total.add_theme_font_size_override("font_size",17);waves.add_child(wave_total)
 	wave_box=VBoxContainer.new();wave_box.add_theme_constant_override("separation",12);waves.add_child(wave_box);refresh_waves()
-	game.label_at(self,"Zero excludes a type. Each portal adds its boss every wave; set Boss per portal to 0 to disable.",Vector2(67,763),17,Color("dfc384"))
+	game.label_at(self,"Zero excludes an enemy. Each count means individual enemies, including Skullpion.",Vector2(67,763),17,Color("dfc384"))
 	game.button_at(self,"Back to building map" if from_map else "Back to Settings",Vector2(64,808),func():
 		if from_map:game.resume()
 		else:game.show_settings(from_pause),300).name="CoreBalanceBack"
 	game.button_at(self,"Reset core balance",Vector2(747,808),func():game.reset_core_balance();game.show_core_balance(from_pause,from_map),300).name="CoreBalanceReset"
 func column(at: Vector2,dimensions: Vector2,title: String)->VBoxContainer:
 	var panel=PanelContainer.new();panel.position=at;panel.size=dimensions
-	var style=StyleBoxFlat.new();style.bg_color=Color("102b37");style.set_corner_radius_all(12)
+	var style=StyleBoxFlat.new();style.bg_color=Color(.16,.045,.09,.95);style.set_corner_radius_all(12)
 	style.content_margin_left=22;style.content_margin_right=22;style.content_margin_top=20;style.content_margin_bottom=20
 	panel.add_theme_stylebox_override("panel",style);add_child(panel)
 	var scroll=ScrollContainer.new();scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;panel.add_child(scroll)
@@ -43,12 +53,12 @@ func refresh_total():
 	var total=0
 	for wave in game.core_balance.waves:
 		for count in wave:total+=count
-	wave_total.text="%d waves · %d ordinary enemies + %d boss per portal / wave"%[game.core_balance.waves.size(),total,game.core_balance.bosses_per_portal]
+	wave_total.text="%d waves · %d enemies"%[game.core_balance.waves.size(),total]
 func refresh_waves():
 	for child in wave_box.get_children():wave_box.remove_child(child);child.queue_free()
 	for index in range(game.core_balance.waves.size()):
 		var title=Label.new();title.text="WAVE %d"%(index+1);title.add_theme_color_override("font_color",Color("f4d38b"));wave_box.add_child(title)
-		for type in range(4):
+		for type in Balance.TYPES.size():
 			var spin=number_row(wave_box,Balance.ENEMIES[type],"Wave_%d_enemy_%d"%[index+1,type],0,Balance.MAX_ENEMIES,1,game.core_balance.waves[index][type])
 			spin.value_changed.connect(func(value):game.update_core_wave(index,type,int(value));refresh_total())
 	refresh_total()

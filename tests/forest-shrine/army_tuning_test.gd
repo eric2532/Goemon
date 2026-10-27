@@ -11,7 +11,7 @@ func run():
  if not ResourceLoader.exists(script):
   check(false,"Shared ally tuning must preserve current fitted reach and visible weapon scale");finish();return
 
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
  var game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path="user://army-tuning-%d.cfg"%OS.get_process_id();root.add_child(game)
  for i in 3:await process_frame
  game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false)
@@ -24,7 +24,8 @@ func run():
   unit.position=Vector3.ZERO;unit.facing=Vector3.BACK;unit.model.rotation.y=PI;unit.show()
   var c=unit.active_ability;c.active=true;c.reset_run();var index=data.ally_kinds.find(kind)
   for sample in 6:
-   c.Actions.begin_attack(c,c.Actions.primary_config(c,sample%3),sample%3)
+   var stage=sample%c.Actions.primary_count(c.class_id)
+   c.Actions.begin_attack(c,c.Actions.primary_config(c,stage),stage)
    check(absf(data.ally_primaries[(index*6+sample)*7+3]-c.player.attack.reach)<.0001,"Kit%d primary%d preserves its original fitted custom reach"%[kind,sample])
    if kind==11:c.player.bladeSide*=-1
   check(data.pose_resources.has(kind),"Kit%d shares one custom pose atlas across all its fighters"%kind)

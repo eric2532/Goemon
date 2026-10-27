@@ -29,7 +29,7 @@ func run():
  check(m.workers.values().all(func(w):return w.job!=wall.id) and m.gold==money,"Workers never reserve or spend ryo repairing indestructible walls")
  check(not m.repair(wall.id) and m.gold==money,"Manual wall repair cannot spend ryo either")
  m.phase="wave";m.damage_building(gate.id,500)
- check(gate.hp==1500 and m.events.any(func(e):return e.kind=="wall_damage" and e.id==gate.id),"Only the door takes gate damage and emits its cracking feedback")
+ check(gate.hp==2000 and m.events.any(func(e):return e.kind=="wall_damage" and e.id==gate.id),"Only the door takes gate damage and emits its cracking feedback")
  check(not m._line_visible(Vector2i(0,5),Vector2i(0,9),false),"A closed door blocks ground-level sight")
  m.events.clear();nav=m.navigation_revision;m.damage_building(gate.id,1000000)
  check(m.buildings.has(gate.id) and gate.hp==0 and gate.get("breached",false),"A destroyed door leaves the same permanent gate frame in the model")
@@ -40,18 +40,18 @@ func run():
  check(m.navigation_revision==nav,"Repeated attacks cannot repeatedly destroy a breached frame")
  m.phase="preparing";m.gold=300;work(m,35)
  check(gate.hp==gate.max_hp and not gate.get("breached",false),"Workers rebuild a completely destroyed door instead of losing its repair job")
- check(m.gold==100,"A full 2000 HP door costs exactly 200 ryo to rebuild")
+ check(m.gold==100,"Workers rebuild a full 2500 HP door for exactly 200 ryo")
  check(m.workers.values().all(func(w):return w.job!=gate.id),"Fully rebuilt doors release repair crews")
- m.phase="wave";m.damage_building(gate.id,1000000);m.phase="preparing";m.gold=199
- check(not m.repair(gate.id) and m.gold==199,"An unaffordable destroyed-door repair cannot spend funds")
- m.gold=200
- check(m.repair(gate.id) and gate.hp==2000 and not gate.get("breached",false) and m.gold==0,"Manual preparation repair restores the same door for the exact price")
+ m.phase="wave";m.damage_building(gate.id,1000000);m.phase="preparing";m.gold=249
+ check(not m.repair(gate.id) and m.gold==249,"An unaffordable destroyed-door repair cannot spend funds")
+ m.gold=250
+ check(m.repair(gate.id) and gate.hp==2500 and not gate.get("breached",false) and m.gold==0,"Manual preparation repair restores the same door for the exact price")
  # A rebuilt leaf must not trap enemies that are still passing through it.
- m.phase="wave";m.damage_building(gate.id,1000000);gate.hp=1990;m.gold=1
+ m.phase="wave";m.damage_building(gate.id,1000000);gate.hp=2490;m.gold=1
  var enemy=m.waves.spawn_enemy(0,m.center(gate));enemy.hp=100
  var worker=m.workers.values()[0];worker.job=gate.id;worker.state="repair";worker.timer=0
  m.workforce.repairs.tick(worker,gate,.25)
- check(gate.hp==2000 and gate.get("breached",false) and m.gold==0,"A paid rebuilt door waits open while an enemy occupies its passage")
+ check(gate.hp==2500 and gate.get("breached",false) and m.gold==0,"A paid rebuilt door waits open while an enemy occupies its passage")
  m.enemies.clear();m.workforce.tick(.05,m.hero_position)
  check(not gate.get("breached",false) and m.gold==0,"A fully paid door closes when clear without requiring more ryo")
  # The shrine remains the defended objective after enemies enter a breach.
@@ -61,7 +61,7 @@ func run():
  var inside=m.center(gate)-Vector3.BACK*5
  var outside=m.center(gate)+Vector3.BACK*5
  m.waves.spawn_enemy(0,outside)
- for health in [100.0,2000.0]:
+ for health in [100.0,2500.0]:
   gate.hp=health;gate.breached=true
   check(not m.workforce.repairs.wall_between(inside,outside),"An absent door is not cover at repaired HP %d"%health)
   check(m.workforce.threatened(inside),"Workers detect enemies through an open breach at repaired HP %d"%health)

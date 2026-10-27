@@ -8,6 +8,9 @@ class Target:
 class Combat:
  extends "res://scripts/rogue_roster_combat.gd"
  func clear_line(_a: Vector3,_b: Vector3)->bool:return true
+class BareHero:
+ extends Hero
+ func _ready():pass
 func _initialize():run.call_deferred()
 func check(ok: bool,label: String):
  checks+=1
@@ -21,7 +24,7 @@ func run():
  for i in range(300):
   var e=Target.new();arena.add_child(e)
   e.position=Vector3(float(i%12)-6,0,float(i/12));population.enemies.append(e)
- var combat=Combat.new();combat.game=population;root.add_child(combat)
+ var combat=Combat.new();combat.game=population;combat.hero=BareHero.new();arena.add_child(combat.hero);root.add_child(combat)
  var from=Vector3(0,20,10);var to=Vector3(0,19,9)
  # Forty concurrent Mage projectiles, or repeated airborne fan segments.
  for i in range(3):combat._segment_targets(from,to,.45)

@@ -19,13 +19,14 @@ func ground_player(p):
 	for i in 3:p.velocity=Vector3.DOWN*20;p.move_and_slide()
 	p.velocity=Vector3.ZERO
 func run():
-
+	var saved=ConfigFile.new();saved.set_value("settings","musashi_equipment_mask",0);saved.save(settings_file)
 	game=load("res://scenes/forest_title.tscn").instantiate();game.settings_path=settings_file
 	root.add_child(game);current_scene=game;await frames()
 	game.begin_forest();game.choose_rogue_character(13);game.start_wave()
 	game.tuning.freeze_ai=true;game.tuning.invincible=false;game.tuning.critical_chance=0;game.character_tuning={}
 	await frames(8)
 	var p=game.player;var c=p.active_ability;var m=p.model
+	check(m.outfit_mask==31,"An old saved outfit cannot override Musashi's latest full equipment")
 	p.set_physics_process(false);ground_player(p)
 	c.cancel();action("heavy_attack")
 	check(c.clip=="Extra__800d4f14","RMB selects the original standing Lumina entry")
@@ -72,13 +73,22 @@ func run():
 	check(game.sound_preview(13,"musashi_spin").resource_path.ends_with("lumina_spin.wav"),"The E special uses its recovered retail sound")
 	for clip in ["Recovered__800d4d88","Recovered__800d4da8","Recovered__800d4db4","Recovered__800d4dd4","Recovered__800d4df4","Recovered__800d4e6c","Recovered__800d52a8","Recovered__800d52e8","Recovered__800d533c","Recovered__800d5c6c"]:
 		check(m.animation_player.has_animation(clip),"Recovered body entry is available: "+clip)
-	check(game.has_method("select_musashi_equipment"),"Equipment selection uses the game's saved appearance preferences")
-	if game.has_method("select_musashi_equipment"):
-		game.select_musashi_equipment(31)
-		var saved=ConfigFile.new();saved.load(settings_file)
-		check(m.outfit_mask==31 and saved.get_value("settings","musashi_equipment_mask",0)==31,"Choosing recovered equipment applies and saves all five pieces")
-		m.set_outfit_mask(0);game.load_settings()
-		check(m.outfit_mask==31,"Reloading settings restores Musashi's chosen equipment pixels")
+	game.load_settings()
+	check(m.outfit_mask==31 and not game.settings.has("musashi_equipment_mask"),"Reloading settings keeps the latest outfit without an appearance preference")
+	if "--visual" in OS.get_cmdline_user_args():
+		c.cancel();ground_player(p);p.facing=Vector3.FORWARD;m.animate(0,0,true,0,0,false,0,false)
+		game.camera_rig.set_process(false)
+		game.camera_rig.camera.global_position=p.global_position+Vector3(-9,7,-14);game.camera_rig.camera.look_at(p.global_position+Vector3.UP*2.4)
+		await process_frame;await RenderingServer.frame_post_draw
+		root.get_texture().get_image().save_png("res://build/Other Files/Asset Toolkit/Musashi Appearance/gameplay.png")
+	game.show_rogue_roster();await process_frame
+	check(game.find_child("MusashiOutfits",true,false)==null and game.find_child("MusashiEquipment",true,false)==null,"The fighter gallery has no Musashi outfit controls")
+	check(game.find_child("RogueFighter_musashi",true,false)!=null and game.find_child("SpellEquipmentButton",true,false)!=null,"Musashi selection and spell equipment remain available")
+	if "--visual" in OS.get_cmdline_user_args():
+		await RenderingServer.frame_post_draw
+		root.get_texture().get_image().save_png("res://build/Other Files/Asset Toolkit/Musashi Appearance/gallery.png")
+	game.choose_rogue_character(13)
+	check(p.model.outfit_mask==31,"Reselecting Musashi keeps the latest outfit")
 	await finish()
 func finish():
 	game.sound_library.cancel();game.music.stop();game.queue_free();paused=false;await frames()

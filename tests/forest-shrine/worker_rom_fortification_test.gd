@@ -1,7 +1,6 @@
 extends SceneTree
 const Art=preload("res://scripts/forest/forest_art.gd")
 const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
-const Pose=preload("res://scripts/recovered_goemon_pose.gd")
 const Profile=preload("res://scripts/forest/forest_structure_profile.gd")
 var checks=0
 var failures=0
@@ -18,28 +17,18 @@ func meshes(n:Node)->Array:
 func run():
 	var worker=Art.worker(1);root.add_child(worker)
 	var other=Art.worker(2);root.add_child(other)
-	var body=worker.get_node("GoemonBody")
-	check(body.get_meta("rom_base","")=="assets/blender/characters/rom_goemon_base/worker.blend","Worker uses the fitted ROM Blender body")
+	var body=worker.get_node("WorkerBody")
+	check(body.get_meta("source_model","").ends_with("peasant/peasant.glb"),"Worker uses the exact Human Peasant source")
 	check(body.find_children("*","Skeleton3D",true,false).is_empty() and body.find_children("*","AnimationPlayer",true,false).is_empty(),"Workers stay lightweight without per-worker skeletons")
-	if body.has_method("update_worker"):
-		check(body.parts.size()==13,"Worker retains all thirteen original separate parts")
-		check(meshes(body)[0].mesh==meshes(other.get_node("GoemonBody"))[0].mesh,"Workers share source meshes")
-		for state_ in ["idle","move","mine","repair","garrison","wounded"]:
-			Art.animate_worker(worker,{"id":1,"state":state_},.3)
-			check(body.source_action==(15 if state_=="move" else 104 if state_ in ["mine","repair"] else 0),"State selects original motion: "+state_)
-			check(body.pickaxe.visible==(state_ not in ["garrison","wounded"]),"Job tool visibility: "+state_)
-			if state_=="garrison":
-				check((worker.get_node("Bow").position+Profile.BOW_LOCAL_GRIP).distance_to(body.pickaxe.position)<.001,"Garrison bow grip meets the raised weapon hand")
-				check(Profile.TOWER_MUZZLE_OFFSET.distance_to(body.pickaxe.position)<.001,"Tower targeting and arrows originate at the held bow")
-			if state_ in ["idle","move","mine","repair"]:
-				var native:Dictionary=body.source_pose()
-				var expected:Transform3D=native.get("0x9002518",native["0x9005868"]*body.rom_grip)
-				check(body.pickaxe.transform.origin.distance_to(expected.origin*body.source_scale+body.source_offset)<.001,"Pickaxe sits at Goemon's native pipe grip: "+state_)
-				check((body.pickaxe.basis*Vector3.UP).normalized().dot((expected.basis*Vector3.FORWARD*-1).normalized())>.999,"Pickaxe follows native pipe direction: "+state_)
-		Art.animate_worker(worker,{"id":1,"state":"mine"},.1);var old=body.pickaxe.transform
-		Art.animate_worker(worker,{"id":1,"state":"mine"},.3)
-		check(not body.pickaxe.transform.is_equal_approx(old),"Mining moves the pickaxe through a real swing")
-		for p in body.parts.values():check(p.transform.is_finite(),"Rigid part transform remains finite")
+	check(body.multimesh.mesh==other.get_node("WorkerBody").multimesh.mesh,"Workers share their prepared skin")
+	for state_ in ["idle","move","mine","repair","garrison","wounded"]:
+		Art.animate_worker(worker,{"id":1,"state":state_},.3)
+		check(body.clip==({"move":"walk"}.get(state_,state_)),"Worker state selects the prepared native motion: "+state_)
+		check(is_finite(body.row),"Pose row remains finite")
+		if state_=="garrison":check((worker.get_node("Bow").position+Profile.BOW_LOCAL_GRIP).distance_to(Profile.TOWER_MUZZLE_OFFSET)<.001,"Tower targeting and arrows share the native bow grip")
+	Art.animate_worker(worker,{"id":1,"state":"mine"},.1);var old=body.row
+	Art.animate_worker(worker,{"id":1,"state":"mine"},.3)
+	check(body.row!=old,"Mining advances the original motion")
 	var model=Model.new();model.reset(42)
 	var wall=model._make_building("wall",Vector2i(18,18),0)
 	check(is_equal_approx(wall.max_hp,7500),"Full wall has five times its former 1500 health")
@@ -57,6 +46,6 @@ func run():
 		visual.free()
 	var gate=Art.building({"kind":"gate","id":-2,"rotation":0});root.add_child(gate)
 	check(gate.get_node("GateDoor").get_child_count()==0,"Gate door has no cross emblem")
-	check(Model.HP.gate==2000,"Gate matches the stronger fortification durability")
+	check(Model.HP.gate==2500,"Gate matches the stronger fortification durability")
 	gate.free();worker.free();other.free()
 	print("WORKER_ROM_FORTIFICATION_RESULT checks=%d failures=%d"%[checks,failures]);quit(1 if failures else 0)

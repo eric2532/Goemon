@@ -125,7 +125,7 @@ func wave_rules():
 	if combat.projectiles.is_empty():return
 	var pr: Dictionary=combat.projectiles[0];var forward: Vector3=pr.vel.normalized()
 	var cut: Vector3=tips[1]-tips[0];cut=(cut-forward*cut.dot(forward)).normalized()
-	check(absf(pr.mesh.global_basis.x.normalized().dot(cut))>.995,"Energy crescent follows the actual sword-tip slash angle")
+	check(absf(pr.mesh.global_basis.x.normalized().dot(cut))<.005,"First moon cut rises perpendicular to the authored sword stroke")
 	check(pr.mesh.global_basis.z.normalized().dot(forward)>.999,"Slash wave faces its travel direction")
 	var bounds=AABB();var first=true
 	for child in pr.mesh.get_children():
@@ -134,7 +134,7 @@ func wave_rules():
 				var p=child.transform*child.mesh.get_aabb().get_endpoint(i)
 				if first:bounds=AABB(p,Vector3.ZERO);first=false
 				else:bounds=bounds.expand(p)
-	check(absf(bounds.get_center().y)<.1 and bounds.size.y>1,"The crescent is centered on its hit volume instead of floating above it")
+	check(absf(bounds.get_center().z)<.15 and bounds.size.z>1 and bounds.size.y<.1,"The crescent curves along travel, centered on its hit volume")
 	combat.cancel()
 	check(combat.projectiles.is_empty(),"Interrupting the attack clears its energy projectile")
 func tower_pause_rules():

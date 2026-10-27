@@ -16,7 +16,6 @@ func run():
 	set_meta("forest_painterly_preview",true)
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path="user://stone-tour-%d.cfg"%OS.get_process_id();root.add_child(game);current_scene=game;await frames()
 	game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false);game.ui.hide();AudioServer.set_bus_mute(0,true)
-	for unit in game.gate_defenders.units.values():unit.set_physics_process(false)
 	game.model.defenders.clear()
 	await capture("stone-fort-overview",Vector3(90,135,155),Vector3(0,6,0),150)
 	await capture("goemon-stone-statue",Vector3(25,23,47),Vector3(0,16,0))

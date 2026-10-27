@@ -2,8 +2,8 @@ extends Node3D
 ## SC06/016 source tubes, palette animation, startup annuli and glow primitives.
 ## Source coordinates are centimetres; the caller supplies Ed's uniform fit.
 const ROOT="res://assets/characters/recovered_leaders/ed/beam/"
-const MAIN=preload(ROOT+"main.glb")
-const COMPANION=preload(ROOT+"companion.glb")
+static var MAIN=load(GameAssets.model_path(ROOT+"main.glb"))
+static var COMPANION=load(GameAssets.model_path(ROOT+"companion.glb"))
 const INDICES=preload(ROOT+"indices.png")
 const TUBE_SHADER=preload(ROOT+"native_tube.gdshader")
 const GLOW_SHADER=preload(ROOT+"native_glow.gdshader")

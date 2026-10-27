@@ -10,7 +10,7 @@ float clip_row(const ClipSample& clip,double time){
  return float(clip.start+sample);
 }
 std::array<float,4> pose(const InstanceRow& row,const InstanceProfile& profile){
- if(row.team==0)return {float(row.pose_row),row.status&1?1.0f:0.0f,0,0};
+ if(row.team==0)return {float(row.pose_row),row.status&1?1.0f:0.0f,0,row.flash};
  int key=IDLE,moving=IDLE;double time=row.pose_time,motion_time=time;
  float sine=float(std::sin(double(row.yaw))),cosine=float(std::cos(double(row.yaw)));
  float speed=std::sqrt(row.velocity.x*row.velocity.x+row.velocity.z*row.velocity.z);
@@ -40,16 +40,22 @@ void append(std::vector<float>& buffer,Vec3 position,float yaw,std::array<float,
 InstanceBuffers instance_buffers(const std::vector<InstanceRow>& rows,const std::map<int,InstanceProfile>& profiles){
  InstanceBuffers output;std::map<std::tuple<int,int,int>,size_t> groups;
  for(const auto& row:rows){
-  bool soldier=row.kind==0||row.kind==1||row.kind==3;
+  bool soldier=row.team==0&&row.kind!=4;
   auto profile=profiles.find(row.kind);
   if(!soldier&&profile==profiles.end())continue;
   if((row.status&64)&&row.kind!=8)continue;
   if(soldier&&row.pose_row<0){output.valid=false;return output;}
-  auto key=std::make_tuple(row.kind,int(std::floor(row.position.x/32)),int(std::floor(row.position.z/32)));
+  auto key=std::make_tuple(row.kind,int(std::floor(row.position.x/INSTANCE_CELL)),int(std::floor(row.position.z/INSTANCE_CELL)));
   auto [found,inserted]=groups.emplace(key,output.batches.size());
   if(inserted){InstanceBatch batch;batch.kind=std::get<0>(key);batch.x=std::get<1>(key);batch.z=std::get<2>(key);output.batches.push_back(std::move(batch));}
-  auto& batch=output.batches[found->second];batch.low=std::min(batch.low,row.position.y);batch.high=std::max(batch.high,row.position.y);
-  auto color=soldier?std::array<float,4>{float(row.pose_row),row.status&1?1.0f:0.0f,0,0}:pose(row,profile->second);
+  auto& batch=output.batches[found->second];
+  batch.low={std::min(batch.low.x,row.position.x),std::min(batch.low.y,row.position.y),std::min(batch.low.z,row.position.z)};
+  batch.high={std::max(batch.high.x,row.position.x),std::max(batch.high.y,row.position.y),std::max(batch.high.z,row.position.z)};
+  auto color=soldier?std::array<float,4>{float(row.pose_row),row.status&1?1.0f:0.0f,0,row.flash}:pose(row,profile->second);
+  if(row.team==0&&row.kind==18&&row.action>=300&&row.action<306){
+   color[2]=float(row.action-299);if(row.action==300&&row.render_time*30>=40&&row.render_time*30<180)color[2]=7+.1f*std::clamp(float(std::min((row.render_time*30-40)/16,(180-row.render_time*30)/16)),0.f,1.f);
+   if(row.action==305&&((row.render_time*30>=19&&row.render_time*30<51)||(row.render_time*30>=91&&row.render_time*30<251)))continue;
+  }
   append(batch.buffer,row.position,row.yaw,color);++output.submitted;
   if(row.team==1)append(output.health,row.position+Vec3{0,3,0},0,{float(std::clamp(row.hp/row.max_hp,0.0,1.0)),1,0,0});
  }

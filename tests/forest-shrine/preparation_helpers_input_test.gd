@@ -35,10 +35,9 @@ func blocked_inputs(label_:String):
  check(h.active_units()==allies and allies.map(func(unit):return unit.hp)==health,label_+" preserves the army and blocks number keys/hotbar signals")
  check(game.model.workers.size()==workers and game.model.gold==gold and game.build_kind==building,label_+" blocks construction shortcuts")
 func run():
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game;await frames()
  game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
- for unit in game.gate_defenders.units.values():unit.set_physics_process(false)
  var h=game.explorer_helpers;var ui=game.forest_ui
  check(game.model.phase=="preparing" and game.paused and paused,"Preparation intentionally pauses simulation")
  for id in range(1,13):
@@ -80,7 +79,6 @@ func run():
  game.show_view_settings(true);blocked_inputs("View settings with visible HUD");game.resume();await frames()
  game.show_settings(true);blocked_inputs("Settings menu");game.resume();await frames()
  game.show_rogue_roster();blocked_inputs("Character roster");game.close_rogue_roster();await frames()
- game.show_gate_defenders();blocked_inputs("Gate Defender panel");game.forest_ui.get_node("GateDefenderPanel").close();await frames()
  var survivors=h.active_units().duplicate()
  if survivors.size()==12:
   var wounded=h.active_units(4)[0]
@@ -88,7 +86,7 @@ func run():
   for i in 60:
    for unit in survivors:unit._physics_process(1.0/60)
   check(h.active_units()==survivors and survivors.map(func(unit):return unit.global_position)==positions and survivors.all(func(unit):return not unit.has_offensive_action()),"Prepared army waits without moving or attacking")
-  ui.build_bar.get_node("StartWave").pressed.emit();game.model.waves.pending=999;game.model.waves.spawn_clock=100000;freeze_helpers()
+  ui.start_wave_button.pressed.emit();game.model.waves.pending=999;game.model.waves.spawn_clock=100000;freeze_helpers()
   check(game.model.phase=="wave" and h.active_units()==survivors and wounded.hp==20,"Starting a real wave preserves all prepared allies and 20 HP")
   tap(KEY_5);freeze_helpers()
   check(h.active_units(4).size()==4 and wounded.hp==20,"Combat digits add to the prepared army without healing survivors")

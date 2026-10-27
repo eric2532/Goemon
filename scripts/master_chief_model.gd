@@ -16,7 +16,7 @@ func _ready():
 	coin=Node3D.new();body.add_child(coin);coin.hide()
 	chain_pipe=ChainPipeVisual.new();body.add_child(chain_pipe);chain_pipe.hide()
 	if ResourceLoader.exists(BODY_PATH):
-		rig_visual=load(BODY_PATH).instantiate();body.add_child(rig_visual)
+		rig_visual=load(GameAssets.model_path(BODY_PATH)).instantiate();body.add_child(rig_visual)
 		skeleton=rig_visual.find_child("Skeleton3D",true,false) as Skeleton3D
 		animations=rig_visual.find_child("AnimationPlayer",true,false) as AnimationPlayer
 		if animations!=null:

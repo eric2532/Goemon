@@ -1,6 +1,6 @@
 extends RefCounted
 ## Shared physical and visible heights; footprints and building balance stay fixed.
-const WALL_HEIGHT=16.0
+const WALL_HEIGHT=32.0
 const WALL_THICKNESS=5.6
 const WALL_CAP_THICKNESS=6.0
 const WALL_BASE_THICKNESS=6.0
@@ -35,8 +35,8 @@ const BARRACKS_DECK_HEIGHT=BARRACKS_BODY_HEIGHT+BARRACKS_DECK_THICKNESS
 const BARRACKS_DECK_CENTER=BARRACKS_BODY_HEIGHT+BARRACKS_DECK_THICKNESS*.5
 const BARRACKS_HEIGHT=BARRACKS_DECK_HEIGHT+2.2
 const BOW_LOCAL_GRIP=Vector3(.85,1.25,.6)
-# Raised ROM Goemon grip, shared by visible bows and tower arrow targeting.
-const TOWER_MUZZLE_OFFSET=Vector3(-.897608,.935814,.352590)
+# Native Peasant right-hand grip in Stand Ready, shared by bow and arrow targeting.
+const TOWER_MUZZLE_OFFSET=Vector3(-.752981,1.493069,-.085336)
 const WORKER_CONTACT_HEIGHT=1.6
 const HEIGHTS={"wall":WALL_HEIGHT,"gate":GATE_HEIGHT,"shrine":STATUE_HEIGHT+PEDESTAL_HEIGHT,"tower":TOWER_HEIGHT,"mine":6.0,"barracks":BARRACKS_HEIGHT}
 static func height(kind:String)->float:return HEIGHTS.get(kind,4.0)

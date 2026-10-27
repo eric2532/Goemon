@@ -12,10 +12,13 @@ func check(ok:bool,message:String):
 	if not ok:failures+=1;printerr("FAIL: "+message)
 func run():
 	var m=load("res://tests/forest-shrine/reference/forest_model.gd").new();m.reset(42,{}, {},false);m.phase="wave"
-	var wall=m.buildings.values().filter(func(b):return b.kind=="wall")[0]
+	var solid_wall=m.buildings.values().filter(func(b):return b.kind=="wall")[0]
+	m.events.clear();m.damage_building(solid_wall.id,100000)
+	check(solid_wall.hp==solid_wall.max_hp and m.events.is_empty(),"Indestructible walls cannot emit damage audio")
+	var wall=m.buildings.values().filter(func(b):return b.kind=="gate")[0]
 	m.events.clear();m.damage_building(wall.id,30)
 	var events=m.events.filter(func(e):return e.kind=="wall_damage")
-	check(events.size()==1,"Real wall HP loss emits one positional cracking event")
+	check(events.size()==1,"Real gate HP loss emits one positional cracking event")
 	if not events.is_empty():
 		check(events[0].id==wall.id and events[0].point.is_finite() and events[0].damage==30 and not events[0].destroyed,"Damage feedback carries source, position and severity")
 	m.events.clear();m.damage_building(wall.id,0);m.damage_building(wall.id,-10)
@@ -24,10 +27,9 @@ func run():
 	check(m.events.is_empty(),"Preparation cannot emit attack audio")
 	m.phase="wave";m.damage_building(wall.id,100000)
 	events=m.events.filter(func(e):return e.kind=="wall_damage")
-	check(events.size()==1 and events[0].destroyed and not m.buildings.has(wall.id),"Destruction preserves its crack event before removing the wall")
-	var gate=m.buildings.values().filter(func(b):return b.kind=="gate")[0]
-	m.events.clear();m.damage_building(gate.id,20)
-	check(m.events.filter(func(e):return e.kind=="wall_damage").size()==1,"Stone gates share damage feedback")
+	check(events.size()==1 and events[0].destroyed and wall.breached,"A breached gate preserves its final cracking event")
+	m.events.clear();m.damage_building(wall.id,20)
+	check(m.events.is_empty(),"A breached gate cannot retrigger damage audio")
 	var tower=m.buildings.values().filter(func(b):return b.kind=="tower")[0]
 	m.events.clear();m.damage_building(tower.id,20)
 	check(m.events.is_empty(),"Unrelated building kinds do not use stone cracking")
@@ -40,6 +42,7 @@ func run():
 	var sound=game.wall_audio
 	check(sound.CRACK.mix_rate==22050 and pcm_hash(sound.CRACK.data)=="b955931c73057287b1830fa8c999951396c9efcc2a885dc8cad2716c7382a070","The imported stream preserves the exact recovered Musashi PCM and playback rate")
 	check(sound.voices.size()==6,"The audio voice pool is bounded")
+	check(sound.voices.all(func(v):return v.bus==&"SFX"),"Every wall impact uses the louder shared effects mix")
 	check(sound.MIX_INTERVAL*sound.MAX_VOICES>=sound.CRACK.get_length(),"Rapid ordinary hits preserve the full selected F impact tail")
 	var event={"kind":"wall_damage","id":100,"point":game.player.position+Vector3.FORWARD*4,"damage":30,"max_hp":7500,"destroyed":false}
 	check(sound.impact(event) and sound.voice_cursor==1,"A nearby hit plays the original sample")
@@ -63,7 +66,7 @@ func run():
 	game.sound_library.recording=false;game.show_pause()
 	check(not sound.impact(event),"Pause cannot trigger new cracking sounds")
 	game.resume();sound.reset()
-	var live_wall=game.model.buildings.values().filter(func(b):return b.kind=="wall")[0]
+	var live_wall=game.model.buildings.values().filter(func(b):return b.kind=="gate")[0]
 	game.player.position=game.model.center(live_wall)+Vector3.BACK*6
 	game.model.damage_building(live_wall.id,30)
 	game._physics_process(.05)

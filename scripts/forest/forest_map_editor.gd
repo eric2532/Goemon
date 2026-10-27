@@ -28,13 +28,14 @@ var road_width=5
 var road_stroke: Array=[]
 var road_last_cell=Vector2i.ZERO
 func _ready():
+	theme=preload("res://scripts/forest/preparation_skin.gd").theme()
 	name="ForestMapEditor";process_mode=Node.PROCESS_MODE_ALWAYS;mouse_filter=Control.MOUSE_FILTER_IGNORE
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var heading=Label.new();heading.text="MAP EDITOR";heading.position=Vector2(24,20);heading.add_theme_font_size_override("font_size",28);heading.add_theme_color_override("font_color",Color("f4d38b"));heading.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(heading)
-	var note=Label.new();note.text="Original Map is protected · Base and training dummy stay fixed";note.position=Vector2(24,58);note.add_theme_font_size_override("font_size",17);note.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(note)
+	var note=Label.new();note.text="Wind Meadow Valley · Base stays fixed";note.position=Vector2(24,58);note.add_theme_font_size_override("font_size",17);note.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(note)
 	var toolbar=PanelContainer.new();toolbar.name="MapEditorToolbar";add_child(toolbar);toolbar.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	toolbar.offset_left=16;toolbar.offset_right=-16;toolbar.offset_top=-243;toolbar.offset_bottom=-16
-	var box=StyleBoxFlat.new();box.bg_color=Color("162e2a");box.border_color=Color("9b946b");box.set_border_width_all(1);box.set_corner_radius_all(9)
+	var box=StyleBoxFlat.new();box.bg_color=Color(.16,.045,.09,.95);box.border_color=Color("c9c5d2");box.set_border_width_all(1);box.set_corner_radius_all(9)
 	for side in [SIDE_LEFT,SIDE_TOP,SIDE_RIGHT,SIDE_BOTTOM]:box.set_content_margin(side,14)
 	toolbar.add_theme_stylebox_override("panel",box)
 	var rows=VBoxContainer.new();rows.add_theme_constant_override("separation",9);toolbar.add_child(rows)
@@ -46,18 +47,22 @@ func _ready():
 	button(files,"Load",load_selected,"LoadForestMap",85)
 	dirty_label=Label.new();dirty_label.custom_minimum_size.x=120;dirty_label.add_theme_color_override("font_color",Color("edcf87"));files.add_child(dirty_label)
 	var presets=HBoxContainer.new();presets.add_theme_constant_override("separation",8);rows.add_child(presets)
-	button(presets,"Blood Gulch Castle",load_blood_gulch,"BloodGulchForestMap",210)
-	button(presets,"Kai Highway Castle",load_kai_highway,"KaiHighwayForestMap",210)
-	button(presets,"Four Gates",load_four_gates,"FourGatesForestMap",145)
-	button(presets,"Twin Ramparts",load_ramparts,"RampartsForestMap",145)
-	button(presets,"Original Map",load_original,"OriginalForestMap",145)
+	button(presets,"Wind Meadow",load_wind_meadow,"WindMeadowForestMap",165)
 	var actions=HBoxContainer.new();actions.add_theme_constant_override("separation",8);rows.add_child(actions)
-	palette=OptionButton.new();palette.name="ForestMapPalette";palette.custom_minimum_size=Vector2(200,40);palette.focus_mode=Control.FOCUS_NONE;palette.add_item("Select an object")
+	var map_size=OptionButton.new();map_size.name="ForestMapSize";map_size.custom_minimum_size=Vector2(150,40);map_size.focus_mode=Control.FOCUS_NONE
+	map_size.add_item("New preset…");map_size.add_item("Standard Meadow");map_size.add_item("Large Meadow · 2.25×")
+	map_size.tooltip_text="Load a fresh layout. Resize your current map with Bigger / Smaller on the main map page."
+	map_size.item_selected.connect(func(index):
+		map_size.selected=0
+		if index==1:load_wind_meadow()
+		elif index==2:load_wind_meadow_large())
+	actions.add_child(map_size)
+	palette=OptionButton.new();palette.name="ForestMapPalette";palette.custom_minimum_size=Vector2(180,40);palette.focus_mode=Control.FOCUS_NONE;palette.add_item("Select an object")
 	for kind in LABELS:palette.add_item(LABELS[kind])
 	palette.item_selected.connect(func(index):choose_piece("" if index==0 else LABELS.keys()[index-1]));actions.add_child(palette)
 	var width=OptionButton.new();width.name="RoadBrushWidth";width.custom_minimum_size=Vector2(140,40);width.focus_mode=Control.FOCUS_NONE
 	for amount in [1,3,5]:width.add_item("Road: %d tiles"%amount)
-	width.selected=2;width.tooltip_text="Five tiles clears enough room for the giant. Roads clear trees in their painted footprint."
+	width.selected=2;width.tooltip_text="Roads clear trees in their painted footprint."
 	width.item_selected.connect(func(index):road_width=[1,3,5][index];cancel_stroke();last_preview="");actions.add_child(width)
 	button(actions,"Select",choose_piece.bind(""),"SelectMapObject",85)
 	rotate_button=button(actions,"Rotate · R",rotate_selected,"RotateMapObject",110)
@@ -73,13 +78,14 @@ func _ready():
 	hide()
 func button(parent: Node,text: String,action: Callable,id: String,width: float)->Button:
 	var result=Button.new();result.name=id;result.text=text;result.custom_minimum_size=Vector2(width,40);result.focus_mode=Control.FOCUS_NONE
-	result.add_theme_font_size_override("font_size",17);result.pressed.connect(action);parent.add_child(result);return result
+	preload("res://scripts/forest/preparation_skin.gd").apply_button(result);result.add_theme_font_size_override("font_size",17);result.pressed.connect(action);parent.add_child(result);return result
 func open():
 	if active:return
 	previous_model=game.model;previous_position=game.player.position;previous_pan=game.pan;previous_size=game.preparation_size
 	document.capture(previous_model)
 	var selected=game.get_tree().get_meta("forest_custom_layout",{})
 	if not selected.is_empty():document.data.title=selected.title;document.saved_text=document.encode()
+	elif previous_model.terrain_source=="wind_meadow":document.data.title="Wind Meadow Valley";document.saved_text=document.encode()
 	elif previous_model.terrain_source=="blood_gulch":document.data.title="Blood Gulch Castle";document.saved_text=document.encode()
 	elif previous_model.terrain_source=="kai_highway":document.data.title="Kai Highway Castle";document.saved_text=document.encode()
 	elif not previous_model.ramparts.is_empty():document.data.title="Four Gates" if previous_model.portals.size()==8 else "Twin Ramparts";document.saved_text=document.encode()
@@ -154,39 +160,20 @@ func load_selected():
 		var error=document.read_file(path)
 		if not error.is_empty():set_status(error);return
 		name_field.text=document.data.title;choose_piece("");refresh_document();set_status("Loaded “%s”."%document.data.title))
-func load_original():
+func load_wind_meadow_large():
 	request_replace(func():
-		var error=document.load_original()
-		if not error.is_empty():set_status(error);return
-		name_field.text=document.data.title;choose_piece("");refresh_document();game.pan=Vector3.ZERO;game.preparation_size=120;game.update_preparation_camera();set_status("Original Map restored. Save any edits as a separate custom map."))
-func load_ramparts():
-	request_replace(func():
-		var error=document.load_ramparts()
-		if not error.is_empty():set_status(error);return
-		name_field.text=document.data.title;choose_piece("");refresh_document()
-		game.pan=Vector3(0,0,100);game.preparation_size=340;game.update_preparation_camera()
-		set_status("Twin Ramparts loaded · Two raised wall routes and spawn portals. Original Map is still available."))
-func load_four_gates():
-	request_replace(func():
-		var error=document.load_four_gates()
+		var error=document.load_wind_meadow_large()
 		if not error.is_empty():set_status(error);return
 		name_field.text=document.data.title;choose_piece("");refresh_document()
 		var frame=game.preparation_map_frame();game.pan=frame.pan;game.preparation_size=frame.size;game.update_preparation_camera()
-		set_status("Four Gates loaded · One gate and two raised portal routes on each side. Earlier maps remain available."))
-func load_blood_gulch():
+		set_status("Large Wind Meadow · 2.25× the area · Play map starts a fresh run. Save to keep a custom layout; Back restores your current run."))
+func load_wind_meadow():
 	request_replace(func():
-		var error=document.load_blood_gulch()
+		var error=document.load_wind_meadow()
 		if not error.is_empty():set_status(error);return
 		name_field.text=document.data.title;choose_piece("");refresh_document()
 		var frame=game.preparation_map_frame();game.pan=frame.pan;game.preparation_size=frame.size;game.update_preparation_camera()
-		set_status("Blood Gulch Castle loaded · Sunny grassland, four castle gates and eight open enemy approaches."))
-func load_kai_highway():
-	request_replace(func():
-		var error=document.load_kai_highway()
-		if not error.is_empty():set_status(error);return
-		name_field.text=document.data.title;choose_piece("");refresh_document()
-		var frame=game.preparation_map_frame();game.pan=frame.pan;game.preparation_size=frame.size;game.update_preparation_camera()
-		set_status("Kai Highway Castle loaded · Original hills and bridges, central castle and all eight spawn portals."))
+		set_status("Wind Meadow Valley loaded · Destroy the four cardinal barracks and defend the central castle."))
 func back_to_building():request_replace(close_discard)
 func close_discard():
 	active=false;hide();confirmation.hide();game.model=previous_model;previous_model=null
@@ -231,8 +218,8 @@ func handle_input(event):
 	if not road_stroke.is_empty() and event is InputEventMouseMotion and event.button_mask&MOUSE_BUTTON_MASK_LEFT:
 		extend_stroke(game.model.cell_of(game.ground_at(event.position)));get_viewport().set_input_as_handled();return
 	if event is InputEventMouseButton and event.pressed:
-		if event.button_index==MOUSE_BUTTON_WHEEL_UP:game.preparation_size=clampf(game.preparation_size-12,60,600*game.model.terrain_scale);game.update_preparation_camera()
-		elif event.button_index==MOUSE_BUTTON_WHEEL_DOWN:game.preparation_size=clampf(game.preparation_size+12,60,600*game.model.terrain_scale);game.update_preparation_camera()
+		if event.button_index==MOUSE_BUTTON_WHEEL_UP:game.preparation_size=clampf(game.preparation_size-12,60,game.preparation_zoom_limits().y);game.update_preparation_camera()
+		elif event.button_index==MOUSE_BUTTON_WHEEL_DOWN:game.preparation_size=clampf(game.preparation_size+12,60,game.preparation_zoom_limits().y);game.update_preparation_camera()
 		elif event.button_index==MOUSE_BUTTON_RIGHT:choose_piece("")
 		elif event.button_index==MOUSE_BUTTON_LEFT:
 			var cell=game.model.cell_of(game.ground_at(event.position))
@@ -274,7 +261,7 @@ func tick(delta: float):
 	if not confirmation.visible and not text_focused():
 		var move=Input.get_vector("move_left","move_right","move_forward","move_back")
 		game.pan+=Vector3(move.x,0,move.y)*delta*game.preparation_size*.7
-		game.pan.x=clampf(game.pan.x,-235*game.model.terrain_scale,235*game.model.terrain_scale);game.pan.z=clampf(game.pan.z,-235*game.model.terrain_scale,235*game.model.terrain_scale);game.update_preparation_camera()
+		game.clamp_preparation_pan();game.update_preparation_camera()
 	if tool.is_empty() or confirmation.visible or not road_stroke.is_empty():return
 	var cell=game.model.cell_of(game.ground_at(get_viewport().get_mouse_position()));var key="%s:%s:%d"%[tool,cell,placement_rotation]
 	if key==last_preview:return

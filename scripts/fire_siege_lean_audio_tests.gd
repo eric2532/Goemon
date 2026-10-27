@@ -22,7 +22,7 @@ func run():
  a.sound.last_events.clear()
  tap("light_attack");await frames(6)
  check(a.player.attack != null and not a.player.attack.hit and a.sound.last_events.has("claymore-sweep") and a.sound.cache.has("claymore-sweep-0"),"Claymore sweep starts before damage contact")
- check(quiet_voice(a.sound, "claymore-sweep-0.wav", .8),"Claymore sweep plays below its previous full-volume mix")
+ check(quiet_voice(a.sound, "lumina_swing.wav", .8),"Claymore reuses Lumina's swing below the previous full-volume mix")
  await frames(35)
  check(not a.sound.last_events.has("claymore-impact"),"A completed missed swing never makes a cutting impact")
  await fresh_class(6);a=game.player.active_ability;a.sound.last_events.clear()

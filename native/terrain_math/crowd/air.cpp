@@ -1,6 +1,7 @@
 #include "terrain.h"
 #include <algorithm>
 #include <limits>
+#include <cstring>
 namespace army {
 namespace {
 uint64_t air_key(int x,int z){return (uint64_t(uint32_t(x))<<32)|uint32_t(z);}
@@ -29,6 +30,16 @@ void segment_pair(Vec3 a,Vec3 b,Vec3 c,Vec3 d,Vec3& p,Vec3& q){
     p=a+u*s;q=c+v*t;
 }
 float capsule_triangle(Vec3 lower,Vec3 upper,Vec3 a,Vec3 b,Vec3 c,Vec3& normal){
+    if(lower.x==upper.x&&lower.y==upper.y&&lower.z==upper.z){
+        Vec3 q=closest(lower,a,b,c);float distance=length(lower-q);
+        // Preserve the edge roundoff/tie order used by the capsule reference.
+        for(auto edge:{std::pair<Vec3,Vec3>{a,b},{b,c},{c,a}}){
+            Vec3 v=edge.second-edge.first,w=lower-edge.first;float cc=dot(v,v);
+            Vec3 candidate=edge.first+v*(cc>1e-8f?std::clamp(dot(v,w)/cc,0.0f,1.0f):0);
+            float gap=length(lower-candidate);if(gap<distance){distance=gap;q=candidate;}
+        }
+        normal=distance>1e-7f?(lower-q)*(1/distance):normalized(cross(b-a,c-a));return distance;
+    }
     float t;if(triangle_ray(lower,upper-lower,a,b,c,t)){normal=normalized(cross(b-a,c-a));if(normal.y<0)normal=normal*-1;return 0;}
     Vec3 p=lower,q=closest(lower,a,b,c);float best=length(p-q);
     auto consider=[&](Vec3 x,Vec3 y){float gap=length(x-y);if(gap<best){best=gap;p=x;q=y;}};
@@ -54,10 +65,14 @@ int Terrain::build_air_node(int first,int end){
     }
     return index;
 }
-void Terrain::build_air(){
-    air_order_.clear();air_nodes_.clear();air_faces_.clear();air_grid_.clear();air_owner_.clear();air_minimum_.clear();air_maximum_.clear();int64_t owner=-1;
+void Terrain::build_air(bool reuse_base,size_t input_start){
+    std::vector<Vec3> previous_faces;std::vector<int64_t> previous_owners;
+    if(reuse_base){air_faces_.resize(air_base_faces_);air_owner_.resize(air_base_faces_/3);}
+    else {previous_faces=std::move(air_faces_);previous_owners=std::move(air_owner_);air_faces_.clear();air_owner_.clear();air_faces_.reserve(previous_faces.size());air_owner_.reserve(previous_owners.size());}
+    int64_t owner=-1;size_t base_faces=reuse_base?air_base_faces_:0;bool owned=reuse_base;
     auto tri=[&](Vec3 a,Vec3 b,Vec3 c){if(finite(a)&&finite(b)&&finite(c)&&length(cross(b-a,c-a))>1e-6f){air_faces_.push_back(a);air_faces_.push_back(b);air_faces_.push_back(c);air_owner_.push_back(owner);}};
     auto quad=[&](Vec3 a,Vec3 b,Vec3 c,Vec3 d){tri(a,b,c);tri(a,c,d);};
+    if(!reuse_base){
     if(data_.width==0)quad({minimum_.x,0,minimum_.z},{minimum_.x,0,maximum_.z},{maximum_.x,0,maximum_.z},{maximum_.x,0,minimum_.z});
     else for(int z=0;z<data_.width-1;++z)for(int x=0;x<data_.width-1;++x){
         int i=z*data_.width+x;if(!data_.covered[i]||!data_.covered[i+1]||!data_.covered[i+data_.width]||!data_.covered[i+data_.width+1])continue;
@@ -70,20 +85,31 @@ void Terrain::build_air(){
         for(int k=0;k<4;++k){float along=k<2?p[6]:p[7],side=(k==0||k==3)?-p[4]:p[4];v[k]={p[0]+p[2]*along-p[3]*side,-.2f,p[1]+p[3]*along+p[2]*side};v[k+4]=v[k];v[k+4].y=p[8]+(p[9]-p[8])*std::clamp(along/p[5],0.0f,1.0f);}
         const int faces[][4]={{4,5,6,7},{0,3,2,1},{0,1,5,4},{1,2,6,5},{2,3,7,6},{3,0,4,7}};for(auto& f:faces)quad(v[f[0]],v[f[1]],v[f[2]],v[f[3]]);
     }
-    for(size_t i=0;i+2<data_.air_faces.size();i+=3){owner=i/3<data_.air_owner.size()?data_.air_owner[i/3]:-1;tri(data_.air_faces[i],data_.air_faces[i+1],data_.air_faces[i+2]);}
-    for(size_t i=0;i<air_faces_.size();i+=3){auto a=air_faces_[i],b=air_faces_[i+1],c=air_faces_[i+2];
+    }
+    for(size_t i=reuse_base?input_start:0;i+2<data_.air_faces.size();i+=3){owner=i/3<data_.air_owner.size()?data_.air_owner[i/3]:-1;if(owner>=0&&!owned){base_faces=air_faces_.size();owned=true;}tri(data_.air_faces[i],data_.air_faces[i+1],data_.air_faces[i+2]);}
+    if(!owned)base_faces=air_faces_.size();
+    // A broken wall must not rebuild the unchanged terrain's collision tree.
+    bool reuse=reuse_base||(base_faces>0&&base_faces==air_base_faces_&&previous_faces.size()>=base_faces&&previous_owners.size()>=base_faces/3&&
+        !std::memcmp(previous_faces.data(),air_faces_.data(),base_faces*sizeof(Vec3))&&!std::memcmp(previous_owners.data(),air_owner_.data(),base_faces/3*sizeof(int64_t)));
+    if(reuse){air_order_.resize(base_faces/3);air_nodes_.resize(air_base_nodes_);air_minimum_.resize(base_faces/3);air_maximum_.resize(base_faces/3);}
+    else {air_order_.clear();air_nodes_.clear();air_grid_.clear();air_minimum_.clear();air_maximum_.clear();}
+    air_dynamic_grid_.clear();air_dynamic_root_=-1;
+    for(size_t i=reuse?base_faces:0;i<air_faces_.size();i+=3){auto a=air_faces_[i],b=air_faces_[i+1],c=air_faces_[i+2];
         // Retain the ray's original barycentric tolerance and conservative
         // floating-point roundoff margin, including long fixture triangles.
         auto margin=[](float a,float b,float c){return (std::abs(b-a)+std::abs(c-a))*.00002f+std::max({std::abs(a),std::abs(b),std::abs(c)})*std::numeric_limits<float>::epsilon()*8+.00001f;};
         Vec3 pad{margin(a.x,b.x,c.x),margin(a.y,b.y,c.y),margin(a.z,b.z,c.z)};
         air_minimum_.push_back(Vec3{std::min({a.x,b.x,c.x}),std::min({a.y,b.y,c.y}),std::min({a.z,b.z,c.z})}-pad);
         air_maximum_.push_back(Vec3{std::max({a.x,b.x,c.x}),std::max({a.y,b.y,c.y}),std::max({a.z,b.z,c.z})}+pad);
+        auto& grid=i<base_faces?air_grid_:air_dynamic_grid_;
         for(int x=int(std::floor(std::min({a.x,b.x,c.x})/12));x<=int(std::floor(std::max({a.x,b.x,c.x})/12));++x)
-            for(int z=int(std::floor(std::min({a.z,b.z,c.z})/12));z<=int(std::floor(std::max({a.z,b.z,c.z})/12));++z)air_grid_[air_key(x,z)].push_back(int(i));
+            for(int z=int(std::floor(std::min({a.z,b.z,c.z})/12));z<=int(std::floor(std::max({a.z,b.z,c.z})/12));++z)grid[air_key(x,z)].push_back(int(i));
     }
     air_order_.resize(air_minimum_.size());
-    for(int i=0;i<int(air_order_.size());++i)air_order_[i]=i;
-    if(!air_order_.empty())build_air_node(0,int(air_order_.size()));
+    for(int i=reuse?int(base_faces/3):0;i<int(air_order_.size());++i)air_order_[i]=i;
+    if(!reuse){if(base_faces)build_air_node(0,int(base_faces/3));air_base_nodes_=air_nodes_.size();}
+    air_base_faces_=base_faces;
+    if(air_order_.size()>base_faces/3)air_dynamic_root_=build_air_node(int(base_faces/3),int(air_order_.size()));
 }
 template<class Visitor> bool Terrain::visit_air(Vec3 low,Vec3 high,Visitor&& visitor) const{
     int x0=int(std::floor(low.x/12)),x1=int(std::floor(high.x/12)),z0=int(std::floor(low.z/12)),z1=int(std::floor(high.z/12));
@@ -102,15 +128,15 @@ template<class Visitor> bool Terrain::visit_air(Vec3 low,Vec3 high,Visitor&& vis
         }
         return true;
     };
-    return air_nodes_.empty()||visit(visit,0);
+    return (!air_base_faces_||visit(visit,0))&&(air_dynamic_root_<0||visit(visit,air_dynamic_root_));
 }
 std::vector<int> Terrain::air_candidates(Vec3 low,Vec3 high,bool bounded) const{
     std::vector<int> result;
     if(bounded&&!air_nodes_.empty()){
         visit_air(low,high,[&](int i){result.push_back(i);return true;});
     }else{
-    for(int x=int(std::floor(low.x/12));x<=int(std::floor(high.x/12));++x)for(int z=int(std::floor(low.z/12));z<=int(std::floor(high.z/12));++z){
-        auto it=air_grid_.find(air_key(x,z));if(it==air_grid_.end())continue;
+    for(const auto* grid:{&air_grid_,&air_dynamic_grid_})for(int x=int(std::floor(low.x/12));x<=int(std::floor(high.x/12));++x)for(int z=int(std::floor(low.z/12));z<=int(std::floor(high.z/12));++z){
+        auto it=grid->find(air_key(x,z));if(it==grid->end())continue;
         if(air_profile.enabled)air_profile.considered+=it->second.size();
         if(!bounded){result.insert(result.end(),it->second.begin(),it->second.end());continue;}
         for(int i:it->second){const auto& a=air_minimum_[i/3];const auto& b=air_maximum_[i/3];
@@ -139,6 +165,55 @@ Vec3 Terrain::landing(Vec3 aim,float top,bool& valid) const{
     float first=2;Vec3 start{aim.x,top,aim.z},motion{0,-256,0};
     for(int i:air_candidates(start+motion,start,true)){float t;if(triangle_ray(start,motion,air_faces_[i],air_faces_[i+1],air_faces_[i+2],t)&&t<first){first=t;valid=true;}}
     return valid?start+motion*first:aim;
+}
+bool Terrain::climb_support(const ClimbSurface& wall,Vec3 foot,float radius) const{
+    if(!ready_||!wall.valid)return false;
+    Vec3 from=foot+Vec3{0,.25f,0},to=from-wall.normal*(radius+1);
+    Vec3 low{std::min(from.x,to.x),from.y-.01f,std::min(from.z,to.z)},high{std::max(from.x,to.x),from.y+.01f,std::max(from.z,to.z)};
+    for(int i:air_candidates(low,high,true)){
+        if(air_owner_[i/3]!=wall.owner)continue;
+        Vec3 a=air_faces_[i],b=air_faces_[i+1],c=air_faces_[i+2],normal=normalized(cross(b-a,c-a));
+        float t;if(std::abs(dot(normal,wall.normal))>.98f&&triangle_ray(from,to-from,a,b,c,t))return true;
+    }
+    return false;
+}
+ClimbSurface Terrain::climb_surface(Vec3 from,float radius,float reach) const{
+    ClimbSurface best;if(!ready_||!finite(from)||radius<=0||reach<=0)return best;
+    float nearest=reach;Vec3 pad{reach,40,reach};
+    for(int i:air_candidates(from-pad,from+pad,true)){
+        // Building-owned physical faces include castle walls, which are not combat targets.
+        if(air_owner_[i/3]<0)continue;
+        Vec3 a=air_faces_[i],b=air_faces_[i+1],c=air_faces_[i+2],normal=normalized(cross(b-a,c-a));
+        if(std::abs(normal.y)>.01f)continue;
+        if(std::max({a.y,b.y,c.y})-std::min({a.y,b.y,c.y})<12)continue;
+        Vec3 contact=closest(from+Vec3{0,2,0},a,b,c);
+        if(dot(normal,from-contact)<0)normal=normal*-1;
+        ClimbSurface wall;wall.normal=normal;wall.owner=air_owner_[i/3];wall.valid=true;
+        wall.base=contact+normal*(radius+.05f);wall.base.y=float(height(wall.base.x,wall.base.z));
+        if(!finite(wall.base))continue;
+        // Accepted footing stays within .3 of this root, so a farther wall
+        // cannot replace the current nearest result. Retain float roundoff slack.
+        float slack=.301f+(std::abs(from.x)+std::abs(from.z)+std::abs(wall.base.x)+std::abs(wall.base.z))*std::numeric_limits<float>::epsilon()*4;
+        if(std::hypot(wall.base.x-from.x,wall.base.z-from.z)>nearest+slack)continue;
+        auto approach=air_move(from,wall.base-from,radius,radius*2,radius);
+        if(std::hypot(approach.position.x-wall.base.x,approach.position.z-wall.base.z)>.3f)continue;
+        // A large capsule rests above the center height on a slope.
+        auto footing=air_move(approach.position,{0,-radius*2,0},radius,radius*2,radius);
+        if(!footing.floor||std::hypot(footing.position.x-wall.base.x,footing.position.z-wall.base.z)>.3f)continue;
+        wall.base=footing.position;
+        wall.crest=wall.base;wall.crest.y=std::max({a.y,b.y,c.y})-.5f;
+        float gap=length(wall.base-from),rise=wall.crest.y-wall.base.y;
+        if(!finite(wall.base)||gap>=nearest||rise<4||rise>40)continue;
+        bool supported=true;
+        for(int sample=0;sample<=8;++sample){
+            Vec3 p=wall.base+(wall.crest-wall.base)*(sample/8.0f);
+            if(!climb_support(wall,p,radius)){supported=false;break;}
+        }
+        if(!supported)continue;
+        // A nearby face behind the boss is valid too; yaw is fixed to its inward normal.
+        best=wall;nearest=gap;
+    }
+    return best;
 }
 AirMove Terrain::air_move(Vec3 from,Vec3 motion,float radius,float body_height,float center) const{
     AirMove result;result.position=from;if(!ready_)return result;

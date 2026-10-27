@@ -28,7 +28,7 @@ func reset_health():
 	for actor in crowd:
 		actor.hp=10000.0;game.model.enemies[actor.forest_id].hp=10000.0
 func run():
-	var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+	var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=config_path;root.add_child(game);current_scene=game
 	await frames(3);game.start_wave();game.model.waves.spawn_clock=10000;game.model.waves.pending=0
 	game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)

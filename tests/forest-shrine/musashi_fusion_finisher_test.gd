@@ -4,6 +4,7 @@ extends SceneTree
 var checks=0
 var failures=0
 var fixture
+const BODY_SIZE=preload("res://scripts/character_proportions.gd").MUSASHI_SIZE
 func _initialize():run.call_deferred()
 func check(ok:bool,label_:String):
 	checks+=1
@@ -19,7 +20,9 @@ func run():
 	for clip in ["Extra__800d4c94","Source__800d4ce4","Source__800d4d38"]:
 		c.primary_attack();check(c.clip==clip,"The first three Fusion cuts retain their own entries")
 		c.tick(p.attack_duration+.001)
-	var target=fixture.add_target(p.position+Vector3.FORWARD*1.3);target.hp=10000;target.max_hp=10000
+	var row=game.model.waves.spawn_enemy(0,p.position+Vector3.FORWARD*1.3);row.hp=10000;row.max_hp=10000
+	game.sync_enemies()
+	var target=game.actors[row.id]
 	c.primary_attack()
 	check(c.clip=="Recovered__800d4d88" and p.combo==4,"The fourth click begins the original finisher instead of looping cut one")
 	check(c.has_method("source_motion_tick"),"The finisher has its own source motion phases")
@@ -32,20 +35,20 @@ func run():
 	for i in 5:c.source_motion_tick()
 	check(c.clip=="Recovered__800d4da8","One-pose rise entry waits for vertical velocity, not its one-frame clip length")
 	motion=c.source_motion_tick()
-	check(c.clip=="Recovered__800d4db4" and is_equal_approx(motion.y,-3.24),"The sixth gravity step crosses the apex and selects the transition")
+	check(c.clip=="Recovered__800d4db4" and is_equal_approx(motion.y,-1.08*BODY_SIZE),"The sixth gravity step crosses the apex and selects the transition")
 	for i in 5:
 		check(c.source_motion_tick().is_zero_approx(),"The six-pose apex transition holds source height")
 	c.source_motion_tick()
 	check(c.clip=="Recovered__800d4dd4","The transition enters the source falling-contact pause")
 	check(target.hp==10000,"Finisher windup, launch and apex cannot damage a nearby real victim")
 	motion=c.source_motion_tick()
-	check(is_equal_approx(motion.y,-8.1) and c.trail_active(),"The falling strike resumes +3 source gravity with contact active")
+	check(is_equal_approx(motion.y,-2.7*BODY_SIZE) and c.trail_active(),"The falling strike resumes +3 source gravity with contact active")
 	check(target.hp<10000,"The source falling-contact state damages a real enemy")
 	var hit_hp=target.hp
 	for i in 8:c.source_motion_tick()
 	check(target.hp==hit_hp,"A held falling contact cannot damage the same victim twice")
-	check(is_equal_approx(c.source_motion_tick().y,-51.84),"Source soft terminal gravity crosses from 29 to 32 units instead of clamping to 31")
-	check(is_equal_approx(c.source_motion_tick().y,-51.84),"Source terminal guard retains the crossed value on later ticks")
+	check(is_equal_approx(c.source_motion_tick().y,-17.28*BODY_SIZE),"Source soft terminal gravity crosses from 29 to 32 units instead of clamping to 31")
+	check(is_equal_approx(c.source_motion_tick().y,-17.28*BODY_SIZE),"Source terminal guard retains the crossed value on later ticks")
 	check(c.clip=="Recovered__800d4dd4" and c.controls_motion(),"A paused falling entry waits for physical landing")
 	c.after_source_motion(true,false)
 	check(c.clip=="Recovered__800d4df4" and not c.trail_active(),"Actual floor contact begins the original landing recovery and closes contact")

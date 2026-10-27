@@ -8,7 +8,7 @@ var sun_state:Array=[]
 var active=false
 func _init(owner_world):world=owner_world
 func apply():
- if world.model.terrain_source!="blood_gulch":restore();return
+ if world.model.terrain_source not in ["blood_gulch","wind_meadow"]:restore();return
  if active:return
  for node in world.get_children():
   if node is WorldEnvironment:environment_node=node
@@ -28,10 +28,14 @@ func apply():
  env.fog_enabled=true;env.fog_light_color=Color("b2d2e3");env.fog_light_energy=1.0;env.fog_density=.00075
  env.fog_sky_affect=0.0
  env.ssao_enabled=false
+ if world.model.terrain_source=="wind_meadow":
+  env.tonemap_mode=Environment.TONE_MAPPER_FILMIC;env.tonemap_exposure=.85;env.ambient_light_energy=.35;env.ambient_light_color=Color("bdcfc6");env.fog_density=.0008/world.model.terrain_scale;env.fog_light_color=Color("b4ccd0");env.fog_sky_affect=.2
+  sky_material.sky_top_color=Color("73adcf");sky_material.sky_horizon_color=Color("dce7d3");sky_material.ground_horizon_color=Color("dce7d3")
  environment_node.environment=env
  if is_instance_valid(sun):
   sun_state=[sun.rotation,sun.light_color,sun.light_energy]
-  sun.rotation_degrees=Vector3(-53,-32,0);sun.light_color=Color("fff4dc");sun.light_energy=1.2
+  sun.rotation_degrees=Vector3(-53,-32,0);sun.light_color=Color("fff4dc");sun.light_energy=1.0 if world.model.terrain_source=="wind_meadow" else 1.2
+  if world.model.terrain_source=="wind_meadow":sun.rotation_degrees.x=-38;sun.light_color=Color("fff0dc")
  active=true
 func restore():
  if not active:return

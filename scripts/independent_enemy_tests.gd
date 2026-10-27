@@ -7,7 +7,6 @@ func setup():
  game.start_wave();game.model.waves.pending=999;game.model.waves.spawn_clock=100000
  game.set_physics_process(false);game.player.set_physics_process(false);game.crowd.set_process(false);game.camera_rig.set_process(false)
  game.player.select_character(11);game.tuning.critical_chance=0.0
- game.training_dummy.set_physics_process(false);game.training_dummy.hide();game.enemies.erase(game.training_dummy)
 func single_geometry(actor,data:Dictionary):
  var formation:Dictionary=game.crowd._formations[data.id]
  check(formation.roots.size()==1,"One logical enemy submits exactly one rendered figure (%d)"%data.variant)

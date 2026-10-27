@@ -7,13 +7,17 @@ func check(ok,label_):
  if not ok:failures+=1;printerr("FAIL: ",label_)
 func _initialize():run.call_deferred()
 func run():
+ var roles=preload("res://scripts/forest/forest_enemy_roles.gd")
+ check(Soldier.hurt_bounds().size.is_equal_approx(Vector3(1.152,2.016,2.304)),"Soldier hitboxes are one-third of their former size")
  for kind in [0,1,3]:
+  check(is_equal_approx(Soldier.data(kind).get_meta("scale"),1.8),"Soldier%d baked poses use one-third scale"%kind)
+  check(is_equal_approx(roles.height(kind),2.016) and is_equal_approx(roles.footprint_radius(kind),1.3),"Soldier%d navigation and targeting match its smaller body"%kind)
   var source:ArrayMesh=Soldier.data(kind).get_meta("mesh");var mesh=Soldier.make_mesh(kind)
   check(mesh.get_surface_count()==3,"Soldier%d shares three original texture groups instead of thirteen material draws"%kind)
   if not mesh.has_meta("source_ranges"):
    check(false,"Merged soldier geometry must retain verifiable source ranges");continue
   # Godot decodes/re-encodes octahedral normals while regrouping surfaces;
-  # keep that error below one source packing quantum (unshaded shader).
+  # Allow two octahedral packing round trips (<0.012 degrees) on beveled normals.
   var same=true;var vertices=0;var indices=0;var normal_error=0.0;var field_errors={}
   for row in mesh.get_meta("source_ranges"):
    var a=source.surface_get_arrays(row.source_slot);var b=mesh.surface_get_arrays(row.surface)
@@ -23,7 +27,7 @@ func run():
     normal_error=maxf(normal_error,a[Mesh.ARRAY_NORMAL][i].distance_to(b[Mesh.ARRAY_NORMAL][at]))
     for field in [Mesh.ARRAY_VERTEX,Mesh.ARRAY_TEX_UV,Mesh.ARRAY_COLOR]:
      if a[field][i]!=b[field][at]:field_errors[field]=field_errors.get(field,0)+1
-    same=same and a[Mesh.ARRAY_VERTEX][i]==b[Mesh.ARRAY_VERTEX][at] and a[Mesh.ARRAY_NORMAL][i].distance_to(b[Mesh.ARRAY_NORMAL][at])<.0001 and a[Mesh.ARRAY_TEX_UV][i]==b[Mesh.ARRAY_TEX_UV][at] and a[Mesh.ARRAY_COLOR][i]==b[Mesh.ARRAY_COLOR][at] and a[Mesh.ARRAY_TEX_UV2][i].x==b[Mesh.ARRAY_TEX_UV2][at].x and b[Mesh.ARRAY_TEX_UV2][at].y==row.source_slot
+    same=same and a[Mesh.ARRAY_VERTEX][i]==b[Mesh.ARRAY_VERTEX][at] and a[Mesh.ARRAY_NORMAL][i].distance_to(b[Mesh.ARRAY_NORMAL][at])<.0002 and a[Mesh.ARRAY_TEX_UV][i]==b[Mesh.ARRAY_TEX_UV][at] and a[Mesh.ARRAY_COLOR][i]==b[Mesh.ARRAY_COLOR][at] and a[Mesh.ARRAY_TEX_UV2][i].x==b[Mesh.ARRAY_TEX_UV2][at].x and b[Mesh.ARRAY_TEX_UV2][at].y==row.source_slot
    for i in a[Mesh.ARRAY_INDEX].size():same=same and a[Mesh.ARRAY_INDEX][i]+row.vertex_first==b[Mesh.ARRAY_INDEX][row.index_first+i]
    var original=source.surface_get_material(row.source_slot);var material=mesh.surface_get_material(row.surface)
    check(material.get_shader_parameter("albedo_texture")==original.albedo_texture,"Soldier group keeps the exact original texture resource")

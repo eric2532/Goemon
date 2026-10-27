@@ -73,7 +73,7 @@ func run():
 	check(p.progression.total_kills==1,"Repeated damage to a dead enemy cannot award another kill")
 	for i in range(4):
 		victim=target(Vector3(15,0,0));victim.training_dummy=false;victim.practice=false;victim.take_hit(10000,Vector3.RIGHT,false)
-	check(p.progression.level==2 and p.progression.total_kills==5 and game.hud.toast_text.begins_with("LEVEL 2"),"Five actual enemy deaths level up and show bonus feedback")
+	check(p.progression.level==2 and p.progression.total_kills==5 and not game.hud.toast_text.begins_with("LEVEL "),"Five actual enemy deaths level up without a level notification")
 	victim=target(Vector3(15,0,0));victim.take_hit(10000,Vector3.RIGHT,false)
 	victim=target(Vector3(15,0,0));victim.training_dummy=false;victim.take_hit(10000,Vector3.RIGHT,false)
 	check(p.progression.total_kills==5,"Training dummies and practice enemies cannot farm levels")

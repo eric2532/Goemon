@@ -23,7 +23,7 @@ func run():
 		if child.scene_file_path=="res://scenes/forest_shrine.tscn":child.queue_free()
 	await frames()
 	root.size=Vector2i(1280,800)
-	var doc=load("res://scripts/forest/forest_map_document.gd").new()
+	var doc=load("res://tests/forest-shrine/reference/map_document.gd").new()
 	if "--visual" in OS.get_cmdline_user_args():doc.load_blood_gulch()
 	else:doc.load_original()
 	set_meta("forest_custom_layout",doc.data)

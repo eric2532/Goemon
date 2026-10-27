@@ -5,6 +5,7 @@ uniform float fade = 1.0;
 uniform float energy = 1.0;
 uniform bool crimson = false;
 uniform bool custom_palette = false;
+uniform bool purple_energy = false;
 uniform vec4 ink_tint : source_color = vec4(1.0, 0.7, 0.2, 1.0);
 uniform float brush_clock = 0.0;
 uniform bool use_vertex_alpha = false;
@@ -30,6 +31,18 @@ void fragment() {
   vec3 body = mix(ink_tint.rgb * 0.14, ink_tint.rgb * 0.65, UV.y);
   pigment = mix(body, mix(ink_tint.rgb, vec3(1.0), 0.82), edge);
   pigment = mix(pigment, mix(ink_tint.rgb, vec3(1.0), 0.4), accent * 0.55);
+ }
+ if (purple_energy) {
+  // A dark violet body makes the incandescent cutting edge readable in daylight.
+  float ripple = sin(UV.x * 61.0 - flow * 3.0) * sin(UV.x * 23.0 + flow);
+  edge = smoothstep(0.76, 0.95, UV.y + ripple * 0.025);
+  float filaments = pow(max(0.0, sin(UV.y * 43.0 - UV.x * 19.0 + flow * 5.0)), 18.0);
+  accent = filaments * smoothstep(0.2, 0.6, UV.y) * (1.0 - edge);
+  ink = smoothstep(ragged * 0.65, ragged + 0.16, UV.y);
+  dry_brush = 0.9 + bristles * 0.1;
+  pigment = mix(vec3(0.018, 0.002, 0.065), vec3(0.36, 0.035, 0.82), smoothstep(0.35, 0.87, UV.y));
+  pigment = mix(pigment, vec3(0.68, 0.4, 1.0), accent * 0.85);
+  pigment = mix(pigment, vec3(0.96, 0.88, 1.0), edge);
  }
  ALBEDO = pigment;
  EMISSION = pigment * (0.12 + edge * 2.2 + accent * 0.7) * energy;

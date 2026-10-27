@@ -68,6 +68,7 @@ func run():
 	await prepare(5);c=game.player.active_ability;start=game.player.position;c.action("flintlock");c.physics_step(.01)
 	check(c.player.roll>0 and distance_from(start)>.1,"Ninja dash attack retains intentional movement without a hit")
 	# A surviving immortal target still counts as a confirmed hit.
+	preload("res://tests/forest-shrine/training_dummy_fixture.gd").install(game)
 	await prepare(5);c=game.player.active_ability;var dummy=game.training_dummy
 	game.player.position=dummy.home+Vector3(0,.1,2);c.player.pos=game.player.position;c.aim=dummy.home;game.enemies.append(dummy)
 	game.model.update_vision(game.player.position);start=game.player.position;primary(0);swing(c)

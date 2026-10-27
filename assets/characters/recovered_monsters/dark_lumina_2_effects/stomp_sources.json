@@ -1,0 +1,45 @@
+{
+  "source": "raw/SC07.CD.dir/FILE_002.dir/0.4.dec",
+  "source_sha256": "040feb433a45fa577df3f8d67481894ab95b0274f38ced62bb372e14dd4fce17",
+  "actor": "0x352",
+  "spawn": "0x801830d8",
+  "model": "0x80197c6c",
+  "controller": "0x80183458",
+  "rise": "0x8018439c",
+  "travel": "0x801838fc",
+  "sectors": 19,
+  "sector_angle": 227,
+  "rise_scales": [
+    8192,
+    14336,
+    18432,
+    17408,
+    16384,
+    12288,
+    8192,
+    4096
+  ],
+  "rise_ticks": 8,
+  "travel_ticks": 48,
+  "slow_expansion": 32,
+  "fast_expansion": 128,
+  "turn_per_tick": 148,
+  "texture": {
+    "tpage": 188,
+    "clut": 32464,
+    "depth": 8,
+    "rect": [
+      768,
+      416,
+      64,
+      96
+    ],
+    "uv_scroll_frames": 8,
+    "rgba_sha256": "5e877871a4be768a184fc72f766305c530cbb3e37078048f46db9fbf63c25546"
+  },
+  "notes": [
+    "The local 801F2260/801F2900 dome/ring belong to a different effect controller.",
+    "Original nineteen sectors, UVs and palette pixels; transparent unused page space preserves source UVs.",
+    "Goemon retains its existing two grounded damage pulses and reach; each now presents the recovered travelling ground wave."
+  ]
+}

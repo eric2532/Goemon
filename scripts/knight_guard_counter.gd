@@ -27,7 +27,7 @@ static func tick(g,delta: float):
 		var face: Dictionary=counter.faces[i]
 		if not face.started:
 			face.started=true
-			g.fx.knight_shield_pulse(counter.pos,counter.angle,counter.scale,i)
+			g.fx.knight_shield_pulse(counter.pos,counter.angle,counter.scale*g.skill_factor("size",counter.ticket),i)
 		var distance=START+DISTANCE*clampf(age/TRAVEL,0,1)
 		var finish=distance+THICKNESS
 		if finish>float(face.last)+.00001:
@@ -36,7 +36,7 @@ static func tick(g,delta: float):
 	if counter.time>=(COUNT-1)*INTERVAL+TRAVEL+TAIL:g.player.guardCounter=null
 static func sweep(g,counter: Dictionary,face: Dictionary,from: float,to: float):
 	var direction: Vector3=g.front(counter.angle);var side=Vector3(direction.z,0,-direction.x)
-	var scale_: float=counter.scale
+	var scale_: float=counter.scale*g.skill_factor("hit_area",counter.ticket)
 	var center: Vector3=counter.pos+Vector3.UP*3.3*scale_+direction*(from+to)*.5*scale_
 	var prior_ticket: Dictionary=g._ticket;var prior_resolution: Dictionary=g._resolution_ticket
 	var prior_projectile: bool=g._projectile_damage;var prior_origin: Vector3=g._damage_origin

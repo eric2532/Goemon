@@ -26,7 +26,7 @@ func far_cost(m,guards,count:int)->float:
   samples.append(float(Time.get_ticks_usec()-start))
  samples.sort();return samples[1]
 func run():
- var data=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_four_gates.json"))
+ var data=JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_four_gates.json"))
  var m=Model.new();m.reset(42,{},data);m.start_wave();m.workforce.assignment_clock=1000
  var guards=m.workers.values().filter(func(w):return w.state=="garrison")
  for i in 96:

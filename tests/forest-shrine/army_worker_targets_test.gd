@@ -3,15 +3,14 @@ const Coordinator=preload("res://scripts/forest/crowd/army_coordinator.gd")
 const Model=preload("res://scripts/forest/forest_model.gd")
 const Profile=preload("res://scripts/forest/forest_structure_profile.gd")
 class Player extends Node3D:
+ const RogueRoster=preload("res://scripts/rogue_roster.gd")
+ var character_id=1
  var hp=200
  func rogue_untargetable():return false
-class Defenders extends RefCounted:
- var units={}
 class Arena extends Node:
  var model=Model.new()
  var player=Player.new()
  var respawn_left=0
- var gate_defenders=Defenders.new()
 var checks=0
 var failures=0
 func check(ok:bool,label_:String):

@@ -14,7 +14,7 @@ func check(ok:bool,label_:String):
  if not ok:failures+=1;printerr("FAIL: ",label_)
 func _initialize():run.call_deferred()
 func run():
- var m=Model.new();m.reset(42,{},JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_kai_highway.json")));var nav=Navigation.new(m);m.waves.navigation=nav
+ var m=Model.new();m.reset(42,{},JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_kai_highway.json")));var nav=Navigation.new(m);m.waves.navigation=nav
  check(nav.has_method("_grid_path"),"Grid paths share immutable searches within one navigation revision")
  if not nav.has_method("_grid_path"):finish();return
  var g=AStarGrid2D.new();g.region=Rect2i(-5,-5,10,10);g.update()

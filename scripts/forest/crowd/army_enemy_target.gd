@@ -8,11 +8,16 @@ var handle:int
 var forest_id:int
 var fitted_contact:Dictionary={}
 var pose_data:Dictionary={}
+func set_enemy_kind(kind:int):
+ if variant==kind:return
+ variant=kind;fitted_contact.clear();_pose_dirty=true;_fit_dirty=true;_bounds_dirty=true;_contact_dirty=true
+ var item:Dictionary=Contact.shapes(variant,false,runtime.enemy_size)[0]
+ for collider:CollisionShape3D in find_children("*","CollisionShape3D",false,false):collider.shape=item.shape;collider.position=item.center
 func _ready():
  set_physics_process(false);set_process(false);collision_layer=4;collision_mask=0;body_radius=0
  # Native movement owns contacts; Godot retains the same moving query shape.
  if get_tree().get_meta("forest_army_query_static",true):PhysicsServer3D.body_set_mode(get_rid(),PhysicsServer3D.BODY_MODE_STATIC)
- var item=Contact.shapes(variant)[0];var collider=CollisionShape3D.new();collider.shape=item.shape;collider.position=item.center;add_child(collider)
+ var item=Contact.shapes(variant,false,runtime.enemy_size)[0];var collider=CollisionShape3D.new();collider.shape=item.shape;collider.position=item.center;add_child(collider)
 var _packed_owned:Snapshot
 var _seen_epoch=-1
 var _direct_epoch=-1
@@ -41,6 +46,8 @@ func _shared()->bool:return is_instance_valid(runtime) and runtime.get("shared_s
 func uses_shared_snapshot():pass
 # HP/max HP/motion are plain storage; native copies need no prior-value reads.
 func uses_plain_snapshot_fields():pass
+# Enemy HP changes through dispatched hit events; maximum HP is fixed at spawn.
+func uses_event_health():pass
 func _refresh_shared():
  if not _shared() or runtime.snapshot_view==null:return
  var epoch:int=runtime.snapshot_epoch
@@ -54,6 +61,7 @@ func _refresh_shared():
 var _contact_dirty=true
 var _contact_pose=Transform3D.IDENTITY
 var _contact_inverse=Transform3D.IDENTITY
+var _contact_radius_scale=1.0
 func sync(data:Dictionary):
  if data.is_empty():return
  _packed=null;_index=-1;_state=data
@@ -78,7 +86,7 @@ func _combat_data()->Dictionary:
  var packed:Snapshot=_packed
  if _index>=0 and packed!=null:
   var i=_index;data={"pose_velocity":packed.pose_velocities[i],"pose_time":packed.pose_time[i],"frozen":1.0 if packed.status[i]&1 else 0.0,"action_time":packed.action_time[i],"pose_row":packed.pose_rows[i],"action":packed.actions[i],"stun":packed.stun_left[i],"walk_phase":packed.walk_phase[i]}
- pose_data={"variant":variant,"pos":global_position,"facing":_yaw,"velocity":data.get("pose_velocity",velocity),"soldier_pose_tick":data.get("pose_time",0.0)*30,"frozen":data.get("frozen",0.0),"action":"walk","soldier_tick":data.get("action_time",0.0)*30}
+ pose_data={"enemy_size":runtime.enemy_size,"variant":variant,"pos":global_position,"facing":_yaw,"velocity":data.get("pose_velocity",velocity),"soldier_pose_tick":data.get("pose_time",0.0)*30,"frozen":data.get("frozen",0.0),"action":"walk","soldier_tick":data.get("action_time",0.0)*30}
  if int(data.get("pose_row",-1))>=0:pose_data.army_pose_row=data.pose_row
  var action=int(data.get("action",0))
  if action in [1,2,3,4,5]:
@@ -96,13 +104,16 @@ func _sync_fitted_pose():sync(runtime.unit_state(handle))
 func combat_bounds()->AABB:
  _refresh_shared()
  if _bounds_dirty:
-  _bounds=Transform3D(Basis(Vector3.UP,_yaw),global_position)*Contact.shapes(variant)[0].bounds;_bounds_dirty=false
+  _bounds=Transform3D(Basis(Vector3.UP,_yaw),global_position)*Contact.shapes(variant,false,runtime.enemy_size)[0].bounds;_bounds_dirty=false
  return _bounds
-func combat_contact_point(point:Vector3)->Vector3:
+func _ensure_contact_pose():
  _refresh_shared()
  if _contact_dirty:
   _contact_pose=Transform3D(Basis(Vector3.UP,_yaw),global_position);_contact_inverse=_contact_pose.affine_inverse();_contact_dirty=false
- var box:AABB=Contact.shapes(variant)[0].bounds
+  _contact_radius_scale=1.0/maxf(.001,_contact_pose.basis.get_scale().x)
+func combat_contact_point(point:Vector3)->Vector3:
+ _ensure_contact_pose()
+ var box:AABB=Contact.shapes(variant,false,runtime.enemy_size)[0].bounds
  return _contact_pose*(_contact_inverse*point).clamp(box.position,box.end)
 func combat_aim_point(point:Vector3)->Vector3:return combat_contact_point(point)
 func has_shared_combat_contacts()->bool:return false
@@ -110,6 +121,11 @@ func combat_contact_candidates(point:Vector3)->PackedVector3Array:return PackedV
 func combat_physics_contact(_shape:int,point:Vector3)->Vector3:return combat_contact_point(point)
 func combat_segment_contact(from:Vector3,to:Vector3,radius:float)->Dictionary:
  if dead or not runtime.valid(handle):return {}
+ if Soldier.supports(variant):
+  _ensure_contact_pose()
+  var box:AABB=Contact.shapes(variant,false,runtime.enemy_size)[0].bounds
+  var t=Contact._box_interval(box,_contact_inverse*from,_contact_inverse*to,radius*_contact_radius_scale).x
+  return {"t":t,"point":_contact_pose*(_contact_inverse*from.lerp(to,t)).clamp(box.position,box.end)} if t>=0 else {}
  _ensure_contact();return Contact.segment_contact(_combat_data(),from,to,radius,fitted_contact)
 func combat_segment_hit(from:Vector3,to:Vector3,radius:float)->bool:return not combat_segment_contact(from,to,radius).is_empty()
 func take_hit(amount:float,direction:Vector3,heavy:bool,ticket:Dictionary={}):
@@ -119,10 +135,14 @@ func take_hit(amount:float,direction:Vector3,heavy:bool,ticket:Dictionary={}):
  if not ticket.get("tower",false):
   if is_instance_valid(source):amount*=source.attack_chain.damage_for(ticket);source.attack_chain.confirm(ticket)
   if critical:amount*=preload("res://scripts/critical_hits.gd").DAMAGE_MULTIPLIER
- if ticket.get("lethal_headshot",false):amount=maxf(amount,runtime.unit_state(handle).hp)
+ if variant!=4 and ticket.get("lethal_headshot",false):amount=maxf(amount,runtime.unit_state(handle).hp)
+ if is_instance_valid(source) and source.get("spell_loadout")!=null:
+  amount=source.spell_loadout.damage_for_hit(self,amount,ticket)
+  source.spell_loadout.hit_effects(self,amount,ticket)
  var source_id=int(source.get("gate_id")) if ticket.get("allied",false) and is_instance_valid(source) and source.get("gate_id")!=null else 0
  var attribution=ticket.duplicate();attribution.critical=critical
- runtime.hit_target(handle,{"amount":amount,"source_id":source_id,"direction":direction,"heavy":heavy,"provoke":not ticket.get("tower",false),"projectile":ticket.get("projectile",false)},attribution)
+ var responsive=is_instance_valid(source) and source.character_id==1 and ticket.get("action","") in ["pipe","heavy"] and not ticket.get("projectile",false) and not ticket.get("tower",false)
+ runtime.hit_target(handle,{"amount":amount,"source_id":source_id,"direction":direction,"heavy":heavy,"provoke":not ticket.get("tower",false),"projectile":ticket.get("projectile",false),"responsive_recoil":responsive},attribution)
 func combat_knockback(direction:Vector3,strength:float,flinch:float):
  if not dead:runtime.apply_hit(handle,{"knockback":Vector3(direction.x,0,direction.z)*strength,"flinch":flinch})
 func apply_rogue_bash(direction:Vector3):

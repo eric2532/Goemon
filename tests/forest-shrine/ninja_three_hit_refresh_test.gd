@@ -132,6 +132,7 @@ func run():
  check(dash.hits.size()>=3 and c.player.ninjaHits==0 and c.player.cooldowns.flintlock>0,"Shadow Cut can hit a crowd without resetting its own cooldown")
  # The immortal dummy confirms contact without losing HP.
  await prepare(5);c=game.player.active_ability
+ preload("res://tests/forest-shrine/training_dummy_fixture.gd").install(game)
  var dummy=game.training_dummy;game.player.position=dummy.home+Vector3(0,.1,2);c.player.pos=game.player.position;c.aim=dummy.home
  game.enemies.append(dummy);game.model.update_vision(game.player.position);c.player.cooldowns.flintlock=2.8
  for i in 3:swing(c,i)

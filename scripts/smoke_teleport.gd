@@ -47,20 +47,20 @@ func start()->bool:
 	hero.attack_left=0;hero.dodge_time=0;hero.dodge_cooldown=.75/hero.attack_speed_multiplier();hero.velocity=Vector3.ZERO
 	hero.reset_wall_jump()
 	hero.jump_buffer=0;hero.jump_windup=0;hero.air_turn=0;hero.impact_pause=0
-	EdoFireExplosion.emit(hero.game,origin,false,"edo_dodge_impact");smoke_damage(origin)
+	EdoFireExplosion.emit(hero.game,origin,false,"edo_dodge_impact",hero.skill_factor(attack_ticket,"size"));smoke_damage(origin)
 	hero.game.sound("edo_dodge",.75)
 	if hero.attack_chain.unleashed():
 		hero.global_position=destination;smoke_damage(destination)
-		EdoFireExplosion.emit(hero.game,destination,true,"edo_dodge_impact")
+		EdoFireExplosion.emit(hero.game,destination,true,"edo_dodge_impact",hero.skill_factor(attack_ticket,"size"))
 		hero.dodge_cooldown=0;cancel();hero.game.camera_rig.reset_follow()
 	return true
 func smoke_damage(point: Vector3):
-	BreakableBuilding.hit_area(hero.game,point+Vector3.UP*hero.growth_multiplier(),RADIUS*hero.growth_multiplier(),DAMAGE*hero.damage_multiplier(),attack_ticket,Vector3.ZERO,-1,struck)
+	BreakableBuilding.hit_area(hero.game,point+Vector3.UP*hero.growth_multiplier(),RADIUS*hero.growth_multiplier()*hero.skill_factor(attack_ticket,"hit_area"),DAMAGE*hero.damage_multiplier(),attack_ticket,Vector3.ZERO,-1,struck)
 	for enemy in hero.game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead or struck.has(enemy.get_instance_id()):continue
 		var hurt=AttackChain.contact_point(enemy,point+Vector3.UP,enemy.global_position)
 		var offset=hurt-point
-		if Vector2(offset.x,offset.z).length()>RADIUS*hero.growth_multiplier()+enemy.body_radius or absf(offset.y)>2.5:continue
+		if Vector2(offset.x,offset.z).length()>RADIUS*hero.growth_multiplier()*hero.skill_factor(attack_ticket,"hit_area")+enemy.body_radius or absf(offset.y)>2.5:continue
 		var ray=PhysicsRayQueryParameters3D.create(point+Vector3.UP,AttackChain.contact_point(enemy,point+Vector3.UP,enemy.global_position+Vector3.UP),1)
 		if not hero.get_world_3d().direct_space_state.intersect_ray(ray).is_empty():continue
 		struck[enemy.get_instance_id()]=true;hit_count+=1
@@ -71,7 +71,7 @@ func tick(delta: float):
 	elapsed+=delta*hero.attack_speed_multiplier();hero.dodge_cooldown=maxf(0,hero.dodge_cooldown-delta)
 	if not arrived and elapsed>=.20:
 		arrived=true;hero.global_position=destination;hero.velocity=Vector3.ZERO
-		EdoFireExplosion.emit(hero.game,destination,true,"edo_dodge_impact");smoke_damage(destination)
+		EdoFireExplosion.emit(hero.game,destination,true,"edo_dodge_impact",hero.skill_factor(attack_ticket,"size"));smoke_damage(destination)
 		hero.game.camera_rig.reset_follow()
 	hero.model.visible=elapsed<.12 or elapsed>=.24
 	var phase=clampf((elapsed-.24)/.28,0,1) if arrived else clampf(elapsed/.12,0,1)

@@ -1,0 +1,719 @@
+{
+  "name": "dark_lumina_3_effects",
+  "source": "raw/SC07.CD.dir/FILE_004.dir/1.1",
+  "source_base": "0x801a00d8",
+  "source_sha256": "4876f2a46a1eae4e245a1e6382f4caea6f746a5a6fe8c62dbda6b5d12b283ec1",
+  "parts": [
+    {
+      "node": 1,
+      "name": "Part_00",
+      "group": "wind",
+      "index": 0,
+      "model": "model_8017fa20aaaabe2a6e44",
+      "source_address": "0x801b6edc",
+      "source_glb": "converted/models/glb/model_8017fa20aaaabe2a6e44.glb",
+      "source_glb_sha256": "376bc5392dc4be6626dee44679477a20870f8daf960fdffb832a5680f4b168bd",
+      "source_tmd": "converted/models/tmd/6bf65540ae710a9f4a82.tmd",
+      "source_tmd_sha256": "6bf65540ae710a9f4a825676c9b94a34486810872a748ebdc5bb6016a4ff04cd",
+      "texture_coverage": {
+        "resolved_texture_polygons": 46,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 2,
+      "name": "Part_01",
+      "group": "wind_outer",
+      "index": 0,
+      "model": "model_4a364b5c73289fadab1b",
+      "source_address": "0x801b75f4",
+      "source_glb": "converted/models/glb/model_4a364b5c73289fadab1b.glb",
+      "source_glb_sha256": "a8f7b12c83a8f783dc58883d5227799d2faa301d8f778a1030968b5e3342e3d1",
+      "source_tmd": "converted/models/tmd/9b905c00068f1ab1cee8.tmd",
+      "source_tmd_sha256": "9b905c00068f1ab1cee8d4afede04eda405bce367983bd4143b684151f6f6140",
+      "texture_coverage": {
+        "resolved_texture_polygons": 0,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 3,
+      "name": "Part_02",
+      "group": "sword",
+      "index": 0,
+      "model": "model_e6b7f9faaf8fe3cf9efc",
+      "source_address": "0x801b8104",
+      "source_glb": "converted/models/glb/model_e6b7f9faaf8fe3cf9efc.glb",
+      "source_glb_sha256": "e23a27616f5700c65d2ad1ecf4979f75f042dcc2f36559ad33b521b662af14e4",
+      "source_tmd": "converted/models/tmd/47dcd45bb1949f7116d7.tmd",
+      "source_tmd_sha256": "47dcd45bb1949f7116d7b8b9e15f9d1a89bb2e609b54f616c2567636223f03b0",
+      "texture_coverage": {
+        "resolved_texture_polygons": 40,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 4,
+      "name": "Part_03",
+      "group": "core",
+      "index": 0,
+      "model": "model_1001a4dab4d1f8d83ad9",
+      "source_address": "0x801baa14",
+      "source_glb": "converted/models/glb/model_1001a4dab4d1f8d83ad9.glb",
+      "source_glb_sha256": "61825ae3f013fba89d88be425b919af77f87ac694eacf21657c64f2882ed6d82",
+      "source_tmd": "converted/models/tmd/bda80ee0f5fedb2377dd.tmd",
+      "source_tmd_sha256": "bda80ee0f5fedb2377dd8df51da1b6762cb0053b4678006b87a31b359431a0c7",
+      "texture_coverage": {
+        "resolved_texture_polygons": 6,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 5,
+      "name": "Part_04",
+      "group": "core_open",
+      "index": 0,
+      "model": "model_994e0296dc43db2ef218",
+      "source_address": "0x801bc9f4",
+      "source_glb": "converted/models/glb/model_994e0296dc43db2ef218.glb",
+      "source_glb_sha256": "5f968c8c4b21c81d36aaf823f69805058d58630221b75be1e84ba143e33efadd",
+      "source_tmd": "converted/models/tmd/ab6ed5d7ee3fb7b79cf5.tmd",
+      "source_tmd_sha256": "ab6ed5d7ee3fb7b79cf57e96abe50d2001dae8a26bdf52b98e2e31ab9388b909",
+      "texture_coverage": {
+        "resolved_texture_polygons": 78,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 6,
+      "name": "Part_05",
+      "group": "sword_wave",
+      "index": 0,
+      "model": "model_947d228bc698550100fc",
+      "source_address": "0x801efa80",
+      "source_glb": "converted/models/glb/model_947d228bc698550100fc.glb",
+      "source_glb_sha256": "9f6fd58635afd52ccb4e6b2890f3029b25d96fc659c66e52f5a6e42a1da8f0c6",
+      "source_tmd": "converted/models/tmd/f4de8bdde9c883090474.tmd",
+      "source_tmd_sha256": "f4de8bdde9c8830904745223307125f0074dcbb3681814a1bf56c3480da7db5a",
+      "texture_coverage": {
+        "resolved_texture_polygons": 8,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 7,
+      "name": "Part_06",
+      "group": "cast_aura",
+      "index": 0,
+      "model": "model_1f2dc4056dfb315cd8ac",
+      "source_address": "0x801efc20",
+      "source_glb": "converted/models/glb/model_1f2dc4056dfb315cd8ac.glb",
+      "source_glb_sha256": "e64d1863c504179c8df37173c1964b15c3efe3aadf239b926332b652c14b15e2",
+      "source_tmd": "converted/models/tmd/92ed5cd4c7d1917e4655.tmd",
+      "source_tmd_sha256": "92ed5cd4c7d1917e4655b034c08f54bf4626f0caea14088a4c973877bfb90439",
+      "texture_coverage": {
+        "resolved_texture_polygons": 64,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 8,
+      "name": "Part_07",
+      "group": "burst",
+      "index": 0,
+      "model": "model_d62bb282bcfe3492c4ee",
+      "source_address": "0x801f0690",
+      "source_glb": "converted/models/glb/model_d62bb282bcfe3492c4ee.glb",
+      "source_glb_sha256": "a129808a0022d2333746b7bfeddbce376fd7318dea9e439c4984b6da59693ece",
+      "source_tmd": "converted/models/tmd/3f5a82921502b4e963a4.tmd",
+      "source_tmd_sha256": "3f5a82921502b4e963a44ab2c32bd5a8af912917e9b23ab823859a542e2df89f",
+      "texture_coverage": {
+        "resolved_texture_polygons": 0,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 9,
+      "name": "Part_08",
+      "group": "core_rays",
+      "index": 0,
+      "model": "model_82a126d683179285da49",
+      "source_address": "0x801f07e8",
+      "source_glb": "converted/models/glb/model_82a126d683179285da49.glb",
+      "source_glb_sha256": "00c0aea53a7729d04396240241ad4ec9a555456606a1cabed4707f926a8d4633",
+      "source_tmd": "converted/models/tmd/64ecc97c7357cd9547ad.tmd",
+      "source_tmd_sha256": "64ecc97c7357cd9547add51d3955df28fde3b3fa17266f6f631a7422148177d0",
+      "texture_coverage": {
+        "resolved_texture_polygons": 24,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 10,
+      "name": "Part_09",
+      "group": "ending",
+      "index": 0,
+      "model": "model_03763ed3c225fa2ed4d7",
+      "source_address": "0x801f0c98",
+      "source_glb": "converted/models/glb/model_03763ed3c225fa2ed4d7.glb",
+      "source_glb_sha256": "93173b8f43687cb2daddb66cc624378e2fb8e84452444686dc0bf4b9e1c77b4e",
+      "source_tmd": "converted/models/tmd/efd9999985362fc51b9f.tmd",
+      "source_tmd_sha256": "efd9999985362fc51b9f44d4292c6d4f181ac90f004ed37d4acdf470a223b1b2",
+      "texture_coverage": {
+        "resolved_texture_polygons": 0,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 11,
+      "name": "Part_10",
+      "group": "blast",
+      "index": 0,
+      "model": "model_7a5cb0d2753c0bee1ae5",
+      "source_address": "0x801f2540",
+      "source_glb": "converted/models/glb/model_7a5cb0d2753c0bee1ae5.glb",
+      "source_glb_sha256": "bb2d2c7393f301a21c88fcdde9e55632818b1a292fb1d660f11275cac060d9dd",
+      "source_tmd": "converted/models/tmd/fd2c2b690661c9e4d7fd.tmd",
+      "source_tmd_sha256": "fd2c2b690661c9e4d7fd14e8db42b874b3e820c284e8886e1f1f57bd4513c467",
+      "texture_coverage": {
+        "resolved_texture_polygons": 36,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 12,
+      "name": "Part_11",
+      "group": "arena",
+      "index": 0,
+      "model": "model_7deef3524b3c381eb92b",
+      "source_address": "0x801f2d50",
+      "source_glb": "converted/models/glb/model_7deef3524b3c381eb92b.glb",
+      "source_glb_sha256": "1de448003d5d09ba069cadd3730a990492a03d8f4c9ac8aace62db98b8e4234c",
+      "source_tmd": "converted/models/tmd/797aa7c7dbacbac9842e.tmd",
+      "source_tmd_sha256": "797aa7c7dbacbac9842e25d8aaf7a36fc63c769110699273b9851ac8581be17e",
+      "texture_coverage": {
+        "resolved_texture_polygons": 72,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 13,
+      "name": "Part_12",
+      "group": "arena",
+      "index": 1,
+      "model": "model_76d81fd55b2ab9123c81",
+      "source_address": "0x801f3978",
+      "source_glb": "converted/models/glb/model_76d81fd55b2ab9123c81.glb",
+      "source_glb_sha256": "90b6a0950a6a5fd1a8ae1b88dc69d30a18b877fbf5111cae5d970537b16e2d50",
+      "source_tmd": "converted/models/tmd/3e00220dc403811615ab.tmd",
+      "source_tmd_sha256": "3e00220dc403811615abefb77b3d2ec92ba3ed1b4e3d7ddedeba508d033ce056",
+      "texture_coverage": {
+        "resolved_texture_polygons": 72,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 14,
+      "name": "Part_13",
+      "group": "arena",
+      "index": 2,
+      "model": "model_0e5efbe115317b18ac82",
+      "source_address": "0x801f45a0",
+      "source_glb": "converted/models/glb/model_0e5efbe115317b18ac82.glb",
+      "source_glb_sha256": "2470de2bebd356a21e1209048c4a8016f6eb89925cc5b3fa8ab6bd0ec20eb17f",
+      "source_tmd": "converted/models/tmd/d986440e24a2d656961f.tmd",
+      "source_tmd_sha256": "d986440e24a2d656961f3d78975c1415cc9ba41f02917ae0475efacc2364ffc1",
+      "texture_coverage": {
+        "resolved_texture_polygons": 72,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 15,
+      "name": "Part_14",
+      "group": "arena",
+      "index": 3,
+      "model": "model_c84ab4099bf19b438ddf",
+      "source_address": "0x801f51c8",
+      "source_glb": "converted/models/glb/model_c84ab4099bf19b438ddf.glb",
+      "source_glb_sha256": "b93e7fa054d6477a3ae0a4450904d088a8e6ad4de43f1c058a8e2fd339c76515",
+      "source_tmd": "converted/models/tmd/4669f539523412449c39.tmd",
+      "source_tmd_sha256": "4669f539523412449c39519bc37ccc884ec46be9d2f2c11328c77b40595b62c4",
+      "texture_coverage": {
+        "resolved_texture_polygons": 93,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 16,
+      "name": "Part_15",
+      "group": "arena",
+      "index": 4,
+      "model": "model_98b4001f528e282acda9",
+      "source_address": "0x801f61f0",
+      "source_glb": "converted/models/glb/model_98b4001f528e282acda9.glb",
+      "source_glb_sha256": "a73a2e47933a6c9e79178d857163ce5403fa6d4e7bb689f124a11e793f3ac373",
+      "source_tmd": "converted/models/tmd/fe68d4a32547cdf3f3a5.tmd",
+      "source_tmd_sha256": "fe68d4a32547cdf3f3a523ac5f7813ce31c1b77819914e240f26f00a0944eaba",
+      "texture_coverage": {
+        "resolved_texture_polygons": 108,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    }
+  ],
+  "groups": [
+    {
+      "name": "wind",
+      "nodes": [
+        1
+      ],
+      "list_address": "0x801b75ec",
+      "count": 1
+    },
+    {
+      "name": "wind_outer",
+      "nodes": [
+        2
+      ],
+      "list_address": "0x801b80fc",
+      "count": 1
+    },
+    {
+      "name": "sword",
+      "nodes": [
+        3
+      ],
+      "list_address": "0x801b872c",
+      "count": 1
+    },
+    {
+      "name": "core",
+      "nodes": [
+        4
+      ],
+      "list_address": "0x801bc9ec",
+      "count": 1
+    },
+    {
+      "name": "core_open",
+      "nodes": [
+        5
+      ],
+      "list_address": "0x801bf01c",
+      "count": 1
+    },
+    {
+      "name": "sword_wave",
+      "nodes": [
+        6
+      ],
+      "list_address": "0x801efc18",
+      "count": 1
+    },
+    {
+      "name": "cast_aura",
+      "nodes": [
+        7
+      ],
+      "list_address": "0x801f0688",
+      "count": 1
+    },
+    {
+      "name": "burst",
+      "nodes": [
+        8
+      ],
+      "list_address": "0x801f07e0",
+      "count": 1
+    },
+    {
+      "name": "core_rays",
+      "nodes": [
+        9
+      ],
+      "list_address": "0x801f0c90",
+      "count": 1
+    },
+    {
+      "name": "ending",
+      "nodes": [
+        10
+      ],
+      "list_address": "0x801f2538",
+      "count": 1
+    },
+    {
+      "name": "blast",
+      "nodes": [
+        11
+      ],
+      "list_address": "0x801f2d48",
+      "count": 1
+    },
+    {
+      "name": "arena",
+      "nodes": [
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "list_address": "0x801f7490",
+      "count": 5
+    }
+  ],
+  "clips": [
+    {
+      "name": "Rest",
+      "ticks": 1,
+      "frames": [
+        {
+          "tick": 0,
+          "hold": 1,
+          "pose": "rest"
+        }
+      ],
+      "terminal": "loop"
+    }
+  ],
+  "poses": {
+    "rest": [
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          0,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "fps": 30,
+  "scale": 0.01,
+  "notes": [
+    "16 original rigid mesh parts; flat nodes preserve actor-space poses and indices convert PSX winding.",
+    "Source stream addresses are authoritative; zero hold is externally released and previewed for one tick.",
+    "Nominal 30 Hz preview; root travel, effects and encounter logic are separate runtime code."
+  ],
+  "glb_sha256": "2787151c6c65ec55fdcf26a3748f4c7b5b598660c5ed5eb3787d6bdc91be2a5e",
+  "morphs": {
+    "wind": {
+      "descriptors": [
+        "0x801aff44",
+        "0x801aff50",
+        "0x801aff5c",
+        "0x801aff68",
+        "0x801aff74",
+        "0x801aff80",
+        "0x801aff8c",
+        "0x801aff98",
+        "0x801affa4"
+      ],
+      "names": [
+        "Morph_801aff44_start",
+        "Morph_801aff44_end",
+        "Morph_801aff50_start",
+        "Morph_801aff50_end",
+        "Morph_801aff5c_start",
+        "Morph_801aff5c_end",
+        "Morph_801aff68_start",
+        "Morph_801aff68_end",
+        "Morph_801aff74_start",
+        "Morph_801aff74_end",
+        "Morph_801aff80_start",
+        "Morph_801aff80_end",
+        "Morph_801aff8c_start",
+        "Morph_801aff8c_end",
+        "Morph_801aff98_start",
+        "Morph_801aff98_end",
+        "Morph_801affa4_start",
+        "Morph_801affa4_end"
+      ],
+      "vertex_count": 20
+    },
+    "wind_outer": {
+      "descriptors": [
+        "0x801affb0",
+        "0x801affbc",
+        "0x801affc8",
+        "0x801affd4",
+        "0x801affe0",
+        "0x801affec",
+        "0x801afff8",
+        "0x801b0004",
+        "0x801b0010"
+      ],
+      "names": [
+        "Morph_801affb0_start",
+        "Morph_801affb0_end",
+        "Morph_801affbc_start",
+        "Morph_801affbc_end",
+        "Morph_801affc8_start",
+        "Morph_801affc8_end",
+        "Morph_801affd4_start",
+        "Morph_801affd4_end",
+        "Morph_801affe0_start",
+        "Morph_801affe0_end",
+        "Morph_801affec_start",
+        "Morph_801affec_end",
+        "Morph_801afff8_start",
+        "Morph_801afff8_end",
+        "Morph_801b0004_start",
+        "Morph_801b0004_end",
+        "Morph_801b0010_start",
+        "Morph_801b0010_end"
+      ],
+      "vertex_count": 30
+    },
+    "sword": {
+      "descriptors": [
+        "0x801afb98"
+      ],
+      "names": [
+        "Morph_801afb98_start",
+        "Morph_801afb98_end"
+      ],
+      "vertex_count": 22
+    },
+    "core": {
+      "descriptors": [
+        "0x801afa70",
+        "0x801afa7c",
+        "0x801afa88",
+        "0x801afa94",
+        "0x801afaac"
+      ],
+      "names": [
+        "Morph_801afa70_start",
+        "Morph_801afa70_end",
+        "Morph_801afa7c_start",
+        "Morph_801afa7c_end",
+        "Morph_801afa88_start",
+        "Morph_801afa88_end",
+        "Morph_801afa94_start",
+        "Morph_801afa94_end",
+        "Morph_801afaac_start",
+        "Morph_801afaac_end"
+      ],
+      "vertex_count": 115
+    },
+    "core_open": {
+      "descriptors": [
+        "0x801afaa0"
+      ],
+      "names": [
+        "Morph_801afaa0_start",
+        "Morph_801afaa0_end"
+      ],
+      "vertex_count": 164
+    }
+  },
+  "semantics": {
+    "idle": "Rest",
+    "walk": "Rest",
+    "attack": "Rest",
+    "hurt": "Rest",
+    "death": "Rest"
+  }
+}

@@ -14,7 +14,7 @@ func bottom(node:Node3D,collisions:bool=false)->float:
 		lowest=minf(lowest,child.position.y+bounds.position.y)
 	return lowest
 func run():
-	var model=Model.new();model.reset(42,{},JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_kai_highway.json")),false)
+	var model=Model.new();model.reset(42,{},JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_kai_highway.json")),false)
 	var cell=Vector2i(21,17)
 	check(model.placement_error("tower",cell,0).is_empty(),"The downhill Kai regression fixture is a legal tower site")
 	var built=model.build("tower",cell,0)

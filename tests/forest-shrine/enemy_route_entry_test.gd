@@ -3,7 +3,7 @@ extends SceneTree
 ## from that offset must enter the grid through a safe segment, not freeze.
 const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
 const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
-const LAYOUT="res://assets/maps/forest_four_gates.json"
+const LAYOUT="res://tests/forest-shrine/reference/maps/forest_four_gates.json"
 var checks=0
 var failures=0
 func _initialize():run.call_deferred()

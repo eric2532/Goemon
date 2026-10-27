@@ -272,6 +272,7 @@ func run():
 	game.tuning=PrototypeTuning.DEFAULTS.duplicate();game.tuning.invincible=true;game.tuning.freeze_ai=true
 	game.player.smoke_mode=true
 	game.child_entered_tree.connect(observe_projectile);game.impact_confirmed.connect(observe_impact)
+	preload("res://scripts/character_projectile_pool.gd").service(game).launched.connect(observe_projectile)
 	await mode_and_camera_rules()
 	await attack_rules()
 	await projectile_and_character_rules()

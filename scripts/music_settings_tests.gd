@@ -1,6 +1,10 @@
 extends "res://scripts/musashi_tests.gd"
 
 func run():
+	var sfx=AudioServer.get_bus_index("SFX")
+	check(sfx>0 and is_equal_approx(AudioServer.get_bus_volume_db(sfx),3.0) and AudioServer.get_bus_send(sfx)==&"Master","All effects receive a shared +3 dB boost before the user's master volume")
+	check(game.voices.all(func(v):return v.bus==&"SFX") and game.music.bus==&"Master","Combat effects receive the boost while music keeps its existing level")
+	check(game.sound_library.preview.bus==&"SFX" and game.sound_library.preview_voice.bus==&"SFX","Sound Studio previews use the same boosted mix as gameplay")
 	visual="--music-settings-visual" in OS.get_cmdline_user_args()
 	var original_path=game.settings_path
 	var original_settings=game.settings.duplicate()

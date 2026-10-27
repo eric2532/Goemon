@@ -1,0 +1,278 @@
+{
+  "rom_sha256": "1603be37427a33548857fc3d2e8867ede71121c353fb631b79b44f1d94845d80",
+  "source": "Mystical Ninja Starring Goemon USA revision 0; native PIC decoding, unmodified artwork",
+  "crop_note": "Weapon review crops use the two visible 24x24 artwork cells; full 64x32 native atlases and raw decoded words are preserved. Sprite-draw rectangles are not decoded.",
+  "icons": [
+    {
+      "owner": "Goemon",
+      "label": "Pipe I",
+      "pic_id": "0x8004",
+      "crop": [
+        0,
+        0,
+        24,
+        24
+      ],
+      "rgba_sha256": "9f3e3c0a97ed2fcc40d8465666866a158ae068e57ef039f8703fa1e816981ed5",
+      "file": "goemon_pipe_i.png"
+    },
+    {
+      "owner": "Goemon",
+      "label": "Silver pipe",
+      "pic_id": "0x8004",
+      "crop": [
+        24,
+        0,
+        48,
+        24
+      ],
+      "rgba_sha256": "7d1a3fa25f15379bbddd3657006f6e545892eaf0a27958fdabed53985ad6d42e",
+      "file": "goemon_silver_pipe.png"
+    },
+    {
+      "owner": "Goemon",
+      "label": "Gold pipe",
+      "pic_id": "0x8005",
+      "crop": [
+        0,
+        0,
+        24,
+        24
+      ],
+      "rgba_sha256": "8ce59ba47daa690ab0bbb8ea4b0057c36ab10663d454e7acffc3b9781fcf05dd",
+      "file": "goemon_gold_pipe.png"
+    },
+    {
+      "owner": "Goemon",
+      "label": "Chain pipe",
+      "pic_id": "0x8005",
+      "crop": [
+        24,
+        0,
+        48,
+        24
+      ],
+      "rgba_sha256": "61a5e6c63978885f0ebc6b4a4706624de82622191918742f250817ce8c8df7b3",
+      "file": "goemon_chain_pipe.png"
+    },
+    {
+      "owner": "Goemon",
+      "label": "Ryo",
+      "pic_id": "0x8006",
+      "crop": [
+        0,
+        0,
+        24,
+        24
+      ],
+      "rgba_sha256": "07c8ebb9f56c1830f564efc5fc8cc76b0d1bbb992ba5a336a54458230e7894d1",
+      "file": "goemon_ryo.png"
+    },
+    {
+      "owner": "Goemon",
+      "label": "Flaming ryo",
+      "pic_id": "0x8006",
+      "crop": [
+        24,
+        0,
+        48,
+        24
+      ],
+      "rgba_sha256": "bf9e7ca81d9681757493959a746469922c23d4a33b34e595bf035b4e011126fd",
+      "file": "goemon_flaming_ryo.png"
+    },
+    {
+      "owner": "Yae",
+      "label": "Katana I",
+      "pic_id": "0x8007",
+      "crop": [
+        0,
+        0,
+        24,
+        24
+      ],
+      "rgba_sha256": "b960c2f578052f8835b669236a490d7305ce23c16b0ac03708310177dd05a20d",
+      "file": "yae_katana_i.png"
+    },
+    {
+      "owner": "Yae",
+      "label": "Katana II",
+      "pic_id": "0x8007",
+      "crop": [
+        24,
+        0,
+        48,
+        24
+      ],
+      "rgba_sha256": "1d013c43cd03667221037c10ebdf4ed50ca4e2107521cbb2391dfc04e464c4c9",
+      "file": "yae_katana_ii.png"
+    },
+    {
+      "owner": "Yae",
+      "label": "Katana III",
+      "pic_id": "0x8008",
+      "crop": [
+        0,
+        0,
+        24,
+        24
+      ],
+      "rgba_sha256": "8b7bc91a35f4a6befb0fe5ef1de2959ba178405b2e73199c4ff6e193bf191d54",
+      "file": "yae_katana_iii.png"
+    },
+    {
+      "owner": "Yae",
+      "label": "Bazooka",
+      "pic_id": "0x8008",
+      "crop": [
+        24,
+        0,
+        48,
+        24
+      ],
+      "rgba_sha256": "8da075a5ace8362868ec6881fea89f08cdf9f27a0ece8cab3c3f3d1cc0f2657d",
+      "file": "yae_bazooka.png"
+    },
+    {
+      "owner": "Sasuke",
+      "label": "Kunai I",
+      "pic_id": "0x8009",
+      "crop": [
+        0,
+        0,
+        24,
+        24
+      ],
+      "rgba_sha256": "5a23171d2940c78b133d9f57a489401b88bb7ce7f2b56cd7573463a9c0ee3f90",
+      "file": "sasuke_kunai_i.png"
+    },
+    {
+      "owner": "Sasuke",
+      "label": "Kunai II",
+      "pic_id": "0x8009",
+      "crop": [
+        24,
+        0,
+        48,
+        24
+      ],
+      "rgba_sha256": "f79b55f7c52956d9b5635f268e5152dacbb32553e28f7ee28780ea4a12d02cc9",
+      "file": "sasuke_kunai_ii.png"
+    },
+    {
+      "owner": "Sasuke",
+      "label": "Kunai III",
+      "pic_id": "0x800a",
+      "crop": [
+        0,
+        0,
+        24,
+        24
+      ],
+      "rgba_sha256": "c21ae04ca2a01cdf5c89f2258be13bb78064f599aba0365aa1cf8db9730a9bc2",
+      "file": "sasuke_kunai_iii.png"
+    },
+    {
+      "owner": "Sasuke",
+      "label": "Ice kunai",
+      "pic_id": "0x800a",
+      "crop": [
+        24,
+        0,
+        48,
+        24
+      ],
+      "rgba_sha256": "1042a413d062bb13f21b7eda2470eb1eb54b788f80c39c7e7c217ec4074cf978",
+      "file": "sasuke_ice_kunai.png"
+    },
+    {
+      "owner": "Sasuke",
+      "label": "Cracker bomb",
+      "pic_id": "0x800d",
+      "crop": [
+        0,
+        0,
+        24,
+        24
+      ],
+      "rgba_sha256": "1c1677549ef737bb32c171c6798fac29c2d4526e052c7551a6b1b6b78164f48b",
+      "file": "sasuke_cracker_bomb.png"
+    },
+    {
+      "owner": "Ebisumaru",
+      "label": "Saw-hammer I",
+      "pic_id": "0x800b",
+      "crop": [
+        0,
+        0,
+        24,
+        24
+      ],
+      "rgba_sha256": "20e8938a49557392c2e711a47053f4bc897185b9993de9595a0c286dd428fb06",
+      "file": "ebisumaru_saw_hammer_i.png"
+    },
+    {
+      "owner": "Ebisumaru",
+      "label": "Saw-hammer II",
+      "pic_id": "0x800b",
+      "crop": [
+        24,
+        0,
+        48,
+        24
+      ],
+      "rgba_sha256": "863e32b71390174fd6710ebbb04d3ef529b4ff690f4db1de55a06d24d90de954",
+      "file": "ebisumaru_saw_hammer_ii.png"
+    },
+    {
+      "owner": "Ebisumaru",
+      "label": "Saw-hammer III",
+      "pic_id": "0x800c",
+      "crop": [
+        0,
+        0,
+        24,
+        24
+      ],
+      "rgba_sha256": "7c93f6eb1f56f3651f4824bfa22d06ef175600e1c7dcfda921b1187a050fb022",
+      "file": "ebisumaru_saw_hammer_iii.png"
+    },
+    {
+      "owner": "Ebisumaru",
+      "label": "Meat saw-hammer",
+      "pic_id": "0x800c",
+      "crop": [
+        24,
+        0,
+        48,
+        24
+      ],
+      "rgba_sha256": "baf4e0c94d04f3bcfdccac18feec9bfae81ac5bd6e5061a9d246b9bdc8eae31b",
+      "file": "ebisumaru_meat_saw_hammer.png"
+    },
+    {
+      "owner": "Ebisumaru",
+      "label": "Windup camera",
+      "pic_id": "0x800d",
+      "crop": [
+        24,
+        0,
+        48,
+        24
+      ],
+      "rgba_sha256": "66fbee1388a58c13d26313fb6c99c0022445ab1fd350d3e79f476fbbfa5c3edd",
+      "file": "ebisumaru_windup_camera.png"
+    }
+  ],
+  "flute": {
+    "file": "yae_flute.png",
+    "pic_id": "0x8016",
+    "rom_offset": "0x72415c",
+    "crop": [
+      40,
+      0,
+      64,
+      24
+    ]
+  }
+}

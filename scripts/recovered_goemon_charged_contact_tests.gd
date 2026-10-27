@@ -29,7 +29,7 @@ func run():
  await physics_frame;await physics_frame
  var coin=charged_projectile();coin._physics_process(1.0/60)
  check(projectile_hits==[near],"Charged coin hits the nearer target when the farther target was created first")
- check(coin.is_queued_for_deletion(),"Charged coin disappears after its first eligible contact")
+ check(not coin.pool_live,"Charged coin retires to the shared cache after its first eligible contact")
  await physics_frame
  projectile_hits.clear();game.enemies.reverse()
  coin=charged_projectile();coin._physics_process(1.0/60)
@@ -42,7 +42,7 @@ func run():
  await physics_frame;await physics_frame
  coin=charged_projectile();coin._physics_process(1.0/60)
  check(projectile_hits.is_empty(),"A wall before both targets blocks the charged coin's swept contact")
- check(coin.is_queued_for_deletion(),"A blocked charged coin disappears at the wall")
+ check(not coin.pool_live,"A blocked charged coin retires at the wall")
  game.queue_free();paused=false;await frames();await create_timer(.15).timeout
  if FileAccess.file_exists(cfg):DirAccess.remove_absolute(ProjectSettings.globalize_path(cfg))
  print("GOEMON_CHARGED_CONTACT_RESULT checks=%d failures=%d"%[checks,failures]);quit(1 if failures else 0)

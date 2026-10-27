@@ -15,7 +15,7 @@ var clock: float = 0.0
 func _ready() -> void:
 	for i in 28:
 		var voice = AudioStreamPlayer.new()
-		voice.bus = "Master"
+		voice.bus = "SFX"
 		add_child(voice)
 		voices.append(voice)
 	if not ambience_enabled:
@@ -37,7 +37,7 @@ func play(event: String, options: Dictionary = {}) -> void:
 		return
 	if paused and event not in ["click","hover","reward","victory","defeat"]:
 		return
-	var limits = {"hit":0.025,"heavy":0.035,"pierce":0.035,"claymore-impact":0.065,"shuriken":0.065,"fire":0.1,"ice":0.1,"lightning":0.085,"hover":0.06,"spawn":0.25}
+	var limits = {"hit":0.025,"heavy":0.035,"pierce":0.035,"tower-impact":0.035,"claymore-impact":0.065,"shuriken":0.065,"fire":0.1,"ice":0.1,"lightning":0.085,"hover":0.06,"spawn":0.25}
 	var now = Time.get_ticks_msec()/1000.0
 	if now-float(last_events.get(event,-100.0)) < float(limits.get(event,0.015)):
 		return
@@ -47,7 +47,7 @@ func play(event: String, options: Dictionary = {}) -> void:
 		var path = "res://assets/rogue/audio/"+file+".wav"
 		if not ResourceLoader.exists(path):
 			return
-		cache[file] = load(path)
+		cache[file] = preload("res://scripts/character_audio_bank.gd").sample(path)
 	var recorded: AudioStream
 	var gain=1.0
 	var playback={}
@@ -65,7 +65,7 @@ func play(event: String, options: Dictionary = {}) -> void:
 	voice.stop()
 	voice.stream = playback.stream if not playback.is_empty() else cache[file]
 	voice.volume_db = linear_to_db(volume*float(options.get("volume",options.get("gain",1.0)))*gain)
-	voice.pitch_scale = 1.0 if recorded else clampf(float(options.get("pitch",1.0))*randf_range(0.97,1.03),0.3,2.8)
+	voice.pitch_scale = 1.0 if recorded or playback.get("original",false) else clampf(float(options.get("pitch",1.0))*randf_range(0.97,1.03),0.3,2.8)
 	voice.play()
 
 func set_volume(value: float) -> void:
@@ -95,8 +95,7 @@ static func event_file(event: String, options: Dictionary = {})->String:
 		file += "-"+("heavy" if options.get("heavy",false) else "light")
 	elif event == "bow":
 		var style=str(options.get("style",""))
-		if style=="tower":file="bow-tower-"+str(posmod(int(options.get("variation",0)),2))
-		elif options.get("ranger",false) or style=="ranger":
+		if options.get("ranger",false) or style=="ranger":
 			file="bow-ranger-power" if style=="power" else "bow-ranger-rapid-"+str(posmod(int(options.get("variation",options.get("combo",0))),2))
 		else:file += "-"+("power" if style=="power" else "rapid")
 	elif event == "cast":

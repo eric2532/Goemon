@@ -1,0 +1,156 @@
+[
+  {
+    "name": "Stand",
+    "interval": [
+      133,
+      1633
+    ]
+  },
+  {
+    "name": "Stand -2",
+    "interval": [
+      1800,
+      4467
+    ]
+  },
+  {
+    "name": "Stand - 3",
+    "interval": [
+      4633,
+      9800
+    ]
+  },
+  {
+    "name": "Stand - 4",
+    "interval": [
+      14133,
+      18133
+    ]
+  },
+  {
+    "name": "Stand Gold",
+    "interval": [
+      18300,
+      19867
+    ]
+  },
+  {
+    "name": "Stand Lumber",
+    "interval": [
+      20167,
+      21733
+    ]
+  },
+  {
+    "name": "Attack",
+    "interval": [
+      23200,
+      24200
+    ]
+  },
+  {
+    "name": "Attack Gold",
+    "interval": [
+      24333,
+      25333
+    ]
+  },
+  {
+    "name": "Attack Lumber",
+    "interval": [
+      25467,
+      26467
+    ]
+  },
+  {
+    "name": "Attack -2 ",
+    "interval": [
+      27667,
+      28933
+    ]
+  },
+  {
+    "name": "Walk",
+    "interval": [
+      29100,
+      29900
+    ]
+  },
+  {
+    "name": "Walk Gold",
+    "interval": [
+      30067,
+      30867
+    ]
+  },
+  {
+    "name": "Walk Lumber",
+    "interval": [
+      31033,
+      31833
+    ]
+  },
+  {
+    "name": "Death",
+    "interval": [
+      34333,
+      37667
+    ]
+  },
+  {
+    "name": "Decay Flesh",
+    "interval": [
+      38133,
+      98133
+    ]
+  },
+  {
+    "name": "Decay Bone",
+    "interval": [
+      99800,
+      159800
+    ]
+  },
+  {
+    "name": "Stand Ready",
+    "interval": [
+      183133,
+      184633
+    ]
+  },
+  {
+    "name": "Stand Ready Gold",
+    "interval": [
+      184833,
+      186333
+    ]
+  },
+  {
+    "name": "Stand Ready Lumber",
+    "interval": [
+      186600,
+      188100
+    ]
+  },
+  {
+    "name": "Stand Work",
+    "interval": [
+      191333,
+      191933
+    ]
+  },
+  {
+    "name": "Stand Work Gold",
+    "interval": [
+      192233,
+      192833
+    ]
+  },
+  {
+    "name": "Stand Work Lumber",
+    "interval": [
+      193133,
+      193733
+    ]
+  }
+]

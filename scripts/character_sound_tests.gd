@@ -49,7 +49,7 @@ func run():
 	legacy.set_value("gain","swing",.65);legacy.set_value("gain","edo_volley",.8)
 	legacy.set_value("other","preserve","unchanged");legacy.save(sandbox+"/studio.cfg")
 	lib=new_library()
-	check(lib.custom_for(1,"swing")!=null and lib.custom_for(2,"swing")==null and lib.custom_for(3,"swing")==null,"Legacy pipe take belongs to Goemon without leaking to other characters")
+	check(lib.custom_for(1,"swing")==null and FileAccess.file_exists(sandbox+"/recordings/swing.wav") and lib.custom_for(2,"swing")==null and lib.custom_for(3,"swing")==null,"Previously ignored Goemon takes remain preserved without replacing the current defaults")
 	check(lib.custom_for(2,"edo_volley")!=null and lib.custom_for(1,"edo_volley")==null,"Legacy Edo take remains available only in Edo's hub")
 	var before=FileAccess.get_file_as_bytes(lib.config_path)
 	for id in range(1,13):lib.select_character(id)
@@ -80,7 +80,7 @@ func run():
 	game.player=Hero.new();game.sound_library=lib;lib.game=game
 	game.ui=CanvasLayer.new();game.add_child(game.ui)
 	game.player.character_id=1;lib.select_character(2);game.sound("jump")
-	check(game.last_sound_voice.stream==lib.original_for(1,"jump") and game.last_sound_voice.pitch_scale==1.0,"Goemon gameplay uses original audio even with a saved take and another hub selected")
+	check(game.last_sound_voice.stream==lib.custom_for(1,"jump") and game.last_sound_voice.pitch_scale==1.0,"Goemon gameplay uses its saved take even while another recording hub is selected")
 	check(is_equal_approx(db_to_linear(game.last_sound_voice.volume_db),.55*.4),"Gameplay applies active character's slot volume")
 	game.player.character_id=2;game.sound("jump")
 	check(game.last_sound_voice.stream==lib.custom_for(2,"jump"),"Switching the active hero switches runtime recording")
@@ -91,8 +91,8 @@ func run():
 	for id in range(1,13):
 		for key in lib.slots_for(id):
 			var preview_stream=game.sound_preview(id,key)
-			previews_complete=previews_complete and (preview_stream==lib.original_for(id,key) if key.begins_with("move_") and key.ends_with("_voice") else preview_stream!=null)
-	check(previews_complete,"All twelve hubs preview existing sounds and use only recovered originals for unrecorded voices")
+			previews_complete=previews_complete and (preview_stream==lib.original_for(id,key) if key=="enemy_reaction" or (key.begins_with("move_") and key.ends_with("_voice")) else preview_stream!=null)
+	check(previews_complete,"All twelve hubs preview existing sounds, with no invented enemy reaction or unrecorded voice")
 	var native=load("res://assets/rogue/scripts/audio.gd").new();native.game=game;native.name="RogueSharedClassAudio";game.add_child(native)
 	game.player.character_id=3;native.play("blade",{"style":"pirate"})
 	check(native.voices[0].stream==lib.custom_for(3,"native_blade") and native.voices[0].pitch_scale==1.0,"Native Pirate attack uses the Pirate hub at original recorded pitch")
@@ -102,22 +102,24 @@ func run():
 	lib.recording=true;var cursor=native.cursor;native.play("shot")
 	check(native.cursor==cursor,"Native sound playback is silent while recording")
 	lib.recording=false
-	game.player.character_id=4;game.show_sound_studio(false)
+	game.player.character_id=7;game.show_sound_studio(false)
 	var studio=game.menu.find_child("SoundStudio",true,false)
 	var picker=studio.find_child("SoundCharacter",true,false)
 	var visible_ids=lib.Roster.selection_ids()
 	var actual_ids=[]
 	if picker:
 		for i in picker.item_count:actual_ids.append(picker.get_item_id(i))
-	check(picker!=null and actual_ids==visible_ids and picker.get_item_text(picker.get_item_index(18))=="Master Chief" and picker.get_selected_id()==4,"Studio offers the visible roster by stable ID and opens on the active hero")
+	check(picker!=null and actual_ids==visible_ids and picker.get_item_text(picker.get_item_index(18))=="Master Chief" and picker.get_selected_id()==7,"Studio offers the visible roster by stable ID and opens on the active hero")
+	check(not studio.list_labels.has("enemy_reaction"),"Studio omits the retired generic enemy reaction")
 	if picker:
 		var ranger_index=picker.get_item_index(10)
 		picker.select(ranger_index);picker.item_selected.emit(ranger_index)
-		check(lib.character_id==10 and game.player.character_id==4,"Browsing Ranger hub leaves the playing hero unchanged")
+		check(lib.character_id==10 and game.player.character_id==7,"Browsing Ranger hub leaves the playing hero unchanged")
 	check(lib.mic==null and not lib.recording,"Opening and switching recording hubs keeps microphone off")
 	if DisplayServer.get_name()!="headless" and "--visual" in OS.get_cmdline_user_args():
 		await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png("res://build/settlement-update/character-recording-hub.png")
+		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://build/Other Files/Asset Toolkit/Sound Studio Defaults/"))
+		root.get_texture().get_image().save_png("res://build/Other Files/Asset Toolkit/Sound Studio Defaults/character-recording-hub.png")
 	game.clear_menu();await process_frame
 	# Feed an authored fixture into the capture bus: never request private mic input.
 	var bus_count_before=AudioServer.bus_count

@@ -35,7 +35,7 @@ func run():
 	game.model.phase="preparing";ui.sync();await process_frame
 	check(not ui.hero_dock.get_global_rect().intersects(ui.bar_paper.get_global_rect()),"Character hub stays clear of preparation controls")
 	game.model.workers.values()[0].state="wounded";ui.sync()
-	check(ui.worker_count.text==str(game.model.workers.size()-1) and ui.gold_count.text==ui.skin.format_gold(game.model.gold),"Resource icons follow available workers and treasury")
+	check(ui.worker_count.text==str(game.model.workers.size()) and ui.gold_count.text==ui.skin.format_gold(game.model.gold),"Resource icons follow current workers and treasury")
 	for node in game.world.structure_nodes.values():
 		check(node.find_children("*","Label3D",true,false).is_empty(),"Structures have no floating name labels")
 	await finish()

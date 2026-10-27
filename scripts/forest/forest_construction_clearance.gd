@@ -12,7 +12,7 @@ static func reserve(occupied:Array,point:Vector3,radius:float=.55):
 static func open_point(m,point:Vector3,radius:float,occupied:Array)->bool:
 	var cell:Vector2i=m.cell_of(point)
 	if not m.navigation_region.has_point(cell) or m.occupancy.has(cell) or m.allied_grid.is_point_solid(cell):return false
-	if cell==m.TRAINING_DUMMY_CELL or not m.terrain.disk_clear(point,radius):return false
+	if not m.terrain.disk_clear(point,radius):return false
 	# The center can be in an empty cell while the body clips a neighboring
 	# building corner or tree. Check the whole disk against nearby solid tiles.
 	var reach=ceili((radius+.1)/m.CELL)+1
@@ -21,7 +21,7 @@ static func open_point(m,point:Vector3,radius:float,occupied:Array)->bool:
 		for z in range(-reach,reach+1):
 			var neighbor=cell+Vector2i(x,z)
 			if not m.navigation_region.has_point(neighbor):continue
-			if not m.occupancy.has(neighbor) and not m.allied_grid.is_point_solid(neighbor) and neighbor!=m.TRAINING_DUMMY_CELL:continue
+			if not m.occupancy.has(neighbor) and not m.allied_grid.is_point_solid(neighbor):continue
 			var center=Vector2(neighbor)*m.CELL;var half=Vector2.ONE*m.CELL*.5
 			if flat.distance_to(flat.clamp(center-half,center+half))<radius+.1:return false
 	for row in occupied:
@@ -82,23 +82,13 @@ static func move_body(unit,point:Vector3):
 static func relocate_game(game,added:Array):
 	var m=game.model;var occupied=[]
 	for w in m.workers.values():reserve(occupied,w.pos)
-	var hero_radius:float=.5*game.player.growth_multiplier()
+	var hero_radius:float=(25.0 if game.player.character_id==27 else 4.032*preload("res://scripts/forest/dark_lumina_kit.gd").SCALE if game.player.character_id==29 else .5)*game.player.growth_multiplier()
 	if not covered(m,game.player.global_position,added,hero_radius):reserve(occupied,game.player.global_position,hero_radius)
-	for unit in game.gate_defenders.units.values():
-		if is_instance_valid(unit) and not covered(m,unit.global_position,added):reserve(occupied,unit.global_position)
 	for unit in game.explorer_helpers.active_units():
 		if not covered(m,unit.global_position,added):reserve(occupied,unit.global_position)
 	var hero:Vector3=nearest(m,game.player.global_position,added,occupied,hero_radius)
 	if hero!=game.player.global_position:move_body(game.player,hero);reserve(occupied,hero,hero_radius)
 	m.hero_position=game.player.global_position
-	for unit in game.gate_defenders.units.values():
-		if not is_instance_valid(unit):continue
-		var point:Vector3=nearest(m,unit.global_position,added,occupied)
-		var moved=point!=unit.global_position
-		if covered(m,unit.post,added):unit.post=point-Vector3.UP*.15 if moved else nearest(m,unit.post,added,occupied,.55,0)
-		if moved:
-			move_body(unit,point);unit.ai_move=Vector3.ZERO;unit.route.clear();unit.route_goal=Vector2i(-999,-999);unit.route_revision=-1
-			reserve(occupied,point)
 	for unit in game.explorer_helpers.active_units():
 		var point:Vector3=nearest(m,unit.global_position,added,occupied,.55,.12)
 		var moved=point!=unit.global_position
@@ -113,4 +103,4 @@ static func relocate_game(game,added:Array):
 			game.army_runtime.set_pose(unit.handle,point,unit.rotation.y)
 		else:move_body(unit,point)
 		if moved:reserve(occupied,point)
-	game.gate_defenders.sync_model();game.explorer_helpers.sync_targets()
+	game.explorer_helpers.sync_targets()

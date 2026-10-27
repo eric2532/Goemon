@@ -1,10 +1,7 @@
-extends Node
-## Retail sword windows, frontal guard and Lumina Rotation. Additional recovered
-## states are retained in the asset manifest; full original gameplay is ongoing.
+extends "res://scripts/character_combat.gd"
+## Retail sword windows, frontal guard, Lumina specials and five enemy abilities.
+const SKILL_SCALE=preload("res://scripts/weapon_proportions.gd").RECOVERED_SKILL_SCALE
 const Profile=preload("res://scripts/recovered_musashi_action_profile.gd")
-var hero: Hero
-var game: Node
-var active=false
 var primary_held=false
 var elapsed=0.0
 var clip=""
@@ -34,14 +31,19 @@ var rotation_previous_angle=0
 var rotation_speed=256
 var rotation_phase=""
 var locomotion
-func _ready():locomotion=preload("res://scripts/recovered_musashi_locomotion.gd").new(hero)
+var assimilation:Node3D
+func _ready():
+	locomotion=preload("res://scripts/recovered_musashi_locomotion.gd").new(hero)
+	assimilation=preload("res://scripts/recovered_musashi_assimilation.gd").new()
+	assimilation.combat=self;assimilation.hero=hero;assimilation.game=game;add_child(assimilation)
 
-func _notification(what: int):
-	if what==NOTIFICATION_APPLICATION_FOCUS_OUT:cancel()
 
 func input(event: InputEvent):
 	release_input(event)
 	if not active or event.is_echo() or hero.dodge_time>0:return
+	if event is InputEventKey and event.pressed and not (event.ctrl_pressed or event.shift_pressed or event.alt_pressed or event.meta_pressed):
+		var number=(event.physical_keycode if event.physical_keycode!=0 else event.keycode)-KEY_1+1
+		if number in [3,4,5,6,7]:select_number(number);return
 	if event is InputEventKey and (event.ctrl_pressed or event.shift_pressed or event.alt_pressed or event.meta_pressed) and (event.is_action("weapon_pipe") or event.is_action("weapon_coin")):return
 	if event.is_action_pressed("weapon_pipe"):
 		select_number(1)
@@ -64,8 +66,10 @@ func select_number(number:int):
 	if not active or not game.playing or game.paused or game.transitioning or hero.hp<=0 or hero.dodge_time>0 or is_attacking():return
 	if number==1:start_rotation()
 	elif number==2:start_counter()
+	elif number in [3,4,5,6,7]:assimilation.start(number)
 
 func release_input(event: InputEvent):
+	if event is InputEventKey and (event.physical_keycode==KEY_7 or event.keycode==KEY_7) and not event.pressed and assimilation!=null:assimilation.held=false
 	if event.is_action_released("light_attack"):primary_held=false
 	if event.is_action_released("surge"):
 		guard_held=false
@@ -85,18 +89,18 @@ func start_attack(heavy: bool):
 	swing_done=false
 	hero.weapon_slot=1;hero.attack_heavy=heavy;hero.attack_charged=false
 	hero.combo=combo+1;hero.hit_done=false;hero.struck_targets.clear()
-	var model=hero.model
+	var model=cast_model()
 	var airborne=not hero.is_on_floor()
 	action_key=("air_lumina" if airborne else "lumina") if heavy else (("moving_air_fusion" if Vector2(hero.velocity.x,hero.velocity.z).length()>.25 else "air_fusion") if airborne else "fusion_%d"%(combo+1))
-	hero.model.sword_trail.begin_action(action_key)
+	cast_model().sword_trail.begin_action(action_key)
 	if not heavy and not airborne and combo==3:
 		mode="finisher";finisher_vertical=0;_finisher_phase("windup")
 		guard_held=false;special_held=false;charge=0;charge_clock=0
-		hero.facing=hero.combat_attack_direction();hero.model.rotation.y=atan2(-hero.facing.x,-hero.facing.z)
+		hero.facing=hero.combat_attack_direction();cast_model().rotation.y=atan2(-hero.facing.x,-hero.facing.z)
 		hero.attack_ticket=hero.attack_chain.begin("sword_4","primary_4")
 		# Retail case4 calls 0x5F6 at initialization; 0x447 waits for apex.
 		game.move_audio.release(game,hero.attack_ticket)
-		hero.model.animate(0,0,true,0,1,false,4,false)
+		cast_model().animate(0,0,true,0,1,false,4,false)
 		return
 	mode="lumina" if heavy else "fusion"
 	clip=Profile.action(action_key).clip
@@ -105,21 +109,22 @@ func start_attack(heavy: bool):
 	hero.attack_left=hero.attack_duration
 	guard_held=false;special_held=false;charge=0;charge_clock=0
 	hero.facing=hero.combat_attack_direction()
-	hero.model.rotation.y=atan2(-hero.facing.x,-hero.facing.z)
+	cast_model().rotation.y=atan2(-hero.facing.x,-hero.facing.z)
 	hero.attack_ticket=hero.attack_chain.begin("heavy" if heavy else "sword_%d"%(combo+1),"heavy" if heavy else "primary_%d"%(combo+1))
 	play_swing()
-	hero.model.animate(0,0,hero.is_on_floor(),hero.velocity.y,1,heavy,combo+1,false)
+	cast_model().animate(0,0,hero.is_on_floor(),hero.velocity.y,1,heavy,combo+1,false)
 
 func start_rotation():
 	_start_lumina_special("rotation")
 func start_counter():
 	_start_lumina_special("counter")
 func _start_lumina_special(key:String):
+	var charged_cast=charge>=Profile.CHARGE_LIMIT
 	if not active or is_attacking() or not hero.is_on_floor():
 		charge=0;charge_clock=0
 		return
 	guard_held=false;special_held=false;charge=0;charge_clock=0
-	hero.facing=hero.combat_attack_direction();hero.model.rotation.y=atan2(-hero.facing.x,-hero.facing.z)
+	hero.facing=hero.combat_attack_direction();cast_model().rotation.y=atan2(-hero.facing.x,-hero.facing.z)
 	mode=key;action_key=key;clip=Profile.action(action_key).clip
 	elapsed=0;contact_done=false;swing_done=false;queued_primary=false;queued_heavy=false
 	hero.weapon_slot=1;hero.attack_heavy=true;hero.attack_charged=false
@@ -127,8 +132,9 @@ func _start_lumina_special(key:String):
 	hero.attack_duration=23.0/30.0 if key=="rotation" else Profile.duration(action_key);hero.attack_left=hero.attack_duration
 	var window=Profile.window(action_key);contact_time=8.0/30.0 if key=="rotation" else window[0];contact_end=19.0/30.0 if key=="rotation" else window[1]
 	hero.attack_ticket=hero.attack_chain.begin("musashi_"+key,key)
+	if key=="rotation" and charged_cast:preload("res://scripts/spells/skill_balance.gd").decorate(hero,hero.attack_ticket,"musashi_charge")
 	rotation_clock=0;rotation_ticks=0;rotation_angle=0;rotation_previous_angle=0;rotation_speed=256;rotation_phase="windup" if key=="rotation" else ""
-	hero.model.sword_trail.begin_action(key);hero.model.animate(0,0,true,0,1,true,1,false)
+	cast_model().sword_trail.begin_action(key);cast_model().animate(0,0,true,0,1,true,1,false)
 	if key=="rotation":game.sound("musashi_spin",.7,false,hero.attack_ticket,13)
 
 func _rotation_tick(delta:float):
@@ -142,7 +148,7 @@ func _rotation_tick(delta:float):
 		elif rotation_ticks<=18:
 			rotation_phase="spin";elapsed=8.0/30.0
 			rotation_previous_angle=rotation_angle;rotation_speed+=30;rotation_angle+=rotation_speed
-			contact_done=true;hero.strike()
+			contact_done=true;strike()
 		elif rotation_ticks==19:
 			rotation_phase="recovery";rotation_angle=0;action_key="rotation_end";clip=Profile.action(action_key).clip;elapsed=0
 		else:
@@ -150,7 +156,7 @@ func _rotation_tick(delta:float):
 			if rotation_ticks>=23:
 				clip="";mode="";rotation_phase="";hero.attack_left=0
 				if queued_heavy:queued_heavy=false;start_attack(true)
-				elif queued_primary or hero.auto_attack_running():queued_primary=false;primary_attack()
+				elif queued_primary or (spell_owner==null and hero.auto_attack_running()):queued_primary=false;primary_attack()
 
 func guarding()->bool:return active and (guard_held or special_held) and not is_attacking() and hero.is_on_floor()
 func charge_fraction()->float:return float(charge)/Profile.CHARGE_LIMIT
@@ -167,6 +173,7 @@ func tick(delta: float,_after_pose: bool=false):
 	if game.paused or game.transitioning or not game.playing:
 		cancel();return
 	if controls_motion():return # The locomotion source clock advances these states.
+	if mode=="assimilation":assimilation.tick(delta);return
 	if mode=="rotation":_rotation_tick(delta);return
 	if guarding():
 		guard_elapsed+=delta;charge_clock+=delta*Profile.HZ
@@ -178,22 +185,22 @@ func tick(delta: float,_after_pose: bool=false):
 		hero.attack_left=maxf(0,hero.attack_duration-elapsed)
 		if mode=="counter" and not swing_done and elapsed>=Profile.cue(action_key,"0x7"):
 			swing_done=true;game.sound("musashi_rotation",.7,false,hero.attack_ticket,hero.character_id)
-			hero.model.rotation_effect.spawn(hero.model.rig_visual.global_transform)
+			cast_model().rotation_effect.spawn(cast_model().rig_visual.global_transform,SKILL_SCALE*skill_factor("size"))
 		if elapsed>=contact_time and before<contact_end:
 			contact_done=true
 			var after=elapsed
 			elapsed=clampf(maxf(before,contact_time),contact_time,contact_end-.00001)
-			hero.strike()
+			strike()
 			elapsed=after
 		if hero.attack_left<=0:
 			clip="";mode=""
 			if queued_heavy:
 				queued_heavy=false;start_attack(true)
-			elif queued_primary or hero.auto_attack_running():queued_primary=false;primary_attack()
-	elif hero.auto_attack_running():primary_attack()
+			elif queued_primary or (spell_owner==null and hero.auto_attack_running()):queued_primary=false;primary_attack()
+	elif (spell_owner==null and hero.auto_attack_running()):primary_attack()
 
 func is_attacking()->bool:return not clip.is_empty()
-func controls_motion()->bool:return mode=="finisher" and not finisher_phase.is_empty()
+func controls_motion()->bool:return (mode=="finisher" and not finisher_phase.is_empty()) or (mode=="assimilation" and action_key=="dkick")
 func _finisher_phase(phase:String):
 	finisher_phase=phase;finisher_ticks=0;elapsed=0
 	action_key=FINISHER_PHASES[phase];clip=Profile.action(action_key).clip
@@ -201,6 +208,7 @@ func _finisher_phase(phase:String):
 	contact_time=0;contact_end=INF if phase=="drop" else 0
 func source_motion_tick()->Vector3:
 	if not controls_motion():return Vector3.ZERO
+	if mode=="assimilation":return assimilation.motion_tick()
 	finisher_ticks+=1;elapsed=finisher_ticks/Profile.HZ
 	hero.attack_left=maxf(.000001,hero.attack_duration-elapsed)
 	match finisher_phase:
@@ -217,16 +225,20 @@ func source_motion_tick()->Vector3:
 			if finisher_ticks>=6:_finisher_phase("drop")
 		"drop":
 			if finisher_vertical<31:finisher_vertical+=3
-			contact_done=true;hero.strike()
+			contact_done=true;strike()
 			return Vector3.UP*(-finisher_vertical*locomotion.source_world_scale()*Profile.HZ)
 		"land":
 			if finisher_ticks>=5:
 				clip="";mode="";finisher_phase="";hero.attack_left=0;combo_timer=0
 				if queued_heavy:queued_heavy=false;start_attack(true)
-				elif queued_primary or hero.auto_attack_running():queued_primary=false;primary_attack()
+				elif queued_primary or (spell_owner==null and hero.auto_attack_running()):queued_primary=false;primary_attack()
 	return Vector3.ZERO
 func after_source_motion(grounded:bool,ceiling:bool):
 	if not controls_motion():return
+	if mode=="assimilation":
+		if grounded and assimilation.kick_vertical>=0:assimilation.finish()
+		elif ceiling:assimilation.kick_vertical=maxi(0,assimilation.kick_vertical)
+		return
 	if grounded and finisher_phase=="drop":_finisher_phase("land")
 	elif ceiling and finisher_phase=="rise":
 		finisher_vertical=0;_finisher_phase("hover")
@@ -237,18 +249,25 @@ func trail_active()->bool:
 	if controls_motion():return finisher_phase=="drop"
 	return is_attacking() and ((mode=="rotation" and rotation_phase=="spin") or (elapsed>=contact_time and elapsed<contact_end))
 func lumina_scale_factor()->float:
-	if mode=="counter":return 0x19EB/4096.0
-	if mode=="rotation":return (4096+int(mini(rotation_ticks,7)*1024.0/7.0))/4096.0
+	if mode=="counter":return 0x19EB/4096.0*SKILL_SCALE*skill_factor("size")
+	if mode=="rotation":return (4096+int(mini(rotation_ticks,7)*1024.0/7.0))/4096.0*SKILL_SCALE*skill_factor("size")
 	return 1.0
 func can_hit_target(enemy: Ninja)->bool:
 	if mode=="counter":return true
 	if mode=="rotation":
 		if rotation_phase!="spin":return false
-		var unit=locomotion.source_world_scale()*hero.growth_multiplier()
+		var unit=cast_model().rig_visual.global_basis.get_scale().x*.01
 		var center=hero.global_position+Vector3.UP*30*unit
-		var before=center+hero.facing.rotated(Vector3.UP,-rotation_previous_angle*TAU/4096.0)*82*unit
-		var after=center+hero.facing.rotated(Vector3.UP,-rotation_angle*TAU/4096.0)*82*unit
-		return not AttackChain.segment_contact(enemy,before,after,.25*hero.contact_size_multiplier()).is_empty()
+		var reach=82*unit*SKILL_SCALE*skill_factor("hit_area")
+		var radius=.25*unit/locomotion.WORLD_SCALE*SKILL_SCALE*skill_factor("hit_area")
+		if center.distance_to(AttackChain.aim_point(enemy,center))>reach+radius:return false
+		# Sweep the whole enlarged blade so close targets do not fall inside a hollow tip arc.
+		var steps=maxi(1,ceili((rotation_angle-rotation_previous_angle)*TAU/4096.0*reach/radius))
+		for step in steps+1:
+			var angle=lerpf(rotation_previous_angle,rotation_angle,float(step)/steps)
+			var tip=center+hero.facing.rotated(Vector3.UP,-angle*TAU/4096.0)*reach
+			if not AttackChain.segment_contact(enemy,center,tip,radius).is_empty():return true
+		return false
 	if not hero.attack_heavy:return true
 	# Fitted enemies can return the query point when it is already inside their
 	# body. Test the actual hurt volume against the downstroke's narrow forward
@@ -258,6 +277,7 @@ func can_hit_target(enemy: Ninja)->bool:
 func blocks_movement()->bool:return false
 func protects_player()->bool:return false
 func cancel(_preserve_power: bool=false):
+	if assimilation!=null:assimilation.cancel()
 	primary_held=false;queued_heavy=false;queued_primary=false;clip="";mode="";elapsed=0;combo_timer=0
 	guard_held=false;special_held=false;charge=0;charge_clock=0;guard_elapsed=0
 	finisher_phase="";finisher_ticks=0;finisher_vertical=0
@@ -271,3 +291,7 @@ func cancel(_preserve_power: bool=false):
 			if is_instance_valid(model.rotation_effect):model.rotation_effect.clear()
 func hit():cancel()
 func interrupt_for_dodge():cancel()
+
+func strike():
+	if spell_owner!=null:spell_owner.strike(self)
+	else:hero.strike()

@@ -219,7 +219,7 @@
     "name": "Dragoon",
     "title": "The Azure Lancer",
     "tagline": "The sky is your opening.",
-    "description": "An elegant aerial fighter. Pierce from a distance, descend lance-first, then backflip clear before the dust settles.",
+    "description": "An armored dragon rider. Pierce from a distance, descend lance-first, then unleash a winged dragon to hunt nearby enemies.",
     "hero": true,
     "weaponNames": [
       "Lance",
@@ -242,7 +242,7 @@
       },
       "flintlock": {
         "name": "Azure Lance Sweep",
-        "description": "Grounded RMB / 3: sweep the lance left to right with blue energy, hitting three times for triple normal thrust damage per hit. Airborne LMB or RMB / 3: Dragon Leap toward the crosshair with no cooldown and three enlarged landing shockwaves.",
+        "description": "Grounded RMB / 3: sweep the lance left to right with blue energy, hitting three times for triple normal thrust damage per hit. Airborne LMB or RMB / 3: Dragon Leap toward the crosshair with no cooldown and three enlarged landing shockwaves. A steel dragon then hunts nearby enemies for 3 seconds, piercing each dash for 192 base damage.",
         "icon": "lance"
       },
       "roll": {
@@ -318,12 +318,18 @@
       "cutlass": 0.2066666667,
       "flintlock": 2.4,
       "roll": 0.55,
-      "drink": 23
+      "drink": 23,
+      "rapid_shot": 0.25
     },
     "abilities": {
       "cutlass": {
         "name": "Wind Arrow",
         "description": "LMB fires straight arrows with small random left/right and up/down aim variation. Maintain hit combos to accelerate firing up to three times base speed. Every third attack becomes green power with 50% more damage. Double-jump LMB fans downward.",
+        "icon": "bow"
+      },
+      "rapid_shot": {
+        "name": "Rapid Shot",
+        "description": "Tap or hold T to fire ten arrows at once in a broad fan every 0.25 seconds. Rain powers every arrow. Equip this universal skill on any fighter's E, R or T key.",
         "icon": "bow"
       },
       "flintlock": {

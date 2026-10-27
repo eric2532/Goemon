@@ -31,7 +31,14 @@ func run():
 	root.add_child(view)
 	await process_frame
 	var native_meshes=meshes(view.weapon).filter(func(mesh):return mesh.name!="MuzzleFlash")
-	check(ResourceLoader.exists(view.ASSET_PATH) and native_meshes.size()>=2,"First-person weapon and arms contain recovered visible meshes")
+	var original=load(view.ASSET_PATH).instantiate()
+	var source_triangles=0;var optimized_triangles=0
+	for mesh in meshes(original):
+		for surface in mesh.mesh.get_surface_count():source_triangles+=mesh.mesh.surface_get_arrays(surface)[Mesh.ARRAY_INDEX].size()/3
+	for mesh in native_meshes:
+		for surface in mesh.mesh.get_surface_count():optimized_triangles+=mesh.mesh.surface_get_arrays(surface)[Mesh.ARRAY_INDEX].size()/3
+	original.free()
+	check(not native_meshes.is_empty() and optimized_triangles==source_triangles,"First-person weapon and arms preserve all recovered geometry after batching")
 	check(view.animations!=null and view.animations.has_animation("idle") and view.animations.has_animation("firing"),"First-person hands and weapon retain native idle and firing animations")
 	check(view.get("weapon_view")!=null and view.weapon_view.own_world_3d,"Walls cannot clip the first-person arms or weapon")
 	check(view.has_method("fire_shot") and view.has_method("update_motion"),"Camera can drive recoil and locomotion presentation")

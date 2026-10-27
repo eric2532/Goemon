@@ -1,4 +1,4 @@
-extends Node
+extends "res://scripts/character_combat.gd"
 ## Camera-aimed weapons against fitted enemy volumes, with swept rockets and
 ## world-occluded splash. All transient presentation has a fixed pool size.
 const Weapons=preload("res://scripts/master_chief_weapons.gd")
@@ -22,9 +22,6 @@ const SWORD_WINDUP=.10
 const SWORD_CONTACT_END=.32
 const SWORD_SWEEP_ANGLE=.62
 static var native_random_directions:PackedVector3Array=PackedVector3Array()
-var hero:Hero
-var game:Node
-var active=false
 var primary_held=false
 var is_firing=false
 var ammo_infinite=true
@@ -47,11 +44,9 @@ func _ready():
 	native_fx=load("res://scripts/halo_weapon_effects.gd").new()
 	native_fx.game=game;native_fx.hero=hero;add_child(native_fx)
 	for i in ROCKET_POOL_SIZE:
-		var visual=preload("res://assets/characters/master_chief/rocket_projectile.glb").instantiate()
+		var visual=load(GameAssets.model_path("res://assets/characters/master_chief/rocket_projectile.glb")).instantiate()
 		add_child(visual);visual.top_level=true;visual.hide()
 		rockets.append({"id":i,"visual":visual,"live":false,"position":Vector3.ZERO,"direction":Vector3.FORWARD,"remaining":0.0,"ticket":{},"damage":0.0})
-func _notification(what:int):
-	if what==NOTIFICATION_APPLICATION_FOCUS_OUT:cancel()
 func input(event:InputEvent):
 	release_input(event)
 	if event.is_echo():return
@@ -71,13 +66,17 @@ func select_slot(slot:int):
 	native_fx.cancel_ejection()
 	sync_viewmodel()
 func sync_viewmodel():
+	if hero.mirror_copy:return
 	var rig=game.camera_rig
 	if is_instance_valid(rig.first_person_viewmodel):rig.first_person_viewmodel.select_slot(weapon_slot)
 func available()->bool:
 	if not active or not is_instance_valid(hero) or not hero.is_master_chief():return false
 	if not game.playing or game.paused or game.transitioning or hero.hp<=0 or get_tree().paused:return false
-	if game.has_method("forest_enemy_visible") and (game.model.phase!="wave" or not game.camera_focused):return false
+	if game.has_method("forest_enemy_visible") and (game.model.phase!="wave" or (not hero.mirror_copy and not game.camera_focused)):return false
 	return true
+func clear_cooldowns():
+	cooldown=0.0;weapon_cooldowns.fill(0.0)
+
 func tick_timers(delta:float):
 	# Native trigger rate accelerates over 1s and decelerates over .1s. The
 	# zero-rate state forces a tracer on the next projectile, even after input
@@ -100,18 +99,21 @@ func tick(delta:float,_after_pose:bool=false):
 	if primary_held and cooldown<=.000001:fire_shot()
 func fire_shot():
 	if not available() or cooldown>.000001:return
+	if weapon_slot==5 and not sword_swing.is_empty():return
 	var spec=Weapons.data(weapon_slot)
 	cooldown+=spec.interval;weapon_cooldowns[weapon_slot-1]=cooldown;shots_fired+=1
-	var rig=game.camera_rig;rig.update_camera(0);sync_viewmodel()
+	var rig=game.camera_rig
+	if not hero.mirror_copy:rig.update_camera(0);sync_viewmodel()
 	var camera:Camera3D=rig.camera
-	var origin=camera.global_position;var direction=-camera.global_basis.z
+	var origin=hero.global_position+Vector3.UP*1.5 if hero.mirror_copy else camera.global_position
+	var direction=(hero.ai_aim-origin).normalized() if hero.mirror_copy else -camera.global_basis.z
 	var ticket=hero.attack_chain.begin(spec.key,Weapons.audio_key(weapon_slot));hero.attack_ticket=ticket
 	var damage:float=spec.damage*hero.damage_multiplier()
 	if weapon_slot==5:
 		sword_swing={"age":0.0,"ticket":ticket.duplicate(true),"damage":damage,"hit":false}
 	else:
-		var muzzle=origin+camera.global_basis*Vector3(.16,-.14,-.45)
-		if is_instance_valid(rig.first_person_viewmodel):muzzle=rig.first_person_viewmodel.muzzle_position()
+		var muzzle=origin+direction*.45 if hero.mirror_copy else origin+camera.global_basis*Vector3(.16,-.14,-.45)
+		if not hero.mirror_copy and is_instance_valid(rig.first_person_viewmodel):muzzle=rig.first_person_viewmodel.muzzle_position()
 		# The overlay can put a barrel beyond nearby geometry. Sweep from the
 		# eyes before emitting anything so the muzzle cannot bypass that cover.
 		var precise=weapon_slot in [2,4]
@@ -124,10 +126,10 @@ func fire_shot():
 				rocket_impact(obstruction,{"direction":flight,"ticket":ticket.duplicate(true),"damage":damage})
 			else:launch_rocket(muzzle,flight,ticket,damage,spec.range)
 		else:fire_bullets(origin,direction,muzzle,obstruction,ticket,damage,spec,precise)
-	if weapon_slot!=5 and is_instance_valid(rig.first_person_viewmodel):
+	if not hero.mirror_copy and weapon_slot!=5 and is_instance_valid(rig.first_person_viewmodel):
 		var view=rig.first_person_viewmodel
 		native_fx.fire_ejection(weapon_slot,view.marker_transform("primary trigger",true),view.marker_transform("primary ejection",true),view.marker_transform.bind(true))
-	rig.fire_first_person_shot();rig.add_first_person_recoil(spec.recoil)
+	if not hero.mirror_copy:rig.fire_first_person_shot();rig.add_first_person_recoil(spec.recoil)
 func fire_bullets(origin:Vector3,direction:Vector3,muzzle:Vector3,obstruction:Dictionary,ticket:Dictionary,damage:float,spec:Dictionary,precise:bool):
 	# Accumulate pellets per actor so one blast produces one impact/critical.
 	var hits={};var head_hits={};var hit_directions={}
@@ -173,15 +175,18 @@ func advance_sword(delta:float):
 		# that crosses the entire contact window. The first contact wins.
 		var steps=maxi(1,ceili((end-start)/.015))
 		var camera:Camera3D=game.camera_rig.camera
+		var origin=hero.global_position+Vector3.UP*1.5 if hero.mirror_copy else camera.global_position
+		var forward=hero.combat_attack_direction() if hero.mirror_copy else -camera.global_basis.z
+		var up=Vector3.UP if hero.mirror_copy else camera.global_basis.y
 		for i in steps+1:
 			var phase=(lerpf(start,end,float(i)/steps)-SWORD_WINDUP)/(SWORD_CONTACT_END-SWORD_WINDUP)
-			var direction=(-camera.global_basis.z).rotated(camera.global_basis.y,lerpf(-SWORD_SWEEP_ANGLE,SWORD_SWEEP_ANGLE,phase))
-			var contact=trace(camera.global_position,camera.global_position+direction*Weapons.data(5).range,.25)
+			var direction=forward.rotated(up,lerpf(-SWORD_SWEEP_ANGLE,SWORD_SWEEP_ANGLE,phase))
+			var contact=trace(origin,origin+direction*Weapons.data(5).range,.25)
 			if not is_instance_valid(contact.target):continue
 			# Broad blade contact expands the victim, not the wall. Verify the
 			# actual fitted surface so expansion cannot reach through thin cover.
 			var surface=AttackChain.contact_point(contact.target,contact.point,contact.point)
-			var blocked=hero.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(camera.global_position,surface,1,[hero.get_rid()]))
+			var blocked=hero.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(origin,surface,1,[hero.get_rid()]))
 			if not blocked.is_empty():continue
 			contact.target.take_hit(float(sword_swing.damage),direction,false,sword_swing.ticket)
 			sword_swing.hit=true;hit_marker_timer=.16;last_hit_point=surface
@@ -220,10 +225,14 @@ func rifle_tracer()->bool:
 	return tracer
 func head_contact(enemy:Ninja,from:Vector3,to:Vector3)->Dictionary:return HitZones.contact(enemy,from,to)
 func trace(origin:Vector3,endpoint:Vector3,radius:float=0.0,detect_head:bool=false)->Dictionary:
-	var wall=hero.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(origin,endpoint,1,[hero.get_rid()]))
+	return trace_shot(hero,origin,endpoint,radius,detect_head)
+
+static func trace_shot(hero:Hero,origin:Vector3,endpoint:Vector3,radius:float=0.0,detect_head:bool=false)->Dictionary:
+	var game=hero.game
+	var wall=AttackChain.world_ray(hero,origin,endpoint,1,[hero.get_rid()],false)
 	var end:Vector3=wall.position if not wall.is_empty() else endpoint
 	var target:Ninja=null;var closest=1.0;var headshot=false;var head_point=Vector3.ZERO
-	for enemy in game.enemies:
+	for enemy in AttackChain.segment_enemy_candidates(game,origin,end,radius):
 		if not is_instance_valid(enemy) or enemy.dead:continue
 		if game.has_method("forest_enemy_visible") and not game.forest_enemy_visible(enemy):continue
 		if enemy.has_method("combat_bounds"):
@@ -231,7 +240,7 @@ func trace(origin:Vector3,endpoint:Vector3,radius:float=0.0,detect_head:bool=fal
 			if detect_head:bounds=bounds.merge(HitZones.broad_bounds(enemy))
 			if not bounds.has_point(origin) and not bounds.intersects_segment(origin,end):continue
 		var contact=AttackChain.segment_contact(enemy,origin,end,radius)
-		var head=head_contact(enemy,origin,end) if detect_head else {}
+		var head=HitZones.contact(enemy,origin,end) if detect_head else {}
 		if HitZones.separate_head(enemy) and not head.is_empty() and (contact.is_empty() or head.t<contact.t):contact=head
 		if contact.is_empty() or contact.t>=closest:continue
 		closest=contact.t;target=enemy;headshot=not head.is_empty()
@@ -276,11 +285,11 @@ func rocket_impact(contact:Dictionary,item:Dictionary):
 	var center:Vector3=contact.point+contact.normal*.06-item.direction*.03
 	explode(center,contact.target,item,contact.normal,contact.material)
 func retire_rocket(item:Dictionary):
-	item.live=false;item.ticket={};item.visual.hide()
+	preload("res://scripts/character_projectile_pool.gd").clear_slot(item,"live",item.visual)
 	native_fx.rocket_stop(item.id)
 func explode(center:Vector3,direct:Node,item:Dictionary,normal:Vector3=Vector3.UP,material:String="stone"):
 	last_hit_point=center
-	for enemy in game.enemies:
+	for enemy in AttackChain.enemy_candidates(game,center,BLAST_RADIUS):
 		if not is_instance_valid(enemy) or enemy.dead:continue
 		if game.has_method("forest_enemy_visible") and not game.forest_enemy_visible(enemy):continue
 		var bounds:AABB=enemy.combat_bounds()
@@ -308,7 +317,7 @@ func cancel(_preserve_power:bool=false):
 	for item in rockets:retire_rocket(item)
 	if is_instance_valid(native_fx):native_fx.clear()
 	var rig=game.get("camera_rig") if is_instance_valid(game) else null
-	if is_instance_valid(rig) and is_instance_valid(rig.first_person_viewmodel):rig.first_person_viewmodel.stop()
+	if not hero.mirror_copy and is_instance_valid(rig) and is_instance_valid(rig.first_person_viewmodel):rig.first_person_viewmodel.stop()
 func hit():
 	if not available():cancel()
 func interrupt_for_dodge():cancel()

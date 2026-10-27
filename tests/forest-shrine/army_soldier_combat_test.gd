@@ -18,7 +18,7 @@ func source_trace(kind:int,deltas:Array)->Array:
 func setup(kind:int):
  runtime.clear();runtime.set_navigation(kind+10,{"width":0,"origin":Vector3(-240,0,-240)})
  var enemy:int=runtime.spawn(1,0,kind,Vector3.ZERO,model.waves.role_stats(kind).hp,.4)
- var target:int=runtime.spawn(-1,1,12,Vector3(0,0,-4),500,.4)
+ var target:int=runtime.spawn(-1,1,12,Vector3(0,0,-1.5),500,.4)
  return [enemy,target]
 func run():
  runtime=load("res://scripts/forest/crowd/army_runtime.gd").new();runtime.configure(null)
@@ -38,7 +38,7 @@ func run():
      if event.source_id==1 and event.kind in ["melee","muzzle","bullet","done"]:
       trace.append([event.kind,snappedf(event.source_tick,.0001)])
       if event.kind=="done":done=true
-      if event.kind in ["muzzle","bullet"]:check(event.position.distance_to(Vector3(0,4.32,-2.592))<.0001,"Gunner uses the recovered source muzzle at enlarged soldier scale")
+      if event.kind in ["muzzle","bullet"]:check(event.position.distance_to(Vector3(0,1.44,-.864))<.0001,"Gunner uses the recovered source muzzle at one-third soldier scale")
      if event.kind=="damage" and event.target_id==-1:damages.append(event.amount)
     step+=1
    if not (done and trace==expected):print("SOLDIER_MARKER_MISMATCH kind=",kind," deltas=",deltas," actual=",trace," expected=",expected)

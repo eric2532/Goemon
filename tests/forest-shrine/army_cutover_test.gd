@@ -7,7 +7,7 @@ func check(ok:bool,label_:String):
  if not ok:failures+=1;printerr("FAIL: ",label_)
 func _initialize():run.call_deferred()
 func run():
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_kai_highway()
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_kai_highway()
  set_meta("forest_custom_layout",doc.data)
  # An obsolete setting must not be able to select the removed engine.
  set_meta("forest_army_backend","legacy")

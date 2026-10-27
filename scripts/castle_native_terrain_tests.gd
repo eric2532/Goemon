@@ -23,7 +23,7 @@ func _initialize():run.call_deferred()
 func run():
  check(ClassDB.class_exists("GoemonTerrainMath"),"The current Godot project loads its native terrain math component")
  if failures:finish();return
- var m=Model.new();m.reset(42,{},JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_kai_highway.json")));var nav=m.waves.navigation
+ var m=Model.new();m.reset(42,{},JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_kai_highway.json")));var nav=m.waves.navigation
  nav.supported_corridor(Vector3(0,0,18),Vector3(0,0,24),3.9,.1,false,true)
  var native=nav.terrain_corridors.get("native_sampler")
  check(native!=null,"The native Kai map uses compiled math rather than the script fallback")

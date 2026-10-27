@@ -76,10 +76,7 @@ func run():
 		check(absf(p.hp/p.max_hp-health_fraction)<.001,"Switching from fighter%d preserves health percentage"%id)
 		p.set_physics_process(true)
 	check(p.character_models.has(2) and p.character_models.has(13),"Edo and Musashi remain separate original roster entries")
-	var ally=load("res://scripts/forest/forest_gate_defender.gd").new();ally.game=game;game.add_child(ally)
-	for id in [14,15]:
-		ally.select_character(id);check(game.gate_defenders.primary_range(ally)>1.0,"Fighter%d also supports the gate-defender roster"%id)
-	ally.queue_free();stop_audio(game);game.move_audio.stop();current_scene=null;game.queue_free();await frames(3);game=null
+	stop_audio(game);game.move_audio.stop();current_scene=null;game.queue_free();await frames(3);game=null
 	await create_timer(.35).timeout
 	print("RECOVERED_LEADERS_RESULT checks=",checks," failures=",failures)
 	quit(0 if failures==0 else 1)

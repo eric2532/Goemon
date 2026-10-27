@@ -16,11 +16,11 @@ func run():
  for i in 12:
   var point=Vector3(i*23,2+i%3,i*11);army.set_pose(h,point,i*.57);actor.sync(army.unit_state(h))
   await physics_frame;await physics_frame
-  var query=PhysicsRayQueryParameters3D.create(point+Vector3(15,3,0),point+Vector3(-15,3,0),4)
+  var query=PhysicsRayQueryParameters3D.create(point+Vector3(15,1,0),point+Vector3(-15,1,0),4)
   var hit=actor.get_world_3d().direct_space_state.intersect_ray(query)
   check(hit.get("collider")==actor,"Moved and rotated proxy rays still identify the original independent Ninja facade")
   if i>0:
-   query=PhysicsRayQueryParameters3D.create(previous+Vector3(10,3,0),previous+Vector3(-10,3,0),4)
+   query=PhysicsRayQueryParameters3D.create(previous+Vector3(10,1,0),previous+Vector3(-10,1,0),4)
    check(actor.get_world_3d().direct_space_state.intersect_ray(query).is_empty(),"No old hitbox remains after a full physics pose update")
   check(actor.combat_bounds().grow(0.00001).has_point(actor.combat_contact_point(point+Vector3(3,3,4))),"Fitted contacts remain aligned with the actual query body")
   previous=point

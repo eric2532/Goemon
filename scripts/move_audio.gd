@@ -12,7 +12,7 @@ func begin(hero,action: String,explicit_key: String="")->Dictionary:
 		var kind=action.trim_prefix("rogue_"+SoundLibrary.character_key(character_id)+"_")
 		if kind=="primary":
 			var combat=hero.active_ability
-			var index: int=int(combat.combo)%(5 if character_id==4 else 3) if combat.combo_timer>0 else 0
+			var index: int=int(combat.combo)%preload("res://assets/rogue/scripts/class_actions.gd").primary_count(SoundLibrary.character_key(character_id)) if combat.combo_timer>0 else 0
 			move_key="primary_%d"%(index+1) if character_id!=6 else "primary_1"
 			if character_id==9 and hero.jumps_used>=2 and not hero.is_on_floor():move_key="dive"
 		else:move_key=kind
@@ -42,14 +42,17 @@ func release(game,ticket: Dictionary):
 	context.voiced=true
 	play_voice(game,id,move.voice)
 
+func prepare(game):
+	if voices.is_empty():
+		for i in 8:
+			var voice=AudioStreamPlayer.new();voice.bus=&"SFX";voice.name="MoveVoice%d"%i;game.add_child(voice);voices.append(voice)
+
 func play_voice(game,id: int,slot: String):
 	var lib=game.sound_library
 	if lib.recording or lib.is_muted_for(id,slot):return
 	var stream: AudioStream=lib.stream_for(id,slot,null)
 	if stream==null or game.settings.volume<=.001:return
-	if voices.is_empty():
-		for i in 8:
-			var voice=AudioStreamPlayer.new();voice.name="MoveVoice%d"%i;game.add_child(voice);voices.append(voice)
+	prepare(game)
 	var voice=voices[cursor];cursor=(cursor+1)%voices.size()
 	voice.stop();voice.stream=stream;voice.pitch_scale=1
 	# The Master bus applies the user's game volume, as it does for previews.

@@ -82,12 +82,13 @@ func run():
 	await process_frame;clear_targets();caster.character_id=15
 	var exposed=target(Vector3(0,3,1));covered=target(Vector3(2,3,0))
 	barrier=wall(Vector3(1,3,0),Vector3(.2,5,1));await physics_frame;await physics_frame
-	p=shot(Vector3(0,3,0),Vector3(0,9.9,0),true);p._physics_process(1.11)
-	check(exposed.hp==72 and covered.hp==100,"Bomb fuse explodes against fitted hurt volumes while respecting cover")
+	var bomb_floor=wall(Vector3(0,2.8,0),Vector3(20,.2,20));await physics_frame;await physics_frame
+	p=shot(Vector3(0,3,0),Vector3(0,9,0),true);p._physics_process(1.11)
+	check(p.bomb_grounded and exposed.hp==72 and covered.hp==100,"Grounded bomb explodes against fitted hurt volumes while respecting cover")
 	p._physics_process(.1)
 	check(exposed.hp==72,"An exploding bomb cannot damage a victim twice")
 	check(arena.sounds.has(["ben_bomb_explosion",15]),"Bomb impact sound retains Ben's source identity")
-	await process_frame;barrier.free();clear_targets()
+	await process_frame;barrier.free();bomb_floor.free();clear_targets()
 	var floor_body=wall(Vector3(0,-.1,0),Vector3(20,.2,20));await physics_frame;await physics_frame
 	p=shot(Vector3(0,.3,0),Vector3(1,-5,0));p._physics_process(.1)
 	check(not p.is_queued_for_deletion() and p.velocity.y>0,"Ed fireball bounces from a real floor collision")

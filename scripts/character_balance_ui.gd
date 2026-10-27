@@ -5,13 +5,13 @@ var from_pause=false
 var character_id=1
 
 func _ready():
-	if character_id not in Balance.Roster.selection_ids():character_id=1
+	if character_id not in Balance.Roster.PLAYABLE_IDS:character_id=1
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	game.label_at(self,"CHARACTER BALANCE",Vector2(64,56),38)
 	game.label_at(self,"Each fighter saves separately. Values apply before level bonuses and temporary power-ups.",Vector2(67,110),18,Color("dfc384"))
 	game.label_at(self,"Editing",Vector2(67,176),20)
 	var picker=OptionButton.new();picker.name="BalanceCharacter";picker.position=Vector2(168,160);picker.size=Vector2(340,52)
-	for id in Balance.Roster.selection_ids():picker.add_item(Balance.name_for(id),id)
+	for id in Balance.Roster.PLAYABLE_IDS:picker.add_item(Balance.name_for(id),id)
 	picker.select(picker.get_item_index(character_id));add_child(picker)
 	picker.item_selected.connect(func(index):game.show_character_balance(from_pause,picker.get_item_id(index)))
 	game.label_at(self,"Current fighter: "+Balance.name_for(game.player.character_id),Vector2(560,176),18)
@@ -31,7 +31,7 @@ func _ready():
 
 func column(position_: Vector2,title: String)->VBoxContainer:
 	var panel=PanelContainer.new();panel.position=position_;panel.size=Vector2(620,480)
-	var style=StyleBoxFlat.new();style.bg_color=Color("102b37");style.set_corner_radius_all(12);style.content_margin_left=22;style.content_margin_right=22;style.content_margin_top=20;style.content_margin_bottom=20
+	var style=StyleBoxFlat.new();style.bg_color=Color(.16,.045,.09,.95);style.set_corner_radius_all(12);style.content_margin_left=22;style.content_margin_right=22;style.content_margin_top=20;style.content_margin_bottom=20
 	panel.add_theme_stylebox_override("panel",style);add_child(panel)
 	var scroll=ScrollContainer.new();scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;panel.add_child(scroll)
 	var box=VBoxContainer.new();box.size_flags_horizontal=Control.SIZE_EXPAND_FILL;box.add_theme_constant_override("separation",16);scroll.add_child(box)
@@ -46,6 +46,14 @@ func number_row(box: VBoxContainer,row: Array,shared: bool=false):
 	spin.step=1 if row[0] in ["coin_count","split_count"] else .001
 	spin.custom_arrow_step=row[4]
 	if row[0]=="critical_chance":spin.suffix="%"
+	if row[0] in ["model_scale","attack_speed"]:
+		spin.suffix="×"
+		line.tooltip_text="Visual size relative to the original model. Melee reach and collision size are separate." if row[0]=="model_scale" else "Normal attack animation and contact speed, before level bonuses and power-ups. Skill durations and cooldowns stay separate."
+		spin.tooltip_text=line.tooltip_text
+	if row[0]=="jump_height":
+		spin.suffix="×"
+		line.tooltip_text="1× keeps the original jump. Applies to this fighter’s original or equipped jumps, including boss leaps. Flight and attack travel keep their own settings."
+		spin.tooltip_text=line.tooltip_text
 	if row[0]=="melee_reach":
 		spin.suffix="×"
 		line.tooltip_text="1× is original reach. Adjust up to 10× for longer melee weapons and hit reach. Does not change projectile travel."

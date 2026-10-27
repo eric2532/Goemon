@@ -7,7 +7,6 @@ var checks=0
 var failures=0
 var config_path="user://ryo-collectors-%d.cfg"%OS.get_process_id()
 var helper
-var guard
 var worker:Dictionary
 var visual=false
 func _initialize():
@@ -19,7 +18,6 @@ func check(ok:bool,message:String):
 func frames(count:int=3):
 	for i in range(count):await physics_frame
 func sync_collectors():
-	game.gate_defenders.sync_model()
 	game.explorer_helpers.sync_targets()
 func tick(seconds:float):
 	sync_collectors();game._tick_ryo(seconds)
@@ -52,29 +50,23 @@ func capture(name_:String,focus:Vector3,offset:Vector3=Vector3(7,6,13)):
 	print("RYO_COLLECTOR_CAPTURE "+path)
 func run():
 	visual="--visual" in OS.get_cmdline_user_args()
-	var document=load("res://scripts/forest/forest_map_document.gd").new();document.load_original()
+	var document=load("res://tests/forest-shrine/reference/map_document.gd").new();document.load_original()
 	set_meta("forest_custom_layout",document.data);set_meta("forest_painterly_preview",true)
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=config_path
 	root.add_child(game);current_scene=game;await frames()
 	game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false)
-	game.gate_defenders.settings_path=config_path+"-defenders"
-	game.gate_defenders.assignments.clear();game.gate_defenders.reconcile(true)
 	m=game.model;m.gold=1000
 	check(m.buildings.values().all(func(b):return b.kind!="mine") and m.deposits.is_empty(),"The playable original map has no passive gold mines")
-	check(not game.gate_defenders.units.is_empty(),"The fixture has a real gate defender")
 	game.player.select_character(2)
 	check(GuardFixture.deploy(game.explorer_helpers,4),"A real helper request creates living Explorer allies")
 	var helpers:Array=game.explorer_helpers.active_units(4)
-	if helpers.is_empty() or game.gate_defenders.units.is_empty():await finish();return
+	if helpers.is_empty():await finish();return
 	helper=helpers[0]
 	for unit in helpers:
 		if unit!=helper:unit.park()
 	game.start_wave();m.waves.spawn_clock=10000;m.waves.pending=1
 	game.set_physics_process(false);game.player.set_physics_process(false)
 	game.player.position=Vector3(0,.15,120);park_workers()
-	for unit in game.gate_defenders.units.values():
-		unit.set_physics_process(false);unit.position=Vector3(100,.15,0)
-	guard=game.gate_defenders.units.values()[0]
 	helper.global_position=Vector3(0,.12,70);helper.set_physics_process(false)
 	sync_collectors()
 	var victim=spawn(Vector3(8,0,70))
@@ -83,12 +75,12 @@ func run():
 	check(game.actors[victim.id].dead and victim.hp<=0 and m.gold==1012 and m.ryo.drops.is_empty(),"An actual ally-attributed actor kill immediately credits twelve ryo")
 	m.damage_enemy(victim.id,100000);tick(.2)
 	check(m.gold==1012,"Model cleanup after an ally kill cannot duplicate its reward")
-	helper.park();guard.position=Vector3(0,.15,70);sync_collectors()
+	helper.global_position=Vector3(0,.12,70);sync_collectors()
 	model_kill(Vector3(100,0,100))
 	check(m.gold==1024,"Model and defense damage pays even far from all collectors")
-	guard.invuln=0;guard.take_hit(100000,Vector3.RIGHT)
+	helper.take_hit(100000,Vector3.RIGHT)
 	model_kill(Vector3(0,0,78));collect()
-	check(guard.hp<=0 and m.gold==1036,"An incapacitated defender cannot delay or lose a kill reward")
+	check(helper.hp<=0 and m.gold==1036,"An incapacitated mercenary cannot delay or lose a kill reward")
 	worker=m.workers.values()[0];m.damage_worker(worker.id,10000)
 	model_kill(Vector3(0,0,78))
 	check(worker.state=="wounded" and m.gold==1048,"Wounded workers do not affect automatic rewards")
@@ -129,6 +121,6 @@ func finish():
 		for voice in game.voices:voice.stop()
 		game.queue_free()
 	paused=false;await frames();await create_timer(.35).timeout
-	for path in [config_path,config_path+"-defenders"]:
+	for path in [config_path]:
 		if FileAccess.file_exists(path):DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
 	quit(1 if failures else 0)

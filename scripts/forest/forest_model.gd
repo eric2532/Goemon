@@ -6,6 +6,7 @@ const Balance=preload("res://scripts/forest/core_balance.gd")
 var balance=Balance.defaults()
 const Ramparts=preload("res://scripts/forest/forest_ramparts.gd")
 const KaiTerrain=preload("res://scripts/forest/forest_kai_terrain.gd")
+const WindMeadowTerrain=preload("res://scripts/forest/forest_wind_meadow_terrain.gd")
 const BloodGulchTerrain=preload("res://scripts/forest/forest_blood_gulch_terrain.gd")
 const CELL=6.0
 const TRAINING_DUMMY_CELL=Vector2i(2,2)
@@ -13,7 +14,7 @@ const STARTING_GOLD=1000000
 const REGION=Rect2i(-40,-40,80,80)
 const ALLIED_REGION=Rect2i(-28,-28,56,56)
 const COSTS={"mine":150,"tower":120,"wall":10,"gate":30,"barracks":250}
-const HP={"shrine":3000.0,"mine":350.0,"tower":500.0,"wall":7500.0,"gate":2000.0,"barracks":3000.0}
+const HP={"shrine":3000.0,"mine":350.0,"tower":500.0,"wall":7500.0,"gate":2500.0,"barracks":3000.0}
 const SIZES={"shrine":Vector2i(3,3),"mine":Vector2i(3,2),"tower":Vector2i(2,2),"wall":Vector2i(6,1),"gate":Vector2i(2,1),"barracks":Vector2i(3,3)}
 const SIGHT={"shrine":8,"mine":4,"tower":10,"wall":1,"gate":1,"barracks":5}
 var phase="preparing"
@@ -28,15 +29,22 @@ var starting_food=10
 var fighter_count=0
 var fighter_posts:Dictionary={}
 var defenders: Dictionary={}
+# Army pose fields are derived; position/pose readers synchronize this mirror first.
 var enemies: Dictionary={}
 var deposits: Dictionary={}
 var trees: Dictionary={}
 var portals: Array=[]
+var enemy_camps_prototype=false
+var camp_obstacle_revision=-1
+var camp_obstacles:Array=[]
+var camp_grid_cells:Dictionary={}
+var enemy_statue:Dictionary={}
 var roads: Dictionary={}
 var ramparts: Array=[]
 var terrain=Ramparts.new()
 var terrain_source=""
 var terrain_scale=1.0
+var map_expansion=1.0
 var navigation_region=REGION
 var occupancy: Dictionary={}
 var explored: Dictionary={}
@@ -45,6 +53,7 @@ var allied_grid=AStarGrid2D.new()
 var enemy_grid=AStarGrid2D.new()
 var next_id=1
 var events: Array=[]
+var team_progression=preload("res://scripts/forest/team_progression.gd").new()
 var workforce
 var waves
 var ryo
@@ -59,6 +68,7 @@ var gate_access_cache:Array=[]
 var _construction_batch=false
 
 func reset(value: int,config: Dictionary={},layout: Dictionary={},include_mines:bool=true):
+	team_progression.reset();team_progression.rng.seed=value
 	balance=Balance.sanitized(config)
 	mines_enabled=include_mines
 	ryo=preload("res://scripts/forest/forest_ryo_economy.gd").new(self)
@@ -66,6 +76,8 @@ func reset(value: int,config: Dictionary={},layout: Dictionary={},include_mines:
 	starting_food=10;fighter_count=0;fighter_posts.clear()
 	buildings.clear();workers.clear();defenders.clear();enemies.clear();deposits.clear();trees.clear();occupancy.clear()
 	portals.clear();roads.clear();ramparts.clear()
+	enemy_camps_prototype=bool(layout.get("enemy_camps_prototype",false));terrain_source=str(layout.get("terrain_source",""))
+	enemy_statue={"hp":1200.0,"max_hp":1200.0} if enemy_camps_prototype else {}
 	explored.clear();visible_cells.clear();events.clear();sight_cache.clear()
 	if layout.is_empty():
 		if mines_enabled:deposits[Vector2i(-5,1)]=1200;deposits[Vector2i(5,1)]=1200
@@ -85,11 +97,14 @@ func reset(value: int,config: Dictionary={},layout: Dictionary={},include_mines:
 		for item in layout.trees:trees[Vector2i(item.x,item.z)]=float(item.scale)
 		for item in layout.get("portals",[]):portals.append({"x":int(item.x),"z":int(item.z),"rotation":int(item.rotation)})
 		for item in layout.get("roads",[]):roads[Vector2i(item.x,item.z)]=true
+	terrain_scale=float(layout.get("terrain_scale",1.0)) if terrain_source in ["blood_gulch","wind_meadow"] else 1.0
+	map_expansion=float(layout.get("map_expansion",1.0)) if terrain_source=="wind_meadow" else 1.0
+	if has_enemy_camps():
+		for camp in portals:initialize_enemy_camp(camp)
 	ramparts=layout.get("ramparts",[]).duplicate(true)
 	terrain_source=str(layout.get("terrain_source",""))
-	terrain_scale=float(layout.get("terrain_scale",1.0)) if terrain_source=="blood_gulch" else 1.0
-	navigation_region=region_for(terrain_source,terrain_scale)
-	terrain=create_terrain(terrain_source,terrain_scale)
+	navigation_region=region_for(terrain_source,terrain_scale*map_expansion)
+	terrain=create_terrain(terrain_source,terrain_scale,map_expansion)
 	terrain.configure(ramparts)
 	_make_building("shrine",Vector2i(-1,-1),0)
 	# Give the opening workforce useful jobs without spending the testing treasury.
@@ -137,6 +152,79 @@ func _make_starter_fort()->Array:
 		for z in range(-4,7,6):_make_building("wall",Vector2i(x,z),1,mini(6,7-z))
 	return [_make_building("tower",Vector2i(-4,4),2),_make_building("tower",Vector2i(3,4),2)]
 
+func initialize_enemy_camp(camp:Dictionary):
+	camp.hp=balance.enemy_castle_health if has_enemy_castles() else 600.0;camp.max_hp=camp.hp
+	camp.spawn_distance=72.0 if has_enemy_castles() else 24.0;camp.castle=has_enemy_castles()
+	if not camp.castle:return
+	camp.damage_revision=0;camp.sections=[]
+	var castle=preload("res://scripts/forest/forest_enemy_castle.gd");castle.prepare()
+	for piece in castle.pieces:camp.sections.append({"hp":balance.enemy_wall_health,"max_hp":balance.enemy_wall_health,"kind":piece.building.kind})
+func enemy_castle_placement_error(cell:Vector2i,rotation:int)->String:
+	if phase!="preparing":return "Place enemy castles between waves"
+	if not has_enemy_castles():return "Enemy castle testing is available in Wind Meadow Valley"
+	if rotation<0 or rotation>3:return "Choose a valid rotation"
+	if portals.size()>=16:return "Use at most 16 enemy castles"
+	var cells=portal_cells({"x":cell.x,"z":cell.y,"rotation":rotation,"castle":true})
+	var reserved={}
+	for camp in portals:
+		for tile in portal_cells(camp):reserved[tile]=true
+	for tile in cells:
+		if not navigation_region.grow(-1).has_point(tile):return "Keep the castle and its exit inside the map"
+		if reserved.has(tile):return "Keep other castles and their exits clear"
+		if occupancy.has(tile):return "Ground is occupied"
+		if deposits.has(tile):return "Keep gold deposits clear"
+		if cell_of(hero_position)==tile:return "Keep the player clear"
+		for worker in workers.values():
+			if cell_of(worker.pos)==tile:return "Keep workers clear"
+		for defender in defenders.values():
+			if cell_of(defender.pos)==tile:return "Keep mercenaries clear"
+		for post in fighter_posts.values():
+			if cell_of(post)==tile:return "Keep mercenaries clear"
+	var error=terrain.building_error(cells)
+	if not error.is_empty():return error
+	var half=Vector2i(8,6) if rotation%2==0 else Vector2i(6,8)
+	var foundation=[]
+	for x in range(-half.x,half.x+1):
+		for z in range(-half.y,half.y+1):foundation.append(cell+Vector2i(x,z))
+	var ground=terrain.building_ground_range(foundation)
+	if ground.y-ground.x>.7:return "Enemy castles need level ground"
+	return ""
+func place_enemy_castle(cell:Vector2i,rotation:int)->Dictionary:
+	if not enemy_castle_placement_error(cell,rotation).is_empty():return {}
+	var camp={"x":cell.x,"z":cell.y,"rotation":rotation}
+	initialize_enemy_camp(camp);portals.append(camp)
+	for tile in portal_cells(camp):explored[tile]=true;trees.erase(tile)
+	rebuild_navigation();revision+=1
+	return camp
+
+func has_enemy_castles()->bool:return terrain_source=="wind_meadow" and terrain_scale in [2.0,3.0]
+func has_enemy_camps()->bool:return enemy_camps_prototype or terrain_source=="wind_meadow"
+func active_enemy_camps()->int:
+	var count=0
+	if has_enemy_camps():
+		for camp in portals:
+			if camp.hp>0:count+=1
+	return count
+func damage_enemy_objective(index:int,amount:float,section:int=-1):
+	if not has_enemy_camps() or phase!="wave" or not is_finite(amount) or amount<=0:return
+	if index< -1 or index>=portals.size():return
+	if index<0 and (enemy_statue.is_empty() or active_enemy_camps()>0):return
+	var target:Dictionary=enemy_statue if index<0 else portals[index]
+	if target.hp<=0:return
+	var camp=target
+	if section>=0:
+		if not camp.get("castle",false) or section>=camp.sections.size():return
+		target=camp.sections[section]
+		if target.hp<=0:return
+	target.hp=maxf(0,target.hp-amount)
+	if camp.get("castle",false):camp.damage_revision+=1
+	if target.hp==0:
+		if section<0:
+			for part in camp.get("sections",[]):part.hp=0.0
+		navigation_revision+=1;revision+=1
+		if has_enemy_castles():refresh_camp_grid()
+		if section<0 and (index<0 or (terrain_source=="wind_meadow" and active_enemy_camps()==0)):phase="victory";events.append({"kind":"victory"})
+
 func cell_of(p: Vector3)->Vector2i:return Vector2i(roundi(p.x/CELL),roundi(p.z/CELL))
 func food_capacity()->int:
 	var total=starting_food
@@ -158,6 +246,11 @@ func nearest_barracks(from:Vector3)->Dictionary:
 static func portal_direction(portal: Dictionary)->Vector2i:return [Vector2i.UP,Vector2i.RIGHT,Vector2i.DOWN,Vector2i.LEFT][int(portal.rotation)%4]
 static func portal_cells(portal: Dictionary)->Array:
 	var result=[];var anchor=Vector2i(portal.x,portal.z);var exit=anchor+portal_direction(portal)*3
+	if portal.get("castle",false):
+		var half=Vector2i(8,6) if int(portal.rotation)%2==0 else Vector2i(6,8)
+		for x in range(-half.x,half.x+1):
+			for z in range(-half.y,half.y+1):result.append(anchor+Vector2i(x,z))
+		exit=anchor+portal_direction(portal)*12
 	for center_ in [anchor,exit]:
 		for x in range(-2,3):
 			for z in range(-2,3):
@@ -165,12 +258,14 @@ static func portal_cells(portal: Dictionary)->Array:
 				if cell not in result:result.append(cell)
 	return result
 static func region_for(source:String,scale_:float=1.0)->Rect2i:
-	var extent=ceili(40*scale_) if source=="blood_gulch" else 40
+	var extent=ceili(40*scale_) if source in ["blood_gulch","wind_meadow"] else 40
 	return Rect2i(-extent,-extent,extent*2,extent*2)
 static func building_region_for(source:String,scale_:float=1.0)->Rect2i:
 	return region_for(source,scale_).grow(-1)
-static func create_terrain(source:String,scale_:float=1.0)->RefCounted:
+static func create_terrain(source:String,scale_:float=1.0,expansion:float=1.0)->RefCounted:
 	match source:
+		"wind_meadow":
+			var meadow=WindMeadowTerrain.new();meadow.horizontal_scale=scale_;meadow.expansion=expansion;return meadow
 		"kai_highway":return KaiTerrain.new()
 		"blood_gulch":
 			var native=BloodGulchTerrain.new();native.horizontal_scale=scale_;return native
@@ -180,7 +275,7 @@ func world_bounds()->Rect2:
 func navigation_bounds()->Rect2:
 	# Native corridor integrations use this name; share the world domain.
 	return world_bounds()
-func has_elevation()->bool:return terrain_source in ["kai_highway","blood_gulch"] or not ramparts.is_empty()
+func has_elevation()->bool:return terrain_source in ["kai_highway","blood_gulch","wind_meadow"] or not ramparts.is_empty()
 func surface_height(x: float,z: float)->float:return terrain.height(x,z)
 func point(c: Vector2i)->Vector3:return Vector3(c.x*CELL,surface_height(c.x*CELL,c.y*CELL),c.y*CELL)
 func dimensions(kind: String, rotation: int, span: int=0)->Vector2i:
@@ -195,7 +290,7 @@ func footprint(kind: String,c: Vector2i,rotation: int,span: int=0)->Array:
 func center(b: Dictionary)->Vector3:
 	var size_=dimensions(b.kind,b.rotation,b.get("span",0))
 	var base=point(b.cell)+Vector3(size_.x-1,0,size_.y-1)*CELL*.5
-	if terrain_source in ["kai_highway","blood_gulch"] and b.kind in ["tower","barracks","wall","gate"]:
+	if terrain_source in ["kai_highway","blood_gulch","wind_meadow"] and b.kind in ["tower","barracks","wall","gate"]:
 		var ground=terrain.building_ground_range(footprint(b.kind,b.cell,b.rotation,b.get("span",0)))
 		if is_finite(ground.y):base.y=ground.y
 	return base
@@ -240,6 +335,21 @@ func rebuild_navigation():
 		if b.kind!="gate":allied_grid.set_point_solid(c,true)
 		enemy_grid.set_point_weight_scale(c,6.0 if b.kind in ["wall","gate"] else 12.0)
 	navigation_revision+=1;sight_cache.clear()
+	camp_grid_cells.clear();refresh_camp_grid()
+func refresh_camp_grid():
+	for cell in camp_grid_cells:
+		var blocked=trees.has(cell) or terrain.cliff_cell(cell)
+		allied_grid.set_point_solid(cell,blocked or occupancy.has(cell));enemy_grid.set_point_solid(cell,blocked)
+	camp_grid_cells.clear()
+	if not has_enemy_castles():return
+	for box:AABB in preload("res://scripts/forest/forest_camp_prototype.gd").obstacles(self):
+		for x in range(ceili(box.position.x/CELL),floori(box.end.x/CELL)+1):
+			for z in range(ceili(box.position.z/CELL),floori(box.end.z/CELL)+1):
+				var cell=Vector2i(x,z)
+				if not navigation_region.has_point(cell):continue
+				var floor_=surface_height(x*CELL,z*CELL)
+				if box.position.y<=floor_+.1 and box.end.y>floor_+.1:
+					camp_grid_cells[cell]=true;allied_grid.set_point_solid(cell,true);enemy_grid.set_point_solid(cell,true)
 func nearest_open(c: Vector2i,enemy: bool=false)->Vector2i:
 	var grid=enemy_grid if enemy else allied_grid
 	if navigation_region.has_point(c) and not grid.is_point_solid(c):return c
@@ -267,7 +377,7 @@ func gate_clearance_error(cells:Array,new_gate:Dictionary={})->String:
 	if not new_gate.is_empty():
 		for side in gate_approaches(new_gate):
 			for tile in side:
-				if not navigation_region.has_point(tile) or trees.has(tile) or tile==TRAINING_DUMMY_CELL or terrain.cliff_cell(tile):return "Keep the gate passage clear"
+				if not navigation_region.has_point(tile) or trees.has(tile) or terrain.cliff_cell(tile):return "Keep the gate passage clear"
 				if occupancy.has(tile) and buildings[occupancy[tile]].kind!="gate":return "Keep the gate passage clear"
 				for portal in portals:
 					if tile in portal_cells(portal):return "Keep the gate passage clear"
@@ -334,9 +444,8 @@ func placement_error(kind: String,c: Vector2i,rotation: int)->String:
 	var cells=footprint(kind,c,rotation)
 	var ground_error=terrain.building_error(cells)
 	if not ground_error.is_empty():return ground_error
-	var build_region=building_region_for(terrain_source,terrain_scale)
+	var build_region=building_region_for(terrain_source,terrain_scale*map_expansion)
 	for tile in cells:
-		if tile==TRAINING_DUMMY_CELL:return "Keep the training dummy clear"
 		for portal in portals:
 			if tile in portal_cells(portal):return "Keep the spawn portal and its exit clear"
 		if not build_region.has_point(tile):return "Keep the whole building inside the map"
@@ -419,6 +528,7 @@ func repair(id: int)->bool:
 	if b.kind=="gate":close_repaired_gate(id)
 	revision+=1;return true
 func close_repaired_gate(id:int)->bool:
+	sync_enemy_records()
 	var b:Dictionary=buildings.get(id,{})
 	if b.get("kind","")!="gate" or not b.get("breached",false) or b.hp<b.max_hp:return false
 	# Finish rebuilding before sealing, and never trap an actor mid-passage.
@@ -428,7 +538,7 @@ func close_repaired_gate(id:int)->bool:
 	for enemy in enemies.values():
 		if enemy.hp<=0:continue
 		var p:Vector3=enemy.pos
-		var radius:float=preload("res://scripts/forest/forest_enemy_roles.gd").footprint_radius(int(enemy.get("variant",0)))+.1
+		var radius:float=preload("res://scripts/forest/forest_enemy_roles.gd").footprint_radius(int(enemy.get("variant",0)),balance.enemy_size_mult)+.1
 		var closest=Vector2(clampf(p.x,low.x,high.x),clampf(p.z,low.z,high.z))
 		if Vector2(p.x,p.z).distance_squared_to(closest)<radius*radius:return false
 	b.breached=false;rebuild_navigation();revision+=1;update_vision(hero_position);return true
@@ -436,6 +546,7 @@ func damage_building(id: int,amount: float):
 	if phase!="wave" or not buildings.has(id):return
 	var b: Dictionary=buildings[id]
 	if b.kind=="wall" or b.get("breached",false) or amount<=0:return
+	if b.kind=="tower":amount/=team_progression.multiplier("tower_defense")
 	var previous_hp:float=b.hp;b.hp=maxf(0,b.hp-amount*(.5 if b.kind=="barracks" else 1.0))
 	if b.kind=="barracks" and b.hp<previous_hp:b.damage_serial=int(b.get("damage_serial",0))+1
 	if b.kind in ["wall","gate"] and b.hp<previous_hp:
@@ -470,6 +581,15 @@ func update_vision(hero: Vector3):
 func start_wave()->bool:
 	return waves.begin() if waves!=null else false
 
+func sync_enemy_records(handles:PackedInt64Array=PackedInt64Array()):
+	if is_instance_valid(army_runtime) and army_runtime.has_method("publish_model_rows"):army_runtime.publish_model_rows(handles)
+func sync_enemy_targets(ids:Array):
+	if not is_instance_valid(army_runtime) or not army_runtime.has_method("publish_model_rows"):return
+	var handles=PackedInt64Array()
+	for id in ids:
+		var handle:int=army_runtime.handles.get(id,0)
+		if handle!=0:handles.append(handle)
+	if not handles.is_empty():army_runtime.publish_model_rows(handles)
 func tick(delta: float,hero: Vector3):
 	hero_position=hero
 	if phase=="preparing":
@@ -522,5 +642,5 @@ func apply_tower_balance(config: Dictionary):
 			if w.job!=b.id or w.state=="wounded":continue
 			assigned+=1
 			if assigned>balance.tower_workers:workforce.release_job(w)
-			else:w.timer=minf(w.timer,1.0/balance.tower_attack_speed)
+			else:w.timer=minf(w.timer,1.0/(balance.tower_attack_speed*team_progression.multiplier("tower_speed")))
 	revision+=1

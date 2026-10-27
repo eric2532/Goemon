@@ -1,0 +1,554 @@
+[
+  {
+    "path": "ReplaceableTextures/CommandButtons/BTNHeroBlademaster.blp",
+    "archive": "war3.mpq",
+    "bytes": 7917,
+    "sha256": "808b2d9981e2dd4d2d55a11963ec9f24a1a1bf0fc8f81e350b16893672ac4e5c"
+  },
+  {
+    "path": "ReplaceableTextures/CommandButtonsDisabled/DISBTNHeroBlademaster.blp",
+    "archive": "war3.mpq",
+    "bytes": 5034,
+    "sha256": "1a2f64eaa549c5768dca204b48b144ab52f67b888abf795115e7bfc262d7966d"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor00.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "db8efb0a2d76cb4e472c3395086f35391a25c81760509dc58ed109b79e1b9ef6"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor01.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "5521bd761c6bfdb34f742fb3acbe9b8d3a19d07bf6da323a2216e478b5817564"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor02.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "1a33afc10d67014dba95ec31c185bddb2ee62d5d7c62626af9ac3bbbcea36ce8"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor03.blp",
+    "archive": "war3.mpq",
+    "bytes": 1364,
+    "sha256": "879d401e6b8dd2005054688c295d6554c47b914dce0795440ddb676724a2ef91"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor04.blp",
+    "archive": "war3.mpq",
+    "bytes": 1370,
+    "sha256": "f5b015cfe28d21d3c36e14acc2b141f0be30699cdcd644d75e6748a0b8ed41f5"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor05.blp",
+    "archive": "war3.mpq",
+    "bytes": 1364,
+    "sha256": "d0a23c5dd00c59cf5602535482ec2d1e4fd8a0e7f5c7b9327a255bc5b2c2ec97"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor06.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "d799d93194182a56cd8cec408e11214ff5b965fee850bed72a2ec90331dddc98"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor07.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "1ae0931f626db4ac9659d1331e9ca92d09c2b7407d47531fb40c74d008f28587"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor08.blp",
+    "archive": "war3.mpq",
+    "bytes": 1360,
+    "sha256": "eb9faf6de202dc6ed81f38d01a2b9fe26b51aa49b02d7470f65cab577ac957fa"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor09.blp",
+    "archive": "war3.mpq",
+    "bytes": 1364,
+    "sha256": "0acbcedbde39d7fc1ea4752482648c0402b2a906135eab911a5bffc25858e9a6"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor10.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "1349b880e72ba8c3dbbcc3629a43b689e19ed2fcceaf282c58f094e45e43770d"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor11.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "71456b84e06b13c4b2bd3ab9a72ed8bb41d117af15521516e6d88a836a3c7ddd"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor12.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "02ae9b33df5e996d3ded9de3d515fb6aa60720912e309885c495ba289afeb48a"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor13.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "02ae9b33df5e996d3ded9de3d515fb6aa60720912e309885c495ba289afeb48a"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor14.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "02ae9b33df5e996d3ded9de3d515fb6aa60720912e309885c495ba289afeb48a"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor15.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "02ae9b33df5e996d3ded9de3d515fb6aa60720912e309885c495ba289afeb48a"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow00.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "bfc0800307b317b820ee786e5c9587a13893f158f37680672bd98e077c923c38"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow01.blp",
+    "archive": "war3.mpq",
+    "bytes": 1709,
+    "sha256": "c36510d9886113d75e484bc6599ec75f1afac6cd5fd8113cafc0a0ae3542d2b1"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow02.blp",
+    "archive": "war3.mpq",
+    "bytes": 1807,
+    "sha256": "487721616303f1a84969fccff2b1df2c34a4a28135f4f701b88f4d575f50e18e"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow03.blp",
+    "archive": "war3.mpq",
+    "bytes": 1680,
+    "sha256": "ee0e4d372ebb66e254ed4b1f63aad46c74cb55a21778f1539ea5e10f86bf9743"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow04.blp",
+    "archive": "war3.mpq",
+    "bytes": 1795,
+    "sha256": "abce29ecb184869e17799881f067b9dff9b1da6d2af97a05e56ce33cb8843adf"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow05.blp",
+    "archive": "war3.mpq",
+    "bytes": 1781,
+    "sha256": "a4f7b72f5d530eb52cabd56f64ebf8e9020a00a9d993a55a2a422e3470adbfd6"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow06.blp",
+    "archive": "war3.mpq",
+    "bytes": 1677,
+    "sha256": "487161ac56e96ecf5bf0aa92bf2c2fa48afb7f0c0ee9ceec996b8b5e17dee03d"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow07.blp",
+    "archive": "war3.mpq",
+    "bytes": 1847,
+    "sha256": "cce904c52af44078128e109f05d5efffe0a9b71339d40644957e6ad6af159237"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow08.blp",
+    "archive": "war3.mpq",
+    "bytes": 1841,
+    "sha256": "2af22a9de078166f22c3e615832414ec53d99e5186fae50070fda4fc009afd47"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow09.blp",
+    "archive": "war3.mpq",
+    "bytes": 1872,
+    "sha256": "7b493a1b976c0d07c60e1521d58dba4829be8af03650fee4249e1e055371820c"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow10.blp",
+    "archive": "war3.mpq",
+    "bytes": 1679,
+    "sha256": "22b0c58ce32a9299b9a632ebadc6a07b628a92c040d4e6ee65e5dab6e111d4e0"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow11.blp",
+    "archive": "war3.mpq",
+    "bytes": 1638,
+    "sha256": "9135d0a7b72345eb85eb0f094abc5916d1c8f56315472240010e32823051154d"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow12.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "0f341c3be7b6c43214c54c033d4f62e3947ca6fb027d878e61ff103bb9415cd5"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow13.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "0f341c3be7b6c43214c54c033d4f62e3947ca6fb027d878e61ff103bb9415cd5"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow14.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "0f341c3be7b6c43214c54c033d4f62e3947ca6fb027d878e61ff103bb9415cd5"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow15.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "0f341c3be7b6c43214c54c033d4f62e3947ca6fb027d878e61ff103bb9415cd5"
+  },
+  {
+    "path": "Abilities/Spells/Orc/MirrorImage/MirrorImageCaster.mdx",
+    "archive": "war3.mpq",
+    "bytes": 10229,
+    "sha256": "0188996626b62147227a1598ca87d5cd1b6367f63f5796914d2c58b4837723bf"
+  },
+  {
+    "path": "Abilities/Spells/Orc/MirrorImage/MirrorImageDeathCaster.mdx",
+    "archive": "war3.mpq",
+    "bytes": 1606,
+    "sha256": "59c5ba9f453209d997688412ce42a44f0e06bbad1f5b2d89c2b85ad0c0a8a307"
+  },
+  {
+    "path": "Abilities/Spells/Orc/MirrorImage/MirrorImageMissile.mdx",
+    "archive": "war3.mpq",
+    "bytes": 11329,
+    "sha256": "f0daf0e642cce3d6ff0520d2c31c883826f84227eef628f8ec703bca1944538c"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBladeMaster.mdx",
+    "archive": "war3.mpq",
+    "bytes": 183649,
+    "sha256": "b5a2700e41c30a8dc6428d1d2ee5e4b20e890234af2843d4c7b7c3a03643d7e7"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBladeMaster_portrait.mdx",
+    "archive": "war3.mpq",
+    "bytes": 66957,
+    "sha256": "1614c22b43cb2e31057bcff086ba18ca02b0ab1164542dff095d3190247d0c02"
+  },
+  {
+    "path": "abilities/Spells/Orc/MirrorImage/MirrorImage.wav",
+    "archive": "war3.mpq",
+    "bytes": 77560,
+    "sha256": "3cc99487182f6dbe709ee92a06fc92b9f3da393337066d66b7ee529324134fe1"
+  },
+  {
+    "path": "abilities/Spells/Orc/MirrorImage/MirrorImageDeath.wav",
+    "archive": "war3.mpq",
+    "bytes": 90168,
+    "sha256": "3aa4c9c52b1b62b0fcf79e1d720541a593e42ab3c77f2368510ea16cf2f41c35"
+  },
+  {
+    "path": "abilities/Spells/Orc/WindWalk/WindWalk.wav",
+    "archive": "war3.mpq",
+    "bytes": 94328,
+    "sha256": "417632f0281a1867f868ddf07a496e6360ef18c8e3a75d31d3b89b6a3b164e97"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/BladeMasterWhirlwind.wav",
+    "archive": "war3.mpq",
+    "bytes": 37432,
+    "sha256": "e9149cafa4e2101c1b51152d7d7b48f0aa0c6f8a7c08a7b6ab197a6d01eabf80"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/CriticalStrike.wav",
+    "archive": "war3.mpq",
+    "bytes": 86646,
+    "sha256": "3f0877c437890ea5148def4a5664b0ae2d4623d664ba55b293d90985004288d1"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterAttack1.wav",
+    "archive": "war3.mpq",
+    "bytes": 53038,
+    "sha256": "bfeb8fd53fc18a90ab504ac4f73740fbb3f232f79a0f1ff9f1af05f544e245a4"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterAttack2.wav",
+    "archive": "war3.mpq",
+    "bytes": 41334,
+    "sha256": "eb58265fc1b0c155800426539792884f4065e6ed1082e25bd3281c1de4c6cb5c"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBladeMasterDeath.wav",
+    "archive": "war3.mpq",
+    "bytes": 103738,
+    "sha256": "879c78e716d55c0359490c0dd7fd7943bae0c9c36181e833361ef1f0b2f397a4"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBladeMasterHit1.wav",
+    "archive": "war3.mpq",
+    "bytes": 15930,
+    "sha256": "dc261d4954ff05119130e4350abfc5a64f65c9941bace5b23b347d64ddb7e385"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterPissed1.wav",
+    "archive": "war3.mpq",
+    "bytes": 98602,
+    "sha256": "72af2ca2ae8511005282e4d79d06215ff9328a5ebfa80b0702e068cfca555acc"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterPissed2.wav",
+    "archive": "war3.mpq",
+    "bytes": 141352,
+    "sha256": "99da9112df3758d6db1e7ffbfa3c05feb0a6191ab0cab18a33f2e1fcb2c96537"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterPissed3.wav",
+    "archive": "war3.mpq",
+    "bytes": 137582,
+    "sha256": "dd83feaa6fb4d1c95c91bbc803031d9ed85da93122c345e2fcab1fbf9f37dc1a"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterPissed4.wav",
+    "archive": "war3.mpq",
+    "bytes": 71914,
+    "sha256": "a2636b3990fe247436e665e940d3def3c74fdc96a74208f5a749ff2cbbbb0888"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterReady1.wav",
+    "archive": "war3.mpq",
+    "bytes": 76586,
+    "sha256": "aff602574a49d4dcd3794f39cee9ff60abf8acb1432fba1bfadbf22a189c4405"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterWarcry1.wav",
+    "archive": "war3.mpq",
+    "bytes": 94250,
+    "sha256": "721d065f9ea426ad3bf28e01689973c84550f7230541cdcf0d868962cf174238"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterWhat1.wav",
+    "archive": "war3.mpq",
+    "bytes": 32298,
+    "sha256": "7362833e50167e0bbf253093d6baae9b4f28378073195072f195b2187d787aa9"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterWhat2.wav",
+    "archive": "war3.mpq",
+    "bytes": 61482,
+    "sha256": "2f76aa7a14ee194d8c4eabdce458780f2aec0b9a583ddb348a1abaf1756be659"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterWhat3.wav",
+    "archive": "war3.mpq",
+    "bytes": 47274,
+    "sha256": "222f27d59145c2aee9e6b909ec5aa2384b356c0484c644a6a8f68bc5e3696ac5"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterWhat4.wav",
+    "archive": "war3.mpq",
+    "bytes": 40298,
+    "sha256": "78b8b413c3cff3c83165ac476800897848eedeee1f960866d9c3a1c030041bf1"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterYes1.wav",
+    "archive": "war3.mpq",
+    "bytes": 57512,
+    "sha256": "70ac8fac3d2777a39e584a087cc4cc789ddbd8544ea026a0f071dc4af6db8652"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterYes2.wav",
+    "archive": "war3.mpq",
+    "bytes": 9130,
+    "sha256": "75d85212ba3e0e783859c6d1d31d0858ae32129d37e3b0c981d5f8b1bb8e7f7a"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterYes3.wav",
+    "archive": "war3.mpq",
+    "bytes": 27050,
+    "sha256": "03e91570eef97a5b9530d6bae2d3a63e186988bba960adc9af0daab8da587e5a"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterYes4.wav",
+    "archive": "war3.mpq",
+    "bytes": 51882,
+    "sha256": "a4d6ca43b2d057a4e6f06e494b0bc22d470781bf62b416a75d8901395b7942e2"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterYesAttack1.wav",
+    "archive": "war3.mpq",
+    "bytes": 34496,
+    "sha256": "936fd49dea900121217070d0821d13085952932b0a9fe3c02e8e1ee76cbe839e"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterYesAttack2.wav",
+    "archive": "war3.mpq",
+    "bytes": 20906,
+    "sha256": "688a951eaf0fc11077aebac299d424ea9669a46b34e10551dff826369a42a2a9"
+  },
+  {
+    "path": "Units/Orc/HeroBladeMaster/HeroBlademasterYesAttack3.wav",
+    "archive": "war3.mpq",
+    "bytes": 54570,
+    "sha256": "74033e09222c48d01374cb7ab1e0436cc4c3e61d5ec2c3aca6dc03fa8c6a4eae"
+  },
+  {
+    "path": "Textures/HeroBladeMaster.blp",
+    "archive": "war3.mpq",
+    "bytes": 83863,
+    "sha256": "bef42b0db92c8a77967465e31382fe53c978649beed279316361cdbd57759dc8"
+  },
+  {
+    "path": "Textures/Yellow_Star.blp",
+    "archive": "War3x.mpq",
+    "bytes": 4582,
+    "sha256": "c65f2035a7af47228da6d16a2320256559dafeccbfb5b195486ad0cbc2905ce2"
+  },
+  {
+    "path": "Textures/Clouds8x8Fade.blp",
+    "archive": "War3x.mpq",
+    "bytes": 77602,
+    "sha256": "a3ff292c09e2f0712887f5c59d96ba312cb4fe49658044a17681b05a59673950"
+  },
+  {
+    "path": "Textures/firering4.blp",
+    "archive": "War3x.mpq",
+    "bytes": 3681,
+    "sha256": "5b3c610b6e56720d458ff81ff81b1fda30252ef435816c99bea38af83e1657c7"
+  },
+  {
+    "path": "Textures/Yellow_Glow.blp",
+    "archive": "War3x.mpq",
+    "bytes": 2265,
+    "sha256": "a02958b0cd074fd01f1d83388a964aeaa84f633149dc07dbb5633f51b5f284ba"
+  },
+  {
+    "path": "Textures/Green_Glow2.blp",
+    "archive": "War3x.mpq",
+    "bytes": 1838,
+    "sha256": "e12b0669614dcfc74051d15adceaf7c41460bce4cda50a46d14932227a84e65a"
+  },
+  {
+    "path": "Textures/RibbonBlur1.blp",
+    "archive": "War3x.mpq",
+    "bytes": 3802,
+    "sha256": "4dcf7d2d6468f765277f84a7cfb1df4eb5995e6feb5e5ff43a6ed199841d96e8"
+  },
+  {
+    "path": "Textures/Flame4.blp",
+    "archive": "War3x.mpq",
+    "bytes": 4011,
+    "sha256": "26df51c4809a1d89511cef95064802745292070a38a8d2486fc6fbc3383d0f92"
+  },
+  {
+    "path": "Textures/Tornado2b.blp",
+    "archive": "War3x.mpq",
+    "bytes": 14907,
+    "sha256": "4b2cdcaf6f269f44fd50338cb22bef0d8507a03a1d4dbd8647e30e36e5e7fce3"
+  },
+  {
+    "path": "Textures/Red_Glow3.blp",
+    "archive": "War3x.mpq",
+    "bytes": 1943,
+    "sha256": "b05e048d80e56f51cd4741ce4c041b02bdc1fe8fd2eaf8f0aa8bd1d44683b64c"
+  },
+  {
+    "path": "Textures/GenericGlow2c.blp",
+    "archive": "War3x.mpq",
+    "bytes": 7575,
+    "sha256": "b13dbf0223cd16a0d3bb5f20a6d6d427980b467aa0343b3efbc1ea80145a9569"
+  },
+  {
+    "path": "Sound/Units/Orc/OrcDissipate1.wav",
+    "archive": "war3.mpq",
+    "bytes": 100140,
+    "sha256": "073644b8398dd1cfd25a2bbdfbb228078675a48027df0652c8819e25720d3c2f"
+  },
+  {
+    "path": "Sound/Units/Combat/EtherealHeavyHit1.wav",
+    "archive": "war3.mpq",
+    "bytes": 47212,
+    "sha256": "8bd8811b5b9b760129845d4160aca4bc0b9e86490cfccfc4c7fe118e35fd0e00"
+  },
+  {
+    "path": "Sound/Units/Combat/EtherealHeavyHit2.wav",
+    "archive": "war3.mpq",
+    "bytes": 54764,
+    "sha256": "fcea2b9e811cd61a8b993d95efd8923745f0a4aa0376c8c908ead66c6cdfd3ac"
+  },
+  {
+    "path": "Sound/Units/Combat/EtherealHeavyHit3.wav",
+    "archive": "war3.mpq",
+    "bytes": 47148,
+    "sha256": "44351173beef0a4f9bf82738b12d1f27a8ab9a6604fb88f80ca5acf731da9413"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavySliceFlesh1.wav",
+    "archive": "war3.mpq",
+    "bytes": 48738,
+    "sha256": "2a6fe1565b88ea0f0d71abfa0200724042d5c85ce7a7b78e14309efb95b995e4"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavySliceFlesh2.wav",
+    "archive": "war3.mpq",
+    "bytes": 41770,
+    "sha256": "342483693d23b704bb59d75d1a227ea78c67e7c25b71787e5a8ea38cab371c51"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavySliceFlesh3.wav",
+    "archive": "war3.mpq",
+    "bytes": 37682,
+    "sha256": "61e37b36e482830874569a59caa7ba22137a03262b6da1f3c3faa785375cd8fe"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavySliceMetal1.wav",
+    "archive": "war3.mpq",
+    "bytes": 42216,
+    "sha256": "f23a18c38b8685b1c797cdc1fbe6e86505cd26b2260d5352002e107ff1b377ff"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavySliceMetal2.wav",
+    "archive": "war3.mpq",
+    "bytes": 38186,
+    "sha256": "0a8afb99743048ee52bce0448e0f135163143ee9ea5991fb2525aa106aaf70ec"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavySliceMetal3.wav",
+    "archive": "war3.mpq",
+    "bytes": 41184,
+    "sha256": "a8d328a1b9258b9a62a8e45bece5d64e9fdd0e4ea7eb6690667a29a93e1af26e"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavySliceStone1.wav",
+    "archive": "war3.mpq",
+    "bytes": 57206,
+    "sha256": "026dab4371f3ccc7bb51c3ac7e9d21f3165ea0532db2fdecd3caede20d4d7476"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavySliceStone2.wav",
+    "archive": "war3.mpq",
+    "bytes": 59574,
+    "sha256": "5deb8dc67f7eec18db32a18ab311ff7f0611c40ba2e2222375c62709004497e9"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavySliceStone3.wav",
+    "archive": "war3.mpq",
+    "bytes": 50822,
+    "sha256": "c08aed02e3e8c7d6ff3689e3ec944ce4132c2e40327af06909c7262451efadd0"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavySliceWood1.wav",
+    "archive": "war3.mpq",
+    "bytes": 47338,
+    "sha256": "6ea68850a389695ec092cb6a27600c32f2a91a2ded879e6599b8b35ca3feec30"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavySliceWood2.wav",
+    "archive": "war3.mpq",
+    "bytes": 45356,
+    "sha256": "608f1c4d6e8d33df332ee173bad505bdf09fc64d2524f14013961becdbeb2ebe"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavySliceWood3.wav",
+    "archive": "war3.mpq",
+    "bytes": 47082,
+    "sha256": "cbfa01059333ce10e3d2305e2ec07d9078c432cbca2de7649191ac476e7e7851"
+  }
+]

@@ -125,8 +125,8 @@ class PipelineTests(unittest.TestCase):
         self.assertTrue(result['preservation']['passed'])
         glb = importlib.import_module('asset_pipeline.glb').GLB.read(self.output)
         pr = glb.doc['meshes'][0]['primitives'][0]
-        self.assertEqual(glb.accessor(pr['attributes']['JOINTS_0']), [(0,0,0,0)]*6)
-        self.assertEqual(glb.accessor(pr['attributes']['WEIGHTS_0']), [(1.,0.,0.,0.)]*6)
+        self.assertTrue(all(row==(0,0,0,0) for row in glb.accessor(pr['attributes']['JOINTS_0'])))
+        self.assertTrue(all(row==(1.,0.,0.,0.) for row in glb.accessor(pr['attributes']['WEIGHTS_0'])))
 
     def test_refuses_overwriting_authored_input(self):
         fixture(self.source)
@@ -210,6 +210,53 @@ class PipelineTests(unittest.TestCase):
         candidate=glb.read(self.output)
         candidate.doc['scenes'][0]['nodes']=[i for i in candidate.doc['scenes'][0]['nodes'] if i<len(source.doc['nodes'])]
         self.assertFalse(opt.validate_preservation(source,candidate)['passed'])
+
+    def test_protected_mesh_keeps_its_type_geometry_and_transform(self):
+        fixture(self.source)
+        result=importlib.import_module('asset_pipeline.optimize').optimize(self.source,self.output,preserve_mesh_nodes='PartA|PartB')
+        model=importlib.import_module('asset_pipeline.glb').GLB.read(self.output)
+        self.assertIn('mesh',model.doc['nodes'][1]);self.assertIn('mesh',model.doc['nodes'][2])
+        self.assertTrue(result['preservation']['passed'])
+
+    def test_material_extension_texture_survives_pruning(self):
+        fixture(self.source)
+        glb=importlib.import_module('asset_pipeline.glb').GLB
+        model=glb.read(self.source);offset=len(model.binary);model.binary.extend(b'image')
+        model.doc['bufferViews'].append({'buffer':0,'byteOffset':offset,'byteLength':5})
+        model.doc['images']=[{'bufferView':len(model.doc['bufferViews'])-1,'mimeType':'image/png'}];model.doc['textures']=[{'source':0}]
+        model.doc['extensionsUsed']=['KHR_materials_specular']
+        for mat in model.doc['materials']:mat['extensions']={'KHR_materials_specular':{'specularTexture':{'index':0}}}
+        model.write(self.source)
+        result=importlib.import_module('asset_pipeline.optimize').optimize(self.source,self.output)
+        self.assertTrue(result['preservation']['passed']);self.assertEqual(len(glb.read(self.output).doc['textures']),1)
+
+    def test_zero_scale_animated_mesh_preserves_hidden_rest_pose(self):
+        fixture(self.source,animated_mesh=True)
+        glb=importlib.import_module('asset_pipeline.glb').GLB
+        model=glb.read(self.source);model.doc['nodes'][2]['scale']=[0,0,0];model.write(self.source)
+        result=importlib.import_module('asset_pipeline.optimize').optimize(self.source,self.output)
+        self.assertTrue(result['preservation']['passed'])
+
+    def test_sparse_vertex_data_survives_optimization(self):
+        fixture(self.source)
+        glb=importlib.import_module('asset_pipeline.glb').GLB
+        model=glb.read(self.source)
+        index_offset=len(model.binary);model.binary.extend(struct.pack('<I',1))
+        model.doc['bufferViews'].append({'buffer':0,'byteOffset':index_offset,'byteLength':4});indices=len(model.doc['bufferViews'])-1
+        value_offset=len(model.binary);model.binary.extend(struct.pack('<fff',2,0,0))
+        model.doc['bufferViews'].append({'buffer':0,'byteOffset':value_offset,'byteLength':12});values=len(model.doc['bufferViews'])-1
+        model.doc['accessors'][0]['sparse']={'count':1,'indices':{'bufferView':indices,'componentType':5125},'values':{'bufferView':values}}
+        model.write(self.source)
+        self.assertEqual(glb.read(self.source).accessor(0)[1],(2.,0.,0.))
+        result=importlib.import_module('asset_pipeline.optimize').optimize(self.source,self.output)
+        self.assertTrue(result['preservation']['passed'])
+
+    def test_welds_only_identical_corner_attributes(self):
+        fixture(self.source,skinned=True)
+        result=importlib.import_module('asset_pipeline.optimize').optimize(self.source,self.output)
+        self.assertEqual(result['after']['vertices'],3)
+        self.assertEqual(result['after']['triangles'],2)
+        self.assertTrue(result['preservation']['passed'])
 
 
 if __name__ == '__main__': unittest.main()

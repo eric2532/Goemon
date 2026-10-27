@@ -1,5 +1,5 @@
 extends SceneTree
-## Real imported shader/material path, per-instance gear and selection controls.
+## Preserve recovered source looks for asset review and their per-instance materials.
 var checks=0
 var failures=0
 func _initialize():run.call_deferred()
@@ -30,16 +30,6 @@ func run():
 		a.animate(.1,0,true,0,0,false,0,false)
 		check(a.outfit_mask==mask and pages(a)!=original,"Imported animation sampling retains equipment flag %d"%mask)
 	a.set_outfit_mask(0);check(pages(a)==original,"Original look restores the exact base atlas pixels")
-	check(ResourceLoader.exists("res://scripts/recovered_musashi_outfit_picker.gd"),"The recovered looks have a usable equipment picker")
-	if ResourceLoader.exists("res://scripts/recovered_musashi_outfit_picker.gd"):
-		var picker=load("res://scripts/recovered_musashi_outfit_picker.gd").new();root.add_child(picker)
-		await process_frame
-		check(picker.find_children("MusashiGear_*","CheckButton",true,false).size()==5,"The picker exposes all five source equipment pieces")
-		picker.find_child("MusashiGearAll",true,false).pressed.emit()
-		check(picker.preview.outfit_mask==31,"All equipment previews the full recovered appearance")
-		picker.find_child("MusashiGearOriginal",true,false).pressed.emit()
-		check(picker.preview.outfit_mask==0,"Original preset returns the preview to original gear")
-		picker.free()
 	a.free();b.free();finish()
 func finish():
 	print("MUSASHI_OUTFIT_MODEL_RESULT checks=%d failures=%d"%[checks,failures]);quit(1 if failures else 0)

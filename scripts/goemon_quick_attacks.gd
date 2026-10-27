@@ -36,7 +36,7 @@ func tick_coins(delta: float):
 		coin_pending.elapsed+=delta*float(coin_pending.rate)
 		if float(coin_pending.elapsed)>=float(coin_pending.release):
 			var cast=coin_pending;coin_pending={}
-			hero.game.throw_coin(cast.powered,cast.powered,1.0,cast.ticket,true)
+			hero.game.throw_coin(cast.powered,cast.powered,1.0,cast.ticket,true,hero)
 	if coin_clock>0 or not coin_pending.is_empty():return
 	# Background coins own their cast without replacing a manual swing's ticket.
 	var ticket=hero.attack_chain.make_ticket("coin")
@@ -82,10 +82,11 @@ func tick():
 	match action:
 		1:
 			hero.start_attack(false,1)
-		2:hero.start_attack(false,1)
+		2:hero.start_attack(hero.surge_left>0,1,hero.surge_left>0)
 		3:hero.chain_pipe_combat.start("throw")
 		_:
 			if hero.weapon_slot==3:hero.chain_pipe_combat.start("sweep" if action==5 else "throw")
+			elif hero.weapon_slot==2:hero.start_attack(action==5 or hero.surge_left>0,1,hero.surge_left>0)
 			elif action==4 and hero.weapon_slot==1:
 				# One primary click always starts the authored three-hit pipe sequence.
 				hero.start_attack(false,1)

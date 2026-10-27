@@ -18,7 +18,7 @@ func run():
  caster=Hero.new();caster.character_id=14;arena.player=caster
  var floor_=wall(Vector3(0,-.25,0),Vector3(100,.5,100));await physics_frame;await physics_frame
  var ball=orb(Vector3(0,2.2,0),Vector3(5,-8,0));ball._physics_process(.3)
- check(ball.floor_bounces==1 and ball.velocity.y>0 and not ball.exploded,"Recovered ball bounces off a real floor before its radial burst")
+ check(is_equal_approx(ball.fire_speed_scale,1.0) and is_equal_approx(ball.fuse,2.4) and ball.floor_bounces==1 and ball.velocity.y>0 and not ball.exploded,"Recovered ball bounces off a real floor before its radial burst")
  check(ball.body.texture.resource_path.ends_with("/assault/ball.png") and ball.body.pixel_size*64>3.8,"The airborne ball uses the original ROM sprite at a larger diameter than Ed's standing height")
  var before=ball.position;var age=ball.age;arena.paused=true;ball._physics_process(1)
  check(ball.position==before and ball.age==age,"Pause freezes ball flight and its burst clock")
@@ -58,8 +58,8 @@ func run():
  ball.free();incline.free();clear_targets();await physics_frame
  var sheltered=target(Vector3(0,.5,-11));sheltered.hp=1000
  var low_wall=wall(Vector3(0,1,-3),Vector3(6,2,.2));await physics_frame;await physics_frame
- ball=orb(Vector3(0,1.4,0));ball._explode();ball._physics_process(2.9)
- check(sheltered.hp==1000 and ball.blocked[0],"Floor following cannot lift a fire front over a low vertical wall")
+ ball=orb(Vector3(0,1.4,0));ball.fire_speed_scale=3.0;ball._explode();ball._physics_process(1)
+ check(sheltered.hp==1000 and ball.blocked[0],"Triple-speed fire cannot skip over a low vertical wall")
  ball.free();low_wall.free();clear_targets()
  var extended=target(Vector3(0,.5,-16));extended.hp=1000
  var wide=target(Vector3(2.8,.5,-14));wide.hp=1000

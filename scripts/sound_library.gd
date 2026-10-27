@@ -4,6 +4,15 @@ signal changed
 const SLOTS={"orb_ice":"Orb · ice burst", "orb_fire":"Orb · fire burst", "orb_magnet":"Orb · magnet", "enemy_reaction":"Enemy · reaction", "environment_hit":"Environment · impact", "swing":"Pipe · light swing", "heavy_swing":"Pipe · heavy swing", "hit":"Enemy · light impact", "heavy_hit":"Enemy · heavy impact", "throw":"Coin · throw", "coin_hit":"Coin · impact", "coin_heavy_hit":"Coin · heavy impact", "hurt":"Player · hurt", "jump":"Jump", "land":"Landing", "dash":"Evade", "step":"Footstep", "spark":"Pickup / energy", "goemon_dash":"Goemon · E dash", "goemon_dash_hit":"Goemon · E shove", "spin_swing":"Goemon · wind spin", "giant_toss":"Goemon · giant coin toss", "sky_leap":"Goemon · T leap", "sky_stomp":"Goemon · T impact", "chain_throw":"Chain pipe · piercing throw", "chain_sweep":"Chain pipe · fan swing", "chain_hit":"Chain pipe · impact", "chain_explosion":"Chain pipe · R explosion", "chain_fire_sweep":"Chain pipe · R fire swing", "edo_volley":"Edo · triple fireball", "edo_giant":"Edo · giant fireball", "fire_impact":"Edo · fireball impact", "edo_shield":"Edo · R shield activation", "edo_beam_start":"Edo · beam start", "edo_beam_loop":"Edo · sustained beam", "edo_meteor_cast":"Edo · T meteor summon", "edo_meteor_strike":"Edo · T ground strike", "edo_meteor_impact":"Edo · meteor explosion", "edo_dodge":"Edo · fire dodge", "edo_dodge_impact":"Edo · dodge explosion"}
 const Roster=preload("res://scripts/rogue_roster.gd")
 const COMMON_SLOTS=["jump","land","dash","step","hurt","hit","heavy_hit","enemy_reaction","environment_hit","spark","orb_ice","orb_fire","orb_magnet"]
+const HUMANOID_LANDING_IDS=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,22,23,25,26,28,31,32]
+# Goemon and Yae share ROM event 21E; reuse the existing prepared sample.
+const HUMANOID_LANDING=preload("res://assets/audio/recovered_yae/event_21e.wav")
+const LANDING_FILE="res://assets/characters/recovered_skullpion/audio/ground_impact.wav"
+# Reuse recovered effects for playable cues that had prototype beeps.
+const SKULLPION_FILES={"jump":"tail_sweep","spark":"core_recover"}
+static var landing_sound:AudioStream=preload("res://scripts/character_audio_bank.gd").sample(LANDING_FILE) if ResourceLoader.exists(LANDING_FILE) else null
+const BLADE_IMPACTS={"hit":preload("res://assets/audio/recovered_musashi/sword_hit.wav"),"heavy_hit":preload("res://assets/audio/recovered_musashi/fusion_finisher_hit.wav")}
+const COMBAT_DEFAULTS={"hit":BLADE_IMPACTS.hit,"heavy_hit":BLADE_IMPACTS.heavy_hit,"coin_hit":BLADE_IMPACTS.hit,"coin_heavy_hit":BLADE_IMPACTS.heavy_hit,"chain_hit":BLADE_IMPACTS.heavy_hit,"goemon_dash_hit":BLADE_IMPACTS.hit,"environment_hit":preload("res://assets/audio/recovered_musashi/sword_environment_hit.wav")}
 const NATIVE_SLOTS={"native_blade":"Weapon · swing", "native_shot":"Flintlock · shot", "native_bow":"Bow · release", "native_shuriken":"Shuriken · throw", "native_cast":"Magic · cast / empower", "native_thrust":"Lance · thrust", "native_slam":"Weapon · ground slam", "native_shield":"Guard · counter", "native_drink":"Skill · activation", "native_fire":"Fire · burst / impact", "native_pierce":"Projectile · piercing impact", "native_claymore-sweep":"Claymore · swing", "native_claymore-wave":"Claymore · energy wave"}
 const CLASS_EVENTS={
 	3:["blade","shot","drink"], 4:["blade","bow","cast","pierce"],
@@ -13,6 +22,7 @@ const CLASS_EVENTS={
 	11:["blade","drink"], 12:["blade","shield"]
 }
 const LIMIT=8.0
+const LOOP_SLOTS=["finale_wind_loop","finale_fire_loop","finale_core_loop"]
 var folder="user://recorded_sounds"
 var config_path="user://sound_studio.cfg"
 # The studio selection is independent of the active gameplay character.
@@ -21,6 +31,7 @@ var _custom_profiles: Dictionary={}
 var _gain_profiles: Dictionary={}
 var _mute_profiles: Dictionary={}
 var _restored_profiles: Dictionary={}
+var _loop_profiles: Dictionary={}
 var custom: Dictionary={}
 var gains: Dictionary={}
 var mutes: Dictionary={}
@@ -38,6 +49,7 @@ var preview_voice: AudioStreamPlayer
 var bus_name="SoundStudioInput"
 var game: Node
 var music_was_paused=false
+var sfx_was_muted=false
 var take_slot=""
 var active_slot=""
 var discarded_before=0
@@ -48,8 +60,8 @@ func _ready():
 	if config.load(config_path)==OK:device=str(config.get_value("input","device","Default"))
 	_load_profile(character_id)
 	custom=_custom_profiles[character_id];gains=_gain_profiles[character_id];mutes=_mute_profiles[character_id]
-	preview=AudioStreamPlayer.new();add_child(preview)
-	preview_voice=AudioStreamPlayer.new();add_child(preview_voice)
+	preview=AudioStreamPlayer.new();preview.bus=&"SFX";add_child(preview)
+	preview_voice=AudioStreamPlayer.new();preview_voice.bus=&"SFX";add_child(preview_voice)
 
 static func character_key(id: int)->String:
 	return "goemon" if id==1 else ("edo" if id==2 else Roster.class_id(id))
@@ -58,6 +70,7 @@ static func character_name(id: int)->String:
 	return "Goemon" if id==1 else ("Edo" if id==2 else Roster.name_for(id))
 
 static func slots_for(id: int)->Dictionary:
+	if id==29:return preload("res://scripts/forest/dark_lumina_kit.gd").slot_labels()
 	var result={}
 	if id==1:
 		for key in SLOTS:
@@ -79,6 +92,9 @@ static func slots_for(id: int)->Dictionary:
 		result.fusion_finisher_hit="Fusion · combo finisher hit"
 		result.musashi_rotation="Lumina Rotation · original release"
 		result.fusion_fourth_hit="Fusion · fourth attack contact"
+		result.musashi_dkick_hit="D-Kick · original contact"
+		for entry in [["musashi_fence","Fence · crescent launch"],["musashi_fence_hit","Fence · crescent impact"],["musashi_homing","Homing · rocket launch"],["musashi_homing_hit","Homing · rocket impact"],["musashi_grenade","Grenade · throw"],["musashi_grenade_hit","Grenade · explosion"],["musashi_three_way","3-Way · gunfire"]]:result[entry[0]]=entry[1]
+	if id==7:result.knight_finisher_hit="Fourth swing · Musashi aerial finisher impact"
 	if id in [14,15]:
 		for key in ["heavy_swing","throw","edo_beam_start","fire_impact"]:result[key]=SLOTS[key]
 	if id==14:
@@ -93,6 +109,10 @@ static func slots_for(id: int)->Dictionary:
 		result.ben_polearm_strike_voice="Ben · polearm follow-through voice";result.ben_polearm_dash="Ben · polearm dash";result.ben_polearm_finish="Ben · polearm finish"
 	if id==16:result.merge(preload("res://scripts/recovered_sasuke_audio.gd").slot_labels(),true)
 	if id==17:result.merge(preload("res://scripts/recovered_yae_audio.gd").slot_labels(),true)
+	if id in [31,32]:result.merge(preload("res://scripts/warcraft_audio.gd").slot_labels(id),true)
+	if id==28:result.merge(preload("res://scripts/kojiro_audio.gd").slot_labels(),true)
+	if id==30:result.merge(preload("res://scripts/forest/dark_lumina_3_kit.gd").slot_labels(),true)
+	if id==19:result.merge(preload("res://scripts/sonic_audio.gd").slot_labels(),true)
 	if id==Roster.MASTER_CHIEF_ID:
 		result.chief_rifle="Assault Rifle · shot"
 		for slot in [1,2,3,5]:
@@ -103,12 +123,26 @@ static func slots_for(id: int)->Dictionary:
 		result[move.voice]=move.label+" · Voice"
 	return result
 
+static func studio_slots_for(id:int)->Dictionary:
+	var result=slots_for(id)
+	# Keep old profile keys readable, but expose each current move only once.
+	for move in moves_for(id).values():result.erase(move.legacy)
+	for key in ["enemy_reaction","orb_ice","orb_fire","orb_magnet","goemon_transform","ben_bomb_end","kojiro_unused_a83","kojiro_unused_a84"]:result.erase(key)
+	# Ed holds one beam; Ben's native polearm has two cuts.
+	for index in ([2,3] if id==14 else [3] if id==15 else []):
+		result.erase("move_primary_%d_weapon"%index);result.erase("move_primary_%d_voice"%index)
+	return result
+
 static func _move(key: String,label: String,legacy: String,options: Dictionary={})->Dictionary:
 	return {"label":label,"weapon":"move_"+key+"_weapon","voice":"move_"+key+"_voice","legacy":legacy,"options":options}
 
 static func moves_for(id: int)->Dictionary:
 	var result={}
-	if id==Roster.MASTER_CHIEF_ID:
+	if id==19:
+		result.homing=_move("homing","Homing Attack","sonic_homing")
+		result.spin_dash=_move("spin_dash","Spin Dash","sonic_dash")
+		result.jump=_move("jump","Spin Jump","jump")
+	elif id==Roster.MASTER_CHIEF_ID:
 		result.rifle=_move("rifle","Assault Rifle","chief_rifle")
 		for slot in [1,2,3,5]:
 			var spec=preload("res://scripts/master_chief_weapons.gd").data(slot)
@@ -125,7 +159,7 @@ static func moves_for(id: int)->Dictionary:
 	elif id>=3 and id<=12:
 		var abilities: Dictionary=Roster.data(id).abilities
 		var primary="native_thrust" if id==8 else ("native_claymore-sweep" if id==9 else ("native_bow" if id==10 else ("native_cast" if id==6 else "native_blade")))
-		for index in range(5 if id==4 else (1 if id==6 else 3)):
+		for index in range(1 if id==6 else preload("res://assets/rogue/scripts/class_actions.gd").primary_count(Roster.class_id(id))):
 			var key="primary_%d"%(index+1)
 			result[key]=_move(key,str(abilities.cutlass.name)+" · "+str(index+1),primary,{"combo":index,"ranger":id==10,"style":"power" if id==10 and index==2 else Roster.class_id(id)})
 		var secondary={3:"native_shot",4:"native_bow",5:"native_blade",6:"native_cast",7:"native_shield",8:"native_slam",9:"native_claymore-wave",10:"native_bow",11:"native_blade",12:"native_shield"}
@@ -163,6 +197,7 @@ static func move_for_slot(id: int,slot: String)->Dictionary:
 	return {}
 
 static func native_slot(id: int,event: String,options: Dictionary={})->String:
+	if id==7 and event=="heavy" and options.get("finisher",false):return "knight_finisher_hit"
 	if event in ["hit","heavy"]:return "heavy_hit" if event=="heavy" else "hit"
 	if event=="claymore-impact":return "heavy_hit" if options.get("heavy",false) else "hit"
 	if event=="roll":return "dash"
@@ -190,10 +225,27 @@ func _load_profile(id: int):
 			volumes[slot]=clampf(float(gain),0,2)
 		var path=_profile_folder(id)+"/"+slot+".wav"
 		if not FileAccess.file_exists(path) and fallback:path=folder+"/"+slot+".wav"
-		if FileAccess.file_exists(path):
+		# Older builds ignored these stored takes; activate only explicitly saved ones.
+		var enabled=id not in [1,16,17] or bool(config.get_value("recorded:"+key,slot,false))
+		if enabled and not reset and FileAccess.file_exists(path):
 			var audio=AudioStreamWAV.load_from_file(path)
 			if audio and audio.get_length()>0:recordings[slot]=audio
 	_custom_profiles[id]=recordings;_gain_profiles[id]=volumes;_restored_profiles[id]=restored;_mute_profiles[id]=muted
+	_loop_profiles[id]={}
+	for slot in LOOP_SLOTS:_prepare_recorded_loop(id,slot)
+
+func _prepare_recorded_loop(id:int,slot:String):
+	if slot not in LOOP_SLOTS:return
+	_loop_profiles[id].erase(slot)
+	var audio:AudioStreamWAV=_custom_profiles[id].get(slot)
+	if audio==null:return
+	var loop=audio.duplicate()
+	loop.loop_mode=AudioStreamWAV.LOOP_FORWARD;loop.loop_begin=0;loop.loop_end=roundi(loop.get_length()*loop.mix_rate)
+	_loop_profiles[id][slot]=loop
+
+func recorded_loop_for(id:int,slot:String,fallback:AudioStream)->AudioStream:
+	_load_profile(id)
+	return _loop_profiles[id].get(slot,fallback)
 
 func select_character(id: int):
 	if id not in Roster.PLAYABLE_IDS or recording:return
@@ -202,6 +254,11 @@ func select_character(id: int):
 	custom=_custom_profiles[id];gains=_gain_profiles[id];mutes=_mute_profiles[id]
 	status=character_name(id)+" recording hub. Choose a sound, then Record. Microphone is off."
 	changed.emit()
+
+func prepare_character(id:int):
+	if id not in Roster.PLAYABLE_IDS:return
+	_load_profile(id)
+	for slot in slots_for(id):original_for(id,slot)
 
 func custom_for(id: int,slot: String)->AudioStream:
 	if id not in Roster.PLAYABLE_IDS:return null
@@ -228,53 +285,82 @@ func set_muted(slot: String,value: bool):
 	else:mutes.erase(slot)
 	persist();changed.emit()
 
-# Goemon uses recovered originals by user preference. Keep the stored take APIs
-# intact for preservation; other fighters still use their selected recordings.
+# The installed samples are defaults; every fighter can override them locally.
 func stream_for(id: int,slot: String,fallback: AudioStream)->AudioStream:
-	var recorded=custom_for(id,slot) if id not in [1,16,17] else null
-	var original=original_for(id,slot)
-	if source_slot_is_silent(id,slot) and not (id==13 and recorded!=null):return null
-	return recorded if recorded else (original if original else fallback)
+	return playback_for(id,slot,fallback).stream
 
 static func original_for(id: int,slot: String)->AudioStream:
+	if id in [31,32]:return preload("res://scripts/warcraft_audio.gd").stream_for(id,slot)
+	if slot=="land" and id in HUMANOID_LANDING_IDS:return shared_default_for(id,slot)
+	if id==27:return preload("res://scripts/character_audio_bank.gd").event("res://assets/characters/recovered_skullpion/audio/",SKULLPION_FILES,slot)
+	if id==30:return preload("res://scripts/forest/dark_lumina_3_kit.gd").stream_for(slot)
+	if id==29:return preload("res://scripts/forest/dark_lumina_kit.gd").stream_for(slot)
+	if id==9:
+		if slot in ["native_claymore-sweep","move_primary_1_weapon","move_primary_2_weapon","move_primary_3_weapon","move_dive_weapon"]:return preload("res://assets/audio/recovered_musashi/lumina_swing.wav")
+		if slot in ["native_claymore-wave","move_secondary_weapon"]:return preload("res://assets/audio/recovered_musashi/lumina_rotation.wav")
+	if id==28:return preload("res://scripts/kojiro_audio.gd").stream_for(slot)
+	if id==19:return preload("res://scripts/sonic_audio.gd").stream_for(slot)
+	if id==7 and slot=="knight_finisher_hit":return preload("res://assets/audio/recovered_musashi/lumina_rotation.wav")
+	if id==11 and slot in ["native_blade","move_primary_1_weapon","move_primary_2_weapon","move_primary_3_weapon","move_secondary_weapon"]:return preload("res://assets/audio/recovered_musashi/fusion_swing.wav")
+	# These blades have no recovered contact event; reuse Musashi's prepared samples.
+	if id in [3,4,5,7,8,11,12,15] and BLADE_IMPACTS.has(slot):return BLADE_IMPACTS[slot]
+	if id==8 and slot=="native_pierce":return BLADE_IMPACTS.hit
 	if id==Roster.MASTER_CHIEF_ID and slot in ["chief_rifle","move_rifle_weapon"]:
 		var path="res://assets/characters/master_chief/assault_rifle_shot.wav"
-		return load(path) as AudioStream if ResourceLoader.exists(path) else null
+		return preload("res://scripts/character_audio_bank.gd").sample(path) if ResourceLoader.exists(path) else null
 	if id==Roster.MASTER_CHIEF_ID:
 		for number in [1,2,3,5]:
 			var spec=preload("res://scripts/master_chief_weapons.gd").data(number)
 			if slot in ["chief_"+spec.key,"move_"+spec.key+"_weapon"]:
-				return load(preload("res://scripts/master_chief_weapons.gd").sound_path(number)) as AudioStream
+				return preload("res://scripts/character_audio_bank.gd").sample(preload("res://scripts/master_chief_weapons.gd").sound_path(number))
 	if id==1:return preload("res://scripts/recovered_goemon_audio.gd").stream_for(slot)
 	if id==16:return preload("res://scripts/recovered_sasuke_audio.gd").stream_for(slot)
 	if id==17:return preload("res://scripts/recovered_yae_audio.gd").stream_for(slot)
 	if id in [14,15]:return preload("res://scripts/recovered_leader_audio.gd").stream_for(id,slot)
 	return preload("res://scripts/recovered_musashi_audio.gd").stream_for(slot) if id==13 else null
 
+static func shared_default_for(id:int,slot:String)->AudioStream:
+	if slot=="team_level_up":return preload("res://assets/audio/recovered_musashi/level_up.wav")
+	if slot=="jump":return preload("res://assets/audio/recovered_yae/event_21d.wav")
+	if slot=="spark":return preload("res://assets/characters/recovered_skullpion/audio/core_recover.wav")
+	if slot=="land" and id in HUMANOID_LANDING_IDS:return HUMANOID_LANDING
+	if slot=="land":return landing_sound if landing_sound!=null else preload("res://assets/characters/recovered_monsters/audio/dark_lumina_2/slam.wav")
+	return null if id==9 and slot in ["hit","heavy_hit"] else COMBAT_DEFAULTS.get(slot)
+
 static func source_slot_is_silent(id:int,slot:String)->bool:
+	if slot=="team_level_up":return false
+	if slot=="land" and id in HUMANOID_LANDING_IDS:return false
+	if id==30 and slot in ["jump","double_jump","dash","step"]:return true
+	if id==29:return not preload("res://scripts/forest/dark_lumina_kit.gd").slot_labels().has(slot)
+	if id==28:return preload("res://scripts/kojiro_audio.gd").FILES.has(slot) and preload("res://scripts/kojiro_audio.gd").FILES[slot].is_empty()
+	if id==19:return preload("res://scripts/sonic_audio.gd").FILES.has(slot) and preload("res://scripts/sonic_audio.gd").FILES[slot].is_empty()
 	if id not in [13,16,17]:return false
 	var files:Dictionary=preload("res://scripts/recovered_musashi_audio.gd").FILES if id==13 else (preload("res://scripts/recovered_yae_audio.gd").FILES if id==17 else preload("res://scripts/recovered_sasuke_audio.gd").FILES)
 	return files.has(slot) and files[slot].is_empty()
 
 func playback_for(id: int,slot: String,fallback: AudioStream,legacy_override: String="",use_original: bool=true)->Dictionary:
-	var recorded: AudioStream=custom_for(id,slot) if id not in [1,16,17] else null
+	var recorded: AudioStream=custom_for(id,slot)
 	var gain=gain_for(id,slot)
 	var muted=is_muted_for(id,slot)
-	if id==17 and slot in ["yae_katana_3_follow","yae_shield_block"]:
+	var restored=_restored_profiles.has(id) and _restored_profiles[id].has(slot)
+	if not restored and id==7 and slot=="knight_finisher_hit":
+		gain*=gain_for(id,"heavy_hit");muted=muted or is_muted_for(id,"heavy_hit")
+		if recorded==null:recorded=custom_for(id,"heavy_hit")
+	if not restored and id==17 and slot in ["yae_katana_3_follow","yae_shield_block"]:
 		# Secondary native phases retain their own samples while sharing the
 		# owning move's controls, including the legacy weapon control.
 		var parent="move_primary_3_weapon" if slot=="yae_katana_3_follow" else "move_utility_weapon"
 		var legacy="yae_katana_3" if slot=="yae_katana_3_follow" else "yae_shield"
 		gain*=gain_for(id,parent)*gain_for(id,legacy)
 		muted=muted or is_muted_for(id,parent) or is_muted_for(id,legacy)
-	if recorded==null and slot.begins_with("move_") and slot.ends_with("_weapon"):
+	if not restored and recorded==null and slot.begins_with("move_") and slot.ends_with("_weapon"):
 		var move: Dictionary=move_for_slot(id,slot)
 		if not move.is_empty():
 			var legacy: String=move.legacy if legacy_override.is_empty() else legacy_override
-			recorded=custom_for(id,legacy) if id not in [1,16,17] else null
+			recorded=custom_for(id,legacy)
 			gain*=gain_for(id,legacy)
 			muted=muted or is_muted_for(id,legacy)
-	if id==15 and slot in ["ben_bomb_explosion","ben_bomb_end","ben_polearm_strike_voice","ben_polearm_dash","ben_polearm_finish"]:
+	if not restored and id==15 and slot in ["ben_bomb_explosion","ben_bomb_end","ben_polearm_strike_voice","ben_polearm_dash","ben_polearm_finish"]:
 		# Existing recordings own the complete event. A legacy take plays once
 		# at detonation/startup; later native phases must not add another take.
 		var polearm_weapon=slot in ["ben_polearm_dash","ben_polearm_finish"]
@@ -297,7 +383,10 @@ func playback_for(id: int,slot: String,fallback: AudioStream,legacy_override: St
 					muted=muted or is_muted_for(id,"ben_bomb_end")
 			elif inherited!=null:muted=true
 	var original=original_for(id,slot) if use_original else null
-	if source_slot_is_silent(id,slot) and not (id==13 and recorded!=null):fallback=null;muted=true
+	if original==null and use_original:original=shared_default_for(id,slot)
+	# Shared ROM fallbacks retain their prepared pitch, including enemy-owned hits.
+	if original==null and fallback!=null and fallback==COMBAT_DEFAULTS.get(slot):original=fallback
+	if source_slot_is_silent(id,slot) and recorded==null:original=null;fallback=null;muted=true
 	return {"stream":recorded if recorded else (original if original else fallback),"recorded":recorded!=null,"original":original!=null and recorded==null,"gain":gain,"muted":muted}
 
 func devices()->PackedStringArray:
@@ -333,6 +422,8 @@ func begin(slot: String)->bool:
 			for voice in native.voices:voice.stop()
 		for beam in get_tree().get_nodes_in_group("edo_beams"):
 			if game.is_ancestor_of(beam) and is_instance_valid(beam.loop):beam.loop.stop()
+	sfx_was_muted=AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX"))
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"),true)
 	mic.play()
 	status="Recording… allow microphone access if macOS asks. Stops after 8 seconds."
 	changed.emit();return true
@@ -350,7 +441,9 @@ func _process(delta):
 
 func stop_input():
 	if mic:mic.stop()
-	if recording and is_instance_valid(game):game.music.stream_paused=music_was_paused
+	if recording:
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"),sfx_was_muted)
+		if is_instance_valid(game):game.music.stream_paused=music_was_paused
 	recording=false;level=0
 
 func finish():
@@ -403,7 +496,10 @@ func save_take()->bool:
 	var result=take.save_to_wav(temporary)
 	if result==OK:result=DirAccess.rename_absolute(temporary,destination+"/"+take_slot+".wav")
 	if result!=OK:status="Could not save recording (error %s). Your previous sound is unchanged."%result;changed.emit();return false
-	custom[take_slot]=take;status="Saved for "+character_name(character_id)+" · "+slots_for(character_id)[take_slot]+". This recording is now used in gameplay."
+	custom[take_slot]=take;_restored_profiles[character_id].erase(take_slot)
+	_prepare_recorded_loop(character_id,take_slot)
+	if not persist():changed.emit();return false
+	status="Saved for "+character_name(character_id)+" · "+slots_for(character_id)[take_slot]+". This recording is now used in gameplay."
 	take=null;take_slot="";changed.emit();return true
 
 func reset_slot(slot: String):
@@ -413,6 +509,7 @@ func reset_slot(slot: String):
 	if FileAccess.file_exists(path) and DirAccess.remove_absolute(path)!=OK:
 		status="Could not remove the recording.";changed.emit();return
 	custom.erase(slot);gains.erase(slot);mutes.erase(slot);_restored_profiles[character_id][slot]=true
+	_loop_profiles[character_id].erase(slot)
 	if persist():status="Restored "+character_name(character_id)+"'s built-in sound and volume."
 	changed.emit()
 
@@ -425,7 +522,9 @@ func persist()->bool:
 		for slot in _gain_profiles[id]:config.set_value("gain:"+key,slot,_gain_profiles[id][slot])
 		if config.has_section("mute:"+key):config.erase_section("mute:"+key)
 		for slot in _mute_profiles[id]:config.set_value("mute:"+key,slot,true)
+		if config.has_section("defaults:"+key):config.erase_section("defaults:"+key)
 		for slot in _restored_profiles[id]:config.set_value("defaults:"+key,slot,true)
+		for slot in _custom_profiles[id]:config.set_value("recorded:"+key,slot,true)
 	var result=config.save(config_path)
 	if result!=OK:status="Could not save sound settings (error %s)." % result;return false
 	return true

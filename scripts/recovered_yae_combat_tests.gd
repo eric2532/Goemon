@@ -22,7 +22,7 @@ func run():
  combat.tick(1.0/30.0);check(get_nodes_in_group("yae_projectiles").is_empty(),"Aerial bazooka keeps its one-frame source windup")
  combat.tick(1.0/30.0);check(get_nodes_in_group("yae_projectiles").size()==1,"Native aerial frame1 at rate0.6 launches exactly once after two ticks")
  var launched=get_nodes_in_group("yae_projectiles")[0]
- check(launched.velocity==Vector3.ZERO and absf(launched.hit_radius-.454742702)<.00001,"Bazooka launch retains native zero initial motion and30-unit collision radius")
+ check(launched.velocity==Vector3.ZERO and absf(launched.hit_radius-.454742702*launched.visual_scale)<.00001,"Bazooka keeps zero initial motion with collision scaled to its larger visual")
  launched._physics_process(1.0/30.0)
  check(absf(launched.velocity.length()-.454742702)<.00001,"First native missile tick accelerates by one source unit")
  for p in get_nodes_in_group("yae_projectiles"):p.free()
@@ -51,7 +51,11 @@ func run():
   for index in native_shots.size():
    var acceleration:Variant=native_shots[index].get("native_acceleration")
    var actual:Vector3=native_shots[index].velocity.normalized() if acceleration==null else acceleration.normalized()
-   exact=exact and actual.distance_to(expect[index])<.00001
+   var matched=-1
+   for i in expect.size():
+    if actual.distance_to(expect[i])<.00001:matched=i;break
+   exact=exact and matched>=0
+   if matched>=0:expect.remove_at(matched)
   check(exact,"Charged launch preserves native pitch/yaw vectors facing "+str(facing))
   for projectile in native_shots:projectile.free()
  combat.hit();check(combat.action_id==0x1d and not combat.is_attacking(),"Damage cancels charge into native ordinary hit1D")

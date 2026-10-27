@@ -9,6 +9,13 @@ The extension exposes `GoemonTerrainMath : RefCounted`:
 - `set_obstacles(trees: PackedVector2Array, roads: PackedVector2Array, walls: PackedVector3Array)`
 - `sample(from: Vector3, to: Vector3, radius, spacing, horizontal: bool, on_road: bool) -> PackedVector3Array`
 - `walls_clear(points: PackedVector3Array, radius) -> bool`
+- `probe(points: PackedVector3Array, radii: PackedFloat64Array) -> PackedFloat64Array`
+
+`probe` returns interleaved full precision ground heights and point-clearance flags.
+Corpse presentation uses one batch per rendered frame, with the same disk, tree,
+building and exclusive map-edge checks as GDScript. Authored ramparts and custom
+terrain retain their original sampler. Unequal arrays return an empty result;
+invalid points/radii return a NaN height and a false clearance flag.
 
 Trees are world-space X/Z centers. Roads are integer grid cells represented by Vector2. Walls are alternating first/last Vector3 corners with first.y at the foundation height. `sample` excludes the starting point, includes the destination, returns at least one point for a valid zero-length path, and returns an empty array for an unsupported corridor. Walls remain a separate live check.
 
@@ -21,6 +28,17 @@ On macOS with the Xcode Command Line Tools installed, run `./build.sh`. The scri
 Godot discovers `terrain_math.gdextension` on editor import. Before import, the caller can explicitly run `GDExtensionManager.load_extension("res://native/terrain_math/terrain_math.gdextension")` and then `ClassDB.instantiate("GoemonTerrainMath")`. Keep the GDScript fallback when the class is unavailable or the platform is not macOS.
 
 ## Headless smoke checks
+
+Player and borrowed-skill candidate queries use
+`GoemonCrowdRuntime.ordered_enemy_candidates(bounds, actors, source, extras)`.
+It joins pending simulation, queries the existing native spatial grid, rejects
+freed/queued owned proxies and projects candidates into the caller's current
+source order. It retains no scene objects or cached query/order state. Exact
+contacts, cover, hit history and damage remain in the existing combat owner.
+Unknown/custom populations keep the script's conservative source-list path.
+`army_candidate_marshalling_test.gd` checks this transfer, and
+`army_rigid_sweep_test.gd` compares the rigid-proxy fast path against the original
+prepared contact solver, including exact hit times and points.
 
 From the project root:
 

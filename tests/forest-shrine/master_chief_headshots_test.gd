@@ -28,8 +28,14 @@ func aim(at:Vector3):
 	var direction=(at-(game.player.position+Vector3.UP*1.68)).normalized()
 	rig.yaw=atan2(-direction.x,-direction.z);rig.pitch=-asin(direction.y);rig.first_person_recoil=0;rig.update_camera(0)
 func reset_target(actor):
-	var data=game.model.enemies[actor.forest_id];data.hp=10000;actor.hp=10000
+	var at:Vector3=actor.position;var kind:int=actor.variant
+	var yaw:float=game.army_runtime.unit_state(actor.handle).get("yaw",0.0)
+	game.army_runtime.despawn(actor.handle)
+	var fresh=await spawn(at,kind)
+	game.army_runtime.set_pose(fresh.handle,at,yaw);fresh._sync_fitted_pose()
 	game.player.attack_chain.reset();game.player.master_chief_combat.cooldown=0
+	return fresh
+
 func head_center(actor)->Vector3:
 	var data=actor._combat_data();var resource=Soldier.data(actor.variant)
 	var state=Soldier.frame_state(data)
@@ -56,29 +62,29 @@ func run():
 	legacy.queue_free()
 	var target=await spawn(Vector3(0,100,90))
 	# Body ray lies far below the animated head at the same horizontal angle.
-	aim(target.position+Vector3.UP*2.0);reset_target(target);combat.fire_shot()
+	aim(target.combat_bounds().get_center());target=await reset_target(target);combat.fire_shot()
 	var body_damage=10000-target.hp
 	check(body_damage>0 and target.hp>0,"Assault rifle body shots retain ordinary damage")
-	aim(head_center(target));reset_target(target);combat.fire_shot()
+	aim(head_center(target));target=await reset_target(target);combat.fire_shot()
 	check(is_equal_approx(10000-target.hp,body_damage*2),"Assault rifle headshots deal exactly double body damage")
 	# A native pose change/turn must move the head target with the animation.
-	var data=game.model.enemies[target.forest_id];data.facing=.7;data.soldier_action="attack";data.soldier_clip=Soldier.data(0).get_meta("semantics").attack[0];data.soldier_tick=7
-	target._sync_fitted_pose();aim(head_center(target));reset_target(target);combat.fire_shot()
+	game.army_runtime.set_pose(target.handle,target.position,.7)
+	target._sync_fitted_pose();target=await reset_target(target);aim(head_center(target));combat.fire_shot()
 	check(is_equal_approx(10000-target.hp,body_damage*2),"Headshot volume follows the animated and rotated native head")
-	await key(2);aim(target.position+Vector3.UP*2);reset_target(target);combat.fire_shot()
+	await key(2);aim(target.combat_bounds().get_center());target=await reset_target(target);combat.fire_shot()
 	check(target.hp>0 and target.hp<10000,"A pistol body shot does not become a lethal headshot")
 	var wall=StaticBody3D.new();wall.collision_layer=1
 	var shape=CollisionShape3D.new();shape.shape=BoxShape3D.new();shape.shape.size=Vector3(20,16,.5)
 	wall.add_child(shape);game.add_child(wall);wall.position=Vector3(0,106,100);await frames()
-	aim(head_center(target));reset_target(target);combat.fire_shot()
+	aim(head_center(target));target=await reset_target(target);combat.fire_shot()
 	check(target.hp==10000,"A wall prevents a pistol headshot from reaching the enemy")
-	wall.queue_free();await frames();reset_target(target);combat.fire_shot()
+	wall.queue_free();await frames();target=await reset_target(target);combat.fire_shot()
 	check(target.dead and target.hp<=0,"A pistol headshot kills a full-health enemy in one hit through the normal death path")
 	check(game.model.enemies[target.forest_id].hp<=0,"Headshot kill reaches authoritative forest HP")
 	for kind in [1,3,2]:
 		var other=await spawn(Vector3(kind*15,100,70),kind)
 		var region=preload("res://scripts/master_chief_hit_zones.gd").region(other)
-		aim(region.pose*region.bounds.get_center());reset_target(other);combat.fire_shot()
+		aim(region.pose*region.bounds.get_center());other=await reset_target(other);combat.fire_shot()
 		check(other.dead,"Pistol headshot is lethal for enemy role %d"%kind)
 	# Native 0.5..2 Halo units, converted to metres and 3x arena scale.
 	check(is_equal_approx(combat.BLAST_RADIUS,18.288),"Rocket cutoff uses the original 2-unit radius adapted to 3x arena scale")

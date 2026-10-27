@@ -1,0 +1,105 @@
+{
+  "event": "0xB2C",
+  "source_trace": "8002A088 / 8002A2D4 / 8002A544 / 8002A7B4: successful body, mind, Lumina and Fusion level increases call 8002D4C8(B2C,0). 80034314 selects resident descriptor; 8003388C decodes notes and fading repeats.",
+  "executable_sha256": "66371c3a7517e9eabd7cb6cf0c5abffe7296bd4bac29c85b8bf7bb9db349714a",
+  "descriptor": "10890680fa00000010000000",
+  "sequence_address": "0x80068910",
+  "sequence_hex": "0032678002000200001a0000c80000000000000000346781020002000039678102000200003e67810c000e000300008200345981020002000039598102000200003e59810c000e00000a008500000087",
+  "notes": [
+    {
+      "tick": 0,
+      "pitch": 12800,
+      "volume": 103,
+      "gate": 2
+    },
+    {
+      "tick": 2,
+      "pitch": 13312,
+      "volume": 103,
+      "gate": 2
+    },
+    {
+      "tick": 4,
+      "pitch": 14592,
+      "volume": 103,
+      "gate": 2
+    },
+    {
+      "tick": 6,
+      "pitch": 15872,
+      "volume": 103,
+      "gate": 12
+    },
+    {
+      "tick": 20,
+      "pitch": 13312,
+      "volume": 89,
+      "gate": 2
+    },
+    {
+      "tick": 22,
+      "pitch": 14592,
+      "volume": 89,
+      "gate": 2
+    },
+    {
+      "tick": 24,
+      "pitch": 15872,
+      "volume": 89,
+      "gate": 12
+    },
+    {
+      "tick": 38,
+      "pitch": 13312,
+      "volume": 79,
+      "gate": 2
+    },
+    {
+      "tick": 40,
+      "pitch": 14592,
+      "volume": 79,
+      "gate": 2
+    },
+    {
+      "tick": 42,
+      "pitch": 15872,
+      "volume": 79,
+      "gate": 12
+    },
+    {
+      "tick": 56,
+      "pitch": 13312,
+      "volume": 69,
+      "gate": 2
+    },
+    {
+      "tick": 58,
+      "pitch": 14592,
+      "volume": 69,
+      "gate": 2
+    },
+    {
+      "tick": 60,
+      "pitch": 15872,
+      "volume": 69,
+      "gate": 12
+    }
+  ],
+  "bank": "bank_d8f2dc9eb7ed7287",
+  "bank_sha256": "d8f2dc9eb7ed7287f243f3a0e86b6f6fa78de18cfd8396d6bc9533461c80634a",
+  "bank_sources": [
+    "raw/MAIN.CD.dir/FILE_002.dir/0.2"
+  ],
+  "sample": {
+    "index": 22,
+    "id": "sample_0f3e4a347b1d7d1c",
+    "body_offset": 58288,
+    "bytes": 2752
+  },
+  "tone_hex": "00007f403c003c3c000000000000b1b2db80e75f03001600c000c100c200c300",
+  "program": 3,
+  "tone": 9,
+  "wav_sha256": "9dde359d6a0d115346aadfa9ea3e2e9d7cb8ce6ebc7629883c65f289d9760da8",
+  "duration_seconds": 1.2333333333333334,
+  "processing": "Authentic decoded ADPCM, retail pitch/volume tables, note gates and 60Hz timing; one mono PCM16 cue. Dry adaptation uses a 3ms key-off fade; PS1 ADSR, Gaussian interpolation and reverb are not emulated."
+}

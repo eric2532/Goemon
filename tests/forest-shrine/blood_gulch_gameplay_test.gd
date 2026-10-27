@@ -21,7 +21,8 @@ func verify_boundary_player_contact():
  var points=mesh.surface_get_arrays(1)[Mesh.ARRAY_VERTEX] as PackedVector3Array
  var best=Vector3.INF;var best_radius=0.0
  for at in range(0,points.size(),3):
-  var a:Vector3=points[at];var b:Vector3=points[at+1];var c:Vector3=points[at+2]
+  var horizontal=Vector3(game.model.terrain_scale,1,game.model.terrain_scale)
+  var a:Vector3=points[at]*horizontal;var b:Vector3=points[at+1]*horizontal;var c:Vector3=points[at+2]*horizontal
   var p=(a+b+c)/3.0
   if game.model.terrain.contains(p.x,p.z) or not game.world.playable_bounds.grow(-3).has_point(Vector2(p.x,p.z)):continue
   if absf((b-a).cross(c-a).normalized().y)<.97:continue
@@ -43,13 +44,13 @@ func run():
  if is_instance_valid(current_scene):current_scene.queue_free()
  await frames(3);paused=false
  set_meta("forest_painterly_preview",true)
- if has_meta("forest_custom_layout"):remove_meta("forest_custom_layout")
+ set_meta("forest_custom_layout",JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_blood_gulch.json")))
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=config_path;root.add_child(game);current_scene=game;await frames()
  game.playing=true;game.ordinary_pause=false;game.rogue_roster_open=false;game.clear_menu();game.forest_ui.show();game.set_phase_view()
- check(game.model.terrain_source=="blood_gulch","A fresh game defaults to Blood Gulch Castle")
- check(game.model.portals.size()==8,"The default game loads eight enemy approaches")
+ check(game.model.terrain_source=="blood_gulch","The preserved Blood Gulch preset loads its terrain")
+ check(game.model.portals.size()==8,"The preserved preset loads eight enemy approaches")
  check(game.world.map_features.get_node_or_null("BloodGulchTerrain")!=null,"The playable scene builds the recovered canyon")
- var custom=load("res://scripts/forest/forest_map_document.gd").new();custom.load_original();custom.data.title="Existing Saved Castle"
+ var custom=load("res://tests/forest-shrine/reference/map_document.gd").new();custom.load_original();custom.data.title="Existing Saved Castle"
  set_meta("forest_custom_layout",custom.data)
  check(game.active_forest_map().title=="Existing Saved Castle" and game.active_forest_map().get("terrain_source","")=="","An explicitly selected saved map takes precedence over the new default")
  remove_meta("forest_custom_layout")
@@ -61,18 +62,18 @@ func run():
  var editor=game.map_editor
  check(editor.active and editor.name_field.text=="Blood Gulch Castle","The map editor recognizes the native terrain title")
  var button=editor.find_child("BloodGulchForestMap",true,false)
- check(button is Button,"The editor exposes the new native map preset")
- check(editor.find_child("KaiHighwayForestMap",true,false) is Button and editor.find_child("OriginalForestMap",true,false) is Button,"Existing terrain presets remain available")
- editor.load_original();await frames()
+ check(button == null,"Retired map presets are absent from the playable editor")
+ check(editor.find_child("KaiHighwayForestMap",true,false) == null and editor.find_child("OriginalForestMap",true,false) == null,"Retired map presets are absent from the playable editor")
+ preload("res://tests/forest-shrine/reference/map_document.gd").load_editor(editor,preload("res://tests/forest-shrine/reference/map_document.gd").ORIGINAL_PATH);await frames()
  check(game.model.terrain_source=="","The editor can return to the protected original map")
- if button is Button:button.pressed.emit();await frames()
+ preload("res://tests/forest-shrine/reference/map_document.gd").load_editor(editor,preload("res://tests/forest-shrine/reference/map_document.gd").BLOOD_GULCH_PATH);await frames()
  check(game.model.terrain_source=="blood_gulch" and editor.name_field.text=="Blood Gulch Castle","The actual preset button restores canyon terrain and name")
  editor.name_field.text="My Bright Castle";editor.document.rename("My Bright Castle");editor.play_map();await frames()
  check(not editor.active and get_meta("forest_custom_layout",{}).get("title")=="My Bright Castle","Playing an edited native map retains its chosen title")
  game.open_map_editor();await frames()
  check(editor.active and editor.name_field.text=="My Bright Castle","Reopening a custom native map preserves its saved name")
  editor.close_discard();await frames()
- if has_meta("forest_custom_layout"):remove_meta("forest_custom_layout")
+ set_meta("forest_custom_layout",JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_blood_gulch.json")))
  game.player.select_character(18);game.start_wave();game.model.waves.spawn_clock=100000;game.model.waves.pending=999;game.tuning.invincible=true
  game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false);game.camera_focused=true
  game.player.position=Vector3(0,game.model.surface_height(0,84)+.15,84);game.camera_rig.yaw=0;game.camera_rig.pitch=0;game.camera_rig.sync_character_view();game.camera_rig.update_camera(0)

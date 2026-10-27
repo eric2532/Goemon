@@ -1,0 +1,566 @@
+[
+  {
+    "path": "ReplaceableTextures/CommandButtons/BTNPeasant.blp",
+    "archive": "war3.mpq",
+    "bytes": 7830,
+    "sha256": "912f02061d340a72ff8ba9b52628d7f41e56cefbc27e1511763c54d9035561ba"
+  },
+  {
+    "path": "ReplaceableTextures/CommandButtonsDisabled/DISBTNPeasant.blp",
+    "archive": "war3.mpq",
+    "bytes": 4951,
+    "sha256": "4ee8913510652b30c079dd6d9ec176a61fadc7d32b054b85c2e33f462d409996"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor00.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "db8efb0a2d76cb4e472c3395086f35391a25c81760509dc58ed109b79e1b9ef6"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor01.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "5521bd761c6bfdb34f742fb3acbe9b8d3a19d07bf6da323a2216e478b5817564"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor02.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "1a33afc10d67014dba95ec31c185bddb2ee62d5d7c62626af9ac3bbbcea36ce8"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor03.blp",
+    "archive": "war3.mpq",
+    "bytes": 1364,
+    "sha256": "879d401e6b8dd2005054688c295d6554c47b914dce0795440ddb676724a2ef91"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor04.blp",
+    "archive": "war3.mpq",
+    "bytes": 1370,
+    "sha256": "f5b015cfe28d21d3c36e14acc2b141f0be30699cdcd644d75e6748a0b8ed41f5"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor05.blp",
+    "archive": "war3.mpq",
+    "bytes": 1364,
+    "sha256": "d0a23c5dd00c59cf5602535482ec2d1e4fd8a0e7f5c7b9327a255bc5b2c2ec97"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor06.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "d799d93194182a56cd8cec408e11214ff5b965fee850bed72a2ec90331dddc98"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor07.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "1ae0931f626db4ac9659d1331e9ca92d09c2b7407d47531fb40c74d008f28587"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor08.blp",
+    "archive": "war3.mpq",
+    "bytes": 1360,
+    "sha256": "eb9faf6de202dc6ed81f38d01a2b9fe26b51aa49b02d7470f65cab577ac957fa"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor09.blp",
+    "archive": "war3.mpq",
+    "bytes": 1364,
+    "sha256": "0acbcedbde39d7fc1ea4752482648c0402b2a906135eab911a5bffc25858e9a6"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor10.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "1349b880e72ba8c3dbbcc3629a43b689e19ed2fcceaf282c58f094e45e43770d"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor11.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "71456b84e06b13c4b2bd3ab9a72ed8bb41d117af15521516e6d88a836a3c7ddd"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor12.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "02ae9b33df5e996d3ded9de3d515fb6aa60720912e309885c495ba289afeb48a"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor13.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "02ae9b33df5e996d3ded9de3d515fb6aa60720912e309885c495ba289afeb48a"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor14.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "02ae9b33df5e996d3ded9de3d515fb6aa60720912e309885c495ba289afeb48a"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor15.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "02ae9b33df5e996d3ded9de3d515fb6aa60720912e309885c495ba289afeb48a"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow00.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "bfc0800307b317b820ee786e5c9587a13893f158f37680672bd98e077c923c38"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow01.blp",
+    "archive": "war3.mpq",
+    "bytes": 1709,
+    "sha256": "c36510d9886113d75e484bc6599ec75f1afac6cd5fd8113cafc0a0ae3542d2b1"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow02.blp",
+    "archive": "war3.mpq",
+    "bytes": 1807,
+    "sha256": "487721616303f1a84969fccff2b1df2c34a4a28135f4f701b88f4d575f50e18e"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow03.blp",
+    "archive": "war3.mpq",
+    "bytes": 1680,
+    "sha256": "ee0e4d372ebb66e254ed4b1f63aad46c74cb55a21778f1539ea5e10f86bf9743"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow04.blp",
+    "archive": "war3.mpq",
+    "bytes": 1795,
+    "sha256": "abce29ecb184869e17799881f067b9dff9b1da6d2af97a05e56ce33cb8843adf"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow05.blp",
+    "archive": "war3.mpq",
+    "bytes": 1781,
+    "sha256": "a4f7b72f5d530eb52cabd56f64ebf8e9020a00a9d993a55a2a422e3470adbfd6"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow06.blp",
+    "archive": "war3.mpq",
+    "bytes": 1677,
+    "sha256": "487161ac56e96ecf5bf0aa92bf2c2fa48afb7f0c0ee9ceec996b8b5e17dee03d"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow07.blp",
+    "archive": "war3.mpq",
+    "bytes": 1847,
+    "sha256": "cce904c52af44078128e109f05d5efffe0a9b71339d40644957e6ad6af159237"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow08.blp",
+    "archive": "war3.mpq",
+    "bytes": 1841,
+    "sha256": "2af22a9de078166f22c3e615832414ec53d99e5186fae50070fda4fc009afd47"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow09.blp",
+    "archive": "war3.mpq",
+    "bytes": 1872,
+    "sha256": "7b493a1b976c0d07c60e1521d58dba4829be8af03650fee4249e1e055371820c"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow10.blp",
+    "archive": "war3.mpq",
+    "bytes": 1679,
+    "sha256": "22b0c58ce32a9299b9a632ebadc6a07b628a92c040d4e6ee65e5dab6e111d4e0"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow11.blp",
+    "archive": "war3.mpq",
+    "bytes": 1638,
+    "sha256": "9135d0a7b72345eb85eb0f094abc5916d1c8f56315472240010e32823051154d"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow12.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "0f341c3be7b6c43214c54c033d4f62e3947ca6fb027d878e61ff103bb9415cd5"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow13.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "0f341c3be7b6c43214c54c033d4f62e3947ca6fb027d878e61ff103bb9415cd5"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow14.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "0f341c3be7b6c43214c54c033d4f62e3947ca6fb027d878e61ff103bb9415cd5"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow15.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "0f341c3be7b6c43214c54c033d4f62e3947ca6fb027d878e61ff103bb9415cd5"
+  },
+  {
+    "path": "Units/Human/Peasant/peasant.mdx",
+    "archive": "war3.mpq",
+    "bytes": 140367,
+    "sha256": "072ef5f90f96bd737e569d6e6ae4bcdcb8e11f4144d47d2377ce806575f6b58a"
+  },
+  {
+    "path": "Units/Human/Peasant/peasant_Portrait.mdx",
+    "archive": "war3.mpq",
+    "bytes": 36729,
+    "sha256": "f01c67c6e6105236e294baf4c7db4a34b4ee7f7d0aaf4d2a05ceceb5c3a5cbd4"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantDeath.wav",
+    "archive": "war3.mpq",
+    "bytes": 160886,
+    "sha256": "aff3bfb6260ca4d5febf28905af00bf562b2ee16168017e2fa8d6fe7c687c953"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantPissed1.wav",
+    "archive": "war3.mpq",
+    "bytes": 151670,
+    "sha256": "87836ffc0120a3d76630ad23568fef76542ab376ddbba194a20eb18a583a9882"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantPissed2.wav",
+    "archive": "war3.mpq",
+    "bytes": 119158,
+    "sha256": "a30240d4d1d9bf0bbb2a74b6f4a5f360fbd844747f6bacbff4cb21e3f0cf3971"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantPissed3.wav",
+    "archive": "war3.mpq",
+    "bytes": 114806,
+    "sha256": "95aad252de84c153b4ea5fc8014ff3c5265590c45dbd70b7116849501fea0d53"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantPissed4.wav",
+    "archive": "war3.mpq",
+    "bytes": 138198,
+    "sha256": "3704110ac28cdad58a06568cd08301fe0a019833a8e0f8ffd0492727076c86f0"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantPissed5.wav",
+    "archive": "war3.mpq",
+    "bytes": 17014,
+    "sha256": "9e345cc112093293c5baed7d075237146c0f6247484aa64a068780c56781d9a1"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantReady1.wav",
+    "archive": "war3.mpq",
+    "bytes": 50998,
+    "sha256": "3552d38023d8043f1ebe0089101a42bdb0d93c7fb370f536cb52758a3a7c1dce"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantWarcry1.wav",
+    "archive": "war3.mpq",
+    "bytes": 43190,
+    "sha256": "33e337a698f94b9b90b4a1624f96ac51c32712e44005adac69456377a98f51a5"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantWhat1.wav",
+    "archive": "war3.mpq",
+    "bytes": 49014,
+    "sha256": "b45ecae17fc94a8c70b0a79d72ba158dcaa6097cd1e0b2927b52014306fb4485"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantWhat2.wav",
+    "archive": "war3.mpq",
+    "bytes": 27510,
+    "sha256": "6878504bc20543ef2f81d87f42b4d24785b8366472e2d831bd435c84c2ab5202"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantWhat3.wav",
+    "archive": "war3.mpq",
+    "bytes": 41398,
+    "sha256": "a9eac51f905373f31385a8fdd9547f0e1612ebdbf50b67258138b7cf98440cd8"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantWhat4.wav",
+    "archive": "war3.mpq",
+    "bytes": 15030,
+    "sha256": "1049f19363f780c4817e3956ce14ef09898820b7a966f3f7a518ef66226cbabc"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantYes1.wav",
+    "archive": "war3.mpq",
+    "bytes": 38006,
+    "sha256": "5eeab0c5f61f68564f00df9dd57b9e752d5c7fc849995eb71e4d8b530648a6f4"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantYes2.wav",
+    "archive": "war3.mpq",
+    "bytes": 42614,
+    "sha256": "5876e9b8d80e5ec2b854efff516f2e47523dfe1de9fcdf1d75a9b71fca5d6b5c"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantYes3.wav",
+    "archive": "war3.mpq",
+    "bytes": 37622,
+    "sha256": "49732e8cb9d5ca181e9c33b23534b886f754c86744bf8e2cf5dddb64df5a156c"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantYes4.wav",
+    "archive": "war3.mpq",
+    "bytes": 48502,
+    "sha256": "251a56cc98801e4319dd78e0f9afd982c786a2282a22d4166684119827168f66"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantYesAttack1.wav",
+    "archive": "war3.mpq",
+    "bytes": 45174,
+    "sha256": "f2da9a44e00e85e014c6724b2b9403ba7856eb517e1ab2489a47c1848169f717"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantYesAttack2.wav",
+    "archive": "war3.mpq",
+    "bytes": 37238,
+    "sha256": "06829d7d12db30a81c3abfb4cbd586faf16305badc8cd5329d57c5a3c14dd83e"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantYesAttack3.wav",
+    "archive": "war3.mpq",
+    "bytes": 64630,
+    "sha256": "8b20685c431a02478220d1ec51153c3937a04dd5e4dfe4a3bd9a23f488110e8a"
+  },
+  {
+    "path": "Units/Human/Peasant/PeasantYesAttack4.wav",
+    "archive": "war3.mpq",
+    "bytes": 62838,
+    "sha256": "e02dbdd809d05ad7766b333361b73c3b95c28ae41c67722d5ce17114a95e32a6"
+  },
+  {
+    "path": "Textures/Peasant.blp",
+    "archive": "war3.mpq",
+    "bytes": 83420,
+    "sha256": "6cee13dae12d54aebce1e9fef7c579d1e0ac66d258f10193dc4f26ce9ae4e376"
+  },
+  {
+    "path": "Textures/gutz.blp",
+    "archive": "War3x.mpq",
+    "bytes": 32988,
+    "sha256": "e60d550b8f426f2740159cafc1844c648556d1983914b2c72dfbd4843449490c"
+  },
+  {
+    "path": "Abilities/Spells/Other/Repair/PeonRepair1.wav",
+    "archive": "war3.mpq",
+    "bytes": 3816,
+    "sha256": "72b112ac59bb8080e61d6fa5354589123c590499f3b75a8827fc879e4566c788"
+  },
+  {
+    "path": "Abilities/Spells/Other/Repair/PeonRepair2.wav",
+    "archive": "war3.mpq",
+    "bytes": 2814,
+    "sha256": "38643dd0222070244987d79993399503ec66de2394bdbbe45b15641be961b58d"
+  },
+  {
+    "path": "Abilities/Spells/Other/Repair/PeonRepair3.wav",
+    "archive": "war3.mpq",
+    "bytes": 4930,
+    "sha256": "c27f28089f89a264796d29a09a7ac71988ab2b0333d1b4ac23130ea9ca7da651"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerWhat1.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 78214,
+    "sha256": "ae5cb40e1a433fe5efe92b1dd41da56ce3baa77fd001f5bdbaab21d70e0881c3"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerWhat2.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 63110,
+    "sha256": "c6059384780a8b32eda6776a40b10125b53922292caf2360425e0de89d09c68e"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerWhat3.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 95206,
+    "sha256": "759b0f564ebcb7e3ddf6ed6c76f1f90315a75c8b062e3da0b65ba7d6c6322658"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerWhat4.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 119686,
+    "sha256": "33cc3955bdf6d63d4b576c7e6923e23467bcf375ac73ac0c304fe656fee4357d"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerPissed1.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 125574,
+    "sha256": "61a503dc725d24416c4cf0ecc5cde85dc1b3317ca85b16e602b966adc6eec6e4"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerPissed2.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 119686,
+    "sha256": "6577593224d9600707f07fcf4692507ab0fce68e4c8661da144bcc10cde45b88"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerPissed3.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 123782,
+    "sha256": "3fd1f4f5aa32891fc58034f9e08e3a9bb95a9b8630cfe33d2948bf7e65f27cc8"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerPissed4.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 290630,
+    "sha256": "42cf0061205b2e3ebbed53c5133366a3a7cce08f9f274e0bc3523b60e5ff3d26"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerPissed5.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 435206,
+    "sha256": "1dd4785443df6315ad315396a13e24b1f33150a2037a6a765304acc16d9c9507"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerPissed6.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 196230,
+    "sha256": "10f76fe9493ce3efe4c1c3c3b30031e2be478308d44470037ecfb6b7655e25de"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerYesAttack1.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 91014,
+    "sha256": "bb6ae39fd218f137fb52647c6efefae12326b0de1afff4a0a090abf7aa4e3758"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerYes1.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 64774,
+    "sha256": "df1c276bae268f8e05574343ef184011ab5b7f42660fc88cfd718b1f34197703"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerYes2.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 62598,
+    "sha256": "62d82a29117c589b6e026971cd6d314a6808678bd975ebac5466be4e1f4c8679"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerYes3.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 46982,
+    "sha256": "0c80dde4a36101342fa1fcbf6ae808d00837b085f32f35fab34b2cd3fc6fe0f6"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerYes4.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 72966,
+    "sha256": "4c93839a16813f47099e0f5ea91b1206b698bd6ac684fe02082b44f8a8472e81"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerYes5.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 69254,
+    "sha256": "e6ef1bba9c72d9c1af4d439e3b83844d7322842c32e58113dde5d50b7ec10cb3"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerReady1.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 44934,
+    "sha256": "3687f368e34eb8bdac129ad4cd12c4bcc91969e855786bcf247b1f804d1a4117"
+  },
+  {
+    "path": "Units/Critters/BloodElfPeasant/BloodElfEngineerWarcry1.wav",
+    "archive": "War3xlocal.mpq",
+    "bytes": 55686,
+    "sha256": "1264c932f9324fcdda356fa074952b743e143b05a434e7dbcd76fb9ca92e013b"
+  },
+  {
+    "path": "Sound/Units/Combat/EtherealMediumHit1.wav",
+    "archive": "war3.mpq",
+    "bytes": 30548,
+    "sha256": "5b5c0dae16e2a608fbce8c37188eda46aa652f5c22fb054d1ffe074f0d271d6c"
+  },
+  {
+    "path": "Sound/Units/Combat/EtherealMediumHit2.wav",
+    "archive": "war3.mpq",
+    "bytes": 51308,
+    "sha256": "8595e8a5241faed0389725d022ffcc523f54bc278764cfe53276ab634a87b8cd"
+  },
+  {
+    "path": "Sound/Units/Combat/EtherealMediumHit3.wav",
+    "archive": "war3.mpq",
+    "bytes": 41644,
+    "sha256": "224b7137fbd01db236f2f7f830fc5c8fb075d1ef45063c47b1db13a8f413c10f"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalLightChopFlesh1.wav",
+    "archive": "war3.mpq",
+    "bytes": 23178,
+    "sha256": "394f09dc3330361cdeb4331742cecd0b72ea3925074f8d06776c56d9e6cfe7ef"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalLightChopFlesh2.wav",
+    "archive": "war3.mpq",
+    "bytes": 20216,
+    "sha256": "5ecefe4f2ea0520ae99c5d8ec0085e30ecb8f1604f46be107d4c7fbbe6a9157e"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalLightChopFlesh3.wav",
+    "archive": "war3.mpq",
+    "bytes": 29738,
+    "sha256": "5fa3cd78ea154e83c6a7f9c4c58cc141bb02d52ce9eec92c7cd6fce3398a177f"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalLightChopMetal1.wav",
+    "archive": "war3.mpq",
+    "bytes": 17528,
+    "sha256": "44e0132877631483e3d1aa5f68abd6a0d975b4387fc9acc1fb6e5a40ccc7a39f"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalLightChopMetal2.wav",
+    "archive": "war3.mpq",
+    "bytes": 17848,
+    "sha256": "4f11cb9704a4839594a38615734665c63b80f9d5dc4b0fb550df5a760c14171a"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalLightChopMetal3.wav",
+    "archive": "war3.mpq",
+    "bytes": 17880,
+    "sha256": "6d8dc327af7cf067b2bf380a6f63d868b97b98016f1978cd5165faa966caace9"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalLightChopStone1.wav",
+    "archive": "war3.mpq",
+    "bytes": 19450,
+    "sha256": "9b13a7148f0e52ee55ff6308e54fff6436647ad973b4e67aaf80dd15c224a5c5"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalLightChopStone2.wav",
+    "archive": "war3.mpq",
+    "bytes": 17398,
+    "sha256": "9012933384391859db21f03e6bf512bde5dcaf72d47d5994fa16a5a44edb06a9"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalLightChopStone3.wav",
+    "archive": "war3.mpq",
+    "bytes": 23134,
+    "sha256": "ad7b496be7324eaef239f6fbb3eec9dfad48a076d1c6509c76340d2ace99af01"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalLightChopWood1.wav",
+    "archive": "war3.mpq",
+    "bytes": 28138,
+    "sha256": "eb6b5bddbf4065253a9940371de0ab4da768362f9e48b2700a1b5896875f3329"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalLightChopWood2.wav",
+    "archive": "war3.mpq",
+    "bytes": 25130,
+    "sha256": "479f9c644fcd0d07cbbb6b59a0ad4aab039e7a116e6d9c98771b0773dfa90b27"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalLightChopWood3.wav",
+    "archive": "war3.mpq",
+    "bytes": 22928,
+    "sha256": "11966eb92c181a39824f5307280bdb48f3b53f192b7de6da184be83a7522d766"
+  }
+]

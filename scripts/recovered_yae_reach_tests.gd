@@ -1,6 +1,7 @@
 extends SceneTree
 ## Catches range settings scaling hit volumes while leaving visible blades unchanged.
 var failures=0
+const SIZE=preload("res://scripts/weapon_proportions.gd").RECOVERED_SKILL_SCALE
 class ReachGame:
  extends Node
  var tuning={}
@@ -29,6 +30,9 @@ func run():
  caster.requested_reach=2.0;caster.powerups['range']=3.0;model.combat=combat
  check(is_equal_approx(model.reach_scale(),combat.reach_scale()),'Lightweight controller fallback keeps visible and contact reach paired')
  var arena=ReachGame.new();root.add_child(arena);combat.game=arena
+ caster.requested_reach=1;caster.powerups['range']=0
+ check(is_equal_approx(model.reach_scale(),SIZE),'Default gameplay weapons use the shared skill size')
+ caster.requested_reach=2/SIZE;caster.powerups['range']=3
  check(is_equal_approx(model.reach_scale(),3),'Melee setting and live range pickup combine once')
  model.apply_native_pose(0x68,time)
  var extended:Array=model.weapon_segments(0x68,time)
@@ -51,12 +55,12 @@ func run():
   var expected=Transform3D(native.basis.scaled(Vector3.ONE*model.source_scale),native.origin*model.source_scale+model.source_offset)
   untouched=untouched and close_(model.native_parts[pointer].transform,expected)
  check(untouched,'Weapon range leaves head and body proportions unchanged')
- caster.requested_reach=1;caster.powerups['range']=0
+ caster.requested_reach=1/SIZE;caster.powerups['range']=0
  var exact=true
  for action in [0x68,0x69,0x6a,0x6e,0x6f,0x9d]:
   var raw:Dictionary=model.sampler.sample_source(action,.1);var scaled:Dictionary=model.scaled_source_pose(action,.1)
   for pointer in raw:exact=exact and close_(raw[pointer],scaled[pointer])
- check(exact,'Returning to1x preserves every source matrix without drift')
+ check(exact,'Explicit source-size setting preserves every source matrix without drift')
  combat.mode='primary';combat.action_id=0x69;combat.elapsed=.2
  model.locomotion.dirty=true;model.locomotion.evaluate()
  check(model.source_action==0x69 and absf(model.source_time-.2)<.00001,'Actual combat Node owns the rendered action clock')
@@ -65,7 +69,7 @@ func run():
  var source:Dictionary=load('res://scripts/recovered_yae_combat_profile.gd').data().collision_spheres['104']
  combat.action_id=0x68;combat.elapsed=0
  var one:Array=combat._source_spheres(source,0,Transform3D.IDENTITY)
- caster.requested_reach=2;caster.powerups['range']=3
+ caster.requested_reach=2/SIZE;caster.powerups['range']=3
  var three:Array=combat._source_spheres(source,0,Transform3D.IDENTITY)
  var source_pose:Dictionary=model.sampler.sample_source(0x68,0)
  var grip:Vector3=source_pose['0x9007478']*Vector3(0,15,0)

@@ -32,6 +32,18 @@ func sample_source(action_id:int,time_seconds:float)->Dictionary:
 		result[key]=first if t<0.000001 else _interpolate_transform(first,_transform(clip.frames[b][i]),t)
 	return result
 
+func sample_part(action_id:int,time_seconds:float,part:String)->Transform3D:
+	# Collision needs only its weapon anchors, not every body part.
+	var pointer:String=archive.actions.get(str(action_id),"")
+	if pointer.is_empty():return Transform3D.IDENTITY
+	var clip:Dictionary=archive.clips[pointer]
+	var index:int=clip.pointers.find(part)
+	if index<0:return Transform3D.IDENTITY
+	var position=clampf(time_seconds*30.0*native_rate(action_id),0.0,float(clip.frame_count)-1.0)
+	var a=int(floor(position));var b=mini(a+1,int(clip.frame_count)-1);var t=position-a
+	var first=_transform(clip.frames[a][index])
+	return first if t<0.000001 else _interpolate_transform(first,_transform(clip.frames[b][index]),t)
+
 func _transform(values:Array)->Transform3D:
 	return Transform3D(Basis(Vector3(values[0],values[1],values[2]),Vector3(values[3],values[4],values[5]),Vector3(values[6],values[7],values[8])),Vector3(values[9],values[10],values[11]))
 

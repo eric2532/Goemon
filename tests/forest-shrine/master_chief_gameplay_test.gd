@@ -70,6 +70,7 @@ func run():
 	var stopped=combat.shots_fired
 	await frames(12)
 	check(combat.shots_fired==stopped,"Releasing LMB stops automatic fire")
+	preload("res://tests/forest-shrine/training_dummy_fixture.gd").install(game)
 	var dummy_home=game.training_dummy.home
 	game.training_dummy.home=Vector3(0,100,104)
 	await frames(3);before=data.hp

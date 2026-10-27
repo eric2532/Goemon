@@ -9,7 +9,9 @@ var guard_post=Vector3.INF
 var _age_value=0.0
 var age:float:
  get:_refresh_shared();return _age_value
- set(value):_age_value=value;_block_shared()
+ set(value):_refresh_shared();_age_value=value;_block_shared()
+# Native snapshots change live combat modes; idle ownership changes locally.
+func is_idle()->bool:return _state_value=="idle"
 func _ready():state="idle";set_process(false);set_physics_process(false)
 func summon(_target,point:Vector3,_wait:float):
  if runtime.valid(handle):runtime.despawn(handle)

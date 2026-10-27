@@ -83,7 +83,7 @@ func path_clear(height: float)->bool:
 		last=next
 	return true
 func tick(delta: float):
-	delta*=hero.attack_speed_multiplier()
+	delta*=hero.attack_speed_multiplier()*hero.skill_factor(attack_ticket,"travel_speed")
 	elapsed+=delta
 	if not landed and elapsed>=OUT_TIME:
 		landed=true;hero.global_position=landing;impact()
@@ -111,9 +111,9 @@ func tick(delta: float):
 func impact():
 	SkySmoke.emit(hero.game,landing,true)
 	hero.game.sound("sky_stomp",1.0)
-	hero.game.burst(landing+Vector3.UP*.4,Color("ffdf86"),30,1.4)
+	hero.game.burst(landing+Vector3.UP*.4,Color("ffdf86"),30,1.4*hero.skill_factor(attack_ticket,"size"))
 	hero.game.camera_rig.kick(Vector3.DOWN,.13)
-	var radius=BLAST_RADIUS*hero.pickup_multiplier("range")*hero.growth_multiplier()
+	var radius=hero.skill_factor(attack_ticket,"hit_area")*BLAST_RADIUS*hero.pickup_multiplier("range")*hero.growth_multiplier()
 	BreakableBuilding.hit_area(hero.game,landing+Vector3.UP,radius,160*hero.damage_multiplier(),attack_ticket)
 	for enemy in hero.game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead:continue

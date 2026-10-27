@@ -6,7 +6,7 @@ var checks=0
 var failures=0
 func _initialize():run.call_deferred()
 func run():
- var layout=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_blood_gulch.json"))
+ var layout=JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_blood_gulch.json"))
  var a=Model.new();a.reset(90824,{"waves":[[1200,1200,0,1200]]},layout)
  var b=Model.new();b.reset(90824,{"waves":[[1200,1200,0,1200]]},layout);Original.install(b)
  a.buildings[1].hp=1000000000.0;b.buildings[1].hp=1000000000.0;a.start_wave();b.start_wave()

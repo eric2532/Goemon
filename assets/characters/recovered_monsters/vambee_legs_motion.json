@@ -1,0 +1,279 @@
+{
+  "name": "vambee_legs",
+  "source": "raw/SC03.CD.dir/FILE_089.dir/0.4.dec",
+  "source_base": "0x80128158",
+  "source_sha256": "0460e61073b03d9e615ba30f1390240be4aab5ff7fc94c619b7f270c9477d477",
+  "parts": [
+    {
+      "node": 1,
+      "name": "Part_00",
+      "group": "Part",
+      "index": 0,
+      "model": "model_a265308888a8a9bd9534",
+      "source_address": "0x801abdc4",
+      "source_glb": "converted/models/glb/model_a265308888a8a9bd9534.glb",
+      "source_glb_sha256": "5f323e6fed018ad7672426488f32d30509896b05eef6afaa8bb19db6a79141e9",
+      "source_tmd": "converted/models/tmd/d9665b99639faf4799a0.tmd",
+      "source_tmd_sha256": "d9665b99639faf4799a01801f3eaeb1d08add6d797bfa0feb0302e127570e647",
+      "texture_coverage": {
+        "resolved_texture_polygons": 0,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 2,
+      "name": "Part_01",
+      "group": "Part",
+      "index": 1,
+      "model": "model_b93b3df09743e815fc55",
+      "source_address": "0x801ac07c",
+      "source_glb": "converted/models/glb/model_b93b3df09743e815fc55.glb",
+      "source_glb_sha256": "25a12b0d2522034295761cdeb243a292697ae7c49136ebcff06a0b064b6a112e",
+      "source_tmd": "converted/models/tmd/d79358546ceb1df96c63.tmd",
+      "source_tmd_sha256": "d79358546ceb1df96c63bd39e3737b89131f8c46415c79d0050b5aed28801d41",
+      "texture_coverage": {
+        "resolved_texture_polygons": 0,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 3,
+      "name": "Part_02",
+      "group": "Part",
+      "index": 2,
+      "model": "model_bb790af3e3d11b272705",
+      "source_address": "0x801ac214",
+      "source_glb": "converted/models/glb/model_bb790af3e3d11b272705.glb",
+      "source_glb_sha256": "6b56f457e26380222510a0c65e4c31e332d4a9e5d5aa10bd6ce282534940fafe",
+      "source_tmd": "converted/models/tmd/bcf2cd01f3660f6716a4.tmd",
+      "source_tmd_sha256": "bcf2cd01f3660f6716a4f92831826ff6355288c49dee15aa44d4da1198007e41",
+      "texture_coverage": {
+        "resolved_texture_polygons": 0,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 4,
+      "name": "Part_03",
+      "group": "Part",
+      "index": 3,
+      "model": "model_4b7ded0818814ed17b96",
+      "source_address": "0x801ac3ac",
+      "source_glb": "converted/models/glb/model_4b7ded0818814ed17b96.glb",
+      "source_glb_sha256": "ae7efe4aa6121871d8e6f11ce5e03766340ad0515c5f7264fe2c98926aae208e",
+      "source_tmd": "converted/models/tmd/6c02bf63136828133103.tmd",
+      "source_tmd_sha256": "6c02bf631368281331032eb92642bf967170c173e33d2cd65b77046b20251dc3",
+      "texture_coverage": {
+        "resolved_texture_polygons": 0,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 5,
+      "name": "Part_04",
+      "group": "Part",
+      "index": 4,
+      "model": "model_511fc578dc873abda887",
+      "source_address": "0x801ac6dc",
+      "source_glb": "converted/models/glb/model_511fc578dc873abda887.glb",
+      "source_glb_sha256": "eb5f94a07e554a967a2a8e9af7128a5ce4b7329fa2f9f001f17845f650bd511d",
+      "source_tmd": "converted/models/tmd/c4df39c08f9b11884e03.tmd",
+      "source_tmd_sha256": "c4df39c08f9b11884e03ede7f9d69e83dd3a4a0add9eb48fd5e0def9be4653e0",
+      "texture_coverage": {
+        "resolved_texture_polygons": 0,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    }
+  ],
+  "groups": [
+    {
+      "name": "Part",
+      "nodes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "list_address": "0x801aca0c",
+      "count": 5
+    }
+  ],
+  "clips": [
+    {
+      "name": "Source__801b4150",
+      "address": "0x801b4150",
+      "frames": [
+        {
+          "tick": 0,
+          "hold": 2,
+          "pose": "0x801b1070",
+          "tagged_pointer": "0x811b1070",
+          "command_address": "0x801b4150",
+          "packed": true
+        },
+        {
+          "tick": 2,
+          "hold": 2,
+          "pose": "0x801b1098",
+          "tagged_pointer": "0x811b1098",
+          "command_address": "0x801b4158",
+          "packed": true
+        }
+      ],
+      "ticks": 4,
+      "terminal": "loop",
+      "redirect": "0x0",
+      "stream_sha256": "08530de42ab1079f4d34d1859ed853d8ff6ad42bef98f7b40b59778b1c4d379b"
+    }
+  ],
+  "poses": {
+    "0x801b1070": [
+      {
+        "position": [
+          1,
+          -17,
+          11
+        ],
+        "angles": [
+          942,
+          193,
+          173
+        ]
+      },
+      {
+        "position": [
+          -1,
+          -15,
+          26
+        ],
+        "angles": [
+          337,
+          3823,
+          311
+        ]
+      },
+      {
+        "position": [
+          10,
+          -12,
+          22
+        ],
+        "angles": [
+          3313,
+          2169,
+          27
+        ]
+      },
+      {
+        "position": [
+          -15,
+          0,
+          36
+        ],
+        "angles": [
+          820,
+          273,
+          2360
+        ]
+      },
+      {
+        "position": [
+          14,
+          -2,
+          43
+        ],
+        "angles": [
+          1273,
+          120,
+          27
+        ]
+      }
+    ],
+    "0x801b1098": [
+      {
+        "position": [
+          1,
+          -17,
+          11
+        ],
+        "angles": [
+          942,
+          193,
+          173
+        ]
+      },
+      {
+        "position": [
+          -1,
+          -15,
+          26
+        ],
+        "angles": [
+          337,
+          3823,
+          311
+        ]
+      },
+      {
+        "position": [
+          10,
+          -12,
+          22
+        ],
+        "angles": [
+          3313,
+          2169,
+          27
+        ]
+      },
+      {
+        "position": [
+          -15,
+          0,
+          36
+        ],
+        "angles": [
+          820,
+          273,
+          2360
+        ]
+      },
+      {
+        "position": [
+          14,
+          -2,
+          43
+        ],
+        "angles": [
+          1273,
+          120,
+          27
+        ]
+      }
+    ]
+  },
+  "fps": 30,
+  "scale": 0.01,
+  "notes": [
+    "Original geometry, vertex colors, UVs and material pixels; PSX winding converted.",
+    "Every numeric source clip retained, including reactions and special states.",
+    "Mixed packed/full poses decoded per pointer tag; STEP presentation at nominal 30Hz.",
+    "Zero-hold source poses are externally advanced; preview gives each one tick.",
+    "Redirect targets retained in metadata; the preview ends at the redirect.",
+    "Actor root travel, life drain and hit timing are separate gameplay code."
+  ],
+  "glb_sha256": "001e6d15174aa9cdb6fa7dc077bcc30d3b2eed6f10de21f901f84a42c6f90437",
+  "semantics": {
+    "idle": "Source__801b4150",
+    "walk": "Source__801b4150",
+    "attack": "Source__801b4150",
+    "hurt": "Source__801b4150",
+    "death": "Source__801b4150"
+  }
+}

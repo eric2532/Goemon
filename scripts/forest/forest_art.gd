@@ -2,9 +2,10 @@ extends RefCounted
 const WOOD="795239"
 const DARK="3e362b"
 const GOLD="d3a653"
+const Meadow=preload("res://scripts/forest/forest_wind_meadow_assets.gd")
 const StoneFort=preload("res://scripts/forest/forest_stone_fort.gd")
 const Profile=preload("res://scripts/forest/forest_structure_profile.gd")
-const WorkerROM=preload("res://scripts/forest/forest_worker_rom.gd")
+const Worker=preload("res://scripts/forest/forest_worker_warcraft.gd")
 const WallDamage=preload("res://scripts/forest/forest_wall_damage.gd")
 static func solid(parent: Node3D,offset: Vector3,size_: Vector3,layer: int=1,halo_material: String=""):
 	var body=StaticBody3D.new();body.collision_layer=layer;body.collision_mask=0;parent.add_child(body)
@@ -16,9 +17,11 @@ static func roof(parent: Node3D,p: Vector3,size_: Vector3,color: String):
 	return Geo.mesh(parent,mesh,p,Geo.mat(color))
 static func building(b: Dictionary)->Node3D:
 	var root=Node3D.new();root.name="Building_%d"%b.id;root.set_meta("halo_material","stone")
+	var meadow=bool(b.get("wind_meadow",false))
 	match b.kind:
 		"barracks":
-			preload("res://scripts/forest/forest_barracks_art.gd").build(root)
+			if meadow:Meadow.building(root,"barracks")
+			else:preload("res://scripts/forest/forest_barracks_art.gd").build(root)
 			solid(root,Vector3(0,Profile.BARRACKS_BODY_HEIGHT*.5,0),Vector3(17.2,Profile.BARRACKS_BODY_HEIGHT,17.2))
 			solid(root,Vector3(0,Profile.BARRACKS_DECK_CENTER,0),Vector3(17.8,Profile.BARRACKS_DECK_THICKNESS,17.8))
 			for side in [-1,1]:
@@ -44,7 +47,8 @@ static func building(b: Dictionary)->Node3D:
 			Geo.sphere(root,Vector3(4,2.1,5.6),Vector3(2,.5,1.6),Geo.mat(GOLD,.4,.15))
 			solid(root,Vector3(0,2,0),Vector3(17.6,4,11.6))
 		"tower":
-			StoneFort.tower(root)
+			if meadow:Meadow.building(root,"watchtower")
+			else:StoneFort.tower(root)
 			solid(root,Vector3(0,Profile.TOWER_BODY_HEIGHT*.5,0),Vector3(10,Profile.TOWER_BODY_HEIGHT,10))
 			var deck=solid(root,Vector3(0,Profile.TOWER_DECK_CENTER,0),Vector3(11,Profile.TOWER_DECK_THICKNESS,11));deck.name="TowerDeck"
 			solid(root,Vector3(0,Profile.TOWER_LOOKOUT_CENTER,-4),Vector3(11.8,Profile.TOWER_LOOKOUT_THICKNESS,4))
@@ -59,12 +63,18 @@ static func building(b: Dictionary)->Node3D:
 			if b.rotation%4 in [1,2]:extension=Vector2(extension.y,extension.x)
 			var length_=span*6+extension.x+extension.y
 			var center_x=(extension.y-extension.x)*.5
-			StoneFort.wall(root,length_,center_x)
+			if meadow:Meadow.wall(root,length_,center_x)
+			else:StoneFort.wall(root,length_,center_x)
 			var damage=WallDamage.new();root.add_child(damage);damage.setup(b,length_,center_x)
-			solid(root,Vector3(center_x,8,0),Vector3(length_,Profile.WALL_HEIGHT,Profile.WALL_CAP_THICKNESS))
+			var height=16.0 if b.get("enemy_castle",false) else Profile.WALL_HEIGHT
+			# Reuse the authored 16 m wall and fractures; enemy castles retain their size.
+			for visual:Node3D in root.get_children():
+				visual.position.y*=height/16.0;visual.scale.y*=height/16.0
+			solid(root,Vector3(center_x,height*.5,0),Vector3(length_,height,Profile.WALL_CAP_THICKNESS))
 			solid(root,Vector3(center_x,.4,0),Vector3(length_,.8,Profile.WALL_BASE_THICKNESS))
 		"gate":
-			StoneFort.gate(root)
+			if meadow:Meadow.gate(root)
+			else:StoneFort.gate(root)
 			var damage=WallDamage.new();root.add_child(damage);damage.setup(b,Profile.GATE_DOOR_WIDTH)
 			for x in [-Profile.GATE_PILLAR_X,Profile.GATE_PILLAR_X]:solid(root,Vector3(x,Profile.GATE_HEIGHT*.5,0),Vector3(Profile.GATE_PILLAR_WIDTH,Profile.GATE_HEIGHT,Profile.GATE_FRAME_DEPTH))
 			solid(root,Vector3(0,Profile.GATE_HEADER_Y,0),Vector3(Profile.GATE_WIDTH,Profile.GATE_HEADER_HEIGHT,Profile.GATE_FRAME_DEPTH))
@@ -96,20 +106,16 @@ static func add_foundation(root:Node3D,b:Dictionary):
 		solid(foundation,position_,size_,1,"stone")
 static func worker(id: int)->Node3D:
 	var root=Node3D.new();root.name="Worker_%d"%id
-	var body=WorkerROM.new();root.add_child(body);body.setup()
-	var bag=Geo.sphere(root,Vector3(0,1,-.65),Vector3(.9,.9,.65),Geo.mat("c49b42"));bag.name="Cargo";bag.hide()
+	var body=Worker.new();root.add_child(body);body.setup()
+	var bag=Node3D.new();root.add_child(bag);bag.name="Cargo";bag.hide() # Native Gold clips carry the original sack.
 	var ring=Geo.torus(root,Vector3(0,.08,0),.72,.85,Geo.mat("f4d68b",0,.6));ring.name="Selected";ring.hide()
-	var bow=Node3D.new();bow.name="Bow";root.add_child(bow);bow.hide()
-	Geo.beam(bow,Vector3(.7,.65,.25),Profile.BOW_LOCAL_GRIP,.07,Geo.mat(WOOD))
-	Geo.beam(bow,Profile.BOW_LOCAL_GRIP,Vector3(.7,1.85,.25),.07,Geo.mat(WOOD))
-	Geo.beam(bow,Vector3(.7,.65,.25),Vector3(.7,1.85,.25),.018,Geo.mat("ddd1ae"))
+	var bow=Node3D.new();bow.name="Bow";root.add_child(bow);bow.hide();bow.position=Profile.TOWER_MUZZLE_OFFSET-Profile.BOW_LOCAL_GRIP
+	Geo.beam(bow,Vector3(.7,.65,.95),Profile.BOW_LOCAL_GRIP,.07,Geo.mat(WOOD))
+	Geo.beam(bow,Profile.BOW_LOCAL_GRIP,Vector3(.7,1.85,.95),.07,Geo.mat(WOOD))
+	Geo.beam(bow,Vector3(.7,.65,.95),Vector3(.7,1.85,.95),.018,Geo.mat("ddd1ae"))
 	return root
-static func animate_worker(node:Node3D,worker_:Dictionary,age:float):
-	var body=node.get_node("GoemonBody")
-	body.update_worker(worker_,age)
-	if worker_.state=="garrison":
-		# The bow's central wooden grip follows the raised ROM weapon hand.
-		node.get_node("Bow").position=body.pickaxe.position-Profile.BOW_LOCAL_GRIP
+static func animate_worker(node:Node3D,worker_:Dictionary,age:float)->bool:
+	return node.get_node("WorkerBody").update_worker(worker_,age)
 static func label(parent: Node3D,text_: String,height: float)->Label3D:
 	var label_=Label3D.new();label_.text=text_;label_.position.y=height
 	label_.font_size=48;label_.pixel_size=.045;label_.billboard=BaseMaterial3D.BILLBOARD_ENABLED

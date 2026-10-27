@@ -1,0 +1,560 @@
+{
+  "sources": {
+    "/Users/eric/Desktop/Projects_Codex/Warcraft/work/HeroBladeMaster.mdx.json": "638bba853f33266e8b2a8b3a64948f6a9f308e13af1cc77947f06ad07078eb9f",
+    "/Users/eric/Desktop/Projects_Codex/Warcraft/work/IllidanEvil.mdx.json": "6e5a21980b0b8b9ca7d05dac56f50d50a36d4b28322bbe34b23b26d84c5cdd50",
+    "/Users/eric/Desktop/Projects_Codex/Warcraft/work/ImmolationTarget.mdx.json": "19db1b43d80fa329f9e4090e23ffa03d0e149aa56352c88a8c61c24a8f122cd6",
+    "/Users/eric/Desktop/Projects_Codex/Warcraft/assets/DemonHunter/original/Textures/Clouds8x8FadeWhite.png": "d369e1c9cdc0265a28628c4b3652c3d6361d50da0d8e6840b146f29eb24ce0e4",
+    "/Users/eric/Desktop/Projects_Codex/Warcraft/assets/Blademaster/original/Textures/GenericGlow2c.png": "bffa6ecb77c9e84a7a5014fa4ccf786a637670bfdb4ba28e20677acd37a0f185",
+    "/Users/eric/Desktop/Projects_Codex/Warcraft/assets/Blademaster/original/Textures/Flame4.png": "40c65e666b2526b2934d0692a16c3af7ed5fbb13744b02e8cf97b7d11ec954e2",
+    "/Users/eric/Desktop/Projects_Codex/Warcraft/assets/Blademaster/original/Textures/Green_Glow2.png": "bbe01788be2d210fb08d4cf99d79d9693060854e2b644638cda5f8864ea42851",
+    "/Users/eric/Desktop/Projects_Codex/Warcraft/assets/DemonHunter/original/Textures/Green_Glow3.png": "6b9748b86377749123760eec55a2d01b7ab27c6222a6649279eefadbf4efc247"
+  },
+  "emitters": {
+    "immolation": {
+      "Name": "BlizParticle06",
+      "ObjectId": 3,
+      "Parent": null,
+      "Flags": 561152,
+      "Speed": 160,
+      "Variation": 0.019999999552965164,
+      "Latitude": 0,
+      "Gravity": 0,
+      "LifeSpan": 0.699999988079071,
+      "EmissionRate": 50,
+      "Width": 60,
+      "Length": 60,
+      "FilterMode": 1,
+      "Rows": 8,
+      "Columns": 8,
+      "FrameFlags": 2,
+      "TailLength": 1,
+      "Time": 0.5,
+      "SegmentColor": [
+        [
+          0.8666669726371765,
+          1,
+          0.8039219975471497
+        ],
+        [
+          0.5529410243034363,
+          0.9019610285758972,
+          0.17647099494934082
+        ],
+        [
+          0,
+          0.764706015586853,
+          0
+        ]
+      ],
+      "Alpha": [
+        162,
+        216,
+        0
+      ],
+      "ParticleScaling": [
+        25.799999237060547,
+        14.699999809265137,
+        0.4000000059604645
+      ],
+      "LifeSpanUVAnim": [
+        0,
+        32,
+        1
+      ],
+      "DecayUVAnim": [
+        33,
+        63,
+        1
+      ],
+      "TailUVAnim": [
+        0,
+        0,
+        1
+      ],
+      "TailDecayUVAnim": [
+        0,
+        0,
+        1
+      ],
+      "TextureID": 0,
+      "Squirt": false,
+      "PriorityPlane": 0,
+      "ReplaceableId": 0,
+      "Visibility": {
+        "Keys": [
+          {
+            "Frame": 4133,
+            "Vector": [
+              0
+            ]
+          }
+        ],
+        "LineType": 0,
+        "GlobalSeqId": null
+      },
+      "PivotPoint": [
+        -0.3749319911003113,
+        0.4152109920978546,
+        150.57400512695312
+      ],
+      "texture": "Clouds8x8FadeWhite.png"
+    },
+    "spin": {
+      "Name": "BlizParticle03tubespinner",
+      "ObjectId": 69,
+      "Parent": null,
+      "Flags": 528384,
+      "Speed": 240,
+      "Variation": 0.019999999552965164,
+      "Latitude": 0.5,
+      "Gravity": 0,
+      "LifeSpan": 2.0999999046325684,
+      "EmissionRate": 9.899999618530273,
+      "Width": 0,
+      "Length": 0,
+      "FilterMode": 1,
+      "Rows": 1,
+      "Columns": 1,
+      "FrameFlags": 1,
+      "TailLength": 2,
+      "Time": 0.5,
+      "SegmentColor": [
+        [
+          1,
+          0.2627449929714203,
+          0.06666669994592667
+        ],
+        [
+          1,
+          0.4039219915866852,
+          0.007843139581382275
+        ],
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "Alpha": [
+        236,
+        119,
+        0
+      ],
+      "ParticleScaling": [
+        120,
+        150,
+        200
+      ],
+      "LifeSpanUVAnim": [
+        0,
+        32,
+        1
+      ],
+      "DecayUVAnim": [
+        33,
+        63,
+        1
+      ],
+      "TailUVAnim": [
+        0,
+        0,
+        1
+      ],
+      "TailDecayUVAnim": [
+        0,
+        0,
+        1
+      ],
+      "TextureID": 7,
+      "Squirt": false,
+      "PriorityPlane": 0,
+      "ReplaceableId": 0,
+      "Visibility": {
+        "Keys": [
+          {
+            "Frame": 2333,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 6000,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 14333,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 17000,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 18333,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 22000,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 28767,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 30500,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 31833,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 33133,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 36200,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 50133,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 54567,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 56667,
+            "Vector": [
+              1
+            ]
+          },
+          {
+            "Frame": 57100,
+            "Vector": [
+              0
+            ]
+          }
+        ],
+        "LineType": 0,
+        "GlobalSeqId": null
+      },
+      "PivotPoint": [
+        2.2238199710845947,
+        -2.051539897918701,
+        92.04440307617188
+      ],
+      "texture": "GenericGlow2c.png"
+    },
+    "slam": {
+      "Name": "BlizParticle01",
+      "ObjectId": 68,
+      "Parent": null,
+      "Flags": 36864,
+      "Speed": 762,
+      "Variation": 0.02655000053346157,
+      "Latitude": 63.5,
+      "Gravity": 0,
+      "LifeSpan": 0.36500000953674316,
+      "EmissionRate": 250,
+      "Width": 5.199999809265137,
+      "Length": 5.24399995803833,
+      "FilterMode": 1,
+      "Rows": 1,
+      "Columns": 1,
+      "FrameFlags": 3,
+      "TailLength": 0.20000000298023224,
+      "Time": 0.5,
+      "SegmentColor": [
+        [
+          0.9882349967956543,
+          0.23137299716472626,
+          0
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "Alpha": [
+        255,
+        255,
+        0
+      ],
+      "ParticleScaling": [
+        15,
+        10,
+        1
+      ],
+      "LifeSpanUVAnim": [
+        0,
+        0,
+        1
+      ],
+      "DecayUVAnim": [
+        0,
+        0,
+        1
+      ],
+      "TailUVAnim": [
+        0,
+        0,
+        1
+      ],
+      "TailDecayUVAnim": [
+        0,
+        0,
+        1
+      ],
+      "TextureID": 4,
+      "Squirt": false,
+      "PriorityPlane": 0,
+      "ReplaceableId": 0,
+      "Visibility": {
+        "Keys": [
+          {
+            "Frame": 2333,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 6000,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 14333,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 17000,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 17800,
+            "Vector": [
+              1
+            ]
+          },
+          {
+            "Frame": 17900,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 18333,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 22000,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 28767,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 30500,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 31833,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 33133,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 36200,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 50133,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 54567,
+            "Vector": [
+              0
+            ]
+          },
+          {
+            "Frame": 56667,
+            "Vector": [
+              0
+            ]
+          }
+        ],
+        "LineType": 0,
+        "GlobalSeqId": null
+      },
+      "PivotPoint": [
+        115.44200134277344,
+        -6.071159839630127,
+        -6.036109924316406
+      ],
+      "texture": "Flame4.png"
+    }
+  },
+  "billboards": {
+    "31": [
+      "Shimmer",
+      "ball1",
+      "ball02",
+      "ball03",
+      "ball04",
+      "ball05",
+      "ball06",
+      "ball07",
+      "ball08",
+      "ball09",
+      "whirlWindDummy",
+      "bone temp01",
+      "bone temp02"
+    ],
+    "32": [
+      "Plane02",
+      "HeroGlow03",
+      "WeaponGlow_08",
+      "WeaponGlow_07",
+      "WeaponGlow_06",
+      "WeaponGlow_05",
+      "WeaponGlow_04",
+      "WeaponGlow_03",
+      "WeaponGlow_02",
+      "WeaponGlow_09",
+      "WeaponGlow_11",
+      "WeaponGlow_12",
+      "WeaponGlow_13",
+      "WeaponGlow_10",
+      "WeaponGlow_15",
+      "WeaponGlow_16",
+      "WeaponGlow_17",
+      "WeaponGlow_14",
+      "WeaponGlow_23",
+      "WeaponGlow_24",
+      "WeaponGlow_25",
+      "WeaponGlow_22",
+      "WeaponGlow_19",
+      "WeaponGlow_20",
+      "WeaponGlow_18",
+      "WeaponGlow_21",
+      "Plane03 Alternate",
+      "HeroGlow05",
+      "Plane62 Alternate",
+      "Plane61 Alternate",
+      "HeroGlow39",
+      "HeroGlow38",
+      "Plane65 Alternate",
+      "HeroGlow42",
+      "Plane66 Alternate",
+      "HeroGlow43",
+      "Plane57 Alternate",
+      "Plane56 Alternate",
+      "HeroGlow35",
+      "HeroGlow34",
+      "Plane63 Alternate",
+      "HeroGlow40",
+      "Plane64 Alternate",
+      "HeroGlow41",
+      "Plane58 Alternate",
+      "Plane60 Alternate",
+      "Plane67 Alternate",
+      "HeroGlow36",
+      "HeroGlow37",
+      "HeroGlow44",
+      "Plane73 Alternate",
+      "Plane68 Alternate",
+      "HeroGlow50",
+      "HeroGlow45",
+      "Plane71 Alternate",
+      "HeroGlow48",
+      "Plane75 Alternate",
+      "HeroGlow52",
+      "Plane72 Alternate",
+      "Plane69 Alternate",
+      "HeroGlow49",
+      "HeroGlow46",
+      "Plane70 Alternate",
+      "HeroGlow47",
+      "Plane74 Alternate",
+      "HeroGlow51",
+      "Plane76 Alternate",
+      "HeroGlow53",
+      "Plane77 Alternate",
+      "Plane78 Alternate",
+      "HeroGlow54",
+      "HeroGlow55",
+      "Plane79 Alternate",
+      "HeroGlow56",
+      "Plane91",
+      "Plane92"
+    ]
+  },
+  "upright": {
+    "31": [
+      "whirlWindDummy",
+      "bone temp01",
+      "bone temp02"
+    ],
+    "32": [
+      "HeroGlow03"
+    ]
+  }
+}

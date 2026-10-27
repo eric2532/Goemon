@@ -41,5 +41,13 @@ int main(){
  terrain.air_profile.kept=0;
  assert(!terrain.ray_clear({-3,5,0},{3,5,0}));
  assert(terrain.air_profile.kept==1); // The second wall face is never collected.
- std::cout<<"ARMY_AIR_QUERY_RESULT checks=1023 failures=0\n";
+ NavigationData walls;walls.origin={-240,0,-240};
+ auto wall=[&](float x,int owner){walls.air_faces.insert(walls.air_faces.end(),{{x,0,-12},{x,24,-12},{x,24,12},{x,0,-12},{x,24,12},{x,0,12}});walls.air_owner.insert(walls.air_owner.end(),{owner,owner});};
+ wall(18,77);Terrain near;near.configure(walls);near.air_profile.enabled=true;
+ auto expected=near.climb_surface({0,0,0},12,35);assert(expected.valid);
+ wall(34,88);Terrain farther;farther.configure(walls);farther.air_profile.enabled=true;
+ auto chosen=farther.climb_surface({0,0,0},12,35);
+ assert(chosen.valid&&chosen.owner==expected.owner&&chosen.base.x==expected.base.x&&chosen.base.y==expected.base.y&&chosen.base.z==expected.base.z);
+ assert(farther.air_profile.capsule_tests==near.air_profile.capsule_tests&&"Farther walls need no additional approach/footing sweeps");
+ std::cout<<"ARMY_AIR_QUERY_RESULT checks=1026 failures=0\n";
 }

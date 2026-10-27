@@ -35,6 +35,12 @@ func run():
 func verify_presentation():
  var renderer=load("res://scripts/forest/crowd/army_renderer.gd").new();root.add_child(renderer);renderer.configure(null)
  var effects=renderer.presentation
+ var bullet={"shield_positions":PackedVector3Array(),"projectile_ids":PackedInt64Array([1]),"projectile_kinds":PackedInt32Array([1]),"projectile_power":PackedByteArray([0]),"projectile_teams":PackedByteArray([0]),"projectile_age":PackedFloat32Array([0]),"projectile_directions":PackedVector3Array([Vector3.BACK]),"projectile_scales":PackedFloat32Array([1]),"projectile_positions":PackedVector3Array([Vector3.ZERO])}
+ effects.present_snapshot(bullet)
+ if RenderingServer.get_rendering_device()!=null:
+  var bullet_buffer:PackedFloat32Array=effects.projectile_batches.bullet0.multimesh.buffer
+  check(is_equal_approx(bullet_buffer[0],1.0/3.0) and is_equal_approx(bullet_buffer[5],1.0/3.0) and is_equal_approx(bullet_buffer[10],1.0/3.0),"Enemy bullets match the one-third soldier scale")
+ effects.clear()
  var baseline:Dictionary=effects.counts()
  var runtime=load("res://scripts/forest/crowd/army_runtime.gd").new();runtime.configure(null);runtime.set_navigation(1,{"width":0})
  var model=load("res://scripts/forest/forest_model.gd").new();model.reset(42,{}, {},false)
@@ -183,7 +189,8 @@ func verify_source():
    c.active=true;c.reset_run();actor.seed=0;unit.facing=Vector3.BACK;unit.model.rotation.y=PI;c.aim=Vector3.BACK*10;c.player.pos=Vector3.ZERO
    if key.begins_with("primary"):
     var sample=int(key.substr(7,1));c.player.bladeSide=profile.primary[sample].get("swingSide",1);c.player.rangerShots=sample
-    c.Actions.begin_attack(c,c.Actions.primary_config(c,sample%3),sample%3)
+    var stage=sample%c.Actions.primary_count(c.class_id)
+    c.Actions.begin_attack(c,c.Actions.primary_config(c,stage),stage)
    if key=="lance_sweep":c.Actions.begin_attack(c,{"duration":.84,"contact":.22,"damage":111,"reach":7.2,"arc":PI/2,"style":"dragoon-sweep","sweep_hits":0},0,"flintlock")
    if clip.get("warmup",0)>0:
     var warm:Dictionary=c.player.duplicate(true);warm.graphicsQuality=0;warm.grounded=true;warm.vertical=0;warm.flip=-1;warm.landing=0;warm.motionSpeed=profile.speed;warm.localMotion=Vector3.BACK*moving*profile.speed

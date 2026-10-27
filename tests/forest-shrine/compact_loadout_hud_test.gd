@@ -1,5 +1,5 @@
 extends SceneTree
-# Only assigned weapons use numeric slots; paid guard placement is separate.
+# Five named skills share the numbered bar; paid guard placement stays separate.
 var game
 var checks=0
 var failures=0
@@ -26,11 +26,11 @@ func run():
 	check(not row.get_global_rect().intersects(ui.bar_paper.get_global_rect()),"Loadout stays above building controls")
 	for i in 5:
 		var button=row.get_child(i)
-		check(button is Button and str(i+1) in button.text and button.disabled,"Unused slot %d is visibly empty and inactive"%(i+1))
+		check(button is Button and str(i+1) in button.text and button.disabled==(i==4),"Slot %d matches Ed’s four skills plus an empty slot"%(i+1))
 		check(not ui.helper_portraits[i].visible,"Unused slot %d has no ally portrait"%(i+1))
 		await key(KEY_1+i)
 	check(selected_events.is_empty() and game.explorer_helpers.active_units().is_empty(),"Bare preparation number keys cannot summon allies")
-	await click(row.get_child(2))
+	await click(row.get_child(4))
 	check(ui.selected_loadout_slot==-1 and selected_events.is_empty(),"Clicking an empty slot performs no action")
 	await key(KEY_2,true)
 	check(game.build_kind=="tower" and selected_events.is_empty(),"Shift+2 still selects tower construction")
@@ -45,7 +45,7 @@ func run():
 	game.build_kind="";game.world.preview.hide();game.start_wave();game.model.waves.spawn_clock=10000;await settle()
 	for i in 5:await key(KEY_1+i)
 	check(game.explorer_helpers.active_units().is_empty() and selected_events.is_empty(),"Battle number keys cannot create unpaid allies")
-	check(ui.loadout_buttons.all(func(button):return button.disabled and not button.button_pressed),"Unassigned battle slots stay blank")
+	check(ui.loadout_buttons[4].disabled,"Ed’s unassigned fifth battle slot stays blank")
 	check(not ui.guard_shop_button.visible,"Guards can only be hired during preparation")
 	game.player.select_character(18);await settle()
 	for i in 5:

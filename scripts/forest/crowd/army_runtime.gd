@@ -1,16 +1,20 @@
 extends Node
 ## One owner for native NPC state. The playable Hero never enters this runtime.
+const NO_TICKET={}
 var native:Object
 var game_ref:WeakRef
+var actor_root:Node3D
 var capacity=4000
 var shared_snapshot_enabled=false
 var snapshot_view:Object
 var snapshot_epoch=0
+var ally_fields_epoch=-1
 var navigation_revision=-1
 var handles:Dictionary={}
 var enemies:Dictionary={}
 var allies:Dictionary={}
 var query_actors:Dictionary={}
+var enemy_size=1.0
 var query_padding=0.0
 var query_kinds:Dictionary={}
 var tickets:Dictionary={}
@@ -18,6 +22,8 @@ var ticket_serial=0
 var last_event_serial=0
 var dispatching=false
 signal unit_died(event:Dictionary)
+signal mirror_action(event:Dictionary)
+signal mirrors_advanced(delta:float)
 var pooled_presentation=false
 var record_events=true
 var compact_scene_events=true
@@ -26,8 +32,12 @@ var event_log:Array[Dictionary]=[]
 var collect_stats=false
 var observed_counts:Dictionary={}
 var event_gaps=0
+var static_collision_cache:Dictionary={}
 func configure(game:Node,maximum:int=4000)->bool:
  game_ref=weakref(game) if game!=null else null
+ if game!=null and (not is_instance_valid(actor_root) or actor_root.get_parent()!=game):
+  # Keep NPC churn away from the HUD's sibling ordering and child cache.
+  actor_root=Node3D.new();actor_root.name="ArmyActors";game.add_child(actor_root)
  if game!=null:preload("res://scripts/forest/forest_soldier_audio.gd").ensure(game)
  capacity=maximum
  navigation_revision=-1
@@ -58,8 +68,10 @@ func snapshot()->Dictionary:return native.snapshot()
 func render_snapshot()->Dictionary:return native.render_snapshot()
 func sync_helper_mirrors(defenders:Dictionary,posts:Dictionary)->int:return native.sync_helper_mirrors(defenders,posts)
 func query_aabb(bounds:AABB,team:int)->PackedInt64Array:return native.query_aabb(bounds,team)
+func index_enemy_rows(rows:Array)->Dictionary:return native.index_enemy_rows(rows,handles,preload("res://scripts/forest/forest_thirstquencher_visual.gd").ROLE_TO_TYPE)
 func clear()->void:
- snapshot_view=null;snapshot_epoch+=1
+ static_collision_cache.clear()
+ snapshot_view=null;snapshot_epoch+=1;ally_fields_epoch=-1
  if native!=null:native.clear()
  for actor in enemies.values()+allies.values():
   if is_instance_valid(actor):actor.queue_free()
@@ -73,6 +85,8 @@ func static_collision_data(world:Node)->Dictionary:
  # Match the allies' layer-1 physics mask. Ground-nav footprints deliberately
  # have different heights and must never stand in for roofs, rails or walls.
  var result=PackedVector3Array();var owners=PackedInt64Array();var structures={}
+ var changing_faces=PackedVector3Array();var changing_owners=PackedInt64Array()
+ var active={}
  if world.get("structure_nodes") is Dictionary:
   for id in world.structure_nodes:
    if is_instance_valid(world.structure_nodes[id]):structures[world.structure_nodes[id].get_instance_id()]=id
@@ -85,8 +99,11 @@ func static_collision_data(world:Node)->Dictionary:
   if retiring:continue
   var body=node.get_parent()
   if not body is StaticBody3D or not body.collision_layer&1:continue
+  var id=node.get_instance_id();active[id]=true
+  var cached:Dictionary=static_collision_cache.get(id,{})
   var faces=PackedVector3Array()
-  if node.shape is BoxShape3D:
+  if node.shape is BoxShape3D and cached.get("box_size",Vector3.INF)==node.shape.size:faces=cached.local_faces
+  elif node.shape is BoxShape3D:
    var half:Vector3=node.shape.size*.5;var points=[]
    for x in [-1,1]:
     for y in [-1,1]:
@@ -113,9 +130,22 @@ func static_collision_data(world:Node)->Dictionary:
   var owner_id=-1;var ancestor=node.get_parent()
   while ancestor!=null and ancestor!=world:
    if structures.has(ancestor.get_instance_id()):owner_id=structures[ancestor.get_instance_id()];break
+   if ancestor.has_meta("army_collision_owner"):owner_id=int(ancestor.get_meta("army_collision_owner"));break
    ancestor=ancestor.get_parent()
-  for point in faces:result.append(node.global_transform*point)
-  for triangle in faces.size()/3:owners.append(owner_id)
+  var transform_:Transform3D=node.global_transform
+  if cached.is_empty() or cached.node.get_ref()!=node or cached.local_faces!=faces or cached.transform!=transform_ or cached.owner!=owner_id:
+   var transformed=PackedVector3Array();transformed.resize(faces.size())
+   for i in faces.size():transformed[i]=transform_*faces[i]
+   var owner_rows=PackedInt64Array();owner_rows.resize(faces.size()/3);owner_rows.fill(owner_id)
+   cached={"node":weakref(node),"local_faces":faces,"transform":transform_,"owner":owner_id,"faces":transformed,"owners":owner_rows}
+   if node.shape is BoxShape3D:cached.box_size=node.shape.size
+   static_collision_cache[id]=cached
+  # Native collision preserves the unowned prefix across building destruction.
+  if owner_id>=0:changing_faces.append_array(cached.faces);changing_owners.append_array(cached.owners)
+  else:result.append_array(cached.faces);owners.append_array(cached.owners)
+ for id in static_collision_cache.keys():
+  if not active.has(id):static_collision_cache.erase(id)
+ result.append_array(changing_faces);owners.append_array(changing_owners)
  return {"faces":result,"owners":owners}
 func step(delta:float,context:Dictionary)->void:
  if context.get("paused",false):return
@@ -123,8 +153,11 @@ func step(delta:float,context:Dictionary)->void:
   native.set_goals(context.goal_handles,context.goal_positions,context.goal_speeds)
  if context.has("targets"):native.set_targets(context.targets)
  native.step(delta)
+ if mirrors_advanced.has_connections():dispatch_events();mirrors_advanced.emit(delta)
 func configure_kits(data:Dictionary)->void:
  assert(native.configure_kits(data),"Invalid NPC combat profile data")
+ if enemy_size!=float(data.get("enemy_size",1.0)):query_kinds.clear();query_padding=0.0
+ enemy_size=float(data.get("enemy_size",1.0))
 func unit_state(handle:int)->Dictionary:return native.unit_state(handle)
 func set_pose(handle:int,point:Vector3,yaw:float)->void:native.set_pose(handle,point,yaw)
 func enemy_target(id:int)->Ninja:
@@ -135,7 +168,7 @@ func enemy_target(id:int)->Ninja:
  var game:Node=game_ref.get_ref() if game_ref!=null else null
  if data.is_empty() or data.team!=0 or game==null:return null
  var actor=load("res://scripts/forest/crowd/army_enemy_target.gd").new();actor.runtime=self;actor.game=game;actor.handle=h;actor.forest_id=id;actor.variant=data.kind
- game.add_child(actor);actor.sync(data);enemies[id]=actor;register_actor_facade(actor,game.model.enemies.get(id,{}));return actor
+ actor_root.add_child(actor);actor.sync(data);enemies[id]=actor;register_actor_facade(actor,game.model.enemies.get(id,{}));return actor
 func ally_target(id:int)->Node3D:
  if is_instance_valid(allies.get(id)):
   if allies[id].handle==handles.get(id,0):return allies[id]
@@ -144,7 +177,7 @@ func ally_target(id:int)->Node3D:
  var game:Node=game_ref.get_ref() if game_ref!=null else null
  if data.is_empty() or data.team!=1 or game==null:return null
  var actor=load("res://scripts/forest/crowd/army_ally_target.gd").new();actor.runtime=self;actor.handle=h;actor.gate_id=id;actor.character_id=data.kind
- game.add_child(actor);actor.sync(data);allies[id]=actor;register_actor_facade(actor);return actor
+ actor_root.add_child(actor);actor.sync(data);allies[id]=actor;register_actor_facade(actor);return actor
 # Re-register if an owned facade or its backing model dictionary is replaced.
 # Scripts on these NPC adapters are fixed for their lifetime.
 func register_actor_facade(actor:Node3D,row:Dictionary={})->bool:
@@ -152,7 +185,7 @@ func register_actor_facade(actor:Node3D,row:Dictionary={})->bool:
   query_actors[actor.handle]=actor
   if not query_kinds.has(actor.variant):
    query_kinds[actor.variant]=true
-   for item in preload("res://scripts/forest/forest_enemy_contact.gd").shapes(actor.variant):
+   for item in preload("res://scripts/forest/forest_enemy_contact.gd").shapes(actor.variant,false,enemy_size):
     var box:AABB=item.bounds
     for x in [box.position.x,box.end.x]:
      for z in [box.position.z,box.end.z]:query_padding=maxf(query_padding,Vector2(x,z).length()+maxf(0,actor.body_radius))
@@ -164,24 +197,19 @@ func enemy_candidates(center:Vector3,radius:float)->Array:
  # Unknown/custom actors retain the legacy scan. Owned proxies have fixed fitted
  # geometry; exact tests, visibility, HP and source hit order stay with callers.
  var dummy=game.get("training_dummy")
- var extra=1 if is_instance_valid(dummy) and game.enemies.has(dummy) else 0
+ var extras=[]
+ if is_instance_valid(dummy) and game.enemies.has(dummy):extras.append(dummy)
+ var objectives=game.get("enemy_objectives")
+ var extra=extras.size()
+ if objectives is Array:
+  extra+=game.enemy_objective_targets.size()
+  for target in objectives:
+   if is_instance_valid(target) and not target.dead:extras.append_array(target.combat_candidates(center,radius+query_padding+.001))
  if query_actors.size()!=enemies.size() or game.enemies.size()!=enemies.size()+extra:return game.enemies
  var reach=radius+query_padding+.001
  if not is_finite(reach) or reach>=1e8:return game.enemies
- var handles_=query_aabb(AABB(Vector3(center.x-reach,-1e8,center.z-reach),Vector3(reach*2,2e8,reach*2)),0)
- var result=[]
- for handle_ in handles_:
-  var actor=query_actors.get(handle_)
-  if is_instance_valid(actor) and not actor.is_queued_for_deletion():result.append(actor)
- if extra:result.append(dummy)
- # Preserve arbitrary source ordering, including the preparation dummy. Only
- # local candidates cross into GDScript; Array.find runs in the engine.
- if result.size()>64:
-  var selected={}
-  for actor in result:selected[actor]=true
-  return game.enemies.filter(func(actor):return selected.has(actor))
- result.sort_custom(func(a,b):return game.enemies.find(a)<game.enemies.find(b))
- return result
+ # Native marshalling keeps the current source order without per-shot script scans.
+ return native.ordered_enemy_candidates(AABB(Vector3(center.x-reach,-1e8,center.z-reach),Vector3(reach*2,2e8,reach*2)),query_actors,game.enemies,extras)
 func sync_targets()->void:
  for id in enemies:
   if is_instance_valid(enemies[id]) and valid(enemies[id].handle):enemies[id].sync(unit_state(enemies[id].handle))
@@ -212,23 +240,34 @@ func dispatch_events()->void:
  # Drain before callbacks. A kill callback may spawn or damage another unit.
  while not events.is_empty():
   for event in events:
+   var kind:String=event.kind
    if event.serial<=last_event_serial:continue
    if collect_stats:
-    event_gaps+=maxi(0,event.serial-last_event_serial-1);observed_counts[event.kind]=int(observed_counts.get(event.kind,0))+1
+    event_gaps+=maxi(0,event.serial-last_event_serial-1);observed_counts[kind]=int(observed_counts.get(kind,0))+1
    last_event_serial=event.serial
-   var gameplay=event.kind=="damage" or event.kind=="death"
+   if kind=="attack_started":game.model.waves.enemy_started_attack(int(event.source_id))
+   if kind=="status" and int(event.get("unit_kind",-1))==17 and int(event.get("action_index",0))==210 and game.player.combat_hold_source==int(event.source_id):game.player.combat_hold_left=maxf(game.player.combat_hold_left,float(event.amount))
+   if kind=="status" and int(event.get("action_index",0))>=400 and int(event.get("unit_kind",0))>=101:mirror_action.emit(event)
+   # Most events only feed pooled visuals/audio; they need no actor or ticket.
+   if kind!="damage" and kind!="death" and kind!="external_damage":
+    presentation_events.append(event)
+    if record_events:event_log.append(event)
+    continue
+   var gameplay=kind=="damage" or kind=="death"
    var actor=(enemies.get(event.target_id) if event.team==0 else allies.get(event.target_id)) if gameplay else null
-   if event.kind=="death" and is_instance_valid(actor):query_actors.erase(actor.handle)
-   var ticket:Dictionary=tickets.get(event.ticket_id,{}) if gameplay else {}
-   match event.kind:
+   if kind=="death" and is_instance_valid(actor):query_actors.erase(actor.handle)
+   var ticket:Dictionary=tickets.get(event.ticket_id,NO_TICKET) if gameplay else NO_TICKET
+   match kind:
     "damage":
+     event.critical=event.get("critical",false) or ticket.get("critical",false)
+     if event.team==0 and is_instance_valid(actor):actor.set_enemy_kind(int(event.unit_kind))
      if is_instance_valid(actor):
       var data=unit_state(actor.handle)
       if data.is_empty():actor.hp=event.hp
       else:actor.sync(data)
-     if game.model.enemies.has(event.target_id) and event.team==0:game.model.enemies[event.target_id].hp=event.hp
+     if game.model.enemies.has(event.target_id) and event.team==0:game.model.enemies[event.target_id].hp=event.hp;game.model.enemies[event.target_id].variant=event.unit_kind
      if not pooled_presentation and event.team==0 and event.source_id>=0 and (not ticket.get("tower",false) or ticket.get("tower_feedback",false)):
-      game.damage_number(event.position,int(event.amount),event.heavy,ticket.get("critical",false))
+      game.damage_number(event.position,int(event.amount),event.heavy,event.critical)
     "death":
      if is_instance_valid(actor):actor.mark_dead()
      handles.erase(event.target_id)
@@ -239,20 +278,29 @@ func dispatch_events()->void:
       var row:Dictionary=game.model.enemies.get(event.target_id,{"id":event.target_id,"pos":event.position,"variant":event.unit_kind})
       row.hp=event.hp;game.model.ryo.award_enemy_bounty(row)
       if is_instance_valid(actor):game.remember_defeat(actor)
+      if game.has_method("award_team_kill"):game.award_team_kill(int(row.get("xp_reward_tenths",10)))
       if event.source_id==0 and not ticket.get("tower",false) and not ticket.get("allied",false):
-       game.player.award_kill()
+       if not game.has_method("award_team_kill"):game.player.award_kill()
        if game.player.hp>0:game.player.hp=minf(game.player.max_hp,game.player.hp+9)
     "external_damage":
      match int(event.external_kind):
-      0:game.player.take_hit(event.amount,(game.player.position-event.position).normalized(),event.projectile)
+      0:
+       var before:float=game.player.hp
+       if int(event.get("unit_kind",-1))==18 and int(event.get("action_index",0))==301 and event.amount<=0 and game.player.invuln<=0 and before>0 and not game.tuning.invincible:
+        game.player.velocity+=event.direction*24
+        if game.player.is_rogue_character():game.player.active_ability.receive_knockback(event.direction,24)
+       game.player.take_hit(event.amount,event.direction if int(event.get("unit_kind",-1))==18 and int(event.get("action_index",0))==301 else (game.player.position-event.position).normalized(),event.projectile)
+       if int(event.get("unit_kind",-1))==18 and int(event.get("action_index",0))==301 and game.player.hp<before:
+        game.player.velocity+=event.direction*17
+        if game.player.is_rogue_character():game.player.active_ability.receive_knockback(event.direction,17)
+       if int(event.get("unit_kind",-1))==17 and int(event.get("action_index",0))==1 and game.player.hp<before:
+        game.player.combat_hold_source=int(event.source_id);game.player.combat_hold_left=.15;game.player.cancel_charge()
+       if int(event.get("unit_kind",-1))==4 and int(event.get("action_index",0))==105 and game.player.hp<before:game.player.skullpion_poison_left=4.0
       1:game.model.damage_worker(event.target_id,event.amount)
       2:game.model.damage_building(event.target_id,event.amount)
-      3:
-       var defender=game.gate_defenders.units.get(event.target_id)
-       if is_instance_valid(defender):defender.take_hit(event.amount,(defender.position-event.position).normalized(),event.projectile)
    presentation_events.append(event)
    if record_events:event_log.append(event)
-   if event.kind=="death":unit_died.emit(event)
+   if kind=="death":unit_died.emit(event)
   events=_take_scene_events()
  dispatching=false;tickets.clear()
  if presentation_events.size()>8192:presentation_events=presentation_events.slice(presentation_events.size()-8192)
@@ -292,6 +340,11 @@ static func navigation_data(model:RefCounted,include_obstacles:bool=true)->Dicti
      data.friendly_obstacle_min.append(box.position);data.friendly_obstacle_max.append(box.end)
    else:
     data.friendly_obstacle_min.append(first);data.friendly_obstacle_max.append(first+Vector3(size.x*6,profile.height(building.kind),size.y*6))
+  if model.get("enemy_camps_prototype")==true or model.get("terrain_source")=="wind_meadow":
+   for box:AABB in preload("res://scripts/forest/forest_camp_prototype.gd").obstacles(model):
+    data.obstacle_min.append(box.position);data.obstacle_max.append(box.end)
+    data.friendly_obstacle_min.append(box.position);data.friendly_obstacle_max.append(box.end)
+    data.ray_min.append(box.position);data.ray_max.append(box.end);data.ray_owner.append(-1)
   for cell in model.trees:
    var center:Vector3=model.point(cell)
    data.ray_min.append(center+Vector3(-1.5,0,-1.5));data.ray_max.append(center+Vector3(1.5,12,1.5));data.ray_owner.append(-1)

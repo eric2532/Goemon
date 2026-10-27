@@ -1,12 +1,17 @@
 extends SceneTree
 ## Real foreground game, normal kit stats, explicit per-death reinforcements.
 class Battle extends "res://scripts/forest/forest_game.gd":
+ var cold_collision=false
+ func _physics_process(delta:float):
+  if cold_collision and is_instance_valid(army_runtime) and army_runtime.navigation_revision!=model.navigation_revision:army_runtime.static_collision_cache.clear()
+  super._physics_process(delta)
  # The scripted camera never needs mouse capture; leave the user's pointer
  # available so leaving this profiling window does not require pausing combat.
  func _sync_camera_mouse():
   if is_instance_valid(camera_rig) and camera_rig.has_method("sync_character_view"):camera_rig.sync_character_view()
   if Input.mouse_mode!=Input.MOUSE_MODE_VISIBLE:Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 const Metrics=preload("res://tests/forest-shrine/army_benchmark_metrics.gd")
+const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
 var game
 var army
 var enemy_count=240
@@ -46,6 +51,8 @@ var initial_presentations=0
 var initial_retirement_visits=0
 var initial_registered_updates=0
 var initial_registered_fallbacks=0
+var initial_model_publications=0
+var initial_model_rows=0
 var activity=[]
 var bucket_time=0.0
 var bucket_counts={}
@@ -56,6 +63,9 @@ var topology_events=[]
 var engine_physics=[]
 var engine_process=[]
 var collision_pairs=[]
+var spike_phases=[]
+var previous_profile={}
+var previous_kernel={}
 func _initialize():
  for argument in OS.get_cmdline_user_args():
   if argument.begins_with("--"):
@@ -68,17 +78,22 @@ func setup():
  root.size=Vector2i(1280,800);root.title="Goemon · Large Army Benchmark · %d enemies + %d allies"%[enemy_count,ally_count]
  if DisplayServer.get_name()!="headless":DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
  set_meta("forest_army_guard_poses",not options.has("always-write-poses"));set_meta("forest_army_parallel_movement",not options.has("serial-movement"));set_meta("forest_army_query_static",not options.has("kinematic-proxies"));set_meta("forest_army_worker",not options.has("synchronous"));set_meta("forest_army_shared_snapshots",not options.has("eager-facades"));set_meta("forest_fighter",11);set_meta("forest_painterly_preview",true)
- var doc=load("res://scripts/forest/forest_map_document.gd").new()
- if options.get("map","kai_highway")=="blood_gulch":doc.load_blood_gulch()
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new()
+ if options.get("map","kai_highway")=="wind_meadow_large":doc.data=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_wind_meadow_large.json"))
+ elif options.get("map","kai_highway")=="wind_meadow":doc.load_wind_meadow()
+ elif options.get("map","kai_highway")=="blood_gulch":doc.load_blood_gulch()
  else:doc.load_kai_highway()
+ if options.has("expansion"):doc.data.map_expansion=float(options.expansion)
  set_meta("forest_custom_layout",doc.data)
  set_meta("forest_army_mesh_lods",not options.has("full-detail"))
  set_meta("forest_army_bounded_queries",not options.has("full-combat-scans"))
  game=Battle.new();game.settings_path="user://large-army-benchmark-%d.cfg"%OS.get_process_id();root.add_child(game);current_scene=game
+ game.cold_collision=options.has("cold-collision")
  for i in 3:await process_frame
  set_meta("forest_army_registered_facades",not options.has("generic-facades"))
  set_meta("forest_army_plain_fields",not options.has("guarded-field-writes"))
  set_meta("forest_army_profile_facades",options.has("profile-facades"))
+ set_meta("forest_army_profile_registered",options.has("profile-registered"))
  army=game.army_runtime;army.collect_stats=true;army.profile_enabled=true;army.compact_scene_events=not options.has("full-scene-events")
  if options.has("await-focus") and DisplayServer.get_name()!="headless":
   DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_ALWAYS_ON_TOP,true)
@@ -104,6 +119,8 @@ func setup():
  game.player.position=center+Vector3(0,2,12);game.player.velocity=Vector3.ZERO
  game.camera_rig.set_process(false);game.camera_rig.set_process_unhandled_input(false)
  game.camera_rig.camera.global_position=focus+Vector3(120,155,175);game.camera_rig.camera.look_at(focus+Vector3.UP*3);game.camera_rig.camera.fov=65
+ if options.has("ground-view"):
+  game.camera_rig.camera.global_position=focus+Vector3(15,7,110);game.camera_rig.camera.look_at(focus+Vector3(0,4,60))
  spawn_started=Time.get_ticks_usec()
  for i in enemy_count:spawn_enemy()
  for i in ally_count:spawn_ally(i%5)
@@ -111,15 +128,30 @@ func setup():
  army.unit_died.connect(reinforce)
  # Let actual physics own all action/animation clocks throughout warmup.
  var press=InputEventAction.new();press.action="light_attack";press.pressed=true;Input.parse_input_event(press);Input.flush_buffered_events()
- for path in ["scripts/player.gd","scripts/forest/forest_game.gd","scripts/forest/crowd/army_coordinator.gd","scripts/forest/crowd/army_runtime.gd","scripts/forest/forest_gate_defenders.gd","scripts/forest/crowd/army_snapshot.gd","scripts/forest/crowd/army_enemy_target.gd","scripts/forest/crowd/army_ally_target.gd","scripts/forest/crowd/army_helper_unit.gd","scripts/forest/forest_workforce.gd","scripts/forest/forest_ryo_economy.gd","scripts/forest/forest_thirstquencher_visual.gd","assets/materials/thirstquencher_crowd.gdshader","assets/materials/ally_crowd.gdshader","scripts/forest/crowd/army_renderer.gd","scripts/forest/explorer_helpers.gd","native/terrain_math/crowd/core.cpp","native/terrain_math/crowd/terrain.cpp","native/terrain_math/crowd/terrain.h","native/terrain_math/crowd/combat.cpp","native/terrain_math/crowd_binding.cpp","native/terrain_math/bin/libgoemon_terrain_math.macos.universal.dylib"]:fingerprints[path]=FileAccess.get_sha256("res://"+path)
- for path in ["scripts/attack_chain.gd","scripts/rogue_roster_combat.gd","scripts/forest/crowd/army_mesh_lod.gd","assets/characters/ally_crowd/lod_11.res","assets/characters/ally_crowd/lod_5.res","assets/characters/ally_crowd/lod_7.res","assets/characters/ally_crowd/lod_8.res","assets/characters/ally_crowd/lod_10.res"]:fingerprints[path]=FileAccess.get_sha256("res://"+path)
+ for path in ["scripts/player.gd","scripts/forest/forest_game.gd","scripts/forest/crowd/army_coordinator.gd","scripts/forest/crowd/army_runtime.gd","scripts/forest/crowd/army_snapshot.gd","scripts/forest/crowd/army_enemy_target.gd","scripts/forest/crowd/army_ally_target.gd","scripts/forest/crowd/army_helper_unit.gd","scripts/forest/forest_workforce.gd","scripts/forest/forest_model.gd","scripts/forest/forest_waves.gd","scripts/forest/forest_tower_arrows.gd","scripts/forest/forest_enemy_minimap.gd","scripts/forest/forest_ryo_economy.gd","scripts/forest/forest_thirstquencher_visual.gd","assets/materials/thirstquencher_crowd.gdshader","assets/materials/ally_crowd.gdshader","scripts/forest/crowd/army_renderer.gd","scripts/forest/explorer_helpers.gd","native/terrain_math/crowd/core.cpp","native/terrain_math/crowd/core.h","scripts/forest/crowd/army_presentation.gd","native/terrain_math/crowd/terrain.cpp","native/terrain_math/crowd/terrain.h","native/terrain_math/crowd/combat.cpp","native/terrain_math/crowd/skullpion.cpp","scripts/forest/skullpion_visual.gd","native/terrain_math/crowd_binding.cpp","native/terrain_math/bin/libgoemon_terrain_math.macos.universal.dylib"]:fingerprints[path]=FileAccess.get_sha256("res://"+path)
+ for path in ["scripts/forest/forest_world.gd","native/terrain_math/terrain_math.cpp","native/terrain_math/crowd/instance_buffers.cpp","native/terrain_math/crowd/instance_buffers.h","scripts/forest/forest_terrain_corridors.gd","scripts/attack_chain.gd","scripts/rogue_roster_combat.gd","scripts/forest/crowd/army_mesh_lod.gd","assets/characters/ally_crowd/lod_11.res","assets/characters/ally_crowd/lod_5.res","assets/characters/ally_crowd/lod_7.res","assets/characters/ally_crowd/lod_8.res","assets/characters/ally_crowd/lod_10.res"]:fingerprints[path]=FileAccess.get_sha256("res://"+path)
  var revision_output=[]
  if OS.execute("/usr/bin/git",["-C",ProjectSettings.globalize_path("res://"),"rev-parse","HEAD"],revision_output)==0:source_revision=str(revision_output[0]).strip_edges()
  phase="warmup"
- await create_timer(2.0).timeout
+ if options.has("boss-skills"):
+  for i in 120:await physics_frame
+  paused=true
+ else:await create_timer(2.0).timeout
+ # Loading/warmup can lose focus on macOS; measurement starts only after return.
+ if options.has("await-focus") and DisplayServer.get_name()!="headless":
+  var focus_started=Time.get_ticks_msec()
+  var focused_since=Time.get_ticks_msec()
+  while Time.get_ticks_msec()-focused_since<3000:
+   if Time.get_ticks_msec()-focus_started>60000:printerr("FAIL: Benchmark lost focus before measurement");quit(2);return
+   if not DisplayServer.window_is_focused():focused_since=Time.get_ticks_msec()
+   await process_frame
+ paused=false
+ for path in ["scripts/forest/forest_wind_meadow_art.gd","scripts/forest/forest_wind_meadow_assets.gd","scripts/forest/forest_wind_meadow_terrain.gd","scripts/forest/forest_wind_meadow_layout.gd","scripts/forest/wind_meadow_ground.gdshader","scripts/forest/wind_meadow_foliage.gdshader","scripts/forest/blood_gulch_environment.gd"]:fingerprints[path]=FileAccess.get_sha256("res://"+path)
+ for path in ["native/terrain_math/crowd/air.cpp","scripts/forest/skullpion_effects.gd","scripts/forest/dark_lumina_kit.gd","assets/characters/recovered_monsters/dark_lumina_2_effects/stomp_wave.gdshader"]:fingerprints[path]=FileAccess.get_sha256("res://"+path)
  initial_replacements=replacements
  initial_retirement_visits=int(army.get("retirement_rows_visited")) if army.get("retirement_rows_visited")!=null else 0
  initial_registered_updates=army.registered_facade_updates;initial_registered_fallbacks=army.registered_facade_fallbacks
+ initial_model_publications=army.model_rows_publications;initial_model_rows=army.model_rows_written
  start_memory=OS.get_static_memory_usage();initial_counts=army.observed_counts.duplicate(true);initial_sim=army.simulation_seconds;initial_steps=army.simulation_steps;initial_worker_jobs=army.worker_jobs;initial_helper_overlaps=army.helper_overlap_calls;initial_presentations=army.presentation_frames;army.profile_totals.clear();army.native.simulation_profile(true);army.native.query_stats(true);bucket_counts=army.observed_counts.duplicate(true)
  root.grab_focus()
  started=Time.get_ticks_usec();previous=started;phase="measuring"
@@ -135,7 +167,10 @@ func spawn_points(center:Vector3,near:float,far:float,radius:float,wanted:int)->
   if points.size()>=wanted:break
  return points
 func spawn_enemy():
- var kind=[0,1,3][enemy_cursor%3];var point:Vector3=enemy_points[enemy_cursor%enemy_points.size()];enemy_cursor+=1
+ var kind=[0,1,3][enemy_cursor%3]
+ if not options.has("soldiers-only"):kind=Roles.WAVE_TYPES[enemy_cursor%Roles.WAVE_TYPES.size()] if game.model.has_enemy_camps() else Roles.wave_variant(kind,enemy_cursor)
+ if options.has("boss-skills"):kind=[4,17,0,1,3][enemy_cursor%5]
+ var point:Vector3=enemy_points[enemy_cursor%enemy_points.size()];enemy_cursor+=1
  var row=game.model.waves.spawn_enemy(kind,point)
  var handle:int=army.spawn(row.id,0,kind,point,row.hp,load("res://scripts/forest/forest_enemy_roles.gd").footprint_radius(kind))
  if handle==0:printerr("FAIL: Reinforcement enemy allocation rejected");stopped=true;return
@@ -173,7 +208,17 @@ func _process(_delta:float)->bool:
   append_activity(elapsed)
  if int((now-started)/1000000)>=status_second+10:
   status_second=int((now-started)/1000000);print("BENCHMARK_PROGRESS seconds=",status_second," frames=",frames_ms.size()," active=",army.latest.teams.count(0),"/",army.latest.teams.count(1)," events=",army.observed_counts," blocked=",blocked_state())
- frames_ms.append((now-previous)/1000.0);previous=now
+ var frame_ms=(now-previous)/1000.0
+ if options.has("boss-skills") or options.has("profile-spikes"):
+  var phases={}
+  for key in army.profile_totals:phases[key]=army.profile_totals[key]-previous_profile.get(key,0)
+  var kernel:Dictionary=army.native.simulation_profile(false);var kernel_delta={}
+  for key in kernel:
+   if key.ends_with("_ms") or key in ["steps","capsule_tests","nav_topology_builds","nav_flow_builds"]:kernel_delta[key]=kernel[key]-previous_kernel.get(key,0)
+  if frame_ms>50:spike_phases.append({"seconds":elapsed,"frame_ms":frame_ms,"phases_ms":phases,"native":kernel_delta,"effects":game.crowd.army.presentation.counts()})
+  previous_kernel=kernel
+  previous_profile=army.profile_totals.duplicate()
+ frames_ms.append(frame_ms);previous=now
  var snapshot:Dictionary=army.latest
  if snapshot.has("teams"):
   min_enemy=mini(min_enemy,snapshot.teams.count(0));min_ally=mini(min_ally,snapshot.teams.count(1))
@@ -201,6 +246,7 @@ func finish():
  report.bounded_combat_queries=get_meta("forest_army_bounded_queries")
  report.compact_scene_events=army.compact_scene_events
  report.registered_facades=get_meta("forest_army_registered_facades") and get_meta("forest_army_plain_fields") and not get_meta("forest_army_profile_facades")
+ report.model_rows_publications=army.model_rows_publications-initial_model_publications;report.model_rows_written=army.model_rows_written-initial_model_rows
  report.registered_facade_updates=army.registered_facade_updates-initial_registered_updates;report.registered_facade_fallbacks=army.registered_facade_fallbacks-initial_registered_fallbacks
  report.plain_fields=get_meta("forest_army_plain_fields");report.profile_facades=get_meta("forest_army_profile_facades")
  # Godot publishes the previous one-second maximum, not each tick duration.
@@ -215,6 +261,7 @@ func finish():
  report.facade_phases_ms={}
  for key in kernel:
   if key.begins_with("facade_") and key.ends_with("_ms"):report.facade_phases_ms[key]=kernel[key]/maxi(1,kernel.steps)
+ report.facade_health_writes=kernel.facade_health_writes
  report.navigation_work={}
  for key in kernel:
   if key.begins_with("nav_"):report.navigation_work[key]=kernel[key]/maxi(1,kernel.steps) if key.ends_with("_ms") else kernel[key]
@@ -224,6 +271,19 @@ func finish():
  report.activity=activity;report.source_revision=source_revision;report.source_hashes=fingerprints;report.topology_events=topology_events
  if not report.gpu_timing_available:report.render_gpu=null
  report.blocked_state=blocked_state()
+ report.view="ground" if options.has("ground-view") else "overhead"
+ report.enemy_roster="soldiers_only" if options.has("soldiers-only") else ("camp_cycle" if game.model.has_enemy_camps() else "normal_wave_families")
+ report.map_expansion=game.model.map_expansion;report.terrain_width=game.model.terrain.width
+ if game.model.terrain_source=="wind_meadow":
+  report.terrain_asset=game.model.terrain.asset_path("surface.res",game.model.terrain_scale)
+  report.map_asset="res://assets/maps/forest_wind_meadow_large.json" if options.get("map","")=="wind_meadow_large" else "res://assets/maps/forest_wind_meadow.json"
+  report.terrain_hash=FileAccess.get_sha256(report.terrain_asset);report.map_hash=FileAccess.get_sha256(report.map_asset)
+ if options.has("profile-spikes"):report.spike_phases=spike_phases
+ if options.has("boss-skills"):report.enemy_roster="skullpion_dark_lumina_2_soldier_cycle";report.spike_phases=spike_phases;report.cold_collision=game.cold_collision
+ report.changed_inputs=[]
+ for path in fingerprints:
+  if fingerprints[path]!=FileAccess.get_sha256("res://"+path):report.changed_inputs.append(path)
+ for path in ["scripts/forest/forest_enemy_roles.gd","scripts/forest/crowd/army_kit_data.gd","scripts/recovered_goemon_pipe_combat.gd","tests/forest-shrine/large_army_benchmark.gd"]:report.source_hashes[path]=FileAccess.get_sha256("res://"+path)
  report.errors=Metrics.violations(report)
  if elapsed<duration-.2:report.errors.append("Battle stopped before requested duration")
  DirAccess.make_dir_recursive_absolute(out)

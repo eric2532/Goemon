@@ -34,9 +34,22 @@ if ! zsystem flock -t 0 -e -f GOEMON_LOCK_FD "$GOEMON_LOCK"; then
   exit 0
 fi
 rm -f "$GOEMON_LOGS/game.pid"
-print "Refreshing changed Goemon assets..."
-"$GOEMON_ENGINE" --headless --editor --path "$GOEMON_PROJECT" --import --log-file "$GOEMON_LOGS/import.log"
+if python3 "$GOEMON_PROJECT/tools/goemon_import_cache.py" check "$GOEMON_PROJECT" "$GOEMON_ENGINE"; then
+  print "Goemon assets are up to date."
+else
+  print "Refreshing changed Goemon assets..."
+  "$GOEMON_ENGINE" --headless --editor --path "$GOEMON_PROJECT" --import --log-file "$GOEMON_LOGS/import.log"
+  python3 "$GOEMON_PROJECT/tools/goemon_import_cache.py" record "$GOEMON_PROJECT" "$GOEMON_ENGINE"
+fi
 print "Playing the latest Goemon source with painterly scenery."
 print "Project: $GOEMON_PROJECT"
 print -r -- "$$" > "$GOEMON_LOGS/game.pid"
-exec "$GOEMON_ENGINE" --path "$GOEMON_PROJECT" --scene res://scenes/forest_shrine.tscn --log-file "$GOEMON_LOGS/play.log" "$@" -- --painterly-preview
+GOEMON_SCENE_ARGS=(--scene res://scenes/forest_shrine.tscn)
+for GOEMON_ARG in "$@"; do
+  [[ "$GOEMON_ARG" == "--" ]] && break
+  if [[ "$GOEMON_ARG" == "--script" || "$GOEMON_ARG" == "-s" ]]; then
+    GOEMON_SCENE_ARGS=()
+    break
+  fi
+done
+exec "$GOEMON_ENGINE" --path "$GOEMON_PROJECT" "${GOEMON_SCENE_ARGS[@]}" --log-file "$GOEMON_LOGS/play.log" "$@" -- --painterly-preview

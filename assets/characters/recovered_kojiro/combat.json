@@ -1,0 +1,174 @@
+{
+  "source": "raw/SC03.CD.dir/FILE_014.dir/0.4.dec",
+  "sha256": "cacb53492f7179bc06548abf37336f997135ae155af6f735d84d4290bbe0468d",
+  "fps": 30,
+  "semantics": {
+    "idle": "Source__801e2170",
+    "walk": "Source__801e21f8",
+    "run": "Source__801e22a0",
+    "strafe_left": "Source__801e2328",
+    "strafe_right": "Source__801e23d0",
+    "run_right": "Source__801e2478",
+    "run_left": "Source__801e2500",
+    "jump": "Source__801e2588",
+    "fall": "Source__801e25d8",
+    "air": "Source__801e2638",
+    "air_cut": "Source__801e2660",
+    "air_spin": "Source__801e2708",
+    "hurt": "Source__801e27d0",
+    "ready": "Source__801e2818",
+    "wind": "Source__801e2910",
+    "slash": "Source__801e2b50",
+    "homing": "Source__801e2ce8",
+    "cinematic": "Source__801e2de0",
+    "death": "Source__80190468"
+  },
+  "source_part_list": "0x801d6d2c",
+  "body_list": "0x801d6d6c",
+  "blade_part": 14,
+  "blade_endpoints": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      -64
+    ]
+  ],
+  "contacts": {
+    "slash": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        -48,
+        -40
+      ],
+      [
+        -24,
+        -48,
+        -36
+      ],
+      [
+        24,
+        -48,
+        -36
+      ]
+    ],
+    "air_spin": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        -64,
+        -36
+      ],
+      [
+        0,
+        -48,
+        -36
+      ],
+      [
+        0,
+        -32,
+        -36
+      ]
+    ]
+  },
+  "actions": {
+    "slash": {
+      "clip": "Source__801e2b50",
+      "ticks": 50,
+      "contacts": [
+        15
+      ],
+      "damage": 24,
+      "source_handler": "0x80187300"
+    },
+    "air_cut": {
+      "clip": "Source__801e2660",
+      "ticks": 20,
+      "contacts": [
+        15
+      ],
+      "damage": 24,
+      "voice": "air_cut_voice",
+      "source_handler": "0x801874c0"
+    },
+    "air_spin": {
+      "clip": "Source__801e2708",
+      "ticks": 24,
+      "contacts": [
+        15
+      ],
+      "damage": 24,
+      "voice": "air_spin_voice",
+      "source_handler": "0x801874c0"
+    },
+    "homing": {
+      "clip": "Source__801e2ce8",
+      "ticks": 30,
+      "releases": [
+        15
+      ],
+      "voice": "homing_voice",
+      "sound": "homing_release",
+      "source_handler": "0x801863b8",
+      "spread": [
+        -512,
+        0,
+        512
+      ],
+      "speed_units_per_tick": 24,
+      "lifetime_ticks": 90
+    },
+    "wave": {
+      "clip": "Source__801e2b50",
+      "ticks": 50,
+      "releases": [
+        15
+      ],
+      "voice": "wave_voice",
+      "sound": "wave_release",
+      "source_handler": "0x80186a74",
+      "speed_units_per_tick": 16,
+      "lifetime_ticks": 90
+    },
+    "wind": {
+      "clip": "Source__801e2910",
+      "ticks": 71,
+      "releases": [
+        40,
+        42,
+        44,
+        46
+      ],
+      "voice": "wind_voice",
+      "sound": "wind_release",
+      "source_handler": "0x80187090",
+      "scales": [
+        1,
+        0.75,
+        0.5,
+        0.25
+      ],
+      "speed_units_per_tick": 16,
+      "lifetime_ticks": 90
+    }
+  },
+  "adaptation": [
+    "Player movement, jumps, damage progression, collision and cooldowns use Goemon shared controllers.",
+    "Original enemy windup/AI and arena hostage choreography are not a second gameplay simulation.",
+    "Every numeric duel clip plus directly referenced continuations and defeat pose remain editable.",
+    "Complete local sound bank retained; scene dialogue streaming is separate from combat event voices."
+  ]
+}

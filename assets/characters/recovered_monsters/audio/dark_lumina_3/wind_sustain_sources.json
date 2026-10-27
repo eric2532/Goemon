@@ -1,0 +1,24 @@
+{
+  "event": "0xabe",
+  "dispatch": "050f0001",
+  "descriptor": "0x800c8c8c",
+  "sequence": "0x800c8a00",
+  "bank_slot": 94,
+  "bank": "bank_16060abbf25216bb",
+  "lookup_index": 12,
+  "sample_index": 9,
+  "sample_id": "sample_7c2b6ff8fa8c4ed9",
+  "pitch_q8": 18944,
+  "source_volume": 100,
+  "source_keyoff_ticks": 20,
+  "loop_begin": 56,
+  "loop_end": 20888,
+  "peak_gain": 0.5102940260387466,
+  "sha256": "acff171e49565b2bb5551a3fe3c0b4ca53bed5e1d1ba7040b5d5f08348aa38f4",
+  "source_hashes": {
+    "build/Other Files/Musashi Asset Recovery/raw/SLUS_007.26": "66371c3a7517e9eabd7cb6cf0c5abffe7296bd4bac29c85b8bf7bb9db349714a",
+    "build/Other Files/Musashi Asset Recovery/raw/SC07.CD.dir/FILE_002.dir/2.7": "91ae8ba916d057b4d5c155720ba9f2e19b3a901e22f0da3f47172cd08d9c0a05",
+    "build/Other Files/Musashi Asset Recovery/converted/audio/samples_vag/sample_7c2b6ff8fa8c4ed9.vag": "ea22028b7f496359ecdb5729b863edd23bc59594fe273d7182859ae2ff2a05f0"
+  },
+  "adaptation": "User-selected sustained Wind sample at audition headroom; retains source pitch and loop bounds. Goemon cast owns duration. No PSX ADSR/reverb or original retrigger emulation."
+}

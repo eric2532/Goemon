@@ -16,7 +16,7 @@ func check(ok:bool,label_:String):
  checks+=1
  if not ok:failures+=1;printerr("FAIL: ",label_)
 func run():
- var m=Model.new();m.reset(42,{},JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_kai_highway.json")))
+ var m=Model.new();m.reset(42,{},JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_kai_highway.json")))
  m.terrain=ScriptGround.new();m.terrain.configure(m.ramparts);m.rebuild_navigation()
  check(m.terrain.has_method("flat_corridor"),"The native field can prove a fully covered constant-height corridor")
  if failures:finish();return

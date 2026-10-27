@@ -1,8 +1,9 @@
 class_name Hero
 extends CharacterBody3D
 
-# Gate allies use the same physical character and kit, with explicit AI intent.
+# Shared character attacks accept explicit intent from native army copies.
 var ai_controlled=false
+var mirror_copy=false
 var ai_move=Vector3.ZERO
 var ai_aim=Vector3.ZERO
 var ai_target: Ninja
@@ -17,20 +18,26 @@ var character_models: Dictionary={}
 var character_abilities: Dictionary={}
 var musashi: MusashiCombat
 var body_shape: CollisionShape3D
+var spell_loadout: Node
+var jump_style=preload("res://scripts/jump_style.gd").new(self)
 var active_ability: Node
 var master_chief_combat: Node
 const BASIC_ATTACK_RANGE_MULTIPLIER = 1.0
 const MELEE_CONTACT_MULTIPLIER = 1.12
+const BEN_DESCENT_SPEED=12.0
+const BEN_FLIGHT_ASCENT_SPEED=15.0
+const BEN_FLIGHT_BOOST_ASCENT_SPEED=24.0
 var melee_assist=preload("res://scripts/melee_assist.gd").new()
 const Proportions=preload("res://scripts/character_proportions.gd")
 const OriginalGoemon=preload("res://scripts/recovered_goemon_combat_profile.gd")
-const ROSTER={1: {"name":"Goemon", "model":preload("res://scripts/recovered_goemon_model.gd")},2: {"name":"Edo", "model":preload("res://assets/characters/musashi/model/musashi_model.gd"),"combat":preload("res://assets/characters/musashi/combat/musashi_combat.gd")},13: {"name":"Musashi","model":preload("res://scripts/recovered_musashi_model.gd"),"combat":preload("res://scripts/recovered_musashi_combat.gd")},14:{"name":"Ed","model":preload("res://scripts/recovered_ed_model.gd"),"combat":preload("res://scripts/recovered_leader_combat.gd")},15:{"name":"Ben","model":preload("res://scripts/recovered_ben_model.gd"),"combat":preload("res://scripts/recovered_leader_combat.gd")},16:{"name":"Sasuke","model":preload("res://scripts/recovered_sasuke_model.gd"),"combat":preload("res://scripts/recovered_sasuke_combat.gd")},17:{"name":"Yae","model":preload("res://scripts/recovered_yae_model.gd"),"combat":preload("res://scripts/recovered_yae_combat.gd")},18:{"name":"Master Chief","model":preload("res://scripts/master_chief_model.gd"),"combat":preload("res://scripts/master_chief_combat.gd")}}
+const ROSTER={31:{"name":"Blademaster","character":31,"model":preload("res://scripts/warcraft_model.gd"),"combat":preload("res://scripts/warcraft_combat.gd")},32:{"name":"Illidan","character":32,"model":preload("res://scripts/warcraft_model.gd"),"combat":preload("res://scripts/warcraft_combat.gd")},30:{"name":"Dark Lumina 3","role":18,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/dark_lumina_3_combat.gd")},29:{"name":"Dark Lumina 2","role":17,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},28:{"name":"Kojiro","model":preload("res://scripts/kojiro_model.gd"),"combat":preload("res://scripts/kojiro_combat.gd")},1: {"name":"Goemon", "model":preload("res://scripts/recovered_goemon_model.gd")},2: {"name":"Edo", "model":preload("res://assets/characters/musashi/model/musashi_model.gd"),"combat":preload("res://assets/characters/musashi/combat/musashi_combat.gd")},13: {"name":"Musashi","model":preload("res://scripts/recovered_musashi_model.gd"),"combat":preload("res://scripts/recovered_musashi_combat.gd")},14:{"name":"Ed","model":preload("res://scripts/recovered_ed_model.gd"),"combat":preload("res://scripts/recovered_leader_combat.gd")},15:{"name":"Ben","model":preload("res://scripts/recovered_ben_model.gd"),"combat":preload("res://scripts/recovered_leader_combat.gd")},16:{"name":"Sasuke","model":preload("res://scripts/recovered_sasuke_model.gd"),"combat":preload("res://scripts/recovered_sasuke_combat.gd")},17:{"name":"Yae","model":preload("res://scripts/recovered_yae_model.gd"),"combat":preload("res://scripts/recovered_yae_combat.gd")},18:{"name":"Master Chief","model":preload("res://scripts/master_chief_model.gd"),"combat":preload("res://scripts/master_chief_combat.gd")},19:{"name":"Sonic","model":preload("res://scripts/sonic_model.gd"),"combat":preload("res://scripts/sonic_combat.gd")},20:{"name":"Red Soldier","role":0,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},21:{"name":"Blue Gunner","role":1,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},22:{"name":"Green Spearman","role":3,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},23:{"name":"Vambee","role":6,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},24:{"name":"Haya Wolf","role":9,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},25:{"name":"Vambee Torso","role":14,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},26:{"name":"Slow Guy","role":16,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},27:{"name":"Skullpion","role":4,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")}}
 const RogueRoster=preload("res://scripts/rogue_roster.gd")
 const GroundResponse=preload("res://scripts/ground_movement_response.gd")
 var model: HeroModel
 var hp=100.0
 var max_hp=100.0
 var progression=preload("res://scripts/level_progression.gd").new()
+var team_progression
 var facing=Vector3.FORWARD
 const COMBAT_AIM_HOLD=.28
 var combat_aim_left=0.0
@@ -49,6 +56,9 @@ var combo=0
 var combo_window=0.0
 var queued=false
 var invuln=0.0
+var skullpion_poison_left=0.0
+var combat_hold_left=0.0
+var combat_hold_source=-1
 var dodge_time=0.0
 var dodge_cooldown=0.0
 var coyote=0.0
@@ -123,6 +133,7 @@ func combat_aiming()->bool:
 	return true
 
 func _ready():
+	spell_loadout=preload("res://scripts/spells/spell_loadout.gd").new();spell_loadout.hero=self;add_child(spell_loadout)
 	original_pipe_combat=preload("res://scripts/recovered_goemon_pipe_combat.gd").new(self)
 	weapon_controls=preload("res://scripts/goemon_weapon_controls.gd").new(self)
 	attack_chain.hero_owner=weakref(self)
@@ -131,6 +142,7 @@ func _ready():
 	rogue_pipe_combo=preload("res://scripts/goemon_rogue_combo.gd").new();rogue_pipe_combo.hero=self;add_child(rogue_pipe_combo)
 	sky_strike=SkyStrike.new(self)
 	chain_pipe_combat=ChainPipeCombat.new(self)
+	add_child(chain_pipe_combat)
 	forward_dash=GoemonDash.new(self)
 	collision_layer=2
 	collision_mask=1
@@ -144,6 +156,7 @@ func _ready():
 	shape.position.y=0.95
 	add_child(shape)
 	_setup_initial_model()
+	model.scale=Vector3.ONE*combat_tuning("model_scale")
 	aura=SurgeAura.new()
 	add_child(aura)
 	aura.hide()
@@ -153,7 +166,7 @@ func _ready():
 	hp=max_hp
 	# Load registered visuals during startup so selection does not load a GLB mid-fight.
 	for id in ROSTER:
-		if ai_controlled and id==18:continue
+		if id>=20 or (ai_controlled and id in [18,19]):continue
 		ensure_character(id)
 
 func _setup_initial_model():
@@ -162,20 +175,35 @@ func _setup_initial_model():
 	add_child(model)
 	character_models[1]=model
 
+func _notification(what:int):
+	if what==NOTIFICATION_APPLICATION_FOCUS_OUT and is_instance_valid(game) and is_instance_valid(model):
+		cancel_charge(true);reset_auto_attack()
+
 func _input(event):
 	if ai_controlled:return
+	if spell_loadout!=null:
+		if event is InputEventKey and not event.pressed and spell_loadout.number_event(event):return
+		spell_loadout.release_input(event)
 	if weapon_controls!=null:weapon_controls.release(event)
 	# Release must arrive even when a menu consumes the pointer event.
 	if rogue_controls!=null:rogue_controls.release(event)
 	if active_ability!=null and active_ability.has_method("release_input"):active_ability.release_input(event)
 
 func _unhandled_input(event):
-	if ai_controlled:return
+	if ai_controlled or combat_hold_left>0:return
 	if not game.playing or game.paused or game.transitioning or hp<=0: return
+	clear_character_cooldowns()
 	if event.is_action_pressed("auto_attack_toggle") and not event.is_echo():
 		if game.camera_combat() and not is_master_chief():set_auto_attack(not auto_attack_enabled)
 		get_viewport().set_input_as_handled();return
 	if game.siege_building() and (event.is_action_pressed("light_attack") or event.is_action_pressed("heavy_attack") or event.is_action_pressed("weapon_pipe") or event.is_action_pressed("weapon_coin") or event.is_action_pressed("weapon_chain") or event.is_action_pressed("surge") or event.is_action_pressed("sky_strike")):return
+	if jump_style.active() and event.is_action("jump"):
+		if event.is_action_pressed("jump") and not event.is_echo():jump_buffer=.15
+		get_viewport().set_input_as_handled();return
+	if spell_loadout.number_event(event):
+		get_viewport().set_input_as_handled();return
+	if spell_loadout.input(event):
+		get_viewport().set_input_as_handled();return
 	if weapon_controls.input(event):
 		get_viewport().set_input_as_handled();return
 	if game.camera_combat() and event.is_action_pressed("assist"):return
@@ -184,6 +212,11 @@ func _unhandled_input(event):
 		game.show_rogue_roster();get_viewport().set_input_as_handled();return
 	if is_rogue_character():
 		active_ability.input(event)
+		return
+	if character_id==19:
+		if event.is_action_pressed("character_toggle") and not event.is_echo():
+			var ids=RogueRoster.selection_ids().filter(func(id):return ROSTER.has(id));select_character(ids[(ids.find(character_id)+1)%ids.size()])
+		else:active_ability.input(event)
 		return
 	if is_master_chief():
 		if event.is_action_pressed("character_toggle") and not event.is_echo():
@@ -321,6 +354,9 @@ func uses_rogue_pipe_profile()->bool:
 
 # Hero-owned audio carries its source even when this Hero is an allied defender.
 func play_sound(kind: String,volume: float=1.0,ticket: Dictionary={}):
+	if kind=="land" and character_id==29:
+		kind="dark_lumina_2_slam"
+		if active_ability!=null and active_ability.is_attacking() and active_ability.action==active_ability.Dark.SLAM:active_ability.state.landing_sound=true
 	game.sound(kind,volume,false,attack_ticket if ticket.is_empty() else ticket,character_id)
 
 func play_swing_sound():
@@ -332,8 +368,10 @@ func play_swing_sound():
 		rogue_pipe_combo.release(combo);return
 	play_sound("spin_swing" if attack_charged and weapon_slot==1 else ("heavy_swing" if attack_heavy or (weapon_slot==1 and combo==3) else "swing"))
 
-func strike():
-	if uses_original_goemon_attack():
+func strike(spell_combat:Node=null):
+	var musashi_attack=spell_combat!=null or character_id==13
+	var sword_combat=spell_combat if spell_combat!=null else active_ability
+	if spell_combat==null and uses_original_goemon_attack():
 		var elapsed=attack_duration-attack_left
 		original_pipe_combat.tick(elapsed,elapsed)
 		return
@@ -342,11 +380,11 @@ func strike():
 	var bonus=first_sample and weapon_slot==1 and attack_chain.energized()
 	var cross=(wide_swing or attack_ticket.get("action","")=="spin") and attack_chain.previous=="heavy"
 	hit_done=true
-	if first_sample:emit_robe_coins(attack_charged and weapon_slot==1)
-	if weapon_slot==2:
-		game.throw_coin(attack_heavy,attack_charged,charge_power)
+	if first_sample and spell_combat==null:emit_robe_coins(attack_charged and weapon_slot==1)
+	if weapon_slot==2 and spell_combat==null:
+		game.throw_coin(attack_heavy,attack_charged,charge_power,attack_ticket,false,self)
 		return
-	if not attack_charged:
+	if not attack_charged and spell_combat==null:
 		# Contact resolves against the same articulated pose shown this frame.
 		model.pipe_combo_active=not attack_heavy and not wide_swing
 		model.rogue_pipe_combo_active=model.pipe_combo_active and uses_rogue_pipe_profile()
@@ -354,26 +392,32 @@ func strike():
 		model.pipe_visual_scale=HeroModel.WeaponProportions.SCALE*combat_tuning("pipe_range")/3.5*range_multiplier()*melee_reach_setting()/maxf(.01,growth_multiplier())
 		model.animate(0,Vector2(velocity.x,velocity.z).length(),is_on_floor(),velocity.y,attack_left/attack_duration,attack_heavy,combo,false)
 		model.sync_skeleton()
-	var reach=melee_strike_reach()
+	var reach=(2.1 if attack_heavy else 1.8)*contact_size_multiplier()*pickup_multiplier("range")*melee_reach_setting() if spell_combat!=null else melee_strike_reach()
+	if musashi_attack and sword_combat.mode in ["rotation","counter"]:
+		reach*=sword_combat.SKILL_SCALE
+		if spell_combat!=null:reach*=sword_combat.cast_model().rig_visual.global_basis.get_scale().x/(1.8*contact_size_multiplier())
+	reach*=skill_factor(attack_ticket,"hit_area")
 	var contact_size=contact_size_multiplier()
-	var probe_size=contact_size if character_id==13 else 1.0
+	var probe_size=contact_size if musashi_attack else 1.0
 	var center=global_position+(Vector3.UP*1.1+facing*1.1)*contact_size
 	if first_sample and attack_charged:
 		play_sound("dash",.45)
 	elif first_sample:
-		if uses_original_goemon_attack():pass # The recovered weapon draws the source swing.
+		if spell_combat!=null:pass
+		elif uses_original_goemon_attack():pass # The recovered weapon draws the source swing.
 		elif uses_rogue_pipe_profile():rogue_pipe_combo.slash(combo)
 		elif character_id in [13,15,16,17]:pass # Recovered weapons draw their trail from the moving blade.
 		elif wide_swing:game.combo_slash(center,facing,2,attack_reach_multiplier()*combat_tuning("pipe_range")*1.26/3.5)
 		elif attack_heavy: game.slash(center,facing,true,combo,Color("ffdf83"),attack_reach_multiplier()*combat_tuning("pipe_range")/3.5)
 		else: game.combo_slash(global_position+Vector3.UP*1.1*growth_multiplier(),facing,combo,reach/3.5)
 	var any_hit=false
-	for e in game.enemies:
+	var targets=AttackChain.enemy_candidates(game,global_position,reach+3.5*contact_size)
+	for e in targets:
 		if not is_instance_valid(e) or e.dead or struck_targets.has(e.get_instance_id()): continue
 		var hurt=AttackChain.contact_point(e,global_position+Vector3.UP*1.1*probe_size,e.global_position)
-		if character_id==13 and not active_ability.can_hit_target(e):continue
+		if musashi_attack and not sword_combat.can_hit_target(e):continue
 		var dif=hurt-global_position
-		var radial=character_id==13 and active_ability.mode in ["rotation","counter"]
+		var radial=musashi_attack and sword_combat.mode in ["rotation","counter"]
 		if dif.length()<reach+e.body_radius and absf(dif.y)<3.5*contact_size and (radial or attack_charged or facing.dot(dif.normalized())>-0.12):
 			var ray=PhysicsRayQueryParameters3D.create(global_position+Vector3.UP*probe_size,AttackChain.contact_point(e,global_position+Vector3.UP*probe_size,e.global_position+Vector3.UP),1)
 			if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty(): continue
@@ -387,7 +431,7 @@ func strike():
 			else:game.confirm_impact(e,contact,hit_dir,2 if attack_heavy or combo==3 else (1 if combo==2 else 0),false)
 			any_hit=true
 	var building_damage=combat_tuning("charged_damage")*charge_power if attack_charged else (48 if attack_heavy else (30 if combo==3 else 22))
-	BreakableBuilding.hit_area(game,global_position+Vector3.UP*contact_size,reach,building_damage*damage_multiplier(),attack_ticket,facing,-1.0 if attack_charged or (character_id==13 and active_ability.mode in ["rotation","counter"]) else -.12,struck_targets)
+	BreakableBuilding.hit_area(game,global_position+Vector3.UP*contact_size,reach,building_damage*damage_multiplier(),attack_ticket,facing,-1.0 if attack_charged or (musashi_attack and sword_combat.mode in ["rotation","counter"]) else -.12,struck_targets)
 	if first_sample and not any_hit:
 		var environment_ray=PhysicsRayQueryParameters3D.create(global_position+Vector3.UP*probe_size,center+facing*1.2,1)
 		var surface=get_world_3d().direct_space_state.intersect_ray(environment_ray)
@@ -400,6 +444,9 @@ func strike():
 	if bonus:ComboEnergy.melee_attack(self,attack_ticket,5.0*melee_range_multiplier(),cross)
 
 func take_hit(amount: float, direction: Vector3, projectile: bool=false):
+	if spell_loadout!=null:
+		amount=spell_loadout.filter_damage(amount,direction,projectile)
+		if amount<=0:return
 	if character_id==17 and projectile and active_ability!=null and active_ability.blocks_projectile(direction):return
 	if sky_strike.active or forward_dash.immunity_left>0 or invuln>0 or melee_contact_guarded() or hp<=0 or game.tuning.invincible or (active_ability!=null and active_ability.protects_player()): return
 	if character_id==13:
@@ -408,6 +455,7 @@ func take_hit(amount: float, direction: Vector3, projectile: bool=false):
 	if is_rogue_character():
 		amount=active_ability.filter_damage(amount,direction,projectile)
 		if amount<=0:return
+	if spell_loadout!=null:spell_loadout.interrupt()
 	if active_ability!=null:active_ability.hit()
 	hp=maxf(0,hp-amount*game.tuning.enemy_damage)
 	invuln=0.85
@@ -415,23 +463,35 @@ func take_hit(amount: float, direction: Vector3, projectile: bool=false):
 	if is_rogue_character():active_ability.receive_knockback(direction)
 	game.camera_rig.impulse=0.18
 	game.burst(global_position+Vector3.UP,Color("ff6a55"),12)
-	play_sound("death" if character_id in [16,17] and hp<=0 else "hurt")
+	play_sound("wc_demon_death" if character_id==32 and hp<=0 and active_ability.demon else "death" if character_id in [16,17,28,29,30,31,32] and hp<=0 else "hurt")
 	if hp<=0:
-		if character_id in [16,17] and active_ability!=null:active_ability.die()
+		if character_id in [16,17,28,29,31,32] and active_ability!=null:active_ability.die()
 		game.defeat()
 
 func _physics_process(delta):
 	var original_pipe_tick:Dictionary={}
 	if not game.playing or game.paused or game.transitioning or hp<=0: return
+	clear_character_cooldowns()
+	if jump_style.active():
+		jump_buffer=maxf(0,jump_buffer-delta);jump_style.update_flight()
+	if combat_hold_left>0:
+		combat_hold_left=maxf(0,combat_hold_left-delta);invuln=maxf(0,invuln-delta)
+		velocity.x=0;velocity.z=0
+		if not is_on_floor():velocity.y-=30*delta
+		move_and_slide();model.animate(delta,0,is_on_floor(),velocity.y,0,false,0,false)
+		if combat_hold_left<=0:combat_hold_source=-1
+		return
+	skullpion_poison_left=maxf(0,skullpion_poison_left-delta)
 	melee_assist.tick(self,delta)
 	if game.siege_building():
 		cancel_charge(true);attack_left=0;queued=false;quick_attacks.stop_coins()
+	if spell_loadout.tick(delta):return
 	if game.rogue_battle_mode:game.rogue_view.update_aim()
 	auto_lock_refresh=maxf(0,auto_lock_refresh-delta)
 	if auto_attack_enabled:auto_aim_target()
 	weapon_controls.tick(delta)
 	auto_attack_clock=maxf(0,auto_attack_clock-delta*attack_speed_multiplier())
-	if auto_attack_running() and auto_attack_clock<=0 and not weapon_controls.charging and not (character_id==1 and weapon_slot==2 and surge_left>0):
+	if auto_attack_running() and auto_attack_clock<=0 and not weapon_controls.charging:
 		if character_id==1 and attack_left<=0 and not quick_attacks.active and quick_attacks.pending.is_empty() and not chain_pipe_combat.active:
 			quick_attacks.request_mouse(false)
 			auto_attack_clock=maxf(.12,attack_duration)
@@ -449,6 +509,9 @@ func _physics_process(delta):
 	for kind in powerups:powerups[kind]=maxf(0,powerups[kind]-delta)
 	if powerups.attack_speed<=0:attack_speed_stacks=0
 	if is_rogue_character():
+		active_ability.physics_step(delta)
+		return
+	if character_id==19:
 		active_ability.physics_step(delta)
 		return
 	tick_combat_aim(delta)
@@ -477,7 +540,7 @@ func _physics_process(delta):
 	dodge_time=maxf(0,dodge_time-delta)
 	dodge_cooldown=maxf(0,dodge_cooldown-delta)
 	combo_window=maxf(0,combo_window-delta)
-	jump_buffer=maxf(0,jump_buffer-delta)
+	if not jump_style.active():jump_buffer=maxf(0,jump_buffer-delta)
 	wall_jump_grace=maxf(0,wall_jump_grace-delta)
 	wall_jump_recovery=maxf(0,wall_jump_recovery-delta)
 	if global_position.distance_to(wall_jump_origin)>2.0:wall_jump_grace=0
@@ -503,7 +566,7 @@ func _physics_process(delta):
 		if active_ability.guarding():speed=minf(speed,2.16)
 		elif active_ability.mode in ["rotation","counter"]:speed=0
 	speed*=movement_multiplier()
-	if flying:speed=((12.0 if boosting else 7.0) if character_id==15 else (64.0 if boosting else 36.0))*progression.movement_multiplier()
+	if flying:speed=jump_style.flight_speed()
 	var forest_melee=game.has_method("forest_enemy_visible") and character_id==1 and weapon_slot==1
 	if forest_melee and attack_left>0 and not hit_done:
 		var angle=melee_assist.steer(self,atan2(facing.x,facing.z),delta)
@@ -523,7 +586,7 @@ func _physics_process(delta):
 	if flying:accel=90.0*progression.movement_multiplier()
 	if forward_dash.active:
 		attack_motion_pending=false
-		var dash_speed=GoemonDash.SPEED*forward_dash.tempo*minf(1.0,forward_dash.remaining/delta)
+		var dash_speed=GoemonDash.SPEED*forward_dash.tempo*minf(1.0,forward_dash.remaining/delta)*skill_factor(forward_dash.attack_ticket,"travel_speed")
 		velocity.x=forward_dash.direction.x*dash_speed
 		velocity.z=forward_dash.direction.z*dash_speed
 	elif dodge_time>0:
@@ -545,7 +608,7 @@ func _physics_process(delta):
 		if attack_left<=0 and horizontal_velocity.distance_to(Vector2(dir.x,dir.z)*speed)<.001:
 			attack_motion_pending=false
 	if character_id==13 and active_ability.guarding():pass
-	elif is_master_chief():
+	elif (is_master_chief() or is_meta_shooter()) and dodge_time<=0:
 		facing=Vector3.FORWARD.rotated(Vector3.UP,yaw)
 	elif combat_aiming() and (character_id==2 or weapon_slot==2 or attack_left<=0):
 		facing=combat_attack_direction()
@@ -554,7 +617,7 @@ func _physics_process(delta):
 		# Attacks and committed abilities keep their existing aim.
 		facing=dir.normalized()
 	model.rotation.y=lerp_angle(model.rotation.y,atan2(-facing.x,-facing.z),1-exp(-delta*(24 if attack_left>0 else (GroundResponse.TURN_RESPONSE if is_on_floor() else 14))))
-	if jump_buffer>0:
+	if not jump_style.active() and jump_buffer>0:
 		if not is_on_floor() and wall_jump_grace>0 and wall_jump_recovery<=0 and jump_windup<=0 and dodge_time<=0 and not forward_dash.active:
 			perform_wall_jump()
 		elif coyote>0 and jumps_used==0 and jump_windup<=0:
@@ -565,6 +628,7 @@ func _physics_process(delta):
 			# never reset this counter or grant unlimited extra jumps in midair.
 			jumps_used=maxi(2,jumps_used+1)
 			velocity.y=combat_tuning("second_jump_speed")*progression.jump_velocity_multiplier()
+			if character_id in [27,29]:velocity.y=active_ability.LEAP_SPEED*sqrt(combat_tuning("jump_height"))*progression.jump_velocity_multiplier()
 			jump_buffer=0
 			air_turn=0.42
 			if dir.length()>0.1:
@@ -580,6 +644,7 @@ func _physics_process(delta):
 		if jump_windup<=0:
 			jumps_used=1
 			velocity.y=combat_tuning("jump_speed")*progression.jump_velocity_multiplier()
+			if character_id in [27,29]:velocity.y=active_ability.LEAP_SPEED*sqrt(combat_tuning("jump_height"))*progression.jump_velocity_multiplier()
 			coyote=0
 			game.burst(global_position,Color("e8dab0"),7)
 			play_sound("jump")
@@ -587,8 +652,13 @@ func _physics_process(delta):
 		velocity.y=active_ability.vertical_velocity(delta)
 	elif character_id==15 and active_ability!=null and active_ability.bomb_controls_flight():
 		velocity.y=active_ability.bomb_vertical_velocity(delta,lifting,boosting)
+	elif jump_style.active():
+		jump_style.step(delta,dodge_time<=0 and not forward_dash.active)
+	elif flying and character_id==15 and not lifting:
+		velocity.y=-BEN_DESCENT_SPEED
 	elif flying:
-		velocity.y=move_toward(velocity.y,((8.0 if boosting else 5.0) if lifting else -4.0) if character_id==15 else ((32.0 if boosting else 18.0) if lifting else -10.0),40.0*delta if character_id==15 else 60.0*delta)
+		velocity.y=move_toward(velocity.y,(BEN_FLIGHT_BOOST_ASCENT_SPEED if boosting else BEN_FLIGHT_ASCENT_SPEED) if character_id==15 else ((32.0 if boosting else 18.0) if lifting else -10.0),120.0*delta if character_id==15 else 60.0*delta)
+	elif character_id in [27,29]:active_ability.step_leap(delta,dir)
 	elif not is_on_floor(): velocity.y=maxf(velocity.y-30*delta,-55.0) if game.descent_mode else velocity.y-30*delta
 	if character_id==1 and weapon_slot!=3 and attack_left>0:
 		var original_from=attack_duration-attack_left
@@ -627,7 +697,7 @@ func _physics_process(delta):
 			var raised=global_transform
 			raised.origin.y+=0.32
 			if not test_move(raised,motion): position.y+=0.32
-	if character_id in [14,15,16,17] and active_ability!=null:
+	if (character_id in [14,15,16,17,28,31,32] or RogueRoster.is_enemy(character_id)) and active_ability!=null:
 		var authored_motion: Vector3=active_ability.ground_attack_velocity()
 		if authored_motion!=Vector3.INF:
 			velocity.x=authored_motion.x;velocity.z=authored_motion.z
@@ -660,7 +730,7 @@ func _physics_process(delta):
 	flight_lean=lerpf(flight_lean,(-.28 if boosting else -.18) if flying else 0.0,1-exp(-delta*9))
 	if character_id==1:model.body.rotation.x+=flight_lean
 	air_turn=maxf(0,air_turn-delta)
-	if air_turn>0 and character_id not in [13,14,15,16,17,18]:
+	if air_turn>0 and character_id not in [13,14,15,16,17,18,19,28,31,32] and not RogueRoster.is_enemy(character_id):
 		if scarf_equipped and character_id==1:
 			var progress=clampf(1-air_turn/.42,0,1)
 			var tuck=sin(PI*progress)
@@ -699,12 +769,12 @@ func _physics_process(delta):
 			if heavy_buffer>0:
 				heavy_buffer=0;start_attack(true)
 			elif not attack_heavy and combo<3 and (not game.rogue_battle_mode or (quick_attacks.active and quick_attacks.action==1)):start_attack(false,combo+1)
-	model.visible=not (invuln>0 and int(invuln*20)%2==0) and not (is_master_chief() and is_instance_valid(game.camera_rig) and game.camera_rig.first_person_mode)
+	model.visible=not (invuln>0 and int(invuln*20)%2==0) and not ((is_master_chief() or is_meta_shooter()) and is_instance_valid(game.camera_rig) and game.camera_rig.first_person_mode)
 	if model.locomotion.step_events!=last_foot_events:
 		last_foot_events=model.locomotion.step_events
 		if is_on_floor() and horizontal>(.25 if character_id==17 else 1.0):
 			game.burst(global_position,Color("e0d2a4"),2,0.55)
-			play_sound("step",0.22)
+			if character_id!=29:play_sound("step",0.22)
 	trail_time-=delta
 	if horizontal>14 and trail_time<=0:
 		trail_time=0.065
@@ -725,9 +795,11 @@ func _physics_musashi(delta:float):
 		direction=Vector3.ZERO;active_ability.locomotion.source_speed=0;active_ability.locomotion.state="idle"
 	if active_ability.mode in ["rotation","counter"]:
 		direction=Vector3.ZERO;active_ability.locomotion.discard_jump_input()
-	var jump_requested=jump_buffer>0;jump_buffer=0;jump_windup=0;air_turn=0
+	var jump_requested=jump_buffer>0
+	if not jump_style.active():jump_buffer=0
+	jump_windup=0;air_turn=0
 	var before=global_position;var grounded=is_on_floor();var vertical_before=velocity.y
-	active_ability.locomotion.physics_step(delta,direction,jump_requested,not ai_controlled and Input.is_action_pressed("jump"),not ai_controlled and Input.is_action_pressed("walk_modifier"),guard)
+	active_ability.locomotion.physics_step(delta,direction,jump_requested,not ai_controlled and Input.is_action_pressed("jump"),(not ai_controlled and Input.is_action_pressed("walk_modifier")) or skullpion_poison_left>0,guard)
 	if not active_ability.is_attacking() and not guard:facing=active_ability.locomotion.facing
 	model.rotation.y=atan2(-facing.x,-facing.z)
 	model.native_motion=true
@@ -742,7 +814,7 @@ func _finish_movement_bounds():
 	if constrain_forest_bounds():return
 	if game.descent_mode:
 		# Keep long falls over the physical ground map without returning uphill.
-		var bounds=game.world.playable_bounds.grow(-2)
+		var bounds=game.world.playable_bounds.grow(-(25.0 if character_id==27 else 4.032*preload("res://scripts/forest/dark_lumina_kit.gd").SCALE if character_id==29 else 2.0)*growth_multiplier())
 		var edge_x=clampf(global_position.x,bounds.position.x,bounds.end.x)
 		var edge_z=clampf(global_position.z,bounds.position.y,bounds.end.y)
 		if edge_x!=global_position.x:global_position.x=edge_x;velocity.x=0
@@ -757,7 +829,7 @@ func _finish_movement_bounds():
 
 func constrain_forest_bounds()->bool:
 	if not game.has_method("forest_point_visible"):return false
-	var bounds=game.world.playable_bounds.grow(-2)
+	var bounds=game.world.playable_bounds.grow(-(25.0 if character_id==27 else 4.032*preload("res://scripts/forest/dark_lumina_kit.gd").SCALE if character_id==29 else 2.0)*growth_multiplier())
 	var edge_x=clampf(global_position.x,bounds.position.x,bounds.end.x)
 	var edge_z=clampf(global_position.z,bounds.position.y,bounds.end.y)
 	if edge_x!=global_position.x:global_position.x=edge_x;velocity.x=0
@@ -792,6 +864,7 @@ func perform_wall_jump():
 	# Keep travel along the wall while replacing inward motion with a clean kick.
 	horizontal=horizontal.slide(wall_jump_normal)+wall_jump_normal*maxf(WALL_JUMP_PUSH,horizontal.dot(wall_jump_normal))
 	velocity=horizontal+Vector3.UP*combat_tuning("second_jump_speed")*progression.jump_velocity_multiplier()
+	if character_id in [27,29] and not jump_style.active():velocity.y=active_ability.LEAP_SPEED*sqrt(combat_tuning("jump_height"))*progression.jump_velocity_multiplier()
 	facing=horizontal.normalized()
 	jump_buffer=0;coyote=0;air_turn=0
 	# Wall hops work after all air jumps are spent, but never refill their budget.
@@ -827,6 +900,8 @@ func set_weapon_visual(slot: int):
 
 
 func cancel_charge(preserve_power: bool=false,preserve_battle_hold: bool=false):
+	if jump_style.active():jump_buffer=0;jump_windup=0
+	if spell_loadout!=null:spell_loadout.cancel(preserve_power)
 	if weapon_controls!=null:weapon_controls.cancel()
 	if rogue_pipe_combo!=null:rogue_pipe_combo.clear()
 	if is_instance_valid(model):model.rogue_pipe_combo_active=false
@@ -841,17 +916,48 @@ func cancel_charge(preserve_power: bool=false,preserve_battle_hold: bool=false):
 	if is_instance_valid(charge_ring): charge_ring.hide()
 
 func character_size_multiplier()->float:
+	if character_id==28:return Proportions.KOJIRO_SIZE
 	return Proportions.MUSASHI_SIZE if character_id==13 else 1.0
+
+func skill_factor(ticket:Dictionary,key:String)->float:
+	return preload("res://scripts/spells/skill_balance.gd").factor(ticket,key)
 
 func contact_size_multiplier()->float:
 	return character_size_multiplier()*growth_multiplier()
 
 func _fit_character_capsule():
 	if not is_instance_valid(body_shape):return
+	if character_id in [27,29]:
+		var bounds:AABB=model.bounds()
+		body_shape.shape=BoxShape3D.new();body_shape.shape.size=bounds.size
+		body_shape.position=bounds.get_center()
+		return
+	if not body_shape.shape is CapsuleShape3D:body_shape.shape=CapsuleShape3D.new()
+	if RogueRoster.is_enemy(character_id):
+		var bounds:AABB=model.bounds()
+		body_shape.shape.radius=minf(bounds.size.x,bounds.size.z)*.5
+		body_shape.shape.height=maxf(bounds.size.y,body_shape.shape.radius*2)
+		body_shape.position=Vector3(0,body_shape.shape.height*.5,0)
+		return
 	var size=character_size_multiplier()
 	body_shape.shape.radius=.38*size
 	body_shape.shape.height=1.85*size
 	body_shape.position.y=.95*size
+
+func _clear_large_character_spawn():
+	if not game.has_method("forest_enemy_visible"):return
+	# A boss selected beside a castle needs a clear footprint before movement starts.
+	var query=PhysicsShapeQueryParameters3D.new();query.shape=body_shape.shape;query.collision_mask=1;query.exclude=[get_rid()]
+	var origin=global_position
+	var bounds:Rect2=game.world.playable_bounds.grow(-(25.0 if character_id==27 else 4.032*preload("res://scripts/forest/dark_lumina_kit.gd").SCALE)*growth_multiplier())
+	for ring in range(5):
+		for sector in (1 if ring==0 else 12):
+			var point=origin+Vector3(sin(sector*TAU/12),0,cos(sector*TAU/12))*ring*20
+			if not bounds.has_point(Vector2(point.x,point.z)):continue
+			point.y=game.model.surface_height(point.x,point.z)+.08
+			query.transform=global_transform*body_shape.transform;query.transform.origin=point+body_shape.position*growth_multiplier()
+			if get_world_3d().direct_space_state.intersect_shape(query,1).is_empty():
+				global_position=point;velocity=Vector3.ZERO;return
 
 func growth_multiplier()->float:return minf(MAX_GROWTH,1.0+buildings_broken*GROWTH_PER_BUILDING)
 
@@ -867,7 +973,7 @@ func melee_range_multiplier()->float:
 	return range_multiplier()*melee_reach_setting()*(combat_tuning("surge_range") if attack_charged and surge_left<=0 else 1.0)
 
 func melee_reach_setting()->float:
-	return combat_tuning("melee_reach")
+	return combat_tuning("melee_reach")*(spell_loadout.melee_multiplier() if spell_loadout!=null and not spell_loadout.dispatching else 1.0)
 
 func attack_reach_multiplier()->float:
 	var basic = not attack_heavy and not attack_charged and not wide_swing
@@ -903,20 +1009,23 @@ func melee_strike_reach()->float:
 
 func emit_robe_coins(radial: bool=false):
 	if character_id!=1 or not scarf_equipped:return
-	game.throw_robe_coins(facing,radial,weapon_slot==2)
+	game.throw_robe_coins(facing,radial,weapon_slot==2,self)
 
 func movement_multiplier()->float:
-	if is_master_chief():return progression.movement_multiplier()
-	return progression.movement_multiplier()*(3.0 if scarf_equipped else 1.0)
+	var spell_speed=spell_loadout.movement_multiplier() if spell_loadout!=null else 1.0
+	if is_master_chief():return progression.movement_multiplier()*spell_speed*(.55 if skullpion_poison_left>0 else 1.0)
+	return (preload("res://scripts/forest/forest_enemy_roles.gd").BOSS_MOVE_SPEED if character_id==27 else preload("res://scripts/forest/dark_lumina_kit.gd").MOVE_SPEED if character_id==29 else preload("res://scripts/forest/dark_lumina_3_kit.gd").MOVE_SPEED if character_id==30 else 1.0)*progression.movement_multiplier()*spell_speed*(3.0 if scarf_equipped else 1.0)*(.55 if skullpion_poison_left>0 else 1.0)
 
 func maximum_jumps()->int:
+	if jump_style.active():return jump_style.maximum_jumps()
 	if character_id==13:return 2
 	if is_master_chief():return 1
 	if scarf_equipped:return 4
 	if character_id==8:return 1
 	return 2
 
-func can_fly()->bool:return not is_master_chief() and (character_id==15 or (gold_cloak and scarf_equipped))
+func can_fly()->bool:
+	return (spell_loadout!=null and spell_loadout.flight_enabled) or (jump_style.selected=="ben" if jump_style.active() else character_id==15 or (character_id==32 and active_ability!=null and active_ability.demon) or (character_id==30 and not (active_ability!=null and active_ability.is_attacking() and active_ability.move==4))) or (not is_master_chief() and gold_cloak and scarf_equipped)
 
 func set_gold_cloak(value: bool):
 	set_scarf_equipped(value)
@@ -942,13 +1051,13 @@ func activate_surge():
 	if surge_left>0 and not attack_chain.unleashed(): return
 	surge_left=combat_tuning("surge_duration")
 	model.set_surge(true)
-	if is_instance_valid(model.chain_pipe):model.chain_pipe.powered=true
+	if is_instance_valid(model.chain_pipe):model.chain_pipe.powered=character_id!=1
 	aura.visible=character_id!=1
 	if character_id!=1:game.burst(global_position+Vector3.UP,Color("ffe69b"),24)
 	var audio_ticket=attack_chain.make_ticket("surge")
 	audio_ticket["move_audio"]=game.move_audio.begin(self,"surge","surge")
 	play_sound("spark",1.0,audio_ticket)
-	game.toast("GOLDEN GOEMON · Hold 2 to charge ryo, release to throw" if character_id==1 else "GOLDEN SURGE · Wind spin / Giant toss / Explosive chain + Fire sweep")
+	game.toast("GOLDEN GOEMON · Flaming ryo · Pipe and chain ready" if character_id==1 else "GOLDEN SURGE · Wind spin / Giant toss / Explosive chain + Fire sweep")
 
 func end_surge():
 	if weapon_controls!=null:weapon_controls.cancel()
@@ -957,9 +1066,18 @@ func end_surge():
 	if is_instance_valid(model.chain_pipe):model.chain_pipe.powered=false
 	aura.hide()
 
+func clear_character_cooldowns():
+	if ai_controlled or not game.settings.get("disable_character_cooldowns",false):return
+	dodge_cooldown=0.0
+	if active_ability!=null:active_ability.clear_cooldowns()
+	if spell_loadout!=null:spell_loadout.clear_cooldowns()
+
 func select_character(id: int):
-	if ai_controlled and id==18:return
+	combat_hold_left=0;combat_hold_source=-1
+	if ai_controlled and (id in [18,19,28] or RogueRoster.is_enemy(id)):return
 	if id==character_id:
+		spell_loadout.prepare()
+		clear_character_cooldowns()
 		if not ai_controlled and game.rogue_roster_mode and id in RogueRoster.PLAYABLE_IDS:game.selected_rogue_id=id
 		return
 	if not ROSTER.has(id) and not (game.rogue_roster_mode and RogueRoster.is_rogue(id)):return
@@ -976,7 +1094,9 @@ func select_character(id: int):
 	attack_left=0;attack_motion_pending=false;attack_charged=false;heavy_buffer=0;combo=0;queued=false;impact_pause=0;air_turn=0
 	ensure_character(id)
 	character_id=id;model=character_models[id];model.rotation=rotation_before;model.show();model.set_process(true)
+	model.scale=Vector3.ONE*combat_tuning("model_scale")
 	_fit_character_capsule()
+	if id in [27,29]:_clear_large_character_spawn()
 	model.set_cloak(scarf_equipped,gold_cloak)
 	if id==2:
 		var horizontal=Vector2(velocity.x,velocity.z).limit_length(combat_tuning("sprint_speed")*movement_multiplier())
@@ -986,6 +1106,8 @@ func select_character(id: int):
 		active_ability.active=true;active_ability.cancel()
 		if id==13:active_ability.locomotion.reset();active_ability.locomotion.facing=facing
 		if id==2:musashi=active_ability
+	spell_loadout.prepare()
+	clear_character_cooldowns()
 	refresh_max_health()
 	hp=max_hp*health_fraction
 	last_foot_events=model.locomotion.step_events
@@ -994,30 +1116,24 @@ func select_character(id: int):
 	if is_instance_valid(game.camera_rig):game.camera_rig.sync_character_view()
 	if not game.character_control_hints:
 		game.toast(RogueRoster.name_for(id) if is_rogue_character() else ROSTER[id].name)
-	elif id in [14,15]:
-		game.toast("Ed · Hold LMB Beam · RMB Fireballs · E Smoke Assault · C Evade" if id==14 else "Ben · LMB Polearm · Hold RMB Bombs · Tap E Stars / Hold E Axes · Hold Space Fly · C Evade")
-	elif id==18:
-		game.toast("Master Chief · 1 Rockets · 2 Pistol · 3 Shotgun · 4 Assault rifle · Hold LMB Fire · Infinite ammo · Q Fighters")
-	elif id==17:
-		game.toast("Yae · LMB Gold katana · RMB Bazooka / Hold Lock-on · Hold E Sword Shield · C Evade · Q Fighters")
-	elif id==16:
-		game.toast("Sasuke · LMB Gold kunai · RMB Bomb · E Ice / Hold Charge · T Hair · R Super Jump · Q Fighters")
-	elif id==13:
-		game.toast("Musashi · LMB Fusion · RMB Lumina · 1 Spin · 2 Mighty Strike · Space Double jump")
-	elif is_rogue_character():
-		game.toast(RogueRoster.name_for(id)+(" · LMB Attack · RMB / 3 Secondary · C Evade · E Utility · R Skill · Q Heroes" if game.camera_combat() else " · LMB Attack · RMB / 3 Secondary · C / E Utility · R Skill · Q Fighters"))
-	elif game.rogue_roster_mode and id==1:
-		game.toast("Goemon · Q Fighters · Hold LMB Combo · RMB Heavy · C Evade · E Dash · R Surge")
-	else:game.toast(ROSTER[id].name+" · Q Switch character · "+("LMB Triple fireball · RMB Giant fireball · T Meteor rain · R Beam" if id==2 else ("1 Pipe combo · 2 Throw ryo · 3 Chain throw · Golden: hold 2 to charge" if id==1 else "1 Wind spin · 2 Auto coins ON/OFF · 3 Long sweep · C Evade")))
+	else:
+		var labels=PackedStringArray()
+		for i in spell_loadout.numbered_slots.size():
+			var slot:Array=spell_loadout.numbered_slots[i]
+			if not slot.is_empty():labels.append("%d %s"%[i+1,slot[0]])
+		game.toast((RogueRoster.name_for(id) if is_rogue_character() else ROSTER[id].name)+" · "+" · ".join(labels)+" · Q Skills & Jump")
 
 func is_master_chief()->bool:
 	return character_id==18 and not ai_controlled
+
+func is_meta_shooter()->bool:
+	return character_id==32 and not ai_controlled and active_ability!=null and active_ability.demon
 
 func is_rogue_character()->bool:
 	return RogueRoster.is_rogue(character_id)
 
 func rogue_untargetable()->bool:
-	return is_rogue_character() and active_ability!=null and active_ability.untargetable()
+	return (spell_loadout!=null and spell_loadout.untargetable()) or (is_rogue_character() and active_ability!=null and active_ability.untargetable())
 
 func ensure_character(id: int):
 	if character_models.has(id):return
@@ -1032,10 +1148,13 @@ func ensure_character(id: int):
 		return
 	var entry=ROSTER[id]
 	var visual=entry.model.new()
-	if id==13:visual.outfit_mask=int(game.settings.get("musashi_equipment_mask",31))
+	if entry.has("role"):visual.role=entry.role
+	if entry.has("character"):visual.character=entry.character
 	add_child(visual);character_models[id]=visual
 	if entry.has("combat"):
-		var ability=entry.combat.new();ability.hero=self;ability.game=game;add_child(ability)
+		var ability=entry.combat.new();ability.hero=self;ability.game=game
+		if entry.has("role"):ability.role=entry.role
+		add_child(ability)
 		character_abilities[id]=ability;visual.combat=ability
 		if id==18:master_chief_combat=ability
 	character_models[id].hide()
@@ -1046,12 +1165,13 @@ func pickup_multiplier(kind: String)->float:
 	if kind=="attack_speed":return 1.0+.5*maxi(1,attack_speed_stacks)
 	return {"damage":1.5,"range":1.5,"attack_speed":1.5}.get(kind,1.0)
 func damage_multiplier()->float:
-	return (6.0 if character_id==15 else (3.0 if character_id in [1,14,16,17] else 1.0))*combat_tuning("damage_mult")*pickup_multiplier("damage")*(1.0+.1*run_upgrades.damage)
+	var form_damage=10.0 if character_id==32 and active_ability!=null and active_ability.demon else 1.0
+	return form_damage*(6.0 if character_id==15 else (3.0 if character_id in [1,14,16,17] else 1.0))*combat_tuning("damage_mult")*pickup_multiplier("damage")*(1.0+.1*run_upgrades.damage)*(team_progression.multiplier("character_damage") if team_progression!=null else 1.0)*(spell_loadout.damage_multiplier() if spell_loadout!=null else 1.0)
 func base_attack_speed_multiplier()->float:
-	return progression.attack_multiplier()*pickup_multiplier("attack_speed")*(1.0+.05*run_upgrades.tempo)
+	return combat_tuning("attack_speed")*progression.attack_multiplier()*pickup_multiplier("attack_speed")*(1.0+.05*run_upgrades.tempo)*(team_progression.multiplier("character_speed") if team_progression!=null else 1.0)
 func attack_speed_multiplier()->float:
 	var chain_rate=active_ability.ranger_fire_rate_multiplier() if is_rogue_character() and active_ability!=null and active_ability.class_id=="ranger" else attack_chain.multiplier()
-	return base_attack_speed_multiplier()*chain_rate
+	return base_attack_speed_multiplier()*chain_rate*(spell_loadout.attack_multiplier() if spell_loadout!=null and not spell_loadout.dispatching else 1.0)
 
 func refresh_max_health(heal_growth: bool=false):
 	var previous=max_hp
@@ -1059,10 +1179,11 @@ func refresh_max_health(heal_growth: bool=false):
 	hp=minf(max_hp,hp+(maxf(0,max_hp-previous) if heal_growth else 0.0))
 
 func award_kill():
+	if team_progression!=null:
+		game.award_team_kill();return
 	if not game.playing or game.paused or game.transitioning or hp<=0:return
 	if progression.award_kills()>0:
 		refresh_max_health(true)
-		game.toast("LEVEL %d%s · HP %d · Attack +%.1f%% · Move +%.1f%% · Jump +%.1f%%" % [progression.level," · MAX" if progression.level==progression.MAX_LEVEL else "",roundi(max_hp),(progression.attack_multiplier()-1)*100,(progression.movement_multiplier()-1)*100,(progression.jump_height_multiplier()-1)*100])
 		play_sound("spark",.5)
 		game.burst(global_position+Vector3.UP,Color("f6d485"),12)
 
@@ -1140,19 +1261,23 @@ func combat_attack_direction()->Vector3:
 	return game.attack_direction()
 
 func combat_tuning(key: String)->float:
-	return game.balance_value(character_id,key) if ai_controlled else game.hero_tuning(key)
+	var value=game.balance_value(character_id,key) if ai_controlled else game.hero_tuning(key)
+	return value*sqrt(game.balance_value(character_id,"jump_height")) if key in ["jump_speed","second_jump_speed"] else value
 
 func movement_jump_available()->bool:
 	return is_on_floor() or coyote>0 or jumps_used<maximum_jumps() or wall_jump_grace>0
 
 func has_offensive_action()->bool:
+	if spell_loadout!=null and spell_loadout.current!=null:return true
 	if attack_left>0 or attack_motion_pending or impact_pause>0 or primary_down or charge_elapsed>0 or heavy_buffer>0:return true
 	if sky_strike.active or forward_dash.active or chain_pipe_combat.active or quick_attacks.active or not quick_attacks.pending.is_empty():return true
-	return active_ability!=null and (active_ability.has_offensive_action() if is_rogue_character() else (character_id in [13,14,15,16,17,18] and active_ability.is_attacking()))
+	return active_ability!=null and (active_ability.has_offensive_action() if is_rogue_character() else ((character_id in [13,14,15,16,17,18,19,28,31,32] or RogueRoster.is_enemy(character_id)) and active_ability.is_attacking()))
 
 func interrupt_attack_for_movement(preserve_motion: bool=false):
+	if spell_loadout!=null:spell_loadout.interrupt()
 	if weapon_controls!=null:weapon_controls.cancel()
 	# A normal running jump retains its momentum. Cancels strip attack impulses.
+	if character_id==19 and active_ability.mode=="jump":active_ability.cancel()
 	if not has_offensive_action():return
 	var locked_motion=sky_strike.active or forward_dash.active
 	var movement_velocity=Vector3(velocity.x,0,velocity.z)

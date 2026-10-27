@@ -1,0 +1,6 @@
+{
+  "stomp_wave": {
+    "original_geometry": true,
+    "master": "assets/blender/enemies/recovered_monsters/dark_lumina_2_stomp.blend"
+  }
+}

@@ -21,7 +21,7 @@ func make_game(layout:String)->Node:
  tree=get_tree();process_mode=Node.PROCESS_MODE_ALWAYS
  Engine.physics_ticks_per_second=600;Engine.time_scale=10
  tree.set_meta("forest_fighter",11)
- var doc=load("res://scripts/forest/forest_map_document.gd").new()
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new()
  if layout=="kai":doc.load_kai_highway()
  else:doc.load_original()
  tree.set_meta("forest_custom_layout",doc.data)
@@ -45,7 +45,6 @@ func make_game(layout:String)->Node:
 func freeze_background():
  if is_instance_valid(game.army_runtime):game.army_runtime.set_process(false)
  game.set_physics_process(false);game.set_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
- for unit in game.gate_defenders.units.values():unit.set_physics_process(false)
  for unit in game.explorer_helpers.pool:unit.set_physics_process(false)
  for actor in game.actors.values():actor.set_physics_process(false)
 func advance(seconds:float)->void:

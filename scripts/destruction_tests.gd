@@ -29,6 +29,8 @@ func run():
 	game.start_game();game.encounters.enabled=false;game.player.smoke_mode=true
 	game.camera_rig.set_process_unhandled_input(false);get_window().set_flag(Window.FLAG_NO_FOCUS,true);Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	game.child_entered_tree.connect(observe_projectile);game.child_entered_tree.connect(observe_energy)
+	preload("res://scripts/character_projectile_pool.gd").service(game).launched.connect(observe_energy)
+	preload("res://scripts/character_projectile_pool.gd").service(game).launched.connect(observe_projectile)
 	var p=game.player
 	check(game.world.breakable_buildings.filter(func(b):return b.objective_island<0).size()==157,"All 48 town houses, 96 furnished buildings and 13 temples are destructible")
 	await fresh_site();var part=fixture();part.hp=48;await frames(2)

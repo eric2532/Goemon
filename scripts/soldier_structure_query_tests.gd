@@ -35,7 +35,7 @@ func run():
  check(nav.blocker(Vector3(31,0,0),3.9)==-1,"A removed wall immediately clears its contact geometry")
  var raised=Ground.new();raised.level=5;m.terrain=raised
  check(nav.blocker(Vector3(11,5,0),3.9)==1,"A replaced terrain instance refreshes cached foundation heights")
- var kai=Model.new();kai.reset(42,{},JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_kai_highway.json")));nav=kai.waves.navigation
+ var kai=Model.new();kai.reset(42,{},JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_kai_highway.json")));nav=kai.waves.navigation
  for i in 1200:
   var p=Vector3(rng.randf_range(-110,110),rng.randf_range(-2,22),rng.randf_range(-110,110));var r=[.9,3.9,5.35,8.5][i%4]
   check(nav.blocker(p,r)==original(kai,nav,p,r),"Native castle/hills contacts match the original query")

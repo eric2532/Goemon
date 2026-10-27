@@ -92,10 +92,10 @@ func run():
 	p.select_character(1);p.start_attack(false,1)
 	var pipe_ticket: Dictionary=p.attack_chain.active_ticket
 	game.throw_coin(false,false,1.0,p.attack_chain.make_ticket("coin"),true)
-	check(pipe_ticket.move_audio.voiced and pool_count(game.move_audio.voices,lib.original_for(1,"move_coin_voice"))==1,"A background coin voices its original release independently of the pipe entry grunt")
+	check(pipe_ticket.move_audio.voiced and pool_count(game.move_audio.voices,lib.custom_for(1,"move_coin_voice"))==1,"A background coin voices its recorded release independently of the pipe entry grunt")
 	if p.rogue_pipe_combo.sound!=null:p.rogue_pipe_combo.sound.last_events.clear()
 	p.play_swing_sound()
-	check(pipe_ticket.move_audio.voiced and pool_count(game.move_audio.voices,lib.original_for(1,"move_primary_1_voice"))==1,"Goemon's pipe retains one original entry grunt after a background volley")
+	check(pipe_ticket.move_audio.voiced and pool_count(game.move_audio.voices,lib.custom_for(1,"move_primary_1_voice"))==1,"Goemon's pipe retains one recorded entry grunt after a background volley")
 	game.move_audio.stop();lib.select_character(2);save("move_volley_voice",voice);p.select_character(2)
 	p.musashi.cast_fireball(false);p.musashi.tick(.3,false);p.musashi.after_pose()
 	check(pool_count(game.move_audio.voices,lib.custom_for(2,"move_volley_voice"))==1,"Edo's triple fireball releases one voice for its shared volley")
@@ -110,13 +110,13 @@ func run():
 	p.musashi.cancel_beam();lib.set_muted("move_beam_weapon",false);p.musashi.start_beam()
 	check(p.musashi.beam.loop.stream.data==weapon.data and is_equal_approx(db_to_linear(p.musashi.beam.loop.volume_db),.35*.6),"Sustained beam uses the paired weapon recording and gain")
 	p.musashi.cancel_beam()
-	check(game.sound_preview(10,"move_primary_3_weapon")==load("res://assets/rogue/audio/bow-power.wav") and game.sound_preview(4,"move_utility_weapon")==load("res://assets/rogue/audio/bow-power.wav"),"Power-arrow move previews match Ranger's third shot and Samurai's utility")
+	check(game.sound_preview(10,"move_primary_3_weapon")==load("res://assets/rogue/audio/bow-ranger-power.wav") and game.sound_preview(4,"move_utility_weapon")==load("res://assets/rogue/audio/bow-power.wav"),"Power-arrow move previews match Ranger's third shot and Samurai's utility")
 	lib.select_character(3);lib.take=voice;lib.take_slot="move_primary_1_weapon";lib.listen(lib.take,lib.take_slot)
 	check(lib.preview.stream==voice and is_equal_approx(db_to_linear(lib.preview.volume_db),.55*.4),"Listen to take plays the new pending take rather than the previous saved weapon")
 	lib.discard();game.move_audio.stop();lib.select_character(1)
 	if lib.slots_for(1).has("move_surge_voice"):save("move_surge_voice",voice)
 	p.select_character(1);p.activate_surge()
-	check(pool_count(game.move_audio.voices,lib.original_for(1,"move_surge_voice"))==1,"Goemon's accepted R surge bypasses saved takes for its original paired voice")
+	check(pool_count(game.move_audio.voices,lib.custom_for(1,"move_surge_voice"))==1,"Goemon's accepted R surge uses its saved paired voice")
 	# Dragoon's new grounded sweep has its own pair; airborne Leap preserves
 	# the original secondary recordings and releases only once on landing.
 	game.move_audio.stop();lib.select_character(8)

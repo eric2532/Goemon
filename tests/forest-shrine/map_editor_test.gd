@@ -14,7 +14,7 @@ func check(ok: bool,message: String):
 func settle():
 	for i in range(4):await process_frame
 func run():
-	set_meta("forest_custom_layout",JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_four_gates.json")))
+	set_meta("forest_custom_layout",JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_four_gates.json")))
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=config_path;root.add_child(game);current_scene=game;await settle()
 	var entry=game.forest_ui.find_child("PreparationMapEditor",true,false)
 	check(entry is Button,"Building view exposes Map Editor")
@@ -56,12 +56,12 @@ func run():
 	check(editor.confirmation.visible,"Saving over another named map requires confirmation")
 	editor.confirmation.canceled.emit();editor.confirmation.hide();await settle()
 	editor.choose_piece("wall");await map_click(Vector2i(12,12));check(editor.document.dirty,"Further edits mark map unsaved")
-	editor.load_original();await settle()
-	check(editor.confirmation.visible and editor.document.dirty,"Original Map asks before discarding unsaved edits")
+	preload("res://tests/forest-shrine/reference/map_document.gd").load_editor(editor,preload("res://tests/forest-shrine/reference/map_document.gd").ORIGINAL_PATH);await settle()
+	check(editor.confirmation.visible and editor.document.dirty,"Loading a saved legacy layout asks before discarding unsaved edits")
 	editor.confirmation.canceled.emit();editor.confirmation.hide();await settle()
 	check(editor.document.dirty,"Cancel preserves unsaved work")
-	editor.load_original();editor.confirmation.confirmed.emit();editor.confirmation.hide();await settle()
-	check(editor.document.data.title=="Original Forest Shrine" and game.model.buildings.size()==15 and game.model.deposits.is_empty() and game.model.trees.size()==650,"Original Map restores the protected scenery without the two disabled mines")
+	preload("res://tests/forest-shrine/reference/map_document.gd").load_editor(editor,preload("res://tests/forest-shrine/reference/map_document.gd").ORIGINAL_PATH);editor.confirmation.confirmed.emit();editor.confirmation.hide();await settle()
+	check(editor.document.data.title=="Original Forest Shrine" and game.model.buildings.size()==15 and game.model.deposits.is_empty() and game.model.trees.size()==650,"Legacy layout restores the protected scenery without the two disabled mines")
 	if "--visual" in OS.get_cmdline_user_args():await shot("original")
 	for i in range(editor.saved_maps.item_count):
 		if editor.saved_maps.get_item_metadata(i)==saved_path:editor.saved_maps.selected=i

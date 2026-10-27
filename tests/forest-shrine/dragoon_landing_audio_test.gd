@@ -31,7 +31,7 @@ func run():
  check(AUDIO.event_file("slam",{"style":"mage"})=="slam" and AUDIO.event_file("slam")=="slam","Other slam sounds stay unchanged")
  check(ResourceLoader.exists(IMPACT),"Layered landing asset is present")
  if failures:print("DRAGOON_LANDING_AUDIO_RESULT checks=%d failures=%d"%[checks,failures]);quit(1);return
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=sandbox+".cfg";root.add_child(game);current_scene=game;await frames()
  game.sound_library.free();var lib=load("res://scripts/sound_library.gd").new();lib.folder=sandbox;lib.config_path=sandbox+"-sounds.cfg";game.sound_library=lib;lib.game=game;game.add_child(lib)
  game.start_wave();game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
@@ -61,7 +61,7 @@ func run():
   if c.player.travel==null:break
  check(game.player.is_on_floor() and c.player.travel==null,"The real floor contact completes the leap")
  check(last_file(c)==IMPACT and posmod(c.sound.cursor-cursor,28)==1,"Landing plays the three-layer mix exactly once even without an enemy")
- check(not c.fx.items.any(func(item):return item.kind=="dragon-descent") and c.fx.items.filter(func(item):return item.kind=="dragon-eruption").size()==1,"Ground contact replaces the diving dragon with exactly one eruption")
+ check(not c.fx.items.any(func(item):return item.kind=="dragon-descent") and c.projectiles.filter(func(item):return item.kind=="dragon").size()==1,"Ground contact replaces the diving dragon with exactly one hunting dragon")
  var landed_cursor=c.sound.cursor
  for i in 120:c.step_travel(1.0/120);c.tick(1.0/120,false)
  check(c.sound.cursor==landed_cursor,"Later body ticks and the three pulses cannot replay the landing sound")

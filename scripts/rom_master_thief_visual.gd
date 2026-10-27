@@ -48,7 +48,7 @@ func setup(owner_actor:Node3D,old_rig:RefCounted):
 			var material:ShaderMaterial=mesh.mesh.surface_get_material(surface)
 			material.set_shader_parameter("costume_palette",2 if pointer==Body.HEAD_POINTER and surface==0 else (0 if pointer==Body.HEAD_POINTER else 1))
 			shader_materials.append(material)
-	costume=load("res://assets/models/characters/rom_goemon_base/master_thief_equipment.glb").instantiate()
+	costume=load(GameAssets.model_path("res://assets/models/characters/rom_goemon_base/master_thief_equipment.glb")).instantiate()
 	add_child(costume);costume.rotation.y=PI # glTF -Z front -> native +Z.
 	equipment_skeleton=costume.find_child("Skeleton3D",true,false)
 	weapon=costume.find_child("MasterThief_Weapon",true,false)

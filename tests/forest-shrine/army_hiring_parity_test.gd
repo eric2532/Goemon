@@ -9,7 +9,7 @@ func _initialize():run.call_deferred()
 func run():
  for backend in ["native"]:
 
-  var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+  var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
   var game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path="user://army-hiring-%d.cfg"%OS.get_process_id();root.add_child(game)
   for i in 3:await process_frame
   game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false)

@@ -1,0 +1,720 @@
+{
+  "source": "raw/SC07.CD.dir/FILE_004.dir/1.1",
+  "sha256": "4876f2a46a1eae4e245a1e6382f4caea6f746a5a6fe8c62dbda6b5d12b283ec1",
+  "meshes": [
+    {
+      "name": "wind",
+      "nodes": [
+        1
+      ],
+      "list_address": "0x801b75ec",
+      "count": 1
+    },
+    {
+      "name": "wind_outer",
+      "nodes": [
+        2
+      ],
+      "list_address": "0x801b80fc",
+      "count": 1
+    },
+    {
+      "name": "sword",
+      "nodes": [
+        3
+      ],
+      "list_address": "0x801b872c",
+      "count": 1
+    },
+    {
+      "name": "core",
+      "nodes": [
+        4
+      ],
+      "list_address": "0x801bc9ec",
+      "count": 1
+    },
+    {
+      "name": "core_open",
+      "nodes": [
+        5
+      ],
+      "list_address": "0x801bf01c",
+      "count": 1
+    },
+    {
+      "name": "sword_wave",
+      "nodes": [
+        6
+      ],
+      "list_address": "0x801efc18",
+      "count": 1
+    },
+    {
+      "name": "cast_aura",
+      "nodes": [
+        7
+      ],
+      "list_address": "0x801f0688",
+      "count": 1
+    },
+    {
+      "name": "burst",
+      "nodes": [
+        8
+      ],
+      "list_address": "0x801f07e0",
+      "count": 1
+    },
+    {
+      "name": "core_rays",
+      "nodes": [
+        9
+      ],
+      "list_address": "0x801f0c90",
+      "count": 1
+    },
+    {
+      "name": "ending",
+      "nodes": [
+        10
+      ],
+      "list_address": "0x801f2538",
+      "count": 1
+    },
+    {
+      "name": "blast",
+      "nodes": [
+        11
+      ],
+      "list_address": "0x801f2d48",
+      "count": 1
+    },
+    {
+      "name": "arena",
+      "nodes": [
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "list_address": "0x801f7490",
+      "count": 5
+    }
+  ],
+  "sprites": {
+    "fire": {
+      "descriptor": "0x801b0408",
+      "table": "0x801b0414",
+      "rects": [
+        [
+          768,
+          0
+        ],
+        [
+          776,
+          0
+        ],
+        [
+          784,
+          0
+        ],
+        [
+          792,
+          0
+        ],
+        [
+          768,
+          64
+        ],
+        [
+          776,
+          64
+        ],
+        [
+          784,
+          64
+        ],
+        [
+          792,
+          64
+        ],
+        [
+          768,
+          128
+        ],
+        [
+          776,
+          128
+        ],
+        [
+          784,
+          128
+        ],
+        [
+          792,
+          128
+        ],
+        [
+          768,
+          192
+        ],
+        [
+          776,
+          192
+        ],
+        [
+          784,
+          192
+        ],
+        [
+          792,
+          192
+        ]
+      ],
+      "cluts": [
+        22102,
+        22102,
+        22102,
+        22102,
+        22102,
+        22102,
+        22102,
+        22102,
+        22102,
+        22102,
+        22102,
+        22102,
+        22102,
+        22102,
+        22102,
+        22102
+      ],
+      "palette_rows": [
+        89,
+        89,
+        89,
+        89,
+        89,
+        89,
+        89,
+        89,
+        89,
+        89,
+        89,
+        89,
+        89,
+        89,
+        89,
+        89
+      ],
+      "pixel_depth": 4,
+      "hold_ticks": 1,
+      "display_scale": 3,
+      "visible_pixels": [
+        993,
+        1180,
+        1204,
+        1192,
+        1175,
+        1253,
+        1264,
+        1224,
+        1247,
+        1256,
+        1224,
+        1256,
+        1299,
+        1218,
+        1153,
+        1276
+      ],
+      "width": 32,
+      "height": 64,
+      "frames": 16,
+      "sha256": "99afe66507033838421c2216f5c483a5f687c58c6304b8bdeba9839ec91018ce"
+    },
+    "water": {
+      "descriptor": "0x801b0604",
+      "table": "0x801b061c",
+      "rects": [
+        [
+          832,
+          256
+        ],
+        [
+          832,
+          307
+        ],
+        [
+          832,
+          358
+        ],
+        [
+          832,
+          409
+        ],
+        [
+          832,
+          460
+        ],
+        [
+          896,
+          256
+        ],
+        [
+          896,
+          307
+        ],
+        [
+          896,
+          358
+        ],
+        [
+          896,
+          409
+        ],
+        [
+          896,
+          460
+        ],
+        [
+          960,
+          256
+        ],
+        [
+          960,
+          307
+        ],
+        [
+          960,
+          358
+        ],
+        [
+          960,
+          409
+        ],
+        [
+          960,
+          460
+        ]
+      ],
+      "cluts": [
+        22870,
+        22870,
+        22870,
+        22870,
+        22870,
+        22934,
+        22934,
+        22934,
+        22934,
+        22934,
+        22998,
+        22998,
+        22998,
+        22998,
+        22998
+      ],
+      "palette_rows": [
+        101,
+        101,
+        101,
+        101,
+        101,
+        102,
+        102,
+        102,
+        102,
+        102,
+        103,
+        103,
+        103,
+        103,
+        103
+      ],
+      "pixel_depth": 4,
+      "hold_ticks": 2,
+      "display_scale": 1,
+      "visible_pixels": [
+        2863,
+        2804,
+        3297,
+        4129,
+        4825,
+        5706,
+        6567,
+        7846,
+        8397,
+        9983,
+        9083,
+        8685,
+        8078,
+        8395,
+        7264
+      ],
+      "width": 256,
+      "height": 51,
+      "frames": 15,
+      "sha256": "002ad94a37131772c0c145c03c34fa6db242ca3709f7d64600d91a5aab1bdbda"
+    },
+    "water_fall": {
+      "descriptor": "0x801b0610",
+      "table": "0x0",
+      "rects": [
+        [
+          768,
+          256
+        ]
+      ],
+      "cluts": [
+        22806
+      ],
+      "palette_rows": [
+        100
+      ],
+      "pixel_depth": 4,
+      "hold_ticks": 1,
+      "display_scale": 1,
+      "visible_pixels": [
+        2628
+      ],
+      "width": 256,
+      "height": 48,
+      "frames": 1,
+      "sha256": "fc0fac9ec1fb4b8f092be5b7e645973617fc63422ace7d72bee3e95bf5de901b"
+    },
+    "sword_cross": {
+      "descriptor": "0x801b0770",
+      "table": "0x0",
+      "rects": [
+        [
+          640,
+          384
+        ]
+      ],
+      "cluts": [
+        32720
+      ],
+      "palette_rows": [
+        255
+      ],
+      "pixel_depth": 8,
+      "hold_ticks": 1,
+      "display_scale": 1,
+      "visible_pixels": [
+        10307
+      ],
+      "width": 128,
+      "height": 128,
+      "frames": 1,
+      "sha256": "a8fb13f6c413baa39553f0cc48488c9f4c27e5f57daa8ad8c2fe9a2353b9dbf2"
+    },
+    "sky_spark_0": {
+      "descriptor": "0x801b01ec",
+      "table": "0x801b01f8",
+      "rects": [
+        [
+          960,
+          448
+        ],
+        [
+          964,
+          448
+        ],
+        [
+          968,
+          448
+        ],
+        [
+          972,
+          448
+        ],
+        [
+          960,
+          480
+        ],
+        [
+          964,
+          480
+        ],
+        [
+          968,
+          480
+        ],
+        [
+          972,
+          480
+        ]
+      ],
+      "cluts": [
+        22806,
+        22806,
+        22806,
+        22806,
+        22806,
+        22806,
+        22806,
+        22806
+      ],
+      "palette_rows": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "pixel_depth": 4,
+      "hold_ticks": 3,
+      "display_scale": 2,
+      "visible_pixels": [
+        192,
+        354,
+        423,
+        414,
+        339,
+        363,
+        215,
+        206
+      ],
+      "width": 16,
+      "height": 32,
+      "frames": 8,
+      "sha256": "ad728e8f553bd5554126ac45be581101bfc869de73193902cbf5c70162c23651"
+    },
+    "sky_spark_1": {
+      "descriptor": "0x801b01ec",
+      "table": "0x801b0238",
+      "rects": [
+        [
+          976,
+          448
+        ],
+        [
+          980,
+          448
+        ],
+        [
+          984,
+          448
+        ],
+        [
+          988,
+          448
+        ],
+        [
+          976,
+          480
+        ],
+        [
+          980,
+          480
+        ],
+        [
+          984,
+          480
+        ],
+        [
+          988,
+          480
+        ]
+      ],
+      "cluts": [
+        22806,
+        22806,
+        22806,
+        22806,
+        22806,
+        22806,
+        22806,
+        22806
+      ],
+      "palette_rows": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "pixel_depth": 4,
+      "hold_ticks": 3,
+      "display_scale": 2,
+      "visible_pixels": [
+        369,
+        345,
+        372,
+        393,
+        235,
+        228,
+        230,
+        225
+      ],
+      "width": 16,
+      "height": 32,
+      "frames": 8,
+      "sha256": "e6d678dbed3a25e6a97c89c36a9a8bd4295273198c327fa4754ce74f2d3711c3"
+    },
+    "sky_spark_2": {
+      "descriptor": "0x801b01ec",
+      "table": "0x801b0278",
+      "rects": [
+        [
+          992,
+          448
+        ],
+        [
+          996,
+          448
+        ],
+        [
+          1000,
+          448
+        ],
+        [
+          1004,
+          448
+        ],
+        [
+          992,
+          480
+        ],
+        [
+          996,
+          480
+        ],
+        [
+          1000,
+          480
+        ],
+        [
+          1004,
+          480
+        ]
+      ],
+      "cluts": [
+        22806,
+        22806,
+        22806,
+        22806,
+        22806,
+        22806,
+        22806,
+        22806
+      ],
+      "palette_rows": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "pixel_depth": 4,
+      "hold_ticks": 3,
+      "display_scale": 2,
+      "visible_pixels": [
+        396,
+        377,
+        370,
+        405,
+        219,
+        240,
+        227,
+        198
+      ],
+      "width": 16,
+      "height": 32,
+      "frames": 8,
+      "sha256": "5b8b8d517d1a7a3b9d5399e97e2f4c358fc50a73f9ddc590dd74837c6cb71a43"
+    },
+    "sky_spark_3": {
+      "descriptor": "0x801b01ec",
+      "table": "0x801b01f8",
+      "rects": [
+        [
+          960,
+          448
+        ],
+        [
+          964,
+          448
+        ],
+        [
+          968,
+          448
+        ],
+        [
+          972,
+          448
+        ],
+        [
+          960,
+          480
+        ],
+        [
+          964,
+          480
+        ],
+        [
+          968,
+          480
+        ],
+        [
+          972,
+          480
+        ]
+      ],
+      "cluts": [
+        22806,
+        22806,
+        22806,
+        22806,
+        22806,
+        22806,
+        22806,
+        22806
+      ],
+      "palette_rows": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "pixel_depth": 4,
+      "hold_ticks": 3,
+      "display_scale": 2,
+      "visible_pixels": [
+        192,
+        354,
+        423,
+        414,
+        339,
+        363,
+        215,
+        206
+      ],
+      "width": 16,
+      "height": 32,
+      "frames": 8,
+      "sha256": "ad728e8f553bd5554126ac45be581101bfc869de73193902cbf5c70162c23651"
+    }
+  },
+  "notes": [
+    "Original ROM mesh/UV/material pixels and sprites; Rest is an editor layout, not a source motion.",
+    "Dynamic sprite CLUT rows are actor +0x27: fire59, sky64, crossFF; water impact rows101..103 from801B070C. Hold ticks retain source timing.",
+    "Arena geometry is retained for provenance and excluded from attack presentation."
+  ]
+}

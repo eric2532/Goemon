@@ -3,7 +3,7 @@ extends Node3D
 const Body=preload("res://scripts/recovered_goemon_body.gd")
 const Pose=preload("res://scripts/recovered_goemon_pose.gd")
 const HEIGHT=preload("res://scripts/character_proportions.gd").GOEMON_HEIGHT
-const EQUIPMENT=preload("res://assets/models/forest/rom_worker_equipment.glb")
+static var EQUIPMENT=load(GameAssets.model_path("res://assets/models/forest/rom_worker_equipment.glb"))
 static var prototype:PackedScene
 static var frames:Dictionary={}
 static var normalization_scale=1.0

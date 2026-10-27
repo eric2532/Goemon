@@ -1,0 +1,1839 @@
+{
+  "owner": "raw/SC03.CD.dir/FILE_028.dir/4.7",
+  "owner_base": "0x800c7f08",
+  "header": "0x800ca3e4",
+  "bank": "bank_af40596fbbf765f2",
+  "owner_sha256": "70fee8e27dec0920bb1edff910daebba0c632319c973639ba9ebc1c8de07b8df",
+  "bank_sha256": "af40596fbbf765f21ff911ee717a22aea1f670bb3e3fdf65f5e071e3aa8f2f50",
+  "events": {
+    "558": {
+      "file": "assets/characters/recovered_skullpion/audio/bank_event_558.wav",
+      "dispatch_hex": "01040000",
+      "layers": [
+        {
+          "record_address": "0x800c7f84",
+          "record_hex": "c8000000003d5900160001000000000000000000",
+          "program": 0,
+          "tone": 0,
+          "tone_hex": "00007f4054003c3c000000000000b1b2ff80ca5f00000100c000c100c200c300",
+          "sample_index": 1,
+          "sample_id": "sample_369832795ea7268a",
+          "lookup_index": 0,
+          "pitch_q8": 15616,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.3598866213151927,
+      "sha256": "ead09b78419fc33e40b8dd790c46b195c6d9621a38e8d8a9f30360ef2ed71c59"
+    },
+    "559": {
+      "file": "assets/characters/recovered_skullpion/audio/bank_event_559.wav",
+      "dispatch_hex": "01040001",
+      "layers": [
+        {
+          "record_address": "0x800c7f98",
+          "record_hex": "c8000000003f5d00160101000000000000000000",
+          "program": 0,
+          "tone": 1,
+          "tone_hex": "00007f4056003e3e000000000000b1b2ff80ca5f00000100c000c100c200c300",
+          "sample_index": 1,
+          "sample_id": "sample_369832795ea7268a",
+          "lookup_index": 1,
+          "pitch_q8": 16128,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.3598866213151927,
+      "sha256": "9a4663d86903b313ba2fe29b48b2a708a7de08e5731411945dcb96a006c78e40"
+    },
+    "55a": {
+      "file": "assets/characters/recovered_skullpion/audio/bank_event_55a.wav",
+      "dispatch_hex": "01040002",
+      "layers": [
+        {
+          "record_address": "0x800c7fac",
+          "record_hex": "c800000000415900160201000000000000000000",
+          "program": 0,
+          "tone": 2,
+          "tone_hex": "00007f4058004040000000000000b1b2ff80ca5f00000200c000c100c200c300",
+          "sample_index": 2,
+          "sample_id": "sample_d99e3ffc12692a63",
+          "lookup_index": 2,
+          "pitch_q8": 16640,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.4750340136054422,
+      "sha256": "71af03a59c61b4314de0ebcc0027e41d99fa0371a0e2ac42695fae71b9fce775"
+    },
+    "55b": {
+      "file": "assets/characters/recovered_skullpion/audio/sand_windup.wav",
+      "dispatch_hex": "01040003",
+      "layers": [
+        {
+          "record_address": "0x800c7fc0",
+          "record_hex": "c8000000003c70001603010000000000647f0c80",
+          "program": 1,
+          "tone": 0,
+          "tone_hex": "00007f4054003c3c000000000000b1b2ff80ed5f01000300c000c100c200c300",
+          "sample_index": 3,
+          "sample_id": "sample_92887ab42ee91fdb",
+          "lookup_index": 3,
+          "pitch_q8": 15360,
+          "curve_pointer": "0x800c7f64",
+          "curve": [
+            8,
+            45,
+            28,
+            64000,
+            62464,
+            28,
+            90,
+            0,
+            8
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 1.5959863945578232,
+      "sha256": "dd020005f5c554a6052c095604c2b315073c2d7a9d6b93ab664e425d69f0cbab"
+    },
+    "55c": {
+      "file": "assets/characters/recovered_skullpion/audio/sand_blast.wav",
+      "dispatch_hex": "0504000e",
+      "layers": [
+        {
+          "record_address": "0x800c809c",
+          "record_hex": "c800000000407200161601010000000000000000",
+          "program": 2,
+          "tone": 4,
+          "tone_hex": "00005c4060004040000000000000b1b2ffb7c35f02000900c000c100c200c300",
+          "sample_index": 9,
+          "sample_id": "sample_59dfea97a0311c17",
+          "lookup_index": 22,
+          "pitch_q8": 16384,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c80b0",
+          "record_hex": "c800000000406e00161701000000000000000000",
+          "program": 2,
+          "tone": 5,
+          "tone_hex": "000060406c004040000000000000b1b2ffc1c35f02000900c000c100c200c300",
+          "sample_index": 9,
+          "sample_id": "sample_59dfea97a0311c17",
+          "lookup_index": 23,
+          "pitch_q8": 16384,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 9.570680272108843,
+      "sha256": "b5424c30cb43a1c42d6e44ddfb200e33260bf3d8d531b2940d06f4ea64c2baf9"
+    },
+    "55d": {
+      "file": "assets/characters/recovered_skullpion/audio/tail_slam.wav",
+      "dispatch_hex": "01040005",
+      "layers": [
+        {
+          "record_address": "0x800c7fe8",
+          "record_hex": "c800000000407400160501000000000000000000",
+          "program": 1,
+          "tone": 2,
+          "tone_hex": "00007f4052004040000000000000b1b2ff80c01f01000800c000c100c200c300",
+          "sample_index": 8,
+          "sample_id": "sample_9651494a5cdebccb",
+          "lookup_index": 5,
+          "pitch_q8": 16384,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.39154195011337867,
+      "sha256": "43beff286db95b92a1d3cc709ba0bf58dd00e3e0c8a873833db35fc45ec2655a"
+    },
+    "55e": {
+      "file": "assets/characters/recovered_skullpion/audio/tail_sweep.wav",
+      "dispatch_hex": "01040006",
+      "layers": [
+        {
+          "record_address": "0x800c7ffc",
+          "record_hex": "c800000000417400160601000000000000000000",
+          "program": 1,
+          "tone": 3,
+          "tone_hex": "00007f404d004141000000000000b1b2ff80c01f01000500c000c100c200c300",
+          "sample_index": 5,
+          "sample_id": "sample_9fe3b50c6cc30f67",
+          "lookup_index": 6,
+          "pitch_q8": 16640,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.7911111111111111,
+      "sha256": "824e2ebdad3828b93d18aa7b5e4337be5f6912bcfa46c5a9255633da4d3c46ef"
+    },
+    "55f": {
+      "file": "assets/characters/recovered_skullpion/audio/drill_windup.wav",
+      "dispatch_hex": "01040007",
+      "layers": [
+        {
+          "record_address": "0x800c8010",
+          "record_hex": "c80000000040680016070100000000000c7f0c80",
+          "program": 1,
+          "tone": 4,
+          "tone_hex": "00007f404f004343000000000000b1b2ffa5ec5f01000600c000c100c200c300",
+          "sample_index": 6,
+          "sample_id": "sample_0a071c07856c21a7",
+          "lookup_index": 7,
+          "pitch_q8": 16384,
+          "curve_pointer": "0x800c7f0c",
+          "curve": [
+            0,
+            50,
+            17152,
+            17920,
+            10,
+            45,
+            0,
+            50,
+            15360
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.6902947845804989,
+      "sha256": "27ca242030becc6b3edba89ee41ce1e332c086e0c8fcb38651c45374285e78ce"
+    },
+    "560": {
+      "file": "assets/characters/recovered_skullpion/audio/ground_impact.wav",
+      "dispatch_hex": "01040008",
+      "layers": [
+        {
+          "record_address": "0x800c8024",
+          "record_hex": "c800000000457400160801000000000000000000",
+          "program": 1,
+          "tone": 5,
+          "tone_hex": "00007f4051004545000000000000b1b2ff80ca5f01000700c000c100c200c300",
+          "sample_index": 7,
+          "sample_id": "sample_7b1346e595f49c00",
+          "lookup_index": 8,
+          "pitch_q8": 17664,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 1.0412698412698413,
+      "sha256": "bf8142bb313342781a2afdb35fe359b362da444a9bb1315937362e6b87659830"
+    },
+    "561": {
+      "file": "assets/characters/recovered_skullpion/audio/drill_release.wav",
+      "dispatch_hex": "01040009",
+      "layers": [
+        {
+          "record_address": "0x800c8038",
+          "record_hex": "c8000000004268001607010000000000187f0c80",
+          "program": 1,
+          "tone": 4,
+          "tone_hex": "00007f404f004343000000000000b1b2ffa5ec5f01000600c000c100c200c300",
+          "sample_index": 6,
+          "sample_id": "sample_0a071c07856c21a7",
+          "lookup_index": 7,
+          "pitch_q8": 16896,
+          "curve_pointer": "0x800c7f18",
+          "curve": [
+            0,
+            50,
+            15360,
+            12288,
+            10,
+            45,
+            2,
+            45,
+            2
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.8990929705215419,
+      "sha256": "dd13724d0a5cc39670233c7a47efee9356b19573995fd76c5c208029dabb4df8"
+    },
+    "562": {
+      "file": "assets/characters/recovered_skullpion/audio/drill_emerge.wav",
+      "dispatch_hex": "0104000a",
+      "layers": [
+        {
+          "record_address": "0x800c804c",
+          "record_hex": "c8000000004268001607010100000000247f0c80",
+          "program": 1,
+          "tone": 4,
+          "tone_hex": "00007f404f004343000000000000b1b2ffa5ec5f01000600c000c100c200c300",
+          "sample_index": 6,
+          "sample_id": "sample_0a071c07856c21a7",
+          "lookup_index": 7,
+          "pitch_q8": 16896,
+          "curve_pointer": "0x800c7f24",
+          "curve": [
+            2,
+            45,
+            2,
+            48,
+            2,
+            240,
+            0,
+            0,
+            21248
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8060",
+          "record_hex": "c800000000566a00161201000000000000000000",
+          "program": 1,
+          "tone": 15,
+          "tone_hex": "00007f4062005656000000000000b1b2ff80e35f01000f00c000c100c200c300",
+          "sample_index": 15,
+          "sample_id": "sample_48ec4d930ff3c40e",
+          "lookup_index": 18,
+          "pitch_q8": 22016,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.707687074829932,
+      "sha256": "6b90dc585a945819e1cf63eadd6570605ef5c86da8f47329f213f2351cd52e00"
+    },
+    "563": {
+      "file": "assets/characters/recovered_skullpion/audio/helper_rock_hit.wav",
+      "dispatch_hex": "0104001b",
+      "layers": [
+        {
+          "record_address": "0x800c81a0",
+          "record_hex": "c800000000477000160901000000000000000000",
+          "program": 1,
+          "tone": 6,
+          "tone_hex": "00007f4053004747000000000000b1b2ff80c35f01000800c000c100c200c300",
+          "sample_index": 8,
+          "sample_id": "sample_9651494a5cdebccb",
+          "lookup_index": 9,
+          "pitch_q8": 18176,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.2768253968253968,
+      "sha256": "95d3a06e6e2eede6a69474060d471b910fc0cfda442fed4072a13ca2b297e6e3"
+    },
+    "564": {
+      "file": "assets/characters/recovered_skullpion/audio/breakup.wav",
+      "dispatch_hex": "01040028",
+      "layers": [
+        {
+          "record_address": "0x800c82a4",
+          "record_hex": "c800000000486400160a010100000000287f0c80",
+          "program": 1,
+          "tone": 7,
+          "tone_hex": "00047f4053004848000000000c00b1b2ff2fed5f01001600c000c100c200c300",
+          "sample_index": 22,
+          "sample_id": "sample_59fea265f4088ca2",
+          "lookup_index": 10,
+          "pitch_q8": 18432,
+          "curve_pointer": "0x800c7f28",
+          "curve": [
+            2,
+            48,
+            2,
+            240,
+            0,
+            0,
+            21248,
+            15360,
+            40
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c82b8",
+          "record_hex": "c800000000485a00161c01000000000000000000",
+          "program": 2,
+          "tone": 10,
+          "tone_hex": "0004604054004848000000000000b1b2ff80e35f02001700c000c100c200c300",
+          "sample_index": 23,
+          "sample_id": "sample_cb31e465702d742b",
+          "lookup_index": 28,
+          "pitch_q8": 18432,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.2913605442176871,
+      "sha256": "7e465c0e78f97eea7fb5213dd63a3614cd09117f1e1866e8bc3a1a0a7028fc13"
+    },
+    "565": {
+      "file": "assets/characters/recovered_skullpion/audio/defeat.wav",
+      "dispatch_hex": "0104000d",
+      "layers": [
+        {
+          "record_address": "0x800c8088",
+          "record_hex": "c8000000004a7600160b01010000000000000000",
+          "program": 1,
+          "tone": 8,
+          "tone_hex": "00007f405e7d4a4a000000000000b1b2ff80e35f01000900c000c100c200c300",
+          "sample_index": 9,
+          "sample_id": "sample_59dfea97a0311c17",
+          "lookup_index": 11,
+          "pitch_q8": 18944,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c809c",
+          "record_hex": "c800000000407200161601010000000000000000",
+          "program": 2,
+          "tone": 4,
+          "tone_hex": "00005c4060004040000000000000b1b2ffb7c35f02000900c000c100c200c300",
+          "sample_index": 9,
+          "sample_id": "sample_59dfea97a0311c17",
+          "lookup_index": 22,
+          "pitch_q8": 16384,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c80b0",
+          "record_hex": "c800000000406e00161701000000000000000000",
+          "program": 2,
+          "tone": 5,
+          "tone_hex": "000060406c004040000000000000b1b2ffc1c35f02000900c000c100c200c300",
+          "sample_index": 9,
+          "sample_id": "sample_59dfea97a0311c17",
+          "lookup_index": 23,
+          "pitch_q8": 16384,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 9.570680272108843,
+      "sha256": "61025fef4e44cd29270afa2a0383e62a3d45167e39828f0efd07360f2c5479b7"
+    },
+    "566": {
+      "file": "assets/characters/recovered_skullpion/audio/core_recover.wav",
+      "dispatch_hex": "01040023",
+      "layers": [
+        {
+          "record_address": "0x800c8240",
+          "record_hex": "c8000000004c6a00160c01000000000000000000",
+          "program": 1,
+          "tone": 9,
+          "tone_hex": "00007f4058004c4c000000000000b1b2ff80c01f01000a00c000c100c200c300",
+          "sample_index": 10,
+          "sample_id": "sample_eb10a7704f8bfcb3",
+          "lookup_index": 12,
+          "pitch_q8": 19456,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.23365079365079366,
+      "sha256": "ecaa7f808ce203e8e70fb7ef940104b5b5aba03dbb2503c619c9e7c4d92b4215"
+    },
+    "578": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_578.wav",
+      "dispatch_hex": "05040006",
+      "layers": [
+        {
+          "record_address": "0x800c7ffc",
+          "record_hex": "c800000000417400160601000000000000000000",
+          "program": 1,
+          "tone": 3,
+          "tone_hex": "00007f404d004141000000000000b1b2ff80c01f01000500c000c100c200c300",
+          "sample_index": 5,
+          "sample_id": "sample_9fe3b50c6cc30f67",
+          "lookup_index": 6,
+          "pitch_q8": 16640,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.7911111111111111,
+      "sha256": "824e2ebdad3828b93d18aa7b5e4337be5f6912bcfa46c5a9255633da4d3c46ef"
+    },
+    "579": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_579.wav",
+      "dispatch_hex": "05040007",
+      "layers": [
+        {
+          "record_address": "0x800c8010",
+          "record_hex": "c80000000040680016070100000000000c7f0c80",
+          "program": 1,
+          "tone": 4,
+          "tone_hex": "00007f404f004343000000000000b1b2ffa5ec5f01000600c000c100c200c300",
+          "sample_index": 6,
+          "sample_id": "sample_0a071c07856c21a7",
+          "lookup_index": 7,
+          "pitch_q8": 16384,
+          "curve_pointer": "0x800c7f0c",
+          "curve": [
+            0,
+            50,
+            17152,
+            17920,
+            10,
+            45,
+            0,
+            50,
+            15360
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.6902947845804989,
+      "sha256": "27ca242030becc6b3edba89ee41ce1e332c086e0c8fcb38651c45374285e78ce"
+    },
+    "57a": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_57a.wav",
+      "dispatch_hex": "05040008",
+      "layers": [
+        {
+          "record_address": "0x800c8024",
+          "record_hex": "c800000000457400160801000000000000000000",
+          "program": 1,
+          "tone": 5,
+          "tone_hex": "00007f4051004545000000000000b1b2ff80ca5f01000700c000c100c200c300",
+          "sample_index": 7,
+          "sample_id": "sample_7b1346e595f49c00",
+          "lookup_index": 8,
+          "pitch_q8": 17664,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 1.0412698412698413,
+      "sha256": "bf8142bb313342781a2afdb35fe359b362da444a9bb1315937362e6b87659830"
+    },
+    "583": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_583.wav",
+      "dispatch_hex": "05040000",
+      "layers": [
+        {
+          "record_address": "0x800c7f84",
+          "record_hex": "c8000000003d5900160001000000000000000000",
+          "program": 0,
+          "tone": 0,
+          "tone_hex": "00007f4054003c3c000000000000b1b2ff80ca5f00000100c000c100c200c300",
+          "sample_index": 1,
+          "sample_id": "sample_369832795ea7268a",
+          "lookup_index": 0,
+          "pitch_q8": 15616,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.3598866213151927,
+      "sha256": "ead09b78419fc33e40b8dd790c46b195c6d9621a38e8d8a9f30360ef2ed71c59"
+    },
+    "584": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_584.wav",
+      "dispatch_hex": "05040001",
+      "layers": [
+        {
+          "record_address": "0x800c7f98",
+          "record_hex": "c8000000003f5d00160101000000000000000000",
+          "program": 0,
+          "tone": 1,
+          "tone_hex": "00007f4056003e3e000000000000b1b2ff80ca5f00000100c000c100c200c300",
+          "sample_index": 1,
+          "sample_id": "sample_369832795ea7268a",
+          "lookup_index": 1,
+          "pitch_q8": 16128,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.3598866213151927,
+      "sha256": "9a4663d86903b313ba2fe29b48b2a708a7de08e5731411945dcb96a006c78e40"
+    },
+    "585": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_585.wav",
+      "dispatch_hex": "05040002",
+      "layers": [
+        {
+          "record_address": "0x800c7fac",
+          "record_hex": "c800000000415900160201000000000000000000",
+          "program": 0,
+          "tone": 2,
+          "tone_hex": "00007f4058004040000000000000b1b2ff80ca5f00000200c000c100c200c300",
+          "sample_index": 2,
+          "sample_id": "sample_d99e3ffc12692a63",
+          "lookup_index": 2,
+          "pitch_q8": 16640,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.4750340136054422,
+      "sha256": "71af03a59c61b4314de0ebcc0027e41d99fa0371a0e2ac42695fae71b9fce775"
+    },
+    "586": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_586.wav",
+      "dispatch_hex": "05040003",
+      "layers": [
+        {
+          "record_address": "0x800c7fc0",
+          "record_hex": "c8000000003c70001603010000000000647f0c80",
+          "program": 1,
+          "tone": 0,
+          "tone_hex": "00007f4054003c3c000000000000b1b2ff80ed5f01000300c000c100c200c300",
+          "sample_index": 3,
+          "sample_id": "sample_92887ab42ee91fdb",
+          "lookup_index": 3,
+          "pitch_q8": 15360,
+          "curve_pointer": "0x800c7f64",
+          "curve": [
+            8,
+            45,
+            28,
+            64000,
+            62464,
+            28,
+            90,
+            0,
+            8
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 1.5959863945578232,
+      "sha256": "dd020005f5c554a6052c095604c2b315073c2d7a9d6b93ab664e425d69f0cbab"
+    },
+    "587": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_587.wav",
+      "dispatch_hex": "05040004",
+      "layers": [
+        {
+          "record_address": "0x800c7fd4",
+          "record_hex": "c8000000003e780016040100000000002c7f0c80",
+          "program": 1,
+          "tone": 1,
+          "tone_hex": "00007f404c003e3e000000000000b1b2ff80ed5f01000400c000c100c200c300",
+          "sample_index": 4,
+          "sample_id": "sample_c47c100e8708e000",
+          "lookup_index": 4,
+          "pitch_q8": 15872,
+          "curve_pointer": "0x800c7f2c",
+          "curve": [
+            2,
+            240,
+            0,
+            0,
+            21248,
+            15360,
+            40,
+            60,
+            2
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.903968253968254,
+      "sha256": "0f665178df02851b6f72109e052de0342879f41235ba60abd5bdf5f387df1142"
+    },
+    "588": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_588.wav",
+      "dispatch_hex": "05040005",
+      "layers": [
+        {
+          "record_address": "0x800c7fe8",
+          "record_hex": "c800000000407400160501000000000000000000",
+          "program": 1,
+          "tone": 2,
+          "tone_hex": "00007f4052004040000000000000b1b2ff80c01f01000800c000c100c200c300",
+          "sample_index": 8,
+          "sample_id": "sample_9651494a5cdebccb",
+          "lookup_index": 5,
+          "pitch_q8": 16384,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.39154195011337867,
+      "sha256": "43beff286db95b92a1d3cc709ba0bf58dd00e3e0c8a873833db35fc45ec2655a"
+    },
+    "598": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_598.wav",
+      "dispatch_hex": "01040010",
+      "layers": [
+        {
+          "record_address": "0x800c80c4",
+          "record_hex": "c8000000004d6d00160d01000300000000000000",
+          "program": 1,
+          "tone": 10,
+          "tone_hex": "00007f4065004d4d000000000000b1b2ff80c55f01000b00c000c100c200c300",
+          "sample_index": 11,
+          "sample_id": "sample_02a075c6dafc83b7",
+          "lookup_index": 13,
+          "pitch_q8": 19712,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 1.0285714285714285,
+      "sha256": "2d8eefb81c35768405ea6e6bfecfc5da7d8a7de31f4d3152f4fc539dd554142d"
+    },
+    "599": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_599.wav",
+      "dispatch_hex": "01040011",
+      "layers": [
+        {
+          "record_address": "0x800c80d8",
+          "record_hex": "c8000000004f7000160e01000000000000000000",
+          "program": 1,
+          "tone": 11,
+          "tone_hex": "00007f4067004f4f000000000000b1b2ff80c35f01000c00c000c100c200c300",
+          "sample_index": 12,
+          "sample_id": "sample_204360faa501eec7",
+          "lookup_index": 14,
+          "pitch_q8": 20224,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 1.1174603174603175,
+      "sha256": "31e367815c83d0049e155550baae62fd037af1766e141d0dcf988c4e7a88141e"
+    },
+    "59a": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_59a.wav",
+      "dispatch_hex": "01040012",
+      "layers": [
+        {
+          "record_address": "0x800c80ec",
+          "record_hex": "c800000000516a00160f01010000000000000000",
+          "program": 1,
+          "tone": 12,
+          "tone_hex": "00007f4069005151000000000000b1b2ff80c01f01000d00c000c100c200c300",
+          "sample_index": 13,
+          "sample_id": "sample_ffdfe2266dd627d3",
+          "lookup_index": 15,
+          "pitch_q8": 20736,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8100",
+          "record_hex": "c800280000516a00160f01000000000000000000",
+          "program": 1,
+          "tone": 12,
+          "tone_hex": "00007f4069005151000000000000b1b2ff80c01f01000d00c000c100c200c300",
+          "sample_index": 13,
+          "sample_id": "sample_ffdfe2266dd627d3",
+          "lookup_index": 15,
+          "pitch_q8": 20736,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 29400
+        }
+      ],
+      "seconds": 0.9739682539682539,
+      "sha256": "42bf2e7d44ddb8363202f820fdfd72d318402457978a7d42560a91497cb576c1"
+    },
+    "5a2": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_5a2.wav",
+      "dispatch_hex": "05040009",
+      "layers": [
+        {
+          "record_address": "0x800c8038",
+          "record_hex": "c8000000004268001607010000000000187f0c80",
+          "program": 1,
+          "tone": 4,
+          "tone_hex": "00007f404f004343000000000000b1b2ffa5ec5f01000600c000c100c200c300",
+          "sample_index": 6,
+          "sample_id": "sample_0a071c07856c21a7",
+          "lookup_index": 7,
+          "pitch_q8": 16896,
+          "curve_pointer": "0x800c7f18",
+          "curve": [
+            0,
+            50,
+            15360,
+            12288,
+            10,
+            45,
+            2,
+            45,
+            2
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.8990929705215419,
+      "sha256": "dd13724d0a5cc39670233c7a47efee9356b19573995fd76c5c208029dabb4df8"
+    },
+    "5e0": {
+      "file": "assets/characters/recovered_skullpion/audio/core_finish.wav",
+      "dispatch_hex": "01040014",
+      "layers": [
+        {
+          "record_address": "0x800c8114",
+          "record_hex": "c8000000004f7000160e01010000000000000000",
+          "program": 1,
+          "tone": 11,
+          "tone_hex": "00007f4067004f4f000000000000b1b2ff80c35f01000c00c000c100c200c300",
+          "sample_index": 12,
+          "sample_id": "sample_204360faa501eec7",
+          "lookup_index": 14,
+          "pitch_q8": 20224,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8128",
+          "record_hex": "c8001a00005370001610010000000000307f0c80",
+          "program": 1,
+          "tone": 13,
+          "tone_hex": "00007f406b005353000000000000b1b2ff35ee5f01000300c000c100c200c300",
+          "sample_index": 3,
+          "sample_id": "sample_92887ab42ee91fdb",
+          "lookup_index": 16,
+          "pitch_q8": 21248,
+          "curve_pointer": "0x800c7f30",
+          "curve": [
+            0,
+            0,
+            21248,
+            15360,
+            40,
+            60,
+            2,
+            16,
+            10
+          ],
+          "delay_frames": 19110
+        }
+      ],
+      "seconds": 1.9807482993197278,
+      "sha256": "94d9f4efbdbb9663e08d2d33a08ed4f20cf9068fb8f561f0422c72d06bbfe69d"
+    },
+    "5e4": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_5e4.wav",
+      "dispatch_hex": "0504000a",
+      "layers": [
+        {
+          "record_address": "0x800c804c",
+          "record_hex": "c8000000004268001607010100000000247f0c80",
+          "program": 1,
+          "tone": 4,
+          "tone_hex": "00007f404f004343000000000000b1b2ffa5ec5f01000600c000c100c200c300",
+          "sample_index": 6,
+          "sample_id": "sample_0a071c07856c21a7",
+          "lookup_index": 7,
+          "pitch_q8": 16896,
+          "curve_pointer": "0x800c7f24",
+          "curve": [
+            2,
+            45,
+            2,
+            48,
+            2,
+            240,
+            0,
+            0,
+            21248
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8060",
+          "record_hex": "c800000000566a00161201000000000000000000",
+          "program": 1,
+          "tone": 15,
+          "tone_hex": "00007f4062005656000000000000b1b2ff80e35f01000f00c000c100c200c300",
+          "sample_index": 15,
+          "sample_id": "sample_48ec4d930ff3c40e",
+          "lookup_index": 18,
+          "pitch_q8": 22016,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.707687074829932,
+      "sha256": "6b90dc585a945819e1cf63eadd6570605ef5c86da8f47329f213f2351cd52e00"
+    },
+    "617": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_617.wav",
+      "dispatch_hex": "0504000c",
+      "layers": [
+        {
+          "record_address": "0x800c8074",
+          "record_hex": "c800000000476a00161b01000000000000000000",
+          "program": 2,
+          "tone": 9,
+          "tone_hex": "00007f4053004747000000000000b1b2ff80e35f02001800c000c100c200c300",
+          "sample_index": 24,
+          "sample_id": "sample_ec1640fa8112c411",
+          "lookup_index": 27,
+          "pitch_q8": 18176,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.3568253968253968,
+      "sha256": "54b4856441a2d0f1ae746732ef1f8c2e7532db7962e8afcd8c575329924b25da"
+    },
+    "618": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_618.wav",
+      "dispatch_hex": "0504000d",
+      "layers": [
+        {
+          "record_address": "0x800c8088",
+          "record_hex": "c8000000004a7600160b01010000000000000000",
+          "program": 1,
+          "tone": 8,
+          "tone_hex": "00007f405e7d4a4a000000000000b1b2ff80e35f01000900c000c100c200c300",
+          "sample_index": 9,
+          "sample_id": "sample_59dfea97a0311c17",
+          "lookup_index": 11,
+          "pitch_q8": 18944,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c809c",
+          "record_hex": "c800000000407200161601010000000000000000",
+          "program": 2,
+          "tone": 4,
+          "tone_hex": "00005c4060004040000000000000b1b2ffb7c35f02000900c000c100c200c300",
+          "sample_index": 9,
+          "sample_id": "sample_59dfea97a0311c17",
+          "lookup_index": 22,
+          "pitch_q8": 16384,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c80b0",
+          "record_hex": "c800000000406e00161701000000000000000000",
+          "program": 2,
+          "tone": 5,
+          "tone_hex": "000060406c004040000000000000b1b2ffc1c35f02000900c000c100c200c300",
+          "sample_index": 9,
+          "sample_id": "sample_59dfea97a0311c17",
+          "lookup_index": 23,
+          "pitch_q8": 16384,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 9.570680272108843,
+      "sha256": "61025fef4e44cd29270afa2a0383e62a3d45167e39828f0efd07360f2c5479b7"
+    },
+    "619": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_619.wav",
+      "dispatch_hex": "01040016",
+      "layers": [
+        {
+          "record_address": "0x800c813c",
+          "record_hex": "c800000000517000160f01000000000000000000",
+          "program": 1,
+          "tone": 12,
+          "tone_hex": "00007f4069005151000000000000b1b2ff80c01f01000d00c000c100c200c300",
+          "sample_index": 13,
+          "sample_id": "sample_ffdfe2266dd627d3",
+          "lookup_index": 15,
+          "pitch_q8": 20736,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.3073015873015873,
+      "sha256": "0dcdd158816fa15c2c169f7377799d149047d6be657101afe02ec9d710b659b3"
+    },
+    "627": {
+      "file": "assets/characters/recovered_skullpion/audio/volley_release.wav",
+      "dispatch_hex": "01040017",
+      "layers": [
+        {
+          "record_address": "0x800c8150",
+          "record_hex": "c800000000547000161101000000000000000000",
+          "program": 1,
+          "tone": 14,
+          "tone_hex": "00007f406c005454000000000000b1b2ff80ca5f01000e00c000c100c200c300",
+          "sample_index": 14,
+          "sample_id": "sample_9a73b04aae78e604",
+          "lookup_index": 17,
+          "pitch_q8": 21504,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.49777777777777776,
+      "sha256": "1af0d1108af0f7b54caf27f016f8f9047e817d15598aecf9d8cc9893e2d8f495"
+    },
+    "628": {
+      "file": "assets/characters/recovered_skullpion/audio/volley_bounce.wav",
+      "dispatch_hex": "0104001c",
+      "layers": [
+        {
+          "record_address": "0x800c81b4",
+          "record_hex": "c800000000546d0016110100000000003c7f0c80",
+          "program": 1,
+          "tone": 14,
+          "tone_hex": "00007f406c005454000000000000b1b2ff80ca5f01000e00c000c100c200c300",
+          "sample_index": 14,
+          "sample_id": "sample_9a73b04aae78e604",
+          "lookup_index": 17,
+          "pitch_q8": 21504,
+          "curve_pointer": "0x800c7f3c",
+          "curve": [
+            2,
+            16,
+            10,
+            4,
+            1024,
+            62464,
+            400,
+            0,
+            1280
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.49777777777777776,
+      "sha256": "5a0ba1bb88bed0d5f85ad99480191d5c4f78b40c74c18814fe32b2ff96c4d71c"
+    },
+    "629": {
+      "file": "assets/characters/recovered_skullpion/audio/volley_expire.wav",
+      "dispatch_hex": "0104001d",
+      "layers": [
+        {
+          "record_address": "0x800c81c8",
+          "record_hex": "c8000000003c7000161301000000000000000000",
+          "program": 2,
+          "tone": 0,
+          "tone_hex": "00007f4054003c3c000000000000b1b2ff80c35f02001000c000c100c200c300",
+          "sample_index": 16,
+          "sample_id": "sample_c8ed14fa4f1e48bd",
+          "lookup_index": 19,
+          "pitch_q8": 15360,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.579047619047619,
+      "sha256": "0c92a725a9827c4ffa8ae0233689fe3758028f321e03a4ffeebbe90c5554328d"
+    },
+    "62a": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_62a.wav",
+      "dispatch_hex": "01040018",
+      "layers": [
+        {
+          "record_address": "0x800c8164",
+          "record_hex": "c800000000566a00161201010000000000000000",
+          "program": 1,
+          "tone": 15,
+          "tone_hex": "00007f4062005656000000000000b1b2ff80e35f01000f00c000c100c200c300",
+          "sample_index": 15,
+          "sample_id": "sample_48ec4d930ff3c40e",
+          "lookup_index": 18,
+          "pitch_q8": 22016,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8178",
+          "record_hex": "c8000c00c0556a00161201010000000000000000",
+          "program": 1,
+          "tone": 15,
+          "tone_hex": "00007f4062005656000000000000b1b2ff80e35f01000f00c000c100c200c300",
+          "sample_index": 15,
+          "sample_id": "sample_48ec4d930ff3c40e",
+          "lookup_index": 18,
+          "pitch_q8": 21952,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 8820
+        },
+        {
+          "record_address": "0x800c818c",
+          "record_hex": "c800180080556a00161201000000000000000000",
+          "program": 1,
+          "tone": 15,
+          "tone_hex": "00007f4062005656000000000000b1b2ff80e35f01000f00c000c100c200c300",
+          "sample_index": 15,
+          "sample_id": "sample_48ec4d930ff3c40e",
+          "lookup_index": 18,
+          "pitch_q8": 21888,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 17640
+        }
+      ],
+      "seconds": 0.8378004535147392,
+      "sha256": "05e8a5354ec3c49f468b8028540df661447f2964cfb67729f1b71990b2a2e9bc"
+    },
+    "62b": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_62b.wav",
+      "dispatch_hex": "0104001e",
+      "layers": [
+        {
+          "record_address": "0x800c81dc",
+          "record_hex": "c800000000477000160801000000000000000000",
+          "program": 1,
+          "tone": 5,
+          "tone_hex": "00007f4051004545000000000000b1b2ff80ca5f01000700c000c100c200c300",
+          "sample_index": 7,
+          "sample_id": "sample_7b1346e595f49c00",
+          "lookup_index": 8,
+          "pitch_q8": 18176,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.9280045351473923,
+      "sha256": "8be333f1116a973379655482f4117a197ce1e6a3e23059fa8e40505ccc51541b"
+    },
+    "640": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_640.wav",
+      "dispatch_hex": "0104001f",
+      "layers": [
+        {
+          "record_address": "0x800c81f0",
+          "record_hex": "c800000000566a00161201010000000000000000",
+          "program": 1,
+          "tone": 15,
+          "tone_hex": "00007f4062005656000000000000b1b2ff80e35f01000f00c000c100c200c300",
+          "sample_index": 15,
+          "sample_id": "sample_48ec4d930ff3c40e",
+          "lookup_index": 18,
+          "pitch_q8": 22016,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8204",
+          "record_hex": "c800000000456a00160801000000000000000000",
+          "program": 1,
+          "tone": 5,
+          "tone_hex": "00007f4051004545000000000000b1b2ff80ca5f01000700c000c100c200c300",
+          "sample_index": 7,
+          "sample_id": "sample_7b1346e595f49c00",
+          "lookup_index": 8,
+          "pitch_q8": 17664,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 1.0412698412698413,
+      "sha256": "0aeb86cf8dab3d52e34d1b459a43500c0bb5142cb288af54cefe6fb451989228"
+    },
+    "646": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_646.wav",
+      "dispatch_hex": "0504000f",
+      "layers": [
+        {
+          "record_address": "0x800c80b0",
+          "record_hex": "c800000000406e00161701000000000000000000",
+          "program": 2,
+          "tone": 5,
+          "tone_hex": "000060406c004040000000000000b1b2ffc1c35f02000900c000c100c200c300",
+          "sample_index": 9,
+          "sample_id": "sample_59dfea97a0311c17",
+          "lookup_index": 23,
+          "pitch_q8": 16384,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 9.570680272108843,
+      "sha256": "957df7f581a43cec46ef6ebcb4ec3406d21988c4716023a422abf48204c82f3a"
+    },
+    "6c1": {
+      "file": "assets/characters/recovered_skullpion/audio/sand_turn.wav",
+      "dispatch_hex": "01040021",
+      "layers": [
+        {
+          "record_address": "0x800c8218",
+          "record_hex": "c8000000003e6000161401000000000000000000",
+          "program": 2,
+          "tone": 1,
+          "tone_hex": "00007f4054003e3e000000000000b1b2ff80c35f02001400c000c100c200c300",
+          "sample_index": 20,
+          "sample_id": "sample_271b74916ce30a27",
+          "lookup_index": 20,
+          "pitch_q8": 15872,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.423265306122449,
+      "sha256": "6a163dfadc8b413ac1cf24ff620f671dac21ec3a3603f5efc79293ba567629ed"
+    },
+    "6df": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_6df.wav",
+      "dispatch_hex": "05040010",
+      "layers": [
+        {
+          "record_address": "0x800c80c4",
+          "record_hex": "c8000000004d6d00160d01000300000000000000",
+          "program": 1,
+          "tone": 10,
+          "tone_hex": "00007f4065004d4d000000000000b1b2ff80c55f01000b00c000c100c200c300",
+          "sample_index": 11,
+          "sample_id": "sample_02a075c6dafc83b7",
+          "lookup_index": 13,
+          "pitch_q8": 19712,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 1.0285714285714285,
+      "sha256": "2d8eefb81c35768405ea6e6bfecfc5da7d8a7de31f4d3152f4fc539dd554142d"
+    },
+    "82a": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_82a.wav",
+      "dispatch_hex": "01040022",
+      "layers": [
+        {
+          "record_address": "0x800c822c",
+          "record_hex": "c8000000003c60001615000000000000407f0c80",
+          "program": 2,
+          "tone": 2,
+          "tone_hex": "00007f403c003c3c000000000000b1b2ffa5ed5f02001100c000c100c200c300",
+          "sample_index": 17,
+          "sample_id": "sample_0cf285626b9e46a2",
+          "lookup_index": 21,
+          "pitch_q8": 15360,
+          "curve_pointer": "0x800c7f40",
+          "curve": [
+            10,
+            4,
+            1024,
+            62464,
+            400,
+            0,
+            1280,
+            4,
+            24
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.018412698412698412,
+      "sha256": "22a273144bf20fa618d993b99dc4bb95d93104547583aa0b04e3f7e58bca0704"
+    },
+    "82c": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_82c.wav",
+      "dispatch_hex": "05040011",
+      "layers": [
+        {
+          "record_address": "0x800c80d8",
+          "record_hex": "c8000000004f7000160e01000000000000000000",
+          "program": 1,
+          "tone": 11,
+          "tone_hex": "00007f4067004f4f000000000000b1b2ff80c35f01000c00c000c100c200c300",
+          "sample_index": 12,
+          "sample_id": "sample_204360faa501eec7",
+          "lookup_index": 14,
+          "pitch_q8": 20224,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 1.1174603174603175,
+      "sha256": "31e367815c83d0049e155550baae62fd037af1766e141d0dcf988c4e7a88141e"
+    },
+    "99e": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_99e.wav",
+      "dispatch_hex": "01040024",
+      "layers": [
+        {
+          "record_address": "0x800c8254",
+          "record_hex": "c800000000415c00161801000800000000000000",
+          "program": 2,
+          "tone": 6,
+          "tone_hex": "00007f404d004141000000000000b1b2ff80e35f02001300c000c100c200c300",
+          "sample_index": 19,
+          "sample_id": "sample_0648c821ca08c80b",
+          "lookup_index": 24,
+          "pitch_q8": 16640,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.36444444444444446,
+      "sha256": "5bb4e52d0f2fdf42f011a5047f8fbcac76fa2cce33efc673e54046ec42a878fe"
+    },
+    "99f": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_99f.wav",
+      "dispatch_hex": "01040025",
+      "layers": [
+        {
+          "record_address": "0x800c8268",
+          "record_hex": "c8000000004360001619010008000000547f0c80",
+          "program": 2,
+          "tone": 7,
+          "tone_hex": "00007f404f004343000000000000b1b2ff80eb5f02001200c000c100c200c300",
+          "sample_index": 18,
+          "sample_id": "sample_31cd51d1282b1b92",
+          "lookup_index": 25,
+          "pitch_q8": 17152,
+          "curve_pointer": "0x800c7f54",
+          "curve": [
+            8,
+            4,
+            256,
+            64512,
+            64512,
+            256,
+            8,
+            0,
+            8
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.46984126984126984,
+      "sha256": "fcd64d048acaa020787d6124152e4fea3f578e44fee0b661646ef31e726b0fed"
+    },
+    "9a0": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_9a0.wav",
+      "dispatch_hex": "01040026",
+      "layers": [
+        {
+          "record_address": "0x800c827c",
+          "record_hex": "c800000000436000161901000000000000000000",
+          "program": 2,
+          "tone": 7,
+          "tone_hex": "00007f404f004343000000000000b1b2ff80eb5f02001200c000c100c200c300",
+          "sample_index": 18,
+          "sample_id": "sample_31cd51d1282b1b92",
+          "lookup_index": 25,
+          "pitch_q8": 17152,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.3949206349206349,
+      "sha256": "83b7c72c034b8e36cb4fa80811b916182366f4b86f0138f0a7ea7b9b0c960a83"
+    },
+    "9b6": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_9b6.wav",
+      "dispatch_hex": "01040027",
+      "layers": [
+        {
+          "record_address": "0x800c8290",
+          "record_hex": "c800000000456400161a01000400000000000000",
+          "program": 2,
+          "tone": 8,
+          "tone_hex": "00007f4055114545000000000000b1b2ff80e35f02001500c000c100c200c300",
+          "sample_index": 21,
+          "sample_id": "sample_59b9cf226cd896a1",
+          "lookup_index": 26,
+          "pitch_q8": 17664,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.10564625850340136,
+      "sha256": "2b3715774ee61f82b8669fbe08d65738155dec008abc7b276b9172e04f335208"
+    },
+    "aa2": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_aa2.wav",
+      "dispatch_hex": "05040012",
+      "layers": [
+        {
+          "record_address": "0x800c80ec",
+          "record_hex": "c800000000516a00160f01010000000000000000",
+          "program": 1,
+          "tone": 12,
+          "tone_hex": "00007f4069005151000000000000b1b2ff80c01f01000d00c000c100c200c300",
+          "sample_index": 13,
+          "sample_id": "sample_ffdfe2266dd627d3",
+          "lookup_index": 15,
+          "pitch_q8": 20736,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8100",
+          "record_hex": "c800280000516a00160f01000000000000000000",
+          "program": 1,
+          "tone": 12,
+          "tone_hex": "00007f4069005151000000000000b1b2ff80c01f01000d00c000c100c200c300",
+          "sample_index": 13,
+          "sample_id": "sample_ffdfe2266dd627d3",
+          "lookup_index": 15,
+          "pitch_q8": 20736,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 29400
+        }
+      ],
+      "seconds": 0.9739682539682539,
+      "sha256": "42bf2e7d44ddb8363202f820fdfd72d318402457978a7d42560a91497cb576c1"
+    },
+    "b08": {
+      "file": "assets/characters/recovered_skullpion/audio/core_hit.wav",
+      "dispatch_hex": "0104002a",
+      "layers": [
+        {
+          "record_address": "0x800c82cc",
+          "record_hex": "c8000000003e6400161d000100000000747f0c80",
+          "program": 2,
+          "tone": 11,
+          "tone_hex": "00007f4055004a4a000000000c00b1b2ffa5ec5f02001600c000c100c200c300",
+          "sample_index": 22,
+          "sample_id": "sample_59fea265f4088ca2",
+          "lookup_index": 29,
+          "pitch_q8": 15872,
+          "curve_pointer": "0x800c7f74",
+          "curve": [
+            8,
+            8,
+            640,
+            4864,
+            9216,
+            16,
+            24,
+            0,
+            200
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c82e0",
+          "record_hex": "c800000000456400161a00000000000000000000",
+          "program": 2,
+          "tone": 8,
+          "tone_hex": "00007f4055114545000000000000b1b2ff80e35f02001500c000c100c200c300",
+          "sample_index": 21,
+          "sample_id": "sample_59b9cf226cd896a1",
+          "lookup_index": 26,
+          "pitch_q8": 17664,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.33877551020408164,
+      "sha256": "e5764854d94913435c83e3094637ab875532855e2859263a232b52c912ec399f"
+    },
+    "b21": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_b21.wav",
+      "dispatch_hex": "05040013",
+      "layers": [
+        {
+          "record_address": "0x800c8100",
+          "record_hex": "c800280000516a00160f01000000000000000000",
+          "program": 1,
+          "tone": 12,
+          "tone_hex": "00007f4069005151000000000000b1b2ff80c01f01000d00c000c100c200c300",
+          "sample_index": 13,
+          "sample_id": "sample_ffdfe2266dd627d3",
+          "lookup_index": 15,
+          "pitch_q8": 20736,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 29400
+        }
+      ],
+      "seconds": 0.9739682539682539,
+      "sha256": "248af6cc828613bc043a2d6def286598cbcb8e09ad6fe8b301ceb2e1e354191f"
+    },
+    "b22": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_b22.wav",
+      "dispatch_hex": "0104000c",
+      "layers": [
+        {
+          "record_address": "0x800c8074",
+          "record_hex": "c800000000476a00161b01000000000000000000",
+          "program": 2,
+          "tone": 9,
+          "tone_hex": "00007f4053004747000000000000b1b2ff80e35f02001800c000c100c200c300",
+          "sample_index": 24,
+          "sample_id": "sample_ec1640fa8112c411",
+          "lookup_index": 27,
+          "pitch_q8": 18176,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.3568253968253968,
+      "sha256": "54b4856441a2d0f1ae746732ef1f8c2e7532db7962e8afcd8c575329924b25da"
+    },
+    "b34": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_b34.wav",
+      "dispatch_hex": "0104002a",
+      "layers": [
+        {
+          "record_address": "0x800c82cc",
+          "record_hex": "c8000000003e6400161d000100000000747f0c80",
+          "program": 2,
+          "tone": 11,
+          "tone_hex": "00007f4055004a4a000000000c00b1b2ffa5ec5f02001600c000c100c200c300",
+          "sample_index": 22,
+          "sample_id": "sample_59fea265f4088ca2",
+          "lookup_index": 29,
+          "pitch_q8": 15872,
+          "curve_pointer": "0x800c7f74",
+          "curve": [
+            8,
+            8,
+            640,
+            4864,
+            9216,
+            16,
+            24,
+            0,
+            200
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c82e0",
+          "record_hex": "c800000000456400161a00000000000000000000",
+          "program": 2,
+          "tone": 8,
+          "tone_hex": "00007f4055114545000000000000b1b2ff80e35f02001500c000c100c200c300",
+          "sample_index": 21,
+          "sample_id": "sample_59b9cf226cd896a1",
+          "lookup_index": 26,
+          "pitch_q8": 17664,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.33877551020408164,
+      "sha256": "e5764854d94913435c83e3094637ab875532855e2859263a232b52c912ec399f"
+    },
+    "bcc": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_bcc.wav",
+      "dispatch_hex": "0504000b",
+      "layers": [
+        {
+          "record_address": "0x800c8060",
+          "record_hex": "c800000000566a00161201000000000000000000",
+          "program": 1,
+          "tone": 15,
+          "tone_hex": "00007f4062005656000000000000b1b2ff80e35f01000f00c000c100c200c300",
+          "sample_index": 15,
+          "sample_id": "sample_48ec4d930ff3c40e",
+          "lookup_index": 18,
+          "pitch_q8": 22016,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.4253968253968254,
+      "sha256": "6e5c304f32bdaff80ec66917d89c7af990330782b8ad497f152393f20273e320"
+    },
+    "be9": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_be9.wav",
+      "dispatch_hex": "05040014",
+      "layers": [
+        {
+          "record_address": "0x800c8114",
+          "record_hex": "c8000000004f7000160e01010000000000000000",
+          "program": 1,
+          "tone": 11,
+          "tone_hex": "00007f4067004f4f000000000000b1b2ff80c35f01000c00c000c100c200c300",
+          "sample_index": 12,
+          "sample_id": "sample_204360faa501eec7",
+          "lookup_index": 14,
+          "pitch_q8": 20224,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8128",
+          "record_hex": "c8001a00005370001610010000000000307f0c80",
+          "program": 1,
+          "tone": 13,
+          "tone_hex": "00007f406b005353000000000000b1b2ff35ee5f01000300c000c100c200c300",
+          "sample_index": 3,
+          "sample_id": "sample_92887ab42ee91fdb",
+          "lookup_index": 16,
+          "pitch_q8": 21248,
+          "curve_pointer": "0x800c7f30",
+          "curve": [
+            0,
+            0,
+            21248,
+            15360,
+            40,
+            60,
+            2,
+            16,
+            10
+          ],
+          "delay_frames": 19110
+        }
+      ],
+      "seconds": 1.9807482993197278,
+      "sha256": "94d9f4efbdbb9663e08d2d33a08ed4f20cf9068fb8f561f0422c72d06bbfe69d"
+    },
+    "bea": {
+      "file": "build/Other Files/Asset Toolkit/Skullpion/Audio Catalog/event_bea.wav",
+      "dispatch_hex": "05040015",
+      "layers": [
+        {
+          "record_address": "0x800c8128",
+          "record_hex": "c8001a00005370001610010000000000307f0c80",
+          "program": 1,
+          "tone": 13,
+          "tone_hex": "00007f406b005353000000000000b1b2ff35ee5f01000300c000c100c200c300",
+          "sample_index": 3,
+          "sample_id": "sample_92887ab42ee91fdb",
+          "lookup_index": 16,
+          "pitch_q8": 21248,
+          "curve_pointer": "0x800c7f30",
+          "curve": [
+            0,
+            0,
+            21248,
+            15360,
+            40,
+            60,
+            2,
+            16,
+            10
+          ],
+          "delay_frames": 19110
+        }
+      ],
+      "seconds": 1.9807482993197278,
+      "sha256": "0ddcf227a052306f9af417b19293a7b8a24f770b578f19366abf90f5365d2217"
+    },
+    "bf2": {
+      "file": "assets/characters/recovered_skullpion/audio/helper_hit.wav",
+      "dispatch_hex": "05040016",
+      "layers": [
+        {
+          "record_address": "0x800c813c",
+          "record_hex": "c800000000517000160f01000000000000000000",
+          "program": 1,
+          "tone": 12,
+          "tone_hex": "00007f4069005151000000000000b1b2ff80c01f01000d00c000c100c200c300",
+          "sample_index": 13,
+          "sample_id": "sample_ffdfe2266dd627d3",
+          "lookup_index": 15,
+          "pitch_q8": 20736,
+          "curve_pointer": "0x0",
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "seconds": 0.3073015873015873,
+      "sha256": "0dcdd158816fa15c2c169f7377799d149047d6be657101afe02ec9d710b659b3"
+    }
+  },
+  "bank_samples": [
+    {
+      "index": 1,
+      "id": "sample_369832795ea7268a",
+      "body_offset": 0,
+      "bytes": 2416
+    },
+    {
+      "index": 2,
+      "id": "sample_d99e3ffc12692a63",
+      "body_offset": 2416,
+      "bytes": 3184
+    },
+    {
+      "index": 3,
+      "id": "sample_92887ab42ee91fdb",
+      "body_offset": 5600,
+      "bytes": 9296
+    },
+    {
+      "index": 4,
+      "id": "sample_c47c100e8708e000",
+      "body_offset": 14896,
+      "bytes": 10144
+    },
+    {
+      "index": 5,
+      "id": "sample_9fe3b50c6cc30f67",
+      "body_offset": 25040,
+      "bytes": 9984
+    },
+    {
+      "index": 6,
+      "id": "sample_0a071c07856c21a7",
+      "body_offset": 35024,
+      "bytes": 8416
+    },
+    {
+      "index": 7,
+      "id": "sample_7b1346e595f49c00",
+      "body_offset": 43440,
+      "bytes": 13136
+    },
+    {
+      "index": 8,
+      "id": "sample_9651494a5cdebccb",
+      "body_offset": 56576,
+      "bytes": 3504
+    },
+    {
+      "index": 9,
+      "id": "sample_59dfea97a0311c17",
+      "body_offset": 60080,
+      "bytes": 18976
+    },
+    {
+      "index": 10,
+      "id": "sample_eb10a7704f8bfcb3",
+      "body_offset": 79056,
+      "bytes": 2960
+    },
+    {
+      "index": 11,
+      "id": "sample_02a075c6dafc83b7",
+      "body_offset": 82016,
+      "bytes": 6496
+    },
+    {
+      "index": 12,
+      "id": "sample_204360faa501eec7",
+      "body_offset": 88512,
+      "bytes": 7056
+    },
+    {
+      "index": 13,
+      "id": "sample_ffdfe2266dd627d3",
+      "body_offset": 95568,
+      "bytes": 2528
+    },
+    {
+      "index": 14,
+      "id": "sample_9a73b04aae78e604",
+      "body_offset": 98096,
+      "bytes": 3152
+    },
+    {
+      "index": 15,
+      "id": "sample_48ec4d930ff3c40e",
+      "body_offset": 101248,
+      "bytes": 5376
+    },
+    {
+      "index": 16,
+      "id": "sample_c8ed14fa4f1e48bd",
+      "body_offset": 106624,
+      "bytes": 3664
+    },
+    {
+      "index": 17,
+      "id": "sample_0cf285626b9e46a2",
+      "body_offset": 110288,
+      "bytes": 464
+    },
+    {
+      "index": 18,
+      "id": "sample_31cd51d1282b1b92",
+      "body_offset": 110752,
+      "bytes": 4992
+    },
+    {
+      "index": 19,
+      "id": "sample_0648c821ca08c80b",
+      "body_offset": 115744,
+      "bytes": 4608
+    },
+    {
+      "index": 20,
+      "id": "sample_271b74916ce30a27",
+      "body_offset": 120352,
+      "bytes": 3008
+    },
+    {
+      "index": 21,
+      "id": "sample_59b9cf226cd896a1",
+      "body_offset": 123360,
+      "bytes": 1072
+    },
+    {
+      "index": 22,
+      "id": "sample_59fea265f4088ca2",
+      "body_offset": 124432,
+      "bytes": 3888
+    },
+    {
+      "index": 23,
+      "id": "sample_cb31e465702d742b",
+      "body_offset": 128320,
+      "bytes": 3104
+    },
+    {
+      "index": 24,
+      "id": "sample_ec1640fa8112c411",
+      "body_offset": 131424,
+      "bytes": 4512
+    },
+    {
+      "index": 25,
+      "id": "sample_703e7cda27d46fae",
+      "body_offset": 135936,
+      "bytes": 2560
+    }
+  ],
+  "limitations": [
+    "Dry authentic SPU samples with source pitch, layer delays and relative volumes.",
+    "PSX ADSR, Gaussian interpolation, reverb and held-loop key-off envelopes are not emulated.",
+    "Event aliases elsewhere in the game are catalogued, not asserted as distinct boss attacks."
+  ]
+}

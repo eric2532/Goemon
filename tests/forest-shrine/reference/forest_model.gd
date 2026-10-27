@@ -4,6 +4,19 @@ var wave_step_delta=0.0
 func reset(value:int,config:Dictionary={},layout:Dictionary={},include_mines:bool=true):
  cancel_wave_step()
  super.reset(value,config,layout,include_mines)
+ # Keep the historical four-slot oracle independent of the current wave editor.
+ var saved=config.get("waves",[]);var old_waves=[]
+ for index in balance.waves.size():
+  var total=[72,108,144,180,240][mini(index,4)]
+  var counts=[0,0,1 if index>=2 else 0,0]
+  for i in range(counts[2],total):counts[[0,1,3][i%3]]+=1
+  for slot in [0,1,3]:counts[slot]*=5
+  if saved is Array and index<saved.size() and saved[index] is Array and saved[index].size()==4:
+   for slot in 4:
+    var amount=saved[index][slot]
+    if (amount is int or amount is float) and is_finite(float(amount)):counts[slot]=clampi(int(amount),0,10000)
+  old_waves.append(counts)
+ balance.waves=old_waves
  waves=preload("res://tests/forest-shrine/reference/forest_waves.gd").new(self)
 func wave_step_active()->bool:
  return waves!=null and waves.step_active

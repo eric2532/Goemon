@@ -6,7 +6,7 @@ stage="$(mktemp -d /tmp/goemon-terrain-math.XXXXXX)"
 trap 'rm -rf "$stage"' EXIT
 for arch in arm64 x86_64; do
   clang++ -std=c++17 -O3 -ffp-contract=off -fno-fast-math -fvisibility=hidden \
-    -arch "$arch" -mmacosx-version-min=11.0 -dynamiclib terrain_math.cpp crowd_binding.cpp crowd/core.cpp crowd/terrain.cpp crowd/air.cpp crowd/kits.cpp crowd/combat.cpp crowd/bunker.cpp crowd/instance_buffers.cpp \
+    -arch "$arch" -mmacosx-version-min=11.0 -dynamiclib terrain_math.cpp crowd_binding.cpp crowd/core.cpp crowd/terrain.cpp crowd/air.cpp crowd/kits.cpp crowd/combat.cpp crowd/skullpion.cpp crowd/dark_lumina_3.cpp crowd/dark_lumina.cpp crowd/bunker.cpp crowd/instance_buffers.cpp \
     -install_name @rpath/libgoemon_terrain_math.macos.universal.dylib \
     -o "$stage/libgoemon_terrain_math.$arch.dylib"
 done

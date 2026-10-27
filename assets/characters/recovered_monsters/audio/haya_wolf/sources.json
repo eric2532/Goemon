@@ -1,0 +1,2163 @@
+{
+  "owner": "raw/SC04.CD.dir/FILE_002.dir/4.7",
+  "owner_sha256": "a64f90bde755b965b8114ca701e5f85816df37835a6a1826ff967146a2446246",
+  "header_address": "0x800c9158",
+  "bank": "bank_7fbc39b417905c5a",
+  "bank_sha256": "7fbc39b417905c5ab814d80d481a05db23de558033a21f3564f7094b5b0fddf8",
+  "bank_samples": [
+    {
+      "index": 1,
+      "id": "sample_0b374c89992e2747",
+      "body_offset": 0,
+      "bytes": 3984
+    },
+    {
+      "index": 2,
+      "id": "sample_ea130be982209cd5",
+      "body_offset": 3984,
+      "bytes": 3552
+    },
+    {
+      "index": 3,
+      "id": "sample_3b7ea587e0c5b55e",
+      "body_offset": 7536,
+      "bytes": 4752
+    },
+    {
+      "index": 4,
+      "id": "sample_30a9b8147c4df8c2",
+      "body_offset": 12288,
+      "bytes": 3088
+    },
+    {
+      "index": 5,
+      "id": "sample_3c66632aad350b19",
+      "body_offset": 15376,
+      "bytes": 5216
+    },
+    {
+      "index": 6,
+      "id": "sample_07cc59b4e087b6a2",
+      "body_offset": 20592,
+      "bytes": 3120
+    },
+    {
+      "index": 7,
+      "id": "sample_ae2e332ac01fc4ac",
+      "body_offset": 23712,
+      "bytes": 5152
+    },
+    {
+      "index": 8,
+      "id": "sample_736ff741a7d4dbf5",
+      "body_offset": 28864,
+      "bytes": 4064
+    },
+    {
+      "index": 9,
+      "id": "sample_2b8135cc621efc11",
+      "body_offset": 32928,
+      "bytes": 3280
+    },
+    {
+      "index": 10,
+      "id": "sample_16e9eab00aa2a1ac",
+      "body_offset": 36208,
+      "bytes": 3040
+    },
+    {
+      "index": 11,
+      "id": "sample_886ce1e8540d886c",
+      "body_offset": 39248,
+      "bytes": 2080
+    },
+    {
+      "index": 12,
+      "id": "sample_f3ac8f55f3559941",
+      "body_offset": 41328,
+      "bytes": 3440
+    },
+    {
+      "index": 13,
+      "id": "sample_16997302ed55c022",
+      "body_offset": 44768,
+      "bytes": 1520
+    },
+    {
+      "index": 14,
+      "id": "sample_bff3cef5602de2a3",
+      "body_offset": 46288,
+      "bytes": 9104
+    },
+    {
+      "index": 15,
+      "id": "sample_338e90177bb30183",
+      "body_offset": 55392,
+      "bytes": 3040
+    },
+    {
+      "index": 16,
+      "id": "sample_3008dbeac4a7e549",
+      "body_offset": 58432,
+      "bytes": 7216
+    },
+    {
+      "index": 17,
+      "id": "sample_cd9431e7479d70e1",
+      "body_offset": 65648,
+      "bytes": 2432
+    },
+    {
+      "index": 18,
+      "id": "sample_3c2ec0fdc463f9a6",
+      "body_offset": 68080,
+      "bytes": 7584
+    },
+    {
+      "index": 19,
+      "id": "sample_241f34551d3c0585",
+      "body_offset": 75664,
+      "bytes": 5232
+    },
+    {
+      "index": 20,
+      "id": "sample_6d8a345e07d858f9",
+      "body_offset": 80896,
+      "bytes": 5840
+    },
+    {
+      "index": 21,
+      "id": "sample_64cf9bbf721472ae",
+      "body_offset": 86736,
+      "bytes": 3952
+    },
+    {
+      "index": 22,
+      "id": "sample_74553ad6221fef25",
+      "body_offset": 90688,
+      "bytes": 7648
+    },
+    {
+      "index": 23,
+      "id": "sample_0336cebcc0165210",
+      "body_offset": 98336,
+      "bytes": 3200
+    },
+    {
+      "index": 24,
+      "id": "sample_e21f43632d114b6a",
+      "body_offset": 101536,
+      "bytes": 3024
+    },
+    {
+      "index": 25,
+      "id": "sample_88fa02eb6f0c6415",
+      "body_offset": 104560,
+      "bytes": 5456
+    },
+    {
+      "index": 26,
+      "id": "sample_afd32ce20acb8fb8",
+      "body_offset": 110016,
+      "bytes": 6512
+    },
+    {
+      "index": 27,
+      "id": "sample_601f86cb51b7f140",
+      "body_offset": 116528,
+      "bytes": 1808
+    },
+    {
+      "index": 28,
+      "id": "sample_240afbae751831dd",
+      "body_offset": 118336,
+      "bytes": 1808
+    },
+    {
+      "index": 29,
+      "id": "sample_ac891ed0939f5f9b",
+      "body_offset": 120144,
+      "bytes": 5056
+    },
+    {
+      "index": 30,
+      "id": "sample_73b0a3606e376d2b",
+      "body_offset": 125200,
+      "bytes": 4208
+    },
+    {
+      "index": 31,
+      "id": "sample_553a60101f428531",
+      "body_offset": 129408,
+      "bytes": 2592
+    },
+    {
+      "index": 32,
+      "id": "sample_5d6f449650d491c6",
+      "body_offset": 132000,
+      "bytes": 2512
+    },
+    {
+      "index": 33,
+      "id": "sample_626c1d6608823f38",
+      "body_offset": 134512,
+      "bytes": 4976
+    },
+    {
+      "index": 34,
+      "id": "sample_0702836f5954a88a",
+      "body_offset": 139488,
+      "bytes": 2688
+    },
+    {
+      "index": 35,
+      "id": "sample_900fdb13757c0a76",
+      "body_offset": 142176,
+      "bytes": 2528
+    },
+    {
+      "index": 36,
+      "id": "sample_50c1f0ac194f7898",
+      "body_offset": 144704,
+      "bytes": 13120
+    },
+    {
+      "index": 37,
+      "id": "sample_9bd06e398db2c489",
+      "body_offset": 157824,
+      "bytes": 2640
+    },
+    {
+      "index": 38,
+      "id": "sample_c533c8e9168ee9c9",
+      "body_offset": 160464,
+      "bytes": 2864
+    },
+    {
+      "index": 39,
+      "id": "sample_8799eeb195415e22",
+      "body_offset": 163328,
+      "bytes": 2864
+    },
+    {
+      "index": 40,
+      "id": "sample_5453ef10905aff83",
+      "body_offset": 166192,
+      "bytes": 1040
+    },
+    {
+      "index": 41,
+      "id": "sample_c48f7c399a45dc50",
+      "body_offset": 167232,
+      "bytes": 2528
+    },
+    {
+      "index": 42,
+      "id": "sample_fe83ac9ab9262283",
+      "body_offset": 169760,
+      "bytes": 1168
+    }
+  ],
+  "events": {
+    "437:1": {
+      "file": "assets/characters/recovered_monsters/audio/haya_wolf/hit_column1.wav",
+      "resolved_id": "0x884",
+      "dispatch_hex": "01080116",
+      "layers": [
+        {
+          "record_address": "0x800c835c",
+          "record_hex": "c8000000003e6300321501000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 1,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80c35f02001500c000c100c200c300",
+          "sample_id": "sample_64cf9bbf721472ae",
+          "sample_index": 21,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "a44efc1fd9d3e41707323bcb605a59275e7c5febc4479f9a8f98e83f31eef55e"
+    },
+    "438:1": {
+      "file": "assets/characters/recovered_monsters/audio/haya_wolf/hit_strong_column1.wav",
+      "resolved_id": "0x883",
+      "dispatch_hex": "01080115",
+      "layers": [
+        {
+          "record_address": "0x800c8348",
+          "record_hex": "c8000000003c6700321401000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c35f02001400c000c100c200c300",
+          "sample_id": "sample_6d8a345e07d858f9",
+          "sample_index": 20,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "4c21d5d767d3fa0a6cec9413b01f2db22c5b75ce77d59cfb3eecd96833a2b5c9"
+    },
+    "439:1": {
+      "file": "assets/characters/recovered_monsters/audio/haya_wolf/hit_heavy_column1.wav",
+      "resolved_id": "0x885",
+      "dispatch_hex": "01080117",
+      "layers": [
+        {
+          "record_address": "0x800c8370",
+          "record_hex": "c800000000406d00321601000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 2,
+          "tone_hex": "00007f404c004040000000000000b1b2ff80c35f02001600c000c100c200c300",
+          "sample_id": "sample_74553ad6221fef25",
+          "sample_index": 22,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "4b4d51828de21d381254881cc92260e9842ae6145c47f67d3e95db2be873bbdd"
+    },
+    "43c:1": {
+      "file": "assets/characters/recovered_monsters/audio/haya_wolf/reaction_column1.wav",
+      "resolved_id": "0x886",
+      "dispatch_hex": "01080118",
+      "layers": [
+        {
+          "record_address": "0x800c8384",
+          "record_hex": "c800000000366300321401010000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c35f02001400c000c100c200c300",
+          "sample_id": "sample_6d8a345e07d858f9",
+          "sample_index": 20,
+          "pitch_q8": 13824,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8398",
+          "record_hex": "c8000300003e6700321501000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 1,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80c35f02001500c000c100c200c300",
+          "sample_id": "sample_64cf9bbf721472ae",
+          "sample_index": 21,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 2205
+        }
+      ],
+      "sha256": "bc8b66bf91b08c4aa862313417088ff87cf15dc49de92e533518bd7aba9d8b3e"
+    },
+    "7d6:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_7d6.wav",
+      "resolved_id": "0x7d6",
+      "dispatch_hex": "01080100",
+      "layers": [
+        {
+          "record_address": "0x800c81a4",
+          "record_hex": "c8000000003c6700320000000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 0,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c35f00000100c000c100c200c300",
+          "sample_id": "sample_0b374c89992e2747",
+          "sample_index": 1,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "76ea6d991ca751addc6585369c41730d54c517790e4964499643ad25211674e3"
+    },
+    "7d7:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_7d7.wav",
+      "resolved_id": "0x7d7",
+      "dispatch_hex": "01080101",
+      "layers": [
+        {
+          "record_address": "0x800c81b8",
+          "record_hex": "c8000000003e6700320100000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 0,
+          "tone": 1,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80c35f00000200c000c100c200c300",
+          "sample_id": "sample_ea130be982209cd5",
+          "sample_index": 2,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "140f5f8f3d2b8b9135932b35f91b9fe1fa9164e3b75f62da01477098cc9c153d"
+    },
+    "7d8:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_7d8.wav",
+      "resolved_id": "0x7d8",
+      "dispatch_hex": "01080102",
+      "layers": [
+        {
+          "record_address": "0x800c81cc",
+          "record_hex": "c8000000004061003202000100000000ec800c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 0,
+          "tone": 2,
+          "tone_hex": "00007f4042004040000000000000b1b2ffa5ea5f00000300c000c100c200c300",
+          "sample_id": "sample_3b7ea587e0c5b55e",
+          "sample_index": 3,
+          "pitch_q8": 16384,
+          "curve": [
+            5,
+            12,
+            64,
+            14848,
+            14848,
+            64,
+            24,
+            0,
+            2
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c81e0",
+          "record_hex": "c800000000435200321700000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 0,
+          "tone": 4,
+          "tone_hex": "00007f404f004343000000000000b1b2ff80c35f00001300c000c100c200c300",
+          "sample_id": "sample_241f34551d3c0585",
+          "sample_index": 19,
+          "pitch_q8": 17152,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "5af61271a4e61e0564ffd9024163615e9c5c40be7e1275365c7cd18bcd7ea496"
+    },
+    "7d9:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_7d9.wav",
+      "resolved_id": "0x7d9",
+      "dispatch_hex": "0108011a",
+      "layers": [
+        {
+          "record_address": "0x800c83ac",
+          "record_hex": "c800000000415d003203000000000000fc800c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 0,
+          "tone": 3,
+          "tone_hex": "00047f4043004141000000000000b1b2ffa5ea5f00000300c000c100c200c300",
+          "sample_id": "sample_3b7ea587e0c5b55e",
+          "sample_index": 3,
+          "pitch_q8": 16640,
+          "curve": [
+            2,
+            12,
+            2,
+            40,
+            2,
+            90,
+            2,
+            45,
+            2
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "2715a867a73c281569130a2771ae3c65ef3af62692380517f6da186ad9d17401"
+    },
+    "7e4:0": {
+      "file": "assets/characters/recovered_monsters/audio/haya_wolf/kick.wav",
+      "resolved_id": "0x7e4",
+      "dispatch_hex": "01080104",
+      "layers": [
+        {
+          "record_address": "0x800c81f4",
+          "record_hex": "c8000000003c6a00320400000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c35f01000500c000c100c200c300",
+          "sample_id": "sample_3c66632aad350b19",
+          "sample_index": 5,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "4a33ce3eeb4a7e4ea8cde0f0b5a4a38cb91cbafcc63582bca58aee5fefded646"
+    },
+    "7f3:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_7f3.wav",
+      "resolved_id": "0x7f3",
+      "dispatch_hex": "01080106",
+      "layers": [
+        {
+          "record_address": "0x800c821c",
+          "record_hex": "c800000000406a40320600010000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 2,
+          "tone_hex": "00007f404c004040000000000000b1b2ff80c35f01000700c000c100c200c300",
+          "sample_id": "sample_ae2e332ac01fc4ac",
+          "sample_index": 7,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8230",
+          "record_hex": "64001e0000416a40320700000000000034810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 3,
+          "tone_hex": "00007f404d004141000000000000b1b2ff80ca5f01000700c000c100c200c300",
+          "sample_id": "sample_ae2e332ac01fc4ac",
+          "sample_index": 7,
+          "pitch_q8": 16640,
+          "curve": [
+            2,
+            16,
+            10,
+            4,
+            1024,
+            62464,
+            400,
+            0,
+            3072
+          ],
+          "delay_frames": 22050
+        }
+      ],
+      "sha256": "099a918650487373ecdb806d58362b8660a397deda3da829cf381591e79fb8ef"
+    },
+    "7f5:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_7f5.wav",
+      "resolved_id": "0x7f5",
+      "dispatch_hex": "01080108",
+      "layers": [
+        {
+          "record_address": "0x800c8244",
+          "record_hex": "c800000000456700320900000000000004810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 5,
+          "tone_hex": "00047f4051004545000000000000b1b2ffafed5f01000900c000c100c200c300",
+          "sample_id": "sample_2b8135cc621efc11",
+          "sample_index": 9,
+          "pitch_q8": 17664,
+          "curve": [
+            2,
+            90,
+            2,
+            45,
+            2,
+            30,
+            0,
+            100,
+            18688
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "d9bc23ad7b97eac60d7d000c129eeb0b85194a4f268543dd5ea97891b5ac4d75"
+    },
+    "7f6:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_7f6.wav",
+      "resolved_id": "0x7f6",
+      "dispatch_hex": "01080109",
+      "layers": [
+        {
+          "record_address": "0x800c8258",
+          "record_hex": "c800000000486e00320800000000000008810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 4,
+          "tone_hex": "000474404f004343000000000000b1b2ffb5ed5f01000800c000c100c200c300",
+          "sample_id": "sample_736ff741a7d4dbf5",
+          "sample_index": 8,
+          "pitch_q8": 18432,
+          "curve": [
+            2,
+            45,
+            2,
+            30,
+            0,
+            100,
+            18688,
+            18688,
+            16
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "151cd2af383247a9c48cc22cf93f8abfdf9273dc9937d13dc940d156f86b37bb"
+    },
+    "7f7:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_7f7.wav",
+      "resolved_id": "0x7f7",
+      "dispatch_hex": "0108010a",
+      "layers": [
+        {
+          "record_address": "0x800c826c",
+          "record_hex": "c800000000476400320a00000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 6,
+          "tone_hex": "00007f405b7d4747000000000003b1b2ff80c35f01000a00c000c100c200c300",
+          "sample_id": "sample_16e9eab00aa2a1ac",
+          "sample_index": 10,
+          "pitch_q8": 18176,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "fc6912a2294127cc339a8af825596a5a9ffea55610da30ec12c336bc0b23d44a"
+    },
+    "80d:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_80d.wav",
+      "resolved_id": "0x80d",
+      "dispatch_hex": "0108010b",
+      "layers": [
+        {
+          "record_address": "0x800c8280",
+          "record_hex": "c800000000486000320b01000c00000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 7,
+          "tone_hex": "00007f4058114848000000000000b1b2ff80e35f01000b00c000c100c200c300",
+          "sample_id": "sample_886ce1e8540d886c",
+          "sample_index": 11,
+          "pitch_q8": 18432,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "d5b68c14d4a1bbd4e840ffec35a7ef082ae04e2f7e920004df087c09a802cfdb"
+    },
+    "80e:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_80e.wav",
+      "resolved_id": "0x80e",
+      "dispatch_hex": "0108010c",
+      "layers": [
+        {
+          "record_address": "0x800c8294",
+          "record_hex": "c8000000004a7000320c0100000000000c810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 8,
+          "tone_hex": "00007f4056004a4a000000000000b1b2ffa5ed5f01000c00c000c100c200c300",
+          "sample_id": "sample_f3ac8f55f3559941",
+          "sample_index": 12,
+          "pitch_q8": 18944,
+          "curve": [
+            2,
+            30,
+            0,
+            100,
+            18688,
+            18688,
+            16,
+            0,
+            0
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "340c9af9922539d2b83ed3de6b5ebe3896946b98471efc41fa4637d04e10612f"
+    },
+    "80f:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_80f.wav",
+      "resolved_id": "0x80f",
+      "dispatch_hex": "0108010d",
+      "layers": [
+        {
+          "record_address": "0x800c82a8",
+          "record_hex": "c800000000496400320d00000000000060810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 9,
+          "tone_hex": "00007f4058004c4c000000000000b1b2ffabed5f01000d00c000c100c200c300",
+          "sample_id": "sample_16997302ed55c022",
+          "sample_index": 13,
+          "pitch_q8": 18688,
+          "curve": [
+            7,
+            17,
+            2304,
+            4864,
+            16,
+            140,
+            8,
+            6,
+            1024
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "698467ab73439ae832f6feb7cad200f3fe9b780b442007006df445873e7df331"
+    },
+    "810:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_810.wav",
+      "resolved_id": "0x810",
+      "dispatch_hex": "0108010e",
+      "layers": [
+        {
+          "record_address": "0x800c82bc",
+          "record_hex": "c8000000003d7000320e00010000000010810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 10,
+          "tone_hex": "00007f4059004d4d000000000000b1b2ff80ee5f01000e00c000c100c200c300",
+          "sample_id": "sample_bff3cef5602de2a3",
+          "sample_index": 14,
+          "pitch_q8": 15616,
+          "curve": [
+            0,
+            100,
+            18688,
+            18688,
+            16,
+            0,
+            0,
+            100,
+            20224
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c82d0",
+          "record_hex": "c8001e00004c6b00320f0000000000001c810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 11,
+          "tone_hex": "00007f405b004f4f000000000000b1b2ffb1e35f01000e00c000c100c200c300",
+          "sample_id": "sample_bff3cef5602de2a3",
+          "sample_index": 14,
+          "pitch_q8": 19456,
+          "curve": [
+            0,
+            100,
+            20224,
+            20224,
+            16,
+            0,
+            2,
+            60,
+            2
+          ],
+          "delay_frames": 22050
+        }
+      ],
+      "sha256": "72ac84d16ac9621803c751fda08b81170a9b4977c6e50734cf4ad19004759477"
+    },
+    "811:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_811.wav",
+      "resolved_id": "0x811",
+      "dispatch_hex": "01080110",
+      "layers": [
+        {
+          "record_address": "0x800c82e4",
+          "record_hex": "c800000000487400320b01000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 7,
+          "tone_hex": "00007f4058114848000000000000b1b2ff80e35f01000b00c000c100c200c300",
+          "sample_id": "sample_886ce1e8540d886c",
+          "sample_index": 11,
+          "pitch_q8": 18432,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "1b9c6fdee9d7b3d452cca4234430224b67c9bffbf8010dd81fd00691b0f85eff"
+    },
+    "83a:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_83a.wav",
+      "resolved_id": "0x83a",
+      "dispatch_hex": "01080111",
+      "layers": [
+        {
+          "record_address": "0x800c82f8",
+          "record_hex": "c800000000516000321001000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 12,
+          "tone_hex": "00007f405d005151000000000000b1b2ff80c35f01000f00c000c100c200c300",
+          "sample_id": "sample_338e90177bb30183",
+          "sample_index": 15,
+          "pitch_q8": 20736,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "8eef43386a9665c4d5777c77e861f3cbdd9b03f95331edcce7c0a47fd17f081e"
+    },
+    "83b:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_83b.wav",
+      "resolved_id": "0x83b",
+      "dispatch_hex": "01080112",
+      "layers": [
+        {
+          "record_address": "0x800c830c",
+          "record_hex": "c800000000536000321101000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 13,
+          "tone_hex": "00007f405f005353000000000000b1b2ff80e95f01001000c000c100c200c300",
+          "sample_id": "sample_3008dbeac4a7e549",
+          "sample_index": 16,
+          "pitch_q8": 21248,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "8444087aeb262e71756709c80cd8376a26560ec4592b62b00e98fbb41be62f24"
+    },
+    "83c:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_83c.wav",
+      "resolved_id": "0x83c",
+      "dispatch_hex": "01080113",
+      "layers": [
+        {
+          "record_address": "0x800c8320",
+          "record_hex": "c800000000546400321201000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 14,
+          "tone_hex": "00047f4063005454000000000000b1b2ff80e35f01001100c000c100c200c300",
+          "sample_id": "sample_cd9431e7479d70e1",
+          "sample_index": 17,
+          "pitch_q8": 21504,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "2a865af7961e469ae442a7cc6a9066fbdf9d7232d4a53056865a9a3b49abbef2"
+    },
+    "84b:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_84b.wav",
+      "resolved_id": "0x84b",
+      "dispatch_hex": "01080114",
+      "layers": [
+        {
+          "record_address": "0x800c8334",
+          "record_hex": "c800000000567000321301000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 15,
+          "tone_hex": "00007f4062005656000000000000b1b2ff80ea5f01001200c000c100c200c300",
+          "sample_id": "sample_3c2ec0fdc463f9a6",
+          "sample_index": 18,
+          "pitch_q8": 22016,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "2db51c813616df1385496d6130aad0624e16dacbe417ae1ec696c1f625e9375c"
+    },
+    "853:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_853.wav",
+      "resolved_id": "0x853",
+      "dispatch_hex": "01080112",
+      "layers": [
+        {
+          "record_address": "0x800c830c",
+          "record_hex": "c800000000536000321101000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 13,
+          "tone_hex": "00007f405f005353000000000000b1b2ff80e95f01001000c000c100c200c300",
+          "sample_id": "sample_3008dbeac4a7e549",
+          "sample_index": 16,
+          "pitch_q8": 21248,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "8444087aeb262e71756709c80cd8376a26560ec4592b62b00e98fbb41be62f24"
+    },
+    "883:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_883.wav",
+      "resolved_id": "0x883",
+      "dispatch_hex": "01080115",
+      "layers": [
+        {
+          "record_address": "0x800c8348",
+          "record_hex": "c8000000003c6700321401000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c35f02001400c000c100c200c300",
+          "sample_id": "sample_6d8a345e07d858f9",
+          "sample_index": 20,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "4c21d5d767d3fa0a6cec9413b01f2db22c5b75ce77d59cfb3eecd96833a2b5c9"
+    },
+    "884:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_884.wav",
+      "resolved_id": "0x884",
+      "dispatch_hex": "01080116",
+      "layers": [
+        {
+          "record_address": "0x800c835c",
+          "record_hex": "c8000000003e6300321501000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 1,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80c35f02001500c000c100c200c300",
+          "sample_id": "sample_64cf9bbf721472ae",
+          "sample_index": 21,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "a44efc1fd9d3e41707323bcb605a59275e7c5febc4479f9a8f98e83f31eef55e"
+    },
+    "885:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_885.wav",
+      "resolved_id": "0x885",
+      "dispatch_hex": "01080117",
+      "layers": [
+        {
+          "record_address": "0x800c8370",
+          "record_hex": "c800000000406d00321601000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 2,
+          "tone_hex": "00007f404c004040000000000000b1b2ff80c35f02001600c000c100c200c300",
+          "sample_id": "sample_74553ad6221fef25",
+          "sample_index": 22,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "4b4d51828de21d381254881cc92260e9842ae6145c47f67d3e95db2be873bbdd"
+    },
+    "886:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_886.wav",
+      "resolved_id": "0x886",
+      "dispatch_hex": "01080118",
+      "layers": [
+        {
+          "record_address": "0x800c8384",
+          "record_hex": "c800000000366300321401010000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c35f02001400c000c100c200c300",
+          "sample_id": "sample_6d8a345e07d858f9",
+          "sample_index": 20,
+          "pitch_q8": 13824,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8398",
+          "record_hex": "c8000300003e6700321501000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 1,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80c35f02001500c000c100c200c300",
+          "sample_id": "sample_64cf9bbf721472ae",
+          "sample_index": 21,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 2205
+        }
+      ],
+      "sha256": "bc8b66bf91b08c4aa862313417088ff87cf15dc49de92e533518bd7aba9d8b3e"
+    },
+    "8b7:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_8b7.wav",
+      "resolved_id": "0x8b7",
+      "dispatch_hex": "0108011b",
+      "layers": [
+        {
+          "record_address": "0x800c83c0",
+          "record_hex": "c800000000416400321801000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 3,
+          "tone_hex": "00007f404d004141000000000000b1b2ff80c35f02001700c000c100c200c300",
+          "sample_id": "sample_0336cebcc0165210",
+          "sample_index": 23,
+          "pitch_q8": 16640,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "16414365b9097af060a0ea627354de71f5b1780c8bd077494e976267c6b2ac9b"
+    },
+    "90d:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_90d.wav",
+      "resolved_id": "0x90d",
+      "dispatch_hex": "0108011c",
+      "layers": [
+        {
+          "record_address": "0x800c83d4",
+          "record_hex": "c800000000455c00321902000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 0,
+          "tone": 5,
+          "tone_hex": "00007f404f004545000000000000b1b2ff80e35f00001b00c000c100c200c300",
+          "sample_id": "sample_601f86cb51b7f140",
+          "sample_index": 27,
+          "pitch_q8": 17664,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "5f9db499379abe838c3e5e488fd0a4edb6b87fd17470d19048ad0754eb7819e8"
+    },
+    "90e:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_90e.wav",
+      "resolved_id": "0x90e",
+      "dispatch_hex": "0108011d",
+      "layers": [
+        {
+          "record_address": "0x800c83e8",
+          "record_hex": "c800000000475c00321a02000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 0,
+          "tone": 6,
+          "tone_hex": "00007f4051004747000000000000b1b2ff80c35f00001c00c000c100c200c300",
+          "sample_id": "sample_240afbae751831dd",
+          "sample_index": 28,
+          "pitch_q8": 18176,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "2b2dfd185530672ceb365eed0abb3057d9f25e9ed3ad6f2d3158fb89c801d1c9"
+    },
+    "90f:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_90f.wav",
+      "resolved_id": "0x90f",
+      "dispatch_hex": "0108011e",
+      "layers": [
+        {
+          "record_address": "0x800c83fc",
+          "record_hex": "fd00000000436400321b00010000000028810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 4,
+          "tone_hex": "00045a4050004343000000000000b1b2ffa5ed5f02001800c000c100c200c300",
+          "sample_id": "sample_e21f43632d114b6a",
+          "sample_index": 24,
+          "pitch_q8": 17152,
+          "curve": [
+            2,
+            60,
+            2,
+            45,
+            2,
+            30,
+            2,
+            16,
+            10
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8410",
+          "record_hex": "fc000f0000436800321c0001000000002c810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 5,
+          "tone_hex": "00045a404d004343000000000000b1b2ff31ed5f02000800c000c100c200c300",
+          "sample_id": "sample_736ff741a7d4dbf5",
+          "sample_index": 8,
+          "pitch_q8": 17152,
+          "curve": [
+            2,
+            45,
+            2,
+            30,
+            2,
+            16,
+            10,
+            4,
+            1024
+          ],
+          "delay_frames": 11025
+        },
+        {
+          "record_address": "0x800c8424",
+          "record_hex": "fa000f00004a6400321c0000000000002c810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 5,
+          "tone_hex": "00045a404d004343000000000000b1b2ff31ed5f02000800c000c100c200c300",
+          "sample_id": "sample_736ff741a7d4dbf5",
+          "sample_index": 8,
+          "pitch_q8": 18944,
+          "curve": [
+            2,
+            45,
+            2,
+            30,
+            2,
+            16,
+            10,
+            4,
+            1024
+          ],
+          "delay_frames": 11025
+        }
+      ],
+      "sha256": "9911f9806b05a4c8e22b49edc6dd3db8080e63dcbc632b82934e8436354d1105"
+    },
+    "910:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_910.wav",
+      "resolved_id": "0x910",
+      "dispatch_hex": "01080121",
+      "layers": [
+        {
+          "record_address": "0x800c8438",
+          "record_hex": "c800000000456a00321e00000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 7,
+          "tone_hex": "00047f4051004545000000000000b1b2ff80e35f02001900c000c100c200c300",
+          "sample_id": "sample_88fa02eb6f0c6415",
+          "sample_index": 25,
+          "pitch_q8": 17664,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "16dce1062248aaa96759c7e5bea24aef2b3e432d7d281d8fc07af2e97695be0f"
+    },
+    "911:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_911.wav",
+      "resolved_id": "0x911",
+      "dispatch_hex": "01080122",
+      "layers": [
+        {
+          "record_address": "0x800c844c",
+          "record_hex": "c800000000477400321f00000000000030810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 8,
+          "tone_hex": "00047f4053004747000000000000b1b2ffa5ed5f02001a00c000c100c200c300",
+          "sample_id": "sample_afd32ce20acb8fb8",
+          "sample_index": 26,
+          "pitch_q8": 18176,
+          "curve": [
+            2,
+            30,
+            2,
+            16,
+            10,
+            4,
+            1024,
+            62464,
+            400
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "1592eb55a9c88a83f7dbf59ad499cce45e647218c42370dffe7691f697689f8f"
+    },
+    "98a:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_98a.wav",
+      "resolved_id": "0x98a",
+      "dispatch_hex": "01080123",
+      "layers": [
+        {
+          "record_address": "0x800c8460",
+          "record_hex": "c8000000004a6c00322101000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 10,
+          "tone_hex": "00007f405e7d4a4a000000000000b1b2ff80c01f02001e00c000c100c200c300",
+          "sample_id": "sample_73b0a3606e376d2b",
+          "sample_index": 30,
+          "pitch_q8": 18944,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "e67bfc26456aac25e9c07dc5b3a0074e1c6317b9f1679129ec1a18f8f889801e"
+    },
+    "98b:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_98b.wav",
+      "resolved_id": "0x98b",
+      "dispatch_hex": "01080124",
+      "layers": [
+        {
+          "record_address": "0x800c8474",
+          "record_hex": "c8000000004c6600322201000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 11,
+          "tone_hex": "00007f4058004c4c000000000000b1b2ff80c01f02001f00c000c100c200c300",
+          "sample_id": "sample_553a60101f428531",
+          "sample_index": 31,
+          "pitch_q8": 19456,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "510f567f65d77a94c6cded20d270dfcddd31c1bbf00b2e0f4e7b64bfd3632a0a"
+    },
+    "98e:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_98e.wav",
+      "resolved_id": "0x98e",
+      "dispatch_hex": "01080125",
+      "layers": [
+        {
+          "record_address": "0x800c8488",
+          "record_hex": "6400000000416a40320700000000000034810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 3,
+          "tone_hex": "00007f404d004141000000000000b1b2ff80ca5f01000700c000c100c200c300",
+          "sample_id": "sample_ae2e332ac01fc4ac",
+          "sample_index": 7,
+          "pitch_q8": 16640,
+          "curve": [
+            2,
+            16,
+            10,
+            4,
+            1024,
+            62464,
+            400,
+            0,
+            3072
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "b518e87ab5f2d40f6c680e2bea0df0146b05ccb8e093cbf1a0a12ee25cf6fcd6"
+    },
+    "9f5:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_9f5.wav",
+      "resolved_id": "0x9f5",
+      "dispatch_hex": "01080126",
+      "layers": [
+        {
+          "record_address": "0x800c849c",
+          "record_hex": "c800000000406d00321601010000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 2,
+          "tone_hex": "00007f404c004040000000000000b1b2ff80c35f02001600c000c100c200c300",
+          "sample_id": "sample_74553ad6221fef25",
+          "sample_index": 22,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c84b0",
+          "record_hex": "c8000000004d70003223010000000000247f0c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 12,
+          "tone_hex": "00007f4065004d4d000000000000b1b2ff2fe35f02001600c000c100c200c300",
+          "sample_id": "sample_74553ad6221fef25",
+          "sample_index": 22,
+          "pitch_q8": 19712,
+          "curve": [
+            8,
+            20,
+            72,
+            62464,
+            62464,
+            72,
+            0,
+            0,
+            200
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "6a4361eccf03e2d97e7017187d9602669f02ab5020a2ac81174c18da13cc03c6"
+    },
+    "a14:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_a14.wav",
+      "resolved_id": "0xa14",
+      "dispatch_hex": "01080128",
+      "layers": [
+        {
+          "record_address": "0x800c84c4",
+          "record_hex": "c8000000004f5e00322400000000000038810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 13,
+          "tone_hex": "00007f404f004f4f000000000000b1b2ffa5ed5f02002500c000c100c200c300",
+          "sample_id": "sample_9bd06e398db2c489",
+          "sample_index": 37,
+          "pitch_q8": 20224,
+          "curve": [
+            10,
+            4,
+            1024,
+            62464,
+            400,
+            0,
+            3072,
+            4,
+            24
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "6a88622d6fafd126a97b3825ca37f2f7a169be0bfbeb8ae20d78e8879c238f7e"
+    },
+    "a49:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_a49.wav",
+      "resolved_id": "0xa49",
+      "dispatch_hex": "01080129",
+      "layers": [
+        {
+          "record_address": "0x800c84d8",
+          "record_hex": "c8000000003e5e00320a0000000000004c810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 6,
+          "tone_hex": "00007f405b7d4747000000000003b1b2ff80c35f01000a00c000c100c200c300",
+          "sample_id": "sample_16e9eab00aa2a1ac",
+          "sample_index": 10,
+          "pitch_q8": 15872,
+          "curve": [
+            8,
+            9,
+            480,
+            1536,
+            3072,
+            256,
+            28,
+            0,
+            2
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "ea28458e83096b1babd224826fd8b57427efe1ad307b83f7166ebe8f2e4e421b"
+    },
+    "a9c:0": {
+      "file": "assets/characters/recovered_monsters/audio/haya_wolf/death.wav",
+      "resolved_id": "0xa9c",
+      "dispatch_hex": "0108012a",
+      "layers": [
+        {
+          "record_address": "0x800c84ec",
+          "record_hex": "c800000000537000322600000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 15,
+          "tone_hex": "00047f405f005353000000000000b1b2ff80e35f02002100c000c100c200c300",
+          "sample_id": "sample_626c1d6608823f38",
+          "sample_index": 33,
+          "pitch_q8": 21248,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "cde7ce60e5ff33d59c0640347c8216ccb2c976ec79263477de94a982f4c9f824"
+    },
+    "a9d:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_a9d.wav",
+      "resolved_id": "0xa9d",
+      "dispatch_hex": "0108012b",
+      "layers": [
+        {
+          "record_address": "0x800c8500",
+          "record_hex": "c8000000003c6a00322700000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 3,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80e35f03002200c000c100c200c300",
+          "sample_id": "sample_0702836f5954a88a",
+          "sample_index": 34,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "2d59c85d5586fbefd79c22c1fab4c383ea5e2124ea9979d72ef690ac9814d9a6"
+    },
+    "a9e:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_a9e.wav",
+      "resolved_id": "0xa9e",
+      "dispatch_hex": "0108012c",
+      "layers": [
+        {
+          "record_address": "0x800c8514",
+          "record_hex": "c8000000003e6a00322800000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 3,
+          "tone": 1,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80e35f03002300c000c100c200c300",
+          "sample_id": "sample_900fdb13757c0a76",
+          "sample_index": 35,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "4a871088e529857a9769adb64e6bb622caac1a76622a66cb5eca4cb131e24e8e"
+    },
+    "aaf:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_aaf.wav",
+      "resolved_id": "0xaaf",
+      "dispatch_hex": "0108012d",
+      "layers": [
+        {
+          "record_address": "0x800c8528",
+          "record_hex": "c800000000486400320b01000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 7,
+          "tone_hex": "00007f4058114848000000000000b1b2ff80e35f01000b00c000c100c200c300",
+          "sample_id": "sample_886ce1e8540d886c",
+          "sample_index": 11,
+          "pitch_q8": 18432,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "ede10cc15d4438322c47250669ac4ba0ef1b41cd7f91bac16606fe6f5bfc89e2"
+    },
+    "ab0:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_ab0.wav",
+      "resolved_id": "0xab0",
+      "dispatch_hex": "0108012e",
+      "layers": [
+        {
+          "record_address": "0x800c853c",
+          "record_hex": "c800000000407800322900010000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 3,
+          "tone": 2,
+          "tone_hex": "00047f404c004040000000000000b1b2ff80e35f03002400c000c100c200c300",
+          "sample_id": "sample_50c1f0ac194f7898",
+          "sample_index": 36,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8550",
+          "record_hex": "c8001e0000407400322a00010000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 3,
+          "tone": 3,
+          "tone_hex": "00007f4058004040000000000000b1b2ff35e35f03002400c000c100c200c300",
+          "sample_id": "sample_50c1f0ac194f7898",
+          "sample_index": 36,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 22050
+        },
+        {
+          "record_address": "0x800c8564",
+          "record_hex": "c800340000407000323100000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 3,
+          "tone": 10,
+          "tone_hex": "00007f4064004040000000000000b1b2ff3be35f03002400c000c100c200c300",
+          "sample_id": "sample_50c1f0ac194f7898",
+          "sample_index": 36,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 38220
+        }
+      ],
+      "sha256": "496e1f0c111387267946d1692aebd0bc441bbed187327d77c9329444d7cdeb54"
+    },
+    "b1d:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_b1d.wav",
+      "resolved_id": "0xb1d",
+      "dispatch_hex": "01080131",
+      "layers": [
+        {
+          "record_address": "0x800c8578",
+          "record_hex": "c800000000436400322b00000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 3,
+          "tone": 4,
+          "tone_hex": "00047f405d004343000000000000b1b2ffa5ea5f03002600c000c100c200c300",
+          "sample_id": "sample_c533c8e9168ee9c9",
+          "sample_index": 38,
+          "pitch_q8": 17152,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "48aaaa1d85d7b08e1adfdbc0b60f3fe519b8b0a270d12261c6f0de3ee06018ef"
+    },
+    "b1e:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_b1e.wav",
+      "resolved_id": "0xb1e",
+      "dispatch_hex": "01080132",
+      "layers": [
+        {
+          "record_address": "0x800c858c",
+          "record_hex": "c800000000475d00322d00000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 3,
+          "tone": 6,
+          "tone_hex": "00007f4053004747000000000000b1b2ff80e35f03002800c000c100c200c300",
+          "sample_id": "sample_5453ef10905aff83",
+          "sample_index": 40,
+          "pitch_q8": 18176,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "bd0e303de1ebdd6f512f2f5fd58da7b7808d9b7ab78ce81ff7aae6e48fee6c1f"
+    },
+    "b1f:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_b1f.wav",
+      "resolved_id": "0xb1f",
+      "dispatch_hex": "01080133",
+      "layers": [
+        {
+          "record_address": "0x800c85a0",
+          "record_hex": "c8000800003c7400322c00001e00000098810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 3,
+          "tone": 5,
+          "tone_hex": "00007f4051004545000000000000b1b2ffa5ec5f03002700c000c100c200c300",
+          "sample_id": "sample_8799eeb195415e22",
+          "sample_index": 39,
+          "pitch_q8": 15360,
+          "curve": [
+            7,
+            0,
+            0,
+            62464,
+            16,
+            48,
+            200,
+            0,
+            15360
+          ],
+          "delay_frames": 5880
+        }
+      ],
+      "sha256": "40cce3fffb2f07fc0b9ff46fd6ba2b5abb872a9aff8aa31612fcfadddfc871fa"
+    },
+    "b3e:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_b3e.wav",
+      "resolved_id": "0xb3e",
+      "dispatch_hex": "01080134",
+      "layers": [
+        {
+          "record_address": "0x800c85b4",
+          "record_hex": "c800000000486a00322e00000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 3,
+          "tone": 7,
+          "tone_hex": "00007f4060004848000000000000b1b2ff80e35f03002900c000c100c200c300",
+          "sample_id": "sample_c48f7c399a45dc50",
+          "sample_index": 41,
+          "pitch_q8": 18432,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "c33ecb7519430d0ab14d24f5c839c89e54df3d2d46a5515e5700e47c5a68edfc"
+    },
+    "b3f:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_b3f.wav",
+      "resolved_id": "0xb3f",
+      "dispatch_hex": "01080135",
+      "layers": [
+        {
+          "record_address": "0x800c85c8",
+          "record_hex": "c8000000003e6400322f0000000000006c810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 3,
+          "tone": 8,
+          "tone_hex": "00007f4060004a4a000000000000b1b2ffa5ec5f03002600c000c100c200c300",
+          "sample_id": "sample_c533c8e9168ee9c9",
+          "sample_index": 38,
+          "pitch_q8": 15872,
+          "curve": [
+            8,
+            6,
+            1024,
+            3072,
+            0,
+            8,
+            20,
+            0,
+            8
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "191fb94756420a3ab6d40875789efade54c71067e40ff62090df5ac84baa5dda"
+    },
+    "b40:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_b40.wav",
+      "resolved_id": "0xb40",
+      "dispatch_hex": "01080136",
+      "layers": [
+        {
+          "record_address": "0x800c85dc",
+          "record_hex": "c800000000505a0032300000000000007c810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 3,
+          "tone": 9,
+          "tone_hex": "00007f404c004c4c000000000000b1b2ffa5ec5f03002a00c000c100c200c300",
+          "sample_id": "sample_fe83ac9ab9262283",
+          "sample_index": 42,
+          "pitch_q8": 20480,
+          "curve": [
+            8,
+            8,
+            1024,
+            64512,
+            63488,
+            5,
+            24,
+            0,
+            7
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "d6fc16b422bec6301ef4c0dca50004fa9a284b81da4c2aa42aa97738172ebd98"
+    },
+    "b42:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_b42.wav",
+      "resolved_id": "0xb42",
+      "dispatch_hex": "01080139",
+      "layers": [
+        {
+          "record_address": "0x800c8618",
+          "record_hex": "c800000000476e00321f0001100000005c810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 2,
+          "tone": 8,
+          "tone_hex": "00047f4053004747000000000000b1b2ffa5ed5f02001a00c000c100c200c300",
+          "sample_id": "sample_afd32ce20acb8fb8",
+          "sample_index": 26,
+          "pitch_q8": 18176,
+          "curve": [
+            2,
+            12,
+            7,
+            17,
+            2304,
+            4864,
+            16,
+            140,
+            8
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c862c",
+          "record_hex": "c800000000566a0032130000000000008c810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 15,
+          "tone_hex": "00007f4062005656000000000000b1b2ff80ea5f01001200c000c100c200c300",
+          "sample_id": "sample_3c2ec0fdc463f9a6",
+          "sample_index": 18,
+          "pitch_q8": 22016,
+          "curve": [
+            7,
+            0,
+            0,
+            62464,
+            16,
+            16,
+            7,
+            0,
+            0
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "e2c3f7153a49f3fa056d6aa6c35eb5694c571c10820a3cf99a46d68814fc4ef6"
+    },
+    "b6b:0": {
+      "file": "assets/characters/recovered_monsters/audio/haya_wolf/special_state_end.wav",
+      "resolved_id": "0xb6b",
+      "dispatch_hex": "05000013",
+      "layers": [
+        {
+          "record_address": "0x80067a78",
+          "record_hex": "f000050000456400000400000000000048780680",
+          "bank_slot": 0,
+          "bank": "bank_d8f2dc9eb7ed7287",
+          "program": 1,
+          "tone": 4,
+          "tone_hex": "00047f404b004545000000000000b1b2ff3beb5f01000700c000c100c200c300",
+          "sample_id": "sample_59fcc429062f1639",
+          "sample_index": 7,
+          "pitch_q8": 17664,
+          "curve": [
+            2,
+            30,
+            0,
+            180,
+            15616,
+            15360,
+            0,
+            0,
+            0
+          ],
+          "delay_frames": 3675
+        }
+      ],
+      "sha256": "aa7d916c0e53e87674ccaa46386304fd585a902f2ea901ef4d2ee466d1b348da"
+    },
+    "bcb:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_bcb.wav",
+      "resolved_id": "0xbcb",
+      "dispatch_hex": "0108013a",
+      "layers": [
+        {
+          "record_address": "0x800c862c",
+          "record_hex": "c800000000566a0032130000000000008c810c80",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 1,
+          "tone": 15,
+          "tone_hex": "00007f4062005656000000000000b1b2ff80ea5f01001200c000c100c200c300",
+          "sample_id": "sample_3c2ec0fdc463f9a6",
+          "sample_index": 18,
+          "pitch_q8": 22016,
+          "curve": [
+            7,
+            0,
+            0,
+            62464,
+            16,
+            16,
+            7,
+            0,
+            0
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "54a9f752b06dea12e49d16ad40db7cf2b9319baf2af2e5079ff4923c19eee4f7"
+    },
+    "c1f:0": {
+      "file": "build/Other Files/Asset Toolkit/Vambee and Haya Wolf/Audio Catalog/haya_wolf/event_c1f.wav",
+      "resolved_id": "0xc1f",
+      "dispatch_hex": "0108013b",
+      "layers": [
+        {
+          "record_address": "0x800c8640",
+          "record_hex": "c800000000436400322b00010000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 3,
+          "tone": 4,
+          "tone_hex": "00047f405d004343000000000000b1b2ffa5ea5f03002600c000c100c200c300",
+          "sample_id": "sample_c533c8e9168ee9c9",
+          "sample_index": 38,
+          "pitch_q8": 17152,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8654",
+          "record_hex": "c800000000376400322b00000000000000000000",
+          "bank_slot": 50,
+          "bank": "bank_7fbc39b417905c5a",
+          "program": 3,
+          "tone": 4,
+          "tone_hex": "00047f405d004343000000000000b1b2ffa5ea5f03002600c000c100c200c300",
+          "sample_id": "sample_c533c8e9168ee9c9",
+          "sample_index": 38,
+          "pitch_q8": 14080,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "58b10838c8b6089b6ada54699aacc1f0b9f46b976fcc4c9a4cb3db3e7c9d2dae"
+    }
+  },
+  "scene_aliases": {
+    "437": [
+      127,
+      2180,
+      127
+    ],
+    "438": [
+      127,
+      2179,
+      127
+    ],
+    "439": [
+      127,
+      2181,
+      127
+    ],
+    "43c": [
+      1743,
+      2182,
+      127
+    ],
+    "6aa": [
+      127,
+      127,
+      127
+    ]
+  },
+  "source_resource_level": 50,
+  "scene_column": 1,
+  "scene_level_map": [
+    1,
+    0,
+    0,
+    0,
+    2,
+    3
+  ],
+  "scene_resolution_trace": "8002F4E4: resource level minus owner+4 indexes owner+8; the resulting 1-based value selects the owner+10 sound row column.",
+  "retained_banks": {
+    "50": {
+      "id": "bank_7fbc39b417905c5a",
+      "sha256": "7fbc39b417905c5ab814d80d481a05db23de558033a21f3564f7094b5b0fddf8",
+      "samples": [
+        {
+          "index": 1,
+          "id": "sample_0b374c89992e2747",
+          "body_offset": 0,
+          "bytes": 3984
+        },
+        {
+          "index": 2,
+          "id": "sample_ea130be982209cd5",
+          "body_offset": 3984,
+          "bytes": 3552
+        },
+        {
+          "index": 3,
+          "id": "sample_3b7ea587e0c5b55e",
+          "body_offset": 7536,
+          "bytes": 4752
+        },
+        {
+          "index": 4,
+          "id": "sample_30a9b8147c4df8c2",
+          "body_offset": 12288,
+          "bytes": 3088
+        },
+        {
+          "index": 5,
+          "id": "sample_3c66632aad350b19",
+          "body_offset": 15376,
+          "bytes": 5216
+        },
+        {
+          "index": 6,
+          "id": "sample_07cc59b4e087b6a2",
+          "body_offset": 20592,
+          "bytes": 3120
+        },
+        {
+          "index": 7,
+          "id": "sample_ae2e332ac01fc4ac",
+          "body_offset": 23712,
+          "bytes": 5152
+        },
+        {
+          "index": 8,
+          "id": "sample_736ff741a7d4dbf5",
+          "body_offset": 28864,
+          "bytes": 4064
+        },
+        {
+          "index": 9,
+          "id": "sample_2b8135cc621efc11",
+          "body_offset": 32928,
+          "bytes": 3280
+        },
+        {
+          "index": 10,
+          "id": "sample_16e9eab00aa2a1ac",
+          "body_offset": 36208,
+          "bytes": 3040
+        },
+        {
+          "index": 11,
+          "id": "sample_886ce1e8540d886c",
+          "body_offset": 39248,
+          "bytes": 2080
+        },
+        {
+          "index": 12,
+          "id": "sample_f3ac8f55f3559941",
+          "body_offset": 41328,
+          "bytes": 3440
+        },
+        {
+          "index": 13,
+          "id": "sample_16997302ed55c022",
+          "body_offset": 44768,
+          "bytes": 1520
+        },
+        {
+          "index": 14,
+          "id": "sample_bff3cef5602de2a3",
+          "body_offset": 46288,
+          "bytes": 9104
+        },
+        {
+          "index": 15,
+          "id": "sample_338e90177bb30183",
+          "body_offset": 55392,
+          "bytes": 3040
+        },
+        {
+          "index": 16,
+          "id": "sample_3008dbeac4a7e549",
+          "body_offset": 58432,
+          "bytes": 7216
+        },
+        {
+          "index": 17,
+          "id": "sample_cd9431e7479d70e1",
+          "body_offset": 65648,
+          "bytes": 2432
+        },
+        {
+          "index": 18,
+          "id": "sample_3c2ec0fdc463f9a6",
+          "body_offset": 68080,
+          "bytes": 7584
+        },
+        {
+          "index": 19,
+          "id": "sample_241f34551d3c0585",
+          "body_offset": 75664,
+          "bytes": 5232
+        },
+        {
+          "index": 20,
+          "id": "sample_6d8a345e07d858f9",
+          "body_offset": 80896,
+          "bytes": 5840
+        },
+        {
+          "index": 21,
+          "id": "sample_64cf9bbf721472ae",
+          "body_offset": 86736,
+          "bytes": 3952
+        },
+        {
+          "index": 22,
+          "id": "sample_74553ad6221fef25",
+          "body_offset": 90688,
+          "bytes": 7648
+        },
+        {
+          "index": 23,
+          "id": "sample_0336cebcc0165210",
+          "body_offset": 98336,
+          "bytes": 3200
+        },
+        {
+          "index": 24,
+          "id": "sample_e21f43632d114b6a",
+          "body_offset": 101536,
+          "bytes": 3024
+        },
+        {
+          "index": 25,
+          "id": "sample_88fa02eb6f0c6415",
+          "body_offset": 104560,
+          "bytes": 5456
+        },
+        {
+          "index": 26,
+          "id": "sample_afd32ce20acb8fb8",
+          "body_offset": 110016,
+          "bytes": 6512
+        },
+        {
+          "index": 27,
+          "id": "sample_601f86cb51b7f140",
+          "body_offset": 116528,
+          "bytes": 1808
+        },
+        {
+          "index": 28,
+          "id": "sample_240afbae751831dd",
+          "body_offset": 118336,
+          "bytes": 1808
+        },
+        {
+          "index": 29,
+          "id": "sample_ac891ed0939f5f9b",
+          "body_offset": 120144,
+          "bytes": 5056
+        },
+        {
+          "index": 30,
+          "id": "sample_73b0a3606e376d2b",
+          "body_offset": 125200,
+          "bytes": 4208
+        },
+        {
+          "index": 31,
+          "id": "sample_553a60101f428531",
+          "body_offset": 129408,
+          "bytes": 2592
+        },
+        {
+          "index": 32,
+          "id": "sample_5d6f449650d491c6",
+          "body_offset": 132000,
+          "bytes": 2512
+        },
+        {
+          "index": 33,
+          "id": "sample_626c1d6608823f38",
+          "body_offset": 134512,
+          "bytes": 4976
+        },
+        {
+          "index": 34,
+          "id": "sample_0702836f5954a88a",
+          "body_offset": 139488,
+          "bytes": 2688
+        },
+        {
+          "index": 35,
+          "id": "sample_900fdb13757c0a76",
+          "body_offset": 142176,
+          "bytes": 2528
+        },
+        {
+          "index": 36,
+          "id": "sample_50c1f0ac194f7898",
+          "body_offset": 144704,
+          "bytes": 13120
+        },
+        {
+          "index": 37,
+          "id": "sample_9bd06e398db2c489",
+          "body_offset": 157824,
+          "bytes": 2640
+        },
+        {
+          "index": 38,
+          "id": "sample_c533c8e9168ee9c9",
+          "body_offset": 160464,
+          "bytes": 2864
+        },
+        {
+          "index": 39,
+          "id": "sample_8799eeb195415e22",
+          "body_offset": 163328,
+          "bytes": 2864
+        },
+        {
+          "index": 40,
+          "id": "sample_5453ef10905aff83",
+          "body_offset": 166192,
+          "bytes": 1040
+        },
+        {
+          "index": 41,
+          "id": "sample_c48f7c399a45dc50",
+          "body_offset": 167232,
+          "bytes": 2528
+        },
+        {
+          "index": 42,
+          "id": "sample_fe83ac9ab9262283",
+          "body_offset": 169760,
+          "bytes": 1168
+        }
+      ]
+    }
+  },
+  "notes": [
+    "Historical misnamed Slow Guy recovery: 7E4 attack, A9C death, B6B special state.",
+    "437/438/439/43C are descriptor contact/reaction cues; 6AA is retained as a candidate, not asserted as this actor death voice.",
+    "Every owner event alias and all stage samples retained; unrelated events are not labelled as enemy actions.",
+    "Dry authentic SPU ADPCM with source pitch curves, layer delays and relative volume. PSX ADSR, reverb, Gaussian interpolation and key-off loops are not emulated."
+  ]
+}

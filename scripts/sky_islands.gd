@@ -64,7 +64,7 @@ func _ready():
 		Geo.torus(marker,Vector3.UP*.09,2.4,2.48,Geo.mat("d1c792",.1,.25))
 		var label=Label3D.new();label.text="%02d · %s" % [i+1,island_name(i)];label.position=Vector3(0,5.5,0);label.visibility_range_end=110;label.font_size=36;label.pixel_size=.017;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.modulate=Color("fff0c1");marker.add_child(label)
 		var id=["cloud_pine","sakura","cedar","torii","bamboo_cluster"][i%5]
-		var prop=load("res://assets/models/cedar_pass/"+id+".glb").instantiate()
+		var prop=load(GameAssets.model_path("res://assets/models/cedar_pass/"+id+".glb")).instantiate()
 		add_child(prop);prop.position=interior_point(i,angle-PI/2,.7);prop.scale=Vector3.ONE*(.7 if id=="torii" else .65)
 		for mesh in prop.find_children("*","MeshInstance3D",true,false):mesh.material_override=preload("res://assets/models/cedar_pass/shared_matte.tres");mesh.visibility_range_end=180
 		cedar_count+=1

@@ -28,6 +28,7 @@ func run():
 	game.start_game();game.encounters.enabled=false;game.player.smoke_mode=true
 	game.camera_rig.set_process_unhandled_input(false);get_window().set_flag(Window.FLAG_NO_FOCUS,true);Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	game.child_entered_tree.connect(observe_projectile)
+	preload("res://scripts/character_projectile_pool.gd").service(game).launched.connect(observe_projectile)
 	var p=game.player
 	await fresh_robe(false);var enemy=target(Vector3(0,0,-2.4))
 	await mouse(true);await mouse(false);await attack_frames()

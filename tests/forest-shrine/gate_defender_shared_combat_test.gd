@@ -17,13 +17,12 @@ func check(ok:bool,label_:String):
  checks+=1
  if not ok:failures+=1;printerr("FAIL: "+label_)
 func run():
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game
  for i in 3:await process_frame
  game.start_wave();game.model.waves.pending=999;game.model.waves.spawn_clock=100000
  game.set_physics_process(false);game.player.set_physics_process(false)
- for unit in game.gate_defenders.units.values():unit.set_physics_process(false)
- var gate=load("res://scripts/forest/forest_gate_defender.gd").new();gate.game=game;game.add_child(gate);gate.set_physics_process(false)
+ var gate=load("res://tests/forest-shrine/reference/forest_gate_defender.gd").new();gate.game=game;game.add_child(gate);gate.set_physics_process(false)
  check(gate.character_models.keys()==[1] and gate.character_abilities.is_empty(),"Gate startup builds only its required Goemon bootstrap model")
  gate.select_character(10)
  check(gate.character_models.size()==2 and gate.character_abilities.size()==1,"Preparation selection lazily builds only the requested Ranger kit")

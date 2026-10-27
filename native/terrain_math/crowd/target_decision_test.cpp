@@ -8,86 +8,83 @@ static float horizontal(Vec3 a,Vec3 b){return std::hypot(a.x-b.x,a.z-b.z);}
 struct TargetDecisionTest {
 static void choose(Crowd& c,Unit& u){c.combat.choose_target(c,u);}
 static bool foot(Crowd& c,const Unit& u,Vec3& p){return c.combat.target(c,u,p);}
-static void taunt(Crowd& c,Handle h){c.combat.first_taunt_=h;}
-static void reference(Crowd& crowd,Unit& unit){
-    const auto& targets_=crowd.combat.targets_;auto first_taunt_=crowd.combat.first_taunt_;
-    unit.target_handle=0;unit.external_kind=-1;
-    // Gate leaders are inserted before hired allies in the source defender map.
-    for(const auto& other:targets_)if(other.hp>0&&other.targetable&&other.taunting){unit.external_target=other.id;unit.external_kind=other.kind;return;}
-    if(auto taunt=crowd.unit(first_taunt_);taunt&&taunt->buff_left>0){unit.target_handle=taunt->handle;return;}
-    const ExternalTarget* hero=nullptr;
-    for(const auto& other:targets_)if(other.kind==0&&other.hp>0&&other.targetable){hero=&other;break;}
-    if(unit.retaliation>0){
-        for(const auto& other:crowd.packed_source())if(other.logical_id==unit.retaliation_source&&other.alive&&other.team==1&&other.shelter_mode!=2&&horizontal(other.position,unit.position)<28){unit.target_handle=other.handle;return;}
-        for(const auto& other:targets_)if(other.kind==3&&other.id==unit.retaliation_source&&other.hp>0&&other.targetable&&horizontal(other.foot,unit.position)<28){unit.external_target=other.id;unit.external_kind=other.kind;return;}
-        if(hero&&horizontal(hero->foot,unit.position)<=28){unit.external_target=hero->id;unit.external_kind=0;return;}
-    }
-    float score=INFINITY;
-    // Original order: building edge, worker, gate defender, paid ally, hero fallback.
-    for(int kind:{2,1,3})for(const auto& other:targets_){
-        if(other.kind!=kind||other.hp<=0||!other.targetable)continue;
-        Vec3 point=kind==2?Vec3{std::clamp(unit.position.x,other.minimum.x,other.maximum.x),other.minimum.y,std::clamp(unit.position.z,other.minimum.z,other.maximum.z)}:other.foot;
-        float distance=horizontal(unit.position,point);
-        if(distance<score){score=distance;unit.external_target=other.id;unit.external_kind=kind;}
-    }
-    if(std::any_of(crowd.packed_source().begin(),crowd.packed_source().end(),[](const auto& u){return u.alive&&u.team==1;})){
-        float extent=std::isfinite(score)?score:3e8f;
-        // Prove the nearest root locally before considering farther cells. The
-        // source score is horizontal: tall tower/deck positions remain eligible.
-        for(float radius=std::min(8.0f,extent);;radius=std::min(radius*2,extent)){
-            Vec3 pad{radius,3e8f,radius};
-            for(auto handle:crowd.query(unit.position-pad,unit.position+pad,1,false)){
-                auto other=crowd.unit(handle);if(!other||other->shelter_mode==2)continue;
-                float distance=horizontal(unit.position,other->position);
-                if(distance<score||(distance==score&&unit.target_handle&&other->logical_id<crowd.unit(unit.target_handle)->logical_id)){
-                    score=distance;unit.target_handle=handle;unit.external_kind=-1;
-                }
-            }
-            if(score<=radius||radius>=extent)break;
-        }
-    }
-    if(!unit.target_handle&&unit.external_kind<0&&hero){unit.external_target=hero->id;unit.external_kind=0;}
+static void large_body(){
+ Crowd c;c.configure(10,10);c.set_navigation(NavigationData{});auto h=c.spawn(1,0,0,{16,0,0},100,1);auto& u=*c.unit(h);u.external_kind=0;
+ ExternalTarget hero;hero.kind=0;hero.hp=100;hero.minimum={-15,0,-20};hero.maximum={15,25,20};c.combat.set_targets({hero});
+ Vec3 point;assert(c.combat.target(c,u,point)&&point.x==15&&point.y==0);
+ auto& k=c.combat.soldiers_[0].kit;k[9]=0;k[10]=1;k[11]=0;k[12]=-2;k[13]=1;k[14]=0;k[15]=.2;
+ assert(c.combat.melee_contact(c,u));
+ u.position.x=18;assert(!c.combat.melee_contact(c,u));
+ auto fire=[&](float height){Projectile p;p.source_team=0;p.source_id=1;p.owner_kind=1;p.position={17,height,0};p.direction={-1,0,0};p.speed=120;p.life=2;p.radius=.2;p.damage=5;c.combat.projectiles_.push_back(p);c.combat.projectiles(c,.05);};
+ fire(20);assert(c.combat.events().size()==2&&c.combat.events()[0].kind==EXTERNAL_DAMAGE);
+ c.combat.clear_events();fire(26);assert(c.combat.events().empty());c.combat.projectiles_.clear();
+ hero.minimum=hero.maximum={};c.combat.set_targets({hero});u.position={16,0,0};assert(!c.combat.melee_contact(c,u));
+ c.combat.clear_events();fire(1);assert(c.combat.events().empty());
 }
+static void taunt(Crowd& c,Handle h){c.combat.first_taunt_=h;}
+
 };
 }
 using namespace army;
+static ExternalTarget point(int id,Vec3 position,int kind=1){ExternalTarget t;t.id=id;t.kind=kind;t.hp=100;t.foot=t.minimum=t.maximum=position;return t;}
+static ExternalTarget building(int id,Vec3 low,Vec3 high,int priority=0){auto t=point(id,(low+high)*.5f,2);t.minimum=low;t.maximum=high;t.assault_priority=priority;return t;}
+static NavigationData ground(){NavigationData d;d.origin={-60,0,-60};d.width=81;d.spacing=3;d.heights.assign(81*81,0);d.covered.assign(81*81,1);return d;}
+static void enclose(NavigationData& d){d.obstacle_min={{-9,0,-9},{3,0,-9},{-9,0,-9},{-9,0,3}};d.obstacle_max={{-3,20,9},{9,20,9},{9,20,-3},{9,20,9}};}
 int main(){
- Crowd c;c.configure(4000,2000);int checks=0;
- std::mt19937 rng(1022);std::uniform_real_distribution<float> pos(-50,50);
- auto soldier=c.spawn(1,0,0,{0,0,0},192,3.9);
- std::vector<Handle> allies;
- for(int i=0;i<180;++i)allies.push_back(c.spawn(-i-1,1,11,{pos(rng),pos(rng),pos(rng)},200,.4));
- auto compare=[&](){
-  auto& actual=*c.unit(soldier);Unit expected=actual;
-  TargetDecisionTest::reference(c,expected);TargetDecisionTest::choose(c,actual);
-  assert(actual.target_handle==expected.target_handle&&actual.external_kind==expected.external_kind);
-  if(actual.external_kind>=0)assert(actual.external_target==expected.external_target);
-  ++checks;
- };
- for(int round=0;round<120;++round){
-  std::vector<ExternalTarget> targets;
-  for(int i=0;i<110;++i){ExternalTarget t;t.id=100+i/8;t.kind=i%4;t.foot={pos(rng),pos(rng),pos(rng)};t.hp=i%7?100:0;t.targetable=i%5;t.taunting=(round%13==0&&i%29==0);t.minimum=t.foot-Vec3{2,1,2};t.maximum=t.foot+Vec3{2,1,2};targets.push_back(t);}
-  std::shuffle(targets.begin(),targets.end(),rng);c.combat.set_targets(targets);
-  for(size_t i=0;i<allies.size();++i){auto u=c.unit(allies[i]);u->shelter_mode=(i+round)%7==0?2:0;u->buff_left=i==0&&round%11==0?1:0;}
-  TargetDecisionTest::taunt(c,allies[0]);
-  for(int query=0;query<50;++query){
-   auto u=c.unit(soldier);u->position={pos(rng),pos(rng),pos(rng)};u->retaliation=query%3?0:4;u->retaliation_source=query%2?-1:102;compare();
-   // Every repeated target read must agree with the original first live match.
-   if(u->external_kind>=0){Vec3 point,again;const ExternalTarget* expected=nullptr;
-    for(const auto& t:targets)if(t.id==u->external_target&&t.kind==u->external_kind&&t.hp>0&&t.targetable){expected=&t;break;}
-    assert(expected);auto p=expected->kind==2?Vec3{std::clamp(u->position.x,expected->minimum.x,expected->maximum.x),expected->minimum.y,std::clamp(u->position.z,expected->minimum.z,expected->maximum.z)}:expected->foot;
-    assert(TargetDecisionTest::foot(c,*u,point)&&length(point-p)==0);assert(TargetDecisionTest::foot(c,*u,again)&&length(again-p)==0);++checks;
-   }
-  }
+ TargetDecisionTest::large_body();int checks=0;
+ Crowd c;c.configure(4000,2000);auto nav=ground();c.set_navigation(nav);
+ auto h=c.spawn(1,0,0,{-30,0,0},100,1.3);auto& u=*c.unit(h);
+ auto choose=[&](){TargetDecisionTest::choose(c,u);++checks;};
+ // A closer target sealed behind solids must lose to a farther reachable one.
+ enclose(nav);c.set_navigation(nav);auto trapped=point(10,{0,0,0}),open=point(11,{-30,0,42});
+ c.combat.set_targets({trapped,open});choose();assert(u.external_target==11&&u.external_kind==1);
+ c.combat.set_targets({trapped});choose();assert(u.external_kind<0&&!u.target_handle&&!u.has_goal);
+ // Unreachable taunts and retaliation cannot pin an enemy to the same obstacle.
+ c.set_pose(h,{-24,0,0},0);trapped.taunting=true;c.combat.set_targets({trapped,open});choose();assert(u.external_target==11);
+ auto ally=c.spawn(-1,1,11,{0,0,0},100,.4);c.unit(ally)->buff_left=10;TargetDecisionTest::taunt(c,ally);
+ u.retaliation=4;u.retaliation_source=-1;c.combat.set_targets({trapped,open});choose();assert(u.external_target==11);
+ c.despawn(ally);TargetDecisionTest::taunt(c,0);u.retaliation=0;
+ // The shrine is the objective; a reachable gate is the breach target until it opens.
+ auto shrine=building(20,{-2,0,-2},{2,10,2},2),gate=building(21,{-9,0,-9},{-3,20,9},1);
+ auto distraction=building(22,{-38,0,36},{-32,8,42});
+ c.combat.set_targets({distraction,shrine,gate});choose();assert(u.external_target==21);
+ nav.obstacle_min.erase(nav.obstacle_min.begin());nav.obstacle_max.erase(nav.obstacle_max.begin());c.set_navigation(nav);
+ c.combat.set_targets({distraction,shrine});choose();assert(u.external_target==20);
+ // A nearby reachable defender can intercept the assault; one behind the wall cannot.
+ auto defender=c.spawn(-2,1,11,{-30,0,8},100,.4);choose();assert(u.target_handle==defender);
+ c.despawn(defender);
+ // Nearby players remain targets without an assault building; hidden, dead and
+ // unreachable players cannot distract troops from a reachable objective.
+ auto hero=point(0,{-24,0,8},0);c.combat.set_targets({distraction,hero});choose();assert(u.external_kind==0);
+ hero.targetable=false;c.combat.set_targets({distraction,hero});choose();assert(u.external_target==22&&u.external_kind==2);
+ hero.targetable=true;hero.hp=0;c.combat.set_targets({distraction,hero});choose();assert(u.external_target==22);
+ hero.hp=100;hero.foot=hero.minimum=hero.maximum={0,0,0};enclose(nav);c.set_navigation(nav);
+ c.combat.set_targets({shrine,gate,hero});choose();assert(u.external_target==21&&u.external_kind==2);
+ // Closing the route invalidates connectivity immediately; reopening restores it.
+ enclose(nav);c.set_navigation(nav);c.combat.set_targets({shrine,gate});choose();assert(u.external_target==21);
+ nav=ground();nav.obstacle_min={{-1.25f,0,-1.25f}};nav.obstacle_max={{1.25f,1000,1.25f}};c.set_navigation(nav);
+ // The goal lies beyond a real trunk: choose it, follow the detour and stay clear.
+ c.combat.set_targets({point(30,{30,0,0})});choose();assert(u.external_target==30);
+ for(int hz:{20,30,60}){
+  c.set_pose(h,{-30,0,0},0);u.routing=false;c.set_goal(h,{30,0,0},6);
+  float detour=0;
+  for(int tick=0;tick<hz*30;++tick){c.step(1.0/hz);assert(c.terrain.clear(u.position,u.radius,0));detour=std::max(detour,std::abs(u.position.z));}
+  assert(length(u.position-Vec3{30,0,0})<.1f&&detour>2.5f);++checks;
  }
- // Equal distances retain building/worker/defender priority and source order.
- c.clear();soldier=c.spawn(1,0,0,{0,0,0},192,3.9);
- ExternalTarget worker;worker.id=10;worker.kind=1;worker.hp=100;worker.foot={5,0,0};worker.minimum=worker.maximum=worker.foot;
- auto building=worker;building.id=20;building.kind=2;auto second=building;second.id=21;
- c.combat.set_targets({worker,building,second});compare();assert(c.unit(soldier)->external_target==20);++checks;
- Vec3 point;auto u=c.unit(soldier);assert(TargetDecisionTest::foot(c,*u,point));
- building.foot=building.minimum=building.maximum={9,0,0};c.combat.set_targets({second,building,worker});assert(TargetDecisionTest::foot(c,*u,point)&&point.x==9);++checks;
- building.hp=0;c.combat.set_targets({building});assert(!TargetDecisionTest::foot(c,*u,point));++checks;
- c.combat.set_targets({});compare();assert(!TargetDecisionTest::foot(c,*u,point));++checks;
+ // A blocked closest building face still allows another clear approach.
+ c.set_pose(h,{-12,0,0},0);auto fort=building(40,{6,0,-6},{18,10,6},2);
+ nav.obstacle_min.push_back(fort.minimum);nav.obstacle_max.push_back(fort.maximum);c.set_navigation(nav);c.combat.set_targets({fort});choose();
+ assert(u.external_target==40&&c.terrain.clear(u.target_goal,u.radius,0)&&c.terrain.reachable(u.position,u.target_goal,u.radius,0));
+ for(int tick=0;tick<1800;++tick){c.set_goal(h,u.target_goal,6);c.step(1.0/60);assert(c.terrain.clear(u.position,u.radius,0));}
+ assert(length(u.position-u.target_goal)<.1f);
+ // Body width matters at a narrow passage, even when a small troop can pass.
+ nav=ground();nav.obstacle_min={{-3,0,-60},{-3,0,3}};nav.obstacle_max={{3,20,-3},{3,20,180}};
+ c.set_pose(h,{-30,0,0},0);u.radius=3.9f;c.set_navigation(nav);
+ c.combat.set_targets({point(60,{30,0,0}),point(61,{-30,0,100})});choose();assert(u.external_target==61);
+ u.radius=1.3f;c.set_navigation(nav);choose();assert(u.external_target==60);
+ // Same id, new position and death retain the external row lifetime contract.
+ auto worker=point(50,{-12,0,20});c.combat.set_targets({worker});choose();Vec3 foot;
+ worker.foot=worker.minimum=worker.maximum={-12,0,30};c.combat.set_targets({worker});assert(TargetDecisionTest::foot(c,u,foot)&&foot.z==30);++checks;
+ worker.hp=0;c.combat.set_targets({worker});choose();assert(u.external_kind<0);
  std::cout<<"ARMY_TARGET_DECISION_RESULT checks="<<checks<<" failures=0\n";
 }

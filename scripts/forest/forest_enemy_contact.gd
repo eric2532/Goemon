@@ -6,12 +6,13 @@ static var soldier_cache: Dictionary={}
 static var cache: Dictionary={}
 static var block_cache: Dictionary={}
 static var crowd_script: Script
-static func shapes(variant: int,blocks: bool=false)->Array:
+static func shapes(variant: int,blocks: bool=false,size:float=1.0)->Array:
 	if Soldier.supports(variant):
-		if not soldier_cache.has(variant):
-			var bounds=Soldier.hurt_bounds();var shape=BoxShape3D.new();shape.size=bounds.size
-			soldier_cache[variant]=[{"group":"body","shape":shape,"center":bounds.get_center(),"bounds":bounds,"box":true}]
-		return soldier_cache[variant]
+		var key=Vector2(variant,size)
+		if not soldier_cache.has(key):
+			var bounds=Soldier.hurt_bounds(variant);bounds=AABB(bounds.position*size,bounds.size*size);var shape=BoxShape3D.new();shape.size=bounds.size
+			soldier_cache[key]=[{"group":"body","shape":shape,"center":bounds.get_center(),"bounds":bounds,"box":true}]
+		return soldier_cache[key]
 	if blocks:
 		if block_cache.has(variant):return block_cache[variant]
 		var result: Array=[]
@@ -34,7 +35,9 @@ static func shapes(variant: int,blocks: bool=false)->Array:
 		var planes: Array[Plane]=[Plane(Vector3.RIGHT,size_.x*.5),Plane(Vector3.LEFT,size_.x*.5),Plane(Vector3.UP,size_.y),Plane(Vector3.DOWN,0),Plane(Vector3.BACK,size_.z*.5),Plane(Vector3.FORWARD,size_.z*.5)]
 		cache[variant]=[{"group":"body","shape":hull,"center":bounds.get_center(),"bounds":bounds,"planes":planes}]
 		return cache[variant]
-	var scene=load(load("res://scripts/forest/forest_enemy_roles.gd").asset_path(variant)).instantiate()
+	var path:String=load("res://scripts/forest/forest_enemy_roles.gd").asset_path(variant)
+	if path.is_empty():return []
+	var scene=load(path).instantiate()
 	var groups: Dictionary={}
 	_collect(scene,Transform3D.IDENTITY,variant,groups)
 	scene.free()
@@ -103,7 +106,7 @@ static func part_pose(group: String,data: Dictionary)->Transform3D:
 static func prepare(data: Dictionary,formation: Dictionary={})->Dictionary:
 	if formation.is_empty() and data.has("shared_contacts"):return data.shared_contacts
 	var root_pose=Transform3D(Basis(Vector3.UP,float(data.get("facing",0.0))),data.pos)
-	var items=shapes(int(data.variant),data.get("block_contacts",false))
+	var items=shapes(int(data.variant),data.get("block_contacts",false),float(data.get("enemy_size",1.0)))
 	var roots: Array=formation.get("roots",[root_pose])
 	var parts: Array=formation.get("parts",[data])
 	var compound: Array=[];var members: Array=[];var radius_scales: Array=[]
@@ -137,7 +140,7 @@ static func contact(data: Dictionary,point: Vector3,prepared: Dictionary={},shap
 		return _prepared_contact(point,prepared,shape_index)
 	var root_pose=Transform3D.IDENTITY if ready else Transform3D(Basis(Vector3.UP,float(data.get("facing",0.0))),data.pos)
 	var best: Vector3=prepared.pos if ready else data.pos;var distance=INF
-	var items: Array=prepared.shapes if ready else shapes(int(data.variant),data.get("block_contacts",false))
+	var items: Array=prepared.shapes if ready else shapes(int(data.variant),data.get("block_contacts",false),float(data.get("enemy_size",1.0)))
 	for i in range(items.size()):
 		if shape_index>=0 and i!=shape_index:continue
 		var item: Dictionary=items[i]
@@ -194,7 +197,7 @@ static func segment_contact(data: Dictionary,from: Vector3,to: Vector3,radius: f
 	var ready=not prepared.is_empty()
 	var root_pose=Transform3D.IDENTITY if ready else Transform3D(Basis(Vector3.UP,float(data.get("facing",0.0))),data.pos)
 	var best_t=INF;var point=Vector3.ZERO
-	var items: Array=prepared.shapes if ready else shapes(int(data.variant),data.get("block_contacts",false))
+	var items: Array=prepared.shapes if ready else shapes(int(data.variant),data.get("block_contacts",false),float(data.get("enemy_size",1.0)))
 	for i in range(items.size()):
 		var item: Dictionary=items[i]
 		var inverse: Transform3D
@@ -301,7 +304,7 @@ static func bounds(data: Dictionary,prepared: Dictionary={})->AABB:
 	if not prepared.is_empty():return prepared.bounds
 	var pose=Transform3D(Basis(Vector3.UP,float(data.get("facing",0.0))),data.pos)
 	var result=AABB();var first=true
-	for item in shapes(int(data.variant),data.get("block_contacts",false)):
+	for item in shapes(int(data.variant),data.get("block_contacts",false),float(data.get("enemy_size",1.0))):
 		var box=(pose*part_pose(item.group,data))*item.bounds
 		result=box if first else result.merge(box);first=false
 	return result

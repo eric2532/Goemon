@@ -1,0 +1,45 @@
+{
+  "name": "Skullpion",
+  "source": "raw/SC03.CD.dir/FILE_014.dir/0.4.dec",
+  "source_base": "0x80128158",
+  "source_sha256": "cacb53492f7179bc06548abf37336f997135ae155af6f735d84d4290bbe0468d",
+  "parts": [
+    {
+      "node": 1,
+      "name": "Wind_00",
+      "group": "Wind",
+      "index": 0,
+      "model": "model_27e2140f274ab28fd1b1",
+      "source_address": "0x801c9738",
+      "source_glb": "converted/models/glb/model_27e2140f274ab28fd1b1.glb",
+      "source_glb_sha256": "eab1c4c0fb8646f0ab8fb08a473efcb585b87212b58bb11e499aa6269529d0f9",
+      "source_tmd": "converted/models/tmd/80645dad727d88c4b02e.tmd",
+      "source_tmd_sha256": "80645dad727d88c4b02eb3cc4319bde69fe88f7c159eedc3daab19f088d7c383",
+      "texture_coverage": {
+        "resolved_texture_polygons": 2,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    }
+  ],
+  "groups": [
+    {
+      "name": "Wind",
+      "nodes": [
+        1
+      ],
+      "list_address": "0x801c97c8",
+      "count": 1
+    }
+  ],
+  "clips": [],
+  "poses": {},
+  "fps": 30,
+  "scale": 0.01,
+  "notes": [
+    "1 original rigid mesh parts; flat nodes preserve actor-space poses and indices convert PSX winding.",
+    "Source stream addresses are authoritative; zero hold is externally released and previewed for one tick.",
+    "Nominal 30 Hz preview; root travel, effects and encounter logic are separate runtime code."
+  ],
+  "glb_sha256": "b82816c5080113d02c854e677625af510e11cf014f88dbba4ef707b9985b17f7"
+}

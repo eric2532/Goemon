@@ -32,10 +32,6 @@ func run():
 	check(p.character_models.has(2) and p.character_models[2]!=p.model,"Edo remains a separate character")
 	check(p.model.skeleton.get_bone_count()==32,"Playable model retains the recovered 32-bone rig")
 	check(p.model.animation_player.get_animation_list().size()>=64,"Recovered motion library is available in game")
-	var ally=load("res://scripts/forest/forest_gate_defender.gd").new()
-	ally.game=game;game.add_child(ally);ally.select_character(13)
-	check(game.gate_defenders.primary_range(ally)>1.0,"Musashi can also use the gate defender's melee path")
-	ally.queue_free()
 	game.start_wave()
 	game.player.smoke_mode=true;game.tuning.freeze_ai=true;game.tuning.critical_chance=0
 	game.character_tuning={};game.tuning.invincible=true

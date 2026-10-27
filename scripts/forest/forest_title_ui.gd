@@ -2,12 +2,22 @@ extends Control
 var game
 func _ready():
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	var paper=PanelContainer.new();paper.add_theme_stylebox_override("panel",game.forest_ui.style(Color("e7d9b4")))
-	add_child(paper);paper.set_anchors_and_offsets_preset(Control.PRESET_CENTER_LEFT)
-	paper.offset_left=60;paper.offset_right=510;paper.offset_top=-265;paper.offset_bottom=265
-	var column=VBoxContainer.new();column.add_theme_constant_override("separation",20);paper.add_child(column)
-	for row in [["A CLEARING IN THE DEEP WOODS",15],["FOREST\nSHRINE",54],["A ready fort. One gate. Two watchtowers.\nDefend the shrine with twelve heroes.",20],["Reinforce your defenses between waves.\nFight on the ground when the forest stirs.",18]]:
-		var label=Label.new();label.text=row[0];label.add_theme_font_size_override("font_size",row[1]);label.add_theme_color_override("font_color",Color("263c35"));column.add_child(label)
-	var play=game.forest_ui.make_button("PLAY FOREST SHRINE  →",game.begin_forest,390);play.name="ForestPlay";column.add_child(play)
-	var settings=game.forest_ui.make_button("Settings · Camera, HUD & balance",func():game.show_settings(false),390);settings.name="ForestSettings";column.add_child(settings)
-	var quit=game.forest_ui.make_button("Quit",game.quit_clean,390);quit.custom_minimum_size.y=44;column.add_child(quit)
+	var art=TextureRect.new();art.name="GoemonTitleArt";art.texture=preload("res://assets/ui/maroon/goemon_title_illidan_blademaster.png")
+	art.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;art.stretch_mode=TextureRect.STRETCH_SCALE
+	art.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(art)
+	resized.connect(layout_art.bind(art));layout_art(art)
+	var paper=PanelContainer.new();paper.name="TitleFrame";paper.add_theme_stylebox_override("panel",game.forest_ui.PreparationSkin.panel())
+	add_child(paper);paper.anchor_left=.05;paper.anchor_right=.05;paper.anchor_top=.44;paper.anchor_bottom=.44
+	paper.offset_right=320;paper.offset_bottom=244
+	resized.connect(layout_frame.bind(paper));layout_frame(paper)
+	var column=VBoxContainer.new();column.add_theme_constant_override("separation",14);paper.add_child(column)
+	for item in [["Play",game.begin_forest,"ForestPlay"],["Settings",func():game.show_settings(false),"ForestSettings"],["Quit",game.quit_clean,"ForestQuit"]]:
+		var button=game.forest_ui.make_preparation_button(item[0],item[1],280,item[0]=="Play")
+		button.name=item[2];button.custom_minimum_size.y=56;button.add_theme_font_size_override("font_size",20);column.add_child(button)
+func layout_art(art:TextureRect):
+	# Align the cover image left so the supplied Goemon logo remains intact.
+	var fit=maxf(size.x/art.texture.get_width(),size.y/art.texture.get_height())
+	art.size=art.texture.get_size()*fit;art.position=Vector2(0,(size.y-art.size.y)*.5)
+func layout_frame(paper:Control):
+	# Keep the menu inside the artwork's clear left margin on smaller windows.
+	paper.scale=Vector2.ONE*minf(1.0,size.x/1280.0)

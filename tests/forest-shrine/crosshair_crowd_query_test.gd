@@ -27,7 +27,7 @@ func verify(expected:Vector3,label_:String,max_queries:int):
  check(game.visibility_queries<=max_queries,label_+" inspects only ray contacts (%d queries)"%game.visibility_queries)
 func run():
  root.size=Vector2i(1280,800)
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original()
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original()
  set_meta("forest_custom_layout",doc.data)
  game=CountedGame.new();game.settings_path="user://crosshair-crowd-%d.cfg"%OS.get_process_id();root.add_child(game);current_scene=game
  await frames()

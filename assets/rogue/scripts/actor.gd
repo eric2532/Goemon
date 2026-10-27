@@ -34,6 +34,9 @@ const WEAPON_AXES = {
 }
 const LEFT_BLADE: Vector3 = Vector3(0.473, 0.848, 0.03)
 
+func model_asset_path()->String:
+	return GameAssets.model_path(("res://assets/models/characters/goemon_cosplay/%s.glb" if id in ["pirate","samurai","ninja","mage","knight","dragoon","magic-swordsman","ranger","explorer","master-thief"] else "res://assets/rogue/styled/models/%s.glb")%id)
+
 func setup(character_id: String) -> void:
 	id = character_id
 	if is_instance_valid(model):
@@ -47,7 +50,7 @@ func setup(character_id: String) -> void:
 	_flash_applied = false
 	_guard_glow_applied = false
 	var cosplay = id in ["pirate", "samurai", "ninja", "mage", "knight", "dragoon", "magic-swordsman", "ranger", "explorer", "master-thief"]
-	var resource = load(("res://assets/models/characters/goemon_cosplay/%s.glb" if cosplay else "res://assets/rogue/styled/models/%s.glb") % id)
+	var resource = load(model_asset_path())
 	if resource is PackedScene:
 		model = resource.instantiate()
 		# Fuller side silhouette; the painted front, height and collision stay intact.

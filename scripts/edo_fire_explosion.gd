@@ -68,8 +68,8 @@ func _physics_process(delta):
 	light.light_energy=1.5*flash
 	if age>1.35:queue_free()
 
-static func emit(game_node: Node,point: Vector3,is_arrival: bool=true,audio_slot: String="fire_impact"):
+static func emit(game_node: Node,point: Vector3,is_arrival: bool=true,audio_slot: String="fire_impact",visual_scale:float=1.0):
 	if game_node.has_method("forest_point_visible") and not game_node.forest_point_visible(point):return
 	var effect=EdoFireExplosion.new();effect.game=game_node
 	effect.sound_slot=audio_slot
-	effect.position=point;effect.arrival=is_arrival;game_node.add_child(effect)
+	effect.position=point;effect.arrival=is_arrival;game_node.add_child(effect);effect.scale*=visual_scale

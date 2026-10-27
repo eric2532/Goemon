@@ -23,8 +23,11 @@ var kick_strength=0.0
 var kick_age=1.0
 var travel_follow=preload("res://scripts/travel_camera_follow.gd").new()
 const FIRST_PERSON_EYE_HEIGHT=1.68
+const META_EYE_HEIGHT=3.0
 var first_person_viewmodel: Node3D
 var first_person_mode=false
+var meta_shooter_mode=false
+var meta_viewmodel: Node3D
 var third_person_pitch=0.36
 var third_person_fov=63.0
 var first_person_recoil=0.0
@@ -34,29 +37,38 @@ func first_person_active()->bool:
 
 func sync_character_view():
 	if not is_instance_valid(player) or not is_instance_valid(camera):return
-	var requested=player.is_master_chief()
-	if game.has_method("forest_enemy_visible"):requested=requested and game.model.phase=="wave"
-	if requested!=first_person_mode:
-		first_person_mode=requested;first_person_recoil=0
+	if player.character_id==32 and not is_instance_valid(meta_viewmodel):
+		meta_viewmodel=load("res://scripts/illidan_viewmodel.gd").new()
+		meta_viewmodel.name="IllidanHands";camera.add_child(meta_viewmodel);meta_viewmodel.hide()
+	var meta_requested=player.is_meta_shooter()
+	var requested=player.is_master_chief() or meta_requested
+	if game.has_method("forest_enemy_visible"):
+		requested=requested and game.model.phase=="wave"
+		meta_requested=meta_requested and game.model.phase=="wave"
+	if requested!=first_person_mode or meta_requested!=meta_shooter_mode:
+		if not first_person_mode:
+			third_person_pitch=pitch;third_person_fov=camera.fov
+		first_person_mode=requested;meta_shooter_mode=meta_requested;first_person_recoil=0
 		camera.h_offset=0;camera.v_offset=0;camera.rotation.z=0
 		if requested:
-			third_person_pitch=pitch;third_person_fov=camera.fov
 			pitch=0;camera.fov=78;camera.near=.035
-			if not is_instance_valid(first_person_viewmodel):
+			if not meta_requested and not is_instance_valid(first_person_viewmodel):
 				first_person_viewmodel=load("res://scripts/master_chief_viewmodel.gd").new()
-				first_person_viewmodel.name="MasterChiefViewmodel"
-				camera.add_child(first_person_viewmodel)
+				first_person_viewmodel.name="MasterChiefViewmodel";camera.add_child(first_person_viewmodel)
 		else:
 			pitch=third_person_pitch;camera.fov=third_person_fov;camera.near=.12
 			follow=player.global_position+Vector3.UP*1.4*player.contact_size_multiplier()
 			travel_follow.reset(follow);current_distance=distance
 	if is_instance_valid(first_person_viewmodel):
-		var visible_now=first_person_active()
-		if first_person_viewmodel.visible and not visible_now and first_person_viewmodel.has_method("stop"):
-			first_person_viewmodel.stop()
+		var visible_now=first_person_active() and not meta_requested
+		if first_person_viewmodel.visible and not visible_now:first_person_viewmodel.stop()
 		first_person_viewmodel.visible=visible_now
-		if requested and player.master_chief_combat!=null:first_person_viewmodel.select_slot(player.master_chief_combat.weapon_slot)
-	if player.is_master_chief():player.model.visible=not first_person_mode
+		first_person_viewmodel._process(0)
+		if requested and not meta_requested:first_person_viewmodel.select_slot(player.master_chief_combat.weapon_slot)
+	if is_instance_valid(meta_viewmodel):
+		meta_viewmodel.visible=first_person_active() and meta_requested
+		meta_viewmodel._process(0)
+	if player.is_master_chief() or player.is_meta_shooter():player.model.visible=not first_person_mode
 
 func first_person_direction()->Vector3:
 	return -Vector3(sin(yaw)*cos(pitch),sin(pitch),cos(yaw)*cos(pitch))
@@ -71,14 +83,18 @@ func fire_first_person_shot():
 func update_first_person(delta: float):
 	first_person_recoil=move_toward(first_person_recoil,0,delta*.04)
 	camera.global_position=player.global_position+Vector3.UP*FIRST_PERSON_EYE_HEIGHT
+	if meta_shooter_mode:
+		var raised=player.global_position+Vector3.UP*META_EYE_HEIGHT
+		var ceiling=AttackChain.world_ray(player,camera.global_position,raised,1,[player.get_rid()])
+		camera.global_position=raised if ceiling.is_empty() else ceiling.position-Vector3.UP*.12
 	var view_pitch=clampf(pitch-first_person_recoil,-1.45,1.45)
 	var direction=-Vector3(sin(yaw)*cos(view_pitch),sin(view_pitch),cos(yaw)*cos(view_pitch))
 	camera.look_at(camera.global_position+direction,Vector3.UP)
 	camera.h_offset=0;camera.v_offset=0
 	player.facing=Vector3.FORWARD.rotated(Vector3.UP,yaw)
 	player.model.hide()
-	if is_instance_valid(first_person_viewmodel) and first_person_viewmodel.has_method("update_motion"):
-		first_person_viewmodel.update_motion(delta,Vector2(player.velocity.x,player.velocity.z).length(),player.is_on_floor())
+	var view=meta_viewmodel if meta_shooter_mode else first_person_viewmodel
+	if is_instance_valid(view):view.update_motion(delta,Vector2(player.velocity.x,player.velocity.z).length(),player.is_on_floor())
 
 func kick(direction: Vector3, strength: float):
 	if kick_age<0.06 and strength<kick_strength:return
@@ -136,6 +152,7 @@ func update_camera(delta: float,preview: bool=false):
 	var speed=Vector2(player.velocity.x,player.velocity.z).length()
 	var input=player.smoke_move if player.smoke_mode else Input.get_vector("move_left","move_right","move_forward","move_back")
 	var target=player.global_position+Vector3.UP*1.4*player.contact_size_multiplier()
+	if player.RogueRoster.is_enemy(player.character_id):target=player.global_position+Vector3.UP*player.model.bounds().size.y*.65*player.growth_multiplier()
 	var horizontal=travel_follow.update(target,input,yaw,delta)
 	var fast=0.0 if travel_follow.buffering else clampf((speed-8)/10,0,1)
 	if game.descent_mode:target.y-=clampf(-player.velocity.y*.1,0,3.5)
@@ -147,7 +164,7 @@ func update_camera(delta: float,preview: bool=false):
 	follow.x=horizontal.x
 	follow.z=horizontal.z
 	follow.y=lerpf(follow.y,target.y,1-exp(-delta*12))
-	var desired=distance*sqrt(player.growth_multiplier())+fast*1.2+(1.6 if game.boss_active else 0)
+	var desired=distance*(6.0 if player.character_id==27 else 2.3*preload("res://scripts/forest/dark_lumina_kit.gd").SCALE if player.character_id==29 else 1.0)*sqrt(player.growth_multiplier())+fast*1.2+(1.6 if game.boss_active else 0)
 	if travel_follow.buffering:desired=current_distance
 	if player.sky_strike.active:desired=maxf(desired,player.sky_strike.origin.distance_to(player.sky_strike.landing)*.85+10)
 	if indoors:desired=8.0

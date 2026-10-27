@@ -9,6 +9,14 @@ var age=0.0
 var terminal_started=false
 var clouds: Array[Sprite3D]=[]
 
+func _ready():
+	_prepare_clouds();reset()
+
+func reset():
+	age=0;terminal_started=false
+	for cloud in clouds:cloud.hide()
+	body.show()
+
 func advance(delta: float)->bool:
 	age+=delta
 	# A state transition plays940 while the flight image is still present. On the
@@ -26,6 +34,12 @@ func advance(delta: float)->bool:
 
 func _begin_terminal():
 	terminal_started=true;body.hide()
+	if clouds.is_empty():_prepare_clouds()
+	for cloud in clouds:
+		cloud.position=Vector3(randi_range(-80,79),randi_range(0,159),randi_range(-80,79))*.01
+		cloud.show()
+
+func _prepare_clouds():
 	for i in range(4):
 		var sprite=Sprite3D.new();sprite.name="SourceBombExplosion%d"%i
 		sprite.texture=EXPLOSION;sprite.hframes=10
@@ -36,7 +50,6 @@ func _begin_terminal():
 		sprite.offset=Vector2(-16,16)/31.0
 		sprite.billboard=BaseMaterial3D.BILLBOARD_ENABLED
 		sprite.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		sprite.position=Vector3(randi_range(-80,79),randi_range(0,159),randi_range(-80,79))*.01
 		var material=body.material_override.duplicate() as ShaderMaterial
 		material.shader=ADDITIVE;material.set_shader_parameter("albedo_texture",EXPLOSION)
 		material.set_shader_parameter("billboard",true)

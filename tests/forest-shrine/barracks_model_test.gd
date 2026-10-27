@@ -36,7 +36,7 @@ func run():
 	check(m.workforce._assign(w,restored),"Surviving worker can take a new interior repair job")
 	w.pos=m.point(m.entry(restored));m.workforce.tick(.25,Vector3.ZERO)
 	check(restored.hp==3000 and not w.has("sheltered_building"),"Finishing repairs releases the worker outside")
-	var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original()
+	var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original()
 	doc.data.buildings.append({"kind":"barracks","x":16,"z":16,"rotation":0,"span":0})
 	check(doc.validate(doc.data).is_empty(),"Saved maps accept barracks structures")
 	finish()

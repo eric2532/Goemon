@@ -75,7 +75,8 @@ func bake(unit,profile:Dictionary={})->Resource:
   c.reset_run();actor.seed=0;c.player.pos=Vector3.ZERO;c.player.angle=0;c.aim=Vector3.BACK*10;unit.facing=Vector3.BACK;unit.model.rotation.y=PI
   if d.has("primary"):
    var sample=int(d.primary);c.player.bladeSide=profile.primary[sample].get("swingSide",1);c.player.rangerShots=sample
-   c.Actions.begin_attack(c,c.Actions.primary_config(c,sample%3),sample%3)
+   var index=sample%c.Actions.primary_count(c.class_id)
+   c.Actions.begin_attack(c,c.Actions.primary_config(c,index),index)
   elif d.get("sweep",false):c.Actions.begin_attack(c,{"duration":.84,"contact":.22,"damage":111,"reach":7.2,"arc":PI/2,"style":"dragoon-sweep","sweep_hits":0},0,"flintlock")
   if d.get("warmup",0)>0:
    var warm:Dictionary=c.player.duplicate(true);warm.graphicsQuality=0;warm.grounded=true;warm.vertical=0;warm.flip=-1;warm.landing=0;warm.motionSpeed=profile.speed;warm.localMotion=Vector3.BACK*profile.speed*d.motion
@@ -121,6 +122,8 @@ func bake(unit,profile:Dictionary={})->Resource:
  var resource=Resource.new();resource.set_meta("kind",unit.kit_id);resource.set_meta("fps",FPS);resource.set_meta("mesh",mesh);resource.set_meta("textures",textures);resource.set_meta("properties",ImageTexture.create_from_image(props));resource.set_meta("palette",palette);resource.set_meta("vertex_refs",vertex_refs);resource.set_meta("clips",clips);resource.set_meta("contacts",contacts);resource.set_meta("muzzles",muzzles);resource.set_meta("pose_texture",ImageTexture.create_from_image(image))
  var hashes={};fingerprint("res://assets/rogue/scripts/actor.gd",hashes);fingerprint("res://scripts/rogue_roster_combat.gd",hashes)
  fingerprint("res://assets/models/characters/goemon_cosplay/"+actor.id+".glb",hashes)
+ fingerprint("res://assets/optimized/routes.json",hashes)
+ fingerprint(GameAssets.model_path("res://assets/models/characters/goemon_cosplay/"+actor.id+".glb"),hashes)
  for name_ in DirAccess.get_files_at("res://assets/animations"):
   if name_.ends_with(".json"):hashes["res://assets/animations/"+name_]=FileAccess.get_sha256("res://assets/animations/"+name_)
  resource.set_meta("source_hashes",hashes);return resource

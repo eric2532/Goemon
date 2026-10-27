@@ -1,0 +1,574 @@
+{
+  "source": "raw/SC07.CD.dir/FILE_003.dir/1.1",
+  "source_sha256": "ae19b0dd1367efe1b066e86efb7a0be4adade784541c4eea1938ea56618d5cd9",
+  "sprites": {
+    "fire": {
+      "frames": 16,
+      "records": [
+        {
+          "address": "0x801a6f08",
+          "raw": "ff4e1f1fe0020001f0fff0ff",
+          "rect": [
+            736,
+            256,
+            8,
+            32
+          ],
+          "clut": 21398
+        },
+        {
+          "address": "0x801a6f14",
+          "raw": "ff4e1f1fe0022001f0fff0ff",
+          "rect": [
+            736,
+            288,
+            8,
+            32
+          ],
+          "clut": 21398
+        },
+        {
+          "address": "0x801a6f20",
+          "raw": "ff4e1f1fe0024001f0fff0ff",
+          "rect": [
+            736,
+            320,
+            8,
+            32
+          ],
+          "clut": 21398
+        },
+        {
+          "address": "0x801a6f2c",
+          "raw": "ff4e1f1fe0026001f0fff0ff",
+          "rect": [
+            736,
+            352,
+            8,
+            32
+          ],
+          "clut": 21398
+        },
+        {
+          "address": "0x801a6f38",
+          "raw": "ff4e1f1fe0028001f0fff0ff",
+          "rect": [
+            736,
+            384,
+            8,
+            32
+          ],
+          "clut": 21398
+        },
+        {
+          "address": "0x801a6f44",
+          "raw": "ff4e1f1fe002a001f0fff0ff",
+          "rect": [
+            736,
+            416,
+            8,
+            32
+          ],
+          "clut": 21398
+        },
+        {
+          "address": "0x801a6f50",
+          "raw": "ff4e1f1fe002c001f0fff0ff",
+          "rect": [
+            736,
+            448,
+            8,
+            32
+          ],
+          "clut": 21398
+        },
+        {
+          "address": "0x801a6f5c",
+          "raw": "ff4e1f1fe002e001f0fff0ff",
+          "rect": [
+            736,
+            480,
+            8,
+            32
+          ],
+          "clut": 21398
+        },
+        {
+          "address": "0x801a6f68",
+          "raw": "ff4e1f1fe8020001f0fff0ff",
+          "rect": [
+            744,
+            256,
+            8,
+            32
+          ],
+          "clut": 21398
+        },
+        {
+          "address": "0x801a6f74",
+          "raw": "ff4e1f1fe8022001f0fff0ff",
+          "rect": [
+            744,
+            288,
+            8,
+            32
+          ],
+          "clut": 21398
+        },
+        {
+          "address": "0x801a6f80",
+          "raw": "ff4e1f1fe8024001f0fff0ff",
+          "rect": [
+            744,
+            320,
+            8,
+            32
+          ],
+          "clut": 21398
+        },
+        {
+          "address": "0x801a6f8c",
+          "raw": "ff4e1f1fe8026001f0fff0ff",
+          "rect": [
+            744,
+            352,
+            8,
+            32
+          ],
+          "clut": 21398
+        },
+        {
+          "address": "0x801a6f98",
+          "raw": "ff4e1f1fe8028001f0fff0ff",
+          "rect": [
+            744,
+            384,
+            8,
+            32
+          ],
+          "clut": 21398
+        },
+        {
+          "address": "0x801a6fa4",
+          "raw": "ff4e1f1fe802a001f0fff0ff",
+          "rect": [
+            744,
+            416,
+            8,
+            32
+          ],
+          "clut": 21398
+        },
+        {
+          "address": "0x801a6fb0",
+          "raw": "ff4e1f1fe802c001f0fff0ff",
+          "rect": [
+            744,
+            448,
+            8,
+            32
+          ],
+          "clut": 21398
+        },
+        {
+          "address": "0x801a6fbc",
+          "raw": "ff4e1f1fe802e001f0fff0ff",
+          "rect": [
+            744,
+            480,
+            8,
+            32
+          ],
+          "clut": 21398
+        }
+      ],
+      "sha256": "324806f76839a98539752e332b3b540db495b5a3dcad52e0e0bb85aea2ab2007"
+    },
+    "impact": {
+      "frames": 16,
+      "records": [
+        {
+          "address": "0x801a6fc8",
+          "raw": "ff5a1f3f20030000f0ffe0ff",
+          "rect": [
+            800,
+            0,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a6fd4",
+          "raw": "ff5a1f3f28030000f0ffe0ff",
+          "rect": [
+            808,
+            0,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a6fe0",
+          "raw": "ff5a1f3f30030000f0ffe0ff",
+          "rect": [
+            816,
+            0,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a6fec",
+          "raw": "ff5a1f3f38030000f0ffe0ff",
+          "rect": [
+            824,
+            0,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a6ff8",
+          "raw": "ff5a1f3f20034000f0ffe0ff",
+          "rect": [
+            800,
+            64,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a7004",
+          "raw": "ff5a1f3f28034000f0ffe0ff",
+          "rect": [
+            808,
+            64,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a7010",
+          "raw": "ff5a1f3f30034000f0ffe0ff",
+          "rect": [
+            816,
+            64,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a701c",
+          "raw": "ff5a1f3f38034000f0ffe0ff",
+          "rect": [
+            824,
+            64,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a7028",
+          "raw": "ff5a1f3f20038000f0ffe0ff",
+          "rect": [
+            800,
+            128,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a7034",
+          "raw": "ff5a1f3f28038000f0ffe0ff",
+          "rect": [
+            808,
+            128,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a7040",
+          "raw": "ff5a1f3f30038000f0ffe0ff",
+          "rect": [
+            816,
+            128,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a704c",
+          "raw": "ff5a1f3f38038000f0ffe0ff",
+          "rect": [
+            824,
+            128,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a7058",
+          "raw": "ff5a1f3f2003c000f0ffe0ff",
+          "rect": [
+            800,
+            192,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a7064",
+          "raw": "ff5a1f3f2803c000f0ffe0ff",
+          "rect": [
+            808,
+            192,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a7070",
+          "raw": "ff5a1f3f3003c000f0ffe0ff",
+          "rect": [
+            816,
+            192,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a707c",
+          "raw": "ff5a1f3f3803c000f0ffe0ff",
+          "rect": [
+            824,
+            192,
+            8,
+            64
+          ],
+          "clut": 22166
+        }
+      ],
+      "sha256": "ffb443be22bd043cb1fdde64bf12bdbfd32114ea398bd86b304a6a50bafc827c"
+    },
+    "ember": {
+      "frames": 16,
+      "records": [
+        {
+          "address": "0x801a7088",
+          "raw": "ff5a1f3f00030001f0ffe0ff",
+          "rect": [
+            768,
+            256,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a7094",
+          "raw": "ff5a1f3f08030001f0ffe0ff",
+          "rect": [
+            776,
+            256,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a70a0",
+          "raw": "ff5a1f3f10030001f0ffe0ff",
+          "rect": [
+            784,
+            256,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a70ac",
+          "raw": "ff5a1f3f18030001f0ffe0ff",
+          "rect": [
+            792,
+            256,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a70b8",
+          "raw": "ff5a1f3f00034001f0ffe0ff",
+          "rect": [
+            768,
+            320,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a70c4",
+          "raw": "ff5a1f3f08034001f0ffe0ff",
+          "rect": [
+            776,
+            320,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a70d0",
+          "raw": "ff5a1f3f10034001f0ffe0ff",
+          "rect": [
+            784,
+            320,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a70dc",
+          "raw": "ff5a1f3f18034001f0ffe0ff",
+          "rect": [
+            792,
+            320,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a70e8",
+          "raw": "ff5a1f3f00038001f0ffe0ff",
+          "rect": [
+            768,
+            384,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a70f4",
+          "raw": "ff5a1f3f08038001f0ffe0ff",
+          "rect": [
+            776,
+            384,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a7100",
+          "raw": "ff5a1f3f10038001f0ffe0ff",
+          "rect": [
+            784,
+            384,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a710c",
+          "raw": "ff5a1f3f18038001f0ffe0ff",
+          "rect": [
+            792,
+            384,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a7118",
+          "raw": "ff5a1f3f0003c001f0ffe0ff",
+          "rect": [
+            768,
+            448,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a7124",
+          "raw": "ff5a1f3f0803c001f0ffe0ff",
+          "rect": [
+            776,
+            448,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a7130",
+          "raw": "ff5a1f3f1003c001f0ffe0ff",
+          "rect": [
+            784,
+            448,
+            8,
+            64
+          ],
+          "clut": 22166
+        },
+        {
+          "address": "0x801a713c",
+          "raw": "ff5a1f3f1803c001f0ffe0ff",
+          "rect": [
+            792,
+            448,
+            8,
+            64
+          ],
+          "clut": 22166
+        }
+      ],
+      "sha256": "675c2e3b07e3adff73ea7f7039e610a39c6eb48b4c91ad86c7d66ee47044f4e3"
+    }
+  },
+  "meshes": {
+    "shock_dome": {
+      "address": "0x801f2260",
+      "model": "model_41a55f29e0b9236223a5",
+      "sha256": "5c3c9389327a8038ecea34367db210b4317f1b5ebd255ab64d30f2bf0d4a03f2"
+    },
+    "shock_ring": {
+      "address": "0x801f2900",
+      "model": "model_b41ace3e2f0b06303b6d",
+      "sha256": "2b787c3d2effa8aa55ca765c482f33413887f7d773160148a7fb3880e57cd1e3"
+    },
+    "fragment": {
+      "address": "0x801f30b0",
+      "model": "model_dd29043bbf28765a16ab",
+      "sha256": "0d94a9f6ba48e919f5a90604b48b8ea5fff43574e3980f45335e51fe9c0694b2"
+    }
+  },
+  "notes": [
+    "Original PSX vertices, colours, UVs and palette pixels. Effect GLBs retain source dimensions; apply .018 world conversion.",
+    "Fire actor 0x378 uses three trailing sprites; paired releases at body ticks 47/64/81, source angles +320/-320.",
+    "The 16-frame fire/impact/ember streams are at 801A7148/801A71D0/801A7258."
+  ]
+}

@@ -1,0 +1,979 @@
+{
+  "name": "Skullpion",
+  "source": "raw/SC03.CD.dir/FILE_028.dir/0.4.dec",
+  "source_base": "0x80128158",
+  "source_sha256": "aabefa6c93b0a3d15df0bdada079baa0c38c642254a1039b276475075d65b706",
+  "parts": [
+    {
+      "node": 1,
+      "name": "Drill_00",
+      "group": "Drill",
+      "index": 0,
+      "model": "model_d5c5655b24ccb51ded45",
+      "source_address": "0x801e0dc4",
+      "source_glb": "converted/models/glb/model_d5c5655b24ccb51ded45.glb",
+      "source_glb_sha256": "df3d37345e7a55981b0c9369e368f0164f6fba6a302d5d780d9862f9bfabc6e2",
+      "source_tmd": "converted/models/tmd/530da928829fbe80c5fd.tmd",
+      "source_tmd_sha256": "530da928829fbe80c5fdd7450f01528dbfb6d8251bc6d369e3d99ad86cf0d150",
+      "texture_coverage": {
+        "resolved_texture_polygons": 39,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 2,
+      "name": "Drill_01",
+      "group": "Drill",
+      "index": 1,
+      "model": "model_669a3c69b0d0feb85f93",
+      "source_address": "0x801e1570",
+      "source_glb": "converted/models/glb/model_669a3c69b0d0feb85f93.glb",
+      "source_glb_sha256": "c91f6322ad04fae71803e816996669f1d2993f482d1c2502d419395b8ea69d43",
+      "source_tmd": "converted/models/tmd/d0e33162291fe0f2de39.tmd",
+      "source_tmd_sha256": "d0e33162291fe0f2de39c1d860fe11d7e4b6342584370166f1ecd5c9714714b4",
+      "texture_coverage": {
+        "resolved_texture_polygons": 28,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    },
+    {
+      "node": 3,
+      "name": "Drill_02",
+      "group": "Drill",
+      "index": 2,
+      "model": "model_5b31abd7b7183eef9f13",
+      "source_address": "0x801e1b74",
+      "source_glb": "converted/models/glb/model_5b31abd7b7183eef9f13.glb",
+      "source_glb_sha256": "81086d8a2504efb5c4f1fda825f33befa02a55880e37b39655e55f0b26aad985",
+      "source_tmd": "converted/models/tmd/3bf7db92f257eb402cf1.tmd",
+      "source_tmd_sha256": "3bf7db92f257eb402cf10e229772d7a6fb352c7620c7f50df4df330872910d08",
+      "texture_coverage": {
+        "resolved_texture_polygons": 28,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    }
+  ],
+  "groups": [
+    {
+      "name": "Drill",
+      "nodes": [
+        1,
+        2,
+        3
+      ],
+      "list_address": "0x801e2178",
+      "count": 3
+    }
+  ],
+  "clips": [
+    {
+      "name": "Source__801e2458",
+      "index": 0,
+      "ticks": 20,
+      "streams": [
+        {
+          "group": "Drill",
+          "address": "0x801e2458",
+          "frames": [
+            {
+              "tick": 0,
+              "hold": 1,
+              "pose": "0x801e2188",
+              "command_address": "0x801e2458"
+            },
+            {
+              "tick": 1,
+              "hold": 1,
+              "pose": "0x801e21ac",
+              "command_address": "0x801e2460"
+            },
+            {
+              "tick": 2,
+              "hold": 1,
+              "pose": "0x801e21d0",
+              "command_address": "0x801e2468"
+            },
+            {
+              "tick": 3,
+              "hold": 1,
+              "pose": "0x801e21f4",
+              "command_address": "0x801e2470"
+            },
+            {
+              "tick": 4,
+              "hold": 1,
+              "pose": "0x801e2218",
+              "command_address": "0x801e2478"
+            },
+            {
+              "tick": 5,
+              "hold": 1,
+              "pose": "0x801e223c",
+              "command_address": "0x801e2480"
+            },
+            {
+              "tick": 6,
+              "hold": 1,
+              "pose": "0x801e2260",
+              "command_address": "0x801e2488"
+            },
+            {
+              "tick": 7,
+              "hold": 1,
+              "pose": "0x801e2284",
+              "command_address": "0x801e2490"
+            },
+            {
+              "tick": 8,
+              "hold": 1,
+              "pose": "0x801e22a8",
+              "command_address": "0x801e2498"
+            },
+            {
+              "tick": 9,
+              "hold": 1,
+              "pose": "0x801e22cc",
+              "command_address": "0x801e24a0"
+            },
+            {
+              "tick": 10,
+              "hold": 1,
+              "pose": "0x801e22f0",
+              "command_address": "0x801e24a8"
+            },
+            {
+              "tick": 11,
+              "hold": 1,
+              "pose": "0x801e2314",
+              "command_address": "0x801e24b0"
+            },
+            {
+              "tick": 12,
+              "hold": 1,
+              "pose": "0x801e2338",
+              "command_address": "0x801e24b8"
+            },
+            {
+              "tick": 13,
+              "hold": 1,
+              "pose": "0x801e235c",
+              "command_address": "0x801e24c0"
+            },
+            {
+              "tick": 14,
+              "hold": 1,
+              "pose": "0x801e2380",
+              "command_address": "0x801e24c8"
+            },
+            {
+              "tick": 15,
+              "hold": 1,
+              "pose": "0x801e23a4",
+              "command_address": "0x801e24d0"
+            },
+            {
+              "tick": 16,
+              "hold": 1,
+              "pose": "0x801e23c8",
+              "command_address": "0x801e24d8"
+            },
+            {
+              "tick": 17,
+              "hold": 1,
+              "pose": "0x801e23ec",
+              "command_address": "0x801e24e0"
+            },
+            {
+              "tick": 18,
+              "hold": 1,
+              "pose": "0x801e2410",
+              "command_address": "0x801e24e8"
+            },
+            {
+              "tick": 19,
+              "hold": 1,
+              "pose": "0x801e2434",
+              "command_address": "0x801e24f0"
+            }
+          ],
+          "ticks": 20,
+          "terminal": "loop",
+          "stream_sha256": "52bf63f8592eed698abb93fb4a6ba2a81d77d657a00f4f6985da2359eddb381b"
+        }
+      ]
+    }
+  ],
+  "poses": {
+    "0x801e2188": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e21ac": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e21d0": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e21f4": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e2218": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e223c": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e2260": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e2284": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e22a8": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e22cc": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e22f0": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e2314": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e2338": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e235c": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e2380": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e23a4": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e23c8": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e23ec": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e2410": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ],
+    "0x801e2434": [
+      {
+        "position": [
+          0,
+          -105,
+          0
+        ],
+        "angles": [
+          1034,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -55,
+          0
+        ],
+        "angles": [
+          1029,
+          0,
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "angles": [
+          1024,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "fps": 30,
+  "scale": 0.01,
+  "notes": [
+    "3 original rigid mesh parts; flat nodes preserve actor-space poses and indices convert PSX winding.",
+    "Source stream addresses are authoritative; zero hold is externally released and previewed for one tick.",
+    "Nominal 30 Hz preview; root travel, effects and encounter logic are separate runtime code."
+  ],
+  "glb_sha256": "0140eb94101be0c27d2845b8e5982b76ad3b451f1eb0353926d7d988826ac828"
+}

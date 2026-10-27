@@ -46,7 +46,7 @@ func tick(delta:float)->bool:
 		if u.global_position.distance_to(exit_point)<1.5:
 			u.state="sheltered";u.global_position=m.center(b);u.active_ability.player.pos=u.global_position
 			u.velocity=Vector3.ZERO;u.ai_move=Vector3.ZERO;u.collision_layer=0;u.hide();combat.enter(b);u.director.sync_targets()
-		else:u.game.gate_defenders.set_destination(u,exit_point)
+		else:u.steering.set_destination(u,exit_point)
 		return true
 	if u.state=="returning":
 		# The exit is already clear ground. Resume hunting immediately instead

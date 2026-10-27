@@ -21,7 +21,8 @@ var _tower_fallback:Array=[]
 func _init(model):
 	reference=weakref(model);repairs=Repairs.new(model)
 func recruit(free: bool=false)->bool:
-	if m.phase!="preparing" or (not free and (m.gold<50 or not m.can_recruit(1))):return false
+	if m.phase!="preparing" and not (free and m.phase=="wave"):return false
+	if not free and (m.gold<50 or not m.can_recruit(1)):return false
 	if not free:m.gold-=50
 	var id=m.next_id;m.next_id+=1
 	var index=m.workers.size()
@@ -200,7 +201,7 @@ func leave_tower(w: Dictionary):
 	w.exit_point=m.point(m.entry(m.buildings[w.job]));w.exit_start=w.pos;w.deck_height=Profile.TOWER_DECK_HEIGHT
 	w.path=[];w.destination=Vector2i(-999,-999)
 func tick_exit(w: Dictionary,delta: float):
-	w.pos=w.pos.move_toward(w.exit_point,delta*8.0)
+	w.pos=w.pos.move_toward(w.exit_point,delta*8.0*m.team_progression.multiplier("worker_speed"))
 	var remaining=w.pos.distance_to(w.exit_point)
 	w.deck_height=Profile.TOWER_DECK_HEIGHT*remaining/maxf(.01,w.exit_start.distance_to(w.exit_point))
 	if remaining<.01:
@@ -212,7 +213,7 @@ func move(w: Dictionary,destination: Vector2i,delta: float,speed: float=8.0)->bo
 		w.path=m.route(m.nearest_open(m.cell_of(w.pos)),destination)
 		if not w.path.is_empty():w.path.pop_front()
 	if w.path.is_empty():return w.pos.distance_to(m.point(destination))<4.5
-	var remaining=delta*speed
+	var remaining=delta*speed*m.team_progression.multiplier("worker_speed")
 	while remaining>0 and not w.path.is_empty():
 		var target=m.point(w.path[0]);var distance=w.pos.distance_to(target)
 		if distance<=remaining:w.pos=target;remaining-=distance;w.path.pop_front()
@@ -225,7 +226,7 @@ func damage(id: int,amount: float):
 	w.hp=maxf(0,w.hp-amount)
 	if w.hp<=0:
 		repairs.forget(w)
-		w.state="wounded";w.job=-1;w.follow=false;w.cargo=0;w.path=[]
+		w.state="wounded";w.job=-1;w.follow=false;w.cargo=0;w.path=[];w.timer=0.0
 		m.events.append({"kind":"wounded"});m.update_vision(m.hero_position)
 	else:retreat(w)
 func retreat(w: Dictionary):
@@ -236,30 +237,30 @@ func recover():
 	arrows.clear()
 	cancel_rally()
 	for w in m.workers.values():
-		if w.state=="wounded":
-			w.hp=w.max_hp;w.pos=m.point(m.nearest_open(m.shrine_entry()+Vector2i(w.id%5-2,2)))
-			w.state="idle";w.job=-1;w.saved_job=-1;w.erase("exit_point");w.deck_height=0.0
+		if w.state=="wounded":revive(w)
+func revive(w:Dictionary):
+	w.hp=w.max_hp;w.pos=m.point(m.nearest_open(m.shrine_entry()+Vector2i(w.id%5-2,2)))
+	w.state="idle";w.job=-1;w.saved_job=-1;w.timer=0.0;w.safe=0.0;w.follow=false;w.cargo=0
+	w.path=[];w.destination=Vector2i(-999,-999);w.nav=-1
+	w.erase("exit_point");w.erase("sheltered_building");w.erase("shelter_exit");w.deck_height=0.0
+	repairs.forget(w)
 func threatened(p: Vector3)->bool:
 	if is_instance_valid(m.army_runtime):
 		for handle in m.army_runtime.query_aabb(AABB(p-Vector3.ONE*12,Vector3.ONE*24),0):
 			var state:Dictionary=m.army_runtime.unit_state(handle)
 			if state.is_empty():continue
 			var enemy:Dictionary=m.enemies.get(state.logical_id,{})
-			if not enemy.is_empty() and enemy.hp>0 and p.distance_squared_to(enemy.pos)<144 and not repairs.wall_between(p,enemy.pos):return true
+			if not enemy.is_empty() and enemy.hp>0 and p.distance_squared_to(state.position)<144 and not repairs.wall_between(p,state.position):return true
 		return false
 	for e in m.enemies.values():
 		if e.hp>0 and p.distance_squared_to(e.pos)<144 and not repairs.wall_between(p,e.pos):return true
 	return false
 func _capture_tower_candidates(runtime):
-	_tower_capture_ready=true;_tower_rows=m.enemies.values();_tower_handles.clear();_tower_fallback.clear()
-	var soldier=preload("res://scripts/forest/forest_thirstquencher_visual.gd")
-	for index in _tower_rows.size():
-		tower_candidate_work+=1
-		var enemy:Dictionary=_tower_rows[index]
-		if enemy.hp<=0:continue
-		var handle:int=runtime.handles.get(enemy.id,0)
-		if handle==0 or not soldier.supports(enemy.variant):_tower_fallback.append(index)
-		else:_tower_handles[handle]=index
+	_tower_capture_ready=true;_tower_rows=m.enemies.values()
+	var index:Dictionary=runtime.index_enemy_rows(_tower_rows)
+	assert(index.valid,"Invalid tower model snapshot")
+	_tower_handles=index.handles;_tower_fallback=Array(index.fallback)
+	tower_candidate_work+=_tower_rows.size()
 func tower_candidates(point:Vector3)->Array:
 	var model=m;var runtime=model.army_runtime
 	if not is_instance_valid(runtime):return model.enemies.values()
@@ -267,9 +268,15 @@ func tower_candidates(point:Vector3)->Array:
 	# Share source order and pending/articulated fallback rows across this tick.
 	# Each tower queries only its own conservative original hurt-surface range.
 	var soldier=preload("res://scripts/forest/forest_thirstquencher_visual.gd")
-	var reach=Vector3.ONE*(48.0+soldier.hurt_bounds().size.length())
+	var reach=Vector3.ONE*(48.0+soldier.hurt_bounds().size.length()*model.balance.enemy_size_mult)
 	var indices:Array=_tower_fallback.duplicate()
-	for handle in runtime.query_aabb(AABB(point-reach,reach*2),0):
+	var nearby:PackedInt64Array=runtime.query_aabb(AABB(point-reach,reach*2),0)
+	var refresh=nearby.duplicate()
+	for index in _tower_fallback:
+		var handle:int=runtime.handles.get(_tower_rows[index].id,0)
+		if handle!=0:refresh.append(handle)
+	if not refresh.is_empty():model.sync_enemy_records(refresh)
+	for handle in nearby:
 		if _tower_handles.has(handle):indices.append(_tower_handles[handle])
 	indices.sort()
 	var result:Array=[]
@@ -286,7 +293,11 @@ func tick(delta: float,hero: Vector3):
 	if assignment_clock<=0:auto_assign();assignment_clock=.5
 	if held:rally(true,hero)
 	for w in m.workers.values():
-		if w.state=="wounded":continue
+		if w.state=="wounded":
+			if m.team_progression.ranks.has("worker_revive"):
+				w.timer+=delta
+				if w.timer>=m.team_progression.revival_seconds():revive(w)
+			continue
 		var threat=false
 		if m.phase=="wave" and w.state!="garrison" and not w.has("sheltered_building"):
 			threat=threatened(w.pos)
@@ -348,7 +359,7 @@ func tick(delta: float,hero: Vector3):
 					var distance=w.pos.distance_squared_to(hurt)
 					if e.hp>0 and distance<nearest and (m.visible_at(e.pos) or m.visible_at(hurt)):target=e;nearest=distance
 				if not target.is_empty():
-					w.timer=1.0/m.balance.tower_attack_speed
+					w.timer=1.0/(m.balance.tower_attack_speed*m.team_progression.multiplier("tower_speed"))
 					var aim: Vector3=target.pos-w.pos
 					w.facing=atan2(aim.x,aim.z)
 					var from: Vector3=w.pos+Vector3.UP*Profile.TOWER_DECK_HEIGHT+Basis(Vector3.UP,w.facing)*Profile.TOWER_MUZZLE_OFFSET
@@ -359,6 +370,7 @@ func tick(delta: float,hero: Vector3):
 	_tower_capture_active=false;_tower_capture_ready=false;_tower_rows.clear();_tower_handles.clear();_tower_fallback.clear()
 
 func tick_arrows(delta: float):
+	m.sync_enemy_targets(arrows.values().map(func(arrow):return arrow.target))
 	for id in arrows.keys():
 		var arrow: Dictionary=arrows[id]
 		var target: Dictionary=m.enemies.get(arrow.target,{})
@@ -368,7 +380,7 @@ func tick_arrows(delta: float):
 		var to: Vector3=Roles.hurt_point(target,arrow.pos)
 		var direction: Vector3=(to-arrow.pos).normalized()
 		if arrow.pos.distance_to(to)<=ARROW_SPEED*delta:
-			m.damage_enemy(target.id,m.balance.tower_damage)
+			m.damage_enemy(target.id,m.balance.tower_damage*m.team_progression.multiplier("tower_damage"))
 			target.tower_direction=direction
 			m.events.append({"kind":"arrow_impact","id":id,"to":to,"direction":direction})
 			arrows.erase(id)

@@ -7,11 +7,10 @@ func check(ok:bool,label_:String):
 func _initialize():run.call_deferred()
 func run():
  set_meta("forest_fighter",11)
- var doc=preload("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+ var doc=preload("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
  var game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path="user://army-retirement-%d.cfg"%OS.get_process_id();root.add_child(game)
  for i in 3:await process_frame
  game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false)
- for actor in game.gate_defenders.units.values():actor.set_physics_process(false)
  var army=game.army_runtime
  if army.get("retirement_rows_visited")==null:
   check(false,"Death cleanup must visit retirement events rather than the entire living army");await finish(game);return

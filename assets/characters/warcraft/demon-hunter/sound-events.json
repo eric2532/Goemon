@@ -1,0 +1,98 @@
+[
+  {
+    "animation": "Attack",
+    "sound": "HeroDemonHunterAttack1",
+    "offset_seconds": 0.0,
+    "path": "Units/NightElf/HeroDemonHunter/HeroDemonHunterAttack1.wav",
+    "variants": [
+      "Units/NightElf/HeroDemonHunter/HeroDemonHunterAttack1.wav"
+    ]
+  },
+  {
+    "animation": "Attack 2",
+    "sound": "HeroDemonHunterAttack2",
+    "offset_seconds": 0.0,
+    "path": "Units/NightElf/HeroDemonHunter/HeroDemonHunterAttack2.wav",
+    "variants": [
+      "Units/NightElf/HeroDemonHunter/HeroDemonHunterAttack2.wav"
+    ]
+  },
+  {
+    "animation": "Death",
+    "sound": "HeroDemonHunterDeath",
+    "offset_seconds": 0.0,
+    "path": "Units/NightElf/HeroDemonHunter/HeroDemonHunterDeath1.wav",
+    "variants": [
+      "Units/NightElf/HeroDemonHunter/HeroDemonHunterDeath1.wav"
+    ]
+  },
+  {
+    "animation": "Morph",
+    "sound": "DemonHunterMorph",
+    "offset_seconds": 0.0,
+    "path": "Units/NightElf/HeroDemonHunter/DemonHunterMorph1.wav",
+    "variants": [
+      "Units/NightElf/HeroDemonHunter/DemonHunterMorph1.wav"
+    ]
+  },
+  {
+    "animation": "Death Alternate",
+    "sound": "HeroDemonHunterDeathAlternate",
+    "offset_seconds": 0.0,
+    "path": "Units/NightElf/HeroDemonHunter/DemonHunterDeathAlternate1.wav",
+    "variants": [
+      "Units/NightElf/HeroDemonHunter/DemonHunterDeathAlternate1.wav"
+    ]
+  },
+  {
+    "animation": "Morph Alternate",
+    "sound": "DemonHunterMorph",
+    "offset_seconds": 0.0,
+    "path": "Units/NightElf/HeroDemonHunter/DemonHunterMorph1.wav",
+    "variants": [
+      "Units/NightElf/HeroDemonHunter/DemonHunterMorph1.wav"
+    ]
+  },
+  {
+    "animation": "Dissipate",
+    "sound": "NightElfDissipate",
+    "offset_seconds": 0.0,
+    "path": "Sound/Units/NightElf/NightElfDissipate1.wav",
+    "variants": [
+      "Sound/Units/NightElf/NightElfDissipate1.wav"
+    ]
+  },
+  {
+    "animation": "Dissipate Alternate",
+    "sound": "NightElfDissipate",
+    "offset_seconds": 0.0,
+    "path": "Sound/Units/NightElf/NightElfDissipate1.wav",
+    "variants": [
+      "Sound/Units/NightElf/NightElfDissipate1.wav"
+    ]
+  },
+  {
+    "animation": "Walk Alternate",
+    "sound": "DeepFootstep",
+    "offset_seconds": 0.133,
+    "path": "Sound/Units/Footsteps/Step1.wav",
+    "variants": [
+      "Sound/Units/Footsteps/Step1.wav",
+      "Sound/Units/Footsteps/Step2.wav",
+      "Sound/Units/Footsteps/Step3.wav",
+      "Sound/Units/Footsteps/Step4.wav"
+    ]
+  },
+  {
+    "animation": "Walk Alternate",
+    "sound": "DeepFootstep",
+    "offset_seconds": 0.5,
+    "path": "Sound/Units/Footsteps/Step1.wav",
+    "variants": [
+      "Sound/Units/Footsteps/Step1.wav",
+      "Sound/Units/Footsteps/Step2.wav",
+      "Sound/Units/Footsteps/Step3.wav",
+      "Sound/Units/Footsteps/Step4.wav"
+    ]
+  }
+]

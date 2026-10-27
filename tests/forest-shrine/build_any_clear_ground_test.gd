@@ -63,7 +63,7 @@ func run():
  check(not m.placement_error("gate",Vector2i(20,19),0).is_empty(),"A new gate cannot open directly into a mine deposit footprint")
  m=fresh();m.trees[Vector2i(10,10)]=1.0;m.rebuild_navigation()
  check(not m.placement_error("tower",Vector2i(10,10),0).is_empty(),"Physical trees remain obstacles")
- check(not m.placement_error("tower",Vector2i(2,2),0).is_empty(),"The training dummy remains physical occupied space")
+ check(m.placement_error("tower",Vector2i(2,2),0).is_empty(),"Former training dummy ground is buildable")
  check(m.placement_error("mine",Vector2i(10,10),0)=="Gold mines are unavailable","Disabled mines retain their separate rules")
  m=fresh();var built=m.build("tower",Vector2i(10,10),0)
  check(not built.is_empty() and not m.placement_error("tower",Vector2i(10,10),0).is_empty(),"An actual building footprint prevents overlap")

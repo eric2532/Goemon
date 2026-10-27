@@ -3,6 +3,7 @@ extends Node3D
 # A piercing volume: blue-orb stacks increase length and damage pulse rate.
 var attack_ticket: Dictionary={}
 var game: Node
+var caster_character_id=2
 var hero: Hero
 var ability: Node
 var balance: MusashiBalance
@@ -19,6 +20,7 @@ var source: FireEnergy
 var tip: FireEnergy
 var loop: AudioStreamPlayer3D
 func _ready():
+	caster_character_id=hero.character_id
 	process_mode=Node.PROCESS_MODE_PAUSABLE
 	add_to_group("projectiles");add_to_group("musashi_projectiles");add_to_group("edo_beams")
 	remaining=balance.beam_duration
@@ -38,6 +40,7 @@ func _ready():
 	var light=OmniLight3D.new();light.light_color=Color("ff7528");light.light_energy=2;light.omni_range=8;add_child(light)
 	var audio: Dictionary=game.sound_library.playback_for(hero.character_id,"move_beam_weapon",game.sounds.edo_beam_loop,"edo_beam_loop")
 	loop=AudioStreamPlayer3D.new();loop.stream=audio.stream.duplicate()
+	loop.bus=&"SFX"
 	loop.stream.loop_end=int(loop.stream.get_length()*loop.stream.mix_rate);loop.stream.loop_mode=AudioStreamWAV.LOOP_FORWARD
 	loop.volume_db=linear_to_db(.35*audio.gain);loop.pitch_scale=1.0 if audio.recorded else .8;add_child(loop)
 	if not game.sound_library.recording and not audio.muted:loop.play()
@@ -57,7 +60,7 @@ func update_path():
 	for i in range(shells.size()):
 		shells[i].material_override.set_shader_parameter("clock",elapsed)
 		shells[i].position.z=-length_now*.5
-		shells[i].scale=Vector3(pulse,maxf(.01,length_now),pulse)
+		shells[i].scale=Vector3(pulse*hero.skill_factor(attack_ticket,"size"),maxf(.01,length_now),pulse*hero.skill_factor(attack_ticket,"size"))
 	for i in range(rings.size()):
 		var t=fmod(elapsed*1.6+float(i)/rings.size(),1.0)
 		rings[i].material_override.set_shader_parameter("brush_clock",elapsed)
@@ -66,13 +69,13 @@ func update_path():
 func damage_tick():
 	var end=global_position+direction*length_now
 	BreakableBuilding.hit_segment(game,global_position,end,balance.beam_tick_damage*hero.damage_multiplier(),attack_ticket)
-	for enemy in game.enemies:
+	for enemy in AttackChain.segment_enemy_candidates(game,global_position,end,balance.beam_radius*hero.skill_factor(attack_ticket,"hit_area")):
 		if not is_instance_valid(enemy) or enemy.dead:continue
 		var legacy=enemy.global_position+Vector3.UP*(1.5 if enemy.boss else 1.1)
 		if not enemy.has_method("combat_segment_contact"):
 			var along=(legacy-global_position).dot(direction)
 			if along<0 or along>length_now:continue
-		var contact=AttackChain.segment_contact(enemy,global_position,end,balance.beam_radius,legacy)
+		var contact=AttackChain.segment_contact(enemy,global_position,end,balance.beam_radius*hero.skill_factor(attack_ticket,"hit_area"),legacy)
 		if contact.is_empty():continue
 		var nearest: Vector3=contact.point
 		enemy.take_hit(balance.beam_tick_damage*hero.damage_multiplier(),direction,false,attack_ticket)
@@ -81,7 +84,7 @@ func damage_tick():
 		game.chain+=1;game.chain_timer=3
 func _physics_process(delta):
 	if not active:return
-	if not is_instance_valid(hero) or hero.hp<=0 or hero.character_id!=2:stop();return
+	if not is_instance_valid(hero) or hero.hp<=0 or hero.character_id!=caster_character_id:stop();return
 	if not game.playing or game.paused or game.transitioning:return
 	if not sustained:remaining=maxf(0,remaining-delta)
 	elapsed+=delta

@@ -73,8 +73,8 @@ for iz in range(WIDTH-1):
      uv=[(u*v[0]['uv'][axis]+w*v[1]['uv'][axis]+(1-u-w)*v[2]['uv'][axis])*s['uv_scale'][axis]/32/s['size'][axis] for axis in range(2)]
      g['points'].append([AXIS[x],height[z,x],AXIS[z]]);g['uv'].append(uv)
 # The new roads are intentional battle adaptations, separate from source data.
-layout=json.loads((ROOT/'assets/maps/forest_four_gates.json').read_text());layout.update(title='Kai Highway Castle',terrain_source='kai_highway',ramparts=[],trees=[],portals=portals,roads=[{'x':x,'z':z} for x,z in sorted(road_cells)])
-(ROOT/'assets/maps/forest_kai_highway.json').write_text(json.dumps(layout,indent=1)+'\n')
+layout=json.loads((ROOT/'tests/forest-shrine/reference/maps/forest_four_gates.json').read_text());layout.update(title='Kai Highway Castle',terrain_source='kai_highway',ramparts=[],trees=[],portals=portals,roads=[{'x':x,'z':z} for x,z in sorted(road_cells)])
+(ROOT/'tests/forest-shrine/reference/maps/forest_kai_highway.json').write_text(json.dumps(layout,indent=1)+'\n')
 report=dict(data['report'],adaptation={'horizontal_scale':.14,'vertical_scale':.04,'origin_source':[-173,3],'castle_clearing_half_width':66,'height_spacing':SPACING,'portals':8,'road_width':30,'road_terrain_half_width':24},derived_tiles={'grass':{'source':'texture_09003000_32x64.png','crop':[0,0,32,32]},'earth':{'source':'texture_09004000_32x64.png','crop':[0,30,32,64]},'planks':{'source':'texture_0a003000_32x64.png','crop':[0,0,32,32]}})
 (DEST/'provenance.json').write_text(json.dumps(report,indent=2)+'\n')
 bridge_ids=[i for i,(s,v,det) in enumerate(triangles) if s.get('image') in ['texture_0a003000_32x64.png','texture_0a00d000_32x64.png']]

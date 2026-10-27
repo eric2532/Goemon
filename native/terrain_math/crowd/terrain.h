@@ -23,15 +23,17 @@ struct NavigationData {
     std::vector<int64_t> air_owner;
 };
 struct AirMove {Vec3 position,normal;bool floor=false;};
+struct ClimbSurface {Vec3 base,crest,normal;int64_t owner=-1;bool valid=false;};
 struct AirQueryWork {bool enabled=false;uint64_t considered=0,kept=0,capsule_tests=0;};
 struct NavigationWork {bool enabled=false;uint64_t route_hits=0,waypoints=0,flow_builds=0,topology_builds=0,segments=0,heights=0;double route_ms=0,flow_ms=0,topology_ms=0;};
 class Terrain {
     friend struct NavigationCacheTest;
+    friend struct TerrainClearanceTest;
 public:
     void configure(NavigationData data);
     mutable AirQueryWork air_profile;
     mutable NavigationWork navigation_profile;
-    Vec3 move(Vec3 from,Vec3 goal,float speed,float delta,float radius,int& layer,bool& routing,Vec3 avoidance={});
+    Vec3 move(Vec3 from,Vec3 goal,float speed,float delta,float radius,int& layer,bool& routing,Vec3 avoidance={},float lane=0);
     double height(float x,float z,int layer=0) const;
     bool clear(Vec3 point,float radius,int layer) const;
     bool reachable(Vec3 from,Vec3 goal,float radius,int layer);
@@ -40,6 +42,8 @@ public:
     bool ray_clear(Vec3 from,Vec3 to,int64_t ignore=-1) const;
     Vec3 direct_move(Vec3 from,Vec3 motion,float radius,int& layer) const;
     AirMove air_move(Vec3 from,Vec3 motion,float radius,float body_height,float center) const;
+    ClimbSurface climb_surface(Vec3 from,float radius,float reach) const;
+    bool climb_support(const ClimbSurface& wall,Vec3 foot,float radius) const;
     Vec3 landing(Vec3 aim,float top,bool& valid) const;
     float projectile_fraction(Vec3 from,Vec3 to,float width,int64_t ignore=-1) const;
 private:
@@ -47,11 +51,13 @@ private:
         int nx=0,nz=0,layer=0;float radius=0;
         std::vector<float> heights;
         std::vector<uint8_t> edges,open;
+        std::vector<int> components;
     };
     struct Flow {int64_t topology=0;int goal=0;std::vector<float> cost;uint64_t used=0;};
     struct RouteCertificate {std::array<uint32_t,6> key{};Vec3 point{};bool valid=false;};
     std::vector<RouteCertificate> route_certificates_;
     NavigationData data_;
+    std::vector<double> field_spans_;
     Vec3 minimum_,maximum_;
     bool ready_=false;
     std::unordered_map<uint64_t,std::vector<int>> obstacle_grid_;
@@ -63,17 +69,21 @@ private:
     std::vector<Vec3> air_faces_,air_minimum_,air_maximum_;
     std::vector<int64_t> air_owner_;
     std::unordered_map<uint64_t,std::vector<int>> air_grid_;
+    std::unordered_map<uint64_t,std::vector<int>> air_dynamic_grid_;
     struct AirNode {Vec3 low,high;int left=-1,right=-1,first=0,count=0;};
     std::vector<int> air_order_;
     std::vector<AirNode> air_nodes_;
+    size_t air_base_faces_=0,air_base_nodes_=0;
+    int air_dynamic_root_=-1;
     int build_air_node(int first,int end);
-    void build_air();
+    void build_air(bool reuse_base,size_t input_start);
     template<class Visitor> bool visit_air(Vec3 low,Vec3 high,Visitor&& visitor) const;
     std::vector<int> air_candidates(Vec3 low,Vec3 high,bool bounded=false) const;
     bool air_ray_clear(Vec3 from,Vec3 to,int64_t ignore) const;
     bool obstacles_clear(Vec3 point,float radius) const;
     bool swept_obstacles_clear(Vec3 from,Vec3 to,float radius) const;
     Topology& topology(float radius,int layer);
+    void refresh_topology(Topology& grid,int x0,int z0,int x1,int z1);
     Vec3 waypoint(Vec3 from,Vec3 goal,float radius,int layer);
 };
 }

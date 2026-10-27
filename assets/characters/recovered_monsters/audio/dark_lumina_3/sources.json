@@ -1,0 +1,2805 @@
+{
+  "owner": "raw/SC07.CD.dir/FILE_002.dir/2.7",
+  "owner_sha256": "91ae8ba916d057b4d5c155720ba9f2e19b3a901e22f0da3f47172cd08d9c0a05",
+  "header_address": "0x800c9140",
+  "bank": "bank_16060abbf25216bb",
+  "bank_sha256": "16060abbf25216bbaaa5ce1a691269232ba3295c6daf60b33938f71e43869ae9",
+  "bank_samples": [
+    {
+      "index": 1,
+      "id": "sample_626c8aeba1b12369",
+      "body_offset": 0,
+      "bytes": 3584
+    },
+    {
+      "index": 2,
+      "id": "sample_0008f704aac1a739",
+      "body_offset": 3584,
+      "bytes": 2752
+    },
+    {
+      "index": 3,
+      "id": "sample_b7efb0edb64a7dd5",
+      "body_offset": 6336,
+      "bytes": 3824
+    },
+    {
+      "index": 4,
+      "id": "sample_c533cfbf7aee8fe4",
+      "body_offset": 10160,
+      "bytes": 19600
+    },
+    {
+      "index": 5,
+      "id": "sample_63fca614f06b55c7",
+      "body_offset": 29760,
+      "bytes": 4112
+    },
+    {
+      "index": 6,
+      "id": "sample_4d9fe03979a555f3",
+      "body_offset": 33872,
+      "bytes": 10288
+    },
+    {
+      "index": 7,
+      "id": "sample_972420f4d16622a2",
+      "body_offset": 44160,
+      "bytes": 8896
+    },
+    {
+      "index": 8,
+      "id": "sample_c7f4cab974230f5d",
+      "body_offset": 53056,
+      "bytes": 3696
+    },
+    {
+      "index": 9,
+      "id": "sample_7c2b6ff8fa8c4ed9",
+      "body_offset": 56752,
+      "bytes": 5968
+    },
+    {
+      "index": 10,
+      "id": "sample_62b28eac8d3e99c4",
+      "body_offset": 62720,
+      "bytes": 4960
+    },
+    {
+      "index": 11,
+      "id": "sample_e519acb18fdefa76",
+      "body_offset": 67680,
+      "bytes": 9376
+    },
+    {
+      "index": 12,
+      "id": "sample_0f00ed3cf207acbd",
+      "body_offset": 77056,
+      "bytes": 7584
+    },
+    {
+      "index": 13,
+      "id": "sample_c9248560666dd3ed",
+      "body_offset": 84640,
+      "bytes": 7312
+    },
+    {
+      "index": 14,
+      "id": "sample_f406245a1d0ca11e",
+      "body_offset": 91952,
+      "bytes": 6224
+    },
+    {
+      "index": 15,
+      "id": "sample_91ca22d1dc31dec7",
+      "body_offset": 98176,
+      "bytes": 2784
+    },
+    {
+      "index": 16,
+      "id": "sample_4e8b0f5c19961c38",
+      "body_offset": 100960,
+      "bytes": 3424
+    },
+    {
+      "index": 17,
+      "id": "sample_e21f43632d114b6a",
+      "body_offset": 104384,
+      "bytes": 3024
+    },
+    {
+      "index": 18,
+      "id": "sample_886ce1e8540d886c",
+      "body_offset": 107408,
+      "bytes": 2080
+    },
+    {
+      "index": 19,
+      "id": "sample_c09684718fe294ec",
+      "body_offset": 109488,
+      "bytes": 8608
+    },
+    {
+      "index": 20,
+      "id": "sample_2bdd08129058a93b",
+      "body_offset": 118096,
+      "bytes": 6736
+    },
+    {
+      "index": 21,
+      "id": "sample_c58c343eefb1c654",
+      "body_offset": 124832,
+      "bytes": 7440
+    },
+    {
+      "index": 22,
+      "id": "sample_bc237415824eb964",
+      "body_offset": 132272,
+      "bytes": 6480
+    }
+  ],
+  "events": {
+    "437:1": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/hit_column1.wav",
+      "resolved_id": "0xbb3",
+      "dispatch_hex": "010f0319",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8620",
+          "record_hex": "c8000000003c6400601301000800000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 0,
+          "tone_hex": "00007f404c113c3c000000000000b1b2ff80e35f02000e00c000c100c200c300",
+          "sample_id": "sample_886ce1e8540d886c",
+          "sample_index": 14,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "ede10cc15d4438322c47250669ac4ba0ef1b41cd7f91bac16606fe6f5bfc89e2"
+    },
+    "438:1": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/hit_strong_column1.wav",
+      "resolved_id": "0xbb3",
+      "dispatch_hex": "010f0319",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8620",
+          "record_hex": "c8000000003c6400601301000800000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 0,
+          "tone_hex": "00007f404c113c3c000000000000b1b2ff80e35f02000e00c000c100c200c300",
+          "sample_id": "sample_886ce1e8540d886c",
+          "sample_index": 14,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "ede10cc15d4438322c47250669ac4ba0ef1b41cd7f91bac16606fe6f5bfc89e2"
+    },
+    "ab1:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_ab1.wav",
+      "resolved_id": "0xab1",
+      "dispatch_hex": "010f0200",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8130",
+          "record_hex": "c8000000003c5b005e0001000000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 0,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80e35f00000100c000c100c200c300",
+          "sample_id": "sample_626c8aeba1b12369",
+          "sample_index": 1,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "d233ec3e2ca28a2214fafef2e740350b5aeec69536c16ea199392ed315effa74"
+    },
+    "ab2:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_ab2.wav",
+      "resolved_id": "0xab2",
+      "dispatch_hex": "010f0201",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8144",
+          "record_hex": "c8000000003e5d005e0101000000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 0,
+          "tone": 1,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80e35f00000200c000c100c200c300",
+          "sample_id": "sample_0008f704aac1a739",
+          "sample_index": 2,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "0b3af9d31bb369adea299e5abcc54c637826b1a536c8da69fc46df4fc5fc2ce2"
+    },
+    "ab3:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_ab3.wav",
+      "resolved_id": "0xab3",
+      "dispatch_hex": "010f0202",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8158",
+          "record_hex": "c8000000004053005e0201000000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 0,
+          "tone": 2,
+          "tone_hex": "00007f404c004040000000000000b1b2ff80e35f00000300c000c100c200c300",
+          "sample_id": "sample_b7efb0edb64a7dd5",
+          "sample_index": 3,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "2abe1c1e6acfa574078d635d95b3162a012ffc85ab5011eee891949ecf521ebf"
+    },
+    "ab4:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_ab4.wav",
+      "resolved_id": "0xab4",
+      "dispatch_hex": "010f0203",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c816c",
+          "record_hex": "d200000000415a005e0301000000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 0,
+          "tone": 3,
+          "tone_hex": "00007f404d004141000000000000b1b2ff31e35f00000300c000c100c200c300",
+          "sample_id": "sample_b7efb0edb64a7dd5",
+          "sample_index": 3,
+          "pitch_q8": 16640,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "41d4c912b88b0c283e3464c540436bb137c36ad2e89a5621c76762411f191ffb"
+    },
+    "ab5:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/sword_wave.wav",
+      "resolved_id": "0xab5",
+      "dispatch_hex": "010f0204",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8180",
+          "record_hex": "d2000000003c70005e0401000000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80e35f01000400c000c100c200c300",
+          "sample_id": "sample_c533cfbf7aee8fe4",
+          "sample_index": 4,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "42102264497a426bc4ba4603963739d669d817fcf051b345de1e6d3d4e00e6d2"
+    },
+    "ab6:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/sword_cross.wav",
+      "resolved_id": "0xab6",
+      "dispatch_hex": "010f0205",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8194",
+          "record_hex": "d2001800003e5c005e0501010000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 1,
+          "tone_hex": "0000744049003e3e000000000000b1b2ff80e35f01000500c000c100c200c300",
+          "sample_id": "sample_63fca614f06b55c7",
+          "sample_index": 5,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 17640
+        },
+        {
+          "record_address": "0x800c81a8",
+          "record_hex": "d2000000004f64005e1001000000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 12,
+          "tone_hex": "00007f405b004f4f000000000000b1b2ff80e35f01000c00c000c100c200c300",
+          "sample_id": "sample_0f00ed3cf207acbd",
+          "sample_index": 12,
+          "pitch_q8": 20224,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "7916b235ded526a09cb545e70083339854783617a4541b66fb3651f59cc8024a"
+    },
+    "ab7:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/water_burst.wav",
+      "resolved_id": "0xab7",
+      "dispatch_hex": "010f0207",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c81bc",
+          "record_hex": "d2000000004170005e0700010c00000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 3,
+          "tone_hex": "00007f404d004141000000000002b1b2ff80ec5f01001600c000c100c200c300",
+          "sample_id": "sample_bc237415824eb964",
+          "sample_index": 22,
+          "pitch_q8": 16640,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c81d0",
+          "record_hex": "d2000000004870005e1e00001000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 2,
+          "tone": 10,
+          "tone_hex": "00047f405a004848000000000000b1b2ff35e35f02001600c000c100c200c300",
+          "sample_id": "sample_bc237415824eb964",
+          "sample_index": 22,
+          "pitch_q8": 18432,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "87db1be797c266da494ca0ed58a69e1f92b4e54b9e923bff5c6911de500d31ec"
+    },
+    "ab8:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/fire_fall.wav",
+      "resolved_id": "0xab8",
+      "dispatch_hex": "010f0209",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c81e4",
+          "record_hex": "d2000000004370005e0800001000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 4,
+          "tone_hex": "00007f404f004343000000000000b1b2ff80e35f01000700c000c100c200c300",
+          "sample_id": "sample_972420f4d16622a2",
+          "sample_index": 7,
+          "pitch_q8": 17152,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "2771f1cf1d9518dcb9311de198797cbdfb9e2214719699eae88b78f219ba0a44"
+    },
+    "ab9:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/wind_start.wav",
+      "resolved_id": "0xab9",
+      "dispatch_hex": "000f0209",
+      "enabled": false,
+      "layers": [
+        {
+          "record_address": "0x800c81e4",
+          "record_hex": "d2000000004370005e0800001000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 4,
+          "tone_hex": "00007f404f004343000000000000b1b2ff80e35f01000700c000c100c200c300",
+          "sample_id": "sample_972420f4d16622a2",
+          "sample_index": 7,
+          "pitch_q8": 17152,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "2771f1cf1d9518dcb9311de198797cbdfb9e2214719699eae88b78f219ba0a44"
+    },
+    "aba:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/sky_copy.wav",
+      "resolved_id": "0xaba",
+      "dispatch_hex": "010f020b",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c820c",
+          "record_hex": "d2000000004c5a005e0d01000000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 9,
+          "tone_hex": "00007f4058004c4c000000000000b1b2ff80e35f01000a00c000c100c200c300",
+          "sample_id": "sample_62b28eac8d3e99c4",
+          "sample_index": 10,
+          "pitch_q8": 19456,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "8d3719f1e99334291052ab327ae2833da87044f079316892acbd2e6deb45bd9c"
+    },
+    "abb:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/sky_launch.wav",
+      "resolved_id": "0xabb",
+      "dispatch_hex": "010f020c",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8220",
+          "record_hex": "d2000000004d6a005e0e01000000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 10,
+          "tone_hex": "00007f4059004d4d000000000000b1b2ff80e35f01000b00c000c100c200c300",
+          "sample_id": "sample_e519acb18fdefa76",
+          "sample_index": 11,
+          "pitch_q8": 19712,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "e0171ec572bd80932c5a8972295a6a16677ed3dac771934d7496e5ba54f1788e"
+    },
+    "abc:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/earth_impact.wav",
+      "resolved_id": "0xabc",
+      "dispatch_hex": "010f020d",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8234",
+          "record_hex": "d2000000003c70005e0401010000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80e35f01000400c000c100c200c300",
+          "sample_id": "sample_c533cfbf7aee8fe4",
+          "sample_index": 4,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8248",
+          "record_hex": "d2000000003c74005e0f01010000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 11,
+          "tone_hex": "0000744054003c3c000000000000b1b2ff35e35f01000400c000c100c200c300",
+          "sample_id": "sample_c533cfbf7aee8fe4",
+          "sample_index": 4,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c825c",
+          "record_hex": "d2000000004076005e0601000000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 2,
+          "tone_hex": "00007f404c004040000000000000b1b2ff80e35f01000600c000c100c200c300",
+          "sample_id": "sample_4d9fe03979a555f3",
+          "sample_index": 6,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "6a24c48cd222db93fe03706da7cb7fa7ea6828a712a2d793c055e7a20026f7b3"
+    },
+    "abd:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/fire_loop.wav",
+      "resolved_id": "0xabd",
+      "dispatch_hex": "050f0000",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7f1c",
+          "record_hex": "c8000000003c5b00640001000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 0,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80e35f00000100c000c100c200c300",
+          "sample_id": "sample_36def422a8b99b62",
+          "sample_index": 1,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "0664f4f0117c1f1bff9fba8f19488fe944908d54b6e73bdc9adc1e84d86dff3f"
+    },
+    "abe:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/wind_loop.wav",
+      "resolved_id": "0xabe",
+      "dispatch_hex": "050f0001",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7f30",
+          "record_hex": "c8000000003e5d00640101000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 0,
+          "tone": 1,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80e35f00000200c000c100c200c300",
+          "sample_id": "sample_5dd8ae0842ec5422",
+          "sample_index": 2,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "3d6c3311c98d27caa9e4fdd5e212fa9c83f0e6421912ff59c7b6d7f71b4ab8a8"
+    },
+    "b4b:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/core_charge.wav",
+      "resolved_id": "0xb4b",
+      "dispatch_hex": "050f0002",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7f44",
+          "record_hex": "c800000000405300640201000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 0,
+          "tone": 2,
+          "tone_hex": "00007f404c004040000000000000b1b2ff80e35f00000300c000c100c200c300",
+          "sample_id": "sample_d6611743defed178",
+          "sample_index": 3,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "a1843abe99dd7b0e2f750a55d90c71e9f20c989f9b1f6c193d870120ee663d58"
+    },
+    "b4c:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/core_hit.wav",
+      "resolved_id": "0xb4c",
+      "dispatch_hex": "010f0212",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8298",
+          "record_hex": "d2000000005170005e1101010000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 13,
+          "tone_hex": "00007f405d005151000000000c00b1b2ff80e35f01000d00c000c100c200c300",
+          "sample_id": "sample_c9248560666dd3ed",
+          "sample_index": 13,
+          "pitch_q8": 20736,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c82ac",
+          "record_hex": "d2000600004160005e150100000000001c810c80",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 2,
+          "tone": 1,
+          "tone_hex": "00047f404a003e3e00000000000cb1b2ff2bed5f02001100c000c100c200c300",
+          "sample_id": "sample_e21f43632d114b6a",
+          "sample_index": 17,
+          "pitch_q8": 16640,
+          "curve": [
+            2,
+            24,
+            8,
+            32,
+            48,
+            62464,
+            59392,
+            64,
+            64
+          ],
+          "delay_frames": 4410
+        }
+      ],
+      "sha256": "9c1a585157c6b786e814f09d51f55b41935433514e97a89f0775ebbcebb81ff0"
+    },
+    "b4d:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/defeat.wav",
+      "resolved_id": "0xb4d",
+      "dispatch_hex": "010f021d",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8374",
+          "record_hex": "d2000000004470005e15000000000000f8800c80",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 2,
+          "tone": 1,
+          "tone_hex": "00047f404a003e3e00000000000cb1b2ff2bed5f02001100c000c100c200c300",
+          "sample_id": "sample_e21f43632d114b6a",
+          "sample_index": 17,
+          "pitch_q8": 17408,
+          "curve": [
+            10,
+            8,
+            1024,
+            62464,
+            360,
+            0,
+            1536,
+            4,
+            24
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "bd88a4e820690c034c6ddbd465d5d2a8788b3df2aa06113a37fab22bd73de425"
+    },
+    "b4e:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/ending.wav",
+      "resolved_id": "0xb4e",
+      "dispatch_hex": "010f0214",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c82c0",
+          "record_hex": "d2000000004070005e1601010000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 2,
+          "tone": 2,
+          "tone_hex": "000060404e004040000000000000b1b2ff2fe35f02000400c000c100c200c300",
+          "sample_id": "sample_c533cfbf7aee8fe4",
+          "sample_index": 4,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c82d4",
+          "record_hex": "d2000000004070005e1701010000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 2,
+          "tone": 3,
+          "tone_hex": "000070405a004040000000000000b1b2ff80e35f02000400c000c100c200c300",
+          "sample_id": "sample_c533cfbf7aee8fe4",
+          "sample_index": 4,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c82e8",
+          "record_hex": "d2000000004070005e1801000000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 2,
+          "tone": 4,
+          "tone_hex": "0000644066004040000000000000b1b2ff39e35f02000400c000c100c200c300",
+          "sample_id": "sample_c533cfbf7aee8fe4",
+          "sample_index": 4,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "69bd22e5d8f8b35eea2e7efc29dae1a421dd8d9edc305a68f56e4139271fb88d"
+    },
+    "b4f:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b4f.wav",
+      "resolved_id": "0xb4f",
+      "dispatch_hex": "010f0300",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c842c",
+          "record_hex": "d2000000003c5a00600001000000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 0,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80e35f00000100c000c100c200c300",
+          "sample_id": "sample_dc4961ba35ac95a9",
+          "sample_index": 1,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "9b07649d68aae3e4fd4af6fc520f621cddd6f596f002ec5567f17e7668b92924"
+    },
+    "b50:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b50.wav",
+      "resolved_id": "0xb50",
+      "dispatch_hex": "010f0301",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8440",
+          "record_hex": "d2000000003e5a00600101000000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 0,
+          "tone": 1,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80e35f00000100c000c100c200c300",
+          "sample_id": "sample_dc4961ba35ac95a9",
+          "sample_index": 1,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "9b07649d68aae3e4fd4af6fc520f621cddd6f596f002ec5567f17e7668b92924"
+    },
+    "b51:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b51.wav",
+      "resolved_id": "0xb51",
+      "dispatch_hex": "010f0302",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8454",
+          "record_hex": "d200000000405300600201000000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 0,
+          "tone": 2,
+          "tone_hex": "00007f404c004040000000000000b1b2ff2fe35f00000200c000c100c200c300",
+          "sample_id": "sample_7a9772bcd5b2ef44",
+          "sample_index": 2,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "3d09a4fb82a702083648ac99e459866eae60996f940fbf789713e6cd1ebb0a10"
+    },
+    "b52:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b52.wav",
+      "resolved_id": "0xb52",
+      "dispatch_hex": "010f0303",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8468",
+          "record_hex": "d2000000003c7800600301010000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80e35f01000300c000c100c200c300",
+          "sample_id": "sample_7255bee503d3a860",
+          "sample_index": 3,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c847c",
+          "record_hex": "d2000000003c7400601001000000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 13,
+          "tone_hex": "00007f404e003c3c000000000000b1b2ff31e35f01000300c000c100c200c300",
+          "sample_id": "sample_7255bee503d3a860",
+          "sample_index": 3,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "0f6094fd0780199d3d4cdc41873410d5fd9bb278574fa641ef4343d6081b4136"
+    },
+    "b53:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b53.wav",
+      "resolved_id": "0xb53",
+      "dispatch_hex": "010f0310",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c856c",
+          "record_hex": "d2000000003e7200600401000000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 1,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80e35f01000400c000c100c200c300",
+          "sample_id": "sample_243c9420ba0b40ed",
+          "sample_index": 4,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "62cd47742502b69756515a268068fe34e27182c6161ae4d7d870ea22a19b86cc"
+    },
+    "b54:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b54.wav",
+      "resolved_id": "0xb54",
+      "dispatch_hex": "010f0305",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8490",
+          "record_hex": "d200000000406d00600501010000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 2,
+          "tone_hex": "00007f4058004040000000000000b1b2ff80e35f01000500c000c100c200c300",
+          "sample_id": "sample_c0b6eb65820fdd88",
+          "sample_index": 5,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c84a4",
+          "record_hex": "d200080000417200600601000000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 3,
+          "tone_hex": "00007f404d004141000000000000b1b2ff80e35f01000600c000c100c200c300",
+          "sample_id": "sample_83c39e23b90c8424",
+          "sample_index": 6,
+          "pitch_q8": 16640,
+          "curve": [],
+          "delay_frames": 5880
+        }
+      ],
+      "sha256": "8a1ec9151de16b0412e1e1ed25f0b571c90de765f69c136ebcf765f25b8f87c1"
+    },
+    "b55:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b55.wav",
+      "resolved_id": "0xb55",
+      "dispatch_hex": "050f0009",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7fd0",
+          "record_hex": "f1000000003e7400640601000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 3,
+          "tone_hex": "00007f4056003e3e000000000000b1b2ff35e35f01000500c000c100c200c300",
+          "sample_id": "sample_b681f613470224b5",
+          "sample_index": 5,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "6a7ffb8ded8a053a62390cbbe28ae977caa94052f903b25eb41f8aa02018cbc8"
+    },
+    "b56:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b56.wav",
+      "resolved_id": "0xb56",
+      "dispatch_hex": "010f030a",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c84f4",
+          "record_hex": "d200000000457600600801010000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 5,
+          "tone_hex": "00007f4051004545000000000000b1b2ff00ec5f01000800c000c100c200c300",
+          "sample_id": "sample_2092a0cf059e3c9c",
+          "sample_index": 8,
+          "pitch_q8": 17664,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8508",
+          "record_hex": "d200000000457200600901000000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 6,
+          "tone_hex": "00006e405d004545000000000000b1b2ff38ec5f01000800c000c100c200c300",
+          "sample_id": "sample_2092a0cf059e3c9c",
+          "sample_index": 8,
+          "pitch_q8": 17664,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "162a8488d634b77e4ef34180e10a060a7a651f66652f1a8dbc66aa41d2bd24de"
+    },
+    "b57:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b57.wav",
+      "resolved_id": "0xb57",
+      "dispatch_hex": "010f030c",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c851c",
+          "record_hex": "d200000000476a00600a01000000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 7,
+          "tone_hex": "00007f405b7d4747000000000000b1b2ff80e35f01000900c000c100c200c300",
+          "sample_id": "sample_c0321aa512283ae3",
+          "sample_index": 9,
+          "pitch_q8": 18176,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "168b7434d832fc5b4204f9eed382e3d83153442a34cb382013f0b04c22bc2633"
+    },
+    "b58:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b58.wav",
+      "resolved_id": "0xb58",
+      "dispatch_hex": "010f030d",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8530",
+          "record_hex": "d200000000487600600b01010000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 8,
+          "tone_hex": "000078405c7d4848000000000000b1b2dd80e35f01000a00c000c100c200c300",
+          "sample_id": "sample_60180e5e09408fc5",
+          "sample_index": 10,
+          "pitch_q8": 18432,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8544",
+          "record_hex": "d200000000487000600c01010000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 9,
+          "tone_hex": "00007640687d4848000000000000b1b2ff3be35f01000a00c000c100c200c300",
+          "sample_id": "sample_60180e5e09408fc5",
+          "sample_index": 10,
+          "pitch_q8": 18432,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8558",
+          "record_hex": "d200000000486d00600d01000000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 10,
+          "tone_hex": "00007040747d4848000000000000b1b2ff3de35f01000a00c000c100c200c300",
+          "sample_id": "sample_60180e5e09408fc5",
+          "sample_index": 10,
+          "pitch_q8": 18432,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "3d01537661e3a19ed34495b6b502bd0a6c10e05165b057dc97a3dbfce96bc89e"
+    },
+    "b59:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/core_burst.wav",
+      "resolved_id": "0xb59",
+      "dispatch_hex": "010f0217",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c82fc",
+          "record_hex": "d2000000005364005e120100000000000c810c80",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 14,
+          "tone_hex": "00007f405d005353000000000c00b1b2ff80ec5f01000e00c000c100c200c300",
+          "sample_id": "sample_f406245a1d0ca11e",
+          "sample_index": 14,
+          "pitch_q8": 21248,
+          "curve": [
+            8,
+            8,
+            32,
+            64000,
+            62464,
+            32,
+            24,
+            0,
+            2
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "f1c05877d9dcdd3cd94766ce307bd20b91f54a4f953abc12551e8974d2d00a56"
+    },
+    "b5a:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/core_loop.wav",
+      "resolved_id": "0xb5a",
+      "dispatch_hex": "050f0003",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7f58",
+          "record_hex": "f0000000003c7800640301010000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80e35f01000400c000c100c200c300",
+          "sample_id": "sample_344b059310b8b926",
+          "sample_index": 4,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c7f6c",
+          "record_hex": "ef000000003c7400640401000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 1,
+          "tone_hex": "00007f404e003c3c000000000000b1b2ff37e35f01000500c000c100c200c300",
+          "sample_id": "sample_b681f613470224b5",
+          "sample_index": 5,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "b964d898001a86e45c78e0ce78a02a6df53848980aa942715bf6025a33851ff8"
+    },
+    "b70:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b70.wav",
+      "resolved_id": "0xb70",
+      "dispatch_hex": "050f0004",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7f6c",
+          "record_hex": "ef000000003c7400640401000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 1,
+          "tone_hex": "00007f404e003c3c000000000000b1b2ff37e35f01000500c000c100c200c300",
+          "sample_id": "sample_b681f613470224b5",
+          "sample_index": 5,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "5a5bf62b50a2b99bd87218c3f89c71155e54378d0e6a941f1a2fd32e4dd7a038"
+    },
+    "b71:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b71.wav",
+      "resolved_id": "0xb71",
+      "dispatch_hex": "010f0000",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7f1c",
+          "record_hex": "c8000000003c5b00640001000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 0,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80e35f00000100c000c100c200c300",
+          "sample_id": "sample_36def422a8b99b62",
+          "sample_index": 1,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "0664f4f0117c1f1bff9fba8f19488fe944908d54b6e73bdc9adc1e84d86dff3f"
+    },
+    "b72:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b72.wav",
+      "resolved_id": "0xb72",
+      "dispatch_hex": "010f0001",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7f30",
+          "record_hex": "c8000000003e5d00640101000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 0,
+          "tone": 1,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80e35f00000200c000c100c200c300",
+          "sample_id": "sample_5dd8ae0842ec5422",
+          "sample_index": 2,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "3d6c3311c98d27caa9e4fdd5e212fa9c83f0e6421912ff59c7b6d7f71b4ab8a8"
+    },
+    "b73:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b73.wav",
+      "resolved_id": "0xb73",
+      "dispatch_hex": "010f0002",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7f44",
+          "record_hex": "c800000000405300640201000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 0,
+          "tone": 2,
+          "tone_hex": "00007f404c004040000000000000b1b2ff80e35f00000300c000c100c200c300",
+          "sample_id": "sample_d6611743defed178",
+          "sample_index": 3,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "a1843abe99dd7b0e2f750a55d90c71e9f20c989f9b1f6c193d870120ee663d58"
+    },
+    "b74:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b74.wav",
+      "resolved_id": "0xb74",
+      "dispatch_hex": "010f0003",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7f58",
+          "record_hex": "f0000000003c7800640301010000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80e35f01000400c000c100c200c300",
+          "sample_id": "sample_344b059310b8b926",
+          "sample_index": 4,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c7f6c",
+          "record_hex": "ef000000003c7400640401000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 1,
+          "tone_hex": "00007f404e003c3c000000000000b1b2ff37e35f01000500c000c100c200c300",
+          "sample_id": "sample_b681f613470224b5",
+          "sample_index": 5,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "b964d898001a86e45c78e0ce78a02a6df53848980aa942715bf6025a33851ff8"
+    },
+    "b75:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b75.wav",
+      "resolved_id": "0xb75",
+      "dispatch_hex": "010f0005",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7f80",
+          "record_hex": "f000000000456c00640a01010000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 7,
+          "tone_hex": "00007f4051004545000000000000b1b2ff35e35f01000500c000c100c200c300",
+          "sample_id": "sample_b681f613470224b5",
+          "sample_index": 5,
+          "pitch_q8": 17664,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c7f94",
+          "record_hex": "ef00000000457200640b01000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 8,
+          "tone_hex": "00005a405d004545000000000000b1b2ff80e35f01000500c000c100c200c300",
+          "sample_id": "sample_b681f613470224b5",
+          "sample_index": 5,
+          "pitch_q8": 17664,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "408553c1d44600b0b799457da97727c464b2d74e17c28c8fb0f1ad6ac3390043"
+    },
+    "b79:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b79.wav",
+      "resolved_id": "0xb79",
+      "dispatch_hex": "010f0311",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8580",
+          "record_hex": "d2000000004574006008010000000000e8830c80",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 5,
+          "tone_hex": "00007f4051004545000000000000b1b2ff00ec5f01000800c000c100c200c300",
+          "sample_id": "sample_2092a0cf059e3c9c",
+          "sample_index": 8,
+          "pitch_q8": 17664,
+          "curve": [
+            8,
+            24,
+            16,
+            62464,
+            62464,
+            16,
+            30,
+            0,
+            2
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "0192f0109abfefff510d72ca600b787b92540cae4d10e2898876cc58e977d3f2"
+    },
+    "b9c:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b9c.wav",
+      "resolved_id": "0xb9c",
+      "dispatch_hex": "010f0312",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8594",
+          "record_hex": "d2000000004c6c00600f01000000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 12,
+          "tone_hex": "00007f405e004c4c000000000000b1b2ff00e35f01001100c000c100c200c300",
+          "sample_id": "sample_40f4170d1a7d991d",
+          "sample_index": 17,
+          "pitch_q8": 19456,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "77798d1a5e46e8a42cfa65821e78c67070485ef94adf40ebec45d2aa44a3f935"
+    },
+    "b9e:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b9e.wav",
+      "resolved_id": "0xb9e",
+      "dispatch_hex": "010f0313",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c85a8",
+          "record_hex": "c8000000004d6000601100010000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 14,
+          "tone_hex": "00007f4059004d4d000000000000b1b2ff80e35f01000c00c000c100c200c300",
+          "sample_id": "sample_cb31e465702d742b",
+          "sample_index": 12,
+          "pitch_q8": 19712,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c85bc",
+          "record_hex": "c8000000004f6a006012000000000000f8830c80",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 15,
+          "tone_hex": "00007f405b004f4f000000000000b1b2ff25ed5f01000d00c000c100c200c300",
+          "sample_id": "sample_59fea265f4088ca2",
+          "sample_index": 13,
+          "pitch_q8": 20224,
+          "curve": [
+            2,
+            22,
+            8,
+            8,
+            640,
+            4864,
+            9216,
+            16,
+            24
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "2406b7635d1977b9b64caf961652c8a98e71acd2b4caf3c0e0a3dc67c523d892"
+    },
+    "b9f:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_b9f.wav",
+      "resolved_id": "0xb9f",
+      "dispatch_hex": "010f0315",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c85d0",
+          "record_hex": "c8000000003c6a00601300010000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 0,
+          "tone_hex": "00007f404c113c3c000000000000b1b2ff80e35f02000e00c000c100c200c300",
+          "sample_id": "sample_886ce1e8540d886c",
+          "sample_index": 14,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c85e4",
+          "record_hex": "c800000000326a006014000000000000fc830c80",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 1,
+          "tone_hex": "00007f404a003e3e000000000600b1b2ff2feb5f02000d00c000c100c200c300",
+          "sample_id": "sample_59fea265f4088ca2",
+          "sample_index": 13,
+          "pitch_q8": 12800,
+          "curve": [
+            8,
+            8,
+            640,
+            4864,
+            9216,
+            16,
+            24,
+            0,
+            2
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "36ebf1d5bef8a433cd429d2a3cfc9a25b53f231d748b12aa98ba8adbdbc4cb94"
+    },
+    "ba3:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/impact.wav",
+      "resolved_id": "0xba3",
+      "dispatch_hex": "010f0218",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8310",
+          "record_hex": "c8000000004174005e1901010000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 2,
+          "tone": 5,
+          "tone_hex": "000474404d004141000000000000b1b2ff80e35f02001500c000c100c200c300",
+          "sample_id": "sample_c58c343eefb1c654",
+          "sample_index": 21,
+          "pitch_q8": 16640,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8324",
+          "record_hex": "c800000000416a005e1a01000000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 2,
+          "tone": 6,
+          "tone_hex": "0000644059004141000000000000b1b2ff35e35f02001500c000c100c200c300",
+          "sample_id": "sample_c58c343eefb1c654",
+          "sample_index": 21,
+          "pitch_q8": 16640,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "2557305586963891a2d02fde362e4a2d7fefbe0fb84b7df53266e47cd7c9fc60"
+    },
+    "ba4:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_ba4.wav",
+      "resolved_id": "0xba4",
+      "dispatch_hex": "010f021a",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8338",
+          "record_hex": "c8000000004364005e1b01000000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 2,
+          "tone": 7,
+          "tone_hex": "00007f4053114343000000000000b1b2ff80c01f02001200c000c100c200c300",
+          "sample_id": "sample_886ce1e8540d886c",
+          "sample_index": 18,
+          "pitch_q8": 17152,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "ede10cc15d4438322c47250669ac4ba0ef1b41cd7f91bac16606fe6f5bfc89e2"
+    },
+    "ba5:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/cast.wav",
+      "resolved_id": "0xba5",
+      "dispatch_hex": "010f021b",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c834c",
+          "record_hex": "c8000000004574005e1c01000000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 2,
+          "tone": 8,
+          "tone_hex": "00007f4051004545000000000000b1b2ff80e35f02001300c000c100c200c300",
+          "sample_id": "sample_c09684718fe294ec",
+          "sample_index": 19,
+          "pitch_q8": 17664,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "1960970af958210c45d4710259a140b3ba9453532ad3946c1b3d4b85de176fc9"
+    },
+    "ba6:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/sword_swing.wav",
+      "resolved_id": "0xba6",
+      "dispatch_hex": "010f021c",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8360",
+          "record_hex": "c8000000004774005e1d01000000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 2,
+          "tone": 9,
+          "tone_hex": "00007f4053004747000000000000b1b2ff80e35f02001400c000c100c200c300",
+          "sample_id": "sample_2bdd08129058a93b",
+          "sample_index": 20,
+          "pitch_q8": 18176,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "262b256a8cad3d1f69e202a5a9cf5261a408e0374e308294a6885735f219bb9c"
+    },
+    "ba7:0": {
+      "file": "assets/characters/recovered_monsters/audio/dark_lumina_3/earth_rumble.wav",
+      "resolved_id": "0xba7",
+      "dispatch_hex": "010f0303",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8468",
+          "record_hex": "d2000000003c7800600301010000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80e35f01000300c000c100c200c300",
+          "sample_id": "sample_7255bee503d3a860",
+          "sample_index": 3,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c847c",
+          "record_hex": "d2000000003c7400601001000000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 13,
+          "tone_hex": "00007f404e003c3c000000000000b1b2ff31e35f01000300c000c100c200c300",
+          "sample_id": "sample_7255bee503d3a860",
+          "sample_index": 3,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "0f6094fd0780199d3d4cdc41873410d5fd9bb278574fa641ef4343d6081b4136"
+    },
+    "ba8:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_ba8.wav",
+      "resolved_id": "0xba8",
+      "dispatch_hex": "010f0317",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c85f8",
+          "record_hex": "c800020000417800601601010000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 3,
+          "tone_hex": "000074404c004141000000000000b1b2ff31ed5f02000800c000c100c200c300",
+          "sample_id": "sample_2092a0cf059e3c9c",
+          "sample_index": 8,
+          "pitch_q8": 16640,
+          "curve": [],
+          "delay_frames": 1470
+        },
+        {
+          "record_address": "0x800c860c",
+          "record_hex": "c800020000417100601701000000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 4,
+          "tone_hex": "0000694058004141000000000000b1b2ff38ed5f02000800c000c100c200c300",
+          "sample_id": "sample_2092a0cf059e3c9c",
+          "sample_index": 8,
+          "pitch_q8": 16640,
+          "curve": [],
+          "delay_frames": 1470
+        }
+      ],
+      "sha256": "f1ff5049e23f85ba0485f1320bd4e690c2f9c60e09b3d3fb8f470e62061fc921"
+    },
+    "bb1:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_bb1.wav",
+      "resolved_id": "0xbb1",
+      "dispatch_hex": "010f0007",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7fa8",
+          "record_hex": "c800000000436400640901000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 6,
+          "tone_hex": "00007f4053114343000000000000b1b2ff80e35f01000800c000c100c200c300",
+          "sample_id": "sample_886ce1e8540d886c",
+          "sample_index": 8,
+          "pitch_q8": 17152,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "ede10cc15d4438322c47250669ac4ba0ef1b41cd7f91bac16606fe6f5bfc89e2"
+    },
+    "bb3:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_bb3.wav",
+      "resolved_id": "0xbb3",
+      "dispatch_hex": "010f0319",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8620",
+          "record_hex": "c8000000003c6400601301000800000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 0,
+          "tone_hex": "00007f404c113c3c000000000000b1b2ff80e35f02000e00c000c100c200c300",
+          "sample_id": "sample_886ce1e8540d886c",
+          "sample_index": 14,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "ede10cc15d4438322c47250669ac4ba0ef1b41cd7f91bac16606fe6f5bfc89e2"
+    },
+    "bb6:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_bb6.wav",
+      "resolved_id": "0xbb6",
+      "dispatch_hex": "050f0005",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7f80",
+          "record_hex": "f000000000456c00640a01010000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 7,
+          "tone_hex": "00007f4051004545000000000000b1b2ff35e35f01000500c000c100c200c300",
+          "sample_id": "sample_b681f613470224b5",
+          "sample_index": 5,
+          "pitch_q8": 17664,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c7f94",
+          "record_hex": "ef00000000457200640b01000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 8,
+          "tone_hex": "00005a405d004545000000000000b1b2ff80e35f01000500c000c100c200c300",
+          "sample_id": "sample_b681f613470224b5",
+          "sample_index": 5,
+          "pitch_q8": 17664,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "408553c1d44600b0b799457da97727c464b2d74e17c28c8fb0f1ad6ac3390043"
+    },
+    "bb7:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_bb7.wav",
+      "resolved_id": "0xbb7",
+      "dispatch_hex": "050f0006",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7f94",
+          "record_hex": "ef00000000457200640b01000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 8,
+          "tone_hex": "00005a405d004545000000000000b1b2ff80e35f01000500c000c100c200c300",
+          "sample_id": "sample_b681f613470224b5",
+          "sample_index": 5,
+          "pitch_q8": 17664,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "d378fe406444cf71459a886ce4d1def073d9d53320cf198df38ed22b68133fe3"
+    },
+    "bb8:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_bb8.wav",
+      "resolved_id": "0xbb8",
+      "dispatch_hex": "050f0007",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7fa8",
+          "record_hex": "c800000000436400640901000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 6,
+          "tone_hex": "00007f4053114343000000000000b1b2ff80e35f01000800c000c100c200c300",
+          "sample_id": "sample_886ce1e8540d886c",
+          "sample_index": 8,
+          "pitch_q8": 17152,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "ede10cc15d4438322c47250669ac4ba0ef1b41cd7f91bac16606fe6f5bfc89e2"
+    },
+    "bb9:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_bb9.wav",
+      "resolved_id": "0xbb9",
+      "dispatch_hex": "050f0008",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7fbc",
+          "record_hex": "f2000000003e7600640501010000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 2,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80c01f01000500c000c100c200c300",
+          "sample_id": "sample_b681f613470224b5",
+          "sample_index": 5,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c7fd0",
+          "record_hex": "f1000000003e7400640601000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 3,
+          "tone_hex": "00007f4056003e3e000000000000b1b2ff35e35f01000500c000c100c200c300",
+          "sample_id": "sample_b681f613470224b5",
+          "sample_index": 5,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "224cb3a37948e11915153f8df3b9e52de1ba0c01ca095241ced4936f7c8327c3"
+    },
+    "bd0:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_bd0.wav",
+      "resolved_id": "0xbd0",
+      "dispatch_hex": "010f0210",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8270",
+          "record_hex": "d2000000003c70005e0401010000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80e35f01000400c000c100c200c300",
+          "sample_id": "sample_c533cfbf7aee8fe4",
+          "sample_index": 4,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8284",
+          "record_hex": "d2000000003c74005e0f01000000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 11,
+          "tone_hex": "0000744054003c3c000000000000b1b2ff35e35f01000400c000c100c200c300",
+          "sample_id": "sample_c533cfbf7aee8fe4",
+          "sample_index": 4,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "d7f0ecb17ebef660e03d003b29e455c0f88b9844329702b298c26dfdb30c93cf"
+    },
+    "c02:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c02.wav",
+      "resolved_id": "0xc02",
+      "dispatch_hex": "010f0008",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7fbc",
+          "record_hex": "f2000000003e7600640501010000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 2,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80c01f01000500c000c100c200c300",
+          "sample_id": "sample_b681f613470224b5",
+          "sample_index": 5,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c7fd0",
+          "record_hex": "f1000000003e7400640601000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 3,
+          "tone_hex": "00007f4056003e3e000000000000b1b2ff35e35f01000500c000c100c200c300",
+          "sample_id": "sample_b681f613470224b5",
+          "sample_index": 5,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "224cb3a37948e11915153f8df3b9e52de1ba0c01ca095241ced4936f7c8327c3"
+    },
+    "c17:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c17.wav",
+      "resolved_id": "0xc17",
+      "dispatch_hex": "010f031a",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8634",
+          "record_hex": "c80000000043740060190100000000000c840c80",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 6,
+          "tone_hex": "00007f404f004343000000000000b1b2ff80ec5f02000800c000c100c200c300",
+          "sample_id": "sample_2092a0cf059e3c9c",
+          "sample_index": 8,
+          "pitch_q8": 17152,
+          "curve": [
+            2,
+            16,
+            7,
+            0,
+            0,
+            62464,
+            32,
+            20,
+            8
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "9cd75f6963dc22714d914daaf8d010ba03187efdeba70157c216987c4c63a306"
+    },
+    "c18:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c18.wav",
+      "resolved_id": "0xc18",
+      "dispatch_hex": "010f031b",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8648",
+          "record_hex": "c800000000457200601a01010000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 7,
+          "tone_hex": "00007f4051004545000000000000b1b2ff80e35f02000f00c000c100c200c300",
+          "sample_id": "sample_88473e314c780546",
+          "sample_index": 15,
+          "pitch_q8": 17664,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c865c",
+          "record_hex": "c8001e0000437200601a01000000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 7,
+          "tone_hex": "00007f4051004545000000000000b1b2ff80e35f02000f00c000c100c200c300",
+          "sample_id": "sample_88473e314c780546",
+          "sample_index": 15,
+          "pitch_q8": 17152,
+          "curve": [],
+          "delay_frames": 22050
+        }
+      ],
+      "sha256": "96198e647b850b125d260a7dd69caf66847ca87ed57d8746ff1e2208395cff79"
+    },
+    "c1a:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c1a.wav",
+      "resolved_id": "0xc1a",
+      "dispatch_hex": "010f000a",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7fe4",
+          "record_hex": "d2000000003b6d00640c0100000000000c7f0c80",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 9,
+          "tone_hex": "00007f4053004747000000000000b1b2ffa5ec5f01000900c000c100c200c300",
+          "sample_id": "sample_fb4d7236473a3aa3",
+          "sample_index": 9,
+          "pitch_q8": 15104,
+          "curve": [
+            8,
+            4,
+            1024,
+            3072,
+            3072,
+            400,
+            45,
+            0,
+            200
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "58c936ac55cde248262129730cdf4996f24e5941e26043ed678615a30286b467"
+    },
+    "c1b:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c1b.wav",
+      "resolved_id": "0xc1b",
+      "dispatch_hex": "010f000b",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7ff8",
+          "record_hex": "d200000000486e00640d01000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 10,
+          "tone_hex": "00007f4054004848000000000000b1b2ff80e35f01000a00c000c100c200c300",
+          "sample_id": "sample_1a9cc9566bd42283",
+          "sample_index": 10,
+          "pitch_q8": 18432,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "f6acff4ee5f6b55838bc3bf9d4b71c644e9b88d68db10321789286043fb35723"
+    },
+    "c31:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c31.wav",
+      "resolved_id": "0xc31",
+      "dispatch_hex": "010f031d",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8670",
+          "record_hex": "d200000000476400601b01010000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 8,
+          "tone_hex": "00006e405d004747000000000000b1b2ff35e35f02001100c000c100c200c300",
+          "sample_id": "sample_40f4170d1a7d991d",
+          "sample_index": 17,
+          "pitch_q8": 18176,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8684",
+          "record_hex": "d200000000476a00601c01000000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 9,
+          "tone_hex": "00007f4057004747000000000000b1b2ff33e35f02001100c000c100c200c300",
+          "sample_id": "sample_40f4170d1a7d991d",
+          "sample_index": 17,
+          "pitch_q8": 18176,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "195c40a132af513d09957eab3e8394459afde9bdb644cd3c2f0a69a21b62990e"
+    },
+    "c32:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c32.wav",
+      "resolved_id": "0xc32",
+      "dispatch_hex": "010f0320",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c86ac",
+          "record_hex": "d200000000465e00601b01010000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 8,
+          "tone_hex": "00006e405d004747000000000000b1b2ff35e35f02001100c000c100c200c300",
+          "sample_id": "sample_40f4170d1a7d991d",
+          "sample_index": 17,
+          "pitch_q8": 17920,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c86c0",
+          "record_hex": "d200000000466600601c01000000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 9,
+          "tone_hex": "00007f4057004747000000000000b1b2ff33e35f02001100c000c100c200c300",
+          "sample_id": "sample_40f4170d1a7d991d",
+          "sample_index": 17,
+          "pitch_q8": 17920,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "2c08c09fd1fc5729867ae75b6c1476c15ca9abe141c43040851aae4b2df4f3fe"
+    },
+    "c33:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c33.wav",
+      "resolved_id": "0xc33",
+      "dispatch_hex": "010f031f",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8698",
+          "record_hex": "d200000000437000600701000000000010840c80",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 4,
+          "tone_hex": "00007f405b004343000000000600b1b2ff80ed5f01000700c000c100c200c300",
+          "sample_id": "sample_6ac7be5d8c3368f0",
+          "sample_index": 7,
+          "pitch_q8": 17152,
+          "curve": [
+            7,
+            0,
+            0,
+            62464,
+            32,
+            20,
+            8,
+            20,
+            72
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "857aaed9253bb8e9ac1f8b35c1021563998efa11cac836fbd34d06e25829c8f4"
+    },
+    "c34:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c34.wav",
+      "resolved_id": "0xc34",
+      "dispatch_hex": "050f000a",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7fe4",
+          "record_hex": "d2000000003b6d00640c0100000000000c7f0c80",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 9,
+          "tone_hex": "00007f4053004747000000000000b1b2ffa5ec5f01000900c000c100c200c300",
+          "sample_id": "sample_fb4d7236473a3aa3",
+          "sample_index": 9,
+          "pitch_q8": 15104,
+          "curve": [
+            8,
+            4,
+            1024,
+            3072,
+            3072,
+            400,
+            45,
+            0,
+            200
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "58c936ac55cde248262129730cdf4996f24e5941e26043ed678615a30286b467"
+    },
+    "c35:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c35.wav",
+      "resolved_id": "0xc35",
+      "dispatch_hex": "050f000b",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c7ff8",
+          "record_hex": "d200000000486e00640d01000000000000000000",
+          "bank_slot": 100,
+          "bank": "bank_b8cfe703c319b179",
+          "program": 1,
+          "tone": 10,
+          "tone_hex": "00007f4054004848000000000000b1b2ff80e35f01000a00c000c100c200c300",
+          "sample_id": "sample_1a9cc9566bd42283",
+          "sample_index": 10,
+          "pitch_q8": 18432,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "f6acff4ee5f6b55838bc3bf9d4b71c644e9b88d68db10321789286043fb35723"
+    },
+    "c36:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c36.wav",
+      "resolved_id": "0xc36",
+      "dispatch_hex": "010f0322",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c86d4",
+          "record_hex": "ec000000003c6a00601d0100000000000c800c80",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 10,
+          "tone_hex": "00007f4054004848000000000000b1b2ffa5ed5f02001000c000c100c200c300",
+          "sample_id": "sample_fb4d7236473a3aa3",
+          "sample_index": 16,
+          "pitch_q8": 15360,
+          "curve": [
+            8,
+            6,
+            400,
+            3072,
+            0,
+            32,
+            0,
+            0,
+            200
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "d64492c5e738c89f0170ff34821a0bfe62067cf58f66921778ab71fa40e0ccd1"
+    },
+    "c72:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c72.wav",
+      "resolved_id": "0xc72",
+      "dispatch_hex": "010f0323",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c86e8",
+          "record_hex": "c800000000346a00001001010000000000000000",
+          "bank_slot": 0,
+          "bank": "bank_d8f2dc9eb7ed7287",
+          "program": 2,
+          "tone": 2,
+          "tone_hex": "00007f40507d0078000000000000b1b2ff80c01f02001300c000c100c200c300",
+          "sample_id": "sample_46e72515b2848185",
+          "sample_index": 19,
+          "pitch_q8": 13312,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c86fc",
+          "record_hex": "c800040000406000600201010000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 0,
+          "tone": 2,
+          "tone_hex": "00007f404c004040000000000000b1b2ff2fe35f00000200c000c100c200c300",
+          "sample_id": "sample_7a9772bcd5b2ef44",
+          "sample_index": 2,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 2940
+        },
+        {
+          "record_address": "0x800c8710",
+          "record_hex": "c800080000346000600201000000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 0,
+          "tone": 2,
+          "tone_hex": "00007f404c004040000000000000b1b2ff2fe35f00000200c000c100c200c300",
+          "sample_id": "sample_7a9772bcd5b2ef44",
+          "sample_index": 2,
+          "pitch_q8": 13312,
+          "curve": [],
+          "delay_frames": 5880
+        }
+      ],
+      "sha256": "0f4b324ca326ea2d329f98819da062ca8764cbd02cc6dd11abe39dde7facd3b5"
+    },
+    "c75:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c75.wav",
+      "resolved_id": "0xc75",
+      "dispatch_hex": "010f021e",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8388",
+          "record_hex": "d2000000003f70005e0701000c00000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 3,
+          "tone_hex": "00007f404d004141000000000002b1b2ff80ec5f01001600c000c100c200c300",
+          "sample_id": "sample_bc237415824eb964",
+          "sample_index": 22,
+          "pitch_q8": 16128,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "3c1c57285aa738a438d1e90dde639e5b2c361ddab54fe154273eb91e21188194"
+    },
+    "c76:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c76.wav",
+      "resolved_id": "0xc76",
+      "dispatch_hex": "010f021f",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c839c",
+          "record_hex": "d2000000003a70005e0701000c00000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 3,
+          "tone_hex": "00007f404d004141000000000002b1b2ff80ec5f01001600c000c100c200c300",
+          "sample_id": "sample_bc237415824eb964",
+          "sample_index": 22,
+          "pitch_q8": 14848,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "0ec4a85270d2e135d01b9769d2460b800a07b0aa49be84d9f99d402e6bdb5a0d"
+    },
+    "c77:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c77.wav",
+      "resolved_id": "0xc77",
+      "dispatch_hex": "010f0220",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c83b0",
+          "record_hex": "d2000000004670005e0701000c00000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 3,
+          "tone_hex": "00007f404d004141000000000002b1b2ff80ec5f01001600c000c100c200c300",
+          "sample_id": "sample_bc237415824eb964",
+          "sample_index": 22,
+          "pitch_q8": 17920,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "5f17eabf99b238be13779c7939a0166628c209b2ceda6573e05d44d71ee13afc"
+    },
+    "c78:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c78.wav",
+      "resolved_id": "0xc78",
+      "dispatch_hex": "010f0207",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c81bc",
+          "record_hex": "d2000000004170005e0700010c00000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 1,
+          "tone": 3,
+          "tone_hex": "00007f404d004141000000000002b1b2ff80ec5f01001600c000c100c200c300",
+          "sample_id": "sample_bc237415824eb964",
+          "sample_index": 22,
+          "pitch_q8": 16640,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c81d0",
+          "record_hex": "d2000000004870005e1e00001000000000000000",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 2,
+          "tone": 10,
+          "tone_hex": "00047f405a004848000000000000b1b2ff35e35f02001600c000c100c200c300",
+          "sample_id": "sample_bc237415824eb964",
+          "sample_index": 22,
+          "pitch_q8": 18432,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "87db1be797c266da494ca0ed58a69e1f92b4e54b9e923bff5c6911de500d31ec"
+    },
+    "c7b:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c7b.wav",
+      "resolved_id": "0xc7b",
+      "dispatch_hex": "010f0326",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8724",
+          "record_hex": "d200000000437000600701000000000010840c80",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 1,
+          "tone": 4,
+          "tone_hex": "00007f405b004343000000000600b1b2ff80ed5f01000700c000c100c200c300",
+          "sample_id": "sample_6ac7be5d8c3368f0",
+          "sample_index": 7,
+          "pitch_q8": 17152,
+          "curve": [
+            7,
+            0,
+            0,
+            62464,
+            32,
+            20,
+            8,
+            20,
+            72
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "857aaed9253bb8e9ac1f8b35c1021563998efa11cac836fbd34d06e25829c8f4"
+    },
+    "c90:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c90.wav",
+      "resolved_id": "0xc90",
+      "dispatch_hex": "010f0327",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8738",
+          "record_hex": "d2000000004a6d00601e01010000000000000000",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 11,
+          "tone_hex": "00007f4056004a4a000000000000b1b2ff80c01f02001200c000c100c200c300",
+          "sample_id": "sample_4076463ec11cb99c",
+          "sample_index": 18,
+          "pitch_q8": 18944,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c874c",
+          "record_hex": "d2000000004a7000601f0100000000001c840c80",
+          "bank_slot": 96,
+          "bank": "bank_8861d0f48050ebe2",
+          "program": 2,
+          "tone": 12,
+          "tone_hex": "00007f4062004a4a000000000000b1b2ff33e35f02001200c000c100c200c300",
+          "sample_id": "sample_4076463ec11cb99c",
+          "sample_index": 18,
+          "pitch_q8": 18944,
+          "curve": [
+            8,
+            20,
+            72,
+            62464,
+            62464,
+            72,
+            0,
+            0,
+            210
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "981f71fb9d844bebc4b4d621ea58ed1366b0b8002da7c5ff9d6641a2f59833e4"
+    },
+    "c9d:0": {
+      "file": "build/Other Files/Asset Toolkit/Dark Lumina 3/Audio Catalog/event_c9d.wav",
+      "resolved_id": "0xc9d",
+      "dispatch_hex": "010f0221",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c83c4",
+          "record_hex": "d3000000004d67005e1f01000000000020810c80",
+          "bank_slot": 94,
+          "bank": "bank_16060abbf25216bb",
+          "program": 2,
+          "tone": 12,
+          "tone_hex": "00007f4056004a4a000000000000b1b2ff80eb5f02000400c000c100c200c300",
+          "sample_id": "sample_c533cfbf7aee8fe4",
+          "sample_index": 4,
+          "pitch_q8": 19712,
+          "curve": [
+            8,
+            32,
+            48,
+            62464,
+            59392,
+            64,
+            64,
+            0,
+            200
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "bcaab594500f70cc505eef8151deabe734b6290d6af67531574105d054f12738"
+    }
+  },
+  "scene_aliases": {
+    "437": [
+      127,
+      2995,
+      127,
+      127,
+      127
+    ],
+    "438": [
+      127,
+      2995,
+      127,
+      127,
+      127
+    ],
+    "439": [
+      127,
+      127,
+      127,
+      127,
+      127
+    ],
+    "43c": [
+      1743,
+      127,
+      127,
+      127,
+      127
+    ]
+  },
+  "unresolved_scene_aliases": {
+    "bbc:0": {
+      "record": "0x800c800c",
+      "curve_pointer": "0xc8",
+      "reason": "Alias does not resolve to a sound record in this scene owner"
+    },
+    "c73:0": {
+      "record": "0x800c8020",
+      "curve_pointer": "0xc8",
+      "reason": "Alias does not resolve to a sound record in this scene owner"
+    },
+    "c8c:0": {
+      "record": "0x800c8034",
+      "curve_pointer": "0xc8",
+      "reason": "Alias does not resolve to a sound record in this scene owner"
+    }
+  },
+  "source_resource_level": 94,
+  "scene_column": 0,
+  "scene_level_map": [
+    1,
+    0,
+    2,
+    0,
+    0,
+    3,
+    4,
+    5
+  ],
+  "scene_resolution_trace": "8002F4E4: resource level minus owner+4 indexes owner+8; the resulting 1-based value selects the owner+10 sound row column.",
+  "retained_banks": {
+    "94": {
+      "id": "bank_16060abbf25216bb",
+      "sha256": "16060abbf25216bbaaa5ce1a691269232ba3295c6daf60b33938f71e43869ae9",
+      "samples": [
+        {
+          "index": 1,
+          "id": "sample_626c8aeba1b12369",
+          "body_offset": 0,
+          "bytes": 3584
+        },
+        {
+          "index": 2,
+          "id": "sample_0008f704aac1a739",
+          "body_offset": 3584,
+          "bytes": 2752
+        },
+        {
+          "index": 3,
+          "id": "sample_b7efb0edb64a7dd5",
+          "body_offset": 6336,
+          "bytes": 3824
+        },
+        {
+          "index": 4,
+          "id": "sample_c533cfbf7aee8fe4",
+          "body_offset": 10160,
+          "bytes": 19600
+        },
+        {
+          "index": 5,
+          "id": "sample_63fca614f06b55c7",
+          "body_offset": 29760,
+          "bytes": 4112
+        },
+        {
+          "index": 6,
+          "id": "sample_4d9fe03979a555f3",
+          "body_offset": 33872,
+          "bytes": 10288
+        },
+        {
+          "index": 7,
+          "id": "sample_972420f4d16622a2",
+          "body_offset": 44160,
+          "bytes": 8896
+        },
+        {
+          "index": 8,
+          "id": "sample_c7f4cab974230f5d",
+          "body_offset": 53056,
+          "bytes": 3696
+        },
+        {
+          "index": 9,
+          "id": "sample_7c2b6ff8fa8c4ed9",
+          "body_offset": 56752,
+          "bytes": 5968
+        },
+        {
+          "index": 10,
+          "id": "sample_62b28eac8d3e99c4",
+          "body_offset": 62720,
+          "bytes": 4960
+        },
+        {
+          "index": 11,
+          "id": "sample_e519acb18fdefa76",
+          "body_offset": 67680,
+          "bytes": 9376
+        },
+        {
+          "index": 12,
+          "id": "sample_0f00ed3cf207acbd",
+          "body_offset": 77056,
+          "bytes": 7584
+        },
+        {
+          "index": 13,
+          "id": "sample_c9248560666dd3ed",
+          "body_offset": 84640,
+          "bytes": 7312
+        },
+        {
+          "index": 14,
+          "id": "sample_f406245a1d0ca11e",
+          "body_offset": 91952,
+          "bytes": 6224
+        },
+        {
+          "index": 15,
+          "id": "sample_91ca22d1dc31dec7",
+          "body_offset": 98176,
+          "bytes": 2784
+        },
+        {
+          "index": 16,
+          "id": "sample_4e8b0f5c19961c38",
+          "body_offset": 100960,
+          "bytes": 3424
+        },
+        {
+          "index": 17,
+          "id": "sample_e21f43632d114b6a",
+          "body_offset": 104384,
+          "bytes": 3024
+        },
+        {
+          "index": 18,
+          "id": "sample_886ce1e8540d886c",
+          "body_offset": 107408,
+          "bytes": 2080
+        },
+        {
+          "index": 19,
+          "id": "sample_c09684718fe294ec",
+          "body_offset": 109488,
+          "bytes": 8608
+        },
+        {
+          "index": 20,
+          "id": "sample_2bdd08129058a93b",
+          "body_offset": 118096,
+          "bytes": 6736
+        },
+        {
+          "index": 21,
+          "id": "sample_c58c343eefb1c654",
+          "body_offset": 124832,
+          "bytes": 7440
+        },
+        {
+          "index": 22,
+          "id": "sample_bc237415824eb964",
+          "body_offset": 132272,
+          "bytes": 6480
+        }
+      ]
+    },
+    "96": {
+      "id": "bank_8861d0f48050ebe2",
+      "sha256": "8861d0f48050ebe257a901a5c0dd351b0573a41c37e08bd527e9d01d5f7c23a7",
+      "samples": [
+        {
+          "index": 1,
+          "id": "sample_dc4961ba35ac95a9",
+          "body_offset": 0,
+          "bytes": 2672
+        },
+        {
+          "index": 2,
+          "id": "sample_7a9772bcd5b2ef44",
+          "body_offset": 2672,
+          "bytes": 3824
+        },
+        {
+          "index": 3,
+          "id": "sample_7255bee503d3a860",
+          "body_offset": 6496,
+          "bytes": 16032
+        },
+        {
+          "index": 4,
+          "id": "sample_243c9420ba0b40ed",
+          "body_offset": 22528,
+          "bytes": 13792
+        },
+        {
+          "index": 5,
+          "id": "sample_c0b6eb65820fdd88",
+          "body_offset": 36320,
+          "bytes": 3232
+        },
+        {
+          "index": 6,
+          "id": "sample_83c39e23b90c8424",
+          "body_offset": 39552,
+          "bytes": 11376
+        },
+        {
+          "index": 7,
+          "id": "sample_6ac7be5d8c3368f0",
+          "body_offset": 50928,
+          "bytes": 9072
+        },
+        {
+          "index": 8,
+          "id": "sample_2092a0cf059e3c9c",
+          "body_offset": 60000,
+          "bytes": 13904
+        },
+        {
+          "index": 9,
+          "id": "sample_c0321aa512283ae3",
+          "body_offset": 73904,
+          "bytes": 8160
+        },
+        {
+          "index": 10,
+          "id": "sample_60180e5e09408fc5",
+          "body_offset": 82064,
+          "bytes": 12704
+        },
+        {
+          "index": 11,
+          "id": "sample_44109d106ef389e0",
+          "body_offset": 94768,
+          "bytes": 13968
+        },
+        {
+          "index": 12,
+          "id": "sample_cb31e465702d742b",
+          "body_offset": 108736,
+          "bytes": 3104
+        },
+        {
+          "index": 13,
+          "id": "sample_59fea265f4088ca2",
+          "body_offset": 111840,
+          "bytes": 3888
+        },
+        {
+          "index": 14,
+          "id": "sample_886ce1e8540d886c",
+          "body_offset": 115728,
+          "bytes": 2080
+        },
+        {
+          "index": 15,
+          "id": "sample_88473e314c780546",
+          "body_offset": 117808,
+          "bytes": 8720
+        },
+        {
+          "index": 16,
+          "id": "sample_fb4d7236473a3aa3",
+          "body_offset": 126528,
+          "bytes": 3152
+        },
+        {
+          "index": 17,
+          "id": "sample_40f4170d1a7d991d",
+          "body_offset": 129680,
+          "bytes": 6560
+        },
+        {
+          "index": 18,
+          "id": "sample_4076463ec11cb99c",
+          "body_offset": 136240,
+          "bytes": 7712
+        }
+      ]
+    },
+    "100": {
+      "id": "bank_b8cfe703c319b179",
+      "sha256": "b8cfe703c319b1793ee0d10dc0dfaad11339e0519a22d2da243c9cf8a2f10340",
+      "samples": [
+        {
+          "index": 1,
+          "id": "sample_36def422a8b99b62",
+          "body_offset": 0,
+          "bytes": 2400
+        },
+        {
+          "index": 2,
+          "id": "sample_5dd8ae0842ec5422",
+          "body_offset": 2400,
+          "bytes": 2784
+        },
+        {
+          "index": 3,
+          "id": "sample_d6611743defed178",
+          "body_offset": 5184,
+          "bytes": 3824
+        },
+        {
+          "index": 4,
+          "id": "sample_344b059310b8b926",
+          "body_offset": 9008,
+          "bytes": 15552
+        },
+        {
+          "index": 5,
+          "id": "sample_b681f613470224b5",
+          "body_offset": 24560,
+          "bytes": 14096
+        },
+        {
+          "index": 6,
+          "id": "sample_91ca22d1dc31dec7",
+          "body_offset": 38656,
+          "bytes": 2784
+        },
+        {
+          "index": 7,
+          "id": "sample_75aed766b06aa656",
+          "body_offset": 41440,
+          "bytes": 3904
+        },
+        {
+          "index": 8,
+          "id": "sample_886ce1e8540d886c",
+          "body_offset": 45344,
+          "bytes": 2080
+        },
+        {
+          "index": 9,
+          "id": "sample_fb4d7236473a3aa3",
+          "body_offset": 47424,
+          "bytes": 3152
+        },
+        {
+          "index": 10,
+          "id": "sample_1a9cc9566bd42283",
+          "body_offset": 50576,
+          "bytes": 15616
+        }
+      ]
+    }
+  },
+  "notes": [
+    "Finale module0x73; sound calls traced through its handlers and scene owner.",
+    "AB9 is disabled in retail dispatch; retained as source evidence, not a live cue.",
+    "Every owner event alias and all stage samples retained; unrelated events are not labelled as character actions.",
+    "Dry authentic SPU ADPCM with source pitch curves, layer delays and relative volume. PSX ADSR, reverb, Gaussian interpolation and key-off loops are not emulated."
+  ]
+}

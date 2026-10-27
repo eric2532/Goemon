@@ -69,12 +69,12 @@ func _ready():
 	add_to_group("projectiles");add_to_group("edo_meteor_rains")
 	for i in range(targets.size()):
 		var point=targets[i]
-		var ball=Node3D.new();add_child(ball);ball.hide()
+		var ball=Node3D.new();add_child(ball);ball.scale=Vector3.ONE*hero.skill_factor(attack_ticket,"size");ball.hide()
 		var core=FireEnergy.new();core.charged=true;ball.add_child(core);core.scale=Vector3.ONE*3.5;core.rotation.x=-PI/2
 		# A tapered tail points back up the falling path.
 		Geo.spike(ball,Vector3.UP*.2,Vector3.UP*5,.7,preload("res://assets/rogue/scripts/ink_brush_style.gd").material(Color("ff6b18"),.8,.7))
 		Geo.spike(ball,Vector3.UP*.2,Vector3.UP*3,.36,preload("res://assets/rogue/scripts/ink_brush_style.gd").material(Color("ffe595"),.7,.8))
-		strikes.append({"point":point,"start":point+Vector3.UP*(28+i%4*3),"delay":.12+i*.065,"flight":.72+float(i%3)*.06,"done":false,"ball":ball})
+		strikes.append({"point":point,"start":point+Vector3.UP*(28+i%4*3),"delay":.12+i*.065,"flight":(.72+float(i%3)*.06)/hero.skill_factor(attack_ticket,"travel_speed"),"done":false,"ball":ball})
 	for mesh in find_children("*","MeshInstance3D",true,false):
 		mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
@@ -96,7 +96,7 @@ func _physics_process(delta):
 func impact(point: Vector3):
 	impacts+=1
 	# The exact same Blender-authored flame/smoke burst as Edo's fire dodge.
-	EdoFireExplosion.emit(game,point,true,"edo_meteor_impact")
+	EdoFireExplosion.emit(game,point,true,"edo_meteor_impact",hero.skill_factor(attack_ticket,"size"))
 	game.burst(point+Vector3.UP*.4,Color("ffb352"),22,1.4)
 	if hero.global_position.distance_to(point)<45:game.camera_rig.kick(Vector3.DOWN,.045)
 	BreakableBuilding.hit_area(game,point+Vector3.UP,radius,damage,attack_ticket)

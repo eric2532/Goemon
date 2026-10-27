@@ -22,7 +22,7 @@ func fresh(id: int):
 	game.model.update_vision(game.player.position)
 func run():
 	# These movement fixtures use flat ground, independent of raised-route map presets.
-	var map_doc=load("res://scripts/forest/forest_map_document.gd").new();map_doc.load_original();set_meta("forest_custom_layout",map_doc.data)
+	var map_doc=load("res://tests/forest-shrine/reference/map_document.gd").new();map_doc.load_original();set_meta("forest_custom_layout",map_doc.data)
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=config_path;root.add_child(game);current_scene=game;await frames();game.start_wave();game.model.waves.spawn_clock=10000
 	game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
 	game.set_forest_camera_distance(17);game.set_forest_character_screen_offset(.08);game.set_forest_hud_scale(.85)

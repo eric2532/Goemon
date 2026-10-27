@@ -9,7 +9,7 @@ func check(ok:bool,label_:String):
  checks+=1
  if not ok:failures+=1;printerr("FAIL: "+label_)
 func run():
- var layout=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_four_gates.json"))
+ var layout=JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_four_gates.json"))
  for variant in [4]:
   var m=Model.new();m.reset(42,{},layout);m.phase="wave"
   var origin=Vector3(6,0,-56.9);origin.y=m.surface_height(origin.x,origin.z)

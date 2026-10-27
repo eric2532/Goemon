@@ -3,7 +3,7 @@
 import json
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-source = json.loads((ROOT / 'assets/maps/forest_twin_ramparts.json').read_text())
+source = json.loads((ROOT / 'tests/forest-shrine/reference/maps/forest_twin_ramparts.json').read_text())
 
 def rotate(x, z, quarter):
     for _ in range(quarter):
@@ -72,6 +72,6 @@ for t in source['trees']:
         if (x, z) not in reserved and not near_wall(x, z):
             trees[x, z] = dict(t, x=x, z=z)
 layout['trees'] = [trees[c] for c in sorted(trees)]
-path = ROOT / 'assets/maps/forest_four_gates.json'
+path = ROOT / 'tests/forest-shrine/reference/maps/forest_four_gates.json'
 path.write_text(json.dumps(layout, indent=2)+'\n')
 print(f'{path}: 4 gates, 8 towers, {len(layout["portals"])} portals, {len(layout["roads"])} road tiles')

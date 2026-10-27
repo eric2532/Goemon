@@ -1,13 +1,8 @@
-extends Node
+extends "res://scripts/character_combat.gd"
 ## Recovered Yae katana, Sword Shield and bazooka action clocks and contact curves.
 const Profile=preload("res://scripts/recovered_yae_combat_profile.gd")
 const Projectile=preload("res://scripts/recovered_yae_projectile.gd")
-var hero: Hero
-var game: Node
-var active=false:
- set(value):
-  active=value
-  if not value:cancel()
+const ProjectilePool=preload("res://scripts/character_projectile_pool.gd")
 var primary_held=false
 var secondary_held=false
 var shield_held=false
@@ -29,10 +24,10 @@ var cached_melee_reach=3.3
 var shield_sound_clock=0.0
 var next_charge_sound=1.5
 var charge_sustain_count=0
+func prepare_projectiles():
+ for kind in ["bazooka","lock_on"]:ProjectilePool.service(game).warm(hero,Projectile,"yae/"+kind,{"kind":kind,"visual_source":cast_model()},9)
 var lock_targets: Array=[]
 
-func _notification(what: int):
- if what==NOTIFICATION_APPLICATION_FOCUS_OUT:cancel()
 func input(event: InputEvent):
  release_input(event)
  if not active or event.is_echo() or hero.dodge_time>0:return
@@ -68,9 +63,9 @@ func _begin(kind: String,action: int):
  hero.combo=combo+1;hero.hit_done=false;hero.struck_targets.clear()
  hero.attack_duration=Profile.duration(action_id);hero.attack_left=maxf(.05,hero.attack_duration)
  hero.facing=hero.combat_attack_direction()
- if is_instance_valid(hero.model):
-  hero.model.rotation.y=atan2(-hero.facing.x,-hero.facing.z)
-  previous_root=hero.model.global_transform;have_previous_root=true
+ if is_instance_valid(cast_model()):
+  cast_model().rotation.y=atan2(-hero.facing.x,-hero.facing.z)
+  previous_root=cast_model().global_transform;have_previous_root=true
  var move_key="primary_%d"%(combo+1) if kind=="primary" else {"bazooka_charge":"secondary","bazooka":"secondary","lock_on":"charged","shield_enter":"utility","shield":"utility","shield_exit":"utility"}.get(kind,kind)
  if hero.attack_chain!=null:hero.attack_ticket=hero.attack_chain.begin("yae_"+kind,move_key)
  else:hero.attack_ticket={"source_hero":weakref(hero),"source_character_id":17,"action":"yae_"+kind,"allied":hero.ai_controlled,"chain_enabled":false}
@@ -91,7 +86,7 @@ func tick(delta: float,after_pose: bool=false):
   return
  if mode=="dead":return
  if not is_attacking():
-  if primary_held or hero.auto_attack_running():primary_attack()
+  if primary_held or (spell_owner==null and hero.auto_attack_running()):primary_attack()
   return
  var previous=elapsed;elapsed+=delta*hero.attack_speed_multiplier()
  hero.attack_left=maxf(.05,Profile.duration(action_id)-elapsed)
@@ -123,7 +118,7 @@ func tick(delta: float,after_pose: bool=false):
   else:_complete_action()
 func _complete_action():
  if mode=="primary" and action_id in Profile.combo_actions():
-  if (primary_held or queued_primary or hero.auto_attack_running()) and combo<2:
+  if (primary_held or queued_primary or (spell_owner==null and hero.auto_attack_running())) and combo<2:
    queued_primary=false;finish_attack();primary_attack();return
   action_id=0x6b+combo;mode="recovery";elapsed=0;hero.attack_duration=Profile.duration(action_id);return
  if mode=="shield_enter":
@@ -131,10 +126,10 @@ func _complete_action():
   else:_begin("shield_exit",0x9e if action_id==0x9c else 0xa1)
   return
  finish_attack()
- if queued_primary or primary_held or hero.auto_attack_running():queued_primary=false;primary_attack()
+ if queued_primary or primary_held or (spell_owner==null and hero.auto_attack_running()):queued_primary=false;primary_attack()
 func _find_lock_targets()->Array:
  var candidates=[];var origin=hero.global_position+Vector3.UP*1.3*hero.growth_multiplier()
- for enemy in game.enemies:
+ for enemy in AttackChain.enemy_candidates(game,origin,6.5):
   if not is_instance_valid(enemy) or enemy.dead:continue
   var point=AttackChain.aim_point(enemy,origin);var offset=point-origin
   if offset.length()>6.5 or offset.normalized().dot(hero.facing)<.5 or not _clear_line(point):continue
@@ -146,28 +141,37 @@ func _find_lock_targets()->Array:
 func _release_projectiles():
  var count=3 if mode=="lock_on" else 1
  var native_scale=.01515809
- if is_instance_valid(hero.model):native_scale=hero.model.source_scale
+ if is_instance_valid(cast_model()):native_scale=cast_model().source_scale
  lock_targets=_find_lock_targets()
  for index in count:
-  var p=Projectile.new();p.hero=hero;p.game=game;p.kind=mode;p.attack_ticket=hero.attack_ticket.duplicate(true);p.damage_scale=hero.damage_multiplier();p.source_scale=native_scale
-  p.speed=6.0*30.0*native_scale
+  var launch={"visual_source":cast_model(),"kind":mode,"attack_ticket":hero.attack_ticket.duplicate(true),"damage_scale":hero.damage_multiplier(),"source_scale":native_scale,"speed":6.0*30.0*native_scale}
   var direction=hero.facing
   if mode=="lock_on":
-   if index<lock_targets.size():p.target=lock_targets[index]
+   if index<lock_targets.size():launch.target=lock_targets[index]
    # Native80033898 pitch0/64/960, yaw976; source+X is actor-left.
    var source_direction=[Vector3(-.290284693,0,.956940293),Vector3(-.268188089,-.382683396,.884097517),Vector3(-.268188089,.382683396,.884097517)][index]
    var right=hero.facing.cross(Vector3.UP).normalized()
    direction=hero.facing*source_direction.z-right*source_direction.x+Vector3.UP*source_direction.y
-  var muzzle=Vector3(-19.15,112.75,116.8300018)*native_scale
-  if is_instance_valid(hero.model):p.position=hero.model.global_transform*(hero.model.rig_visual.transform*(muzzle+hero.model.source_offset))
-  else:p.position=hero.global_position+Vector3.UP*1.3+hero.facing*.5
-  p.velocity=Vector3.ZERO;p.native_acceleration=direction*(30.0*30.0*native_scale)
-  p.hit_radius=30.0*native_scale;game.add_child(p)
+  var muzzle=Vector3(-19.15,112.75,116.8300018)
+  if is_instance_valid(cast_model()):
+   var grip=cast_model().sampler.sample_part(action_id,elapsed,"0x90055a0").origin
+   muzzle=grip+(muzzle-grip)*reach_scale()
+  muzzle*=native_scale
+  if is_instance_valid(cast_model()):launch.position=cast_model().global_transform*(cast_model().rig_visual.transform*(muzzle+cast_model().source_offset))
+  else:launch.position=hero.global_position+Vector3.UP*1.3+hero.facing*.5
+  var obstruction=AttackChain.world_ray(hero,hero.global_position+Vector3.UP*1.3*hero.growth_multiplier(),launch.position)
+  if not obstruction.is_empty():launch.position=obstruction.position+obstruction.normal*.025
+  launch.velocity=Vector3.ZERO;launch.native_acceleration=direction*(30.0*30.0*native_scale)
+  launch.hit_radius=30.0*native_scale
+  launch.visual_scale=preload("res://scripts/weapon_proportions.gd").RECOVERED_SKILL_SCALE*hero.range_multiplier()
+  launch.hit_radius*=launch.visual_scale
+  launch.blast_radius=1.25*launch.visual_scale
+  ProjectilePool.service(game).launch(hero,Projectile,"yae/"+mode,launch)
 func _sweep(from: float,until: float):
- if not is_instance_valid(hero.model) or until<from:return
+ if not is_instance_valid(cast_model()) or until<from:return
  var source: Dictionary=Profile.data().get("collision_spheres",{}).get(str(action_id),{})
  if source.is_empty():return
- var root_now=hero.model.global_transform
+ var root_now=cast_model().global_transform
  if not have_previous_root:previous_root=root_now;have_previous_root=true
  var count=clampi(ceili((until-from)*120.0),1,128)
  var previous_spheres=_source_spheres(source,from,previous_root);var scored=false
@@ -184,8 +188,10 @@ func _sweep(from: float,until: float):
 func _source_spheres(source: Dictionary,at: float,root_at: Transform3D)->Array:
  var frame=clampf(at*30.0*Profile.rate(action_id),0,float(source.frame_count)-1.0)
  var first=floori(frame);var second=mini(first+1,int(source.frame_count)-1);var weight=frame-first
- var result=[];var model=hero.model;var reach=reach_scale()
- var pose: Dictionary=model.sampler.sample_source(action_id,at) if not is_equal_approx(reach,1.0) else {}
+ var result=[];var model=cast_model();var reach=reach_scale()
+ var pose: Dictionary={}
+ if not is_equal_approx(reach,1.0) and model.sampler.has_part(action_id,"0x9007478"):
+  pose["0x9007478"]=model.sampler.sample_part(action_id,at,"0x9007478")
  for index in int(source.count):
   var a: Dictionary=source.frames[first][index];var b: Dictionary=source.frames[second][index]
   var center=Vector3(a.center[0],a.center[1],a.center[2]).lerp(Vector3(b.center[0],b.center[1],b.center[2]),weight)
@@ -196,8 +202,9 @@ func _source_spheres(source: Dictionary,at: float,root_at: Transform3D)->Array:
   result.append({"center":center,"radius":maxf(0,radius)})
  return result
 func _contact_segment(from: Vector3,to: Vector3,radius: float)->bool:
+ radius*=skill_factor("hit_area")
  var scored=false
- for enemy in game.enemies:
+ for enemy in AttackChain.segment_enemy_candidates(game,from,to,radius):
   if not is_instance_valid(enemy) or enemy.dead or hero.struck_targets.has(enemy.get_instance_id()):continue
   var contact=AttackChain.segment_contact(enemy,from,to,radius)
   if contact.is_empty() or not _clear_line(contact.point):continue
@@ -227,19 +234,19 @@ func ground_attack_velocity()->Vector3:
  return Vector3.ZERO if mode in ["shield_enter","shield","shield_exit"] or (is_attacking() and mode!="bazooka_charge" and hero.is_on_floor()) else Vector3.INF
 func reach_scale()->float:
  if not is_instance_valid(hero) or not is_instance_valid(game) or game.get("tuning")==null:return 1.0
- return hero.pickup_multiplier("range")*hero.melee_reach_setting()
+ return preload("res://scripts/weapon_proportions.gd").RECOVERED_SKILL_SCALE*hero.pickup_multiplier("range")*hero.melee_reach_setting()
 func melee_reach()->float:
  var reach=reach_scale()
- if not is_equal_approx(reach,cached_reach_scale) and is_instance_valid(hero.model):
+ if not is_equal_approx(reach,cached_reach_scale) and is_instance_valid(cast_model()):
   var maximum=0.0
   for attack in Profile.combo_actions():
    var source: Dictionary=Profile.data().collision_spheres[str(attack)]
    for frame in int(source.frame_count):
-    var pose: Dictionary=hero.model.sampler.sample_source(attack,float(frame)/(30.0*Profile.rate(attack)))
+    var pose: Dictionary=cast_model().sampler.sample_source(attack,float(frame)/(30.0*Profile.rate(attack)))
     var anchor: Vector3=pose["0x9007478"]*Vector3(0,15,0)
     for sphere in source.frames[frame]:
      var center=Vector3(sphere.center[0],sphere.center[1],sphere.center[2]);center=anchor+(center-anchor)*reach
-     maximum=maxf(maximum,(center.z+float(sphere.radius)*reach)*hero.model.source_scale)
+     maximum=maxf(maximum,(center.z+float(sphere.radius)*reach)*cast_model().source_scale)
   cached_reach_scale=reach;cached_melee_reach=maximum*.9
  return cached_melee_reach*hero.growth_multiplier()
 func finish_attack():
@@ -250,5 +257,5 @@ func cancel(_preserve_power: bool=false):
 func hit():cancel();mode="hurt";action_id=0x1d;elapsed=0
 func die():
  cancel();mode="dead";action_id=0x2d;elapsed=Profile.duration(action_id)
- if is_instance_valid(hero.model):hero.model.apply_native_pose(action_id,elapsed)
+ if is_instance_valid(cast_model()):cast_model().apply_native_pose(action_id,elapsed)
 func interrupt_for_dodge():cancel()

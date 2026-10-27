@@ -49,13 +49,14 @@ func run():
  var riposte_hits=ticks(70).filter(func(e):return e.kind=="melee" and e.source_id==-1)
  check(riposte_hits.size()>=2 and riposte_hits[0].amount==76 and riposte_hits[1].amount==42,"Only the first post-block primary consumes the original 1.8x rounded riposte")
  pair=guard_fixture();knight=pair[1]
- var inside:int=r.spawn(2,0,0,Vector3(6.5,0,8),10000,3.9)
+ # The hexagon's lower shoulder is narrower than its six-metre upper corner.
+ var inside:int=r.spawn(2,0,0,Vector3(6.2,0,8),10000,3.9)
  var outside:int=r.spawn(3,0,0,Vector3(9,0,8),10000,3.9)
  var behind:int=r.spawn(4,0,0,Vector3(0,0,-10),10000,3.9)
  var above:int=r.spawn(5,0,0,Vector3(0,10,8),10000,3.9)
  for h in [inside,outside,behind,above]:r.apply_hit(h,{"element":"ice","status_seconds":100.0})
  r.apply_hit(knight,{"amount":40.0,"direction":Vector3.FORWARD});r.take_events();var area=ticks(45)
- check(area.filter(func(e):return e.kind=="damage" and e.source_id==-1 and e.target_id==2).size()==3,"All three faces reach the inside edge of the six-metre shield")
+ check(area.filter(func(e):return e.kind=="damage" and e.source_id==-1 and e.target_id==2).size()==3,"All three faces reach a target inside the shield at soldier height")
  check([outside,behind,above].all(func(h):return r.unit_state(h).hp==10000),"Shield polygon rejects outside, rear and elevated victims")
  pair=guard_fixture();knight=pair[1]
  r.apply_hit(knight,{"amount":40.0,"direction":Vector3.FORWARD});r.take_events()

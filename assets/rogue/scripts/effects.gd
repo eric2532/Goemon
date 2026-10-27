@@ -263,7 +263,9 @@ func _sample_weapon_brush(attack: Variant, blades: Array, tint: Color, accelerat
 		_reserve_army_feedback("magic-brush")
 		var ribbon = preload("res://assets/rogue/scripts/magic_sword_brush.gd").new()
 		ribbon.name=("SamuraiSwordInkBrush" if crimson else "MagicSwordInkBrush") if legacy else "RosterSwordInkBrush"
-		if legacy:ribbon.material_override.set_shader_parameter("crimson",crimson)
+		if legacy:
+			ribbon.material_override.set_shader_parameter("crimson",crimson)
+			ribbon.material_override.set_shader_parameter("purple_energy",not crimson)
 		else:ribbon.material_override=preload("res://assets/rogue/scripts/ink_brush_style.gd").material(tint)
 		item = {}
 		item.cut_index=attack.index
@@ -672,7 +674,7 @@ func hurt() -> void:
 	shake = maxf(shake, 0.25)
 
 func _arrow_pool_key(kind:String,color:Color)->Array:
-	return [kind,color,reduced_flashes] if army_trails and kind in ["ranger-arrow","ranger-power-arrow","arrow","power-arrow","bow"] else []
+	return [kind,color,reduced_flashes] if not army_trails or kind in ["ranger-arrow","ranger-power-arrow","arrow","power-arrow","bow"] else []
 func recycle_projectile(node:Node3D)->void:
 	if node.get_meta("army_projectile_parked",false):return
 	if not is_inside_tree() or is_queued_for_deletion() or not node.has_meta("army_projectile_key"):
@@ -680,7 +682,7 @@ func recycle_projectile(node:Node3D)->void:
 	node.set_meta("army_projectile_generation",int(node.get_meta("army_projectile_generation",0))+1)
 	node.set_meta("army_projectile_parked",true)
 	node.hide();node.remove_from_group("rogue_projectiles")
-	if idle_arrow_count>=MAX_IDLE_ARROWS:
+	if idle_arrow_count>=(MAX_IDLE_ARROWS if army_trails else 64):
 		# A buff/palette change must be able to warm its own visuals even when
 		# the previous variant filled the budget. Keep the same total bound.
 		var oldest_key=idle_arrows.keys()[0]
@@ -705,6 +707,10 @@ func create_projectile(kind: String, color: Color = TEAL) -> Node3D:
 	var group: Node3D = Node3D.new()
 	group.name = "Projectile_" + kind
 	match kind:
+		"dragon":
+			var dragon=_dragon_mesh("DragoonHuntingDragon",1.0)
+			dragon.material_override.set_shader_parameter("hunting",true)
+			group.add_child(dragon)
 		"crimson-arrow":
 			var shaft = _mesh(_spear(1.8,.09,.09),color,.85)
 			shaft.position.z=-1.0;group.add_child(shaft)
@@ -765,19 +771,20 @@ func create_projectile(kind: String, color: Color = TEAL) -> Node3D:
 			var ink_materials: Array = []
 			for layer in range(2):
 				var blade = MeshInstance3D.new()
-				blade.mesh=_blade(2.35 if layer==0 else 2.12,.68 if layer==0 else .36,1.95,1,0)
+				blade.mesh=_blade(2.0 if layer==0 else 1.82,.9 if layer==0 else .44,2.8,1,0)
 				blade.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 				var ink = ShaderMaterial.new()
 				ink.shader=preload("res://assets/rogue/shaders/magic_ink_brush.gdshader")
+				ink.set_shader_parameter("purple_energy",true)
 				ink.set_shader_parameter("fade",1.0 if layer==0 else .4)
 				ink.set_shader_parameter("energy",(.42 if reduced_flashes else 1.15) if layer==0 else (.24 if reduced_flashes else .5))
 				blade.material_override=ink
 				ink_materials.append(ink)
-				# Canonical cutting edge lies in XY, centered on the projectile.
-				# Release supplies its world plane from the actual sword stroke.
-				blade.rotation.x=-PI/2
+				# Keep the convex rim ahead in +Z, with both pointed tips trailing.
 				var bounds: AABB=blade.mesh.get_aabb()
-				blade.position=Vector3(0,-bounds.get_center().z,.04 if layer==0 else -.12)
+				# Shorten and lift along the cut so both tips clear a ground release.
+				blade.scale.x=.45
+				blade.position=Vector3(.4,0 if layer==0 else -.035,-bounds.get_center().z-(0 if layer==0 else .12))
 				group.add_child(blade)
 			group.set_meta("ink_materials",ink_materials)
 		"fireball":
@@ -1122,25 +1129,27 @@ func dragon_descent(anchor:CharacterBody3D,angle:float,size:float=1.0,player_fac
 	return dragon
 
 func _pose_diving_dragon(dragon:Node3D,anchor:CharacterBody3D,angle:float,size:float,player_facing:bool=false)->void:
-	var direction:Vector3=anchor.velocity.normalized() if anchor.velocity.length_squared()>.01 else Vector3.DOWN
+	dragon.global_transform=diving_dragon_transform(anchor.global_position,anchor.velocity,angle,size,player_facing)
+
+static func diving_dragon_transform(at:Vector3,velocity:Vector3,angle:float,size:float,player_facing:bool=false)->Transform3D:
+	var direction:Vector3=velocity.normalized() if velocity.length_squared()>.01 else Vector3.DOWN
 	var forward=Vector3(sin(angle),0,cos(angle))
 	if player_facing:
 		# The mesh's +Y is head-up and +Z is muzzle-forward. Pitch its face
 		# toward the landing point while keeping the jaw and horns upright.
-		var pitch=clampf(atan2(maxf(0,-anchor.velocity.y),maxf(.01,anchor.velocity.dot(forward))),0,PI/6)
+		var pitch=clampf(atan2(maxf(0,-velocity.y),maxf(.01,velocity.dot(forward))),0,PI/6)
 		var up=Vector3.UP*cos(pitch)+forward*sin(pitch)
 		var muzzle=forward*cos(pitch)+Vector3.DOWN*sin(pitch)
 		var player_pose=Basis(up.cross(muzzle),up,muzzle).scaled(Vector3.ONE*size)
 		# Attach the body around Dragoon instead of anchoring the inverted horns.
-		dragon.global_transform=Transform3D(player_pose,anchor.global_position+Vector3.UP*.6-player_pose*Vector3(0,6,-.1))
-		return
+		return Transform3D(player_pose,at+Vector3.UP*.6-player_pose*Vector3(0,6,-.1))
 	var depth=forward-direction*forward.dot(direction)
 	if depth.length_squared()<.0001:depth=Vector3.UP-direction*Vector3.UP.dot(direction)
 	depth=depth.normalized()
 	var side=direction.cross(depth).normalized()
 	var pose=Basis(side,direction,side.cross(direction)).scaled(Vector3.ONE*size)
 	# Horns reach the spear tip; the curled tail streams upward behind the body.
-	dragon.global_transform=Transform3D(pose,anchor.global_position+Vector3.UP*.6-pose*Vector3(0,13.8,-.1))
+	return Transform3D(pose,at+Vector3.UP*.6-pose*Vector3(0,13.8,-.1))
 
 func finish_dragon_descent(dragon:Node3D)->void:
 	for i in range(items.size()-1,-1,-1):

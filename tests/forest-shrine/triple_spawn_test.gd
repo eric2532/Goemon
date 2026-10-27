@@ -17,7 +17,7 @@ func run():
 	var separated=true
 	for i in range(actors.size()):
 		for j in range(i):separated=separated and actors[i].pos.distance_to(actors[j].pos)>=8.15
-	check(actors.all(func(e):return m.waves.navigation.move_clear(e.pos,3.9)),"Fallback entries retain full enlarged footprint clearance inside the map edge")
+	check(actors.all(func(e):return m.waves.navigation.move_clear(e.pos,preload("res://scripts/forest/forest_enemy_roles.gd").footprint_radius(e.variant,m.balance.enemy_size_mult))),"Fallback entries retain full enlarged footprint clearance inside the map edge")
 	check(separated,"The three enlarged arrivals occupy separate southern entries without body overlap")
 	for e in actors:e.stun=100
 	m.waves.tick(.1,m.hero_position)
@@ -36,7 +36,7 @@ func run():
 	for x in range(-40,40):
 		for z in range(-40,40):m.visible_cells[Vector2i(x,z)]=true
 	m.waves.spawn_clock=0;var start=Time.get_ticks_msec();m.waves.tick(.001,m.hero_position)
-	check(m.enemies.is_empty() and m.waves.pending==360,"Fully watched entries defer the entire batch")
+	check(m.enemies.size()==3 and m.waves.pending==357,"Visible edge arrivals remain allowed with scouting removed")
 	check(Time.get_ticks_msec()-start<1000,"An unavailable batch returns after bounded retries")
 	m=fresh();m.phase="preparing";m.wave=0
 	for expected in [360,540,715,895,1195]:

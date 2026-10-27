@@ -44,7 +44,7 @@ func _ready():
 	body=Node3D.new();body.name="RecoveredLeaderBody";add_child(body)
 	var key="ed" if character_id==14 else "ben"
 	if character_id==15:hand_bones=[4,2]
-	rig_visual=load("res://assets/characters/recovered_leaders/%s/model.glb"%key).instantiate();body.add_child(rig_visual)
+	rig_visual=load(GameAssets.model_path("res://assets/characters/recovered_leaders/%s/model.glb"%key)).instantiate();body.add_child(rig_visual)
 	skeleton=rig_visual.find_child("Skeleton3D",true,false)
 	animation_player=rig_visual.find_child("AnimationPlayer",true,false)
 	assert(skeleton!=null and animation_player!=null,"Recovered leaders require their original part rig and motions")
@@ -76,8 +76,12 @@ func _placeholder(label_: String)->Node3D:
 func motion(key: String)->String:return str(clips.get(key,clips.get("source_00","")))
 func duration(key: String)->float:return animation_player.get_animation(motion(key)).length
 func _install_palette():
+	palette_materials=install_palette_for(rig_visual)
+
+static func install_palette_for(visual:Node)->Array:
+	var materials=[]
 	var cache={}
-	for mesh in rig_visual.find_children("*","MeshInstance3D",true,false):
+	for mesh in visual.find_children("*","MeshInstance3D",true,false):
 		for surface in mesh.mesh.get_surface_count():
 			var original=mesh.get_active_material(surface) as BaseMaterial3D
 			if original==null:continue
@@ -86,8 +90,9 @@ func _install_palette():
 				material.set_shader_parameter("tint_color",original.albedo_color)
 				material.set_shader_parameter("textured",original.albedo_texture!=null)
 				if original.albedo_texture!=null:material.set_shader_parameter("albedo_texture",original.albedo_texture)
-				cache[original]=material;palette_materials.append(material)
+				cache[original]=material;materials.append(material)
 			mesh.set_surface_override_material(surface,cache[original])
+	return materials
 func _sync_palette():
 	var env=get_world_3d().environment;var settings=Vector3(0,1,1)
 	if env!=null:settings=Vector3(1 if env.tonemap_mode==Environment.TONE_MAPPER_FILMIC else 0,env.tonemap_exposure,env.tonemap_white)
@@ -282,7 +287,7 @@ func animate(delta: float,speed: float,grounded: bool,vertical: float,_attack: f
 	if is_instance_valid(sword_trail):
 		var transform=skeleton.global_transform*skeleton.get_bone_global_pose(skeleton.find_bone("Part_11"))
 		var segment=PackedVector3Array([transform*Vector3(.16,.01,.92),transform*Vector3(-.027,.01,1.56)])
-		sword_trail.advance(delta,segment,is_instance_valid(combat) and combat.blade_active(),false)
+		sword_trail.advance(delta,segment,is_instance_valid(combat) and combat.blade_active(),true)
 func hand_position(side: String="R")->Vector3:
 	var index=skeleton.find_bone("Part_%02d"%hand_bones[0 if side=="R" else 1])
 	return (skeleton.global_transform*skeleton.get_bone_global_pose(index)).origin if index>=0 else global_position+Vector3.UP*1.2

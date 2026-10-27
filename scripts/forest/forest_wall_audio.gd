@@ -15,6 +15,7 @@ func _ready():
 	name="WallCrackingAudio";process_mode=Node.PROCESS_MODE_PAUSABLE
 	for i in MAX_VOICES:
 		var voice=AudioStreamPlayer3D.new();voice.stream=CRACK
+		voice.bus=&"SFX"
 		voice.max_distance=AUDIBLE_DISTANCE;voice.unit_size=12.0;voice.max_polyphony=1
 		add_child(voice);voices.append(voice)
 func _process(delta:float):

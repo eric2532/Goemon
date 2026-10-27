@@ -8,7 +8,7 @@ func _ready():
 	sidebar.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT);sidebar.offset_left=-468;sidebar.offset_right=-48
 	game.label_at(sidebar,"CAMERA & HUD",Vector2(0,200),30,Color("f4d38b"))
 	var panel=PanelContainer.new();panel.position=Vector2(0,250);panel.size=Vector2(420,460)
-	var box=StyleBoxFlat.new();box.bg_color=Color("102b37");box.set_corner_radius_all(12)
+	var box=StyleBoxFlat.new();box.bg_color=Color(.16,.045,.09,.95);box.set_corner_radius_all(12)
 	for side in [SIDE_LEFT,SIDE_TOP,SIDE_RIGHT,SIDE_BOTTOM]:box.set_content_margin(side,22)
 	panel.add_theme_stylebox_override("panel",box);sidebar.add_child(panel)
 	var column=VBoxContainer.new();column.add_theme_constant_override("separation",10);panel.add_child(column)

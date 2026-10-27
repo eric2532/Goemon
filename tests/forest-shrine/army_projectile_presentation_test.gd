@@ -120,7 +120,7 @@ func run():
   check(unpooled.mesh.is_queued_for_deletion(),"Unpooled native projectile retires normally: "+unpooled_kind)
  fx.army_trails=false
  var human=make_projectile("arrow",false);probe.projectiles=[human];probe._clear_projectiles();fx.army_trails=true
- check(human.mesh.is_queued_for_deletion(),"Human arrows keep their existing destruction lifecycle")
+ check(not human.mesh.visible and human.mesh.get_meta("army_projectile_parked",false) and not human.mesh.is_in_group("rogue_projectiles"),"Human arrows share reusable retirement without remaining discoverable as live shots")
  check(fx.has_method("recycle_projectile"),"Army arrow visuals can retire without reallocating their native meshes on every volley")
  if fx.has_method("recycle_projectile"):
   var retired=make_projectile("arrow",true);Actions.update_projectile(probe,retired,1.0/60)
@@ -132,6 +132,8 @@ func run():
   reused.position=Vector3(77,8,9);var current=reused.transform
   probe.projectiles=[retired];probe._present_projectiles()
   check(reused.transform==current,"An old flight cannot overwrite a recycled arrow's new pose")
+  preload("res://assets/rogue/scripts/projectile_presentation.gd").release(retired)
+  check(reused.visible and not reused.get_meta("army_projectile_parked"),"An obsolete flight cannot retire a new projectile lease")
   probe.projectiles.clear();fx.recycle_projectile(reused)
   var separate=[]
   for i in 24:

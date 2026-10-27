@@ -19,7 +19,7 @@ var struck: Dictionary={}
 func _init(player):hero=player
 
 func start()->bool:
-	if hero.character_id!=1 or (hero.dodge_cooldown>0 and not hero.attack_chain.unleashed()):return false
+	if hero.dodge_cooldown>0 and not hero.attack_chain.unleashed():return false
 	hero.cancel_charge(false,hero.game.rogue_battle_mode)
 	hero.attack_left=0;hero.heavy_buffer=0;hero.combo=0;hero.queued=false;hero.impact_pause=0
 	hero.reset_wall_jump()
@@ -33,7 +33,7 @@ func start()->bool:
 	hero.game.wind(hero.global_position+Vector3.UP*.8,-direction)
 	if hero.attack_chain.unleashed():
 		var from=hero.global_position
-		var motion=direction*SPEED*DURATION*hero.growth_multiplier()
+		var motion=direction*SPEED*DURATION*hero.growth_multiplier()*hero.skill_factor(attack_ticket,"travel_speed")
 		for i in range(4):
 			var collision=hero.move_and_collide(motion)
 			if collision==null:break
@@ -46,7 +46,7 @@ func after_move(origin: Vector3,delta: float):
 	if not active:return
 	# Sweep only the distance actually travelled by the collision-aware body.
 	var end=hero.global_position
-	BreakableBuilding.hit_area(hero.game,end+Vector3.UP*hero.growth_multiplier(),1.2*hero.growth_multiplier(),DAMAGE*hero.damage_multiplier(),attack_ticket,direction,-.2,struck)
+	BreakableBuilding.hit_area(hero.game,end+Vector3.UP*hero.growth_multiplier(),1.2*hero.growth_multiplier()*hero.skill_factor(attack_ticket,"hit_area"),DAMAGE*hero.damage_multiplier(),attack_ticket,direction,-.2,struck)
 	for enemy in hero.game.enemies:
 		if not is_instance_valid(enemy) or enemy.dead or struck.has(enemy.get_instance_id()):continue
 		var center=AttackChain.contact_point(enemy,end+Vector3.UP,enemy.global_position)
@@ -54,7 +54,7 @@ func after_move(origin: Vector3,delta: float):
 		var offset=center-nearest
 		if absf(offset.y)>2.0:continue
 		offset.y=0
-		if offset.length()>.85*hero.growth_multiplier()+enemy.body_radius:continue
+		if offset.length()>.85*hero.growth_multiplier()*hero.skill_factor(attack_ticket,"hit_area")+enemy.body_radius:continue
 		var ray=PhysicsRayQueryParameters3D.create(nearest+Vector3.UP,center+Vector3.UP,1)
 		if not hero.get_world_3d().direct_space_state.intersect_ray(ray).is_empty():continue
 		struck[enemy.get_instance_id()]=true

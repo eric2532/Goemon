@@ -1,0 +1,45 @@
+{
+  "name": "Skullpion",
+  "source": "raw/SC03.CD.dir/FILE_028.dir/0.4.dec",
+  "source_base": "0x80128158",
+  "source_sha256": "aabefa6c93b0a3d15df0bdada079baa0c38c642254a1039b276475075d65b706",
+  "parts": [
+    {
+      "node": 1,
+      "name": "Impact_00",
+      "group": "Impact",
+      "index": 0,
+      "model": "model_41a55f29e0b9236223a5",
+      "source_address": "0x801e2500",
+      "source_glb": "converted/models/glb/model_41a55f29e0b9236223a5.glb",
+      "source_glb_sha256": "5c3c9389327a8038ecea34367db210b4317f1b5ebd255ab64d30f2bf0d4a03f2",
+      "source_tmd": "converted/models/tmd/4418adc904f74c26ba6c.tmd",
+      "source_tmd_sha256": "4418adc904f74c26ba6c0e43bfcdb8222121c337aafa2a96b1354120f62c2e9f",
+      "texture_coverage": {
+        "resolved_texture_polygons": 0,
+        "partial_texture_polygons": 0,
+        "unresolved_texture_polygons": 0
+      }
+    }
+  ],
+  "groups": [
+    {
+      "name": "Impact",
+      "nodes": [
+        1
+      ],
+      "list_address": "0x801e2b98",
+      "count": 1
+    }
+  ],
+  "clips": [],
+  "poses": {},
+  "fps": 30,
+  "scale": 0.01,
+  "notes": [
+    "1 original rigid mesh parts; flat nodes preserve actor-space poses and indices convert PSX winding.",
+    "Source stream addresses are authoritative; zero hold is externally released and previewed for one tick.",
+    "Nominal 30 Hz preview; root travel, effects and encounter logic are separate runtime code."
+  ],
+  "glb_sha256": "0a25df245ebe1f210c68a7352d691f8b6063a5403c23c67a2d245a855ea0cd8c"
+}

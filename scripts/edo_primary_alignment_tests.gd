@@ -57,6 +57,7 @@ func run():
 	game.set_physics_process(false)
 	game.player.set_physics_process(false)
 	game.child_entered_tree.connect(capture_projectile)
+	preload("res://scripts/character_projectile_pool.gd").service(game).launched.connect(capture_projectile)
 	await frames(2)
 	for rate in [30, 60, 120]:
 		for moving in [false, true]:

@@ -1,19 +1,18 @@
-extends Node3D
+extends "res://scripts/character_projectile.gd"
 ## Source bazooka missile with fitted swept contacts and native capped acceleration.
 const Profile=preload("res://scripts/recovered_yae_combat_profile.gd")
-var game: Node
-var hero: Hero
+var visual_source:Node3D
 var kind="bazooka"
 var velocity=Vector3.ZERO
 var native_acceleration=Vector3.ZERO
 var damage=42.0
 var damage_scale=1.0
+var visual_scale=1.0
 var hit_radius=.18
 var blast_radius=1.25
 var lifetime=3.0
 var age=0.0
 var resolved=false
-var attack_ticket: Dictionary={}
 var hit_targets: Dictionary={}
 var ornament: Node3D
 var target: WeakRef
@@ -23,13 +22,17 @@ var source_scale=.01515809
 func _ready():
  add_to_group("yae_projectiles")
  if kind=="lock_on":damage=32.0
- if is_instance_valid(hero) and is_instance_valid(hero.model) and hero.model.has_method("create_projectile_visual"):
-  ornament=hero.model.create_projectile_visual(kind)
+ var model=visual_source if is_instance_valid(visual_source) else hero.model
+ if is_instance_valid(model) and model.has_method("create_projectile_visual"):
+  ornament=model.create_projectile_visual(kind)
   if ornament:add_child(ornament)
+ _update_visual()
+func restart_visual():
+ if is_instance_valid(ornament):ornament.rotation=Vector3.ZERO;ornament.scale=Vector3.ONE*visual_scale
  _update_visual()
 func _physics_process(delta: float):
  if resolved or is_queued_for_deletion():return
- if not is_instance_valid(game) or not is_instance_valid(hero) or not game.playing:queue_free();return
+ if not is_instance_valid(game) or not is_instance_valid(hero) or not game.playing:retire();return
  if game.paused:return
  var step=minf(delta,maxf(lifetime,0))
  var from=global_position
@@ -45,26 +48,16 @@ func _physics_process(delta: float):
   velocity=(velocity+native_acceleration*step).limit_length(speed)
  var next=from+velocity*step
  age+=step;lifetime-=step
- var ray=PhysicsRayQueryParameters3D.create(from,next,1);ray.hit_from_inside=true
- var wall=get_world_3d().direct_space_state.intersect_ray(ray)
+ var wall=AttackChain.world_ray(self,from,next)
  var end: Vector3=next if wall.is_empty() else wall.position
- var nearest: Ninja=null;var nearest_t=INF;var point=Vector3.ZERO
- for enemy in game.enemies:
-  if not is_instance_valid(enemy) or enemy.dead or hit_targets.has(enemy.get_instance_id()):continue
-  var hit=AttackChain.segment_contact(enemy,from,end,hit_radius)
-  if hit.is_empty() or float(hit.t)>=nearest_t:continue
-  var center=from.lerp(end,float(hit.t))
-  if not _clear(center,AttackChain.aim_point(enemy,center)):continue
-  nearest=enemy;nearest_t=float(hit.t);point=center
- if nearest!=null:global_position=point;explode(point);return
+ var contact=AttackChain.nearest_contact(game,self,from,end,hit_radius,hit_targets)
+ if not contact.is_empty():global_position=contact.center;explode(contact.center);return
  if not wall.is_empty():global_position=wall.position+wall.normal*.025;explode(global_position);return
  global_position=next
- if lifetime<=0:queue_free();return
+ if lifetime<=0:retire();return
  _update_visual()
 func _clear(from: Vector3,to: Vector3)->bool:
- if from.distance_squared_to(to)<.000001:return true
- var ray=PhysicsRayQueryParameters3D.create(from,to,1);ray.hit_from_inside=true
- return get_world_3d().direct_space_state.intersect_ray(ray).is_empty()
+ return AttackChain.clear_line(self,from,to)
 func _damage(enemy: Ninja,point: Vector3):
  if hit_targets.has(enemy.get_instance_id()):return
  hit_targets[enemy.get_instance_id()]=true
@@ -78,14 +71,14 @@ func _damage(enemy: Ninja,point: Vector3):
 func explode(point: Vector3):
  if resolved:return
  global_position=point
- for enemy in game.enemies:
+ for enemy in AttackChain.enemy_candidates(game,point,blast_radius):
   if not is_instance_valid(enemy) or enemy.dead or hit_targets.has(enemy.get_instance_id()):continue
   var hit=AttackChain.segment_contact(enemy,point,point,blast_radius)
   if hit.is_empty():continue
   var contact: Vector3=hit.point
   if _clear(point,contact):_damage(enemy,contact)
- resolved=true;game.burst(point,Color("ffd874"),22,1.0)
- queue_free()
+ resolved=true;game.burst(point,Color("ffd874"),22,visual_scale)
+ retire()
 func _update_visual():
  if not is_instance_valid(ornament):return
  if velocity.length_squared()>.001:ornament.quaternion=Quaternion(Vector3.FORWARD,velocity.normalized())

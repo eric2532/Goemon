@@ -2,7 +2,8 @@ extends SceneTree
 ## Bake STEP source poses once. Runtime crowds use shared GPU palettes, with
 ## no per-enemy AnimationPlayer, Skeleton3D, or repeated terrain fitting.
 const DIR="res://assets/characters/thirstquencher/"
-const SCALE=5.4
+const MODELS="res://assets/models/enemies/thirstquencher/"
+const SCALE=preload("res://scripts/forest/forest_thirstquencher_visual.gd").SCALE
 var texture_cache={}
 func _initialize():run.call_deferred()
 func blank_arrays()->Array:
@@ -24,7 +25,9 @@ func run():
  for variant in manifest.variants:await bake(variant)
  print("THIRSTQUENCHER_BAKE_COMPLETE");quit()
 func bake(variant:Dictionary):
- var scene=load(variant.glb).instantiate();root.add_child(scene)
+ var visual_source=MODELS+"soldier_%d.glb"%int(variant.id)
+ var visual_model=GameAssets.model_path(visual_source)
+ var scene=load(visual_model).instantiate();root.add_child(scene)
  var skeleton:Skeleton3D=scene.find_child("Skeleton3D",true,false)
  var player:AnimationPlayer=scene.find_child("AnimationPlayer",true,false)
  player.callback_mode_process=AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
@@ -95,6 +98,8 @@ func bake(variant:Dictionary):
  data.set_meta("mesh",merged);data.set_meta("poses",poses);data.set_meta("pose_texture",ImageTexture.create_from_image(image))
  data.set_meta("clips",clips);data.set_meta("semantics",variant.semantics);data.set_meta("bounds",bounds)
  data.set_meta("part_bounds",part_bounds);data.set_meta("source_sha256",manifest_sha());data.set_meta("scale",SCALE)
+ data.set_meta("visual_source",visual_source);data.set_meta("visual_sha256",FileAccess.get_sha256(visual_source))
+ data.set_meta("visual_model",visual_model);data.set_meta("visual_model_sha256",FileAccess.get_sha256(visual_model))
  var output=DIR+"soldier_%d_runtime.res"%int(variant.id)
  assert(ResourceSaver.save(data,output,ResourceSaver.FLAG_COMPRESS)==OK)
  print("SOLDIER_BAKE variant=",variant.id," parts=11 clips=",clips.size()," poses=",rows.size()," surfaces=",merged.get_surface_count()," bounds=",bounds)

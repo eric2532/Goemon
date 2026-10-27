@@ -6,6 +6,7 @@ extends RefCounted
 const ROOT := "res://assets/characters/recovered_goemon/weapons/"
 const GOLD_LINEAR_SHADER := preload("res://assets/characters/recovered_goemon/weapons/gold_pipe_linear.gdshader")
 static var _data: Dictionary = {}
+static var _coin_meshes:Dictionary={}
 
 static func data() -> Dictionary:
 	if _data.is_empty():
@@ -101,9 +102,28 @@ static func install_chain(model: Node3D) -> void:
 	grip.free();tip.free();link.free()
 	chain.set_meta("rom_chain_installed", true)
 
-static func create_coin() -> Node3D:
+static func warmup_coins():
+	for flaming in [false,true]:
+		var coin=create_coin(flaming);coin.free()
+
+static func create_coin(flaming:bool=false) -> Node3D:
 	var node := Node3D.new()
 	node.name = "OriginalROMCoin"
+	if _coin_meshes.has(flaming):
+		var instance=MeshInstance3D.new();instance.mesh=_coin_meshes[flaming];node.add_child(instance)
+		return node
+	if flaming:
+		var normal=create_coin();var size:Vector3=normal.get_child(0).mesh.get_aabb().size;normal.free()
+		var mesh=QuadMesh.new();mesh.size=Vector2(size.x,size.y)
+		var material=StandardMaterial3D.new()
+		material.albedo_texture=preload("res://assets/ui/rom_weapons/goemon_flaming_ryo.png")
+		material.billboard_mode=BaseMaterial3D.BILLBOARD_ENABLED
+		material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
+		material.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA
+		material.texture_filter=BaseMaterial3D.TEXTURE_FILTER_NEAREST
+		mesh.material=material;_coin_meshes[true]=mesh
+		var instance=MeshInstance3D.new();instance.mesh=mesh;node.add_child(instance)
+		return node
 	var part := create_part("coin_projectile_plane", 0.01)
 	# Native coin plane has X=0. A quarter turn places it on a billboard's XY plane.
 	var baked := ArrayMesh.new()
@@ -128,5 +148,6 @@ static func create_coin() -> Node3D:
 			material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 			material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 			material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR
+	_coin_meshes[false]=part.mesh
 	node.add_child(part)
 	return node

@@ -33,24 +33,9 @@ const FILES={
 	"move_chain_fire_voice":["chain_voice_a","chain_voice_b","chain_voice_c"],
 	"move_surge_weapon":["golden_weapon"], "move_surge_voice":["golden_voice"]
 }
-static var cache={}
-static func stream_for(slot: String)->AudioStream:
-	if not FILES.has(slot):return null
-	if not cache.has(slot):
-		var files: Array=FILES[slot]
-		if files.size()==1:cache[slot]=load(ROOT+files[0]+".wav")
-		else:
-			var variants=AudioStreamRandomizer.new()
-			variants.random_pitch=1.0;variants.random_volume_offset_db=0
-			# RANDOM permits repeats, matching the original random table. Duplicate
-			# entries preserve the jump table's 1:2 weighting.
-			variants.playback_mode=AudioStreamRandomizer.PLAYBACK_RANDOM
-			for file in files:variants.add_stream(-1,load(ROOT+file+".wav"),1.0)
-			cache[slot]=variants
-	return cache[slot]
+static func stream_for(slot:String)->AudioStream:
+	return preload("res://scripts/character_audio_bank.gd").event(ROOT,FILES,slot)
 
-# Call only after confirmed charged-coin contact. The victim's 24F impact remains
-# separate; the original projectile callback emits this additional 29A once.
 static func charged_coin_contact(coin: Node):
 	if not coin.get_meta("original_goemon_coin",false) or not coin.get_meta("original_goemon_charged_coin",false):return
 	if coin.get_meta("original_goemon_charged_burst_played",false):return

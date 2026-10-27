@@ -23,7 +23,8 @@ static func profile(unit,baseline:Dictionary)->Dictionary:
  c.aim=Vector3.BACK*10
  for sample in 6:
   if unit.kit_id==10:c.player.rangerShots=sample
-  c.Actions.begin_attack(c,c.Actions.primary_config(c,sample%3),sample%3)
+  var index=sample%c.Actions.primary_count(c.class_id)
+  c.Actions.begin_attack(c,c.Actions.primary_config(c,index),index)
   var a:Dictionary=c.player.attack;var attack={}
   for field in ["duration","contact","damage","reach","arc","stop","weaponContact","swingSide","style"]:
    if a.has(field):attack[field]=a[field]

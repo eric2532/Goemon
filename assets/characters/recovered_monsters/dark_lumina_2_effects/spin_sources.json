@@ -1,0 +1,253 @@
+{
+  "module": "raw/SC07.CD.dir/FILE_003.dir/1.1",
+  "module_sha256": "ae19b0dd1367efe1b066e86efb7a0be4adade784541c4eea1938ea56618d5cd9",
+  "overlay": "raw/SC07.CD.dir/FILE_002.dir/0.4.dec",
+  "overlay_sha256": "040feb433a45fa577df3f8d67481894ab95b0274f38ced62bb372e14dd4fce17",
+  "instructions": {
+    "0x801a6b68": "0x801a13a0",
+    "0x801a6b6c": "0x801a143c",
+    "0x801a13e0": "0x24a51898",
+    "0x801a13f8": "0x24a51978",
+    "0x801a1410": "0x24040b56",
+    "0x801a1484": "0x31900",
+    "0x801a14c0": "0x31900",
+    "0x801a081c": "0x24040b53",
+    "0x801a07d8": "0x2402000f",
+    "0x801a07e0": "0x24020035"
+  },
+  "walk": {
+    "handler": "801a079c",
+    "sound": "0xb53",
+    "ticks": [
+      15,
+      53
+    ],
+    "period": 80
+  },
+  "spin": {
+    "initializer": "801a13a0",
+    "handler": "801a143c",
+    "clips": [
+      "Source__801f1898",
+      "Source__801f1978"
+    ],
+    "sound": "0xb56",
+    "windup_tick": 4,
+    "windup_angle": -112,
+    "active_ticks": [
+      7,
+      25
+    ],
+    "angle_per_tick": 240,
+    "particles_per_tick": 8,
+    "debris_per_tick": 1,
+    "debris_actor": "0x376"
+  },
+  "debris": {
+    "handler": "80183a70",
+    "renderer": "80183fe0",
+    "frames": 32,
+    "depth": 8,
+    "clut": 30720,
+    "rects": [
+      [
+        320,
+        0,
+        16,
+        32
+      ],
+      [
+        352,
+        0,
+        16,
+        32
+      ],
+      [
+        384,
+        0,
+        16,
+        32
+      ],
+      [
+        416,
+        0,
+        16,
+        32
+      ],
+      [
+        320,
+        32,
+        16,
+        32
+      ],
+      [
+        352,
+        32,
+        16,
+        32
+      ],
+      [
+        384,
+        32,
+        16,
+        32
+      ],
+      [
+        416,
+        32,
+        16,
+        32
+      ],
+      [
+        320,
+        64,
+        16,
+        32
+      ],
+      [
+        352,
+        64,
+        16,
+        32
+      ],
+      [
+        384,
+        64,
+        16,
+        32
+      ],
+      [
+        416,
+        64,
+        16,
+        32
+      ],
+      [
+        320,
+        96,
+        16,
+        32
+      ],
+      [
+        352,
+        96,
+        16,
+        32
+      ],
+      [
+        384,
+        96,
+        16,
+        32
+      ],
+      [
+        416,
+        96,
+        16,
+        32
+      ],
+      [
+        320,
+        128,
+        16,
+        32
+      ],
+      [
+        352,
+        128,
+        16,
+        32
+      ],
+      [
+        384,
+        128,
+        16,
+        32
+      ],
+      [
+        416,
+        128,
+        16,
+        32
+      ],
+      [
+        320,
+        160,
+        16,
+        32
+      ],
+      [
+        352,
+        160,
+        16,
+        32
+      ],
+      [
+        384,
+        160,
+        16,
+        32
+      ],
+      [
+        416,
+        160,
+        16,
+        32
+      ],
+      [
+        320,
+        192,
+        16,
+        32
+      ],
+      [
+        352,
+        192,
+        16,
+        32
+      ],
+      [
+        384,
+        192,
+        16,
+        32
+      ],
+      [
+        416,
+        192,
+        16,
+        32
+      ],
+      [
+        320,
+        224,
+        16,
+        32
+      ],
+      [
+        352,
+        224,
+        16,
+        32
+      ],
+      [
+        384,
+        224,
+        16,
+        32
+      ],
+      [
+        416,
+        224,
+        16,
+        32
+      ]
+    ],
+    "rgba_sha256": "499d78d5f470b2856f163f9f3faa8bd7d71fb29462810c8c3003b9b49dcc134f"
+  },
+  "notes": [
+    "Spin is selected from close-range states, not a hit reaction. B56 layers were previously labelled hurt.",
+    "The two spin actions already exist in the immutable recovery and editable Blender master. Rotation is actor yaw, not missing skeletal keys.",
+    "801F1FD8 is a reduced-part walking stream, not the breakup. Keep the full-body 801F01F0 walk for the full 19-part Goemon actor."
+  ]
+}

@@ -21,8 +21,8 @@ func _ready():
 	effects.apply_quality(int(game.settings.quality))
 func load_source_resources():
 	# Populate ResourceLoader's shared cache before combat begins.
-	if bullet_scene==null:bullet_scene=load(SOLDIER_DIR+"bullet.glb")
-	if casing_scene==null:casing_scene=load(SOLDIER_DIR+"casing.glb")
+	if bullet_scene==null:bullet_scene=load(GameAssets.model_path(SOLDIER_DIR+"bullet.glb"))
+	if casing_scene==null:casing_scene=load(GameAssets.model_path(SOLDIER_DIR+"casing.glb"))
 	if gunshot==null:gunshot=load(SOLDIER_DIR+"gunshot_43a.wav")
 
 func launch(event: Dictionary):
@@ -93,7 +93,7 @@ func _source_count()->int:
 
 func _source_bullet(event:Dictionary):
 	if visuals.has(event.id) or _source_count()>=MAX_SOURCE_BULLETS:return
-	if bullet_scene==null:bullet_scene=load(SOLDIER_DIR+"bullet.glb")
+	if bullet_scene==null:bullet_scene=load(GameAssets.model_path(SOLDIER_DIR+"bullet.glb"))
 	if bullet_scene==null:return
 	var node=Node3D.new();node.name="ThirstquencherBullet";add_child(node)
 	var model=bullet_scene.instantiate();node.add_child(model);model.scale=Vector3.ONE*SoldierVisual.SCALE
@@ -121,7 +121,7 @@ func play_gunshot(point:Vector3):
 
 func _source_casing(event:Dictionary):
 	if casings.size()>=MAX_CASINGS:return
-	if casing_scene==null:casing_scene=load(SOLDIER_DIR+"casing.glb")
+	if casing_scene==null:casing_scene=load(GameAssets.model_path(SOLDIER_DIR+"casing.glb"))
 	if casing_scene==null:return
 	var node=Node3D.new();node.name="ThirstquencherCasing";add_child(node)
 	var model=casing_scene.instantiate();node.add_child(model);model.scale=Vector3.ONE*SoldierVisual.SCALE;model.rotation.y=PI

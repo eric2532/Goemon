@@ -21,7 +21,7 @@ func check(ok:bool,label_:String):
 func frames():
 	for i in 3:await process_frame
 func run():
-	var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original()
+	var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original()
 	set_meta("forest_custom_layout",doc.data);
 	game=CountedGame.new();game.settings_path=cfg;root.add_child(game);current_scene=game
 	await frames();AudioServer.set_bus_mute(0,true)

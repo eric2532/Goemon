@@ -23,7 +23,6 @@ func setup():
 	game.start_wave();game.model.waves.pending=0;game.model.waves.spawn_clock=100000
 	game.set_physics_process(false);game.player.set_physics_process(false);game.crowd.set_process(false);game.camera_rig.set_process(false)
 	game.player.select_character(11);game.tuning.critical_chance=0.0
-	game.training_dummy.set_physics_process(false);game.training_dummy.hide();game.enemies.erase(game.training_dummy)
 	var floor_=StaticBody3D.new();floor_.collision_layer=1;floor_.collision_mask=0
 	var collision=CollisionShape3D.new();var box=BoxShape3D.new();box.size=Vector3(470,1,470);collision.shape=box;floor_.add_child(collision)
 	game.add_child(floor_);floor_.position=Vector3(0,-.5,0)

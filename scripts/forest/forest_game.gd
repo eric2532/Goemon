@@ -13,10 +13,10 @@ const PREPARATION_ZOOM_STEP=1.15
 const PREPARATION_ZOOM_MIN=20.0
 @export var launch_to_title=false
 var model
-var gate_defenders
 var explorer_helpers
 var army_runtime:Node
 var forest_ui
+var team_upgrade_picker:Control
 var build_kind=""
 var build_rotation=0
 var placement_hint="Click to place"
@@ -26,6 +26,8 @@ var _placement_cache_until=0
 var pan=Vector3.ZERO
 var preparation_size=120.0
 var actors: Dictionary={}
+var enemy_objectives:Array=[]
+var enemy_objective_targets:Array=[]
 var training_dummy: Ninja
 var last_phase=""
 var model_tick_serial=0
@@ -67,9 +69,11 @@ func _ready():
 	selected_rogue_id=int(get_tree().get_meta("forest_fighter",1))
 	if selected_rogue_id not in player.RogueRoster.selection_ids():selected_rogue_id=1
 	get_tree().set_meta("forest_fighter",selected_rogue_id)
+	player.team_progression=model.team_progression
 	player.select_character(selected_rogue_id);player.progression.reset(false);player.refresh_max_health();player.hp=player.max_hp;player.soft_target=false
 	checkpoint=player.position
 	camera_rig=ActionCamera.new();camera_rig.game=self;camera_rig.player=player;add_child(camera_rig)
+	prepare_coin_projectiles()
 	camera_rig.sens=settings.sensitivity
 	camera_rig.pitch=COMBAT_CAMERA_PITCH;camera_rig.distance=settings.forest_camera_distance
 	camera_rig.character_screen_offset=settings.forest_character_screen_offset
@@ -77,6 +81,7 @@ func _ready():
 	camera_rig.travel_follow.forward_buffer=0.0
 	wall_audio=preload("res://scripts/forest/forest_wall_audio.gd").new();wall_audio.game=self;add_child(wall_audio)
 	placement_audio=preload("res://scripts/forest/forest_placement_audio.gd").new();placement_audio.game=self;add_child(placement_audio)
+	world.worker_hammered.connect(placement_audio.play_work)
 	rogue_view=preload("res://scripts/forest/forest_view.gd").new();rogue_view.game=self;add_child(rogue_view)
 	rogue_feedback=preload("res://scripts/rogue_battle_feedback.gd").new();rogue_feedback.game=self;add_child(rogue_feedback)
 	crowd=preload("res://scripts/forest/forest_enemy_crowd.gd").new()
@@ -85,13 +90,12 @@ func _ready():
 	if not army_runtime.setup(self):get_tree().quit(1);return
 	# Build fitted collision hulls during scene loading, before combat. Their
 	# first use otherwise blocks a spawn frame while generating convex meshes.
-	for kind in range(EnemyRoles.COUNT):EnemyContact.shapes(kind)
+	for kind in CoreBalance.TYPES:EnemyContact.shapes(kind)
 	encounters=EndlessEncounters.new();encounters.game=self;encounters.enabled=false;add_child(encounters)
 	ui=CanvasLayer.new();add_child(ui)
 	forest_ui=preload("res://scripts/forest/forest_ui.gd").new();forest_ui.game=self;ui.add_child(forest_ui)
 	map_editor=preload("res://scripts/forest/forest_map_editor.gd").new();map_editor.game=self;ui.add_child(map_editor)
 	playing=not launch_to_title;won=false;Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
-	gate_defenders=preload("res://scripts/forest/forest_gate_defenders.gd").new();gate_defenders.game=self;add_child(gate_defenders)
 	explorer_helpers=preload("res://scripts/forest/explorer_helpers.gd").new();explorer_helpers.name="ExplorerHelpers";explorer_helpers.game=self;add_child(explorer_helpers)
 	rogue_view.set_enabled(false);rogue_feedback.set_enabled(false);set_phase_view()
 	if launch_to_title:show_title()
@@ -145,7 +149,6 @@ func set_phase_view():
 		if model.phase=="preparing":explorer_helpers.rest()
 		elif model.phase=="wave":explorer_helpers.begin_wave()
 		elif model.phase!="wave":explorer_helpers.clear()
-	if is_instance_valid(gate_defenders):gate_defenders.reconcile(model.phase=="preparing")
 	if is_instance_valid(explorer_helpers):explorer_helpers.sync_targets()
 	if model.phase!="wave" and is_instance_valid(tower_arrows):tower_arrows.clear()
 	last_phase=model.phase;build_kind="";wall_start=Vector2i(-999,-999);ordinary_pause=false
@@ -179,18 +182,22 @@ func set_phase_view():
 		camera_rig.distance=settings.forest_camera_distance
 		camera_rig.reset_follow();camera_rig.current_distance=camera_rig.distance;camera_rig._process(0)
 	elif model.phase=="victory":
-		won=true;forest_ui.show_overlay("THE SHRINE ENDURES","%d waves survived. The forest is yours."%model.balance.waves.size(),false)
+		for target in enemy_objectives:
+			if not target.castle_ruins.is_empty():target.castle_ruins.collapse.process_mode=Node.PROCESS_MODE_ALWAYS
+		won=true;forest_ui.show_overlay("VALLEY LIBERATED" if model.terrain_source=="wind_meadow" else "ENEMY CASTLE FALLEN" if model.enemy_camps_prototype else "THE SHRINE ENDURES",("All enemy castles destroyed." if model.has_enemy_castles() else "All four enemy barracks destroyed.") if model.terrain_source=="wind_meadow" else "All camps and the enemy statue destroyed." if model.enemy_camps_prototype else "%d waves survived. The forest is yours."%model.balance.waves.size(),false)
 	else:forest_ui.show_overlay("THE SHRINE HAS FALLEN","Wave %d · Gather your strength and try again."%model.wave,false)
-	sync_training_dummy();world.update_fog();forest_ui.sync()
+	sync_training_dummy()
+	for target in enemy_objective_targets:
+		if not target.dead and not enemies.has(target):enemies.append(target)
+	world.update_fog();forest_ui.sync()
 func sync_training_dummy():
-	if not is_instance_valid(training_dummy):
-		training_dummy=preload("res://scripts/forest/forest_training_dummy.gd").new()
-		training_dummy.name="TrainingDummy";training_dummy.game=self;training_dummy.position=model.point(model.TRAINING_DUMMY_CELL)
-		training_dummy.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(training_dummy)
+	if not is_instance_valid(training_dummy):return
 	if not enemies.has(training_dummy):enemies.append(training_dummy)
 	training_dummy.visible=playing and model.phase in ["preparing","wave"] and model.visible_at(training_dummy.position)
 	if model.phase=="preparing":training_dummy.reset_pose()
 func preparation_map_frame()->Dictionary:
+	if model.terrain_source=="wind_meadow":return {"pan":Vector3.ZERO,"size":535.0*model.terrain_scale*model.map_expansion,"overview":true}
+	if model.enemy_camps_prototype:return {"pan":Vector3(0,0,96),"size":380.0,"overview":true}
 	if model.terrain_source in ["kai_highway","blood_gulch"]:return {"pan":Vector3.ZERO,"size":600.0*model.terrain_scale,"overview":true}
 	if not model.has_elevation():return {"pan":player.position if is_instance_valid(player) else Vector3.ZERO,"size":120.0,"overview":false}
 	if model.portals.size()<=2:return {"pan":Vector3(0,0,100),"size":340.0,"overview":false}
@@ -201,16 +208,17 @@ func preparation_map_frame()->Dictionary:
 	return {"pan":Vector3(center.x,0,center.y),"size":maxf(340,ceil(maxf(extent.x,extent.y)*1.35/20)*20),"overview":true}
 func update_preparation_camera():
 	var cam=camera_rig.camera;cam.projection=Camera3D.PROJECTION_ORTHOGONAL;cam.size=preparation_size
-	cam.global_position=pan+Vector3(0,160,110);cam.look_at(pan,Vector3.UP)
+	cam.far=maxf(1400,preparation_size*3)
+	cam.global_position=pan+Vector3(0,160,110)*maxf(1.0,preparation_size/535.0);cam.look_at(pan,Vector3.UP)
 func preparation_zoom_limits()->Vector2:
-	return Vector2(PREPARATION_ZOOM_MIN,maxf(PREPARATION_ZOOM_MIN,600.0*model.terrain_scale if model!=null else 600.0))
+	return Vector2(PREPARATION_ZOOM_MIN,maxf(PREPARATION_ZOOM_MIN,600.0*model.terrain_scale*model.map_expansion if model!=null else 600.0))
 func clamp_preparation_pan():
 	var bounds=model.world_bounds().grow(-model.CELL)
 	pan.x=clampf(pan.x,bounds.position.x,bounds.end.x);pan.z=clampf(pan.z,bounds.position.y,bounds.end.y)
 func _preparation_zoom_available()->bool:
 	if model==null or not playing or model.phase!="preparing" or ordinary_pause or settings_open or rogue_roster_open or transitioning:return false
 	if is_instance_valid(map_editor) and map_editor.active:return false
-	if is_instance_valid(forest_ui) and (is_instance_valid(forest_ui.overlay) or forest_ui.get_node_or_null("GateDefenderPanel")!=null):return false
+	if is_instance_valid(forest_ui) and is_instance_valid(forest_ui.overlay):return false
 	return is_instance_valid(camera_rig)
 func zoom_preparation(steps:float,screen:Vector2=Vector2(INF,INF))->bool:
 	if not _preparation_zoom_available() or not is_finite(steps):return false
@@ -259,9 +267,12 @@ func _preparation_zoom_input(event:InputEvent)->bool:
 func start_wave():
 	if not playing or ordinary_pause or rogue_roster_open or (is_instance_valid(map_editor) and map_editor.active):return
 	if model.phase=="preparing":
-		for key in ["enemy_health_mult","enemy_damage_mult","enemy_speed_mult"]:model.balance[key]=core_balance[key]
+		if model.balance.enemy_size_mult!=core_balance.enemy_size_mult:model.navigation_revision+=1
+		for key in ["enemy_health_mult","enemy_damage_mult","enemy_speed_mult","enemy_size_mult","boss_health","boss_speed"]:model.balance[key]=core_balance[key]
+		model.balance.enemy_profiles=core_balance.enemy_profiles.duplicate(true)
+		model.waves.stats_cache.clear()
 	if model.start_wave():
-		forest_ui.selected_id=-1;set_phase_view();toast("The enemy approaches. Defend the four gates.")
+		forest_ui.selected_id=-1;set_phase_view()
 func select_build(kind: String):
 	if not playing or ordinary_pause or model.phase!="preparing":return
 	if kind=="mine":return
@@ -287,7 +298,7 @@ func build_placement_target(cell:Vector2i,preserve_preview:bool=false)->Dictiona
 	var key=[cell,build_kind,build_rotation,model.revision,model.gold,model.phase]
 	var now=Time.get_ticks_msec()
 	if key==_placement_cache_key and (preserve_preview or now<_placement_cache_until):return _placement_cache
-	_placement_cache=model.resolve_placement(build_kind,cell,build_rotation,0 if build_kind=="wall" else 1)
+	_placement_cache={"cell":cell,"error":model.enemy_castle_placement_error(cell,build_rotation),"adjusted":false} if build_kind=="enemy_castle" else model.resolve_placement(build_kind,cell,build_rotation,0 if build_kind=="wall" else 1)
 	_placement_cache_key=key;_placement_cache_until=now+100
 	return _placement_cache
 func _clear_construction_occupants(added:Array):
@@ -295,6 +306,14 @@ func _clear_construction_occupants(added:Array):
 func place_cell(cell: Vector2i)->bool:
 	if not playing or ordinary_pause or model.phase!="preparing" or build_kind.is_empty():return false
 	var target_cell=build_placement_target(cell,true).cell
+	if build_kind=="enemy_castle":
+		var error=model.enemy_castle_placement_error(target_cell,build_rotation)
+		if not error.is_empty():toast(error);return false
+		if model.place_enemy_castle(target_cell,build_rotation).is_empty():return false
+		world.refresh_castle_build_site(model.portals.size()-1)
+		if is_instance_valid(placement_audio):placement_audio.play_placement("enemy_castle")
+		toast("Enemy castle placed · Free · Reinforcements begin when you start")
+		update_build_preview(cell);return true
 	var reason=model.placement_error(build_kind,target_cell,build_rotation)
 	if not reason.is_empty():toast(reason);return false
 	var b=model.build(build_kind,target_cell,build_rotation)
@@ -307,19 +326,21 @@ func place_cell(cell: Vector2i)->bool:
 	return true
 func _input(event):
 	if model==null:return
+	if is_instance_valid(team_upgrade_picker):
+		if event is InputEventKey:
+			var code=event.physical_keycode if event.physical_keycode!=0 else event.keycode
+			if event.pressed and not event.echo and code>=KEY_1 and code<=KEY_3:team_upgrade_picker.select(code-KEY_1)
+			if code not in [KEY_TAB,KEY_ENTER,KEY_SPACE,KEY_LEFT,KEY_RIGHT,KEY_UP,KEY_DOWN]:get_viewport().set_input_as_handled()
+		return
 	if is_instance_valid(forest_ui) and forest_ui.preparation_menu_input(event):
 		get_viewport().set_input_as_handled();return
 	if is_instance_valid(explorer_helpers) and explorer_helpers.handle_global_input(event):
 		get_viewport().set_input_as_handled();return
-	var defender_panel=forest_ui.get_node_or_null("GateDefenderPanel") if is_instance_valid(forest_ui) else null
-	if is_instance_valid(defender_panel):
-		if event.is_action_pressed("pause") and not event.is_echo():defender_panel.close();get_viewport().set_input_as_handled()
-		return
 	if is_instance_valid(map_editor) and map_editor.active:map_editor.global_input(event);return
 	if settings_open:
 		if event.is_action_pressed("pause") and not event.is_echo():
 			if is_instance_valid(menu) and menu.find_child("CoreBalance",true,false)!=null and menu.find_child("CoreBalance",true,false).from_map:resume()
-			elif is_instance_valid(menu) and (menu.find_child("SoundStudio",true,false)!=null or menu.find_child("CharacterBalance",true,false)!=null or menu.find_child("CoreBalance",true,false)!=null or menu.find_child("ForestViewSettings",true,false)!=null):show_settings(settings_from_pause)
+			elif is_instance_valid(menu) and (menu.find_child("SoundStudio",true,false)!=null or menu.find_child("SkillBalance",true,false)!=null or menu.find_child("CharacterBalance",true,false)!=null or menu.find_child("EnemyBalance",true,false)!=null or menu.find_child("CoreBalance",true,false)!=null or menu.find_child("ForestViewSettings",true,false)!=null):show_settings(settings_from_pause)
 			elif settings_from_pause:show_pause()
 			else:show_title()
 			get_viewport().set_input_as_handled()
@@ -358,7 +379,6 @@ func toggle_player_cape(gold:bool):
 	if not playing or ordinary_pause or settings_open or rogue_roster_open or transitioning or won or player.hp<=0 or model.phase not in ["preparing","wave"]:return
 	if model.phase=="wave" and paused:return
 	if is_instance_valid(map_editor) and map_editor.active:return
-	if is_instance_valid(forest_ui) and forest_ui.get_node_or_null("GateDefenderPanel")!=null:return
 	if gold:player.set_gold_cloak(not player.gold_cloak)
 	else:player.set_scarf_equipped(not player.scarf_equipped or player.gold_cloak)
 	forest_ui.sync()
@@ -391,7 +411,9 @@ func _unhandled_input(event):
 				var cells=wall_cells(cell)
 				var result=model.build_wall_line(cells,build_rotation)
 				if result.is_empty():toast("Wall line was not built. Check ryo, clear ground, and gate access.")
-				else:world.sync(0)
+				else:
+					world.sync(0)
+					if is_instance_valid(placement_audio):placement_audio.play_placement("wall")
 				wall_start=Vector2i(-999,-999)
 		get_viewport().set_input_as_handled()
 func _army_profile_clock()->int:return Time.get_ticks_usec() if is_instance_valid(army_runtime) and army_runtime.profile_enabled else 0
@@ -400,6 +422,9 @@ func update_build_preview(cell:Vector2i):
 	var target=build_placement_target(cell);cell=target.cell
 	var reason=target.error
 	placement_hint=reason if not reason.is_empty() else ("Drag a wall line" if build_kind=="wall" else ("Nearby clear spot · Click to place" if target.adjusted else "Click to place"))
+	if build_kind=="enemy_castle":
+		if reason.is_empty():placement_hint="Free · Clears trees · Click to place"
+		world.show_enemy_castle_preview(cell,build_rotation,reason.is_empty());return
 	if build_kind=="wall" and wall_start.x!=-999:
 		var cells=wall_cells(cell);var cost=cells.size()*model.COSTS.wall;var valid=model.gold>=cost
 		for c in cells:
@@ -409,6 +434,8 @@ func update_build_preview(cell:Vector2i):
 	else:world.show_preview(build_kind,cell,build_rotation,reason.is_empty())
 func _process(delta):
 	if model==null:return
+	if model.team_progression.pending()>0 and not is_instance_valid(team_upgrade_picker) and playing and not ordinary_pause and not settings_open and not rogue_roster_open and not transitioning and model.phase in ["preparing","wave"] and not map_editor.active:show_team_upgrade()
+	if is_instance_valid(team_upgrade_picker):return
 	var cpu_clock=_army_profile_clock()
 	_sync_camera_mouse()
 	if is_instance_valid(map_editor) and map_editor.active:map_editor.tick(delta);return
@@ -416,7 +443,6 @@ func _process(delta):
 	if is_instance_valid(native_ink_feedback):native_ink_feedback.tick(delta)
 	if not ordinary_pause:
 		if model.phase=="preparing":
-			if is_instance_valid(gate_defenders):gate_defenders.reconcile()
 			model.tick(delta,player.position)
 			var move_=Input.get_vector("move_left","move_right","move_forward","move_back")
 			pan+=Vector3(move_.x,0,move_.y)*delta*preparation_size*.7
@@ -438,13 +464,13 @@ func _advance_world(delta:float)->bool:
 	if world_step_elapsed+.000001<world_update_interval():return false
 	model.tick(world_step_elapsed,player.position);world_step_elapsed=0;model_tick_serial+=1;return true
 func _physics_process(delta):
+	if is_instance_valid(team_upgrade_picker):return
 	if model!=null and model.phase!=last_phase:set_phase_view()
 	if model==null:return
 	if paused or model.phase!="wave":
 		_tick_ryo(delta);return
 	var cpu_clock=_army_profile_clock()
 	_tick_player_respawn(delta)
-	gate_defenders.tick(delta);cpu_clock=_army_profile("game_defenders",cpu_clock)
 	var army_pending=false;var army_prepare_ms=0.0
 	if army_runtime.can_overlap():
 		army_pending=army_runtime.begin_integration(delta)
@@ -466,10 +492,9 @@ func _physics_process(delta):
 			"wall_damage":wall_audio.impact(event)
 			"hero_hit":player.take_hit(event.amount,(player.position-event.from).normalized(),event.get("projectile",false))
 			"defender_hit":
-				var defender=gate_defenders.units.get(event.id)
-				if not is_instance_valid(defender):defender=explorer_helpers.target_actor(event.id)
+				var defender=explorer_helpers.target_actor(event.id)
 				if is_instance_valid(defender):defender.take_hit(event.amount,(defender.position-event.from).normalized(),event.get("projectile",false))
-			"wounded":toast("A worker is wounded. They will recover during preparation.")
+			"wounded":toast("A worker is wounded. They will revive at the castle in %d seconds."%model.team_progression.revival_seconds() if model.team_progression.ranks.has("worker_revive") else "A worker is wounded. They will recover during preparation.")
 			"arrow":
 				tower_arrows.launch(event)
 			"arrow_impact":tower_arrows.impact(event)
@@ -549,17 +574,45 @@ func close_rogue_roster():
 	elif roster_return_pause:show_pause()
 	else:resume()
 func show_pause():
+	if is_instance_valid(team_upgrade_picker):return
 	if model==null or model.phase not in ["preparing","wave"]:return
 	settings_open=false;clear_menu();forest_ui.show()
 	ordinary_pause=true;paused=true;get_tree().paused=true;model.workforce.cancel_rally();player.cancel_charge(true);Engine.time_scale=1
 	_sync_camera_mouse()
 	forest_ui.show_overlay("REST A MOMENT","Your settlement and the forest are paused.",true)
 func resume():
+	if is_instance_valid(team_upgrade_picker):return
 	if model.phase not in ["preparing","wave"]:return
 	forest_ui.view_settings_preview=false
 	settings_open=false;clear_menu();forest_ui.show()
 	ordinary_pause=false;forest_ui.close_overlay();paused=model.phase!="wave";get_tree().paused=paused
 	_sync_camera_mouse()
+func award_team_kill(reward_tenths:int=10):
+	if not playing or paused or transitioning or model.phase!="wave":return
+	if model.team_progression.award_enemy(reward_tenths)>0:sound("team_level_up",.8)
+func show_team_upgrade():
+	ordinary_pause=true;paused=true;get_tree().paused=true;Engine.time_scale=1
+	model.workforce.cancel_rally();player.cancel_charge(true);player.reset_auto_attack();player.rogue_controls.reset()
+	_sync_camera_mouse()
+	forest_ui.close_overlay();forest_ui.close_guard_shop()
+	team_upgrade_picker=preload("res://scripts/forest/team_upgrade_picker.gd").new();team_upgrade_picker.game=self
+	ui.add_child(team_upgrade_picker)
+func choose_team_upgrade(id:String,offered_level:int)->bool:
+	if not is_instance_valid(team_upgrade_picker) or model.phase not in ["wave","preparing"] or not model.team_progression.can_choose(id,offered_level):return false
+	if id=="legendary_mercenaries" and not explorer_helpers.grant_random(5,model.team_progression.rng):
+		forest_ui.sync();return false
+	if id=="legendary_hero" and not explorer_helpers.grant_hero(model.team_progression.rng):return false
+	if id=="legendary_workers":
+		for i in 10:model.workforce.recruit(true)
+		world.sync(0)
+	model.team_progression.choose(id,offered_level)
+	if id.begins_with("character_"):army_runtime.refresh_kits()
+	if model.team_progression.pending()>0:team_upgrade_picker.refresh()
+	else:
+		team_upgrade_picker.hide();team_upgrade_picker.queue_free();team_upgrade_picker=null
+		ordinary_pause=false;paused=model.phase!="wave";get_tree().paused=paused;_sync_camera_mouse()
+	forest_ui.sync()
+	return true
 func restart_area():
 	get_tree().paused=false;get_tree().change_scene_to_file.call_deferred("res://scenes/forest_shrine.tscn")
 func show_main_menu():
@@ -570,8 +623,8 @@ func defeat():
 	# model to defeat; keep workers, enemies and the current wave running.
 	if model.phase!="wave" or respawn_left>0:return
 	respawn_left=PLAYER_RESPAWN_DELAY;model.hero_targetable=false
-	player.cancel_charge();player.reset_auto_attack();player.velocity=Vector3.ZERO
-	if player.character_id in [16,17]:player.active_ability.die()
+	player.cancel_charge(player.character_id in [31,32]);player.reset_auto_attack();player.velocity=Vector3.ZERO
+	if player.character_id in [16,17,30,31,32]:player.active_ability.die()
 	hit_stop=0;Engine.time_scale=1
 	_sync_camera_mouse();forest_ui.sync()
 func _tick_player_respawn(delta:float):
@@ -608,7 +661,7 @@ func _respawn_player():
 	if point==Vector3.INF:
 		respawn_left=.25;return
 	reset_player_at(point)
-	player.refresh_max_health();player.hp=player.max_hp
+	player.refresh_max_health();player.hp=player.max_hp;player.skullpion_poison_left=0
 	player.invuln=PLAYER_RESPAWN_PROTECTION
 	player.reset_auto_attack();player.combat_aim_left=0
 	respawn_left=0.0;model.hero_targetable=true
@@ -650,6 +703,14 @@ func set_music_track(path: String):
 		music.stream.loop=true
 	apply_music_setting()
 
+func menu_base()->Control:
+	var root=super.menu_base();root.theme=preload("res://scripts/forest/preparation_skin.gd").theme()
+	root.get_child(0).color=Color(.12,.02,.07,.60 if playing else .38)
+	return root
+func button_at(parent:Control,words:String,p:Vector2,action:Callable,width:float=300)->Button:
+	var button=super.button_at(parent,words,p,action,width)
+	preload("res://scripts/forest/preparation_skin.gd").apply_button(button)
+	return button
 func show_title():
 	respawn_left=0.0
 	if is_instance_valid(explorer_helpers):explorer_helpers.clear()
@@ -721,12 +782,56 @@ func show_building_balance():
 func active_forest_map()->Dictionary:
 	var layout=get_tree().get_meta("forest_custom_layout",{})
 	if layout is Dictionary and not layout.is_empty() and MapDocument.validate(layout).is_empty():return layout.duplicate(true)
-	if "--original-map" in OS.get_cmdline_user_args():return {}
 	var document=MapDocument.new()
-	if document.load_blood_gulch().is_empty():return document.data.duplicate(true)
-	push_error("Could not load the Blood Gulch Castle preset")
+	if document.load_wind_meadow().is_empty():return document.data.duplicate(true)
+	push_error("Could not load the Wind Meadow Valley preset")
 	return {}
+var map_resize_pending=false
+func request_map_resize(direction:int):
+	if map_resize_pending or not _preparation_zoom_available():return
+	map_resize_pending=true;forest_ui.sync()
+	# Let the size control paint its busy state before preparing terrain and collision.
+	await get_tree().process_frame
+	await get_tree().process_frame
+	resize_preparation_map(direction)
+	map_resize_pending=false;forest_ui.sync()
+func resize_preparation_map(direction:int)->bool:
+	if not _preparation_zoom_available() or model.terrain_source!="wind_meadow" or direction not in [-1,1]:return false
+	var sizes=ForestModel.WindMeadowTerrain.EXPANSIONS
+	var index=sizes.find(model.map_expansion)+direction
+	if index<0 or index>=sizes.size():return false
+	var expansion:float=sizes[index]
+	var document=MapDocument.new(false);document.capture(model)
+	document.data.map_expansion=expansion
+	var error=MapDocument.validate(document.data)
+	if not error.is_empty():toast("Cannot resize: "+error+" Your map is unchanged.");return false
+	var terrain=ForestModel.create_terrain(model.terrain_source,model.terrain_scale,expansion);terrain.configure(model.ramparts)
+	var protected_cells=[]
+	for building in model.buildings.values():protected_cells.append_array(model.footprint(building.kind,building.cell,building.rotation,building.get("span",0)))
+	for portal in model.portals:protected_cells.append_array(ForestModel.portal_cells(portal))
+	for cell:Vector2i in protected_cells:
+		for offset in [Vector2.ZERO,Vector2(-3,-3),Vector2(3,-3),Vector2(-3,3),Vector2(3,3)]:
+			var p=Vector2(cell)*model.CELL+offset
+			if absf(terrain.height(p.x,p.y)-model.surface_height(p.x,p.y))>.01:toast("Cannot resize: the cliff edge would move under a building or castle. Move that placement inward first.");return false
+	var bounds=Rect2(Vector2(-234,-234)*model.terrain_scale*expansion,Vector2(468,468)*model.terrain_scale*expansion)
+	var positions=[player.position]
+	for group in [model.workers,model.defenders,model.enemies]:
+		for actor in group.values():positions.append(actor.pos)
+	positions.append_array(model.fighter_posts.values())
+	for point:Vector3 in positions:
+		if not bounds.has_point(Vector2(point.x,point.z)):toast("Cannot shrink while a character is outside the smaller map. Move them inward first.");return false
+		if absf(terrain.height(point.x,point.z)-model.surface_height(point.x,point.z))>.01:toast("Move characters away from the outer cliff before resizing.");return false
+	army_runtime.finish_integration()
+	model.map_expansion=expansion
+	model.terrain=terrain
+	model.navigation_region=ForestModel.region_for(model.terrain_source,model.terrain_scale*expansion)
+	model.rebuild_navigation();model.revision+=1
+	world.reload_map()
+	var frame=preparation_map_frame();pan=frame.pan;preparation_size=frame.size;update_preparation_camera()
+	forest_ui.sync();toast("Map %s× wide · %.2f× area · Placements kept. Use Map Editor → Save to keep this layout."%[str(expansion),expansion*expansion])
+	return true
 func open_map_editor():
+	if model.enemy_camps_prototype:toast("Map editing is unavailable in this test layout.");return
 	if not playing or ordinary_pause or settings_open or rogue_roster_open or model.phase!="preparing":return
 	build_kind="";wall_start=Vector2i(-999,-999);world.preview.hide();forest_ui.selected_id=-1
 	map_editor.open()
@@ -740,11 +845,6 @@ func preview_forest_map(layout: Dictionary,preview: bool=true):
 			for z in range(-40,40):model.explored[Vector2i(x,z)]=true;model.visible_cells[Vector2i(x,z)]=true
 	else:
 		player.progression.reset(false);player.refresh_max_health();player.hp=player.max_hp;won=false;checkpoint=player.position
+	player.team_progression=model.team_progression
 	world.model=model;world.reload_map();army_runtime.reset_world();set_phase_view()
 	if preview:pan=saved_pan;update_preparation_camera()
-
-func show_gate_defenders():
-	if not playing or ordinary_pause or settings_open or rogue_roster_open or model.phase!="preparing":return
-	build_kind="";wall_start=Vector2i(-999,-999);world.preview.hide()
-	ordinary_pause=true;paused=true;get_tree().paused=true
-	var panel=preload("res://scripts/forest/forest_gate_defender_panel.gd").new();panel.game=self;panel.name="GateDefenderPanel";forest_ui.add_child(panel)

@@ -10,7 +10,7 @@ func check(ok: bool,label: String):
 	if not ok:failures+=1;printerr("FAIL: "+label)
 func run():
 	if DisplayServer.get_name()=="headless":printerr("Starter fort render test requires a real renderer");quit(1);return
-	var document=load("res://scripts/forest/forest_map_document.gd").new();document.load_original()
+	var document=load("res://tests/forest-shrine/reference/map_document.gd").new();document.load_original()
 	set_meta("forest_custom_layout",document.data);set_meta("forest_painterly_preview",true)
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game
 	AudioServer.set_bus_mute(0,true)

@@ -51,7 +51,8 @@ func apply(actor,rig,state: Dictionary):
 	var visual_scale=1.0
 	var sword_world: Vector3=frame*sword_grip
 	if primary:
-		var stage=1+int(attack.index)%3;var contact=maxf(.001,float(attack.contact))
+		var stage=3 if int(attack.index)==3 else 1+int(attack.index)%3
+		var contact=maxf(.001,float(attack.contact))
 		var elapsed=Combo.CONTACT_TIME*float(attack.time)/contact if float(attack.time)<=contact else Combo.CONTACT_TIME+(Combo.duration(stage)-Combo.CONTACT_TIME)*(float(attack.time)-contact)/maxf(.001,float(attack.duration)-contact)
 		var weight: float=Combo.sample(stage,elapsed).weight
 		var sword: Node3D=actor.joints.Weapon_Cutlass.node

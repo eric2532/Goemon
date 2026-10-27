@@ -20,6 +20,7 @@ func _ready():
  process_mode=Node.PROCESS_MODE_PAUSABLE
  for i in MAX_VOICES:
   var voice=AudioStreamPlayer3D.new();voice.stream=SCREAM;voice.max_distance=AUDIBLE_DISTANCE;voice.unit_size=12;voice.max_polyphony=1
+  voice.bus=&"SFX"
   voice.volume_db=linear_to_db(.7);add_child(voice);voices.append(voice)
 func _process(delta:float):
  # Keep the last death's short release tail through a normal wave transition.

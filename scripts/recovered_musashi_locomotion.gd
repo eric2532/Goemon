@@ -29,6 +29,9 @@ func source_world_scale()->float:
 
 func source_velocity_scale()->float:return source_world_scale()*HZ/FIXED
 
+func vertical_velocity_scale()->float:
+	return source_velocity_scale()*(hero.combat_tuning("jump_height") if is_instance_valid(hero) and hero.has_method("combat_tuning") else 1.0)
+
 func reset():
 	jumps_used=0;source_vertical=0;source_speed=0;state="idle";airborne=false
 	_until_tick=0;_held_velocity=Vector3.ZERO;_jump_pending=false;_combat_owned=false
@@ -68,7 +71,7 @@ func source_tick(direction:Vector3,grounded:bool,jump_pressed:bool,jump_held:boo
 		# 48038 is a soft terminal guard: it tests the old value before adding.
 		if source_vertical<0 or source_vertical<=0x1EFFFF:source_vertical+=0x1A000
 		if state!="double_jump":state="jump" if source_vertical<0 else "fall"
-		return _travel_direction*(-source_speed*source_velocity_scale())+Vector3.UP*(-source_vertical*source_velocity_scale())
+		return _travel_direction*(-source_speed*source_velocity_scale())+Vector3.UP*(-source_vertical*vertical_velocity_scale())
 	if state=="stop":
 		if move!=Vector3.ZERO or guarding:state="idle";source_speed=0
 		elif stop_ticks<11:
@@ -100,12 +103,15 @@ func source_tick(direction:Vector3,grounded:bool,jump_pressed:bool,jump_held:boo
 	state="guard_walk" if guarding else ("sprint" if source_speed<-0x94000 else ("run" if source_speed<-0x70000 else "walk"))
 	return _travel_direction*(-source_speed*source_velocity_scale())
 
-func physics_step(delta:float,direction:Vector3,jump_pressed:bool,jump_held:bool,cautious:bool,guarding:bool):
+func physics_step(delta:float,direction:Vector3,jump_pressed:bool,jump_held:bool,cautious:bool,guarding:bool,combat_override:Node=null):
 	if hero==null or delta<=0:return
-	_jump_pending=_jump_pending or jump_pressed
+	var style=hero.get("jump_style")
+	var borrowed:bool=combat_override==null and style!=null and style.active()
+	_jump_pending=_jump_pending or (jump_pressed and not borrowed)
+	var vertical_before:float=hero.velocity.y
 	var remaining=delta
 	var displacement=Vector3.ZERO
-	var combat=hero.active_ability
+	var combat=combat_override if combat_override!=null else hero.active_ability
 	if guarding:facing=hero.facing
 	while remaining>0.00000001:
 		if _until_tick<=0.00000001:
@@ -116,7 +122,7 @@ func physics_step(delta:float,direction:Vector3,jump_pressed:bool,jump_held:bool
 			else:
 				if _combat_owned:
 					_combat_owned=false;airborne=not hero.is_on_floor();jumps_used=2 if airborne else 0
-					source_vertical=int(-hero.velocity.y/source_velocity_scale());source_speed=0
+					source_vertical=int(-hero.velocity.y/vertical_velocity_scale());source_speed=0
 				_held_velocity=source_tick(direction,hero.is_on_floor(),_jump_pending,jump_held,cautious,guarding)
 				_jump_pending=false
 			_until_tick=TICK
@@ -124,7 +130,14 @@ func physics_step(delta:float,direction:Vector3,jump_pressed:bool,jump_held:bool
 		displacement+=_held_velocity*part
 		remaining-=part;_until_tick-=part
 	hero.velocity=displacement/delta
-	hero.jumps_used=jumps_used
+	if borrowed and not _combat_owned:
+		hero.velocity.y=vertical_before
+		hero.jump_style.step(delta)
+		if hero.flying:hero.jump_style.steer_flight(delta,direction)
+		jumps_used=hero.jumps_used;source_vertical=int(-hero.velocity.y/vertical_velocity_scale())
+		airborne=not hero.is_on_floor() or hero.velocity.y>0
+		if airborne:state="double_jump" if jumps_used>=2 else "jump" if hero.velocity.y>0 else "fall"
+	else:hero.jumps_used=jumps_used
 	hero.move_and_slide()
 	if combat!=null and combat.has_method("after_source_motion") and _combat_owned:
 		combat.after_source_motion(hero.is_on_floor(),hero.is_on_ceiling())

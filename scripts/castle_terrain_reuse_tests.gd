@@ -28,7 +28,7 @@ func run():
  check(ground.probes==0,"Unchanged native cliff cells reuse their exact sampled result")
  ground.configure([{"ax":-5,"az":0,"bx":5,"bz":0,"width":3,"h0":12.0,"h1":12.0}]);ground.probes=0
  check(ground.cliff_cell(Vector2i(0,2)) and ground.probes>0,"Reconfigured raised geometry invalidates native cliff certificates")
- var m=Model.new();m.reset(42,{},JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_kai_highway.json")));var nav=Navigation.new(m);m.waves.navigation=nav
+ var m=Model.new();m.reset(42,{},JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_kai_highway.json")));var nav=Navigation.new(m);m.waves.navigation=nav
  check(nav.has_method("supported_corridor"),"Navigation shares terrain-only corridor support separately from walls")
  if not nav.has_method("supported_corridor"):finish();return
  var a=Vector3(0,0,18);var b=Vector3(0,0,24)

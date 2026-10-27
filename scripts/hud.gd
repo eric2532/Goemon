@@ -76,7 +76,7 @@ func _draw():
 	draw_circle(Vector2(68,76),27,Color("173d64"))
 	draw_arc(Vector2(68,76),29,-PI/2,PI*1.5,48,gold,2,true)
 	text(Vector2(53,85),"蒼",25,gold)
-	text(Vector2(112,58),p.RogueRoster.name_for(p.character_id).to_upper() if p.is_rogue_character() or p.character_id==13 else ("E D O / FIRE" if p.character_id==2 else "G O E M O N"),15,gold)
+	text(Vector2(112,58),p.RogueRoster.name_for(p.character_id).to_upper() if p.is_rogue_character() or p.character_id in [13,28,31,32] else ("E D O / FIRE" if p.character_id==2 else "G O E M O N"),15,gold)
 	draw_rect(Rect2(112,73,193,10),Color("23404a"))
 	draw_rect(Rect2(112,73,193*p.hp/p.max_hp,10),Color("80dfac"))
 	text(Vector2(112,107),"VITALITY  %03d / %03d" % [int(p.hp),int(p.max_hp)],13)
@@ -105,19 +105,24 @@ func _draw():
 		else:
 			var slot=p.quick_attacks.return_slot if p.quick_attacks.active else p.weapon_slot
 			primary=("LMB · Wind spin" if p.surge_left>0 else "LMB · 3-hit combo")+"   RMB · Heavy" if slot==1 else (("LMB · Giant toss" if p.surge_left>0 else "LMB · Toss")+"   RMB · Split")
-			if slot==3:primary="LMB · Explosive throw   RMB · Fire fan" if p.surge_left>0 else "LMB · Chain throw   RMB · Fan swing"
+			if slot==3:primary="LMB / RMB · Chain throw"
 		if game.rogue_battle_mode:primary="Mouse aim · "+primary.replace("LMB · 3-hit combo","Hold LMB · Combo")
 		var number_actions="1 Spin · 2 Coins ×%d %s · 3 Sweep · 4 Red · 5 Gold" % [p.progression.coin_count(),"ON" if p.quick_attacks.coins_enabled else "OFF"]
 		if p.character_id==1:
-			number_actions="1 Pipe combo · 2 Throw ryo · 3 Chain throw"
-			primary=["LMB · 3-hit combo   RMB · Heavy","Hold attack · Charge coin   Release · Throw" if p.surge_left>0 else "LMB / RMB · Throw coin","LMB · Chain throw   RMB · Sweep"][clampi(p.weapon_slot-1,0,2)]
-		if p.character_id==13:number_actions="1 Lumina Spin · 2 Mighty Strike · Q Fighters";primary="LMB · Fusion   RMB · Lumina"
+			number_actions="1 Dash · 2 Surge · 3 Sky strike · 4 Coins · 5 Chain"
+			primary=["LMB · 3-hit combo   RMB · Heavy","LMB / RMB · Flaming ryo" if p.surge_left>0 else "LMB / RMB · Throw coin","LMB / RMB · Chain throw"][clampi(p.weapon_slot-1,0,2)]
+		if p.character_id in [31,32]:number_actions="1 Bladestorm" if p.character_id==31 else "1 Metamorphosis";primary="LMB Sword combo · RMB Critical strike" if p.character_id==31 else "LMB Glaives / Demon bolt · RMB Metamorphosis"
+		if p.character_id==28:number_actions="Kojiro · Q Fighters";primary="LMB · Cut → Return cut / Aerial cuts   RMB / T · Wave"
+		if p.character_id==13:number_actions="1 Spin · 2 Mighty · 3 Kick · 4 Grenade · Hold 5 3-Way";primary="LMB · Fusion   RMB · Lumina"
+		if p.character_id==30:number_actions="1 Wind · 2 Water · 3 Fire · 4 Earth · 5 Sky";primary="LMB · Kojiro’s Wind wave → Two piercing energy blades"
 		text(Vector2(32,h-108),("1 Volley · 2 Giant fireball · 3 Meteors · Q Switch" if p.attack_chain.unleashed() else "E D O · FIRECASTER · Q Choose hero" if game.rogue_roster_mode else "E D O · FIRECASTER · Q Switch character") if p.character_id==2 else number_actions,15,gold)
 		text(Vector2(32,h-80),primary,15)
 		text(Vector2(32,h-53),"WASD   CTRL Walk   SPACE ×2 Jump   R Guard" if p.character_id==13 else ("WASD Fly   HOLD SPACE Ascend   SHIFT Boost" if p.can_fly() else "WASD   CTRL Walk   SHIFT Sprint   SPACE ×%d Jump   C Evade" % p.maximum_jumps()),13)
 		var mode_control=("F Upgrade" if game.defense_beta else "F Build cannon") if game.tower_defense_mode else "Y New map"
 		var goemon_controls="E Dash   R Surge   T Sky strike   "+("Q Fighters   " if game.rogue_roster_mode else "Q Switch   ")
+		if p.character_id==28:goemon_controls="E Homing   R Wind   T Wave   Q Fighters   "
 		if p.character_id==13:goemon_controls="Hold E / Release Special   Q Fighters   "
+		if p.character_id==30:goemon_controls="1–5 Spells   Q Fighters   "
 		text(Vector2(32,h-28),("E Fire dodge   T Meteors   R Blue surge   " if p.character_id==2 else goemon_controls)+mode_control+"   ESC Pause",13,Color("c0d3d1"))
 	if p.scarf_equipped and p.character_id==1:
 		draw_style_box(panel_style(Color(0.16,0.025,0.04,0.90)),Rect2(20,h-170,440,29))

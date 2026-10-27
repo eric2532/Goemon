@@ -14,6 +14,7 @@ func frames(n: int=3):
 	for i in range(n):await physics_frame
 func run():
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=config_path;root.add_child(game);current_scene=game;await frames()
+	preload("res://tests/forest-shrine/training_dummy_fixture.gd").install(game)
 	var dummy=game.get_node_or_null("TrainingDummy")
 	check(dummy is Ninja,"A hittable training dummy exists in the playable forest")
 	if dummy==null:await finish();return
@@ -23,7 +24,7 @@ func run():
 	check(game.enemies.has(dummy) and game.model.enemies.is_empty(),"Combat can target the dummy without counting a wave enemy")
 	var label=dummy.find_child("DummyLabel",true,false)
 	check(label is Label3D and "∞" in label.text,"Dummy clearly displays infinite health")
-	check(not game.model.placement_error("tower",game.model.cell_of(home),0).is_empty(),"Construction cannot cover the dummy")
+	check(game.model.placement_error("tower",game.model.cell_of(home),0).is_empty(),"The practice fixture no longer reserves building ground")
 	if "--visual" in OS.get_cmdline_user_args():await shot("building")
 	game.start_wave();game.model.waves.spawn_clock=10000;game.set_physics_process(false);game.player.set_physics_process(false);await frames()
 	game.player.select_character(1);game.tuning.critical_chance=0;game.character_tuning={}
@@ -47,7 +48,8 @@ func run():
 		game.model.update_vision(p.position);game.camera_rig.set_process(false)
 		game.camera_rig.camera.global_position=p.position+Vector3(0,3,10);game.camera_rig.camera.look_at(home+Vector3.UP*1.2)
 		if id==1:
-			p.start_attack(false,1);p.attack_left=p.attack_duration*(1-p.attack_contact_phase());p.strike()
+			p.set_auto_attack(false);p.start_attack(false,1)
+			for tick in 200:p._physics_process(1.0/60.0)
 		elif id==2:
 			p.model.animate(0,0,true,0,0,false,1,false);p.model.sync_skeleton()
 			p.musashi.cast_fireball(false);p.musashi.launch();await frames(45)

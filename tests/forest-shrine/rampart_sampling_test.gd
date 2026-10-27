@@ -24,7 +24,7 @@ func cost(terrain)->float:
  if sink<1:printerr("Missing benchmark surface")
  return samples[1]
 func run():
- var data=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_four_gates.json"))
+ var data=JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_four_gates.json"))
  var terrain=Terrain.new();terrain.configure(data.ramparts)
  for point in [Vector2(0,84),Vector2(84,0),Vector2(-84,0),Vector2(0,-84)]:check(is_equal_approx(terrain.height(point.x,point.y),9),"Halfway ramp height stays exactly nine metres at "+str(point))
  var same=true

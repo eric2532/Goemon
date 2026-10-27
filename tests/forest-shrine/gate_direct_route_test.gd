@@ -83,7 +83,7 @@ func run():
  m=fresh(data);e=m.waves.spawn_enemy(0,Vector3(180,0,126))
  check(m.waves.routes.gate_target(e)==gate(m,1).id,"An unreachable near-side gate yields to a reachable exterior entrance")
  # Real raised terrain must still use its supported bridge and ramps.
- data=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_four_gates.json"))
+ data=JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_four_gates.json"))
  for portal in [0,2,4,6]:
   m=fresh(data)
   for variant in Roles.COUNT:

@@ -1,0 +1,484 @@
+{
+  "disc": "GXSP8P revision 1",
+  "sources": {
+    "ModelsMiles.rel": "2e0457d29659590288a62fcd471a75e1cf392f7020f668c24d77046a0399f329",
+    "s_mot.rel": "92fef716029996dc2976f1650631b43116ad52fde3694e3de0f39e7e51ddad7b",
+    "sonic.gvm": "90b61be0edff0fcd8e903b04a923f7936bf7c92e34e302ffbefede1ea3e1cf35"
+  },
+  "models": {
+    "sonic": {
+      "nodes": 73,
+      "animated_nodes": 73,
+      "triangles": 1993,
+      "clips": [
+        {
+          "name": "Metal Sonic Hover",
+          "address": 1704608,
+          "frames": 8,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Stand",
+          "address": 1851184,
+          "frames": 32,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Look Around",
+          "address": 1872900,
+          "frames": 66,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Walk",
+          "address": 1887976,
+          "frames": 32,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Speedwalk",
+          "address": 1902572,
+          "frames": 32,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Jog",
+          "address": 1916960,
+          "frames": 32,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Run",
+          "address": 1929908,
+          "frames": 32,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Brake",
+          "address": 1941336,
+          "frames": 33,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Jump Spin (Curled Model)",
+          "address": 1950752,
+          "frames": 32,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Begin Falling From Spring Launch",
+          "address": 1965268,
+          "frames": 33,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Fall",
+          "address": 1978904,
+          "frames": 32,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Landing",
+          "address": 1990436,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Sprint",
+          "address": 2001624,
+          "frames": 33,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Hit Wall",
+          "address": 2025748,
+          "frames": 46,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Begin Push",
+          "address": 2041656,
+          "frames": 33,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Push",
+          "address": 2053324,
+          "frames": 32,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Turn Around",
+          "address": 2060688,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Uncurl",
+          "address": 2067236,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Damage",
+          "address": 2079132,
+          "frames": 22,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Land After Damage",
+          "address": 2097760,
+          "frames": 38,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Death",
+          "address": 2129076,
+          "frames": 70,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Recover From Hitting Wall",
+          "address": 2143672,
+          "frames": 33,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Skidding on Slope",
+          "address": 2150908,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Begin Alternate Stand",
+          "address": 2161712,
+          "frames": 20,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Alternate Stand",
+          "address": 2169012,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Stand on Upward Slope",
+          "address": 2175848,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Stand on Downward Slope",
+          "address": 2182220,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Begin Idle",
+          "address": 2192320,
+          "frames": 20,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Idle",
+          "address": 2209364,
+          "frames": 39,
+          "parts": 73
+        },
+        {
+          "name": "0021DAD0",
+          "address": 2218704,
+          "frames": 8,
+          "parts": 73
+        },
+        {
+          "name": "0021EBF4",
+          "address": 2223092,
+          "frames": 9,
+          "parts": 73
+        },
+        {
+          "name": "00220068",
+          "address": 2228328,
+          "frames": 11,
+          "parts": 73
+        },
+        {
+          "name": "002223BC",
+          "address": 2237372,
+          "frames": 25,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Caught in Wind",
+          "address": 29936,
+          "frames": 33,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Pick Up/Put Down Object",
+          "address": 41092,
+          "frames": 33,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Run with Object",
+          "address": 50312,
+          "frames": 32,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Stand with Object",
+          "address": 54956,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Walk with Object",
+          "address": 65296,
+          "frames": 32,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Jump with Object",
+          "address": 70596,
+          "frames": 32,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Begin Falling with Object",
+          "address": 79976,
+          "frames": 33,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Falling with Object",
+          "address": 86940,
+          "frames": 33,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Landing with Object",
+          "address": 95336,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Brake with Object",
+          "address": 103916,
+          "frames": 33,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Turn Around with Object",
+          "address": 110032,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Ground Throw (Overhand)",
+          "address": 143420,
+          "frames": 60,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Ground Throw (Underhand)",
+          "address": 163472,
+          "frames": 50,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Midair Throw (Overhand)",
+          "address": 179196,
+          "frames": 26,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Midair Throw (Underhand)",
+          "address": 187536,
+          "frames": 21,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Begin Holding Tree",
+          "address": 191508,
+          "frames": 8,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Hold Tree",
+          "address": 197752,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Pull",
+          "address": 210412,
+          "frames": 32,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Shake Tree",
+          "address": 216656,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Climb Ladder",
+          "address": 231220,
+          "frames": 32,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Launched",
+          "address": 239320,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Hold onto Vertical Rocket",
+          "address": 246028,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Hold onto Horizontal Rocket",
+          "address": 253232,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Level Clear Pose",
+          "address": 282548,
+          "frames": 65,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Level Clear Pose to Standing",
+          "address": 288488,
+          "frames": 11,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Jump into Bumper Car",
+          "address": 295052,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Hold Onto Pulley/Helicopter",
+          "address": 305384,
+          "frames": 17,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Captured by Egg Keeper",
+          "address": 329756,
+          "frames": 63,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Climb Monkeybars",
+          "address": 367976,
+          "frames": 64,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Hold Monkeybars (Right Side Forward)",
+          "address": 375748,
+          "frames": 15,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Hold Monkeybars (Left Side Forward)",
+          "address": 383552,
+          "frames": 15,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Slipping on Ice",
+          "address": 399140,
+          "frames": 32,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Land on Jump Panel",
+          "address": 413416,
+          "frames": 31,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Jump off Jump Panel",
+          "address": 421644,
+          "frames": 17,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Breathe Air Bubble",
+          "address": 430128,
+          "frames": 17,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Light Speed Dash",
+          "address": 434900,
+          "frames": 9,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Begin Shaking Object",
+          "address": 441688,
+          "frames": 14,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Shake Object",
+          "address": 449068,
+          "frames": 16,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Stop Shaking Object",
+          "address": 456256,
+          "frames": 15,
+          "parts": 73
+        },
+        {
+          "name": "Sonic Drown",
+          "address": 491028,
+          "frames": 75,
+          "parts": 73
+        }
+      ],
+      "sha256": "8a09e7a67a7bf77451c72218bf793c233423926f6b11df30c72aa7037fc29991"
+    },
+    "curled": {
+      "nodes": 74,
+      "animated_nodes": 74,
+      "triangles": 1001,
+      "clips": [
+        {
+          "name": "Sonic Spring Launch",
+          "address": 1942652,
+          "frames": 7,
+          "parts": 74
+        }
+      ],
+      "sha256": "173b8ed4edb9f7b14fc7120d4dacb7dadce5e49a5e024a2d4a873d410cda437a"
+    },
+    "ball": {
+      "nodes": 1,
+      "animated_nodes": 1,
+      "triangles": 420,
+      "clips": [
+        {
+          "name": "Sonic Spin (Jumpball)",
+          "address": 2067384,
+          "frames": 7,
+          "parts": 1
+        }
+      ],
+      "sha256": "35e5489ce26a0d998395e1cbd9a7d135524d2e1bc3c1fd6fe251f47689dfe70e"
+    }
+  }
+}

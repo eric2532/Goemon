@@ -16,7 +16,7 @@ func check(ok:bool,label_:String):
  checks+=1
  if not ok:failures+=1;printerr("FAIL: "+label_)
 func run():
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
  var fixture=load("res://tests/forest-shrine/large_army_fixture.gd").new();root.add_child(fixture)
  game=await fixture.make_game("original");current_scene=game
  for i in 3:await process_frame

@@ -67,9 +67,10 @@ var last_sound_voice: AudioStreamPlayer
 const ATTACK_SOUNDS=["orb_ice","orb_fire","swing","heavy_swing","throw","fire_cast","spin_swing","giant_toss","sky_leap","sky_stomp","chain_throw","chain_sweep","chain_fire_sweep","edo_volley","edo_giant","edo_shield","edo_beam_start","edo_beam_loop","edo_meteor_cast","edo_meteor_strike","edo_dodge","goemon_dash"]
 const IMPACT_SOUNDS=["goemon_coin_charged_burst","hit","heavy_hit","enemy_reaction","environment_hit","coin_hit","coin_heavy_hit","fire_impact","chain_hit","chain_explosion","edo_meteor_impact","edo_dodge_impact","goemon_dash_hit"]
 const ViewPreferences=preload("res://scripts/forest/forest_view_preferences.gd")
-const DEFAULT_SETTINGS={"volume":0.65,"music_enabled":false,"sensitivity":1.0,"fullscreen":false,"quality":1,"goemon_skin":HeroSkins.DEFAULT_ID,"musashi_equipment_mask":31,"forest_camera_distance":ViewPreferences.CAMERA_DEFAULT,"forest_hud_scale":ViewPreferences.HUD_DEFAULT,"forest_character_screen_offset":ViewPreferences.CHARACTER_OFFSET_DEFAULT,"forest_show_crosshair":true}
+const DEFAULT_SETTINGS={"disable_character_cooldowns":false,"jump_styles":{},"spell_loadouts":{},"skill_balance":{},"volume":0.65,"music_enabled":false,"sensitivity":1.0,"fullscreen":false,"quality":1,"goemon_skin":HeroSkins.DEFAULT_ID,"forest_camera_distance":ViewPreferences.CAMERA_DEFAULT,"forest_hud_scale":ViewPreferences.HUD_DEFAULT,"forest_character_screen_offset":ViewPreferences.CHARACTER_OFFSET_DEFAULT,"forest_show_crosshair":true}
 var settings=DEFAULT_SETTINGS.duplicate()
 var settings_path="user://settings.cfg"
+const SkillBalance=preload("res://scripts/spells/skill_balance.gd")
 const CharacterBalance=preload("res://scripts/character_balance.gd")
 const CoreBalance=preload("res://scripts/forest/core_balance.gd")
 var core_balance=CoreBalance.defaults()
@@ -122,6 +123,7 @@ func _ready():
 	camera_rig.player=player
 	camera_rig.sens=settings.sensitivity
 	add_child(camera_rig)
+	prepare_coin_projectiles()
 	rogue_view=preload("res://scripts/rogue_battle_view.gd").new();rogue_view.game=self;add_child(rogue_view)
 	rogue_feedback=preload("res://scripts/rogue_battle_feedback.gd").new();rogue_feedback.game=self;add_child(rogue_feedback)
 	ui=CanvasLayer.new()
@@ -470,6 +472,8 @@ func _ready():
 	if OS.has_feature("fire_siege") and not smoke_test:show_defense_setup.call_deferred()
 
 func setup_inputs():
+	for action in ["special_4","special_5"]:
+		if not InputMap.has_action(action):InputMap.add_action(action)
 	var keys={"walk_modifier":KEY_CTRL,"move_forward":KEY_W,"move_back":KEY_S,"move_left":KEY_A,"move_right":KEY_D,"jump":KEY_SPACE,"sprint":KEY_SHIFT,"dodge":KEY_C,"equip":KEY_E,"assist":KEY_TAB,"pause":KEY_ESCAPE,"character_toggle":KEY_Q,"weapon_pipe":KEY_1,"weapon_coin":KEY_2,"weapon_chain":KEY_3,"scarf_toggle":KEY_4,"gold_cloak":KEY_5,"interact":KEY_F,"surge":KEY_R,"sky_strike":KEY_T,"prototype_lab":KEY_F1,"shuffle_map":KEY_Y,"summon_dogs":KEY_G,"summon_heroes":KEY_H,"siege_build":KEY_B,"siege_start":KEY_Y,"siege_revive":KEY_V,"auto_attack_toggle":KEY_J}
 	for action in keys:
 		if not InputMap.has_action(action): InputMap.add_action(action)
@@ -486,20 +490,21 @@ func setup_inputs():
 		InputMap.action_add_event(pair[0],event)
 
 func setup_audio():
-	for kind in ["fire_cast","fire_impact"]:sounds[kind]=load("res://assets/characters/musashi/audio/"+kind+".wav")
-	for name in ["swing","heavy_swing","hit","heavy_hit","jump","land","dash","hurt","step","spark","sky_leap","sky_stomp"]:
-		sounds[name]=load("res://audio/"+name+".wav")
-	sounds["enemy_reaction"]=sounds["hurt"]
-	sounds["environment_hit"]=sounds["hit"]
+	move_audio.prepare(self)
+	for kind in ["fire_cast","fire_impact"]:sounds[kind]=preload("res://scripts/character_audio_bank.gd").sample("res://assets/characters/musashi/audio/"+kind+".wav")
+	for name in ["swing","heavy_swing","dash","hurt","step","spark","sky_leap","sky_stomp"]:
+		sounds[name]=preload("res://scripts/character_audio_bank.gd").sample("res://audio/"+name+".wav")
+	sounds.merge(SoundLibrary.COMBAT_DEFAULTS,true)
+	sounds["jump"]=SoundLibrary.shared_default_for(0,"jump")
+	sounds["land"]=SoundLibrary.shared_default_for(0,"land")
+	# Native enemies own their ROM reactions/deaths; do not layer the old hurt beep.
+	sounds["enemy_reaction"]=null
 	sounds["throw"]=sounds["spark"]
-	sounds["coin_hit"]=sounds["hit"]
-	sounds["coin_heavy_hit"]=sounds["heavy_hit"]
-	sounds["fire_loop"]=load("res://assets/characters/musashi/audio/fire_loop.wav")
+	sounds["fire_loop"]=preload("res://scripts/character_audio_bank.gd").sample("res://assets/characters/musashi/audio/fire_loop.wav")
 	sounds["spin_swing"]=sounds["heavy_swing"]
 	sounds["giant_toss"]=sounds["throw"]
 	sounds["chain_throw"]=sounds["throw"]
 	sounds["chain_sweep"]=sounds["heavy_swing"]
-	sounds["chain_hit"]=sounds["heavy_hit"]
 	sounds["chain_explosion"]=sounds["fire_impact"]
 	sounds["chain_fire_sweep"]=sounds["fire_cast"]
 	sounds["edo_volley"]=sounds["fire_cast"]
@@ -513,12 +518,12 @@ func setup_audio():
 	sounds["edo_dodge"]=sounds["dash"]
 	sounds["edo_dodge_impact"]=sounds["fire_impact"]
 	sounds["goemon_dash"]=sounds["dash"]
-	sounds["goemon_dash_hit"]=sounds["hit"]
 	sounds["orb_ice"]=sounds["spark"]
 	sounds["orb_fire"]=sounds["fire_impact"]
 	sounds["orb_magnet"]=sounds["spark"]
 	for i in range(28):
 		var a=AudioStreamPlayer.new()
+		a.bus=&"SFX"
 		add_child(a)
 		voices.append(a)
 	music=AudioStreamPlayer.new()
@@ -539,17 +544,14 @@ func sound_character_id()->int:
 	return player.character_id if is_instance_valid(player) else selected_rogue_id
 
 func sound_preview(id: int,slot: String)->AudioStream:
-	var recorded=sound_library.custom_for(id,slot) if id not in [1,16,17] else null
-	if recorded:return recorded
+	return sound_library.playback_for(id,slot,sound_default(id,slot)).stream
+
+func sound_default(id: int,slot: String)->AudioStream:
 	if SoundLibrary.source_slot_is_silent(id,slot):return null
-	if id==15 and slot=="ben_bomb_explosion":
-		return sound_library.playback_for(id,slot,sound_library.original_for(id,slot)).stream
 	var move: Dictionary=SoundLibrary.move_for_slot(id,slot)
 	if not move.is_empty():
 		if slot==move.voice:return sound_library.original_for(id,slot)
 		var legacy: String=move.legacy
-		var inherited=sound_library.custom_for(id,legacy) if id not in [1,16,17] else null
-		if inherited:return inherited
 		var original=sound_library.original_for(id,slot)
 		if original:return original
 		if move.options.has("preview_event") and (id!=1 or rogue_battle_mode):
@@ -558,9 +560,11 @@ func sound_preview(id: int,slot: String)->AudioStream:
 			var event=legacy.trim_prefix("native_")
 			var path="res://assets/rogue/audio/"+preload("res://assets/rogue/scripts/audio.gd").event_file(event,move.options)+".wav"
 			if ResourceLoader.exists(path):return load(path)
-		return sound_preview(id,legacy)
+		return sound_default(id,legacy)
 	var original=sound_library.original_for(id,slot)
 	if original:return original
+	var shared=SoundLibrary.shared_default_for(id,slot)
+	if shared:return shared
 	var event=slot.trim_prefix("native_")
 	if id>=3:
 		if slot=="dash":event="roll"
@@ -576,14 +580,12 @@ func sound_preview(id: int,slot: String)->AudioStream:
 func sound(kind: String,volume: float=1.0,enemy_source: bool=false,ticket: Dictionary={},source_id: int=0):
 	if sound_library.recording:return
 	var id=source_id if source_id>0 else sound_character_id()
-	if not enemy_source and SoundLibrary.source_slot_is_silent(id,kind) and not (id==13 and sound_library.custom_for(id,kind)!=null):return
 	var fallback: AudioStream=sounds.get(kind)
 	if fallback==null and not enemy_source:fallback=sound_library.original_for(id,kind)
-	if fallback==null:return
 	if ticket.is_empty() and is_instance_valid(player):ticket=player.attack_chain.active_ticket
 	var playback: Dictionary=move_audio.weapon(self,id,kind,fallback,ticket,not enemy_source)
-	if playback.muted:return
-	var attack=kind in ATTACK_SOUNDS and not enemy_source
+	if playback.muted or playback.stream==null:return
+	var attack=(kind in ATTACK_SOUNDS or kind.begins_with("finale_") or (kind.begins_with("dark_lumina_2_") and kind!="dark_lumina_2_step")) and not enemy_source
 	var impact=kind in IMPACT_SOUNDS or kind in ["fusion_finisher_hit","fusion_fourth_hit"] or enemy_source
 	var first=0 if attack else (16 if impact else 24)
 	var limit=16 if attack else (24 if impact else 28)
@@ -1168,10 +1170,9 @@ func resume():
 func show_settings(from_pause: bool):
 	var root=menu_base()
 	label_at(root,"SETTINGS",Vector2(92,145),43)
-	label_at(root,"Move mouse to turn the camera.\nAim with the centre reticle · mouse wheel zooms." if camera_combat() else "Tune your adventure",Vector2(96,209),19,Color("dfc384"))
-	label_at(root,"Master volume",Vector2(96,283),20)
+	label_at(root,"Volume",Vector2(96,244),20)
 	var volume=HSlider.new()
-	volume.position=Vector2(340,288)
+	volume.position=Vector2(340,249)
 	volume.size=Vector2(290,30)
 	volume.min_value=0
 	volume.max_value=1
@@ -1181,15 +1182,15 @@ func show_settings(from_pause: bool):
 	volume.value_changed.connect(func(v): settings.volume=v; AudioServer.set_bus_volume_db(0,linear_to_db(v)); save_settings())
 	var background_music=CheckButton.new()
 	background_music.name="BackgroundMusicToggle"
-	background_music.text="Background music"
-	background_music.position=Vector2(96,340)
+	background_music.text="Background Music"
+	background_music.position=Vector2(96,316);background_music.size=Vector2(534,48)
 	background_music.button_pressed=settings.music_enabled
 	background_music.add_theme_font_size_override("font_size",20)
 	root.add_child(background_music)
 	background_music.toggled.connect(func(enabled):settings.music_enabled=enabled;apply_music_setting();save_settings())
-	label_at(root,"Mouse sensitivity",Vector2(96,409),20)
+	label_at(root,"Mouse Sensitivity",Vector2(96,400),20)
 	var sensitivity=HSlider.new()
-	sensitivity.position=Vector2(340,414)
+	sensitivity.position=Vector2(340,405)
 	sensitivity.size=Vector2(290,30)
 	sensitivity.min_value=0.25
 	sensitivity.max_value=2.5
@@ -1198,31 +1199,40 @@ func show_settings(from_pause: bool):
 	root.add_child(sensitivity)
 	sensitivity.value_changed.connect(func(v): settings.sensitivity=v; camera_rig.sens=v; save_settings())
 	var full=CheckButton.new()
+	full.name="FullscreenToggle"
 	full.text="Fullscreen"
-	full.position=Vector2(96,476)
+	full.position=Vector2(96,472);full.size=Vector2(534,48)
 	full.button_pressed=settings.fullscreen
 	full.add_theme_font_size_override("font_size",20)
 	root.add_child(full)
 	full.toggled.connect(func(v): settings.fullscreen=v; DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if v else DisplayServer.WINDOW_MODE_WINDOWED); save_settings())
-	label_at(root,"Graphics",Vector2(96,551),20)
+	label_at(root,"Graphics",Vector2(96,556),20)
 	var options=OptionButton.new()
-	options.position=Vector2(340,544)
+	options.alignment=HORIZONTAL_ALIGNMENT_CENTER
+	options.position=Vector2(340,549)
 	options.size=Vector2(290,44)
-	options.add_item("Performance · no shadows")
-	options.add_item("High · shadows + 2× MSAA")
-	options.add_item("Ultra · shadows + 4× MSAA")
+	options.add_item("Performance")
+	options.add_item("High")
+	options.add_item("Ultra")
 	options.selected=settings.quality
 	root.add_child(options)
 	options.item_selected.connect(func(v): settings.quality=v; apply_quality(); save_settings())
-	button_at(root,"Character balance · Choose a fighter",Vector2(710,211),func():show_character_balance(from_pause),560).name="CharacterBalanceButton"
-	button_at(root,"Sound Studio · Record sounds",Vector2(710,283),func(): show_sound_studio(from_pause),560).name="SoundStudioButton"
+	button_at(root,"Character Balance",Vector2(710,238),func():show_character_balance(from_pause),320).name="CharacterBalanceButton"
+	button_at(root,"Enemy Balance",Vector2(1060,238),func():show_enemy_balance(from_pause),320).name="EnemyBalanceButton"
+	button_at(root,"Skill Balance",Vector2(1060,316),func():show_skill_balance(from_pause),320).name="SkillBalanceButton"
+	button_at(root,"Sound Studio",Vector2(710,316),func(): show_sound_studio(from_pause),320).name="SoundStudioButton"
 	if has_method("show_view_settings"):
-		button_at(root,"Camera & HUD · Zoom and interface size",Vector2(710,385),func():call("show_view_settings",from_pause),560).name="CameraHUDSettingsButton"
-		label_at(root,"Adjust combat distance and the size of gameplay hubs.\nChanges preview immediately and save automatically.",Vector2(710,457),18)
-	else:
-		label_at(root,"BALANCE & RECORDINGS",Vector2(710,385),22,Color("dfc384"))
-		label_at(root,"Tune each fighter's health, damage and movement.\nGoemon's coins and Edo's beam have their own controls.\n\nYour saved sounds remain in Sound Studio.",Vector2(710,431),18)
-	button_at(root,"Back",Vector2(96,650),show_pause if from_pause else show_main_menu)
+		button_at(root,"Camera & HUD",Vector2(710,394),func():call("show_view_settings",from_pause),320).name="CameraHUDSettingsButton"
+	var no_cooldowns=CheckButton.new()
+	no_cooldowns.name="DisableCharacterCooldownsToggle"
+	no_cooldowns.text="No Character Cooldowns"
+	no_cooldowns.tooltip_text="Remove cooldown waits for your character, equipped skills and dodge. Active moves still finish normally."
+	no_cooldowns.position=Vector2(710,472);no_cooldowns.size=Vector2(390,48)
+	no_cooldowns.add_theme_font_size_override("font_size",20)
+	no_cooldowns.button_pressed=settings.disable_character_cooldowns
+	root.add_child(no_cooldowns)
+	no_cooldowns.toggled.connect(func(enabled):settings.disable_character_cooldowns=enabled;player.clear_character_cooldowns();save_settings())
+	button_at(root,"Back",Vector2(96,650),show_pause if from_pause else show_main_menu,140)
 
 func show_skin_picker(from_pause: bool):
 	var root=menu_base()
@@ -1232,12 +1242,6 @@ func show_skin_picker(from_pause: bool):
 func select_goemon_skin(id: String):
 	settings.goemon_skin=HeroSkins.valid_id(id)
 	player.character_models[1].apply_skin(settings.goemon_skin)
-	save_settings()
-
-func select_musashi_equipment(mask:int):
-	settings.musashi_equipment_mask=clampi(mask,0,31)
-	if is_instance_valid(player):
-		player.ensure_character(13);player.character_models[13].set_outfit_mask(settings.musashi_equipment_mask)
 	save_settings()
 
 func show_sound_studio(from_pause: bool):
@@ -1251,6 +1255,36 @@ func show_character_balance(from_pause: bool,id: int=-1):
 	editor.name="CharacterBalance";editor.game=self;editor.from_pause=from_pause
 	editor.character_id=player.character_id if id not in player.RogueRoster.PLAYABLE_IDS else id
 	root.add_child(editor)
+
+func show_skill_balance(from_pause:bool,id:String=""):
+	var root=menu_base()
+	var editor=preload("res://scripts/spells/skill_balance_ui.gd").new()
+	editor.name="SkillBalance";editor.game=self;editor.from_pause=from_pause;editor.skill_id=id;root.add_child(editor)
+
+func update_skill_balance(id:String,key:String,value):
+	if not SkillBalance.all().has(id):return
+	var profiles=settings.skill_balance.duplicate(true)
+	if not profiles.has(id):profiles[id]={}
+	profiles[id][key]=value
+	settings.skill_balance=SkillBalance.sanitized(profiles);save_settings()
+
+func reset_skill_balance(id:String):
+	settings.skill_balance.erase(id);save_settings()
+
+func show_enemy_balance(from_pause: bool,type: int=0):
+	var root=menu_base()
+	var editor=preload("res://scripts/forest/enemy_balance_ui.gd").new()
+	editor.name="EnemyBalance";editor.game=self;editor.from_pause=from_pause;editor.enemy_type=type;root.add_child(editor)
+
+func update_enemy_tuning(type: int,key: String,value):
+	var accepted=CoreBalance.EnemyBalance.sanitized({str(type):{key:value}},CoreBalance.TYPES)
+	if accepted.is_empty():return
+	if not core_balance.enemy_profiles.has(str(type)):core_balance.enemy_profiles[str(type)]={}
+	core_balance.enemy_profiles[str(type)].merge(accepted[str(type)],true)
+	save_settings()
+
+func reset_enemy_tuning(type: int):
+	core_balance.enemy_profiles.erase(str(type));save_settings()
 
 func show_core_balance(from_pause: bool,from_map: bool=false):
 	var root=menu_base()
@@ -1268,7 +1302,7 @@ func resize_core_waves(count: int):
 	core_balance.waves.resize(count);save_settings()
 
 func update_core_wave(index: int,type: int,count: int):
-	if index<0 or index>=core_balance.waves.size() or type<0 or type>3:return
+	if index<0 or index>=core_balance.waves.size() or type<0 or type>=CoreBalance.TYPES.size():return
 	core_balance.waves[index][type]=clampi(count,0,CoreBalance.MAX_ENEMIES);save_settings()
 
 func reset_core_balance():
@@ -1289,12 +1323,16 @@ func update_character_tuning(id: int,key: String,value):
 	if profile.is_empty():return
 	if not character_tuning.has(profile):character_tuning[profile]={}
 	character_tuning[profile].merge(accepted,true)
-	if is_instance_valid(player) and player.character_id==id:player.refresh_max_health()
+	if is_instance_valid(player) and player.character_id==id:
+		player.refresh_max_health()
+		player.model.scale=Vector3.ONE*balance_value(id,"model_scale")
 	save_settings()
 
 func reset_character_tuning(id: int):
 	character_tuning.erase(CharacterBalance.key_for(id))
-	if is_instance_valid(player) and player.character_id==id:player.refresh_max_health()
+	if is_instance_valid(player) and player.character_id==id:
+		player.refresh_max_health()
+		player.model.scale=Vector3.ONE*balance_value(id,"model_scale")
 	save_settings()
 
 func load_settings():
@@ -1311,14 +1349,14 @@ func load_settings():
 		core_balance=CoreBalance.from_saved(c.get_value("core_balance","values",{}))
 	# Debug freeze belongs to this session, never the next playable launch.
 	tuning.freeze_ai=false
+	settings.skill_balance=SkillBalance.sanitized(settings.skill_balance)
 	settings.goemon_skin=HeroSkins.valid_id(settings.goemon_skin)
-	settings.musashi_equipment_mask=clampi(int(settings.musashi_equipment_mask),0,31)
 	settings.forest_camera_distance=ViewPreferences.bounded(settings.forest_camera_distance,ViewPreferences.CAMERA_DEFAULT,ViewPreferences.CAMERA_MIN,ViewPreferences.CAMERA_MAX)
 	settings.forest_hud_scale=ViewPreferences.bounded(settings.forest_hud_scale,ViewPreferences.HUD_DEFAULT,ViewPreferences.HUD_MIN,ViewPreferences.HUD_MAX)
 	settings.forest_character_screen_offset=ViewPreferences.bounded(settings.forest_character_screen_offset,ViewPreferences.CHARACTER_OFFSET_DEFAULT,ViewPreferences.CHARACTER_OFFSET_MIN,ViewPreferences.CHARACTER_OFFSET_MAX)
 	settings.forest_show_crosshair=settings.forest_show_crosshair if settings.forest_show_crosshair is bool else true
+	settings.disable_character_cooldowns=settings.disable_character_cooldowns if settings.disable_character_cooldowns is bool else false
 	if is_instance_valid(player):player.character_models[1].apply_skin(settings.goemon_skin)
-	if is_instance_valid(player) and player.character_models.has(13):player.character_models[13].set_outfit_mask(settings.musashi_equipment_mask)
 	AudioServer.set_bus_volume_db(0,linear_to_db(settings.volume))
 	apply_music_setting()
 	if settings.fullscreen: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
@@ -1724,30 +1762,31 @@ func projectile_direction(origin: Vector3)->Vector3:
 		if offset.length_squared()>.01:return offset.normalized()
 	return attack_direction()
 
-func throw_coin(heavy: bool,charged: bool=false,power: float=1.0,ticket: Dictionary={},automatic: bool=false):
+func throw_coin(heavy: bool,charged: bool=false,power: float=1.0,ticket: Dictionary={},automatic: bool=false,caster:Hero=null):
+	var actor=player if caster==null else caster
 	# Background volleys own separate casts without replacing a melee ticket.
 	if automatic:
-		if ticket.is_empty():ticket=player.attack_chain.make_ticket("coin")
-		if not ticket.has("move_audio"):ticket["move_audio"]=move_audio.begin(player,"coin","giant_toss" if charged else ("coin_heavy" if heavy else "coin"))
-	if ticket.is_empty():ticket=player.attack_ticket if not player.attack_ticket.is_empty() else player.attack_chain.active_ticket
-	var from=player.global_position+Vector3.UP*1.25*player.growth_multiplier()
-	var direction=projectile_direction(from)
-	var primary_range = player.BASIC_ATTACK_RANGE_MULTIPLIER if not heavy and not charged else 1.0
+		if ticket.is_empty():ticket=actor.attack_chain.make_ticket("coin")
+		if not ticket.has("move_audio"):ticket["move_audio"]=move_audio.begin(actor,"coin","giant_toss" if charged else ("coin_heavy" if heavy else "coin"))
+	if ticket.is_empty():ticket=actor.attack_ticket if not actor.attack_ticket.is_empty() else actor.attack_chain.active_ticket
+	var from=actor.global_position+Vector3.UP*1.25*actor.growth_multiplier()
+	var direction=actor.combat_attack_direction() if actor.ai_controlled else projectile_direction(from)
+	var primary_range = actor.BASIC_ATTACK_RANGE_MULTIPLIER if not heavy and not charged else 1.0
 	# Key 2 always selects the closest unobstructed enemy actually in the camera.
-	var target=player.auto_aim_target(from) if player.auto_attack_enabled else (AttackChain.screen_target(player,from,hero_tuning("coin_speed")*2.0*primary_range*player.growth_multiplier()-.5) if automatic or player.soft_target or player.growth_multiplier()>1.01 or (player.quick_attacks.active and player.quick_attacks.action==2) else null)
+	var target=null if actor.ai_controlled else actor.auto_aim_target(from) if actor.auto_attack_enabled else (AttackChain.screen_target(actor,from,actor.combat_tuning("coin_speed")*2.0*primary_range*actor.growth_multiplier()-.5) if automatic or actor.soft_target or actor.growth_multiplier()>1.01 or (actor.quick_attacks.active and actor.quick_attacks.action==2) else null)
 	if target and (automatic or (not rogue_battle_mode and not camera_combat())):direction=(AttackChain.aim_point(target)-from).normalized()
 	if not automatic:
-		player.facing=Vector3(direction.x,0,direction.z).normalized()
-		player.hold_combat_aim()
+		actor.facing=Vector3(direction.x,0,direction.z).normalized()
+		actor.hold_combat_aim()
 	if automatic:
-		var coin=spawn_gold_coin(from+direction*.48,direction,heavy,charged,power,false,0,ticket,false,player.progression.coin_count())
+		var coin=spawn_gold_coin(from+direction*.48,direction,heavy,charged,power,false,0,ticket,false,actor.progression.coin_count(),actor)
 		coin.lifetime*=primary_range
-		if player.scarf_equipped:spawn_gold_coin(from,direction.rotated(Vector3.UP,.12),false,false,1,false,0,ticket)
+		if actor.scarf_equipped:spawn_gold_coin(from,direction.rotated(Vector3.UP,.12),false,false,1,false,0,ticket,false,1,actor)
 	else:
-		var count=1 if charged else int(hero_tuning("split_count") if heavy else hero_tuning("coin_count"))
+		var count=1 if charged else int(actor.combat_tuning("split_count") if heavy else actor.combat_tuning("coin_count"))
 		for i in range(count):
 			var angle=(i-(count-1)*.5)*(.16 if heavy else .07)
-			var coin=spawn_gold_coin(from+direction*.48,direction.rotated(Vector3.UP,angle),heavy,charged,power,false,0,ticket)
+			var coin=spawn_gold_coin(from+direction*.48,direction.rotated(Vector3.UP,angle),heavy,charged,power,false,0,ticket,false,1,actor)
 			coin.lifetime*=primary_range
 	# Coins still confirm combo hits, but only melee may create a red bonus slash.
 	if ticket.get("original_goemon_coin_entry",false) and int(ticket.get("move_audio",{}).get("character_id",0))==1:
@@ -1755,40 +1794,52 @@ func throw_coin(heavy: bool,charged: bool=false,power: float=1.0,ticket: Diction
 		move_audio.release(self,ticket)
 	else:sound("giant_toss" if charged else "throw",0.4,false,ticket)
 
-func spawn_gold_coin(origin: Vector3,direction: Vector3,heavy: bool=false,charged: bool=false,power: float=1.0,energy: bool=false,tilt: float=0.0,ticket: Dictionary={},cross: bool=false,count: int=1)->GoldCoin:
-	var coin: GoldCoin=preload("res://scripts/coin_volley.gd").new() if count>1 else GoldCoin.new()
+func prepare_coin_projectiles(caster:Hero=null):
+	var actor=player if caster==null else caster
+	var pool=preload("res://scripts/character_projectile_pool.gd").service(self)
+	for volley in [false,true]:
+		for original in [false,true]:
+			var profile="coin/%s/false/false/%s/false"%[volley,original]
+			pool.warm(actor,preload("res://scripts/coin_volley.gd") if volley else preload("res://scripts/gold_coin.gd"),profile,{"coin_count":99 if volley else 1,"metadata":{"original_goemon_coin":original}},8)
+	pool.warm(actor,preload("res://scripts/gold_coin.gd"),"coin/false/false/false/true/true",{"metadata":{"original_goemon_coin":true,"original_goemon_charged_coin":true}},8)
+
+func spawn_gold_coin(origin: Vector3,direction: Vector3,heavy: bool=false,charged: bool=false,power: float=1.0,energy: bool=false,tilt: float=0.0,ticket: Dictionary={},cross: bool=false,count: int=1,caster:Hero=null)->GoldCoin:
+	var actor=player if caster==null else caster
+	var script=preload("res://scripts/coin_volley.gd") if count>1 else preload("res://scripts/gold_coin.gd")
+	var coin={"metadata":{}}
 	coin.coin_count=count
 	coin.game=self;coin.combo_energy=energy;coin.slash_tilt=tilt
-	coin.attack_ticket=player.attack_chain.active_ticket if ticket.is_empty() else ticket
-	coin.set_meta("original_goemon_coin",not energy and int(coin.attack_ticket.get("move_audio",{}).get("character_id",player.character_id))==1)
+	coin.attack_ticket=actor.attack_chain.active_ticket if ticket.is_empty() else ticket
+	coin.metadata.original_goemon_coin=not energy and int(coin.attack_ticket.get("move_audio",{}).get("character_id",actor.character_id))==1
 	coin.cross_slash=cross
 	coin.heavy=heavy or charged
 	coin.piercing=charged
-	coin.damage=(hero_tuning("charged_damage")*power if charged else hero_tuning("coin_damage")*(1.2 if heavy else 1.0))*player.damage_multiplier()
-	var size_bonus=HeroModel.WeaponProportions.SCALE*(hero_tuning("surge_coin_size") if player.surge_left>0 else 1.0)
-	coin.hit_radius=(hero_tuning("charged_radius")*(0.6+power*0.4) if charged else 0.3)*size_bonus*player.pickup_multiplier("range")*player.growth_multiplier()
+	coin.damage=(actor.combat_tuning("charged_damage")*power if charged else actor.combat_tuning("coin_damage")*(1.2 if heavy else 1.0))*actor.damage_multiplier()
+	var size_bonus=HeroModel.WeaponProportions.SCALE*(actor.combat_tuning("surge_coin_size") if actor.surge_left>0 else 1.0)
+	coin.hit_radius=(actor.combat_tuning("charged_radius")*(0.6+power*0.4) if charged else 0.3)*size_bonus*actor.pickup_multiplier("range")*actor.growth_multiplier()
 	coin.visual_size=(coin.hit_radius/0.45 if charged else (1.3 if heavy else 1.0)*size_bonus)
-	if charged and coin.get_meta("original_goemon_coin",false) and coin.attack_ticket.get("move_audio",{}).get("move_key","")=="coin_charged":
-		coin.set_meta("original_goemon_charged_coin",true)
+	if charged and coin.metadata.original_goemon_coin and coin.attack_ticket.get("move_audio",{}).get("move_key","")=="coin_charged":
+		coin.metadata.original_goemon_charged_coin=true
 		coin.piercing=false
-		coin.hit_radius=.3*HeroModel.WeaponProportions.SCALE*player.pickup_multiplier("range")*player.growth_multiplier()
+		coin.hit_radius=.3*HeroModel.WeaponProportions.SCALE*actor.pickup_multiplier("range")*actor.growth_multiplier()
 		coin.visual_size=HeroModel.WeaponProportions.SCALE
-		coin.original_impact_scale=player.model.source_scale*coin.visual_size*player.growth_multiplier()
+		coin.original_impact_scale=actor.model.source_scale*coin.visual_size*actor.growth_multiplier()
 	coin.position=origin
-	coin.velocity=direction*hero_tuning("coin_speed")*(hero_tuning("surge_coin_speed") if player.surge_left>0 else 1.0)*player.attack_speed_multiplier()
-	coin.lifetime=2.0*player.growth_multiplier()/player.attack_speed_multiplier()
-	add_child(coin)
-	return coin
+	coin.velocity=direction*actor.combat_tuning("coin_speed")*(actor.combat_tuning("surge_coin_speed") if actor.surge_left>0 else 1.0)*actor.attack_speed_multiplier()
+	coin.lifetime=2.0*actor.growth_multiplier()/actor.attack_speed_multiplier()
+	var profile="coin/%s/%s/%s/%s/%s"%[count>1,energy,cross,coin.metadata.original_goemon_coin,coin.metadata.get("original_goemon_charged_coin",false)]
+	return preload("res://scripts/character_projectile_pool.gd").service(self).launch(actor,script,profile,coin) as GoldCoin
 
-func throw_robe_coins(heading: Vector3,radial: bool=false,spread: bool=false):
+func throw_robe_coins(heading: Vector3,radial: bool=false,spread: bool=false,caster:Hero=null):
+	var actor=player if caster==null else caster
 	var direction=Vector3(heading.x,0,heading.z).normalized()
 	if direction.is_zero_approx():direction=Vector3.FORWARD
-	var from=player.global_position+Vector3.UP*1.25*player.growth_multiplier()
+	var from=actor.global_position+Vector3.UP*1.25*actor.growth_multiplier()
 	# One release per contact: every combo stage gets a coin, a spin gets a full ring.
 	# Offset the extra ranged coin so it is visible alongside the normal toss.
 	for i in range(16 if radial else 1):
 		var ray=direction.rotated(Vector3.UP,TAU*i/16.0 if radial else (.12 if spread else 0.0))
-		spawn_gold_coin(from,ray)
+		spawn_gold_coin(from,ray,false,false,1.0,false,0,{},false,1,actor)
 	if not spread:sound("throw",.4)
 
 func spin_slash(p: Vector3,radius: float):
@@ -2089,7 +2140,7 @@ func confirm_ally_impact(victim: Ninja,point: Vector3,direction: Vector3,strengt
 			if not has_method("forest_point_visible") or call("forest_point_visible",point):
 				preload("res://scripts/recovered_goemon_vfx.gd").hit(self,point,strength==2)
 		else:impact_effect(point,direction,strength)
-	if source_character not in [16,17] and not (projectile and source_character==15):sound("coin_hit" if projectile else "hit",.35,source_character<=0,{},source_character)
+	if source_character not in [16,17] and not (projectile and source_character in [13,15]):sound("coin_hit" if projectile else "hit",.35,source_character<=0,{},source_character)
 
 func confirm_impact(victim: Ninja, point: Vector3, direction: Vector3, strength: int, projectile: bool, source_character:int=0,spawn_visuals: bool=true):
 	var duration=[0.035,0.060,0.095][clampi(strength,0,2)]
@@ -2112,7 +2163,7 @@ func confirm_impact(victim: Ninja, point: Vector3, direction: Vector3, strength:
 	# Goemon coins carry their launch owner; another fighter's in-flight shot
 	# must not acquire his recovered defaults when the player switches to him.
 	var foreign_projectile=projectile and source_character==0 and player.character_id==1
-	if source_character not in [16,17] and not (projectile and source_character==15):sound(impact_sound,0.7,foreign_projectile,{},source_character)
+	if source_character not in [16,17] and not (projectile and source_character in [13,15]):sound(impact_sound,0.7,foreign_projectile,{},source_character)
 	if source_character not in [16,17]:sound("enemy_reaction",0.22 if strength<2 else 0.38,foreign_projectile,{},source_character)
 	if spawn_visuals:
 		if source_character==1 or (player.character_id==1 and not projectile):preload("res://scripts/recovered_goemon_vfx.gd").hit(self,point,strength==2)

@@ -6,6 +6,10 @@ var simulation_steps=0
 var simulation_seconds=0.0
 var profile_enabled=false
 var profile_totals:Dictionary={}
+var model_rows_epoch=-1
+var model_rows_seen:Dictionary={}
+var model_rows_publications=0
+var model_rows_written=0
 var registered_facade_updates=0
 var registered_facade_fallbacks=0
 var worker_enabled=true
@@ -22,6 +26,7 @@ var configured_helpers=false
 var latest:Dictionary={}
 var presentation_delta=0.0
 var presentation_dirty=false
+var reaction_dirty=false
 var presentation_frames=0
 var import_rows_visited=0
 var arrival_rows:Array[Dictionary]=[]
@@ -35,7 +40,7 @@ func setup(owner_:Node)->bool:
  record_events=false;pooled_presentation=true;game.model.army_runtime=self;configured_model=game.model
  native.set_parallel_movement(game.get_tree().get_meta("forest_army_parallel_movement",true))
  for row:Dictionary in game.model.enemies.values():queue_enemy_arrival(row)
- refresh_kits();game.crowd.configure_army(game)
+ game.crowd.configure_army(game);refresh_kits()
  return true
 func reset_world():
  clear();configured_model=game.model;game.model.army_runtime=self;navigation_revision=-1;refresh_kits()
@@ -65,11 +70,16 @@ func begin_integration(delta:float,overlap:bool=true)->bool:
   clear();configured_model=game.model;game.model.army_runtime=self;navigation_revision=-1;refresh_kits()
   for row:Dictionary in game.model.enemies.values():queue_enemy_arrival(row)
  if navigation_revision!=game.model.navigation_revision:
+  var navigation_clock=clock
   game.world.sync(0)
+  navigation_clock=profile_mark("navigation_world",navigation_clock)
   var nav=navigation_data(game.model)
+  navigation_clock=profile_mark("navigation_data",navigation_clock)
   var collision=static_collision_data(game.world);nav.air_faces=collision.faces;nav.air_owner=collision.owners
+  navigation_clock=profile_mark("navigation_collision",navigation_clock)
   nav.ray_min=PackedVector3Array();nav.ray_max=PackedVector3Array();nav.ray_owner=PackedInt64Array()
   set_navigation(game.model.navigation_revision,nav)
+  profile_mark("navigation_native",navigation_clock)
  if not configured_helpers or configured_tuning!=hash([game.character_tuning,game.tuning,game.model.balance]):refresh_kits()
  clock=profile_mark("navigation_tuning",clock)
  import_arrivals();clock=profile_mark("arrivals",clock)
@@ -87,12 +97,15 @@ func begin_integration(delta:float,overlap:bool=true)->bool:
 func finish_integration():
  if not integration_pending:return
  # Clear the flags before callbacks: reentrant hits must not finish twice.
+ var advanced_by_worker=worker_pending
  integration_pending=false;worker_pending=false
  var waiting=Time.get_ticks_usec() if profile_enabled else 0
  native.finish_step();pending_helpers={};profile_mark("native_wait",waiting)
  var delta=pending_delta;var clock=profile_mark("native_step",pending_clock)
  simulation_steps+=1;simulation_seconds+=delta
- dispatch_events();clock=profile_mark("event_dispatch",clock)
+ dispatch_events()
+ if advanced_by_worker:mirrors_advanced.emit(delta)
+ clock=profile_mark("event_dispatch",clock)
  sync_compatibility();profile_mark("compatibility",clock)
  presentation_delta+=delta;presentation_dirty=true
 func sync_helper_mirrors(defenders:Dictionary,posts:Dictionary)->int:
@@ -104,7 +117,10 @@ func sync_helper_mirrors(defenders:Dictionary,posts:Dictionary)->int:
 func enemy_candidates(center:Vector3,radius:float)->Array:
  finish_integration();return super.enemy_candidates(center,radius)
 func apply_hit(handle:int,hit:Dictionary)->Dictionary:
- finish_integration();return super.apply_hit(handle,hit)
+ finish_integration()
+ var result=super.apply_hit(handle,hit)
+ if result.accepted:reaction_dirty=true;presentation_dirty=true
+ return result
 func despawn(handle:int)->void:
  finish_integration();super.despawn(handle)
 func dispatch_events()->void:
@@ -118,20 +134,23 @@ func import_arrivals():
   if not is_same(game.model.enemies.get(row.id,{}),row):continue
   if row.hp<=0:_enemy_retired(row.id);continue
   if handles.has(row.id):continue
-  var handle:int=spawn(row.id,0,row.variant,row.pos,row.hp,preload("res://scripts/forest/forest_enemy_roles.gd").footprint_radius(row.variant))
+  var handle:int=spawn(row.id,0,row.variant,row.pos,row.hp,preload("res://scripts/forest/forest_enemy_roles.gd").footprint_radius(row.variant,game.model.balance.enemy_size_mult))
   if handle==0:queue_enemy_arrival(row);continue # Retry a live capacity-limited arrival.
+  native.set_enemy_scaling(handle,float(row.get("health_scale",1.0)),float(row.get("damage_scale",1.0)))
   var actor=enemy_target(row.id)
   if actor!=null:game.actors[row.id]=actor;game.enemies.append(actor)
 func sync_compatibility():
  var clock=Time.get_ticks_usec() if profile_enabled else 0
- latest=render_snapshot();clock=profile_mark("compatibility_snapshot",clock)
+ latest=render_snapshot();reaction_dirty=false;clock=profile_mark("compatibility_snapshot",clock)
  latest.plain_fields=get_tree().get_meta("forest_army_plain_fields",true)
  latest.profile_facades=profile_enabled and get_tree().get_meta("forest_army_profile_facades",false)
- snapshot_epoch+=1;snapshot_view=Snapshot.new(latest);latest.shared_facades=shared_snapshot_enabled;latest.guard_poses=get_tree().get_meta("forest_army_guard_poses",true);clock=profile_mark("compatibility_view",clock)
+ latest.profile_registered=profile_enabled and get_tree().get_meta("forest_army_profile_registered",false)
+ snapshot_epoch+=1;model_rows_seen.clear();snapshot_view=Snapshot.new(latest);latest.shared_facades=shared_snapshot_enabled;latest.guard_poses=get_tree().get_meta("forest_army_guard_poses",true);clock=profile_mark("compatibility_view",clock)
+ ally_fields_epoch=snapshot_epoch if shared_snapshot_enabled else -1;latest.lazy_ally_fields=shared_snapshot_enabled;latest.defer_model_rows=true;latest.event_enemy_health=true
  var transferred=-1
  if shared_snapshot_enabled and latest.plain_fields and not latest.profile_facades and get_tree().get_meta("forest_army_registered_facades",true):transferred=native.sync_registered_facades(latest)
  if transferred<0:
-  native.sync_facades(latest,game.model.enemies,enemies,allies,snapshot_view)
+  native.sync_facades(latest,game.model.enemies,enemies,allies,snapshot_view);model_rows_epoch=snapshot_epoch
   if profile_enabled:registered_facade_fallbacks+=1
  elif profile_enabled:registered_facade_updates+=transferred
  clock=profile_mark("compatibility_facades",clock)
@@ -151,6 +170,22 @@ func sync_compatibility():
    if is_instance_valid(actor):game.enemies.erase(actor);actor.queue_free()
    game.actors.erase(id);enemies.erase(id)
  profile_mark("compatibility_cleanup",clock)
+func register_actor_facade(actor:Node3D,row:Dictionary={})->bool:
+ if actor is Ninja:model_rows_epoch=-1;model_rows_seen.erase(actor.handle)
+ return super.register_actor_facade(actor,row)
+func publish_model_rows(requested:PackedInt64Array=PackedInt64Array()):
+ if latest.is_empty() or model_rows_epoch==snapshot_epoch:return
+ var clock=Time.get_ticks_usec() if profile_enabled else 0
+ var count=0
+ if requested.is_empty():
+  count=native.sync_model_rows();model_rows_epoch=snapshot_epoch
+ else:
+  var fresh=PackedInt64Array()
+  for handle in requested:
+   if not model_rows_seen.has(handle):fresh.append(handle);model_rows_seen[handle]=true
+  if not fresh.is_empty():count=native.sync_model_rows_for(fresh)
+ if count>0:model_rows_written+=count;model_rows_publications+=1
+ profile_mark("model_rows",clock)
 func _enemy_retired(id:int)->void:pending_retirements[id]=true
 func set_guard(handle:int,point:Vector3,radius:float):native.set_guard(handle,point,radius)
 func target_actor(id:int)->Node3D:return ally_target(id) if id<0 else enemy_target(id)
@@ -161,8 +196,10 @@ func rest():
 func begin_wave():
  for unit in game.explorer_helpers.active_units():unit.state="acting";unit.age=0
 func external_targets()->Dictionary:
- var rows={"ids":PackedInt64Array(),"kinds":PackedInt32Array(),"positions":PackedVector3Array(),"hp":PackedFloat32Array(),"targetable":PackedByteArray(),"taunting":PackedByteArray(),"minimum":PackedVector3Array(),"maximum":PackedVector3Array(),"ignore_building":PackedInt64Array(),"shelter_ids":PackedInt64Array(),"shelter_damage":PackedInt64Array(),"shelter_entrances":PackedVector3Array(),"shelter_centers":PackedVector3Array()}
- append_target(rows,0,0,game.player.position,game.player.hp,not game.player.rogue_untargetable() and game.respawn_left<=0)
+ var rows={"ids":PackedInt64Array(),"kinds":PackedInt32Array(),"positions":PackedVector3Array(),"hp":PackedFloat32Array(),"targetable":PackedByteArray(),"taunting":PackedByteArray(),"minimum":PackedVector3Array(),"maximum":PackedVector3Array(),"ignore_building":PackedInt64Array(),"assault_priority":PackedInt32Array(),"shelter_ids":PackedInt64Array(),"shelter_damage":PackedInt64Array(),"shelter_entrances":PackedVector3Array(),"shelter_centers":PackedVector3Array()}
+ var bounds=AABB()
+ if game.player.RogueRoster.is_enemy(game.player.character_id):bounds=game.player.global_transform*game.player.model.bounds()
+ append_target(rows,0,0,game.player.position,game.player.hp,not game.player.rogue_untargetable() and game.respawn_left<=0,false,bounds.position,bounds.end)
  for w:Dictionary in game.model.workers.values():
   if not game.model.worker_targetable(w.id):continue
   var deck:float=preload("res://scripts/forest/forest_structure_profile.gd").TOWER_DECK_HEIGHT if w.state=="garrison" else w.get("deck_height",0.0)
@@ -171,12 +208,10 @@ func external_targets()->Dictionary:
   if b.hp<=0 or b.kind=="wall" or b.get("breached",false):continue
   if b.kind=="barracks":rows.shelter_ids.append(b.id);rows.shelter_damage.append(b.get("damage_serial",0));rows.shelter_entrances.append(game.model.point(game.model.entry(b)));rows.shelter_centers.append(game.model.center(b))
   var size:Vector2i=game.model.dimensions(b.kind,b.rotation,b.get("span",0));var low:Vector3=game.model.point(b.cell)-Vector3(3,0,3)
-  append_target(rows,b.id,2,game.model.center(b),b.hp,true,false,low,low+Vector3(size.x*6,preload("res://scripts/forest/forest_structure_profile.gd").height(b.kind),size.y*6),b.id)
- for unit in game.gate_defenders.units.values():
-  if is_instance_valid(unit) and unit.hp>0:append_target(rows,unit.gate_id,3,unit.position,unit.hp,not unit.rogue_untargetable(),unit.character_id==7 and unit.active_ability.player.buffTime>0)
+  append_target(rows,b.id,2,game.model.center(b),b.hp,true,false,low,low+Vector3(size.x*6,preload("res://scripts/forest/forest_structure_profile.gd").height(b.kind),size.y*6),b.id,2 if b.kind=="shrine" else 1 if b.kind=="gate" else 0)
  return rows
-func append_target(rows:Dictionary,id:int,kind:int,point:Vector3,hp:float,targetable_:bool=true,taunt:bool=false,low:Vector3=Vector3.ZERO,high:Vector3=Vector3.ZERO,ignore:int=-1):
- rows.ids.append(id);rows.kinds.append(kind);rows.positions.append(point);rows.hp.append(hp);rows.targetable.append(1 if targetable_ else 0);rows.taunting.append(1 if taunt else 0);rows.minimum.append(low);rows.maximum.append(high);rows.ignore_building.append(ignore)
+func append_target(rows:Dictionary,id:int,kind:int,point:Vector3,hp:float,targetable_:bool=true,taunt:bool=false,low:Vector3=Vector3.ZERO,high:Vector3=Vector3.ZERO,ignore:int=-1,assault_priority:int=0):
+ rows.ids.append(id);rows.kinds.append(kind);rows.positions.append(point);rows.hp.append(hp);rows.targetable.append(1 if targetable_ else 0);rows.taunting.append(1 if taunt else 0);rows.minimum.append(low);rows.maximum.append(high);rows.ignore_building.append(ignore);rows.assault_priority.append(assault_priority)
 
 func clear():
  finish_integration()
@@ -185,7 +220,7 @@ func clear():
   if is_instance_valid(unit) and unit.get("director")!=null:unit.handle=0;unit.hp=0;unit.state="idle";unit.dead=false;unit.targetable=false
  allies.clear()
  super.clear()
- latest={};arrival_rows.clear();arrival_ids.clear();pending_retirements.clear();retirement_reconcile=true;presentation_delta=0;presentation_dirty=false
+ latest={};model_rows_epoch=-1;model_rows_seen.clear();arrival_rows.clear();arrival_ids.clear();pending_retirements.clear();retirement_reconcile=true;presentation_delta=0;presentation_dirty=false;reaction_dirty=false
 
 func preparation_tick(delta:float):
  if not game.playing or game.model.phase!="preparing" or game.ordinary_pause or game.settings_open or game.rogue_roster_open or game.transitioning or (is_instance_valid(game.map_editor) and game.map_editor.active):return
@@ -196,6 +231,8 @@ func preparation_tick(delta:float):
 func flush_presentation():
  if not presentation_dirty:return
  var clock=Time.get_ticks_usec() if profile_enabled else 0
+ # Coalesce post-step player hits into one fresh render snapshot per frame.
+ if reaction_dirty:latest=render_snapshot();reaction_dirty=false
  game.crowd.army.presentation.tick(presentation_delta)
  clock=profile_mark("presentation_tick",clock)
  game.crowd.present_army(latest,presentation_events)

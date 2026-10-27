@@ -61,7 +61,7 @@ func run():
  if not runtime.has_method("navigation_data"):
   check(false,"The army needs a faithful exporter for the actual Kai map and saved rampart pieces")
  else:
-  var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_kai_highway()
+  var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_kai_highway()
   var model=load("res://scripts/forest/forest_model.gd").new();model.reset(42,{},doc.data,false)
   runtime.clear();runtime.set_navigation(7,runtime.navigation_data(model,false))
   var samples=0

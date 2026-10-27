@@ -62,7 +62,7 @@ func run():
  check(not attacked_wall and actor.pos.z<70,"An indestructible wall causes a detour toward the door, without attacks (%s)"%str(actor.pos))
  print("GATE_BREACH_PATH_RESULT checks=%d failures=%d"%[checks,failures]);quit(1 if failures else 0)
 func actual_castle():
- var data=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_blood_gulch.json"))
+ var data=JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_blood_gulch.json"))
  for rotation in 4:
   for variant in [0,1,3]:
    var m=Model.new();m.reset(42,{},data,false);m.workers.clear();m.defenders.clear();m.hero_targetable=false;m.phase="wave"

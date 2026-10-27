@@ -27,7 +27,7 @@ func step(n:int):
 func run():
  var elevated="--rampart-test" in OS.get_cmdline_user_args()
  var center=Vector3(0,18,138) if elevated else Vector3(0,0,52)
- var doc=load("res://scripts/forest/forest_map_document.gd").new()
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new()
  if elevated:doc.load_four_gates()
  else:doc.load_original()
  set_meta("forest_custom_layout",doc.data)
@@ -39,7 +39,6 @@ func run():
  check(helpers.pool.size()==5 and helpers.pool.all(func(u):return u.character_models.size()==1 and u.character_abilities.size()==1),"Five pooled helpers load only their own kits")
  check(GuardFixture.deploy(helpers,0),"Preparation can summon an ally");helpers.clear()
  game.start_wave();game.model.waves.spawn_clock=100000;game.model.waves.pending=999;game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
- for u in game.gate_defenders.units.values():u.set_physics_process(false)
  game.player.position=center+Vector3(0,.15,8);game.model.update_vision(game.player.position)
  check(GuardFixture.deploy(helpers,0),"A Dragoon can be summoned before enemies appear")
  helpers.clear()

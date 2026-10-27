@@ -25,7 +25,7 @@ func starter_and_authored_walls():
 	check(not short_walls.is_empty() and short_walls.all(func(b):return b.hp==1250 and b.max_hp==1250),"Short fort ends retain proportional health at 1250 HP per tile")
 	check(m.shrine().hp==3000,"Shrine health is unchanged")
 	check(m.buildings.values().filter(func(b):return b.kind=="tower").all(func(b):return b.hp==500),"Tower health is unchanged")
-	check(m.buildings.values().filter(func(b):return b.kind=="gate").all(func(b):return b.hp==2000),"Gate health is unchanged")
+	check(m.buildings.values().filter(func(b):return b.kind=="gate").all(func(b):return b.hp==2500),"Gate health includes the 25% durability increase")
 	var long_wall=m._make_building("wall",Vector2i(-12,12),0,12)
 	check(long_wall.hp==15000 and long_wall.max_hp==15000,"Long wall health still scales with its twelve-tile span")
 	var doc=Document.new()
@@ -71,7 +71,7 @@ func damaged_gate_split_and_repair():
 	var gate=m.build("gate",Vector2i(6,4),0)
 	check(not gate.is_empty(),"A gate can still cut an opening into a damaged wall")
 	if gate.is_empty():return
-	check(not m.buildings.has(wall.id) and gate.hp==2000,"Splitting removes the old wall and retains the gate's original health")
+	check(not m.buildings.has(wall.id) and gate.hp==2500,"Splitting removes the old wall and uses the gate's current health")
 	var left: Dictionary=m.buildings[m.occupancy[Vector2i(4,4)]]
 	var right: Dictionary=m.buildings[m.occupancy[Vector2i(8,4)]]
 	check(left.span==2 and right.span==2 and left.max_hp==2500 and right.max_hp==2500,"Both two-tile wall ends retain the stronger proportional maximum")

@@ -14,6 +14,7 @@ const MOVING_FALL="Source__800d4b70"
 const LAND="Table_14__800d4b10"
 const MOVING_LAND="Table_16__800d4ba8"
 const FLIP="Extra__800d4be0"
+const FLIP_DURATION=8.0/30.0
 const STRIKES=["Extra__800d4c94","Source__800d4ce4","Source__800d4d38"]
 const HEAVY="Extra__800d4f14"
 const AIR_STRIKE="Table_11__800d4e94"
@@ -77,6 +78,7 @@ func _ready():
 	animation_player=rig_visual.find_child("AnimationPlayer",true,false)
 	assert(skeleton!=null and animation_player!=null,"Recovered Musashi requires its skin and motion library")
 	animation_player.callback_mode_process=AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+	animation_player.add_animation_library("assimilation",preload("res://assets/characters/recovered_musashi/assimilation/motions.res"))
 	head=_placeholder("HeadCompatibility")
 	arms.assign([_placeholder("LeftArmCompatibility"),_placeholder("RightArmCompatibility")])
 	legs.assign([_placeholder("LeftLegCompatibility"),_placeholder("RightLegCompatibility")])
@@ -138,6 +140,7 @@ func _placeholder(label: String)->Node3D:
 	var node=Node3D.new();node.name=label;body.add_child(node);node.hide();return node
 
 func _sample(clip: String,time: float,loop: bool=false,loop_start: float=0.0):
+	if clip=="assimilation/dkick":loop=true
 	if not animation_player.has_animation(clip):return
 	if current_clip!=clip:
 		current_clip=clip;animation_player.play(clip)
@@ -169,7 +172,7 @@ func animate(delta: float,speed: float,grounded: bool,vertical: float,_attack: f
 			air_stage="flip" if new_impulse else ("rise" if vertical>0 else "fall")
 			air_phase_time=0.0
 		else:air_phase_time+=delta
-		if air_stage=="flip" and air_phase_time>=8.0/30.0:
+		if air_stage=="flip" and air_phase_time>=FLIP_DURATION:
 			air_stage="rise" if vertical>0 else "fall";air_phase_time=0.0
 		if air_stage=="rise" and vertical<=0:
 			air_stage="fall";air_phase_time=0.0

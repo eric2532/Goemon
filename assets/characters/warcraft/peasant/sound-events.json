@@ -1,0 +1,44 @@
+[
+  {
+    "animation": "Death",
+    "sound": "PeasantDeath",
+    "offset_seconds": 0.034,
+    "path": "Units/Human/Peasant/PeasantDeath.wav",
+    "variants": [
+      "Units/Human/Peasant/PeasantDeath.wav"
+    ]
+  },
+  {
+    "animation": "Stand Work",
+    "sound": "Repair",
+    "offset_seconds": 0.234,
+    "path": "Abilities/Spells/Other/Repair/PeonRepair1.wav",
+    "variants": [
+      "Abilities/Spells/Other/Repair/PeonRepair1.wav",
+      "Abilities/Spells/Other/Repair/PeonRepair2.wav",
+      "Abilities/Spells/Other/Repair/PeonRepair3.wav"
+    ]
+  },
+  {
+    "animation": "Stand Work Gold",
+    "sound": "Repair",
+    "offset_seconds": 0.234,
+    "path": "Abilities/Spells/Other/Repair/PeonRepair1.wav",
+    "variants": [
+      "Abilities/Spells/Other/Repair/PeonRepair1.wav",
+      "Abilities/Spells/Other/Repair/PeonRepair2.wav",
+      "Abilities/Spells/Other/Repair/PeonRepair3.wav"
+    ]
+  },
+  {
+    "animation": "Stand Work Lumber",
+    "sound": "Repair",
+    "offset_seconds": 0.234,
+    "path": "Abilities/Spells/Other/Repair/PeonRepair1.wav",
+    "variants": [
+      "Abilities/Spells/Other/Repair/PeonRepair1.wav",
+      "Abilities/Spells/Other/Repair/PeonRepair2.wav",
+      "Abilities/Spells/Other/Repair/PeonRepair3.wav"
+    ]
+  }
+]

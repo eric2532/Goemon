@@ -42,7 +42,9 @@ func run():
 			check(count_original(game.move_audio.voices,15)==1,"Ben's polearm starts original A8A once at entry")
 			var startup_cursor=game.move_audio.cursor
 			combat.tick(44.0/60.0-.35+.001)
-			check(game.last_sound_voice.get_meta("kind","")=="ben_polearm_strike_voice" and game.last_sound_voice.stream==SoundLibrary.original_for(15,"ben_polearm_strike_voice"),"Ben's original A8B follows source key44")
+			check(not combat.is_attacking(),"Ben's first click ends before the follow-through voice")
+			combat.start_attack(false)
+			check(game.last_sound_voice.get_meta("kind","")=="ben_polearm_strike_voice" and game.last_sound_voice.stream==SoundLibrary.original_for(15,"ben_polearm_strike_voice"),"Ben's original A8B starts with the second click at source key44")
 			var transition_order=game.voice_idx
 			combat.tick(21.0/60.0)
 			if combat.polearm_dash_distance>0:

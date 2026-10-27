@@ -1,0 +1,1043 @@
+{
+  "owner": "raw/SC07.CD.dir/FILE_001.dir/4.7",
+  "owner_sha256": "91ae8ba916d057b4d5c155720ba9f2e19b3a901e22f0da3f47172cd08d9c0a05",
+  "bank": "bank_8861d0f48050ebe2",
+  "samples": [
+    {
+      "index": 1,
+      "id": "sample_dc4961ba35ac95a9",
+      "body_offset": 0,
+      "bytes": 2672
+    },
+    {
+      "index": 2,
+      "id": "sample_7a9772bcd5b2ef44",
+      "body_offset": 2672,
+      "bytes": 3824
+    },
+    {
+      "index": 3,
+      "id": "sample_7255bee503d3a860",
+      "body_offset": 6496,
+      "bytes": 16032
+    },
+    {
+      "index": 4,
+      "id": "sample_243c9420ba0b40ed",
+      "body_offset": 22528,
+      "bytes": 13792
+    },
+    {
+      "index": 5,
+      "id": "sample_c0b6eb65820fdd88",
+      "body_offset": 36320,
+      "bytes": 3232
+    },
+    {
+      "index": 6,
+      "id": "sample_83c39e23b90c8424",
+      "body_offset": 39552,
+      "bytes": 11376
+    },
+    {
+      "index": 7,
+      "id": "sample_6ac7be5d8c3368f0",
+      "body_offset": 50928,
+      "bytes": 9072
+    },
+    {
+      "index": 8,
+      "id": "sample_2092a0cf059e3c9c",
+      "body_offset": 60000,
+      "bytes": 13904
+    },
+    {
+      "index": 9,
+      "id": "sample_c0321aa512283ae3",
+      "body_offset": 73904,
+      "bytes": 8160
+    },
+    {
+      "index": 10,
+      "id": "sample_60180e5e09408fc5",
+      "body_offset": 82064,
+      "bytes": 12704
+    },
+    {
+      "index": 11,
+      "id": "sample_44109d106ef389e0",
+      "body_offset": 94768,
+      "bytes": 13968
+    },
+    {
+      "index": 12,
+      "id": "sample_cb31e465702d742b",
+      "body_offset": 108736,
+      "bytes": 3104
+    },
+    {
+      "index": 13,
+      "id": "sample_59fea265f4088ca2",
+      "body_offset": 111840,
+      "bytes": 3888
+    },
+    {
+      "index": 14,
+      "id": "sample_886ce1e8540d886c",
+      "body_offset": 115728,
+      "bytes": 2080
+    },
+    {
+      "index": 15,
+      "id": "sample_88473e314c780546",
+      "body_offset": 117808,
+      "bytes": 8720
+    },
+    {
+      "index": 16,
+      "id": "sample_fb4d7236473a3aa3",
+      "body_offset": 126528,
+      "bytes": 3152
+    },
+    {
+      "index": 17,
+      "id": "sample_40f4170d1a7d991d",
+      "body_offset": 129680,
+      "bytes": 6560
+    },
+    {
+      "index": 18,
+      "id": "sample_4076463ec11cb99c",
+      "body_offset": 136240,
+      "bytes": 7712
+    }
+  ],
+  "events": {
+    "slam": {
+      "id": "0xb52",
+      "resolved": "0xb52",
+      "dispatch": [
+        1,
+        15,
+        3,
+        3
+      ],
+      "notes": [
+        {
+          "address": "0x800c8468",
+          "raw": "d2000000003c7800600301010000000000000000",
+          "tick": 0,
+          "pitch": 15360,
+          "volume": 120,
+          "bank": 96,
+          "index": 3,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_7255bee503d3a860",
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80e35f01000300c000c100c200c300",
+          "curve_data": []
+        },
+        {
+          "address": "0x800c847c",
+          "raw": "d2000000003c7400601001000000000000000000",
+          "tick": 0,
+          "pitch": 15360,
+          "volume": 116,
+          "bank": 96,
+          "index": 16,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_7255bee503d3a860",
+          "tone_hex": "00007f404e003c3c000000000000b1b2ff31e35f01000300c000c100c200c300",
+          "curve_data": []
+        }
+      ],
+      "sha256": "0f6094fd0780199d3d4cdc41873410d5fd9bb278574fa641ef4343d6081b4136"
+    },
+    "step": {
+      "id": "0xb53",
+      "resolved": "0xb53",
+      "dispatch": [
+        1,
+        15,
+        3,
+        16
+      ],
+      "notes": [
+        {
+          "address": "0x800c856c",
+          "raw": "d2000000003e7200600401000000000000000000",
+          "tick": 0,
+          "pitch": 15872,
+          "volume": 114,
+          "bank": 96,
+          "index": 4,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_243c9420ba0b40ed",
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80e35f01000400c000c100c200c300",
+          "curve_data": []
+        }
+      ],
+      "sha256": "62cd47742502b69756515a268068fe34e27182c6161ae4d7d870ea22a19b86cc"
+    },
+    "fire_release": {
+      "id": "0xb54",
+      "resolved": "0xb54",
+      "dispatch": [
+        1,
+        15,
+        3,
+        5
+      ],
+      "notes": [
+        {
+          "address": "0x800c8490",
+          "raw": "d200000000406d00600501010000000000000000",
+          "tick": 0,
+          "pitch": 16384,
+          "volume": 109,
+          "bank": 96,
+          "index": 5,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_c0b6eb65820fdd88",
+          "tone_hex": "00007f4058004040000000000000b1b2ff80e35f01000500c000c100c200c300",
+          "curve_data": []
+        },
+        {
+          "address": "0x800c84a4",
+          "raw": "d200080000417200600601000000000000000000",
+          "tick": 8,
+          "pitch": 16640,
+          "volume": 114,
+          "bank": 96,
+          "index": 6,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_83c39e23b90c8424",
+          "tone_hex": "00007f404d004141000000000000b1b2ff80e35f01000600c000c100c200c300",
+          "curve_data": []
+        }
+      ],
+      "sha256": "8a1ec9151de16b0412e1e1ed25f0b571c90de765f69c136ebcf765f25b8f87c1"
+    },
+    "hurt": {
+      "id": "0xb56",
+      "resolved": "0xb56",
+      "dispatch": [
+        1,
+        15,
+        3,
+        10
+      ],
+      "notes": [
+        {
+          "address": "0x800c84f4",
+          "raw": "d200000000457600600801010000000000000000",
+          "tick": 0,
+          "pitch": 17664,
+          "volume": 118,
+          "bank": 96,
+          "index": 8,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_2092a0cf059e3c9c",
+          "tone_hex": "00007f4051004545000000000000b1b2ff00ec5f01000800c000c100c200c300",
+          "curve_data": []
+        },
+        {
+          "address": "0x800c8508",
+          "raw": "d200000000457200600901000000000000000000",
+          "tick": 0,
+          "pitch": 17664,
+          "volume": 114,
+          "bank": 96,
+          "index": 9,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_2092a0cf059e3c9c",
+          "tone_hex": "00006e405d004545000000000000b1b2ff38ec5f01000800c000c100c200c300",
+          "curve_data": []
+        }
+      ],
+      "sha256": "162a8488d634b77e4ef34180e10a060a7a651f66652f1a8dbc66aa41d2bd24de"
+    },
+    "claw": {
+      "id": "0xb79",
+      "resolved": "0xb79",
+      "dispatch": [
+        1,
+        15,
+        3,
+        17
+      ],
+      "notes": [
+        {
+          "address": "0x800c8580",
+          "raw": "d2000000004574006008010000000000e8830c80",
+          "tick": 0,
+          "pitch": 17664,
+          "volume": 116,
+          "bank": 96,
+          "index": 8,
+          "curve": 2148303848,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_2092a0cf059e3c9c",
+          "tone_hex": "00007f4051004545000000000000b1b2ff00ec5f01000800c000c100c200c300",
+          "curve_data": [
+            8,
+            24,
+            16,
+            62464,
+            62464,
+            16,
+            30,
+            0,
+            2
+          ]
+        }
+      ],
+      "sha256": "0192f0109abfefff510d72ca600b787b92540cae4d10e2898876cc58e977d3f2"
+    },
+    "breath": {
+      "id": "0xb9c",
+      "resolved": "0xb9c",
+      "dispatch": [
+        1,
+        15,
+        3,
+        18
+      ],
+      "notes": [
+        {
+          "address": "0x800c8594",
+          "raw": "d2000000004c6c00600f01000000000000000000",
+          "tick": 0,
+          "pitch": 19456,
+          "volume": 108,
+          "bank": 96,
+          "index": 15,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_40f4170d1a7d991d",
+          "tone_hex": "00007f405e004c4c000000000000b1b2ff00e35f01001100c000c100c200c300",
+          "curve_data": []
+        }
+      ],
+      "sha256": "77798d1a5e46e8a42cfa65821e78c67070485ef94adf40ebec45d2aa44a3f935"
+    },
+    "breakup": {
+      "id": "0xb9e",
+      "resolved": "0xb9e",
+      "dispatch": [
+        1,
+        15,
+        3,
+        19
+      ],
+      "notes": [
+        {
+          "address": "0x800c85a8",
+          "raw": "c8000000004d6000601100010000000000000000",
+          "tick": 0,
+          "pitch": 19712,
+          "volume": 96,
+          "bank": 96,
+          "index": 17,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_cb31e465702d742b",
+          "tone_hex": "00007f4059004d4d000000000000b1b2ff80e35f01000c00c000c100c200c300",
+          "curve_data": []
+        },
+        {
+          "address": "0x800c85bc",
+          "raw": "c8000000004f6a006012000000000000f8830c80",
+          "tick": 0,
+          "pitch": 20224,
+          "volume": 106,
+          "bank": 96,
+          "index": 18,
+          "curve": 2148303864,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_59fea265f4088ca2",
+          "tone_hex": "00007f405b004f4f000000000000b1b2ff25ed5f01000d00c000c100c200c300",
+          "curve_data": [
+            2,
+            22,
+            8,
+            8,
+            640,
+            4864,
+            9216,
+            16,
+            24
+          ]
+        }
+      ],
+      "sha256": "2406b7635d1977b9b64caf961652c8a98e71acd2b4caf3c0e0a3dc67c523d892"
+    },
+    "effect": {
+      "id": "0xb9f",
+      "resolved": "0xb9f",
+      "dispatch": [
+        1,
+        15,
+        3,
+        21
+      ],
+      "notes": [
+        {
+          "address": "0x800c85d0",
+          "raw": "c8000000003c6a00601300010000000000000000",
+          "tick": 0,
+          "pitch": 15360,
+          "volume": 106,
+          "bank": 96,
+          "index": 19,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_886ce1e8540d886c",
+          "tone_hex": "00007f404c113c3c000000000000b1b2ff80e35f02000e00c000c100c200c300",
+          "curve_data": []
+        },
+        {
+          "address": "0x800c85e4",
+          "raw": "c800000000326a006014000000000000fc830c80",
+          "tick": 0,
+          "pitch": 12800,
+          "volume": 106,
+          "bank": 96,
+          "index": 20,
+          "curve": 2148303868,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_59fea265f4088ca2",
+          "tone_hex": "00007f404a003e3e000000000600b1b2ff2feb5f02000d00c000c100c200c300",
+          "curve_data": [
+            8,
+            8,
+            640,
+            4864,
+            9216,
+            16,
+            24,
+            0,
+            2
+          ]
+        }
+      ],
+      "sha256": "36ebf1d5bef8a433cd429d2a3cfc9a25b53f231d748b12aa98ba8adbdbc4cb94"
+    },
+    "throw": {
+      "id": "0xc17",
+      "resolved": "0xc17",
+      "dispatch": [
+        1,
+        15,
+        3,
+        26
+      ],
+      "notes": [
+        {
+          "address": "0x800c8634",
+          "raw": "c80000000043740060190100000000000c840c80",
+          "tick": 0,
+          "pitch": 17152,
+          "volume": 116,
+          "bank": 96,
+          "index": 25,
+          "curve": 2148303884,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_2092a0cf059e3c9c",
+          "tone_hex": "00007f404f004343000000000000b1b2ff80ec5f02000800c000c100c200c300",
+          "curve_data": [
+            2,
+            16,
+            7,
+            0,
+            0,
+            62464,
+            32,
+            20,
+            8
+          ]
+        }
+      ],
+      "sha256": "9cd75f6963dc22714d914daaf8d010ba03187efdeba70157c216987c4c63a306"
+    },
+    "grab": {
+      "id": "0xc18",
+      "resolved": "0xc18",
+      "dispatch": [
+        1,
+        15,
+        3,
+        27
+      ],
+      "notes": [
+        {
+          "address": "0x800c8648",
+          "raw": "c800000000457200601a01010000000000000000",
+          "tick": 0,
+          "pitch": 17664,
+          "volume": 114,
+          "bank": 96,
+          "index": 26,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_88473e314c780546",
+          "tone_hex": "00007f4051004545000000000000b1b2ff80e35f02000f00c000c100c200c300",
+          "curve_data": []
+        },
+        {
+          "address": "0x800c865c",
+          "raw": "c8001e0000437200601a01000000000000000000",
+          "tick": 30,
+          "pitch": 17152,
+          "volume": 114,
+          "bank": 96,
+          "index": 26,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_88473e314c780546",
+          "tone_hex": "00007f4051004545000000000000b1b2ff80e35f02000f00c000c100c200c300",
+          "curve_data": []
+        }
+      ],
+      "sha256": "96198e647b850b125d260a7dd69caf66847ca87ed57d8746ff1e2208395cff79"
+    },
+    "contact_a": {
+      "id": "0xc31",
+      "resolved": "0xc31",
+      "dispatch": [
+        1,
+        15,
+        3,
+        29
+      ],
+      "notes": [
+        {
+          "address": "0x800c8670",
+          "raw": "d200000000476400601b01010000000000000000",
+          "tick": 0,
+          "pitch": 18176,
+          "volume": 100,
+          "bank": 96,
+          "index": 27,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_40f4170d1a7d991d",
+          "tone_hex": "00006e405d004747000000000000b1b2ff35e35f02001100c000c100c200c300",
+          "curve_data": []
+        },
+        {
+          "address": "0x800c8684",
+          "raw": "d200000000476a00601c01000000000000000000",
+          "tick": 0,
+          "pitch": 18176,
+          "volume": 106,
+          "bank": 96,
+          "index": 28,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_40f4170d1a7d991d",
+          "tone_hex": "00007f4057004747000000000000b1b2ff33e35f02001100c000c100c200c300",
+          "curve_data": []
+        }
+      ],
+      "sha256": "195c40a132af513d09957eab3e8394459afde9bdb644cd3c2f0a69a21b62990e"
+    },
+    "contact_b": {
+      "id": "0xc32",
+      "resolved": "0xc32",
+      "dispatch": [
+        1,
+        15,
+        3,
+        32
+      ],
+      "notes": [
+        {
+          "address": "0x800c86ac",
+          "raw": "d200000000465e00601b01010000000000000000",
+          "tick": 0,
+          "pitch": 17920,
+          "volume": 94,
+          "bank": 96,
+          "index": 27,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_40f4170d1a7d991d",
+          "tone_hex": "00006e405d004747000000000000b1b2ff35e35f02001100c000c100c200c300",
+          "curve_data": []
+        },
+        {
+          "address": "0x800c86c0",
+          "raw": "d200000000466600601c01000000000000000000",
+          "tick": 0,
+          "pitch": 17920,
+          "volume": 102,
+          "bank": 96,
+          "index": 28,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_40f4170d1a7d991d",
+          "tone_hex": "00007f4057004747000000000000b1b2ff33e35f02001100c000c100c200c300",
+          "curve_data": []
+        }
+      ],
+      "sha256": "2c08c09fd1fc5729867ae75b6c1476c15ca9abe141c43040851aae4b2df4f3fe"
+    },
+    "fire_impact": {
+      "id": "0xc33",
+      "resolved": "0xc33",
+      "dispatch": [
+        1,
+        15,
+        3,
+        31
+      ],
+      "notes": [
+        {
+          "address": "0x800c8698",
+          "raw": "d200000000437000600701000000000010840c80",
+          "tick": 0,
+          "pitch": 17152,
+          "volume": 112,
+          "bank": 96,
+          "index": 7,
+          "curve": 2148303888,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_6ac7be5d8c3368f0",
+          "tone_hex": "00007f405b004343000000000600b1b2ff80ed5f01000700c000c100c200c300",
+          "curve_data": [
+            7,
+            0,
+            0,
+            62464,
+            32,
+            20,
+            8,
+            20,
+            72
+          ]
+        }
+      ],
+      "sha256": "857aaed9253bb8e9ac1f8b35c1021563998efa11cac836fbd34d06e25829c8f4"
+    },
+    "recover": {
+      "id": "0xc34",
+      "resolved": "0xc34",
+      "dispatch": [
+        5,
+        15,
+        0,
+        10
+      ],
+      "notes": [
+        {
+          "address": "0x800c8ba0",
+          "raw": "004a708000006200010e6000d200000000000000",
+          "tick": 0,
+          "pitch": 18944,
+          "volume": 112,
+          "bank": 96,
+          "index": 14,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "flags": 1,
+          "pan": 0,
+          "sample": "sample_44109d106ef389e0",
+          "tone_hex": "00007f4062004a4a000000000606b1b2ff80e35f01000b00c000c100c200c300",
+          "curve_data": []
+        },
+        {
+          "address": "0x800c8bb4",
+          "raw": "00436d8000000000011a6000d200000000000000",
+          "tick": 98,
+          "pitch": 17152,
+          "volume": 109,
+          "bank": 96,
+          "index": 26,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "flags": 1,
+          "pan": 0,
+          "sample": "sample_88473e314c780546",
+          "tone_hex": "00007f4051004545000000000000b1b2ff80e35f02000f00c000c100c200c300",
+          "curve_data": []
+        }
+      ],
+      "sha256": "2631a0978058782f7d67f0e4cafa5e5b9de2a4abf71e871ed6c21ebdbeb62d87"
+    },
+    "fire_charge": {
+      "id": "0xc35",
+      "resolved": "0xc35",
+      "dispatch": [
+        5,
+        15,
+        0,
+        11
+      ],
+      "notes": [
+        {
+          "address": "0x800c8c34",
+          "raw": "004f6d805600560001126000dc00000000000000",
+          "tick": 0,
+          "pitch": 20224,
+          "volume": 109,
+          "bank": 96,
+          "index": 18,
+          "curve": 0,
+          "gate": 86,
+          "gain": 0,
+          "ramp": 436,
+          "flags": 1,
+          "pan": 0,
+          "sample": "sample_59fea265f4088ca2",
+          "tone_hex": "00007f405b004f4f000000000000b1b2ff25ed5f01000d00c000c100c200c300",
+          "curve_data": []
+        }
+      ],
+      "sha256": "e61d2ddc5b853f80e2a5c46683fce6abdd947ce7daf00da9e88fafe6e6a37519"
+    },
+    "death": {
+      "id": "0xc73",
+      "resolved": "0xc73",
+      "dispatch": [
+        5,
+        15,
+        0,
+        13
+      ],
+      "notes": [
+        {
+          "address": "0x800c8bc8",
+          "raw": "004a708000002b00010e6000d200000000000000",
+          "tick": 0,
+          "pitch": 18944,
+          "volume": 112,
+          "bank": 96,
+          "index": 14,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "flags": 1,
+          "pan": 0,
+          "sample": "sample_44109d106ef389e0",
+          "tone_hex": "00007f4062004a4a000000000606b1b2ff80e35f01000b00c000c100c200c300",
+          "curve_data": []
+        },
+        {
+          "address": "0x800c8bdc",
+          "raw": "004076800000320000156000d200000000000000",
+          "tick": 43,
+          "pitch": 16384,
+          "volume": 118,
+          "bank": 96,
+          "index": 21,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "flags": 0,
+          "pan": 0,
+          "sample": "sample_44109d106ef389e0",
+          "tone_hex": "00047f405a004040000000000000b1b2ff35ec5f02000b00c000c100c200c300",
+          "curve_data": []
+        },
+        {
+          "address": "0x800c8bf0",
+          "raw": "003e78800000000000156000d200000000000000",
+          "tick": 93,
+          "pitch": 15872,
+          "volume": 120,
+          "bank": 96,
+          "index": 21,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "flags": 0,
+          "pan": 0,
+          "sample": "sample_44109d106ef389e0",
+          "tone_hex": "00047f405a004040000000000000b1b2ff35ec5f02000b00c000c100c200c300",
+          "curve_data": []
+        }
+      ],
+      "sha256": "d535c32e1d753715af4bdc1ef0b034397623ebad022edf5f59d5c1972e304609"
+    },
+    "throw_layer": {
+      "id": "0xc7b",
+      "resolved": "0xc7b",
+      "dispatch": [
+        1,
+        15,
+        3,
+        38
+      ],
+      "notes": [
+        {
+          "address": "0x800c8724",
+          "raw": "d200000000437000600701000000000010840c80",
+          "tick": 0,
+          "pitch": 17152,
+          "volume": 112,
+          "bank": 96,
+          "index": 7,
+          "curve": 2148303888,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_6ac7be5d8c3368f0",
+          "tone_hex": "00007f405b004343000000000600b1b2ff80ed5f01000700c000c100c200c300",
+          "curve_data": [
+            7,
+            0,
+            0,
+            62464,
+            32,
+            20,
+            8,
+            20,
+            72
+          ]
+        }
+      ],
+      "sha256": "857aaed9253bb8e9ac1f8b35c1021563998efa11cac836fbd34d06e25829c8f4"
+    },
+    "death_final": {
+      "id": "0xc8c",
+      "resolved": "0xc8c",
+      "dispatch": [
+        5,
+        15,
+        0,
+        14
+      ],
+      "notes": [
+        {
+          "address": "0x800c8c04",
+          "raw": "0047708000002b00000e6000d200000000000000",
+          "tick": 0,
+          "pitch": 18176,
+          "volume": 112,
+          "bank": 96,
+          "index": 14,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "flags": 0,
+          "pan": 0,
+          "sample": "sample_44109d106ef389e0",
+          "tone_hex": "00007f4062004a4a000000000606b1b2ff80e35f01000b00c000c100c200c300",
+          "curve_data": []
+        },
+        {
+          "address": "0x800c8c18",
+          "raw": "003d76800000000000156000d200000000000000",
+          "tick": 43,
+          "pitch": 15616,
+          "volume": 118,
+          "bank": 96,
+          "index": 21,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "flags": 0,
+          "pan": 0,
+          "sample": "sample_44109d106ef389e0",
+          "tone_hex": "00047f405a004040000000000000b1b2ff35ec5f02000b00c000c100c200c300",
+          "curve_data": []
+        }
+      ],
+      "sha256": "245c14fc14ac9d9d1c38ca842cdfbc463758076f7c39b4a36030db69f4f992f3"
+    },
+    "effect_b": {
+      "id": "0xb58",
+      "resolved": "0xb58",
+      "dispatch": [
+        1,
+        15,
+        3,
+        13
+      ],
+      "notes": [
+        {
+          "address": "0x800c8530",
+          "raw": "d200000000487600600b01010000000000000000",
+          "tick": 0,
+          "pitch": 18432,
+          "volume": 118,
+          "bank": 96,
+          "index": 11,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_60180e5e09408fc5",
+          "tone_hex": "000078405c7d4848000000000000b1b2dd80e35f01000a00c000c100c200c300",
+          "curve_data": []
+        },
+        {
+          "address": "0x800c8544",
+          "raw": "d200000000487000600c01010000000000000000",
+          "tick": 0,
+          "pitch": 18432,
+          "volume": 112,
+          "bank": 96,
+          "index": 12,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_60180e5e09408fc5",
+          "tone_hex": "00007640687d4848000000000000b1b2ff3be35f01000a00c000c100c200c300",
+          "curve_data": []
+        },
+        {
+          "address": "0x800c8558",
+          "raw": "d200000000486d00600d01000000000000000000",
+          "tick": 0,
+          "pitch": 18432,
+          "volume": 109,
+          "bank": 96,
+          "index": 13,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_60180e5e09408fc5",
+          "tone_hex": "00007040747d4848000000000000b1b2ff3de35f01000a00c000c100c200c300",
+          "curve_data": []
+        }
+      ],
+      "sha256": "3d01537661e3a19ed34495b6b502bd0a6c10e05165b057dc97a3dbfce96bc89e"
+    },
+    "hit": {
+      "id": "0x437",
+      "resolved": "0xbb3",
+      "dispatch": [
+        1,
+        15,
+        3,
+        25
+      ],
+      "notes": [
+        {
+          "address": "0x800c8620",
+          "raw": "c8000000003c6400601301000800000000000000",
+          "tick": 0,
+          "pitch": 15360,
+          "volume": 100,
+          "bank": 96,
+          "index": 19,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_886ce1e8540d886c",
+          "tone_hex": "00007f404c113c3c000000000000b1b2ff80e35f02000e00c000c100c200c300",
+          "curve_data": []
+        }
+      ],
+      "sha256": "ede10cc15d4438322c47250669ac4ba0ef1b41cd7f91bac16606fe6f5bfc89e2"
+    },
+    "hit_strong": {
+      "id": "0x438",
+      "resolved": "0xbb3",
+      "dispatch": [
+        1,
+        15,
+        3,
+        25
+      ],
+      "notes": [
+        {
+          "address": "0x800c8620",
+          "raw": "c8000000003c6400601301000800000000000000",
+          "tick": 0,
+          "pitch": 15360,
+          "volume": 100,
+          "bank": 96,
+          "index": 19,
+          "curve": 0,
+          "gate": 0,
+          "gain": 127,
+          "ramp": 0,
+          "sample": "sample_886ce1e8540d886c",
+          "tone_hex": "00007f404c113c3c000000000000b1b2ff80e35f02000e00c000c100c200c300",
+          "curve_data": []
+        }
+      ],
+      "sha256": "ede10cc15d4438322c47250669ac4ba0ef1b41cd7f91bac16606fe6f5bfc89e2"
+    },
+    "hit_heavy": {
+      "id": "0x439",
+      "resolved": "0x7f",
+      "dispatch": [
+        2,
+        9,
+        2,
+        10
+      ],
+      "control_only": true
+    }
+  },
+  "sequence_driver": "8003388c; type 5 header table owner+0x18; compressed full notes 0x80 and gain commands 0x84/0x86",
+  "notes": [
+    "All direct sound IDs referenced by battle module 0x72 retained, plus descriptor contact cues.",
+    "C35 includes its original fade-in; C34/C73/C8C preserve scripted pitch, layers and delays.",
+    "Dry SPU ADPCM recovery; PSX ADSR/reverb/Gaussian interpolation are not emulated. Shared scene music/dialogue are not character skill cues."
+  ]
+}

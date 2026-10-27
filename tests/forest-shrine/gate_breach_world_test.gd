@@ -15,6 +15,7 @@ func run():
  check(gates.size()==4,"The current castle retains all four gate entrances")
  for b in gates:
   var node=game.world.structure_nodes[b.id];var instance=node.get_instance_id()
+  check(not node.has_node("Health"),"Castle doors have no overhead health bar")
   var door=node.get_node("GateDoor");var collider=door.get_node("GateDoorCollider")
   b.hp=0;b.breached=true;game.world.sync(.1)
   check(not door.visible and collider.collision_layer==0,"A breached gate hides only its door and disables only the leaf collider")
@@ -36,7 +37,23 @@ func run():
  var wall=game.model.buildings.values().filter(func(b):return b.kind=="wall")[0]
  wall.hp-=100;game.world.sync(.1)
  var wall_node=game.world.structure_nodes[wall.id]
- check(not wall_node.get_node("Health").visible and not wall_node.get_node("WallDamage").visible,"Indestructible walls show no damage state or repair bar")
+ check(not wall_node.has_node("Health") and not wall_node.get_node("WallDamage").visible,"Indestructible walls show no damage state or repair bar")
+ for b in game.model.buildings.values():
+  if b.kind in ["tower","shrine"]:check(not game.world.structure_nodes[b.id].has_node("Health"),"Towers and the statue have no overhead health bar")
+ var shrine=game.model.shrine();var original_hp:float=shrine.hp
+ shrine.hp-=100;game.forest_ui.sync()
+ check(game.forest_ui.shrine_health_bar.value==shrine.hp,"The main statue health display still shows damage")
+ shrine.hp=original_hp
+ for b in gates:
+  var node=game.world.structure_nodes[b.id];var door=node.get_node("GateDoor")
+  var center:Vector3=game.model.center(b);var outward=game.model.waves.navigation.gate_outward(b)
+  b.hp=b.max_hp*.3
+  game.model.hero_position=center-outward*15;game.world.sync(1)
+  check(is_equal_approx(door.transparency,.8),"Every gate fades from its inner side")
+  check(is_equal_approx(node.get_node("WallDamage/Fractures").transparency,door.transparency),"Cracks fade together with the door")
+  check(door.get_node("GateDoorCollider").collision_layer==32,"Translucency preserves the closed door collider")
+  game.model.hero_position=center+outward*15;game.world.sync(1)
+  check(is_zero_approx(door.transparency),"Every gate becomes opaque outside")
  game.forest_ui.selected_id=wall.id;game.forest_ui.sync()
  check("Indestructible" in game.forest_ui.inspect_text.text and "Auto repair" not in game.forest_ui.inspect_text.text,"Wall inspection explains that this barrier cannot be damaged or repaired")
  game.sound_library.cancel();game.music.stop();game.queue_free();paused=false

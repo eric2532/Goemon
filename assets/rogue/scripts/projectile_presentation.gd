@@ -2,6 +2,7 @@ extends RefCounted
 ## Army flight keeps a logical pose at the native physics rate. Only draw
 ## submission waits for the displayed frame; human shots continue using nodes.
 static func begin(pr:Dictionary)->void:
+ if not pr.has("visual_lease"):pr.visual_lease=pr.mesh.get_meta("army_projectile_generation",-1)
  if not pr.get("deferPresentation",false) or pr.has("presentation"):return
  pr.presentation={"transform":pr.mesh.transform,"materials":pr.mesh.get_meta("ink_materials",[]),"frame":-1,"dirty":false,"lease":pr.mesh.get_meta("army_projectile_generation",-1)}
 static func position_of(pr:Dictionary)->Vector3:
@@ -29,11 +30,5 @@ static func present(pr:Dictionary)->void:
  pr.mesh.transform=draw.transform
  for material in draw.materials:material.set_shader_parameter("brush_clock",pr.get("inkClock",0.0))
 static func release(pr:Dictionary)->void:
- if not is_instance_valid(pr.mesh) or pr.mesh.is_queued_for_deletion():return
- if pr.has("presentation") and pr.presentation.get("lease",-1)!=pr.mesh.get_meta("army_projectile_generation",-1):return
- if not pr.mesh.has_meta("army_projectile_owner"):
-  pr.mesh.queue_free();return
- var owner_ref=pr.mesh.get_meta("army_projectile_owner")
- var owner=owner_ref.get_ref() if owner_ref is WeakRef else null
- if is_instance_valid(owner):owner.recycle_projectile(pr.mesh)
- else:pr.mesh.queue_free()
+ if not is_instance_valid(pr.mesh):return
+ preload("res://scripts/character_projectile_pool.gd").retire_visual(pr.mesh,pr.get("visual_lease",pr.presentation.get("lease",-1) if pr.has("presentation") else -1))

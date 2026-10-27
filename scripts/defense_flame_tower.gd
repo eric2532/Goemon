@@ -34,8 +34,8 @@ func _ready():
 	target_clock=float(get_instance_id()%15)/60.0
 	cooldown=.3+target_clock
 	pivot=Node3D.new();add_child(pivot)
-	var model=load(TOWER_SCENE).instantiate();pivot.add_child(model)
-	flame_visual=load(FLAME_SCENE).instantiate();add_child(flame_visual)
+	var model=load(GameAssets.model_path(TOWER_SCENE)).instantiate();pivot.add_child(model)
+	flame_visual=load(GameAssets.model_path(FLAME_SCENE)).instantiate();add_child(flame_visual)
 	flame_visual.set_as_top_level(true);flame_visual.hide()
 	for animator in flame_visual.find_children("*","AnimationPlayer",true,false):
 		flame_animation=animator;break

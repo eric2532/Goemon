@@ -18,8 +18,7 @@ func _ready():
 		ring.transparency=.50
 		ring.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var light=OmniLight3D.new();light.light_color=Color("379bff");light.light_energy=1.1;light.omni_range=5;add_child(light)
-	# Keep the existing shield audio untouched.
-	var loop=AudioStreamPlayer3D.new();loop.stream=load("res://assets/characters/musashi/audio/fire_loop.wav");loop.stream=loop.stream.duplicate();loop.stream.loop_end=int(loop.stream.get_length()*loop.stream.mix_rate);loop.stream.loop_mode=AudioStreamWAV.LOOP_FORWARD;loop.volume_db=-15;add_child(loop);loop.play()
+	var loop=AudioStreamPlayer3D.new();loop.bus=&"SFX";loop.stream=load("res://assets/characters/musashi/audio/fire_loop.wav");loop.stream=loop.stream.duplicate();loop.stream.loop_end=int(loop.stream.get_length()*loop.stream.mix_rate);loop.stream.loop_mode=AudioStreamWAV.LOOP_FORWARD;loop.volume_db=-15;add_child(loop);loop.play()
 	scale=Vector3.ONE*.05
 func _process(delta):
 	age+=delta

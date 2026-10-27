@@ -17,7 +17,7 @@ using VT=GDExtensionVariantType;
 constexpr VT NIL=GDEXTENSION_VARIANT_TYPE_NIL, BOOL=GDEXTENSION_VARIANT_TYPE_BOOL,
  INT=GDEXTENSION_VARIANT_TYPE_INT, FLOAT=GDEXTENSION_VARIANT_TYPE_FLOAT,
  VEC2=GDEXTENSION_VARIANT_TYPE_VECTOR2, VEC3=GDEXTENSION_VARIANT_TYPE_VECTOR3, BYTES=GDEXTENSION_VARIANT_TYPE_PACKED_BYTE_ARRAY,
- FLOATS=GDEXTENSION_VARIANT_TYPE_PACKED_FLOAT32_ARRAY,
+ FLOATS=GDEXTENSION_VARIANT_TYPE_PACKED_FLOAT32_ARRAY, DOUBLES=GDEXTENSION_VARIANT_TYPE_PACKED_FLOAT64_ARRAY,
  VECS2=GDEXTENSION_VARIANT_TYPE_PACKED_VECTOR2_ARRAY, VECS3=GDEXTENSION_VARIANT_TYPE_PACKED_VECTOR3_ARRAY;
 struct V2 { float x,z; };
 struct V3 { float x,y,z; };
@@ -42,11 +42,13 @@ GDExtensionInterfaceClassdbUnregisterExtensionClass unregister_class;
 GDExtensionInterfaceClassdbRegisterExtensionClassMethod register_method;
 GDExtensionInterfacePackedByteArrayOperatorIndexConst byte_data;
 GDExtensionInterfacePackedFloat32ArrayOperatorIndexConst float_data;
+GDExtensionInterfacePackedFloat64ArrayOperatorIndexConst double_data;
+GDExtensionInterfacePackedFloat64ArrayOperatorIndex double_write;
 GDExtensionInterfacePackedVector2ArrayOperatorIndexConst vec2_data;
 GDExtensionInterfacePackedVector3ArrayOperatorIndexConst vec3_data;
 GDExtensionInterfacePackedVector3ArrayOperatorIndex vec3_write;
 Name class_name,parent_name;
-GDExtensionPtrBuiltInMethod array_size[40]{},array_resize;
+GDExtensionPtrBuiltInMethod array_size[40]{},array_resize,double_resize;
 Name make_name(const char* s) { Name n;name_new(&n,s);return n; }
 void destroy_name(Name& n) { destructor(GDEXTENSION_VARIANT_TYPE_STRING_NAME)(&n); }
 GDExtensionPtrBuiltInMethod method(VT t,const char* s,int64_t hash) {
@@ -106,6 +108,10 @@ struct Terrain {
   for(const auto& a:axes) {double h=covered_height(double(p.x)+double(a.x)*r,double(p.z)+double(a.z)*r);if(std::isnan(h)||std::abs(h-center)>tolerance)return false;}
   return true;
  }
+ bool trees_clear(const V3& p,double r) const {
+  for(auto t:trees) {float dx=float(std::max(0.0,std::abs(double(p.x)-t.x)-1.25)),dz=float(std::max(0.0,std::abs(double(p.z)-t.z)-1.25));if(length2(dx,dz)<r+.05)return false;}
+  return true;
+ }
  bool terrain_obstacles_clear(const V3& p,double r) const {
   if(r>=8.5)r=14.0;
   if(rect_bounds) {
@@ -114,8 +120,7 @@ struct Terrain {
    float sx=(maximum.x-minimum.x)-rf*2.0f,sz=(maximum.z-minimum.z)-rf*2.0f;
    if(p.x<x||p.z<z||p.x>=x+sx||p.z>=z+sz)return false;
   } else if(double(p.x)-r < minimum.x||double(p.z)-r < minimum.z||double(p.x)+r>maximum.x||double(p.z)+r>maximum.z)return false;
-  for(auto t:trees) {float dx=float(std::max(0.0,std::abs(double(p.x)-t.x)-1.25)),dz=float(std::max(0.0,std::abs(double(p.z)-t.z)-1.25));if(length2(dx,dz)<r+.05)return false;}
-  return true;
+  return trees_clear(p,r);
  }
  bool on_road(const V3& p,double r) const {
   float rf=float(r);const V2 offsets[]={{0,0},{1,0},{-1,0},{0,-1},{0,1}};
@@ -141,18 +146,40 @@ struct Terrain {
   }
   return result;
  }
- bool walls_clear(const void* points,double radius) const {
-  int64_t n=size(VECS3,points);if(!n||walls.empty())return true;
-  auto p=static_cast<const V3*>(vec3_data(points,0));
-  for(int64_t i=0;i<n;++i)for(size_t j=0;j+1<walls.size();j+=2) {
+ bool wall_clear(V3 p,double radius) const {
+  for(size_t j=0;j+1<walls.size();j+=2) {
    const auto& a=walls[j];const auto& b=walls[j+1];
-   float x=std::clamp(p[i].x,a.x,b.x),z=std::clamp(p[i].z,a.z,b.z);
-   if(length3(p[i].x-x,p[i].y-a.y,p[i].z-z)<radius+.05)return false;
+   float x=std::clamp(p.x,a.x,b.x),z=std::clamp(p.z,a.z,b.z);
+   if(length3(p.x-x,p.y-a.y,p.z-z)<radius+.05)return false;
   }
   return true;
  }
+ bool walls_clear(const void* points,double radius) const {
+  int64_t n=size(VECS3,points);if(!n||walls.empty())return true;
+  auto p=static_cast<const V3*>(vec3_data(points,0));
+  for(int64_t i=0;i<n;++i)if(!wall_clear(p[i],radius))return false;
+  return true;
+ }
+ void probe(const void* points,const void* radii,void* result) const {
+  int64_t n=size(VECS3,points);if(n!=size(DOUBLES,radii))return;
+  int64_t count=n*2,error=0;const void* args[]={&count};double_resize(result,args,&error,1);
+  if(!n)return;
+  auto p=static_cast<const V3*>(vec3_data(points,0));auto r=double_data(radii,0);auto out=double_write(result,0);
+  for(int64_t i=0;i<n;++i){
+   out[i*2]=NAN;out[i*2+1]=0;
+   if(!std::isfinite(p[i].x)||!std::isfinite(p[i].z)||!std::isfinite(r[i])||r[i]<0||r[i]>1e7||r[i]/spacing>1e8)continue;
+   auto c=coordinate(p[i].x,p[i].z);
+   if(!std::isfinite(c.x)||!std::isfinite(c.z)||std::abs(c.x)>1e8||std::abs(c.z)>1e8)continue;
+   double h=height(p[i].x,p[i].z);out[i*2]=h;V3 point{p[i].x,float(h),p[i].z};
+   // Point clearance uses Rect2's float32 inset and exclusive upper edge.
+   double radius=r[i]>=8.5?14.0:r[i];float rf=float(radius),x=minimum.x+rf,z=minimum.z+rf;
+   float sx=(maximum.x-minimum.x)-rf*2,sz=(maximum.z-minimum.z)-rf*2;
+   bool inside=point.x>=x&&point.z>=z&&point.x<x+sx&&point.z<z+sz;
+   out[i*2+1]=inside&&disk_clear(point,r[i]>=8.5?14.75:r[i])&&trees_clear(point,radius)&&wall_clear(point,r[i]);
+  }
+ }
 };
-enum Method { CONFIGURE,OBSTACLES,SAMPLE,WALLS,WORLD_DOMAIN };
+enum Method { CONFIGURE,OBSTACLES,SAMPLE,WALLS,WORLD_DOMAIN,PROBE };
 void ptrcall(void* userdata,void* instance,const void* const* args,void* ret) {
  auto& t=*static_cast<Terrain*>(instance);
  switch(intptr_t(userdata)) {
@@ -161,16 +188,18 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret) {
   case SAMPLE:write_points(ret,t.sample(*static_cast<const V3*>(args[0]),*static_cast<const V3*>(args[1]),*static_cast<const double*>(args[2]),*static_cast<const double*>(args[3]),*static_cast<const GDExtensionBool*>(args[4]),*static_cast<const GDExtensionBool*>(args[5])));break;
   case WALLS:*static_cast<GDExtensionBool*>(ret)=t.walls_clear(args[0],*static_cast<const double*>(args[1]));break;
   case WORLD_DOMAIN:t.origin=*static_cast<const double*>(args[0]);t.minimum=*static_cast<const V2*>(args[1]);t.maximum=*static_cast<const V2*>(args[2]);t.rect_bounds=*static_cast<const GDExtensionBool*>(args[3]);break;
+  case PROBE:t.probe(args[0],args[1],ret);break;
  }
 }
-const VT arg_types[5][6]={{INT,FLOAT,FLOATS,BYTES},{VECS2,VECS2,VECS3},{VEC3,VEC3,FLOAT,FLOAT,BOOL,BOOL},{VECS3,FLOAT},{FLOAT,VEC2,VEC2,BOOL}};
-const int arg_counts[]={4,3,6,2,4};
+const VT arg_types[6][6]={{INT,FLOAT,FLOATS,BYTES},{VECS2,VECS2,VECS3},{VEC3,VEC3,FLOAT,FLOAT,BOOL,BOOL},{VECS3,FLOAT},{FLOAT,VEC2,VEC2,BOOL},{VECS3,DOUBLES}};
+const int arg_counts[]={4,3,6,2,4,2};
 void call(void* userdata,void* instance,const void* const* args,GDExtensionInt argc,void* ret,GDExtensionCallError* error) {
  auto m=intptr_t(userdata);error->error=GDEXTENSION_CALL_OK;
  if(argc!=arg_counts[m]) {error->error=argc<arg_counts[m]?GDEXTENSION_CALL_ERROR_TOO_FEW_ARGUMENTS:GDEXTENSION_CALL_ERROR_TOO_MANY_ARGUMENTS;error->expected=arg_counts[m];nil_new(ret);return;}
  alignas(8) unsigned char storage[6][24]{};const void* converted[6]{};
  for(int i=0;i<argc;++i) {to_type(arg_types[m][i])(storage[i],const_cast<void*>(args[i]));converted[i]=storage[i];}
  if(m==SAMPLE) {Packed packed;constructor(VECS3,0)(&packed,nullptr);ptrcall(userdata,instance,converted,&packed);from_type(VECS3)(ret,&packed);destructor(VECS3)(&packed);}
+ else if(m==PROBE) {Packed packed;constructor(DOUBLES,0)(&packed,nullptr);ptrcall(userdata,instance,converted,&packed);from_type(DOUBLES)(ret,&packed);destructor(DOUBLES)(&packed);}
  else if(m==WALLS) {GDExtensionBool result=false;ptrcall(userdata,instance,converted,&result);from_type(BOOL)(ret,&result);}
  else {ptrcall(userdata,instance,converted,nullptr);nil_new(ret);}
  for(int i=0;i<argc;++i)if(arg_types[m][i]>=BYTES)destructor(arg_types[m][i])(storage[i]);
@@ -189,8 +218,9 @@ void bind_method(int m,const char* name,VT return_type,const char* const* names)
 void initialize(void*,GDExtensionInitializationLevel level) {
  if(level!=GDEXTENSION_INITIALIZATION_SCENE)return;
  class_name=make_name("GoemonTerrainMath");parent_name=make_name("RefCounted");
- for(auto t:{BYTES,FLOATS,VECS2,VECS3})array_size[t]=method(t,"size",3173160232LL);
+ for(auto t:{BYTES,FLOATS,DOUBLES,VECS2,VECS3})array_size[t]=method(t,"size",3173160232LL);
  array_resize=method(VECS3,"resize",848867239LL);
+ double_resize=method(DOUBLES,"resize",848867239LL);
  GDExtensionClassCreationInfo5 info{};info.is_exposed=true;info.create_instance_func=create;info.free_instance_func=free_instance;
  register_class(library,&class_name,&parent_name,&info);
  const char* config[]={"width","spacing","heights","covered"};bind_method(CONFIGURE,"configure_field",NIL,config);
@@ -198,6 +228,7 @@ void initialize(void*,GDExtensionInitializationLevel level) {
  const char* sample[]={"from","to","radius","spacing","horizontal","on_road"};bind_method(SAMPLE,"sample",VECS3,sample);
  const char* walls[]={"points","radius"};bind_method(WALLS,"walls_clear",BOOL,walls);
  const char* domain[]={"origin","minimum","maximum","rect_bounds"};bind_method(WORLD_DOMAIN,"set_domain",NIL,domain);
+ const char* probe[]={"points","radii"};bind_method(PROBE,"probe",DOUBLES,probe);
  army_binding::initialize(proc,library);
 }
 void deinitialize(void*,GDExtensionInitializationLevel level) {if(level==GDEXTENSION_INITIALIZATION_SCENE){army_binding::deinitialize();unregister_class(library,&class_name);destroy_name(class_name);destroy_name(parent_name);}}
@@ -220,6 +251,8 @@ extern "C" __attribute__((visibility("default"))) GDExtensionBool goemon_terrain
  LOAD(register_method,GDExtensionInterfaceClassdbRegisterExtensionClassMethod,"classdb_register_extension_class_method");
  LOAD(byte_data,GDExtensionInterfacePackedByteArrayOperatorIndexConst,"packed_byte_array_operator_index_const");
  LOAD(float_data,GDExtensionInterfacePackedFloat32ArrayOperatorIndexConst,"packed_float32_array_operator_index_const");
+ LOAD(double_data,GDExtensionInterfacePackedFloat64ArrayOperatorIndexConst,"packed_float64_array_operator_index_const");
+ LOAD(double_write,GDExtensionInterfacePackedFloat64ArrayOperatorIndex,"packed_float64_array_operator_index");
  LOAD(vec2_data,GDExtensionInterfacePackedVector2ArrayOperatorIndexConst,"packed_vector2_array_operator_index_const");
  LOAD(vec3_data,GDExtensionInterfacePackedVector3ArrayOperatorIndexConst,"packed_vector3_array_operator_index_const");
  LOAD(vec3_write,GDExtensionInterfacePackedVector3ArrayOperatorIndex,"packed_vector3_array_operator_index");

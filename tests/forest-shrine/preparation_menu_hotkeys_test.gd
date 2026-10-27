@@ -28,19 +28,27 @@ func tap(code:int):
 func click(button:Control):
 	var event=InputEventMouseButton.new();event.device=TEST_INPUT_DEVICE;event.button_index=MOUSE_BUTTON_LEFT;event.pressed=true;event.position=button.get_global_rect().get_center()
 	root.push_input(event,true);event=event.duplicate();event.pressed=false;root.push_input(event,true);await frames()
+func check_start_wave(section:String):
+	var button=game.forest_ui.start_wave_button
+	var rect=button.get_global_rect();var viewport=root.get_visible_rect()
+	check(button.is_visible_in_tree() and not button.disabled and rect.end.distance_to(viewport.end-Vector2(22,16))<1,"Start Wave stays available at the bottom right in %s (button=%s viewport=%s visible=%s)"%[section,rect,viewport,button.is_visible_in_tree()])
+	check(not rect.intersects(game.forest_ui.bar_paper.get_global_rect()),"Start Wave stays clear of the tray in "+section)
 func run():
+	root.content_scale_size=Vector2i.ZERO
 	root.size=Vector2i(1280,800)
-	var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+	var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game
 	if "--visual" in OS.get_cmdline_user_args():
 		# Keep physical input from another running Godot window out of screenshot QA.
 		var guard=VisualInputGuard.new();guard.process_mode=Node.PROCESS_MODE_ALWAYS;root.add_child(guard)
 	await frames();AudioServer.set_bus_mute(0,true)
+	check_start_wave("the collapsed menu")
 	game.model.gold=5000;game.player.select_character(1);game.player.weapon_slot=3;game.player.set_weapon_visual(3)
 	game.model.build("barracks",Vector2i(12,10),0);game.world.sync(0)
 	await tap(KEY_B)
 	await tap(KEY_B)
 	check(game.forest_ui.build_menu_expanded,"Pressing B again keeps the build menu open")
+	check_start_wave("Builds")
 	var build_tray=game.forest_ui.build_bar.get_global_rect()
 	await capture("build-cards")
 	await tap(KEY_1)
@@ -65,28 +73,33 @@ func run():
 	if game.ordinary_pause:game.resume()
 	await tap(KEY_M)
 	check(game.forest_ui.guard_shop_open(),"M opens the mercenary selection menu")
+	check_start_wave("Mercenaries")
 	await tap(KEY_M)
 	check(game.forest_ui.guard_shop_open(),"Pressing M again keeps the mercenary menu open")
 	if not game.forest_ui.guard_shop_open():await tap(KEY_M)
 	var mercenary_tray=game.forest_ui.guard_shop.panel.get_global_rect()
 	check(mercenary_tray.position.distance_to(build_tray.position)<1 and mercenary_tray.size.distance_to(build_tray.size)<1,"M cards occupy the same bottom tray as B")
 	root.size=Vector2i(960,600);await frames()
+	check_start_wave("Mercenaries in a smaller window")
 	check(root.get_visible_rect().encloses(game.forest_ui.guard_shop.panel.get_global_rect()),"Mercenary tray stays inside a smaller game window")
+	check(not game.forest_ui.start_wave_button.get_global_rect().intersects(game.forest_ui.guard_shop.panel.get_global_rect()),"Mercenary cards cannot cover Start Wave")
+	await tap(KEY_B);check_start_wave("Builds in a smaller window")
+	await click(game.forest_ui.preparation_header.get_node("PreparationTools"));check_start_wave("Tools in a smaller window")
+	await tap(KEY_M)
 	root.size=Vector2i(1280,800);await frames();await capture("mercenary-cards")
 	gold=game.model.gold
-	for entry in [[KEY_1,2,"Ninja"],[KEY_2,0,"Dragoon"],[KEY_3,1,"Ranger"],[KEY_4,4,"Explorer"]]:
-		await tap(entry[0])
-		check(game.explorer_helpers.selected_slot==entry[1],"M then %d selects %s for map placement"%[entry[0]-KEY_1+1,entry[2]])
-	check(game.model.gold==gold and game.explorer_helpers.active_units().is_empty(),"Mercenary selection never charges before valid map placement")
-	check(game.player.weapon_slot==3,"Mercenary digits do not switch weapons")
 	var food=game.model.food_used()
-	check(game.explorer_helpers.purchase(4,game.model.point(Vector2i(5,10))) and game.forest_ui.guard_shop_open(),"Placing a fighter keeps the mercenary menu open")
-	check(game.model.food_used()==food+2,"Placing a fighter consumes two shared food")
+	for entry in [[KEY_1,2,"Ninja"],[KEY_2,0,"Dragoon"],[KEY_3,1,"Ranger"],[KEY_4,4,"Explorer"],[KEY_5,3,"Knight"]]:
+		await tap(entry[0])
+		check(game.explorer_helpers.active_units(entry[1]).size()==1 and not game.explorer_helpers.placement_active(),"M then %d hires %s at the castle"%[entry[0]-KEY_1+1,entry[2]])
+	check(game.model.gold==gold-470 and game.model.food_used()==food+10,"Five hotkeys charge their displayed prices and two food each")
+	check(game.player.weapon_slot==3,"Mercenary digits do not switch weapons")
+	check(game.forest_ui.guard_shop_open(),"Hiring keeps the mercenary menu open")
 	await tap(KEY_ESCAPE)
-	check(not game.forest_ui.guard_shop_open() and not game.explorer_helpers.placement_active() and not game.ordinary_pause,"Esc exits mercenaries and cancels the preview without pausing")
+	check(not game.forest_ui.guard_shop_open() and not game.explorer_helpers.placement_active() and not game.ordinary_pause,"Esc exits mercenaries and leaves no placement preview without pausing")
 	if game.ordinary_pause:game.resume()
 	await tap(KEY_M);await tap(KEY_1);await tap(KEY_B);await tap(KEY_2)
-	check(game.build_kind=="barracks" and not game.explorer_helpers.placement_active() and not game.forest_ui.guard_shop_open(),"B switches from hiring to building and cancels the mercenary preview")
+	check(game.build_kind=="barracks" and not game.explorer_helpers.placement_active() and not game.forest_ui.guard_shop_open(),"B switches from hiring to building without selecting a placement preview")
 	await tap(KEY_M)
 	check(game.build_kind.is_empty() and game.forest_ui.guard_shop_open(),"M switches from building to mercenaries")
 	await tap(KEY_ESCAPE)
@@ -98,7 +111,8 @@ func run():
 	if game.ordinary_pause:game.resume()
 	game.show_pause();await tap(KEY_B);await tap(KEY_M);await tap(KEY_3)
 	check(game.ordinary_pause and not game.forest_ui.guard_shop_open() and game.model.workers.size()==workers+1,"Paused B/M shortcuts cannot open menus or recruit")
-	game.resume();game.start_wave();game.model.waves.spawn_clock=100000
+	game.resume();await tap(KEY_M);await click(game.forest_ui.start_wave_button);game.model.waves.spawn_clock=100000
+	check(not game.forest_ui.start_wave_button.is_visible_in_tree(),"Start Wave launches combat from Mercenaries and hides during the wave")
 	await tap(KEY_B);await tap(KEY_M)
 	check(game.model.phase=="wave" and not game.forest_ui.guard_shop_open(),"Build and mercenary menus stay closed during combat")
 	game.player.select_character(18);await tap(KEY_2)

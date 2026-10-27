@@ -1,4 +1,5 @@
 extends Sanctuary
+signal worker_hammered(point:Vector3)
 const Profile=preload("res://scripts/forest/forest_structure_profile.gd")
 const Art=preload("res://scripts/forest/forest_art.gd")
 var model
@@ -58,7 +59,7 @@ func _ready():
 	sight_ring=Geo.torus(preview,Vector3(0,.12,0),5.95,6.05,Geo.mat("d9c386",0,.3));preview.hide()
 	sync(0)
 	painterly_pilot=preload("res://scripts/forest/forest_painterly_pilot.gd").new(self)
-	painterly_pilot.set_enabled(painterly_preview_enabled)
+	painterly_pilot.set_enabled(painterly_preview_enabled and model.terrain_source!="wind_meadow")
 	apply_map_environment()
 func apply_map_environment():
 	if blood_gulch_environment==null:blood_gulch_environment=preload("res://scripts/forest/blood_gulch_environment.gd").new(self)
@@ -68,7 +69,7 @@ func restore_map_environment():
 func set_painterly_preview(value: bool):
 	painterly_preview_enabled=value
 	restore_map_environment()
-	if painterly_pilot!=null:painterly_pilot.set_enabled(value)
+	if painterly_pilot!=null:painterly_pilot.set_enabled(value and model.terrain_source!="wind_meadow")
 	apply_map_environment()
 func make_deposits():
 	deposit_root=Node3D.new();deposit_root.name="MapDeposits";add_child(deposit_root)
@@ -80,8 +81,13 @@ func make_deposits():
 			Geo.spike(node,p+Vector3(0,1,.8),p+Vector3(.6,3.1,1),.6,Geo.mat("e7bb5b",.3,.2))
 		deposit_nodes[cell]=node
 func reload_map():
+	var game=get_parent()
+	if game.get("enemy_objectives")!=null:
+		for target in game.enemy_objective_targets:game.enemies.erase(target)
+		game.enemy_objective_targets.clear()
+		game.enemy_objectives.clear()
 	restore_map_environment()
-	if painterly_pilot!=null:painterly_pilot.restore()
+	if painterly_pilot!=null:painterly_pilot.set_enabled(false)
 	for nodes in [structure_nodes,worker_nodes]:
 		for node in nodes.values():
 			remove_child(node);node.queue_free()
@@ -89,7 +95,9 @@ func reload_map():
 	for node in [forest_root,deposit_root,map_features]:
 		if is_instance_valid(node):remove_child(node);node.queue_free()
 	deposit_nodes.clear();fog_materials=[ground_material]
-	make_forest();make_deposits();make_map_features();revision=-1;preview.hide();sync(0);update_fog();apply_map_environment()
+	make_forest();make_deposits();make_map_features();revision=-1;preview.hide();sync(0);update_fog()
+	if painterly_pilot!=null:painterly_pilot.set_enabled(painterly_preview_enabled and model.terrain_source!="wind_meadow")
+	apply_map_environment()
 func make_portal(portal: Dictionary)->Node3D:
 	var root=Node3D.new();root.name="EnemySpawnPortal";root.rotation.y=-int(portal.rotation)*PI*.5
 	root.add_child(preload("res://scripts/forest/halo_teleporter.gd").build())
@@ -99,13 +107,15 @@ func make_map_features():
 	if model.terrain_source=="blood_gulch":playable_bounds=Rect2(Vector2(-234,-234)*model.terrain_scale,Vector2(468,468)*model.terrain_scale)
 	map_features=Node3D.new();map_features.name="AuthoredMapFeatures";add_child(map_features);portal_nodes.clear()
 	kai_materials.clear();blood_gulch_materials.clear()
+	var meadow=model.terrain_source=="wind_meadow"
 	var kai=model.terrain_source=="kai_highway"
 	var blood_gulch=model.terrain_source=="blood_gulch"
-	base_ground.visible=not (kai or blood_gulch);base_ground_collision.collision_layer=0 if kai or blood_gulch else 1
+	base_ground.visible=not (kai or blood_gulch or meadow);base_ground_collision.collision_layer=0 if kai or blood_gulch or meadow else 1
+	if meadow:preload("res://scripts/forest/forest_wind_meadow_art.gd").build(self,map_features)
 	if kai:preload("res://scripts/forest/forest_kai_highway_art.gd").build(self,map_features)
 	if blood_gulch:preload("res://scripts/forest/forest_blood_gulch_art.gd").build(self,map_features)
 	preload("res://scripts/forest/forest_rampart_art.gd").build(self,map_features)
-	if not model.roads.is_empty():
+	if not model.roads.is_empty() and not meadow:
 		var batch=MultiMeshInstance3D.new();batch.name="RoadTiles";batch.multimesh=MultiMesh.new();batch.multimesh.transform_format=MultiMesh.TRANSFORM_3D
 		var tile=BoxMesh.new();tile.size=Vector3(6,.05,6);batch.multimesh.mesh=tile;batch.multimesh.use_colors=kai;batch.multimesh.instance_count=model.roads.size();batch.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		batch.material_override=preload("res://scripts/forest/forest_kai_highway_art.gd").road_material(self) if kai else (preload("res://scripts/forest/forest_blood_gulch_art.gd").road_material(self) if blood_gulch else fog_material(Color("af956a")));map_features.add_child(batch)
@@ -119,6 +129,10 @@ func make_map_features():
 			batch.multimesh.set_instance_transform(index,Transform3D(basis,p+Vector3.UP*.08))
 			if kai:batch.multimesh.set_instance_color(index,Color.WHITE if model.terrain.bridge_at(p.x,p.z) else Color(0,1,1))
 			index+=1
+	if model.has_enemy_camps():
+		playable_bounds=Rect2(Vector2(-234,-234)*model.terrain_scale*model.map_expansion,Vector2(468,468)*model.terrain_scale*model.map_expansion)
+		preload("res://scripts/forest/forest_camp_prototype.gd").build(self)
+		return
 	for portal in model.portals:
 		var node=make_portal(portal);node.position=model.point(Vector2i(portal.x,portal.z));map_features.add_child(node);portal_nodes.append(node)
 func height_at(x: float,z: float)->float:return model.surface_height(x,z)
@@ -132,6 +146,8 @@ func fog_material(color: Color,ground_: bool=false)->ShaderMaterial:
 	fog_materials.append(mat);return mat
 func make_forest():
 	forest_root=Node3D.new();forest_root.name="MapForest";add_child(forest_root)
+	if model.terrain_source=="wind_meadow":
+		preload("res://scripts/forest/forest_wind_meadow_art.gd").trees(self,forest_root);return
 	var layers=[]
 	for i in range(4):
 		var mesh=CylinderMesh.new();mesh.radial_segments=7;mesh.rings=1
@@ -156,7 +172,7 @@ func update_fog():
 	for material in kai_materials+blood_gulch_materials:material.set_shader_parameter("show_grid",model.phase=="preparing")
 	for cell in deposit_nodes:deposit_nodes[cell].visible=model.explored.has(cell) and not model.occupancy.has(cell)
 func building_visual(b:Dictionary)->Dictionary:
-	var visual=b.duplicate()
+	var visual=b.duplicate();visual.wind_meadow=model.terrain_source=="wind_meadow"
 	visual.foundation_depth=model.terrain.foundation_depth(model.footprint(b.kind,b.cell,b.rotation,b.get("span",0)),model.center(b).y)
 	return visual
 func show_preview(kind: String,cell: Vector2i,rotation_: int,valid: bool):
@@ -179,6 +195,32 @@ func show_preview(kind: String,cell: Vector2i,rotation_: int,valid: bool):
 	preview_mesh.material_override.albedo_color=Color(.43,.88,.65,.38) if valid else Color(.92,.31,.21,.45)
 	ghost_material.albedo_color=Color(.43,.88,.65,.4) if valid else Color(.92,.31,.21,.4)
 	sight_ring.scale=Vector3.ONE*model.SIGHT[kind]
+func refresh_castle_build_site(index:int):
+	remove_child(forest_root);forest_root.queue_free();make_forest()
+	add_enemy_castle(index)
+func add_enemy_castle(index:int):
+	var target=preload("res://scripts/forest/forest_enemy_objective.gd").new()
+	target.set_meta("army_collision_owner",target.get_instance_id())
+	target.game=get_parent();target.objective_index=index
+	target.position=model.point(Vector2i(model.portals[index].x,model.portals[index].z))
+	map_features.add_child(target);get_parent().enemy_objectives.append(target)
+func show_enemy_castle_preview(cell:Vector2i,rotation_:int,valid:bool):
+	var half=Vector2i(8,6) if rotation_%2==0 else Vector2i(6,8)
+	show_editor_marker(cell-half,half*2+Vector2i.ONE,valid)
+	preview.position.y=model.point(cell).y
+	if ghost_kind!="enemy_castle" or ghost_rotation!=rotation_:
+		if is_instance_valid(ghost_art):ghost_art.queue_free()
+		ghost_art=Node3D.new();preview.add_child(ghost_art)
+		preload("res://scripts/forest/forest_enemy_castle.gd").build(ghost_art,{"rotation":rotation_})
+		preload("res://scripts/forest/forest_wind_meadow_assets.gd").building(ghost_art,"barracks")
+		var direction=model.portal_direction({"rotation":rotation_})
+		Geo.box(ghost_art,Vector3(direction.x*72,.16,direction.y*72),Vector3(30,.2,30),ghost_material)
+		for body in ghost_art.find_children("*","StaticBody3D",true,false):body.collision_layer=0;body.collision_mask=0
+		for type in ["MeshInstance3D","MultiMeshInstance3D"]:
+			for mesh in ghost_art.find_children("*",type,true,false):mesh.material_override=ghost_material;mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		ghost_kind="enemy_castle";ghost_rotation=rotation_
+	ghost_material.albedo_color=Color(.43,.88,.65,.4) if valid else Color(.92,.31,.21,.4)
+	ghost_art.show()
 func show_editor_marker(cell: Vector2i,dimensions: Vector2i,valid: bool,selected: bool=false):
 	preview.show();preview_mesh.show();sight_ring.hide()
 	if is_instance_valid(road_preview):road_preview.hide()
@@ -204,6 +246,8 @@ func show_road_preview(points: Array,width: int,valid: bool):
 	road_preview.material_override.albedo_color=Color(.4,.9,.65,.4) if valid else Color(.92,.3,.2,.45);road_preview.show()
 func sync(delta: float):
 	age+=delta
+	if model.has_enemy_camps():
+		for target in get_parent().enemy_objectives:target.sync()
 	for node in portal_nodes:node.visible=model.explored_at(node.position)
 	if revision!=model.revision:
 		for id in structure_nodes.keys():
@@ -216,21 +260,30 @@ func sync(delta: float):
 				var visual=building_visual(b);visual.wall_extensions=extensions
 				var node=Art.building(visual);add_child(node);node.position=model.center(b);structure_nodes[b.id]=node
 				node.set_meta("wall_extensions",extensions);node.set_meta("wall_rotation",b.rotation)
-				var health=Geo.box(node,Vector3(0,Profile.height(b.kind)+1.0,0),Vector3(5,.25,.35),Geo.mat("d7b65f",0,.3));health.name="Health"
+				if b.kind=="gate":node.set_meta("gate_outward",model.waves.navigation.gate_outward(b))
+				if b.kind in ["mine","barracks"]:
+					var health=Geo.box(node,Vector3(0,Profile.height(b.kind)+1.0,0),Vector3(5,.25,.35),Geo.mat("d7b65f",0,.3));health.name="Health"
 		for w in model.workers.values():
 			if not worker_nodes.has(w.id):var node=Art.worker(w.id);add_child(node);worker_nodes[w.id]=node
 		revision=model.revision;update_fog()
 		if painterly_pilot!=null:painterly_pilot.refresh()
 	for b in model.buildings.values():
-		var health=structure_nodes[b.id].get_node("Health");health.visible=b.kind!="wall" and (b.hp<b.max_hp or b.get("breached",false));health.scale.x=maxf(.01,b.hp/b.max_hp)
+		if b.kind in ["mine","barracks"]:
+			var health=structure_nodes[b.id].get_node("Health");health.visible=b.hp<b.max_hp;health.scale.x=maxf(.01,b.hp/b.max_hp)
 		if b.kind=="gate":
 			var center_:Vector3=model.center(b)
 			var open_=model.hero_position.distance_to(center_)<10
-			for w in model.workers.values():
-				if w.state not in ["wounded","repair"] and w.pos.distance_to(center_)<10:open_=true
-			for defender in model.defenders.values():
-				if defender.hp>0 and defender.pos.distance_to(center_)<10:open_=true
+			if not open_:
+				for w in model.workers.values():
+					if w.state not in ["wounded","repair"] and w.pos.distance_to(center_)<10:open_=true;break
+			if not open_:
+				for defender in model.defenders.values():
+					if defender.hp>0 and defender.pos.distance_to(center_)<10:open_=true;break
 			var door=structure_nodes[b.id].get_node("GateDoor")
+			var outward:Vector3=structure_nodes[b.id].get_meta("gate_outward")
+			door.transparency=.8 if outward.dot(model.hero_position-center_)<0 else 0.0
+			var painted_leaf=door.get_node_or_null("PaintedLeaf")
+			if painted_leaf!=null:painted_leaf.transparency=door.transparency
 			var breached:bool=b.get("breached",false)
 			door.visible=not breached
 			var collider=door.get_node("GateDoorCollider")
@@ -253,7 +306,7 @@ func sync(delta: float):
 		node.get_node("Cargo").visible=w.cargo>0
 		node.get_node("Selected").visible=w.follow
 		node.get_node("Bow").visible=w.state=="garrison"
-		Art.animate_worker(node,w,age)
+		if Art.animate_worker(node,w,age) and node.visible:worker_hammered.emit(node.position)
 	vision_clock-=delta
 	for material in fog_materials:
 		material.set_shader_parameter("hero_position",Vector2(model.hero_position.x,model.hero_position.z))

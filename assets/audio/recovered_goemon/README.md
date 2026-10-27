@@ -1,6 +1,6 @@
 # Mystical Ninja Starring Goemon — user ROM audio recovery
 
-These files come from the user's verified USA cartridge ROM, identified in `provenance.json`. No internet sound pack or newly generated replacement is used. Only Goemon (character ID 1) receives these defaults. Saved recording files and settings are preserved. Goemon playback bypasses recorded takes in favor of originals; gain/mute controls remain active. Other characters retain their recording precedence.
+These files come from the user's verified USA cartridge ROM, identified in `provenance.json`. No internet sound pack or newly generated replacement is used. Only Goemon (character ID 1) receives these defaults. Saved recording files and settings are preserved. The recovered sounds are the built-in defaults. New or saved custom takes can override them, with gain/mute controls intact; Restore default returns the selected sound to its built-in sample. All fighters use this same recording precedence.
 
 The source N64 MIPS audio sequencer was executed in Unicorn, including its event commands, pitch curves, ADSR updates, random modulation, note retriggers, and delays. Its `alSynStartVoice`, `alSynSetPitch`, `alSynSetVol`, `alSynSetPan`, and stop calls were captured. Audio is decoded from each original ADPCM block using its original predictor coefficients. An independent build of the SDK decoder agrees on all 437 complete music/SFX/voice samples; the only differences are the SDK tool's -32767 clamp versus this decoder's -32768 clamp (at most one PCM unit). The AIFC export utility writes an incorrect PCM-style frame count for ADPCM, so verification corrects that metadata to 16 decoded samples per 9-byte block before invoking the independent SDK decoder; all complete sample lengths are then asserted equal.
 
@@ -8,9 +8,32 @@ These are **dry event reconstructions**, not bit-exact emulator recordings. The 
 
 ## Source mapping
 
+On 2026-10-25, the user rejected the generated jump beep heard on Blademaster
+and Demon Hunter. The shared jump fallback now reuses the existing voice-free
+`assets/audio/recovered_yae/event_21d.wav`, the same `21D` takeoff effect in
+Goemon's jump pair below. Character-specific recovered jumps, intentional
+silence and saved-recording precedence remain unchanged. This supersedes the
+earlier decision to leave the shared prototype jump in place; the original
+WAVs and user recordings are preserved.
+
+On 2026-10-24, the user requested only a shared humanoid landing; jump effects
+and voices retain their existing bindings. `SoundLibrary.HUMANOID_LANDING_IDS`
+selects the 25 ordinary humanoid fighters, including Sasuke, Musashi and Kojiro.
+They reuse `assets/audio/recovered_yae/event_21e.wav`; no duplicate WAV is needed.
+This shared binding is a game adaptation. Skullpion's impact and other non-humanoid
+defaults, attack landings, and the existing recording/gain/mute policy remain intact.
+
+`Audio/verify_landing_audio.py` executes both original landing handlers for all
+four source characters, with only sound playback and cosmetic actor allocation
+hooked. All eight cases pass: Goemon/Ebisumaru/Yae select `21E`, Sasuke selects
+`220`. `Audio/landing_audio_verification.json` records the results. A fresh `21E`
+sequencer trace and dry render match the reused Yae WAV byte for byte (SHA-256
+`d9e6e0fa68c34e3c9037534d77d82eef678a60acc2167455d77b404232e4c269`, 0.175 s).
+
 | Use | Original actor evidence | Sound events |
 | --- | --- | --- |
 | Jump | `801E20A0`, random group 1 through `801DD830`, normal jump index `0x21` through `801DD6E0` | `21D` + `379` or `37A` (weights 1:2) |
+| Normal landing | `801E2264` / `801E2344`, index `0x22` through `801DD6E0`, table `80204060` | `21E` (same event as Yae) |
 | Pipe combo 1 (basic / Gold Pipe) | actions `58` / `68`, ROM event curve channels 0 and 1, frame 3 | `217` + `20B` |
 | Pipe combo 2 (basic / Gold Pipe) | actions `59` / `69`, channel 1 only, frame 4 | `20C` |
 | Pipe combo 3 (basic / Gold Pipe) | actions `5A` / `6A`, channels 0 and 1, frame 6 | `217` + `20D` |

@@ -57,18 +57,29 @@ func tick(from:float,until:float):
   var interval=maxf(.000001,until-from)
   var initial_weight=clampf((start-from)/interval,0,1) if until>from else 1.0
   var old_pose=_pose(action,start,previous_root.interpolate_with(current_root,initial_weight),lerpf(previous_scale,current_scale,initial_weight))
-  var end_pose=_pose(action,finish,current_root,current_scale)
-  var travel=0.0
-  for vertex in vertices:travel=maxf(travel,(old_pose*vertex).distance_to(end_pose*vertex))
-  var steps=clampi(ceili(maxf((finish-start)*Profile.source_fps(action)*4.0,travel/.18)),1,128)
+  var steps=maxi(1,ceili((finish-start)*Profile.source_fps(action)*4.0))
+  var times=PackedFloat64Array([start])
+  var poses:Array[Transform3D]=[old_pose]
+  for step in range(1,steps+1):
+   var time_=lerpf(start,finish,float(step)/steps)
+   var weight=clampf((time_-from)/interval,0,1) if until>from else 1.0
+   times.append(time_)
+   poses.append(_pose(action,time_,previous_root.interpolate_with(current_root,weight),lerpf(previous_scale,current_scale,weight)))
   var old_points=_points(old_pose)
   var any_hit=false
   if not hero.hit_done and finish>=cue:_first_contact()
-  for step in range(steps+1):
-   var t=float(step)/steps
-   var time_=lerpf(start,finish,t)
-   var weight=clampf((time_-from)/interval,0,1) if until>from else 1.0
-   var pose_=_pose(action,time_,previous_root.interpolate_with(current_root,weight),lerpf(previous_scale,current_scale,weight))
+  var step=1
+  while step<poses.size():
+   var pose_=poses[step]
+   # Endpoint hulls already cover linear travel; only curvature needs splitting.
+   var middle=(times[step-1]+times[step])*.5
+   var weight=clampf((middle-from)/interval,0,1) if until>from else 1.0
+   var midpoint=_pose(action,middle,previous_root.interpolate_with(current_root,weight),lerpf(previous_scale,current_scale,weight))
+   var error=0.0
+   for vertex in vertices:error=maxf(error,(midpoint*vertex).distance_squared_to((old_pose*vertex).lerp(pose_*vertex,.5)))
+   if error>pow(padding*.25,2) and times[step]-times[step-1]>.00001:
+    times.insert(step,middle);poses.insert(step,midpoint)
+    continue
    var points=_points(pose_)
    var origin=old_pose.origin.lerp(pose_.origin,.5)
    var hull=PackedVector3Array()
@@ -105,7 +116,7 @@ func tick(from:float,until:float):
     var contact=space.get_rest_info(query)
     if not contact.is_empty():
      environment_done=true;hero.game.impact_effect(contact.point,contact.normal,0);hero.play_sound("environment_hit",.35)
-   old_points=points;old_pose=pose_
+   old_points=points;old_pose=pose_;step+=1
   if any_hit and not hero.ai_controlled:hero.game.chain+=1;hero.game.chain_timer=3.0
  previous_root=current_root;previous_scale=current_scale
 func _first_contact():

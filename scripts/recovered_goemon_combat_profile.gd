@@ -81,20 +81,22 @@ static func golden_progress(elapsed: float) -> Dictionary:
 		"duration": phase_duration + action_duration(GOLDEN_RECOVERY),
 	}
 
-## Native chain windup then holds until the existing projectile returns.
-## Current trajectory/control remains authoritative, as in the source dynamic hold.
-static func chain_release_time() -> float:
-	return action_duration(0x70)
+const CHAIN_FLIGHT_TICKS=11.0
+const CHAIN_VELOCITY=41.2
+const CHAIN_ACCELERATION=-6.8666666667
+const CHAIN_PEAK=103.0
 
-static func chain_at(elapsed:float,total_duration:float=1.0,airborne:bool=false)->Dictionary:
-	var windup=0x77 if airborne else 0x70
-	var hold=windup+1
-	var catch_=windup+2
-	var first=action_duration(windup)
-	var recovery=action_duration(catch_)
-	if elapsed<first:return {"action":windup,"time_seconds":elapsed}
-	if elapsed<total_duration-recovery:return {"action":hold,"time_seconds":0.0}
-	return {"action":catch_,"time_seconds":maxf(0,elapsed-(total_duration-recovery))}
+static func chain_release_time(airborne:bool=false)->float:
+	return action_duration(0x75 if airborne else 0x70)
+
+## Native acceleration precedes displacement at 30 Hz; interpolate those steps.
+static func chain_extension(seconds:float)->float:
+	var tick=clampf(seconds*LOGIC_HZ,0,CHAIN_FLIGHT_TICKS)
+	var low=floorf(tick)
+	var a=low*CHAIN_VELOCITY+low*(low+1)*CHAIN_ACCELERATION*.5
+	var high=low+1
+	var b=high*CHAIN_VELOCITY+high*(high+1)*CHAIN_ACCELERATION*.5
+	return maxf(0,lerpf(a,b,tick-low)/CHAIN_PEAK)
 
 static func coin_action(on_floor:bool,_moving:bool)->int:
 	# Native jump/fall callers pass state 1 to 801E4624 (801DF2E4,

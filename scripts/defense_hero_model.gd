@@ -12,7 +12,7 @@ func _ready():
 	arms.assign([driver("Arm_L",Vector3(-.406666,1.304718,0)),driver("Arm_R",Vector3(.406666,1.304718,0))])
 	legs.assign([driver("Leg_L",Vector3(-.254166,.965830,0)),driver("Leg_R",Vector3(.254166,.965830,0))])
 	scarf=driver("Sash",Vector3(.2,1.04,.47))
-	rig_visual=load(asset_path).instantiate();body.add_child(rig_visual)
+	rig_visual=load(GameAssets.model_path(asset_path)).instantiate();body.add_child(rig_visual)
 	skeleton=rig_visual.find_child("Skeleton3D",true,false) as Skeleton3D
 	assert(skeleton!=null,"Imported ally requires Goemon's Skeleton3D")
 	pipe=GameAssets.place(arms[1],"weapons/golden_pipe",Vector3(0,-.94,-.025))

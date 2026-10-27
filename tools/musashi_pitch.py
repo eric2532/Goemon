@@ -9,8 +9,35 @@ import array
 def driver_pitch_notes(initial, curve, ticks):
     if not curve:
         return [initial] * (ticks + 1)
+    if curve[0] == 2 and len(curve) >= 2:
+        return [initial] * (ticks + 1)
+    if curve[0] == 1 and len(curve) >= 8:
+        # 800316F8/80031988 case1 stores absolute two-stage targets.
+        _, step, first, second_step, second, release, release_step, keyoff = curve[:8]
+        curve = [10, 0, step, (first-initial)&0xffff, second_step,
+                 (second-initial)&0xffff, (release-initial)&0xffff, release_step, keyoff]
+    elif curve[0] == 0 and len(curve) >= 6:
+        _, step, target, release, release_step, keyoff = curve[:6]
+        curve = [10, 0, step, (target-initial)&0xffff, 0,
+                 (target-initial)&0xffff, (release-initial)&0xffff, release_step, keyoff]
+    elif curve[0] == 8 and len(curve) >= 7:
+        _, delay, step, target, release, release_step, keyoff = curve[:7]
+        curve = [10, delay, step, target, 0, target, release, release_step, keyoff]
+    elif curve[0] == 5 and len(curve) >= 7:
+        # 800316F8 case5 is the delayed absolute form of case8.
+        _, delay, step, target, release, release_step, keyoff = curve[:7]
+        curve = [10, delay, step, (target-initial)&0xffff, 0,
+                 (target-initial)&0xffff, (release-initial)&0xffff, release_step, keyoff]
+    elif curve[0] == 6 and len(curve) >= 9:
+        _, delay, step, first, second_step, second, release, release_step, keyoff = curve[:9]
+        curve = [10, delay, step, (first-initial)&0xffff, second_step,
+                 (second-initial)&0xffff, (release-initial)&0xffff, release_step, keyoff]
+    elif curve[0] in (7, 9):
+        # Undelayed relative forms, with the same key-off fields.
+        curve = [8, 0, *curve[1:]] if curve[0] == 7 else [10, 0, *curve[1:]]
+        return driver_pitch_notes(initial, curve, ticks)
     if len(curve) < 9 or curve[0] != 10:
-        raise ValueError('Only source-traced type10 pitch curves are supported')
+        raise ValueError('Only source-traced types 0, 1, 2 and 5 through 10 are supported')
     _, delay, step, first, second_step, second, release, release_step, keyoff = curve[:9]
     note = initial
     target = (initial + first) & 0xffff

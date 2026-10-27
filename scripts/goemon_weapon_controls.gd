@@ -25,10 +25,7 @@ func select_number(number:int,hold_action:String="")->bool:
  if number<=3:
   if not available():return true
   hero.quick_attacks.stop_coins()
-  if number==2 and hero.surge_left>0 and not hold_action.is_empty():
-   temporary_return=hero.weapon_slot;hero.weapon_slot=2;hero.set_weapon_visual(2)
-   begin_charge(hold_action)
-  else:hero.quick_attacks.request(number)
+  hero.quick_attacks.request(number)
  return true
 func input(event:InputEvent)->bool:
  if hero.character_id!=1:return false
@@ -43,8 +40,7 @@ func input(event:InputEvent)->bool:
   if event.is_echo():return true
   if charging:return true
   if not available():return true
-  if hero.surge_left>0:begin_charge(action)
-  else:hero.quick_attacks.request_mouse(action=="heavy_attack")
+  hero.quick_attacks.request_mouse(action=="heavy_attack")
   return true
  return false
 func available()->bool:

@@ -12,7 +12,7 @@ func check(ok:bool,label_:String):
 func run():
  check(ResourceLoader.exists("res://assets/maps/blood_gulch/terrain.res"),"Native Blood Gulch bake is available")
  if failures:quit(1);return
- var doc=load("res://scripts/forest/forest_map_document.gd").new()
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new()
  var error=doc.load_blood_gulch();check(error.is_empty(),"Bundled castle layout loads: "+error)
  if failures:quit(1);return
  var native_layout=doc.data.duplicate(true)

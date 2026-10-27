@@ -126,13 +126,21 @@ func blocker(p: Vector3,radius: float)->int:
 			var closest=Vector3(clampf(p.x,first.x,last.x),first.y,clampf(p.z,first.z,last.z))
 			if p.distance_to(closest)<radius+.05:return id
 	return -1
-func move_clear(p: Vector3,radius: float)->bool:return terrain_clear(p,radius) and blocker(p,radius)<0
+func move_clear(p: Vector3,radius: float)->bool:
+	if not terrain_clear(p,radius) or blocker(p,radius)>=0:return false
+	if m.enemy_camps_prototype or m.terrain_source=="wind_meadow":
+		# Spawn clearance must include the same camp solids as native movement.
+		for box:AABB in preload("res://scripts/forest/forest_camp_prototype.gd").obstacles(m):
+			if p.y+.05>=box.end.y or p.y+maxf(1.8,radius*1.55)<=box.position.y:continue
+			var nearest=Vector2(p.x,p.z).clamp(Vector2(box.position.x,box.position.z),Vector2(box.end.x,box.end.z))
+			if Vector2(p.x,p.z).distance_to(nearest)<radius+.05:return false
+	return true
 func supported_corridor(from:Vector3,to:Vector3,radius:float,spacing:float,on_road:bool=false,horizontal:bool=false)->Dictionary:
 	return terrain_corridors.support(from,to,radius,spacing,on_road,horizontal)
 func corridor_walls_clear(points:PackedVector3Array,radius:float)->bool:
 	return terrain_corridors.walls_clear(points,radius)
 func route_entry_clear(e: Dictionary,to: Vector3)->bool:
-	var radius:float=Roles.footprint_radius(e.variant)
+	var radius:float=Roles.footprint_radius(e.variant,m.balance.enemy_size_mult)
 	if not move_clear(e.pos,radius):return false
 	var supported=supported_corridor(e.pos,to,radius,.25)
 	if not supported.clear:return false
@@ -151,7 +159,7 @@ func clearance_grid(variant: int)->AStarGrid2D:
 			for cell in clearance_weight_cells:existing.set_point_weight_scale(cell,1.0)
 			for cell in m.occupancy:existing.set_point_weight_scale(cell,12.0)
 		clearance_weight_cells=m.occupancy.keys();clearance_revision=m.navigation_revision
-	var radius: float=Roles.footprint_radius(variant)
+	var radius: float=Roles.footprint_radius(variant,m.balance.enemy_size_mult)
 	if clearance_grids.has(radius):return clearance_grids[radius]
 	var result=AStarGrid2D.new();result.region=m.navigation_region;result.cell_size=Vector2.ONE*m.CELL
 	result.diagonal_mode=AStarGrid2D.DIAGONAL_MODE_NEVER;result.update()
@@ -191,7 +199,7 @@ func route(e: Dictionary,destination: Vector3)->Array:
 		return _grid_path(grid,start,goal)
 	# Every broad actor needs its own supported corridor, not the small-unit
 	# grid whose shortest path can graze the outside edge of a raised bridge.
-	var actor_grid: AStarGrid2D=clearance_grid(e.variant) if Roles.footprint_radius(e.variant)>3 else m.enemy_grid
+	var actor_grid: AStarGrid2D=clearance_grid(e.variant) if Roles.footprint_radius(e.variant,m.balance.enemy_size_mult)>3 else m.enemy_grid
 	var goal: Vector2i=m.nearest_open(m.cell_of(destination),true)
 	var start: Vector2i=m.cell_of(e.pos)
 	if not m.navigation_region.has_point(start) or not m.navigation_region.has_point(goal) or actor_grid.is_point_solid(goal):return []
@@ -214,11 +222,11 @@ func gate_outward(b: Dictionary)->Vector3:
 	if normal.dot(m.center(b)-m.center(m.shrine()))<0:normal=-normal
 	return normal
 func gate_crossing_depth(e:Dictionary)->float:
-	return Roles.footprint_radius(e.variant)+Profile.GATE_FRAME_DEPTH*.5+.25
+	return Roles.footprint_radius(e.variant,m.balance.enemy_size_mult)+Profile.GATE_FRAME_DEPTH*.5+.25
 func gate_crossing_complete(e:Dictionary,b:Dictionary)->bool:
 	return float(e.get("crossing_direction",-1))*gate_outward(b).dot(e.pos-m.center(b))>=gate_crossing_depth(e)
 func gate_breach_waypoint(e:Dictionary,b:Dictionary,direction:int=-1)->Dictionary:
-	if not b.get("breached",false) or Roles.footprint_radius(e.variant)*2+.1>Profile.GATE_OPENING_WIDTH:return {}
+	if not b.get("breached",false) or Roles.footprint_radius(e.variant,m.balance.enemy_size_mult)*2+.1>Profile.GATE_OPENING_WIDTH:return {}
 	var normal=gate_outward(b);var center:Vector3=m.center(b)
 	var depth=gate_crossing_depth(e)
 	if e.get("crossing_gate",-1)==b.id:direction=int(e.get("crossing_direction",-1))
@@ -228,8 +236,8 @@ func gate_breach_waypoint(e:Dictionary,b:Dictionary,direction:int=-1)->Dictionar
 		# Certify the complete approach before taking ownership of the narrow lane.
 		# This keeps distant actors on their existing supported grid route.
 		if horizontal_path_lower_bound(e.pos,point)>18:return {}
-		var corridor=supported_corridor(e.pos,point,Roles.footprint_radius(e.variant),.25)
-		if not corridor.clear or not corridor_walls_clear(corridor.points,Roles.footprint_radius(e.variant)):return {}
+		var corridor=supported_corridor(e.pos,point,Roles.footprint_radius(e.variant,m.balance.enemy_size_mult),.25)
+		if not corridor.clear or not corridor_walls_clear(corridor.points,Roles.footprint_radius(e.variant,m.balance.enemy_size_mult)):return {}
 		e.crossing_gate=b.id;e.crossing_aligned=false;e.crossing_direction=direction
 	if not e.get("crossing_aligned",false):point=center-normal*depth*direction
 	point.y=m.surface_height(point.x,point.z)
@@ -259,7 +267,7 @@ func gate_approach(e: Dictionary,b: Dictionary)->Dictionary:
 		gate_approach_cache.clear();gate_approach_revision=m.navigation_revision
 	if not gate_exterior(e,b):return {}
 	var cell:Vector2i=m.cell_of(e.pos)
-	var key=Vector4i(cell.x,cell.y,roundi(Roles.footprint_radius(e.variant)*1000),int(b.id))
+	var key=Vector4i(cell.x,cell.y,roundi(Roles.footprint_radius(e.variant,m.balance.enemy_size_mult)*1000),int(b.id))
 	var cached:Dictionary=gate_approach_cache.get(key,{})
 	if not cached.is_empty():
 		var point:Vector3=m.point(cached.result.path[0])
@@ -275,7 +283,7 @@ func gate_approach(e: Dictionary,b: Dictionary)->Dictionary:
 func _gate_approach_uncached(e: Dictionary,b: Dictionary)->Dictionary:
 	if not gate_exterior(e,b):return {}
 	var normal=gate_outward(b);var step=Vector2i(roundi(normal.x),roundi(normal.z))
-	var radius: float=Roles.footprint_radius(e.variant)
+	var radius: float=Roles.footprint_radius(e.variant,m.balance.enemy_size_mult)
 	var best={};var cost=INF
 	# Stage outside the footprint, then aim at the gate itself. Short melee
 	# reaches are smaller than the 3m gap from a neighboring grid center;
@@ -319,7 +327,7 @@ func _contact_ring(e:Dictionary,b:Dictionary)->Array:
 	var model=m;var terrain_id:int=model.terrain.get_instance_id()
 	if contact_revision!=model.navigation_revision or contact_terrain!=terrain_id:
 		contact_rings.clear();contact_revision=model.navigation_revision;contact_terrain=terrain_id
-	var radius:float=Roles.footprint_radius(e.variant);var reach:float=Roles.stats(e.variant).range
+	var radius:float=Roles.footprint_radius(e.variant,m.balance.enemy_size_mult);var reach:float=m.waves.role_stats(e.variant).range
 	var key=[b.id,radius,reach]
 	if contact_rings.has(key):return contact_rings[key]
 	var size_:Vector2i=model.dimensions(b.kind,b.rotation,b.get("span",0));var padding=ceili((reach+3)/6);var points=[]
@@ -332,7 +340,7 @@ func _contact_ring(e:Dictionary,b:Dictionary)->Array:
 	contact_rings[key]=points;return points
 func _sample_approach(e:Dictionary,b:Dictionary)->Dictionary:
 	# Contact geometry is shared; route costs and root entry checks stay actor-specific.
-	var size_:Vector2i=m.dimensions(b.kind,b.rotation,b.get("span",0));var reach:float=Roles.stats(e.variant).range
+	var size_:Vector2i=m.dimensions(b.kind,b.rotation,b.get("span",0));var reach:float=m.waves.role_stats(e.variant).range
 	var best={};var cost=INF
 	for contact in _contact_ring(e,b):
 		var p:Vector3=contact[0];var distance:float=contact[1];var cell:Vector2i=contact[2]
@@ -351,7 +359,7 @@ func approach_points(variant: int,b: Dictionary)->Array:
 	# Staging only needs existence of a route, not the cheapest of every route.
 	# Validate the shared contact ring once for all possible spawn positions.
 	var points: Array=[];var size_: Vector2i=m.dimensions(b.kind,b.rotation,b.get("span",0))
-	var radius: float=Roles.footprint_radius(variant);var reach: float=Roles.stats(variant).range
+	var radius: float=Roles.footprint_radius(variant,m.balance.enemy_size_mult);var reach: float=m.waves.role_stats(variant).range
 	var padding=ceili((reach+3)/6)
 	for x in range(b.cell.x-padding,b.cell.x+size_.x+padding):
 		for z in range(b.cell.y-padding,b.cell.y+size_.y+padding):
@@ -392,7 +400,7 @@ func line_clear(from: Vector3,to: Vector3,ignore_building: int=-1)->bool:
 func horizontal_path_lower_bound(from: Vector3,to: Vector3)->float:return absf(from.x-to.x)+absf(from.z-to.z)
 
 func fitted_blocker(e: Dictionary,p: Vector3)->int:
-	var core=blocker(p,Roles.footprint_radius(e.variant))
+	var core=blocker(p,Roles.footprint_radius(e.variant,m.balance.enemy_size_mult))
 	if core>=0 or e.variant!=2:return core
 	var pose=Transform3D(Basis(Vector3.UP,float(e.facing)),p)
 	for item in Contact.shapes(2):

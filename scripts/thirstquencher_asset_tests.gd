@@ -12,19 +12,24 @@ func run():
  var manifest:Dictionary=JSON.parse_string(FileAccess.get_file_as_string(DIR+"manifest.json"))
  check(manifest.variants.size()==3,"The three original soldier variants are present")
  for role in [0,1,3]:
-  check(Soldier.hurt_bounds().has_point(Vector3(1.5,5.5,0)),"Scaled soldier body contact includes the enlarged upper torso")
-  check(is_equal_approx(Roles.height(role),6.048) and is_equal_approx(Roles.footprint_radius(role),3.9),"Navigation dimensions fit the enlarged soldier body")
+  check(Soldier.hurt_bounds().has_point(Vector3(.5,1.83,0)),"Scaled soldier body contact includes the smaller upper torso")
+  check(is_equal_approx(Roles.height(role),2.016) and is_equal_approx(Roles.footprint_radius(role),1.3),"Navigation dimensions fit the smaller soldier body")
   var stats=Roles.stats(role)
-  check(is_equal_approx(stats.stride,4.32 if role==1 else 6.912),"World stride fits the three-times-larger source gait")
-  check(is_equal_approx(stats.speed,2.16 if role==1 else 4.32) and is_equal_approx(stats.damage,25.0 if role==1 else 11.0),"Enlarging soldiers preserves movement speed and attack damage")
-  check(is_equal_approx(stats.range,24.0 if role==1 else 7.5),"Melee reach fits the larger body while gun range stays unchanged")
- check(Soldier.source_point(Vector3(0,-80,-48)).is_equal_approx(Vector3(0,4.32,-2.592)),"Source muzzle coordinates follow the enlarged drawn body")
+  check(is_equal_approx(stats.stride,1.44 if role==1 else 2.304),"World stride fits the smaller source gait")
+  check(is_equal_approx(stats.speed,2.16 if role==1 else 4.32) and is_equal_approx(stats.damage,25.0 if role==1 else 11.0),"Resizing soldiers preserves movement speed and attack damage")
+  check(is_equal_approx(stats.range,24.0 if role==1 else 2.5),"Melee reach fits the smaller body while gun range stays unchanged")
+ check(Soldier.source_point(Vector3(0,-80,-48)).is_equal_approx(Vector3(0,1.44,-.864)),"Source muzzle coordinates follow the smaller drawn body")
  for variant in manifest.variants:
   var path=DIR+"soldier_%d_runtime.res"%int(variant.id)
   check(ResourceLoader.exists(path),"A batched source-motion resource exists for soldier%d"%int(variant.id))
   if not ResourceLoader.exists(path):continue
   var data=load(path)
   check(data.get_meta("source_sha256")==FileAccess.get_sha256(DIR+"manifest.json"),"Baked GPU poses match the current recovered manifest")
+  var visual_source:String=data.get_meta("visual_source","")
+  check(visual_source=="res://assets/models/enemies/thirstquencher/soldier_%d.glb"%int(variant.id),"Runtime uses the approved light-polish model")
+  check(not visual_source.is_empty() and data.get_meta("visual_sha256","")==FileAccess.get_sha256(visual_source),"Polished runtime geometry matches its exported source")
+  var visual_model=GameAssets.model_path(visual_source)
+  check(data.get_meta("visual_model","")==visual_model and data.get_meta("visual_model_sha256","")==FileAccess.get_sha256(visual_model),"Batched model was rebuilt from the current reviewed derivative")
   check(data.get_meta("schema")==1 and data.get_meta("part_count")==11,"Runtime keeps all11sourceparts")
   var mesh:Mesh=data.get_meta("mesh");var poses:Array=data.get_meta("poses");var atlas:Image=data.get_meta("pose_texture").get_image()
   var clips:Dictionary=data.get_meta("clips")
@@ -32,7 +37,7 @@ func run():
   var scene=load(variant.glb).instantiate();root.add_child(scene)
   var skeleton:Skeleton3D=scene.find_child("Skeleton3D",true,false);var player:AnimationPlayer=scene.find_child("AnimationPlayer",true,false)
   player.callback_mode_process=AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
-  var convert=Transform3D(Basis(Vector3.UP,PI).scaled(Vector3.ONE*5.4),Vector3.ZERO)
+  var convert=Transform3D(Basis(Vector3.UP,PI).scaled(Vector3.ONE*Soldier.SCALE),Vector3.ZERO)
   var exact=true;var atlas_exact=true
   for source in variant.clips:
    check(player.has_animation(source.name) and clips.has(source.name),"Original clip is accessible: "+source.name)

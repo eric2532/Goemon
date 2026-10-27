@@ -62,7 +62,9 @@ func advance_model(delta:float,model,combat):
   var key=combat.action_key if combat.is_attacking() else action
   var sample_time=maxf(0,combat.elapsed-source_clock/30.0)
   var pair=pose_segment(key,sample_time,model.rig_visual.global_transform)
-  source_tick(pair,model.rig_visual.global_basis.get_scale().x*.01,combat.is_attacking())
+  var effect_scale=preload("res://scripts/weapon_proportions.gd").RECOVERED_SKILL_SCALE if key in ["rotation","rotation_end","counter"] else 1.0
+  if pair.size()==2:pair[0]=pair[1]+(pair[0]-pair[1])*effect_scale
+  source_tick(pair,model.rig_visual.global_basis.get_scale().x*.01*effect_scale,combat.is_attacking())
 func source_tick(pair:PackedVector3Array,source_unit:float,owner_active:bool=true):
  if action.is_empty():return
  if not owner_active:fading=true

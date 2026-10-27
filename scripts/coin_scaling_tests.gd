@@ -30,6 +30,7 @@ func run():
 	game.camera_rig.set_process_unhandled_input(false);get_window().set_flag(Window.FLAG_NO_FOCUS,true);Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	Geo.box(game,arena-Vector3.UP,Vector3(100,2,100),Geo.mat("527978"),true)
 	game.child_entered_tree.connect(observe_coin)
+	preload("res://scripts/character_projectile_pool.gd").service(game).launched.connect(observe_coin)
 	var p=game.player;var curve=preload("res://scripts/level_progression.gd").new();curve.reset(true)
 	var levels=true
 	for level in range(1,100):

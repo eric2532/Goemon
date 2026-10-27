@@ -12,6 +12,8 @@ func icon(key: String)->Texture2D:
  return textures[path]
 
 func hero_info(player)->Dictionary:
+ if player.character_id==Roster.KOJIRO_ID:
+  return {"name":"Kojiro","portrait":Roster.portrait(28),"primary":"Cut → Return cut / Aerial cuts","secondary":"Sword wave","primary_icon":"sword","secondary_icon":"wave","utility":"Homing shots","skill":"Wind","color":Color("d999e6")}
  if player.is_rogue_character():
   var data=Roster.data(player.character_id)
   var primary="Aerial Fan" if data.id=="ranger" and player.jumps_used>=2 and not player.is_on_floor() else data.abilities.cutlass.name
@@ -31,7 +33,7 @@ func update_portrait(hud):
  portrait_id=p.character_id
  if is_instance_valid(portrait_view):portrait_view.queue_free()
  original_portrait=null
- if p.is_rogue_character():return
+ if p.is_rogue_character() or p.character_id==Roster.KOJIRO_ID:return
  portrait_view=SubViewport.new();portrait_view.size=Vector2i(256,256)
  portrait_view.transparent_bg=true;portrait_view.own_world_3d=true
  portrait_view.render_target_update_mode=SubViewport.UPDATE_ONCE

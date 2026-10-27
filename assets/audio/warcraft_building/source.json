@@ -1,0 +1,38 @@
+{
+  "source_project": "/Users/eric/Desktop/Projects_Codex/Warcraft",
+  "archive_order": [
+    "War3Patch.mpq",
+    "War3xlocal.mpq",
+    "War3x.mpq",
+    "war3.mpq"
+  ],
+  "processing": "Byte-for-byte original WAV; no trimming, normalization, resampling or pitch changes.",
+  "path": "Sound\\Buildings\\Shared\\BuildingPlacement.wav",
+  "archive": "war3.mpq",
+  "sha256": "4c13ec48f2118d93fc88fa6148f48286c2a424fb7e238cae5df06b691ddfc4d5",
+  "pcm_sha256": "f87951c1dade4ac0f9383b24f93d401480c99c00b4a1293a0e1db531b1b7d1ef",
+  "duration_seconds": 1.282857142857143,
+  "sample_rate": 22050,
+  "event": {
+    "SoundName": "PlaceBuildingDefault",
+    "FileNames": "BuildingPlacement.wav",
+    "DirectoryBase": "Sound\\Buildings\\Shared\\",
+    "Volume": "110",
+    "Pitch": "1",
+    "PitchVariance": "1",
+    "Priority": "600",
+    "Channel": "8",
+    "Flags": "0",
+    "MinDistance": "0",
+    "MaxDistance": "0",
+    "DistanceCutoff": "10000",
+    "EAXFlags": "0",
+    "version": "0",
+    "InBeta": "1"
+  },
+  "table": {
+    "path": "UI\\SoundInfo\\UISounds.slk",
+    "archive": "War3x.mpq",
+    "sha256": "6e9732d982610e16ad9b9e7f88f5444f7cb133cf6ab4ecf56c0185c40b1ceeff"
+  }
+}

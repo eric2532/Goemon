@@ -9,7 +9,7 @@ const DRAWINGS={
 	"runner":"<path d='M18 9V5h12v4M24 39v6M13 13l-5-3m27 3 5-3' fill='none'/><path d='M14 11h20l5 9v12l-5 8H14l-5-8V20Z' fill='#e3b16c'/><path d='M12 19h24M11 31h26M19 12v26m10-26v26' stroke='#ad6d46'/><path d='m20 24 8 4-8 4Z' fill='#653d36' stroke='none'/>"
 }
 func get_icon(kind: String)->Texture2D:
-	if kind=="worker":return preload("res://assets/ui/forest/worker_goemon.png")
+	if kind=="worker":return preload("res://assets/ui/forest/worker_peasant.png")
 	if not textures.has(kind):
 		var svg="<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><g stroke='#243c34' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'>"+DRAWINGS[kind]+"</g></svg>"
 		var image=Image.new();image.load_svg_from_string(svg);textures[kind]=ImageTexture.create_from_image(image)

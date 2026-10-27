@@ -1,0 +1,14 @@
+{
+  "shock_dome": {
+    "original_geometry": true,
+    "master": "assets/blender/enemies/recovered_monsters/dark_lumina_2_effects.blend"
+  },
+  "shock_ring": {
+    "original_geometry": true,
+    "master": "assets/blender/enemies/recovered_monsters/dark_lumina_2_effects.blend"
+  },
+  "fragment": {
+    "original_geometry": true,
+    "master": "assets/blender/enemies/recovered_monsters/dark_lumina_2_effects.blend"
+  }
+}

@@ -129,6 +129,15 @@ metadata/profiles = {
 "weaponContact": true
 }, {
 "arc": 1.45,
+"contact": 0.12,
+"damage": 76,
+"duration": 0.68,
+"reach": 4.002723249816895,
+"stop": 0.045,
+"style": "heavy",
+"weaponContact": true
+}, {
+"arc": 1.45,
 "contact": 0.0868,
 "damage": 42,
 "duration": 0.49,
@@ -143,15 +152,6 @@ metadata/profiles = {
 "duration": 0.49,
 "reach": 4.029547094726563,
 "stop": 0.025,
-"style": "heavy",
-"weaponContact": true
-}, {
-"arc": 1.45,
-"contact": 0.0868,
-"damage": 61,
-"duration": 0.588,
-"reach": 4.002723249816895,
-"stop": 0.045,
 "style": "heavy",
 "weaponContact": true
 }],
@@ -248,6 +248,7 @@ metadata/profiles = {
 "cutlass": 0.2066666667,
 "drink": 23.0,
 "flintlock": 2.4,
+"rapid_shot": 0.25,
 "roll": 0.55
 },
 "critical_chance": 5.0,
@@ -406,10 +407,10 @@ metadata/profiles = {
 }
 }
 metadata/source_hashes = {
-"assets/rogue/scripts/actor.gd": "4e29f92c8bcb2f33d6797331b0255634910a89a5e9ac0f4a26153e6504da5fb8",
-"assets/rogue/scripts/class_actions.gd": "bbcff2370a34a27e6804179a80b49745dd843e65a07cbbbcc64835e57bca381d",
+"assets/rogue/scripts/actor.gd": "c9a73cb9079f455914d956854a2b1486328eec15a1b0c743ff7405c1767bb01e",
+"assets/rogue/scripts/class_actions.gd": "acfd95c5ec7e11562bcf40da1bb0b3b5d7abb4dba1bb8278e3861891f240f17a",
 "assets/rogue/scripts/ranger_arrow_flight.gd": "598648704e393e15cfd9da49b9cd6e16553569dbd09b7504efc0dfd6f6890116",
 "scripts/melee_responsiveness.gd": "cdcc2e49c62e4a12c49b7b589ca7cbd5edf9e3f881cc5a97d9cb37a03ab1688a",
 "scripts/rogue_hero_model.gd": "291596fdc513828652ca44a66aa48172bfc6c411f3494d835cdc7717458dd369",
-"scripts/rogue_roster_combat.gd": "7b8c69237bb4e7a25249c2569f8d6f3188f412ebfcba1d9caee9370c414fa2be"
+"scripts/rogue_roster_combat.gd": "2d663d08ceab0a304174e0dcaea586c3d876be0cb5cb7d210332e226a7c1f07b"
 }

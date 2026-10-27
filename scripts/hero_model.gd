@@ -255,3 +255,9 @@ func apply_skin(id: String):
 		locomotion.dirty=true
 		sync_skeleton()
 	if is_instance_valid(ronin_scarf) and ronin_scarf.visible:ronin_scarf._process(0)
+
+func hand_position(side: String)->Vector3:
+	if is_instance_valid(skeleton):
+		var bone=skeleton.find_bone("Hand_"+side)
+		if bone>=0:return skeleton.global_transform*skeleton.get_bone_global_pose(bone).origin
+	return to_global(Vector3(.3 if side=="R" else -.3,1.1,.3))

@@ -39,7 +39,7 @@ func run():
  check(flat.distance_to(flat.clamp(Vector2(51,51),Vector2(57,57)))>=.65,"A relocated worker's full body clears a diagonally adjacent existing wall")
  for backend in ["native"]:
 
-  var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original()
+  var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original()
   doc.data.buildings.append({"kind":"tower","x":0,"z":3,"rotation":0})
   set_meta("forest_custom_layout",doc.data)
   var game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path="user://building-actors-%d.cfg"%OS.get_process_id();root.add_child(game)
@@ -56,17 +56,16 @@ func run():
   var point:Vector3=m.point(cell)
   game.player.position=point+Vector3.UP*.15;m.hero_position=game.player.position
   worker=m.workers.values()[0];worker.pos=point+Vector3(1,0,1);worker.state="idle";worker.job=-1
-  var gate=game.gate_defenders.units.values()[0];gate.position=point+Vector3(-1,.15,1);gate.post=gate.position-Vector3.UP*.15
   var unit=game.explorer_helpers.pool[0];unit.summon(null,point+Vector3(2,.12,2),0)
-  game.gate_defenders.sync_model();game.explorer_helpers.sync_targets()
-  var before=[game.player.position,worker.pos,gate.position,gate.post,unit.position,unit.guard_post]
+  game.explorer_helpers.sync_targets()
+  var before=[game.player.position,worker.pos,unit.position,unit.guard_post]
   game.select_build("tower");var target=game.build_placement_target(cell)
   check(target.error.is_empty() and target.cell==cell,backend+" occupants do not shift a clear-ground building preview")
-  check(before==[game.player.position,worker.pos,gate.position,gate.post,unit.position,unit.guard_post],backend+" preview never moves occupants or posts")
+  check(before==[game.player.position,worker.pos,unit.position,unit.guard_post],backend+" preview never moves occupants or posts")
   gold=m.gold;count=m.buildings.size()
   check(game.place_cell(cell),backend+" construction succeeds over standing allied occupants")
   check(m.gold==gold-120 and m.buildings.size()==count+1,backend+" construction charges once")
-  for row in [["hero",game.player.position],["worker",worker.pos],["gate defender",gate.position],["gate post",gate.post],["helper",unit.position],["helper post",unit.guard_post]]:
+  for row in [["hero",game.player.position],["worker",worker.pos],["helper",unit.position],["helper post",unit.guard_post]]:
    check(clear_ground(m,row[1]) and row[1].distance_to(point)<20,backend+" "+row[0]+" clears the new structure without a distant teleport")
   check(m.hero_position==game.player.position,backend+" the hero model mirror follows its actual position")
   check(m.fighter_posts[unit.gate_id]==unit.guard_post and m.defenders[unit.gate_id].pos==unit.position,backend+" helper target and guard-post mirrors agree after relocation")
@@ -75,9 +74,9 @@ func run():
    check(data.position==unit.position, "Native authoritative state retains the relocated helper position")
    game.army_runtime.preparation_tick(.1)
    check(clear_ground(m,unit.position),"The next native preparation tick keeps the helper clear")
-  var settled=[game.player.position,worker.pos,gate.position,gate.post,unit.position,unit.guard_post]
+  var settled=[game.player.position,worker.pos,unit.position,unit.guard_post]
   game.select_build("tower");m.gold=0
-  check(not game.place_cell(cell+Vector2i(3,0)) and m.gold==0 and settled==[game.player.position,worker.pos,gate.position,gate.post,unit.position,unit.guard_post],backend+" a rejected purchase never moves actors or guard posts")
+  check(not game.place_cell(cell+Vector2i(3,0)) and m.gold==0 and settled==[game.player.position,worker.pos,unit.position,unit.guard_post],backend+" a rejected purchase never moves actors or guard posts")
   game.player.position=Vector3(0,.15,18)
   game.preview_forest_map(doc.data,false);m=game.model;m.gold=10000
   check(clear_ground(m,game.player.position) and m.hero_position==game.player.position,backend+" playing an edited map moves a blocked original hero start onto clear ground")

@@ -8,6 +8,11 @@ func _ready():
 	add_to_group("edo_fireballs");add_to_group("projectiles");add_to_group("musashi_projectiles")
 	ornament=FireEnergy.new();ornament.charged=heavy;add_child(ornament);ornament.scale=Vector3.ONE*(3.2 if heavy else 1.2)*caster_growth
 	ornament.quaternion=Quaternion(Vector3.FORWARD,velocity.normalized()) if velocity.length_squared()>.001 else Quaternion.IDENTITY
+func restart_visual():
+	ornament.scale=Vector3.ONE*(3.2 if heavy else 1.2)*caster_growth
+	ornament.quaternion=Quaternion(Vector3.FORWARD,velocity.normalized()) if velocity.length_squared()>.001 else Quaternion.IDENTITY
+	ornament.age=0;ornament._process(0);ornament.sparks.restart()
+
 func update_visual(delta: float):
 	trail_clock-=delta
 	if trail_clock<=0:
@@ -18,11 +23,11 @@ func impact(point: Vector3):
 	if not heavy and (not game.has_method("forest_point_visible") or game.forest_point_visible(point)):game.sound("fire_impact",.7)
 	if heavy:
 		EdoFireExplosion.emit(game,point,true)
-		BreakableBuilding.hit_area(game,point,balance.explosion_radius*caster_growth,damage,attack_ticket,Vector3.ZERO,-1,hit_buildings)
-		for e in game.enemies:
+		BreakableBuilding.hit_area(game,point,balance.explosion_radius*caster_growth*skill_factor("hit_area"),damage,attack_ticket,Vector3.ZERO,-1,hit_buildings)
+		for e in AttackChain.enemy_candidates(game,point,balance.explosion_radius*caster_growth*skill_factor("hit_area")):
 			if not is_instance_valid(e) or e.dead or hit_enemies.has(e.get_instance_id()):continue
 			var center=AttackChain.contact_point(e,point,e.global_position+Vector3.UP)
-			if center.distance_to(point)>balance.explosion_radius*caster_growth+e.body_radius:continue
+			if center.distance_to(point)>balance.explosion_radius*caster_growth*skill_factor("hit_area")+e.body_radius:continue
 			var ray=PhysicsRayQueryParameters3D.create(point,center,1)
 			if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty():continue
 			e.take_hit(damage,(center-point).normalized(),true,attack_ticket)

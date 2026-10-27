@@ -1,4 +1,4 @@
-extends Node3D
+extends "res://scripts/character_projectile.gd"
 ## Ed's held primary: a fire stream and the recovered blue shield.
 ## Combat owns active time; render processing finishes the source release phase.
 const LENGTH=6.4
@@ -10,9 +10,9 @@ const BED_START=2.0/60.0
 const HUM_START=1.0
 const Visual=preload("res://scripts/recovered_ed_beam_visual.gd")
 const NativeState=preload("res://scripts/recovered_ed_beam_native_state.gd")
-var hero: Hero
-var game: Node
-var attack_ticket: Dictionary={}
+var source_model: Node3D
+var caster_character_id=14
+var preparing=false
 var active=true
 var releasing=false
 var release_elapsed=0.0
@@ -50,27 +50,34 @@ static func maximum_length(caster: Hero)->float:
 	return LENGTH*REACH_MULTIPLIER*model_scale(caster)*caster.growth_multiplier()*caster.pickup_multiplier("range")
 
 func _ready():
-	process_mode=Node.PROCESS_MODE_ALWAYS
 	add_to_group("projectiles");add_to_group("ed_beams")
+	visual=Visual.new();add_child(visual)
+	charge=_audio_player("EdBeamCharge");bed=_audio_player("EdBeamBed");loop=_audio_player("EdBeamHum")
+	shield=preload("res://scripts/recovered_ed_shield.gd").new();shield.hero=hero;shield.source_model=source_model;shield.preparing=true;hero.add_child(shield);shield.hide()
+	preload("res://scripts/recovered_ed_beam_renderer.gd").ensure(self)._prepare_backend()
+	for slot in ["ed_beam_charge","ed_beam_bed","edo_beam_loop"]:_original(slot)
+	active=false
+	if not preparing:restart_visual()
+
+func restart_visual():
+	process_mode=Node.PROCESS_MODE_ALWAYS
+	caster_character_id=hero.character_id;active=true;_focused=true
 	for other in get_tree().get_nodes_in_group("ed_beams"):
 		if other!=self and other.hero==hero:other.stop()
 	if not hero.has_meta(NativeState.META):hero.set_meta(NativeState.META,NativeState.new())
-	native_phase=hero.get_meta(NativeState.META)
-	companion_clock=NativeState.world_clock(game)
+	native_phase=hero.get_meta(NativeState.META);companion_clock=NativeState.world_clock(game)
 	_advance_native_main_to(1)
-	visual=Visual.new();add_child(visual)
-	charge=_audio_player("EdBeamCharge");bed=_audio_player("EdBeamBed");loop=_audio_player("EdBeamHum")
-	if not _live():stop();return
-	shield=preload("res://scripts/recovered_ed_shield.gd").new();shield.hero=hero;hero.add_child(shield)
+	visual.last_source_tick=0
+	shield.hero=hero;shield.source_model=source_model;shield.restart();shield.show()
 	update_path();_sync_audio()
-	preload("res://scripts/recovered_ed_beam_renderer.gd").ensure(self)
 
 func _audio_player(label: String)->AudioStreamPlayer3D:
 	var player=AudioStreamPlayer3D.new();player.name=label;player.unit_size=6;player.max_distance=48
+	player.bus=&"SFX"
 	player.pitch_scale=1;add_child(player);return player
 
 func _live()->bool:
-	return (active or releasing) and _focused and is_instance_valid(hero) and hero.is_inside_tree() and hero.hp>0 and hero.character_id==14 and is_instance_valid(game) and game.playing and not game.transitioning and is_instance_valid(game.sound_library) and not game.sound_library.recording
+	return (active or releasing) and _focused and is_instance_valid(hero) and hero.is_inside_tree() and hero.hp>0 and hero.character_id==caster_character_id and is_instance_valid(game) and game.playing and not game.transitioning and is_instance_valid(game.sound_library) and not game.sound_library.recording
 
 func _paused()->bool:return game.paused or get_tree().paused
 
@@ -103,8 +110,8 @@ func advance(delta: float):
 
 func update_path():
 	if (not active and not releasing) or not is_instance_valid(hero) or not hero.is_inside_tree():return
-	var growth=hero.growth_multiplier()*model_scale(hero)
-	var origin=source_origin(hero)
+	var growth=hero.growth_multiplier()*cast_scale()
+	var origin=cast_origin()
 	global_position=origin+Vector3.UP*.48*growth
 	if is_instance_valid(shield):shield.global_position=origin
 	direction=hero.combat_attack_direction()
@@ -113,16 +120,15 @@ func update_path():
 	if direction.length_squared()<.0001:direction=hero.facing
 	if direction.length_squared()<.0001:direction=Vector3.FORWARD
 	direction=direction.normalized()
-	length_now=maximum_length(hero)
+	length_now=LENGTH*REACH_MULTIPLIER*cast_scale()*hero.growth_multiplier()*hero.pickup_multiplier("range")
 	# Extend the source probe, visual and hit reach together; keep their original proportions.
-	var query=PhysicsRayQueryParameters3D.create(global_position,global_position+direction*8.96*REACH_MULTIPLIER*growth*hero.pickup_multiplier("range"),1)
-	query.exclude=[hero.get_rid()];query.hit_from_inside=true
-	var wall=get_world_3d().direct_space_state.intersect_ray(query)
+	var wall=AttackChain.world_ray(self,global_position,global_position+direction*8.96*REACH_MULTIPLIER*growth*hero.pickup_multiplier("range"),1,[hero.get_rid()])
 	wall_distance=-1.0 if wall.is_empty() else global_position.distance_to(wall.position)
 	if wall_distance>=0:length_now=minf(length_now,wall_distance)
 	look_at(global_position+direction,Vector3.FORWARD if absf(direction.dot(Vector3.UP))>.999 else Vector3.UP)
 	var tick=maxi(1,floori(elapsed*30.0+.000001)+1)
 	var world_tick=companion_clock.ticks
+	visual.scale=Vector3(skill_factor("size"),skill_factor("size"),1)
 	visual.wall_glow_color=native_phase.wall_glow_color
 	visual.sample(tick,world_tick,.01*growth,REACH_MULTIPLIER*hero.pickup_multiplier("range"),wall_distance,floori(release_elapsed*30.0+.000001) if releasing else -1)
 	native_phase.wall_glow_color=visual.wall_glow_color
@@ -152,29 +158,8 @@ func damage_tick():
 	# Re-read movement, aim and cover immediately before fitting any victims.
 	update_path()
 	if length_now<=.001:return
-	var end=global_position+direction*length_now
-	var amount=DAMAGE*hero.damage_multiplier()
-	BreakableBuilding.hit_segment(game,global_position,end+direction*.01,amount,attack_ticket)
-	var struck: Dictionary={}
-	for enemy in game.enemies:
-		if not is_instance_valid(enemy) or enemy.dead or struck.has(enemy.get_instance_id()):continue
-		struck[enemy.get_instance_id()]=true
-		var hit=AttackChain.segment_contact(enemy,global_position,end,RADIUS*model_scale(hero)*hero.growth_multiplier())
-		if hit.is_empty():continue
-		# Fitted shapes have rounded end caps; the extended contact limit
-		# remains a plane, preserving the source 640:784 hit-to-visual ratio.
-		var along: float=(hit.point-global_position).dot(direction)
-		if along<0 or along>length_now:continue
-		# The native hit volume can reach beside the center ray. Each actual
-		# fitted surface must also be exposed to the source, rather than hidden
-		# behind side cover that the centerline does not intersect.
-		if global_position.distance_squared_to(hit.point)>.000001:
-			var sight=PhysicsRayQueryParameters3D.create(global_position,hit.point,1)
-			sight.exclude=[hero.get_rid()];sight.hit_from_inside=true
-			if not get_world_3d().direct_space_state.intersect_ray(sight).is_empty():continue
-		enemy.take_hit(amount,direction,false,attack_ticket)
-		if hero.ai_controlled:game.confirm_ally_impact(enemy,hit.point,direction,1,true,14,false)
-		else:game.confirm_impact(enemy,hit.point,direction,1,true,14,false)
+	var radius=RADIUS*cast_scale()*hero.growth_multiplier()*skill_factor("hit_area")
+	AttackChain.beam_pulse(self,hero,global_position,global_position+direction*length_now,radius,radius*hero.pickup_multiplier("range"),DAMAGE*hero.damage_multiplier(),attack_ticket,14)
 
 func _original(slot: String)->AudioStream:
 	return SoundLibrary.original_for(14,slot)
@@ -220,11 +205,11 @@ func _sustain(player: AudioStreamPlayer3D,audio: Dictionary,previous: AudioStrea
 func stop():
 	if not active and not releasing:return
 	active=false;releasing=false;hide()
-	if is_instance_valid(shield):shield.hide();shield.queue_free()
-	shield=null
+	if is_instance_valid(shield):shield.hide();shield.hero=null;shield.source_model=null
+	source_model=null
 	for player in [charge,bed,loop]:
 		if is_instance_valid(player):player.stop()
-	queue_free()
+	retire()
 
 func release():
 	if not active:return
@@ -238,3 +223,11 @@ func _exit_tree():
 	if is_instance_valid(shield):shield.queue_free()
 	for player in [charge,bed,loop]:
 		if is_instance_valid(player):player.stop()
+
+func cast_scale()->float:
+	return source_model.rig_visual.scale.x if is_instance_valid(source_model) else model_scale(hero)
+
+func cast_origin()->Vector3:
+	return source_model.rig_visual.global_position if is_instance_valid(source_model) else source_origin(hero)
+
+func tune_visual():pass # update_path owns the stream width on every sample.

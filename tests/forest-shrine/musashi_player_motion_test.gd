@@ -3,6 +3,7 @@ extends SceneTree
 var checks=0
 var failures=0
 var fixture
+const BODY_SIZE=preload("res://scripts/character_proportions.gd").MUSASHI_SIZE
 func _initialize():run.call_deferred()
 func check(ok:bool,label_:String):
 	checks+=1
@@ -21,10 +22,10 @@ func run():
 	check(c.get("locomotion")!=null,"Musashi has his own movement controller on the actual playable Hero")
 	if c.get("locomotion")==null:await finish();return
 	c.locomotion.reset();Input.action_press("jump");jump(p);await step(p,4)
-	check(p.jumps_used==1 and absf(p.velocity.y-26.5275)<.0001,"Space routes through the original -18 launch and first held-gravity step")
+	check(p.jumps_used==1 and absf(p.velocity.y-8.8425*BODY_SIZE)<.0001,"Space routes through the original -18 launch and first held-gravity step")
 	await step(p,4)
 	Input.action_release("jump");await step(p,2);Input.action_press("jump");jump(p);await step(p,2)
-	check(p.jumps_used==2 and absf(p.velocity.y-20.0475)<.0001,"A second Space edge resets the original L-Belt double jump")
+	check(p.jumps_used==2 and absf(p.velocity.y-6.6825*BODY_SIZE)<.0001,"A second Space edge resets the original L-Belt double jump")
 	check(p.model.current_clip=="Extra__800d4be0","Double jump displays the recovered spin through the real movement path")
 	var vy=p.velocity.y;await step(p,4)
 	check(p.velocity.y<vy and p.jumps_used==2,"Holding Space cannot retrigger another midair launch")
@@ -36,7 +37,7 @@ func run():
 	# rather than waiting indefinitely for a manually advanced phase clock.
 	c.cancel();c.combo=2;c.combo_timer=1;c.primary_attack();var start_y=p.position.y;var peak=start_y
 	for i in 90:await step(p,1);peak=maxf(peak,p.position.y)
-	check(absf((peak-start_y)-1.89)<.02,"Fourth Fusion apex matches 35 source units without an extra launch step")
+	check(absf((peak-start_y)-.63*BODY_SIZE)<.02,"Fourth Fusion apex matches 35 source units without an extra launch step")
 	check(p.is_on_floor() and not c.controls_motion() and not c.is_attacking(),"The finisher finishes physical landing and returns control")
 	p.select_character(1);p.dodge_time=.28;p.select_character(13);await step(p,20)
 	check(p.dodge_time<=0,"A previous fighter's dodge cannot permanently lock Musashi's attacks")

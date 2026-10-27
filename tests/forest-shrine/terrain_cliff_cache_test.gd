@@ -12,7 +12,7 @@ func check(ok:bool,note:String):
  checks+=1
  if not ok:failures+=1;printerr("FAIL: ",note)
 func run():
- var layout=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_blood_gulch.json"));layout.terrain_scale=1.2
+ var layout=JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_blood_gulch.json"));layout.terrain_scale=1.2
  var m=Model.new();m.reset(90824,{},layout)
  var terrain=MeasuredTerrain.new();terrain.horizontal_scale=1.2;terrain.configure([]);m.terrain=terrain
  var region:Rect2i=m.enemy_grid.region

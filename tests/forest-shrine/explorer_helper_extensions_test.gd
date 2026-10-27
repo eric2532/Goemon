@@ -20,14 +20,13 @@ func step(n:int):
   game.explorer_helpers._process(1.0/60)
   if i%30==0:await process_frame
 func run():
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game;await frames()
  var h=game.explorer_helpers
  check(h.pool.size()==5,"Five helper slots use a five-character starting pool")
  if h.pool.size()!=5:await finish();return
  game.player.select_character(11);game.start_wave();game.model.waves.spawn_clock=100000;game.model.waves.pending=999
  game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
- for u in game.gate_defenders.units.values():u.set_physics_process(false)
  game.player.position=Vector3(0,.15,60);game.model.update_vision(game.player.position)
  check(GuardFixture.deploy(h,3),"Knight can be called before an enemy is visible")
  await step(12);var knight=h.active_units(3)[0]
@@ -46,8 +45,8 @@ func run():
  check(knight.hp==hp-10 and game.player.hp==hero_hp,"Knight's Code halves damage to the helper without hurting Explorer")
  await step(6)
  check(knight.invuln>.29,"Knight retains native hit immunity instead of decrementing it twice")
- game.gate_defenders.sync_model();h.sync_targets()
- check(game.model.waves.valid_target("defender",knight.gate_id,game.player.position),"Gate defender synchronization preserves the helper taunt target")
+ h.sync_targets()
+ check(game.model.waves.valid_target("defender",knight.gate_id,game.player.position),"Repeated ally synchronization preserves the helper taunt target")
  game.model.waves.start_attack(foes[0],"hero",0,game.player.position)
  check(GuardFixture.deploy(h,3) and h.active_units(3).size()==2 and knight.hp==hp-10,"Recasting Knight adds another fighter without healing the first")
  await step(12)

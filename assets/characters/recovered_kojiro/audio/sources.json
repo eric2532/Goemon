@@ -1,0 +1,1065 @@
+{
+  "owner": "raw/SC03.CD.dir/FILE_014.dir/4.7",
+  "owner_sha256": "5619619b7b322d11b8ff25b4dc6d2b86557cb91e4aa75296e0034adaacc469d1",
+  "header_address": "0x800ca84c",
+  "bank": "bank_b05ef369d886ab15",
+  "bank_sha256": "b05ef369d886ab150b824538ed7ed7c9e94998101feac05c7d7e28055c6e8b42",
+  "bank_samples": [
+    {
+      "index": 1,
+      "id": "sample_e2ee4ddd879a6439",
+      "body_offset": 0,
+      "bytes": 4064
+    },
+    {
+      "index": 2,
+      "id": "sample_189f390c525445ab",
+      "body_offset": 4064,
+      "bytes": 5936
+    },
+    {
+      "index": 3,
+      "id": "sample_cf60614886b9198e",
+      "body_offset": 10000,
+      "bytes": 10080
+    },
+    {
+      "index": 4,
+      "id": "sample_7a533ed3aa7f62a1",
+      "body_offset": 20080,
+      "bytes": 8160
+    },
+    {
+      "index": 5,
+      "id": "sample_de31799f948312cf",
+      "body_offset": 28240,
+      "bytes": 13664
+    },
+    {
+      "index": 6,
+      "id": "sample_affc189951707aac",
+      "body_offset": 41904,
+      "bytes": 4352
+    },
+    {
+      "index": 7,
+      "id": "sample_c8e5fe64681e3a3d",
+      "body_offset": 46256,
+      "bytes": 4608
+    },
+    {
+      "index": 8,
+      "id": "sample_886ce1e8540d886c",
+      "body_offset": 50864,
+      "bytes": 2080
+    },
+    {
+      "index": 9,
+      "id": "sample_f3ac8f55f3559941",
+      "body_offset": 52944,
+      "bytes": 3440
+    },
+    {
+      "index": 10,
+      "id": "sample_16997302ed55c022",
+      "body_offset": 56384,
+      "bytes": 1520
+    },
+    {
+      "index": 11,
+      "id": "sample_bff3cef5602de2a3",
+      "body_offset": 57904,
+      "bytes": 9104
+    },
+    {
+      "index": 12,
+      "id": "sample_90f57eaf0b8c8336",
+      "body_offset": 67008,
+      "bytes": 3072
+    },
+    {
+      "index": 13,
+      "id": "sample_0c45ac74c4f7522a",
+      "body_offset": 70080,
+      "bytes": 6640
+    },
+    {
+      "index": 14,
+      "id": "sample_190c7b70ab8ce9c7",
+      "body_offset": 76720,
+      "bytes": 3904
+    },
+    {
+      "index": 15,
+      "id": "sample_1a2eac67ce993739",
+      "body_offset": 80624,
+      "bytes": 4000
+    },
+    {
+      "index": 16,
+      "id": "sample_23aa5a182b400c1f",
+      "body_offset": 84624,
+      "bytes": 3488
+    },
+    {
+      "index": 17,
+      "id": "sample_01c20db62a28c32e",
+      "body_offset": 88112,
+      "bytes": 13056
+    },
+    {
+      "index": 18,
+      "id": "sample_828281b6cc4dc53b",
+      "body_offset": 101168,
+      "bytes": 2208
+    },
+    {
+      "index": 19,
+      "id": "sample_91c05147e9e412f2",
+      "body_offset": 103376,
+      "bytes": 15824
+    },
+    {
+      "index": 20,
+      "id": "sample_0c28d86dcf29430e",
+      "body_offset": 119200,
+      "bytes": 5008
+    },
+    {
+      "index": 21,
+      "id": "sample_c73456dbe682f8e6",
+      "body_offset": 124208,
+      "bytes": 3408
+    },
+    {
+      "index": 22,
+      "id": "sample_9bd06e398db2c489",
+      "body_offset": 127616,
+      "bytes": 2640
+    },
+    {
+      "index": 23,
+      "id": "sample_4076463ec11cb99c",
+      "body_offset": 130256,
+      "bytes": 7712
+    }
+  ],
+  "events": {
+    "a31:0": {
+      "file": "build/Other Files/Asset Toolkit/Kojiro/Audio Catalog/event_a31.wav",
+      "resolved_id": "0xa31",
+      "dispatch_hex": "01030800",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c91a0",
+          "record_hex": "c8000000003c5900390001000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 0,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80e35f00000100c000c100c200c300",
+          "sample_id": "sample_e2ee4ddd879a6439",
+          "sample_index": 1,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "06beb42bf05e60a2cdf9f39101c71d84c2950a22871101ecf2404f696cf8d31c"
+    },
+    "a32:0": {
+      "file": "build/Other Files/Asset Toolkit/Kojiro/Audio Catalog/event_a32.wav",
+      "resolved_id": "0xa32",
+      "dispatch_hex": "01030801",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c91b4",
+          "record_hex": "c8000000003e5d00390101000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 0,
+          "tone": 1,
+          "tone_hex": "00007f404a403e3e000000000000b1b2ff80e35f00000100c000c100c200c300",
+          "sample_id": "sample_e2ee4ddd879a6439",
+          "sample_index": 1,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "9194ea5efb3ee2b3a59c931387a42236aa09b764b9955834bf9295a7e05ff4ef"
+    },
+    "a33:0": {
+      "file": "build/Other Files/Asset Toolkit/Kojiro/Audio Catalog/event_a33.wav",
+      "resolved_id": "0xa33",
+      "dispatch_hex": "01030802",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c91c8",
+          "record_hex": "c800000000405900390201000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 0,
+          "tone": 2,
+          "tone_hex": "00007f404c004040000000000000b1b2ff80e35f00000200c000c100c200c300",
+          "sample_id": "sample_189f390c525445ab",
+          "sample_index": 2,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "4b6346f1d60e9f623714a0933d742d6d20b01be1734d6f6f3cb926074b728391"
+    },
+    "a34:0": {
+      "file": "build/Other Files/Asset Toolkit/Kojiro/Audio Catalog/event_a34.wav",
+      "resolved_id": "0xa34",
+      "dispatch_hex": "01030803",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c91dc",
+          "record_hex": "c800000000415900390301000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 0,
+          "tone": 3,
+          "tone_hex": "00007f404d004141000000000000b1b2ff27e35f00000200c000c100c200c300",
+          "sample_id": "sample_189f390c525445ab",
+          "sample_index": 2,
+          "pitch_q8": 16640,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "4b6346f1d60e9f623714a0933d742d6d20b01be1734d6f6f3cb926074b728391"
+    },
+    "a35:0": {
+      "file": "assets/characters/recovered_kojiro/audio/homing_release.wav",
+      "resolved_id": "0xa35",
+      "dispatch_hex": "01030804",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c91f0",
+          "record_hex": "c8000000003c7000390401000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 1,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c01f01000300c000c100c200c300",
+          "sample_id": "sample_cf60614886b9198e",
+          "sample_index": 3,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "eb7a68dc071e985edd77e0138c1a16ad823de8afe7af605daac447b7ae68ab3b"
+    },
+    "a36:0": {
+      "file": "assets/characters/recovered_kojiro/audio/wave_release.wav",
+      "resolved_id": "0xa36",
+      "dispatch_hex": "01030805",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c9204",
+          "record_hex": "c8000000003e7000390501000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 1,
+          "tone": 1,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80c01f01000400c000c100c200c300",
+          "sample_id": "sample_7a533ed3aa7f62a1",
+          "sample_index": 4,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "b34fd5f2ec72ace391ae8e1d0082dd3ace019297d4f73095082ec0a829226ada"
+    },
+    "a37:0": {
+      "file": "assets/characters/recovered_kojiro/audio/wind_release.wav",
+      "resolved_id": "0xa37",
+      "dispatch_hex": "01030806",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c9218",
+          "record_hex": "c800000000407000390601000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 1,
+          "tone": 2,
+          "tone_hex": "00007f404c004040000000000000b1b2ff80c01f01000500c000c100c200c300",
+          "sample_id": "sample_de31799f948312cf",
+          "sample_index": 5,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "7ad4c75e56bfbe7ea95a55db6b59ccb3b8b9e1f77ac13a39a46482ce5855d121"
+    },
+    "a38:0": {
+      "file": "build/Other Files/Asset Toolkit/Kojiro/Audio Catalog/event_a38.wav",
+      "resolved_id": "0xa38",
+      "dispatch_hex": "01030807",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c922c",
+          "record_hex": "c8000000003c6400390701000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 2,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80e35f02000600c000c100c200c300",
+          "sample_id": "sample_affc189951707aac",
+          "sample_index": 6,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "793f05a9701bfb77fd0dc3f3b865798b18bfed7aa7ece8adc3d2b9770bb28047"
+    },
+    "a39:0": {
+      "file": "build/Other Files/Asset Toolkit/Kojiro/Audio Catalog/event_a39.wav",
+      "resolved_id": "0xa39",
+      "dispatch_hex": "01030808",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c9240",
+          "record_hex": "c8000000003e6400390801000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 2,
+          "tone": 1,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80e35f02000700c000c100c200c300",
+          "sample_id": "sample_c8e5fe64681e3a3d",
+          "sample_index": 7,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "3eed82522bb6e5bd2b085010cc8d962b10e5f8ff560ab2ac35094bc393125d54"
+    },
+    "a3a:0": {
+      "file": "build/Other Files/Asset Toolkit/Kojiro/Audio Catalog/event_a3a.wav",
+      "resolved_id": "0xa3a",
+      "dispatch_hex": "01030809",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c9254",
+          "record_hex": "c800000000406400390901000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 2,
+          "tone": 2,
+          "tone_hex": "00007f4050114040000000000000b1b2ff80e35f02000800c000c100c200c300",
+          "sample_id": "sample_886ce1e8540d886c",
+          "sample_index": 8,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "ede10cc15d4438322c47250669ac4ba0ef1b41cd7f91bac16606fe6f5bfc89e2"
+    },
+    "a3b:0": {
+      "file": "build/Other Files/Asset Toolkit/Kojiro/Audio Catalog/event_a3b.wav",
+      "resolved_id": "0xa3b",
+      "dispatch_hex": "0103080a",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c9268",
+          "record_hex": "c800000000417400390a010000000000207f0c80",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 2,
+          "tone": 3,
+          "tone_hex": "00007f404d004141000000000000b1b2ffa5ed5f02000900c000c100c200c300",
+          "sample_id": "sample_f3ac8f55f3559941",
+          "sample_index": 9,
+          "pitch_q8": 16640,
+          "curve": [
+            2,
+            30,
+            0,
+            17,
+            20480,
+            23040,
+            16,
+            140,
+            0
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "c1b17a907e8a1be0ad4242c8dbcbeeb92e3e4970224f2cac066f30f9a2b2be69"
+    },
+    "a3c:0": {
+      "file": "build/Other Files/Asset Toolkit/Kojiro/Audio Catalog/event_a3c.wav",
+      "resolved_id": "0xa3c",
+      "dispatch_hex": "0103080b",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c927c",
+          "record_hex": "c800000000406500390b0000000000004c8f0c80",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 2,
+          "tone": 4,
+          "tone_hex": "00007f404f004343000000000000b1b2ffa5ed5f02000a00c000c100c200c300",
+          "sample_id": "sample_16997302ed55c022",
+          "sample_index": 10,
+          "pitch_q8": 16384,
+          "curve": [
+            7,
+            17,
+            2304,
+            4864,
+            16,
+            140,
+            7,
+            100,
+            3072
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "544e99cfef30c18a5743dcd774f1180a4eca4e1ea38ac7ea5e9d6b10e7254e28"
+    },
+    "a3d:0": {
+      "file": "build/Other Files/Asset Toolkit/Kojiro/Audio Catalog/event_a3d.wav",
+      "resolved_id": "0xa3d",
+      "dispatch_hex": "0103080c",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c9290",
+          "record_hex": "c800000000396b00390c000100000000588f0c80",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 2,
+          "tone": 5,
+          "tone_hex": "00007f4051004545000000000000b1b2ff80e35f02000b00c000c100c200c300",
+          "sample_id": "sample_bff3cef5602de2a3",
+          "sample_index": 11,
+          "pitch_q8": 14592,
+          "curve": [
+            7,
+            100,
+            3072,
+            3072,
+            16,
+            0,
+            7,
+            100,
+            768
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c92a4",
+          "record_hex": "c8001e0000446b00390d000000000000648f0c80",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 2,
+          "tone": 6,
+          "tone_hex": "00007f4053004747000000000000b1b2ff27e35f02000b00c000c100c200c300",
+          "sample_id": "sample_bff3cef5602de2a3",
+          "sample_index": 11,
+          "pitch_q8": 17408,
+          "curve": [
+            7,
+            100,
+            768,
+            768,
+            16,
+            0,
+            200,
+            0,
+            15616
+          ],
+          "delay_frames": 22050
+        }
+      ],
+      "sha256": "f47792594c163367f3b68ff7233571e1789f8e55ccfa66cd0500ccf607e65507"
+    },
+    "a7e:0": {
+      "file": "assets/characters/recovered_kojiro/audio/homing_voice.wav",
+      "resolved_id": "0xa7e",
+      "dispatch_hex": "0103080e",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c92b8",
+          "record_hex": "cd000000003c7a00390e01000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 1,
+          "tone": 3,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c01f01000c00c000c100c200c300",
+          "sample_id": "sample_90f57eaf0b8c8336",
+          "sample_index": 12,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "11969f10b2b1f53a78887fb1714f5995f25f520ac1082279cbcb99ee44c51cc7"
+    },
+    "a7f:0": {
+      "file": "assets/characters/recovered_kojiro/audio/air_cut_voice.wav",
+      "resolved_id": "0xa7f",
+      "dispatch_hex": "0103080f",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c92cc",
+          "record_hex": "cd000000003c7a00390f01000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 1,
+          "tone": 4,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c01f01000c00c000c100c200c300",
+          "sample_id": "sample_90f57eaf0b8c8336",
+          "sample_index": 12,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "11969f10b2b1f53a78887fb1714f5995f25f520ac1082279cbcb99ee44c51cc7"
+    },
+    "a80:0": {
+      "file": "assets/characters/recovered_kojiro/audio/air_spin_voice.wav",
+      "resolved_id": "0xa80",
+      "dispatch_hex": "01030810",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c92e0",
+          "record_hex": "cd000000003c7a00391001000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 1,
+          "tone": 5,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c01f01000d00c000c100c200c300",
+          "sample_id": "sample_0c45ac74c4f7522a",
+          "sample_index": 13,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "b3c9a097f8e0b02b062e84d9d21c3b38c57e85888a8fb8846d9e31ca4107dfbf"
+    },
+    "a81:0": {
+      "file": "assets/characters/recovered_kojiro/audio/wave_voice.wav",
+      "resolved_id": "0xa81",
+      "dispatch_hex": "01030811",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c92f4",
+          "record_hex": "cd000000003c7a00391101000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 1,
+          "tone": 6,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c01f01000e00c000c100c200c300",
+          "sample_id": "sample_190c7b70ab8ce9c7",
+          "sample_index": 14,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "6bc1c09bd055056ec5a3974eee1ba3b8b804cdc1e56875e314cea6ae2e93297b"
+    },
+    "a82:0": {
+      "file": "assets/characters/recovered_kojiro/audio/wind_voice.wav",
+      "resolved_id": "0xa82",
+      "dispatch_hex": "01030812",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c9308",
+          "record_hex": "cd000000003c7a00391201000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 1,
+          "tone": 7,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c01f01000f00c000c100c200c300",
+          "sample_id": "sample_1a2eac67ce993739",
+          "sample_index": 15,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "f8b59a615b82bb66498813b24755ac8465c6afd14723966d5d70a7398b56f4e1"
+    },
+    "a83:0": {
+      "file": "assets/characters/recovered_kojiro/audio/unused_voice_a83.wav",
+      "resolved_id": "0xa83",
+      "dispatch_hex": "00030813",
+      "enabled": false,
+      "layers": [
+        {
+          "record_address": "0x800c931c",
+          "record_hex": "cd000000003c7a00391301000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 1,
+          "tone": 8,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c01f01001700c000c100c200c300",
+          "sample_id": "sample_4076463ec11cb99c",
+          "sample_index": 23,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "4b2e254a72140e98dc6a2301f56ff9929d5963bd4e6af635658dad95ec7132e7"
+    },
+    "a84:0": {
+      "file": "assets/characters/recovered_kojiro/audio/unused_voice_a84.wav",
+      "resolved_id": "0xa84",
+      "dispatch_hex": "00030814",
+      "enabled": false,
+      "layers": [
+        {
+          "record_address": "0x800c9330",
+          "record_hex": "cd000000003c7a00391401000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 1,
+          "tone": 9,
+          "tone_hex": "00007f4054003c3c000000000000b1b2ff2fe35f01001700c000c100c200c300",
+          "sample_id": "sample_4076463ec11cb99c",
+          "sample_index": 23,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "54bab9a45ff5d84599daab44a25fd8c67351e12552d1c50c352df246d2ad5994"
+    },
+    "a85:0": {
+      "file": "assets/characters/recovered_kojiro/audio/hurt_1.wav",
+      "resolved_id": "0xa85",
+      "dispatch_hex": "01030815",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c9344",
+          "record_hex": "cd000000003c7a00391501000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 1,
+          "tone": 10,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c01f01001000c000c100c200c300",
+          "sample_id": "sample_23aa5a182b400c1f",
+          "sample_index": 16,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "2708931f4e6525ea0ef422227d5a9497fba335b689b26618d82cbcca2d6ce0a6"
+    },
+    "a86:0": {
+      "file": "assets/characters/recovered_kojiro/audio/hurt_2.wav",
+      "resolved_id": "0xa86",
+      "dispatch_hex": "01030816",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c9358",
+          "record_hex": "cd000000003c7a00391601000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 1,
+          "tone": 11,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c01f01001000c000c100c200c300",
+          "sample_id": "sample_23aa5a182b400c1f",
+          "sample_index": 16,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "2708931f4e6525ea0ef422227d5a9497fba335b689b26618d82cbcca2d6ce0a6"
+    },
+    "a87:0": {
+      "file": "assets/characters/recovered_kojiro/audio/defeat.wav",
+      "resolved_id": "0xa87",
+      "dispatch_hex": "01030817",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c936c",
+          "record_hex": "cd000000003c7a00391701000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 1,
+          "tone": 12,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c01f01001100c000c100c200c300",
+          "sample_id": "sample_01c20db62a28c32e",
+          "sample_index": 17,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "9d13e468b9d51c3e603182cdd63e9182edd487cc62eb64db199061cda389560e"
+    },
+    "bac:0": {
+      "file": "build/Other Files/Asset Toolkit/Kojiro/Audio Catalog/event_bac.wav",
+      "resolved_id": "0xbac",
+      "dispatch_hex": "0103081a",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c93a8",
+          "record_hex": "ce00000000486a00391a01000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 2,
+          "tone": 7,
+          "tone_hex": "00007f4054004848000000000000b1b2ff80e35f02001200c000c100c200c300",
+          "sample_id": "sample_828281b6cc4dc53b",
+          "sample_index": 18,
+          "pitch_q8": 18432,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "6d51d2946ede30be3191dba351b474c5e624b7437ee304b18c0b3f42c1fe6582"
+    },
+    "bfb:0": {
+      "file": "build/Other Files/Asset Toolkit/Kojiro/Audio Catalog/event_bfb.wav",
+      "resolved_id": "0xbfb",
+      "dispatch_hex": "0103081b",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c93bc",
+          "record_hex": "c8000000004f6400391f000000000000c8830c80",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 2,
+          "tone": 12,
+          "tone_hex": "00007f404f004f4f000000000000b1b2ffa5ed5f02001600c000c100c200c300",
+          "sample_id": "sample_9bd06e398db2c489",
+          "sample_index": 22,
+          "pitch_q8": 20224,
+          "curve": [
+            10,
+            4,
+            1024,
+            62464,
+            400,
+            0,
+            1536,
+            4,
+            24
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "be2a97af97343e7922d2e6789017f0a792ba313c01bde99073e9a2741b84af3e"
+    },
+    "cbb:0": {
+      "file": "build/Other Files/Asset Toolkit/Kojiro/Audio Catalog/event_cbb.wav",
+      "resolved_id": "0xcbb",
+      "dispatch_hex": "01030813",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c931c",
+          "record_hex": "cd000000003c7a00391301000000000000000000",
+          "bank_slot": 57,
+          "bank": "bank_b05ef369d886ab15",
+          "program": 1,
+          "tone": 8,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c01f01001700c000c100c200c300",
+          "sample_id": "sample_4076463ec11cb99c",
+          "sample_index": 23,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "4b2e254a72140e98dc6a2301f56ff9929d5963bd4e6af635658dad95ec7132e7"
+    }
+  },
+  "scene_aliases": {
+    "437": [
+      1308,
+      3128,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127
+    ],
+    "438": [
+      1309,
+      3127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127
+    ],
+    "439": [
+      1310,
+      3129,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127
+    ],
+    "43c": [
+      1320,
+      3130,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127
+    ]
+  },
+  "unresolved_scene_aliases": {},
+  "source_resource_level": 57,
+  "scene_column": 7,
+  "scene_level_map": [
+    9,
+    1,
+    2,
+    3,
+    4,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    5,
+    8,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    7
+  ],
+  "scene_resolution_trace": "8002F4E4: resource level minus owner+4 indexes owner+8; the resulting 1-based value selects the owner+10 sound row column.",
+  "retained_banks": {
+    "57": {
+      "id": "bank_b05ef369d886ab15",
+      "sha256": "b05ef369d886ab150b824538ed7ed7c9e94998101feac05c7d7e28055c6e8b42",
+      "samples": [
+        {
+          "index": 1,
+          "id": "sample_e2ee4ddd879a6439",
+          "body_offset": 0,
+          "bytes": 4064
+        },
+        {
+          "index": 2,
+          "id": "sample_189f390c525445ab",
+          "body_offset": 4064,
+          "bytes": 5936
+        },
+        {
+          "index": 3,
+          "id": "sample_cf60614886b9198e",
+          "body_offset": 10000,
+          "bytes": 10080
+        },
+        {
+          "index": 4,
+          "id": "sample_7a533ed3aa7f62a1",
+          "body_offset": 20080,
+          "bytes": 8160
+        },
+        {
+          "index": 5,
+          "id": "sample_de31799f948312cf",
+          "body_offset": 28240,
+          "bytes": 13664
+        },
+        {
+          "index": 6,
+          "id": "sample_affc189951707aac",
+          "body_offset": 41904,
+          "bytes": 4352
+        },
+        {
+          "index": 7,
+          "id": "sample_c8e5fe64681e3a3d",
+          "body_offset": 46256,
+          "bytes": 4608
+        },
+        {
+          "index": 8,
+          "id": "sample_886ce1e8540d886c",
+          "body_offset": 50864,
+          "bytes": 2080
+        },
+        {
+          "index": 9,
+          "id": "sample_f3ac8f55f3559941",
+          "body_offset": 52944,
+          "bytes": 3440
+        },
+        {
+          "index": 10,
+          "id": "sample_16997302ed55c022",
+          "body_offset": 56384,
+          "bytes": 1520
+        },
+        {
+          "index": 11,
+          "id": "sample_bff3cef5602de2a3",
+          "body_offset": 57904,
+          "bytes": 9104
+        },
+        {
+          "index": 12,
+          "id": "sample_90f57eaf0b8c8336",
+          "body_offset": 67008,
+          "bytes": 3072
+        },
+        {
+          "index": 13,
+          "id": "sample_0c45ac74c4f7522a",
+          "body_offset": 70080,
+          "bytes": 6640
+        },
+        {
+          "index": 14,
+          "id": "sample_190c7b70ab8ce9c7",
+          "body_offset": 76720,
+          "bytes": 3904
+        },
+        {
+          "index": 15,
+          "id": "sample_1a2eac67ce993739",
+          "body_offset": 80624,
+          "bytes": 4000
+        },
+        {
+          "index": 16,
+          "id": "sample_23aa5a182b400c1f",
+          "body_offset": 84624,
+          "bytes": 3488
+        },
+        {
+          "index": 17,
+          "id": "sample_01c20db62a28c32e",
+          "body_offset": 88112,
+          "bytes": 13056
+        },
+        {
+          "index": 18,
+          "id": "sample_828281b6cc4dc53b",
+          "body_offset": 101168,
+          "bytes": 2208
+        },
+        {
+          "index": 19,
+          "id": "sample_91c05147e9e412f2",
+          "body_offset": 103376,
+          "bytes": 15824
+        },
+        {
+          "index": 20,
+          "id": "sample_0c28d86dcf29430e",
+          "body_offset": 119200,
+          "bytes": 5008
+        },
+        {
+          "index": 21,
+          "id": "sample_c73456dbe682f8e6",
+          "body_offset": 124208,
+          "bytes": 3408
+        },
+        {
+          "index": 22,
+          "id": "sample_9bd06e398db2c489",
+          "body_offset": 127616,
+          "bytes": 2640
+        },
+        {
+          "index": 23,
+          "id": "sample_4076463ec11cb99c",
+          "body_offset": 130256,
+          "bytes": 7712
+        }
+      ]
+    }
+  },
+  "notes": [
+    "Scene owner SC03/14; duel audio is separately loaded from SC03/17, not the scenery bank.",
+    "80184878 selects resource 57; 801848A8..AC selects 800AEE48 = CD table entry 195 = SC03/17.",
+    "A83/A84 are disabled source events retained for inspection. A88/A89 are disabled and refer to absent tones; no original sword sample is claimed.",
+    "Every owner event alias and all stage samples retained; unrelated events are not labelled as character actions.",
+    "Dry authentic SPU ADPCM with source pitch curves, layer delays and relative volume. PSX ADSR, reverb, Gaussian interpolation and key-off loops are not emulated."
+  ]
+}

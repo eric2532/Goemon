@@ -5,38 +5,51 @@ var runtime:Node
 var handle:int
 var gate_id:int
 var character_id:int
-var hp=0.0
-var max_hp=0.0
+var _hp_value=0.0
+var hp:float:
+ get:_refresh_shared();return _hp_value
+ set(value):_refresh_shared();_hp_value=value;_block_shared()
+var _max_hp_value=0.0
+var max_hp:float:
+ get:_refresh_shared();return _max_hp_value
+ set(value):_refresh_shared();_max_hp_value=value;_block_shared()
 var _state_value="active"
 var state:String:
  get:_refresh_shared();return _state_value
- set(value):_state_value=value;_block_shared()
+ set(value):_refresh_shared();_state_value=value;_block_shared()
 var dead=false
-var velocity=Vector3.ZERO
+var _velocity_value=Vector3.ZERO
+var velocity:Vector3:
+ get:_refresh_shared();return _velocity_value
+ set(value):_refresh_shared();_velocity_value=value;_block_shared()
 var _targetable_value=true
 var _taunting_value=false
 var _seen_epoch=-1
 var _direct_epoch=-1
 var targetable:bool:
  get:_refresh_shared();return _targetable_value
- set(value):_targetable_value=value;_block_shared()
+ set(value):_refresh_shared();_targetable_value=value;_block_shared()
 var taunting:bool:
  get:_refresh_shared();return _taunting_value
- set(value):_taunting_value=value;_block_shared()
+ set(value):_refresh_shared();_taunting_value=value;_block_shared()
 func uses_shared_snapshot():pass
-# HP/max HP/motion are plain storage; native copies need no prior-value reads.
+# Explicit transfers still assign fields directly; shared publication skips these copies.
 func uses_plain_snapshot_fields():pass
+func uses_lazy_snapshot_fields():pass
 func _block_shared():
  if is_instance_valid(runtime) and runtime.get("shared_snapshot_enabled")==true:_direct_epoch=runtime.snapshot_epoch
 func _refresh_shared():
- if dead or handle==0 or not is_instance_valid(runtime) or runtime.get("shared_snapshot_enabled")!=true or runtime.snapshot_view==null:return
+ if dead or handle==0 or not is_instance_valid(runtime):return
  var epoch:int=runtime.snapshot_epoch
  if _direct_epoch==epoch or _seen_epoch==epoch:return
+ if not runtime.shared_snapshot_enabled or runtime.snapshot_view==null:return
  var view:Snapshot=runtime.snapshot_view;var slot:int=handle&0xffffffff
  if slot<0 or slot>=view.rows_by_slot.size():return
  var row:int=view.rows_by_slot[slot]
  if row<0 or row>=view.handles.size() or view.handles[row]!=handle:return
  _seen_epoch=epoch
+ if runtime.ally_fields_epoch==epoch:
+  _hp_value=view.hp[row];_max_hp_value=view.max_hp[row];_velocity_value=view.velocities[row]
  _targetable_value=(view.status[row]&64)==0;_taunting_value=(view.status[row]&32)!=0
  _sync_shared_lifecycle(view,row)
 func _sync_shared_lifecycle(_data:Snapshot,_index:int):pass

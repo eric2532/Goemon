@@ -1,0 +1,272 @@
+[
+  {
+    "path": "Units/NightElf/EvilIllidan/Clouds8x8FadeWhite.blp",
+    "archive": "War3x.mpq",
+    "bytes": 23131,
+    "sha256": "c8f7ed83e2e0f68005e88a1ce327e4ca4f84ad728cf36febe26aee4c6cf725f2"
+  },
+  {
+    "path": "Units/NightElf/EvilIllidan/Shadow.blp",
+    "archive": "War3x.mpq",
+    "bytes": 2463,
+    "sha256": "25c09333782be211d1ae36bc27edbf73eada9e5619ff0d3110524220f7320297"
+  },
+  {
+    "path": "Abilities/Weapons/IllidanMissile/IllidanMissile.mdx",
+    "archive": "War3x.mpq",
+    "bytes": 6147,
+    "sha256": "fb470e52e6e05c3e29a8af2f7e1511c2bf3f890d4db878e4019da036fe250ae5"
+  },
+  {
+    "path": "Units/NightElf/EvilIllidan/IllidanEvil.mdx",
+    "archive": "War3x.mpq",
+    "bytes": 449429,
+    "sha256": "c66bbbeea42f5bbfc1de869daec736d50ce24bfb1e5ebf911861919aeee977b5"
+  },
+  {
+    "path": "Units/NightElf/EvilIllidan/IllidanEvil_Portrait.mdx",
+    "archive": "War3x.mpq",
+    "bytes": 56986,
+    "sha256": "a2611d7e4504754acbb361ebe1ff93aef7cc07fa5c0e653b16b5cbc6c5495e12"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor00.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "db8efb0a2d76cb4e472c3395086f35391a25c81760509dc58ed109b79e1b9ef6"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor01.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "5521bd761c6bfdb34f742fb3acbe9b8d3a19d07bf6da323a2216e478b5817564"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor02.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "1a33afc10d67014dba95ec31c185bddb2ee62d5d7c62626af9ac3bbbcea36ce8"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor03.blp",
+    "archive": "war3.mpq",
+    "bytes": 1364,
+    "sha256": "879d401e6b8dd2005054688c295d6554c47b914dce0795440ddb676724a2ef91"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor04.blp",
+    "archive": "war3.mpq",
+    "bytes": 1370,
+    "sha256": "f5b015cfe28d21d3c36e14acc2b141f0be30699cdcd644d75e6748a0b8ed41f5"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor05.blp",
+    "archive": "war3.mpq",
+    "bytes": 1364,
+    "sha256": "d0a23c5dd00c59cf5602535482ec2d1e4fd8a0e7f5c7b9327a255bc5b2c2ec97"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor06.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "d799d93194182a56cd8cec408e11214ff5b965fee850bed72a2ec90331dddc98"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor07.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "1ae0931f626db4ac9659d1331e9ca92d09c2b7407d47531fb40c74d008f28587"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor08.blp",
+    "archive": "war3.mpq",
+    "bytes": 1360,
+    "sha256": "eb9faf6de202dc6ed81f38d01a2b9fe26b51aa49b02d7470f65cab577ac957fa"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor09.blp",
+    "archive": "war3.mpq",
+    "bytes": 1364,
+    "sha256": "0acbcedbde39d7fc1ea4752482648c0402b2a906135eab911a5bffc25858e9a6"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor10.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "1349b880e72ba8c3dbbcc3629a43b689e19ed2fcceaf282c58f094e45e43770d"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor11.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "71456b84e06b13c4b2bd3ab9a72ed8bb41d117af15521516e6d88a836a3c7ddd"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor12.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "02ae9b33df5e996d3ded9de3d515fb6aa60720912e309885c495ba289afeb48a"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor13.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "02ae9b33df5e996d3ded9de3d515fb6aa60720912e309885c495ba289afeb48a"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor14.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "02ae9b33df5e996d3ded9de3d515fb6aa60720912e309885c495ba289afeb48a"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor15.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "02ae9b33df5e996d3ded9de3d515fb6aa60720912e309885c495ba289afeb48a"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow00.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "bfc0800307b317b820ee786e5c9587a13893f158f37680672bd98e077c923c38"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow01.blp",
+    "archive": "war3.mpq",
+    "bytes": 1709,
+    "sha256": "c36510d9886113d75e484bc6599ec75f1afac6cd5fd8113cafc0a0ae3542d2b1"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow02.blp",
+    "archive": "war3.mpq",
+    "bytes": 1807,
+    "sha256": "487721616303f1a84969fccff2b1df2c34a4a28135f4f701b88f4d575f50e18e"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow03.blp",
+    "archive": "war3.mpq",
+    "bytes": 1680,
+    "sha256": "ee0e4d372ebb66e254ed4b1f63aad46c74cb55a21778f1539ea5e10f86bf9743"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow04.blp",
+    "archive": "war3.mpq",
+    "bytes": 1795,
+    "sha256": "abce29ecb184869e17799881f067b9dff9b1da6d2af97a05e56ce33cb8843adf"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow05.blp",
+    "archive": "war3.mpq",
+    "bytes": 1781,
+    "sha256": "a4f7b72f5d530eb52cabd56f64ebf8e9020a00a9d993a55a2a422e3470adbfd6"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow06.blp",
+    "archive": "war3.mpq",
+    "bytes": 1677,
+    "sha256": "487161ac56e96ecf5bf0aa92bf2c2fa48afb7f0c0ee9ceec996b8b5e17dee03d"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow07.blp",
+    "archive": "war3.mpq",
+    "bytes": 1847,
+    "sha256": "cce904c52af44078128e109f05d5efffe0a9b71339d40644957e6ad6af159237"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow08.blp",
+    "archive": "war3.mpq",
+    "bytes": 1841,
+    "sha256": "2af22a9de078166f22c3e615832414ec53d99e5186fae50070fda4fc009afd47"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow09.blp",
+    "archive": "war3.mpq",
+    "bytes": 1872,
+    "sha256": "7b493a1b976c0d07c60e1521d58dba4829be8af03650fee4249e1e055371820c"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow10.blp",
+    "archive": "war3.mpq",
+    "bytes": 1679,
+    "sha256": "22b0c58ce32a9299b9a632ebadc6a07b628a92c040d4e6ee65e5dab6e111d4e0"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow11.blp",
+    "archive": "war3.mpq",
+    "bytes": 1638,
+    "sha256": "9135d0a7b72345eb85eb0f094abc5916d1c8f56315472240010e32823051154d"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow12.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "0f341c3be7b6c43214c54c033d4f62e3947ca6fb027d878e61ff103bb9415cd5"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow13.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "0f341c3be7b6c43214c54c033d4f62e3947ca6fb027d878e61ff103bb9415cd5"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow14.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "0f341c3be7b6c43214c54c033d4f62e3947ca6fb027d878e61ff103bb9415cd5"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow15.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "0f341c3be7b6c43214c54c033d4f62e3947ca6fb027d878e61ff103bb9415cd5"
+  },
+  {
+    "path": "Textures/RibbonNE1.blp",
+    "archive": "War3x.mpq",
+    "bytes": 3835,
+    "sha256": "130f1a89f565b8eeb8676941b34ba00e8088b83473a2c8c68963d58a2a460ada"
+  },
+  {
+    "path": "Textures/Green_Glow3.blp",
+    "archive": "War3x.mpq",
+    "bytes": 2016,
+    "sha256": "e7ce9f685ae3581efb31eb805db783cee20528f94bb061128a312b52bfaca4ce"
+  },
+  {
+    "path": "Textures/Illidan.blp",
+    "archive": "War3x.mpq",
+    "bytes": 93777,
+    "sha256": "ce82e61265bb0de072d60ef73d8748d9f39908129d7816a4a9c6cd117caaa819"
+  },
+  {
+    "path": "Textures/Black32.blp",
+    "archive": "war3.mpq",
+    "bytes": 1503,
+    "sha256": "e4598a894b0fcc2c30a24d1f54059e022acb064286b5fcc32883764ab4560e4f"
+  },
+  {
+    "path": "Textures/Dust5ABlack.blp",
+    "archive": "war3.mpq",
+    "bytes": 3014,
+    "sha256": "ec7214bb551df15c769faa89fea905b32356eea6f827ec538d99ed5704a8b0dc"
+  },
+  {
+    "path": "Textures/Zap1.blp",
+    "archive": "War3x.mpq",
+    "bytes": 8314,
+    "sha256": "eee0fa72bdc07c8c64d74afdf8f8dc1b7232f226d2b78f0307cb46dd7cef38fa"
+  },
+  {
+    "path": "Textures/Clouds8x8Mod.blp",
+    "archive": "War3x.mpq",
+    "bytes": 70683,
+    "sha256": "03026ad2ef7ff5287c926fb44e97aae9fd9ab298cfc9ae1c509c35cc461a3ac1"
+  },
+  {
+    "path": "Textures/WaterWake2.blp",
+    "archive": "War3x.mpq",
+    "bytes": 7762,
+    "sha256": "c550a36397ba37cb69b52728033fbd36b2daa2e7ae95c96968626370910a2706"
+  }
+]

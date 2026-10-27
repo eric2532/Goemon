@@ -1,0 +1,23 @@
+{
+  "disc": "GXSP8P revision 1",
+  "sources": {
+    "ModelsMiles.rel": "2e0457d29659590288a62fcd471a75e1cf392f7020f668c24d77046a0399f329",
+    "son_eff.GVM": "eb234bba9a694b95c781db898a230c6b85deb0d52e5ea400bbfbcd0c2177529a"
+  },
+  "models": {
+    "effect_trail": {
+      "nodes": 1,
+      "animated_nodes": 1,
+      "triangles": 12,
+      "clips": [],
+      "sha256": "0176179dd33e23ab94a0bd9abb9a813c7f8c4a1fa1baf882dea926ea753d42fc"
+    },
+    "effect_ball": {
+      "nodes": 1,
+      "animated_nodes": 1,
+      "triangles": 100,
+      "clips": [],
+      "sha256": "efae252b69986665d5b3c9ea14ee797022bb5e56ed8d8c8da1917a365a869d07"
+    }
+  }
+}

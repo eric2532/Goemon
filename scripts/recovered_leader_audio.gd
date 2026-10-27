@@ -13,12 +13,9 @@ const FILES={
 		"move_primary_1_voice":"guandao_voice","move_primary_2_voice":"guandao_voice","move_primary_3_voice":"guandao_voice",
 		"move_secondary_weapon":"bomb_throw","move_utility_weapon":"projectile_fan","move_utility_voice":"projectile_fan_voice"}
 }
-static var cache={}
-static func stream_for(id: int,slot: String)->AudioStream:
-	if not FILES.has(id) or not FILES[id].has(slot):return null
-	var path=ROOT+("ed/" if id==14 else "ben/")+FILES[id][slot]+".wav"
-	if not cache.has(path):cache[path]=load(path)
-	return cache[path]
+static func stream_for(id:int,slot:String)->AudioStream:
+	if not FILES.has(id):return null
+	return preload("res://scripts/character_audio_bank.gd").event(ROOT+("ed/" if id==14 else "ben/"),FILES[id],slot)
 
 var combat: Node
 var charge: AudioStreamPlayer
@@ -28,8 +25,8 @@ var focused=true
 
 func _ready():
 	process_mode=Node.PROCESS_MODE_ALWAYS
-	charge=AudioStreamPlayer.new();charge.name="BeamChargeAudio";add_child(charge)
-	rotor=AudioStreamPlayer3D.new();rotor.name="PropellerAudio"
+	charge=AudioStreamPlayer.new();charge.bus=&"SFX";charge.name="BeamChargeAudio";add_child(charge)
+	rotor=AudioStreamPlayer3D.new();rotor.bus=&"SFX";rotor.name="PropellerAudio"
 	rotor.unit_size=6;rotor.max_distance=32;add_child(rotor)
 
 func _notification(what: int):
@@ -42,7 +39,7 @@ func live()->bool:
 
 func begin_charge():
 	charge.stop()
-	if not live() or combat.hero.character_id!=14 or combat.hero.attack_heavy:return
+	if not live() or combat.source_id()!=14 or combat.hero.attack_heavy:return
 	var playback=combat.game.sound_library.playback_for(14,"ed_beam_charge",stream_for(14,"ed_beam_charge"))
 	if playback.muted or playback.stream==null:return
 	charge.stream=playback.stream;charge.pitch_scale=1;charge.volume_db=linear_to_db(.22*playback.gain)
@@ -56,7 +53,7 @@ func stop():
 	if is_instance_valid(rotor):rotor.stop()
 
 func _process(_delta: float):
-	if not live():stop();return
+	if not live() or (combat.get("spell_owner")!=null and not combat.is_attacking()):stop();return
 	var game=combat.game;var hero=combat.hero
 	var paused=game.paused or get_tree().paused
 	charge.stream_paused=paused;rotor.stream_paused=paused
@@ -65,7 +62,7 @@ func _process(_delta: float):
 		var lib=game.sound_library
 		if lib.is_muted_for(14,"ed_beam_charge"):release_charge()
 		else:charge.volume_db=linear_to_db(.22*lib.gain_for(14,"ed_beam_charge"))
-	if hero.character_id!=15 or not (hero.flying or combat.is_bombing()):rotor.stop();return
+	if combat.source_id()!=15 or not (hero.flying or combat.is_bombing()):rotor.stop();return
 	var playback=game.sound_library.playback_for(15,"ben_propeller",stream_for(15,"ben_propeller"))
 	if playback.muted or playback.stream==null:rotor.stop();return
 	if rotor_source!=playback.stream:

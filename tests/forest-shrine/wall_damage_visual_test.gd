@@ -31,6 +31,10 @@ func run():
 			check(fx.get_child_count()==nodes,"Repeated attacks reuse bounded visual nodes")
 			check(building.find_children("*","StaticBody3D",true,false).size()==bodies,"Cracks never alter the wall collision")
 			if kind=="gate":
+				var vertices=fx.get_node("Fractures").mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]
+				var widest=0.0
+				for i in range(0,vertices.size(),4):widest=maxf(widest,vertices[i].distance_to(vertices[i+1]))
+				check(widest>.4,"Gate fractures have broad, extreme splits")
 				building.get_node("GateDoor").position.y=Profile.GATE_OPEN_Y;fx.sync_health(3000,7500,0)
 				check(is_equal_approx(fx.position.y,Profile.GATE_OPENING_HEIGHT),"Gate cracks move with the raised door")
 			building.queue_free()

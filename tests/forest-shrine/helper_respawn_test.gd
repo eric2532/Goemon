@@ -15,7 +15,6 @@ func frames(count:int=3):
 	for i in count:await process_frame
 func freeze():
 	game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
-	for unit in game.gate_defenders.units.values():unit.set_physics_process(false)
 	for unit in game.explorer_helpers.pool:unit.set_physics_process(false)
 	for enemy in game.actors.values():enemy.set_physics_process(false)
 func step(count:int):
@@ -31,7 +30,7 @@ func step(count:int):
 			await process_frame
 			freeze()
 func run():
-	var document=load("res://scripts/forest/forest_map_document.gd").new()
+	var document=load("res://tests/forest-shrine/reference/map_document.gd").new()
 	document.load_original();set_meta("forest_custom_layout",document.data)
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg
 	root.add_child(game);current_scene=game;await frames()

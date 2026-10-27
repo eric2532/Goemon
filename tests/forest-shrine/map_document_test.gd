@@ -7,9 +7,9 @@ func check(ok: bool,message: String):
 	if not ok:failures+=1;printerr("FAIL: "+message)
 func _initialize():run.call_deferred()
 func run():
-	if not ResourceLoader.exists("res://scripts/forest/forest_map_document.gd"):
+	if not ResourceLoader.exists("res://tests/forest-shrine/reference/map_document.gd"):
 		check(false,"Forest maps have an editable persistent document");finish();return
-	var D=load("res://scripts/forest/forest_map_document.gd")
+	var D=load("res://tests/forest-shrine/reference/map_document.gd")
 	var doc=D.new();var original=FileAccess.get_file_as_string(D.ORIGINAL_PATH)
 	check(doc.load_original().is_empty(),"Bundled original loads")
 	var baseline=doc.encode()
@@ -20,7 +20,7 @@ func run():
 	check(pick.get("group")=="buildings","Selection finds the whole tower footprint")
 	check(doc.rotate(pick).is_empty() and doc.data.buildings.back().rotation==1,"Selected tower rotates one quarter-turn")
 	check(not doc.place("tree",Vector2i(12,10),0).is_empty(),"Trees cannot overlap structures")
-	check(not doc.place("wall",Vector2i(2,2),0).is_empty(),"Training dummy ground remains clear")
+	check(doc.place("tower",Vector2i(2,2),0).is_empty(),"Former training dummy ground is editable")
 	check(doc.place("tree",Vector2i(0,3),0).is_empty(),"The original hero location is editable clear land")
 	check(not doc.remove(doc.object_at(Vector2i(0,0))).is_empty(),"Original shrine cannot be deleted")
 	check(doc.place("tree",Vector2i(12,14),0).is_empty(),"Editor places a tree")

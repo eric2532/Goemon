@@ -16,8 +16,8 @@ static func resolve(g,from: Vector3,to: Vector3):
 		g.fx.streak(from+height,to+height,Color("bb9dff"),.16,.25)
 	if g.player.roll<=0:
 		# A fresh hit list lets a victim touching the route and final cut take both.
-		damage_segment(g,a,to+height,to+height+g.front(a.angle)*FINISH_REACH*scale_,FINISH_WIDTH*scale_,[])
-		g.fx.ninja_finisher(to,a.angle,FINISH_REACH,FINISH_WIDTH,scale_,height.y)
+		damage_segment(g,a,to+height,to+height+g.front(a.angle)*FINISH_REACH*scale_*g.skill_factor("hit_area",a.ticket),FINISH_WIDTH*scale_*g.skill_factor("hit_area",a.ticket),[])
+		g.fx.ninja_finisher(to,a.angle,FINISH_REACH,FINISH_WIDTH,scale_*g.skill_factor("size",a.ticket),height.y)
 		g.player.dashAttack=null
 	g._ticket=prior_ticket;g._resolution_ticket=prior_resolution
 	g._projectile_damage=prior_projectile;g._damage_origin=prior_origin

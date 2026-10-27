@@ -2,6 +2,7 @@ extends RefCounted
 ## Terrain support is independent of destructible structure weights/contacts.
 ## Borrowed records/points are read-only; callers perform fresh wall checks.
 const Kai=preload("res://scripts/forest/forest_kai_terrain.gd")
+const WindMeadow=preload("res://scripts/forest/forest_wind_meadow_terrain.gd")
 const BloodGulch=preload("res://scripts/forest/forest_blood_gulch_terrain.gd")
 const Ramparts=preload("res://scripts/forest/forest_ramparts.gd")
 const MAX_ENTRIES=8192
@@ -22,15 +23,14 @@ func _refresh(model):
  if revision==model.navigation_revision and terrain_id==terrain.get_instance_id():return
  # Blood Gulch substitutes the field and its world origin; sampling math is Kai's.
  # Admit these exact scripts so custom subclasses still use their own methods.
- var native_field=terrain.get_script()==Kai or terrain.get_script()==BloodGulch
- var scale_=terrain.get("horizontal_scale") if terrain.get_script()==BloodGulch else null
- var origin=240.0*(float(scale_) if scale_!=null else 1.0)
+ var native_field=terrain.get_script()==Kai or terrain.get_script()==BloodGulch or terrain.get_script()==WindMeadow
+ var origin=terrain.coordinate(0,0).x*terrain.spacing if native_field else 240.0
  var bounds=Rect2(-243,-243,480,480)
  var rect_bounds=false
  if model.has_method("world_bounds"):
-  bounds=model.world_bounds();rect_bounds=terrain.get_script()==BloodGulch
+  bounds=model.world_bounds();rect_bounds=terrain.get_script() in [BloodGulch,WindMeadow]
  elif model.has_method("navigation_bounds"):
-  bounds=model.navigation_bounds();rect_bounds=terrain.get_script()==BloodGulch
+  bounds=model.navigation_bounds();rect_bounds=terrain.get_script() in [BloodGulch,WindMeadow]
  var next=[terrain.get_instance_id(),terrain.pieces.duplicate(true),model.trees.duplicate(),model.roads.duplicate()]
  if native_field:
   next.append_array([terrain.width,terrain.spacing,terrain.heights.duplicate(),terrain.covered.duplicate(),origin,bounds,rect_bounds])
@@ -56,6 +56,15 @@ func _refresh(model):
    native_sampler.set_obstacles(trees,roads,walls)
  else:native_sampler=null
  revision=model.navigation_revision;terrain_id=terrain.get_instance_id()
+func probe(points:PackedVector3Array,radii:PackedFloat64Array)->PackedFloat64Array:
+ if points.size()!=radii.size():return PackedFloat64Array()
+ var model=model_ref.get_ref();_refresh(model)
+ if native_sampler!=null:return native_sampler.probe(points,radii)
+ var navigation=navigation_ref.get_ref();var result=PackedFloat64Array();result.resize(points.size()*2)
+ for i in points.size():
+  var p:Vector3=points[i];var floor_:float=model.surface_height(p.x,p.z)
+  result[i*2]=floor_;result[i*2+1]=1.0 if navigation.move_clear(Vector3(p.x,floor_,p.z),radii[i]) else 0.0
+ return result
 func walls_clear(points:PackedVector3Array,radius:float)->bool:
  var model=model_ref.get_ref();_refresh(model)
  if native_sampler!=null:return native_sampler.walls_clear(points,radius)

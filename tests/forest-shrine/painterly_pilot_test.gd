@@ -15,7 +15,7 @@ func collisions(node: Node)->Array:
  return result
 func run():
  var model=load("res://tests/forest-shrine/reference/forest_model.gd").new()
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_ramparts();model.reset(42,{},doc.data)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_ramparts();model.reset(42,{},doc.data)
  world=load("res://scripts/forest/forest_world.gd").new();world.model=model;root.add_child(world)
  await process_frame
  check(world.has_method("set_painterly_preview"),"World supports reversible painterly presentation")

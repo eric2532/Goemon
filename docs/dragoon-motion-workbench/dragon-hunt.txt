@@ -1,0 +1,81 @@
+Armored Dragon Leap — geometry revised 2026-10-25
+
+The landing retains its three 64-base-damage shockwaves. A winged steel dragon
+then makes piercing passes for three seconds, seeking visible enemies within
+24 metres of its current position. It travels at 42 m/s, chooses a new dash
+heading every 0.35 seconds, and deals 192 base damage once per victim per pass.
+Existing damage, critical and range modifiers still apply. With no enemy, it
+circles the landing point until expiry. Physical cover stops its current pass.
+The player can move and attack while it hunts. Switching character, resetting
+or cancelling the controller releases its cached projectile. Already released
+native allied casts retain the same independent-cast lifecycle as other shots.
+
+Editable dragon geometry: tools/build_dragoon_energy_dragon.gd.
+Generated shared mesh: assets/rogue/effects/dragoon_energy_dragon.res.
+Material and wing motion: assets/rogue/shaders/dragoon_energy.gdshader.
+The user-approved concept is assets/references/dragoon_summon/approved-concept.png.
+The revised black dragon has a forward-reaching wedge head, open jaw, red eyes,
+paired swept horns, a plated neck/ribcage, tucked clawed limbs, curved scalloped
+wings and a curled balancing tail. The existing tube/panel mesh bake is reused.
+It contains 7,794 vertices and 5,744 triangles (before: 3,434 / 6,056).
+One surface, one material per player lease or shared army batch, no textures,
+no new skeleton or per-unit animation player. Vertex alpha tags wing vertices
+for the shoulder-based shader flap; it does not control their transparency.
+Normals rotate with the wings. Dissolve grain starts only during expiry, removing
+the old early holes near the tail. Shader-expanded culling bounds contain both
+wing extremes in the attached and hunting poses.
+
+The procedural generator remains the authoritative editable source for this
+particular effect. Geometry is authored in flight space (+Z muzzle-forward),
+then inverse-transformed into the original +Y-up effect coordinates. Keep that
+conversion and the shader flight basis together. The existing descent attachment,
+projectile scale and native/player motion owners are retained. No character
+Blender master, lance grip, leap body animation
+or army pose atlas was changed. Rebuild the mesh through Godot with:
+  --headless --path . --script res://tools/build_dragoon_energy_dragon.gd
+Do not hand-edit the generated .res.
+
+Player flight: assets/rogue/scripts/dragoon_dragon_flight.gd, using the existing
+Rogue projectile cache and AttackChain's local candidates/exact contacts.
+Allied flight: native/terrain_math/crowd/combat.cpp, using the existing native
+Projectile owner, terrain casts, hit events and projectile presentation batch.
+Flight constants are supplied to native kit data from the player module.
+A separate hit list belongs to each cast/pass; targets are not kept as live
+actor references. Large player updates subdivide into 1/60-second steps.
+Rebuild the native library with native/terrain_math/build.sh while Play is closed.
+
+Verify through Play Goemon.command with:
+  --script res://tests/forest-shrine/dragoon_hunt_test.gd -- --visual
+It covers repeated player casts, three-second expiry, local native victims,
+cover, caster retirement, reset, character changes and eight simultaneous
+allied dragons. Related suites: army_dragoon_effects_test.gd,
+army_projectile_buffers_test.gd, dragoon_landing_audio_test.gd,
+army_dragoon_test.gd and tests/dragoon-sweep/sweep_test.gd.
+Evidence: build/Other Files/Asset Toolkit/Dragoon Hunt/.
+Use the desktop Play launcher for normal play. No app export was requested.
+
+Historical 2026-10-24 desktop evidence: 42 assertions passed. Three cycles of eight native dragons
+kept 1,141 resources and 108 presentation nodes; native step p95 was 0.313 ms.
+The rendered-frame p95 was 17.055 ms with all 567 measured frames focused.
+The separate 240-enemy/96-ally battle failed frame-time/focus thresholds; neither
+it nor the failed pre-change battle establishes a controlled FPS comparison.
+See docs/goemon-performance-guide.md for measured limits and historical context.
+
+2026-10-25 model review
+
+Use the existing fixture for front/side/back/three-quarter model renders:
+  Play Goemon.command --resolution 1400x1000 \
+    --script res://tests/forest-shrine/dragoon_hunt_test.gd -- --design-only \
+    "--out=res://build/Other Files/Asset Toolkit/Dragoon Redesign/Model"
+Use --visual --await-focus instead of --design-only for repeated player and
+eight-allied-dragon checks. --out keeps new evidence separate from historical
+captures. Reports and source snapshots: build/Other Files/Asset Toolkit/Dragoon Redesign/.
+
+The fresh desktop run passed 46 assertions with 567/567 measured frames focused;
+resources stayed at 1,133 and presentation nodes at 115. Frame median/p95/p99/max
+were 16.670/18.686/31.035/70.801 ms. These are short focused-fixture measurements,
+not a full-battle acceptance or a claim that every frame meets 16.7 ms. The
+pre-edit diagnostic run had only 34/567 focused frames, so it is not a valid
+controlled performance comparison. A separate game session later occupied the
+launcher; it was left running. Existing shutdown resource/RID warnings remain.
+No character animation, pose bake, optimized GLB derivative or app export changed.

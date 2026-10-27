@@ -1,12 +1,12 @@
 extends Node3D
 ## Gameplay owns progress, purchases and arrows; supplied GLBs provide visuals only.
 
-const TOWER_SCENE=preload("res://assets/economy_v1/arrow_tower/exports/tower_build_recoil_reverse.glb")
-const WALL_MOUNT_SCENE=preload("res://assets/economy_v1/arrow_tower/exports/tower_wall_mount.glb")
-const ARROW_SCENE=preload("res://assets/economy_v1/arrow_tower/exports/arrow_projectile.glb")
-const MINE_SCENE=preload("res://assets/optimized/goldmine.glb")
-const HAMMER_SCENE=preload("res://assets/economy_v1/construction_fx/exports/FS_FX_Hammer_BuildLoop.glb")
-const COMPLETION_SCENE=preload("res://assets/economy_v1/construction_fx/exports/FS_FX_CompletionPulse.glb")
+static var TOWER_SCENE=load(GameAssets.model_path("res://assets/economy_v1/arrow_tower/exports/tower_build_recoil_reverse.glb"))
+static var WALL_MOUNT_SCENE=load(GameAssets.model_path("res://assets/economy_v1/arrow_tower/exports/tower_wall_mount.glb"))
+static var ARROW_SCENE=load(GameAssets.model_path("res://assets/economy_v1/arrow_tower/exports/arrow_projectile.glb"))
+static var MINE_SCENE=load(GameAssets.model_path("res://assets/optimized/goldmine.glb"))
+static var HAMMER_SCENE=load(GameAssets.model_path("res://assets/economy_v1/construction_fx/exports/FS_FX_Hammer_BuildLoop.glb"))
+static var COMPLETION_SCENE=load(GameAssets.model_path("res://assets/economy_v1/construction_fx/exports/FS_FX_CompletionPulse.glb"))
 const ARROW_RANGE=48.0
 const ARROW_SPEED=65.0
 const ARROW_DAMAGE=50.0

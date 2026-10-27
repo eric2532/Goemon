@@ -47,6 +47,9 @@ func take_hit(damage: float,dir: Vector3,heavy: bool,ticket: Dictionary={}):
 		damage*=game.player.attack_chain.damage_for(ticket)
 		game.player.attack_chain.confirm(ticket)
 		if critical:damage*=Critical.DAMAGE_MULTIPLIER
+	if game.player.get("spell_loadout")!=null:
+		damage=game.player.spell_loadout.damage_for_hit(self,damage,ticket)
+		game.player.spell_loadout.hit_effects(self,damage,ticket)
 	recoil_age=0;recoil_direction=dir.normalized();recoil_strength=.16 if heavy else .08
 	velocity=Vector3.ZERO
 	game.damage_number(global_position+Vector3.UP*2.5,int(damage),heavy,critical)

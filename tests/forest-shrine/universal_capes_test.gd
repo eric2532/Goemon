@@ -28,7 +28,7 @@ func walk()->float:
 	reset_body();game.player.smoke_move=Vector2.RIGHT;step(60)
 	return game.player.position.x
 func run():
-	var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+	var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game;await frames()
 	var p=game.player
 	for id in range(1,13):
@@ -53,7 +53,6 @@ func run():
 	if gold_button!=null:gold_button.pressed.emit();check(p.gold_cloak,"Building-view cape button equips gold")
 	game.start_wave();game.model.waves.pending=999;game.model.waves.spawn_clock=100000;game.set_physics_process(false);game.set_process(false);p.set_physics_process(false)
 	game.camera_rig.yaw=0;game.camera_rig.set_process(false)
-	for u in game.gate_defenders.units.values():u.set_physics_process(false)
 	for id in range(1,13):
 		p.select_character(id);p.set_scarf_equipped(false);var normal=walk();p.set_scarf_equipped(true);var red=walk()
 		check(red>normal*2.4 and red<normal*3.3,"Red cape triples actual movement for character %d (%s / %s)"%[id,normal,red])

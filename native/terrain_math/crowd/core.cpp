@@ -84,7 +84,6 @@ bool overlaps(const Unit& u,Vec3 a,Vec3 b){
 void Crowd::configure(int capacity,int limit){
     clear();units_.assign(std::clamp(capacity,0,4000),{});
     visited_.assign(units_.size(),0);visit_=0;free_.clear();
-    for(auto& marks:movement_visited_)marks.assign(units_.size(),0);movement_visit_={};
     for(size_t i=units_.size();i>0;--i)free_.push_back(uint32_t(i-1));
     team_limit_=std::clamp(limit,0,2000);
 }
@@ -98,6 +97,12 @@ Handle Crowd::spawn(int64_t id,int team,int kind,Vec3 p,double hp,double radius)
     combat.spawned(u);
     ids_[id]=slot;++counts_[team];dirty_=true;++pose_revision_;return u.handle;
 }
+bool Crowd::set_enemy_scaling(Handle h,double health_scale,double damage_scale){
+    auto u=unit(h);
+    if(!u||u->team!=0||!std::isfinite(health_scale)||health_scale<=0||!std::isfinite(damage_scale)||damage_scale<=0)return false;
+    // Spawn HP is already scaled; retain its multiplier for later form changes.
+    u->enemy_health_scale=health_scale;u->enemy_damage_scale=damage_scale;return true;
+}
 bool Crowd::valid(Handle h) const{
     if(h<=0)return false;
     uint32_t slot=uint32_t(h);
@@ -108,14 +113,14 @@ const Unit* Crowd::unit(Handle h) const{return valid(h)?&units_[uint32_t(h)]:nul
 void Crowd::despawn(Handle h){
     // Grid candidates revalidate liveness. Removing a victim need not rebuild
     // the whole grid for every subsequent projectile in the same battle step.
-    if(auto u=unit(h)){u->alive=false;--counts_[u->team];ids_.erase(u->logical_id);free_.push_back(uint32_t(h));}
+    if(auto u=unit(h)){if(u->team==0&&u->kind==4)combat.retired(h);u->alive=false;--counts_[u->team];ids_.erase(u->logical_id);free_.push_back(uint32_t(h));}
 }
-void Crowd::set_pose(Handle h,Vec3 position,float yaw){if(auto u=unit(h);u&&bounded(position)&&std::isfinite(yaw)){u->position=position;u->yaw=yaw;u->support_layer=-1;dirty_=true;++pose_revision_;}}
+void Crowd::set_pose(Handle h,Vec3 position,float yaw){if(auto u=unit(h);u&&bounded(position)&&std::isfinite(yaw)){u->position=position;u->yaw=yaw;u->support_layer=-1;u->approach_ready=false;dirty_=true;++pose_revision_;}}
 void Crowd::clear(){
     combat.clear();
     for(auto& u:units_)u.alive=false;
     free_.clear();for(size_t i=units_.size();i>0;--i)free_.push_back(uint32_t(i-1));
-    counts_={};ids_.clear();grid_.clear();overflow_.clear();dirty_=true;++pose_revision_;
+    counts_={};ids_.clear();grid_.clear();movement_cells_.clear();for(auto& rows:overflow_)rows.clear();dirty_=true;++pose_revision_;
 }
 std::vector<Unit> Crowd::snapshot() const{
     std::vector<Unit> result;result.reserve(ids_.size());
@@ -123,13 +128,19 @@ std::vector<Unit> Crowd::snapshot() const{
     return result;
 }
 void Crowd::rebuild_grid(){
-    if(!dirty_)return;grid_.clear();overflow_.clear();
+    if(!dirty_)return;
+    // Reuse occupied buckets; each query only traverses its requested team.
+    for(auto& entry:grid_)for(auto& rows:entry.second)rows.clear();
+    for(auto& rows:overflow_)rows.clear();
     for(uint32_t i=0;i<units_.size();++i){
         const auto& u=units_[i];if(!u.alive)continue;
         int x0=cell(u.position.x-u.radius),x1=cell(u.position.x+u.radius);
         int z0=cell(u.position.z-u.radius),z1=cell(u.position.z+u.radius);
-        if(int64_t(x1-x0+1)*(z1-z0+1)>256){overflow_.push_back(i);continue;}
-        for(int x=x0;x<=x1;++x)for(int z=z0;z<=z1;++z)grid_[key(x,z)].push_back(i);
+        if(int64_t(x1-x0+1)*(z1-z0+1)>256){overflow_[u.team].push_back(i);continue;}
+        for(int x=x0;x<=x1;++x)for(int z=z0;z<=z1;++z)grid_[key(x,z)][u.team].push_back(i);
+    }
+    for(auto it=grid_.begin();it!=grid_.end();){
+        if(it->second[0].empty()&&it->second[1].empty())it=grid_.erase(it);else ++it;
     }
     dirty_=false;
 }
@@ -148,9 +159,9 @@ std::vector<Handle> Crowd::query(Vec3 a,Vec3 b,int team,bool ordered){
     }else{
         rebuild_grid();if(++visit_==0){std::fill(visited_.begin(),visited_.end(),0);visit_=1;}
         auto once=[&](uint32_t i){if(visited_[i]!=visit_){visited_[i]=visit_;add(i);}};
-        for(auto i:overflow_)once(i);
+        for(auto i:overflow_[team])once(i);
         for(int x=cell(a.x);x<=cell(b.x);++x)for(int z=cell(a.z);z<=cell(b.z);++z){
-            auto it=grid_.find(key(x,z));if(it!=grid_.end())for(auto i:it->second)once(i);
+            auto it=grid_.find(key(x,z));if(it!=grid_.end())for(auto i:it->second[team])once(i);
         }
     }
     if(ordered){query_sorted_items[team]+=result.size();
@@ -163,7 +174,7 @@ void Crowd::set_navigation(NavigationData data){
     if(data.friendly_navigation){friendly.obstacle_min=std::move(friendly.friendly_obstacle_min);friendly.obstacle_max=std::move(friendly.friendly_obstacle_max);}
     allied_terrain.configure(std::move(friendly));
     terrain.configure(std::move(data));
-    for(auto& u:units_){u.support_layer=-1;u.routing=false;}
+    for(auto& u:units_){u.support_layer=-1;u.routing=false;u.approach_ready=false;}
 }
 void Crowd::rest_allies(){
     combat.clear();
@@ -174,6 +185,15 @@ void Crowd::rest_allies(){
     dirty_=true;++pose_revision_;
 }
 void Crowd::set_guard(Handle h,Vec3 point,float radius){if(auto u=unit(h);u&&bounded(point)&&std::isfinite(radius)&&radius>=0){u->guard_post=point;u->guard_radius=radius;u->think_left=0;}}
+bool Crowd::set_mirror(Handle h,int actions,float speed,float reach,Vec3 approach){
+    auto u=unit(h);
+    if(!u||u->team!=1||u->kind<101||u->kind>132||actions<1||actions>7||!std::isfinite(speed)||speed<=0||speed>200||!std::isfinite(reach)||reach<=0||reach>200)return false;
+    if(!bounded(approach))return false;
+    approach.y=0;if(length(approach)<.001f)return false;
+    u->mirror_approach=normalized(approach)*(reach*.8f);
+    u->mirror_actions=actions;u->mirror_speed=speed;u->mirror_reach=reach;u->mirror_wait=.15+double(u->rng%500)/1000;u->mirror_busy=false;
+    return true;
+}
 void Crowd::set_goal(Handle handle,Vec3 goal,float speed){
     auto u=unit(handle);if(!u||!bounded(goal)||!std::isfinite(speed)||speed<0)return;
     if(length(goal-u->goal)>3)u->routing=false;
@@ -190,9 +210,28 @@ void Crowd::step(double delta){
         rebuild_grid();mark(timing.grid);
         for(auto& u:units_)u.live_delta=tick;
         combat.before_move(*this,tick);mark(timing.decisions);
+        // Units in one cell share the same ordered, deduplicated neighbourhood.
+        // Publish immutable geometry before either movement thread starts.
+        for(auto& entry:movement_cells_){entry.second.ready={};for(auto& rows:entry.second.neighbors)rows.clear();}
+        for(const auto& u:units_){
+            if(!u.alive||u.live_delta<=0||u.stun>0||!u.has_goal||u.move_speed<=0)continue;
+            int cx=cell(u.position.x),cz=cell(u.position.z);auto& cached=movement_cells_[key(cx,cz)];
+            if(cached.ready[u.team])continue;cached.ready[u.team]=true;
+            if(++visit_==0){std::fill(visited_.begin(),visited_.end(),0);visit_=1;}
+            auto& rows=cached.neighbors[u.team];
+            for(int x=cx-1;x<=cx+1;++x)for(int z=cz-1;z<=cz+1;++z){
+                auto found=grid_.find(key(x,z));if(found==grid_.end())continue;
+                for(auto index:found->second[u.team]){
+                    if(visited_[index]==visit_)continue;visited_[index]=visit_;
+                    const auto& other=units_[index];rows.push_back({other.position,other.radius,other.logical_id,other.team,index});
+                }
+            }
+        }
+        for(auto it=movement_cells_.begin();it!=movement_cells_.end();){
+            if(!it->second.ready[0]&&!it->second.ready[1])it=movement_cells_.erase(it);else ++it;
+        }
         auto move_team=[&](int team){
-        auto& visited=movement_visited_[team<0?0:team];auto& visit=movement_visit_[team<0?0:team];
-        const auto& spatial=grid_;
+        const auto& spatial=movement_cells_;
         for(uint32_t i=0;i<units_.size();++i){
             auto& u=units_[i];if(team>=0&&u.team!=team)continue;next[i]=u.position;
             if(!u.alive||u.live_delta<=0)continue;
@@ -200,7 +239,7 @@ void Crowd::step(double delta){
             if(combat.move_special(*this,u,live,next[i]))continue;
             if(length(u.knockback)>.1f){
                 next[i]=ground.move(u.position,u.position+u.knockback*live,length(u.knockback),live,u.radius,u.support_layer,u.routing);
-                u.knockback=u.knockback*std::exp(-8*live);continue;
+                u.knockback=u.knockback*std::exp(-u.knockback_decay*live);continue;
             }
             Vec3 impulse=u.team==1?u.motion_impulse:Vec3{};
             if(u.team==1)u.motion_impulse=u.motion_impulse*std::exp(-12*live);
@@ -209,33 +248,34 @@ void Crowd::step(double delta){
                 continue;
             }
             Vec3 avoidance{};int considered=0;
-            if(++visit==0){std::fill(visited.begin(),visited.end(),0);visit=1;}
-            for(int x=cell(u.position.x)-1;x<=cell(u.position.x)+1&&considered<12;++x)
-                for(int z=cell(u.position.z)-1;z<=cell(u.position.z)+1&&considered<12;++z){
-                    auto found=spatial.find(key(x,z));if(found==spatial.end())continue;
-                    for(auto index:found->second){
-                        if(index==i||visited[index]==visit)continue;visited[index]=visit;
-                        const auto& other=units_[index];if(other.team!=u.team||std::abs(other.position.y-u.position.y)>2)continue;
-                        Vec3 offset=u.position-other.position;offset.y=0;float distance=length(offset),reach=u.radius+other.radius;
-                        if(distance>=reach||reach<=0)continue;
-                        if(distance<.001f){
-                            float angle=float((std::min(u.logical_id,other.logical_id)*2654435761ull)&1023)*.006135923f;
-                            float sign=u.logical_id<other.logical_id?1.0f:-1.0f;
-                            distance=.001f;offset={std::sin(angle)*distance*sign,0,std::cos(angle)*distance*sign};
-                        }
-                        avoidance=avoidance+offset*((reach-std::min(distance,reach))/std::max(.01f,reach*distance));
-                        if(++considered>=12)break;
-                    }
+            auto found=spatial.find(key(cell(u.position.x),cell(u.position.z)));
+            if(found!=spatial.end())for(const auto& other:found->second.neighbors[u.team]){
+                if(other.slot==i||other.team!=u.team||std::abs(other.position.y-u.position.y)>2)continue;
+                Vec3 offset=u.position-other.position;offset.y=0;float distance=length(offset),reach=u.radius+other.radius;
+                if(distance>=reach||reach<=0)continue;
+                if(distance<.001f){
+                    float angle=float((std::min(u.logical_id,other.logical_id)*2654435761ull)&1023)*.006135923f;
+                    float sign=u.logical_id<other.logical_id?1.0f:-1.0f;
+                    distance=.001f;offset={std::sin(angle)*distance*sign,0,std::cos(angle)*distance*sign};
                 }
+                avoidance=avoidance+offset*((reach-std::min(distance,reach))/std::max(.01f,reach*distance));
+                if(++considered>=12)break;
+            }
             float strength=length(avoidance);if(strength>0)avoidance=avoidance*(std::min(strength,u.move_speed*.25f)/strength);
             if(length(impulse)>.001f){
                 Vec3 toward=u.goal-u.position;toward.y=0;float gap=length(toward);Vec3 normal=normalized(toward)*std::min(u.move_speed*u.slow_factor,gap/std::max(.000001f,live));Vec3 combined=normal+impulse;
                 next[i]=ground.move(u.position,u.position+combined*live,length(combined),live,u.radius,u.support_layer,u.routing,avoidance);
-            }else next[i]=ground.move(u.position,u.goal,u.move_speed*u.slow_factor,live,u.radius,u.support_layer,u.routing,avoidance);
+            }else{
+                // Stable lanes share the original flow field; blocked shoulders
+                // squeeze back onto its safe route instead of building new flows.
+                uint64_t hash=uint64_t(u.logical_id)*11400714819323198485ull;hash^=hash>>32;
+                float lane=u.team==0&&u.external_kind==2?(float(hash%7)-3)*u.radius*.65f:0;
+                next[i]=ground.move(u.position,u.goal,u.move_speed*u.slow_factor,live,u.radius,u.support_layer,u.routing,avoidance,lane);
+            }
         }
         };
         // Movement reads pre-commit positions. Teams own separate mutable terrain
-        // caches and deduplication scratch; all pose commits and attacks wait.
+        // caches; all pose commits and attacks wait.
         if(parallel_movement_enabled&&counts_[0]>0&&counts_[1]>0&&ids_.size()>=256){
             if(!movement_worker_)movement_worker_=std::make_unique<MovementWorker>();
             movement_worker_->begin([&]{move_team(0);});move_team(1);movement_worker_->finish();

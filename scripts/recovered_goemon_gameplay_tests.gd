@@ -40,8 +40,8 @@ func fresh(surge:bool=false):
  p.progression.reset(false);p.run_upgrades={"damage":0,"vitality":0,"tempo":0};p.clear_powerups()
  contacts.clear();contact_bonuses.clear()
  if surge:p.activate_surge()
-func setup_fixture():
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+func setup_fixture(layout:Dictionary={}):
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data if layout.is_empty() else layout)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game;await frames()
  game.sound_library.free();game.sound_library=SoundLibrary.new()
  game.sound_library.game=game;game.sound_library.folder="user://goemon-rom-test-%d/recordings"%OS.get_process_id();game.sound_library.config_path="user://goemon-rom-test-%d/audio.cfg"%OS.get_process_id();game.add_child(game.sound_library)
@@ -51,6 +51,7 @@ func setup_fixture():
  game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
  await physics_frame;await physics_frame
  var p=game.player;p.select_character(1);p.set_auto_attack(false);game.tuning.critical_chance=0;game.character_tuning={}
+ preload("res://tests/forest-shrine/training_dummy_fixture.gd").install(game)
  var dummy=game.training_dummy;dummy.home=ORIGIN+Vector3(0,0,-2);dummy.position=dummy.home;dummy.set_physics_process(false)
  game.model.update_vision(ORIGIN)
  game.camera_rig.yaw=0;game.camera_rig.camera.position=ORIGIN+Vector3(0,2.4,10);game.camera_rig.camera.look_at(ORIGIN+Vector3(0,1,-20))
@@ -119,13 +120,12 @@ func run():
  check(p.attack_ticket.move_audio.voiced,"Manual coin releases its original voice at the source cue")
  fresh(true);p.select_weapon(2)
  var held=InputEventAction.new();held.action="light_attack";held.pressed=true;p._unhandled_input(held)
- check(p.weapon_controls.charging and p.attack_left<=0,"Super Goemon begins holding a charged coin")
- await step(121)
+ check(not p.weapon_controls.charging and p.attack_left>0 and p.attack_charged,"Super Goemon immediately begins a flaming ryo throw")
  held.pressed=false;p._input(held)
- check(not p.weapon_controls.charging and p.attack_charged and p.original_coin_action in [0x7F,0x80,0x81],"Native full-charge release uses the source charged coin action")
+ check(not p.weapon_controls.charging and p.attack_charged and p.original_coin_action in [0x7F,0x80,0x81],"Immediate flaming ryo uses the source charged coin action")
  await step(35)
  fresh(true);p.select_weapon(2);held.pressed=true;p._unhandled_input(held);p.select_character(2)
- check(not p.weapon_controls.charging,"Switching fighters cancels an unfinished coin charge")
+ check(not p.weapon_controls.charging,"Switching fighters leaves no stale coin charge")
  held.pressed=false;p._input(held)
  p.select_character(1);p.select_weapon(1);fresh()
  # Stale state from another character cannot enable Goemon's retired bonuses.

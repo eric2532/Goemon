@@ -21,7 +21,7 @@ func ray_floor(x: float,z: float)->Dictionary:
  return game.world.get_world_3d().direct_space_state.intersect_ray(query)
 func run():
  # Exercise the preserved preset explicitly; Four Gates is now the fresh-run default.
- var preset=load("res://scripts/forest/forest_map_document.gd").new();preset.load_ramparts();set_meta("forest_custom_layout",preset.data)
+ var preset=load("res://tests/forest-shrine/reference/map_document.gd").new();preset.load_ramparts();set_meta("forest_custom_layout",preset.data)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=config_path;root.add_child(game);current_scene=game
  await frames()
  game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
@@ -38,13 +38,13 @@ func run():
  game.open_map_editor();await frames()
  var editor=game.map_editor;editor.map_folder=editor_folder
  check(editor.active and editor.document.data.ramparts.size()==5 and not editor.document.dirty,"Editor opens the default wall layout as a clean editable map")
- check(editor.find_child("RampartsForestMap",true,false)!=null and editor.find_child("OriginalForestMap",true,false)!=null,"Both the new preset and protected Original Map have editor buttons")
- editor.load_original();await frames()
+ check(editor.find_child("RampartsForestMap",true,false)==null and editor.find_child("OriginalForestMap",true,false)==null,"Retired map presets are absent from the playable editor")
+ preload("res://tests/forest-shrine/reference/map_document.gd").load_editor(editor,preload("res://tests/forest-shrine/reference/map_document.gd").ORIGINAL_PATH);await frames()
  check(editor.document.data.ramparts.is_empty() and game.model.ramparts.is_empty(),"Original Map button restores the existing flat map")
- editor.load_ramparts();await frames()
+ preload("res://tests/forest-shrine/reference/map_document.gd").load_editor(editor,preload("res://tests/forest-shrine/reference/map_document.gd").RAMPARTS_PATH);await frames()
  check(game.model.ramparts.size()==5 and game.world.portal_nodes.size()==2,"Twin Ramparts button restores both solid routes and portals")
  editor.name_field.text="Raised Wall Save Test";editor.save_map()
- var saved=editor.document.path;var loaded=game.MapDocument.new()
+ var saved=editor.document.path;var loaded=preload("res://tests/forest-shrine/reference/map_document.gd").new()
  check(loaded.read_file(saved).is_empty() and loaded.data.ramparts.size()==5,"Editor Save writes the raised layout as a separate custom map")
  await capture("map-editor-presets")
  editor.close_discard();await frames()

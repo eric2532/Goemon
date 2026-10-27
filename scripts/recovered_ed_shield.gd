@@ -1,7 +1,9 @@
 extends Node3D
 ## Native actor30A/TMD80192B24 with its original five animated blue bands.
 const NativeState=preload("res://scripts/recovered_ed_beam_native_state.gd")
+var source_model:Node3D
 var hero: Hero
+var preparing=false
 var age=0.0
 var material: ShaderMaterial
 var releasing := false
@@ -14,11 +16,16 @@ func _ready():
  name="EdOriginalBlueShield";add_to_group("ed_beam_shields")
  if not hero.has_meta(NativeState.META):hero.set_meta(NativeState.META,NativeState.new())
  native_phase_state=hero.get_meta(NativeState.META)
- var visual=preload("res://assets/characters/recovered_leaders/ed/beam_shield.glb").instantiate();add_child(visual)
+ var visual=load(GameAssets.model_path("res://assets/characters/recovered_leaders/ed/beam_shield.glb")).instantiate();add_child(visual)
  material=ShaderMaterial.new();material.shader=preload("res://assets/characters/recovered_leaders/ed/beam_shield.gdshader")
  material.set_shader_parameter("native_normals",preload("res://assets/characters/recovered_leaders/ed/beam_shield_normals.png"))
  for mesh in visual.find_children("*","MeshInstance3D",true,false):
   mesh.layers=0;mesh.material_override=material;mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+ if not preparing:advance(0)
+
+func restart():
+ age=0;releasing=false;release_age=0;native_ticks=0;native_release_base=0
+ native_phase_state=hero.get_meta(NativeState.META)
  advance(0)
 
 func begin_release():
@@ -36,7 +43,8 @@ func advance(delta: float):
  var ticks=native_release_base+mini(15,floori(release_age*30.0+.000001)) if releasing else maxi(1,floori(age*30.0+.000001)+1)
  if ticks>native_ticks:native_phase_state.shield_updates+=ticks-native_ticks;native_ticks=ticks
  var fit=preload("res://scripts/character_proportions.gd").ED_HEIGHT/1.8
- if is_instance_valid(hero.model) and is_instance_valid(hero.model.rig_visual):fit=hero.model.rig_visual.scale.x
+ var model=source_model if is_instance_valid(source_model) else hero.model
+ if is_instance_valid(model) and is_instance_valid(model.rig_visual):fit=model.rig_visual.scale.x
  # This node is parented to the scaled hero; native world scale applies growth once.
  # The source shield actor retains zero rotation rather than copying Ed's yaw.
  global_basis=Basis.IDENTITY.scaled(Vector3.ONE*.01*fit*hero.growth_multiplier()*clampf(float(native_ticks)/4,.25,1))

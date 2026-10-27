@@ -19,7 +19,7 @@ func original(terrain,point:Vector3,radius:float)->bool:
   if absf(terrain.height(point.x+axis.x*radius,point.z+axis.y*radius)-center)>.15+radius*.35:return false
  return true
 func run():
- var data=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_four_gates.json"))
+ var data=JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_four_gates.json"))
  var terrain=CountedTerrain.new();terrain.configure(data.ramparts)
  check(terrain.disk_clear(Vector3(0,18,132),.9),"A raider fits on the broad flat wall deck")
  check(terrain.samples<=2,"Flat deck clearance avoids resampling the same surface nine times per movement step")

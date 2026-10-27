@@ -5,7 +5,7 @@ func check(ok:bool,message:String):
 	checks+=1
 	if not ok:failures+=1;printerr("FAIL: "+message)
 func _initialize():
-	var Document=load("res://scripts/forest/forest_map_document.gd")
+	var Document=load("res://tests/forest-shrine/reference/map_document.gd")
 	if not "include_mines" in Document.new():
 		check(false,"The editor can load legacy maps with mines disabled");finish();return
 	var source=FileAccess.get_file_as_string(Document.ORIGINAL_PATH)

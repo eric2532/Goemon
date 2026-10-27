@@ -292,7 +292,7 @@ func primary_pose(actor,a: Dictionary,state: Dictionary):
 	if actor.id=="samurai":return # The evaluated Blender action owns both grips.
 	# Goemon's authored hips/chest/wrist path, retimed to the class's contact.
 	# This replaces the old rigid-shoulder pose only for ordinary melee attacks.
-	var stage=1+int(a.index)%3
+	var stage=3 if actor.id=="knight" and int(a.index)==3 else 1+int(a.index)%3
 	var duration_: float=Combo.duration(stage)
 	var contact: float=maxf(.001,float(a.contact))
 	var t: float=float(a.time)

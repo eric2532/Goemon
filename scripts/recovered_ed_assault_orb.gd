@@ -14,8 +14,10 @@ var velocity=Vector3.ZERO
 var damage=270.0
 var attack_scale=1.0
 var range_scale=1.0
+var fuse=2.4
 var age=0.0
 var fire_age=0.0
+var fire_speed_scale=1.0
 var floor_bounces=0
 var exploded=false
 var fire_origin=Vector3.ZERO
@@ -39,7 +41,8 @@ static func sprite(host: Node3D,texture: Texture2D,pixel_size: float)->Sprite3D:
 
 func _ready():
  add_to_group("projectiles");add_to_group("ed_assault_orbs")
- body=sprite(self,BALL,.06*attack_scale)
+ velocity*=hero.skill_factor(attack_ticket,"travel_speed")
+ body=sprite(self,BALL,.06*attack_scale*hero.skill_factor(attack_ticket,"size"))
 
 func _physics_process(delta: float):
  if is_queued_for_deletion():return
@@ -51,7 +54,7 @@ func _physics_process(delta: float):
   var step=minf(remaining,1.0/60.0);remaining-=step
   if exploded:
    _spread(step)
-   if fire_age>=FIRE_LIFETIME:queue_free();return
+   if fire_age>=FIRE_LIFETIME/fire_speed_scale:queue_free();return
   else:_fly(step)
 
 func _ray(from: Vector3,to: Vector3)->Dictionary:
@@ -72,9 +75,9 @@ func _fly(step: float):
    wall=floor_;wall.position+=Vector3.UP*.9*attack_scale
  var end: Vector3=next if wall.is_empty() else wall.position
  var nearest=INF
- for enemy in game.enemies:
+ for enemy in AttackChain.segment_enemy_candidates(game,from,end,1.1*attack_scale*hero.skill_factor(attack_ticket,"hit_area")):
   if not is_instance_valid(enemy) or enemy.dead:continue
-  var contact=AttackChain.segment_contact(enemy,from,end,1.1*attack_scale)
+  var contact=AttackChain.segment_contact(enemy,from,end,1.1*attack_scale*hero.skill_factor(attack_ticket,"hit_area"))
   if contact.is_empty() or float(contact.t)>=nearest:continue
   var center=from.lerp(end,float(contact.t))
   if _ray(center,AttackChain.aim_point(enemy,center)).is_empty():nearest=float(contact.t)
@@ -87,7 +90,7 @@ func _fly(step: float):
    game.sound("ed_assault_bounce",.5,false,attack_ticket,14)
   else:_explode();return
  else:global_position=next
- if age>=2.4:_explode();return
+ if age+.000001>=fuse:_explode();return
  var squash=1.0+.12*sin(age*18)
  body.scale=Vector3(1.0/squash,squash,1)
 
@@ -105,8 +108,8 @@ func _damage(enemy: Ninja,point: Vector3):
 func _explode():
  if exploded:return
  exploded=true;cast_stats.bursts+=1
- var radius=9.0*attack_scale*range_scale
- for enemy in game.enemies:
+ var radius=9.0*attack_scale*range_scale*hero.skill_factor(attack_ticket,"hit_area")
+ for enemy in AttackChain.segment_enemy_candidates(game,global_position,global_position,radius):
   if not is_instance_valid(enemy) or enemy.dead or struck.has(enemy.get_instance_id()):continue
   if AttackChain.segment_contact(enemy,global_position,global_position,radius).is_empty():continue
   var contact=AttackChain.contact_point(enemy,global_position,enemy.global_position+Vector3.UP)
@@ -120,7 +123,7 @@ func _explode():
  # stops at cover and shares the burst's hit set, so overlap never multiplies HP.
  for i in 8:
   var direction=Vector3.FORWARD.rotated(Vector3.UP,i*TAU/8)
-  var flame=sprite(self,FIRE,.038*FIRE_SCALE*attack_scale);flame.hframes=4;flame.vframes=4
+  var flame=sprite(self,FIRE,.038*FIRE_SCALE*attack_scale*hero.skill_factor(attack_ticket,"size"));flame.hframes=4;flame.vframes=4
   flame.material_override.set_shader_parameter("billboard_direction",direction)
   # Keep the enlarged quad above the floor without lifting its collision ray
   # over low cover. Ground following still uses the original front altitude.
@@ -130,8 +133,8 @@ func _explode():
  _spread(0)
 
 func _spread(step: float):
- fire_age=minf(FIRE_LIFETIME,fire_age+step)
- var distance=fire_age*4.0*attack_scale*range_scale
+ fire_age=minf(FIRE_LIFETIME/fire_speed_scale,fire_age+step)
+ var distance=fire_age*4.0*fire_speed_scale*attack_scale*range_scale*hero.skill_factor(attack_ticket,"travel_speed")
  body.visible=fire_age<.22;body.scale=Vector3.ONE*(1+fire_age*12)
  for i in 8:
   if blocked[i]:continue
@@ -148,9 +151,9 @@ func _spread(step: float):
   if not wall.is_empty():to=wall.position;blocked[i]=true
   flames[i].global_position=to;flames[i].frame=posmod(floori(fire_age*30),16)
   if blocked[i]:flames[i].visible=false
-  for enemy in game.enemies:
+  for enemy in AttackChain.segment_enemy_candidates(game,from,to,1.2*FIRE_SCALE*attack_scale*hero.skill_factor(attack_ticket,"hit_area")):
    if not is_instance_valid(enemy) or enemy.dead or struck.has(enemy.get_instance_id()):continue
-   var contact=AttackChain.segment_contact(enemy,from,to,1.2*FIRE_SCALE*attack_scale)
+   var contact=AttackChain.segment_contact(enemy,from,to,1.2*FIRE_SCALE*attack_scale*hero.skill_factor(attack_ticket,"hit_area"))
    if contact.is_empty():continue
    var center=from.lerp(to,float(contact.t))
    if _ray(center,AttackChain.aim_point(enemy,center)).is_empty():_damage(enemy,contact.point)

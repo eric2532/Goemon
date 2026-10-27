@@ -1,125 +1,115 @@
 class_name ChainPipeCombat
-extends RefCounted
-var attack_ticket: Dictionary={}
-var hero: Hero
-var active=false
+extends "res://scripts/character_combat.gd"
+const Original=preload("res://scripts/recovered_goemon_combat_profile.gd")
+const EXTENDED_TIME=1.0
+const TURN_SPEED=TAU
+var attack_ticket:Dictionary={}
 var mode="throw"
 var elapsed=0.0
-var duration=0.95
-var powered=false
+var duration=0.0
 var damage=0.0
 var reach=0.0
 var origin=Vector3.ZERO
 var direction=Vector3.FORWARD
 var end=Vector3.ZERO
 var struck={}
-var exploded=false
-var trail=0.0
-var sweep_done=false
-var release_sound_played=false
-const Original=preload("res://scripts/recovered_goemon_combat_profile.gd")
-func _init(player: Hero):hero=player
-func start(kind: String,sweep_reach: float=6.5):
-	if active or hero.attack_left>0 or hero.dodge_time>0:return
-	attack_ticket=hero.attack_chain.begin("chain_"+kind)
-	mode=kind;active=true;elapsed=0;release_sound_played=false;struck.clear();exploded=false;sweep_done=false;trail=0
-	powered=hero.surge_left>0;duration=1.0 if mode=="throw" else .78
-	damage=(90 if powered else 60) if mode=="throw" else (110 if powered else 70)
-	damage*=hero.damage_multiplier()
-	reach=(18.0 if mode=="throw" else sweep_reach)*hero.range_multiplier()*hero.melee_reach_setting()
-	direction=hero.game.attack_direction();hero.facing=direction
-	origin=hero.global_position+Vector3.UP*1.2*hero.growth_multiplier()+direction*.5
-	end=origin+direction*reach
-	if mode=="throw":
-		var wall=hero.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(origin,end,1))
-		if not wall.is_empty():end=wall.position-direction*.12
-	hero.attack_duration=duration;hero.attack_left=duration;hero.attack_heavy=mode=="sweep";hero.attack_charged=false
-	hero.model.equipped=true;hero.model.chain_pipe.powered=powered
+var phase=""
+var phase_age=0.0
+var airborne_start=false
+var hold_action=0x71
+var flight_age=0.0
+var flight_reach=0.0
+var last_point=Vector3.ZERO
+var origin_offset=Vector3.ZERO
 
-	if hero.attack_chain.unleashed() and not hero.game.rogue_battle_mode:
-		hero.emit_robe_coins()
-		if mode=="throw":
-			hit_path(origin,end)
-			if powered:explode_tip()
-		else:hit_fan()
-		hero.game.combo_slash(origin,direction,2,reach/3.5)
-		cancel()
-func tick(delta: float):
+func _init(player:Hero):
+	hero=player;game=player.game
+
+func start(_kind:String="throw",_sweep_reach:float=6.5):
+	if active or hero.attack_left>0 or hero.dodge_time>0:return
+	attack_ticket=hero.attack_chain.begin("chain_throw")
+	active=true;mode="throw";elapsed=0;phase="windup";phase_age=0;flight_age=0;struck.clear()
+	airborne_start=not hero.is_on_floor()
+	duration=Original.chain_release_time(airborne_start)+Original.CHAIN_FLIGHT_TICKS/Original.LOGIC_HZ+EXTENDED_TIME+Original.action_duration(0x72)
+	damage=(90 if hero.surge_left>0 else 60)*hero.damage_multiplier()
+	reach=18.0*hero.range_multiplier()*hero.melee_reach_setting();flight_reach=reach
+	direction=hero.combat_attack_direction();hero.facing=Vector3(direction.x,0,direction.z).normalized()
+	origin_offset=Vector3.UP*1.2*hero.growth_multiplier()+direction*.5
+	origin=hero.global_position+origin_offset;end=origin+direction*reach;last_point=origin
+	hero.attack_duration=duration;hero.attack_left=duration;hero.attack_heavy=false;hero.attack_charged=false
+	hero.model.equipped=true;hero.model.chain_pipe.powered=false
+
+func pose()->Dictionary:
+	if phase=="windup":return {"action":0x75 if airborne_start else 0x70,"time_seconds":phase_age}
+	if phase=="catch":return {"action":0x72,"time_seconds":phase_age}
+	return {"action":hold_action,"time_seconds":0.0}
+
+func tick(delta:float):
 	if not active:return
-	var before=elapsed/duration;elapsed+=delta*hero.attack_speed_multiplier();var t=clampf(elapsed/duration,0,1)
-	hero.attack_left=maxf(0,duration-elapsed)
-	if not release_sound_played and elapsed>=Original.chain_release_time():
-		release_sound_played=true
-		hero.play_sound("chain_throw" if mode=="throw" else ("chain_fire_sweep" if powered else "chain_sweep"),.8,attack_ticket)
+	var advance=maxf(0,delta)*hero.attack_speed_multiplier()
+	elapsed+=advance;phase_age+=advance
+	hero.attack_left=maxf(.001,duration-elapsed)
 	var visual=hero.model.chain_pipe
-	visual.endpoint_override=true;visual.powered=powered
-	if mode=="throw":
-		if before<.18 and t>=.18:hero.emit_robe_coins()
-		var old_point=origin.lerp(end,smoothstep(.18,.55,before))
-		var new_point=origin.lerp(end,smoothstep(.18,.55,t))
-		if t>=.18 and before<.55:hit_path(old_point,new_point)
-		visual.endpoint=new_point.lerp(hero.model.pipe.global_position,smoothstep(.65,1,t))
-		if t>=.55 and not exploded:
-			exploded=true
-			if powered:explode_tip()
-		var pose=PipeCombo.interpolate(PipeCombo.HIGH,PipeCombo.DIAGONAL_END,smoothstep(.1,.35,t))
-		hero.model.chain_pose=PipeCombo.interpolate(pose,PipeCombo.IDLE,smoothstep(.7,1,t))
-	else:
-		var angle=lerpf(-deg_to_rad(70),deg_to_rad(70),smoothstep(.22,.68,t))
-		var extension=lerpf(1.5,reach,smoothstep(.05,.24,t))*(1-smoothstep(.7,1,t))
-		visual.endpoint=hero.global_position+Vector3.UP*1.2*hero.growth_multiplier()+direction.rotated(Vector3.UP,angle)*maxf(1.2,extension)
-		if t>=.45 and not sweep_done:
-			sweep_done=true;hero.emit_robe_coins();hit_fan()
-		var pose=PipeCombo.interpolate(PipeCombo.LEFT_END,PipeCombo.RIGHT_END,smoothstep(.2,.7,t))
-		hero.model.chain_pose=PipeCombo.interpolate(pose,PipeCombo.IDLE,smoothstep(.75,1,t))
-	trail-=delta*hero.attack_speed_multiplier()
-	if trail<=0 and t>.18 and t<.72:
-		trail=.045
-		if powered:hero.game.burst(visual.endpoint,Color("ff882b"),3,.5)
-		else:hero.game.wind(visual.endpoint,-direction)
-	if t>=1:cancel()
-func hit_path(a: Vector3,b: Vector3):
-	BreakableBuilding.hit_segment(hero.game,a,b+direction*.2,damage,attack_ticket,struck)
-	for enemy in hero.game.enemies:
+	visual.powered=false
+	if phase=="windup":
+		var release=Original.chain_release_time(airborne_start)
+		if phase_age<release:return
+		phase_age-=release;advance=phase_age;phase="flight"
+		hold_action=0x76 if airborne_start and not hero.is_on_floor() else 0x71
+		hero.play_sound("chain_throw",.8,attack_ticket)
+		hero.emit_robe_coins()
+		visual.endpoint_override=true
+	if phase=="flight":
+		var remaining=advance
+		var aim=hero.combat_attack_direction()
+		var peak_time=Original.CHAIN_FLIGHT_TICKS/Original.LOGIC_HZ*.5
+		var flight_duration=peak_time*2+EXTENDED_TIME
+		while remaining>.000001 and phase=="flight":
+			var next_tick=(floorf(flight_age*Original.LOGIC_HZ+.000001)+1)/Original.LOGIC_HZ
+			var step=minf(remaining,minf(next_tick,flight_duration)-flight_age)
+			flight_age+=step;remaining-=step
+			# Bound each turn so the swept tip follows the arc instead of teleporting across it.
+			direction=direction.rotated(Vector3.UP,clampf(direction.signed_angle_to(aim,Vector3.UP),-TURN_SPEED*step,TURN_SPEED*step))
+			hero.facing=Vector3(direction.x,0,direction.z).normalized()
+			origin_offset=Vector3.UP*1.2*hero.growth_multiplier()+direction*.5
+			origin=hero.global_position+origin_offset
+			var source_time=flight_age-clampf(flight_age-peak_time,0,EXTENDED_TIME)
+			var extension=Original.chain_extension(source_time)
+			var point=origin+direction*flight_reach*extension
+			var wall=AttackChain.world_ray(hero,last_point,point,1,[hero.get_rid()]) if not point.is_equal_approx(last_point) else {}
+			if not wall.is_empty():
+				point=wall.position-last_point.direction_to(point)*.02
+				flight_reach=maxf(0,(point-origin).dot(direction))/maxf(.0001,extension)
+				if source_time<peak_time+.000001:flight_age=flight_duration-source_time
+			hit_path(last_point,point)
+			last_point=point;visual.endpoint=point
+			if flight_age>=flight_duration-.000001:
+				if hold_action==0x76 and not hero.is_on_floor():cancel();return
+				phase="catch";phase_age=remaining
+				duration=elapsed-remaining+Original.action_duration(0x72);hero.attack_duration=duration
+	if phase=="catch":
+		visual.endpoint=hero.model.chain_pipe.global_position
+		if phase_age>=Original.action_duration(0x72):cancel()
+
+func hit_path(a:Vector3,b:Vector3):
+	BreakableBuilding.hit_segment(hero.game,a,b,damage,attack_ticket,struck)
+	var radius=.7*hero.pickup_multiplier("range")*hero.growth_multiplier()
+	for enemy in AttackChain.segment_enemy_candidates(hero.game,a,b,radius):
 		if not is_instance_valid(enemy) or enemy.dead or struck.has(enemy.get_instance_id()):continue
-		var legacy=enemy.global_position+Vector3.UP*(1.5 if enemy.boss else 1.1)
-		var contact=AttackChain.segment_contact(enemy,a,b,.7*hero.pickup_multiplier("range")*hero.growth_multiplier(),legacy)
+		var contact=AttackChain.segment_contact(enemy,a,b,radius)
 		if contact.is_empty():continue
-		var point=AttackChain.contact_point(enemy,contact.point,legacy)
-		var nearest=Geometry3D.get_closest_point_to_segment(point,a,b)
-		if not clear_hit(nearest,point):continue
-		hit(enemy,point,direction,damage)
-func clear_hit(a: Vector3,b: Vector3)->bool:
-	return hero.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(a,b,1)).is_empty()
-func hit_fan():
-	var bonus=hero.attack_chain.energized()
-	BreakableBuilding.hit_area(hero.game,hero.global_position+Vector3.UP*hero.growth_multiplier(),reach,damage,attack_ticket,direction,cos(deg_to_rad(70)),struck)
-	for enemy in hero.game.enemies:
-		if not is_instance_valid(enemy) or enemy.dead:continue
-		var hurt=AttackChain.contact_point(enemy,hero.global_position+Vector3.UP,enemy.global_position)
-		var offset=hurt-hero.global_position
-		var flat=Vector3(offset.x,0,offset.z)
-		if flat.length()>reach+enemy.body_radius or absf(offset.y)>3.5*hero.growth_multiplier():continue
-		if flat.length()>.1 and direction.dot(flat.normalized())<cos(deg_to_rad(70)):continue
-		if not clear_hit(hero.global_position+Vector3.UP,AttackChain.contact_point(enemy,hero.global_position+Vector3.UP,enemy.global_position+Vector3.UP)):continue
-		hit(enemy,AttackChain.contact_point(enemy,hero.global_position+Vector3.UP,enemy.global_position+Vector3.UP),flat.normalized(),damage)
-	if bonus:ComboEnergy.melee_attack(hero,attack_ticket,reach,true)
-func hit(enemy: Ninja,point: Vector3,dir: Vector3,amount: float):
-	struck[enemy.get_instance_id()]=true;enemy.take_hit(amount,dir,true,attack_ticket)
-	preload("res://scripts/recovered_goemon_vfx.gd").hit(hero.game,point,true);hero.play_sound("chain_hit",.55,attack_ticket)
-	hero.game.chain+=1;hero.game.chain_timer=3
-func explode_tip():
-	EdoFireExplosion.emit(hero.game,end,true,"chain_explosion")
-	var radius=5.5*hero.pickup_multiplier("range")*hero.growth_multiplier()
-	BreakableBuilding.hit_area(hero.game,end,radius,120*hero.damage_multiplier(),attack_ticket)
-	for enemy in hero.game.enemies:
-		if not is_instance_valid(enemy) or enemy.dead:continue
-		var point=AttackChain.contact_point(enemy,end,enemy.global_position+Vector3.UP)
-		if point.distance_to(end)>radius+enemy.body_radius or not clear_hit(end,point):continue
-		# Explosion damage is separate from the tip's one piercing hit.
-		hit(enemy,point,(point-end).normalized(),120*hero.damage_multiplier())
-func cancel():
-	active=false;hero.attack_left=0
+		var point=AttackChain.contact_point(enemy,contact.point,enemy.global_position+Vector3.UP)
+		if not AttackChain.clear_line(hero,contact.point,point,[hero.get_rid()]):continue
+		struck[enemy.get_instance_id()]=true
+		enemy.take_hit(damage,direction,true,attack_ticket)
+		if hero.ai_controlled:hero.game.confirm_ally_impact(enemy,point,direction,2,true,1)
+		else:
+			if hero.ai_controlled:hero.game.confirm_ally_impact(enemy,point,direction,2,true,1)
+			else:hero.game.confirm_impact(enemy,point,direction,2,true,1)
+			hero.game.chain+=1;hero.game.chain_timer=3
+
+func cancel(_preserve_power:bool=false):
+	active=false;phase="";phase_age=0;flight_age=0;struck.clear();attack_ticket={};hero.attack_left=0
 	if is_instance_valid(hero.character_models.get(1)):
 		var model=hero.character_models[1];model.chain_pose={}
-		if is_instance_valid(model.chain_pipe):model.chain_pipe.endpoint_override=false;model.chain_pipe.powered=hero.surge_left>0
+		if is_instance_valid(model.chain_pipe):model.chain_pipe.endpoint_override=false;model.chain_pipe.powered=false

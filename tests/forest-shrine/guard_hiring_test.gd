@@ -1,12 +1,12 @@
 extends SceneTree
-## Paid map placement and local guarding replace the five free hotkey summons.
+## Real menu clicks/keys recruit paid native defenders directly at the castle.
 var game
 var checks=0
 var failures=0
 var cfg="user://guard-hiring-%d.cfg"%OS.get_process_id()
 func _initialize():
  set_meta("forest_painterly_preview",true)
- create_timer(60).timeout.connect(func():printerr("FAIL: guard hiring timeout");quit(1))
+ create_timer(90).timeout.connect(func():printerr("FAIL: guard hiring timeout");quit(1))
  run.call_deferred()
 func check(ok:bool,label_:String):
  checks+=1
@@ -15,123 +15,110 @@ func settle():
  for i in 3:await process_frame
 func capture(label_:String):
  if "--visual" not in OS.get_cmdline_user_args() or DisplayServer.get_name()=="headless":return
- await RenderingServer.frame_post_draw
- root.get_texture().get_image().save_png("/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Guard Hiring/"+label_+".png")
-func point_for(helpers,slot:int,exclude:int=0)->Vector3:
- for z in range(4,18):
-  for x in range(-12,13):
-   var point=game.model.point(Vector2i(x,z))
-   if helpers.placement_error(slot,point,exclude).is_empty():return point
- return Vector3.INF
+ RenderingServer.force_draw();await process_frame
+ root.get_texture().get_image().save_png("/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Mercenary Base Hiring/"+("wind-" if "--wind" in OS.get_cmdline_user_args() else "original-")+label_+".png")
+func tap(code:int,echo:bool=false):
+ var key=InputEventKey.new();key.physical_keycode=code;key.pressed=true;key.echo=echo;root.push_input(key,true)
+ key=key.duplicate();key.pressed=false;root.push_input(key,true)
+func click(button:Button):
+ var event=InputEventMouseButton.new();event.button_index=MOUSE_BUTTON_LEFT;event.pressed=true;event.position=button.get_global_rect().get_center()
+ root.push_input(event,true);event=event.duplicate();event.pressed=false;root.push_input(event,true)
+ await settle()
 func run():
- root.size=Vector2i(1280,800)
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+ root.content_scale_size=Vector2i.ZERO;root.size=Vector2i(1280,800)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new()
+ if "--wind" in OS.get_cmdline_user_args():doc.load_wind_meadow()
+ else:doc.load_original()
+ set_meta("forest_custom_layout",doc.data)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game
  await settle();AudioServer.set_bus_mute(0,true)
- var h=game.explorer_helpers;var ui=game.forest_ui
- check(h.has_method("purchase") and h.has_method("begin_placement"),"Preparation exposes paid guard placement")
- if not h.has_method("purchase"):await finish();return
- game.model.gold=2000;game.player.select_character(14);ui.sync()
- game.model.build("barracks",Vector2i(12,10),0)
- check(ui.loadout_buttons.all(func(button):return button.disabled and not button.button_pressed),"Ed has five empty inactive number slots")
- check(ui.helper_portraits.all(func(icon):return not icon.visible),"Unused slots have no summon portraits")
- var initial_gold=game.model.gold
- for slot in 5:
-  ui.select_loadout_slot(slot)
-  var key=InputEventKey.new();key.physical_keycode=KEY_1+slot;key.pressed=true;root.push_input(key,true)
-  key=key.duplicate();key.pressed=false;root.push_input(key,true)
- await settle()
- check(h.active_units().is_empty() and game.model.gold==initial_gold,"Empty slots neither summon nor spend ryo")
- game.player.select_character(1);ui.sync();ui.select_loadout_slot(1)
- check(ui.loadout_buttons.slice(0,3).all(func(button):return not button.disabled) and ui.helper_portraits.slice(0,3).all(func(icon):return icon.visible),"Goemon retains his three assigned weapon slots")
- game.player.select_character(18);ui.sync();ui.select_loadout_slot(3)
- check(game.player.master_chief_combat.weapon_slot==4,"Chief retains all five real weapons")
- game.player.select_character(14);ui.sync()
- ui.show_guard_shop();await settle()
- check(ui.get_node_or_null("GuardShop")!=null,"Preparation opens a clickable guard shop")
- root.size=Vector2i(960,600);await settle()
- check(root.get_visible_rect().encloses(ui.guard_shop.panel.get_global_rect()),"The hiring panel fits a smaller window")
- check(ui.preparation_actions.get_children().all(func(button):return root.get_visible_rect().encloses(button.get_global_rect())),"Preparation actions wrap inside a smaller window")
+ game.set_physics_process(false);game.player.set_physics_process(false)
+ var h=game.explorer_helpers;var ui=game.forest_ui;var army=game.army_runtime
+ game.model.gold=5000;game.model.starting_food=100;game.player.select_character(18);ui.sync()
+ var shrine:Vector3=game.model.center(game.model.shrine())
+ game.player.position=shrine+Vector3(80,0,80)
+ tap(KEY_M);await settle()
+ check(ui.guard_shop_open(),"M opens mercenaries")
+ for size_ in [Vector2i(1280,800),Vector2i(800,600)]:
+  root.size=size_;await settle()
+  var gold=game.model.gold;var food=game.model.food_used()
+  for index in 5:
+   var slot=ui.MERCENARY_SHORTCUTS[index];var button=ui.guard_shop.buttons[slot]
+   check(button.text.begins_with("%d · "%[index+1]) and not button.disabled,"All five cards show a numbered clickable recruit")
+   check(ui.guard_shop.panel.get_global_rect().encloses(button.get_global_rect()),"Every card including Knight fits inside the tray")
+   var before=h.active_units(slot).size()
+   await click(button)
+   check(h.active_units(slot).size()==before+1,"Actual pointer click hires exactly one "+h.NAMES[slot])
+   check(not h.placement_active() and ui.guard_shop_open() and game.build_kind.is_empty(),"Recruitment keeps the tray open without map placement")
+  check(game.model.gold==gold-470 and game.model.food_used()==food+10,"Five clicks deduct exactly the displayed prices and food")
+  check(ui.hint.size.x>=300 and ui.hint.size.y<=96,"Hiring feedback remains readable in the current window")
+  if size_.x==800:await capture("small-window")
  root.size=Vector2i(1280,800);await settle()
- for slot in 5:
-  var button=ui.find_child("HireGuard%d"%slot,true,false)
-  check(button!=null and str(h.COSTS[slot]) in button.text,"Each individual ally displays its ryo price")
- await capture("guard-shop")
- var shop_button=ui.find_child("HireGuard1",true,false)
- var shop_click=InputEventMouseButton.new();shop_click.button_index=MOUSE_BUTTON_LEFT;shop_click.pressed=true;shop_click.position=shop_button.get_global_rect().get_center()
- root.push_input(shop_click,true);await process_frame
- shop_click=shop_click.duplicate();shop_click.pressed=false;root.push_input(shop_click,true);await settle()
- check(h.selected_slot==1 and h.active_units().is_empty() and game.model.gold==initial_gold,"Choosing a Ranger previews placement without charging")
- check(ui.guard_shop_open(),"Choosing an ally keeps the hiring menu open for map placement")
- check(not h.purchase(1,Vector3.INF),"Nonfinite placement is rejected")
- check(not h.purchase(1,game.model.center(game.model.shrine())),"A guard cannot be placed inside a building")
- check(not h.purchase(1,Vector3(10000,0,10000)),"Out-of-map placement is rejected")
- check(game.model.gold==initial_gold and h.active_units().is_empty(),"Invalid placement spends nothing and creates nothing")
- var point=point_for(h,1)
- check(point.is_finite(),"The original map offers valid guard ground")
- if not point.is_finite():await finish();return
- var click=InputEventMouseButton.new();click.button_index=MOUSE_BUTTON_LEFT;click.pressed=true;click.position=game.camera_rig.camera.unproject_position(point)
- game._unhandled_input(click)
- check(h.active_units(1).size()==1,"A map click through the real preparation input hires a Ranger")
- check(h.active_units(1).size()==1,"One purchase hires exactly one individual Ranger")
- check(game.model.gold==initial_gold-h.COSTS[1],"Successful placement deducts the displayed price exactly once")
- var unit=h.active_units(1)[0]
- game.pan=unit.guard_post;game.preparation_size=90;game.update_preparation_camera()
- var motion=InputEventMouseMotion.new();motion.position=game.camera_rig.camera.unproject_position(unit.guard_post);root.push_input(motion,true);await settle()
- h.set_process(false);h.show_guard_area(unit.guard_post,true)
- check(h.guard_preview.visible and h.guard_preview.mesh!=null,"The guard area has a visible map preview")
- await capture("guard-post")
- h.set_process(true)
- check(unit.state=="prepared" and unit.guard_post.distance_to(point)<.2,"The hired ally waits at its assigned guard post")
- check(h.selected_slot==-1,"Purchase exits placement mode to prevent accidental repeat charges")
- check(ui.guard_shop_open(),"A completed purchase keeps the mercenary menu open")
- var money=game.model.gold;var another=point_for(h,1)
- check(not h.purchase(1,point),"A second ally cannot overlap an occupied guard post")
- check(game.model.gold==money and h.active_units().size()==1,"Overlapping placement is transactional")
- unit.hp=73
- click.position=game.camera_rig.camera.unproject_position(unit.guard_post);game._unhandled_input(click)
- check(h.moving_actor==unit.gate_id,"Clicking a placed ally selects its guard post")
- click.position=game.camera_rig.camera.unproject_position(another);game._unhandled_input(click)
- check(h.moving_actor==0,"A second map click finishes guard relocation")
- check(game.model.gold==money and unit.hp==73 and unit.guard_post.distance_to(another)<.2,"Repositioning preserves ryo, health and the same ally")
- game.model.gold=h.COSTS[0]-1
- check(not h.begin_placement(0) and not h.purchase(0,point),"Insufficient ryo blocks purchase and selection")
- check(game.model.gold==h.COSTS[0]-1,"Failed purchase cannot make the balance negative")
- game.model.gold=money
- check(h.begin_placement(0),"A second ally can be previewed")
- var cancel=InputEventMouseButton.new();cancel.button_index=MOUSE_BUTTON_RIGHT;cancel.pressed=true;game._unhandled_input(cancel)
- check(h.selected_slot==-1 and game.model.gold==money,"Right-click cancels a preview without spending")
- check(ui.guard_shop_open(),"Canceling a preview keeps the menu open until Esc")
- ui.show_guard_shop()
- var escape=InputEventKey.new();escape.physical_keycode=KEY_ESCAPE;escape.pressed=true;game._input(escape)
- check(not ui.guard_shop_open() and not game.ordinary_pause,"Escape closes the hiring shop without opening Pause")
- h.begin_placement(0);game.select_build("wall")
- check(h.selected_slot==-1 and game.build_kind=="wall","Selecting construction cancels guard placement")
- game.build_kind=""
+ var gold=game.model.gold;var food=game.model.food_used()
+ for index in 5:
+  var slot=ui.MERCENARY_SHORTCUTS[index];var before=h.active_units(slot).size()
+  tap(KEY_1+index);await settle()
+  check(h.active_units(slot).size()==before+1,"Key %d immediately hires %s"%[index+1,h.NAMES[slot]])
+  tap(KEY_1+index,true);await settle()
+  check(h.active_units(slot).size()==before+1,"Held key cannot repeatedly charge or spawn")
+ check(game.model.gold==gold-470 and game.model.food_used()==food+10,"Five keys deduct prices and food once each")
+ check(game.player.master_chief_combat.weapon_slot==1,"Mercenary keys never switch the player's weapons")
+ var units=h.active_units()
+ check(units.size()==15 and units.all(func(u):return army.valid(u.handle) and u.hp==h.HEALTH[u.slot]),"All fifteen recruits own living native units with their original HP")
+ check(units.all(func(u):return Vector2(u.guard_post.x-shrine.x,u.guard_post.z-shrine.z).length()<43),"All recruits spawn near the castle despite the distant player and pointer")
+ var separated=true
+ for i in units.size():
+  for j in i:
+   if units[i].position.distance_to(units[j].position)<1.4:separated=false
+ check(separated,"Automatic spawn positions keep allies separated")
+ await capture("all-five-recruited")
+ gold=game.model.gold;var count=units.size()
+ game.model.gold=0;tap(KEY_5);await settle()
+ check(h.active_units().size()==count and game.model.gold==0,"No funds creates no Knight and charges nothing")
+ game.model.gold=gold;game.model.starting_food=0
+ check(not h.request(3) and game.model.gold==gold,"Full food capacity blocks automatic hiring transactionally")
+ game.model.starting_food=100
+ game.show_pause();check(not h.request(3),"Pause blocks hiring");game.resume()
+ game.show_settings(true);check(not h.request(3),"Settings block hiring");game.resume()
+ check(not h.request(-1) and not h.request(5),"Invalid slots cannot recruit")
+ check(not h.purchase(1,Vector3.INF) and not h.purchase(1,shrine),"The shared purchase path retains nonfinite and building validation")
+ var occupancy=game.model.occupancy.duplicate();var home=game.model.cell_of(shrine)
+ for x in range(-6,7):
+  for z in range(-6,7):game.model.occupancy[home+Vector2i(x,z)]=game.model.shrine().id
+ check(not h.request(3) and game.model.gold==gold and h.active_units().size()==count and not h.placement_active(),"A blocked base charges nothing and leaves no placement mode")
+ game.model.occupancy=occupancy
+ var retired=units[0];var old_handle=retired.handle;var pool_size=h.pool.size()
+ army.apply_hit(old_handle,{"amount":1000000.0,"direction":Vector3.ZERO})
+ check(h.request(retired.slot) and retired.handle!=old_handle and not army.valid(old_handle) and h.pool.size()==pool_size,"Recruiting after a death reuses the prepared facade without stale native identity or pool growth")
  game.start_wave();game.model.waves.pending=999;game.model.waves.spawn_clock=100000
- game.set_physics_process(false);game.set_process(false);game.player.set_physics_process(false);unit.set_physics_process(false)
- check(not h.purchase(0,point) and not h.begin_placement(0),"Allies cannot be bought during a wave")
- check(not h.relocate(unit.gate_id,point),"Guard posts cannot move during a wave")
- ui.sync();check(not ui.guard_shop_button.visible,"The hire button hides during combat")
- unit.invuln=0;unit.take_hit(10,Vector3.BACK,true)
- var wounded_hp=unit.hp
- unit._physics_process(.4);unit.take_hit(10,Vector3.BACK,true)
- check(unit.state=="prepared" and unit.hp<wounded_hp,"A waiting guard remains vulnerable to repeated distant shots after brief immunity expires")
- unit.hp=73;unit.invuln=0
- var near=game.model.waves.spawn_enemy(0,unit.guard_post+Vector3(5,0,0));near.hp=100000;near.max_hp=100000
- var far=game.model.waves.spawn_enemy(0,unit.guard_post+Vector3(80,0,0));far.hp=100000;far.max_hp=100000
- game.sync_enemies();await settle()
- for actor in game.actors.values():actor.set_physics_process(false)
- for data in [near,far]:game.model.visible_cells[game.model.cell_of(data.pos)]=true
- game.player.position=far.pos;unit.think()
- check(unit.ai_target==game.actors[near.id],"A guard acquires an enemy inside its assigned area")
- game.actors[near.id].dead=true;near.hp=0
- unit.position=unit.guard_post+Vector3(4,0,0);unit.think()
- check(unit.ai_target==game.actors[far.id] and not unit.auto_attack_enabled,"A mercenary acquires a distant enemy after the nearby one falls")
- check(unit.route_goal!=game.model.cell_of(unit.guard_post) and unit.ai_move.length_squared()>0,"A mercenary pursues its distant enemy instead of returning to its post")
+ game.set_physics_process(false);game.set_process(false);game.player.set_physics_process(false)
+ check(not h.request(3) and h.active_units().size()==count,"Wave transition preserves recruits and closes preparation hiring")
+ var posts=units.map(func(u):return u.guard_post)
+ for i in 60:army.integration_tick(1.0/60)
+ check(units.all(func(u):return u.position.distance_to(u.guard_post)<.25),"With no nearby enemies all defenders wait at the castle")
+ await capture("castle-defenders")
+ # Isolate native targeting/combat from real-map obstacles, preserving the prepared kits.
+ var runtime=load("res://scripts/forest/crowd/army_runtime.gd").new();runtime.configure(null)
+ runtime.configure_kits(load("res://scripts/forest/crowd/army_kit_data.gd").from_model(game.model,game.tuning.enemy_damage,game))
+ runtime.set_navigation(1,{"width":0})
+ for slot in 5:
+  runtime.clear();runtime.set_navigation(slot+2,{"width":0})
+  var guard=runtime.spawn(-1,1,h.KITS[slot],Vector3.ZERO,h.HEALTH[slot],.4);runtime.native.set_guard(guard,Vector3.ZERO,h.GUARD_RADIUS)
+  var enemy=runtime.spawn(1,0,0,Vector3(70,0,0),1000000000,1.3)
+  runtime.apply_hit(enemy,{"element":"ice","status_seconds":100})
+  for i in 90:runtime.step(1.0/60,{})
+  check(runtime.unit_state(guard).position.distance_to(Vector3.ZERO)<.1 and runtime.unit_state(enemy).hp==1000000000,"Distant enemies do not pull "+h.NAMES[slot]+" away from the castle")
+  runtime.set_pose(enemy,Vector3(6,0,0),0)
+  for i in 900:
+   runtime.step(1.0/60,{})
+   if runtime.unit_state(enemy).get("hp",0)<1000000000:break
+  check(runtime.unit_state(enemy).get("hp",0)<1000000000,h.NAMES[slot]+" automatically attacks an approaching enemy")
+  runtime.set_pose(enemy,Vector3(70,0,0),0)
+  for i in 1200:runtime.step(1.0/60,{})
+  check(runtime.unit_state(guard).position.distance_to(Vector3.ZERO)<1,h.NAMES[slot]+" returns to its post instead of pursuing across the map")
+ runtime.free()
  game.model.phase="preparing";h.rest()
- check(unit.guard_post.distance_to(another)<.2 and unit.position.distance_to(another)<.2,"The assigned guard post survives the next preparation phase")
- check(unit.hp==73,"Resting preserves the surviving ally's health")
+ check(units.map(func(u):return u.guard_post)==posts,"Surviving defenders retain their posts next preparation")
  await finish()
 func finish():
  if is_instance_valid(game):game.sound_library.cancel();game.music.stop();game.queue_free()

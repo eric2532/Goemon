@@ -9,7 +9,7 @@ func run():
  if DisplayServer.get_name()=="headless":quit(1);return
  for arg in OS.get_cmdline_user_args():
   if arg.begins_with("--out="):out=arg.trim_prefix("--out=")
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_four_gates();set_meta("forest_custom_layout",doc.data);set_meta("forest_painterly_preview",true)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_four_gates();set_meta("forest_custom_layout",doc.data);set_meta("forest_painterly_preview",true)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game;await frames()
  AudioServer.set_bus_mute(0,true)
  for slot in 5:

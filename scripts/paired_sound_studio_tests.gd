@@ -34,12 +34,14 @@ func run():
 	check(lib.take==null and studio.slot==move.weapon,"Changing recording layer cannot save a pending take into the wrong layer")
 	check(lib.mic==null and not lib.recording,"Browsing and adjusting paired controls keeps microphone closed")
 	var all_paired=true
-	for id in range(1,13):
-		studio.characters.select(id-1);studio.characters.item_selected.emit(id-1)
+	for id in lib.Roster.selection_ids():
+		if lib.moves_for(id).is_empty():continue
+		var index=studio.characters.get_item_index(id)
+		studio.characters.select(index);studio.characters.item_selected.emit(index)
 		all_paired=all_paired and lib.moves_for(id).has(studio.move_key)
 		studio.choose_layer("voice")
 		all_paired=all_paired and studio.slot==lib.moves_for(id)[studio.move_key].voice
-	check(all_paired,"Switching all twelve characters preserves valid paired move selection")
+	check(all_paired,"Switching visible fighters by stable ID preserves valid paired move selection")
 	lib.configure_capture();lib.mic.stream=wav
 	studio.layers.voice.record.pressed.emit()
 	var recording_slot=studio.slot
@@ -49,10 +51,24 @@ func run():
 	check(lib.active_slot==recording_slot and studio.slot==recording_slot,"A second layer cannot interrupt or redirect an active take")
 	studio.stop_button.pressed.emit()
 	check(not lib.recording and not lib.mic.playing,"Shared Stop closes input for the recorded layer")
+	var goemon_index=studio.characters.get_item_index(1)
+	studio.characters.select(goemon_index);studio.characters.item_selected.emit(goemon_index)
+	check(studio.layers.voice.state.text=="Built-in default" and studio.layers.voice.reset.text=="Restore default","Recovered character voices show their actual built-in default and matching Restore control")
+	check(not studio.list_labels.has("swing") and not studio.list_labels.has("enemy_reaction"),"Studio shows the current move once and excludes the retired reaction")
 	if DisplayServer.get_name()!="headless":
-		studio.characters.select(9);studio.characters.item_selected.emit(9)
+		var output="res://build/Other Files/Asset Toolkit/Sound Studio Defaults/"
+		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output))
 		await process_frame;await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png("res://build/paired-melee/sound-studio-paired.png")
+		root.get_texture().get_image().save_png(output+"studio-goemon.png")
+		var wind_index=studio.characters.get_item_index(30)
+		studio.characters.select(wind_index);studio.characters.item_selected.emit(wind_index)
+		studio.search.text="wind";studio.refresh_slots()
+		for index in studio.slots.item_count:
+			if studio.slots.get_item_metadata(index)=="finale_wind_loop":
+				studio.slots.select(index);studio.slots.item_selected.emit(index);studio.slots.ensure_current_is_visible();break
+		studio.refresh()
+		await process_frame;await RenderingServer.frame_post_draw
+		root.get_texture().get_image().save_png(output+"studio-wind.png")
 	game.clear_menu();await process_frame
 	lib.game=null;lib.free();game.sound_library=null;game.player.free();game.player=null;game.free()
 	print("PAIRED_STUDIO_RESULT checks=",checks," failures=",failures)

@@ -186,6 +186,9 @@ func take_hit(damage: float, dir: Vector3, heavy: bool,attack_ticket: Dictionary
 	if defense_traits!=null:damage*=defense_traits.hit_multiplier(dir,attack_ticket,heavy)
 	# A confirmed Chief pistol headshot still uses the normal death/reward path.
 	if attack_ticket.get("lethal_headshot",false):damage=maxf(damage,hp)
+	if is_instance_valid(source) and source.get("spell_loadout")!=null:
+		damage=source.spell_loadout.damage_for_hit(self,damage,attack_ticket)
+		source.spell_loadout.hit_effects(self,damage,attack_ticket)
 	var preserve_impact=attack_ticket.get("bonus",false) and recoil_age<.08
 	var prior_velocity=velocity;var prior_strength=recoil_strength;var prior_direction=recoil_direction;var prior_stun=stun
 	recoil_age=0

@@ -1,13 +1,11 @@
 class_name MusashiCombat
-extends Node
+extends "res://scripts/character_combat.gd"
 signal state_changed(value: int)
 const BASIC_RANGED_REACH=3.0
 # Keep legacy state IDs stable for the animation adapter.
 enum State {IDLE,MOVING,PUNCH_1,PUNCH_2,PUNCH_3,HEAVY_HOOK,CHARGING_HOOK,FIREBALL,CHARGING_FIREBALL,FIRE_SHIELD,HIT_REACTION,BEAM,METEOR_CAST}
 var attack_ticket: Dictionary={}
 var shield_ticket: Dictionary={}
-var hero: Hero
-var game: Node
 var balance: MusashiBalance=preload("res://assets/characters/musashi/combat/default_balance.tres")
 var state=State.IDLE
 var elapsed=0.0
@@ -22,7 +20,6 @@ var shield_left=0.0
 var shield_cooldown=0.0
 var shield_tick_left=0.0
 var ranged_mode=true # Compatibility with older callers: Edo is always ranged.
-var active=false
 var beam: EdoFireBeam
 var beam_guard=false
 var beam_held=false
@@ -32,6 +29,13 @@ var primary_held=false
 var heavy_queued=false
 var large_cast=false
 var meteor_pending=0
+
+func clear_cooldowns():shield_cooldown=0.0
+
+func prepare_projectiles():
+	var pool=preload("res://scripts/character_projectile_pool.gd").service(game)
+	for large in [false,true]:
+		pool.warm(hero,preload("res://assets/vfx/fireball/fireball.gd"),"edo/%s"%large,{"heavy":large,"balance":balance},24 if not large else 8)
 
 func _ready():teleport=SmokeTeleport.new(hero,self)
 func blocks_movement()->bool:return teleport!=null and teleport.active
@@ -90,7 +94,7 @@ func release_meteors():
 	clear_charge()
 	var rain=EdoMeteorRain.new();rain.game=game;rain.hero=hero;rain.attack_ticket=attack_ticket
 	rain.damage=balance.meteor_damage*hero.damage_multiplier()
-	rain.radius=balance.meteor_radius*hero.pickup_multiplier("range")*hero.growth_multiplier()
+	rain.radius=skill_factor("hit_area",attack_ticket)*balance.meteor_radius*hero.pickup_multiplier("range")*hero.growth_multiplier()
 	rain.targets=EdoMeteorRain.choose_targets(hero,randi_range(balance.meteor_min_count,balance.meteor_max_count),balance.meteor_target_range*hero.growth_multiplier())
 	game.add_child(rain)
 	game.burst(hero.global_position+hero.facing*.7+Vector3.UP*.2,Color("ffac48"),18,.8)
@@ -131,7 +135,7 @@ func tick(delta: float,update_timers: bool=true):
 		if teleport.active:return
 	elapsed+=delta*hero.attack_speed_multiplier() if is_attacking() else delta
 	if state==State.BEAM:
-		if beam_held and not (Input.is_action_pressed(beam_action) or (beam_action=="light_attack" and hero.auto_attack_running())):stop_hold_beam();return
+		if spell_owner==null and beam_held and not (hero.spell_loadout.action_pressed(beam_action) or (beam_action=="light_attack" and hero.auto_attack_running())):stop_hold_beam();return
 		if is_instance_valid(beam):
 			hero.facing=hero.combat_attack_direction();hero.attack_left=1.0
 		else:hero.attack_left=0;end_beam_guard();change(State.IDLE)
@@ -143,7 +147,7 @@ func tick(delta: float,update_timers: bool=true):
 			hero.attack_left=0;change(State.IDLE)
 			if meteor_pending>0:meteor_pending-=1;begin_meteors()
 			elif heavy_queued:cast_fireball(true)
-			elif primary_held and Input.is_action_pressed("light_attack"):primary_attack()
+			elif primary_held and hero.spell_loadout.action_pressed("light_attack"):primary_attack()
 	elif is_attacking():
 		hero.attack_left=maxf(0,duration-elapsed)
 		if progress()>=.27 and not contact_done:
@@ -151,12 +155,12 @@ func tick(delta: float,update_timers: bool=true):
 		if elapsed>=duration and not release_pending:
 			hero.attack_left=0;change(State.IDLE)
 			if heavy_queued:cast_fireball(true)
-			elif primary_held and Input.is_action_pressed("light_attack"):primary_attack()
+			elif primary_held and hero.spell_loadout.action_pressed("light_attack"):primary_attack()
 	elif state==State.HIT_REACTION:
 		if elapsed>.24:change(State.IDLE)
 	else:
 		state=State.FIRE_SHIELD if empowered() else (State.MOVING if Vector2(hero.velocity.x,hero.velocity.z).length()>1 else State.IDLE)
-		if primary_held and Input.is_action_pressed("light_attack") and hero.dodge_time<=0:primary_attack()
+		if primary_held and hero.spell_loadout.action_pressed("light_attack") and hero.dodge_time<=0:primary_attack()
 
 func after_pose():
 	# Hero movement, facing and the current cast bones must all be evaluated
@@ -171,7 +175,7 @@ func launch():
 	var dir=(hero.ai_aim-from).normalized() if hero.ai_controlled else game.projectile_direction(from)
 	var score=-100.0
 	if (hero.soft_target or hero.growth_multiplier()>1.01) and not game.rogue_battle_mode and not game.camera_combat():
-		for e in game.enemies:
+		for e in AttackChain.enemy_candidates(game,from,30):
 			if not is_instance_valid(e) or e.dead:continue
 			var aim=e.global_position+Vector3.UP*(1.5 if e.boss else 1.1);var dif=aim-from
 			var align=dir.dot(Vector3(dif.x,0,dif.z).normalized())
@@ -180,13 +184,14 @@ func launch():
 			if align*30-dif.length()*.35>score:score=align*30-dif.length()*.35;dir=dif.normalized()
 	var count=1 if large_cast else 3
 	for i in range(count):
-		var ball=load("res://assets/vfx/fireball/fireball.tscn").instantiate()
+		var ball={}
 		ball.game=game;ball.balance=balance;ball.heavy=large_cast;ball.attack_ticket=attack_ticket;ball.caster_growth=hero.growth_multiplier()
 		ball.damage=(balance.charged_fireball_damage if large_cast else balance.fireball_damage)*hero.damage_multiplier()
 		ball.hit_radius=(balance.charged_fireball_radius if large_cast else balance.fireball_radius)*hero.pickup_multiplier("range")*hero.growth_multiplier()
 		ball.velocity=dir.rotated(Vector3.UP,(i-(count-1)*.5)*.12)*(balance.charged_projectile_speed if large_cast else balance.projectile_speed)*hero.attack_speed_multiplier()
 		ball.lifetime=balance.projectile_lifetime*hero.growth_multiplier()/hero.attack_speed_multiplier()*(1.0 if large_cast else BASIC_RANGED_REACH)
-		game.add_child(ball);ball.global_position=from
+		ball.position=from
+		preload("res://scripts/character_projectile_pool.gd").service(game).launch(hero,preload("res://assets/vfx/fireball/fireball.gd"),"edo/%s"%large_cast,ball)
 
 func start_beam(action: String="light_attack"):
 	if beam_held and hero.attack_chain.unleashed() and is_instance_valid(beam):
@@ -226,12 +231,12 @@ func ensure_shield_visual():
 	if is_instance_valid(shield):return
 	shield=load("res://assets/vfx/fire_shield/fire_shield.tscn").instantiate();hero.add_child(shield)
 func shield_damage():
-	BreakableBuilding.hit_area(game,hero.global_position+Vector3.UP*hero.growth_multiplier(),balance.shield_radius*hero.growth_multiplier(),balance.shield_damage*hero.damage_multiplier(),shield_ticket)
+	BreakableBuilding.hit_area(game,hero.global_position+Vector3.UP*hero.growth_multiplier(),balance.shield_radius*hero.growth_multiplier()*skill_factor("hit_area",shield_ticket),balance.shield_damage*hero.damage_multiplier(),shield_ticket)
 	for e in game.enemies:
 		if not is_instance_valid(e) or e.dead:continue
 		var hurt=AttackChain.contact_point(e,hero.global_position+Vector3.UP,e.global_position)
 		var dif=hurt-hero.global_position
-		if dif.length()>balance.shield_radius*hero.growth_multiplier()+e.body_radius:continue
+		if dif.length()>balance.shield_radius*hero.growth_multiplier()*skill_factor("hit_area",shield_ticket)+e.body_radius:continue
 		if not hero.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(hero.global_position+Vector3.UP,AttackChain.contact_point(e,hero.global_position+Vector3.UP,e.global_position+Vector3.UP),1)).is_empty():continue
 		e.take_hit(balance.shield_damage*hero.damage_multiplier(),dif.normalized(),false,shield_ticket)
 		game.burst(e.global_position+Vector3.UP,Color("5ecbff"),5,.5)

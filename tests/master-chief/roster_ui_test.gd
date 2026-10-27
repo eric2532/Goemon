@@ -44,11 +44,6 @@ func run():
 		game.forest_ui.select_loadout_slot(slot-1)
 		check(game.player.master_chief_combat.weapon_slot==slot,"Preparation row selects Chief weapon %d"%slot)
 	game.forest_ui.select_loadout_slot(3)
-	var assignments=game.gate_defenders.assignments.duplicate(true)
-	for gate in game.gate_defenders.gates():
-		game.gate_defenders.assign(gate.id,18)
-		break
-	check(game.gate_defenders.assignments==assignments,"Unsupported Chief AI cannot replace a gate defender")
 	game.start_wave();game.model.waves.spawn_clock=10000;await settle()
 	var chief_hud=game.forest_ui.get_node_or_null("MasterChiefHUD")
 	check(chief_hud!=null and chief_hud.visible,"Chief receives the dedicated live FPS HUD")

@@ -1,0 +1,130 @@
+{
+  "source_project": "/Users/eric/Desktop/Projects_Codex/Warcraft",
+  "archive_order": [
+    "War3Patch.mpq",
+    "War3xlocal.mpq",
+    "War3x.mpq",
+    "war3.mpq"
+  ],
+  "processing": "Byte-for-byte original WAV files; no trimming, resampling, normalization or pitch baking.",
+  "evidence": [
+    {
+      "path": "Units\\HumanUnitFunc.txt",
+      "archive": "War3Patch.mpq",
+      "sha256": "f0b4c0e4ef6997fc04fe97c5e6e37a66bcb4dac1c56a9ff444c5367991dd1a9d"
+    },
+    {
+      "path": "UI\\SoundInfo\\AnimLookups.slk",
+      "archive": "War3Patch.mpq",
+      "sha256": "f8038a13e4da86f13c6abdd658e08f92f3cd43925d16686d391a4d5a507cfa8e"
+    },
+    {
+      "path": "UI\\SoundInfo\\AnimSounds.slk",
+      "archive": "War3Patch.mpq",
+      "sha256": "0ed5fd475ff046e22a7455c77cda3fa39580bfeb0a63e5ce47c64ae9e549905a"
+    },
+    {
+      "path": "Abilities\\Weapons\\GuardTowerMissile\\GuardTowerMissile.mdx",
+      "archive": "war3.mpq",
+      "sha256": "31526b625ba43fe72ecb2c2d61db2fcbcca2ad07491d76d94fbb891cd133b193"
+    }
+  ],
+  "samples": [
+    {
+      "file": "GuardTowerMissileLaunch1.wav",
+      "event": "GuardTowerAttack",
+      "path": "Abilities\\Weapons\\GuardTowerMissile\\GuardTowerMissileLaunch1.wav",
+      "archive": "war3.mpq",
+      "sha256": "ec335d66d4e33007e5b51cf61bf3de40c9127c55dcbf0070d4799aad2b6f8318",
+      "pcm_sha256": "37b4118c5cd6d3e699912e6785d5015f47c2931b1d1cb8488057be9db2f5f943",
+      "duration_seconds": 0.8267573696145125,
+      "sample_rate": 22050,
+      "peak": 0.97222900390625
+    },
+    {
+      "file": "GuardTowerMissileLaunch2.wav",
+      "event": "GuardTowerAttack",
+      "path": "Abilities\\Weapons\\GuardTowerMissile\\GuardTowerMissileLaunch2.wav",
+      "archive": "war3.mpq",
+      "sha256": "3c50f4ed6da0d18eb4882e518b38d82eafb8cee45d4e316621fc4f52ab84e34f",
+      "pcm_sha256": "54b12d283a2b0b28f808c6f72c2bbe3281c438f7973925256bd186dc16a3032a",
+      "duration_seconds": 0.767437641723356,
+      "sample_rate": 22050,
+      "peak": 0.979644775390625
+    },
+    {
+      "file": "GuardTowerMissileLaunch3.wav",
+      "event": "GuardTowerAttack",
+      "path": "Abilities\\Weapons\\GuardTowerMissile\\GuardTowerMissileLaunch3.wav",
+      "archive": "war3.mpq",
+      "sha256": "2310f9c6c348cf99f2d22dcf8152e5418dc100a5daa4f3dc1ec69bd4c0a49b10",
+      "pcm_sha256": "954e6403bc31395fde5d019bf11c8f44d7780b7a3a309af29ca41e2ade20b8f3",
+      "duration_seconds": 0.7600453514739229,
+      "sample_rate": 22050,
+      "peak": 0.997344970703125
+    },
+    {
+      "file": "ArrowImpact.wav",
+      "event": "ArrowHit",
+      "path": "Abilities\\Weapons\\Arrow\\ArrowImpact.wav",
+      "archive": "war3.mpq",
+      "sha256": "fd5efdd0d353653e3237026848dd303bd52ebe3fd042f7f0ee94cdb7c3ec43e1",
+      "pcm_sha256": "ebb6a3dd9019e113ecfea8607e25c6447fbe216d6ac4a8331c0e618245b89800",
+      "duration_seconds": 0.6646258503401361,
+      "sample_rate": 22050,
+      "peak": 0.968597412109375
+    }
+  ],
+  "events": [
+    {
+      "model_event": "KGUA",
+      "lookup": {
+        "AnimSoundEvent": "KGUA",
+        "SoundLabel": "GuardTowerAttack",
+        "InBeta": "1"
+      },
+      "sound": {
+        "SoundName": "GuardTowerAttack",
+        "FileNames": "GuardTowerMissileLaunch1.wav,GuardTowerMissileLaunch2.wav,GuardTowerMissileLaunch3.wav",
+        "DirectoryBase": "Abilities\\Weapons\\GuardTowerMissile\\",
+        "Volume": "127",
+        "Pitch": "1",
+        "PitchVariance": "0.1",
+        "Priority": "5",
+        "Channel": "11",
+        "Flags": "WANT3D,CHANNELFULLPREEMPT, RANDOMPITCH",
+        "MinDistance": "600",
+        "MaxDistance": "10000",
+        "DistanceCutoff": "3000",
+        "EAXFlags": "CombatSoundsEAX",
+        "InBeta": "1",
+        "version": "0"
+      }
+    },
+    {
+      "model_event": "MARR",
+      "lookup": {
+        "AnimSoundEvent": "MARR",
+        "SoundLabel": "ArrowHit",
+        "InBeta": "1"
+      },
+      "sound": {
+        "SoundName": "ArrowHit",
+        "FileNames": "ArrowImpact.wav",
+        "DirectoryBase": "Abilities\\Weapons\\Arrow\\",
+        "Volume": "127",
+        "Pitch": "1",
+        "PitchVariance": "0.1",
+        "Priority": "5",
+        "Channel": "11",
+        "Flags": "WANT3D,RANDOMPITCH",
+        "MinDistance": "600",
+        "MaxDistance": "10000",
+        "DistanceCutoff": "3000",
+        "EAXFlags": "MissilesEAX",
+        "InBeta": "1",
+        "version": "0"
+      }
+    }
+  ]
+}

@@ -197,6 +197,7 @@ func run():
 	game.start_game();game.player.smoke_mode=true
 	game.camera_rig.set_process_unhandled_input(false);get_window().set_flag(Window.FLAG_NO_FOCUS,true);Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	game.child_entered_tree.connect(observe_cast)
+	preload("res://scripts/character_projectile_pool.gd").service(game).launched.connect(observe_cast)
 	await island_rules();await controls_rules();await elite_rules()
 	print("SKY_COMBAT_RESULT failures=",failures)
 	get_tree().quit(1 if failures else 0)

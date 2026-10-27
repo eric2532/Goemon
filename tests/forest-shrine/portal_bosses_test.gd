@@ -2,7 +2,7 @@ extends SceneTree
 const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
 const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
 const Contact=preload("res://scripts/forest/forest_enemy_contact.gd")
-const Layout="res://assets/maps/forest_four_gates.json"
+const Layout="res://tests/forest-shrine/reference/maps/forest_four_gates.json"
 var checks=0
 var failures=0
 func _initialize():run.call_deferred()

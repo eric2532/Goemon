@@ -38,12 +38,13 @@ func setup_case(attack:bool,downward:bool):
   config.style="bow-fan";config.downward=true;config.aimPoint=Vector3(0,0,70)
   Actions.begin_attack(combat,config,0,"cutlass");combat.player.attack.time=combat.player.attack.contact
  combat.player.shotDownward=downward;combat.player.shot=.1
- target.hp=10000;game.model.enemies[target.forest_id].hp=10000
+ target._sync_fitted_pose() # Native HP is authoritative; compare per-arrow deltas.
  combat.pose_samples=0;seed(9341)
 func capture()->Dictionary:
  var arrows=[];var damage=[]
  for pr in combat.projectiles:
   var state=pr.duplicate(true);state.erase("mesh");state.erase("ticket")
+  state.erase("visual_lease") # Each pool checkout deliberately has a new generation.
   state.transform=pr.mesh.transform
   arrows.append(state)
   var hp=target.hp
@@ -51,7 +52,7 @@ func capture()->Dictionary:
   damage.append(hp-target.hp)
  return {"arrows":arrows,"damage":damage,"shot":combat.player.shot,"downward":combat.player.shotDownward,"serial":combat.player.rangerFlightSerial}
 func run():
- var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+ var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game
  for i in 3:await process_frame
  AudioServer.set_bus_mute(0,true);game.start_wave();game.model.waves.pending=999;game.model.waves.spawn_clock=100000

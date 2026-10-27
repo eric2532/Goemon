@@ -29,12 +29,12 @@ func run():
 	check(play.stream==fallback and not play.original,"Enemy/non-original routes cannot borrow Goemon audio")
 	lib.select_character(1);save("swing",fixture(22050));lib.set_gain("swing",.4);lib.set_muted("swing",true)
 	play=lib.playback_for(1,"move_primary_1_weapon",fallback)
-	check(play.original and not play.recorded and play.stream==Original.stream_for("move_primary_1_weapon") and is_equal_approx(play.gain,.4) and play.muted,"Goemon ignores legacy recorded takes while retaining slot gain and mute controls")
+	check(play.recorded and play.stream==lib.custom_for(1,"swing") and is_equal_approx(play.gain,.4) and play.muted,"Goemon inherits its saved shared take, gain and mute until the move is customized")
 	lib.set_muted("swing",false);save("move_primary_1_weapon",fixture(16000));lib.set_gain("move_primary_1_weapon",.7)
 	play=lib.playback_for(1,"move_primary_1_weapon",fallback)
-	check(play.original and not play.recorded and play.stream==Original.stream_for("move_primary_1_weapon") and is_equal_approx(play.gain,.28),"Goemon original playback also ignores dedicated move takes without changing stored gain settings")
+	check(play.recorded and play.stream==lib.custom_for(1,"move_primary_1_weapon") and is_equal_approx(play.gain,.7),"A dedicated Goemon take owns its sound and volume")
 	save("move_primary_1_voice",fixture(16000))
-	check(lib.custom_for(1,"move_primary_1_voice")!=null,"Saved voice takes remain preserved while original combat voices are selected")
+	check(lib.custom_for(1,"move_primary_1_voice")!=null,"Saved voice takes are available alongside the installed defaults")
 	lib.free()
 	# Exercise the actual Game.sound/MoveAudio dispatcher with an empty profile.
 	lib=new_library();lib.folder=sandbox+"/runtime-recordings";lib.config_path=sandbox+"/runtime-studio.cfg"
@@ -43,7 +43,8 @@ func run():
 	game.player=Hero.new();game.player.game=game;game.player.character_id=1
 	game.sound_library=lib;lib.game=game
 	lib.select_character(1);save("move_primary_1_voice",fixture(16000));save("jump",fixture(16000))
-	check(lib.stream_for(1,"jump",fixture())==Original.stream_for("jump") and lib.custom_for(1,"jump")!=null,"Goemon original-only preference preserves recordings while bypassing them in direct playback")
+	check(lib.stream_for(1,"jump",fixture())==lib.custom_for(1,"jump"),"Goemon direct playback selects its recorded jump")
+	lib.reset_slot("jump");lib.reset_slot("move_primary_1_voice")
 	game.camera_rig=ActionCamera.new();game.camera_rig.game=game;game.add_child(game.camera_rig);game.camera_rig.set_process(false)
 	for index in 3:
 		var ticket={"move_audio":{"character_id":1,"move_key":"primary_%d"%(index+1),"voiced":false}}
@@ -54,7 +55,7 @@ func run():
 		check(game.move_audio.cursor==before+(0 if index==1 else 1),"Later pipe swoosh cannot duplicate the entry grunt: "+str(index+1))
 		check(game.last_sound_voice.stream==Original.stream_for("move_primary_%d_weapon"%(index+1)),"Game dispatch plays source pipe combo "+str(index+1))
 		check(game.last_sound_voice.pitch_scale==1.0,"Game dispatch keeps the source pipe pitch "+str(index+1))
-	check(game.move_audio.voices[0].stream==Original.stream_for("move_primary_1_voice") and game.move_audio.voices[1].stream==Original.stream_for("move_primary_3_voice"),"Actual first/finisher grunts use native random groups despite saved voice takes")
+	check(game.move_audio.voices[0].stream==Original.stream_for("move_primary_1_voice") and game.move_audio.voices[1].stream==Original.stream_for("move_primary_3_voice"),"After Restore, first/finisher grunts use their built-in native random groups")
 	game.sound("hit",1,false,{},1)
 	check(game.last_sound_voice.stream==Original.stream_for("hit") and game.last_sound_voice.pitch_scale==1.0,"Confirmed contact dispatch uses original victim event 24F at its source pitch")
 	game.sound("heavy_hit",1,false,{},1)

@@ -25,6 +25,10 @@ func _initialize():
 func fail(message:String):
 	printerr("ASSET_COMPARE: ",message);failed=true;quit(1)
 func read_model(path:String)->Node3D:
+	if options.has("imported"):
+		var packed=load(ProjectSettings.localize_path(path)) as PackedScene
+		if packed==null:fail("Refresh imports before --imported comparison: "+path);return null
+		return packed.instantiate()
 	var document=GLTFDocument.new();var state=GLTFState.new()
 	if document.append_from_file(path,state)!=OK:fail("Cannot import "+path);return null
 	return document.generate_scene(state,30.0,false,false)
@@ -42,8 +46,9 @@ func build_view(parent:Node,label_:String,path:String):
 	var model=read_model(path)
 	if model==null:return
 	scene.add_child(model);models.append(model)
-	if options.get("asset","")=="musashi":
-		var materials=load("res://scripts/recovered_musashi_model.gd").install_palette_for(model)
+	if options.get("asset","") in ["musashi","kojiro"] or str(options.get("asset","")).begins_with("leader-"):
+		var adapter="res://scripts/recovered_musashi_model.gd" if options.asset=="musashi" else "res://scripts/recovered_leader_model.gd"
+		var materials=load(adapter).install_palette_for(model)
 		for material in materials:
 			material.set_shader_parameter("compensate_filmic",true);material.set_shader_parameter("scene_exposure",env.tonemap_exposure);material.set_shader_parameter("scene_white",env.tonemap_white)
 		palettes.append(materials)
@@ -60,7 +65,7 @@ func seek(seconds:float):
 		player.play(clip);player.seek(seconds,true);player.pause()
 		for skeleton in models[i].find_children("*","Skeleton3D",true,false):skeleton.force_update_all_bone_transforms()
 		# Match the game controller's treatment of epsilon-scale hidden stages.
-		for mesh in models[i].find_children("*","MeshInstance3D",true,false):mesh.visible=mesh.global_basis.get_scale().length()>.025
+		for mesh in models[i].find_children("*","MeshInstance3D",true,false):mesh.visible=mesh.global_basis.get_scale().length()>(.00001 if options.get("asset","")=="kojiro" else .025)
 func set_clip(index:int):
 	clips.select(index);elapsed=0
 	var clip=clips.get_item_text(index)
@@ -102,17 +107,25 @@ func run():
 	build_view(row,"BEFORE · "+str(options.before).get_file(),options.before)
 	build_view(row,"AFTER · "+str(options.after).get_file(),options.after)
 	if failed:return
-	if models.size()!=2 or players[0]==null or players[1]==null:fail("Both models require an AnimationPlayer");return
-	for clip in players[0].get_animation_list():clips.add_item(clip)
-	if players[0].get_animation_list()!=players[1].get_animation_list():fail("Imported animation lists differ");return
+	if models.size()!=2:fail("Both models must load");return
+	var before_clips=players[0].get_animation_list() if players[0] else PackedStringArray()
+	var after_clips=players[1].get_animation_list() if players[1] else PackedStringArray()
+	if before_clips!=after_clips:fail("Imported animation lists differ");return
+	for clip in before_clips:clips.add_item(clip)
+	if clips.item_count==0:clips.add_item("Static")
 	var default_clip="work_loop" if options.get("asset","")=="goldmine" else "Table_00__800d46e4"
+	if options.get("asset","")=="kojiro":default_clip="Source__801e2170"
+	if options.get("asset","")=="sonic":default_clip="Sonic Stand"
 	for i in clips.item_count:
 		if clips.get_item_text(i)==default_clip:clips.select(i);break
 	set_clip(clips.selected)
+	await process_frame # Skinned bounds are published after the initial pose update.
+	if DisplayServer.get_name()!="headless":await RenderingServer.frame_post_draw
 	var bounds=AABB();var first=true
 	for mesh in models[0].find_children("*","MeshInstance3D",true,false):
 		if not mesh.visible:continue
-		var box=mesh.global_transform*mesh.get_aabb();bounds=box if first else bounds.merge(box);first=false
+		var posed=mesh.bake_mesh_from_current_skeleton_pose() if mesh.skin!=null else mesh.mesh
+		var box=mesh.global_transform*posed.get_aabb();bounds=box if first else bounds.merge(box);first=false
 	target=bounds.get_center();distance_value=maxf(bounds.size.length()*2.3,1.0);orbit(angle.value)
 	readout.text="Same camera / lighting / animation time. Drag the timeline and angle slider. Gear masks: 0 original, 31 all equipment."
 	if options.has("capture"):
@@ -128,11 +141,15 @@ func capture_sweep():
 	DirAccess.make_dir_recursive_absolute(output)
 	var selected=[]
 	var chosen=["build","reverse_build","work_loop","upgrade_preview"] if options.asset=="goldmine" else ["Table_00__800d46e4","Table_07__800d4944","Extra__800d4c94","Extra__800d4f14","Extra__800d5360","Extra__800d4be0"]
+	if options.asset=="kojiro":chosen=["Source__801e2170","Source__801e2478","Source__801e2660","Source__801e2708","Source__801e2910","Source__801e2b50","Source__801e2ce8"]
+	if options.asset=="sonic":chosen=["Sonic Stand","Sonic Walk","Sonic Speedwalk","Sonic Jog","Sonic Run","Sonic Sprint","Sonic Brake","Sonic Fall"]
 	for i in clips.item_count:
 		if options.has("all-clips") or clips.get_item_text(i) in chosen:selected.append(i)
+	if selected.is_empty():
+		for i in mini(clips.item_count,6):selected.append(i)
 	for clip_index in selected:
 		set_clip(clip_index)
-		for fraction in [0.0,.5,1.0]:
+		for fraction in ([0.0,.5,1.0] if players[0] else [0.0]):
 			var seconds=timeline.max_value*fraction;seek(seconds)
 			for degrees in [0.0,90.0,180.0,270.0]:
 				orbit(degrees)
@@ -141,11 +158,13 @@ func capture_sweep():
 				before.convert(Image.FORMAT_RGBA8);after.convert(Image.FORMAT_RGBA8)
 				var clip=clips.get_item_text(clip_index);var name="%s-%.2f-%03d"%[clip,fraction,int(degrees)]
 				if before.save_png(output+"/"+name+"-before.png")!=OK or after.save_png(output+"/"+name+"-after.png")!=OK:fail("Cannot write captures");return
+				if options.asset=="kojiro" and views[0].get_render_info(Viewport.RENDER_INFO_TYPE_VISIBLE,Viewport.RENDER_INFO_DRAW_CALLS_IN_FRAME)==0:
+					fail("Kojiro comparison drew no geometry");return
 				var metrics=before.compute_image_metrics(after,false)
 				# Perfect matches yield infinite PSNR, which is not portable JSON.
 				metrics.erase("peak_snr")
 				captures.append({"clip":clip,"seconds":seconds,"angle":degrees,"before":name+"-before.png","after":name+"-after.png","metrics":metrics,"draw_calls_before":views[0].get_render_info(Viewport.RENDER_INFO_TYPE_VISIBLE,Viewport.RENDER_INFO_DRAW_CALLS_IN_FRAME),"draw_calls_after":views[1].get_render_info(Viewport.RENDER_INFO_TYPE_VISIBLE,Viewport.RENDER_INFO_DRAW_CALLS_IN_FRAME)})
-	var report={"asset":options.asset,"before":options.before,"after":options.after,"captures":captures,"renderer":RenderingServer.get_video_adapter_name(),"notes":"Pixel metrics are review evidence; file preservation and imported animation tests are separate gates."}
+	var report={"asset":options.asset,"imported":options.has("imported"),"before":options.before,"after":options.after,"captures":captures,"renderer":RenderingServer.get_video_adapter_name(),"before_sha256":FileAccess.get_sha256(options.before),"after_sha256":FileAccess.get_sha256(options.after),"notes":"Pixel metrics are review evidence; file preservation and imported animation tests are separate gates."}
 	var file=FileAccess.open(output+"/comparison.json",FileAccess.WRITE)
 	if file==null:fail("Cannot write comparison report");return
 	file.store_string(JSON.stringify(report,"\t"));file.close()

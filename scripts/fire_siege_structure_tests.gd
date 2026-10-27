@@ -173,7 +173,10 @@ func asset_contracts():
 	check(not arrow.embedded_arrow.visible,"Firing hides the embedded demonstration arrow while the independent bolt travels")
 	if not arrow.shells.is_empty():
 		var bolt=arrow.shells[0].node
-		check(bolt.find_child("ARROW_PROJECTILE_ROOT",true,false)!=null and bolt.find_child("SOCKET_ARROW_TIP",true,false)!=null and bolt.find_children("*","MeshInstance3D",true,false).size()==5,"Travelling bolt uses the supplied five-mesh arrow GLB and tip socket")
+		var triangles=0
+		for mesh in bolt.find_children("*","MeshInstance3D",true,false):
+			for surface in mesh.mesh.get_surface_count():triangles+=triangle_count(mesh.mesh,surface)
+		check(bolt.find_child("ARROW_PROJECTILE_ROOT",true,false)!=null and bolt.find_child("SOCKET_ARROW_TIP",true,false)!=null and triangles==120,"Travelling bolt preserves the supplied arrow geometry and tip socket after batching")
 	arrow.tick(.05,0)
 	check(arrow.recoil.position.distance_to(recoil_rest)>.05,"Each gameplay shot drives the supplied local recoil animation")
 	arrow.tick(.4,0)

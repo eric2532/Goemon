@@ -4,6 +4,7 @@ import copy
 import json
 import itertools
 import math
+import re
 from pathlib import Path
 import struct
 import tempfile
@@ -55,7 +56,7 @@ def geometry_records(model):
         for i in scene_nodes(doc,scene_index):
             n=doc['nodes'][i]
             if 'mesh' not in n: continue
-            m = matrix(n)
+            m = matrix(n); singular=abs(determinant(m))<1e-15
             for p in doc['meshes'][n['mesh']]['primitives']:
                 if p.get('mode',4) != 4: raise ValueError('Preservation check requires triangle lists')
                 attrs = {k: model.accessor(v) for k,v in p['attributes'].items()}
@@ -69,10 +70,10 @@ def geometry_records(model):
                     for index in tri:
                         vertex=[]
                         for semantic,rows in sorted(attrs.items()):
-                            value = transformed(rows[index],m,semantic) if semantic in ('POSITION','NORMAL','TANGENT') else rows[index]
+                            value = transformed(rows[index],m,semantic) if semantic in ('POSITION','NORMAL','TANGENT') and not singular else rows[index]
                             vertex.append((semantic,tuple(float(x) for x in value)))
                         values.append(vertex)
-                    corners.append(((scene_index,parent.get(i),n.get('skin'),mat,tuple(sorted(attrs))),values))
+                    corners.append(((scene_index,parent.get(i),n.get('skin'),mat,tuple(sorted(attrs)),i if singular else None),values))
     return corners
 
 
@@ -113,22 +114,71 @@ def validate_preservation(before, after):
         scene_ok = scene_ok and all(i in candidate.get('nodes',[]) for i in original.get('nodes',[]))
     def skins(model):
         return [{**s, 'inverseBindMatrices': model.accessor(s['inverseBindMatrices']) if 'inverseBindMatrices' in s else None} for s in model.doc.get('skins',[])]
+    def morphs(model):
+        result={}
+        for i,node in enumerate(model.doc['nodes']):
+            if 'mesh' not in node:continue
+            mesh=model.doc['meshes'][node['mesh']]
+            targets=[{k:model.accessor(v) for k,v in target.items()} for p in mesh['primitives'] for target in p.get('targets',[])]
+            if targets:result[i]={'targets':targets,'weights':mesh.get('weights',[]),'names':mesh.get('extras',{}).get('targetNames',[])}
+        return result
+    morph_ok=morphs(before)==morphs(after)
     geometry = compare_geometry(before,after)
-    checks = {'scene_membership': scene_ok, 'nodes_and_sockets': node_ok, 'skins_and_bind_poses': skins(before)==skins(after),
+    checks = {'scene_membership': scene_ok, 'nodes_and_sockets': node_ok, 'skins_and_bind_poses': skins(before)==skins(after), 'morph_targets':morph_ok,
               'animation_samples': before.animation_digest()==after.animation_digest(),
               'texture_bytes': [digest(before.image_bytes(i)) for i in b.get('images',[])] == [digest(after.image_bytes(i)) for i in a.get('images',[])],
               'oriented_corner_attributes': geometry['passed']}
     return {'passed': all(checks.values()), 'checks': checks, 'geometry': geometry}
 
 
-def optimize(source, destination):
+def merged_primitives(model,node_ids,remap,bake=True):
+    doc=model.doc
+    surfaces = {}
+    for i in node_ids:
+        n=doc['nodes'][i]; m=matrix(n) if bake else matrix({})
+        for p in doc['meshes'][n['mesh']]['primitives']:
+            attrs=p['attributes']; mat=remap[p['material']] if 'material' in p else None
+            formats=tuple((k,doc['accessors'][v]['componentType'],doc['accessors'][v]['type'],doc['accessors'][v].get('normalized',False)) for k,v in sorted(attrs.items()))
+            key=(mat,formats)
+            if key not in surfaces: surfaces[key]={'attributes':{k:[] for k in attrs},'indices':[],'templates':{k:doc['accessors'][v] for k,v in attrs.items()}}
+            out=surfaces[key]; offset=len(out['attributes']['POSITION'])
+            for semantic,accessor in attrs.items():
+                rows=model.accessor(accessor)
+                if bake and semantic in ('POSITION','NORMAL','TANGENT'):
+                    if doc['accessors'][accessor]['componentType'] != 5126: raise ValueError('Decode quantized transforms before batching')
+                    rows=[transformed(row,m,semantic) for row in rows]
+                out['attributes'][semantic].extend(rows)
+            indices=[r[0] for r in model.accessor(p['indices'])] if 'indices' in p else list(range(len(model.accessor(attrs['POSITION']))))
+            if len(indices)%3: raise ValueError('Incomplete triangle primitive')
+            if determinant(m)<0:
+                indices=[indices[j+k] for j in range(0,len(indices),3) for k in (0,2,1)]
+            out['indices'].extend(index+offset for index in indices)
+    primitives=[]
+    for (mat,_),out in surfaces.items():
+        # Keep seams, normals, colors, bone ids and weights in the vertex key.
+        attributes=out['attributes'];unique={k:[] for k in attributes};lookup={};vertex_map=[]
+        for index in range(len(attributes['POSITION'])):
+            key=tuple(tuple(attributes[k][index]) for k in sorted(attributes))
+            if key not in lookup:
+                lookup[key]=len(unique['POSITION'])
+                for semantic in unique:unique[semantic].append(attributes[semantic][index])
+            vertex_map.append(lookup[key])
+        out['attributes']=unique;out['indices']=[vertex_map[i] for i in out['indices']]
+        p={'attributes':{k:model.append_accessor(rows,out['templates'][k]) for k,rows in out['attributes'].items()},
+           'indices':model.append_accessor([(i,) for i in out['indices']],{'componentType':5125,'type':'SCALAR'})}
+        if mat is not None:p['material']=mat
+        primitives.append(p)
+    return primitives
+
+
+def optimize(source, destination, preserve_mesh_nodes=""):
     source, destination = Path(source).resolve(), Path(destination).resolve()
     if source == destination: raise ValueError('Refusing to overwrite authored source')
     before = GLB.read(source); model = GLB(copy.deepcopy(before.doc), before.binary, source)
     doc = model.doc
-    allowed = {'KHR_materials_unlit','KHR_materials_emissive_strength'}
-    if set(doc.get('extensionsUsed',[]))-allowed:
-        raise ValueError('Optimizer only accepts core geometry plus unlit/emissive materials; decode other extensions first')
+    supported={'KHR_materials_unlit','KHR_materials_emissive_strength','KHR_materials_transmission','KHR_materials_specular','KHR_texture_transform'}
+    unsupported=[e for e in doc.get('extensionsUsed',[]) if e not in supported]
+    if unsupported:raise ValueError('Unsupported GLB extensions (not modified): '+str(unsupported))
     if any('uri' in im for im in doc.get('images',[])):
         raise ValueError('Embed image resources before optimizing into another directory')
     parent = parents(doc)
@@ -143,43 +193,23 @@ def optimize(source, destination):
     for i,m in enumerate(doc.get('materials',[])):
         remap[i] = canonical.setdefault(model.material_key(i), i)
     groups = collections.defaultdict(list)
+    singletons=[]
     for i,n in enumerate(doc['nodes']):
-        if 'mesh' not in n or i in animated: continue
+        if 'mesh' not in n: continue
         mesh = doc['meshes'][n['mesh']]
         if mesh.get('weights') or mesh.get('extensions') or any(p.get('targets') or p.get('extensions') or p.get('mode',4)!=4 for p in mesh['primitives']): continue
-        if 'skin' in n and matrix(n) != matrix({}): continue
+        if i in animated or (preserve_mesh_nodes and re.search(preserve_mesh_nodes,n.get('name',''))):
+            singletons.append(i);continue
+        if 'skin' in n and matrix(n) != matrix({}):
+            singletons.append(i);continue
         if abs(determinant(matrix(n))) < 1e-15: continue
         scene_ids = tuple(s for s,scene in enumerate(doc.get('scenes',[])) if i in scene.get('nodes',[]))
         if i not in parent and not scene_ids: continue
         groups[(parent.get(i),n.get('skin'),scene_ids)].append(i)
     for (pivot,skin,scene_ids), node_ids in groups.items():
-        if len(node_ids)<2: continue
-        surfaces = {}
-        for i in node_ids:
-            n=doc['nodes'][i]; m=matrix(n)
-            for p in doc['meshes'][n['mesh']]['primitives']:
-                attrs=p['attributes']; mat=remap[p['material']] if 'material' in p else None
-                formats=tuple((k,doc['accessors'][v]['componentType'],doc['accessors'][v]['type'],doc['accessors'][v].get('normalized',False)) for k,v in sorted(attrs.items()))
-                key=(mat,formats)
-                if key not in surfaces: surfaces[key]={'attributes':{k:[] for k in attrs},'indices':[],'templates':{k:doc['accessors'][v] for k,v in attrs.items()}}
-                out=surfaces[key]; offset=len(out['attributes']['POSITION'])
-                for semantic,accessor in attrs.items():
-                    rows=model.accessor(accessor)
-                    if semantic in ('POSITION','NORMAL','TANGENT'):
-                        if doc['accessors'][accessor]['componentType'] != 5126: raise ValueError('Decode quantized transforms before batching')
-                        rows=[transformed(row,m,semantic) for row in rows]
-                    out['attributes'][semantic].extend(rows)
-                indices=[r[0] for r in model.accessor(p['indices'])] if 'indices' in p else list(range(len(model.accessor(attrs['POSITION']))))
-                if len(indices)%3: raise ValueError('Incomplete triangle primitive')
-                if determinant(m)<0:
-                    indices=[indices[j+k] for j in range(0,len(indices),3) for k in (0,2,1)]
-                out['indices'].extend(index+offset for index in indices)
-        primitives=[]
-        for (mat,_),out in surfaces.items():
-            p={'attributes':{k:model.append_accessor(rows,out['templates'][k]) for k,rows in out['attributes'].items()},
-               'indices':model.append_accessor([(i,) for i in out['indices']],{'componentType':5125,'type':'SCALAR'})}
-            if mat is not None:p['material']=mat
-            primitives.append(p)
+        if len(node_ids)<2:
+            singletons.extend(node_ids);continue
+        primitives=merged_primitives(model,node_ids,remap)
         mesh_index=len(doc['meshes']);doc['meshes'].append({'name':'OptimizedBatch_%s'%('Scene' if pivot is None else doc['nodes'][pivot].get('name',pivot)),'primitives':primitives})
         node_index=len(doc['nodes']);node={'name':'AssetBatch_%d'%node_index,'mesh':mesh_index}
         if skin is not None:node['skin']=skin
@@ -189,6 +219,10 @@ def optimize(source, destination):
             for s in scene_ids:doc['scenes'][s]['nodes'].append(node_index)
         for i in node_ids:
             del doc['nodes'][i]['mesh'];doc['nodes'][i].pop('skin',None)
+    for i in singletons:
+        node=doc['nodes'][i];old=doc['meshes'][node['mesh']]
+        primitives=merged_primitives(model,[i],remap,bake=False)
+        node['mesh']=len(doc['meshes']);doc['meshes'].append({**old,'primitives':primitives})
     used=sorted({n['mesh'] for n in doc['nodes'] if 'mesh'in n});mesh_map={old:new for new,old in enumerate(used)}
     doc['meshes']=[doc['meshes'][i] for i in used]
     for n in doc['nodes']:

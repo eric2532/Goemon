@@ -73,7 +73,7 @@ func _ready():
 	target_clock=float(formation_index)*.035
 	play_animation("idle")
 
-func create_model()->Node3D:return load(String(profile.asset)).instantiate()
+func create_model()->Node3D:return load(GameAssets.model_path(String(profile.asset))).instantiate()
 func collision_height()->float:return 1.25
 func health_bar_height()->float:return 1.95
 func advance_animation(delta: float):

@@ -65,7 +65,7 @@ func painterly_checks():
  check(unchanged and roads.material_override==road_material and road_material.shader==KAI_SHADER,"Painterly apply preserves native Kai terrain and road materials")
  check(collision_matches(Vector2(0,120)),"Painterly apply preserves native incline collision")
 func preset_checks():
- var document=load("res://scripts/forest/forest_map_document.gd").new()
+ var document=load("res://tests/forest-shrine/reference/map_document.gd").new()
  check(document.load_original().is_empty(),"Protected Original Map remains available")
  game.preview_forest_map(document.data);await frames();await physics_frame
  check(game.model.terrain_source.is_empty() and game.world.base_ground.visible and game.world.base_ground_collision.collision_layer==1,"Reloading Original Map restores its visible and solid flat floor")

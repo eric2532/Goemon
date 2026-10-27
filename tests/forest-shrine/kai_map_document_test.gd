@@ -9,7 +9,7 @@ func check(ok: bool,message: String):
 func _initialize():
 	create_timer(90).timeout.connect(func():printerr("FAIL: Kai map document timeout");quit(1));run.call_deferred()
 func run():
-	var D=load("res://scripts/forest/forest_map_document.gd")
+	var D=load("res://tests/forest-shrine/reference/map_document.gd")
 	var Model=load("res://tests/forest-shrine/reference/forest_model.gd")
 	var legacy=JSON.parse_string(FileAccess.get_file_as_string(D.ORIGINAL_PATH))
 	check(D.validate(legacy).is_empty(),"Legacy maps without a terrain source still load")
@@ -26,7 +26,7 @@ func run():
 	placement.erase("terrain_source")
 	check(D.validate(placement).is_empty(),"Legacy flat terrain keeps its original placement rules")
 	var workspace=load("res://scripts/forest/forest_map_editor.gd").new();root.add_child(workspace)
-	check(workspace.find_child("KaiHighwayForestMap",true,false) is Button,"Map Editor offers the Kai Highway Castle preset")
+	check(workspace.find_child("KaiHighwayForestMap",true,false) == null,"Retired map presets are absent from the playable editor")
 	workspace.free()
 	var doc=D.new()
 	if not doc.has_method("load_kai_highway"):
@@ -75,21 +75,20 @@ func editor_checks(D):
 	check(editor.active and editor.name_field.text=="Kai Highway Castle","Opening the active Kai map uses its terrain identity before eight-portal Four Gates detection")
 	check(editor.document.data.get("terrain_source")=="kai_highway","Opening the real editor captures active Kai terrain")
 	var kai_button=editor.find_child("KaiHighwayForestMap",true,false)
-	check(kai_button is Button,"Map Editor exposes the Kai Highway Castle preset")
-	check(editor.find_child("FourGatesForestMap",true,false) is Button and editor.find_child("RampartsForestMap",true,false) is Button and editor.find_child("OriginalForestMap",true,false) is Button,"Map Editor keeps the existing map presets")
-	editor.load_original()
+	check(kai_button == null,"Retired map presets are absent from the playable editor")
+	check(editor.find_child("FourGatesForestMap",true,false) == null and editor.find_child("RampartsForestMap",true,false) == null and editor.find_child("OriginalForestMap",true,false) == null,"Retired map presets are absent from the playable editor")
+	preload("res://tests/forest-shrine/reference/map_document.gd").load_editor(editor,preload("res://tests/forest-shrine/reference/map_document.gd").ORIGINAL_PATH)
 	for i in range(4):await process_frame
-	if kai_button is Button:
-		kai_button.pressed.emit()
+	preload("res://tests/forest-shrine/reference/map_document.gd").load_editor(editor,D.KAI_HIGHWAY_PATH)
+	for i in range(4):await process_frame
+	check(editor.name_field.text=="Kai Highway Castle" and game.model.get("terrain_source")=="kai_highway" and editor.document.data.portals.size()==8,"The actual Kai preset button loads its terrain, title and all eight portals")
+	editor.name_field.text="My Kai Castle";editor.document.rename("My Kai Castle");editor.play_map()
+	for i in range(4):await process_frame
+	check(not editor.active and get_meta("forest_custom_layout",{}).get("title")=="My Kai Castle","Playing a custom Kai map retains its chosen name")
+	if not editor.active:
+		game.open_map_editor()
 		for i in range(4):await process_frame
-		check(editor.name_field.text=="Kai Highway Castle" and game.model.get("terrain_source")=="kai_highway" and editor.document.data.portals.size()==8,"The actual Kai preset button loads its terrain, title and all eight portals")
-		editor.name_field.text="My Kai Castle";editor.document.rename("My Kai Castle");editor.play_map()
-		for i in range(4):await process_frame
-		check(not editor.active and get_meta("forest_custom_layout",{}).get("title")=="My Kai Castle","Playing a custom Kai map retains its chosen name")
-		if not editor.active:
-			game.open_map_editor()
-			for i in range(4):await process_frame
-			check(editor.active and editor.name_field.text=="My Kai Castle" and editor.document.data.get("terrain_source")=="kai_highway","Reopening a custom Kai map prefers its saved name over the preset title")
+		check(editor.active and editor.name_field.text=="My Kai Castle" and editor.document.data.get("terrain_source")=="kai_highway","Reopening a custom Kai map prefers its saved name over the preset title")
 	if editor.active:editor.close_discard()
 	if has_meta("forest_custom_layout"):remove_meta("forest_custom_layout")
 	game.sound_library.cancel();game.music.stop()

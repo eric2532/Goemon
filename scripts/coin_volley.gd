@@ -33,14 +33,6 @@ func _ready():
 			var part=original.get_child(0) as MeshInstance3D
 			original_mesh_parts.append({"mesh":part.mesh,"transform":part.transform,"material":part.material_override});original.free()
 		visual_parts=original_mesh_parts
-	points.resize(coin_count);velocities.resize(coin_count);alive.resize(coin_count);alive.fill(1)
-	active_count=coin_count
-	var spacing=minf(.065,.45/maxf(1,ceilf((coin_count-1)*.5)))
-	for i in range(coin_count):
-		# The central coin always retains exact auto aim, then pairs fan outward.
-		var angle=0.0 if i==0 else ceilf(i*.5)*spacing*(1 if i%2 else -1)
-		velocities[i]=velocity.rotated(Vector3.UP,angle)
-		contacts.append({})
 	for part in visual_parts:
 		var batch=MultiMeshInstance3D.new();batch.multimesh=MultiMesh.new()
 		batch.multimesh.transform_format=MultiMesh.TRANSFORM_3D
@@ -57,6 +49,21 @@ func _ready():
 		wake_batch.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(wake_batch)
 		set_meta("ink_materials",[wake_batch.material_override])
 	ray_query=PhysicsRayQueryParameters3D.new();ray_query.collision_mask=1;ray_query.hit_from_inside=true
+	restart_visual()
+
+func restart_visual():
+	points.resize(coin_count);points.fill(Vector3.ZERO);velocities.resize(coin_count);alive.resize(coin_count);alive.fill(1)
+	contacts.clear();active_count=coin_count;age=0
+	var spacing=minf(.065,.45/maxf(1,ceilf((coin_count-1)*.5)))
+	for i in coin_count:
+		var angle=0.0 if i==0 else ceilf(i*.5)*spacing*(1 if i%2 else -1)
+		velocities[i]=velocity.rotated(Vector3.UP,angle);contacts.append({})
+	for batch in batches:
+		if batch.multimesh.instance_count!=coin_count:batch.multimesh.instance_count=coin_count
+	if is_instance_valid(wake_batch):
+		var count=mini(coin_count,[16,32,64][clampi(int(game.settings.quality),0,2)])
+		if wake_batch.multimesh.instance_count!=count:wake_batch.multimesh.instance_count=count
+	for material in get_meta("ink_materials",[]):material.set_shader_parameter("brush_clock",0.0)
 	update_batch()
 
 func cast_ray(from: Vector3,to: Vector3)->Dictionary:
@@ -67,7 +74,7 @@ func _physics_process(delta):
 	if not game.playing or game.paused or game.transitioning:return
 	lifetime-=delta;age+=delta
 	if is_instance_valid(wake_batch):preload("res://assets/rogue/scripts/ink_brush_style.gd").animate(self,delta)
-	if lifetime<=0:queue_free();return
+	if lifetime<=0:retire();return
 	var origin=global_position
 	var sweep=AABB();var initialized=false
 	for i in range(coin_count):
@@ -75,10 +82,10 @@ func _physics_process(delta):
 		var start=origin+points[i];var finish=start+velocities[i]*delta
 		if not initialized:sweep=AABB(start,Vector3.ZERO);initialized=true
 		sweep=sweep.expand(start).expand(finish)
-	if not initialized:queue_free();return
+	if not initialized:retire();return
 	# A single broad-phase pass avoids scanning the whole crowd for each coin.
 	var candidates=[]
-	for victim in game.enemies:
+	for victim in AttackChain.enemy_candidates(game,sweep.get_center(),sweep.size.length()*.5+hit_radius*1.732051):
 		if not is_instance_valid(victim) or victim.dead:continue
 		var aim=AttackChain.aim_point(victim)
 		if (victim.has_method("combat_bounds") and sweep.grow(hit_radius).intersects(victim.combat_bounds())) or sweep.grow(hit_radius+victim.body_radius).has_point(aim):
@@ -122,7 +129,7 @@ func _physics_process(delta):
 		var hit=building_hits[building]
 		building.take_hit(damage*hit.count,attack_ticket,hit.point)
 	if not building_hits.is_empty():game.sound("environment_hit",.35)
-	if active_count<=0:queue_free();return
+	if active_count<=0:retire();return
 	update_batch()
 
 func add_hit(hits: Dictionary,victim: Node,point: Vector3,heading: Vector3):
@@ -137,7 +144,8 @@ func update_batch():
 		var pose=Transform3D(spin.scaled(Vector3.ONE*visual_size),points[i])
 		for part in range(batches.size()):batches[part].multimesh.set_instance_transform(index,pose*visual_parts[part].transform)
 		if is_instance_valid(wake_batch) and index<wake_batch.multimesh.instance_count:
-			var basis=Basis(Quaternion(Vector3.FORWARD,velocities[i].normalized()))
+			var heading=velocities[i].normalized() if velocities[i].length_squared()>.000001 else Vector3.FORWARD
+			var basis=Basis(Quaternion(Vector3.FORWARD,heading))
 			wake_batch.multimesh.set_instance_transform(index,Transform3D(basis.scaled(Vector3.ONE*visual_size),points[i]))
 		index+=1
 	for batch in batches:batch.multimesh.visible_instance_count=index

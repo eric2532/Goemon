@@ -1,0 +1,163 @@
+{
+  "HeroBladeMaster": {
+    "bones": 52,
+    "vertices": 651,
+    "triangles": 550,
+    "sequences": [
+      {
+        "name": "Stand - 2",
+        "start_frame": 0,
+        "end_frame": 107,
+        "duration_seconds": 3.534,
+        "looping": true
+      },
+      {
+        "name": "Stand cinematic",
+        "start_frame": 0,
+        "end_frame": 165,
+        "duration_seconds": 5.467,
+        "looping": true
+      },
+      {
+        "name": "Attack",
+        "start_frame": 0,
+        "end_frame": 36,
+        "duration_seconds": 1.167,
+        "looping": false
+      },
+      {
+        "name": "Attack Slam",
+        "start_frame": 0,
+        "end_frame": 34,
+        "duration_seconds": 1.133,
+        "looping": false
+      },
+      {
+        "name": "Stand - 4",
+        "start_frame": 0,
+        "end_frame": 47,
+        "duration_seconds": 1.534,
+        "looping": true
+      },
+      {
+        "name": "Death",
+        "start_frame": 0,
+        "end_frame": 57,
+        "duration_seconds": 1.9,
+        "looping": false
+      },
+      {
+        "name": "Walk",
+        "start_frame": 0,
+        "end_frame": 22,
+        "duration_seconds": 0.733,
+        "looping": true
+      },
+      {
+        "name": "Stand",
+        "start_frame": 0,
+        "end_frame": 36,
+        "duration_seconds": 1.167,
+        "looping": true
+      },
+      {
+        "name": "Attack 2",
+        "start_frame": 0,
+        "end_frame": 35,
+        "duration_seconds": 1.134,
+        "looping": false
+      },
+      {
+        "name": "Stand Ready",
+        "start_frame": 0,
+        "end_frame": 42,
+        "duration_seconds": 1.4,
+        "looping": true
+      },
+      {
+        "name": "Stand Victory",
+        "start_frame": 0,
+        "end_frame": 93,
+        "duration_seconds": 3.1,
+        "looping": true
+      },
+      {
+        "name": "Dissipate",
+        "start_frame": 0,
+        "end_frame": 102,
+        "duration_seconds": 3.367,
+        "looping": false
+      },
+      {
+        "name": "Portrait 1",
+        "start_frame": 0,
+        "end_frame": 51,
+        "duration_seconds": 1.7,
+        "looping": true
+      },
+      {
+        "name": "Attack Walk Stand Spin",
+        "start_frame": 0,
+        "end_frame": 13,
+        "duration_seconds": 0.433,
+        "looping": true
+      }
+    ]
+  },
+  "HeroBladeMaster_Portrait": {
+    "bones": 34,
+    "vertices": 323,
+    "triangles": 277,
+    "sequences": [
+      {
+        "name": "Stand - 2",
+        "start_frame": 0,
+        "end_frame": 107,
+        "duration_seconds": 3.534,
+        "looping": true
+      },
+      {
+        "name": "Portrait 1",
+        "start_frame": 0,
+        "end_frame": 51,
+        "duration_seconds": 1.7,
+        "looping": true
+      },
+      {
+        "name": "Portrait 2",
+        "start_frame": 0,
+        "end_frame": 99,
+        "duration_seconds": 3.3,
+        "looping": true
+      },
+      {
+        "name": "Portrait 3",
+        "start_frame": 0,
+        "end_frame": 90,
+        "duration_seconds": 2.967,
+        "looping": true
+      },
+      {
+        "name": "Portrait Talk",
+        "start_frame": 0,
+        "end_frame": 64,
+        "duration_seconds": 2.133,
+        "looping": true
+      },
+      {
+        "name": "Portrait Talk 2",
+        "start_frame": 0,
+        "end_frame": 81,
+        "duration_seconds": 2.667,
+        "looping": true
+      },
+      {
+        "name": "Portrait Talk 3",
+        "start_frame": 0,
+        "end_frame": 86,
+        "duration_seconds": 2.834,
+        "looping": true
+      }
+    ]
+  }
+}

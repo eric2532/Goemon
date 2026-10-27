@@ -70,6 +70,11 @@ func scaled_source_pose(action_id:int,seconds:float)->Dictionary:
   var anchor:Vector3=native*HANDLE
   var basis:Basis=native.basis.scaled(Vector3.ONE*factor)
   source[pointer]=Transform3D(basis,anchor-basis*HANDLE)
+ for pointer in ['0x9007bb8']:
+  if not source.has(pointer):continue
+  var native:Transform3D=source[pointer]
+  var anchor:Vector3=source['0x90055a0'].origin
+  source[pointer]=Transform3D(native.basis.scaled(Vector3.ONE*factor),anchor+(native.origin-anchor)*factor)
  return source
 func apply_native_pose(action_id:int,seconds:float):
  var source:Dictionary=scaled_source_pose(action_id,seconds)

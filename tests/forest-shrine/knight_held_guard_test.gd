@@ -34,7 +34,7 @@ func hold(c,down: bool,action: String="heavy_attack"):
  var event=InputEventAction.new();event.action=action;event.pressed=down
  c.input(event)
 func run():
- var original=load("res://scripts/forest/forest_map_document.gd").new();original.load_original();set_meta("forest_custom_layout",original.data)
+ var original=load("res://tests/forest-shrine/reference/map_document.gd").new();original.load_original();set_meta("forest_custom_layout",original.data)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=config_path;root.add_child(game);current_scene=game
  await frames();game.start_wave();game.model.waves.pending=0;game.model.waves.spawn_clock=10000
  game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
@@ -105,7 +105,7 @@ func run():
    game._physics_process(1.0/60);c.tick_timers(1.0/60)
    if game.player.hp<hp:break
   check(game.player.hp<hp,"Actual enemy %s attack damages player HP"%("melee" if variant==0 else "archer"))
- var raised=load("res://scripts/forest/forest_map_document.gd").new();raised.load_ramparts()
+ var raised=load("res://tests/forest-shrine/reference/map_document.gd").new();raised.load_ramparts()
  game.preview_forest_map(raised.data,false);game.start_wave();game.model.waves.pending=0;game.model.waves.spawn_clock=10000
  for variant in [0,1]:
   c=await setup_fighter(5,Vector3(-96,18.1,185))

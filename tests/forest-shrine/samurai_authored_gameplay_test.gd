@@ -2,7 +2,7 @@ extends "res://tests/forest-shrine/ninja_authored_gameplay_test.gd"
 ## Real Forest damage, authored contacts, fast trails, bow and cancellation.
 func run():
  output="/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Samurai integration"
- var map_doc=load("res://scripts/forest/forest_map_document.gd").new();map_doc.load_original();set_meta("forest_custom_layout",map_doc.data)
+ var map_doc=load("res://tests/forest-shrine/reference/map_document.gd").new();map_doc.load_original();set_meta("forest_custom_layout",map_doc.data)
  config_path="user://samurai-authored-gameplay-%d.cfg"%OS.get_process_id()
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=config_path;root.add_child(game);current_scene=game
  await frames(3);game.start_wave();game.model.waves.spawn_clock=10000;game.model.waves.pending=0

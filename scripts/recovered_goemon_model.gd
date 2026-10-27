@@ -50,6 +50,7 @@ func _ready():
 	_build_compatibility_skeleton(reference)
 	pipe=Node3D.new();pipe.name="OriginalPipe";rig_visual.add_child(pipe)
 	OriginalWeapons.install(self)
+	OriginalWeapons.warmup_coins()
 	coin=Node3D.new();coin.name="OriginalHeldCoin";rig_visual.add_child(coin);coin.add_child(OriginalWeapons.create_coin());coin.hide()
 	chain_pipe=ChainPipeVisual.new();chain_pipe.link_thickness=1.0;rig_visual.add_child(chain_pipe);chain_pipe.hide()
 	OriginalWeapons.install_chain(self)

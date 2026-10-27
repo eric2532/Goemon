@@ -2,6 +2,7 @@ extends "res://scripts/character_sound_tests.gd"
 ## Real playback and confirmed damage: original sounds cannot bleed into other
 ## heroes/enemies, or mistake Fusion's third cut for a Lumina hit.
 const ORIGINAL="res://assets/audio/recovered_musashi/"
+const ArmyEnemyTarget=preload("res://scripts/forest/crowd/army_enemy_target.gd")
 func original(stream: AudioStream,name: String="")->bool:
 	return stream!=null and (stream.resource_path.begins_with(ORIGINAL) if name.is_empty() else stream.resource_path==ORIGINAL+name+".wav")
 func count_original(pool: Array,name: String="")->int:
@@ -22,12 +23,13 @@ func run():
 	game.tuning.invincible=true;game.tuning.freeze_ai=true;game.tuning.critical_chance=0;game.character_tuning={}
 	await frames(8)
 	var p=game.player;p.set_physics_process(false)
+	game.set_physics_process(false) # Keep unrelated towers/waves out of audio fixtures.
 	var c=p.active_ability
 	for entry in [["swing","fusion_swing"],["heavy_swing","lumina_swing"],["hit","sword_hit"],["heavy_hit","sword_hit"]]:
 		check(original(game.sound_preview(13,entry[0]),entry[1]),"Musashi previews the original "+entry[1])
 	check(game.sound_preview(13,"move_primary_1_voice")==null,"Retail inactive normal-sword voice remains silent by default")
 	check(game.sound_preview(13,"jump")==null and original(game.sound_preview(13,"hurt")),"Unconfirmed jump audio is silent while original hurt audio remains available")
-	check(original(game.sound_preview(13,"land"),"foot_contact"),"Actual air landing uses source 0x42E rather than the source 0x41E run-stop sound")
+	check(game.sound_preview(13,"land")==SoundLibrary.HUMANOID_LANDING,"Ordinary landing uses the shared Goemon effect while footsteps and skids retain Musashi's originals")
 	check(not original(game.sound_preview(2,"swing")) and game.sound_preview(3,"move_primary_1_voice")==null,"Original Musashi defaults stay isolated from Edo and native heroes")
 	c.cancel();stop_audio(game)
 	p.model.native_motion=true;p.model.was_moving=false;p.model.was_grounded=true;c.locomotion.source_speed=-0x80000
@@ -73,8 +75,7 @@ func run():
 		check(p.model.sword_trail.mesh!=null,"Lumina trail follows sampled blade positions")
 	# Real Forest victim, placed in the existing melee resolver's range.
 	c.cancel();p.position=Vector3(0,.05,18);p.velocity=Vector3.DOWN;p.move_and_slide();p.velocity=Vector3.ZERO;p.facing=Vector3.FORWARD;p.model.rotation=Vector3.ZERO
-	game.model.waves.spawn_one()
-	var target=game.model.enemies.values().back()
+	var target=game.model.waves.spawn_enemy(0,p.position+Vector3.FORWARD*1.3)
 	target.pos=p.position+Vector3.FORWARD*1.3;target.hp=1000;target.max_hp=1000;target.stun=100
 	game.model.update_vision(p.position);game.sync_enemies()
 	var enemy=game.actors[target.id]
@@ -90,7 +91,9 @@ func run():
 	c.tick(.02)
 	check(enemy.hp<hp and count_original(game.voices,"sword_hit")==1,"Confirmed Lumina contact plays its original hitting sound")
 	c.cancel();stop_audio(game);target.pos=Vector3(40,0,40);enemy.position=target.pos
-	enemy.fitted_pose_dirty=true;enemy._sync_fitted_pose()
+	if enemy is ArmyEnemyTarget:
+		game.army_runtime.set_pose(enemy.handle,target.pos,0);enemy.sync(game.army_runtime.unit_state(enemy.handle))
+	else:enemy.fitted_pose_dirty=true;enemy._sync_fitted_pose()
 	game.sync_enemies() # Refresh the actor-owned cached hurt volume as well.
 	c.start_attack(true);c.tick(.51)
 	check(count_original(game.voices,"sword_hit")==0,"Missing an enemy never plays a sword-on-enemy hit")
@@ -100,7 +103,7 @@ func run():
 	c.primary_attack()
 	check(game.move_audio.cursor==voice_count,"Voice mute still applies to Musashi")
 	c.cancel();stop_audio(game);game.move_audio.stop()
-	var ally=load("res://scripts/forest/forest_gate_defender.gd").new()
+	var ally=load("res://tests/forest-shrine/reference/forest_gate_defender.gd").new()
 	ally.game=game;game.add_child(ally);ally.select_character(13);ally.set_physics_process(false)
 	p.select_character(1);stop_audio(game);ally.active_ability.start_attack(false)
 	check(count_original(game.voices,"fusion_swing")==1,"Musashi allies keep their original swing when Goemon is selected")
@@ -116,11 +119,11 @@ func run():
 	p.attack_ticket=p.attack_chain.begin("pipe","primary_1");p.attack_chain.reset()
 	p.dodge_cooldown=0;stop_audio(game)
 	var evade=InputEventAction.new();evade.action="dodge";evade.pressed=true;p._unhandled_input(evade)
-	check(game.last_sound_voice.stream==game.sound_preview(1,"move_evade_weapon") and game.last_sound_voice.stream!=lib.custom_for(1,"move_evade_weapon"),"Goemon dodge after chain reset bypasses its saved take consistently with preview")
+	check(game.last_sound_voice.stream==game.sound_preview(1,"move_evade_weapon") and game.last_sound_voice.stream==lib.custom_for(1,"move_evade_weapon"),"Goemon dodge after chain reset uses its saved take consistently with preview")
 	var evade_voiced=false
 	for voice in game.move_audio.voices:
 		if voice.playing and voice.stream==lib.custom_for(1,"move_evade_voice"):evade_voiced=true
-	check(not evade_voiced and lib.custom_for(1,"move_evade_voice")!=null,"Goemon dodge preserves its recorded voice without playing it under original-only preference")
+	check(evade_voiced and lib.custom_for(1,"move_evade_voice")!=null,"Goemon dodge plays its independently recorded voice")
 	game.queue_free();await process_frame;await process_frame;game=null
 	lib.game=null;lib.free();await create_timer(.35).timeout
 	print("MUSASHI_AUDIO_RESULT checks=",checks," failures=",failures)

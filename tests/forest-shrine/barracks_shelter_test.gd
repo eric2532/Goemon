@@ -13,7 +13,7 @@ func _initialize():
 func frames():
 	for i in 3:await process_frame
 func run():
-	var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
+	var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original();set_meta("forest_custom_layout",doc.data)
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game
 	await frames();AudioServer.set_bus_mute(0,true)
 	var m=game.model;var h=game.explorer_helpers

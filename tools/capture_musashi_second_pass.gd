@@ -53,10 +53,7 @@ func run():
 	p.active_ability.cancel();p.model.set_outfit_mask(31)
 	for frame in 30:await advance();await capture("all-equipment" if frame==8 else "")
 	canvas.hide();game.ui.show();game.show_rogue_roster(false)
-	var roster=game.menu.find_child("MusashiOutfits",true,false);roster.pressed.emit()
-	await process_frame
-	game.menu.find_child("MusashiGearAll",true,false).pressed.emit()
-	await process_frame;RenderingServer.force_draw(false);root.get_texture().get_image().save_png(OUT+"equipment-picker.png")
+	await process_frame;RenderingServer.force_draw(false);root.get_texture().get_image().save_png(OUT+"fighter-gallery.png")
 	var file=FileAccess.open(OUT+"trace.json",FileAccess.WRITE);file.store_string(JSON.stringify(trace,"\t"));file.close()
 	print("MUSASHI_SECOND_PASS_CAPTURE frames=",index)
 	canvas.queue_free();await fixture.close();fixture.queue_free();await process_frame;quit()

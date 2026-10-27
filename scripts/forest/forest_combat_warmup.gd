@@ -44,8 +44,9 @@ func _exit_tree():
  if RenderingServer.frame_post_draw.is_connected(_after_draw):RenderingServer.frame_post_draw.disconnect(_after_draw)
 func populate_samples(world:Node3D):
  warm_soldiers(world)
+ warm_boss_effects(world)
  var fx=Effects.new();fx.army_trails=true;fx.apply_quality(0);world.add_child(fx)
- for kind in ["ranger-arrow","ranger-power-arrow","star","bolt","wave","bullet"]:
+ for kind in ["ranger-arrow","ranger-power-arrow","star","bolt","wave","bullet","dragon"]:
   fx.add_child(fx.create_projectile(kind,Color("9bcfff")))
  # Army arrows use a separate vertex-color ribbon without mesh normals.
  fx.ranger_trail({"color":Color("9bcfff"),"rangeScale":1.0,"vel":Vector3(0,0,60)},Vector3(0,2,-2),Vector3(0,2,2))
@@ -65,14 +66,27 @@ func populate_samples(world:Node3D):
  var label=Label3D.new();label.text="999";label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.no_depth_test=true
  label.font_size=86;label.outline_size=10;label.pixel_size=.0065;label.position=Vector3(0,5,0);world.add_child(label)
 
+func warm_boss_effects(world:Node3D):
+ for kit in [preload("res://scripts/forest/dark_lumina_kit.gd"),preload("res://scripts/forest/dark_lumina_3_kit.gd")]:
+  kit.prepare()
+  for key in kit.meshes:
+   var mesh:Mesh=kit.meshes[key];var bounds=mesh.get_aabb()
+   var size_=6.0/maxf(.001,maxf(bounds.size.x,maxf(bounds.size.y,bounds.size.z)))
+   var sample=MultiMeshInstance3D.new();sample.name="WarmBoss_"+str(kit.ROLE)+"_"+key
+   sample.multimesh=MultiMesh.new();sample.multimesh.transform_format=MultiMesh.TRANSFORM_3D;sample.multimesh.use_custom_data=true
+   sample.multimesh.mesh=mesh;sample.multimesh.instance_count=1
+   sample.multimesh.set_instance_transform(0,Transform3D.IDENTITY);sample.multimesh.set_instance_custom_data(0,Color(2.4,1,0,0))
+   sample.scale=Vector3.ONE*size_;sample.position=Vector3(0,3,0)-bounds.get_center()*size_
+   sample.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;world.add_child(sample)
+
 func warm_soldiers(world:Node3D):
  var soldier=preload("res://scripts/forest/forest_thirstquencher_visual.gd")
- for role in [0,1,3]:
+ for role in preload("res://scripts/forest/forest_enemy_roles.gd").RIGID_TYPES:
   var source=soldier.data(role);var batch=MultiMeshInstance3D.new();batch.name="WarmSoldier_%d"%role
   batch.multimesh=MultiMesh.new();batch.multimesh.transform_format=MultiMesh.TRANSFORM_3D;batch.multimesh.use_custom_data=true
   batch.multimesh.mesh=soldier.make_mesh(role);batch.multimesh.instance_count=1;batch.multimesh.custom_aabb=source.get_meta("bounds")
   var state=soldier.frame_state({"variant":role,"velocity":Vector3.ZERO,"soldier_pose_tick":12})
-  batch.multimesh.set_instance_custom_data(0,Color(state.row,0,0,0));batch.position.x=([0,1,3].find(role)-1)*8
+  batch.multimesh.set_instance_custom_data(0,Color(state.row,0,0,0));batch.position.x=(preload("res://scripts/forest/forest_enemy_roles.gd").RIGID_TYPES.find(role)-2)*8
   batch.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;world.add_child(batch)
- var bullet=preload("res://assets/characters/thirstquencher/projectiles/bullet.glb").instantiate();bullet.name="WarmSoldierBullet";bullet.scale=Vector3.ONE*soldier.SCALE;bullet.position=Vector3(0,5,0);world.add_child(bullet)
- var casing=preload("res://assets/characters/thirstquencher/projectiles/casing.glb").instantiate();casing.name="WarmSoldierCasing";casing.scale=Vector3.ONE*soldier.SCALE;casing.position=Vector3(0,3,0);world.add_child(casing)
+ var bullet=load(GameAssets.model_path("res://assets/characters/thirstquencher/projectiles/bullet.glb")).instantiate();bullet.name="WarmSoldierBullet";bullet.scale=Vector3.ONE*soldier.SCALE;bullet.position=Vector3(0,5,0);world.add_child(bullet)
+ var casing=load(GameAssets.model_path("res://assets/characters/thirstquencher/projectiles/casing.glb")).instantiate();casing.name="WarmSoldierCasing";casing.scale=Vector3.ONE*soldier.SCALE;casing.position=Vector3(0,3,0);world.add_child(casing)

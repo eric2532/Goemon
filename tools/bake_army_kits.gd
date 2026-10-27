@@ -10,7 +10,7 @@ func run():
   var c=unit.active_ability;c.active=true;c.reset_run();var attacks=[]
   if c.class_id=="ranger":c.aim=c.player.pos+Vector3.BACK*10;unit.facing=Vector3.BACK;unit.model.rotation.y=PI
   for sample in 6:
-   var index=sample%3
+   var index=sample%c.Actions.primary_count(c.class_id)
    if c.class_id=="ranger":c.player.rangerShots=sample
    var config:Dictionary=c.Actions.primary_config(c,index)
    c.Actions.begin_attack(c,config,index)
