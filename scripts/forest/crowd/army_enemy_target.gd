@@ -151,5 +151,9 @@ func freeze_for(seconds:float):
  if not dead:runtime.apply_hit(handle,{"element":"ice","status_seconds":seconds})
 func apply_defense_slow(factor:float,seconds:float):
  if not dead:runtime.apply_hit(handle,{"element":"slow","slow_factor":clampf(factor,.1,1),"status_seconds":seconds})
+func apply_thunder_clap(factor:float,seconds:float):
+ if not dead:runtime.apply_hit(handle,{"element":"slow","slow_factor":factor,"attack_slow_factor":factor,"status_seconds":seconds})
+func apply_stun(seconds:float):
+ if not dead:runtime.apply_hit(handle,{"element":"stun","status_seconds":seconds})
 func mark_dead():
  dead=true;hp=minf(0,hp);collision_layer=0;visible=false

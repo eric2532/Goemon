@@ -34,6 +34,8 @@ func run():
  runtime.step(1.1,{});var events=runtime.take_events();renderer.present(runtime.render_snapshot(),events)
  check(events.filter(func(e):return e.kind=="landing_pulse").size()==3,"The real landing still emits all three damage pulses")
  check(dive.visible_instance_count==0 and fx.projectile_batches.dragon.multimesh.visible_instance_count==1,"Landing replaces the diving dragon with exactly one hunting dragon")
+ var hunting_scale=fx.projectile_batches.dragon.multimesh.get_instance_transform(0).basis.get_scale()
+ check(hunting_scale.is_equal_approx(actual.basis.get_scale()),"The native hunting dragon retains its full diving size")
  renderer.present(runtime.render_snapshot(),events)
  check(fx.projectile_batches.dragon.multimesh.visible_instance_count==1,"Repeated native events cannot duplicate the landing dragon")
  fx.tick(.1)

@@ -21,6 +21,19 @@ func run():
 			await RenderingServer.frame_post_draw
 			root.get_texture().get_image().save_png("res://build/Other Files/Asset Toolkit/Wave Groups/growth-settings.png")
 		check(node("Core_starting_gold")!=null and node("Core_tower_health")!=null,"Core editor has economy and tower controls")
+		check(node("Core_card_silver_chance").value==10 and node("Core_card_gold_chance").value==4 and node("Core_card_diamond_chance").value==1 and node("Core_card_legendary_chance").value==.25,"Old saves retain default rarity percentages")
+		check(node("Core_card_normal_chance").text=="Normal cards: 84.75% (automatic)" and node("Core_card_legendary_chance").step==.01,"Normal chance is automatic and rare odds allow hundredths of a percent")
+		node("Core_card_silver_chance").value=20
+		node("Core_card_gold_chance").value=5
+		node("Core_card_diamond_chance").value=2
+		node("Core_card_legendary_chance").value=.77
+		check(node("Core_card_normal_chance").text=="Normal cards: 72.23% (automatic)","Editing rarity percentages refreshes the normal remainder")
+		node("Core_card_silver_chance").value=100
+		check(is_equal_approx(game.core_balance.card_silver_chance,92.23) and game.core_balance.card_legendary_chance==.77 and node("Core_card_normal_chance").text=="Normal cards: 0.00% (automatic)","Editor caps the edited chance without taking probability from other rarities")
+		node("Core_card_silver_chance").value=20
+		if "--capture" in OS.get_cmdline_user_args():
+			await RenderingServer.frame_post_draw
+			root.get_texture().get_image().save_png("res://build/Other Files/Team Leveling/Stronger Cards/rarity-settings.png")
 		check(node("Core_spawn_group_start").value==10 and node("Core_spawn_group_growth").value==1,"Existing saves default to groups of ten growing by one")
 		node("Core_spawn_group_start").value=7
 		node("Core_spawn_group_growth").value=2
@@ -47,12 +60,12 @@ func run():
 		check(game.core_balance.waves.size()==50 and game.core_balance.waves[0]==[2,1,3,4,5,6,7,0,0,0],"Growing the wave count preserves edited waves")
 		game.resize_core_waves(2)
 		check(game.core_balance==original,"Shrinking waves preserves retained settings")
-		var tower=game.model.buildings.values().filter(func(b):return b.kind=="tower")[0]
+		var tower=game.model._make_building("tower",Vector2i(4,8),0)
 		game.update_core_balance("tower_workers",3)
 		game.model.workforce.assign_workers(tower.id)
-		check(game.model.workforce.count_job(tower.id)==3,"An increased worker cap permits a real tower crew")
+		check(game.model.balance.tower_workers==3 and game.model.workforce.count_job(tower.id)==0,"Increasing volley size leaves workers available")
 		game.update_core_balance("tower_workers",1)
-		check(game.model.workforce.count_job(tower.id)==1,"Reducing the live cap releases surplus workers")
+		check(game.model.balance.tower_workers==1 and game.model.workforce.count_job(tower.id)==0,"Reducing volley size needs no worker reassignment")
 		tower.hp=400
 		node("Core_tower_health").value=1000
 		check(tower.max_hp==1000 and tower.hp==500,"Live tower health tuning preserves damage percentage")
@@ -61,10 +74,14 @@ func run():
 		check(game.model.gold==321 and game.model.balance.waves==[[2,1,3,4,5,6,7,0,0,0],[0,0,0,0,0,0,0,0,0,0]],"Play from title immediately uses saved starting gold and waves")
 		check(game.model.balance.boss_health==12345 and game.model.balance.boss_speed==.75,"New runs snapshot all three edited portal boss settings")
 		check(game.model.balance.spawn_group_start==7 and game.model.balance.spawn_group_growth==2,"New runs snapshot custom group sizes")
+		check(game.model.team_progression.rarity_cutoffs==[7223,9223,9723,9923],"Play from title applies custom rarity chances to new offers")
 		game.show_pause();game.show_settings(true);game.show_core_balance(true);await settle()
 		var escape=InputEventKey.new();escape.physical_keycode=KEY_ESCAPE;escape.pressed=true;game._input(escape);await settle()
 		check(node("CharacterBalanceButton")!=null and game.ordinary_pause,"Escape returns from Core Balance to paused Settings")
 		game.show_core_balance(true);await settle()
+		node("Core_card_legendary_chance").value=10
+		check(game.model.team_progression.rarity_cutoffs==[7223,9223,9723,9923],"Paused rarity edits apply next run and preserve active card chances")
+		node("Core_card_legendary_chance").value=.77
 		node("Core_spawn_group_start").value=8
 		node("Core_spawn_group_growth").value=0
 		check(game.model.balance.spawn_group_start==7 and game.model.balance.spawn_group_growth==2,"Paused group edits leave the active run unchanged")
@@ -77,37 +94,43 @@ func run():
 		check(game.core_balance.starting_gold==321 and game.core_balance.waves==[[2,1,3,4,5,6,7,0,0,0],[0,0,0,0,0,0,0,0,0,0]],"Core settings round-trip through disk")
 		check(game.core_balance.boss_health==12345 and game.core_balance.boss_speed==.75,"Boss enable, health and fractional speed persist through disk")
 		check(game.core_balance.spawn_group_start==7 and game.core_balance.spawn_group_growth==2,"Group size and growth persist through disk")
+		check(game.core_balance.card_silver_chance==20 and game.core_balance.card_gold_chance==5 and game.core_balance.card_diamond_chance==2 and game.core_balance.card_legendary_chance==.77,"Every rarity chance round-trips through the settings file")
 		game.model.reset(42,game.core_balance)
 		var m=game.model
 		check(m.gold==321,"New run uses configured starting gold")
 		for b in m.buildings.values():
-			if b.kind=="tower":check(b.hp==800 and m.workforce.capacity(b)==1,"Starter towers use tuned health and worker cap")
+			if b.kind=="tower":check(b.hp==800 and m.workforce.capacity(b)==0 and m.balance.tower_workers==1,"Starter towers use tuned health and automatic volley size")
 		check(m.start_wave() and m.waves.pending==28,"Wave one schedules exactly the configured total")
+		m.waves.tick(0,m.hero_position)
 		for i in range(100):m.waves.spawn_one()
 		var counts=[0,0,0,0,0,0,0,0,0,0]
 		for e in m.enemies.values():counts[preload("res://scripts/forest/core_balance.gd").TYPES.find(e.variant)]+=1
 		check(counts==[2,1,3,4,5,6,7,0,0,0] and m.waves.pending==0,"Every enemy preserves its own edited wave count")
 		m.enemies.clear();m.waves.tick(.01,m.hero_position)
-		check(m.phase=="preparing","Configured non-final wave returns to preparation")
-		m.start_wave()
+		check(m.phase=="wave" and m.waves.released_waves==1,"Clearing a non-final wave waits for the next minute")
+		m.waves.tick(60,m.hero_position)
 		check(m.waves.pending==0 and not m.waves.giant_pending,"An empty edited wave schedules no enemies")
 		check(not m.waves.spawn_one() and m.enemies.is_empty() and m.balance.waves[1]==[0,0,0,0,0,0,0,0,0,0],"Empty wave stays empty without fallback enemies")
-		m.enemies.clear();m.waves.pending=0;m.waves.tick(.01,m.hero_position)
+		m.enemies.clear();m.waves.pending=0;m.waves.tick(60,m.hero_position)
 		check(m.phase=="victory" and not m.start_wave(),"Victory uses the configured wave count")
-		m.reset(42,{"bosses_per_portal":0,"waves":[[0,0,0,0]]});m.start_wave();m.waves.tick(.01,m.hero_position)
+		m.reset(42,{"bosses_per_portal":0,"waves":[[0,0,0,0]]});m.start_wave();m.waves.tick(60,m.hero_position)
 		check(m.phase=="victory","A zero-enemy final wave completes without stalling")
 		# A real fired arrow consumes tuned cadence and damage.
 		m.reset(42,game.core_balance);m.start_wave();m.waves.spawn_clock=10000
-		var guard=m.workers.values().filter(func(w):return w.state=="garrison")[0]
-		var enemy=m.waves.spawn_enemy(0,guard.pos+Vector3(0,0,15));m.update_vision(guard.pos)
+		var firing_tower=m.buildings.values().filter(func(b):return b.kind=="tower")[0]
+		for b in m.buildings.values():b.clock=1000
+		firing_tower.clock=0;m.workers.clear()
+		var origin:Vector3=m.center(firing_tower)
+		var enemy=m.waves.spawn_enemy(0,origin+Vector3(0,0,15));m.update_vision(origin)
 		game.army_runtime.reset_world();game.army_runtime.import_arrivals()
 		m.workforce.tick(.01,m.hero_position)
-		check(is_equal_approx(guard.timer,.5) and not m.workforce.arrows.is_empty(),"Configured attack speed controls a real tower shot")
+		check(is_equal_approx(firing_tower.clock,.5) and not m.workforce.arrows.is_empty(),"Configured attack speed controls a real tower shot")
 		m.workforce.tick_arrows(.5)
 		game.army_runtime.sync_compatibility()
 		check(enemy.hp==enemy.max_hp-42,"A real tower arrow applies configured damage")
 		game.reset_core_balance()
 		check(game.core_balance.spawn_group_start==10 and game.core_balance.spawn_group_growth==1,"Reset restores ten enemies and growth of one")
+		check(game.core_balance.card_silver_chance==10 and game.core_balance.card_gold_chance==4 and game.core_balance.card_diamond_chance==1 and game.core_balance.card_legendary_chance==.25,"Reset restores the original rarity chances")
 	game.show_title();game.begin_forest();game.choose_rogue_character(1);game.start_wave();game.model.waves.spawn_clock=10000
 	game.set_physics_process(false);game.player.smoke_mode=true;game.player.smoke_move=Vector2.ZERO
 	for fighter in range(1,13):

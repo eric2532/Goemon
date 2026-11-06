@@ -38,6 +38,18 @@ func run():
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game
 	await frames();AudioServer.set_bus_mute(0,true)
 	var screen=root.get_visible_rect().size;var at=screen*Vector2(.61,.43)
+	view()
+	var cam:Camera3D=game.camera_rig.camera
+	var screen_right:Vector3=game.preparation_pan_direction(Vector2.RIGHT)
+	var screen_up:Vector3=game.preparation_pan_direction(Vector2.UP)
+	check(cam.global_position.x>0 and absf(rad_to_deg(atan2(cam.global_position.y,Vector2(cam.global_position.x,cam.global_position.z).length()))-49)<1,"Building camera uses the approved gentle quarter view")
+	check(screen_right.dot(cam.global_basis.x)>.999 and is_zero_approx(screen_right.y) and is_zero_approx(screen_up.dot(screen_right)),"Panning stays on the ground and follows the angled screen axes")
+	var before_pan:Vector3=game.pan
+	var angle_drag=InputEventMouseMotion.new();angle_drag.position=at;angle_drag.relative=Vector2(30,0);angle_drag.button_mask=MOUSE_BUTTON_MASK_MIDDLE
+	input(angle_drag)
+	check((game.pan-before_pan).dot(screen_right)<0 and absf((game.pan-before_pan).dot(screen_up))<.001,"Middle drag moves along the screen's horizontal axis")
+	view();before_pan=game.pan;game.map_editor.active=true;input(angle_drag);game.map_editor.active=false
+	check((game.pan-before_pan).dot(screen_right)<0 and absf((game.pan-before_pan).dot(screen_up))<.001,"Map editor uses the same angled drag axes")
 	view();game.select_build("tower")
 	var point=game.ground_at(at);var count=game.model.buildings.size();var gold=game.model.gold
 	wheel(at)
@@ -89,7 +101,7 @@ func run():
 		view();game.map_editor.active=true;before=game.preparation_size
 		check(not game.zoom_preparation(1) and game.preparation_size==before,"Build zoom buttons cannot change the active map editor view")
 		wheel(at)
-		check(game.preparation_size==108,"Map editor retains ownership of its existing wheel zoom")
+		check(is_equal_approx(game.preparation_size,120.0/game.PREPARATION_ZOOM_STEP),"Map editor shares proportional wheel zoom")
 		game.map_editor.active=false
 		for flag in ["settings_open","rogue_roster_open","ordinary_pause","transitioning"]:
 			game.set(flag,true);before=game.preparation_size

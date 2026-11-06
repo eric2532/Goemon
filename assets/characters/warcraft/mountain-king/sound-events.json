@@ -1,0 +1,47 @@
+[
+  {
+    "animation": "Death",
+    "sound": "HeroMountainKingDeath",
+    "offset_seconds": 0.0,
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingDeath.wav",
+    "variants": [
+      "Units/Human/HeroMountainKing/HeroMountainKingDeath.wav"
+    ]
+  },
+  {
+    "animation": "Attack -1",
+    "sound": "HeroMountainKingAttack1",
+    "offset_seconds": 0.0,
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingAttack1.wav",
+    "variants": [
+      "Units/Human/HeroMountainKing/HeroMountainKingAttack1.wav"
+    ]
+  },
+  {
+    "animation": "Attack Slam",
+    "sound": "HeroMountainKingAttack1",
+    "offset_seconds": 0.0,
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingAttack1.wav",
+    "variants": [
+      "Units/Human/HeroMountainKing/HeroMountainKingAttack1.wav"
+    ]
+  },
+  {
+    "animation": "Attack Slam Alternate",
+    "sound": "HeroMountainKingAttack1",
+    "offset_seconds": 0.0,
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingAttack1.wav",
+    "variants": [
+      "Units/Human/HeroMountainKing/HeroMountainKingAttack1.wav"
+    ]
+  },
+  {
+    "animation": "Dissipate",
+    "sound": "HumanDissipate",
+    "offset_seconds": 0.0,
+    "path": "Sound/Units/Human/HumanDissipate1.wav",
+    "variants": [
+      "Sound/Units/Human/HumanDissipate1.wav"
+    ]
+  }
+]

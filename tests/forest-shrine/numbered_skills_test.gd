@@ -28,6 +28,10 @@ func advance(n:int):
    game.player.active_ability.assimilation.set_physics_process(false)
    game.player.active_ability.assimilation._physics_process(1.0/60)
    game.player.active_ability.assimilation.set_physics_process(false)
+  for instance in game.player.spell_loadout.instances.values():
+   if instance.source_id==13:
+    instance.controller.assimilation.set_physics_process(false)
+    instance.controller.assimilation._physics_process(1.0/60)
   step_times.append((Time.get_ticks_usec()-start)/1000.0)
   if visual:
    await physics_frame
@@ -74,7 +78,7 @@ func run():
   await frames(1)
  check(game.explorer_helpers.summon_serial==serial,"Numbered skills never hire paid mercenaries")
  # Charged and sustained native moves use the real key down/up path.
- for entry in [[16,1,"ice_charge"],[17,1,"shield_enter"],[17,2,"bazooka_charge"],[13,5,"assimilation"],[15,2,"bombs"],[14,4,"beam"],[19,1,"spin_charge"]]:
+ for entry in [[16,1,"ice_charge"],[17,1,"shield_enter"],[17,2,"bazooka_charge"],[15,2,"bombs"],[14,4,"beam"],[19,1,"spin_charge"]]:
   p.select_character(entry[0]);reset_fighter();key(entry[1]);await advance(8)
   check(p.active_ability.is_attacking(),"Held %d/%d stays active through physics"%[entry[0],entry[1]])
   key(entry[1],false)
@@ -111,8 +115,9 @@ func run():
  check(p.active_ability.is_attacking(),"Shift sprint still allows a numbered special during battle");key(1,false)
  p.select_character(13);reset_fighter();ui.sync();await capture("musashi-five-slots")
  # Repeated 3-Way fire retains the already prepared native pool.
+ loadout.equip(13,"special_5","musashi/three-way")
  key(5);await advance(50);key(5,false);await advance(90)
- var pool=p.active_ability.assimilation;var nodes=pool.get_child_count();var resources=Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)
+ var pool=loadout.instances["13:musashi/three-way"].controller.assimilation;var nodes=pool.get_child_count();var resources=Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)
  for repeat in 3:
   reset_fighter();key(5);await advance(45);key(5,false);await advance(90)
  check(pool.get_child_count()==nodes and Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)==resources,"Repeated held 3-Way does not grow nodes or resources")

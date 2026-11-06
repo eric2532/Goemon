@@ -85,10 +85,11 @@ func run():
 	check(victims[0].hp==hp,"Re-entering an already-hit victim cannot duplicate damage")
 	shot.retire()
 	# An isolated elevated lane tests the full lifetime without scenery terminating it.
-	shot=pool.launch(p,Shot,"knight-lion",{"position":origin,"direction":direction})
+	var lifetime_origin=origin+Vector3.UP*1000
+	shot=pool.launch(p,Shot,"knight-lion",{"position":lifetime_origin,"direction":direction})
 	shot._physics_process(4.99)
 	check(shot.pool_live and is_equal_approx(shot.age,4.99),"Lion remains alive for the requested five seconds")
-	check(absf((shot.global_position-origin).dot(direction)-299.4)<.02,"Travel remains 60 metres per second without homing")
+	check(absf((shot.global_position-lifetime_origin).dot(direction)-299.4)<.02,"Travel remains 60 metres per second without homing")
 	shot._physics_process(.2)
 	check(not shot.pool_live and is_equal_approx(shot.age,5.0),"Lifetime clamps the final step at five seconds")
 	check(shot.hit_targets.is_empty() and shot.attack_ticket.is_empty() and shot.hero==null,"Retirement clears hit history and caster ownership")

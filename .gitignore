@@ -24,6 +24,7 @@ __pycache__/
 /tests/**/*.mp4
 /tests/**/*.import
 /tests/**/*.json
+!/tests/forest-shrine/reference/maps/forest_modular_kit.json
 /tests/**/*.txt
 
 # Generated prior-commit world for town visual comparison.

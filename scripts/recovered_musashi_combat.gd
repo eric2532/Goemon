@@ -32,6 +32,10 @@ var rotation_speed=256
 var rotation_phase=""
 var locomotion
 var assimilation:Node3D
+var technique_ticks=0
+var technique_vertical=0
+var crosswise_impact_done=false
+var combo_skill=""
 func _ready():
 	locomotion=preload("res://scripts/recovered_musashi_locomotion.gd").new(hero)
 	assimilation=preload("res://scripts/recovered_musashi_assimilation.gd").new()
@@ -41,6 +45,7 @@ func _ready():
 func input(event: InputEvent):
 	release_input(event)
 	if not active or event.is_echo() or hero.dodge_time>0:return
+	if not combo_skill.is_empty() and (event.is_action("light_attack") or event.is_action("heavy_attack")):return
 	if event is InputEventKey and event.pressed and not (event.ctrl_pressed or event.shift_pressed or event.alt_pressed or event.meta_pressed):
 		var number=(event.physical_keycode if event.physical_keycode!=0 else event.keycode)-KEY_1+1
 		if number in [3,4,5,6,7]:select_number(number);return
@@ -51,10 +56,15 @@ func input(event: InputEvent):
 		select_number(2)
 	elif event.is_action_pressed("light_attack"):
 		primary_held=true
-		if is_attacking():queued_primary=true
+		if mode=="crosswise" and hero.is_on_floor():start_technique("desperado")
+		elif is_attacking():queued_primary=true
 		else:primary_attack()
 	elif event.is_action_pressed("heavy_attack"):
-		if is_attacking():queued_heavy=true
+		if mode=="desperado":start_technique("desperado_dual")
+		elif mode=="fusion" and combo==1 and hero.is_on_floor():start_technique("tenderize")
+		elif is_attacking():
+			queued_heavy=true
+			_try_crosswise()
 		elif charge>=Profile.CHARGE_LIMIT:start_rotation()
 		else:start_attack(true)
 	elif event.is_action_pressed("surge"):
@@ -113,6 +123,91 @@ func start_attack(heavy: bool):
 	hero.attack_ticket=hero.attack_chain.begin("heavy" if heavy else "sword_%d"%(combo+1),"heavy" if heavy else "primary_%d"%(combo+1))
 	play_swing()
 	cast_model().animate(0,0,hero.is_on_floor(),hero.velocity.y,1,heavy,combo+1,false)
+
+func _try_crosswise()->bool:
+	# Retail 55A44 requires a successful first Fusion contact. Buffer the host
+	# mouse press through windup, but a miss remains an ordinary queued Lumina.
+	if not queued_heavy or mode!="fusion" or combo!=0 or not hero.is_on_floor() or hero.struck_targets.is_empty():return false
+	start_technique("crosswise")
+	return true
+
+func start_combo(key:String):
+	if key not in ["crosswise","tenderize","desperado"] or not active or not game.playing or game.paused or game.transitioning or hero.hp<=0 or hero.dodge_time>0 or not hero.is_on_floor() or is_attacking():return
+	if spell_owner==null:hero.spell_loadout.interrupt()
+	combo_skill=key;combo_timer=0;queued_primary=false;queued_heavy=false
+	start_attack(false)
+
+func start_leaping_strike():
+	if not active or not game.playing or game.paused or game.transitioning or hero.hp<=0 or hero.dodge_time>0 or hero.is_on_floor() or is_attacking():return
+	if spell_owner==null:hero.spell_loadout.interrupt()
+	combo_skill="leaping-strike";mode="finisher";combo=3;combo_timer=0
+	queued_primary=false;queued_heavy=false;primary_held=false
+	guard_held=false;special_held=false;charge=0;charge_clock=0
+	finisher_vertical=0;contact_done=false;swing_done=true
+	hero.weapon_slot=1;hero.attack_heavy=false;hero.attack_charged=false;hero.combo=4
+	hero.hit_done=false;hero.struck_targets.clear()
+	hero.facing=hero.combat_attack_direction()
+	locomotion.jumps_used=hero.jumps_used;locomotion.discard_jump_input()
+	# Enter the recovered apex/downstroke; jumping remains the wearer's choice.
+	_finisher_phase("hover")
+	hero.attack_ticket=hero.attack_chain.begin("sword_4","primary_4")
+	cast_model().sword_trail.begin_action("fusion_4_drop")
+	cast_model().rotation.y=atan2(-hero.facing.x,-hero.facing.z)
+	cast_model().animate(0,0,false,hero.velocity.y,1,false,4,false)
+	game.sound("fusion_air_swing",.7,false,hero.attack_ticket,13)
+
+func _advance_combo()->bool:
+	if combo_skill.is_empty():return false
+	if mode=="fusion" and combo==0 and combo_skill=="tenderize":
+		if elapsed<hero.attack_duration:return false
+		start_attack(false);return true
+	if elapsed<contact_end:return false
+	if mode=="fusion":start_technique("tenderize" if combo_skill=="tenderize" else "crosswise");return true
+	if combo_skill=="desperado":
+		if mode=="crosswise":start_technique("desperado");return true
+		if mode=="desperado":start_technique("desperado_dual");return true
+	return false
+
+func start_technique(key:String):
+	var continuing=key in ["tenderize_end","desperado_end"]
+	if not continuing:technique_vertical=0
+	mode=key;action_key=key;clip=Profile.action(key).clip
+	elapsed=0;technique_ticks=0;contact_done=false;crosswise_impact_done=false
+	if not continuing:queued_primary=false;queued_heavy=false
+	combo_timer=0
+	guard_held=false;special_held=false;charge=0;charge_clock=0
+	hero.weapon_slot=1;hero.attack_heavy=key!="desperado";hero.attack_charged=false
+	hero.hit_done=false;hero.struck_targets.clear()
+	hero.attack_duration=Profile.duration(key);hero.attack_left=hero.attack_duration
+	var window=Profile.window(key);contact_time=window[0];contact_end=window[1]
+	if key=="desperado_dual":contact_end=INF
+	hero.attack_ticket=hero.attack_chain.begin("musashi_"+key,key)
+	if not continuing:
+		cast_model().sword_trail.begin_action(key)
+		if key=="desperado_dual":cast_model().dual_sword_trail.begin_action("desperado_fusion")
+		game.sound("move_primary_2_weapon" if key=="desperado" else "heavy_swing",.7,false,hero.attack_ticket,13)
+	elif key=="tenderize_end":game.sound("heavy_swing",.7,false,hero.attack_ticket,13)
+	cast_model().animate(0,0,hero.is_on_floor(),hero.velocity.y,1,hero.attack_heavy,hero.combo,false)
+
+func _technique_tick()->Vector3:
+	technique_ticks+=1;elapsed=technique_ticks/Profile.HZ
+	hero.attack_left=maxf(.000001,hero.attack_duration-elapsed)
+	if mode in ["tenderize","desperado_dual"] and technique_ticks==8:
+		technique_vertical=-12 if mode=="tenderize" else -6
+	var moving=mode=="tenderize_end" or (mode in ["tenderize","desperado_dual"] and technique_ticks>=8)
+	var travel=Vector3.ZERO
+	if moving:
+		technique_vertical+=1
+		travel=Vector3.UP*(-technique_vertical*locomotion.source_world_scale()*Profile.HZ)
+		if mode=="desperado_dual":travel+=hero.facing*12*locomotion.source_world_scale()*Profile.HZ
+	if elapsed>=contact_time and elapsed<contact_end:
+		contact_done=true;strike()
+	if mode=="tenderize" and technique_ticks>=18:start_technique("tenderize_end")
+	elif mode=="tenderize_end" and technique_ticks>=17:
+		clip="";mode="";combo_skill="";hero.attack_left=0
+		if queued_heavy:queued_heavy=false;start_attack(true)
+		elif queued_primary or (spell_owner==null and hero.auto_attack_running()):queued_primary=false;primary_attack()
+	return travel
 
 func start_rotation():
 	_start_lumina_special("rotation")
@@ -192,15 +287,17 @@ func tick(delta: float,_after_pose: bool=false):
 			elapsed=clampf(maxf(before,contact_time),contact_time,contact_end-.00001)
 			strike()
 			elapsed=after
+			if _try_crosswise():return
+		if _advance_combo():return
 		if hero.attack_left<=0:
-			clip="";mode=""
+			clip="";mode="";combo_skill=""
 			if queued_heavy:
 				queued_heavy=false;start_attack(true)
 			elif queued_primary or (spell_owner==null and hero.auto_attack_running()):queued_primary=false;primary_attack()
 	elif (spell_owner==null and hero.auto_attack_running()):primary_attack()
 
 func is_attacking()->bool:return not clip.is_empty()
-func controls_motion()->bool:return (mode=="finisher" and not finisher_phase.is_empty()) or (mode=="assimilation" and action_key=="dkick")
+func controls_motion()->bool:return (mode=="finisher" and not finisher_phase.is_empty()) or (mode=="assimilation" and action_key=="dkick") or mode in ["tenderize","tenderize_end","desperado_dual"]
 func _finisher_phase(phase:String):
 	finisher_phase=phase;finisher_ticks=0;elapsed=0
 	action_key=FINISHER_PHASES[phase];clip=Profile.action(action_key).clip
@@ -209,6 +306,7 @@ func _finisher_phase(phase:String):
 func source_motion_tick()->Vector3:
 	if not controls_motion():return Vector3.ZERO
 	if mode=="assimilation":return assimilation.motion_tick()
+	if mode in ["tenderize","tenderize_end","desperado_dual"]:return _technique_tick()
 	finisher_ticks+=1;elapsed=finisher_ticks/Profile.HZ
 	hero.attack_left=maxf(.000001,hero.attack_duration-elapsed)
 	match finisher_phase:
@@ -229,12 +327,18 @@ func source_motion_tick()->Vector3:
 			return Vector3.UP*(-finisher_vertical*locomotion.source_world_scale()*Profile.HZ)
 		"land":
 			if finisher_ticks>=5:
-				clip="";mode="";finisher_phase="";hero.attack_left=0;combo_timer=0
+				clip="";mode="";finisher_phase="";combo_skill="";hero.attack_left=0;combo_timer=0
 				if queued_heavy:queued_heavy=false;start_attack(true)
 				elif queued_primary or (spell_owner==null and hero.auto_attack_running()):queued_primary=false;primary_attack()
 	return Vector3.ZERO
 func after_source_motion(grounded:bool,ceiling:bool):
 	if not controls_motion():return
+	if mode in ["tenderize","tenderize_end","desperado_dual"]:
+		if ceiling:technique_vertical=maxi(0,technique_vertical)
+		if grounded and technique_vertical>=0:
+			technique_vertical=0
+			if mode=="desperado_dual" and technique_ticks>=8:start_technique("desperado_end")
+		return
 	if mode=="assimilation":
 		if grounded and assimilation.kick_vertical>=0:assimilation.finish()
 		elif ceiling:assimilation.kick_vertical=maxi(0,assimilation.kick_vertical)
@@ -246,6 +350,7 @@ func play_swing():
 	swing_done=true
 	game.sound("heavy_swing" if hero.attack_heavy else "swing",.7,false,hero.attack_ticket,hero.character_id)
 func trail_active()->bool:
+	if mode in ["tenderize","tenderize_end","desperado_dual"]:return elapsed>=contact_time and elapsed<contact_end
 	if controls_motion():return finisher_phase=="drop"
 	return is_attacking() and ((mode=="rotation" and rotation_phase=="spin") or (elapsed>=contact_time and elapsed<contact_end))
 func lumina_scale_factor()->float:
@@ -253,6 +358,11 @@ func lumina_scale_factor()->float:
 	if mode=="rotation":return (4096+int(mini(rotation_ticks,7)*1024.0/7.0))/4096.0*SKILL_SCALE*skill_factor("size")
 	return 1.0
 func can_hit_target(enemy: Ninja)->bool:
+	if mode in ["tenderize","tenderize_end","desperado","desperado_dual"]:
+		for key in ([action_key,"desperado_fusion"] if mode=="desperado_dual" else [action_key]):
+			var segment=cast_model().sword_trail.pose_segment(key,elapsed,cast_model().rig_visual.global_transform)
+			if segment.size()==2 and not AttackChain.segment_contact(enemy,segment[0],segment[1],.25*hero.contact_size_multiplier()).is_empty():return true
+		return false
 	if mode=="counter":return true
 	if mode=="rotation":
 		if rotation_phase!="spin":return false
@@ -281,17 +391,28 @@ func cancel(_preserve_power: bool=false):
 	primary_held=false;queued_heavy=false;queued_primary=false;clip="";mode="";elapsed=0;combo_timer=0
 	guard_held=false;special_held=false;charge=0;charge_clock=0;guard_elapsed=0
 	finisher_phase="";finisher_ticks=0;finisher_vertical=0
+	technique_ticks=0;technique_vertical=0;crosswise_impact_done=false
+	combo_skill=""
 	rotation_clock=0;rotation_ticks=0;rotation_angle=0;rotation_previous_angle=0;rotation_speed=256;rotation_phase=""
 	if locomotion!=null:locomotion.discard_jump_input()
 	if is_instance_valid(hero):hero.attack_left=0
 	if is_instance_valid(hero):
-		var model=hero.character_models.get(13)
+		var model=spell_owner.source_model if spell_owner!=null else hero.character_models.get(13)
 		if is_instance_valid(model):
 			if is_instance_valid(model.sword_trail):model.sword_trail.clear()
 			if is_instance_valid(model.rotation_effect):model.rotation_effect.clear()
+			model.dual_sword_trail.clear();model.crosswise_effect.clear()
 func hit():cancel()
 func interrupt_for_dodge():cancel()
 
 func strike():
 	if spell_owner!=null:spell_owner.strike(self)
 	else:hero.strike()
+	if mode=="crosswise" and not crosswise_impact_done and not hero.struck_targets.is_empty():
+		crosswise_impact_done=true
+		# Use the existing local query; never traverse the whole army for an effect.
+		for enemy in AttackChain.enemy_candidates(game,hero.global_position,hero.melee_strike_reach()+3.5*hero.contact_size_multiplier()):
+			if is_instance_valid(enemy) and hero.struck_targets.has(enemy.get_instance_id()):
+				var model=cast_model()
+				model.crosswise_effect.spawn(AttackChain.aim_point(enemy,hero.global_position+Vector3.UP*hero.contact_size_multiplier()),model.rig_visual.global_basis.get_scale().x)
+				break

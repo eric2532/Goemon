@@ -14,6 +14,7 @@ func check(ok: bool,message: String):
 func settle():
 	for i in range(4):await process_frame
 func run():
+	root.content_scale_size=Vector2i.ZERO;root.size=Vector2i(1280,800)
 	set_meta("forest_custom_layout",JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_four_gates.json")))
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=config_path;root.add_child(game);current_scene=game;await settle()
 	var entry=game.forest_ui.find_child("PreparationMapEditor",true,false)
@@ -90,6 +91,7 @@ func key(code: int):
 func click(button: Button):
 	await pointer(button.get_global_rect().get_center())
 func map_click(cell: Vector2i):
+	game.pan=game.model.point(cell);game.update_preparation_camera();await settle()
 	await pointer(game.camera_rig.camera.unproject_position(game.model.point(cell)))
 func pointer(position: Vector2):
 	var event=InputEventMouseButton.new();event.position=position;event.button_index=MOUSE_BUTTON_LEFT;event.pressed=true;root.push_input(event,true);await process_frame

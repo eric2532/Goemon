@@ -53,7 +53,7 @@ func run():
   if e.hp<before:losses.append(before-e.hp)
  check(losses.size()==3,"A blocked hit produces exactly three shield damage pulses ("+str(losses)+")")
  var hit_actor=game.actors[e.id]
- check(not hit_actor.bar.visible,"Enemy health bars remain hidden after taking damage")
+ check(hit_actor.bar==null or not hit_actor.bar.visible,"Enemy health bars remain hidden after taking damage")
  check(c.player.guardCounter!=null,"Burst owns its own lifetime while guard stays raised")
  for i in 12:c.tick(1.0/60)
  check(c.player.guardCounter==null and c.player.blocking,"Three shields finish without lowering the held guard")

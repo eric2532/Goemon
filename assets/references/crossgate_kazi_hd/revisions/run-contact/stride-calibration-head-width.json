@@ -1,0 +1,17 @@
+{
+  "master": "revisions/run-contact/masters/3-3.png",
+  "stance_frames": [
+    0,
+    5
+  ],
+  "stance_sole_center_x": [
+    168.5,
+    69
+  ],
+  "authoring_units": 3.166787632457541,
+  "stance_travel_meters": 1.2191729869018153,
+  "stance_phase": 0.2777777777777778,
+  "full_stride_meters": 4.389022752846535,
+  "rounded_runtime_stride": 4.4,
+  "method": "Median neutral pixels in lowest five body rows, side view; same illustrated body scale as idle. Other views foreshorten this stride; finite drawn frames approximate foot locking."
+}

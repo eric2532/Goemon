@@ -22,6 +22,7 @@ var blend_from=[]
 var blend_left=0.0
 var hand_bones=[2,4]
 var sword_trail: MeshInstance3D
+var original_blade_trail:MeshInstance3D
 var flight_clock=0.0
 var was_flying=false
 var flight_landing=false
@@ -70,6 +71,10 @@ func _ready():
 		for part in range(12,16):
 			ben_accessory_meshes.append(rig_visual.find_child("%02d_source_part_%02d"%[part,part],true,false))
 		sword_trail=preload("res://scripts/recovered_leader_trail.gd").new();sword_trail.name="BenGuandaoTrail";add_child(sword_trail)
+		original_blade_trail=preload("res://scripts/recovered_leader_trail.gd").new()
+		original_blade_trail.name="BenOriginalGuandaoTrail";original_blade_trail.original=true;original_blade_trail.opacity=.34;add_child(original_blade_trail)
+		visibility_changed.connect(func():
+			if not visible:sword_trail.clear();original_blade_trail.clear())
 
 func _placeholder(label_: String)->Node3D:
 	var node=Node3D.new();node.name=label_;body.add_child(node);node.hide();return node
@@ -287,6 +292,8 @@ func animate(delta: float,speed: float,grounded: bool,vertical: float,_attack: f
 	if is_instance_valid(sword_trail):
 		var transform=skeleton.global_transform*skeleton.get_bone_global_pose(skeleton.find_bone("Part_11"))
 		var segment=PackedVector3Array([transform*Vector3(.16,.01,.92),transform*Vector3(-.027,.01,1.56)])
+		original_blade_trail.advance(delta,segment,is_instance_valid(combat) and combat.blade_active(),true)
+		if is_instance_valid(combat):segment=preload("res://scripts/recovered_leader_trail.gd").extend_to_reach(segment,combat.hero.global_position,combat.hero.melee_strike_reach())
 		sword_trail.advance(delta,segment,is_instance_valid(combat) and combat.blade_active(),true)
 func hand_position(side: String="R")->Vector3:
 	var index=skeleton.find_bone("Part_%02d"%hand_bones[0 if side=="R" else 1])

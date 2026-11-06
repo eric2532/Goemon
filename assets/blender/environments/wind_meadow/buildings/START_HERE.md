@@ -1,21 +1,78 @@
 # Wind Meadow — walls, blocks, tower and barracks
 
+## Raised fort stone — 2026-10-30
+
+The raised central fort's sides and four stairways reuse the old castle wall's
+`assets/models/environments/wind_meadow/buildings/wall_section_architecture_paint.png`.
+`scripts/forest/castle_stone.gdshaderinc` samples the original padded stone and
+coping cells at world scale; the ground and existing batched stairs share this
+texture. `forest_wind_meadow_art.gd` binds it during setup. The courtyard, natural
+valley cliffs, other stone materials, geometry and collision retain their current
+owners. No Blender master or exported GLB changes are needed for this material edit.
+Run `tests/forest-shrine/fort_stone_texture_test.gd` through the desktop launcher
+for both map sizes and rendered before/after captures in
+`build/Other Files/Asset Toolkit/Fort Stone/`.
+
+## Skullpion castle objective — 2026-10-30
+
+Current standard/large enemy castles replace their central farm/keep with a
+destructible stone Skullpion statue. The existing per-castle HP and saved
+`enemy_castle_health` setting now belong to that statue. Walls remain separate:
+a breach opens access; destroying the statue stops that castle's reinforcements,
+retires its remaining defenses and contributes to the existing victory rule.
+Older unexpanded saved layouts retain their farm objectives.
+
+`forest_enemy_castle.gd` assembles the existing stone shrine pedestal at 1.8×
+horizontal scale, the static `assets/models/forest/skullpion_stone_statue.res`,
+and the unchanged wall/gate/tower kit. Repeated statues share one mesh/material.
+The statue derives from the existing Skullpion master; its exact bake command
+and preservation contract are in `assets/blender/enemies/skullpion/START_HERE.md`.
+Do not create a second editable Skullpion master. Statue debris reuses this
+folder's `stone_block.blend` / exported `stone_block.glb` in one prepared batch.
+Combat, physics and native navigation use the same pedestal and 22 part bounds.
+Placement ghosts and the baked build-card portrait use the same assembly.
+
+Run `tests/forest-shrine/enemy_statue_model_test.gd` and the castle damage and
+placement fixtures after edits. `enemy_castle_damage_test.gd -- --large` checks
+the larger valley. Rendered evidence belongs under `build/Other Files/Asset Toolkit/`.
+
+## Building portraits and source kit
+
+Build-grid portraits are baked from these current GLBs and the gameplay painterly
+materials with `tools/render_building_icons.gd`. Rebuild through the desktop launcher:
+
+```sh
+"/Users/eric/Desktop/Play Goemon.command" --audio-driver Dummy --script res://tools/render_building_icons.gd
+```
+
+The tool reuses the weapon-icon renderer and the normal enemy-castle assembly;
+no editable master is changed. Rebuild after visual
+building edits, refresh imports, and review the grid in game. The 256px transparent
+PNGs live in `assets/ui/forest/buildings/`; the tower frames its roof and lookout
+for readability. Source hashes and audit evidence are in
+`build/Other Files/Asset Toolkit/Building Icons/`. Runtime UI uses these cached PNGs.
+
 Original Blender art created 2026-10-23 to match the meadow kit. The user's
 correction is authoritative: preserve the existing castle layout and provide
 modular wall/block art, rather than a new standalone castle building.
 
+Current user direction — 2026-10-28: blend the Human Warcraft silhouettes with
+Wind Meadow's painted scenery, replace barracks with farms and use the roofed
+Guard Tower. The farm retains the existing barracks save key, cost, housing,
+repairs and shelter behavior. No saved map migration or new simulation is needed.
+
 Open the `.blend` files here to edit the masters. Their GLBs live under
-`assets/models/environments/wind_meadow/buildings/`. All use one packed 1024px
-painted atlas; the editable image is `assets/textures/wind_meadow/architecture_paint.png`.
-The latest user references show a round crenellated stone tower and a pale
-stone/timber lookout with blue shingles. The revised tower uses a round shaft,
-individual weathered blocks, a battered base, chunky battlements, an oak gallery,
-arched openings, blue shingles and a blue pennant. Its 20m deck and 25m rear
-landing remain open. A small blue-roof shelter covers the rear landing, with
-2.2m headroom; the decorative pennant reaches 31.4m. The palette uses cool pale masonry, cream plaster, warm
-timber, blue trim and banners, moss and warm lantern glass. The project's chosen
-[Game Art Style atlas](https://gameartstyle.loopyhop.com/) was consulted alongside
-the user's supplied landscape reference. No artwork was extracted from either.
+`assets/models/environments/wind_meadow/buildings/`. Walls and gates retain the
+packed 1024px architecture atlas. The farm and Guard Tower reuse the recovered
+native geometry/UVs and original painted textures, with muted meadow-blue team
+accents and the existing `forest_painterly_surface.gdshader` applied through the
+shared `forest_wind_meadow_assets.gd` material cache. No texture or material is
+created during combat. One static mesh/two surfaces replaces each former
+three-mesh building. Geometry counts are asset evidence, not an FPS measurement.
+Native sources, original animations and provenance are preserved in
+`assets/references/warcraft_human_buildings/`; the existing Warcraft importer and
+normal saved-master exporter were reused. Initial preparation is not a tool to
+run over later artist edits.
 
 | Master | Geometry / anchors | Triangles | Mesh groups |
 | --- | --- | ---: | ---: |
@@ -24,14 +81,20 @@ the user's supplied landscape reference. No artwork was extracted from either.
 | `stone_block.blend` | Stackable 6m cube | 44 | 1 |
 | `wall_cap.blend` | 6m square coping, 0.7m thick | 44 | 1 |
 | `gate_frame.blend` | Existing 12m frame, 22m height; 9.6m × 11m opening | 452 | 3 |
-| `watchtower.blend` | Round shaft in 12m grid footprint; deck 20m; rear lookout 25m | 7,695 | 3 |
-| `barracks.blend` | 18m grid footprint; open deck 6m; oak diagonal braces | 4,773 | 3 |
+| `watchtower.blend` | Human Guard Tower; 12m grid footprint; deck anchor 20m, lookout anchor 25m; pennant 31.4m | 156 | 1 |
+| `barracks.blend` | Human farm; 18m grid footprint; original 6m shelter deck anchor; chimney 8.2m | 171 | 1 |
 
 Units are metres. Blender +Z is up; front is -Y, exported as Godot +Z.
-Origins are at ground centre. Named empty anchors survive export. Architecture,
-banners and lantern glass are separate editable mesh groups, with one material
-surface each. Edit mesh faces or select connected pieces in Blender; there are
-no hidden procedural dependencies. The tower and barracks retain open landings.
+Origins are at ground centre. Named empty anchors survive export. The two Human buildings are static prepared Stand poses with one editable
+Architecture mesh and two material surfaces. Other architecture, banners and
+lantern glass retain their original mesh groups. Edit mesh faces or select
+connected pieces in Blender; there are no hidden procedural dependencies.
+Existing collision, worker deck and native shelter/attack contracts remain.
+The enclosed Guard Tower conceals the pooled garrison body/bow presentation;
+shots, targeting and recall retain their original owner and 20m origin. Recalling
+the worker restores its same body. Other worker states/maps are unchanged.
+The source Birth/upgrade animations are preserved for future use; this visual
+replacement does not add construction delays or change combat timings.
 
 The gate's `GateDoor` mesh contains the closed leaf at 0–11m height. Move that
 child up 11m to tuck it behind the header; `GateOpenCenter` marks the raised
@@ -70,7 +133,7 @@ python3 tools/goemon_assets.py audit assets/models/environments/wind_meadow/buil
 python3 tools/goemon_assets.py check
 ```
 
-Refresh Godot imports before reviewing the preview. The initial authoring tool
+Refresh Godot imports before reviewing the preview. The historical initial authoring tool
 `tools/build_wind_meadow_buildings.py` refuses to overwrite any requested master;
 saved masters are authoritative. Do not regenerate them to export hand edits.
 The supplied-reference redesign supersedes the initial square-tower generator.
@@ -146,12 +209,14 @@ Four new editable masters and their matching GLBs live beside the original kit:
 | --- | --- | ---: | ---: |
 | `wall_ruins` | Wall section and stone block | 1,094 | 1 |
 | `gate_ruins` | Gate frame and stone block | 994 | 1 |
-| `tower_ruins` | Current round watchtower and stone block | 2,818 | 1 |
-| `barracks_ruins` | Barracks and stone block | 3,831 | 1 |
+| `tower_ruins` | Current Human Guard Tower and shared stone block | 523 | 3 |
+| `barracks_ruins` | Current Human Farm and shared stone block | 639 | 3 |
 
-These are cropped, capped and fallen pieces of the saved masters, retaining the
-existing packed 1024px architecture atlas and ground-centre origin. Original
-masters were hash-checked unchanged. The one-time authoring tool is
+Wall and gate rubble retain the cropped/capped original kit and its packed
+1024px architecture atlas. The farm/tower rubble reuses that workbench with fragments of the new
+Human buildings and the existing stone-block master. It retains three shared
+material surfaces, low capped stumps and fallen roof/wood/stone pieces, with
+the same ground-centre origins. Prior masters/exports are retained in Git. The existing one-time authoring workbench is
 `tools/build_wind_meadow_ruins.py`; it refuses to overwrite saved ruins. Edit
 the `.blend` files and use `tools/export_blender.py` for future changes.
 
@@ -187,3 +252,41 @@ render and regression evidence is in
 `build/Other Files/Asset Toolkit/Wind Meadow/Castle Breaches/` and the current
 performance guide. Keep using `tests/forest-shrine/enemy_castle_damage_test.gd`
 for the panel lifecycle, actual player traversal and saved health settings.
+
+## Angled preparation camera — 2026-10-28
+
+The user approved the gentle quarter view for building mode: offset
+`(55,150,118)` (about 25° around the map and 49° downward). The existing
+orthographic camera, cursor-ground picking and anchored zoom remain. Mouse and
+keyboard panning use the same screen-aligned ground directions in preparation
+and the map editor. Combat camera settings and framing remain unchanged.
+`tests/forest-shrine/preparation_zoom_test.gd` checks both input owners and
+phase transitions; `human_buildings_test.gd` reviews the actual valley art.
+
+## Human Cannon Tower — 2026-10-30
+
+`cannon_tower.blend` is a separate editable master, prepared from the same original
+HumanTower MDX's **Stand Upgrade Second** form. It preserves the original stone,
+UVs and muted meadow-blue team layer: 215 triangles, one mesh, two surfaces,
+23.66 m height, the existing 12 m grid footprint and entrance/deck/lookout anchors.
+Runtime export: `assets/models/environments/wind_meadow/buildings/cannon_tower.glb`.
+Edit the saved master and use `tools/export_blender.py`; the original MDX/complete
+animations remain under `assets/references/warcraft_human_buildings/original/`.
+Do not regenerate over artist edits. The Guard Tower and old saved map IDs remain.
+
+The cannonball has a separate editable source at
+`assets/blender/effects/warcraft_cannon_shell.blend`, exported to
+`assets/models/effects/warcraft_cannon_shell.glb`. Its ten original triangles and
+UVs come from CannonTowerMissile; .06 scale maps native +X forward to Godot +Z.
+The tower and shell use their authored exports: lossless candidates preserve them
+but offer no mesh/surface reduction. Reports and initial preparation scripts are
+under `build/Other Files/Asset Toolkit/Human Cannon Tower/`.
+
+Cannon placement uses Build → 5 (200 ryo), automatic worker staffing/repairs and
+existing tower cards. Native average damage is 100.5 at default balance, with
+2.5 seconds per worker, 48 m targeting and 42 m/s fixed-destination arcing shells.
+Splash is 100% / 50% / 10% at 3 / 6 / 7.5 m from fitted enemy bodies, respecting
+world cover. The existing native army owns damage and death; the original target
+can die without cancelling a shell already in flight. Shared Guard Tower damage
+and speed settings scale both types proportionally. Audio is documented in
+`assets/audio/warcraft_cannon/README.md`.

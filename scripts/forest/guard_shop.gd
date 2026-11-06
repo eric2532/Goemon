@@ -22,7 +22,7 @@ func _ready():
   face.region=Rect2(portrait.get_size()*Vector2(.3375,.20),portrait.get_size()*Vector2(.325,.52))
   PreparationSkin.apply_card(button,face)
   button.custom_minimum_size.x=0;button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
-  button.tooltip_text="Hire at the castle · 2 food · Attacks nearby enemies"
+  button.tooltip_text="Hire at the castle · 2 food · Defends the castle and four hills"
   button.pressed.connect(director.request.bind(slot));row.add_child(button);buttons[slot]=button
  refresh()
 func layout_panel():

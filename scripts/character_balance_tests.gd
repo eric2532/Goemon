@@ -77,7 +77,7 @@ func run():
 	check(game.balance_value(2,"max_hp")==120 and game.balance_value(1,"max_hp")==240,"Reset affects only the selected character and restores the saved baseline")
 	game.update_character_tuning(1,"max_hp",NAN)
 	check(game.balance_value(1,"max_hp")==240,"Invalid numeric edits cannot poison an existing profile")
-	for id in [31,32]:
+	for id in [31,32,33]:
 		game.player.select_character(id);game.show_character_balance(false,id);await settle()
 		check(button("Balance_model_scale").value==6 and button("Balance_attack_speed").value==3,"Warcraft balance displays 6x size and 3x attack defaults %d"%id)
 		check(game.player.model.scale.is_equal_approx(Vector3.ONE*6),"Selection applies sixfold model size %d"%id)
@@ -142,7 +142,7 @@ func run():
 		game.show_character_balance(true,3);await capture("pirate-balance")
 		game.show_character_balance(true,1);await capture("goemon-balance")
 		game.show_character_balance(true,2);await capture("edo-balance")
-		for id in [31,32]:
+		for id in [31,32,33]:
 			game.show_character_balance(true,id);await capture("warcraft-%d-balance"%id)
 		game.show_sound_studio(true);await capture("recording")
 		game.show_pause();await capture("pause")
@@ -161,7 +161,7 @@ func model_sizes():
 	for id in game.CharacterBalance.Roster.PLAYABLE_IDS:
 		hero.select_character(id);game.show_character_balance(false,id);await settle()
 		var size=button("Balance_model_scale")
-		var original=6.0 if id in [31,32] else 1.0
+		var original=6.0 if id in [31,32,33] else 1.0
 		check(size!=null and size.value==original,"Fighter %d exposes its original model size"%id)
 		var shape=hero.body_shape.shape
 		var bounds=shape.get_debug_mesh().get_aabb()

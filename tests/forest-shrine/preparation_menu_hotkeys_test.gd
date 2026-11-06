@@ -50,13 +50,32 @@ func run():
 	check(game.forest_ui.build_menu_expanded,"Pressing B again keeps the build menu open")
 	check_start_wave("Builds")
 	var build_tray=game.forest_ui.build_bar.get_global_rect()
+	var grid=game.forest_ui.build_bar
+	check(grid is GridContainer and grid.columns==4 and grid.get_child_count()==12,"Build menu keeps a fixed four-column, three-row grid")
+	for i in 4:
+		var button:Button=grid.get_child(i)
+		check(button.text.is_empty() and button.size.x>=100 and button.size.y>=100 and button.get_theme_constant("icon_max_width")==80,"Build slot %d uses a large icon and square target"%(i+1))
+		check(button.tooltip_text.contains("ryo") or button.tooltip_text.contains("Free"),"Build slot %d shows its price on hover"%(i+1))
+		var shortcut=button.get_node("Shortcut")
+		check(shortcut.text==str(i+1) and shortcut.get_theme_font_size("font_size")>=28 and shortcut.has_theme_stylebox_override("normal"),"Build slot %d displays a large keyboard keycap"%(i+1))
+	for kind in ["tower","barracks","enemy_castle"]:
+		check(game.forest_ui.build_buttons[kind].icon.resource_path=="res://assets/ui/forest/buildings/%s.png"%kind,"%s uses a baked portrait of the actual gameplay model"%kind)
+	check(game.forest_ui.build_buttons.tower.tooltip_text.contains("Guard Tower") and game.forest_ui.build_buttons.barracks.tooltip_text.contains("Farm"),"Building tooltips show the current building names")
+	check(not game.forest_ui.build_frame.get_global_rect().intersects(game.forest_ui.shrine_health_dock.get_global_rect()),"Large building grid stays clear of statue health")
+	game.model.gold=0;game.forest_ui.sync()
+	check(game.forest_ui.build_buttons.tower.disabled and game.forest_ui.build_buttons.tower.tooltip_text.contains("%d ryo"%game.model.COSTS.tower),"Unaffordable buildings retain their name and current cost on hover")
+	game.model.gold=5000;game.forest_ui.sync()
 	await capture("build-cards")
 	await tap(KEY_1)
 	check(game.build_kind=="tower","B then 1 selects tower construction")
 	check(game.forest_ui.build_menu_expanded,"Selecting a tower keeps the build tray open")
 	var count=game.model.buildings.size();var money=game.model.gold
+	await click(game.forest_ui.build_buttons.tower.get_node("Shortcut"))
+	check(game.build_kind=="tower" and game.model.buildings.size()==count and game.model.gold==money,"The larger keycap passes clicks to its building button without placing through the grid")
 	await click(game.forest_ui.build_buttons.get("barracks",game.forest_ui.build_buttons.tower))
 	check(game.build_kind=="barracks" and game.model.buildings.size()==count and game.model.gold==money,"Clicking a build card selects it without placing or charging through the tray")
+	await click(grid.get_node("EmptySlot6"))
+	check(game.model.buildings.size()==count and game.model.gold==money and game.build_kind=="barracks","Clicking an empty grid slot cannot place a building through the menu")
 	check(game.player.weapon_slot==3,"Build menu digits do not select Goemon weapons")
 	await tap(KEY_2);check(game.build_kind=="barracks","B then 2 selects barracks construction")
 	check(game.place_cell(Vector2i(6,12)) and game.forest_ui.build_menu_expanded and game.build_kind=="barracks","Placing a barracks keeps its build card selected and menu open")
@@ -78,13 +97,17 @@ func run():
 	check(game.forest_ui.guard_shop_open(),"Pressing M again keeps the mercenary menu open")
 	if not game.forest_ui.guard_shop_open():await tap(KEY_M)
 	var mercenary_tray=game.forest_ui.guard_shop.panel.get_global_rect()
-	check(mercenary_tray.position.distance_to(build_tray.position)<1 and mercenary_tray.size.distance_to(build_tray.size)<1,"M cards occupy the same bottom tray as B")
+	check(mercenary_tray.position.x<build_tray.position.x+1 and mercenary_tray.end.y<=game.forest_ui.preparation_header.get_global_rect().position.y,"Mercenary cards keep their existing bottom tray above the menu tabs")
 	root.size=Vector2i(960,600);await frames()
 	check_start_wave("Mercenaries in a smaller window")
 	check(root.get_visible_rect().encloses(game.forest_ui.guard_shop.panel.get_global_rect()),"Mercenary tray stays inside a smaller game window")
 	check(not game.forest_ui.start_wave_button.get_global_rect().intersects(game.forest_ui.guard_shop.panel.get_global_rect()),"Mercenary cards cannot cover Start Wave")
 	await tap(KEY_B);check_start_wave("Builds in a smaller window")
+	check(root.get_visible_rect().encloses(game.forest_ui.build_frame.get_global_rect()),"All twelve building slots fit inside a smaller window")
+	check(not game.forest_ui.build_frame.get_global_rect().intersects(game.forest_ui.shrine_health_dock.get_global_rect()),"Building grid and statue health stay separate in a smaller window")
+	await capture("build-grid-small")
 	await click(game.forest_ui.preparation_header.get_node("PreparationTools"));check_start_wave("Tools in a smaller window")
+	check(game.forest_ui.preparation_actions.is_visible_in_tree() and not game.forest_ui.build_frame.visible,"Tools replaces the enlarged grid without covering its slots")
 	await tap(KEY_M)
 	root.size=Vector2i(1280,800);await frames();await capture("mercenary-cards")
 	gold=game.model.gold
@@ -123,6 +146,11 @@ func capture(label_:String):
 	for i in 3:await process_frame
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Menu Assets/"+label_+".png")
+	if label_=="build-cards":
+		var motion=InputEventMouseMotion.new();motion.device=TEST_INPUT_DEVICE;motion.position=game.forest_ui.build_buttons.tower.get_global_rect().get_center()
+		root.push_input(motion,true);Input.flush_buffered_events();await create_timer(.8).timeout;await RenderingServer.frame_post_draw
+		check(root.gui_get_hovered_control()==game.forest_ui.build_buttons.tower,"Large building icons receive real pointer hover")
+		root.get_texture().get_image().save_png("/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Menu Assets/build-grid-hover.png")
 	if label_=="mercenary-cards":
 		var previous_pan=game.pan;var previous_size=game.preparation_size
 		for b in game.model.buildings.values():

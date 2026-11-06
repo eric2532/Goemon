@@ -41,25 +41,18 @@ func busy_miners_repair_and_return():
 		var w: Dictionary=m.workers.values()[i]
 		m.workforce._assign(w,west if i<3 else east)
 	var tower=build_(m,"tower",Vector2i(5,5))
-	m.workforce.recruit(true)
-	var guard: Dictionary=m.workers.values().back()
-	m.workforce._assign(guard,tower);guard.state="garrison";guard.pos=m.center(tower)
 	var door=build_(m,"gate",Vector2i(-7,-5))
-	var guards=crew(m,tower.id)
-	var guard_jobs={}
-	for w in m.workers.values():
-		if w.state=="garrison":guard_jobs[w.id]=w.job
 	var mine_jobs={}
 	for w in m.workers.values():
-		if w.state!="garrison":mine_jobs[w.id]=w.job
+		mine_jobs[w.id]=w.job
 	door.hp-=400
 	m.workforce.auto_assign()
 	check(crew(m,door.id).size()==2,"A fully busy legacy workforce automatically sends two miners to a damaged door")
-	check(guard_jobs.keys().all(func(id):return m.workers[id].job==guard_jobs[id] and m.workers[id].state=="garrison"),"Automatic door repairs keep every tower garrison in place")
+	check(crew(m,tower.id).is_empty(),"Automatic tower stays empty while workers repair")
 	work(m,35)
 	check(door.hp==door.max_hp,"Workers repair a damaged door between waves")
 	check(mine_jobs.keys().all(func(id):return m.workers[id].job==mine_jobs[id]),"Finished repairs restore each borrowed worker's original mine")
-	check(guards.size()>0,"Fixture retains the real starting tower crew")
+	check(crew(m,tower.id).is_empty(),"Repair completion never sends workers into the tower")
 	m=fresh();keep_workers(m,3)
 	var mine=build_(m,"mine",Vector2i(-5,1))
 	var nearby=m.workers.values()[0];nearby.pos=m.point(Vector2i(2,6))
@@ -74,20 +67,20 @@ func busy_garrisons_repair_and_return():
 	var m=fresh();keep_workers(m,3)
 	var tower=build_(m,"tower",Vector2i(3,4))
 	for w in m.workers.values():
-		m.workforce._assign(w,tower);w.state="garrison";w.pos=m.center(tower)
+		w.job=tower.id;w.state="garrison";w.pos=m.center(tower)
 	var door=build_(m,"gate",Vector2i(2,8));door.hp-=200
 	m.workforce.auto_assign()
-	check(crew(m,door.id).size()==2 and crew(m,tower.id).size()==1,"Without mines or idle workers, spare tower guards repair while one guard remains")
+	check(crew(m,door.id).size()==2 and crew(m,tower.id).is_empty(),"Former tower guards are released and two take up repairs")
 	m.gold=0;m.workforce.auto_assign()
-	check(crew(m,tower.id).size()==3,"Unfunded repairs immediately return borrowed guards to their tower")
+	check(crew(m,tower.id).is_empty(),"Unfunded repairs never return workers to an automatic tower")
 	m.gold=10000;m.workforce.auto_assign()
 	work(m,30)
-	check(door.hp==door.max_hp and crew(m,tower.id).size()==3 and crew(m,tower.id).all(func(w):return w.state=="garrison"),"Borrowed guards finish repair and return to their original tower")
+	check(door.hp==door.max_hp and crew(m,tower.id).is_empty(),"Former guards finish repairs and stay available")
 	m=fresh();keep_workers(m,1);tower=build_(m,"tower",Vector2i(3,4))
 	var guard: Dictionary=m.workers.values()[0]
-	m.workforce._assign(guard,tower);guard.state="garrison";guard.pos=m.center(tower)
+	guard.job=tower.id;guard.state="garrison";guard.pos=m.center(tower)
 	door=build_(m,"gate",Vector2i(2,8));door.hp-=200;m.workforce.auto_assign()
-	check(guard.job==tower.id,"Automatic repairs preserve the final guard in an occupied tower")
+	check(guard.job==door.id,"Even the last former guard can repair because the tower is automatic")
 
 func reachable_door_faces():
 	for rotation_ in [0,1,2,3]:

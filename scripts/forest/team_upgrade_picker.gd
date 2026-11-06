@@ -46,12 +46,11 @@ func _ready():
 		var icon=TextureRect.new();icon.name="Icon";icon.mouse_filter=Control.MOUSE_FILTER_IGNORE
 		icon.custom_minimum_size=Vector2(65,65);icon.size_flags_horizontal=Control.SIZE_SHRINK_CENTER
 		icon.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;icon.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		if i==2:icon.material=game.forest_ui.hero_portrait.material;icon.stretch_mode=TextureRect.STRETCH_SCALE
 		contents.add_child(icon)
 		text_label(contents,"",22).name="Title"
 		var description=text_label(contents,"",17);description.name="Description";description.size_flags_vertical=Control.SIZE_EXPAND_FILL
 		text_label(contents,"",14).name="Rank"
-	text_label(panel,"Choose one · Applies to the whole team · This run only",16)
+	text_label(panel,"Choose one · This run only",16)
 	resized.connect(layout);refresh();layout.call_deferred()
 	panel.modulate.a=0
 	create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS).tween_property(panel,"modulate:a",1.0,.18)
@@ -75,12 +74,20 @@ func refresh():
 		button.find_child("Title",true,false).text=card.title
 		button.find_child("Description",true,false).text=progression.description(id,rarity)
 		button.find_child("Rank",true,false).text="UNLOCK FOR ALL WORKERS" if id=="worker_revive" else "RANK %d → %d"%[progression.ranks.get(id,0),progression.ranks.get(id,0)+power]
+		if rarity<4 and id!="worker_revive":button.find_child("Rank",true,false).text+="\n%s TOTAL ×%.2f → ×%.2f"%["PLAYER" if id=="player_range" else "TEAM",progression.multiplier(id),progression.multiplier(id,power)]
 		if rarity==4:button.find_child("Rank",true,false).text="5× TOWER DAMAGE · THIS RUN" if id=="legendary_tower" else "INSTANT REINFORCEMENTS"
 		var shine=button.get_node("Shine");shine.visible=rarity>0
 		var inset=-28 if rarity==4 else 4
 		shine.offset_left=inset;shine.offset_right=-inset;shine.offset_top=inset;shine.offset_bottom=-inset
 		shine.material.set_shader_parameter("rarity_color",color);shine.material.set_shader_parameter("rarity",float(rarity))
-		button.find_child("Icon",true,false).texture=game.forest_ui.build_buttons.tower.icon if i==0 else game.forest_ui.hud_icons.get_icon("worker") if i==1 else game.forest_ui.hero_portrait.texture
+		var icon=button.find_child("Icon",true,false);icon.material=null;icon.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		if card.has("hero") or card.has("mercenary"):
+			var character=int(card.hero) if card.has("hero") else game.explorer_helpers.KITS[card.mercenary]
+			icon.texture=preload("res://scripts/rogue_roster.gd").selection_portrait(character)
+		elif card.category=="Tower":icon.texture=game.forest_ui.build_buttons.tower.icon
+		elif card.category=="Worker":icon.texture=game.forest_ui.hud_icons.get_icon("worker")
+		else:
+			icon.texture=game.forest_ui.hero_portrait.texture;icon.material=game.forest_ui.hero_portrait.material;icon.stretch_mode=TextureRect.STRETCH_SCALE
 	buttons[0].grab_focus()
 
 func select(index:int):

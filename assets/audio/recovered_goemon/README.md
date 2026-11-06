@@ -8,6 +8,60 @@ These are **dry event reconstructions**, not bit-exact emulator recordings. The 
 
 ## Source mapping
 
+### Shared gameplay footstep default — 2026-10-28
+
+At the user's request, Goemon, Edo, all ten Goemon-based classes, Sasuke, Yae,
+Ed, Ben, Blademaster and Illidan now share Goemon's event `217` as their default.
+`SoundLibrary.GOEMON_FOOTSTEP_IDS` owns this roster policy and reuses the same
+prepared Yae WAV. Saved recordings, gain, mute and Restore default retain their
+existing precedence. This is a requested gameplay binding, separate from each
+game's original sound mapping. Sasuke's authentic event `218` remains preserved.
+
+Shared gameplay footsteps use cue level `.65` (previously `.22`) so the short
+original sample is clearer at ordinary master volume. The WAV and pitch are
+unchanged; character gain/mute and custom recordings still apply. Direct keyboard
+walking verifies both Ninja and Dragoon. Level comparisons are in
+`build/Other Files/Asset Toolkit/Footstep Audibility/`.
+
+The Goemon-based class controller now advances its existing distance-based
+stride counter and uses Hero's shared footstep playback handler. It previously
+bypassed both connections. Existing gait timing, movement and particle behavior
+are preserved; no audio files, players or pools were added. Current gameplay
+checks and recordings are under
+`build/Other Files/Asset Toolkit/Shared Goemon Footsteps/`.
+
+### Original walking sounds — 2026-10-28
+
+The shared gameplay policy above supersedes Sasuke's native default described
+below; the original source mapping and recovery proof remain valid.
+
+Ordinary land walking uses event `217` for Goemon and Yae, and `218` for
+Sasuke. Goemon now reuses Yae's existing `event_217.wav`; Sasuke's `step`
+default uses his existing `event_218.wav` instead of silence. Both events use
+the same original bank-1 instrument 36 with different sequencer settings.
+No duplicate audio files are needed. Recording overrides, gain, mute, source
+pitch, current movement cadence and the existing pooled voices are retained.
+
+`tools/verify_goemon_footsteps.py` executes the original ordinary-land handler
+`801E3400`, channel decoder and character lookup for every frame of all four
+gaits `0C–0F` on all three characters. It hooks only sound output and the
+dry-land environment query, then stops before unrelated movement/input logic.
+These frame probes establish event identity; they do not retime gameplay.
+Fresh sequencer renders of both events match the installed WAVs byte for byte.
+Water and underwater variants are outside this recovery. The dry-render DSP
+limits described above still apply.
+
+Reproduce from the project root with:
+
+```sh
+"build/Other Files/Goemon ROM Recovery/Tools/venv/bin/python" tools/verify_goemon_footsteps.py
+"/Users/eric/Desktop/Play Goemon.command" --script res://tests/forest-shrine/original_footsteps_test.gd
+```
+
+Original source proof and initial gameplay recordings, captures and logs remain
+in `build/Other Files/Asset Toolkit/Original Footsteps/`. The gameplay test now
+checks the requested shared defaults and writes to `Shared Goemon Footsteps/`.
+
 On 2026-10-25, the user rejected the generated jump beep heard on Blademaster
 and Demon Hunter. The shared jump fallback now reuses the existing voice-free
 `assets/audio/recovered_yae/event_21d.wav`, the same `21D` takeoff effect in

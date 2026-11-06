@@ -29,6 +29,7 @@
   "res://assets/models/characters/sonic/sonic.glb": "res://assets/optimized/sonic.glb",
   "res://assets/models/characters/warcraft/blademaster/blademaster.glb": "res://assets/optimized/warcraft-blademaster.glb",
   "res://assets/models/characters/warcraft/demon-hunter/demon-hunter.glb": "res://assets/optimized/warcraft-demon-hunter.glb",
+  "res://assets/models/characters/warcraft/mountain-king/mountain-king.glb": "res://assets/optimized/warcraft-mountain-king.glb",
   "res://assets/models/characters/warcraft/peasant/peasant.glb": "res://assets/optimized/warcraft-peasant.glb",
   "res://assets/models/enemies/thirstquencher/soldier_1.glb": "res://assets/optimized/soldier-light-1.glb",
   "res://assets/models/enemies/thirstquencher/soldier_2.glb": "res://assets/optimized/soldier-light-2.glb",

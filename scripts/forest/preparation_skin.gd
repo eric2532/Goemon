@@ -55,4 +55,6 @@ static func theme()->Theme:
 	cached_theme.set_stylebox("focus","CheckButton",focus)
 	cached_theme.set_stylebox("panel","PopupMenu",panel());cached_theme.set_color("font_color","PopupMenu",PAPER)
 	cached_theme.set_stylebox("hover","PopupMenu",button_style("pressed"));cached_theme.set_color("font_hover_color","PopupMenu",INK)
+	cached_theme.set_stylebox("panel","TooltipPanel",panel());cached_theme.set_color("font_color","TooltipLabel",PAPER)
+	cached_theme.set_font_size("font_size","TooltipLabel",20)
 	return cached_theme

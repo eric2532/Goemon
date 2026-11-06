@@ -88,6 +88,20 @@ func animate(delta: float, speed: float, grounded: bool, _vertical: float, _atta
 func sync_skeleton() -> void:
 	pass
 
+func animate_spell(delta:float,spell:Node):
+	if not spell.spec.get("air_attack",false):
+		animate(delta,Vector2(combat.hero.velocity.x,combat.hero.velocity.z).length(),combat.hero.is_on_floor(),combat.hero.velocity.y,0,false,0,false);return
+	# Borrow the class's prepared attack pose; the spell alone owns damage/motion.
+	var pose=combat.player.duplicate()
+	var attack=combat.COMBO[2].duplicate() if class_id=="pirate" else combat.Actions.primary_config(combat,2)
+	attack.index=2;attack.weapon="cutlass";attack.angle=pose.angle
+	if class_id=="pirate":attack.style="sword"
+	var phase=spell.controller.finisher_phase
+	attack.time=attack.contact*.5 if phase=="hover" else attack.contact if phase=="drop" else attack.duration
+	pose.attack=attack;pose.grounded=combat.hero.is_on_floor();pose.vertical=combat.hero.velocity.y;pose.flip=-1.0
+	pose.dive={} if class_id=="magic-swordsman" and phase=="drop" else null
+	actor.animate_pose(pose,delta,combat.time,0)
+
 func cape_skeleton()->Skeleton3D:
 	if is_instance_valid(actor) and is_instance_valid(actor.rom_thief):return actor.rom_thief.equipment_skeleton
 	return actor.cosplay_rig.skeleton if is_instance_valid(actor) and actor.cosplay_rig!=null else null

@@ -1,5 +1,5 @@
 #include "core.h"
-#include "finale_kit.h"
+#include "../../../tests/forest-shrine/reference/finale_kit.h"
 #include <cassert>
 #include <iostream>
 #include <chrono>
@@ -110,6 +110,28 @@ int main(){
   }
   assert(peak>=96&&peak<2000);
   std::cout<<"WIND_ARMY_STRESS bosses=6 allies=96 repeats=3 projectile_peak="<<peak<<" step_max_ms="<<worst<<"\n";
+ }
+ for(double dt:{1.0/20,1.0/30,1.0/60})for(int scenario:{0,1,2}){
+  Crowd c;c.configure(128,128);c.parallel_movement_enabled=false;auto data=kit();data.finale_ranges[0]=.001;
+  if(scenario==0)data.finale_shots[9]=.1;
+  assert(c.combat.configure(data));NavigationData nav;
+  if(scenario==2)for(int i=0;i<6;++i){
+   float x=float(i*20-50);
+   nav.ray_min.insert(nav.ray_min.end(),{{x-5.5f,0,94.5f},{x+5,0,94.5f},{x-5,0,94.5f},{x-5,0,105}});
+   nav.ray_max.insert(nav.ray_max.end(),{{x-5,5,105.5f},{x+5.5f,5,105.5f},{x+5,5,95},{x+5,5,105.5f}});
+  }
+  c.set_navigation(nav);std::vector<Handle> bosses;
+  for(int i=0;i<6;++i){auto h=c.spawn(i+1,0,18,{float(i*20-50),0,0},18000,3.9);bosses.push_back(h);auto u=c.unit(h);u->action=302;u->action_active=true;u->phase_tick=59.9;u->landing_goal={float(i*20-50),0,100};}
+  int parents=0,children=0,born=0;size_t peak=0;
+  for(int tick=0;tick<int(7/dt);++tick){
+   c.step(dt);
+   if(tick==0)for(auto h:bosses){auto u=c.unit(h);u->action_active=false;u->action=0;u->recovery_left=100;}
+   for(const auto& shot:c.combat.active_projectiles())if(shot.owner_kind==18&&shot.effect_kind==2&&shot.power){assert(std::abs(shot.damage-65*3.5*.5)<.001);assert(shot.direction.y==0);assert(std::abs(length(shot.direction)-1)<.0001);if(shot.age<=dt+1e-6)++born;}
+   for(const auto& e:c.combat.events())if(e.kind==PROJECTILE_IMPACT&&e.unit_kind==18&&e.action_index==2){if(e.source_tick)++children;else ++parents;}
+   peak=std::max(peak,c.combat.active_projectiles().size());c.combat.clear_events();
+  }
+  assert(parents==(scenario==0?0:6)&&born==(scenario==0?0:30)&&children==(scenario==2?30:0)&&c.combat.active_projectiles().empty());assert(peak<=30);
+  std::cout<<"WATER_CONTACT_PASS bosses=6 scenario="<<scenario<<" parent_pops="<<parents<<" child_pops="<<children<<" rate="<<1/dt<<" peak="<<peak<<"\n";
  }
  auto bad=kit();bad.finale_meta[0]=-1;assert(!valid_kit_data(bad));bad=kit();bad.finale_frames[1]=8;assert(!valid_kit_data(bad));bad=kit();bad.finale_scale=0;assert(!valid_kit_data(bad));bad=kit();bad.finale_ranges.clear();assert(!valid_kit_data(bad));bad=kit();bad.finale_ranges[0]=-1;assert(!valid_kit_data(bad));
  std::cout<<"DARK_LUMINA_3_NATIVE_PASS six_moves rates=20,30,60 secondary_effects cancellation cleanup validation\n";

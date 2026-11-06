@@ -3,6 +3,7 @@ extends RefCounted
 var pieces: Array=[]
 const BUCKET_SIZE=12.0
 const NO_PIECES=[]
+const MAX_HEIGHT=256.0
 var height_buckets:Dictionary={}
 var maximum_height=0.0
 func is_flat()->bool:return pieces.is_empty()
@@ -16,7 +17,7 @@ func configure(source: Array):
   var start=0.0 if ramp or not item.get("cap_start",true) else -half
   var end=a.distance_to(b)+(0.0 if ramp or not item.get("cap_end",true) else half)
   var piece={"a":a,"b":b,"along":along,"side":Vector2(-along.y,along.x),"half":half,"length":a.distance_to(b),"start":start,"end":end,"h0":float(item.h0),"h1":float(item.h1)}
-  pieces.append(piece)
+  piece.joined=bool(item.get("joined",false));pieces.append(piece)
   maximum_height=maxf(maximum_height,maxf(piece.h0,piece.h1))
   # Index candidates only; exact continuous height and edge tests stay below.
   # Include the sampler's tolerance on every edge, also at negative coordinates.
@@ -76,7 +77,14 @@ func cliff_cell(cell: Vector2i)->bool:
  for step in [Vector2i.UP,Vector2i.RIGHT,Vector2i.DOWN,Vector2i.LEFT]:
   if absf(height((cell.x+step.x)*6,(cell.y+step.y)*6)-center)>2.11:return true
  return false
-static func validation_error(value)->String:
+static func bounds(item:Dictionary)->Rect2:
+ var a=Vector2(item.ax,item.az)*6;var b=Vector2(item.bx,item.bz)*6
+ var along=(b-a).normalized();var side=Vector2(-along.y,along.x);var half=float(item.width)*3
+ if item.h0==item.h1:
+  if item.get("cap_start",true):a-=along*half
+  if item.get("cap_end",true):b+=along*half
+ return Rect2(a.min(b)-side.abs()*half,(b-a).abs()+side.abs()*half*2)
+static func validation_error(value,region:Rect2i=Rect2i(-40,-40,80,80))->String:
  if not value is Array or value.size()>24:return "Use at most 24 raised-wall segments."
  for item in value:
   if not item is Dictionary:return "Invalid raised-wall segment."
@@ -84,10 +92,12 @@ static func validation_error(value)->String:
    var v=item.get(key)
    if not (v is int or v is float) or not is_finite(float(v)):return "Invalid raised-wall dimensions."
   for key in ["ax","az","bx","bz"]:
-   if item[key]!=floor(item[key]) or absf(item[key])>36:return "Raised walls must stay inside the map."
-  if item.width!=floor(item.width) or int(item.width) not in [3,5,7] or item.h0<0 or item.h0>30 or item.h1<0 or item.h1>30:return "Invalid raised-wall width or height."
+   if item[key]*2!=floor(item[key]*2):return "Raised walls must use the terrain grid inside the map."
+  if item.width!=floor(item.width) or int(item.width) not in [3,5,7] or item.h0<0 or item.h0>MAX_HEIGHT or item.h1<0 or item.h1>MAX_HEIGHT:return "Invalid raised-wall width or height."
   var distance=Vector2(item.bx-item.ax,item.bz-item.az).length()*6
   if distance<6 or (item.ax!=item.bx and item.az!=item.bz) or absf(item.h1-item.h0)>distance/3:return "Walls need straight segments and a gradual ramp."
-  for key in ["cap_start","cap_end"]:
+  for key in ["cap_start","cap_end","joined"]:
    if item.has(key) and not item[key] is bool:return "Invalid raised-wall end cap."
+  var domain=Rect2(Vector2(region.position)*6-Vector2.ONE*3,Vector2(region.size)*6)
+  if not domain.encloses(bounds(item)):return "Keep the whole terrain piece inside the map."
  return ""

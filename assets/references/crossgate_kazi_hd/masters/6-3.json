@@ -1,0 +1,11 @@
+{
+  "token": "6-3",
+  "prompt": "Precise sprite-sheet cleanup, image 1 is already the illustrated Kazi animation. Keep EVERY character pose, foot position, identity, dagger, body size, view, clothes, palette and frame order unchanged. Fix ONLY violet effects which touch or cross cell edges. Reposition those sparks / curl those energy arcs inward so ALL art including glow has at least 16 transparent pixels of safety margin from EVERY cell boundary. There must be no spark halves from neighboring cells. Maintain exactly 5 columns x 6 rows, 30 frames, left-to-right top-to-bottom. Image 2 confirms the same identity/view. Keep the current canvas aspect, grid placement and motion. Do not crop, shrink the character, erase the purple effects or make duplicates. Transparent background. No grid/text/shadows. CRITICAL ORIENTATION: EXACT RIGHT SIDE PROFILE: nose points horizontally image right, only one eye, one side of coat. Never frontal. Image 2 fixes the character view, head, face, costume and short curved DAGGER. The source image 1 supplies action/pose gestures and effects ONLY. Even if a source gesture turns frontal, redraw that gesture in the requested camera angle. Keep the same dagger shape and same anatomical right hand in every pose. No long sword. No extra face, change of view or front/rear flip during the animation. Feet alternate smoothly in walk/run; no repeated idle pose.",
+  "references": [
+    "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Cross Gate 102488/HD Preview/Rejected/6-3-effect-edge-draft.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/masters/0-3.png"
+  ],
+  "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-a4cab4f8-7749-4129-ada2-9065b0017417.png",
+  "tool": "built-in image_gen",
+  "sha256": "2b19f7d34e05b9a5217437363aad4e954cb33291d0a662de74767ec560da69d2"
+}

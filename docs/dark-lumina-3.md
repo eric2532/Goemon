@@ -60,7 +60,7 @@ SFX bus while the six attacks run.
 | --- | --- | --- |
 | LMB | Default energy attack | Ground wave → first flying crescent → opposing flying crescent; one click per release, one early continuation can be buffered |
 | 1 | Wind | Up to three sequential volleys; each has two attached mirrored wings, outward knockback, four paired-wing gusts per pulse plus an aimed attack for each newly pushed target |
-| 2 | Water | Up to three sequential volleys; each has six falling shots and one selected eight-way burst |
+| 2 | Water | Up to three sequential volleys; each of six falling bubbles pops into five bubbles that pop without splitting again |
 | 3 | Fire | Up to three sequential volleys; each has 32 falling flames and lingering ground fire |
 | 4 | Earth | Queue up to five presses before landing; one damaging wave per press |
 | 5 | Sky | Fade/teleport, five standing copies, staggered upright launches, safe return |
@@ -413,3 +413,23 @@ Other type-5 cues from the generic extractor still need review; their old
 source-hash checks prove reproducibility, not correct sound selection. Original
 recovery files and user recordings are preserved. Current rendered evidence and
 the integrated SFX recording are in `Wind Audio Mix/` under the evidence root.
+
+## Water bubble split — 2026-10-30
+
+On contact, each primary Water bubble plays its recovered pop and releases exactly
+five radial bubbles. Each child plays the existing secondary pop only on contact
+and retires without splitting again. Unhit bubbles retire silently when their
+lifetime ends, with no pop, sound or children. This supersedes the earlier single selected
+eight-way burst described in the historical tuning notes above. Six primary
+releases, three-volley queuing, hit checks, spread, speed, lifetime, primary damage
+and half-damage children are retained. Player, borrowed Water and native bosses
+use their existing combat/projectile owners; no assets or animations were replaced.
+
+The earlier timeout-splitting implementation measured 100 simultaneous Water
+projectiles and 68 pool misses with the old 32 prepared leases. Water now prepares 128 leases on
+selection, keeping that workload out of combat-time construction. Run
+`dark_lumina_3_water_test.gd` through Play Goemon for rendered checks and captures;
+`dark_lumina_3_queue_test.gd` covers the existing elemental queue. Evidence is in
+`build/Other Files/Asset Toolkit/Dark Lumina 3/Water Contact/` for the contact-only
+follow-up; the earlier timeout-splitting evidence remains under `Water Bubbles/`.
+No app export.

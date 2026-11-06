@@ -21,9 +21,10 @@ static func obstacles(model:RefCounted)->Array:
 	for camp in model.portals:
 		if camp.hp<=0:continue
 		var origin:Vector3=model.point(Vector2i(camp.x,camp.z))
-		boxes.append(AABB(origin+Vector3(-8.5,0,-8.5),Vector3(17,6,17)))
 		if camp.get("castle",false):
+			for box:AABB in preload("res://scripts/forest/forest_enemy_castle.gd").statue_boxes(camp):boxes.append(AABB(box.position+origin,box.size))
 			for box:AABB in preload("res://scripts/forest/forest_enemy_castle.gd").boxes(camp):boxes.append(AABB(box.position+origin,box.size))
+		else:boxes.append(AABB(origin+Vector3(-8.5,0,-8.5),Vector3(17,6,17)))
 	if not model.enemy_camps_prototype:return boxes
 	if model.enemy_statue.hp>0:boxes.append(AABB(Vector3(-8.5,0,189.5),Vector3(17,6,17)))
 	for x in [-30,30]:

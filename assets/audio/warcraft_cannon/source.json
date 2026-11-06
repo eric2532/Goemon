@@ -1,0 +1,381 @@
+{
+  "unit": "hctw",
+  "model": "Buildings/Human/HumanTower/HumanTower.mdx",
+  "animation_properties": "upgrade,second",
+  "events": [
+    {
+      "Name": "SNDxMCAN",
+      "ObjectId": 8,
+      "Parent": null,
+      "Flags": 1024,
+      "EventTrack": [
+        90400
+      ],
+      "PivotPoint": [
+        -27.495899200439453,
+        -0.06380180269479752,
+        0
+      ]
+    },
+    {
+      "Name": "SNDxKCAN",
+      "ObjectId": 9,
+      "Parent": null,
+      "Flags": 1024,
+      "EventTrack": [
+        86167
+      ],
+      "PivotPoint": [
+        -27.495899200439453,
+        -0.06380180269479752,
+        0
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "SoundName": "CannonTowerMissile",
+      "FileNames": "CannonTowerMissile1.wav,CannonTowerMissile2.wav,CannonTowerMissile3.wav",
+      "DirectoryBase": "Abilities\\Weapons\\CannonTowerMissile\\",
+      "Volume": "127",
+      "Pitch": "1",
+      "PitchVariance": "0.1",
+      "Priority": "8",
+      "Channel": "11",
+      "Flags": "WANT3D,RANDOMPITCH",
+      "MinDistance": "600",
+      "MaxDistance": "10000",
+      "DistanceCutoff": "3000",
+      "EAXFlags": "MissilesEAX",
+      "InBeta": "1",
+      "version": "0",
+      "table": "AnimSounds"
+    },
+    {
+      "SoundName": "CannonTowerAttack",
+      "FileNames": "CannonTowerMissileLaunch1.wav,CannonTowerMissileLaunch2.wav,CannonTowerMissileLaunch3.wav",
+      "DirectoryBase": "Abilities\\Weapons\\CannonTowerMissile\\",
+      "Volume": "127",
+      "Pitch": "1",
+      "PitchVariance": "0.1",
+      "Priority": "5",
+      "Channel": "11",
+      "Flags": "WANT3D,CHANNELFULLPREEMPT, RANDOMPITCH",
+      "MinDistance": "600",
+      "MaxDistance": "10000",
+      "DistanceCutoff": "3000",
+      "EAXFlags": "CombatSoundsEAX",
+      "InBeta": "1",
+      "version": "0",
+      "table": "AnimSounds"
+    },
+    {
+      "SoundName": "DeathHumanBuildingCancel",
+      "FileNames": "HCancelBuilding.wav",
+      "DirectoryBase": "Sound\\Buildings\\Death\\",
+      "Volume": "127",
+      "Pitch": "1",
+      "PitchVariance": "0.1",
+      "Priority": "110",
+      "Channel": "11",
+      "Flags": "WANT3D,CHANNELFULLPREEMPT,LISTFULLPREEMPT, RANDOMPITCH",
+      "MinDistance": "600",
+      "MaxDistance": "10000",
+      "DistanceCutoff": "3000",
+      "EAXFlags": "DefaultEAXON",
+      "InBeta": "1",
+      "version": "0",
+      "table": "AnimSounds"
+    },
+    {
+      "SoundName": "DeathHumanSmallBuilding",
+      "FileNames": "BuildingDeathSmallHuman.wav",
+      "DirectoryBase": "Sound\\Buildings\\Death\\",
+      "Volume": "127",
+      "Pitch": "1",
+      "PitchVariance": "0.1",
+      "Priority": "110",
+      "Channel": "11",
+      "Flags": "WANT3D,CHANNELFULLPREEMPT,LISTFULLPREEMPT, RANDOMPITCH",
+      "MinDistance": "600",
+      "MaxDistance": "10000",
+      "DistanceCutoff": "3000",
+      "EAXFlags": "DefaultEAXON",
+      "InBeta": "1",
+      "version": "0",
+      "table": "AnimSounds"
+    },
+    {
+      "SoundName": "CannonTowerWhat",
+      "FileNames": "CannonTowerWhat1.wav",
+      "DirectoryBase": "Buildings\\Human\\HumanTower\\",
+      "Volume": "90",
+      "Pitch": "1",
+      "PitchVariance": "0.01",
+      "Priority": "1000",
+      "Channel": "1",
+      "Flags": "WANT3D,NODUPEUSERNAMES,CHANNELFULLPREEMPT,RANDOMPITCH",
+      "MinDistance": "3000",
+      "MaxDistance": "10000",
+      "DistanceCutoff": "100000",
+      "EAXFlags": "DefaultEAXON",
+      "InBeta": "1",
+      "version": "0",
+      "table": "UnitAckSounds"
+    },
+    {
+      "SoundName": "JobDoneSoundHuman",
+      "FileNames": "PeasantBuildingComplete1.wav",
+      "DirectoryBase": "Sound\\Buildings\\Human\\",
+      "Volume": "127",
+      "Pitch": "1",
+      "PitchVariance": "1",
+      "Priority": "10",
+      "Channel": "8",
+      "Flags": "0",
+      "MinDistance": "0",
+      "MaxDistance": "0",
+      "DistanceCutoff": "10000",
+      "EAXFlags": "0",
+      "version": "0",
+      "InBeta": "1",
+      "table": "UISounds"
+    },
+    {
+      "SoundName": "PlaceBuildingDefault",
+      "FileNames": "BuildingPlacement.wav",
+      "DirectoryBase": "Sound\\Buildings\\Shared\\",
+      "Volume": "110",
+      "Pitch": "1",
+      "PitchVariance": "1",
+      "Priority": "600",
+      "Channel": "8",
+      "Flags": "0",
+      "MinDistance": "0",
+      "MaxDistance": "0",
+      "DistanceCutoff": "10000",
+      "EAXFlags": "0",
+      "version": "0",
+      "InBeta": "1",
+      "table": "UISounds"
+    },
+    {
+      "SoundName": "ConstructingBuildingDefault",
+      "FileNames": "BuildingConstruction.wav",
+      "DirectoryBase": "Sound\\Buildings\\Shared\\",
+      "Volume": "127",
+      "Pitch": "1",
+      "PitchVariance": "1",
+      "Priority": "1000",
+      "Channel": "12",
+      "Flags": "WANT3D",
+      "MinDistance": "600",
+      "MaxDistance": "10000",
+      "DistanceCutoff": "2500",
+      "EAXFlags": "0",
+      "version": "0",
+      "InBeta": "1",
+      "table": "UISounds"
+    }
+  ],
+  "samples": [
+    {
+      "path": "Abilities\\Weapons\\CannonTowerMissile\\CannonTowerMissile1.wav",
+      "archive": "war3.mpq",
+      "file": "assets/audio/warcraft_cannon/CannonTowerMissile1.wav",
+      "bytes": 87852,
+      "sha256": "731f41bc055d5fd6e3ae9c12bd8aba72e98ba030b94f981bd083ce59cc6245ad",
+      "sample_rate": 22050,
+      "channels": 1,
+      "sample_width": 2,
+      "pcm_sha256": "aabcb2b1b4607ad3ee2824c42a36d231043e791011e33354c332449ed7707a8e"
+    },
+    {
+      "path": "Abilities\\Weapons\\CannonTowerMissile\\CannonTowerMissile2.wav",
+      "archive": "war3.mpq",
+      "file": "assets/audio/warcraft_cannon/CannonTowerMissile2.wav",
+      "bytes": 90236,
+      "sha256": "4528055ec7bc2eb834c0ea808605aac6cdb50c49cc82f30c700fada9d3db16c4",
+      "sample_rate": 22050,
+      "channels": 1,
+      "sample_width": 2,
+      "pcm_sha256": "669ab21d6b41c6e9ebe244c6ac4466b15568ddba5a638ee60c4f274f3285bd03"
+    },
+    {
+      "path": "Abilities\\Weapons\\CannonTowerMissile\\CannonTowerMissile3.wav",
+      "archive": "war3.mpq",
+      "file": "assets/audio/warcraft_cannon/CannonTowerMissile3.wav",
+      "bytes": 97404,
+      "sha256": "1241fedce26ceb527c489524e7a0dc74ac69bc659d9b1cc16ca2be5b72acfa78",
+      "sample_rate": 22050,
+      "channels": 1,
+      "sample_width": 2,
+      "pcm_sha256": "756e236134e939d24afea01970d647b9f739dfee214773d26cc067dd801ce333"
+    },
+    {
+      "path": "Abilities\\Weapons\\CannonTowerMissile\\CannonTowerMissileLaunch1.wav",
+      "archive": "war3.mpq",
+      "file": "assets/audio/warcraft_cannon/CannonTowerMissileLaunch1.wav",
+      "bytes": 48134,
+      "sha256": "b165732df8d8ae50a080c34ba31d62acd0b639373a1b9909db0a1affeb27fad8",
+      "sample_rate": 22050,
+      "channels": 1,
+      "sample_width": 2,
+      "pcm_sha256": "5b388c8ab4600998d2d317d3507a63f118a3ee50b3097eb5a1565e201f1322b2"
+    },
+    {
+      "path": "Abilities\\Weapons\\CannonTowerMissile\\CannonTowerMissileLaunch2.wav",
+      "archive": "war3.mpq",
+      "file": "assets/audio/warcraft_cannon/CannonTowerMissileLaunch2.wav",
+      "bytes": 53894,
+      "sha256": "b7d0ff498a20121803798c1945bce5ae25275037d48d25d337691e65327b547c",
+      "sample_rate": 22050,
+      "channels": 1,
+      "sample_width": 2,
+      "pcm_sha256": "599db58e16a499c744434aaed7ffbc7d7e66d074706fc8885c67d843935834bb"
+    },
+    {
+      "path": "Abilities\\Weapons\\CannonTowerMissile\\CannonTowerMissileLaunch3.wav",
+      "archive": "war3.mpq",
+      "file": "assets/audio/warcraft_cannon/CannonTowerMissileLaunch3.wav",
+      "bytes": 48134,
+      "sha256": "e8998cf08b63b9338c8a9a8467d0bf8a4880f11769679065ccb8f4afc3cf7a6f",
+      "sample_rate": 22050,
+      "channels": 1,
+      "sample_width": 2,
+      "pcm_sha256": "04e58c66804cc59ed3ed44e3b43c909c6afcfb706c4e47d898d1fa95767ba3a9"
+    },
+    {
+      "path": "Sound\\Buildings\\Death\\HCancelBuilding.wav",
+      "archive": "war3.mpq",
+      "file": "assets/audio/warcraft_cannon/HCancelBuilding.wav",
+      "bytes": 124502,
+      "sha256": "8f9d259bf52c8b568515cbbeaa17f70207f4b43c8f00221553bd285378225751",
+      "sample_rate": 22050,
+      "channels": 1,
+      "sample_width": 2,
+      "pcm_sha256": "3fd6608d4080272b3edd2e7070920e95ab250f02c88cacd4b232cd9d38d0a23e"
+    },
+    {
+      "path": "Sound\\Buildings\\Death\\BuildingDeathSmallHuman.wav",
+      "archive": "war3.mpq",
+      "file": "assets/audio/warcraft_cannon/BuildingDeathSmallHuman.wav",
+      "bytes": 104490,
+      "sha256": "fb58ad4d9d5e7887494f1241ac653f15aa9247e793dba089de1965a122864c04",
+      "sample_rate": 22050,
+      "channels": 1,
+      "sample_width": 2,
+      "pcm_sha256": "68c70f733c98c8901689927081b1798ec2c123d7ac8220174364149864c96aa0"
+    },
+    {
+      "path": "Buildings\\Human\\HumanTower\\CannonTowerWhat1.wav",
+      "archive": "war3.mpq",
+      "file": "assets/audio/warcraft_cannon/CannonTowerWhat1.wav",
+      "bytes": 153206,
+      "sha256": "21b22ca08e89f7c3beb0dd5fac9200b72e9711bbb27e3003455ab7cb4c042f3b",
+      "sample_rate": 22050,
+      "channels": 1,
+      "sample_width": 2,
+      "pcm_sha256": "8f4ebede2de6b352ca679f0f605c184debdb08f3b4f38cce682bb614993c5618"
+    },
+    {
+      "path": "Sound\\Buildings\\Human\\PeasantBuildingComplete1.wav",
+      "archive": "war3.mpq",
+      "file": "assets/audio/warcraft_cannon/PeasantBuildingComplete1.wav",
+      "bytes": 33142,
+      "sha256": "86335aefc8f5054bccde0e5eaf7d580a02a1fe69f0eb118a3821302fef029dd8",
+      "sample_rate": 22050,
+      "channels": 1,
+      "sample_width": 2,
+      "pcm_sha256": "2c82b2360abc94d5fcf6cfec7420ce4920819a286e13234257e5d6a98004f6e4"
+    },
+    {
+      "path": "Sound\\Buildings\\Shared\\BuildingPlacement.wav",
+      "archive": "war3.mpq",
+      "file": "assets/audio/warcraft_cannon/BuildingPlacement.wav",
+      "bytes": 56696,
+      "sha256": "4c13ec48f2118d93fc88fa6148f48286c2a424fb7e238cae5df06b691ddfc4d5",
+      "sample_rate": 22050,
+      "channels": 1,
+      "sample_width": 2,
+      "pcm_sha256": "f87951c1dade4ac0f9383b24f93d401480c99c00b4a1293a0e1db531b1b7d1ef"
+    },
+    {
+      "path": "Sound\\Buildings\\Shared\\BuildingConstruction.wav",
+      "archive": "war3.mpq",
+      "file": "assets/audio/warcraft_cannon/BuildingConstruction.wav",
+      "bytes": 155768,
+      "sha256": "366ca8ff1b1e0c5aefe69d9bbade1e9d300775652d4f5c5ca4aa15018d1ee128",
+      "sample_rate": 22050,
+      "channels": 1,
+      "sample_width": 2,
+      "pcm_sha256": "c314259344858028f5d08188fb25b1a343b077633ca83d27a2f049cafcdfba36"
+    }
+  ],
+  "assets": [
+    {
+      "path": "Abilities/Weapons/CannonTowerMissile/CannonTowerMissile.mdx",
+      "archive": "war3.mpq",
+      "file": "assets/references/warcraft_human_buildings/original/abilities/weapons/cannontowermissile/cannontowermissile.mdx",
+      "bytes": 6565,
+      "sha256": "5fab3054c4c6fddeab1322b12f28c491c433b625c080d0bd96956617fb5e5e29"
+    },
+    {
+      "path": "ReplaceableTextures/CommandButtons/BTNCannonTower.blp",
+      "archive": "war3.mpq",
+      "file": "assets/references/warcraft_human_buildings/original/replaceabletextures/commandbuttons/btncannontower.blp",
+      "bytes": 6967,
+      "sha256": "22b3c6767b0f8f8cdc19ece1e813398b251c9ff15f6679d517fcd88eb2dce355"
+    },
+    {
+      "path": "ReplaceableTextures\\Weather\\Clouds8x8.blp",
+      "archive": "war3.mpq",
+      "file": "assets/references/warcraft_human_buildings/original/replaceabletextures/weather/clouds8x8.blp",
+      "bytes": 118666,
+      "sha256": "6ce87e14a5f129cf390531660803694f13e44fc25dba05ff2853c7a622f0fc56"
+    },
+    {
+      "path": "abilities\\Weapons\\CannonTowerMissile\\Bullet.blp",
+      "archive": "war3.mpq",
+      "file": "assets/references/warcraft_human_buildings/original/abilities/weapons/cannontowermissile/bullet.blp",
+      "bytes": 4635,
+      "sha256": "239ff0423750ee5a599b77cbdbac478047ba1054995c57d7bd11419d4dac7743"
+    },
+    {
+      "path": "Textures\\Clouds32_anim.blp",
+      "archive": "war3.mpq",
+      "file": "assets/references/warcraft_human_buildings/original/textures/clouds32_anim.blp",
+      "bytes": 27909,
+      "sha256": "a7cd6304a389def3ece20a7d57ebae7715a53419eb50c74c2537da66ac692a20"
+    },
+    {
+      "path": "Textures\\rock64.blp",
+      "archive": "War3x.mpq",
+      "file": "assets/references/warcraft_human_buildings/original/textures/rock64.blp",
+      "bytes": 7778,
+      "sha256": "8459f42285cdcaed1d6ebbf0ddf727dbcf5483402b2435e5358d891033d008a6"
+    },
+    {
+      "path": "Textures\\Shockwave10.blp",
+      "archive": "War3x.mpq",
+      "file": "assets/references/warcraft_human_buildings/original/textures/shockwave10.blp",
+      "bytes": 9889,
+      "sha256": "8e6c572e8077f6246397a68c62e65364502e5faf10e6e773e28240a0b18462be"
+    },
+    {
+      "path": "Textures\\GenericGlowX.blp",
+      "archive": "War3x.mpq",
+      "file": "assets/references/warcraft_human_buildings/original/textures/genericglowx.blp",
+      "bytes": 2222,
+      "sha256": "a05f52be1487c09a9d67057f16b10c3d0a46bf2ccbce3130a492be850514ebcd"
+    }
+  ],
+  "evidence": {
+    "UnitAckSounds.slk": "1b9c0d2ccd6379a427a3b67f5816a749d9dd46dee561e5a9a31343e53d5732c7",
+    "UnitWeapons.slk": "03c9cbc02d703cf5f8b5b1ed4da789ffcf733aff44f8e2f70b7937e4de613b33",
+    "AnimLookups.slk": "f8038a13e4da86f13c6abdd658e08f92f3cd43925d16686d391a4d5a507cfa8e",
+    "UnitUI.slk": "29587555b7467e07098d241b73fc0d0d2c2ed847ddad909aac9dc979a72d374d",
+    "AnimSounds.slk": "0ed5fd475ff046e22a7455c77cda3fa39580bfeb0a63e5ce47c64ae9e549905a",
+    "UISounds.slk": "6e9732d982610e16ad9b9e7f88f5444f7cb133cf6ab4ecf56c0185c40b1ceeff"
+  }
+}

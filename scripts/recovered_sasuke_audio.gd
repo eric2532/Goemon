@@ -3,7 +3,7 @@ extends RefCounted
 ## Dry ROM reconstruction: provenance.json documents the remaining DSP differences.
 const ROOT="res://assets/audio/recovered_sasuke/"
 const FILES={
-	"jump":["jump_a","jump_b","jump_b"], "land":["event_220"],
+	"jump":["jump_a","jump_b","jump_b"], "land":["event_220"], "step":["event_218"],
 	"hurt":["event_388"], "death":["event_392","event_38a"],
 	"swing":["event_210"], "heavy_swing":["kunai_finish"],
 	"hit":["event_221"], "heavy_hit":["event_221"],
@@ -29,7 +29,7 @@ const FILES={
 	"move_skill_weapon":["jetpack_weapon"], "move_skill_voice":["event_394"],
 	"sasuke_land_hard":["event_218"], "sasuke_land":["event_220"],
 	# These adaptation actions have no verified native source sound.
-	"dash":[], "step":[], "environment_hit":[], "move_evade_weapon":[], "move_evade_voice":[]
+	"dash":[], "environment_hit":[], "move_evade_weapon":[], "move_evade_voice":[]
 }
 static func stream_for(slot:String)->AudioStream:
 	return preload("res://scripts/character_audio_bank.gd").event(ROOT,FILES,slot)

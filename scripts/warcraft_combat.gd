@@ -125,6 +125,9 @@ func burn():
 		if is_instance_valid(game.get("crowd")) and is_instance_valid(game.crowd.army):game.crowd.army.presentation.add_effect("spark",hit.point,.35,.5)
 
 func start_morph():
+	# Native AI may choose either toggle again; keep Meta and spend the action firing.
+	if hero.ai_controlled and demon:
+		start_attack();return
 	if is_attacking() or cooldown>0 or hero.hp<=0:return
 	primary_held=false
 	begin("morph","Morph Alternate" if demon else "Morph");cooldown=2;sound("wc_morph")
@@ -164,6 +167,7 @@ func tick(delta:float,after_pose:bool=false):
 func strike(radial:bool):
 	var origin=hero.global_position+Vector3.UP*1.25*hero.contact_size_multiplier()
 	var reach=skill_factor("hit_area",ticket)*(Kit.SPIN_RADIUS if radial else Kit.MELEE_REACH)*hero.contact_size_multiplier()*hero.melee_reach_setting()*hero.pickup_multiplier("range")
+	if source_id()==33:cast_model().pressure_trail.paint_arc(origin,origin+hero.facing*reach,Vector3.UP,.65)
 	for enemy in AttackChain.enemy_candidates(game,origin,reach+2):
 		if not is_instance_valid(enemy) or enemy.dead:continue
 		if game.has_method("forest_enemy_visible") and not game.forest_enemy_visible(enemy):continue
@@ -172,9 +176,13 @@ func strike(radial:bool):
 		if not radial and offset.length_squared()>.01 and offset.normalized().dot(hero.facing)<.15:continue
 		var hit=AttackChain.segment_contact(enemy,origin,origin,reach)
 		if hit.is_empty() or not AttackChain.clear_line(hero,origin,target):continue
-		enemy.take_hit((Kit.SPIN_DAMAGE if radial else 90.0 if combo==2 else 48.0)*hero.damage_multiplier(),hero.facing,combo==2,ticket)
+		enemy.take_hit(attack_damage(radial)*hero.damage_multiplier(),hero.facing,combo==2,ticket)
+		after_strike(enemy,radial)
 		if hero.ai_controlled:game.confirm_ally_impact(enemy,hit.point,hero.facing,1,false,source_id())
 		else:game.confirm_impact(enemy,hit.point,hero.facing,1,false,source_id())
+
+func attack_damage(radial:bool)->float:return Kit.SPIN_DAMAGE if radial else 90.0 if combo==2 else 48.0
+func after_strike(_enemy:Node3D,_radial:bool):pass
 
 func launch():
 	var origin=hero.global_position+Vector3.UP*1.65*hero.contact_size_multiplier()
@@ -198,7 +206,9 @@ func launch():
 	if not obstruction.is_empty():shot.explode(obstruction.position+obstruction.normal*.025,obstruction.target)
 	sound("wc_missile")
 
-func sound(slot:String):game.sound(slot,.8,false,ticket,source_id())
+func sound(slot:String):
+	var audio_ticket=ticket if not ticket.is_empty() else hero.attack_chain.make_ticket("warcraft_"+slot)
+	game.sound(slot,.8,false,audio_ticket,source_id())
 func blade_active()->bool:return mode=="attack" and not demon and elapsed>=contact-.12 and elapsed<=contact+.16
 func is_attacking()->bool:return mode in ["attack","spin","morph","mirrors"]
 func blocks_movement()->bool:return false
@@ -216,7 +226,8 @@ func cancel(preserve_power:bool=false):
 	primary_held=false
 	finish();combo=-1;combo_timer=0
 	if is_instance_valid(cast_model()):
-		for blade in cast_model().blade_trails:blade.trail.clear()
+		for blade in cast_model().blade_trails:blade.trail.clear();blade.original.clear()
+		if cast_model().pressure_trail!=null:cast_model().pressure_trail.clear()
 	if not preserve_power:demon=false;stop_powers()
 func stop_powers():
 	if wind_left>0:wind_left=0;set_wind_visual(false)

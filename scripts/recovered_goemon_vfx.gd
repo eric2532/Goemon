@@ -5,6 +5,9 @@ extends Node3D
 ## Golden cone is the actual 10-frame ROM AnimatedSkeleton090006B8 +DL09008AA8.
 const Weapons = preload("res://scripts/recovered_goemon_weapons.gd")
 const ROOT := "res://assets/characters/recovered_goemon/vfx/"
+const BURSTS=[preload(ROOT+"burst_0.png"),preload(ROOT+"burst_1.png"),preload(ROOT+"burst_2.png"),preload(ROOT+"burst_3.png")]
+const STARS=[preload(ROOT+"stars_0.png"),preload(ROOT+"stars_1.png"),preload(ROOT+"stars_2.png"),preload(ROOT+"stars_3.png")]
+var hit_frame=0
 var age: float = 0.0
 var lifetime: float = 0.3
 var mode := "hit"
@@ -24,9 +27,10 @@ static func hit(parent: Node3D, position_: Vector3, heavy: bool = false) -> Node
 	parent.add_child(effect)
 	effect.add_to_group("original_goemon_hit_pixels")
 	effect.global_position = position_
+	effect.scale = Vector3.ONE * (1.0 if parent.get("settings") is Dictionary and parent.settings.get("reduced_flashes",false) else 2.0)
 	effect.lifetime = 0.32 if heavy else 0.24
-	effect.burst = effect._sprite("burst_0.png", 0.026 if heavy else 0.021)
-	effect.stars = effect._sprite("stars_0.png", 0.035 if heavy else 0.027)
+	effect.burst = effect._sprite(BURSTS[0], 0.026 if heavy else 0.021)
+	effect.stars = effect._sprite(STARS[0], 0.035 if heavy else 0.027)
 	effect.stars.rotation.z = 0.35 if heavy else -0.18
 	return effect
 
@@ -51,9 +55,9 @@ static func golden(parent: Node3D, position_: Vector3, scale_: float = 0.016) ->
 	effect._update_aura()
 	return effect
 
-func _sprite(file_name: String, pixel_size_: float) -> Sprite3D:
+func _sprite(texture_: Texture2D, pixel_size_: float) -> Sprite3D:
 	var sprite := Sprite3D.new()
-	sprite.texture = load(ROOT + file_name) as Texture2D
+	sprite.texture = texture_
 	sprite.pixel_size = pixel_size_
 	sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	sprite.no_depth_test = false
@@ -70,8 +74,8 @@ func _process(delta: float) -> void:
 		_update_aura()
 	elif is_instance_valid(burst):
 		var frame := mini(3, int(age / lifetime * 4.0))
-		burst.texture = load(ROOT + "burst_%d.png" % frame) as Texture2D
-		stars.texture = load(ROOT + "stars_%d.png" % frame) as Texture2D
+		if frame!=hit_frame:
+			burst.texture=BURSTS[frame];stars.texture=STARS[frame];hit_frame=frame
 		var expansion := lerpf(0.7, 1.55, age / lifetime)
 		burst.scale = Vector3.ONE * expansion
 		stars.scale = Vector3.ONE * lerpf(0.8, 1.7, age / lifetime)

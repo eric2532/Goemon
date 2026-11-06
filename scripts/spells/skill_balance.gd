@@ -12,6 +12,7 @@ static func all()->Dictionary:
  return definitions
 
 const ACTIONS={
+ "warcraft_bolt":"mountain-king/storm-bolt","warcraft_clap":"mountain-king/thunder-clap",
  "dash":"goemon/dash","sky_strike":"goemon/sky-strike","surge":"goemon/surge",
  "fireball":"edo/volley","giant_fireball":"edo/giant-fireball","meteors":"edo/meteors","teleport":"edo/fire-dodge","shield":"edo/blue-surge",
  "musashi_rotation":"musashi/rotation","musashi_counter":"musashi/counter","musashi_charge":"musashi/charge","musashi_dkick":"musashi/d-kick","musashi_fence":"musashi/fence","musashi_homing":"musashi/homing","musashi_grenade":"musashi/grenade","musashi_three_way":"musashi/three-way",
@@ -45,6 +46,7 @@ static func identify(hero:Hero,action:String)->String:
  if hero.spell_loadout!=null and not hero.spell_loadout.casting_id.is_empty():return hero.spell_loadout.casting_id
  if all().has(action):return action
  var kit=hero.active_ability
+ if hero.character_id==13 and kit!=null and not kit.combo_skill.is_empty():return "musashi/"+kit.combo_skill
  if hero.character_id==32 and action=="warcraft_attack" and kit.demon:return "demon-hunter/bolt"
  if action=="warcraft_morph":return "demon-hunter/metamorphosis"
  if hero.character_id==27 and kit!=null and action in ["enemy_primary","skullpion_drill","skullpion_sand"]:return {102:"skullpion/tail",103:"skullpion/sand",104:"skullpion/stomp",105:"skullpion/drill"}.get(kit.action,"")
@@ -71,6 +73,7 @@ static func decorate(hero:Hero,ticket:Dictionary,action:String):
  for row in ROWS:ticket["skill_"+row[0]]=value(hero.game,id,row[0])
 
 static func supports(id:String,key:String)->bool:
+ if id in ["musashi/crosswise","musashi/tenderize","musashi/desperado","musashi/leaping-strike"]:return key=="damage"
  if id.ends_with("/drink") or id in ["musashi/guard","ben/flight","blademaster/mirror-image","blademaster/wind-walk","goemon/surge","demon-hunter/metamorphosis","master-thief/roll"]:return false
  if id=="sasuke/super-jump":return key=="travel_speed"
  if id.ends_with("/roll"):
@@ -80,6 +83,6 @@ static func supports(id:String,key:String)->bool:
  if id=="mage/flintlock":return key in ["size","hit_area"]
  if id=="master-thief/flintlock":return key=="size"
  if key=="travel_speed":
-  return id not in ["blademaster/spin","demon-hunter/immolation","musashi/rotation","musashi/counter","musashi/charge","yae/shield","edo/beam","edo/blue-surge","edo/fire-dodge","ed/beam","sasuke/hair-up","sasuke/hair-forward","dark-lumina-3/earth","dark-lumina-2/spin","dark-lumina-2/grab","dark-lumina-2/shockwave","skullpion/tail","skullpion/drill","skullpion/stomp","skullpion/sand","knight/flintlock","mage/flintlock","master-thief/flintlock"]
+  return id not in ["mountain-king/thunder-clap","blademaster/spin","demon-hunter/immolation","musashi/rotation","musashi/counter","musashi/charge","yae/shield","edo/beam","edo/blue-surge","edo/fire-dodge","ed/beam","sasuke/hair-up","sasuke/hair-forward","dark-lumina-3/earth","dark-lumina-2/spin","dark-lumina-2/grab","dark-lumina-2/shockwave","skullpion/tail","skullpion/drill","skullpion/stomp","skullpion/sand","knight/flintlock","mage/flintlock","master-thief/flintlock"]
  if key=="size":return id not in ["goemon/dash","yae/shield","sasuke/hair-up","sasuke/hair-forward","dark-lumina-2/grab","dark-lumina-2/spin","skullpion/tail","skullpion/drill","skullpion/stomp","skullpion/sand","edo/blue-surge"]
  return true

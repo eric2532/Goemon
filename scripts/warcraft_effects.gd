@@ -11,7 +11,7 @@ var windy=false
 static func data()->Dictionary:
  if source.is_empty():source=JSON.parse_string(FileAccess.get_file_as_string(ROOT+"sources.json"))
  return source
-static func energy_color(id:int)->Color:return Color("ff2028") if id==31 else Color("b05bff")
+static func energy_color(id:int)->Color:return Color("ff2028") if id==31 else Color("278dff") if id==33 else Color("b05bff")
 static func energy_tint(id:int,color:Color)->Color:
  var tint=energy_color(id)*color.v
  tint.a=color.a

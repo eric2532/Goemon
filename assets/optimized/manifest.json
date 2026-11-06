@@ -67,191 +67,6 @@
       "asset": "goldmine"
     },
     {
-      "source": "assets/characters/recovered_musashi/musashi.glb",
-      "output": "assets/optimized/musashi.glb",
-      "source_sha256": "916f16e6127f8ac2c37064d8d979d657b314b8d60e970090228a309f0991455e",
-      "output_sha256": "f4121027989752f5d66b396a62b3034a7cd5f34cf08a8f629164f353364b2374",
-      "before": {
-        "path": "assets/characters/recovered_musashi/musashi.glb",
-        "sha256": "916f16e6127f8ac2c37064d8d979d657b314b8d60e970090228a309f0991455e",
-        "bytes": 3235548,
-        "category": "hero",
-        "triangles": 724,
-        "vertices": 2172,
-        "mesh_instances": 31,
-        "surfaces": 43,
-        "materials": 43,
-        "duplicate_materials": 37,
-        "textures": [
-          {
-            "index": 0,
-            "name": "Image_0",
-            "sha256": "e7a1fe9d59c36f19425775da36f7ab6d428d033a3ba0cda6b06fe3ba4ff5f69e",
-            "bytes": 27739,
-            "dimensions": [
-              256,
-              256
-            ],
-            "rgba8_mip_estimate_bytes": 349525
-          },
-          {
-            "index": 1,
-            "name": "Image_1",
-            "sha256": "034861d3f8bfdabb78522bcc5f5abe0353857567f07c1ee0a4e383ec2b8e0078",
-            "bytes": 28156,
-            "dimensions": [
-              256,
-              256
-            ],
-            "rgba8_mip_estimate_bytes": 349525
-          },
-          {
-            "index": 2,
-            "name": "Image_0",
-            "sha256": "a9b3e42538b2df01306934cc1d462c7d99f96808cf55e0c682e28f7946db54f0",
-            "bytes": 27969,
-            "dimensions": [
-              256,
-              256
-            ],
-            "rgba8_mip_estimate_bytes": 349525
-          },
-          {
-            "index": 3,
-            "name": "Image_0",
-            "sha256": "e82802e31e46235c9225c1a82becece5a35ee1717788682ab34c5e112c5b6f2f",
-            "bytes": 27983,
-            "dimensions": [
-              256,
-              256
-            ],
-            "rgba8_mip_estimate_bytes": 349525
-          },
-          {
-            "index": 4,
-            "name": "Image_0",
-            "sha256": "fd1c2ea011df6313607aa7e4beff15904f22f0157c8848b1737fa0bc667bc07a",
-            "bytes": 28011,
-            "dimensions": [
-              256,
-              256
-            ],
-            "rgba8_mip_estimate_bytes": 349525
-          }
-        ],
-        "texture_rgba8_mip_estimate_bytes": 1747625,
-        "texture_dimensions": [
-          "256x256"
-        ],
-        "skins": 1,
-        "joints": [
-          32
-        ],
-        "animations": 79,
-        "issues": [
-          "surfaces 43 > budget 8"
-        ]
-      },
-      "after": {
-        "path": "assets/optimized/musashi.glb",
-        "sha256": "f4121027989752f5d66b396a62b3034a7cd5f34cf08a8f629164f353364b2374",
-        "bytes": 3197620,
-        "category": "hero",
-        "triangles": 724,
-        "vertices": 2172,
-        "mesh_instances": 1,
-        "surfaces": 9,
-        "materials": 6,
-        "duplicate_materials": 0,
-        "textures": [
-          {
-            "index": 0,
-            "name": "Image_0",
-            "sha256": "e7a1fe9d59c36f19425775da36f7ab6d428d033a3ba0cda6b06fe3ba4ff5f69e",
-            "bytes": 27739,
-            "dimensions": [
-              256,
-              256
-            ],
-            "rgba8_mip_estimate_bytes": 349525
-          },
-          {
-            "index": 1,
-            "name": "Image_1",
-            "sha256": "034861d3f8bfdabb78522bcc5f5abe0353857567f07c1ee0a4e383ec2b8e0078",
-            "bytes": 28156,
-            "dimensions": [
-              256,
-              256
-            ],
-            "rgba8_mip_estimate_bytes": 349525
-          },
-          {
-            "index": 2,
-            "name": "Image_0",
-            "sha256": "a9b3e42538b2df01306934cc1d462c7d99f96808cf55e0c682e28f7946db54f0",
-            "bytes": 27969,
-            "dimensions": [
-              256,
-              256
-            ],
-            "rgba8_mip_estimate_bytes": 349525
-          },
-          {
-            "index": 3,
-            "name": "Image_0",
-            "sha256": "e82802e31e46235c9225c1a82becece5a35ee1717788682ab34c5e112c5b6f2f",
-            "bytes": 27983,
-            "dimensions": [
-              256,
-              256
-            ],
-            "rgba8_mip_estimate_bytes": 349525
-          },
-          {
-            "index": 4,
-            "name": "Image_0",
-            "sha256": "fd1c2ea011df6313607aa7e4beff15904f22f0157c8848b1737fa0bc667bc07a",
-            "bytes": 28011,
-            "dimensions": [
-              256,
-              256
-            ],
-            "rgba8_mip_estimate_bytes": 349525
-          }
-        ],
-        "texture_rgba8_mip_estimate_bytes": 1747625,
-        "texture_dimensions": [
-          "256x256"
-        ],
-        "skins": 1,
-        "joints": [
-          32
-        ],
-        "animations": 79,
-        "issues": [
-          "surfaces 9 > budget 8"
-        ]
-      },
-      "preservation": {
-        "passed": true,
-        "checks": {
-          "scene_membership": true,
-          "nodes_and_sockets": true,
-          "skins_and_bind_poses": true,
-          "animation_samples": true,
-          "texture_bytes": true,
-          "oriented_corner_attributes": true
-        },
-        "geometry": {
-          "passed": true,
-          "max_attribute_error": 3.6726886754046006e-08,
-          "tolerance": 1e-05
-        }
-      },
-      "asset": "musashi"
-    },
-    {
       "source": "assets/economy_v1/arrow_tower/exports/tower_build_recoil_reverse.glb",
       "output": "assets/optimized/arrow-tower.glb",
       "source_sha256": "cc93e9b39778580fb524a24f9139bda991805fd08917eeeac0e777da2b782136",
@@ -5278,6 +5093,446 @@
         }
       },
       "asset": "warcraft-demon-hunter",
+      "preserve_mesh_nodes": ".*"
+    },
+    {
+      "source": "assets/characters/recovered_musashi/musashi.glb",
+      "output": "assets/optimized/musashi.glb",
+      "source_sha256": "3dc0e1a6f7403c0326f91c81836df00395e52972483533b1a9a472ba9907d63c",
+      "output_sha256": "002d0962fd8f2c253f9a911fb15541c3b08f81895c793a231b827029e624a305",
+      "before": {
+        "path": "assets/characters/recovered_musashi/musashi.glb",
+        "sha256": "3dc0e1a6f7403c0326f91c81836df00395e52972483533b1a9a472ba9907d63c",
+        "bytes": 3278852,
+        "category": "hero",
+        "triangles": 724,
+        "vertices": 2172,
+        "mesh_instances": 31,
+        "surfaces": 43,
+        "materials": 43,
+        "duplicate_materials": 37,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "e7a1fe9d59c36f19425775da36f7ab6d428d033a3ba0cda6b06fe3ba4ff5f69e",
+            "bytes": 27739,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_1",
+            "sha256": "034861d3f8bfdabb78522bcc5f5abe0353857567f07c1ee0a4e383ec2b8e0078",
+            "bytes": 28156,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "Image_0",
+            "sha256": "a9b3e42538b2df01306934cc1d462c7d99f96808cf55e0c682e28f7946db54f0",
+            "bytes": 27969,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 3,
+            "name": "Image_0",
+            "sha256": "e82802e31e46235c9225c1a82becece5a35ee1717788682ab34c5e112c5b6f2f",
+            "bytes": 27983,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 4,
+            "name": "Image_0",
+            "sha256": "fd1c2ea011df6313607aa7e4beff15904f22f0157c8848b1737fa0bc667bc07a",
+            "bytes": 28011,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 1747625,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          32
+        ],
+        "animations": 80,
+        "issues": [
+          "surfaces 43 > budget 8"
+        ]
+      },
+      "after": {
+        "path": "assets/optimized/musashi.glb",
+        "sha256": "002d0962fd8f2c253f9a911fb15541c3b08f81895c793a231b827029e624a305",
+        "bytes": 3204984,
+        "category": "hero",
+        "triangles": 724,
+        "vertices": 1587,
+        "mesh_instances": 1,
+        "surfaces": 9,
+        "materials": 6,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "Image_0",
+            "sha256": "e7a1fe9d59c36f19425775da36f7ab6d428d033a3ba0cda6b06fe3ba4ff5f69e",
+            "bytes": 27739,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "Image_1",
+            "sha256": "034861d3f8bfdabb78522bcc5f5abe0353857567f07c1ee0a4e383ec2b8e0078",
+            "bytes": 28156,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "Image_0",
+            "sha256": "a9b3e42538b2df01306934cc1d462c7d99f96808cf55e0c682e28f7946db54f0",
+            "bytes": 27969,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 3,
+            "name": "Image_0",
+            "sha256": "e82802e31e46235c9225c1a82becece5a35ee1717788682ab34c5e112c5b6f2f",
+            "bytes": 27983,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 4,
+            "name": "Image_0",
+            "sha256": "fd1c2ea011df6313607aa7e4beff15904f22f0157c8848b1737fa0bc667bc07a",
+            "bytes": 28011,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 1747625,
+        "texture_dimensions": [
+          "256x256"
+        ],
+        "skins": 1,
+        "joints": [
+          32
+        ],
+        "animations": 80,
+        "issues": [
+          "surfaces 9 > budget 8"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 3.6726886754046006e-08,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "musashi",
+      "preserve_mesh_nodes": ""
+    },
+    {
+      "source": "assets/models/characters/warcraft/mountain-king/mountain-king.glb",
+      "output": "assets/optimized/warcraft-mountain-king.glb",
+      "source_sha256": "85c11ab06f6f352162ad88f72801df58620e520baf76e6e016b8b14de608933a",
+      "output_sha256": "ec88ce31f29145bf5e0b24876cd19075abb200c3a6fe72ee0342b8659c615d01",
+      "before": {
+        "path": "assets/models/characters/warcraft/mountain-king/mountain-king.glb",
+        "sha256": "85c11ab06f6f352162ad88f72801df58620e520baf76e6e016b8b14de608933a",
+        "bytes": 2800716,
+        "category": "hero",
+        "triangles": 570,
+        "vertices": 733,
+        "mesh_instances": 8,
+        "surfaces": 8,
+        "materials": 8,
+        "duplicate_materials": 5,
+        "textures": [
+          {
+            "index": 0,
+            "name": "mountain-king_00",
+            "sha256": "00fb4e2a05061553b1a2d29bc8e1c9900f1389db62ad09283e305de9ba5d647a",
+            "bytes": 141744,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "mountain-king_01",
+            "sha256": "3924dc017f2b34a8c41a0b1b4ae8f9c81822c180663126ff6fd76f6856411f4b",
+            "bytes": 140672,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "mountain-king_02",
+            "sha256": "1e9c742a540c7262820d5eba3bce7c649b232291b20433c2d9966c7a5652b831",
+            "bytes": 1296,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 3,
+            "name": "mountain-king_03",
+            "sha256": "00fb4e2a05061553b1a2d29bc8e1c9900f1389db62ad09283e305de9ba5d647a",
+            "bytes": 141744,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 4,
+            "name": "mountain-king_04",
+            "sha256": "00fb4e2a05061553b1a2d29bc8e1c9900f1389db62ad09283e305de9ba5d647a",
+            "bytes": 141744,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 5,
+            "name": "mountain-king_05",
+            "sha256": "1e9c742a540c7262820d5eba3bce7c649b232291b20433c2d9966c7a5652b831",
+            "bytes": 1296,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 6,
+            "name": "mountain-king_06",
+            "sha256": "00fb4e2a05061553b1a2d29bc8e1c9900f1389db62ad09283e305de9ba5d647a",
+            "bytes": 141744,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 7,
+            "name": "mountain-king_07",
+            "sha256": "1e9c742a540c7262820d5eba3bce7c649b232291b20433c2d9966c7a5652b831",
+            "bytes": 1296,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 704511,
+        "texture_dimensions": [
+          "256x256",
+          "32x32"
+        ],
+        "skins": 1,
+        "joints": [
+          100
+        ],
+        "animations": 27,
+        "issues": []
+      },
+      "after": {
+        "path": "assets/optimized/warcraft-mountain-king.glb",
+        "sha256": "ec88ce31f29145bf5e0b24876cd19075abb200c3a6fe72ee0342b8659c615d01",
+        "bytes": 2799912,
+        "category": "prop",
+        "triangles": 570,
+        "vertices": 727,
+        "mesh_instances": 8,
+        "surfaces": 8,
+        "materials": 3,
+        "duplicate_materials": 0,
+        "textures": [
+          {
+            "index": 0,
+            "name": "mountain-king_00",
+            "sha256": "00fb4e2a05061553b1a2d29bc8e1c9900f1389db62ad09283e305de9ba5d647a",
+            "bytes": 141744,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 1,
+            "name": "mountain-king_01",
+            "sha256": "3924dc017f2b34a8c41a0b1b4ae8f9c81822c180663126ff6fd76f6856411f4b",
+            "bytes": 140672,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 2,
+            "name": "mountain-king_02",
+            "sha256": "1e9c742a540c7262820d5eba3bce7c649b232291b20433c2d9966c7a5652b831",
+            "bytes": 1296,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 3,
+            "name": "mountain-king_03",
+            "sha256": "00fb4e2a05061553b1a2d29bc8e1c9900f1389db62ad09283e305de9ba5d647a",
+            "bytes": 141744,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 4,
+            "name": "mountain-king_04",
+            "sha256": "00fb4e2a05061553b1a2d29bc8e1c9900f1389db62ad09283e305de9ba5d647a",
+            "bytes": 141744,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 5,
+            "name": "mountain-king_05",
+            "sha256": "1e9c742a540c7262820d5eba3bce7c649b232291b20433c2d9966c7a5652b831",
+            "bytes": 1296,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          },
+          {
+            "index": 6,
+            "name": "mountain-king_06",
+            "sha256": "00fb4e2a05061553b1a2d29bc8e1c9900f1389db62ad09283e305de9ba5d647a",
+            "bytes": 141744,
+            "dimensions": [
+              256,
+              256
+            ],
+            "rgba8_mip_estimate_bytes": 349525
+          },
+          {
+            "index": 7,
+            "name": "mountain-king_07",
+            "sha256": "1e9c742a540c7262820d5eba3bce7c649b232291b20433c2d9966c7a5652b831",
+            "bytes": 1296,
+            "dimensions": [
+              32,
+              32
+            ],
+            "rgba8_mip_estimate_bytes": 5461
+          }
+        ],
+        "texture_rgba8_mip_estimate_bytes": 704511,
+        "texture_dimensions": [
+          "256x256",
+          "32x32"
+        ],
+        "skins": 1,
+        "joints": [
+          100
+        ],
+        "animations": 27,
+        "issues": [
+          "surfaces 8 > budget 4"
+        ]
+      },
+      "preservation": {
+        "passed": true,
+        "checks": {
+          "scene_membership": true,
+          "nodes_and_sockets": true,
+          "skins_and_bind_poses": true,
+          "morph_targets": true,
+          "animation_samples": true,
+          "texture_bytes": true,
+          "oriented_corner_attributes": true
+        },
+        "geometry": {
+          "passed": true,
+          "max_attribute_error": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      "asset": "warcraft-mountain-king",
       "preserve_mesh_nodes": ".*"
     }
   ]

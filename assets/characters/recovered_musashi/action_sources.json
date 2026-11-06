@@ -1,8 +1,8 @@
 {
   "source_sha256": "f8bcfa41b6a637ed78f327737875ea05998088443c2776e18247c0f45a64014a",
   "source": "raw/MAIN.CD.dir/FILE_010.dir/1.1",
-  "original_animations_preserved": 78,
-  "imported_animation_count": 79,
+  "original_animations_preserved": 80,
+  "imported_animation_count": 80,
   "recovered": [
     {
       "address": "0x800d4d88",
@@ -970,6 +970,175 @@
       ],
       "active_ticks": [
         0
+      ],
+      "externally_clocked": false,
+      "initial_visibility_opcodes": [
+        18
+      ],
+      "initial_visibility_flags": 805306368
+    },
+    {
+      "address": "0x800d524c",
+      "clip": "Recovered__800d524c",
+      "ticks": 17,
+      "terminal": "pause",
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105be8",
+          "command_address": "0x800d5258"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ce8",
+          "command_address": "0x800d525c"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105de8",
+          "command_address": "0x800d5260"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ee8",
+          "command_address": "0x800d5264"
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105fe8",
+          "command_address": "0x800d5268"
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801060e8",
+          "command_address": "0x800d526c"
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801061e8",
+          "command_address": "0x800d5270"
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801062e8",
+          "command_address": "0x800d5274"
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801063e8",
+          "command_address": "0x800d5278"
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801064e8",
+          "command_address": "0x800d527c"
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801065e8",
+          "command_address": "0x800d5280"
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801066e8",
+          "command_address": "0x800d5284"
+        },
+        {
+          "tick": 12,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801067e8",
+          "command_address": "0x800d5288"
+        },
+        {
+          "tick": 13,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801068e8",
+          "command_address": "0x800d528c"
+        },
+        {
+          "tick": 14,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801069e8",
+          "command_address": "0x800d5290"
+        },
+        {
+          "tick": 15,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106ae8",
+          "command_address": "0x800d529c"
+        },
+        {
+          "tick": 16,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106be8",
+          "command_address": "0x800d52a0"
+        }
+      ],
+      "events": [
+        {
+          "command_address": "0x800d524c",
+          "word": "0x4",
+          "tick": 0,
+          "op": "model_list",
+          "pointer": "0x800de2a4"
+        },
+        {
+          "command_address": "0x800d5254",
+          "word": "0x14",
+          "tick": 0,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d5294",
+          "word": "0x14",
+          "tick": 15,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d5298",
+          "word": "0x13",
+          "tick": 15,
+          "op": "event_19"
+        },
+        {
+          "command_address": "0x800d52a4",
+          "word": "0x2",
+          "tick": 17,
+          "op": "pause"
+        }
+      ],
+      "active_ticks": [
+        0,
+        15
       ],
       "externally_clocked": false,
       "initial_visibility_opcodes": [
@@ -3147,13 +3316,1137 @@
       ],
       "active_ticks": [],
       "externally_clocked": false
+    },
+    "crosswise": {
+      "address": "0x800d4f14",
+      "clip": "Extra__800d4f14",
+      "ticks": 21,
+      "terminal": "pause",
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801057e8",
+          "command_address": "0x800d4f24"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801058e8",
+          "command_address": "0x800d4f2c"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801059e8",
+          "command_address": "0x800d4f30"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ae8",
+          "command_address": "0x800d4f34"
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105be8",
+          "command_address": "0x800d4f38"
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ce8",
+          "command_address": "0x800d4f3c"
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105de8",
+          "command_address": "0x800d4f40"
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ee8",
+          "command_address": "0x800d4f44"
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105fe8",
+          "command_address": "0x800d4f4c"
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801060e8",
+          "command_address": "0x800d4f50"
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801061e8",
+          "command_address": "0x800d4f54"
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801062e8",
+          "command_address": "0x800d4f58"
+        },
+        {
+          "tick": 12,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801063e8",
+          "command_address": "0x800d4f5c"
+        },
+        {
+          "tick": 13,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801064e8",
+          "command_address": "0x800d4f60"
+        },
+        {
+          "tick": 14,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801065e8",
+          "command_address": "0x800d4f68"
+        },
+        {
+          "tick": 15,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801066e8",
+          "command_address": "0x800d4f6c"
+        },
+        {
+          "tick": 16,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801067e8",
+          "command_address": "0x800d4f70"
+        },
+        {
+          "tick": 17,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801068e8",
+          "command_address": "0x800d4f74"
+        },
+        {
+          "tick": 18,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801069e8",
+          "command_address": "0x800d4f78"
+        },
+        {
+          "tick": 19,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106ae8",
+          "command_address": "0x800d4f80"
+        },
+        {
+          "tick": 20,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106be8",
+          "command_address": "0x800d4f84"
+        }
+      ],
+      "events": [
+        {
+          "command_address": "0x800d4f14",
+          "word": "0x4",
+          "tick": 0,
+          "op": "model_list",
+          "pointer": "0x800de2a4"
+        },
+        {
+          "command_address": "0x800d4f1c",
+          "word": "0x10",
+          "tick": 0,
+          "op": "event_16"
+        },
+        {
+          "command_address": "0x800d4f20",
+          "word": "0x13",
+          "tick": 0,
+          "op": "event_19"
+        },
+        {
+          "command_address": "0x800d4f28",
+          "word": "0x12",
+          "tick": 1,
+          "op": "event_18"
+        },
+        {
+          "command_address": "0x800d4f48",
+          "word": "0x14",
+          "tick": 8,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d4f64",
+          "word": "0x14",
+          "tick": 14,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d4f7c",
+          "word": "0x13",
+          "tick": 19,
+          "op": "event_19"
+        },
+        {
+          "command_address": "0x800d4f88",
+          "word": "0x2",
+          "tick": 21,
+          "op": "pause"
+        }
+      ],
+      "active_ticks": [
+        8,
+        14
+      ],
+      "externally_clocked": false
+    },
+    "tenderize": {
+      "address": "0x800d51e0",
+      "clip": "Extra__800d51e0",
+      "ticks": 18,
+      "terminal": "pause",
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106be8",
+          "command_address": "0x800d51f0"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106ae8",
+          "command_address": "0x800d51f4"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801069e8",
+          "command_address": "0x800d5200"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801068e8",
+          "command_address": "0x800d5204"
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801067e8",
+          "command_address": "0x800d5208"
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801066e8",
+          "command_address": "0x800d520c"
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801065e8",
+          "command_address": "0x800d5210"
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801064e8",
+          "command_address": "0x800d5214"
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801063e8",
+          "command_address": "0x800d521c"
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801062e8",
+          "command_address": "0x800d5220"
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801061e8",
+          "command_address": "0x800d5224"
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801060e8",
+          "command_address": "0x800d5228"
+        },
+        {
+          "tick": 12,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105fe8",
+          "command_address": "0x800d522c"
+        },
+        {
+          "tick": 13,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ee8",
+          "command_address": "0x800d5230"
+        },
+        {
+          "tick": 14,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105de8",
+          "command_address": "0x800d5234"
+        },
+        {
+          "tick": 15,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ce8",
+          "command_address": "0x800d5238"
+        },
+        {
+          "tick": 16,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105be8",
+          "command_address": "0x800d523c"
+        },
+        {
+          "tick": 17,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ae8",
+          "command_address": "0x800d5244"
+        }
+      ],
+      "events": [
+        {
+          "command_address": "0x800d51e0",
+          "word": "0x4",
+          "tick": 0,
+          "op": "model_list",
+          "pointer": "0x800de2a4"
+        },
+        {
+          "command_address": "0x800d51e8",
+          "word": "0x10",
+          "tick": 0,
+          "op": "event_16"
+        },
+        {
+          "command_address": "0x800d51ec",
+          "word": "0x13",
+          "tick": 0,
+          "op": "event_19"
+        },
+        {
+          "command_address": "0x800d51f8",
+          "word": "0x12",
+          "tick": 2,
+          "op": "event_18"
+        },
+        {
+          "command_address": "0x800d51fc",
+          "word": "0x14",
+          "tick": 2,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d5218",
+          "word": "0x7",
+          "tick": 8,
+          "op": "event_7"
+        },
+        {
+          "command_address": "0x800d5240",
+          "word": "0x14",
+          "tick": 17,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d5248",
+          "word": "0x2",
+          "tick": 18,
+          "op": "pause"
+        }
+      ],
+      "active_ticks": [
+        2,
+        17
+      ],
+      "externally_clocked": false
+    },
+    "tenderize_end": {
+      "address": "0x800d524c",
+      "clip": "Recovered__800d524c",
+      "ticks": 17,
+      "terminal": "pause",
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105be8",
+          "command_address": "0x800d5258"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ce8",
+          "command_address": "0x800d525c"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105de8",
+          "command_address": "0x800d5260"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ee8",
+          "command_address": "0x800d5264"
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105fe8",
+          "command_address": "0x800d5268"
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801060e8",
+          "command_address": "0x800d526c"
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801061e8",
+          "command_address": "0x800d5270"
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801062e8",
+          "command_address": "0x800d5274"
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801063e8",
+          "command_address": "0x800d5278"
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801064e8",
+          "command_address": "0x800d527c"
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801065e8",
+          "command_address": "0x800d5280"
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801066e8",
+          "command_address": "0x800d5284"
+        },
+        {
+          "tick": 12,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801067e8",
+          "command_address": "0x800d5288"
+        },
+        {
+          "tick": 13,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801068e8",
+          "command_address": "0x800d528c"
+        },
+        {
+          "tick": 14,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801069e8",
+          "command_address": "0x800d5290"
+        },
+        {
+          "tick": 15,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106ae8",
+          "command_address": "0x800d529c"
+        },
+        {
+          "tick": 16,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106be8",
+          "command_address": "0x800d52a0"
+        }
+      ],
+      "events": [
+        {
+          "command_address": "0x800d524c",
+          "word": "0x4",
+          "tick": 0,
+          "op": "model_list",
+          "pointer": "0x800de2a4"
+        },
+        {
+          "command_address": "0x800d5254",
+          "word": "0x14",
+          "tick": 0,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d5294",
+          "word": "0x14",
+          "tick": 15,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d5298",
+          "word": "0x13",
+          "tick": 15,
+          "op": "event_19"
+        },
+        {
+          "command_address": "0x800d52a4",
+          "word": "0x2",
+          "tick": 17,
+          "op": "pause"
+        }
+      ],
+      "active_ticks": [
+        0,
+        15
+      ],
+      "externally_clocked": false
+    },
+    "desperado": {
+      "address": "0x800d52a8",
+      "clip": "Recovered__800d52a8",
+      "ticks": 11,
+      "terminal": "stop",
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e6ce8",
+          "command_address": "0x800d52b4"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e6de8",
+          "command_address": "0x800d52b8"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e6ee8",
+          "command_address": "0x800d52bc"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e6fe8",
+          "command_address": "0x800d52c0"
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e70e8",
+          "command_address": "0x800d52c4"
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e71e8",
+          "command_address": "0x800d52c8"
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e72e8",
+          "command_address": "0x800d52cc"
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e73e8",
+          "command_address": "0x800d52d0"
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e74e8",
+          "command_address": "0x800d52d4"
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e75e8",
+          "command_address": "0x800d52d8"
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e76e8",
+          "command_address": "0x800d52e0"
+        }
+      ],
+      "events": [
+        {
+          "command_address": "0x800d52a8",
+          "word": "0x10",
+          "tick": 0,
+          "op": "event_16"
+        },
+        {
+          "command_address": "0x800d52ac",
+          "word": "0x12",
+          "tick": 0,
+          "op": "event_18"
+        },
+        {
+          "command_address": "0x800d52b0",
+          "word": "0x14",
+          "tick": 0,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d52dc",
+          "word": "0x14",
+          "tick": 10,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d52e4",
+          "word": "0x0",
+          "tick": 11,
+          "op": "stop"
+        }
+      ],
+      "active_ticks": [
+        0,
+        10
+      ],
+      "externally_clocked": false
+    },
+    "desperado_dual": {
+      "address": "0x800d52e8",
+      "clip": "Recovered__800d52e8",
+      "ticks": 12,
+      "terminal": "pause",
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010c7e8",
+          "command_address": "0x800d52fc"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010c8e8",
+          "command_address": "0x800d5300"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010c9e8",
+          "command_address": "0x800d5304"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cae8",
+          "command_address": "0x800d5308"
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cbe8",
+          "command_address": "0x800d530c"
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cce8",
+          "command_address": "0x800d5310"
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cde8",
+          "command_address": "0x800d5314"
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cee8",
+          "command_address": "0x800d5318"
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cfe8",
+          "command_address": "0x800d5320"
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010d0e8",
+          "command_address": "0x800d532c"
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010d1e8",
+          "command_address": "0x800d5330"
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010d2e8",
+          "command_address": "0x800d5334"
+        }
+      ],
+      "events": [
+        {
+          "command_address": "0x800d52e8",
+          "word": "0xf",
+          "tick": 0,
+          "op": "event_15",
+          "argument": "0x0"
+        },
+        {
+          "command_address": "0x800d52f0",
+          "word": "0x10",
+          "tick": 0,
+          "op": "event_16"
+        },
+        {
+          "command_address": "0x800d52f4",
+          "word": "0x12",
+          "tick": 0,
+          "op": "event_18"
+        },
+        {
+          "command_address": "0x800d52f8",
+          "word": "0x14",
+          "tick": 0,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d531c",
+          "word": "0x7",
+          "tick": 8,
+          "op": "event_7"
+        },
+        {
+          "command_address": "0x800d5324",
+          "word": "0xf",
+          "tick": 9,
+          "op": "event_15",
+          "argument": "0x4"
+        },
+        {
+          "command_address": "0x800d5338",
+          "word": "0x2",
+          "tick": 12,
+          "op": "pause"
+        }
+      ],
+      "active_ticks": [
+        0
+      ],
+      "externally_clocked": false
+    },
+    "desperado_fusion": {
+      "address": "0x800d52e8",
+      "clip": "Recovered__800d52e8",
+      "ticks": 12,
+      "terminal": "pause",
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010c7e8",
+          "command_address": "0x800d52fc"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010c8e8",
+          "command_address": "0x800d5300"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010c9e8",
+          "command_address": "0x800d5304"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cae8",
+          "command_address": "0x800d5308"
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cbe8",
+          "command_address": "0x800d530c"
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cce8",
+          "command_address": "0x800d5310"
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cde8",
+          "command_address": "0x800d5314"
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cee8",
+          "command_address": "0x800d5318"
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cfe8",
+          "command_address": "0x800d5320"
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010d0e8",
+          "command_address": "0x800d532c"
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010d1e8",
+          "command_address": "0x800d5330"
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010d2e8",
+          "command_address": "0x800d5334"
+        }
+      ],
+      "events": [
+        {
+          "command_address": "0x800d52e8",
+          "word": "0xf",
+          "tick": 0,
+          "op": "event_15",
+          "argument": "0x0"
+        },
+        {
+          "command_address": "0x800d52f0",
+          "word": "0x10",
+          "tick": 0,
+          "op": "event_16"
+        },
+        {
+          "command_address": "0x800d52f4",
+          "word": "0x12",
+          "tick": 0,
+          "op": "event_18"
+        },
+        {
+          "command_address": "0x800d52f8",
+          "word": "0x14",
+          "tick": 0,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d531c",
+          "word": "0x7",
+          "tick": 8,
+          "op": "event_7"
+        },
+        {
+          "command_address": "0x800d5324",
+          "word": "0xf",
+          "tick": 9,
+          "op": "event_15",
+          "argument": "0x4"
+        },
+        {
+          "command_address": "0x800d5338",
+          "word": "0x2",
+          "tick": 12,
+          "op": "pause"
+        }
+      ],
+      "active_ticks": [
+        0
+      ],
+      "externally_clocked": false
+    },
+    "desperado_end": {
+      "address": "0x800d533c",
+      "clip": "Recovered__800d533c",
+      "ticks": 6,
+      "terminal": "stop",
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010d1e8",
+          "command_address": "0x800d5344"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010d0e8",
+          "command_address": "0x800d5348"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cfe8",
+          "command_address": "0x800d534c"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cee8",
+          "command_address": "0x800d5350"
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cde8",
+          "command_address": "0x800d5354"
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cce8",
+          "command_address": "0x800d5358"
+        }
+      ],
+      "events": [
+        {
+          "command_address": "0x800d533c",
+          "word": "0x10",
+          "tick": 0,
+          "op": "event_16"
+        },
+        {
+          "command_address": "0x800d5340",
+          "word": "0x12",
+          "tick": 0,
+          "op": "event_18"
+        },
+        {
+          "command_address": "0x800d535c",
+          "word": "0x0",
+          "tick": 6,
+          "op": "stop"
+        }
+      ],
+      "active_ticks": [],
+      "externally_clocked": false
+    },
+    "dashing_pierce": {
+      "address": "0x800d4e6c",
+      "clip": "Recovered__800d4e6c",
+      "ticks": 6,
+      "terminal": "pause",
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e7fe8",
+          "command_address": "0x800d4e70"
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e80e8",
+          "command_address": "0x800d4e74"
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e81e8",
+          "command_address": "0x800d4e80"
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e82e8",
+          "command_address": "0x800d4e84"
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e83e8",
+          "command_address": "0x800d4e88"
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e84e8",
+          "command_address": "0x800d4e8c"
+        }
+      ],
+      "events": [
+        {
+          "command_address": "0x800d4e6c",
+          "word": "0x13",
+          "tick": 0,
+          "op": "event_19"
+        },
+        {
+          "command_address": "0x800d4e78",
+          "word": "0x7",
+          "tick": 2,
+          "op": "event_7"
+        },
+        {
+          "command_address": "0x800d4e7c",
+          "word": "0x14",
+          "tick": 2,
+          "op": "event_20"
+        },
+        {
+          "command_address": "0x800d4e90",
+          "word": "0x2",
+          "tick": 6,
+          "op": "pause"
+        }
+      ],
+      "active_ticks": [
+        2
+      ],
+      "externally_clocked": false
     }
   },
-  "joint_frame_checks": 2883,
+  "joint_frame_checks": 3441,
   "maximum_transform_error": 1.429412144204889e-15,
-  "stored_glb_joint_frame_checks": 2883,
+  "stored_glb_joint_frame_checks": 3441,
   "maximum_stored_transform_error": 3.6054089991299776e-07,
-  "glb_sha256": "916f16e6127f8ac2c37064d8d979d657b314b8d60e970090228a309f0991455e",
+  "glb_sha256": "3dc0e1a6f7403c0326f91c81836df00395e52972483533b1a9a472ba9907d63c",
   "timing": "Original animation ticks exported at nominal 30 Hz; emulator timing comparison remains pending.",
   "visibility": "Bare continuation entries use the documented normal drawn-Fusion context; other save-state contexts require runtime flags."
 }

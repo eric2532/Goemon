@@ -35,13 +35,20 @@ func _ready():
 		visual=castle_owner.castle_art.nodes[section_index];castle_impact=castle_owner.castle_impact
 		physical=visual.find_children("*","StaticBody3D",true,false)[0]
 	else:
-		target_boxes.append(AABB(Vector3(-9,0,-9),Vector3(18,33,18) if objective_index<0 else Vector3(18,11,18)))
+		var solid_boxes:Array[AABB]=Castle.statue_boxes(data()) if data().get("castle",false) else [AABB(Vector3(-8.5,0,-8.5),Vector3(17,6,17))]
+		if data().get("castle",false):
+			for box in solid_boxes:target_boxes.append(box.grow(.06))
+		else:target_boxes.append(AABB(Vector3(-9,0,-9),Vector3(18,33,18) if objective_index<0 else Vector3(18,11,18)))
 		visual=Node3D.new();add_child(visual)
 		if objective_index<0:preload("res://scripts/forest/forest_stone_fort.gd").shrine(visual)
+		elif data().get("castle",false):Castle.build_statue(visual,data())
 		elif game.model.terrain_source=="wind_meadow":preload("res://scripts/forest/forest_wind_meadow_assets.gd").building(visual,"barracks")
 		else:preload("res://scripts/forest/forest_barracks_art.gd").build(visual)
 		ruins=Node3D.new();add_child(ruins);ruins.hide()
-		physical=preload("res://scripts/forest/forest_art.gd").solid(self,Vector3(0,3,0),Vector3(17,6,17))
+		physical=StaticBody3D.new();physical.collision_layer=1;physical.collision_mask=0;add_child(physical)
+		for box in solid_boxes:
+			var shape=BoxShape3D.new();shape.size=box.size
+			var collider=CollisionShape3D.new();collider.shape=shape;collider.position=box.get_center();physical.add_child(collider)
 	local_bounds=target_boxes[0]
 	for box in target_boxes:
 		local_bounds=local_bounds.merge(box)
@@ -79,9 +86,9 @@ func sync():
 	for damage in wall_damage:damage.sync_health(hp,max_hp,0)
 	if not wall_damage.is_empty():set_process(hp>0 and wall_damage[0].impact_left>0)
 	var title="ENEMY CASTLE STATUE" if objective_index<0 else (["WEST CAMP","EAST CAMP","CASTLE CAMP"][objective_index] if objective_index<3 else "ENEMY CAMP")
-	if game.model.terrain_source=="wind_meadow":title=["NORTH BARRACKS","EAST BARRACKS","SOUTH BARRACKS","WEST BARRACKS"][objective_index] if objective_index<4 else "ENEMY BARRACKS"
-	if data().get("castle",false):title=title.replace("BARRACKS","KEEP")
-	if section_index>=0:title={"wall":"WALL PANEL","gate":"GATE","tower":"WATCHTOWER"}[data().kind]
+	if game.model.terrain_source=="wind_meadow":title=["NORTH FARM","EAST FARM","SOUTH FARM","WEST FARM"][objective_index] if objective_index<4 else "ENEMY FARM"
+	if data().get("castle",false):title=title.replace("FARM","SKULLPION STATUE")
+	if section_index>=0:title={"wall":"WALL PANEL","gate":"GATE","tower":"GUARD TOWER"}[data().kind]
 	name_tag.text=title+"\n"+("DESTROYED" if hp<=0 else ("Destroy the %d camps first"%camps if objective_index<0 and camps>0 else "%d / %d HP"%[ceili(hp),ceili(max_hp)]))
 	if hp<=0 and not dead:
 		dead=true;collision_layer=0;physical.collision_layer=0;visual.hide();set_process(false)
@@ -147,5 +154,5 @@ func take_hit(amount:float,_direction:Vector3,heavy:bool,ticket:Dictionary={}):
 			name_tag.position=to_local(point)+Vector3.UP*4;name_tag.show()
 	else:game.burst(point,Color("d7b493"),4,.6)
 	if dead:
-		if section_index>=0:game.toast("Wall breached — the enemy keep is still active." if data().kind=="wall" else "Fortification destroyed — the keep is still active.")
-		else:game.toast("Enemy statue destroyed!" if objective_index<0 else ("Castle destroyed — reinforcements stopped here." if data().get("castle",false) else "Camp destroyed — reinforcements stopped here."))
+		if section_index>=0:game.toast("Wall breached — destroy the Skullpion statue inside." if data().kind=="wall" else "Fortification destroyed — the Skullpion statue is still active.")
+		else:game.toast("Enemy statue destroyed!" if objective_index<0 else ("Skullpion statue destroyed — reinforcements stopped here." if data().get("castle",false) else "Camp destroyed — reinforcements stopped here."))

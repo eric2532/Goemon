@@ -24,8 +24,9 @@ const FILES = {
 	"move_utility_weapon": ["event_214"], "move_utility_voice": [],
 	"yae_jump_voice": ["event_39f", "event_3a0", "event_3a1"], "yae_jump_launch": ["event_21d"],
 	"yae_land": ["event_21e"], "yae_land_hard": ["event_217"],
+	"step": ["event_217"],
 	# No source event has been verified for these adaptation actions.
-	"step": ["event_217"], "dash": [], "environment_hit": [], "move_evade_weapon": [], "move_evade_voice": [],
+	"dash": [], "environment_hit": [], "move_evade_weapon": [], "move_evade_voice": [],
 	"yae_bazooka_explosion": [], "yae_lock_on_ready": []
 }
 static func stream_for(slot:String)->AudioStream:

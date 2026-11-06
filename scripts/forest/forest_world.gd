@@ -21,6 +21,9 @@ var ghost_foundation_depth=0.0
 var ghost_material: StandardMaterial3D
 var sight_ring: MeshInstance3D
 var age=0.0
+var attack_materials:Array=[]
+var attack_range=preload("res://scripts/forest/player_attack_range.gd").new()
+var scenery_chunks:Dictionary={}
 var forest_root: Node3D
 var deposit_root: Node3D
 var map_features: Node3D
@@ -98,6 +101,33 @@ func reload_map():
 	make_forest();make_deposits();make_map_features();revision=-1;preview.hide();sync(0);update_fog()
 	if painterly_pilot!=null:painterly_pilot.set_enabled(painterly_preview_enabled and model.terrain_source!="wind_meadow")
 	apply_map_environment()
+func can_reuse_map(next_model)->bool:
+	for key in ["terrain_source","terrain_scale","map_expansion","raised_castle","roads","portals","deposits"]:
+		if model.get(key)!=next_model.get(key):return false
+	if model.terrain_source!="wind_meadow" and model.ramparts!=next_model.ramparts:return false
+	return true
+func reload_terrain_routes():
+	var old=map_features.get_node_or_null("RaisedWallRoutes")
+	if old!=null:
+		for material in old.get_meta("rampart_materials",[]):fog_materials.erase(material)
+		map_features.remove_child(old);old.queue_free()
+	preload("res://scripts/forest/forest_rampart_art.gd").build(self,map_features)
+func reload_preview(previous):
+	for id in structure_nodes.keys():
+		if previous.buildings.get(id)!=model.buildings.get(id):
+			var node=structure_nodes[id];remove_child(node);node.queue_free();structure_nodes.erase(id)
+	for id in worker_nodes.keys():
+		if not model.workers.has(id):
+			var node=worker_nodes[id];remove_child(node);node.queue_free();worker_nodes.erase(id)
+	base_ground_collision.set_meta("halo_ground_model",model)
+	for body in map_features.find_children("*","StaticBody3D",true,false):
+		if body.has_meta("halo_ground_model") and body.get_meta("halo_ground_model")==previous:body.set_meta("halo_ground_model",model)
+	reload_scenery()
+	var regions=[]
+	if model.ramparts!=previous.ramparts:
+		regions=model.changed_terrain_bounds(previous.ramparts,model.ramparts);reload_terrain_routes()
+	preload("res://scripts/forest/forest_wind_meadow_art.gd").refresh_foliage(self,previous.occupancy,regions)
+	revision=-1;preview.hide();sync(0);update_fog()
 func make_portal(portal: Dictionary)->Node3D:
 	var root=Node3D.new();root.name="EnemySpawnPortal";root.rotation.y=-int(portal.rotation)*PI*.5
 	root.add_child(preload("res://scripts/forest/halo_teleporter.gd").build())
@@ -106,7 +136,7 @@ func make_map_features():
 	playable_bounds=Rect2(-234,-234,468,468) if model.has_elevation() else Rect2(-168,-168,336,336)
 	if model.terrain_source=="blood_gulch":playable_bounds=Rect2(Vector2(-234,-234)*model.terrain_scale,Vector2(468,468)*model.terrain_scale)
 	map_features=Node3D.new();map_features.name="AuthoredMapFeatures";add_child(map_features);portal_nodes.clear()
-	kai_materials.clear();blood_gulch_materials.clear()
+	kai_materials.clear();blood_gulch_materials.clear();attack_materials.clear()
 	var meadow=model.terrain_source=="wind_meadow"
 	var kai=model.terrain_source=="kai_highway"
 	var blood_gulch=model.terrain_source=="blood_gulch"
@@ -145,9 +175,10 @@ func fog_material(color: Color,ground_: bool=false)->ShaderMaterial:
 	mat.set_shader_parameter("ground_surface",ground_)
 	fog_materials.append(mat);return mat
 func make_forest():
-	forest_root=Node3D.new();forest_root.name="MapForest";add_child(forest_root)
+	forest_root=Node3D.new();forest_root.name="MapForest";add_child(forest_root);scenery_chunks.clear()
 	if model.terrain_source=="wind_meadow":
 		preload("res://scripts/forest/forest_wind_meadow_art.gd").trees(self,forest_root);return
+	make_rocks()
 	var layers=[]
 	for i in range(4):
 		var mesh=CylinderMesh.new();mesh.radial_segments=7;mesh.rings=1
@@ -162,10 +193,50 @@ func make_forest():
 		var scale_: float=model.trees[cell]
 		for i in range(4):
 			var height=5.5 if i==0 else 5+i*3.5
-			var transform=Transform3D(Basis.IDENTITY.scaled(Vector3.ONE*scale_),model.point(cell)+Vector3(0,height*scale_,0))
+			var transform=Transform3D(Basis(Vector3.UP,deg_to_rad(model.tree_rotations.get(cell,0))).scaled(Vector3.ONE*scale_),model.scenery_point(cell)+Vector3(0,height*scale_,0))
 			layers[i].multimesh.set_instance_transform(index,transform)
-		Art.solid(forest_root,model.point(cell)+Vector3.UP*4,Vector3(2.5,8,2.5),1,"wood")
+		var box:AABB=model.scenery_obstacles[cell]
+		Art.solid(forest_root,box.get_center(),box.size,1,"wood").set_meta("map_scenery_cell",cell)
 		index+=1
+func make_rocks():
+	var groups={}
+	for source in [model.rocks,model.props]:
+		for cell in source:
+			var item:Dictionary=source[cell];var kind:String=item.get("kind","rock");var point_:Vector3=model.scenery_point(cell)
+			if not groups.has(kind):groups[kind]=[]
+			groups[kind].append(Transform3D(Basis(Vector3.UP,deg_to_rad(item.rotation)).scaled(Vector3.ONE*item.scale*model.Scenery.visual_scale(kind)),point_))
+			var box:AABB=model.scenery_obstacles[cell]
+			Art.solid(forest_root,box.get_center(),box.size,1,model.Scenery.material(kind)).set_meta("map_scenery_cell",cell)
+	for kind in groups:preload("res://scripts/forest/forest_wind_meadow_assets.gd").batch(forest_root,model.Scenery.asset(kind),groups[kind],model.Scenery.wind(kind))
+func show_scenery_preview(kind:String,cell:Vector2i,scale_:float,rotation_:float,valid:bool,height:float=0):
+	var box=preload("res://scripts/forest/forest_scenery.gd").bounds(kind,scale_,rotation_)
+	var cells=preload("res://scripts/forest/forest_scenery.gd").footprint(cell,box)
+	show_editor_marker(cells.front(),cells.back()-cells.front()+Vector2i.ONE,valid)
+	if ghost_kind!=kind:
+		if is_instance_valid(ghost_art):ghost_art.queue_free()
+		ghost_art=Node3D.new();preview.add_child(ghost_art)
+		preload("res://scripts/forest/forest_wind_meadow_assets.gd").batch(ghost_art,model.Scenery.asset(kind),[Transform3D.IDENTITY])
+		for mesh in ghost_art.get_children():mesh.material_override=ghost_material;mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		ghost_kind=kind;ghost_rotation=-1;ghost_foundation_depth=-1
+	preview.position.y+=height
+	ghost_art.transform=Transform3D(Basis(Vector3.UP,deg_to_rad(rotation_)).scaled(Vector3.ONE*scale_*model.Scenery.visual_scale(kind)),model.point(cell)+Vector3.UP*height-preview.position)
+	ghost_material.albedo_color=Color(.43,.88,.65,.4) if valid else Color(.92,.31,.21,.4)
+	ghost_art.show()
+func show_terrain_preview(kind:String,cell:Vector2,turn:int,height:float,valid:bool,selected:bool=false):
+	preview.show();preview_mesh.hide();sight_ring.hide()
+	if is_instance_valid(road_preview):road_preview.hide()
+	if is_instance_valid(portal_ghost):portal_ghost.hide()
+	if ghost_kind!=kind:
+		if is_instance_valid(ghost_art):ghost_art.queue_free()
+		ghost_art=preload("res://scripts/forest/forest_environment_kit.gd").scene(kind).instantiate();preview.add_child(ghost_art)
+		for body in ghost_art.find_children("*","StaticBody3D",true,false):body.collision_layer=0;body.collision_mask=0
+		for type_ in ["MeshInstance3D","MultiMeshInstance3D"]:
+			for mesh in ghost_art.find_children("*",type_,true,false):mesh.material_override=ghost_material;mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		ghost_kind=kind;ghost_rotation=-1;ghost_foundation_depth=-1
+	preview.position=Vector3(cell.x*6,height,cell.y*6)
+	ghost_art.transform=Transform3D(Basis(Vector3.UP,-turn*PI*.5),Vector3.ZERO)
+	ghost_material.albedo_color=Color(.95,.76,.3,.45) if selected else (Color(.43,.88,.65,.4) if valid else Color(.92,.31,.21,.4))
+	ghost_art.show()
 func update_fog():
 	# Visibility texture stays fully white; scouting no longer darkens scenery.
 	ground_material.set_shader_parameter("show_grid",model.phase=="preparing")
@@ -195,8 +266,11 @@ func show_preview(kind: String,cell: Vector2i,rotation_: int,valid: bool):
 	preview_mesh.material_override.albedo_color=Color(.43,.88,.65,.38) if valid else Color(.92,.31,.21,.45)
 	ghost_material.albedo_color=Color(.43,.88,.65,.4) if valid else Color(.92,.31,.21,.4)
 	sight_ring.scale=Vector3.ONE*model.SIGHT[kind]
+func reload_scenery():
+	if model.terrain_source=="wind_meadow":preload("res://scripts/forest/forest_wind_meadow_art.gd").trees(self,forest_root)
+	else:remove_child(forest_root);forest_root.queue_free();make_forest()
 func refresh_castle_build_site(index:int):
-	remove_child(forest_root);forest_root.queue_free();make_forest()
+	reload_scenery()
 	add_enemy_castle(index)
 func add_enemy_castle(index:int):
 	var target=preload("res://scripts/forest/forest_enemy_objective.gd").new()
@@ -212,7 +286,7 @@ func show_enemy_castle_preview(cell:Vector2i,rotation_:int,valid:bool):
 		if is_instance_valid(ghost_art):ghost_art.queue_free()
 		ghost_art=Node3D.new();preview.add_child(ghost_art)
 		preload("res://scripts/forest/forest_enemy_castle.gd").build(ghost_art,{"rotation":rotation_})
-		preload("res://scripts/forest/forest_wind_meadow_assets.gd").building(ghost_art,"barracks")
+		preload("res://scripts/forest/forest_enemy_castle.gd").build_statue(ghost_art,{"rotation":rotation_})
 		var direction=model.portal_direction({"rotation":rotation_})
 		Geo.box(ghost_art,Vector3(direction.x*72,.16,direction.y*72),Vector3(30,.2,30),ghost_material)
 		for body in ghost_art.find_children("*","StaticBody3D",true,false):body.collision_layer=0;body.collision_mask=0
@@ -305,7 +379,9 @@ func sync(delta: float):
 		node.position=w.pos+offset;node.rotation.z=PI*.5 if w.state=="wounded" else 0.0
 		node.get_node("Cargo").visible=w.cargo>0
 		node.get_node("Selected").visible=w.follow
-		node.get_node("Bow").visible=w.state=="garrison"
+		var enclosed=w.state=="garrison" and (model.terrain_source=="wind_meadow" or model.buildings.get(w.job,{}).get("kind","")=="cannon_tower")
+		node.get_node("WorkerBody").visible=not enclosed
+		node.get_node("Bow").visible=w.state=="garrison" and not enclosed
 		if Art.animate_worker(node,w,age) and node.visible:worker_hammered.emit(node.position)
 	vision_clock-=delta
 	for material in fog_materials:
@@ -316,6 +392,11 @@ func sync(delta: float):
 		for material in kai_materials:
 			material.set_shader_parameter("compensate_filmic",environment_.tonemap_mode==Environment.TONE_MAPPER_FILMIC)
 			material.set_shader_parameter("scene_exposure",environment_.tonemap_exposure);material.set_shader_parameter("scene_white",environment_.tonemap_white)
+	var game=get_parent()
+	var radius=attack_range.radius(game.player) if game.get("player")!=null and game.playing and model.phase=="wave" and game.player.hp>0 and not game.transitioning else 0.0
+	for material in attack_materials:
+		material.set_shader_parameter("attack_center",Vector2(model.hero_position.x,model.hero_position.z))
+		material.set_shader_parameter("attack_radius",radius)
 	if vision_clock<=0:update_fog();vision_clock=.2
 	rally_ring.visible=model.workforce!=null and model.workforce.held and model.phase=="wave"
 	rally_ring.position=Vector3(model.hero_position.x,model.surface_height(model.hero_position.x,model.hero_position.z)+.15,model.hero_position.z)

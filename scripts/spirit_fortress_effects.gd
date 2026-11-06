@@ -115,7 +115,7 @@ func _gardens(spawn: Vector3):
   for i in range(3):
    var n=Node3D.new();n.name="FloatingStone";n.position=Vector3(side*((get_parent().playable_bounds.size.x*.5+7)+i*6),5+i*2,spawn.z-10+i*28)
    add_child(n);float_roots.append(n);float_positions.append(n.position)
-   var rock=Geo.sphere(n,Vector3.ZERO,Vector3(2,3,2.5),Geo.mat("4b6070"));rock.mesh.radial_segments=9;rock.mesh.rings=4
+   var rock=Geo.sphere(n,Vector3.ZERO,Vector3(2,3,2.5),Geo.mat("4b6070"));rock.mesh=rock.mesh.duplicate();rock.mesh.radial_segments=9;rock.mesh.rings=4
    Geo.cylinder(n,Vector3(0,-1,0),.4,2.2,Geo.mat("48bbc8",.25,1.3),false,.15)
 
 func _runes(base: Vector3):

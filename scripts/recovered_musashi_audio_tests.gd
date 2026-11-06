@@ -31,7 +31,7 @@ func run():
 	check(game.sound_preview(13,"jump")==null and original(game.sound_preview(13,"hurt")),"Unconfirmed jump audio is silent while original hurt audio remains available")
 	check(game.sound_preview(13,"land")==SoundLibrary.HUMANOID_LANDING,"Ordinary landing uses the shared Goemon effect while footsteps and skids retain Musashi's originals")
 	check(not original(game.sound_preview(2,"swing")) and game.sound_preview(3,"move_primary_1_voice")==null,"Original Musashi defaults stay isolated from Edo and native heroes")
-	c.cancel();stop_audio(game)
+	c.cancel();stop_audio(game);p.foot_time=0
 	p.model.native_motion=true;p.model.was_moving=false;p.model.was_grounded=true;c.locomotion.source_speed=-0x80000
 	var step_start=game.voice_idx
 	p.model.animate(0,4.35,true,0,0,false,0,false);p.model.animate(1.0/30.0,4.35,true,0,0,false,0,false)
@@ -41,7 +41,7 @@ func run():
 	p.model.animate(0,4.35,true,0,0,false,0,false)
 	check(game.voice_idx==step_start+1,"Resampling a source pose cannot duplicate a footstep")
 	p.model.animate(8.0/30.0,4.35,true,0,0,false,0,false)
-	check(game.voice_idx==step_start+2,"Source run tick 10 plays the second footstep once")
+	check(game.voice_idx==step_start+1,"Source run tick 10 respects the shared footstep audio interval")
 	c.locomotion.state="stop";c.locomotion.source_speed=-0x40000;c.locomotion.stop_ticks=0
 	step_start=game.voice_idx;p.model.animate(1.0/30.0,2.16,true,0,0,false,0,false)
 	check(game.voice_idx==step_start+1 and original(game.last_sound_voice.stream,"land"),"Full-speed skid plays the source 0x41E stop event at entry")

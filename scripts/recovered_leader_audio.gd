@@ -35,7 +35,7 @@ func _notification(what: int):
 	elif what==NOTIFICATION_APPLICATION_FOCUS_IN:focused=true
 
 func live()->bool:
-	return focused and is_instance_valid(combat) and combat.active and is_instance_valid(combat.hero) and is_instance_valid(combat.game) and combat.game.playing and not combat.game.transitioning and combat.hero.hp>0 and not combat.game.sound_library.recording
+	return focused and is_instance_valid(combat) and combat.active and is_instance_valid(combat.hero) and is_instance_valid(combat.game) and combat.game.playing and not combat.game.transitioning and combat.hero.hp>0 and not combat.game.sound_library.recording and (not combat.hero.ai_controlled or combat.game.move_audio.ally_nearby(combat.game,combat.hero.global_position))
 
 func begin_charge():
 	charge.stop()

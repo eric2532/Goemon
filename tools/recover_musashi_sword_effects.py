@@ -29,6 +29,11 @@ CLIPS = {
     'lumina': ('lumina', 0), 'air_lumina': ('lumina', 5),
     'rotation': ('lumina', 8), 'rotation_end': ('lumina', 8),
     'counter': ('lumina', 7),
+    'crosswise': ('lumina', 0), 'tenderize': ('lumina', 12),
+    'tenderize_end': ('lumina', 12), 'desperado': ('fusion', 8),
+    'desperado_dual': ('lumina', 13), 'desperado_end': ('lumina', 13),
+    'desperado_fusion': ('fusion', 9),
+    'dashing_pierce': ('fusion', 6),
 }
 
 

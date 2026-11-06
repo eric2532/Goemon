@@ -25,12 +25,12 @@ func drag_wall()->bool:
    var before=game.model.buildings.size()
    game.wall_start=start
    var event=InputEventMouseButton.new();event.button_index=MOUSE_BUTTON_LEFT;event.pressed=false
-   event.position=game.camera_rig.camera.unproject_position(Vector3(end.x*game.model.CELL,0,end.y*game.model.CELL))
+   event.position=game.camera_rig.camera.unproject_position(game.model.point(end))
    game._unhandled_input(event)
    if game.model.buildings.size()>before:return game.model.buildings.size()==before+2
  return false
 func run():
- var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original()
+ var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_wind_meadow()
  set_meta("forest_custom_layout",doc.data);
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg;root.add_child(game);current_scene=game
  await frames();AudioServer.set_bus_mute(0,true)
@@ -44,30 +44,40 @@ func run():
  for i in 3:
   var before:int=sound.voice_cursor
   check(place("tower"),"Tower%d is purchased through the real placement path"%i)
-  check(sound.voice_cursor==before+1,"A successful tower purchase plays exactly one sound")
+  check(sound.voice_cursor==before+2 and sound.voices[(before+1)%4].stream==sound.CANNON.complete,"A successful tower purchase plays placement and Job's done once each")
   var voice:AudioStreamPlayer=sound.voices[before%sound.voices.size()]
   check(voice.playing and voice.can_process() and voice.stream==sound.PLACEMENT,"Tower%d plays the original Warcraft placement cue at preparation time"%i)
   streams.append(voice.stream)
  var before:int=sound.voice_cursor
  check(place("barracks"),"The bunker is purchased through the real placement path")
  var bunker:AudioStreamPlayer=sound.voices[before%sound.voices.size()]
- check(sound.voice_cursor==before+1 and bunker.playing and bunker.stream==sound.PLACEMENT,"The barracks uses the same recovered building-placement cue")
+ check(sound.voice_cursor==before+2 and bunker.playing and bunker.stream==sound.PLACEMENT and sound.voices[(before+1)%4].stream==sound.CANNON.complete,"The farm uses the same placement and completion cues")
  check(bunker.stream==streams[0] and bunker.pitch_scale==1,"The original sample and pitch are preserved")
  check(bunker.bus==&"Master" or bunker.bus==&"SFX","Placement playback follows the game's volume bus")
  for i in 3:
   before=sound.voice_cursor;sound.play_hammer()
   var voice:AudioStreamPlayer=sound.voices[before%sound.voices.size()]
   check(voice.playing and voice.stream==sound.CLIPS[i],"Worker hammer variation %d is preserved independently of placements"%(i+1))
- for kind in ["mine","wall","gate","shrine","enemy_castle"]:
+ for kind in ["mine","wall","gate","shrine","enemy_castle","cannon_tower"]:
   before=sound.voice_cursor
-  check(sound.play_placement(kind) and sound.voice_cursor==before+1 and sound.voices[before%4].stream==sound.PLACEMENT,"General construction uses Warcraft placement: "+kind)
+  check(sound.play_placement(kind) and sound.voice_cursor==before+2 and sound.voices[before%4].stream==sound.PLACEMENT and sound.voices[(before+1)%4].stream==sound.CANNON.complete,"Every building plays placement and Job's done once each: "+kind)
  var placement:AudioStreamWAV=sound.PLACEMENT
  check(placement.format==AudioStreamWAV.FORMAT_16_BITS and placement.mix_rate==22050 and not placement.stereo,"Placement preserves original mono 22,050 Hz PCM16")
  var provenance=JSON.parse_string(FileAccess.get_file_as_string("res://assets/audio/warcraft_building/source.json"))
  var hash_=HashingContext.new();hash_.start(HashingContext.HASH_SHA256);hash_.update(placement.data)
  check(hash_.finish().hex_encode()==provenance.pcm_sha256,"Imported placement PCM matches the Warcraft archive byte for byte")
  before=sound.voice_cursor
- check(drag_wall() and sound.voice_cursor==before+1,"A real two-piece wall drag plays exactly one placement cue")
+ check(drag_wall() and sound.voice_cursor==before+2,"A real two-piece wall drag plays placement and Job's done once for the whole purchase")
+ game.select_build("");game.forest_ui.selected_id=game.model.buildings.values().filter(func(b):return b.kind=="tower")[0].id
+ game.forest_ui.sync();await frames()
+ var actions=game.forest_ui.inspection.find_children("*","Button",true,false).map(func(b):return b.text)
+ check(game.forest_ui.inspection.visible and actions==["REPAIR BUILDING","REMOVE · 50% REFUND"],"Preparation inspection omits manual worker assignment and retains repair/removal")
+ check(not game.forest_ui.build_buttons.cannon_tower.tooltip_text.contains("Assign workers"),"Cannon tooltip no longer asks for the removed action")
+ if DisplayServer.get_name()!="headless":
+  var out="res://build/Other Files/Asset Toolkit/Construction and Level Audio/"
+  DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(out))
+  await RenderingServer.frame_post_draw
+  check(root.get_texture().get_image().save_png(out+"automatic-workers.png")==OK,"Capture simplified preparation inspection")
  for clip in sound.CLIPS:
   check(clip is AudioStreamWAV and clip.format==AudioStreamWAV.FORMAT_16_BITS and clip.mix_rate==22050 and not clip.stereo,"Recovered %s stays lossless mono 22,050 Hz PCM16"%clip.resource_path.get_file())
  before=sound.voice_cursor

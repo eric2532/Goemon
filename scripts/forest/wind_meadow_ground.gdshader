@@ -2,6 +2,10 @@ shader_type spatial;
 uniform sampler2D roads : filter_linear, repeat_disable;
 uniform sampler2D cliff : source_color, filter_linear_mipmap, repeat_enable;
 uniform bool show_grid=false;
+#include "res://scripts/forest/attack_range.gdshaderinc"
+#include "res://scripts/forest/castle_stone.gdshaderinc"
+uniform float castle_half_size=0.0;
+uniform vec2 castle_stairs=vec2(0.0);
 uniform float map_extent=240.0;
 varying vec3 world;
 varying vec3 normal_world;
@@ -18,7 +22,11 @@ void fragment(){
  float rock=smoothstep(.24,.65,1.0-normalize(normal_world).y);
  vec3 weights=pow(abs(normalize(normal_world)),vec3(4.0));weights/=weights.x+weights.y+weights.z;
  vec3 stone=(texture(cliff,world.zy*.045).rgb*weights.x+texture(cliff,world.xz*.045).rgb*weights.y+texture(cliff,world.xy*.045).rgb*weights.z)*vec3(.78,.88,.92);
+ vec2 extent=abs(world.xz);
+ bool fort=max(extent.x,extent.y)<castle_half_size+3.0 || (min(extent.x,extent.y)<castle_stairs.x && max(extent.x,extent.y)<castle_stairs.y);
+ if(castle_half_size>0.0 && fort && rock>0.0) stone=castle_stone(world,normal_world);
  ALBEDO=mix(mix(grass,earth,path*.9),stone,rock);
  if(show_grid){vec2 grid=abs(fract((world.xz+3.0)/6.0)-.5);ALBEDO*=1.0-.13*max(smoothstep(.48,.5,grid.x),smoothstep(.48,.5,grid.y));}
+ ALBEDO=attack_range_ink(ALBEDO,world,normal_world);
  ROUGHNESS=1.0;
 }

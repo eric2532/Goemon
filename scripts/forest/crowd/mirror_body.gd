@@ -1,5 +1,6 @@
 extends "res://scripts/player.gd"
 ## Pooled character presentation/combat; the native army owns navigation and life.
+var native_handle=0
 var leased=false
 var actions:Array=[]
 var held_action=""
@@ -12,7 +13,7 @@ func ensure_character(id:int):
 func _ready():
  ai_controlled=true;mirror_copy=true
  super._ready()
- collision_layer=0;set_physics_process(false)
+ process_mode=Node.PROCESS_MODE_PAUSABLE;collision_layer=0;set_physics_process(false)
  active_ability=character_abilities.get(character_id)
  if active_ability!=null:
   active_ability.active=true
@@ -42,15 +43,15 @@ func copy_from(source:Hero):
  if model.has_method("set_outfit_mask"):model.set_outfit_mask(source.model.outfit_mask)
  if character_id==18:active_ability.select_slot(source.active_ability.weapon_slot)
  if character_id==32:active_ability.demon=source.active_ability.demon
- max_hp=source.max_hp;activate()
+ max_hp=source.max_hp-(500 if character_id==33 and source.active_ability.demon else 0);activate()
 func activate():
  refresh_actions();leased=true
  if active_ability!=null:active_ability.clear_cooldowns()
  spell_loadout.clear_cooldowns()
- action_history.clear();hp=max_hp;show()
+ action_history.clear();hp=max_hp;show();model.set_process(true)
 func retire():
  if not leased:return
- leased=false
+ leased=false;native_handle=0
  if spell_loadout!=null:spell_loadout.cancel()
  if active_ability!=null:active_ability.cancel()
  if quick_attacks!=null:quick_attacks.stop_coins();quick_attacks.cancel()
@@ -63,7 +64,7 @@ func retire():
   for shot in active_ability.assimilation.shots:active_ability.assimilation._retire(shot)
  attack_chain.reset();melee_assist.reset()
  attack_left=0;attack_motion_pending=false;impact_pause=0;heavy_buffer=0;queued=false
- velocity=Vector3.ZERO;held_action="";release_left=0;hide()
+ velocity=Vector3.ZERO;held_action="";release_left=0;model.set_process(false);hide()
 func perform(index:int,point:Vector3):
  if has_offensive_action() or index<0 or index>=actions.size():return
  ai_aim=point;facing=combat_attack_direction();model.rotation.y=atan2(-facing.x,-facing.z)
@@ -96,7 +97,8 @@ func release():
   else:active_ability.input(event)
  held_action=""
 func step(delta:float,state:Dictionary):
- global_position=state.position;hp=state.hp
+ if global_position!=state.position:global_position=state.position
+ hp=state.hp
  if release_left>0:
   release_left=maxf(0,release_left-delta)
   if release_left<=0:release()

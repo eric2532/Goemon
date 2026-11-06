@@ -1,5 +1,27 @@
 # Skullpion editable source
 
+## Enemy castle stone statue — 2026-10-30
+
+The castle objective reuses this same master in its prepared `Castle_Cling` pose
+at time zero. `tools/build_skullpion_stone_statue.gd` freezes the exported rigid
+parts into `assets/models/forest/skullpion_stone_statue.res`: one shared surface,
+all 1,037 original triangles, a stone engraving atlas and fitted part bounds.
+The boss GLB, original texture pixels, source animations and Blender master stay
+unchanged. This is static scenery, without a boss controller or AnimationPlayer.
+Edit/export the master normally, refresh imports, then rebuild the statue:
+
+```sh
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path . --script res://tools/build_skullpion_stone_statue.gd
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path . --script res://tests/forest-shrine/enemy_statue_model_test.gd
+```
+
+The model test checks source hashes, every posed triangle and all four rotated
+contact shapes. Do not edit the generated resource. Castle assembly, reused
+pedestal and stone-block rubble are in `scripts/forest/forest_enemy_castle.gd`.
+After a source edit also run the existing boss motion/contact checks below.
+
+## Animated boss source
+
 `Skullpion.blend` is the editable gameplay master prepared from the recovered ROM model.
 The raw 22-part recovery and its 22 original motion streams stay unchanged in
 `assets/characters/recovered_skullpion/skullpion.glb` and `motion.json`.

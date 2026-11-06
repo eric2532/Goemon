@@ -1,6 +1,7 @@
 extends RefCounted
 ## Authoritative run state, independent of the renderer and input devices.
 signal construction_completed(added:Array)
+signal wave_started
 const ConstructionClearance=preload("res://scripts/forest/forest_construction_clearance.gd")
 const Balance=preload("res://scripts/forest/core_balance.gd")
 var balance=Balance.defaults()
@@ -8,15 +9,16 @@ const Ramparts=preload("res://scripts/forest/forest_ramparts.gd")
 const KaiTerrain=preload("res://scripts/forest/forest_kai_terrain.gd")
 const WindMeadowTerrain=preload("res://scripts/forest/forest_wind_meadow_terrain.gd")
 const BloodGulchTerrain=preload("res://scripts/forest/forest_blood_gulch_terrain.gd")
+const Scenery=preload("res://scripts/forest/forest_scenery.gd")
 const CELL=6.0
 const TRAINING_DUMMY_CELL=Vector2i(2,2)
 const STARTING_GOLD=1000000
 const REGION=Rect2i(-40,-40,80,80)
 const ALLIED_REGION=Rect2i(-28,-28,56,56)
-const COSTS={"mine":150,"tower":120,"wall":10,"gate":30,"barracks":250}
-const HP={"shrine":3000.0,"mine":350.0,"tower":500.0,"wall":7500.0,"gate":2500.0,"barracks":3000.0}
-const SIZES={"shrine":Vector2i(3,3),"mine":Vector2i(3,2),"tower":Vector2i(2,2),"wall":Vector2i(6,1),"gate":Vector2i(2,1),"barracks":Vector2i(3,3)}
-const SIGHT={"shrine":8,"mine":4,"tower":10,"wall":1,"gate":1,"barracks":5}
+const COSTS={"mine":150,"tower":120,"cannon_tower":200,"wall":10,"gate":30,"barracks":250}
+const HP={"shrine":3000.0,"mine":350.0,"tower":500.0,"cannon_tower":500.0,"wall":7500.0,"gate":2500.0,"barracks":3000.0}
+const SIZES={"shrine":Vector2i(3,3),"mine":Vector2i(3,2),"tower":Vector2i(2,2),"cannon_tower":Vector2i(2,2),"wall":Vector2i(6,1),"gate":Vector2i(2,1),"barracks":Vector2i(3,3)}
+const SIGHT={"shrine":8,"mine":4,"tower":10,"cannon_tower":10,"wall":1,"gate":1,"barracks":5}
 var phase="preparing"
 var gold=STARTING_GOLD
 var wave=0
@@ -33,6 +35,13 @@ var defenders: Dictionary={}
 var enemies: Dictionary={}
 var deposits: Dictionary={}
 var trees: Dictionary={}
+var tree_rotations:Dictionary={}
+var rocks:Dictionary={}
+var props:Dictionary={}
+var scenery_obstacles:Dictionary={}
+var scenery_heights:Dictionary={}
+var scenery_cells:Dictionary={}
+var authored_scenery=false
 var portals: Array=[]
 var enemy_camps_prototype=false
 var camp_obstacle_revision=-1
@@ -45,6 +54,7 @@ var terrain=Ramparts.new()
 var terrain_source=""
 var terrain_scale=1.0
 var map_expansion=1.0
+var raised_castle=false
 var navigation_region=REGION
 var occupancy: Dictionary={}
 var explored: Dictionary={}
@@ -70,11 +80,13 @@ var _construction_batch=false
 func reset(value: int,config: Dictionary={},layout: Dictionary={},include_mines:bool=true):
 	team_progression.reset();team_progression.rng.seed=value
 	balance=Balance.sanitized(config)
+	team_progression.rarity_cutoffs=Balance.rarity_cutoffs(balance)
 	mines_enabled=include_mines
 	ryo=preload("res://scripts/forest/forest_ryo_economy.gd").new(self)
 	seed_value=value;phase="preparing";gold=balance.starting_gold;wave=0;next_id=1;hero_targetable=true
 	starting_food=10;fighter_count=0;fighter_posts.clear()
 	buildings.clear();workers.clear();defenders.clear();enemies.clear();deposits.clear();trees.clear();occupancy.clear()
+	tree_rotations.clear();rocks.clear();props.clear();scenery_heights.clear()
 	portals.clear();roads.clear();ramparts.clear()
 	enemy_camps_prototype=bool(layout.get("enemy_camps_prototype",false));terrain_source=str(layout.get("terrain_source",""))
 	enemy_statue={"hp":1200.0,"max_hp":1200.0} if enemy_camps_prototype else {}
@@ -94,7 +106,7 @@ func reset(value: int,config: Dictionary={},layout: Dictionary={},include_mines:
 	else:
 		if mines_enabled:
 			for item in layout.deposits:deposits[Vector2i(item.x,item.z)]=int(item.amount)
-		for item in layout.trees:trees[Vector2i(item.x,item.z)]=float(item.scale)
+		load_scenery(layout)
 		for item in layout.get("portals",[]):portals.append({"x":int(item.x),"z":int(item.z),"rotation":int(item.rotation)})
 		for item in layout.get("roads",[]):roads[Vector2i(item.x,item.z)]=true
 	terrain_scale=float(layout.get("terrain_scale",1.0)) if terrain_source in ["blood_gulch","wind_meadow"] else 1.0
@@ -104,8 +116,10 @@ func reset(value: int,config: Dictionary={},layout: Dictionary={},include_mines:
 	ramparts=layout.get("ramparts",[]).duplicate(true)
 	terrain_source=str(layout.get("terrain_source",""))
 	navigation_region=region_for(terrain_source,terrain_scale*map_expansion)
-	terrain=create_terrain(terrain_source,terrain_scale,map_expansion)
+	raised_castle=terrain_source=="wind_meadow" and bool(layout.get("raised_castle",false))
+	terrain=create_terrain(terrain_source,terrain_scale,map_expansion,raised_castle)
 	terrain.configure(ramparts)
+	hero_position=point(Vector2i(0,3))
 	_make_building("shrine",Vector2i(-1,-1),0)
 	# Give the opening workforce useful jobs without spending the testing treasury.
 	var starter_towers=[]
@@ -116,7 +130,7 @@ func reset(value: int,config: Dictionary={},layout: Dictionary={},include_mines:
 		for item in layout.buildings:
 			if item.kind=="mine" and not mines_enabled:continue
 			var b=_make_building(item.kind,Vector2i(item.x,item.z),int(item.rotation),int(item.get("span",0)))
-			if b.kind=="tower":starter_towers.append(b)
+			if b.kind in ["tower","cannon_tower"]:starter_towers.append(b)
 		for x in range(-7,10):
 			for z in range(-5,8):explored[Vector2i(x,z)]=true
 	if has_elevation():
@@ -128,12 +142,9 @@ func reset(value: int,config: Dictionary={},layout: Dictionary={},include_mines:
 		workforce=load("res://scripts/forest/forest_workforce.gd").new(self)
 		for i in range(6):workforce.recruit(true)
 		workforce.auto_assign()
-		# Keep both mines fully staffed and put a dedicated guard on each deck.
+		# Preserve the starting workforce; automatic towers leave these workers free.
 		for tower in starter_towers:
 			if not workforce.recruit(true):break
-			var guard: Dictionary=workers.values().back()
-			if workforce._assign(guard,tower):
-				guard.state="garrison";guard.pos=center(tower)+Vector3((guard.id%3-1)*1.4,0,0)
 	starting_food=maxi(10,workers.size())
 	if ResourceLoader.exists("res://scripts/forest/forest_waves.gd"):
 		waves=load("res://scripts/forest/forest_waves.gd").new(self)
@@ -171,6 +182,8 @@ func enemy_castle_placement_error(cell:Vector2i,rotation:int)->String:
 	for tile in cells:
 		if not navigation_region.grow(-1).has_point(tile):return "Keep the castle and its exit inside the map"
 		if reserved.has(tile):return "Keep other castles and their exits clear"
+		for anchor in scenery_cells.get(tile,[]):
+			if rocks.has(anchor) or (props.has(anchor) and not Scenery.is_tree(props[anchor].kind)):return "Keep scenery clear of the castle and its exit"
 		if occupancy.has(tile):return "Ground is occupied"
 		if deposits.has(tile):return "Keep gold deposits clear"
 		if cell_of(hero_position)==tile:return "Keep the player clear"
@@ -193,7 +206,9 @@ func place_enemy_castle(cell:Vector2i,rotation:int)->Dictionary:
 	if not enemy_castle_placement_error(cell,rotation).is_empty():return {}
 	var camp={"x":cell.x,"z":cell.y,"rotation":rotation}
 	initialize_enemy_camp(camp);portals.append(camp)
-	for tile in portal_cells(camp):explored[tile]=true;trees.erase(tile)
+	for tile in portal_cells(camp):explored[tile]=true;trees.erase(tile);tree_rotations.erase(tile)
+	for tile in portal_cells(camp):
+		if props.has(tile) and Scenery.is_tree(props[tile].kind):props.erase(tile)
 	rebuild_navigation();revision+=1
 	return camp
 
@@ -262,10 +277,10 @@ static func region_for(source:String,scale_:float=1.0)->Rect2i:
 	return Rect2i(-extent,-extent,extent*2,extent*2)
 static func building_region_for(source:String,scale_:float=1.0)->Rect2i:
 	return region_for(source,scale_).grow(-1)
-static func create_terrain(source:String,scale_:float=1.0,expansion:float=1.0)->RefCounted:
+static func create_terrain(source:String,scale_:float=1.0,expansion:float=1.0,raised:bool=false)->RefCounted:
 	match source:
 		"wind_meadow":
-			var meadow=WindMeadowTerrain.new();meadow.horizontal_scale=scale_;meadow.expansion=expansion;return meadow
+			var meadow=WindMeadowTerrain.new();meadow.horizontal_scale=scale_;meadow.expansion=expansion;meadow.raised_castle=raised;return meadow
 		"kai_highway":return KaiTerrain.new()
 		"blood_gulch":
 			var native=BloodGulchTerrain.new();native.horizontal_scale=scale_;return native
@@ -290,7 +305,7 @@ func footprint(kind: String,c: Vector2i,rotation: int,span: int=0)->Array:
 func center(b: Dictionary)->Vector3:
 	var size_=dimensions(b.kind,b.rotation,b.get("span",0))
 	var base=point(b.cell)+Vector3(size_.x-1,0,size_.y-1)*CELL*.5
-	if terrain_source in ["kai_highway","blood_gulch","wind_meadow"] and b.kind in ["tower","barracks","wall","gate"]:
+	if terrain_source in ["kai_highway","blood_gulch","wind_meadow"] and b.kind in ["tower","cannon_tower","barracks","wall","gate"]:
 		var ground=terrain.building_ground_range(footprint(b.kind,b.cell,b.rotation,b.get("span",0)))
 		if is_finite(ground.y):base.y=ground.y
 	return base
@@ -313,23 +328,107 @@ func shrine()->Dictionary:return buildings.get(1,{})
 func shrine_entry()->Vector2i:return Vector2i(0,2)
 func _make_building(kind: String,c: Vector2i,rotation: int,span: int=0)->Dictionary:
 	var b={"id":next_id,"kind":kind,"cell":c,"rotation":rotation%4,"hp":HP[kind],"max_hp":HP[kind],"clock":0.0}
-	if kind=="tower":b.hp=balance.tower_health;b.max_hp=balance.tower_health
-	if kind=="gate":b.breached=false
+	if kind in ["tower","cannon_tower"]:b.hp=balance.tower_health;b.max_hp=balance.tower_health
+	if kind=="gate":
+		b.breached=raised_castle and terrain.castle_wall_cells(footprint(kind,c,rotation))
+		if b.breached:b.door_removed=true
 	if kind=="wall":
 		b.span=span if span>0 else SIZES.wall.x
 		b.max_hp=HP.wall*b.span/float(SIZES.wall.x);b.hp=b.max_hp
 	next_id+=1;buildings[b.id]=b
 	for tile in footprint(kind,c,rotation,b.get("span",0)):occupancy[tile]=b.id
 	return b
+func load_scenery(layout:Dictionary):
+	trees.clear();tree_rotations.clear();rocks.clear();props.clear();scenery_heights.clear()
+	for item in layout.trees:
+		var cell=Scenery.anchor(item);trees[cell]=float(item.scale)
+		if item.has("rotation") or item.get("height",0)!=0:tree_rotations[cell]=float(item.get("rotation",0))
+	for item in layout.get("rocks",[]):rocks[Scenery.anchor(item)]={"scale":float(item.scale),"rotation":float(item.rotation)}
+	for item in layout.get("props",[]):props[Scenery.anchor(item)]={"kind":str(item.kind),"scale":float(item.scale),"rotation":float(item.rotation)}
+	for group in Scenery.GROUPS:
+		for item in layout.get(group,[]):
+			if item.get("height",0)!=0:scenery_heights[Scenery.anchor(item)]=float(item.height)
+func scenery_point(anchor_)->Vector3:return point(Scenery.cell(anchor_))+Vector3.UP*float(scenery_heights.get(anchor_,0))
+static func changed_terrain_bounds(previous:Array,next:Array)->Array:
+	var regions=[]
+	for piece in previous:
+		if piece not in next:regions.append(Ramparts.bounds(piece))
+	for piece in next:
+		if piece not in previous:regions.append(Ramparts.bounds(piece))
+	return regions
+func update_editor_terrain(layout:Dictionary)->Array:
+	var regions=changed_terrain_bounds(ramparts,layout.get("ramparts",[]));var cells={}
+	for bounds:Rect2 in regions:
+		for x in range(floori(bounds.position.x/CELL)-1,ceili(bounds.end.x/CELL)+2):
+			for z in range(floori(bounds.position.y/CELL)-1,ceili(bounds.end.y/CELL)+2):cells[Vector2i(x,z)]=true
+	# Cliff checks are local; keep prepared results outside the changed surface and its neighbours.
+	var cliffs={}
+	if terrain is KaiTerrain:cliffs=terrain.cliff_cache;terrain.cliff_cache={}
+	ramparts=layout.get("ramparts",[]).duplicate(true);terrain.configure(ramparts)
+	if terrain is KaiTerrain:
+		terrain.cliff_cache=cliffs
+		for cell in cells:terrain.cliff_cache.erase(cell)
+	for cell in cells:
+		if not navigation_region.has_point(cell):continue
+		var b:Dictionary=buildings.get(occupancy.get(cell,-1),{})
+		var blocked=scenery_cells.has(cell) or terrain.cliff_cell(cell) or camp_grid_cells.has(cell)
+		allied_grid.set_point_solid(cell,blocked or (not b.is_empty() and b.kind!="gate"));enemy_grid.set_point_solid(cell,blocked)
+	navigation_revision+=1;sight_cache.clear()
+	return regions
+func update_scenery(layout:Dictionary):
+	var previous=scenery_cells
+	load_scenery(layout);scenery_cells={};rebuild_scenery()
+	var changed=previous.duplicate();changed.merge(scenery_cells)
+	for cell in changed:
+		if previous.has(cell)==scenery_cells.has(cell) or not navigation_region.has_point(cell):continue
+		var blocked=scenery_cells.has(cell) or terrain.cliff_cell(cell) or camp_grid_cells.has(cell)
+		var building:Dictionary=buildings.get(occupancy.get(cell,-1),{})
+		allied_grid.set_point_solid(cell,blocked or (not building.is_empty() and building.kind!="gate"));enemy_grid.set_point_solid(cell,blocked)
+	navigation_revision+=1;sight_cache.clear()
+func update_editor_buildings(layout:Dictionary):
+	# Editor commits are validated; reuse the normal building/worker lifecycle.
+	var previous=occupancy.duplicate();var retained={};var requested={}
+	for b in buildings.values():
+		if b.kind!="shrine":retained[[b.kind,b.cell,b.rotation,b.get("span",0)]]=b.id
+	for item in layout.buildings:
+		if item.kind=="mine" and not mines_enabled:continue
+		requested[[item.kind,Vector2i(item.x,item.z),int(item.rotation),int(item.get("span",0))]]=true
+	for key in retained:
+		if not requested.has(key):_remove_building(retained[key])
+	for key in requested:
+		if not retained.has(key):_make_building(key[0],key[1],key[2],key[3])
+	var changed=previous.duplicate();changed.merge(occupancy)
+	for cell in changed:
+		if previous.get(cell)==occupancy.get(cell):continue
+		var b:Dictionary=buildings.get(occupancy.get(cell,-1),{})
+		var blocked=scenery_cells.has(cell) or terrain.cliff_cell(cell) or camp_grid_cells.has(cell)
+		allied_grid.set_point_solid(cell,blocked or (not b.is_empty() and b.kind!="gate"))
+		enemy_grid.set_point_solid(cell,blocked)
+		enemy_grid.set_point_weight_scale(cell,(6.0 if b.kind in ["wall","gate"] else 12.0) if not b.is_empty() else 1.0)
+	navigation_revision+=1;sight_cache.clear();revision+=1
+func rebuild_scenery():
+	scenery_obstacles.clear();scenery_cells.clear();authored_scenery=not rocks.is_empty() or not tree_rotations.is_empty() or not props.is_empty()
+	var groups={"tree":trees,"rock":rocks,"props":props}
+	for group in groups:
+		for cell in groups[group]:
+			var kind:String=props[cell].kind if group=="props" else group
+			var scale_:float=trees[cell] if group=="tree" else groups[group][cell].scale
+			var rotation:float=tree_rotations.get(cell,-1) if group=="tree" else groups[group][cell].rotation
+			var box=Scenery.bounds(kind,scale_,rotation)
+			for tile in Scenery.footprint(Scenery.cell(cell),box):
+				if not scenery_cells.has(tile):scenery_cells[tile]=[]
+				scenery_cells[tile].append(cell)
+			box.position+=scenery_point(cell);scenery_obstacles[cell]=box
 func rebuild_navigation():
+	rebuild_scenery()
 	for grid in [allied_grid,enemy_grid]:
 		grid.region=navigation_region;grid.cell_size=Vector2.ONE*CELL
 		grid.diagonal_mode=AStarGrid2D.DIAGONAL_MODE_NEVER;grid.update()
 	for x in range(navigation_region.position.x,navigation_region.end.x):
 		for y in range(navigation_region.position.y,navigation_region.end.y):
 			var c=Vector2i(x,y)
-			allied_grid.set_point_solid(c,trees.has(c) or terrain.cliff_cell(c))
-			enemy_grid.set_point_solid(c,trees.has(c) or terrain.cliff_cell(c))
+			allied_grid.set_point_solid(c,scenery_cells.has(c) or terrain.cliff_cell(c))
+			enemy_grid.set_point_solid(c,scenery_cells.has(c) or terrain.cliff_cell(c))
 	for c in occupancy:
 		var b: Dictionary=buildings[occupancy[c]]
 		if b.kind!="gate":allied_grid.set_point_solid(c,true)
@@ -338,7 +437,7 @@ func rebuild_navigation():
 	camp_grid_cells.clear();refresh_camp_grid()
 func refresh_camp_grid():
 	for cell in camp_grid_cells:
-		var blocked=trees.has(cell) or terrain.cliff_cell(cell)
+		var blocked=scenery_cells.has(cell) or terrain.cliff_cell(cell)
 		allied_grid.set_point_solid(cell,blocked or occupancy.has(cell));enemy_grid.set_point_solid(cell,blocked)
 	camp_grid_cells.clear()
 	if not has_enemy_castles():return
@@ -377,7 +476,7 @@ func gate_clearance_error(cells:Array,new_gate:Dictionary={})->String:
 	if not new_gate.is_empty():
 		for side in gate_approaches(new_gate):
 			for tile in side:
-				if not navigation_region.has_point(tile) or trees.has(tile) or terrain.cliff_cell(tile):return "Keep the gate passage clear"
+				if not navigation_region.has_point(tile) or scenery_cells.has(tile) or terrain.cliff_cell(tile):return "Keep the gate passage clear"
 				if occupancy.has(tile) and buildings[occupancy[tile]].kind!="gate":return "Keep the gate passage clear"
 				for portal in portals:
 					if tile in portal_cells(portal):return "Keep the gate passage clear"
@@ -449,7 +548,7 @@ func placement_error(kind: String,c: Vector2i,rotation: int)->String:
 		for portal in portals:
 			if tile in portal_cells(portal):return "Keep the spawn portal and its exit clear"
 		if not build_region.has_point(tile):return "Keep the whole building inside the map"
-		if trees.has(tile):return "Trees block this ground"
+		if scenery_cells.has(tile):return "Trees or rocks block this ground"
 		if occupancy.has(tile) and not (kind=="gate" and buildings[occupancy[tile]].kind=="wall"):return "Ground is occupied"
 		if kind!="mine":
 			for deposit in deposits:
@@ -528,9 +627,9 @@ func repair(id: int)->bool:
 	if b.kind=="gate":close_repaired_gate(id)
 	revision+=1;return true
 func close_repaired_gate(id:int)->bool:
-	sync_enemy_records()
 	var b:Dictionary=buildings.get(id,{})
-	if b.get("kind","")!="gate" or not b.get("breached",false) or b.hp<b.max_hp:return false
+	if b.get("kind","")!="gate" or b.get("door_removed",false) or not b.get("breached",false) or b.hp<b.max_hp:return false
+	sync_enemy_records()
 	# Finish rebuilding before sealing, and never trap an actor mid-passage.
 	var size_:Vector2i=dimensions(b.kind,b.rotation)
 	var low:Vector3=point(b.cell)-Vector3(3,0,3)
@@ -546,7 +645,7 @@ func damage_building(id: int,amount: float):
 	if phase!="wave" or not buildings.has(id):return
 	var b: Dictionary=buildings[id]
 	if b.kind=="wall" or b.get("breached",false) or amount<=0:return
-	if b.kind=="tower":amount/=team_progression.multiplier("tower_defense")
+	if b.kind in ["tower","cannon_tower"]:amount/=team_progression.multiplier("tower_defense")
 	var previous_hp:float=b.hp;b.hp=maxf(0,b.hp-amount*(.5 if b.kind=="barracks" else 1.0))
 	if b.kind=="barracks" and b.hp<previous_hp:b.damage_serial=int(b.get("damage_serial",0))+1
 	if b.kind in ["wall","gate"] and b.hp<previous_hp:
@@ -555,6 +654,7 @@ func damage_building(id: int,amount: float):
 		if id==1:phase="defeat";events.append({"kind":"defeat"});return
 		if b.kind=="gate":
 			b.breached=true;rebuild_navigation();revision+=1;update_vision(hero_position);return
+		if b.kind=="cannon_tower":events.append({"kind":"cannon_sound","event":"death","point":center(b)})
 		_remove_building(id);rebuild_navigation();revision+=1;update_vision(hero_position)
 func visible_at(p: Vector3)->bool:return visible_cells.has(cell_of(p))
 func explored_at(p: Vector3)->bool:return explored.has(cell_of(p))
@@ -563,7 +663,7 @@ func _line_visible(a: Vector2i,b: Vector2i,high: bool)->bool:
 	var delta_=b-a;var steps=maxi(absi(delta_.x),absi(delta_.y))
 	for i in range(1,steps):
 		var c=a+Vector2i(roundi(delta_.x*float(i)/steps),roundi(delta_.y*float(i)/steps))
-		if trees.has(c):return false
+		if scenery_cells.has(c):return false
 		if occupancy.has(c):
 			var structure:Dictionary=buildings[occupancy[c]]
 			if structure.kind in ["wall","gate"] and not structure.get("breached",false):return false
@@ -634,13 +734,8 @@ func apply_tower_balance(config: Dictionary):
 	for row in Balance.ROWS:
 		if row[0].begins_with("tower_"):balance[row[0]]=accepted[row[0]]
 	for b in buildings.values():
-		if b.kind!="tower":continue
+		if b.kind not in ["tower","cannon_tower"]:continue
 		var fraction: float=b.hp/maxf(1,b.max_hp)
 		b.max_hp=balance.tower_health;b.hp=b.max_hp*fraction
-		var assigned=0
-		for w in workers.values():
-			if w.job!=b.id or w.state=="wounded":continue
-			assigned+=1
-			if assigned>balance.tower_workers:workforce.release_job(w)
-			else:w.timer=minf(w.timer,1.0/(balance.tower_attack_speed*team_progression.multiplier("tower_speed")))
+		b.clock=minf(b.clock,workforce.attack_interval(b))
 	revision+=1

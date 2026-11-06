@@ -10,8 +10,10 @@ const YAE_ID = 17
 const MASTER_CHIEF_ID = 18
 const SONIC_ID = 19
 const KOJIRO_ID = 28
-const WARCRAFT={31:{"id":"blademaster","name":"Blademaster","color":"#a2bf70","description":"LMB Sword combo · RMB Critical strike · 1 Bladestorm · 2 Wind Walk · 3 Mirror Image · Space Jump · C Evade. Equip shared skills with Q."},32:{"id":"demon-hunter","name":"Illidan","color":"#b195dc","description":"LMB Glaive combo / Demon bolt · RMB / 1 Metamorphosis · 2 Immolation · Space Jump · C Evade. Meta form: hold Space to fly, release to descend; Shift boosts. Equip shared skills with Q."}}
-const PLAYABLE_IDS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]
+const KAZI_ID = 34
+const KAZI={"id":"kazi","name":"Kazi","color":"#c48aff","description":"LMB / RMB Blade attack · WASD Move · Shift Sprint · Space Jump · C Evade · Q Shared skills."}
+const WARCRAFT={33:{"id":"mountain-king","name":"Mountain King","color":"#278dff","description":"LMB Hammer and axe · RMB / 1 Storm Bolt · 2 Thunder Clap · 3 Avatar · 4 Taunt / War Cry · Passive Bash. WASD Move · Shift Sprint · Space Jump · C Evade · Q Shared skills."},31:{"id":"blademaster","name":"Blademaster","color":"#a2bf70","description":"LMB Sword combo · RMB Critical strike · 1 Bladestorm · 2 Wind Walk · 3 Mirror Image · Space Jump · C Evade. Equip shared skills with Q."},32:{"id":"demon-hunter","name":"Illidan","color":"#b195dc","description":"LMB Glaive combo / Demon bolt · RMB / 1 Metamorphosis · 2 Immolation · Space Jump · C Evade. Meta form: hold Space to fly, release to descend; Shift boosts. Equip shared skills with Q."}}
+const PLAYABLE_IDS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34]
 ## Hide unused fighters in menus without changing stable gameplay/save IDs.
 const HIDDEN_SELECTION_IDS = [2,3,4,6,12,20,21,22,23,24,25,26] # Unused heroes and small enemies; bosses remain selectable.
 const MUSASHI_PORTRAIT = "res://assets/characters/recovered_musashi/portrait.png"
@@ -44,6 +46,7 @@ static func selection_ids() -> Array[int]:
 ## Selection art has its own full-body framing. HUD portraits retain the stable
 ## face position used by the circular crop in forest_hud_portrait.gdshader.
 static func selection_portrait_path(id: int) -> String:
+	if id==KAZI_ID:return "res://assets/characters/crossgate/kazi_hd/portrait.png"
 	if WARCRAFT.has(id):return "res://assets/characters/warcraft/%s/portrait.png"%class_id(id)
 	if id==KOJIRO_ID:return "res://assets/characters/recovered_kojiro/portrait.png"
 	if is_enemy(id):return "res://assets/characters/playable_enemies/%s.png"%class_id(id)
@@ -72,6 +75,7 @@ static func is_rogue(id: int) -> bool:
 	return id >= FIRST_ID and id < FIRST_ID + CLASS_IDS.size()
 
 static func class_id(id: int) -> String:
+	if id==KAZI_ID:return KAZI.id
 	if WARCRAFT.has(id):return WARCRAFT[id].id
 	if id==KOJIRO_ID:return "kojiro"
 	if is_enemy(id):return ENEMIES[id].id
@@ -89,6 +93,7 @@ static func hero_id(native_id: String) -> int:
 	return FIRST_ID + index if index >= 0 else -1
 
 static func data(id: Variant) -> Dictionary:
+	if (id is int and id==KAZI_ID) or (id is String and id=="kazi"):return KAZI.duplicate()
 	if id is int and WARCRAFT.has(id):return WARCRAFT[id].duplicate()
 	if (id is int and id==KOJIRO_ID) or (id is String and id=="kojiro"):return {"id":"kojiro","name":"Kojiro","color":"#d999e6","description":"Musashi’s rival. Original sword and aerial cuts, homing shots, sword wave and four-part wind attack."}
 	if id is int and is_enemy(id):return ENEMIES[id].duplicate()
@@ -101,6 +106,7 @@ static func data(id: Variant) -> Dictionary:
 	return _classes.get(native_id, {}).duplicate(true)
 
 static func name_for(id: int) -> String:
+	if id==KAZI_ID:return KAZI.name
 	if WARCRAFT.has(id):return WARCRAFT[id].name
 	if id==KOJIRO_ID:return "Kojiro"
 	if is_enemy(id):return ENEMIES[id].name
@@ -120,6 +126,9 @@ static func portrait_path(id: int) -> String:
 	return "res://assets/models/characters/goemon_cosplay/portraits/%s.png" % class_id(id)
 
 static func portrait(id: int) -> Texture2D:
+	if id==KAZI_ID:
+		if not _portraits.has(id):_portraits[id]=load("res://assets/characters/crossgate/kazi_hd/hud_portrait.png")
+		return _portraits[id] as Texture2D
 	if WARCRAFT.has(id):
 		if not _portraits.has(id):_portraits[id]=load("res://assets/characters/warcraft/%s/hud_portrait.png"%class_id(id))
 		return _portraits[id] as Texture2D

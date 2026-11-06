@@ -24,13 +24,13 @@ func _move_body(delta:float)->void:
   return
  super._move_body(delta)
  support_position=hero.global_position;support_revision=game.model.navigation_revision;support_left=.2
-func fit_primary_reach(a:Dictionary)->void:
+func fit_primary_reach(a:Dictionary,preview:bool=false)->void:
  var key=str([a.get("style",""),a.get("index",0),a.get("swingSide",1),range_scale(),melee_reach_scale(),hero.growth_multiplier(),player.buffTime>0])
  if reach_cache.has(key):
   a.merge(reach_cache[key],true);return
- super.fit_primary_reach(a)
+ super.fit_primary_reach(a,preview)
  var fitted={}
- for field in ["reach","weaponContact","meleeVisualScale","meleeWeaponScale"]:
+ for field in ["reach","weaponContact","meleeVisualScale","meleeWeaponScale","bladeWaveScale"]:
   if a.has(field):fitted[field]=a[field]
  reach_cache[key]=fitted
 func _animate(delta:float,movement:float)->void:

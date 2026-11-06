@@ -117,7 +117,8 @@ func bake(unit,profile:Dictionary={})->Resource:
      put_pose(image,cursor,int(d.start)+frame,pose);cursor+=1
    hands.append(inverse*unit.model.hand_position("R"))
    var weapon:Node3D=actor.joints.Weapon_Cutlass.node
-   points.append(inverse*(weapon.global_transform*actor.WEAPON_AXES.get(actor.id,Vector3.UP)))
+   var wave_scale=float(state.attack.get("bladeWaveScale",1.0)) if state.attack is Dictionary else 1.0
+   points.append(inverse*(weapon.global_position+weapon.global_basis*actor.WEAPON_AXES.get(actor.id,Vector3.UP)*wave_scale))
   contacts[key]=points;muzzles[key]=hands
  var resource=Resource.new();resource.set_meta("kind",unit.kit_id);resource.set_meta("fps",FPS);resource.set_meta("mesh",mesh);resource.set_meta("textures",textures);resource.set_meta("properties",ImageTexture.create_from_image(props));resource.set_meta("palette",palette);resource.set_meta("vertex_refs",vertex_refs);resource.set_meta("clips",clips);resource.set_meta("contacts",contacts);resource.set_meta("muzzles",muzzles);resource.set_meta("pose_texture",ImageTexture.create_from_image(image))
  var hashes={};fingerprint("res://assets/rogue/scripts/actor.gd",hashes);fingerprint("res://scripts/rogue_roster_combat.gd",hashes)

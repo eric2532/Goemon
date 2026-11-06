@@ -33,9 +33,10 @@ func run():
  row.hp=192;row.pos=Vector3(51,0,60);row.facing=PI/2;army.set_pose(army.handles[row.id],row.pos,PI/2)
  model.visible_cells[model.cell_of(row.pos)]=true
  var tower=model._make_building("tower",Vector2i(0,8),0);model.workers.clear()
- model.workers[3000]={"id":3000,"pos":point,"hp":100,"state":"garrison","job":tower.id,"timer":0.0}
+ row.pos=model.center(tower)+Vector3(49,0,0);army.set_pose(army.handles[row.id],row.pos,PI/2)
+ model.visible_cells[model.cell_of(row.pos)]=true
  army.queries=0;army.reads=0;model.workforce.assignment_clock=1000;model.workforce.tick(.01,Vector3.ZERO)
- check(model.workforce.arrows.size()==1 and model.workforce.arrows.values()[0].target==row.id,"Tower range still reaches the exact rotated soldier face beyond its root distance")
+ check(model.workforce.arrows.size()==model.balance.tower_workers and model.workforce.arrows.values()[0].target==row.id,"Tower range still reaches the exact rotated soldier face beyond its root distance")
  check(army.queries>=1 and army.reads<=4,"Towers fit nearby candidates instead of all2000 enemy bodies")
  army.clear();army.free()
  print("ARMY_WORKFORCE_QUERIES_RESULT checks=",checks," failures=",failures);quit(1 if failures else 0)

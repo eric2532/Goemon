@@ -2,6 +2,15 @@ extends RefCounted
 ## Authored valley dimensions. Bake with tools/build_wind_meadow_map.gd.
 const CLEARINGS=[Vector3(0,18,-186),Vector3(186,10,0),Vector3(0,6,186),Vector3(-186,12,0)]
 const LANDMARK=Vector2i(-9,-9)
+const CASTLE_SCALE=1.3
+const CASTLE_HALF_SIZE=48.0*CASTLE_SCALE
+const CASTLE_HEIGHT=32.0*CASTLE_SCALE
+const CASTLE_GATES=[Vector2(-3,-48)*CASTLE_SCALE,Vector2(48,-3)*CASTLE_SCALE,Vector2(3,48)*CASTLE_SCALE,Vector2(-48,3)*CASTLE_SCALE]
+const CASTLE_DIRECTIONS=[Vector2.UP,Vector2.RIGHT,Vector2.DOWN,Vector2.LEFT]
+const STAIR_HALF_WIDTH=12.0*CASTLE_SCALE
+const STAIR_INNER=42.0*CASTLE_SCALE
+const STAIR_TOP=54.0*CASTLE_SCALE
+const STAIR_BOTTOM=150.0*CASTLE_SCALE
 static var route_cache:Dictionary={}
 static func clearings(scale_:float=1.0)->Array:
  var result=[]
@@ -19,13 +28,21 @@ static func routes(scale_:float=1.0)->Array:
  for route in result:
   for i in route.size():route[i]*=scale_
  if scale_>=2.0:
-  var gates=[Vector2(-3,-48),Vector2(48,-3),Vector2(3,48),Vector2(-48,3)]
   for i in 4:
    var camp:Vector3=CLEARINGS[i]*Vector3(scale_,1,scale_)
-   result[i+2]=[gates[i],gates[i].normalized()*168,Vector2(camp.x,camp.z)]
+   result[i+2]=[CASTLE_GATES[i],CASTLE_GATES[i].normalized()*168,Vector2(camp.x,camp.z)]
  else:result[2][0]=Vector2(3,42)
  route_cache[scale_]=result
  return result
+static func castle_height(p:Vector2)->float:
+ if maxf(absf(p.x),absf(p.y))<CASTLE_HALF_SIZE:return CASTLE_HEIGHT
+ if maxf(absf(p.x),absf(p.y))>STAIR_BOTTOM:return 0.0
+ for i in 4:
+  var normal:Vector2=CASTLE_DIRECTIONS[i];var side=Vector2(-normal.y,normal.x)
+  var distance=p.dot(normal)
+  if distance>=STAIR_INNER and absf((p-CASTLE_GATES[i]).dot(side))<=STAIR_HALF_WIDTH:
+   return CASTLE_HEIGHT*clampf((STAIR_BOTTOM-distance)/(STAIR_BOTTOM-STAIR_TOP),0,1)
+ return 0.0
 static func road_distance(p:Vector2,scale_:float=1.0)->float:
  var result=INF
  for route in routes(scale_):

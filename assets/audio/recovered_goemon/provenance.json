@@ -1998,5 +1998,19 @@
         ]
       }
     ]
+  },
+  "walking": {
+    "event": "0x217",
+    "runtime_sample": "assets/audio/recovered_yae/event_217.wav",
+    "source_handler": "0x801E3400 -> 0x801DD720 -> 0x801DD6E0",
+    "verified_actions": [
+      "0x0C",
+      "0x0D",
+      "0x0E",
+      "0x0F"
+    ],
+    "verifier": "tools/verify_goemon_footsteps.py",
+    "report": "build/Other Files/Asset Toolkit/Original Footsteps/source-verification.json",
+    "pcm_verification": "Fresh original sequencer render matches the existing prepared WAV byte for byte. Goemon and Yae share event217; Sasuke uses event218. Existing gameplay cadence is unchanged."
   }
 }

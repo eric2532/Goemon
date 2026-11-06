@@ -1,0 +1,12 @@
+{
+  "token": "6-2",
+  "prompt": "BACKGROUND REMOVAL ONLY on image 1: preserve all 30 illustrated sprites in exactly 5 columns x 6 rows, all body poses, longer thin curved swords, violet energy shapes, exact positions/size/style. Remove the incorrect white/gray backdrop and ground shadows/haze; all empty space must be fully transparent alpha 0. Image 2 shows the clean original art style and image 3 sword reference, but do not redesign anything. No opaque backdrop, fog or checkerboard. Keep original sheet aspect and frame order. Transparent sprite sheet.",
+  "references": [
+    "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Cross Gate 102488/HD Preview/Rejected/long-blade-6-2-grid-draft.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/masters/6-2.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/identity-long-blade.png"
+  ],
+  "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-a4642798-3fd6-49ce-9b98-6c01cbf42729.png",
+  "tool": "built-in image_gen",
+  "sha256": "149b59eb9edac481d198b1d8df14e28170a7c320af0138a11cce998e258b643e"
+}

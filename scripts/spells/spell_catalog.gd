@@ -4,6 +4,8 @@ extends RefCounted
 const Roster=preload("res://scripts/rogue_roster.gd")
 const SLOTS={"equip":"1", "surge":"2", "sky_strike":"3", "special_4":"4", "special_5":"5"}
 const SPECIALS=[
+ ["mountain-king/storm-bolt",33,"Storm Bolt","start_bolt"],
+ ["mountain-king/thunder-clap",33,"Thunder Clap","start_clap"],
  ["blademaster/spin",31,"Bladestorm","start_spin"],
  ["blademaster/wind-walk",31,"Wind Walk","start_wind"],
  ["blademaster/mirror-image",31,"Mirror Image · Five Allies","start_mirrors"],
@@ -34,6 +36,10 @@ const SPECIALS=[
  ["edo/fire-dodge",2,"Fire Dodge","teleport"],
  ["musashi/rotation",13,"Lumina Rotation","start_rotation"],
  ["musashi/counter",13,"Mighty Strike","start_counter"],
+ ["musashi/crosswise",13,"X Slash · Full Combo","start_combo",["crosswise"]],
+ ["musashi/tenderize",13,"Tenderize · Full Combo","start_combo",["tenderize"]],
+ ["musashi/desperado",13,"Desperado · Full Combo","start_combo",["desperado"]],
+ ["musashi/leaping-strike",13,"Leaping Strike · Air Attack","start_leaping_strike"],
  ["musashi/guard",13,"Lumina Guard","input",["surge"]],
  ["musashi/charge",13,"Charged Lumina Rotation","input",["equip"]],
  ["musashi/d-kick",13,"D-Kick","select_number",[3]],
@@ -72,6 +78,12 @@ static func all()->Dictionary:
   for slot in ["flintlock","roll","drink"]+(["rapid_shot"] if data.id=="ranger" else []):
    var id="%s/%s"%[data.id,slot.replace("_","-")]
    _spells[id]={"id":id,"source":source,"name":data.abilities[slot].name,"description":data.abilities[slot].description,"icon":data.abilities[slot].icon,"method":"action","args":[slot]}
+ _spells["mountain-king/storm-bolt"].description="Homing hammer: 100/225/350 damage, 5s stun (3s on bosses). Rank follows levels 1/3/5; 9s cooldown. Solid cover blocks it."
+ for key in ["crosswise","tenderize","desperado"]:
+  _spells["musashi/"+key].description="One press performs the complete Fusion/Lumina sequence. Each cut keeps its windup and must physically connect. Grounded start; interruption cancels the remaining cuts."
+ _spells["musashi/leaping-strike"].air_attack=true
+ _spells["musashi/leaping-strike"].description="While equipped, press either attack in the air to dive into Musashi's recovered Fusion downstroke. Works after either jump; the skill key also works airborne. Choose Musashi's Jump Style for his double jump."
+ _spells["mountain-king/thunder-clap"].description="Instant ground shockwave, usable during attacks: 22.5/27/31.5m radius, 60/100/140 damage, half movement and attack speed for 5s (3s on bosses). Rank follows levels 1/3/5; 6s cooldown."
  # The charged magical primary and aerial finisher are spells too; melee stays with weapons.
  _spells["blademaster/wind-walk"].description="Stealth and 50% faster movement for up to 8s. The opening attack ends stealth and deals double damage. 12s cooldown."
  _spells["blademaster/mirror-image"].description="Create five scattered copies of yourself for 15s. They immediately seek nearby visible enemies, favor separate targets and approach from different sides. Attacks are chosen at random. 22s cooldown."
@@ -95,6 +107,7 @@ static func defaults(character:int)->Dictionary:
   17:{"equip":"yae/shield","surge":"","sky_strike":""},
   18:{"equip":"","surge":"","sky_strike":""},
   31:{"equip":"blademaster/spin","surge":"blademaster/wind-walk","sky_strike":"blademaster/mirror-image"},
+  33:{"equip":"mountain-king/storm-bolt","surge":"mountain-king/thunder-clap"},
   32:{"surge":"demon-hunter/immolation"},
   28:{"equip":"kojiro/homing","surge":"kojiro/wind","sky_strike":"kojiro/wave"},
   30:{"equip":"dark-lumina-3/fire","surge":"dark-lumina-3/earth","sky_strike":"dark-lumina-3/wind"},
@@ -128,7 +141,7 @@ static func hotbar(character:int)->Array:
   slots={
    1:[["Forward Dash","equip"],["Golden Surge","surge"],["Sky Strike","sky_strike"],["Coins","weapon_coin"],["Chain Pipe","weapon_chain"]],
    2:[["Fire Dodge","equip"],["Blue Surge","surge"],["Meteor Rain","sky_strike"],["Fireballs / Blue Beam · Hold","light_attack"],["Giant Fireball","heavy_attack"]],
-   13:[["Lumina Rotation","select_number",1],["Mighty Strike","select_number",2],["D-Kick","select_number",3],["Grenade","select_number",6],["3-Way · Hold","select_number",7]],
+   13:[["X Slash","start_combo","crosswise"],["Tenderize","start_combo","tenderize"],["Desperado","start_combo","desperado"],["Lumina Rotation","select_number",1],["Mighty Strike","select_number",2]],
    14:[["Smoke Assault","equip"],["Quick Burst","surge"],["Bouncing Fireballs","heavy_attack"],["Beam · Hold","light_attack"],[]],
    15:[["Stars / Hold Axes","equip"],["Bombs · Hold","heavy_attack"],["Throwing Axes","start_utility",true],[],[]],
    16:[["Ice / Hold Hail","equip"],["Super Jump","surge"],["Hair Up","start_hair",false],["Hair Forward","start_hair",true],["Firecracker Bomb","heavy_attack"]],
@@ -137,6 +150,7 @@ static func hotbar(character:int)->Array:
    19:[["Spin Dash · Hold","equip"],["Homing · Airborne","surge"],[],[],[]],
    27:[["Tail Sweep","equip"],["Poison Drill","surge"],["Jump Stomp","heavy_attack"],["Sand Beam · Hold","light_attack"],[]],
    31:[["Bladestorm","equip"],["Wind Walk","surge"],["Mirror Image · Five Allies","sky_strike"],[],[]],
+   33:[["Storm Bolt","equip"],["Thunder Clap","surge"],["Avatar","sky_strike"],["Taunt · War Cry","special_4"],[]],
    32:[["Metamorphosis","equip"],["Immolation · Toggle","surge"],[],[],[]],
    28:[["Homing Shots","equip"],["Wind","surge"],["Sword Wave","sky_strike"],[],[]],
    29:[["Paired Fireballs","equip"],["Jump Stomp","surge"],["Spin Attack","sky_strike"],["Claw Grab","light_attack"],[]],

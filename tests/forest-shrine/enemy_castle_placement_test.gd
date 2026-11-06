@@ -21,10 +21,12 @@ func run():
  check(button!=null and button.is_visible_in_tree() and not button.disabled,"Free castle tool is visible and enabled with zero gold")
  button.pressed.emit();await settle()
  check(game.build_kind=="enemy_castle","The build card selects castle placement")
- var cell=Vector2i(-15,15)
+ var cell=Vector2i(-20,20) # Clear of the raised castle's side stairs.
  check(model.enemy_castle_placement_error(cell,0).is_empty(),"The default valley has usable castle ground without deleting hills")
+ if not model.enemy_castle_placement_error(cell,0).is_empty():await finish();return
  game.update_build_preview(cell);await settle()
  check(game.world.ghost_kind=="enemy_castle" and game.world.ghost_art.visible,"A full castle ghost previews the placement")
+ check(game.world.ghost_art.has_node("SkullpionStatue/CarvedSkullpion"),"Castle placement previews the same destructible Skullpion statue")
  var meshes=game.world.ghost_art.find_children("*","MultiMeshInstance3D",true,false)
  check(not meshes.is_empty(),"The preview reuses the batched castle walls")
  var event=InputEventKey.new();event.physical_keycode=KEY_R;event.pressed=true;game._unhandled_input(event)
@@ -69,7 +71,7 @@ func run():
  check(game.model.terrain.width==481 and game.model.has_enemy_castles(),"Larger terrain keeps the production castle and native heightfield contracts")
  var big=game.model
  check(big.portals.size()==4 and big.buildings.size()==model.buildings.size(),"The bigger preset retains the central fort and four original enemy objectives")
- check(big.enemy_castle_placement_error(Vector2i(-15,15),0).is_empty(),"The larger valley also has valid free castle sites")
+ check(big.enemy_castle_placement_error(cell,0).is_empty(),"The larger valley also has valid free castle sites")
  if "--visual" in OS.get_cmdline_user_args():await shot("02-bigger-map-preview")
  game.map_editor.close_discard();await settle()
  check(game.model==model and model.gold==0 and model.portals.size()==count+1,"Back restores the exact previous run including its placed castle and money")

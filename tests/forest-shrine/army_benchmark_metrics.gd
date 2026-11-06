@@ -7,7 +7,12 @@ static func summary(samples:Array)->Dictionary:
  for value in values:sum_+=value
  return {"mean_ms":sum_/values.size(),"p95_ms":values[mini(values.size()-1,ceili(values.size()*.95)-1)],"p99_ms":values[mini(values.size()-1,ceili(values.size()*.99)-1)],"max_ms":values.back()}
 static func violations(report:Dictionary,performance:bool=true)->Array:
- var errors=[];var seconds=float(report.wall_seconds)
+ var errors=[];var seconds=float(report.get("measurement_seconds",report.wall_seconds))
+ if not is_finite(seconds) or seconds<=0:return ["Invalid measured duration"]
+ if report.has("measurement_seconds"):
+  var wall=float(report.wall_seconds);var held=float(report.get("focus_wait_seconds",0))
+  if not is_finite(wall) or not is_finite(held) or held<0 or absf(wall-seconds-held)>maxf(.1,seconds*.001):errors.append("Focus holds do not account for elapsed wall time")
+ if not report.get("changed_inputs",[]).is_empty():errors.append("Source files changed during benchmark")
  for pair in [["minimum_enemies","enemies"],["minimum_allies","allies"]]:
   if report[pair[0]]!=report[pair[1]]:errors.append("Population fell below "+pair[1])
  if absf(float(report.simulation_seconds)-seconds)>maxf(.1,seconds*.001):errors.append("Simulation time differs from wall time")

@@ -1,5 +1,5 @@
 extends SceneTree
-## Catches range settings scaling hit volumes while leaving visible blades unchanged.
+## Reach extends contact and waves while the rendered weapon stays compact.
 var failures=0
 const SIZE=preload("res://scripts/weapon_proportions.gd").RECOVERED_SKILL_SCALE
 class ReachGame:
@@ -45,10 +45,14 @@ func run():
   length=length and absf(extended[i].base.distance_to(extended[i].tip)/baseline[i].base.distance_to(baseline[i].tip)-3)<.00001
   var part:Node3D=model.native_parts[extended[i].pointer]
   var actual=model.rig_visual.transform*(part.transform*Vector3(0,91,-4))
-  visible=visible and actual.distance_to(extended[i].tip)<.00001
+  visible=visible and actual.distance_to(extended[i].tip)>.1
  check(handles,'Extended katana keeps the original source handle grip fixed')
- check(length,'Visible katana endpoints receive the combined3x range')
- check(visible,'Endpoint sweeps match the rendered blade tip exactly')
+ check(length,'Contact endpoints retain the combined3x range')
+ check(visible,'Contact and wave endpoints extend beyond the compact rendered weapon')
+ var capped:Dictionary=model.scaled_source_pose(0x68,time,true)
+ var contact:Dictionary=model.scaled_source_pose(0x68,time)
+ var blade_pointer:String=extended[0].pointer
+ check(absf(contact[blade_pointer].basis.x.length()/capped[blade_pointer].basis.x.length()-3.0/1.35)<.00001,'Weapon enlargement stops at 1.35x without shrinking contact')
  var untouched=true
  for pointer in ['0x9004a88','0x9005748','0x9005f80']:
   var native:Transform3D=original[pointer]

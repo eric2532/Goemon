@@ -49,12 +49,13 @@ func map_check(size_:String):
 	game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
 	game.explorer_helpers.set_process(false);game.music.stop()
 	var gates=game.model.buildings.values().filter(func(b):return b.kind=="gate")
-	check(gates.size()==4 and gates.all(func(b):return b.hp==2500 and b.max_hp==2500),size_+" meadow keeps all four stronger doors")
+	check(gates.size()==4 and gates.all(func(b):return b.hp==2500 and b.max_hp==2500),size_+" meadow keeps all four gateway frames")
 	var walls=game.model.buildings.values().filter(func(b):return b.kind=="wall")
 	check(walls.all(func(b):return absf(bounds(game.world.structure_nodes[b.id]).end.y-32)<.02),size_+" meadow uses the doubled wall art")
 	var gate:Dictionary=gates[0];game.model.hero_position=game.model.center(gate);game.world.sync(1)
 	var door=game.world.structure_nodes[gate.id].get_node("GateDoor")
-	check(door.position.y-door.mesh.size.y*.5>=Profile.GATE_OPENING_HEIGHT-.01,size_+" door still opens to its original clearance")
+	check(not door.visible and door.get_node("GateDoorCollider").collision_layer==0,size_+" lifted courtyard has no door panels or door collision")
+	check(gates.all(func(b):return b.get("door_removed",false) and b.breached),size_+" door removal belongs to the existing gate lifecycle")
 	if DisplayServer.get_name()!="headless":
 		root.size=Vector2i(1280,800);root.title="Goemon Castle Defense Verification"
 		var camera=Camera3D.new();game.add_child(camera);camera.current=true

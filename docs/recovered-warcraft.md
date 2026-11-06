@@ -716,3 +716,97 @@ palms, thumbs and enlarged arms retain their prior size. All eight finger chains
 were shortened together with their skin and claw geometry in the editable master.
 Idle/recovery thumb keys, the palm muzzle, clip timing and combat remain unchanged.
 Evidence for this refinement is in `Illidan Hands/Thumb Spread/` under Asset Toolkit.
+
+## Mountain King — 2026-10-30
+
+Stable slot **33**, asset key `mountain-king`, uses the existing Warcraft model,
+Hero controls, shared melee contacts, skill assignments, audio bank and projectile
+leases. The authoritative editable package is
+`../Warcraft/assets/MountainKing/`: 27 body actions, 10 portrait actions, 77 native
+body bones, eight geosets / 570 triangles, packed original textures, original
+MDX/BLP/WAVs, source tables and extraction hashes. Normal and Avatar skins are
+layers on the same geosets; `avatar_skin` is baked alongside opacity. Do not
+replace this with duplicate body geometry or reimport over user edits.
+
+Controls follow the current character system: WASD, walk/sprint, jump/double jump,
+evade and auto attack; LMB alternates original hammer/axe attacks with passive
+Bash. RMB or **1** casts Storm Bolt, **2** Thunder Clap, **3** Avatar, **4** Taunt / War Cry. The taunt reuses the original `Stand - 3` weapon-raising gesture
+and `HeroMountainKingWarcry1`, with `Alternate Stand - 3` in Avatar. Each shout
+attracts reachable enemies for eight seconds through the existing native taunt
+priority, without damage or a defensive buff. Allied Mountain Kings use the same
+native status lifetime. Its original 3.167-second animation roots ground movement
+and uses the existing interruption/finish lifecycle; interrupting the gesture
+retains the timed taunt, while defeat or switching fighters clears the player's
+effect. Slot 4 reuses Avatar's artwork with an isolated red material. Saved
+fourth-slot skill assignments still take precedence. Storm Bolt
+and Thunder Clap can be assigned to other fighters. Mirror Image copies use the
+same native army owner and prepared Hero adapters; copies start in normal form
+and may cast Avatar themselves, avoiding a second inherited health bonus.
+
+| Ability | Source behavior carried into Goemon |
+| --- | --- |
+| Storm Bolt | Homing hammer; 100/225/350 base damage; 5s ordinary / 3s boss stun; 9s cooldown; original Throw, missile and impact art/audio |
+| Thunder Clap | Instant ground area damage 60/100/140 in a 22.5/27/31.5m radius; three-times-size original shockwave; interrupts attacks and starts at the original Slam contact pose; movement and attack speed reduced 50% for 5s ordinary / 3s boss; 6s cooldown |
+| Bash | 20/30/40% on melee; +25 damage; 2s ordinary / 1s boss stun; original Slam / alternate Slam and stun art |
+| Avatar | 60s form, 180s cooldown, +500 max/current HP, +20 melee damage, +5 armor equivalent (damage / 1.3), spell immunity; original alternate skin, clips, morph and sound |
+| Taunt / War Cry | Original challenge gesture and shout, interrupting attacks including auto attack; eight seconds of native taunt priority for player/allied Mountain Kings; no damage or defensive bonus; red Avatar icon |
+
+Ranks follow shared team levels 1/3/5 (individual hero levels outside the army mode). Source attack/cast points are .35/.4s; Thunder Clap skips straight to its contact pose on input.
+the shared default Warcraft attack-speed multiplier remains 3×. Sixfold visual
+size remains separate from current collision/reach. Spell coordinates use
+.03 metres per source unit. Goemon has no Warcraft mana, ability-point spending
+or RTS command selection: these use the existing action controls and progression.
+Original selection/command/annoyed voices are retained in the sound bank/preview;
+selection plays Ready and walking/running uses the current shared Goemon footsteps.
+
+The requested **blue** hero aura is baked into a packed texture in the saved
+Blender master. Its exported GLB uses that texture directly, without runtime
+recoloring. Armor, helmet, boots and team-color cloth are also blue in the
+saved body/portrait masters, including the Avatar armor atlas. Face, beard and
+gold accents retain their source colors. Spell energy is blue in the prepared
+effect resources. `tools/author_mountain_king_blue.py` edits the packed atlas
+regions and team texture, preserves alpha/unselected pixels, and asserts that
+geometry, UVs, weights, rigs and action curves are intact.
+`tools/recover_mountain_king_effects.cjs` evaluates the original skinned spell
+meshes and particle head/tail buffers offline with the installed Warcraft model
+renderer. `tools/bake_mountain_king_effects.gd` stores shared immutable mesh frames
+in compressed resources. Source spell Birth/Stand/Death clips are retained;
+status effects refresh per caster/target and fade through their original Death.
+Body Slam/Morph particles use the original rig's coordinate system. Particle
+billboards are sampled from a fixed preparation viewpoint; this is an offline
+approximation of Warcraft's particle camera behavior, not a live MDX renderer.
+
+Storm Bolt automatic-target follow-up (2026-11-05): the user rejected the raised
+throw as too high. Acquisition and release return to the original 1.6 m height,
+with no artificial upward tilt. Storm Bolt selects the closest living, visible
+enemy with a clear line within 36 m, in any direction, and faces the throw toward
+that enemy. Locked throws retain exact native homing and world-cover contacts. Original
+Spell Throw/alternate motion, .4 s release, speed, damage, stun and cooldown stay
+with the existing controller. The effect baker also colors the hammer's opaque
+TeamColor00 layer blue; previously only additive energy was recolored, leaving
+the hammer bright red. Original extracted textures and sampled motion remain
+unchanged. Run `tests/forest-shrine/mountain_king_bolt_test.gd` through Play Goemon
+for release/flight renders, closest-enemy selection behind the player, cover,
+borrowed casts, repeated and concurrent native allied casts. Current evidence is
+in the Mountain King toolkit folder's `Storm Bolt Auto Target/`; `Storm Bolt Review/`
+retains the superseded raised-throw trial.
+
+Rebuild from the complete Goemon source:
+
+```sh
+/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python tools/export_warcraft_characters.py -- MountainKing
+node tools/recover_mountain_king_effects.cjs
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path . --script res://tools/bake_mountain_king_effects.gd
+python3 tools/goemon_assets.py optimize --asset warcraft-mountain-king
+```
+
+Follow the ordinary audit/import/preservation/comparison/activation pipeline.
+After changes to the shared Warcraft model script, rebuild the existing
+Blademaster army atlas with `tools/bake_warcraft_allies.gd` and run
+`tests/forest-shrine/army_warcraft_test.gd`. Focused behavior checks are
+`native/terrain_math/crowd/mountain_king_test.cpp` and
+`tests/forest-shrine/mountain_king_test.gd` and
+`tests/forest-shrine/mountain_king_taunt_test.gd` and
+`tests/forest-shrine/mountain_king_slam_test.gd`; run these through Play Goemon
+for actual rendered review. Reports/captures are under
+`build/Other Files/Asset Toolkit/Mountain King/`. This work does not export an app.

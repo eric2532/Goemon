@@ -1,0 +1,88 @@
+{
+  "selected_preview": "08-extended-deeper-ending.wav",
+  "event": "ba9:0",
+  "source": {
+    "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_ba9.wav",
+    "resolved_id": "0xba9",
+    "dispatch_hex": "01080233",
+    "enabled": true,
+    "layers": [
+      {
+        "record_address": "0x800c8b24",
+        "record_hex": "c8000000004874003306010124000000c0860c80",
+        "bank_slot": 51,
+        "bank": "bank_8e99397932167168",
+        "program": 1,
+        "tone": 2,
+        "tone_hex": "00007f404a003e3e000000000000b1b2ff80ef5f01000600c000c100c200c300",
+        "sample_id": "sample_5fb8e2e871bfd41f",
+        "sample_index": 6,
+        "pitch_q8": 18432,
+        "curve": [
+          5,
+          8,
+          48,
+          15872,
+          15872,
+          64,
+          0,
+          0,
+          8
+        ],
+        "delay_frames": 0
+      },
+      {
+        "record_address": "0x800c8b38",
+        "record_hex": "c8001a00003e6c003306010124000000d0860c80",
+        "bank_slot": 51,
+        "bank": "bank_8e99397932167168",
+        "program": 1,
+        "tone": 2,
+        "tone_hex": "00007f404a003e3e000000000000b1b2ff80ef5f01000600c000c100c200c300",
+        "sample_id": "sample_5fb8e2e871bfd41f",
+        "sample_index": 6,
+        "pitch_q8": 15872,
+        "curve": [
+          8,
+          20,
+          32,
+          62464,
+          62464,
+          32,
+          0,
+          0,
+          2
+        ],
+        "delay_frames": 19110
+      },
+      {
+        "record_address": "0x800c8b4c",
+        "record_hex": "c8003e00003868003306010024000000d0860c80",
+        "bank_slot": 51,
+        "bank": "bank_8e99397932167168",
+        "program": 1,
+        "tone": 2,
+        "tone_hex": "00007f404a003e3e000000000000b1b2ff80ef5f01000600c000c100c200c300",
+        "sample_id": "sample_5fb8e2e871bfd41f",
+        "sample_index": 6,
+        "pitch_q8": 14336,
+        "curve": [
+          8,
+          20,
+          32,
+          62464,
+          62464,
+          32,
+          0,
+          0,
+          2
+        ],
+        "delay_frames": 45570
+      }
+    ],
+    "sha256": "b105e51e7de3bc3e18bacb48f4832d1eb86b9a7b05208dd6c8a1a5ced1577026"
+  },
+  "sha256": "b6a416ab64f03d5439e3413810f0d73861eafbdfefc8fa9d7af5553cfde83db5",
+  "preview_peak": 0.4,
+  "usage": "User-selected ground hunting onset, separate from the unchanged landing cue."
+}

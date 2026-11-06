@@ -1,5 +1,5 @@
 extends SceneTree
-## Catches range settings scaling hit volumes while leaving visible blades unchanged.
+## Reach extends contact and waves while the rendered weapon stays compact.
 var failures=0
 const SIZE=preload("res://scripts/weapon_proportions.gd").RECOVERED_SKILL_SCALE
 class ReachGame:
@@ -42,10 +42,14 @@ func run():
   length=length and absf(extended[i].base.distance_to(extended[i].tip)/baseline[i].base.distance_to(baseline[i].tip)-3)<.00001
   var part:Node3D=model.native_parts[extended[i].pointer]
   var actual=model.rig_visual.transform*(part.transform*Vector3(0,-44,0))
-  visible=visible and actual.distance_to(extended[i].tip)<.00001
+  visible=visible and actual.distance_to(extended[i].tip)>.1
  check(handles,'Extended kunai keep both source handle attachments fixed')
- check(length,'Visible kunai endpoints receive the combined3x range')
- check(visible,'Endpoint sweeps match the rendered blade tip exactly')
+ check(length,'Contact endpoints retain the combined3x range')
+ check(visible,'Contact and wave endpoints extend beyond the compact rendered weapon')
+ var capped:Dictionary=model.scaled_source_pose(0x68,time,true)
+ var contact:Dictionary=model.scaled_source_pose(0x68,time)
+ var blade_pointer:String=extended[0].pointer
+ check(absf(contact[blade_pointer].basis.x.length()/capped[blade_pointer].basis.x.length()-3.0/1.35)<.00001,'Weapon enlargement stops at 1.35x without shrinking contact')
  var untouched=true
  for pointer in ['0x9004aa8','0x90053d0','0x9005c10']:
   var native:Transform3D=original[pointer]
@@ -60,10 +64,10 @@ func run():
   check(shaft_origin.distance_to(head*model.source_scale+model.source_offset)<.00001,'Hair shaft stays attached at its original head surface root')
   for pointer in ['0x9004918','0x90063d8']:
    var native:Transform3D=raw[pointer];var point=native*Vector3(0,5,0)
-   var expected=model.rig_visual.transform*((head+(point-head)*3)*model.source_scale+model.source_offset)
+   var expected=model.rig_visual.transform*((head+(point-head)*1.35)*model.source_scale+model.source_offset)
    var actual=model.rig_visual.transform*(model.native_parts[pointer].transform*Vector3(0,5,0))
    hair_exact=hair_exact and actual.distance_to(expected)<.00005
- check(hair_exact,'Both native hair moves extend tuft and shaft around the unchanged native hair attachment')
+ check(hair_exact,'Hair presentation stays bounded around its unchanged attachment')
  caster.requested_reach=1/SIZE;caster.powerups['range']=0
  var exact=true
  for action in [0x68,0x69,0x6a,0x6e,0x6f,0x9a]:

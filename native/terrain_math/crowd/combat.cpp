@@ -55,6 +55,7 @@ HitResult Combat::hit(Crowd& crowd,int64_t handle,const Hit& incoming){
     HitResult result{false,false,u->hp};
     if(u->shelter_mode==2)return result;
     if(!std::isfinite(incoming.amount)||incoming.amount<0||!std::isfinite(incoming.status_seconds)||incoming.status_seconds<0)return result;
+    if(u->avatar_left>0&&incoming.magical)return result;
     bool knight=u->team==1&&u->kind==7&&allies_[7].active;
     if(knight&&incoming.amount>0){
         if(u->invuln>0)return result;
@@ -70,6 +71,13 @@ HitResult Combat::hit(Crowd& crowd,int64_t handle,const Hit& incoming){
         if(u->air_phase){u->air_phase=4;u->landing_attack=false;u->invuln=0;}
     }
     if(incoming.status_seconds>0){
+        if(incoming.effect==4){
+            u->stun=std::max(u->stun,incoming.status_seconds);u->has_goal=false;result.accepted=true;
+            if(!boss){u->action_active=false;u->action=data_.actions.empty()?0:data_.actions[0];u->action_time=0;u->action_hits.clear();u->pending_drift=0;u->motion_impulse={};if(u->air_phase){u->air_phase=4;u->landing_attack=false;u->invuln=0;}}
+        }
+        if(incoming.effect==3&&u->team==1&&u->kind==133){if(u->avatar_left<=0){u->max_hp+=500;u->hp+=500;}u->avatar_left=std::max(u->avatar_left,incoming.status_seconds);result.accepted=true;}
+        if(incoming.effect==5&&u->team==1&&u->kind==133){u->buff_left=std::max(u->buff_left,incoming.status_seconds);result.accepted=true;}
+        if(incoming.effect==2&&std::isfinite(incoming.attack_slow_factor)&&incoming.attack_slow_factor>=0&&incoming.attack_slow_factor<1){u->attack_slow_left=std::max(u->attack_slow_left,incoming.status_seconds);u->attack_slow_factor=std::min(u->attack_slow_factor,incoming.attack_slow_factor);result.accepted=true;}
         if(incoming.effect==1){u->frozen=std::max(u->frozen,incoming.status_seconds);result.accepted=true;}
         if(incoming.effect==2&&std::isfinite(incoming.slow_factor)&&incoming.slow_factor>=0&&incoming.slow_factor<=1){u->slow_left=std::max(u->slow_left,incoming.status_seconds);u->slow_factor=std::min(u->slow_factor,incoming.slow_factor);result.accepted=true;}
     }
@@ -80,7 +88,7 @@ HitResult Combat::hit(Crowd& crowd,int64_t handle,const Hit& incoming){
         auto& state=skullpions_[handle];state.armor+=std::min(incoming.heavy?amount:amount*.15,u->max_hp*.01);amount*=.15;
         if(state.armor>=u->max_hp*.08){state.armor=0;boss_enter(*u,7,u->position);}
     }
-    double damage=amount*(u->team==1?data_.damage_taken_multiplier:1);
+    double damage=amount*(u->team==1?data_.damage_taken_multiplier:1)/(u->avatar_left>0?1.3:1);
     if(damage<=0)return result;
     result.accepted=true;u->flash_left=.115;u->hp-=damage;if(u->team==1)u->hp=std::max(0.0,u->hp);
     if(u->hp<=0&&u->team==0&&u->kind>=0&&u->kind<19&&soldiers_[u->kind].active){
@@ -96,7 +104,7 @@ HitResult Combat::hit(Crowd& crowd,int64_t handle,const Hit& incoming){
     if(result.dead){event.kind=DEATH;event.position=u->position;event.direction={std::sin(u->yaw),0,std::cos(u->yaw)};emit(event);if(boss)skullpions_.erase(handle);crowd.despawn(handle);return result;}
     if(u->team==1){u->invuln=.35;if(knight)u->hit_pause=std::max(u->hit_pause,.045);}
     else if(!boss){
-        u->stun=16.0/30;u->action_active=false;u->action_time=0;u->has_goal=false;
+        u->stun=std::max(u->stun,16.0/30);u->action_active=false;u->action_time=0;u->has_goal=false;
         u->action_hits.clear();u->pending_drift=0;u->motion_impulse={};
         if(incoming.provoke){u->retaliation=4;u->retaliation_source=incoming.source_id;u->think_left=0;}
         // Front-load marked melee hits; other skills retain their contact spacing.
@@ -248,7 +256,7 @@ bool Combat::target_approach(Crowd& crowd,const Unit& unit,Vec3& goal){
     int layer=unit.support_layer<0?crowd.terrain.choose_layer(unit.position):unit.support_layer;
     if(layer<0)return false;
     // Continuous ground travel preserves this approach; pose/navigation changes invalidate it.
-    if(building&&unit.approach_ready&&unit.approach_target==building->id&&unit.kind!=4&&unit.kind!=17&&unit.kind!=18&&
+    if(building&&!unit.base_marching&&unit.approach_ready&&unit.approach_target==building->id&&unit.kind!=4&&unit.kind!=17&&unit.kind!=18&&
        unit.approach_minimum.x==building->minimum.x&&unit.approach_minimum.y==building->minimum.y&&unit.approach_minimum.z==building->minimum.z&&
        unit.approach_maximum.x==building->maximum.x&&unit.approach_maximum.y==building->maximum.y&&unit.approach_maximum.z==building->maximum.z){goal=unit.target_goal;return true;}
     if(!building){goal=foot;return std::abs(crowd.terrain.height(goal.x,goal.z,layer)-goal.y)<=3.5&&crowd.terrain.reachable(unit.position,goal,unit.radius,layer);}
@@ -278,7 +286,7 @@ void Combat::choose_target(Crowd& crowd,Unit& unit){
         unit.target_handle=handle;unit.external_kind=row>=0?targets_[row].kind:-1;
         if(row>=0)unit.external_target=targets_[row].id;
         Vec3 goal;if(!target_approach(crowd,unit,goal))return false;
-        unit.target_goal=goal;unit.approach_ready=unit.external_kind==2&&length(goal-unit.position)>.001f;
+        unit.base_marching=false;unit.target_goal=goal;unit.approach_ready=unit.external_kind==2&&length(goal-unit.position)>.001f;
         if(unit.approach_ready){const auto* building=external_target(unit);unit.approach_target=building->id;unit.approach_minimum=building->minimum;unit.approach_maximum=building->maximum;}
         return true;
     };
@@ -302,20 +310,22 @@ void Combat::choose_target(Crowd& crowd,Unit& unit){
             const auto& other=targets_[row];
             Vec3 point=kind==2?Vec3{std::clamp(unit.position.x,other.minimum.x,other.maximum.x),other.minimum.y,std::clamp(unit.position.z,other.minimum.z,other.maximum.z)}:other.foot;
             float distance=horizontal(unit.position,point);
-            int rank=kind==2?other.assault_priority:assault&&distance<=28?3:0;
+            // Military buildings intercept locally instead of diverting the whole assault.
+            if((kind==2&&other.assault_priority==4||assault&&kind!=2)&&distance>28)continue;
+            int rank=kind==2?other.assault_priority:assault&&distance<=28?(kind==1?3:5):0;
             target_candidates_.push_back({int(row),0,distance,rank});
         }
-        if(hero_row_>=0&&horizontal(targets_[hero_row_].foot,unit.position)<=28)target_candidates_.push_back({hero_row_,0,horizontal(targets_[hero_row_].foot,unit.position),3});
+        if(hero_row_>=0&&horizontal(targets_[hero_row_].foot,unit.position)<=28)target_candidates_.push_back({hero_row_,0,horizontal(targets_[hero_row_].foot,unit.position),5});
         std::stable_sort(target_candidates_.begin(),target_candidates_.end(),[](const TargetCandidate& a,const TargetCandidate& b){return a.priority!=b.priority?a.priority>b.priority:a.distance<b.distance;});
         for(auto candidate:target_candidates_)if(select(candidate.row,0)){score=candidate.distance;priority=candidate.priority;selected=true;break;}
         auto best_handle=unit.target_handle;auto best_id=unit.external_target;int best_kind=unit.external_kind;Vec3 best_goal=unit.target_goal;
         if(crowd.counts_[1]>0){
-            float extent=priority>0?28:std::max(28.0f,std::isfinite(score)?score:3e8f);
+            float extent=assault||priority>0?28:std::max(28.0f,std::isfinite(score)?score:3e8f);
             for(float radius=std::min(28.0f,extent);;radius=std::min(radius*2,extent)){
                 Vec3 pad{radius,3e8f,radius};target_candidates_.clear();
                 for(auto handle:crowd.query(unit.position-pad,unit.position+pad,1,false)){
                     auto other=crowd.unit(handle);if(!other||other->shelter_mode==2)continue;
-                    float distance=horizontal(unit.position,other->position);int rank=assault&&distance<=28?3:0;
+                    float distance=horizontal(unit.position,other->position);int rank=assault&&distance<=28?5:0;
                     if(rank<priority||(rank==priority&&distance>=score))continue;
                     target_candidates_.push_back({-1,handle,distance,rank});
                 }
@@ -328,10 +338,39 @@ void Combat::choose_target(Crowd& crowd,Unit& unit){
             }
         }
         unit.target_handle=best_handle;unit.external_target=best_id;unit.external_kind=best_kind;unit.target_goal=best_goal;
-        if(!selected&&hero_row_>=0)selected=select(hero_row_,0);
+        if(!selected&&!assault&&hero_row_>=0)selected=select(hero_row_,0);
     }
-    if(!selected){unit.target_handle=0;unit.external_kind=-1;unit.has_goal=false;}
+    if(!selected){
+        unit.target_handle=0;unit.external_kind=-1;unit.has_goal=false;
+        march_on_base(crowd,unit);
+    }
     if(unit.target_handle!=previous_handle||unit.external_target!=previous_id||unit.external_kind!=previous_kind)unit.routing=false;
+}
+void Combat::march_on_base(Crowd& crowd,Unit& unit){
+    const ExternalTarget* base=nullptr;
+    for(auto row:target_groups_[2])if(targets_[row].assault_priority==2){base=&targets_[row];break;}
+    if(!base)return;
+    int layer=unit.support_layer<0?crowd.terrain.choose_layer(unit.position):unit.support_layer;
+    if(layer<0)return;
+    // Keep a reachable staging point while the actual castle contact is sealed.
+    float speed=unit.kind==4&&!data_.skullpion.empty()?float(data_.skullpion[0]):float(soldiers_[unit.kind].speed);
+    if(unit.base_marching&&unit.approach_ready&&unit.approach_target==base->id&&horizontal(unit.position,unit.target_goal)>2&&crowd.terrain.reachable(unit.position,unit.target_goal,unit.radius,layer)){
+        crowd.set_goal(unit.handle,unit.target_goal,speed);return;
+    }
+    float distance=horizontal(unit.position,base->foot),angle=std::atan2(unit.position.x-base->foot.x,unit.position.z-base->foot.z);
+    for(float radius=6;radius<distance;radius*=2){
+        float best=INFINITY;Vec3 goal;
+        for(int side=0;side<16;++side){
+            float a=angle+float(side*M_PI/8);Vec3 point=base->foot+Vec3{std::sin(a)*radius,0,std::cos(a)*radius};
+            point.y=float(crowd.terrain.height(point.x,point.z,layer));
+            float gap=length(point-unit.position);
+            if(gap>=best||!crowd.terrain.reachable(unit.position,point,unit.radius,layer))continue;
+            best=gap;goal=point;
+        }
+        if(!std::isfinite(best))continue;
+        unit.target_goal=goal;unit.approach_target=base->id;unit.approach_ready=true;unit.base_marching=true;
+        crowd.set_goal(unit.handle,goal,speed);return;
+    }
 }
 void Combat::attack_started(const Unit& unit){
     Event event;event.kind=ATTACK_STARTED;event.source_id=unit.logical_id;event.unit_kind=unit.kind;event.team=unit.team;emit(event);
@@ -348,13 +387,16 @@ void Combat::before_move(Crowd& crowd,double delta){
     for(const auto& u:crowd.units_)if(u.alive){
         if(u.mirror_actions>0&&u.target_handle)mirror_targets_.push_back(u.target_handle);
         if(u.team==0&&u.action_active&&u.target_handle)threats_.insert(u.target_handle);
-        if(u.team==1&&u.kind==7&&u.buff_left>0&&u.shelter_mode==0&&(!first_taunt_||u.handle<first_taunt_))first_taunt_=u.handle;
+        if(u.team==1&&(u.kind==7||u.kind==133)&&u.buff_left>0&&u.shelter_mode==0&&(!first_taunt_||u.handle<first_taunt_))first_taunt_=u.handle;
     }
     for(auto& u:crowd.units_){
         if(!u.alive)continue;
         double frozen=u.frozen;u.frozen=std::max(0.0,u.frozen-delta);u.live_delta=std::max(0.0,delta-frozen);
         double dt=u.live_delta;u.retaliation=std::max(0.0,u.retaliation-dt);u.invuln=std::max(0.0,u.invuln-dt);u.stun=std::max(0.0,u.stun-dt);u.slow_left=std::max(0.0,u.slow_left-dt);
+        if(u.kind==133)u.buff_left=std::max(0.0,u.buff_left-dt);
         if(u.slow_left<=0)u.slow_factor=1;
+        u.attack_slow_left=std::max(0.0,u.attack_slow_left-dt);if(u.attack_slow_left<=0)u.attack_slow_factor=1;
+        if(u.avatar_left>0){u.avatar_left=std::max(0.0,u.avatar_left-dt);if(u.avatar_left<=0){u.max_hp-=500;u.hp=std::min(u.hp,u.max_hp);}}
         u.status=(u.frozen>0?data_.status_bits[0]:0)|(u.slow_left>0?data_.status_bits[1]:0)|(u.stun>0?data_.status_bits[2]:0)|(u.invuln>0?data_.status_bits[3]:0);
         if(u.mirror_actions>0){mirror_decide(crowd,u,dt);continue;}
         if(u.team==0&&u.kind==4&&!data_.skullpion.empty()){boss_decide(crowd,u,dt);continue;}
@@ -367,7 +409,7 @@ void Combat::before_move(Crowd& crowd,double delta){
         u.action=data_.actions[0];u.think_left-=dt;
         Vec3 foot;
         if(u.think_left<=0||((u.target_handle||u.external_kind>=0)&&!target(crowd,u,foot))){choose_target(crowd,u);u.think_left=.1;}
-        if(!target(crowd,u,foot)){u.has_goal=false;continue;}
+        if(!target(crowd,u,foot)){continue;}
         const auto& profile=soldiers_[u.kind];Vec3 direction=foot-u.position;
         float desired=std::atan2(-direction.x,-direction.z),turn=std::remainder(desired-u.yaw,float(2*M_PI));
         float amount=profile.turn_speed*float(dt);u.yaw+=std::clamp(turn,-amount,amount);
@@ -390,24 +432,27 @@ void Combat::mirror_decide(Crowd& crowd,Unit& u,double dt){
         auto claim=std::find(mirror_targets_.begin(),mirror_targets_.end(),u.target_handle);
         if(claim!=mirror_targets_.end())mirror_targets_.erase(claim);
         u.think_left=.2;u.target_handle=0;float best=INFINITY;Vec3 pad{52,60,52};
-        for(auto h:crowd.query(u.position-pad,u.position+pad,0)){
-            auto other=crowd.unit(h);if(!other||other->hp<=0)continue;
-            Vec3 point=enemy_contact(*other,u.position+Vec3{0,1,0});float gap=dot(point-u.position,point-u.position);
-            // Prefer nearby unclaimed enemies without excluding a lone target.
-            float score=gap+36*std::count(mirror_targets_.begin(),mirror_targets_.end(),h);
-            if(gap<48*48&&score<best&&crowd.allied_terrain.ray_clear(u.position+Vec3{0,1,0},point)){best=score;u.target_handle=h;}
+        if(u.guard_radius>0)u.target_handle=guard_enemy(crowd,u);
+        else{
+            for(auto h:crowd.query(u.position-pad,u.position+pad,0)){
+                auto other=crowd.unit(h);if(!other||other->hp<=0)continue;
+                Vec3 point=enemy_contact(*other,u.position+Vec3{0,1,0});float gap=dot(point-u.position,point-u.position);
+                // Prefer nearby unclaimed enemies without excluding a lone target.
+                float score=gap+36*std::count(mirror_targets_.begin(),mirror_targets_.end(),h);
+                if(gap<48*48&&score<best&&crowd.allied_terrain.ray_clear(u.position+Vec3{0,1,0},point)){best=score;u.target_handle=h;}
+            }
         }
         victim=crowd.unit(u.target_handle);
         if(victim)mirror_targets_.push_back(u.target_handle);
     }
-    if(!victim){u.has_goal=false;return;}
+    if(!victim){u.has_goal=false;if(u.guard_radius>0&&horizontal(u.position,u.guard_post)>.65f)crowd.set_goal(u.handle,u.guard_post,u.mirror_speed);return;}
     Vec3 goal=enemy_contact(*victim,u.position+Vec3{0,1,0});
     Vec3 approach=enemy_contact(*victim,victim->position+u.mirror_approach*100+Vec3{0,1,0})+u.mirror_approach;
     auto& ground=crowd.allied_terrain;
     int layer=u.support_layer<0?ground.choose_layer(u.position):u.support_layer;
     bool flank=layer>=0&&ground.clear(approach,u.radius,layer)&&ground.ray_clear(approach+Vec3{0,1,0},goal);
     Vec3 offset=goal-u.position;offset.y=0;u.yaw=std::atan2(offset.x,offset.z);
-    if(length(offset)<=u.mirror_reach&&(!flank||horizontal(u.position,approach)<.6f)){
+    if(length(offset)<=u.mirror_reach&&(!flank||horizontal(u.position,approach)<.6f)&&ground.ray_clear(u.position+Vec3{0,1,0},goal)){
         u.has_goal=false;
         if(u.mirror_wait<=0){
             int choice=std::min(u.mirror_actions-1,int(random(u)*u.mirror_actions));
@@ -418,7 +463,7 @@ void Combat::mirror_decide(Crowd& crowd,Unit& u,double dt){
 }
 void Combat::deliver(Crowd& crowd,const Unit& unit,double amount,bool projectile,Vec3 origin){
     amount*=unit.enemy_damage_scale;
-    if(unit.target_handle){Vec3 foot;target(crowd,unit,foot);Hit hit;hit.source_id=unit.logical_id;hit.amount=amount;hit.projectile=projectile;hit.direction=normalized(foot-origin);this->hit(crowd,unit.target_handle,hit);}
+    if(unit.target_handle){Vec3 foot;target(crowd,unit,foot);Hit hit;hit.source_id=unit.logical_id;hit.amount=amount;hit.projectile=projectile;hit.magical=magical_attack(unit.kind,unit.action,projectile);hit.direction=normalized(foot-origin);this->hit(crowd,unit.target_handle,hit);}
     else{
         Event event;event.kind=EXTERNAL_DAMAGE;event.unit_kind=unit.kind;event.action_index=unit.action;event.source_id=unit.logical_id;event.target_id=unit.external_target;event.external_kind=unit.external_kind;event.position=origin;event.amount=amount;event.projectile=projectile;emit(event);
     }
@@ -476,7 +521,7 @@ void Combat::projectiles(Crowd& crowd,double delta,size_t start){
                 float radius=2*shot.radius;Vec3 pad{radius,2,radius};
                 for(auto handle:crowd.query(shot.position-pad,shot.position+pad,1)){
                     auto victim=crowd.unit(handle);if(!victim||!body_contact(shot.position,shot.position,victim->position,radius)||!crowd.terrain.ray_clear(shot.position+Vec3{0,1,0},victim->position+Vec3{0,1,0}))continue;
-                    Hit damage;damage.amount=shot.damage;damage.source_id=shot.source_id;damage.projectile=true;hit(crowd,handle,damage);
+                    Hit damage;damage.amount=shot.damage;damage.source_id=shot.source_id;damage.projectile=true;damage.magical=magical_attack(shot.owner_kind,shot.owner_kind==4?108:300+shot.effect_kind,true);hit(crowd,handle,damage);
                 }
                 for(const auto& victim:targets_)if(victim.kind==0&&victim.hp>0&&victim.targetable&&body_contact(shot.position,shot.position,victim.foot,radius)&&crowd.terrain.ray_clear(shot.position+Vec3{0,1,0},victim.foot+Vec3{0,1,0})){
                     Event e;e.kind=EXTERNAL_DAMAGE;e.unit_kind=18;e.source_id=shot.source_id;e.target_id=victim.id;e.external_kind=0;e.position=shot.position;e.amount=shot.damage;e.projectile=true;emit(e);
@@ -485,7 +530,7 @@ void Combat::projectiles(Crowd& crowd,double delta,size_t start){
             if(shot.age<shot.life)projectiles_[count++]=shot;
             continue;
         }
-        if(shot.life<=0){Event event;event.kind=PROJECTILE_IMPACT;event.unit_kind=shot.owner_kind;event.source_id=shot.source_id;event.projectile_id=shot.id;event.position=shot.position;event.team=shot.source_team;event.unit_kind=shot.owner_kind;emit(event);continue;}
+        if(shot.life<=0){if(shot.owner_kind==18&&shot.effect_kind==2)continue;Event event;event.kind=PROJECTILE_IMPACT;event.unit_kind=shot.owner_kind;event.source_id=shot.source_id;event.projectile_id=shot.id;event.position=shot.position;event.team=shot.source_team;event.unit_kind=shot.owner_kind;emit(event);continue;}
         float elapsed=float(std::min(delta,std::max(0.0,shot.life-shot.age)));
         Vec3 before=shot.position;shot.age+=elapsed;
         if(shot.owner_kind==18&&shot.effect_kind==3&&shot.age-elapsed<8.0/30&&shot.age>=8.0/30){Event e;e.kind=STATUS_EVENT;e.unit_kind=18;e.source_id=shot.source_id;e.action_index=314;e.position=shot.position;emit(e);}
@@ -520,17 +565,17 @@ void Combat::projectiles(Crowd& crowd,double delta,size_t start){
                 Handle chosen=0;float nearest=2;
                 for(auto h:crowd.query(low-pad,high+pad,0)){auto e=crowd.unit(h);if(!e)continue;float t=enemy_segment(*e,before,shot.position,shot.radius);if(t>=0&&t<nearest){nearest=t;chosen=h;}}
                 if(chosen){
-                    Hit hit;hit.source_id=shot.source_id;hit.amount=shot.damage;hit.projectile=true;hit.direction=shot.direction;hit.heavy=shot.heavy;
+                    Hit hit;hit.source_id=shot.source_id;hit.amount=shot.damage;hit.projectile=true;hit.magical=magical_attack(shot.owner_kind,300+shot.effect_kind,true);hit.direction=shot.direction;hit.heavy=shot.heavy;
                     if(shot.cast){auto& c=*shot.cast;c.rng^=c.rng>>12;c.rng^=c.rng<<25;c.rng^=c.rng>>27;if(double((c.rng*2685821657736338717ull)>>11)*(100.0/9007199254740992.0)<c.critical){hit.amount*=2;hit.critical=true;}}
                     if(this->hit(crowd,chosen,hit).accepted&&shot.cast){if(auto owner=crowd.unit(shot.cast->owner)){owner->chain_left=1.75;if(!shot.cast->confirmed){shot.cast->confirmed=true;++owner->chain_count;}}}
                     shot.position=before+(shot.position-before)*nearest;impacted=true;
                 }
             }
-            if(impacted||shot.age>=shot.life){Event event;event.kind=PROJECTILE_IMPACT;event.unit_kind=shot.owner_kind;event.source_id=shot.source_id;event.projectile_id=shot.id;event.position=shot.position;event.team=1;event.unit_kind=shot.owner_kind;emit(event);}else projectiles_[count++]=shot;
+            if(impacted||shot.age>=shot.life){if(!impacted&&shot.owner_kind==18&&shot.effect_kind==2)continue;Event event;event.kind=PROJECTILE_IMPACT;event.unit_kind=shot.owner_kind;event.source_id=shot.source_id;event.projectile_id=shot.id;event.position=shot.position;event.team=1;event.unit_kind=shot.owner_kind;emit(event);}else projectiles_[count++]=shot;
             continue;
         }
         bool impacted=!crowd.terrain.ray_clear(before,shot.position+shot.direction*.5f,shot.ignore_building);
-        if(shot.owner_kind==18&&!shot.power&&(shot.effect_kind==2||shot.effect_kind==3)){
+        if(shot.owner_kind==18&&(shot.effect_kind==2||(!shot.power&&shot.effect_kind==3))){
             float floor=float(crowd.terrain.height(shot.position.x,shot.position.z));
             if(std::isfinite(floor)&&shot.position.y<=floor+.2f){shot.position.y=floor+.2f;impacted=true;}
         }
@@ -543,7 +588,7 @@ void Combat::projectiles(Crowd& crowd,double delta,size_t start){
             Vec3 pad{shot.radius,shot.radius,shot.radius};Vec3 low{std::min(tail.x,shot.position.x),std::min(tail.y,shot.position.y)-1.8f,std::min(tail.z,shot.position.z)},high{std::max(tail.x,shot.position.x),std::max(tail.y,shot.position.y),std::max(tail.z,shot.position.z)};
             for(auto handle:crowd.query(low-pad,high+pad,1)){
                 auto victim=crowd.unit(handle);if(!victim||!body_contact(tail,shot.position,victim->position,shot.radius))continue;
-                Hit damage;damage.amount=shot.damage;damage.source_id=shot.source_id;damage.projectile=true;damage.direction=shot.direction;hit(crowd,handle,damage);impacted=true;break;
+                Hit damage;damage.amount=shot.damage;damage.source_id=shot.source_id;damage.projectile=true;damage.magical=magical_attack(shot.owner_kind,shot.owner_kind==4?108:300+shot.effect_kind,true);damage.direction=shot.direction;hit(crowd,handle,damage);impacted=true;break;
             }
         }
         if(!impacted)for(const auto& victim:targets_){
@@ -552,9 +597,10 @@ void Combat::projectiles(Crowd& crowd,double delta,size_t start){
             if(contact){external_hit(victim);impacted=true;break;}
         }
         if(impacted||shot.age>=shot.life){
+            if(!impacted&&shot.owner_kind==18&&shot.effect_kind==2)continue;
             Event event;event.kind=PROJECTILE_IMPACT;event.unit_kind=shot.owner_kind;event.action_index=shot.effect_kind;event.source_id=shot.source_id;event.projectile_id=shot.id;event.position=shot.position;event.direction=shot.direction;if(shot.owner_kind==18&&(shot.effect_kind==0||shot.effect_kind==2)&&shot.power)event.source_tick=1;emit(event);
-            if(shot.owner_kind==18&&!shot.power&&shot.effect_kind==2&&shot.finale_burst){
-                for(int i=0;i<8;++i){auto child=shot;child.id=next_projectile_++;child.power=true;child.age=0;child.life=data_.finale_ranges[3];child.speed=8*data_.finale_scale;child.damage*=.5;child.position.y+=.4f*data_.finale_scale*data_.enemy_size;child.direction={float(std::sin(i*2*M_PI/8)),0,float(std::cos(i*2*M_PI/8))};projectiles_.push_back(child);}
+            if(shot.owner_kind==18&&!shot.power&&shot.effect_kind==2){
+                for(int i=0;i<5;++i){auto child=shot;child.id=next_projectile_++;child.power=true;child.age=0;child.life=data_.finale_ranges[3];child.speed=8*data_.finale_scale;child.damage*=.5;child.position.y+=.4f*data_.finale_scale*data_.enemy_size;child.direction={float(std::sin(i*2*M_PI/5)),0,float(std::cos(i*2*M_PI/5))};projectiles_.push_back(child);}
             }
             if(shot.owner_kind==18&&!shot.power&&shot.effect_kind==3){
                 Vec3 from=shot.position+Vec3{0,.1f,0},to=shot.position-Vec3{0,float(data_.finale_ranges[2]),0};
@@ -570,7 +616,7 @@ void Combat::projectiles(Crowd& crowd,double delta,size_t start){
 void Combat::after_move(Crowd& crowd,double delta){
     if(!enabled_)return;
     pulses(crowd,delta);
-    for(auto& u:crowd.units_)if(u.alive&&u.team==0&&u.live_delta>0&&u.stun<=0&&u.action_active){if(u.kind==4&&!data_.skullpion.empty())boss_advance(crowd,u);else if(u.kind==17&&!data_.dark_lumina.empty())lumina_advance(crowd,u,u.live_delta);else if(u.kind==18&&!data_.finale_meta.empty())finale_advance(crowd,u,u.live_delta);else advance(crowd,u,u.live_delta);}
+    for(auto& u:crowd.units_)if(u.alive&&u.team==0&&u.live_delta>0&&u.stun<=0&&u.action_active){if(u.kind==4&&!data_.skullpion.empty())boss_advance(crowd,u);else if(u.kind==17&&!data_.dark_lumina.empty())lumina_advance(crowd,u,u.live_delta*u.attack_slow_factor);else if(u.kind==18&&!data_.finale_meta.empty())finale_advance(crowd,u,u.live_delta*u.attack_slow_factor);else advance(crowd,u,u.live_delta*u.attack_slow_factor);}
     projectiles(crowd,delta);
     counters(crowd,delta);
     size_t newborn_start=projectiles_.size();
@@ -603,15 +649,26 @@ Vec3 Combat::enemy_contact(const Unit& victim,Vec3 from) const{
     return victim.position+rotated_y(local,victim.yaw);
 }
 int64_t Combat::guard_enemy(Crowd& crowd,const Unit& u){
-    Vec3 pad{u.guard_radius,u.guard_radius+60,u.guard_radius};
-    int64_t chosen=0;float best=INFINITY;
-    for(auto h:crowd.query(u.guard_post-pad,u.guard_post+pad,0)){
-        auto enemy=crowd.unit(h);if(!enemy)continue;
-        if(horizontal(enemy_contact(*enemy,u.guard_post+Vec3{0,1,0}),u.guard_post)>u.guard_radius)continue;
-        float gap=length(enemy_contact(*enemy,u.position+Vec3{0,1,0})-u.position);
-        if(gap<best){best=gap;chosen=h;}
+    Vec3 center=u.guard_post;
+    for(auto row:target_groups_[2])if(targets_[row].assault_priority==2){center=targets_[row].foot;break;}
+    int layer=u.support_layer<0?crowd.allied_terrain.choose_layer(u.position):u.support_layer;
+    if(layer<0)layer=0;
+    Vec3 from=u.position;from.y=float(crowd.allied_terrain.height(from.x,from.z,layer));
+    auto eligible=[&](const Unit& other){return other.hp>0&&std::max(std::abs(other.position.x-center.x),std::abs(other.position.z-center.z))<=u.guard_radius&&crowd.allied_terrain.reachable(from,other.position,u.radius,layer);};
+    if(auto other=crowd.unit(nearest_enemy(crowd,u.position));other&&eligible(*other))return other->handle;
+    Vec3 pad{u.guard_radius,3e8f,u.guard_radius};
+    target_candidates_.clear();
+    for(auto handle:crowd.query(center-pad,center+pad,0,false)){
+        auto other=crowd.unit(handle);if(!other||other->hp<=0||std::max(std::abs(other->position.x-center.x),std::abs(other->position.z-center.z))>u.guard_radius)continue;
+        Vec3 point=enemy_contact(*other,u.position+Vec3{0,1,0});
+        target_candidates_.push_back({-1,handle,length(point-u.position),0});
     }
-    return chosen;
+    std::sort(target_candidates_.begin(),target_candidates_.end(),[&](const TargetCandidate& a,const TargetCandidate& b){return a.distance!=b.distance?a.distance<b.distance:crowd.unit(a.handle)->logical_id<crowd.unit(b.handle)->logical_id;});
+    for(auto candidate:target_candidates_){
+        auto other=crowd.unit(candidate.handle);
+        if(crowd.allied_terrain.reachable(from,other->position,u.radius,layer))return candidate.handle;
+    }
+    return 0;
 }
 void Combat::ally_decide(Crowd& crowd,Unit& u,double dt){
     if(dt<=0)return;
@@ -995,7 +1052,7 @@ void Combat::dragon_flight(Crowd& crowd,Projectile& shot,double delta){
             float t=enemy_segment(*e,before,end,shot.radius);
             if(t<0||!crowd.terrain.ray_clear(before,enemy_contact(*e,before)))continue;
             shot.hits.push_back(h);
-            Hit damage;damage.source_id=shot.source_id;damage.amount=shot.damage;damage.projectile=true;damage.heavy=true;damage.direction=shot.direction;
+            Hit damage;damage.source_id=shot.source_id;damage.amount=shot.damage;damage.projectile=true;damage.magical=magical_attack(shot.owner_kind,shot.owner_kind==4?108:300+shot.effect_kind,true);damage.heavy=true;damage.direction=shot.direction;
             auto& cast=*shot.cast;cast.rng^=cast.rng>>12;cast.rng^=cast.rng<<25;cast.rng^=cast.rng>>27;
             if(double((cast.rng*2685821657736338717ull)>>11)*(100.0/9007199254740992.0)<cast.critical){damage.amount*=2;damage.critical=true;}
             if(hit(crowd,h,damage).accepted)if(auto owner=crowd.unit(cast.owner)){owner->chain_left=1.75;if(!cast.confirmed){cast.confirmed=true;++owner->chain_count;}}

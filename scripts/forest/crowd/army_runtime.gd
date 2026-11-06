@@ -163,7 +163,7 @@ func set_pose(handle:int,point:Vector3,yaw:float)->void:native.set_pose(handle,p
 func enemy_target(id:int)->Ninja:
  if is_instance_valid(enemies.get(id)):
   if enemies[id].handle==handles.get(id,0):return enemies[id]
-  enemies[id].mark_dead();enemies[id].queue_free();enemies.erase(id)
+  query_actors.erase(enemies[id].handle);enemies[id].mark_dead();enemies[id].queue_free();enemies.erase(id)
  var h:int=handles.get(id,0);var data:Dictionary=unit_state(h)
  var game:Node=game_ref.get_ref() if game_ref!=null else null
  if data.is_empty() or data.team!=0 or game==null:return null
@@ -255,7 +255,6 @@ func dispatch_events()->void:
     continue
    var gameplay=kind=="damage" or kind=="death"
    var actor=(enemies.get(event.target_id) if event.team==0 else allies.get(event.target_id)) if gameplay else null
-   if kind=="death" and is_instance_valid(actor):query_actors.erase(actor.handle)
    var ticket:Dictionary=tickets.get(event.ticket_id,NO_TICKET) if gameplay else NO_TICKET
    match kind:
     "damage":
@@ -273,6 +272,7 @@ func dispatch_events()->void:
      handles.erase(event.target_id)
      if event.team==0:
       _enemy_retired(event.target_id)
+      game.model.waves.enemy_defeated()
       preload("res://scripts/forest/forest_soldier_audio.gd").soldier_died(game,event.position,event.unit_kind)
       game.kills+=1
       var row:Dictionary=game.model.enemies.get(event.target_id,{"id":event.target_id,"pos":event.position,"variant":event.unit_kind})
@@ -289,6 +289,8 @@ func dispatch_events()->void:
        if int(event.get("unit_kind",-1))==18 and int(event.get("action_index",0))==301 and event.amount<=0 and game.player.invuln<=0 and before>0 and not game.tuning.invincible:
         game.player.velocity+=event.direction*24
         if game.player.is_rogue_character():game.player.active_ability.receive_knockback(event.direction,24)
+       var magical=int(event.get("unit_kind",-1))==18 or (int(event.get("unit_kind",-1))==17 and event.projectile) or (int(event.get("unit_kind",-1))==4 and int(event.get("action_index",0)) in [103,105])
+       if magical and game.player.character_id==33 and game.player.active_ability.spell_immune():continue
        game.player.take_hit(event.amount,event.direction if int(event.get("unit_kind",-1))==18 and int(event.get("action_index",0))==301 else (game.player.position-event.position).normalized(),event.projectile)
        if int(event.get("unit_kind",-1))==18 and int(event.get("action_index",0))==301 and game.player.hp<before:
         game.player.velocity+=event.direction*17
@@ -330,6 +332,7 @@ static func navigation_data(model:RefCounted,include_obstacles:bool=true)->Dicti
    if building.hp<=0:continue
    var size:Vector2i=model.dimensions(building.kind,building.rotation,building.get("span",0))
    var first:Vector3=model.point(building.cell)-Vector3(3,0,3)
+   first.y=model.center(building).y
    data.ray_min.append(first);data.ray_max.append(first+Vector3(size.x*6,profile.height(building.kind),size.y*6));data.ray_owner.append(building.id)
    if building.kind!="gate" or not building.get("breached",false):
     data.obstacle_min.append(first);data.obstacle_max.append(first+Vector3(size.x*6,profile.height(building.kind),size.y*6))
@@ -346,9 +349,16 @@ static func navigation_data(model:RefCounted,include_obstacles:bool=true)->Dicti
     data.friendly_obstacle_min.append(box.position);data.friendly_obstacle_max.append(box.end)
     data.ray_min.append(box.position);data.ray_max.append(box.end);data.ray_owner.append(-1)
   for cell in model.trees:
-   var center:Vector3=model.point(cell)
+   if model.tree_rotations.has(cell):continue
+   var center:Vector3=model.scenery_point(cell)
    data.ray_min.append(center+Vector3(-1.5,0,-1.5));data.ray_max.append(center+Vector3(1.5,12,1.5));data.ray_owner.append(-1)
    # Ground routing uses the same trunk footprint as existing navigation.
    data.obstacle_min.append(center+Vector3(-1.25,0,-1.25));data.obstacle_max.append(center+Vector3(1.25,1000,1.25))
    data.friendly_obstacle_min.append(center+Vector3(-1.25,0,-1.25));data.friendly_obstacle_max.append(center+Vector3(1.25,1000,1.25))
+  for cell in model.scenery_obstacles:
+   if model.trees.has(cell) and not model.tree_rotations.has(cell):continue
+   var box:AABB=model.scenery_obstacles[cell]
+   data.ray_min.append(box.position);data.ray_max.append(box.end);data.ray_owner.append(-1)
+   data.obstacle_min.append(box.position);data.obstacle_max.append(box.end)
+   data.friendly_obstacle_min.append(box.position);data.friendly_obstacle_max.append(box.end)
  return data

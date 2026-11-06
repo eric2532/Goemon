@@ -1,6 +1,6 @@
 extends "res://scripts/recovered_goemon_gameplay_tests.gd"
 const OUT="res://build/Other Files/Asset Toolkit/Humanoid Landing Audio/"
-const HUMANOIDS=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,22,23,25,26,28]
+const HUMANOIDS=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,22,23,25,26,28,34]
 const HUMAN_LAND=preload("res://assets/audio/recovered_yae/event_21e.wav")
 var landing_orders={}
 
@@ -24,13 +24,14 @@ func run():
  var p=game.player;var lib=game.sound_library
  var original=load(SoundLibrary.LANDING_FILE)
  var backup=load("res://assets/characters/recovered_monsters/audio/dark_lumina_2/slam.wav")
- check(game.sounds.land==original,"Shared landing default replaces the generated sound with Skullpion's ROM impact")
+ check(game.sounds.land==HUMAN_LAND,"Every shared landing fallback uses Goemon's prepared sample")
+ for id in [35,1000]:check(SoundLibrary.shared_default_for(id,"land")==HUMAN_LAND and lib.playback_for(id,"land",original).stream==HUMAN_LAND,"Unregistered fighter %d inherits Goemon's landing"%id)
  for id in p.RogueRoster.selection_ids():
   var own=SoundLibrary.original_for(id,"land")
-  var expected=own if own!=null else original
+  var expected=own if own!=null else HUMAN_LAND
   if SoundLibrary.source_slot_is_silent(id,"land"):expected=null
   if id in HUMANOIDS:expected=HUMAN_LAND
-  check(game.sound_preview(id,"land")==expected,"Fighter %d previews the humanoid landing or retains its non-humanoid default"%id)
+  check(game.sound_preview(id,"land")==expected,"Fighter %d previews Goemon's default or its distinct recovered landing"%id)
  game.sound("land",.7,false,{},27)
  check(game.last_sound_voice.stream==original and game.last_sound_voice.pitch_scale==1,"Gameplay uses the prepared Skullpion sample at source pitch")
  SoundLibrary.landing_sound=null

@@ -698,5 +698,60 @@
     "source": "assets/models/characters/warcraft/demon-hunter/first_person.glb",
     "preserve_mesh_nodes": ".*",
     "usage": "Player meta hands only; authored relaxed/cast clips, finger skin and Muzzle socket. Separate editable first-person sculpt."
+  },
+  "meadow-farm": {
+    "source": "assets/models/environments/wind_meadow/buildings/barracks.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Human farmhouse; original barracks save key, housing and shelter"
+  },
+  "meadow-guard-tower": {
+    "source": "assets/models/environments/wind_meadow/buildings/watchtower.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Human Guard Tower; native worker deck, aiming and shots"
+  },
+  "meadow-farm-ruins": {
+    "source": "assets/models/environments/wind_meadow/buildings/barracks_ruins.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Human farm fragments and shared stone blocks; pooled castle destruction"
+  },
+  "meadow-tower-ruins": {
+    "source": "assets/models/environments/wind_meadow/buildings/tower_ruins.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Human Guard Tower fragments and shared stone blocks; pooled castle breaches"
+  },
+  "meadow-cannon-tower": {
+    "source": "assets/models/environments/wind_meadow/buildings/cannon_tower.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Human Cannon Tower; native Upgrade Second pose, shared materials and original tower anchors"
+  },
+  "warcraft-cannon-shell": {
+    "source": "assets/models/effects/warcraft_cannon_shell.glb",
+    "preserve_mesh_nodes": "",
+    "usage": "Original 10-triangle cannon missile; existing pooled tower presentation"
+  },
+  "warcraft-mountain-king": {
+    "source": "assets/models/characters/warcraft/mountain-king/mountain-king.glb",
+    "preserve_mesh_nodes": ".*",
+    "usage": "Mountain King; original geosets, hammer/axe bones, all 27 native skin actions and separate Avatar textures"
+  },
+  "meadow-cedar-tree": {
+    "source": "assets/models/environments/wind_meadow/cedar_tree.glb",
+    "preserve_mesh_nodes": "^(Body|Canopy)$",
+    "usage": "Editable meadow-family map scenery; original leaf cards, vertex colors, separate bark/canopy and shared wind/cutaway shader"
+  },
+  "meadow-pine-tree": {
+    "source": "assets/models/environments/wind_meadow/pine_tree.glb",
+    "preserve_mesh_nodes": "^(Body|Canopy)$",
+    "usage": "Editable meadow-family map scenery; original leaf cards, vertex colors, separate bark/canopy and shared wind/cutaway shader"
+  },
+  "meadow-sakura-tree": {
+    "source": "assets/models/environments/wind_meadow/sakura_tree.glb",
+    "preserve_mesh_nodes": "^(Body|Canopy)$",
+    "usage": "Editable meadow-family map scenery; original leaf cards, vertex colors, separate bark/canopy and shared wind/cutaway shader"
+  },
+  "meadow-bamboo-cluster": {
+    "source": "assets/models/environments/wind_meadow/bamboo_cluster.glb",
+    "preserve_mesh_nodes": "^(Body|Canopy)$",
+    "usage": "Editable meadow-family map scenery; original leaf cards, vertex colors, separate bark/canopy and shared wind/cutaway shader"
   }
 }

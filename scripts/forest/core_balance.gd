@@ -1,16 +1,18 @@
 extends RefCounted
 ## Persisted editor values; models keep a private run snapshot.
 const EnemyBalance=preload("res://scripts/forest/enemy_balance.gd")
+const CARD_RARITIES=[["card_silver_chance","Silver",10.0],["card_gold_chance","Gold",4.0],["card_diamond_chance","Diamond",1.0],["card_legendary_chance","Legendary",.25]]
 const ROWS=[
 	["spawn_group_start","Starting group size",1,10000,1],
 	["spawn_group_growth","Growth per group",0,10000,1],
 	["starting_gold","Starting gold",0,100000000,100],
 	["enemy_wall_health","Enemy wall / tower health",1,1000000,500],
-	["enemy_castle_health","Enemy castle keep health",1,1000000,500],
-	["tower_health","Watchtower health",1,1000000,50],
-	["tower_damage","Damage per arrow",0,100000,1],
-	["tower_attack_speed","Shots / second / worker",.05,20,.05],
-	["tower_workers","Max workers per tower",1,24,1],
+	["enemy_castle_health","Enemy Skullpion statue health",1,1000000,500],
+	["tower_health","Tower health",1,1000000,50],
+	["tower_damage","Guard Tower damage",0,100000,1],
+	["tower_attack_speed","Guard volleys / sec",.05,20,.05],
+	# Retain the saved key so existing tower strength settings still apply.
+	["tower_workers","Shots per tower volley",1,24,1],
 	["enemy_size_mult","Enemy size ×",.25,3,.05],
 	["enemy_health_mult","Enemy health ×",.25,50,.25],
 	["enemy_damage_mult","Enemy damage ×",.1,10,.1],
@@ -36,10 +38,25 @@ static func default_wave(index: int)->Array:
 static func defaults()->Dictionary:
 	var waves=[]
 	for i in range(5):waves.append(default_wave(i))
-	return {"population_version":POPULATION_VERSION,"spawn_group_start":10,"spawn_group_growth":1,"starting_gold":1000000,"enemy_wall_health":6000.0,"enemy_castle_health":6000.0,"tower_health":500.0,"tower_damage":18.0,"tower_attack_speed":1.0/1.4,"tower_workers":3,"enemy_health_mult":3.0,"enemy_damage_mult":2.0,"enemy_speed_mult":1.2,"enemy_size_mult":1.0,"bosses_per_portal":1,"boss_health":30000.0,"boss_speed":1.5,"waves":waves,"enemy_profiles":{}}
+	var values={"population_version":POPULATION_VERSION,"spawn_group_start":10,"spawn_group_growth":1,"starting_gold":1000000,"enemy_wall_health":6000.0,"enemy_castle_health":6000.0,"tower_health":500.0,"tower_damage":18.0,"tower_attack_speed":1.0/1.4,"tower_workers":3,"enemy_health_mult":3.0,"enemy_damage_mult":2.0,"enemy_speed_mult":1.2,"enemy_size_mult":1.0,"bosses_per_portal":1,"boss_health":30000.0,"boss_speed":1.5,"waves":waves,"enemy_profiles":{}}
+	for row in CARD_RARITIES:values[row[0]]=row[2]
+	return values
+static func rarity_cutoffs(values:Dictionary)->Array[int]:
+	var cutoffs:Array[int]=[0,0,0,0]
+	var cutoff=10000
+	for i in range(CARD_RARITIES.size()-1,-1,-1):
+		cutoff-=roundi(values[CARD_RARITIES[i][0]]*100)
+		cutoffs[i]=cutoff
+	return cutoffs
 static func sanitized(raw)->Dictionary:
 	var out=defaults()
 	if not raw is Dictionary:return out
+	var remaining=10000
+	for row in CARD_RARITIES:
+		var value=raw.get(row[0],row[2])
+		if not (value is int or value is float) or not is_finite(float(value)):value=row[2]
+		var chance=mini(remaining,roundi(clampf(float(value),0,100)*100))
+		out[row[0]]=chance/100.0;remaining-=chance
 	out.enemy_profiles=EnemyBalance.sanitized(raw.get("enemy_profiles",{}),TYPES)
 	for row in ROWS:
 		var value=raw.get(row[0],out[row[0]])

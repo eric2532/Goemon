@@ -5,14 +5,22 @@ const Navigation=preload("res://scripts/forest/forest_enemy_navigation.gd")
 const Routes=preload("res://scripts/forest/forest_routes.gd")
 const COUNTS=[360,540,716,896,1196]
 const SPAWN_INTERVAL=.13 # Retry blocked entrances without releasing the next group early.
+const WAVE_SECONDS=60.0
 const ACTIVE_CAP=240
 const SPAWN_ATTEMPTS=12
+const RANDOM_SPAWN_INTERVAL=1.0
+const RANDOM_SPAWN_COUNT=3
+const RANDOM_SPAWN_SOURCE=-2
 const SPAWN_DIRECTION=Vector2i.DOWN # South (+Z), facing the starter fort's gate.
 var reference: WeakRef
 var m:
 	get:return reference.get_ref()
 var pending=0
 var spawn_clock=0.0
+var random_spawn_clock=RANDOM_SPAWN_INTERVAL
+var kill_spawn_pending=0
+var wave_clock=WAVE_SECONDS
+var released_waves=0
 var rng=RandomNumberGenerator.new()
 var giant_pending=false
 var remaining_counts: Array=[]
@@ -36,15 +44,26 @@ func _init(model):
 	reference=weakref(model);navigation=Navigation.new(model);routes=Routes.new(model)
 func begin()->bool:
 	if m.phase!="preparing" or m.shrine().is_empty() or (not m.has_enemy_camps() and m.wave>=m.balance.waves.size()):return false
-	m.wave=1 if m.has_enemy_camps() else m.wave+1;m.phase="wave"
+	m.wave=1;m.phase="wave";released_waves=1;wave_clock=WAVE_SECONDS
 	remaining_counts=m.balance.waves[m.wave-1].duplicate();pending=0
-	if not m.has_enemy_camps():
-		for count in remaining_counts:pending+=count
+	for count in remaining_counts:pending+=count
 	boss_pending.clear()
 	if remaining_counts[Balance.TYPES.find(Roles.BOSS)]>0:boss_pending[0]=true
-	spawn_clock=2.0;spawned=0;spawn_groups.clear()
+	spawn_clock=0.0;random_spawn_clock=RANDOM_SPAWN_INTERVAL;kill_spawn_pending=0;spawned=0;spawn_groups.clear()
 	rng.seed=m.seed_value+m.wave*7919;routes.portal_cursor=0
+	m.wave_started.emit()
 	return true
+func schedule_left()->float:
+	return maxf(0,(m.balance.waves.size()-maxi(1,released_waves))*WAVE_SECONDS+wave_clock)
+func clock_text(seconds:float)->String:
+	var whole=ceili(maxf(0,seconds))
+	return "%02d:%02d"%[whole/60,whole%60]
+func countdown_text()->String:
+	var total:int=m.balance.waves.size()
+	if m.phase=="preparing":return "%d WAVES · %s\nONE WAVE EVERY 01:00"%[total,clock_text(total*WAVE_SECONDS)]
+	if released_waves>=total:
+		return "FINAL WAVE %d / %d\nTOTAL %s"%[total,total,clock_text(schedule_left())] if wave_clock>0 else "FINAL WAVE %d / %d\nCLEAR THE ENEMIES"%[total,total]
+	return "WAVE %d / %d IN %s\nTOTAL %s"%[released_waves+1,total,clock_text(wave_clock),clock_text(schedule_left())]
 func spawn_enemy(variant: int,point: Vector3,source:int=-1)->Dictionary:
 	var id: int=m.next_id;m.next_id+=1;var data=_simulation_stats(variant)
 	var group:int=spawn_groups.get(source,{}).get("number",1)
@@ -81,10 +100,7 @@ func active_cap()->int:return 1000 if m.enemy_camps_prototype else ACTIVE_CAP
 func spawn_one(reserved: Array=[],portal_index:int=-1)->bool:
 	m.sync_enemy_records()
 	if m.enemies.size()>=active_cap():return false
-	if m.has_enemy_camps():
-		if m.phase!="wave" or m.active_enemy_camps()==0:return false
-		if remaining_counts.all(func(count):return count==0):remaining_counts=m.balance.waves[0].duplicate()
-	elif pending<=0:return false
+	if pending<=0 or m.phase!="wave" or (m.has_enemy_camps() and m.active_enemy_camps()==0):return false
 	if not m.portals.is_empty():return spawn_from_portals(reserved,portal_index)
 	if remaining_counts[Balance.TYPES.find(Roles.BOSS)]>0 and spawn_skullpion(reserved):
 		consume_slot(Balance.TYPES.find(Roles.BOSS));return true
@@ -107,7 +123,7 @@ func spawn_one(reserved: Array=[],portal_index:int=-1)->bool:
 	return false
 func consume_slot(slot:int):
 	remaining_counts[slot]-=1;spawned+=1
-	if not m.has_enemy_camps():pending-=1
+	pending-=1
 	if remaining_counts[Balance.TYPES.find(Roles.BOSS)]==0:boss_pending.clear()
 func spawn_from_portals(reserved: Array,portal_index:int=-1)->bool:
 	if remaining_counts[Balance.TYPES.find(Roles.BOSS)]>0 and spawn_skullpion(reserved,portal_index):
@@ -174,6 +190,66 @@ func spawn_space_clear(point:Vector3,radius:float)->bool:
 func end_spawn_query():
 	spawn_query_active=false;spawn_query_buckets.clear();spawn_query_max_radius=0.0
 
+func enemy_defeated():
+	if m.phase=="wave":kill_spawn_pending+=2
+
+func spawn_random_batch(from_kills:bool=false)->int:
+	if m.phase!="wave" or (kill_spawn_pending if from_kills else pending)<=0 or m.enemies.size()>=active_cap() or (m.has_enemy_camps() and m.active_enemy_camps()==0):return 0
+	var bounds:Rect2=m.world_bounds().grow(-24)
+	var runtime=m.get("army_runtime")
+	if is_instance_valid(runtime) and runtime.navigation_revision!=m.navigation_revision:return 0
+	var destinations=[m.point(m.shrine_entry())]
+	for gate in m.buildings.values():
+		if gate.kind=="gate" and not gate.get("breached",false):
+			var exterior:Vector3=m.center(gate)+navigation.gate_outward(gate)*12
+			exterior.y=m.surface_height(exterior.x,exterior.z);destinations.append(exterior)
+	var anchor=Vector2.ZERO
+	var released=0
+	begin_spawn_query()
+	for member in (mini(2,kill_spawn_pending) if from_kills else RANDOM_SPAWN_COUNT):
+		if (kill_spawn_pending if from_kills else pending)<=0 or m.enemies.size()>=active_cap():break
+		var slot=-1
+		if not from_kills:
+			for offset in Balance.TYPES.size():
+				var candidate=(spawned+offset)%Balance.TYPES.size()
+				if remaining_counts[candidate]>0 and Balance.TYPES[candidate] in Roles.WAVE_TYPES:slot=candidate;break
+			if slot<0:break
+		var variant:int=Roles.WAVE_TYPES[rng.randi_range(0,Roles.WAVE_TYPES.size()-1)] if from_kills else Balance.TYPES[slot]
+		var radius=Roles.footprint_radius(variant,m.balance.enemy_size_mult)
+		var visible_radius=Roles.visibility_radius(variant,m.balance.enemy_size_mult)
+		var placed=false
+		for attempt in SPAWN_ATTEMPTS*4:
+			# Retry a different clearing if this group cannot enter the first one.
+			if (member==0 or attempt>0) and attempt%SPAWN_ATTEMPTS==0:
+				anchor=Vector2(rng.randf_range(bounds.position.x,bounds.end.x),rng.randf_range(bounds.position.y,bounds.end.y))
+			var point:Vector3=m.point(m.cell_of(Vector3(anchor.x+rng.randf_range(-24,24),0,anchor.y+rng.randf_range(-24,24))))
+			if horizontal_distance(point,m.center(m.shrine()))<90 or horizontal_distance(point,m.hero_position)<maxf(20,visible_radius+2):continue
+			if not navigation.move_clear(point,radius) or not spawn_space_clear(point,visible_radius):continue
+			var clear=true
+			for worker in m.workers.values():
+				if worker.state!="wounded" and horizontal_distance(point,worker.pos)<visible_radius+1:clear=false;break
+			if not clear:continue
+			var to_castle:Vector3=m.center(m.shrine())-point
+			var facing=atan2(-to_castle.x,-to_castle.z)
+			var probe={"pos":point,"variant":variant,"facing":facing}
+			if navigation.fitted_blocker(probe,point)>=0:continue
+			# Use the army's supported terrain connectivity, including off-road hills.
+			if is_instance_valid(runtime):
+				var reachable=false
+				for destination:Vector3 in destinations:
+					if runtime.native.can_reach(point,destination,radius):reachable=true;break
+				if not reachable:continue
+			elif not navigation.has_approach(probe,destinations):continue
+			var enemy=spawn_enemy(variant,point,RANDOM_SPAWN_SOURCE)
+			enemy.facing=facing;enemy.portal_index=RANDOM_SPAWN_SOURCE;enemy.road_path=[]
+			register_spawn(enemy)
+			if from_kills:kill_spawn_pending-=1
+			else:consume_slot(slot)
+			released+=1;placed=true;break
+		if not placed:break
+	end_spawn_query()
+	return released
+
 func enemy_started_attack(id:int):
 	var source:int=m.enemies.get(id,{}).get("portal_index",-1)
 	var group:Dictionary=spawn_groups.get(source,{})
@@ -206,7 +282,7 @@ func spawn_batch()->int:
 	for source in sources:
 		var group:Dictionary=spawn_groups[source]
 		for attempt in range(SPAWN_ATTEMPTS):
-			if group.members.size()>=group.target_size or (pending<=0 and not m.has_enemy_camps()) or m.enemies.size()>=active_cap():break
+			if group.members.size()>=group.target_size or pending<=0 or m.enemies.size()>=active_cap():break
 			if spawn_one(reserved,source):
 				released+=1;group.members[m.next_id-1]=true
 			elif portal_mode:break
@@ -215,12 +291,23 @@ func spawn_batch()->int:
 func horizontal_distance(a: Vector3,b: Vector3)->float:return Vector2(a.x-b.x,a.z-b.z).length()
 func tick(delta:float,hero:Vector3):
 	if m.phase!="wave":return
-	if m.has_enemy_camps():
-		spawn_clock-=delta
-		if spawn_clock<=0 and m.enemies.size()<active_cap() and m.active_enemy_camps()>0:spawn_batch();spawn_clock=SPAWN_INTERVAL
-		return
+	wave_clock-=delta
+	while wave_clock<=.000001 and released_waves<m.balance.waves.size():
+		m.wave+=1
+		# Carry blocked arrivals forward without dropping any configured enemies.
+		for slot in remaining_counts.size():
+			remaining_counts[slot]+=m.balance.waves[m.wave-1][slot];pending+=m.balance.waves[m.wave-1][slot]
+		spawn_groups.clear();rng.seed=m.seed_value+m.wave*7919;routes.portal_cursor=0
+		if remaining_counts[Balance.TYPES.find(Roles.BOSS)]>0:boss_pending[0]=true
+		released_waves+=1;wave_clock=minf(WAVE_SECONDS,wave_clock+WAVE_SECONDS);spawn_clock=0.0
+		m.wave_started.emit()
+	if released_waves==m.balance.waves.size() and wave_clock<=.000001:wave_clock=0.0
+	if kill_spawn_pending>0:spawn_random_batch(true)
+	random_spawn_clock=maxf(0,random_spawn_clock-delta)
+	if random_spawn_clock<=.000001:
+		spawn_random_batch();random_spawn_clock=RANDOM_SPAWN_INTERVAL
 	spawn_clock-=delta
 	if pending>0 and spawn_clock<=0 and m.enemies.size()<active_cap():spawn_batch();spawn_clock=SPAWN_INTERVAL
-	if pending==0 and m.enemies.is_empty():
-		m.gold+=100;m.phase="victory" if m.wave>=m.balance.waves.size() else "preparing"
+	if released_waves==m.balance.waves.size() and wave_clock==0 and pending==0 and kill_spawn_pending==0 and m.enemies.is_empty():
+		m.gold+=100;m.phase="victory"
 		m.workforce.recover();m.update_vision(hero);m.events.append({"kind":m.phase});m.revision+=1

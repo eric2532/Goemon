@@ -167,7 +167,8 @@ func sync_compatibility():
   if not handles.has(id):
    game.model.enemies.erase(id)
    var actor=game.actors.get(id)
-   if is_instance_valid(actor):game.enemies.erase(actor);actor.queue_free()
+   # Keep query/source counts paired until the same facade cleanup boundary.
+   if is_instance_valid(actor):query_actors.erase(actor.handle);game.enemies.erase(actor);actor.queue_free()
    game.actors.erase(id);enemies.erase(id)
  profile_mark("compatibility_cleanup",clock)
 func register_actor_facade(actor:Node3D,row:Dictionary={})->bool:
@@ -199,7 +200,7 @@ func external_targets()->Dictionary:
  var rows={"ids":PackedInt64Array(),"kinds":PackedInt32Array(),"positions":PackedVector3Array(),"hp":PackedFloat32Array(),"targetable":PackedByteArray(),"taunting":PackedByteArray(),"minimum":PackedVector3Array(),"maximum":PackedVector3Array(),"ignore_building":PackedInt64Array(),"assault_priority":PackedInt32Array(),"shelter_ids":PackedInt64Array(),"shelter_damage":PackedInt64Array(),"shelter_entrances":PackedVector3Array(),"shelter_centers":PackedVector3Array()}
  var bounds=AABB()
  if game.player.RogueRoster.is_enemy(game.player.character_id):bounds=game.player.global_transform*game.player.model.bounds()
- append_target(rows,0,0,game.player.position,game.player.hp,not game.player.rogue_untargetable() and game.respawn_left<=0,false,bounds.position,bounds.end)
+ append_target(rows,0,0,game.player.position,game.player.hp,not game.player.rogue_untargetable() and game.respawn_left<=0,game.player.character_id==33 and game.player.active_ability.taunt_left>0,bounds.position,bounds.end)
  for w:Dictionary in game.model.workers.values():
   if not game.model.worker_targetable(w.id):continue
   var deck:float=preload("res://scripts/forest/forest_structure_profile.gd").TOWER_DECK_HEIGHT if w.state=="garrison" else w.get("deck_height",0.0)
@@ -208,7 +209,8 @@ func external_targets()->Dictionary:
   if b.hp<=0 or b.kind=="wall" or b.get("breached",false):continue
   if b.kind=="barracks":rows.shelter_ids.append(b.id);rows.shelter_damage.append(b.get("damage_serial",0));rows.shelter_entrances.append(game.model.point(game.model.entry(b)));rows.shelter_centers.append(game.model.center(b))
   var size:Vector2i=game.model.dimensions(b.kind,b.rotation,b.get("span",0));var low:Vector3=game.model.point(b.cell)-Vector3(3,0,3)
-  append_target(rows,b.id,2,game.model.center(b),b.hp,true,false,low,low+Vector3(size.x*6,preload("res://scripts/forest/forest_structure_profile.gd").height(b.kind),size.y*6),b.id,2 if b.kind=="shrine" else 1 if b.kind=="gate" else 0)
+  low.y=game.model.center(b).y
+  append_target(rows,b.id,2,game.model.center(b),b.hp,true,false,low,low+Vector3(size.x*6,preload("res://scripts/forest/forest_structure_profile.gd").height(b.kind),size.y*6),b.id,4 if b.kind in ["barracks","tower","cannon_tower"] else 2 if b.kind=="shrine" else 1 if b.kind=="gate" else 0)
  return rows
 func append_target(rows:Dictionary,id:int,kind:int,point:Vector3,hp:float,targetable_:bool=true,taunt:bool=false,low:Vector3=Vector3.ZERO,high:Vector3=Vector3.ZERO,ignore:int=-1,assault_priority:int=0):
  rows.ids.append(id);rows.kinds.append(kind);rows.positions.append(point);rows.hp.append(hp);rows.targetable.append(1 if targetable_ else 0);rows.taunting.append(1 if taunt else 0);rows.minimum.append(low);rows.maximum.append(high);rows.ignore_building.append(ignore);rows.assault_priority.append(assault_priority)

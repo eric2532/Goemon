@@ -43,7 +43,6 @@ func verify_volleys(move:int,count:int):
  for cycle in count:
   var volley=main.filter(func(s):return s.cycle==cycle)
   check(volley.size()==expected,"Every release belongs to the correct volley %d"%(cycle+1))
-  if move==2:check(volley.filter(func(s):return s.burst).size()==1,"Each Water volley retains exactly one eight-way burst source")
  check(main.all(func(s):return is_equal_approx(s.damage,65*Finale.DAMAGE[move]*(.5 if move==1 else 1)*game.player.damage_multiplier())),"Every queued projectile keeps its original damage")
  check(not caster.is_attacking(),"The complete queue finishes")
  if move==1:
@@ -68,7 +67,7 @@ func run():
  var pool=Pool.service(game);var prepared=pool.created;var misses=pool.misses
  pool.launched.connect(func(shot):
   shot.set_physics_process(false)
-  if shot.get_script()==Shot:shots.append({"kind":shot.kind,"secondary":shot.secondary,"burst":shot.burst,"point":shot.position,"target":caster.aim,"damage":shot.damage,"cycle":caster.marker/Finale.moves[caster.move].size(),"direction":shot.velocity.normalized()}))
+  if shot.get_script()==Shot:shots.append({"kind":shot.kind,"secondary":shot.secondary,"point":shot.position,"target":caster.aim,"damage":shot.damage,"cycle":caster.marker/Finale.moves[caster.move].size(),"direction":shot.velocity.normalized()}))
  check(Finale.FALL_SPREAD==[97.2,64.8],"Water and Fire scatter radii are twenty percent wider")
  var native=Finale.native()
  check(is_equal_approx(native.finale_ranges[0],97.2) and is_equal_approx(native.finale_ranges[1],64.8),"Native enemies receive the same widened spread")

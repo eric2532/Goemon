@@ -69,7 +69,7 @@ func run():
  else:baseline=JSON.parse_string(FileAccess.get_file_as_string(BASELINE))
  for map_path in maps:
   var orphans_before=Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)
-  var state=fixture(map_path);var expected:Dictionary=baseline[map_path]
+  var state=fixture(map_path);var expected:Dictionary=baseline[map_path] if baseline.has(map_path) else baseline[map_path.replace("tests/forest-shrine/reference/maps/","assets/maps/")]
   var expected_materials={}
   for item in expected.boxes:
    var fields:String=item;var key=fields.get_slice("|",2)+"|"+fields.get_slice("|",3)

@@ -1,0 +1,503 @@
+[gd_scene format=4]
+
+[ext_resource type="Shader" path="res://scripts/forest/forest_fog.gdshader" id="1_3eq3c"]
+
+[sub_resource type="Image" id="Image_okloa"]
+data = {
+"data": PackedByteArray("/////w=="),
+"format": "RGBA8",
+"height": 1,
+"mipmaps": false,
+"width": 1
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_f7nvm"]
+image = SubResource("Image_okloa")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wmyyn"]
+render_priority = 0
+shader = ExtResource("1_3eq3c")
+shader_parameter/visibility_map = SubResource("ImageTexture_f7nvm")
+shader_parameter/base_color = Color(0.34901962, 0.42352942, 0.4117647, 1)
+shader_parameter/ground_surface = false
+shader_parameter/show_grid = false
+shader_parameter/hero_position = Vector2(0, 0)
+shader_parameter/canopy_cutaway = false
+shader_parameter/canopy_layer = false
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_8bkte"]
+_surfaces = [{
+"aabb": AABB(0, -0.2, -9, 36, 6.2, 18),
+"format": 34359738375,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("AAAAAAAAwEAAABDBAAAQQgAAwEAAABBBAAAAAAAAwEAAABBBAAAAAAAAwEAAABDBAAAQQgAAwEAAABDBAAAQQgAAwEAAABBBAAAAAM3MTL4AABDBAAAQQs3MTL4AABBBAAAQQs3MTL4AABDBAAAAAM3MTL4AABDBAAAAAM3MTL4AABBBAAAQQs3MTL4AABBBAAAAAM3MTL4AABDBAAAAAAAAwEAAABBBAAAAAM3MTL4AABBBAAAAAM3MTL4AABDBAAAAAAAAwEAAABDBAAAAAAAAwEAAABBBAAAAAM3MTL4AABBBAAAQQgAAwEAAABBBAAAQQs3MTL4AABBBAAAAAM3MTL4AABBBAAAAAAAAwEAAABBBAAAQQgAAwEAAABBBAAAQQs3MTL4AABBBAAAQQgAAwEAAABDBAAAQQs3MTL4AABDBAAAQQs3MTL4AABBBAAAQQgAAwEAAABBBAAAQQgAAwEAAABDBAAAQQs3MTL4AABDBAAAAAAAAwEAAABDBAAAAAM3MTL4AABDBAAAQQs3MTL4AABDBAAAQQgAAwEAAABDBAAAAAAAAwEAAABDBMjNl5jIzmZmZmTKz7EQmtv8//584jqqqMjNl5jIzmZn/3/+/mZnMzJmZMrPsRCa2MjMyM8xMzMwys8xM7ERhp//f/x84jnGcMjMyM8xMzMz/X/9fMrPMjDKzzEzsRGGnMjMyM8xMzMz/P/+fOI6qqv9f/18ys8yMMjMyM8xMzMwyM2XmMjOZmf8//584jqqq/1//XzKzzIyZmTKz7EQmtjKzzEzsRGGn/1//XzKzzIz/P/+fOI6qqpmZMrPsRCa2MrPMTOxEYaf/3/+/mZnMzP/f/x84jnGcMrPMTOxEYaeZmTKz7EQmtv/f/7+ZmczM/9//HziOcZwyM2XmMjOZmTIzMjPMTMzM/9//HziOcZz/3/+/mZnMzDIzZeYyM5mZ")
+}]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kad12"]
+points = PackedVector3Array(0, -0.2, -9, 0, -0.2, 9, 36, -0.2, 9, 36, -0.2, -9, 0, 6, -9, 0, 6, 9, 36, 6, 9, 36, 6, -9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uioxi"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3k3qr"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hcui0"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_my2df"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jijrt"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_loo31"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qovy6"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gu1uq"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hd7w6"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lb7hg"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iptee"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6bwra"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g1x74"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x47e0"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h2c4r"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d1f8k"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v3y8a"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oo7vk"]
+size = Vector3(3, 2, 1.5)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_c1yh6"]
+_surfaces = [{
+"aabb": AABB(9, -0.2, 9, 18, 6.2, 18),
+"format": 34359738375,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("AADYQQAAwEAAABBBAAAQQQAAwEAAANhBAAAQQQAAwEAAABBBAADYQQAAwEAAABBBAADYQQAAwEAAANhBAAAQQQAAwEAAANhBAADYQc3MTL4AABBBAAAQQc3MTL4AANhBAADYQc3MTL4AANhBAADYQc3MTL4AABBBAAAQQc3MTL4AABBBAAAQQc3MTL4AANhBAADYQc3MTL4AABBBAAAQQQAAwEAAABBBAAAQQc3MTL4AABBBAADYQc3MTL4AABBBAADYQQAAwEAAABBBAAAQQQAAwEAAABBBAAAQQc3MTL4AABBBAAAQQQAAwEAAANhBAAAQQc3MTL4AANhBAAAQQc3MTL4AABBBAAAQQQAAwEAAABBBAAAQQQAAwEAAANhBAAAQQc3MTL4AANhBAADYQQAAwEAAANhBAADYQc3MTL4AANhBAAAQQc3MTL4AANhBAAAQQQAAwEAAANhBAADYQQAAwEAAANhBAADYQc3MTL4AANhBAADYQQAAwEAAABBBAADYQc3MTL4AABBBAADYQc3MTL4AANhBAADYQQAAwEAAANhBAADYQQAAwEAAABBBzMzMzG1bbNvMTDKzTmxhp/8f/98cR1SVzMzMzG1bbNv/n/+fVFWpqsxMMrNObGGnzMyZGU5sdaJmZsxMkiRIkv+//19UVamqzMyZGU5sdaL/H/8/VVUbx2ZmzEySJEiSzMyZGU5sdaL/H//fHEdUlf8f/z9VVRvHzMyZGU5sdaLMzMzMbVts2/8f/98cR1SV/x//P1VVG8fMTDKzTmxhp2ZmzEySJEiS/x//P1VVG8f/H//fHEdUlcxMMrNObGGnZmbMTJIkSJL/n/+fVFWpqv+//19UVamqZmbMTJIkSJLMTDKzTmxhp/+f/59UVamq/7//X1RVqarMzMzMbVts28zMmRlObHWi/7//X1RVqar/n/+fVFWpqszMzMxtW2zb")
+}]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kg35y"]
+points = PackedVector3Array(27, -0.2, 9, 9, -0.2, 9, 9, -0.2, 27, 27, -0.2, 27, 27, 6, 9, 9, 6, 9, 9, 6, 27, 27, 6, 27)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k53py"]
+size = Vector3(1.5, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cduvf"]
+size = Vector3(1.5, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s5nbu"]
+size = Vector3(1.5, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lrco2"]
+size = Vector3(1.5, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4pmtj"]
+size = Vector3(1.5, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2h13y"]
+size = Vector3(1.5, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1hwun"]
+size = Vector3(1.5, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_efwia"]
+size = Vector3(1.5, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m0w8k"]
+size = Vector3(1.5, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eif1w"]
+size = Vector3(1.5, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hms54"]
+size = Vector3(1.5, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k7ogk"]
+size = Vector3(1.5, 2, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kibba"]
+render_priority = 0
+shader = ExtResource("1_3eq3c")
+shader_parameter/visibility_map = SubResource("ImageTexture_f7nvm")
+shader_parameter/base_color = Color(0.6666667, 0.7176471, 0.627451, 1)
+shader_parameter/ground_surface = false
+shader_parameter/show_grid = false
+shader_parameter/hero_position = Vector2(0, 0)
+shader_parameter/canopy_cutaway = false
+shader_parameter/canopy_layer = false
+
+[sub_resource type="BoxMesh" id="BoxMesh_xgkkt"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_cldqe"]
+transform_format = 1
+custom_aabb = AABB(0, 6, 37.65, 36, 3.3000002, 2.5)
+instance_count = 18
+mesh = SubResource("BoxMesh_xgkkt")
+buffer = PackedFloat32Array(3, 0, 0, 1.5, 0, 2, 0, 7, 0, 0, 1.5, 38.9, 2.5, 0, 0, 1.5, 0, 1.4, 0, 8.6, 0, 0, 2.5, 38.9, 3, 0, 0, 4.5, 0, 2, 0, 7, 0, 0, 1.5, 38.9, 3, 0, 0, 7.5, 0, 2, 0, 7, 0, 0, 1.5, 38.9, 2.5, 0, 0, 7.5, 0, 1.4, 0, 8.6, 0, 0, 2.5, 38.9, 3, 0, 0, 10.5, 0, 2, 0, 7, 0, 0, 1.5, 38.9, 3, 0, 0, 13.5, 0, 2, 0, 7, 0, 0, 1.5, 38.9, 2.5, 0, 0, 13.5, 0, 1.4, 0, 8.6, 0, 0, 2.5, 38.9, 3, 0, 0, 16.5, 0, 2, 0, 7, 0, 0, 1.5, 38.9, 3, 0, 0, 19.5, 0, 2, 0, 7, 0, 0, 1.5, 38.9, 2.5, 0, 0, 19.5, 0, 1.4, 0, 8.6, 0, 0, 2.5, 38.9, 3, 0, 0, 22.5, 0, 2, 0, 7, 0, 0, 1.5, 38.9, 3, 0, 0, 25.5, 0, 2, 0, 7, 0, 0, 1.5, 38.9, 2.5, 0, 0, 25.5, 0, 1.4, 0, 8.6, 0, 0, 2.5, 38.9, 3, 0, 0, 28.5, 0, 2, 0, 7, 0, 0, 1.5, 38.9, 3, 0, 0, 31.5, 0, 2, 0, 7, 0, 0, 1.5, 38.9, 2.5, 0, 0, 31.5, 0, 1.4, 0, 8.6, 0, 0, 2.5, 38.9, 3, 0, 0, 34.5, 0, 2, 0, 7, 0, 0, 1.5, 38.9)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_48bh0"]
+render_priority = 0
+shader = ExtResource("1_3eq3c")
+shader_parameter/visibility_map = SubResource("ImageTexture_f7nvm")
+shader_parameter/base_color = Color(0.23137255, 0.29803923, 0.29411766, 1)
+shader_parameter/ground_surface = false
+shader_parameter/show_grid = false
+shader_parameter/hero_position = Vector2(0, 0)
+shader_parameter/canopy_cutaway = false
+shader_parameter/canopy_layer = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_e50bu"]
+transform_format = 1
+custom_aabb = AABB(0.29999995, 0, 37.7, 32.4, 5.4, 2.4000015)
+instance_count = 6
+mesh = SubResource("BoxMesh_xgkkt")
+buffer = PackedFloat32Array(2.4, 0, 0, 1.5, 0, 5.4, 0, 2.7, 0, 0, 2.4, 38.9, 2.4, 0, 0, 7.5, 0, 5.4, 0, 2.7, 0, 0, 2.4, 38.9, 2.4, 0, 0, 13.5, 0, 5.4, 0, 2.7, 0, 0, 2.4, 38.9, 2.4, 0, 0, 19.5, 0, 5.4, 0, 2.7, 0, 0, 2.4, 38.9, 2.4, 0, 0, 25.5, 0, 5.4, 0, 2.7, 0, 0, 2.4, 38.9, 2.4, 0, 0, 31.5, 0, 5.4, 0, 2.7, 0, 0, 2.4, 38.9)
+
+[sub_resource type="MultiMesh" id="MultiMesh_j4cfb"]
+transform_format = 1
+custom_aabb = AABB(0, 6, 7.8500004, 36, 3.3000002, 19.15)
+instance_count = 27
+mesh = SubResource("BoxMesh_xgkkt")
+buffer = PackedFloat32Array(3, 0, 0, 1.5, 0, 2, 0, 7, 0, 0, 1.5, 9.1, 2.5, 0, 0, 1.5, 0, 1.4, 0, 8.6, 0, 0, 2.5, 9.1, 3, 0, 0, 4.5, 0, 2, 0, 7, 0, 0, 1.5, 9.1, 3, 0, 0, 7.5, 0, 2, 0, 7, 0, 0, 1.5, 9.1, 2.5, 0, 0, 7.5, 0, 1.4, 0, 8.6, 0, 0, 2.5, 9.1, 3, 0, 0, 28.5, 0, 2, 0, 7, 0, 0, 1.5, 9.1, 3, 0, 0, 31.5, 0, 2, 0, 7, 0, 0, 1.5, 9.1, 2.5, 0, 0, 31.5, 0, 1.4, 0, 8.6, 0, 0, 2.5, 9.1, 3, 0, 0, 34.5, 0, 2, 0, 7, 0, 0, 1.5, 9.1, 1.5, 0, 0, 27.1, 0, 2, 0, 7, 0, 0, 3, 10.5, 2.5, 0, 0, 27.1, 0, 1.4, 0, 8.6, 0, 0, 2.5, 10.5, 1.5, 0, 0, 8.9, 0, 2, 0, 7, 0, 0, 3, 10.5, 2.5, 0, 0, 8.9, 0, 1.4, 0, 8.6, 0, 0, 2.5, 10.5, 1.5, 0, 0, 27.1, 0, 2, 0, 7, 0, 0, 3, 13.5, 1.5, 0, 0, 8.9, 0, 2, 0, 7, 0, 0, 3, 13.5, 1.5, 0, 0, 27.1, 0, 2, 0, 7, 0, 0, 3, 16.5, 2.5, 0, 0, 27.1, 0, 1.4, 0, 8.6, 0, 0, 2.5, 16.5, 1.5, 0, 0, 8.9, 0, 2, 0, 7, 0, 0, 3, 16.5, 2.5, 0, 0, 8.9, 0, 1.4, 0, 8.6, 0, 0, 2.5, 16.5, 1.5, 0, 0, 27.1, 0, 2, 0, 7, 0, 0, 3, 19.5, 1.5, 0, 0, 8.9, 0, 2, 0, 7, 0, 0, 3, 19.5, 1.5, 0, 0, 27.1, 0, 2, 0, 7, 0, 0, 3, 22.5, 2.5, 0, 0, 27.1, 0, 1.4, 0, 8.6, 0, 0, 2.5, 22.5, 1.5, 0, 0, 8.9, 0, 2, 0, 7, 0, 0, 3, 22.5, 2.5, 0, 0, 8.9, 0, 1.4, 0, 8.6, 0, 0, 2.5, 22.5, 1.5, 0, 0, 27.1, 0, 2, 0, 7, 0, 0, 3, 25.5, 1.5, 0, 0, 8.9, 0, 2, 0, 7, 0, 0, 3, 25.5)
+
+[sub_resource type="MultiMesh" id="MultiMesh_v7x4a"]
+transform_format = 1
+custom_aabb = AABB(0.29999995, 0, 7.9000006, 32.4, 5.4, 15.8)
+instance_count = 9
+mesh = SubResource("BoxMesh_xgkkt")
+buffer = PackedFloat32Array(2.4, 0, 0, 1.5, 0, 5.4, 0, 2.7, 0, 0, 2.4, 9.1, 2.4, 0, 0, 7.5, 0, 5.4, 0, 2.7, 0, 0, 2.4, 9.1, 2.4, 0, 0, 31.5, 0, 5.4, 0, 2.7, 0, 0, 2.4, 9.1, 2.4, 0, 0, 27.1, 0, 5.4, 0, 2.7, 0, 0, 2.4, 10.5, 2.4, 0, 0, 8.9, 0, 5.4, 0, 2.7, 0, 0, 2.4, 10.5, 2.4, 0, 0, 27.1, 0, 5.4, 0, 2.7, 0, 0, 2.4, 16.5, 2.4, 0, 0, 8.9, 0, 5.4, 0, 2.7, 0, 0, 2.4, 16.5, 2.4, 0, 0, 27.1, 0, 5.4, 0, 2.7, 0, 0, 2.4, 22.5, 2.4, 0, 0, 8.9, 0, 5.4, 0, 2.7, 0, 0, 2.4, 22.5)
+
+[node name="TJunction18" type="Node3D" unique_id=92661441]
+metadata/ramparts = [{
+"ax": 0.0,
+"az": 0.0,
+"bx": 6.0,
+"bz": 0.0,
+"cap_end": false,
+"cap_start": false,
+"h0": 6.0,
+"h1": 6.0,
+"joined": true,
+"width": 3
+}, {
+"ax": 3.0,
+"az": 1.5,
+"bx": 3.0,
+"bz": 4.5,
+"cap_end": false,
+"cap_start": false,
+"h0": 6.0,
+"h1": 6.0,
+"joined": true,
+"width": 3
+}]
+
+[node name="RaisedWallRoutes" type="Node3D" parent="." unique_id=152796930]
+
+[node name="StoneWallDeck" type="MeshInstance3D" parent="RaisedWallRoutes" unique_id=389151792]
+material_override = SubResource("ShaderMaterial_wmyyn")
+mesh = SubResource("ArrayMesh_8bkte")
+
+[node name="WalkableRampart" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1041411564]
+collision_mask = 0
+metadata/forest_terrain = true
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@176" type="CollisionShape3D" parent="RaisedWallRoutes/WalkableRampart" unique_id=941579156]
+shape = SubResource("ConvexPolygonShape3D_kad12")
+
+[node name="@StaticBody3D@177" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1634369090]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@178" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@177" unique_id=1531520134]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 7, -9.1)
+shape = SubResource("BoxShape3D_uioxi")
+
+[node name="@StaticBody3D@179" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=965868929]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@180" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@179" unique_id=1471161017]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 7, 9.1)
+shape = SubResource("BoxShape3D_3k3qr")
+
+[node name="@StaticBody3D@181" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=13761303]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@182" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@181" unique_id=1766372223]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 7, -9.1)
+shape = SubResource("BoxShape3D_hcui0")
+
+[node name="@StaticBody3D@183" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1143923740]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@184" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@183" unique_id=1138449247]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 7, 9.1)
+shape = SubResource("BoxShape3D_my2df")
+
+[node name="@StaticBody3D@185" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=375653498]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@186" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@185" unique_id=598250514]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 7, -9.1)
+shape = SubResource("BoxShape3D_jijrt")
+
+[node name="@StaticBody3D@187" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1438732842]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@188" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@187" unique_id=679525322]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 7, 9.1)
+shape = SubResource("BoxShape3D_loo31")
+
+[node name="@StaticBody3D@189" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=229099859]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@190" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@189" unique_id=605378656]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 7, -9.1)
+shape = SubResource("BoxShape3D_qovy6")
+
+[node name="@StaticBody3D@191" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1354342408]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@192" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@191" unique_id=1459162610]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 7, -9.1)
+shape = SubResource("BoxShape3D_gu1uq")
+
+[node name="@StaticBody3D@193" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=612144006]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@194" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@193" unique_id=673277852]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 7, -9.1)
+shape = SubResource("BoxShape3D_hd7w6")
+
+[node name="@StaticBody3D@195" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=575981455]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@196" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@195" unique_id=1879965152]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 7, -9.1)
+shape = SubResource("BoxShape3D_lb7hg")
+
+[node name="@StaticBody3D@197" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1753809770]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@198" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@197" unique_id=288696338]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 7, -9.1)
+shape = SubResource("BoxShape3D_iptee")
+
+[node name="@StaticBody3D@199" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1761821544]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@200" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@199" unique_id=1100235668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 7, -9.1)
+shape = SubResource("BoxShape3D_6bwra")
+
+[node name="@StaticBody3D@201" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1038585778]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@202" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@201" unique_id=880205472]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.5, 7, -9.1)
+shape = SubResource("BoxShape3D_g1x74")
+
+[node name="@StaticBody3D@203" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1560478648]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@204" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@203" unique_id=221191750]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.5, 7, 9.1)
+shape = SubResource("BoxShape3D_x47e0")
+
+[node name="@StaticBody3D@205" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=281022096]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@206" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@205" unique_id=1168140062]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5, 7, -9.1)
+shape = SubResource("BoxShape3D_h2c4r")
+
+[node name="@StaticBody3D@207" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=157316847]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@208" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@207" unique_id=1150992474]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5, 7, 9.1)
+shape = SubResource("BoxShape3D_d1f8k")
+
+[node name="@StaticBody3D@209" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1011421867]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@210" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@209" unique_id=484324940]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.5, 7, -9.1)
+shape = SubResource("BoxShape3D_v3y8a")
+
+[node name="@StaticBody3D@211" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1978277404]
+collision_mask = 0
+metadata/map_terrain_index = 0
+
+[node name="@CollisionShape3D@212" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@211" unique_id=898158132]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.5, 7, 9.1)
+shape = SubResource("BoxShape3D_oo7vk")
+
+[node name="StoneWallDeck2" type="MeshInstance3D" parent="RaisedWallRoutes" unique_id=2033098794]
+material_override = SubResource("ShaderMaterial_wmyyn")
+mesh = SubResource("ArrayMesh_c1yh6")
+
+[node name="@StaticBody3D@214" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1726237043]
+collision_mask = 0
+metadata/forest_terrain = true
+metadata/map_terrain_index = 1
+
+[node name="@CollisionShape3D@215" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@214" unique_id=1257629474]
+shape = SubResource("ConvexPolygonShape3D_kg35y")
+
+[node name="@StaticBody3D@216" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1574363662]
+collision_mask = 0
+metadata/map_terrain_index = 1
+
+[node name="@CollisionShape3D@217" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@216" unique_id=822073375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.1, 7, 10.5)
+shape = SubResource("BoxShape3D_k53py")
+
+[node name="@StaticBody3D@218" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=378792608]
+collision_mask = 0
+metadata/map_terrain_index = 1
+
+[node name="@CollisionShape3D@219" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@218" unique_id=615043717]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 7, 10.5)
+shape = SubResource("BoxShape3D_cduvf")
+
+[node name="@StaticBody3D@220" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=530180361]
+collision_mask = 0
+metadata/map_terrain_index = 1
+
+[node name="@CollisionShape3D@221" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@220" unique_id=686402871]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.1, 7, 13.5)
+shape = SubResource("BoxShape3D_s5nbu")
+
+[node name="@StaticBody3D@222" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=726828036]
+collision_mask = 0
+metadata/map_terrain_index = 1
+
+[node name="@CollisionShape3D@223" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@222" unique_id=1821698261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 7, 13.5)
+shape = SubResource("BoxShape3D_lrco2")
+
+[node name="@StaticBody3D@224" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1109565089]
+collision_mask = 0
+metadata/map_terrain_index = 1
+
+[node name="@CollisionShape3D@225" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@224" unique_id=484911855]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.1, 7, 16.5)
+shape = SubResource("BoxShape3D_4pmtj")
+
+[node name="@StaticBody3D@226" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1785336367]
+collision_mask = 0
+metadata/map_terrain_index = 1
+
+[node name="@CollisionShape3D@227" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@226" unique_id=2107176154]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 7, 16.5)
+shape = SubResource("BoxShape3D_2h13y")
+
+[node name="@StaticBody3D@228" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=768312563]
+collision_mask = 0
+metadata/map_terrain_index = 1
+
+[node name="@CollisionShape3D@229" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@228" unique_id=217205750]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.1, 7, 19.5)
+shape = SubResource("BoxShape3D_1hwun")
+
+[node name="@StaticBody3D@230" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1136312725]
+collision_mask = 0
+metadata/map_terrain_index = 1
+
+[node name="@CollisionShape3D@231" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@230" unique_id=1162682920]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 7, 19.5)
+shape = SubResource("BoxShape3D_efwia")
+
+[node name="@StaticBody3D@232" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1059773361]
+collision_mask = 0
+metadata/map_terrain_index = 1
+
+[node name="@CollisionShape3D@233" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@232" unique_id=1256497882]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.1, 7, 22.5)
+shape = SubResource("BoxShape3D_m0w8k")
+
+[node name="@StaticBody3D@234" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1082973387]
+collision_mask = 0
+metadata/map_terrain_index = 1
+
+[node name="@CollisionShape3D@235" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@234" unique_id=438767263]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 7, 22.5)
+shape = SubResource("BoxShape3D_eif1w")
+
+[node name="@StaticBody3D@236" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1231084764]
+collision_mask = 0
+metadata/map_terrain_index = 1
+
+[node name="@CollisionShape3D@237" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@236" unique_id=1407455524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.1, 7, 25.5)
+shape = SubResource("BoxShape3D_hms54")
+
+[node name="@StaticBody3D@238" type="StaticBody3D" parent="RaisedWallRoutes" unique_id=1049514746]
+collision_mask = 0
+metadata/map_terrain_index = 1
+
+[node name="@CollisionShape3D@239" type="CollisionShape3D" parent="RaisedWallRoutes/@StaticBody3D@238" unique_id=51502384]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 7, 25.5)
+shape = SubResource("BoxShape3D_k7ogk")
+
+[node name="StaticStoneBoxes" type="MultiMeshInstance3D" parent="RaisedWallRoutes" unique_id=638036865]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -48)
+material_override = SubResource("ShaderMaterial_kibba")
+multimesh = SubResource("MultiMesh_cldqe")
+
+[node name="@MultiMeshInstance3D@240" type="MultiMeshInstance3D" parent="RaisedWallRoutes" unique_id=1711800927]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -48)
+material_override = SubResource("ShaderMaterial_48bh0")
+multimesh = SubResource("MultiMesh_e50bu")
+
+[node name="@MultiMeshInstance3D@241" type="MultiMeshInstance3D" parent="RaisedWallRoutes" unique_id=1638170416]
+material_override = SubResource("ShaderMaterial_kibba")
+multimesh = SubResource("MultiMesh_j4cfb")
+
+[node name="@MultiMeshInstance3D@242" type="MultiMeshInstance3D" parent="RaisedWallRoutes" unique_id=823325236]
+material_override = SubResource("ShaderMaterial_48bh0")
+multimesh = SubResource("MultiMesh_v7x4a")

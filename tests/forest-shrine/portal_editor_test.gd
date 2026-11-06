@@ -33,6 +33,8 @@ func run():
 	check(batch!=null and batch.multimesh.instance_count==road_count,"Road visuals match every authored tile")
 	before=editor.document.history.size();await pointer(Vector2i(6,18),true);await motion(Vector2i(6,12));await key(KEY_ESCAPE);await pointer(Vector2i(6,12),false)
 	check(editor.document.history.size()==before and game.model.roads.size()==road_count,"Escape cancels an unfinished stroke")
+	game.pan=game.model.point(Vector2i(10,16));game.update_preparation_camera();await settle()
+	check(not editor.get_node("MapEditorToolbar").get_global_rect().has_point(game.camera_rig.camera.unproject_position(game.model.point(Vector2i(20,18)))),"Retrace path stays over the editable map")
 	var width=editor.find_child("RoadBrushWidth",true,false);width.selected=0;width.item_selected.emit(0)
 	await pointer(Vector2i(10,18),true);await motion(Vector2i(10,12));await motion(Vector2i(10,18));await motion(Vector2i(20,18));await pointer(Vector2i(20,18),false)
 	check(game.model.roads.has(Vector2i(15,18)) and not game.model.roads.has(Vector2i(15,12)),"Retracing a drag follows the pointer when it changes direction")

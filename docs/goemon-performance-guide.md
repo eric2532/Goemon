@@ -4,6 +4,2962 @@ Saved 2026-10-23 at the user's request: general gameplay now feels really smooth
 The user wants future performance work explained so they can learn the process.
 This is project knowledge, based on source and saved reports, not a new benchmark.
 
+## Kazi planted run and reduced bounce — 2026-11-06
+
+The user clarified that the problem was sliding feet or excessive bounce.
+The previous run often kept the visible boot under the torso instead of moving
+one planted foot backward through stance. Eight replacement run masters now show
+forward heel contact, backward stance travel, toe-off and recovery, preserving
+Kazi's illustrated identity and long slim curved sword. Original and prior
+illustrated masters remain intact. The active 56-sheet recipe selects these
+runs from `assets/references/crossgate_kazi_hd/revisions/run-contact/masters/`;
+each has its exact built-in ImageGen submission and hash sidecar.
+
+The small runtime fix advances the normalized stride from actual horizontal
+travel, including collision slowdown, rather than intended velocity. Blocked
+movement holds phase and displays idle; airborne movement holds the stride and
+emits no footfalls. Turns and walk/run transitions retain phase. A two-metre walk
+cycle matches the existing cautious walking cadence; the illustrated run uses
+4.4 metres per full cycle. That value comes from side-view stance travel of
+1.219 m over 5/18 of a cycle (4.389 m, rounded to 4.4). The editable measurement
+record is `revisions/run-contact/stride-calibration.json`. Existing player/native
+mirror movement already supplies actual velocity, so no new owner, search,
+retargeting, resource load, material or pool was needed. Goemon walking/landing
+samples, recovered sword/contact cues, controls and combat timings remain intact.
+
+Offline side-view crown travel falls from 3.24/4.72 prepared pixels to 1.89/.87
+for right/left runs. These are pose-registration measurements, not frame times.
+Other directions use the same physical stride with drawn foreshortening; the
+18 discrete frames approximate continuous contact, not per-foot 3D locking.
+The current atlases occupy 119.383 MiB RGBA, slightly below the prior 119.703 MiB,
+shared once across Kazi instances. No quality, army count or terrain reduction
+was used.
+
+Fresh checks pass 82 desktop-launcher and 64 headless Kazi assertions, including
+equal travel at different speeds producing equal phase, obstruction, opposite
+foot contact, phase continuity, original audio, repeat attacks/resources and five
+native allies. A moving-ground capture uses normal engine physics at the actual
+10.2 m/s movement limit. Its earlier manual-step screenshot fixture exaggerated
+reported speed because move_and_slide used render delta outside a real physics
+callback; that rejected recording is preserved under Run Contact/Rejected/ and
+is not evidence of normal gameplay. The replacement capture samples frames by
+wall time, records timestamps and avoids an extra forced render. Its readback/PNG
+capture rate is about 12 fps and must not be mistaken for game rendering FPS.
+75 toolkit unit, 12,973 imported, 98 outfit, 25 motion and 86 structure checks
+pass; asset audit reports 310 assets / zero read errors and preservation passes.
+Earlier audio/shared-system counts below remain from the prior unchanged audio
+implementation. No claim is made that the unrelated borrowed DL2 headless audio
+failure below was fixed.
+
+The Mac was unlocked and the previously pending foreground comparison completed.
+Fresh standard Wind Meadow, 1280×800, painterly art, normal stats and 240 enemies /
+96 allies were retained. These image comparisons hold the new distance-driven
+clock constant: only the illustrated motions manifest differs among captured
+source fingerprints. They do not independently isolate the clock change.
+All runs retain full focus, real-time simulation, zero errors/changed inputs or
+dropped hits, 2,124 resources and 8,623 nodes. CPU memory decreases slightly during
+each after sample rather than growing.
+
+| Foreground sample | FPS | p95 ms | p99 ms | Max ms |
+| --- | ---: | ---: | ---: | ---: |
+| Prior run artwork, 12.006 s | 103.70 | 17.569 | 28.135 | 36.432 |
+| Corrected run artwork, 12.011 s | 112.07 | 16.874 | 20.936 | 66.426 |
+| Corrected artwork repeat, 12 s | 111.97 | 16.946 | 25.204 | 67.261 |
+| Corrected artwork with spike profiling, 12 s | see saved report | 16.854 | 22.835 | 40.521 |
+
+Typical frame intervals did not regress in these short samples; this is not a
+causal speedup or a hitch-free guarantee. Two after samples contain larger
+66–67 ms hitches. The existing spike diagnostic did not reproduce a >50 ms frame,
+so their cause is unconfirmed and must not be attributed to sprites or the native
+army without more evidence. The background diagnostic has insufficient foreground
+focus and is excluded from this comparison. Earlier 60-FPS pixel-art measurements
+are historical; they were not collected under this fresh paired session.
+
+Verify through Play Goemon: select Kazi and run alongside a visible ground detail,
+then turn, accelerate, slow down and press into an obstacle. Look for a forward
+heel plant/backward stance and a steady torso, with Goemon footsteps/landing.
+Current evidence is under `build/Other Files/Cross Gate 102488/HD Preview/Run Contact/`:
+`actual-running.gif` is sampled normal movement, `contact-before-after.gif` compares
+rendered poses, and the before/after/repeat/diagnostic reports retain all spikes.
+No app export or long-session soak ran. The previous first revision below is
+historical and its locked-screen performance status is superseded here.
+
+## Illustrated Kazi, first run revision and longer blade — 2026-11-06 (historical)
+
+The user chose the illustrated concept across all animations, then requested a
+better run, a longer sword retaining its slim curved shape, and Goemon's landing
+sound as the shared default. Playable Kazi now uses 56 newly illustrated clips
+(seven actions in eight directions), retaining 872 frame slots, original clip
+durations and recovered sword sound markers. Original pixel art remains intact.
+The approved style identity, longer-blade identity, editable sheets and exact
+revision submission records are under `assets/references/crossgate_kazi_hd/`;
+that directory is excluded from imports/exports. Runtime derivatives live in
+`assets/characters/crossgate/kazi_hd/` and must be rebuilt with the saved baker.
+
+The visible run problem was held poses followed by large stride jumps. New run
+sheets provide distinct stride phases. Rendered review also exposed generated
+row-baseline drift: feet could sink into the floor as the timeline crossed a
+sheet row. Offline head registration removes those row offsets while retaining
+movement within each row. Neutral-body measurement excludes the thin blade,
+retains boots and calibrates running head width against idle so bent knees do
+not shrink the body. Final fallen poses settle onto the floor. These are asset
+preparation fixes, not a measured CPU/GPU bottleneck or runtime retargeting.
+The standing body retains Goemon's 3.2206185 m reference height.
+
+The existing Sprite3D, shared atlas cache and pooled native ally bodies remain
+in use. Setup loads the eight shared atlases once; play changes their prepared
+regions/offsets. The normalized full-stride clock retains phase across turning
+and walking/running, uses the existing Goemon cadence and emits two grounded
+footfalls per stride. Shared casting restarts at frame zero and advances through
+the existing skill owner. Movement, melee queries, damage, reach, cancellation,
+army ownership and attack sound timing retain their existing controllers.
+
+Goemon's prepared walking sample remains the universal footstep fallback; the
+prototype `audio/step.wav` is never a gameplay/preview fallback. The shared landing
+fallback now also uses Goemon's prepared ROM event 21E. Distinct recovered audio,
+authored silence and user recordings/gain/mutes keep priority. Skullpion's own
+landing impact remains specialized through original_for, preserving its stomp.
+No new audio pool, per-hit resource load or material construction was added.
+
+Asset cost: 119.703 MiB RGBA texels across eight cropped shared atlases versus
+85.5 MiB for original pixel art, an additional 34.203 MiB shared once, not per
+ally. All 872 illustrated frames remain distinct. PNG disk size does not measure
+GPU residency; no texture-quality or army-count reduction was used.
+
+Fresh final validation passes 78 desktop-launcher and 61 headless Kazi checks,
+236 footstep, 122 landing-audio, 161 shared-character checks, 75 toolkit unit tests,
+12,973 imported checks, 98 Musashi outfit, 25 motion and 86 structure checks.
+Asset audit reports 310 assets / zero read errors; active preservation passes.
+The GLB audit does not audit sprite pixels: Kazi separately checks all source
+clip durations/sound cues, 58 saved master/reference hashes, derivative hashes,
+56 transparent grids with no opaque art crossing cell edges, and planted idle
+frames. Desktop captures verify straight walking/running, size alongside Goemon,
+attack, cast, hurt, final fall and five native allies. Real SFX recordings contain
+Kazi's recovered sword/contact and exactly one Goemon physical landing. Twelve
+repeated attacks retain no extra nodes/resources. These focused checks do not
+certify a long session or full-army smoothness.
+
+An unrelated borrowed Dark Lumina 2 shockwave headless audio assertion remains
+failing with heard=[] (13/14 boss-audio assertions pass). Restoring the previous
+shared-landing behavior reproduces that same failure; both diagnostic logs are
+retained. Native Skullpion/Dark Lumina impact checks and override priorities pass.
+This is not reported as an all-passing broader boss-audio suite.
+
+A fresh original pixel-art control, collected earlier during this work, measured
+60.006 FPS, p95 18.020 ms, p99 19.198 ms and max 20.415 ms over 12.015 seconds at
+1280×800, normal stats, painterly standard Wind Meadow, 240 enemies / 96 allies,
+full focus, matching simulation progress and zero errors/dropped hits.
+The final illustrated revision has **no valid foreground performance result yet**:
+macOS reports CGSSessionScreenIsLocked=Yes and Godot cannot acquire foreground
+focus. The benchmark correctly refuses to measure; the failed attempt is saved
+in `HD Preview/after-final.log`. Earlier measurements above/below remain historical
+and must not be represented as passing on the final illustrated revision.
+
+Verify through Play Goemon: select Kazi, walk/run straight and turn while moving,
+check his boots stay grounded and compare body height with Goemon. Attack a target
+and empty air, cancel with evade, then jump/land and listen for Goemon's footsteps
+and landing. Review `HD Preview/run-before-after.gif` (sampled rendered poses,
+not a live movement recording), the seven eight-direction GIFs and actual game
+captures/audio. With the Mac unlocked, rerun the same 240/96 foreground benchmark
+and compare its frame-time spikes and memory with `HD Preview/Before/` before
+claiming unchanged smoothness. No app export or long-session soak was run.
+
+## Kazi straight directions, Goemon size and recovered audio — 2026-11-06
+
+The user noticed that straight travel displayed diagonal artwork. The original
+sprite's actual direction order is NW, N, NE, E, SE, S, SW, W; the decoder's
+generic direction labels start at N. The first port used those labels directly.
+The smallest fix adds one to the existing eight-way index. Four explicit
+front/back/left/right walk assertions failed before the fix and now pass for
+walking and running. Original pixel origins, animation samples and phase
+continuity are unchanged. The source contains 19 actions / 152 directional
+clips; the seven bundled gameplay actions already contain all eight angles.
+No extra 3D angles or interpolation are present in this source record.
+
+Kazi now uses Goemon's shared 3.2206185 m standing-body reference. Front stand
+clip 95 spans 83 pixels from hood top -76 to shoe edge 7, excluding the blade
+and sparks. Pixel scale comes from that shared reference; the seven-pixel foot
+offset grounds his shoes. A side-by-side desktop capture verifies the result.
+Collision, movement, damage, contact reach and authored animation timing retain
+their existing owners; no textures were rescaled or new meshes introduced.
+
+The extractor now retains original frame sound cues and checks both recovered
+PCM hashes. Sound 103 / cgply01a.wav plays at zero-based attack frames 3/7;
+source direction 0 contains only frame 3. The attack captures its existing cue
+array once, then advances a bounded cursor through it. Camera orbit cannot
+replay a cue. Confirmed contact uses recovered generic Cross Gate physical
+impact 255 / cgefc04.wav. Kazi-specific server impact selection is unverified;
+this mapping remains an explicit Goemon adapter. Misses have swing audio only;
+dodge, selection and focus cancellation discard pending attack sounds. Existing
+SoundLibrary defaults, recordings/gain/mutes, nearby-ally admission and bounded
+voice pools remain authoritative. No combat-time loads, new pool or material
+creation were added. Twelve repeated attacks retain zero extra nodes/resources.
+
+User direction: new characters default to Goemon's walking sound, and the early
+prototype walking sound must never play again. The shared step fallback now
+always uses the already-prepared Goemon sample; setup_audio no longer loads
+audio/step.wav and its final fallback points to Goemon too. Distinct recovered
+character samples and authored silence retain priority, as do custom recordings
+and their gain/mute controls. This rule is saved in AGENTS.md. The old asset is
+preserved as source history, without a gameplay/default-preview reference.
+
+Fresh checks: 49 Kazi headless assertions, 236 shared-footstep assertions and
+18 paired-Studio assertions pass. The preceding desktop check passes 61 Kazi
+assertions, including the real SFX mix, saved audible attack audio, correct
+straight directions, native hits, body-size comparison and five simultaneous
+native allies. That desktop run predates the final shared-footstep replacement;
+headless checks verify Kazi's actual movement uses Goemon after that change.
+The nearby-ally suite passes 59 checks. Paired Studio retains its pre-existing
+ObjectDB shutdown warning; this is not leak-free teardown certification.
+Active asset preservation and exact source PCM assertions pass. Earlier full
+toolkit/import results below remain historical for this follow-up.
+
+The direction/size/sword-audio source completed a new 12.013 s foreground run
+at 60.104 FPS, p95 17.960 ms, p99 18.581 ms and max 34.582 ms, with 240 enemies
+and 96 allies, unchanged painterly art/counts/stats, zero errors or dropped hits,
+full focus and simulation progressing in real time. This is a short diagnostic,
+not a long-session guarantee or a measured speedup. The final shared-footstep
+replacement was not graphically rebenchmarked: an already-open normal game held
+the desktop launcher lock. That session was left intact and must restart to
+load the latest cached scripts/audio defaults.
+
+Verify after restarting Play Goemon: select Kazi, move straight away/toward the
+camera and left/right, compare his body height with Goemon, and hit a nearby
+enemy. Listen for Goemon footsteps, original sword swings and impact only on
+contact. Use a wall or dodge to check rejected/cancelled hits. Current evidence,
+source direction sheet, size comparison and actual mixed attack WAV are under
+`build/Other Files/Cross Gate 102488/`. No app export or long-session soak ran.
+
+## Kazi / Blue Cross Gate #102488 — initial port, 2026-11-06
+
+The user confirmed the recovered sprite preview and identified him as Kazi
+before implementation. Playable ID 34 preserves original directional 2D art,
+including purple effects, in painterly Wind Meadow. No 3D reconstruction,
+new enemy wave type, army simulation or per-unit retargeter was added.
+The existing Hero owns movement, collision, health and skills; the recovered
+combat adapter retains bounded native queries, exact melee/cover checks,
+hit history and cancellation. Five simultaneous Kazi allies use existing native
+pooled hero bodies. The mirror validator's upper kind changes from 133 to 134;
+the universal native library was rebuilt and boundary/behavior tests pass.
+
+The concrete asset cost was transparent sprite padding. The offline extractor
+checks original pixels, trims only transparent margins, deduplicates frames and
+packs by height. This reduces an initial eight 2048-square atlases (128 MiB)
+to six cropped atlases (85.5 MiB RGBA, no mips) without removing frames or
+rescaling art. All 56 selected source clips retain eight directions, 872 frame
+references, source origins/durations and 824 unique images. Textures are loaded
+once at selection and shared with allies. Combat changes only the existing
+Sprite3D region and offset when its frame changes. PNG file size is not GPU
+memory; this remains an 85.5 MiB selection cost.
+
+Fresh paired foreground checks through Play Goemon use the same standard Wind
+Meadow map, 1280×800, painterly scenery, normal stats, 240 enemies and 96 allies,
+with movement and automatic attacks enabled. Each measured 12 seconds after
+warmup. Goemon: 59.589 FPS, p95 19.026 ms, p99 22.530 ms, max 56.498 ms.
+Kazi: 60.016 FPS, p95 18.372 ms, p99 19.427 ms, max 24.253 ms. Both retain all
+240/96 units, full foreground focus, simulation progress matching wall time,
+zero dropped hits, zero errors and unchanged fingerprints during measurement.
+This shows no slowdown in this short workload; variation between these runs
+does not establish a speedup or guarantee every battle/long session.
+
+Focused checks pass 32 headless and 38 through Play Goemon. They cover
+gallery/HUD identity, all eight facing directions, actual
+movement, timed single damage, real native enemy damage, cover rejection,
+dodge/selection cancellation, repeated attacks, range presentation and five
+simultaneous native allies. Twelve repeated attacks retain zero extra nodes or
+resources after normal label cleanup. The initial headless fixture counted
+still-live labels as growth and aimed its camera at the old origin after moving
+the actor; those fixture issues were corrected. Native mirror tests, 69 toolkit
+Python tests, 12,973 imported checks, 98 outfit checks, 25 Musashi motion checks,
+161 shared-character checks and 86 structure checks pass. Active optimized-asset
+preservation passes; the GLB audit reads 310 assets without errors. The GLB audit
+does not inspect sprite atlases: the extractor's exact pixel assertions do that.
+
+Verify with Play Goemon: Q → Kazi, WASD/Shift to move/run and LMB/RMB to attack;
+try a wall between the sword and target, dodge before contact, then switch
+fighters. Damage must not arrive after cancellation or through solid cover.
+Original BlueCG server hit timing/balance is unverified: the .6-second gesture
+is original, while frame-5-of-11 contact, 33 base damage and the 3 m segment are
+explicit Goemon adapters. Source/recovery instructions are beside the assets in
+`assets/characters/crossgate/kazi/README.md`. Logs, captures and benchmark JSON
+are under `build/Other Files/Cross Gate 102488/`. No app export, long-session soak
+or full 2,000-per-team stress run was performed.
+
+## Mountain King taunt interruption and instant enlarged slam — 2026-11-05
+
+Taunt was rejected while Mountain King was attacking. A regression using the
+real fourth-key path during auto attack reproduced it on the player and five
+native allied Kings. Both Taunt and Thunder Clap now cancel the pending action
+through the existing controller before starting. Repeating Taunt during its own
+gesture still does not restart it. The existing eight-second native attraction,
+reachability and saved slot overrides remain.
+
+Thunder Clap now starts at the original .4-second animation contact pose and
+releases damage, slow, sound and the prepared shockwave on input. The visual and
+hit radius both multiply their former values by three: 22.5/27/31.5 metres at
+ranks 1/2/3 before existing character/contact and skill-balance multipliers.
+Damage, slow duration and strength, six-second cooldown, grounded input gate,
+cover/visibility checks and airborne-target exclusion remain. Borrowed Thunder
+Clap and native allied Kings use the same implementation. The old pending melee
+or hammer cannot release after interruption; the slam cannot hit twice at the
+former cast time. The effect snapshots its visual-size setting at cast time so
+later attack tickets cannot resize a live shockwave.
+
+This is an input/timing correction and requested range change, not a measured
+CPU/GPU bottleneck fix. It reuses prepared motion, shared immutable effect frames,
+the bounded native query, exact contacts and existing status leases. No new
+simulation, renderer, pool, asset bake or combat-time resource loading was added.
+The larger area can include more enemies; no army counts or art were reduced.
+
+Fresh checks pass: Taunt 47 headless / 50 through Play Goemon; slam 39 headless /
+42 through Play Goemon; full Mountain King kit 287 headless. They cover real
+native pursuit, auto/manual attack interruption, all three radii, cover and
+airborne exclusions, borrowed casts, Avatar, repeated use and five simultaneous
+native allies. Normal/Avatar shockwave and taunt captures were visually reviewed.
+Twelve repeated slams retain identical node/resource counts and zero projectile
+pool misses after normal damage-label tweens finish. Initial cleanup checks
+incorrectly counted still-visible damage labels while manually fast-forwarding
+combat; the fixture now waits for their real-time lifecycle before comparing.
+An initial test also queried an attack-slow field not exposed by unit_state;
+that diagnostic remains saved, and existing slow delivery code was unchanged.
+
+Desktop slam input p95/max are 1.348/3.327 ms; manual player/projectile-step
+p95/max are .209/1.173 ms. These short shared-machine diagnostics are not rendered
+frame intervals, a before/after FPS comparison or full-army/long-session proof.
+Earlier gameplay smoothness and stress measurements remain historical.
+Asset preservation, 69 toolkit Python tests, 12,973 imported checks, 98 Musashi
+outfit checks, 13 player-motion checks and 86 structure checks pass. Source
+snapshots, logs, reports and captures are in
+`build/Other Files/Mountain King Slam/`. The native library was not changed.
+
+Verify with Play Goemon: select Mountain King, enable auto attack and press 4;
+reachable enemies should pursue him for eight seconds. During a hammer/axe swing
+or Storm Bolt windup, press 2: the slam should start at impact immediately with
+the enlarged shockwave and hit area. Try Avatar and borrowed Thunder Clap too.
+Grounding, solid cover and cooldowns still apply; saved fourth-slot assignments
+still take precedence. No app export or full-army/long-session soak was run.
+
+## Normal movement/battle lag and army terrain checks — 2026-11-05
+
+The user reported lag during ordinary movement and battles. A fresh foreground
+Wind Meadow castle diagnostic with 240 enemies and 96 allies found native routing
+and movement dominating simulation, rather than Storm Bolt or drawing. The first
+12.6-second capture produced only three rendered frames, with an 8.73-second
+maximum interval and 77.04 ms average native step. Simulation advanced only 2.28
+seconds, so this is a severe catch-up failure, not a stable FPS baseline. Other
+desktop CPU activity and swap were also present; do not attribute every delay on
+this shared 8 GB Mac to one function.
+
+The smallest fix changes one clearance eligibility condition in
+`native/terrain_math/crowd/terrain.cpp`. Ordinary army bodies were larger than
+the old one-cell cutoff and repeatedly rechecked terrain triangle edges. The
+existing certified neighbourhood spans two cells: it can safely cover the body
+plus the next .7 m sample, with a rounding margin. Eligible bodies now reuse that
+certificate. Slopes outside its height bounds, cliffs, holes, unsupported layers,
+custom rampart pieces and obstacles keep their exact checks. No counts, art,
+combat, player controls, native ownership or map geometry were reduced.
+
+The corrected universal native library was rebuilt and installed. The matching
+12-second foreground castle run passes all benchmark gates: 73.51 FPS average,
+22.543 ms p95, 24.805 ms p99 and 47.144 ms maximum frame interval. It retains
+240 enemies and 96 allies, normal stats, live damage/deaths/replacements and zero
+dropped hits; simulation advances 12.017 seconds in 12.012 seconds. Native step
+average is 3.807 ms. Recorded source fingerprints differ only in terrain.cpp and
+the rebuilt library. This is a short fixed-camera diagnostic, not a guarantee of
+every normal-play scene or long-session/full-army performance. A second old-binary
+confirmation lost focus and timed out; it is invalid comparison evidence. The
+corrected library was restored and its hash verified afterwards.
+
+The focused flat-corridor check reduces height samples from 2,550 to 389, retaining
+the exact result. Expanded navigation tests compare normal and large map spacing
+and larger radii against the uncached segment oracle; the separate clearance
+oracle passes 974,401 checks; navigation passes 11,649 and the large-map native
+castle assault passes 49 headless checks. Native binding/numeric smoke (1,000
+sampled paths), six step-profile checks and active asset preservation also pass.
+The large graphical assault was interrupted before its result and is retained
+as an incomplete diagnostic. Headless fixtures still report shutdown RID/resource warnings;
+a passing behavior result does not certify leak-free teardown. Earlier toolkit
+and Mountain King results remain historical, not fresh verification of this fix.
+
+Verify through Play Goemon on the same map, army sizes and camera: run across the
+castle hills and fight a wave. If it stutters, first separate native-step time
+from render time, then compare exact clearance work before changing visuals or
+counts. Logs, captures, source checkpoint and before/after binaries are under
+`build/Other Files/Lag Investigation/`. No app export or long-session soak was run.
+
+## Mountain King Storm Bolt automatic targeting and blue hammer — 2026-11-05
+
+The user rejected the first raised-throw trial as too high and requested automatic
+closest-enemy selection. Acquisition and release return to the original 1.6 m
+height without added upward tilt. Storm Bolt now selects the nearest living,
+visible enemy with a clear line within 36 m, including behind the player, and
+faces the original throw animation toward it. The existing bounded native query,
+exact homing and cover checks remain. The original throw clips, .4 s release, speed, damage,
+stun and cooldown remain. The red came from the recovered hammer's opaque team
+layer: only additive spell energy had been recolored. The existing offline baker
+now prepares that solid layer blue too, preserving extracted textures, geometry
+and motion. There is no added combat-time asset loading or material construction.
+
+The superseded raised-throw desktop checks passed 61 focused and 287 full-kit assertions, with
+rendered windup/release/flight inspection, two-metre ridge clearance, native hit
+and stun, cover blocking, borrowed Storm Bolt, repeated use and five concurrent
+native allies. Twelve repeated throws retain zero extra nodes/resources and
+zero pool misses. Asset preservation, 69 toolkit unit tests, 12,973 imported
+checks, 98 outfit, 13 Musashi motion and 86 structure checks pass. The audit reads
+310 assets without errors; existing budget warnings do not authorize redesign.
+
+That trial's focused manual-step p95/max were 3.386/16.420 ms; full-kit rendered callback
+interval p95/max were 45.953/145.747 ms. Other verification work overlapped these
+short shared-desktop runs. These are diagnostics, not a controlled FPS comparison,
+an isolated bottleneck, a speedup or proof of full-army smoothness. The user's
+earlier smoothness report and historical measurements remain separate evidence.
+Initial test diagnostics are retained: release floating-point timing required
+one extra simulation step; height must be measured from the grounded player;
+allied bodies must advance through their native mirror owner.
+
+Fresh automatic-target results are stored separately under
+`build/Other Files/Asset Toolkit/Mountain King/Storm Bolt Auto Target/`.
+The desktop launcher passes 64 focused and 287 full-kit assertions: nearest enemy
+behind the player instead of a farther aimed-at enemy, automatic facing, rejection
+of a closer covered enemy, real native hit/stun, borrowed casting, twelve repeated
+throws and concurrent native allies. There are zero pool misses or retained
+nodes/resources, and active asset preservation passes. No assets or motion were
+rebaked for this behavior change. Focused manual-step p95/max were 1.054/4.858 ms;
+full-kit rendered callback interval p95/max were 71.911/144.993 ms. These short
+automated desktop diagnostics do not isolate a performance bottleneck or certify
+full-army frame times; the preceding toolkit/asset tests remain earlier results.
+The earlier `Storm Bolt Review/` captures and measurements above describe the
+superseded raised-throw trial, not verification of automatic targeting.
+Verify with Play Goemon: press RMB/1 while facing away from nearby enemies.
+Expect the nearest visible, unobstructed enemy to be selected automatically,
+with normal homing and a blue hammer. Solid cover still blocks hits.
+No app export or full-army/long-session benchmark was performed.
+
+## Automatic Guard and Cannon Towers — 2026-11-05
+
+The user requested towers that work without workers. Both tower types now own
+one building cooldown and fire their configured volley automatically during a
+wave. The former worker-cap setting is labeled **Shots per tower volley**; its
+saved `tower_workers` key is retained so existing strength settings survive.
+Default damage per shot, reload intervals, team upgrades, cannon splash/cover,
+projectile flight and native damage delivery remain in the existing systems.
+Acquisition uses the tower center and shares the existing native candidate
+snapshot and fitted-contact cache across towers. No combat-time asset loading,
+new simulation, renderer or pool was added.
+
+Towers no longer offer worker jobs. Starting worker counts are preserved;
+workers remain available for mining and repairs. Historical garrisons are
+released through the existing safe exit lifecycle. Tooltips, inspection and
+rally hints reflect this rule. Saved map formats and both valley sizes remain.
+
+Fresh correctness checks pass 74 model assertions across both map sizes,
+40 automatic-worker, 44 repair, 598 team-progression and 14 starting-state
+checks. Native spatial-query and shared-snapshot checks pass 7 and 2 assertions.
+Tall-tower contracts pass 18, starter-fort contracts 117 and incremental editor
+document checks 32 assertions; Human building/repair visuals pass 49 headless
+contract checks. A focused balance-menu/configuration run passes 43 checks,
+including saved settings and an actual tuned native tower hit.
+Rendered native combat passes 61 standard-map and 63 large-map assertions;
+the large run uses Play Goemon, while the standard run used a separate graphical
+instance because another session held the launcher lock. Five repeated 16-shell
+volleys retain identical node/resource counts in each run. These short shared-
+desktop diagnostics are not a controlled frame-time comparison or a full-army
+or long-session performance certification. Active asset preservation, 69 toolkit
+unit tests, 12,973 imported checks, 98 outfit and 86 structure checks also pass.
+
+The randomized indexed/exhaustive targeting fixture still reports 10 failures
+out of 165 checks. Replaying its exact tower-center inputs through the captured
+pre-change workforce produces the same 10 failures; this change does not fix
+that older targeting issue. Headless native fixtures also retain shutdown RID/
+resource warnings. Logs and the baseline diagnostic are under
+`build/Other Files/Automatic Towers/`; graphical captures/reports use the existing
+`build/Other Files/Asset Toolkit/Human Cannon Tower/` location.
+
+Verify with Play Goemon: build either tower, leave every worker outside, start
+a wave and watch automatic volleys and normal damage. Adjust Shots per tower
+volley and volley rate in Core Game Balance; workers should stay free and
+tower cooldowns should update. No app export was made.
+
+## Castle and four-hill defense — 2026-11-05
+
+The user reports mercenaries getting stuck around buildings and asks them to
+protect the castle around the four hills instead of hunting across the map.
+Paid native guards now acquire enemies only inside a square centered on the
+main shrine, extending 140 terrain units in each direction (280 metres on the
+standard map, 420 on large). This includes the four hill shoulders while leaving
+the enemy-fort arrivals outside. Recruits still appear at the castle, fight
+reachable intruders in that area and return to their own preparation posts when
+it is clear. Permanent card heroes use the same guard selection and return
+posts; temporary Mirror Image summons retain their existing local behavior.
+The preparation boundary preview and hiring feedback match this
+rule; costs, saved maps and manual post placement are retained.
+
+The existing nearest-contact index remains the first choice. A rejected outside
+or unreachable nearest target uses the existing spatial grid, ordered contacts
+and allied navigation to find an eligible enemy. Dragoon's airborne entrance
+checks navigation from the ground below him instead of rejecting every target
+because his entrance begins above ground. Existing native attacks, timing,
+projectiles, shelters and pooled presentation remain in use.
+
+Enemy troops keep local combat, taunts and retaliation. Distant civilians and
+allies do not divert a targetless assault away from an existing main base. If no
+actual combat contact is reachable, the same native owner picks reachable
+staging ground progressively around the main shrine and marches there, while
+retrying real targets on its existing decision clock. Staging goals are cached
+separately from certified building attack approaches and invalidated by the
+existing navigation/pose changes. Walls remain solid; a completely enclosed
+region still requires an opening. Specialized boss attacks retain their owners.
+
+Fresh verification passes nine native suites, including 2,420 nearest/guard
+checks and 46 target-decision cases (outside-area rejection, square corners,
+airborne acquisition, unreachable enemies, sealed-base staging, distant
+civilian/ally rejection, death/stealth and gate reacquisition). Both painterly
+desktop mercenary runs pass 40 checks each, with five kits delivering damage
+at all four hill approaches and returning home. Idle resources do not grow
+(node delta -2, resource delta 0 on each size). Stepped integration p95 is
+3.002 ms standard / 3.210 ms large, with maxima 533.344 / 804.817 ms. These
+include setup/navigation work and shared-desktop contention; they are neither
+rendered frame intervals nor a controlled before/after comparison. Keep the
+outliers visible rather than describing these as a full-battle smoothness pass.
+Asset preservation, 69 toolkit unit tests, 12,973 imported checks, 98 outfit
+and 86 structure checks pass. The headless hiring repeat passes 91 assertions without script errors. An
+earlier run logged a separate `player_range` upgrade-data error and remains
+as a diagnostic. The rendered enemy assault passes 49 checks on each size,
+including all twelve troops resuming base damage when the player becomes
+untargetable. Its existing shutdown resource/RID warnings remain; a passing
+behavior run does not certify leak-free whole-game teardown. Permanent card
+heroes pass 36 headless checks on each size, including real card recruitment,
+hill combat, wave persistence, release of a live escaped target and return home,
+with zero idle node/resource growth. Their timings were recorded amid other
+Godot jobs and are correctness diagnostics, not an FPS comparison. A later
+painterly desktop standard-map run passes 44 checks with the current card hero
+catalog (including the added Illidan form), zero retained nodes/resources, and
+rendered hill combat/return-home evidence. Its stepped p95/max are 6.827/518.853
+ms amid other Godot work; these are not a rendered FPS or speedup claim.
+
+This is a behavior correction, not a measured CPU bottleneck or a claimed FPS
+improvement. The user's earlier smooth-gameplay report and older stress results
+remain historical. Verification evidence is under
+`build/Other Files/Castle Defense AI/`; the initial failed boundary/Dragoon
+fixture is retained as `initial-diagnostic.log`.
+
+To verify with Play Goemon: recruit the five types, start a wave and watch them
+hold while enemies are outside the hills. Intruders in the defended area should
+be engaged, then released when they leave; survivors return to the castle.
+Move the player away or become untargetable while enemies pursue: they should
+resume the main-base assault. The current open raised castle has no closed gate or
+starting military buildings; the native fixture separately covers gate breaches
+and sealed-base staging. Run
+`mercenary_hunting_test.gd` (now a defensive-area regression) on both sizes and
+`enemy_castle_pathing_test.gd` for the rendered base assault. No app export or
+long-session/full-army performance certification was performed for this change.
+
+## Terrain placement stalls — 2026-10-31 follow-up
+
+The user reported severe lag when placing buildings after the terrain palette
+addition. The earlier cursor callback profile did not measure committed edits.
+Fresh desktop-launcher profiling found that each terrain placement rebuilt the
+whole model and rendered meadow. Standard-map platform/corner commits took
+3,787–3,909 ms, while ordinary towers took 27–33 ms and stone blocks 15 ms.
+
+The smallest fix extends the existing incremental editor refresh. A terrain edit
+keeps the model, meadow mesh, base collision and unaffected scenery/foliage;
+it updates local support/cliff navigation cells, replaces the small raised-route
+batch, refits affected scenery and regenerates nearby foliage chunks from their
+stored random states. Removed route materials leave the fog registry. Discard
+also restores the prior routes without rebuilding the meadow. Source/size,
+roads, portals and deposit changes retain their existing complete setup path.
+No army counts, art quality, geometry or foliage density were reduced.
+
+Final live Apple M3 samples (two placements per piece, not a full-army benchmark):
+
+| Map | Platform commit / first rendered frame | Corner commit / first rendered frame |
+| --- | --- | --- |
+| Standard | 30 ms / 34–35 ms | 38–39 ms / 41–43 ms |
+| Large | 52 ms / 59–62 ms | 64–69 ms / 72–78 ms |
+
+Commit includes validation and refresh; first-render time ends at the next
+`frame_post_draw`, not at physical display presentation. There is no recorded
+before-fix render interval. Concurrent desktop work can affect these short
+samples, and large-map placement can still produce a short frame hitch. These
+results address the measured multi-second stall, not all editor or battle costs.
+
+The fresh modular fixture passes 3,579 checks, including actual player and both
+native teams traversing ramps, corners and T-junctions. Both sizes pass 58 live
+placement checks, including collision/native support, retained terrain/base
+collision, local foliage updates, bounded repeated
+place/delete resources and Back/discard restoration. The headless 675-check
+oracle compares every allied/enemy navigation cell, exact native obstacle and
+terrain data, stacked scenery support and distant cliff-cache retention with a
+complete rebuild across platform/height/rotation/junction/deletion changes.
+The fresh palette run passes 525 checks, covering actual module clicks, rotation,
+height, undo, save/reload and native Play/Restart. An earlier run had three mouse
+interference failures; its diagnostic log is retained separately. The shared
+building-editor desktop regression passes 68 checks, including exact foliage
+restoration, retained collision, undo/redo, zoom and native Play map.
+Fresh toolkit checks also pass: 69 unit tests, 12,973 imported/preservation,
+98 outfit and 86 structure assertions. Logs and before/after JSON are under
+`build/Other Files/Asset Toolkit/Modular Environment/`.
+
+To maintain this: run `terrain_placement_performance_test.gd` through the desktop
+launcher, then repeat with `-- --large`. Compare validation and refresh timings
+separately; retain untouched node identities and run `terrain_edit_reuse_test.gd`
+against a fresh model whenever terrain cache invalidation changes. Verify actual
+player/native traversal and appearance with the modular/palette fixtures. Keep
+full saved-map validation and the normal native army owner. No app export or
+full-army/long-session benchmark was performed for this fix.
+
+## Modular environment checks — 2026-10-31
+
+The [modular kit guide](wind-meadow/modular-kit.md) records the new ramp/deck
+recipes and three existing-mesh scenery compositions. They reuse analytic
+rampart support and the existing scenery/native obstacle owner. Both native
+teams and the actual player traverse the three test arrangements through the
+desktop launcher; repeated obstacle instancing retains bounded resources/nodes.
+These are fresh correctness/render checks, not a new smoothness or frame-time
+measurement. Earlier graphical fixture runs reported resource/RID warnings at
+shutdown; they did not establish leak-free whole-game teardown. Keep new scenery
+in the shared spatial batches and profile before increasing its density.
+
+The 2026-10-31 follow-up adds L/T joints and height-aware scenery placement.
+Fresh desktop verification passes 3,579 terrain/junction checks, including both
+native teams reaching the exits without turn waypoints, and 46 stacking checks
+covering planting on stone, per-layer editing, save/reload/restart, navigation
+around the wall and bounded repeated edits. Existing ground-level map identities,
+native combat/movement and scenery chunk batching remain in use. Height changes
+rebuild only affected scenery chunks and publish the same elevated fitted boxes
+to physics and native obstacles. No new frame-time profile was taken; the
+earlier smoothness report and historical timings are not a fresh stress pass.
+
+The next 2026-10-31 follow-up exposes seven terrain modules in the existing
+editor palette. Cursor previews reuse cached immutable scenes, disable ghost
+collision and check only the small module footprint against current placement
+data. They retain the same game model and rendered terrain while moving, with
+bounded nodes/resources in the desktop fixture. The initial implementation
+used a full rebuild for committed terrain edits; the later placement-stall fix
+above replaces that path with local updates. Saved module descriptors preserve grouped
+L/T selection and exact native segments, and validation uses the current map
+domain with the existing 24-segment limit. These cursor/correctness checks do
+not measure whole-game frame times or establish new stress-test results.
+The final palette fixture passes 525 desktop checks and 454 document checks.
+Its sampled cursor callback is 0.121 ms median / 0.284 ms p95 on Apple M3;
+this is CPU time inside the editor callback, not a rendering/FPS claim.
+The fresh palette and terrain-navigation runs exit without the older shutdown
+warnings; whole-game teardown has not been audited.
+
+## Editor navigation and opening stalls — 2026-10-30, second follow-up
+
+The user still reports lag and confirms that both dragging/zooming and opening
+or changing tools feel bad. The earlier placement results did not verify these
+paths and must not be presented as proof that the editor is smooth.
+
+Desktop navigation fixtures exposed three separate costs. Road and Portal cursor
+updates still cloned/validated the whole layout; one large-map road update took
+102.815 ms. Large-map editor entry took 7,844.114 ms and discard took 6,076.831 ms
+because each rebuilt the rendered world. Tool changes also serialized the entire
+saved large map just to update the clean/dirty label, taking roughly 7–20 ms.
+First use of two scenery pieces loaded their GLBs under the cursor, reaching
+about 60–82 ms of preview setup in the diagnostic runs.
+
+The fixes keep existing owners and art:
+
+- Cursor checks for roads and portals use current local cells, reservations,
+  footprints and counts. Actual edits and Save/Load still validate the whole
+  document. Rock/prop protection, tree clearing, gates, portal exits and limits
+  are retained.
+- Entry creates an isolated authoring model while reusing the existing world
+  when terrain, roads, deposits and portal state match. Discard restores the
+  original model, worker data, gold and player progression binding. Changed
+  structures/scenery/foliage use the existing refresh helpers; terrain collision
+  metadata follows the active model. Incompatible layouts/objective state retain
+  the complete reload path. Actual Play map still creates a fresh run.
+- The saved-map picker reads and fully validates files to list titles; it no
+  longer constructs a gameplay model for every picker entry.
+- Tool/selection changes retain the existing dirty label. Actual document changes
+  still recompute it. Scenery cache keys now use the same full source path for
+  short and full asset names. Palette scenery is prepared once when the existing
+  editor UI initializes, moving first-use import work out of cursor navigation.
+- Idle frames avoid redundant camera updates, drag clamps immediately, and
+  hovering editor controls skips map picking/preview validation.
+
+A clean large-preset entry/discard run measured 513.227 / 5.454 ms and passed
+seven checks including three additional open/discard cycles with bounded nodes
+and resources. Later saved-large entry measurements during other desktop work
+were about 0.6–0.8 seconds. This retains a short authoring-model setup pause;
+it does not promise instant opening or asynchronous map loading.
+
+Final standard navigation and saved-large live navigation each pass 60 checks:
+ten pan scenarios (Select, Tower, Tree, Portal, Road at overview/close sizes),
+repeated pinch/reverse, all 22 real palette hotkeys, UI hover, keyboard movement,
+drag bounds, unchanged document/history and native ownership. The saved-large
+run keeps the normal game process enabled with an extra timed editor probe;
+the standard run times the editor callback directly with live rendering. These
+are distinguished in their JSON reports. After palette preparation, saved-large
+scenery tool selection plus first preview took about 1.7–2.5 ms; the handler
+itself was about 0.2–0.3 ms. First building previews still prepare existing art
+and took up to roughly 34 ms in that shared-desktop run. Road/Portal cursor work
+stayed below 5 ms at p95 in every passing final scenario, rather than the earlier
+full-document stalls. No army count, geometry, foliage density, shader quality
+or shadow quality was reduced.
+
+These are short navigation diagnostics, not proof of smooth full-army gameplay
+or a long-session soak. Other Godot/import, Python and desktop rendering jobs
+were active during later runs. Final saved-large frame intervals still include
+large outliers, including p95 near 101 ms in the Select overview scenario, even
+though editor work there was only 0.023 ms at p95. The earlier quieter saved-large
+run had roughly 17–20 ms p95 intervals. Do not attribute every rendered hitch to
+cursor code or claim an overall FPS improvement from these mixed-load runs.
+Metal GPU timing returned zero/unavailable. First diagnostics are retained: an
+initial reuse run queried missing collider metadata (now guarded), and an early
+live fixture incorrectly treated the engine's sampled TIME_PROCESS monitor as
+per-call editor time; its timing-gate failures are not production failures or
+passing results. The corrected fixture uses a direct stopwatch.
+
+Final regressions pass: 43 focused document/cache/picker assertions, 35 saved-map
+assertions, 27 editor assertions, 41 preparation-camera assertions, 13 portal/road
+assertions, 68 rendered large-map building/scenery/native-play assertions, active
+asset preservation and 69 toolkit unit tests. The portal fixture initially failed
+its road-retrace assertion on both current code and the saved original editor/
+document/world/game scripts: its angled-camera endpoint lay inside the toolbar.
+The fixture now centers that same path over editable ground and asserts the end
+is outside the toolbar; the original road-content assertions are retained. The
+initial failure and a separate viewport-only failed diagnostic remain in the
+report folder. The rendered correctness run overlapped that diagnostic and is
+not used for latency/FPS comparisons.
+
+Verify through **Play Goemon → Tools → Map Editor**: open/back several times,
+pan and pinch with Road/Portal selected, and switch every palette page/tool.
+Hovering the controls should hide the map ghost; returning to the map restores
+it. Place/rotate/delete scenery, Undo/Redo and Save/Load; discard must restore the
+original run. Full terrain/road/portal commits and Play map can still rebuild the
+world. Evidence and original source snapshots are under
+`build/Other Files/Map Editor Navigation/`. No app export was requested.
+
+## Building placement stalls and map-editor zoom — 2026-10-30 follow-up
+
+The user still reports massive editor lag and cannot zoom in. That fresh report
+supersedes any interpretation that the earlier scenery-only edit measurements
+proved the whole editor smooth. Desktop source-launcher measurements found tower
+placement still rebuilding the complete map: 4,300.743 ms standard and 7,315.027 ms
+large. Moving building tools over cells also performed full-map validation,
+about 9.6–10.6 ms per cell standard and 19.3–22.6 ms large in that short fixture.
+
+The smallest retained fix extends the existing scenery preview path to buildings.
+It keeps the model, terrain mesh/collision, background, unchanged structures,
+workers and scenery batches. Changed buildings use `_make_building` /
+`_remove_building`, including worker release, and update only affected navigation
+cells and enemy path weights. The existing foliage builder is reused only for
+36-metre ground chunks touching changed occupancy. Saved random states make
+removing a building restore the original local plants exactly. There is no new
+simulation owner, asset, geometry reduction, army reduction or material policy.
+Cursor checks inspect current local occupancy/terrain and cached reservations;
+committed edits and file save/load retain complete validation. A diagnostic
+intermediate version retained the terrain but reset the model; its 473.574 ms
+large-map model reset was still too expensive and is not the final path.
+
+The editor had separate wheel-only zoom, fixed 12-metre steps and a 60-metre
+close limit. It now reuses preparation's proportional wheel/fractional scroll,
+trackpad pinch/scroll, +/− keys, 20-metre close limit and cursor anchoring. Text
+fields, UI hover and confirmation dialogs retain input guards; construction's
+public zoom guard and combat camera stay independent. Zoom over the map, with
+the pointer outside the palette and bottom toolbar. The help line lists the keys.
+
+Fresh final desktop fixture results, with no other test jobs running:
+
+| Map | Initial tower placement | Repeated rotation median / p95 | Building cursor check per cell |
+| --- | ---: | ---: | ---: |
+| Standard | 23.544 ms | 18.150 / 18.527 ms | 0.081–0.168 ms |
+| Large | 50.662 ms | 39.241 / 40.539 ms | 0.143–0.248 ms |
+
+Each size passes 68 assertions, covering retained objects, physical collision,
+local foliage clearance/exact restoration, all five building types/rotations,
+full versus incremental grids/weights, normal worker release, undo/redo/delete,
+bounded nodes/resources across twelve edits, real wheel/gesture/key input,
+and Play map with exact authored data and the existing native army.
+Both building and close-zoom captures were inspected. These are operation
+latencies from short desktop fixtures, not rendered FPS, a long-session soak or
+proof of full-army smoothness. Existing regressions pass: 89 desktop scenery
+checks including save/load/restart/native play and UI fit, 41 headless preparation
+camera checks, 27 headless editor checks and active asset preservation. The
+scenery regression overlapped the two headless checks; its timings are not used
+as a controlled comparison. Earlier diagnostics remain alongside the final logs.
+
+Verify with **Play Goemon → Tools → Map Editor**: place a Tower/Farm/Wall,
+select it, rotate, delete and undo repeatedly. Nearby plants clear and return;
+distant scenery stays in place. Point at a piece and wheel/pinch closer, or use
++ and −, then pan with middle drag/WASD. Repeat on Large Meadow. Initial opening,
+full-map loading, terrain, roads and portal changes, and Play map still use the
+complete setup path and can pause; those operations were not optimized here.
+Evidence is under `build/Other Files/Map Editor Responsiveness/`. No app export
+or full-army/long-session benchmark was run.
+
+## Expanded scenery grid and foliage style correction — 2026-10-30
+
+The grid now has 22 tools over three numbered pages: its original nine, then
+bush, cedar, pine, sakura, bamboo, river rock, moss boulder, stone block, wall cap,
+wall corner, wall piece, rubble and fence. Optional saved-map `props` records
+retain allowlisted kind IDs, scale and rotation. Old maps without that list keep
+their layout. Assets share the existing setup cache, spatial batches, local
+clearance queries and native owner; there is no extra scenery process per frame.
+The fence's base scale is 1.875 so its existing 3.2-metre mesh meets the six-metre
+map grid. Footprint rounding tolerates only 0.1 mm of quarter-turn float error at
+shared edges. Actual physics/native bounds remain unchanged by that tolerance.
+
+The user rejected the visibly faceted Cedar Pass tree crowns and clarified a
+Breath of the Wild inspired scenery direction. Cedar, pine and sakura now reuse
+the existing meadow bark and leaf cards in separate editable variants, with
+organic crown silhouettes, restrained natural colors, soft wrapped lighting,
+shared wind and canopy cutaway. Sakura uses muted rose/cream blossom shading.
+Each retains 6,396 triangles and two parts, matching the original broadleaf's
+geometry count. This is a higher foliage cost than the earlier 84/384/364-triangle
+Cedar Pass placeholders. Bamboo retains its 1,236 triangles with softened normals
+and meadow colors. Original masters/exports remain exact by protected hashes.
+Asset preparation is documented in the adjacent Wind Meadow guide; later edits
+use the normal exporter, not the one-time preparation script.
+
+Tall pieces also exposed an editor picking bug: the old cursor ray returned a
+roof hit, then treated that offset position as ground. Scenery colliders now
+identify their owning map cell. Selection resolves that owner; placement/road
+painting skips objects to find the existing tagged terrain surface. This affects
+editor input only. Road painting and free castle placement also clear the four new tree kinds
+through the existing lifecycle; Undo restores road-cleared tree data. Character
+controls, physical cover, native movement, hills,
+wave counts and combat ownership remain. Full map validation and a file-size
+check keep unsupported/oversized saves from replacing a valid map.
+
+Fresh desktop source-launcher runs pass 255 mixed-catalog assertions on the large
+map and 257 in the final standard run, including every real tool/transform,
+collision, save/load, history, restart and native play. Later focused checks also
+verify that all four tree kinds reuse road clearing and that oversized saves
+leave existing files intact (193 pure/import assertions). Close tree views and an active-game ground view were inspected.
+The final standard run's repeated-edit median/p95 was 20.9/23.8 ms; the large run
+was 43.4/46.1 ms. These short shared-desktop edit diagnostics are not a controlled
+FPS comparison or proof of smooth full-army play. Node/resource counts remained
+bounded across twelve repeated edits after warm-up. Full-map loading still
+performs complete setup, and hundreds of the new tree variants have not been
+stress-tested together. Preserve the user's older smooth gameplay report as
+separate historical evidence.
+
+The audit found no read errors or budget issues on the four prepared variants.
+Named lossless recipes preserve every mesh/surface/triangle and offer no useful
+reduction, so authored GLBs remain active and no candidate was promoted. Staged
+and active preservation, 69 toolkit unit, 12,973 import, 98 outfit, 13 Musashi
+motion and 86 structure checks pass. The earlier unrelated valley/legacy-arrival
+fixture failures are recorded in the section below, not claimed as passing.
+
+Verify via Play Goemon → Tools → Map Editor: use [ / ] for pages two/three,
+place different foliage and wall modules, select tall pieces by their visible
+surfaces, resize/rotate, and save/play/restart. View the crowns beside an original
+meadow tree under the same light. Keep modular pieces as ground-level static
+scenery/cover; open arches, elevated stacks and functional structures require
+their actual support/opening/gameplay contracts. Evidence is under
+`build/Other Files/Asset Toolkit/Map Catalog/`. No app export or long-session/full
+forest benchmark was run.
+
+## Modular map scenery and editor stalls — 2026-10-30
+
+The user reports that the existing map editor feels very laggy and unresponsive.
+That is a fresh editor report; the older smooth-gameplay experience above is not
+an editor performance result. The editor now places existing broadleaf trees and
+mossy boulders, with uniform 0.5×–2× size and individual rotation. R turns scenery
+15°. A 3×3 asset grid uses 1–9 and keypad numbers. [ / ] and Page Up / Page Down
+change pages when the catalog grows beyond nine assets; each page restarts at 1.
+The current nine pieces fit one page. Name/number fields suppress these hotkeys.
+Selected pieces expose the same numeric controls. Save/Load, Undo/Redo,
+Play map and restart retain these transforms. Save/Play also commit a typed
+numeric value before using the document, without requiring Enter first.
+
+The main observed stall was `refresh_document()` calling the complete preview
+loader after each edit. That regenerated terrain meshes, dense foliage, forts,
+workers and navigation. Cursor previews also cloned and validated the full map.
+The smallest retained path now reuses the preview model, terrain and background,
+updates changed grid occupancy, and rebuilds only affected existing 96-metre
+scenery chunks. Unchanged chunks retain their nodes, meshes and materials.
+Preview checks borrow the current map snapshot and inspect local occupied cells;
+committed edits and file loads/saves still perform complete validation. Changes
+to terrain, roads, buildings or portals retain the full reload path.
+
+`forest_scenery.gd` owns the fitted bounds used by validation, picking, player
+physics, script clearance and both native army teams. Chunk signatures include
+those bounds as well as visible transforms, so editing a legacy tree cannot
+leave a stale fixed-size collider. Existing maps keep their original tree
+orientation and trunk behavior until a tree is explicitly transformed. There is
+no second army owner, per-character renderer, runtime asset authoring, new
+geometry, lower scenery quality or reduced army count. The boulder and tree
+reuse `assets/models/environments/wind_meadow/` and the current batch helper.
+
+Desktop source-launcher profile runs passed 63 authoring assertions per size.
+The previous complete-refresh operation was timed on the same layout inside the
+fixture; this is an operation comparison, not a checkout-to-checkout FPS test:
+
+| Map | Complete refresh | Repeated scenery edit median / p95 |
+| --- | ---: | ---: |
+| Standard | 4,007 ms | 19.8 / 27.9 ms |
+| Large | 7,541 ms | 38.1 / 41.2 ms |
+
+The first pair of property changes took 173 ms standard / 78 ms large in those
+runs. Play map still took about 4.7 / 8.5 seconds. These are short shared-desktop
+observations; another Godot project was active, GPU timing was unavailable, and
+no controlled whole-game speedup, full-army smoothness or long-session stability
+is established. Initial opening, loading, terrain/structural edits and Play map
+can still pause for seconds. Later correctness checks added bounds invalidation,
+typed-value commits, native probe/physics parity checks and the numbered asset
+grid; their acceptance logs are separate from these profile runs. The final
+grid standard desktop diagnostic measured 46.1 / 56.0 ms median / p95 for edits.
+The later large headless run measured 102.9 / 122.9 ms while other validation jobs
+were active; that is not a rendered-editor performance measurement. These wider
+ranges reinforce that the early profile values are not a smoothness guarantee.
+
+Final desktop standard acceptance passes 87 checks, including all nine hotkeys,
+keypad selection, paging/empty slots, typing guards and native field
+probes around resized objects, exact physical/native box agreement, typed-value
+saving and bounded nodes/resources across twelve repeated edits. The large
+profile checks the same placement/save/play/restart path; final large headless
+acceptance passes 66 checks after the physics/save safeguards. Screenshots were
+rendered through the desktop launcher and inspected; headless checks alone are
+not visual evidence. Final large desktop grid/paging acceptance passes 59 focused checks. Both the
+numbered grid and toolbar fit 960×600, 1280×800 and 1920×1080.
+
+Shared checks pass: 69 toolkit unit tests, 12,973 imported-asset checks, 98 outfit,
+13 player motion, 86 structure, 35 saved-map document, 27 editor, 42 construction,
+18 meadow-only and 497 native terrain assertions, plus active asset preservation.
+The standalone native terrain fixture still emits shutdown resource/RID warnings.
+Two older suites are not passes: the valley fixture fails six of 1,124 assertions
+at terrain-support samples. A saved pre-task model produces the same six failures
+across all 462 route samples, with zero before/current differences. The older
+route-entry fixture fails eight of fourteen assertions because its historical
+wave override accepts two spawn arguments while the unchanged route caller
+passes three. Neither issue was hidden by changing terrain or fixture expectations.
+
+Verify through **Play Goemon.command → Tools → Map Editor**: choose Tree or
+Mossy Rock, set size/angle and place it. Select it, change both fields repeatedly,
+then Undo/Redo. Save, load and Play map; walk into the rock/trunk and start a wave.
+Check that distant scenery stays intact, the visible size matches blocking, and
+restart retains the authored placements. Preserve full trust-boundary validation
+when changing the preview cache. Evidence, earlier failed diagnostics, captures
+and final input hashes belong under `build/Other Files/Map Scenery/`.
+No app export or full-battle/long-session soak was run.
+
+At the user's request, the saved legacy **My Forest Map** was moved to macOS
+Trash. The current standard/large Wind Meadow presets and saved **Large Wind
+Meadow Valley** remain. Excluded regression layouts and reusable scenery sources
+remain outside the playable preset list.
+
+## Two random enemies per kill — 2026-10-30
+
+Every actual native enemy death now queues two extra ordinary enemies, including
+deaths caused by allies/towers and deaths of the extra enemies themselves.
+Nonlethal hits, form changes, ally deaths and cleanup/despawn are not defeats.
+Native event serial deduplication remains the single kill boundary. The wave
+owner attempts a pair on each world tick through the existing random-map
+placement, connectivity and native arrival path. It retains the player/castle
+clearance rules and active cap; blocked ground, stale navigation or full capacity
+retain the unplaced arrivals. Restart clears the backlog, pause holds it, and
+destroying the enemy objectives still ends the battle. Extra arrivals do not
+consume configured wave counts or advance castle group strength. The fixed-size
+army benchmark explicitly clears this gameplay queue while replacing each death
+once, preserving its workload contract.
+
+This is a difficulty mechanic, not a measured performance improvement. Reusing
+the spatial snapshot and bounded pair placement avoids a whole-army scan or
+resource construction in each death callback. Fresh launcher checks pass 166
+assertions on each map size, plus 166 standard-map headless assertions. They cover
+native kills, another generation, simultaneous deaths, partial/capacity/blocked
+retries, reset/pause, supported routes and unchanged wave accounting. Twelve
+spawn/retire cycles retain no extra nodes or resources after warm-up in these
+fixtures. The short placement diagnostics include roughly 71–134 ms maxima across
+the desktop runs, including cold native route setup and other test/app activity;
+they are not isolated frame measurements,
+a before/after speedup, or proof of smooth full-army/long-session play.
+
+Preservation, 69 toolkit unit, 12,973 imported asset, 98 outfit, 13 Musashi motion,
+86 structure, 37 wave timer, 81 group, 33 roster and 11 event-dispatch assertions
+pass. The roster/event fixtures still emit shutdown resource warnings. Additional
+regressions remain failures: random arrivals pass 99/100 assertions, failing the
+older closed-castle assumption on the current map; the standalone arrival-queue
+fixture passes 5/8 and emits null `actor_root.add_child` errors from its setup.
+That setup path is unchanged in the saved pre-task runtime. These are recorded
+separately from the passing real-scene native ownership/reuse checks.
+
+Verify through Play Goemon: START, kill an enemy and watch the minimap for two
+extra arrivals. Kill one of those to see another pair. At capacity, free space
+to release queued arrivals; destroy the enemy statues to win. Evidence is under
+`build/Other Files/Kill Reinforcements/`; commands are in the forest test README.
+No app was exported. A sustained, growing-army stress test has not been run.
+
+## Continued 24-hero work — 2026-10-30
+
+The ordinary-gameplay experience reported above and the older stress results below
+are historical. They do not establish that the current 24-hero workload is smooth.
+The corrected workload still uses 240 enemies, 120 allies including all 24 full
+heroes, normal stats, Wind Meadow large and the approved effects/colors.
+
+Profiling found several repeat costs that do not require changing the artwork:
+
+- Goemon hit effects retain their eight original texture pages and bind a page
+  only when its frame changes. All sixteen heavy/light and reduced/full-flash
+  desktop cases match the reference pixels; the full test passes 124 checks.
+- Kojiro's five projectile profiles share immutable materials through the shader's
+  existing per-instance frame parameter. Original nodes, atlas cells, trajectories,
+  growth and lifetimes remain. The 8,762-check desktop comparison covers all five
+  profiles, and the phoenix/homing orientation checks also pass.
+- Repeated spark spheres share one immutable mesh. The scenery rock that edits
+  its tessellation owns a duplicate. All 217 geometry/material checks pass; paired
+  headless creation costs are roughly halved, not a whole-game FPS measurement.
+- Warcraft models avoid writing unchanged opacity and avatar textures. A 113,436
+  check comparison retains every sampled mesh color, visibility and texture page.
+  The isolated Blademaster pose saving is about 9%; the other two models' timing
+  differences are small/noisy. Do not extrapolate this to battle FPS.
+- Melee assistance uses the existing ordered local candidate query before its
+  unchanged contact, cover, visibility and scoring checks. A 240-enemy comparison
+  keeps the same targets and combo retention while reducing point checks from
+  36,920 to 1,836. Unknown populations retain the existing conservative fallback.
+
+The native owner shares identical immutable air-collision geometry between enemy
+and ally navigation. Equality includes field data, map bounds, layers and physical
+faces/owners; navigation blockers remain independent. Copies use copy-on-write.
+Geometry buffers reserve the existing triangle stream and collision-tree capacity
+before filling, including later wall additions. The large-field regression's
+shared buffer allocation falls from 67.2 MB to 42.8 MB. These are container-capacity
+bytes in that fixture, not a measured whole-game resident-memory reduction.
+
+Waypoint caching checks exact root/goal/radius/layer inputs before repeating goal
+connections and clears on navigation updates. Goal connections are checked nearest
+first with the original row-order ties. The focused case drops from ten segment
+checks / 532 height reads to three / 222 with the same waypoint. Native coverage
+includes 30,011 sharing/contact checks and 8,648 navigation comparisons.
+
+A disabled mirror-body process state also suppressed Goemon's deferred pose and
+reach wave. Leased bodies now run their normal presentation clocks, and retirement
+stops the model clock. Earlier observations do not certify this corrected workload.
+
+Benchmark focus holds pause both the scene tree and the game's always-processing
+native owner. Reports distinguish active measurement time, wall time and recorded
+focus waits. Acceptance checks all accounted time and rejects changed source hashes;
+the accounting regression passes 24 checks and the hold regression passes six.
+Never exclude a slow focused frame or count a diagnostic stack-sampling run as an
+uncontaminated performance result. A concurrent native rebuild invalidated the
+`Local Melee Battle` run; it is not an after-change speedup measurement.
+
+The current rebuilt source still requires a passing coordinated rendered run.
+Do not call the 24-hero request complete until the full 120 active seconds pass
+55 FPS, p95 25 ms and p99 50 ms with unchanged inputs and normal combat activity.
+Headless checks cannot establish smoothness. Evidence is under
+`build/Other Files/Asset Toolkit/24 Hero Smoothness/`; no app has been exported.
+
+Known fixture limits: `hidden_melee_assist_test.gd` has the same 32 failure messages
+before and after local acquisition. The standalone native-query fixture also emits
+the same shutdown resource warnings on its existing baseline. Keep those separate
+from live gameplay errors and from the passing focused target-selection comparison.
+
+## 24-hero follow-up and Sky Strike — 2026-10-30
+
+The follow-up keeps 24 full hero bodies among 120 allies against 240 enemies,
+with the same painterly map, combat stats, approved colors and attack effects.
+It fixes Sky Strike's overlapping-target case: a horizontally zero contact
+vector now uses the caster's facing, then forward if that too is zero. Normal
+landing offsets, travel times and blast radius remain unchanged. The focused
+reproduction failed before this fix and now passes 61 direction/landing checks.
+
+Repeated ROM matrix conversion was avoidable CPU work. Goemon, Sasuke and Yae
+now prepare the original JSON matrices once when first selected, sharing that
+immutable data across samplers. Interpolation and part selection are unchanged.
+A 538,002-check comparison against raw source sampling passes exactly, including
+all clips, fractional samples, hidden parts and independent returned poses.
+Paired isolated sampling costs fell about 40–42%; this is not a whole-game FPS
+claim. Balance lookup caches only immutable character keys; live edited values
+still apply. Redundant unchanged body-transform writes are skipped.
+
+Kojiro's existing pooled dust and sparks skip redundant fixed-scale and unchanged
+atlas-frame updates. Their nodes, trajectories, integer frame selection, scales,
+timers and retirement stay original. Desktop reference comparisons of spark and
+dust frames are pixel-identical; repeated fixed and fractional update steps keep
+exact motion and lifetime. An extra MultiMesh batch experiment also matched
+pixels but did not show a reliable full-battle benefit. It was removed entirely,
+including the extra presenter process and visibility registry. Reuse the original
+renderer until a controlled workload demonstrates a gain from adding machinery.
+
+The fixture now assigns stable logical IDs to its 24 heroes so allocation changes
+do not change native AI seeds. This changes only the test fixture. Render cadence
+can still change the live battle's attack sequence, so historical FPS values
+are separate observations, not a controlled before/after percentage.
+
+The first corrected 120-second follow-up measured **44.009 FPS**, p95 34.379 ms,
+p99 41.624 ms and max 64.749 ms, with full foreground focus, unchanged source
+hashes and zero runtime errors. It retained 240 enemies and 120 allies. Memory
+rose about 4.94 MB; a two-minute observation does not prove no leaks. This still
+**fails** the 55 FPS / p95 25 ms target. Do not call this stress case smooth.
+
+Two later batching runs also failed: 36.327 FPS (p95 49.970 ms) and
+26.359 FPS (p95 68.234 ms). Both retained the full roster, full foreground focus,
+unchanged source hashes and zero runtime errors. The batch layer was removed
+instead of claiming a gain. Separate live runs vary with attack sequences and
+host work; none of these failures establishes a controlled regression percentage.
+
+An experimental dynamic ribbon buffer matched source geometry/colors and rendered
+pixels, but gave no clear full-battle gain (42.412 FPS over 30 seconds). It was
+removed. A GPU surface-readback version was slower still and was also removed.
+Do not add readbacks, lower army counts or alter art quality to pass this case.
+The final simpler source, with both experimental renderers removed, completed
+120 seconds at **28.307 FPS**, p95 **67.360 ms**, p99 **172.765 ms**, max
+592.048 ms. It maintained all 24 heroes / 240 enemies / 120 allies, with 21
+simultaneous attacking heroes and 14 visible crescents, full foreground focus,
+zero runtime errors and zero dropped hits. Source hashes stayed unchanged during
+measurement. Memory rose 6.61 MB; long-session resource growth is unchecked.
+That follow-up source result **fails all three performance thresholds**.
+The isolated CPU savings do not establish an overall battle speedup. More work
+on the full hero workload remains; do not describe this request as fully solved.
+
+Checks for that follow-up passed 61 Sky Strike, 8,746 desktop cosmetic reference, 538,002 raw pose,
+206 profile-key, 101 combined layer/bake, 700 Kojiro gameplay, 122 desktop phoenix,
+13 retirement, 338 universal native mirror, 12,973 imported asset, 69 toolkit unit,
+98 outfit, 25 Musashi motion/controller and 86 structure checks. Asset preservation
+passes. The two Pirate movement assertions in the character-balance suite fail
+with both the cached and original uncached lookup; record them separately. The
+final Sky Strike test also exits without its earlier test-fixture resource warning.
+One trailing blank line was removed from the existing presenter after measurement;
+no runtime logic changed afterward.
+
+The accepted changes and rejected experiment evidence are under
+`build/Other Files/Asset Toolkit/24 Hero Optimization/`. No app was exported.
+
+Verify through Play Goemon: test Sky Strike against an enemy directly under the
+caster and compare Kojiro's dust/sparks, then repeat the 120-second fixture below.
+Keep the window focused and stop other profiling jobs during measurement. Check
+average FPS, frame-time tails, active counts, error logs and source hashes. The
+remaining full-hero controller/contact work needs further profiling; the native
+regular army result below is not evidence that this heavier case passes.
+
+## Simultaneous ally crescent battle — 2026-10-30
+
+Fresh rendered tests used Play Goemon, painterly Wind Meadow large, 1280×800,
+normal combat stats and the native army. Per-death reinforcements maintained
+240 enemies and 120 allies. No effect shape, color, size, opacity, cadence,
+weapon, damage, cooldown, unit count or art quality was reduced to pass.
+
+The regular 120-ally roster held 59.997 FPS over 30 seconds: p95 18.420 ms,
+p99 19.507 ms, maximum 26.038 ms. It delivered 21,533 attacks, 21,153 damage
+events and 2,024 deaths, with zero dropped hits and full foreground focus.
+This is the regular army result, not evidence that 120 full hero models are cheap.
+
+A separate heavier roster replaced 24 regular allies with three each of Goemon,
+Musashi, Ben, Sasuke, Yae, Kojiro, Blademaster and Illidan. Existing native ownership,
+AI and pooled legendary bodies drove their full controllers and effects.
+An initial run stalled for seconds at a time. A death event removed its query
+registration immediately, while the source enemy facade remained until the
+existing retirement cleanup. The count mismatch made every subsequent melee
+contact query fall back to the whole army. Profiling traced Sasuke/Yae's cost to
+those contact queries, rather than the crescent mesh construction.
+
+The fix retires the query registration at the same boundary as its facade and
+also removes stale registrations when a logical ID is reused. The native query
+still rejects dead handles. It preserves the custom-actor fallback, target order,
+exact contact checks, event delivery and damage. The local-query regression failed
+before the fix and passed after it; dead-handle exclusion is checked explicitly.
+
+The subsequent 120-second 24-hero stress run improved substantially but **failed**
+the smoothness target: 26.814 FPS, p95 82.221 ms, p99 186.139 ms, maximum
+389.793 ms. It retained all 240/120 units, delivered 68,682 attacks and 69,986
+damage events with zero dropped hits, and reached 23 simultaneous attacking
+heroes and 15 visible crescents. It maintained 24 pooled hero bodies. Memory
+rose about 10 MB with a peak four-resource increase during the run; this short
+observation does not prove absence of leaks. Foreground focus was 95.2%, and
+simulation time lagged wall time by 0.24 seconds. Source hashes stayed unchanged
+through each measured run. GPU timings were unavailable on this Apple M3.
+A later regular-army repeat could not retain foreground focus and stopped before
+measurement; it supplies no after-fix FPS result.
+Nine zero-vector quaternion errors in Sky Strike's wind beam were also
+logged; those were unresolved in that historical run. The follow-up above fixes
+the direction error; this old run remains a failed correctness result.
+
+Event dispatch averaged 5.706 ms per physics step after the lifecycle fix, down
+from 27.609 ms in the earlier short stalled run. Different lengths and simulation
+progress mean these are diagnostic phase costs, not a controlled FPS speedup.
+Remaining script/contact/terrain work needs further profiling before claiming
+that dozens of full hero controllers are smooth. Do not hide that limit by
+shrinking effects, skipping their animation or reducing the measured roster.
+
+Fresh focused checks pass: thirteen retirement, five batch retirement, 10,008
+registered-facade, 6,011 facade-batch, 37 query-proxy and eight snapshot checks.
+The target-query cost fixture still has the same three failures on source before
+and after this lifecycle fix; they are recorded separately, not counted as passes.
+Asset preservation, 69 toolkit unit, 12,973 imported asset, 98 outfit, 25 Musashi
+motion, 86 structure and 101 combined effect/bake checks also pass. No assets,
+pose bakes or native binaries were changed by this investigation.
+
+Repeat the saved fixture through Play Goemon with
+`--script res://tests/forest-shrine/crescent_battle_benchmark.gd -- --per-team=240
+--allies=120 --duration=120 --scenario=open --map=wind_meadow_large --await-focus
+--profile-spikes --out=<absolute report directory>`. Compare equal workloads and
+frame-time tails, not only average FPS. Reports, source snapshots, profiles,
+captures and known failures are under
+`build/Other Files/Asset Toolkit/Crescent Battle/`; the folder named `Mixed Final`
+contains the **failed** stress result, not an approval. No app was exported.
+
+## Preserve the approved effects; reduce their CPU work — 2026-10-30
+
+The user explicitly likes Goemon's current effect and stopped further placement
+changes for now. Preserve that appearance. The preceding character-path audit
+made no runtime placement edits; its preliminary fixture/reports stay excluded
+under `build/Other Files/Asset Toolkit/Crescent Paths/`. They are observations,
+not authorization to redesign the accepted attacks.
+
+The focused cost is effect mesh construction, not a measured whole-game frame
+bottleneck. Empty inactive short ribbons now return before filtering samples or
+clearing an already-empty mesh, while advancing the sample clock so the next
+attack is immediate. Original glow quads pre-size their two packed arrays and
+write vertices/colors directly instead of making seven temporary arrays for
+every adjacent sample pair. Musashi computes each source-age palette once per
+draw and reuses it for both his original and ink surfaces. The original expiry
+filter remains: an in-place expiry experiment added complexity without a clear
+active-crescent gain and was dropped. No new pools, caches, shared material
+mutations, per-enemy work, asset/model loads or simulation changes were added.
+
+A fresh alternating-order paired CPU microbenchmark runs ten 300-update chunks
+per implementation after 300 warmup updates, with the saved pre-change source
+and final source in the same process. Mean microseconds per update:
+
+| Effect owner | Before | Final | Less CPU time |
+| --- | ---: | ---: | ---: |
+| Original glow ribbon | 45.096 | 17.811 | 60.5% |
+| Musashi dual surface | 207.922 | 144.136 | 30.7% |
+| Active ink crescent | 109.363 | 108.446 | About the same |
+
+Idle updates are below one microsecond, near the timer's resolution, so do not
+advertise their measured percentage. Earlier separate runs vary with host load;
+the paired result avoids interpreting that load drift as a code change. These
+are isolated effect CPU costs, not FPS gains or a full-battle benchmark. Prepared
+mesh/material identities and resource counts stay stable over 3,000 updates per
+owner in the benchmark, alongside the existing repeated-use fixtures.
+
+A final 5,200-check reference comparison proves byte-identical mesh vertices,
+indices, UVs and colors across ink, additive and alpha modes, including expiry,
+heavy/light colors, reduced flashes, cadence and hiding. It also checks both
+Musashi surfaces across Fusion/Lumina and gold flags. This protects Goemon's
+current crescent shape, placement, color and timing. The 101 combined-layer
+checks include idle-to-attack response, mixed lifetimes, original palettes,
+900 reuse updates and all 83 native bake hashes. Original glow ten and Musashi
+VFX fifteen pass. The 19-fighter desktop sweep passes 1,608 checks, including
+native allies and Kojiro's 54 direction/rate cases. A final 604-check desktop
+confirmation exercises Goemon and Musashi on the final source as well.
+
+Asset preservation, 69 toolkit unit, 12,973 imported assets, 98 outfit, thirteen
+motion and 86 structure checks pass. No asset or bake was changed. The shared
+whole-scene ally fixture still has its previously observed one-resource increment;
+keep that distinct from isolated owner reuse. Source snapshots, exact paired
+rounds, geometry comparisons, captures and limitations live under
+`build/Other Files/Asset Toolkit/Crescent Optimization/`. No app was exported.
+
+Verify in Play Goemon: compare the same Goemon swings at normal and enlarged
+reach, then Musashi's blue/red/gold effects. Their appearance and attack behavior
+should be identical. For performance comparisons keep army size, camera, range
+and attack counts the same; use the saved paired benchmark for effect-code cost
+and a separate full-battle profile for any claimed FPS change.
+
+## Illidan allied sound range follow-up — 2026-10-30
+
+The user still heard allied Illidan attacking from far away. A focused reproduction
+found two gaps in the earlier 15-metre filter: Immolation could start with an empty
+controller ticket and inherit the player's audio ownership, and global weapon or
+paired voices checked distance only when they started. Existing ordinary distant
+melee, morph, demon launches and impacts already passed the launch filter.
+
+Warcraft's sound helper now supplies the actual caster's weak source ticket when
+there is no current attack. Existing weapon and paired voice pools retain that
+ticket on every reuse; SoundLibrary's existing process stops playing voices when
+their allied source leaves range or disappears. Player and enemy tickets retain
+their existing behavior. This is an audio correctness fix, not a measured CPU
+bottleneck or claimed speedup. It adds a bounded check of the existing 28 weapon /
+impact / general voices and eight paired voices, with no new pools, army searches,
+asset loading, simulation, animation, damage or attack timing changes.
+
+The reproduction failed the two new gap assertions before the fix. Fresh checks
+pass 59 headless and 63 through Play Goemon, including the real Illidan controller,
+Immolation before any attack, normal and demon sounds, moving out of range,
+paired-voice cutoff, player reuse and five mixed native allies. The existing 1,000
+repeated distant requests retain the same voice pool and no extra nodes/resources.
+Desktop SFX recordings peak at 14,537/32,768 for Illidan's nearby melee and exactly
+zero at 25 metres; Blademaster's comparison peaks at 7,358 and zero. These are
+focused mix checks, not a full-battle or long-session audio/performance benchmark.
+Shared audio passes 40 checks and preparation passes six. Asset preservation,
+69 toolkit unit, 12,973 imported asset, 98 outfit, 25 Musashi motion/controller and
+86 structure checks pass. Logs and WAVs are under
+`build/Other Files/Asset Toolkit/Illidan Audio/`. No app was exported.
+
+Verify through Play Goemon: recruit Illidan, approach his attacks, then move more
+than 15 metres away while a sound is playing. His sounds should stop; test his
+fire aura as well as normal and demon attacks. Your own attacks remain audible.
+
+## Kojiro's rear windup must not become a long crescent — 2026-10-30
+
+The user still saw the first crescent behind Kojiro after the earlier angle fix.
+The source pose confirms why: at the source tick-15 hit marker the first sword
+is still pulled back, then snaps forward around ticks 17–18. Matching the sword's
+angle amplified the wrong phase. Earlier orientation assertions passed while
+missing this visual error. Check a complete cut and player-facing direction as
+well as blade attachment; angle matching alone is insufficient.
+
+Contact now arms the existing presentation. The new crescent waits for the
+physical tip to be in front of Kojiro and the blade direction to point forward,
+then samples that authored movement. It uses at most three recent pose seeks to
+seed skipped render poses, restoring the current animation cursor afterward.
+The second cut snaps to a static final pose; if only one forward sample exists,
+a small .12-radian cap bends toward the target so that cut remains visible.
+The long crescent fades in .18 seconds. His compact original pink-purple glow
+retains its 16/30-second fade, sampling window and original endpoints. Cancel,
+hiding or a finished cut clears pending emission. Hit marker, damage, hit shape,
+reach, cooldown, projectile behavior and native ownership remain unchanged.
+This intentionally puts the large visual on the forward snap a few source ticks
+after contact; damage still occurs at its original marker.
+
+This is a presentation correction, not a measured CPU bottleneck fix. It reuses
+the same bounded ribbon, prepared meshes and owned materials. No asset export,
+model loading, retargeting, new simulation, army search or bake change was added.
+Fresh 479 desktop and 478 headless checks pass. Their 54 direction cases cover
+all three cuts, normal/fourfold reach, three world-facing directions and
+30/60/120 Hz. Both stored tips and rendered outer edges remain in front. They
+also check original-marker native damage without duplicate hits, retained glow,
+reduced flashes, cancellation and five native Kojiro allies over five repeats.
+Those five allies' focused desktop manual presentation p95/max is .684/.713 ms;
+manual player step p95/max is .681/2.418 ms. Callback intervals include captures
+and the manually stepped rate matrix, so they are not render-FPS measurements.
+
+Fresh checks also pass 700 Kojiro gameplay, ten original-glow and 98 combined
+layer/hash assertions (including all 83 bake hashes). Asset preservation,
+69 toolkit unit, 12,973 imported assets, 98 outfit, thirteen motion and 86
+structure checks pass. An intermediate temporal-only prototype failed 18 cases
+because its static second-cut endpoint provided one sample; the forward cap
+corrects that. Logs, capture, exact tested hashes and limits are under
+`build/Other Files/Asset Toolkit/Kojiro Forward Cut/`. The earlier shared-fixture
+one-resource increment remains separate. No full-battle or long-session claim.
+
+Verify through Play Goemon: click once, watch the short original glow on the
+backswing, then the longer pink crescent on the forward snap. Repeat all three
+cuts, turn around, increase reach, cancel mid-swing and try reduced flashes.
+The weapon remains compact. No app was exported.
+
+## Original effects alongside crescents, with Kojiro alignment — 2026-10-30
+
+The user now wants each character's original attack effects together with the
+new crescent. Ben regains his original .34-opacity warm-yellow alpha ribbon;
+Blademaster and Illidan regain their .65-opacity red/violet additive physical
+blade ribbons. Their existing extended ink owners stay intact. Musashi draws his
+original additive Gouraud quads from the same sixteen-pair source samples and
+weapon-specific blue/red/gold colors alongside the new pigment surface. Both
+surfaces share his original descriptor clock and clear/fade together. The other
+Rogue melee classes retain an original pigment brush at the compact weapon while
+the stronger owner follows full reach. This stays inside each existing admitted
+ribbon slot and lifetime; its bounded child expires/cancels with the parent.
+Magic Swordsman and Samurai keep their existing purple/crimson effects; Goemon,
+Sasuke, Yae, Chief, Mountain King and enemy effects were already retained.
+
+The user's follow-up identifies Kojiro's detached-looking horizontal fan. His
+crescent now samples the authored sword at contact and two source ticks earlier
+to get its cutting plane. Its leading edge lies along the physical sword; its
+broad body trails .9 radians behind that edge, anchored at the blade base. Reach
+extension preserves the sword's pitch and yaw. Temporary pose sampling restores
+the previous animation position before combat continues. Pink-purple RGB,
+original additive glow, hit shape, damage and contact timing remain unchanged.
+A visual plane may now differ from the horizontal damage fan: the range circle
+and exact combat queries continue to describe gameplay.
+
+This is requested presentation work, not a measured bottleneck fix or speedup.
+Prepared original meshes/materials are reused, and no new simulation, global
+search, retargeting, attack-time model loading or asset export was added. Three
+hundred cycles each of the Ben, Musashi and Rogue ribbon owners (900 combined
+updates) retain their prepared resources without growth. Existing hidden-layer,
+cancellation and reduced-flash rules apply to the restored layers. Musashi's
+previous-weapon fade now owns independent prepared geometry instead of sharing
+the active surface being cleared.
+
+Fresh evidence: the 19-fighter sweep passes 1,569 desktop and 1,575 headless
+assertions before the last Kojiro alignment refinement. The final targeted desktop
+run passes 442 assertions, including all three cuts, original glow, leading-edge
+alignment, broad crescent, restored pose, unchanged distant native hit and five
+Kojiro allies. Five native allies each of Ben, Musashi, Blademaster, Illidan and
+Knight repeat three attacks, including reduced flashes, cancellation and hiding.
+Final focused warm manual presentation p95 for these five-body groups is
+1.898/1.028/.532/1.099/2.206 ms respectively; maximum is 4.197 ms. The 19-fighter
+run occurred under other application/test activity. These are manually stepped
+presentation diagnostics, not controlled FPS or full-battle smoothness results.
+
+Original-layer/fresh-bake checks pass 98, Kojiro gameplay 700, original Kojiro
+ribbon ten, Musashi VFX fifteen, current native Magic energy 371 and roster ink
+feedback 132. All 83 recorded bake hashes are current after regenerating the
+existing native pose and Warcraft atlases. Asset preservation, toolkit unit 69,
+imported assets 12,973, Musashi outfit 98, motion thirteen and structures 86 pass.
+The older main-scene Magic ink fixture still reports seven failures against its
+unextended tip/contact assumptions; that log is retained separately. The shared
+whole-scene ally fixture still rises by one resource after warmup, separate from
+the isolated owners. Full logs, captures, tested hashes and limitations are in
+`build/Other Files/Asset Toolkit/Roster Combined/validation.json`.
+
+Verify in Play Goemon: attack with Ben, Musashi, Blademaster, Illidan and Knight;
+look for their original weapon-local glow with the farther crescent. Repeat at
+larger reach, cancel/switch mid-cut, and enable reduced flashes. With Kojiro,
+click through all three cuts and confirm the pink crescent follows the sword's
+cutting plane instead of a separate level disc. No app was exported.
+
+## Kojiro's original glow plus the new crescent — 2026-10-30
+
+The user prefers Kojiro's old blade effect too and requests both at once. The
+model now prepares a second instance of the existing ribbon owner for his exact
+original physical-blade quads: additive pink-purple vertex colors, 30 Hz sample
+cadence and 16/30-second fade. The existing ink owner keeps the new extended
+contact crescent intact. Both use Kojiro's original RGB (240,120,240), owned
+materials and prepared meshes. Cancellation, fighter hiding and hidden donor
+layers clear them, and reduced flashes subdue both. Other fighters keep their
+current ink mode; the restored additive flag is used only for Kojiro's old layer.
+
+This adds one requested visual layer, not a measured bottleneck fix or speedup.
+Neither layer changes collision, reach, damage, native ownership, animations or
+projectile behavior. No model/animation transfer, asset export, new simulation,
+per-enemy search or combat-time material/model loading was added. Keep the
+physical blade endpoints separate from the extended range endpoints so future
+reach changes cannot enlarge the weapon or erase either effect.
+
+Fresh verification passes 253 desktop and 1,334 headless roster assertions,
+700 Kojiro gameplay checks and ten original-layer checks. The latter verifies
+exact original quad positions, additive material, RGB, byte-quantized alpha fade,
+expiry, hidden layers, reduced-flash reset and 500 repeated uses with no retained
+resources. Five real native Kojiro allies show both layers together over five
+repeats, reuse both mesh/material identities, and clear both on cancel. Their
+manual presentation p95/max is 1.109/1.481 ms in the desktop fixture; player-step
+p95/max is .459/1.363 ms. Physics callback gaps include screenshot/reset work
+(p95/max 20.828/94.432 ms), not a controlled rendered-frame benchmark.
+
+Asset preservation and all 83 existing bake source hashes remain valid; no pose
+bake changed. Fresh toolkit unit (69), imported asset (12,973), outfit (98),
+Musashi motion (13) and structure (86) checks pass. Evidence, captures, tested
+input hashes and limits are in
+`build/Other Files/Asset Toolkit/Kojiro Combined/`. These are focused results,
+not a full-battle or long-session smoothness claim. The earlier shared-fixture
+one-resource increment remains separate from the isolated owner result.
+
+Verify in Play Goemon: select Kojiro, click through all three cuts and look for
+the original glow following the compact physical sword while the broad
+pink-purple crescent shows the longer reach. Cancel/switch during a cut and test
+reduced flashes. No app was exported.
+
+## Strong crescents in each fighter's colors — 2026-10-30
+
+The user likes Magic Swordsman's current crescent and wants similarly strong
+feedback across characters, especially Kojiro, with each fighter's proper colors.
+Magic's existing ribbon geometry is now the shared array builder. A new owned
+shader flag applies its dark body, bright edge and moving filaments to other
+palettes. The original purple path stays unchanged: before/after desktop sword
+and wave-3 images are pixel-identical, and the 378-check reference fixture passes.
+Ranged characters retain their existing projectile presentation and colors.
+
+Kojiro's former thin physical-blade ribbon did not communicate his extended
+contact fan. His normal/air contact marker now paints a broad pink-purple
+crescent from that existing fan/reach, including when render frames skip the
+contact. This is a visual addition; its source ticks, three cuts, damage,
+projectile travel, cover checks and native hit owner are unchanged. His physical
+weapon stays compact. Sloping ground can occlude the horizontal fan; the focused
+far-hit fixture suspends both native hurtbox and caster above terrain to isolate
+reach/duplicate hits, while gameplay captures use the actual flat courtyard.
+
+The shared short-ribbon owner reuses one prepared ArrayMesh and material with at
+most 18 samples/104 vertices, and uses the same curve/taper as Magic. It now serves
+Goemon, Ben, Sasuke, Yae, Kojiro and Warcraft blades. Musashi retains the original
+16-pair cadence, descriptors, Fusion/Lumina RGB, fades and separate layers with
+the stronger shading. Mountain King's hammer, Dark Lumina's claw and Chief's
+energy sword reuse prepared contact crescents. Cancellation, hidden donor layers
+and fighter switching clear geometry. No model/animation export, runtime
+retargeting, new simulation, army-wide search or combat-time material/model
+loading was added. Native kit/pose/Warcraft bakes were regenerated from source;
+all 83 recorded bake source hashes pass.
+
+Colors follow the existing attack palettes: gold Goemon, warm-yellow Ben,
+ivory/gold Sasuke, jade Yae, pink-purple Kojiro, native blue/red/gold Musashi,
+red Blademaster, violet Illidan, authored blue Mountain King, green Dark Lumina
+and cyan Chief. Rogue classes retain their configured attack tints and Samurai's
+crimson. These are owned materials; do not recolor the shared shader resource or
+another character's material. Reduced flashes lower emission on the new owners.
+
+This corrects reach readability, not a measured CPU bottleneck or claimed
+speedup. Fresh headless and desktop coverage sees effects for 19 melee IDs,
+checks their palettes, real distant native damage without duplicate hits,
+interruption/expiry, five native allies, and 800 isolated ribbon reuses without
+retained resources. Whole-scene resources still grow by one in the short ally
+fixture; this is reported separately and not attributed to the ribbon owners.
+Desktop captures and callback timings include resets, screenshot activity and
+other validation processes; they are not a controlled FPS or full-battle result.
+The final Musashi-only desktop rerun checks its added pigment clock.
+
+Fresh checks pass 1,220 headless and 1,241 desktop assertions in the roster fixture,
+126 in the final Musashi desktop check, 699 Kojiro, 287 Mountain King, 3,714 modular
+spell, 21 Chief sword, 58 Warcraft melee, 17 Ben, 15 Musashi VFX and seven hidden
+trail/idle checks. Asset preservation, 69 toolkit unit, 12,973 imported asset,
+98 outfit, 13 Musashi motion and 86 structure checks pass; audit reads 306 assets
+without errors. Detailed snapshots, earlier fixture failures/corrections,
+rendered evidence and limits are under
+`build/Other Files/Asset Toolkit/Strong Melee/`. No app was exported.
+
+Verify through Play Goemon: compare Magic Swordsman with Kojiro's three clicks,
+then increase only Kojiro's Melee reach. Expect a broad pink-purple crescent at
+contact and the same compact sword. Try Goemon, Musashi, Sasuke, Yae, Ben and the
+Warcraft heroes; check their own colors, then switch or cancel during a cut.
+Repeat with reduced flashes. Keep art strength separate from damage/reach and
+profile the same army, camera, range and cast count when checking performance.
+
+## Faint melee outline and compact weapons — 2026-10-30
+
+The user wants a barely noticeable reach circle and larger attack ranges without
+oversized weapons. Wind Meadow's ground and privately owned stair material now
+mix a thin neutral outline at 10% strength into their existing opaque shading.
+There is no filled disc, extra ground mesh, army ring or added draw pass. The
+player's basic melee envelope is cached until fighter/range/growth/buff/model
+settings change. Facing, height, exact contact shapes and cover still gate hits;
+the outline is a guide, not a guarantee. Projectile travel is not shown as melee.
+
+This is a presentation change, not a measured bottleneck correction or speedup.
+`WeaponProportions.MAX_REACH_VISUAL_SCALE` caps reach-driven weapon enlargement
+at 1.35. Goemon's original native swing also stretches his pipe internally; that
+stretch is bounded in presentation. His uncapped `pipe_pose` still owns the same
+convex sweep. Sasuke/Yae keep their full contact/source endpoint functions while
+rendered poses are bounded. Rogue contact fitting samples the original uncapped
+pose, then its existing painted brush extends beyond the compact weapon. Native
+army atlases retain separate compact mesh poses and full wave endpoints. Rebuild
+kit/pose bakes after changing these source contracts; do not shrink damage reach,
+change timing, add per-unit retargeting or restore another army backend to fix art.
+
+The added Goemon/Sasuke/Yae waves reuse the existing short ribbon class and its
+setup-time materials. Expiry releases samples/geometry and hiding a fighter clears
+its ribbon. No new simulation, per-enemy search or combat-time model/material
+loading was added. Existing face texture caches and unrelated scene work are not
+proof of a wave leak: whole-scene resource counts rose slightly during the short
+fixture. Check the wave owners separately and report that distinction.
+
+Fresh final runs pass 94 headless and 96 desktop assertions, including five
+simultaneous native allies. Eight hundred isolated ribbon reuses retain no
+resources; full-scene resource counts still rise by one after fixture warmup,
+which is not attributed here. Moving-circle world sync p95/max are .041/.048 ms
+and five-ally presentation p95/max are 1.168/1.641 ms on the final desktop run.
+These are short manually stepped diagnostics, not a speedup or frame-rate claim.
+Fresh results, screenshots, input hashes and limits are in `build/Other Files/Asset Toolkit/Attack Reach/validation.json` and
+its adjacent logs. Fresh checks also pass original Goemon contact (11), compact
+Gold Pipe presentation (8), Sasuke/Yae reach, custom native army tuning (42),
+1,792 native pose-transfer assertions, 69 toolkit unit tests, 12,973 imported
+asset checks, 98 Musashi outfit, 13 Musashi motion and 86 structure checks.
+The native pose fixture still reports whole-scene shutdown resource/RID warnings.
+Asset preservation passes and audit reads 306 assets with no read errors. These
+are focused correctness/presentation checks, not a full-battle FPS baseline or
+long-session soak; the user's 2026-10-23 smoothness report remains historical.
+
+Verify with Play Goemon: start battle, look for the faint ground outline, then
+increase Melee reach in Character Balance and attack. The circle and wave should
+extend while the held weapon stays compact. Test stairs and grass, switch fighters
+and repeat, then reset the range setting. No app was exported.
+
+## Illidan AI stays in Meta — 2026-10-30
+
+The user reported Illidan wasting movement and taking hits while repeatedly
+transforming back and forth. The native mirror/recruit selector randomly chooses
+his Secondary and numbered Meta inputs even after transformation. Both reached
+the player's reversible toggle, restarting the planted morph animation.
+`warcraft_combat.gd` now redirects an already-transformed AI's morph request to
+its existing bolt attack, including while the form-toggle cooldown is running.
+Normal AI can still transform; manual player toggles and retirement/reset remain.
+
+This is an AI decision correction, not a measured frame-time bottleneck or
+speedup. It adds one shared check and reuses native decisions, existing combat,
+animation/contact clocks and the prepared projectile pool. Do not add another
+controller, per-frame asset loading, or an arbitrary form timer to solve this.
+
+The focused `illidan_ai_form_test.gd` reproduces the old behavior and checks both
+inputs, manual reversal, five native allies, repeated bolt damage, pool/resource
+reuse and retirement/reuse. It isolates navigation to test form decisions;
+terrain-routing coverage belongs in the existing native movement fixtures.
+Fresh verification passes 47 focused headless and 48 desktop-launcher checks,
+45 first-person shooter checks, 56 shared Warcraft skill checks on rerun,
+asset preservation, 69 toolkit unit, 12,973 imported-asset, 98 outfit,
+13 Musashi motion and 86 structure checks. The five-allied repeat run has no
+pool misses or retained node/resource growth. Its desktop step p95 is 2.377 ms;
+frame intervals are p95 17.076 ms / maximum 323.958 ms. These are short fixture
+diagnostics including resets/capture activity, not a controlled speedup,
+full-battle smoothness claim or long-session test. One earlier shared-skill run
+reported 30 extra Blademaster-summon nodes; both the in-memory pre-fix control
+and final rerun pass. The intermittent result is retained, not claimed fixed.
+Evidence and limitations are under `build/Other Files/Asset Toolkit/Illidan AI/`.
+Verify through Play Goemon with an allied Illidan: after his first transformation,
+watch him keep Meta and attack instead of repeatedly planting to change form.
+Select Illidan yourself to confirm both manual toggle controls still reverse.
+No app was exported.
+
+## Statue-only opening and nearby ally attacks — 2026-10-30
+
+Both bundled Wind Meadow sizes now start with only the player statue. Home
+towers, walls, gates and mines are removed from the preset building lists;
+the raised courtyard, four stairs, enemy castles, workers and build options
+remain. Loading user-saved maps still preserves their authored buildings.
+Older opening/fortress results below describe the previous preset.
+
+The user reported noisy battles with many allies. Source inspection found that
+hero weapon/paired voices and ally hit feedback could use the global mix,
+while native mercenary cues used a 65-metre radius. This is a sound-density
+correction, not a measured frame-time bottleneck or claimed speedup. The smallest
+fix gates those existing paths within 15 metres of the player (including height),
+using the attack ticket's existing weak source reference. Sustained allied spell
+audio stops out of range. Enemy and player cues keep their existing ranges.
+The camera remains the 3D listener; reducing its attenuation radius would also
+silence nearby allies when the third-person camera sits farther behind.
+
+No simulation, attack timing, damage, army count, art, audio pool or combat-time
+resource loading was added. Keep the check at shared playback boundaries and
+retain ticket ownership for delayed sounds; do not scan armies or suppress their
+combat events to reduce noise. The single range lives in
+`scripts/move_audio.gd` as `ALLY_SOUND_DISTANCE`.
+
+Fresh checks pass 50 focused headless assertions and 52 through Play Goemon,
+including both presets, a saved custom tower, the exact radius boundary,
+height separation, native mercenary cues, five native allied bodies, paired
+voices, borrowed Dark/Finale cues and loop cutoff. A thousand repeated distant
+requests retain zero nodes/resources and the same voice pool. Actual desktop
+SFX recordings peak at 7,358/32,768 for the nearby attack and exactly zero for
+the distant attack. The rendered statue-only opening was inspected. Valley
+checks pass 1,124 assertions and paid mercenary hunting passes 23 headless and
+23 through Play Goemon. Finale Wind steering/audio passes 66 assertions and
+Musashi player motion passes 13.
+Asset preservation, 69 toolkit unit, 12,973 imported-asset, 98 outfit and
+86 structure checks pass. These are focused correctness checks, not a full-army
+audio mix, long-session soak or controlled frame-time comparison.
+
+The older paired-move suite still fails three Dragoon sweep/landing assertions.
+A temporary control with proximity checks disabled also fails the same three
+(plus two native-primary checks); that suite is not counted as passing or fixed.
+Dark Lumina 2's 123-check gameplay fixture has the same five footstep/claw/grab
+failures with filtering enabled and disabled, with unchanged input hashes in
+both final runs. Its earlier run also failed the input-hash check because the
+presentation source was edited during that run; it is excluded. No movement or
+contact correction was attempted as part of this audio request.
+Evidence and recordings are under `build/Other Files/Ally Audio/`.
+
+Verify with Play Goemon: restart on either preset, build any defenses yourself,
+recruit mercenaries/hero allies and start battle. Approach their attacks to hear
+them, then move more than 15 metres away. Your own attacks should stay audible.
+No app was exported.
+
+## Human Cannon Tower — 2026-10-30
+
+The build menu now offers the original Warcraft Human Cannon Tower in slot 5
+alongside the Guard Tower. It costs 200 ryo and uses the same workers, placement,
+repairs, tower upgrades and native army damage/death owner. Shells follow a fixed
+arcing destination and deliver full, half and tenth splash damage within 3, 6 and
+7.5 metres of fitted ground-enemy bodies. World cover blocks damage. A target dying
+does not cancel an already launched shell.
+
+This is an asset/gameplay addition, not a measured speedup or an isolated new
+bottleneck. The smallest integration extends the existing workforce projectiles,
+native local enemy query and pooled visual/audio systems. The prepared original
+tower is 215 triangles/two surfaces and the shell is ten triangles/one surface.
+Meshes, textures and all sound resources load at setup; 16 shells and 16 original
+impact bursts warm the existing projectile pool once. Reuse clears transforms,
+emission and lifetimes. Attacks do not load models or create materials. Larger
+volleys retain all shots and use the existing bounded idle pool.
+
+Fresh standard-map verification through Play Goemon passes 62 assertions,
+including native damage, cover, worker firing/release, pause, saved-map roundtrip,
+all twelve original WAV/imported PCM hashes and five simultaneous 16-shell
+volleys. After warmup the run stayed at 8,322 nodes and 1,841 resources. Cannon
+work p95 was 0.778 ms; rendered frame intervals were p95 28.534 ms, maximum
+88.518 ms on Apple M3/Metal at 1280×800. Other project work overlapped this short,
+manually stepped run, so these are diagnostics, not a controlled FPS comparison,
+full-army stress test or new claim of general smoothness. The 2026-10-23 user
+experience above remains separate historical evidence.
+
+The final large-map desktop run also passes all 62 assertions. Its repeated
+volleys stayed at 13,034 nodes / 1,841 resources, with cannon work p95 0.893 ms,
+frame interval p95 38.267 ms and maximum 108.309 ms. Large-map captures were
+inspected. The same short-run and concurrent-work limits apply; this does not
+establish a new full-battle performance baseline.
+
+Verify with **Play Goemon.command**: open Build, press **5**, place a Cannon Tower
+and let idle workers join automatically. Start combat; listen for the three firing/three explosion
+variants and watch nearby enemies take smaller splash hits. Compare the Guard
+Tower's faster single-target arrows. Sources and editing contracts are in the
+Wind Meadow building guide and `assets/audio/warcraft_cannon/README.md`.
+Run `tests/forest-shrine/human_cannon_tower_test.gd` through the launcher for a
+repeatable check. Current logs, captures and limits are recorded in
+`build/Other Files/Asset Toolkit/Human Cannon Tower/VALIDATION.md`.
+
+The user's same-day follow-up shares the original "Job's done" completion cue
+with every successful building purchase, once per purchase (including a dragged
+wall). It reuses the four prepared placement voices and adds no loading or new
+audio nodes. Preparation inspection now contains repair and removal; manual
+Assign workers / Auto assign controls are removed. Automatic staffing and combat
+worker commands continue through the existing workforce. The focused
+`building_placement_audio_test.gd` covers the cue pair, silent failures, mute,
+recording, pause, repeated reuse and the simplified inspection panel. Follow-up
+evidence is under `build/Other Files/Asset Toolkit/Construction and Level Audio/`.
+
+## Random arrivals across the valley — 2026-10-30
+
+During battle, up to three enemies arrive each second. Random groups sample the
+whole map, including off-road ground, instead of only road cells. The existing
+native terrain connectivity proves a route to the
+castle before admitting each enemy. Older saved castles with closed doors may
+use a reachable gate exterior. Ground, scenery, worker and body-clearance checks,
+bounded retries, the one-second group timer, wave roster and active cap remain.
+Terrain changes defer a group until native navigation has refreshed; they do not
+consume queued enemies. No second army controller or rendering system was added.
+
+Rendered testing exposed movement defects behind the earlier road-only
+restriction. Flow costs measured horizontal travel, but candidate scoring added
+vertical distance, making slow troops turn back uphill. Long corridor samples
+could also skip a tiny unsupported stair shoulder that blocked the next step.
+The shared native selector now uses horizontal costs. Long field corridors also
+check terrain triangle boundaries, where body-clearance differences can peak
+between the usual samples. Checking only the immediate step proved insufficient
+on the narrower stairs: troops could alternate between two partial approaches.
+The corrected corridor certificate keeps the existing exact route cache.
+Switching between a nearby tower and the shrine could also restart direct
+steering into the cliff. Changed goals now check their actual segment before
+choosing direct or routed movement. A reduced native assault fixture reproduces
+the failure and verifies both attackers at 24- and 42-metre stair widths.
+Castle target bounds also use the building's actual foundation height, matching
+the stair work's obstacle and contact bounds.
+
+These are correctness fixes, not a measured frame-rate improvement. To verify,
+use Play Goemon, press START and watch groups appear away from the enemy castles
+and roads, then approach the castle and climb its stairs. Repeat on the large
+valley. Pause stops arrivals; a full army or exhausted roster delays them. The
+focused fixture keeps defenses alive to observe every enemy's first real attack.
+Its manually advanced simulation times are not rendered frame times or evidence
+of full-battle, long-session smoothness. The lane-only results below are historical.
+
+Fresh desktop verification on the 24-metre stairs passes 231 standard-map and
+240 large-map checks, with all thirty enemies attacking on each map. All six
+ordinary types, all four quadrants and off-road arrivals are covered. The large
+fixture allows partial/deferred groups and collects thirty arrivals within twenty
+attempts; it does not require unsafe placement to fill every group. Five repeated
+spawn/retire cycles after one warm-up retain zero nodes and resources on both.
+All 17 native suites pass on unchanged source snapshots, including 5,641 navigation
+checks and the reduced target-switch regression. The tested universal library's
+SHA-256 is `d0621fcb0d4956dd7057cabf433e62b6f0ed8a2aa5f8f6e0961547f4d6a13740`.
+Current captures/reports are under `build/Other Files/Random Enemy Spawns/Anywhere/`;
+logs and native fixtures are under `Random Enemy Spawns/raised-castle/`.
+
+## Enemy Skullpion statues — 2026-10-30
+
+Each standard/large Wind Meadow enemy castle now has a destructible stone
+Skullpion statue in place of the central farm. Its existing castle HP setting,
+reinforcement ownership and victory rule remain: walls can be breached
+independently, but the statue must fall to defeat that castle. Placement previews,
+the build portrait, health labels and victory text show the same objective.
+Old unexpanded saved valleys keep their original farm objectives.
+
+This is requested gameplay/art, not a measured bottleneck fix. The saved
+Skullpion GLB's prepared `Castle_Cling` pose is frozen offline into one shared
+static mesh/material, preserving all 1,037 triangles. Its 81 source surfaces use
+a 1032×1032 engraving atlas with duplicate image pages shared. The original
+Blender master, GLB, textures and boss motion remain untouched. There is no boss
+simulation, skeleton or AnimationPlayer for statues. The existing shrine
+pedestal, stone-block rubble, pooled hit effects and static objective owner are
+reused. Combat, physical collision and native navigation share the pedestal and
+22 fitted part bounds, including rotation and removal on destruction.
+
+Fresh desktop-launcher checks pass 137 assertions on each valley size, covering
+actual pipe/bullet damage, independent wall breaches, four statue defeats,
+collision release, victory and restart. The standard headless fixture passes
+134. Placement/save/reload checks pass 43 assertions, including the statue ghost
+and a newly placed castle. The fixture's site moved clear of the new side stairs.
+Its camera must be aimed after teleporting between forts; the initial
+headless attempt aimed away from the third/fourth statues. The model check
+verifies every posed triangle, source hash and all rotated collision bounds;
+2,988 existing Skullpion motion checks also pass. Asset preservation, 69 toolkit
+unit, 12,973 imported-asset, 98 Musashi outfit, 13 Musashi player-motion and 86
+structure checks pass. Front, angle, overview and destroyed-state captures were
+reviewed in the actual painterly game. The standalone model check and icon
+exporter complete but report resource/RID warnings at shutdown; the castle
+lifecycle checks exit cleanly.
+
+No full-army benchmark, controlled frame-time comparison or long-session memory
+test was run. Concurrent development/testing makes the fixture's recorded frame
+samples unsuitable for a smoothness claim. Earlier performance results remain
+historical. To keep this cheap, rebuild the static resource after source edits
+with `tools/build_skullpion_stone_statue.gd`; do not instantiate the animated boss
+for each castle or rebuild stone materials during attacks.
+
+Verify through Play Goemon: enter an enemy courtyard (or breach a panel), attack
+the labelled Skullpion statue, then check its rubble, open collision and stopped
+reinforcements. Destroy every statue to win. Repeat on the large valley and a
+newly placed castle. Logs and art evidence are under
+`build/Other Files/Asset Toolkit/Skullpion Statue/`; battle results/captures are in
+`build/Other Files/Asset Toolkit/Wind Meadow/Castle Breaches/` and its `Large/`
+subfolder. No app was exported.
+
+## Musashi sword techniques and one-press skills — 2026-10-30
+
+The user requested more of Musashi's original resources, especially X Slash,
+then asked for one press to perform each complete combo. The default hotbar is
+now 1 X Slash, 2 Tenderize, 3 Desperado, 4 Rotation, 5 Mighty Strike. Saved custom
+assignments are preserved; Skills & Jump still offers the other recovered skills.
+Elemental Lumina spells were excluded as requested.
+
+This fixes missing behavior, not a measured frame-time bottleneck. Most body
+motions already existed. The small runtime change connects their phases inside
+Musashi's existing combat and source-motion clocks, with existing native queries,
+collision, damage and ally ownership. The new Tenderize continuation is prepared
+with Lumina drawn; the original sprite, blade endpoints and both Desperado trails
+are recovered data. No runtime animation retargeting or second army is needed.
+Character setup prepares four reusable X Slash impacts and the second sword trail.
+Reassigned Musashi combo skills also reuse his visible body and combat owner.
+
+To verify, use Play Goemon, select Musashi and press 1, 2 or 3 near an enemy.
+Each button starts with Fusion and advances automatically; missing a target
+still plays the sequence but cannot create a hit. Watch the two rising cuts in
+Tenderize and both swords during Desperado's leap. Test a miss, repeat each skill,
+then interrupt or change fighters to check that no pending cut resumes later.
+Preserve the 30Hz source event windows and exact contact checks when editing.
+
+Recovery provenance and limitations are in
+`assets/characters/recovered_musashi/README.md`. Current focused evidence is in
+`build/Other Files/Asset Toolkit/Musashi Techniques/`. The source/optimized sweep
+contains 132 image pairs: 131 are identical; one Tenderize image differs at one
+pixel along the overlapping blades. Bone/sample/texture preservation passes;
+the inspected poses retain both weapons. These checks establish no emulator
+parity or long-session/full-army frame-time claim. Concurrent map/character work
+also makes short timing maxima unsuitable as a controlled speed comparison.
+
+Fresh Play Goemon verification passes 90 checks, including all automatic phases,
+reassignment, a borrowed combo, interruptions, twelve repeated casts and five
+native allies running mixed combos. Repeated casts retain zero additional nodes
+or resources. Their manually timed player step is 0.969ms p95 / 3.765ms maximum;
+these numbers exclude rendering and full-army work. All captured test input hashes
+stay unchanged during that run. A final 86-check headless run also verifies the
+lethal-contact flash through the existing native death lifecycle. The 592 numbered-skill and 78 assimilation checks
+also pass. A broader skill-balance fixture passes its assertions but logs an
+unrelated obsolete Knight charge call and concurrent Mountain King audio casing
+warnings; it is not counted as a clean whole-roster result. See validation.txt in
+the evidence folder for asset checks and the exact tested native-library hash.
+
+## Central courtyard enlargement — 2026-10-30
+
+The central courtyard is now 30% wider and deeper (96 → 124.8 metres), and
+its elevation rises 30% (32 → 41.6 metres). The four stairs scale with it:
+31.2 metres wide, with a 124.8-metre run, preserving the original slope.
+The statue and enemy forts retain their existing model sizes. The shared
+prepared terrain still owns player collision and native army movement;
+visible treads retain the same batch and piece count. Saved maps without
+`raised_castle` keep their original terrain. Earlier stair and 32-metre
+courtyard results below describe the previous dimensions.
+
+This is a layout change, with no measured speedup or full-battle performance
+claim. Verify both sizes with `tests/forest-shrine/raised_castle_test.gd`
+through Play Goemon: walk up all four stairs and watch native attackers enter
+and damage the base. Current captures and logs are under
+`build/Other Files/Castle Side Stairs/`.
+
+Fresh verification of these dimensions passes 263 headless checks and 265
+rendered desktop checks across both sizes, including 56 autonomous attackers
+and eight real player climbs per run. Both rendered overview captures were
+inspected. Asset preservation, 69 toolkit unit tests, 12,973 imported asset
+checks, 98 outfit checks and 86 structure checks also pass. These focused
+results do not establish full-army frame times.
+
+## Castle side stairs — 2026-10-30
+
+The four sides of the raised castle now have broad stone stairs connecting the
+valley roads to the existing courtyard. Each is 24 metres wide and climbs the
+32-metre rise over 96 metres, with a level landing across the old doorway.
+The shorter footprint keeps the inner road ring clear. Doors stay removed;
+towers, statue, outer walls, original trees and both map sizes are retained.
+
+This is a requested layout change, not a measured performance bottleneck or
+speedup. The existing terrain field prepares the courtyard, stairs and collision
+at setup. Fine visible treads reuse batched static boxes and the shared stone
+material; the player and armies use the same smooth triangles beneath them.
+There are no per-enemy stair controllers, per-frame resource loads or new pools.
+Native obstacle bounds now use each building's actual foundation height: sampling
+the new landing as a wall base would otherwise create an invisible wall above
+the real masonry. The same foundation is used by cached corridor contacts.
+
+The temporary exterior-only portal validation is removed. Map validation again
+requires a route from every enemy entrance to the shrine. Old saved maps without
+`raised_castle` retain their original terrain and doors. Raised layouts retain
+the stairs through editor save/reload and map expansion.
+
+Verify through Play Goemon: walk up each side without jumping, then start combat
+and watch approaching enemies climb onto the courtyard. The focused
+`tests/forest-shrine/raised_castle_test.gd` checks all six ordinary enemy types
+from all four sides, using native autonomous targeting and actual shrine damage,
+plus the real player controller and physics. Evidence is under
+`build/Other Files/Castle Side Stairs/`. Short manually stepped simulation timings
+are diagnostics, not a full-army or long-session frame-time benchmark.
+
+Fresh narrowed-field verification passes 350 headless checks, including 48
+ordinary-enemy climbs across all four sides/both sizes, eight off-axis assaults,
+eight actual player-controller climbs and the unchanged 8.5-metre giant ground
+footprint. The user requested the reduction from 42 to 24 metres (about 43%
+narrower); no unit collision size or combat tuning was reduced. An earlier
+42-metre desktop fixture passed 352 assertions. Both sizes also retain the
+1,206 valley checks; 497 native terrain, 49 wall-height, 35 map-document,
+69 toolkit unit, 12,973 imported-asset, 98 outfit, 13 Musashi motion and 86
+structure checks passed during this work. These results precede or accompany
+other active game edits and are not a full-battle performance acceptance run.
+
+The wider random-spawn crowd fixture exposed tiny-step/target-approach stalls.
+The completed shared movement fixes now pass all thirty autonomous castle
+attackers on both standard and large maps with the narrowed stairs. The earlier
+28/30 run remains a failed historical diagnostic. See the random-arrivals section
+above and `build/Other Files/Random Enemy Spawns/raised-castle/` for final evidence.
+
+## Raised castle courtyard — 2026-10-30
+
+The user requested a lift-only first stage, with stairs running along the sides
+of the walls in a later step. The bundled standard and large layouts opt into
+`raised_castle`: the courtyard is level at the existing 32-metre wall top, while
+the original perimeter wall and gateway frames remain at their original height.
+Towers, the statue, workers and the player use the lifted floor. The existing
+breached-gate lifecycle hides the door panels and disables their colliders;
+permanently removed panels cannot return through worker repairs.
+
+This is a layout change, not a measured performance bottleneck or speedup.
+Terrain heights are prepared and cached at setup using the existing field and
+mesh builder. Physics, native army movement and accelerated corridor queries
+share the resulting triangles. Models, scenery, counts and combat are reused.
+Old saved layouts without the flag retain their original floor and doors; map
+capture, reload and resize preserve the flag. Only the interior field samples
+change. No app export is needed for this iteration.
+
+At this first stage, the courtyard had no walkable connection to the outside.
+Portal validation temporarily checked only arrival routes to the gateway
+exteriors. The side-stair follow-up above restores the shrine-approach proof;
+these original lift-only results remain historical.
+
+Run `tests/forest-shrine/raised_castle_test.gd` through Play Goemon to inspect both
+map sizes and check physical floor heights, native movement, doors, spawn height,
+editor serialization, older saved maps and map expansion. Evidence is under
+`build/Other Files/Raised Castle/`. This focused check establishes no full-army
+or long-session smoothness claim.
+
+Fresh verification passes 106 desktop and 104 headless raised-castle checks,
+1,194 valley checks, 49 wall-height checks, 54 legacy gate-breach/repair checks,
+18 map-catalog checks and 35 map-document checks. Active asset preservation,
+69 toolkit unit, 12,812 imported-asset, 98 Musashi outfit, 13 Musashi player-motion
+and 86 structure checks pass. The older pure-model fixture still fails its two
+fog-memory assertions: production retired fog before this change. The wall-height
+fixture passes its assertions but reports dummy-renderer resources at shutdown;
+the focused raised-castle fixture exits cleanly. No full-battle benchmark was run.
+
+
+## Random map reinforcements — 2026-10-29
+
+During battle, the existing wave owner now attempts a group of three ordinary
+enemies every second, starting one second after START. These enemies appear
+directly at random clear points along Wind Meadow's connected lanes and use the
+same native army arrival queue, target selection, castle assault and pooled
+presentation as castle troops. Castle entrances keep their existing groups and
+boss entries. Map groups use opening strength and cannot unlock or grow a castle
+group. They draw from the configured wave roster rather than adding uncounted
+enemies; full capacity, an exhausted roster or blocked ground can reduce or defer
+the group. The 240-enemy cap, one-minute waves, pause and objective victory remain.
+
+This is requested pacing, not a performance optimization. Initial desktop tests
+found that unrestricted hillside sampling could strand an enemy even with a
+nonempty grid route, and that two clearing retries could miss an entire group.
+The smallest correction uses the existing connected lane cells on elevated maps
+and bounded retries across four potential clearings. Placement still checks real
+terrain, trees, structures, body spacing, workers and a route to the castle.
+Arrivals stay at least 90 metres from the shrine and 20 from the player. Do not
+replace this with a separate enemy controller or a whole-army search per enemy;
+the group shares the existing spawn spatial snapshot and cached navigation.
+
+Fresh model checks cover 30/60/144 Hz timing, all six ordinary types, partial
+groups, exact roster accounting, capacity, preparation/restart and blocked
+placement. Desktop verification on both standard and large Wind Meadow checks ten
+groups of three, native ownership and all thirty enemies attacking real castle
+defenses. The focused fixture holds those defenses alive and advances simulation
+manually; its timings establish no full-battle FPS or long-session smoothness
+claim. The original unrestricted and retry-only failures remain in the logs.
+
+Final verification passes 92 model checks and 174 checks through the desktop
+launcher on each map size. Five repeated spawn/retire cycles retain zero nodes
+and resources on both. The ten measured group placements have maximum CPU times
+of 1.282 ms on standard and 3.053 ms on large; manually stepped 50-ms native
+updates have p95 CPU times of 6.276/6.294 ms. These are short fixture diagnostics,
+not controlled before/after measurements or rendered frame times. Existing wave
+timer (37), castle groups (81), roster (33), asset preservation, toolkit unit (69),
+imported assets (12,812), Musashi outfit/motion (98/25) and structure (86) checks
+pass. The older roster fixture still reports six resources in use at process
+exit despite its passing assertions; the new desktop fixture exits cleanly.
+
+Verify through Play Goemon: press START and watch the minimap for small new groups
+away from the enemy castles. They should walk toward your castle and engage its
+defenses, while castle troops continue arriving. Pause to stop both arrival
+clocks. Clear enemies to free slots if the army reaches its existing cap. Repeat
+on the large valley. The fixture and commands are in the forest test README;
+captures and reports are under `build/Other Files/Random Enemy Spawns/`.
+No app was exported and no assets or native simulation code were changed here.
+
+## Legendary card heroes seek enemies and survive wave resets — 2026-10-29
+
+The user reported that legendary heroes summoned by a card stayed still instead
+of finding enemies. The fresh desktop baseline reproduced 21 failed movement,
+acquisition, attack/damage and next-wave expectations. Permanent heroes reused
+Mirror Image's 48-metre direct-sight search, so enemies beyond the castle never
+qualified. Preparation also reset their native action count, speed, reach and
+approach while leaving their character bodies alive; later waves had no native
+hero controller configuration.
+
+The smallest fix marks permanent arrivals with the existing recruit home data.
+Their original nearby target sharing stays intact; when it finds no enemy they
+reuse the shared native nearest-contact index and existing terrain routes.
+Recruit goals already sample destination ground height, allowing hills and
+castle passages. Wave preparation now preserves the prepared hero action setup
+and body busy state. An attack command still requires clear contact through
+cover. Temporary Mirror Images retain their local search and fifteen-second
+lifetime. Existing health, damage, attack timing, skills, models and pools remain
+under their current owners; no renderer, pathfinder or army scan was added.
+
+Fresh Play Goemon desktop checks pass all 31 assertions on both standard and
+large Wind Meadow. All five card heroes acquire the distant entrance, leave
+the castle, reach it and start their existing attacks together; native damage,
+next-wave reacquisition and zero additional idle nodes/resources are verified.
+Outbound and fighting captures were inspected. Native assertions also exercise
+cover on a hill at 20/30/60 Hz, persistent hero configuration and unchanged
+temporary-summon waiting.
+
+All 16 native suites pass, alongside 47 legendary lifecycle, 338 universal
+Mirror Image, 4,109 native runtime, 69 toolkit Python, 12,812 imported-asset,
+98 Musashi outfit, 13 Musashi player-motion and 86 structure checks. Active
+asset preservation passes. The initial all-native command omitted the generated
+Finale header include path; its regenerated import fixture and corrected native
+rerun pass, with the initial compile diagnostic retained separately.
+The native-runtime fixture still reports shutdown resource/RID warnings; those
+are separate from the passing live idle node/resource checks.
+
+Manually stepped CPU p95/max is 1.157/257.877 ms on standard and .997/658.446 ms
+on large. Maxima include navigation/world setup; the standard baseline was
+.667/223.940 ms while heroes never moved. These are different workloads and
+short diagnostics, with rendering between batches of simulation steps. They
+establish neither a speedup nor full-battle smoothness or long-session stability.
+
+Verify through Play Goemon: choose “A legend joins”, start a wave and stand back.
+The hero should leave the castle toward enemies, then continue finding targets
+after finishing that wave and starting another. Repeat on the large valley.
+The repeatable commands are in the forest test README; evidence is under
+`build/Other Files/Legendary Hero Hunting/`. No app was exported.
+
+## Mercenaries seek enemies across the valley — 2026-10-29
+
+Paid Dragoon, Ranger, Ninja, Knight and Explorer recruits now acquire the nearest
+living enemy from their current position throughout battle. Their preparation
+posts no longer impose an 18-metre combat boundary. They pursue replacement
+targets, return home when no enemies remain, and retain their existing hiring,
+food, health, attacks, shelter recovery and preparation placements. This
+supersedes the local guard-area behavior recorded under October 25 below.
+
+The measured failure was behavioral, not a frame-time bottleneck: the baseline
+desktop fixture failed all twelve distant acquisition/travel/combat expectations.
+The smallest fix reuses the existing native nearest-contact hierarchy rather
+than adding a search or simulation. Its enemy positions are shared per pose
+revision and body contacts are refined only for competitive candidates. The
+2,419-check nearest-query fixture passes; its dense 2,000-enemy case fits seven
+bodies. Keep that shared index when extending recruitment or targeting.
+
+Real-map checks also exposed horizontal approach goals retaining the recruit's
+starting height. That prevented a route to an enemy on higher ground. Paid
+mercenary goals now sample their destination's existing support surface in the
+shared native goal setter. A focused native check routes around a wall on a hill
+at 20/30/60 Hz. This adds no pathfinder, renderer, combat-time asset loading or
+per-unit animation work. Temporary summons and enemy goals retain their owners.
+
+Fresh Play Goemon desktop checks pass all 23 assertions on each of standard and
+large Wind Meadow. All five real paid kits leave home, reach a distant raised
+enemy entrance, deal native damage, replace targets and return. The fixture
+replenishes ordinary targets after Ninja's unchanged execution kills, rather
+than disabling that skill. Captured fighting and outbound views were inspected.
+Idle searches retain zero additional nodes/resources on both sizes. Hiring (91),
+bunker recovery (27), native runtime (4,109), native core, preservation, Python
+toolkit (69), imported assets (12,812), Musashi outfit/motion (98/25) and structure
+checks (86) pass. The universal native library was rebuilt.
+
+Manually stepped CPU p95/max is .427/221.320 ms on standard and .560/509.610 ms
+on large; maxima include initial navigation/world setup. The baseline standard
+was .373/223.953 ms while the recruits stayed idle, so these are different
+workloads and establish no speedup. Rendering is sampled between manual steps;
+these are focused diagnostics, not full-battle frame times or a long-session
+resource soak. Earlier fixture failures and traces are retained separately.
+
+Verify through Play Goemon: recruit with M, start a wave and stand back. Recruits
+should head out through the castle's open passages, cross the hills and fight
+enemies near their entrances. After the last enemy dies they should return home;
+injured survivors should still use their existing Farm recovery. Repeat on the
+large valley. Evidence is under `build/Other Files/Mercenary Hunting/` and the
+repeatable commands are in the forest test README. No app was exported.
+
+## Kojiro rising phoenix and doubled speed — 2026-10-29
+
+The user found the flat phoenix too flat and requested both a gradual climb and
+raised head, with twice the forward speed. Its existing release now uses 32
+rather than 16 source units per tick. Upward acceleration is 2 metres/second²:
+it gains one metre after one second and four after two, in addition to the
+original aim. The sprite lifts its head another 15 degrees over two seconds,
+then holds that pose. Midpoint movement keeps the climb consistent at different
+frame rates. Existing per-step segment contacts and solid-cover checks use this
+rising path, including at the faster speed.
+
+This supersedes the phoenix's flat travel below. The three white homing birds,
+wind sheets, damage, release timing, eight fire frames, size/hit growth and
+three-second lifetime remain unchanged. The unchanged lifetime means twice the
+forward travel range before solid cover. Player, borrowed and native-owned ally
+casts continue sharing the same controller, prepared visuals and projectile pool.
+This is requested motion tuning, not a measured performance bottleneck fix;
+it adds no combat-time resource loading, materials, nodes or target searches.
+
+Fresh headless and Play Goemon desktop runs each pass 699 checks, including
+climb at 20/30/60 Hz and
+half-second steps, the exact doubled release speed, reset pose/lift, independent
+overlapping flights, borrowed casts and simultaneous allies. Rendered phoenix
+orientation and progressive-pose checks pass 122. Preservation, 69 Python toolkit,
+12,812 imported asset, 98 outfit, 25 Musashi motion and 86 structure checks pass.
+The final Apple M3 desktop fixture has zero focus losses, zero pool misses and
+zero idle resource deltas; stepped CPU p95 is .949 ms and rendered interval
+p95/max is 17.723/49.119 ms over 3,944 frames. These are focused diagnostics,
+not a controlled speedup, full-battle benchmark or long-session result. Prior
+flat-flight measurements below remain historical.
+Wind Meadow shoulder and raised-camera captures show the climb and progressive
+head lift on the final source.
+
+An initial desktop run lost casts and stopped on an unchecked empty release
+list. The fixture now protects manually stepped casts from desktop focus changes
+and reports a missing release before reading it; the final rerun passes. This
+test isolation changes no gameplay controls. The interrupted log is retained.
+
+Verify through Play Goemon: cast RMB/T down an open lane and watch the phoenix
+pick up height and gradually lift its head as it grows. It should cross the
+lane twice as fast. Turn and repeat, then try a borrowed cast and Mirror Image;
+press 1 to confirm the three white birds retain their existing flight.
+Evidence is in `build/Other Files/Asset Toolkit/Kojiro/Phoenix Rise/`.
+No app was exported and no asset rebuild was needed.
+
+## Kojiro flat bird flight — 2026-10-29
+
+The user approved a flat, head-first phoenix alongside Dark Lumina 3's second
+sword wave, then requested matching flat flight for the three small white birds.
+The phoenix now lies centered in its flight plane, with its image's lower head
+leading and upper plume trailing. Its launch center is 3.9 metres above the
+caster, matching that sword wave, and retains building-growth scaling. White
+birds keep their original sprite and 45-degree fan; a prepared diagonal image
+offset aligns their beaks with velocity, including each existing homing step.
+The fire's eight frames, two-second visual growth, original hit growth, damage,
+speed, release markers, lifetimes, steering and cover/contact checks are retained.
+This approved pose supersedes the upright presentation described on October 26.
+
+This is an appearance/muzzle correction, not a measured performance bottleneck
+fix. It reuses the existing projectile leases, shared meshes and prepared owned
+materials. Orientation changes add no resource loading, geometry, pool, material
+or target search in combat. Flat sprites naturally become thin when viewed
+edge-on; low shoulder and raised views must both be reviewed, rather than making
+the sprites face the camera and losing the approved flight direction.
+
+Fresh headless and Play Goemon desktop runs each pass 644 checks, including repeated leases, preserved
+growth, borrowed casts, five simultaneous allied phoenixes and fifteen allied
+white birds. Metal rendering passes 116 checks for each sprite across 32
+camera/flight combinations, checking actual head/tail marker direction against
+velocity rather than treating the quad's normal as its nose. Separate native
+piercing/cover/lifetime checks pass 45 with no retained nodes or resources.
+Preservation, 69 Python toolkit, 12,812 imported asset, 98 Musashi outfit,
+25 Musashi motion and 86 structure checks pass. These are fresh focused results,
+not a full-army benchmark or long-session soak.
+
+The final Apple M3 desktop run reports zero focus losses or pool misses, zero
+idle resource deltas, manually stepped CPU p95 .918 ms and rendered intervals
+p95/max 17.819/74.986 ms over 3,944 frames. Baseline p95/max was
+17.198/152.643 ms over 3,914 frames; these are fixture diagnostics with capture
+and setup effects, not a controlled speed comparison or evidence of hitch-free
+battles. The baseline desktop run missed one native melee follow-up; the final
+run passes it without changing melee code. Its failed baseline log is retained.
+Wind Meadow shoulder and raised-camera captures were inspected on final source.
+
+Verify with Play Goemon: select Kojiro, cast RMB/T into open space and turn before
+repeating. The phoenix should fly flat with its head first and tail behind while
+growing. Press 1 for three white birds: they should keep the same flat posture
+while turning toward targets. Repeat with a borrowed spell or Mirror Image.
+Evidence is under `build/Other Files/Asset Toolkit/Kojiro/Flat Bird Flight/`.
+No app export or asset rebuild is needed for these script-only changes.
+
+## Four remaining combat test suites resolved — 2026-10-29
+
+The follow-up investigation found fixture and expectation errors in all four
+remaining suites. No gameplay, animation, sound, knockback or performance code
+needed changing. The current shared impact work and subsequent audio edits are
+preserved; protected sound, player, hit/knockback, native combat and projectile
+files match the source checkpoint from the start of this follow-up.
+
+Musashi's movement check ran during his legitimate recovered landing pose. It
+now lets that source animation finish before testing a run. Its sword check
+edited a wave record after native ownership and assumed the enemy had 1,000 HP;
+it now creates a known ordinary native target with HP set before import and
+asserts that starting HP before checking the unchanged contact window.
+
+Ben's "grounded" fixture was actually airborne with `flying=true`, so the
+controller correctly chose the aerial barrage and landing sequence. Real body
+physics now settles him first, with an explicit floor/flight assertion. Ed's
+beam was correctly clipped to about 7.15 metres by a downward aim into the
+ground, despite an unobstructed maximum of about 37.48 metres. The visibility
+fixture now aims along a level lane. Neither flight rules nor beam collision,
+length, timing or audio were changed. Test projectile cleanup uses retirement
+through the existing pool instead of destroying prepared nodes.
+
+Explorer's test now spawns, moves and despawns native targets instead of
+inserting legacy dictionaries. The old type-2 prototype has no current native
+contact mesh; the distant-root check now uses the current native boss and its
+fitted bounds. Its near surface is explicitly asserted inside the real weapon
+reach while the root remains over 20 metres away. Side targets, distance,
+rear/height, sight, cover, invalid geometry, stale references and movement-wall
+checks remain. It also uses an isolated settings file.
+
+Warcraft's old minimum footstep count assumed the earlier cadence. It now
+asserts the exact existing every-other-step count and original Goemon sample,
+observing all dispatched voices rather than only the final voice in a tick.
+The suite now uses Wind Meadow. Sample, cadence, pitch and playback code are
+unchanged.
+
+Fresh headless and Play Goemon desktop runs both pass all 529 checks: Musashi
+25, Ben/Ed 34, Explorer 36 and Warcraft 434. The desktop runs use Metal on the
+Apple M3; representative captures and diagnostic logs are saved. Warcraft's
+repeated projectile checks retain 64 prepared instances with zero pool misses;
+its repeated special checks report zero resource growth. These are correctness
+fixtures, with manual clocks, capture stalls and other project checks running
+at times; they are not a new full-battle performance or long-session result.
+Preservation, 69 Python toolkit checks, 12,812 imported-asset checks, Musashi
+outfit/motion/player-motion 98/25/13 and 86 structure checks also pass.
+
+Keep test setup honest: initialize native HP before importing, let actual body
+physics establish grounded/flight state, and isolate clear-line tests from
+intentional scenery blocking. A mismatched fixture can look like an early hit,
+a wrong attack or a missing effect. Evidence, baseline probes and source
+checkpoint are in `build/Other Files/Asset Toolkit/Unresolved Combat Tests/`.
+No app export or new full-army benchmark was needed for these test-only repairs.
+
+## One-minute wave concept — 2026-10-29
+
+The user clarified that START must release wave one immediately. Later waves
+arrive at 1:00, 2:00 and 3:00. Each wave retains its full 60-second interval,
+including the final wave, so four waves still have a four-minute timer; any
+surviving enemies require defeat afterward. Empty waves retain their minute. Castle destruction
+still permits its existing early victory. The top-center HUD shows the next-wave
+countdown and total schedule remaining, then asks the player to clear the enemies.
+Pause, settings and fighter selection retain the existing stopped world clock.
+
+This is requested pacing, not a measured bottleneck fix. The existing wave owner
+keeps the clock and finite roster; arrivals reuse native lifecycle, entrance
+clearance, group gates and active caps. Pending counts carry across minute
+boundaries, so crowded entrances cannot silently discard enemies. Group growth
+resets each numbered wave. The final castle mix no longer repeats indefinitely;
+this supersedes the historical growing-group/mix scheduling descriptions below.
+Existing next-wave enemy balance updates still run at each timed boundary.
+
+Fresh model checks cover exact minute boundaries at 30/60/144 Hz, four arrivals
+despite surviving enemies, empty waves, clock formatting, restarts, capacity and
+backlogged counts. The desktop launcher fixture checks native arrivals, pause,
+fighter selection, balance updates and rendered HUD placement at 1280×800 and
+960×600 with normal/max HUD scale. The initial delayed-opening version passed
+37 model / 60 desktop checks; the immediate-opening follow-up has separate
+`immediate-*.log` evidence in the same folder, passing 37 model and 61 desktop
+timer checks plus 81 group, 33 roster and 199 balance checks. The adapted
+group fixture passes 81 model/native and 97 desktop checks, including real attack
+gates, growth, damage scaling and fractional XP. It advances the schedule explicitly; this is
+not an uninterrupted four-minute battle or a full-army performance measurement.
+Preservation, toolkit/import, outfit, structure, balance, roster, group and
+Musashi player-motion checks pass. The reference army fixture freezes its HUD
+with its background because its retired wave owner has no live clock. The older
+HUD cleanup test reports five portrait-switch assertions; they are retained as
+failures, separate from the passing timer layout checks.
+
+Verify through Play Goemon: choose four waves in Tools → Core Game Balance,
+restart to apply composition, then press START. Expect 01:00 for the next wave
+and 04:00 total, with wave one already entering and wave two due in one minute. Pause and resume, then
+let earlier enemies survive into the next minute. Timing/UI evidence is under
+`build/Other Files/Asset Toolkit/Wave Timer/`. No app was exported.
+
+## Whole roster impact review — 2026-10-29
+
+The user liked the shared impact direction and requested checks across the rest
+of the characters and skills, keeping the existing sounds and knockback. The
+catalog has 20 selectable fighters and 88 assignable skills. Keep the existing
+shared contact visuals; this review adds no extra hit pause, particles, sound
+layer, knockback, material, pool or simulation.
+
+The concrete bug was effect ownership during borrowed-skill cleanup. A borrowed
+Rogue controller on an AI copy uses `RogueSharedClassEffects`, but its inherited
+exit handler deleted that shared node as if it owned a standalone AI effect
+node. Later attacks called a freed object. The smallest fix excludes controllers
+with a spell owner from that deletion. Standalone AI controllers still clean up
+their own effects. Ranger's full Rapid Shot check now passes 246 checks, including
+native damage from all ten arrows and repeated pooled volleys; it previously
+logged freed-effect errors and missed the damage assertions.
+
+Fresh shared checks pass: 3,398 modular spell checks, 577 native numbered-input
+checks, 153 shared ownership/lifecycle checks and 254 shared feedback checks.
+These cover all 88 catalog entries and the 32 supported receiving bodies,
+including hidden compatibility fighters; this is functional coverage, not a
+claim that every borrowed combination was visually reviewed. Knight fourth
+swing/held guard/lion, Ninja's three-hit refresh, Chief weapons/ballistics/sword,
+Sonic, Skullpion, Kojiro, both Dark Lumina forms and Warcraft skill checks also
+exercise their native contracts. Several old fixtures needed current native
+target positions, a hidden-bar null check, merged sword-surface expectations, an
+actually close sword target, a clear elevated lion lane or a headless-safe draw
+wait. These repairs change tests only.
+
+Through Play Goemon, painterly Wind Meadow runs cover 93 native primary/hotbar
+cases plus 39 focused context/aim follow-ups: 20,940 focused physics steps, no
+script errors or projectile pool misses, and at most 76 of the existing 384
+native effect records. Captures were inspected for melee, piercing, counter,
+beam, bazooka, energy sword and Wind impacts. Every selectable primary confirms
+native damage after the Chief fixture enables the required camera focus.
+Support, movement and context-dependent skills can legitimately report no
+damage in this stationary fixture; those rows are not claimed as impact passes.
+The follow-ups exercise the actual counter, airborne Dragon Leap, charged Hail
+and all five Chief weapons. Screenshot encoding interrupts the initial capture
+run, and some follow-ups overlap headless checks: do not use their frame maxima
+as gameplay performance evidence. The fixture now excludes its capture interval.
+
+Fresh full-battle evidence is separate: a 24.003-second foreground desktop run
+on the Apple M3 retains 240 native enemies and 96 allies with ordinary stats,
+normal deaths and reinforcements on painterly Wind Meadow. Six Wind casts launch
+468 shots, with 740 prepared projectiles and zero pool misses. The battle records
+2,946 damage events, 305 deaths, zero dropped hit events and unchanged measured
+source inputs. Frame mean/p95/p99/max are 9.631/17.436/23.379/43.656 ms; shared
+presentation averages .727 ms per rendered frame. All battle acceptance checks
+pass. Metal GPU timestamps are unavailable. This is one short stress run, not a
+before/after speedup measurement or a long-session leak/feel guarantee.
+
+Preservation, 69 toolkit unit checks, 12,812 imported-asset checks, Musashi outfit
+and player motion checks, and 86 structure checks pass. At this review stage,
+four older suites reported Musashi movement/early-contact expectations, Ben/Ed leader fixture
+expectations, Warcraft walking-sound expectations and an Explorer fixture that
+inserts legacy enemy dictionaries. They are recorded in the review report and
+were not counted as passes. All four are resolved by the follow-up above.
+Headless fixture exit diagnostics are also retained.
+
+Verify through Play Goemon: try melee, Ranger's held Rapid Shot, Dragon Leap,
+Ed's beam and Chief's weapons; switch fighters, equip/remove borrowed skills,
+then attack again. Contacts should remain visible and responsive with the same
+sounds and recoil. Reports, captures, source checkpoint and isolated visual
+rollback patch are under `build/Other Files/Asset Toolkit/Whole Roster Impact
+Review/`. No app export was made.
+
+## Frost Dragon roar for Dragon Leap — 2026-10-29
+
+Dragon Leap now uses the recovered Frost Dragon opening roar (retail event B37,
+SC04/011, bank slot 51) as its built-in Voice layer. It plays once at actual
+landing as the hunting dragon emerges, alongside the existing landing impact.
+Native allies reuse that default on their first landing pulse through the
+existing spatial voice pool and overlap throttle. Saved voice recordings, gain,
+mute and Restore default retain their existing behavior. The source bank,
+pitch/layer records and recovery limitations are preserved with the asset.
+
+This fixes a missing sound, not a measured frame-time bottleneck. The smallest
+change adds a prepared default to SoundLibrary and dispatches it from the native
+landing event. There is no new audio player, pool, simulation or combat-time
+asset loading; damage, travel, animation and shockwave timing are unchanged.
+Fresh focused checks pass 29 headless and 32 through Play Goemon on painterly
+Wind Meadow, including both airborne buttons, one voice per landing, custom
+takes, gain/mute/defaults, grounded-sweep isolation, eight simultaneous native
+landings and 1,000 repeated plays with unchanged live node/resource counts.
+The desktop mixer capture peaks at .684 with zero clipped samples. The rendered
+landing was inspected. The fixture emits shutdown resource/RID diagnostics;
+stable repeated playback does not establish whole-game leak freedom.
+
+Existing landing audio (31), paired moves (46), character audio (40), recording
+defaults (182), native Dragoon effects (13), toolkit Python (69), imported assets
+(12,812), Musashi outfit/motion/player motion (98/25/13), structures (86) and
+preservation pass. The asset audit reads 302 models without errors. No full-army
+audio-mix, long-session or new frame-time benchmark was performed.
+
+Verify through Play Goemon: choose Dragoon, jump and click either mouse button;
+listen for the roar when the dragon emerges at landing. Its Voice layer in Sound
+Studio previews the same sound. Keep future audio changes in these prepared
+defaults and existing playback owners. Evidence and the original source catalog
+are under `build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/`.
+No app was exported.
+
+### Quieter landing and full-size hunting dragon — 2026-10-29
+
+The user kept B37 as the landing sound and requested 20% less volume. Both the
+landing weapon impact and Voice now multiply playback gain by .8 in the shared
+resolver; saved gain/mute/takes remain effective. The voice pool now consumes
+that resolved gain, just as Studio preview and native spatial playback do.
+Grounded lance sweeps and other fighters retain their levels. This addresses
+audibility, not a measured CPU bottleneck. The desktop mix has lower average
+signal level; the existing SFX hard limiter retains the same peak ceiling, so
+unchanged peak amplitude does not mean the gain adjustment was bypassed.
+
+The ground dragon really was smaller: its .7 visual scale is now 1.15, matching
+the existing diving dragon. Native kit data already reads that same constant,
+so no new renderer or native simulation change is needed. Damage, contact width,
+targeting, speed, lifetime, mesh/shader and source animations are unchanged.
+Fresh checks pass: roar 31 headless / 34 desktop, hunt 48 headless / 48 desktop,
+native effects 14, landing 31, paired moves 46 and recording defaults 182.
+The native desktop segment keeps eight dragons for three cycles, 115 presentation
+nodes and 1,156 resources before/after. All 567 measured frames had focus; frame
+p95/max were 17.578/75.285 ms and native step p95/max .971/2.755 ms. These are
+short fixture diagnostics, not a controlled speedup or full-battle certification.
+The larger player and allied dragons were rendered and inspected. The fixture's
+shutdown resource/RID diagnostics remain separate from stable live reuse counts.
+
+At this step, ground-attack sounds remained in review: original events 8C2
+(7.91 seconds) and 907 (2.49 seconds) were supplied as listening previews before
+assignment at the user's request. Verify through Play Goemon by jumping
+and using either attack button: listen at landing and compare the dragon's
+size during descent and hunting. Evidence is in the Frost Dragon toolkit's
+`Quieter Landing and Size/` and `Ground Attack Review/` folders. No app export,
+full-battle mix test or long-session benchmark was performed.
+
+### Selected 08 for the opening ground pass — 2026-10-29
+
+The user selected preview 08, the original BA9 three-layer sample-6 cue with
+its deeper ending, for ground hunting. The installed `ground_attack.wav`
+matches that approved preview byte for byte, including its .4 peak headroom.
+The B37 landing WAV and both existing .8 landing-gain rules are unchanged.
+Sound Studio's separate Hunting dragon · ground attack slot retains independent
+recording, gain, mute and Restore default controls.
+
+The new cue plays once on the first follow-up pulse, .26 seconds after landing,
+within the opening .35-second hunting pass. Player and native allies reuse the
+same existing pulse delivery and voice pools. Later pulses, dashes and damage
+events cannot repeat it. There is no new timer, event, pool, per-frame asset load
+or native simulation change; travel, damage, targeting, size and lifetime retain
+their existing values. This is an audio addition, not a measured bottleneck fix.
+
+Fresh focused checks pass 52 headless / 55 through Play Goemon on painterly
+Wind Meadow. They cover separate landing/hunt streams and levels, one hunt cue,
+custom takes/gain/mute/defaults, grounded-sweep isolation, eight simultaneous
+native landings and 2,000 alternating requests with unchanged live node/resource
+counts. Actual desktop mixer output is saved. The fixture advances the real
+pending-pulse timers; its first diagnostic omitted that advancement and is not
+counted as a gameplay failure or passing verification. Shutdown resource/RID
+diagnostics remain separate from stable live reuse counts.
+
+Existing landing (31), paired moves (46), recording defaults (182), native
+Dragoon (36), effects (14), hunt (48), toolkit Python (69), imports (12,812),
+Musashi outfit/motion (98/25), structures (86) and preservation pass. Audit reads
+302 models without errors. No full-battle mix, long-session or new frame-time
+benchmark was run. Verify through Play Goemon: jump and attack, hear the retained
+landing followed by 08 as the full-size dragon starts hunting, then repeat or
+cancel. Evidence is under the Frost Dragon toolkit's `Selected Ground Attack/`.
+No app was exported.
+
+## Impact visibility follow-up — 2026-10-29
+
+The user could not see the first shared feedback trial. That report is the
+acceptance signal: its modest heavy-only spark change left ordinary hits tiny,
+and Goemon's main recovered burst had not changed. Rendered checks also show
+native sparks originate inside the victim's body, so simply enlarging that
+mesh still hides much of it. Do not count a passing VFX routing test as proof
+that the feedback is noticeable at normal gameplay distance.
+
+The follow-up enlarges shared foreground impacts to 1.6× and Goemon's recovered
+burst to 2×, retaining their existing art, colors, sounds and durations. Reduced
+Flashes retains their previous sizes. Native damage uses the existing painted
+spark as three rotated camera-facing rays in the same MultiMesh batch, with
+normal/heavy/critical scales 3.0/3.8/4.6. There is still one .18-second effect
+record per victim under the same 384-record cap (at most 1,152 contact rays).
+Muzzle sparks keep their original size and single-instance presentation.
+
+For a live enemy facade, the existing local contact helper places the burst on
+the camera-facing hurtbox surface at the damage event's height, with a .04 m
+depth offset. This is a cosmetic viewing adaptation; damage, cover and collision
+still use their original contacts. Missing/retired facades retain the event's
+position. Reduced Flashes dims the native contact instances to 35% opacity.
+No new mesh, texture, material, per-unit renderer, pool or global army search is
+introduced. Player clocks, damage, native recoil/stun and camera kick remain
+unchanged. The Goemon responsiveness fix is retained.
+
+Fresh checks pass 254 headless / 255 desktop impact assertions, including drawn
+camera-facing transforms, bounded crowd geometry, original muzzle behavior,
+Goemon scaling and reduced-flash handling. The Wind Meadow desktop review
+passes 16 checks, including visible-surface placement and reduced-flash GPU
+parameters. Six fighter contact counts remain 25/8/8/99/8/1, matching the earlier
+trial, with zero retained nodes/resources after repeated hits. Actual Goemon
+and Magic Swordsman contact captures were inspected. The fixture now waits two
+physics ticks after contact to capture submitted VFX and explicitly clears its
+presentation state between isolated fighters. These are fixture corrections,
+not changes to game hit timing. The last six-fighter run lost focus for much of
+its duration; its timings are not accepted performance evidence.
+
+The separate final 20.018-second foreground Metal/Apple M3 castle check uses
+painterly Wind Meadow with 240 enemies and 96 allies, normal stats and per-death
+reinforcements. Counts stay at 240/96 throughout; 2,395 damage events, 237 deaths,
+zero dropped hits, full focus and unchanged tracked inputs pass the existing
+acceptance gates. Frame mean/p95/p99/max is 16.653/19.883/29.918/36.578 ms;
+presentation averages .692 ms per render. This is a short current-source check,
+not a matched speedup or long-session stability claim. Historical stress tests
+and the user's earlier smooth-gameplay experience remain separate evidence.
+
+Existing combat VFX 42, weapon audio 371, Goemon response 22, Goemon runtime 22,
+asset preservation, toolkit Python 69, imports 12,812, outfit 98, motion 25 and
+structures 86 pass. The broad army suite retains the same 12 Ranger comparisons
+out of 220. The recoil fixture passes 134/138, retaining four boss hurt-pose/wall
+expectations that reproduce identically with the pre-trial visual scripts.
+Neither broad suite is counted as passing. The native library/combat source and
+player/roster controllers match their pre-trial hashes. Separate Dragoon roar
+and gain edits appeared in Sound Library during this follow-up; they are
+preserved, excluded from this trial's patch, and fully explain that file's hash
+change. This feedback task did not edit audio.
+
+Evidence: `build/Other Files/Asset Toolkit/Shared Hit Feedback Trial/Visible Follow-up/`.
+Use the reopened Play Goemon source window to judge normal-hit visibility;
+the exported app has not been rebuilt. The main trial folder's updated
+`experiment.patch` reverses the entire visual experiment while preserving the
+Goemon pause fix and unrelated edits. The earlier subtle version is also saved
+at `refs/codex/shared-hit-feedback-subtle-2026-10-29`. No app export or long soak.
+
+## Shared impact visual trial — 2026-10-29
+
+The user approved a reversible first pass across the roster, emphasizing that
+the current hit sounds and enemy jolt are already good. This trial therefore
+changes cosmetics in two existing owners only: shared weapon impacts and the
+native army's pooled damage spark. All controller/audio/native-combat source
+hashes checked against the checkpoint are unchanged, including the earlier
+Goemon responsiveness fix. There is no new simulation, renderer, asset or pool.
+
+Piercing and blunt styles now reach their existing dedicated geometry instead
+of the common painted burst. Every family still uses the existing ink shader;
+blade, Magic Swordsman purple and Samurai red retain their current identities.
+Shared heavy geometry uses 1.5 rather than 1.35 scale; impact opacity fades
+linearly for a shorter bright tail. Authored family particle presets remain
+bounded by the same displayed-frame/live budgets and reduced-flash controls.
+The native spark retains one instance and .18 s per victim, with cosmetic scale
+1.0/1.2/1.4 for normal/heavy/critical hits. Damage, stun, physical recoil,
+attack pauses, camera kick, hit sounds and saved audio preferences are unchanged.
+
+Fresh checks pass: 200 headless / 201 desktop impact assertions, including all
+14 named styles, legacy colors/identities, fade, reduced flashes, budget limits,
+expiry and 5,000 repeated native impacts without retained nodes/resources.
+Existing combat VFX 42, weapon audio 371 and Goemon response 22 pass. Asset
+preservation, 69 toolkit unit, 12,812 imported, 98 outfit, 25 motion and 86
+structure checks pass. The broad army presentation suite retains 12 Ranger
+skin/contact comparison failures out of 220; all 12 reproduce identically with
+the pre-trial effects and presentation scripts in an isolated current project.
+That suite is not counted as passing. Older failure reports remain historical.
+
+Paired Play Goemon Metal checks on painterly Wind Meadow use six fighters and
+12 native enemies. Both pass 14 checks with matching confirmed contacts:
+Goemon 25, Ninja 8, Knight 8, Dragoon 99, Magic Swordsman 8 and Ranger 1.
+Repeated native hits leave zero additional nodes/resources; the effect capacity
+stays 384. Before/after player-plus-native step p95 is 1.712/1.894 ms, max
+48.268/16.443 ms; frame p95 is 20.833/20.139 ms, max 148.687/146.299 ms.
+These short capture fixtures include first-use work; focus is 1152/1152 before
+and 1150/1152 afterward. They do not establish a performance improvement,
+full-army smoothness or long-session stability. Actual gameplay captures and a
+rendered light/heavy family comparison were inspected. An initial fixture that
+omitted advancement of the native cosmetic clock is retained as a diagnostic,
+not used for the paired figures above.
+
+To judge the trial, use Play Goemon and compare regular cuts, Dragoon/Ranger
+piercing hits and heavy/critical contacts. Listen for the familiar samples and
+watch the existing enemy recoil while judging the new effect shapes. Keep or
+revert based on play feel; no app export was requested or made.
+
+Checkpoint: `refs/codex/shared-hit-feedback-before-2026-10-29`. Evidence and a
+reverse-apply-checked `experiment.patch` live under
+`build/Other Files/Asset Toolkit/Shared Hit Feedback Trial/`. Follow its
+`Rollback.txt` to remove only this experiment, preserving the previous Goemon
+pause fix and unrelated work. Avoid resetting the whole working tree.
+
+## Goemon pipe contact pause restored — 2026-10-29
+
+The user reported that Goemon gets stuck or swings too slowly when he hits.
+A fresh desktop-launcher check on Wind Meadow reproduced extra player freeze:
+the recovered pipe bypassed the existing short melee pause because its
+`pipe_contact_phase` is -1. Each stage therefore used the full victim feedback
+pause (35/60/95 ms). At 60 Hz, three real contacts added 13 frozen ticks
+(217 ms) to the unchanged 78-tick missed sequence.
+
+The smallest fix includes the recovered pipe in the existing responsive pause
+rule: 25/25/45 ms for the three stages, also 45 ms for the heavy pipe. The same
+fixture now takes seven frozen ticks (117 ms), saving 100 ms per connected
+triplet: 91 total ticks before, 85 afterward. Animation source timing, weapon
+sweeps, damage, reach, victim recoil, coins, allied feedback and other fighters'
+pauses retain their existing rules. A longer incoming-hit pause is preserved.
+This fixes contact latency; it is not evidence of a CPU/GPU speedup.
+
+The focused desktop check passes 23 assertions, including real three-hit and
+missed sequences, repeat duration, simultaneous feedback, heavy/victim pauses,
+projectile isolation and zero retained nodes/resources after cosmetic cleanup.
+Its manually driven physics fixture uses the real engine step and painterly
+Wind Meadow. The final run is focused for all 248 sampled frames: frame p95/max
+20.952/135.189 ms and player-step p95/max 2.582/8.183 ms. This short fixture
+includes first-use work and a screenshot; those diagnostics do not establish
+general FPS or a matched rendering improvement. Earlier diagnostic runs lost
+focus. The earlier smooth-gameplay report and historical stress results remain
+separate.
+
+Fresh headless checks pass: response 22, original gameplay 43, exact pipe
+hitboxes 11, enlarged sweeps 47 and movement cancellation 106. Preservation,
+69 toolkit unit tests, 12,812 imported checks, 98 outfit, 25 motion, 13 player
+motion and 86 structures pass. Two older fixtures retain one failure each:
+the no-backlog test manually ends stage one and expects the whole triplet to be
+inactive, and the native enemy test expects Dark Lumina 3 to start an ordinary
+attack in its short interruption setup. Both identical failures reproduce in an
+isolated copy with the pre-fix `game.gd`; neither suite is counted as passing.
+All real Goemon contact/damage cases in that native suite pass. The rendered
+launcher run saves all nine native enemy contact captures and passes 92/93
+checks, retaining only the same boss interruption-setup failure. Soldier and
+wolf contact/recoil captures were inspected alongside the Wind Meadow check.
+
+Verify through Play Goemon: click once into empty space, then into a surviving
+enemy, and repeat. All three pipe contacts should land once with a brief impact
+beat rather than the longer stuck feeling; check heavy hits and dodge as well.
+For regression use `tests/forest-shrine/goemon_hit_response_test.gd`. Before/after
+reports, the source checkpoint and the inspected Wind Meadow contact capture are
+under `build/Other Files/Asset Toolkit/Goemon Hit Responsiveness/`. No app export
+or full-army/long-session benchmark was requested or performed.
+
+## Shared Goemon footstep defaults — 2026-10-28
+
+### Shared footstep speed limit — 2026-10-29
+
+Increasing movement speed also increased ground-contact events, repeatedly
+starting the unchanged sound. Hero now reuses its existing `foot_time` field to
+leave at least .30 simulation seconds between audible footsteps. Slower cues
+still follow their contacts; extra cues are discarded, never queued. Every
+Hero owns its interval, which freezes while paused and clears on selection.
+Sonic uses the same gate; Musashi's source foot markers and Dark Lumina 2's
+walking stomps now route through it too. Their source markers, movement,
+animation/combat clocks, dust, samples, pitch policies, levels and saved Studio
+controls retain their existing owners. The earlier Warcraft alternate-step
+filter remains, with the shared limit also protecting higher speeds.
+
+This fixes sound density, not a measured frame-time bottleneck. It adds no
+audio player, resource load, pool or army work. Fresh Play Goemon checks pass
+78 cadence assertions across nine movement owners at normal/extreme speeds,
+including 120 movement speed for Illidan and Kojiro, audible mixer output,
+stopping, independent heroes, pause/selection and 10,000 blocked requests without
+node/resource growth. At 30/60/120 Hz, a request every tick permits ten cues in
+three seconds. The default/Studio fixture passes 185 headless and 218 desktop
+checks, including 19,000 requests reusing the existing voices/resources.
+
+Preservation, toolkit Python (69), imports (12,812), outfit (98), motion (25),
+player motion (13) and structures (86) pass. The broader Musashi audio suite
+retains the same three Lumina sword-clip/hit-timing failures on both current
+source and a fresh isolated pre-fix source overlay; its footstep checks pass.
+No full-army frame-time benchmark or long-session audio mix was run.
+
+Verify through Play Goemon: compare walking with a high Run speed as Illidan,
+Kojiro or a Goemon class, then stop/jump. Sound frequency should stay bounded
+while travel stays fast; Footstep preview/recording/gain/mute still work. Adjust
+`Hero.FOOTSTEP_INTERVAL` for a different shared ceiling; do not change WAV pitch
+or movement/animation clocks to tune sound density. Evidence and recordings are
+under `build/Other Files/Asset Toolkit/Footstep Speed Limit/`. No app was exported.
+
+### Kojiro uses Musashi's footsteps — 2026-10-29
+
+Kojiro's formerly silent step slot now reuses Musashi's prepared
+`foot_contact.wav` through the existing SoundLibrary and bounded voices.
+His stride events and .22 playback level stay unchanged. This is a sound-default
+correction, with no measured performance bottleneck or new playback system.
+Fresh checks pass 163 headless and 196 through Play Goemon on painterly Wind
+Meadow, covering slow/fast walking, stopping, Studio overrides/gain/mute/defaults
+and 19,000 requests with stable nodes/resources/cache. Asset preservation passes.
+These are focused checks, not a full-army benchmark or long-session test.
+Verify by walking/running as Kojiro through Play Goemon; use Restore default in
+Sound Studio if a saved take overrides Footstep. Evidence is under
+`build/Other Files/Asset Toolkit/Kojiro/Footsteps/`. No app was exported.
+
+### Illidan and Blademaster cadence — 2026-10-29
+
+The user found their fast movement produced too many step sounds. Hero's existing
+playback handler now sounds only odd-numbered stride events for fighters 31/32,
+halving their walking/running cues. The same counter still drives every dust
+burst; movement, animations, sample, pitch, volume and saved Studio controls stay
+unchanged. This adds one sound gate and no timer, resource, pool or army work.
+Fresh checks pass 151 headless / 181 through Play Goemon on painterly Wind Meadow,
+including exact alternate-step counts at slow/fast input, stopping silence,
+custom takes, gain/mute/defaults and 18,000 requests with stable resources.
+Preservation, toolkit Python (69), imports (12,812), outfit (98), motion (25),
+player motion (13) and structures (86) pass. No frame-time or long-session
+benchmark was run for this sound-density adjustment. Verify through Play Goemon:
+walk/run as either fighter and listen for one cue per two strides. Evidence is
+under `build/Other Files/Asset Toolkit/Shared Goemon Footsteps/cadence-*.log`.
+No app was exported.
+
+The user requested one Goemon step sound for Goemon-like characters, Ed, Ben,
+Illidan and Blademaster. The central `SoundLibrary.GOEMON_FOOTSTEP_IDS` list
+covers Goemon, Edo, the ten Goemon-based classes, Sasuke, Yae and those four
+additional fighters (18 total). All share the existing event `217` WAV at source
+pitch. This supersedes Sasuke's native `218` gameplay default below; that original
+sample and its recovery evidence remain intact. Other fighters retain their
+defaults or authored silence. Recordings, gain, mute and Restore default work
+through the existing Sound Library policy.
+
+The user's later controlled Ninja/Dragoon check found the shared footsteps too
+quiet. Both were already implemented: real keyboard input through the engine's
+physics loop confirms event `217`, source pitch and repeated playback for
+Goemon, Ninja and Dragoon. The old `.22` gameplay cue reached only 2.36% peak
+at the user's saved 58% output level. Shared-family steps now use `.65`, reaching
+6.98% peak (+9.41 dB) in the same output-level check, with no clipped samples.
+The original WAV, timing, other fighters' levels and saved controls are unchanged.
+This is an audibility correction, not a measured performance improvement. A
+nonzero recording alone does not establish a useful listening level; check real
+movement at the user's normal volume as well as Studio preview.
+
+The updated regression explicitly walks Dragoon as well as Ninja, checks cue
+level and passes 147 headless / 177 desktop assertions across ten representative
+fighters. The 18,000-request reuse check, recording defaults (182), movement
+response (140), preservation, toolkit unit (69), imports (12,812), outfit (98),
+motion (25) and structures (86) pass. Live keyboard before/after recordings and
+level verification are under `build/Other Files/Asset Toolkit/Footstep Audibility/`.
+No full-battle audio-mix or new frame-time benchmark was run.
+
+The focused test also found that Goemon-based classes bypassed both updates to
+their existing distance-based stride counter and the footstep playback path.
+Their controller now advances that counter from actual ground travel, then uses
+Hero's single shared playback handler. Other movement owners retain their timing,
+and dust effects retain their previous scope. No new gait timer, asset, pool,
+audio player or army simulation was added. This is a sound/default correction,
+not a measured frame-time bottleneck fix or a full-battle smoothness claim.
+
+Before the gain correction, focused checks passed 136 headless and 163 desktop on
+Wind Meadow. They cover all 18 default/preview routes, preserved defaults for the
+other 14 fighters, real walking/running on nine representative fighters including
+all four named additions, standing silence, recording controls and Restore
+default. 18,000 overlapping requests retain the same nodes, resources and sample
+cache. Nine desktop mixer recordings are audible and unclipped. The desktop
+fixture disables manual input; an earlier paused run is excluded.
+
+Goemon/Sasuke/Yae/leader audio (166/78/91/56), prepared audio (6), recording
+defaults (182), movement response (140) and Yae footfalls (23) pass. Preservation,
+69 toolkit unit tests, 12,812 imported checks, 98 Musashi outfit, 25 motion and
+86 structure checks pass. The broader Musashi audio suite has three sword-clip
+and hit-timing failures out of 43 checks; all three reproduce with the pre-change
+versions of the modified runtime scripts in an isolated project. They are not
+counted as passing or changed to hide the failures. No long-session army or
+frame-time benchmark was run for this audio change.
+
+Verify through Play Goemon: walk as a Goemon-based class and the four named
+fighters, stop, then preview Footstep in Sound Studio. Restore default returns
+the shared sample; deliberate custom recordings still override it. Keep future
+roster defaults in the central list and reuse the stride counters and existing
+voices. Logs, recordings, captures and the Musashi baseline comparison are under
+`build/Other Files/Asset Toolkit/Shared Goemon Footsteps/`. No app was exported.
+
+## Original Goemon, Sasuke and Yae footsteps — 2026-10-28
+
+The original ordinary-land walking handler selects event `217` for Goemon and
+Yae, and `218` for Sasuke. Goemon now shares Yae's already recovered sample;
+Sasuke's existing `event_218.wav` replaces his silent walking default. Yae's
+sound was already correct. All three retain saved recordings, gain/mute controls
+and original event pitch. Current movement cadence is unchanged.
+
+This corrects sound selection, not a measured frame-time bottleneck. The smallest
+fix reuses prepared audio and the existing voice pool. Keep this pattern for
+future movement sounds: resolve samples during setup, then reuse them during
+walking. Do not decode, load files or create players for individual steps.
+
+Fresh source verification executes every frame of four original gaits for each
+character (12 cases); both fresh sequencer renders match the installed WAVs byte
+for byte. Focused gameplay passes 33 headless and 42 desktop-launcher checks on
+Wind Meadow, including repeated walking/running, source pitch, Studio previews,
+recording overrides, gain/mute and 3,000 overlapping requests with no extra
+nodes, resources or cached samples. All three desktop mixer recordings are
+audible with no clipped samples. These focused checks do not establish full-army
+frame times, long-session resource growth or bit-exact console DSP; original
+RSP filtering and room reverb remain outside the dry reconstruction.
+
+Related checks pass: Goemon audio 166, Sasuke 78, Yae 91, prepared audio 6,
+recording defaults 182, toolkit unit 69, imported assets 12,812, Musashi outfit
+98, motion 25 and structures 86. The asset audit reads 302 assets with no errors;
+active derivative preservation passes. No geometry or animations were changed.
+
+Verify through Play Goemon: select each of the three characters and walk, then
+preview its Footstep entry in Sound Studio. A saved custom take still overrides
+the built-in sound; Restore default deliberately returns that slot to the ROM
+sample. Reproduce the source proof with `tools/verify_goemon_footsteps.py` using
+the existing Goemon recovery Python environment. Evidence is under
+`build/Other Files/Asset Toolkit/Original Footsteps/`. No app was exported.
+
+## Castle-first assault with local defense aggro — 2026-10-28
+
+The user reported lag and enemies staying in place after the military-target
+change below. This supersedes that global military-first policy. Enemies now
+march on the shrine/castle and divert to a reachable tower or barracks only
+within the existing 28-unit local combat range, measured from its footprint edge.
+A sealed objective still requires a reachable gate breach. Dead/untargetable or
+distant defenses release aggro; nearby players, defenders, taunts and retaliation
+retain their existing rules. Skullpion's separate tall-fort approach applies the
+same military distance limit while retaining its climbing and attack patterns.
+
+The measured bottleneck was repeated native target/approach work for distant
+military objectives. The smallest fix filters those candidates before expensive
+approach checks, inside the existing native targeting owners. No new AI system,
+per-unit pathfinder, renderer, pool, asset loading or army-count/art reduction was
+added. Keep this filter before reachability work when extending enemy targeting.
+
+The first matched foreground Wind Meadow castle runs kept 240 enemies, 96 allies,
+normal soldier stats, painterly scenery and unchanged tracked inputs. Native
+decision work fell from 34.846 to 1.220 ms per simulation step (96.5% less), and
+FPS rose from 3.07 to 54.55. The baseline simulated only 8.67 seconds during 23.78
+wall seconds; the corrected run simulated 19.98 during 20.04. This establishes a
+large reduction in targeting work, not fully stable frame times: the corrected
+run still missed the benchmark's 55 FPS / 25 ms p95 gates, with p95 33.191 ms and
+max 198.350 ms. Its population, normal-stat, focus and event-delivery checks pass.
+The user's October 23 smoothness report remains historical experience.
+
+A later 30-second run recorded 25.65 FPS and p95 103.860 ms while a separate
+CPU-heavy `/tmp/cg-solve-stream` process was running. That process started after
+the first matched comparison. The later run is not accepted as a controlled final
+performance confirmation, and neither run establishes long-session smoothness.
+The initial attempted baseline was paused by level-up cards and is excluded.
+The benchmark now suppresses kill XP only in its test subclass so measurements
+retain initial stats and never pause for cards; normal game progression is intact.
+
+Fresh behavior checks pass 38 native targeting cases, all 16 native suites
+(including specialized bosses), 44 target-handoff checks, 58 soldier timing/damage
+checks and 4,109 runtime checks. Rendered standard and large Wind Meadow fixtures
+each pass 77 checks: twelve troops from all four bases advance, breach gates,
+engage local defenses, damage the shrine, intercept the player and return.
+The fixtures also reject military targets outside the aggro radius. Captures of
+castle approaches and attacks were inspected. The universal dylib was rebuilt.
+Asset preservation, 69 toolkit unit tests, 12,812 imported checks, 98 Musashi
+outfit, 13 motion and 86 structure checks pass. Benchmark coverage passes 14.
+
+The older query-cost fixture still fails four of five expectations, identically
+with the committed native library in an isolated project. It is not counted as
+passing or changed to hide its failures. The initial all-native runner needed
+the generated `finale_kit.h`; regenerating it with the existing import fixture
+allowed that last suite to pass. Existing scene-fixture RID/resource teardown
+warnings remain; this work does not certify a long-session leak soak.
+
+Verify through Play Goemon: start a wave away from the player and watch enemies
+advance toward the castle. Place a defense near their route and another far away:
+only the nearby one should draw them off course. Destroy it and watch the assault
+resume. A defense behind sealed walls should not freeze troops outside; they
+should use a reachable gate. Repeat on the large valley. For repeatable rendered
+checks run `tests/forest-shrine/enemy_castle_pathing_test.gd`, adding `-- --large`
+for the large map. Logs, traces, captures and `verification.json` are under
+`build/Other Files/Enemy Targeting/Castle Aggro/`. No app was exported.
+
+## Barracks and towers before workers and the castle — 2026-10-28
+
+Historical policy, superseded by the local-aggro correction above.
+
+Enemies then preferred the nearest reachable barracks or tower over exposed workers
+and the shrine. After a defense dies, the existing decision pass selects another
+living defense. Sealed defenses still require a reachable gate breach. Nearby
+players and fighting defenders can intercept; taunts and retaliation retain their
+existing owners. Specialized boss patterns, damage, attack timing and wave counts
+are unchanged. This supersedes the earlier shrine-first assault advice below.
+
+This is requested targeting behavior, not a measured performance bottleneck fix.
+The smallest change reuses building assault priorities and extends their native
+handoff clamp. Local combat stays above military objectives, while workers stay
+below them. It adds no army scan, pathfinder, renderer, pool or asset loading.
+The user's earlier smoothness report and historical benchmarks remain separate.
+
+Fresh checks pass 32 native targeting cases, 22 worker/target handoff checks,
+58 soldier timing/damage checks and 4,109 native runtime checks. Native group
+combat and all three specialized boss suites pass. The Play Goemon fixture passes
+76 rendered Wind Meadow checks with twelve sword/gun/spear troops from all four
+bases: breach gates, attack defenses before the accessible shrine, resume shrine
+damage after defenses become invalid, intercept the player and return afterward.
+Protected assets, 69 toolkit unit tests, 12,812 imported checks, 98 Musashi outfit,
+13 player-motion checks and 86 structure checks pass. The older hunting fixture still fails the
+same nine of twelve expectations with both the previous committed native library
+and this revision. Scene teardown resource/RID warnings remain; these focused
+checks do not establish long-session resource growth or full-battle smoothness.
+
+Verify through Play Goemon: place a barracks and tower with an exposed worker
+nearby, start a wave and stand away from it. Watch enemies attack the reachable
+military buildings first, then fall back after both are destroyed. A defense
+inside closed walls may need a gate breach first. Evidence is under
+`build/Other Files/Enemy Targeting/`. No app was exported.
+
+## Configured castle waves — 2026-10-28
+
+Wind Meadow castles now progress through every configured wave instead of
+refilling Wave 1 forever. Counts are shared across all castles: 200 swords
+means 200 total, followed by the next configured mix. A switch happens at the
+next spawn after the exact count is reached, including inside a growing group.
+Empty waves are skipped; the final mix repeats while keeps survive. An empty
+final mix leaves no arrivals. Existing enemies remain alive. Destroying every
+keep still wins; a new run resets the mix and group progression.
+
+Each entrance retains its independent attack-or-wipe release gate, 10/11/12…
+group growth, health/damage/XP tier, blocked-exit retries and active cap across
+mix changes. Count settings continue to use the run snapshot. The smallest fix
+changes the existing exhausted-roster refill to advance through saved mixes.
+It adds no simulation, renderer, asset loading, pool or per-unit update. This
+is a pacing correction, not a measured bottleneck fix or performance claim.
+
+Fresh verification passes 99 model/native wave checks and 115 checks through
+the desktop launcher, including rendered swords → Vambees → wolves, unchanged
+per-entrance growth and real death XP. Core Balance passes 191 checks in both
+headless and desktop runs; its updated text and both enemy captures were
+inspected. Roster (34), reinforcement combat (71), camps (18), event dispatch
+(11), protected-asset preservation, toolkit unit (69), imports (12,812), Musashi
+outfit (98), motion (13) and structures (86) also pass. The headless roster and
+event fixtures emit resource/RID teardown warnings; both desktop runs exit
+cleanly. No long-session performance or resource-growth claim follows.
+Evidence is under `build/Other Files/Asset Toolkit/Wave Groups/`
+(`castle-waves-*.log`, `castle-wave-2-vambee.png`, `castle-wave-3-wolves.png`
+and `growth-settings.png`). No app was exported.
+
+Verify through Play Goemon: set distinct enemy types in successive waves and
+start a new run. After the configured total spawns across all castles, watch
+for the next type while each entrance's groups keep growing. Empty waves should
+skip; the final type should keep arriving until its keep falls. Historical
+Wave-1-only and numbered-wave-reset notes below describe the earlier behavior.
+
+## Stronger level-up cards and editable rarity odds — 2026-10-28
+
+The user found level-up rewards too subtle. Normal Character cards now add 30%
+attack/spell damage or 20% attack cadence, up from 15%/10%. Normal Tower cards
+add 30% damage/durability or 25% firing rate; Worker cards add 50% repair rate
+or 25% movement. Silver/Gold/Diamond still add two/three/four ordinary ranks;
+revival and the legendary rewards retain their existing behavior. Bonuses stay
+additive within each stat and multiply with configured balance. Cards show the
+current and resulting team multiplier, including existing legendary tower stacks.
+
+Core Game Balance now exposes four rare-card percentages in 0.01-point steps.
+Normal fills the remainder; controls cannot total over 100%. Zero disables a
+rarity, and 100% can force one after the others are zeroed. Defaults remain
+84.75/10/4/1/0.25%. Settings save automatically, apply next run and do not reroll
+an active offer. Old saves retain defaults; invalid files clamp/fall back safely.
+This supersedes the earlier advice to edit rarity thresholds in source.
+
+This is requested balance/UI work, not a measured performance bottleneck fix.
+The smallest change strengthens the existing multiplier data and snapshots
+prepared rarity thresholds during model reset. Player/copies, native allies,
+towers and workers retain their current combat owners and presentation. No
+per-frame loading, material creation, army scans or additional pools were added.
+The total preview reads those same multipliers without changing rank state.
+
+Fresh progression checks pass 546 assertions, including exact custom odds across
+all 10,000 outcomes, disabled/forced rarities, malformed saves, stronger tower
+arrows/repairs and real native damage/contact cadence. A native ally at two
+damage ranks now lands 30.4 damage against the same 19 baseline; the immediately
+preceding source landed 24.7. This is a damage comparison, not an FPS benchmark.
+Core Balance passes 199 assertions headless and through Play Goemon, covering
+percentage limits, fractional persistence, default reset and next-run snapshots.
+The launcher gameplay fixture passes 137 desktop checks (123 headless), including
+1280×800/960×640 card layouts, exact bonus/total previews, character switches,
+five simultaneous mirrors, legendary rewards and repeated card cleanup. Inspected
+captures show the new controls and both card layouts. Five repeated choices
+retain zero nodes/resources. The short paused-card frame p95/max was
+17.867/18.425 ms; this does not establish full-battle smoothness or long-session
+balance. The user's October 23 smoothness report remains historical experience.
+
+Protected-asset preservation, 69 toolkit unit tests, 12,812 imported checks,
+98 Musashi outfit, 13 motion and 86 structure checks also pass. Native runtime
+(4,109) and repair (44) assertions pass; the broad native headless fixture emits
+resource/RID teardown warnings. The final progression and both desktop fixtures
+exit cleanly. These checks do not claim a long-session army/resource-growth soak.
+
+Verify through Play Goemon: earn a normal Character card and compare damage or
+attack cadence, then repeat with a rare card. In preparation choose Core Game
+Balance → Level-up Card Chances, edit the percentages, and start a new run.
+Use 100% Legendary with the others zero for a quick reward check, then restore
+your preferred odds. Run rewards still clear on restart; saved odds persist.
+Evidence is under `build/Other Files/Team Leveling/Stronger Cards/`.
+No app was exported.
+
 ## Rainbow legendary team cards and heroes — 2026-10-27
 
 The three slots roll independently: 84.75% normal, 10% silver, 4% gold,
@@ -6271,3 +9227,563 @@ alternate between resting and held fire: the fingers should flow into the fuller
 palm without large round joints, and the thumbs should still spread during the
 cast. Evidence is under
 `build/Other Files/Asset Toolkit/Illidan Hands/Fuller Palms/`. No app was exported.
+
+### Shorter meta fingers follow-up — 2026-10-28
+
+The user still found the fingers too long/creepy and suggested more thickness or
+10% less length. The smallest refinement shortens the four non-thumb finger
+chains and claws another 10% from the fuller-palm version, retaining thickness,
+thumbs, fuller palms and authored casting keys. This changes the existing mesh
+and finger bind positions offline; it adds no runtime work and addresses no
+measured performance bottleneck. The 33,094 triangles, two surfaces/materials,
+37 bones, palm Muzzle socket and native combat/pooling path are retained.
+
+Fresh source assertions verify all eight chains at .9 segment length and preserve
+unrelated rig transforms, animation keys, topology, weights, UVs, vertex colors
+and material assignments. The audit reads 302 assets without errors; its existing
+close-up triangle-budget warning remains. The regenerated lossless candidate
+passes preservation but still offers no draw reduction and is larger, so gameplay
+continues using the authored source. All 24 synchronized source/candidate render
+pairs have zero pixel difference, and 425 direct imported-pose checks pass.
+
+Fresh Play Goemon verification passes 46 shooter checks with zero retained nodes,
+zero retained resources and zero pool misses after repeat firing. Rendered frame
+p95/max are 18.424/34.926 ms; stepped work p95 is .766 ms. These are short fixture
+diagnostics, not a controlled speed comparison or a full-army/long-session test.
+Actual Wind Meadow captures show rest, windup and cast with 40 enemies and zero
+pool misses. Toolkit Python 69, imported assets 12,812, Musashi outfit 98 and
+structures 86 pass. The Musashi locomotion fixture initially missed its 30 Hz
+trajectory during concurrent checks; its separate rerun passes all 33, with both
+logs retained. Active and staged preservation pass.
+
+Additional packed-source review compares the actual imported game scene with
+the dynamically imported candidate. The generic strict comparison flags one
+near-zero finger-transform component; the explicit precision report bounds all
+425 checks within .0001. An earlier attempt to load the excluded staging file as
+a PackedScene is unsupported; it does not indicate a failure loading the game's
+authored source. Those diagnostic logs are retained alongside the passing direct
+import and desktop checks rather than counted as strict comparison passes.
+
+To verify, launch Play Goemon, select Illidan, enter meta and alternate resting
+hands with held fire: long fingers should look shorter while their thickness,
+fuller palms and thumb opening remain familiar. Evidence and the guarded one-time
+edit live in `build/Other Files/Asset Toolkit/Illidan Hands/Shorter Fingers/`;
+the previous editable source is `refs/codex/illidan-before-second-finger-shortening`.
+No app was exported.
+
+### Slightly stronger meta fingers — 2026-10-28
+
+The user requested a little more strength in the finger shape. The saved sculpt
+now has 12% fuller finger/claw cross-sections, fading into the existing smooth
+bases. Shortened lengths, palm bulk, rig, animation keys, weights, topology, UVs,
+vertex colors and materials are preserved. This is an offline surface edit with
+the same 33,094 triangles/two surfaces; it adds no runtime work and fixes no
+measured performance bottleneck. The larger lossless candidate remains unused.
+
+Fresh Play Goemon checks pass all 46 shooter assertions with zero retained nodes,
+resources or pool misses. Frame p95/max are 16.951/33.278 ms and stepped work p95
+is .521 ms; these short diagnostics establish neither a speedup nor long-session
+or full-army performance. Wind Meadow rest/windup/cast captures with 40 enemies
+were inspected. Fresh checks pass: Python 69, finger imported poses 425, shared
+imports 12,812, Musashi outfit 98, structures 86 and active preservation. Audit
+reads 302 assets without errors; the existing close-up triangle warning remains.
+
+Both source/candidate capture sweeps have 23 exact pairs and one initial
+frame with mean channel difference .000927/255, max 10/255; visual review finds
+no silhouette discrepancy. Geometry/skin/animation preservation passes. The
+unrelated Musashi locomotion fixture still fails its 30 Hz trajectory in both
+attempts: its initial steps report 60 Hz deltas after changing clocks, matching
+the earlier intermittent fixture issue. It does not load these hands; no movement
+code was changed or that failure counted as a pass.
+
+Verify through Play Goemon by alternating rest and held fire in Illidan meta:
+fingers should feel fuller while keeping their shorter shape and open-palm cast.
+Evidence, the guarded one-time edit and comparison recheck are under
+`build/Other Files/Asset Toolkit/Illidan Hands/Stronger Fingers/`; the preceding
+editable source is `refs/codex/illidan-before-stronger-fingers`. No app export.
+
+### Fuller meta palm girth — 2026-10-28
+
+The user requested more palm girth to match the stronger fingers. The saved
+surface is up to 15% deeper and 8% wider through the palm/thumb pad, fading into
+the wrists and finger roots. Smoothing only the volume mask avoids a thumb-pad
+ridge without smoothing away the approved sculpt. The shortened/thicker digits,
+claws, rig, animation keys, weights, UVs, vertex colors and materials are retained.
+This is an offline shape edit, not a measured bottleneck fix; it adds no runtime
+work and keeps 33,094 triangles, two surfaces/materials and 37 bones.
+
+Fresh Play Goemon verification passes 46 shooter checks with zero retained
+nodes/resources and zero pool misses after repeat casts. Frame p95/max are
+17.564/36.560 ms, stepped work p95 .750 ms: focused diagnostics, not a controlled
+speedup or full-army/long-session result. Actual Wind Meadow rest/windup/cast
+views with 40 enemies were inspected. The final 24 source/candidate capture
+pairs have zero pixel difference, and 425 imported-pose checks pass. The larger
+candidate still offers no draw reduction, so gameplay retains the authored GLB.
+Audit reads 302 assets without errors; the close-up triangle warning remains.
+Python 69, shared imports 12,812, Musashi outfit 98, Musashi player motion 13,
+structures 86 and active preservation pass. The earlier 33-check clock-switching
+fixture failures remain historical; that separate fixture was not rerun here.
+
+Verify in Play Goemon: enter Illidan meta and alternate resting hands with held
+fire. The palm and thumb pad should look fuller with smooth transitions; the
+shorter fingers and open cast should remain familiar. Evidence and the guarded
+sculpt are under `build/Other Files/Asset Toolkit/Illidan Hands/Fuller Palm Girth/`;
+the previous editable source is `refs/codex/illidan-before-palm-girth`. No app export.
+
+### Integrated nails and smaller hand proportions — 2026-10-28
+
+The user found the old broad conical nails looked like triangle cookies. The
+saved sculpt now uses thinner curved dorsal nail plates, inset skin-colored
+roots fading into dark keratin, and rounded exposed fingertip pads. All ten
+digit chains are another 10% shorter; palm breadth is 10% narrower, with finger
+roots moved inward to match. Finger thickness, palm depth, authored animation
+keys and the central Muzzle socket are retained. Source assertions verify every
+segment ratio and 844 central-palm width/depth samples. This is an offline art
+change, not a measured bottleneck fix. Root colors use the existing claw material
+and prepared vertex colors; no runtime construction or new textures are needed.
+
+The smoother nails add 1,980 triangles, bringing this single-player close-up to
+35,074, with the same two meshes/materials and 37 bones. The deliberate close-up
+budget warning remains. Audit reads 302 assets without errors. The regenerated
+lossless candidate passes preservation but offers no draw reduction, so gameplay
+retains the authored GLB. Rendered source/candidate review has 23 exact pairs and
+one initial frame with mean channel difference .0000164/255, max 10/255, with no
+visible silhouette discrepancy. Source hashes match the reviewed exports.
+
+Fresh Play Goemon verification passes all 46 shooter checks, including repeated
+fire and recovery, with zero retained nodes/resources or pool misses. Frame
+p95/max are 17.074/32.974 ms, stepped work p95 .542 ms. These short diagnostics
+establish neither a speedup nor full-army/long-session performance. Fresh checks
+also pass: Python 69, finger imported poses 425, shared imports 12,812, Musashi
+outfit 98, Musashi player motion 13, structures 86 and active preservation. The
+older clock-switching fixture caveat remains historical and was not rerun.
+
+Verify in Play Goemon: enter Illidan meta, inspect curled resting nails and the
+open-palm cast, then hold/release fire. Nail bases should stay seated, fingertips
+rounded and palms narrower. Wind Meadow captures with 40 enemies and all reports
+are under `build/Other Files/Asset Toolkit/Illidan Hands/Integrated Nails/`; the
+preceding editable source is `refs/codex/illidan-before-integrated-nails`.
+The regular game was reopened after the desktop checks. No app was exported.
+
+### Fuller finger connections and smoother forearms — 2026-10-28
+
+The user identified pinched finger/palm connections, then requested smoother,
+less cylindrical forearms. Topology inspection finds one continuous skin piece
+per hand/arm, so the connection issue is the shape rather than detached parts.
+The eight long-finger roots and nearby webbing now flare smoothly into the palm;
+sampled root radii are about 22–24% fuller. Forearm/visible-arm facets are rounded,
+with a gentle muscle-to-wrist taper and oval cross-sections. Alternating smoothing
+passes preserve bulk; final skin volume is 1.017 times the preceding sculpt.
+
+The forearm pass protects all completed hand vertices exactly. Both edits retain
+the current lengths, palm proportions, nails, topology, weights, UVs, vertex
+colors, materials, 37-bone rig, casting keys and Muzzle socket. These are offline
+surface edits with the same 35,074 triangles and two surfaces/materials. There
+is no measured performance bottleneck or extra runtime work: correct appearance
+in the prepared mesh and keep the existing animation/combat/pooling path.
+
+Fresh final Play Goemon checks pass all 46 shooter assertions with zero retained
+nodes/resources or pool misses. Frame p95/max are 17.973/33.306 ms, stepped work
+p95 .761 ms. These short diagnostics establish neither a speedup nor full-army
+or long-session performance. Fresh checks also pass: Python 69, finger imported
+poses 425, shared imports 12,812, Musashi outfit 98, player motion 13, structures
+86 and active preservation. Audit reads 302 assets without errors; the existing
+close-up triangle warning remains. The larger lossless candidate is unused.
+
+Wind Meadow rest/cast views with 40 enemies were inspected. Final source/candidate
+review has 23 exact render pairs and one initial frame with mean channel error
+.001032/255, max 8/255, with no visible shape discrepancy. Earlier root-only
+captures/checks are retained separately and do not substitute for final checks.
+
+Verify through Play Goemon: alternate curled resting hands with held fire. The
+finger bases should flow into the palm and the forearms should taper smoothly
+without losing the current bulk. Evidence and guarded sculpt scripts are under
+`build/Other Files/Asset Toolkit/Illidan Hands/Stronger Finger Roots/` and
+`build/Other Files/Asset Toolkit/Illidan Hands/Smoother Forearms/`. Preceding source
+refs are `refs/codex/illidan-before-stronger-finger-roots` and
+`refs/codex/illidan-before-smoother-forearms`. No app was exported.
+
+### Human buildings and angled preparation view — 2026-10-28
+
+The user approved a blend of Warcraft Human shapes and Wind Meadow's painted
+finish: barracks become farms visually and in UI, and towers use the roofed
+Guard Tower. The existing archive reader/converter/importer, saved-master export,
+shared painterly shader and rubble workbench were reused. Saved building IDs,
+footprints, costs, food capacity, repairs, native shelter/combat and colliders
+are retained. The enclosed tower conceals its pooled crew body/bow; recall
+restores the same body. No unit count, combat timing or army backend changed.
+
+This addresses an art request, not a measured performance bottleneck. Completed
+tower/farm exports now have one static mesh/two surfaces and 156/171 triangles
+(the former authored models had 7,695/4,773). These asset counts are not a frame-
+time result. Resources are prepared at building setup and materials are shared;
+there is no new per-frame import, retargeter, pool or combat-time construction.
+Rubble reuses the new meshes and existing stone blocks, with grounded fragments
+and the same bounded castle lifecycle. Editable sources and original native
+animation data are preserved; construction timing was not changed.
+
+The user also approved a building-camera offset of (55,150,118), about 25 degrees
+around the map and 49 degrees downward. Existing orthographic picking/anchored
+zoom remain. Preparation and map-editor panning use shared screen-aligned ground
+directions; the combat camera remains unchanged.
+
+Fresh desktop-launcher checks pass 50 building and 41 camera assertions, including
+repairs, garrison/recall, placement previews, five rebuild/removal cycles, bounded
+shared-material/structure counts and unchanged collider identities. Active and
+staged preservation pass; 244,019 staged imported checks, 69 toolkit Python,
+12,812 common imports, 98 outfit, 86 structure, 1,206 valley and 90 final castle
+destruction checks pass. Native bunker/lifecycle/current-worker-target checks
+pass 27/36/44. All 16 source/candidate render pairs are exact, with final hashes;
+ten extracted runtime textures match their embedded sources. No full-army or
+long-session benchmark or controlled speedup is claimed.
+
+Three older fixtures remain failing: legacy GDScript shelter ownership (1/3),
+the worker fixture's old 10-HP expectation versus the unchanged 12.5 production
+rate (1/44), and the pure-model indexed/exhaustive tower-target oracle (8/165).
+The latter loads no art and its runtime files were already modified before this
+request. These are recorded as failures, with current native alternatives
+separately reported, not hidden or fixed by restoring an old backend.
+
+Verify through Play Goemon: build a Farm, check five more food, recruit/repair,
+assign and recall a tower worker, and drag/zoom in preparation and the editor.
+Start combat to confirm its existing camera and tower firing. Review a breached
+enemy tower and defeated farm/keep for matching low rubble. Fresh evidence and
+limitations are in `build/Other Files/Asset Toolkit/Warcraft Human Buildings Review/VALIDATION.md`.
+The regular source game was reopened; no app export was made.
+
+
+## Mountain King / authored blue glow — 2026-10-30
+
+Slot 33 extends the existing Warcraft controller, Hero controls, local native
+contacts/statuses and character projectile lease pool. Native HIT carries timed
+stun and Thunder Clap attack slow; Avatar copies use kind 133 in the same native
+ownership. Skullpion pauses for stun and slows attack clock/charge travel together.
+No enemy simulation or live retargeter was added. The saved Blender master now
+contains the requested blue glow; the exporter marks it as authored color, so
+the loader uses the packed texture directly. Source geometry/UVs/rig/action hashes
+were identical before/after this color edit.
+
+Spell meshes and particle frames are prepared offline and shared as immutable
+resources. Selection warms projectiles/status visuals; repeated hits refresh the
+same caster/target status lease. The focused 282-check headless run had zero pool
+misses, including five simultaneous allied Avatars. This demonstrates bounded
+reuse in that fixture, not a long-session leak test or a full-army stress result.
+The first desktop 276-check run passed, but its 24.521ms p95 / 151.933ms maximum
+rendered intervals were measured during shared desktop/build activity. Do not
+interpret them as an isolated baseline, an FPS improvement, or proof of smooth
+full-army play. After the authored-blue export, 72 rendered asset comparisons and
+the 282-check headless fixture passed. A fresh full gameplay capture yielded to
+the user's open game; that session was left untouched. Earlier rendered results
+and the tested library hashes are kept in
+`build/Other Files/Asset Toolkit/Mountain King/`.
+
+The subsequent armor/clothing follow-up edits packed body/portrait atlas regions
+and the existing team-color layer, including Avatar armor. Geometry, UVs, skin
+weights, rest rig and all action curves remain identical. It adds no combat-time
+work or new material instances. Fresh checks pass 287 focused headless gameplay
+assertions and 61,384 source/candidate plus 61,382 active imported assertions;
+69 toolkit tests and 72 synchronized asset renders pass. Full desktop gameplay
+retest yielded to the user's open game; these results do not establish current FPS.
+
+To verify: use Play Goemon, select Mountain King, run/attack, cast 1 Storm Bolt,
+2 Thunder Clap and3 Avatar repeatedly, then switch fighters and respawn. Check blue
+aura in normal and stone forms, hammer impact sound, attack/slow/stun expiry, and
+that Avatar adds/removes 500 HP exactly once. The focused fixture and asset pipeline
+commands are in `docs/recovered-warcraft.md`. If profiling exposes cast spikes,
+first check for a pool miss or work moved from selection into the cast loop; keep
+all armies, art and source behavior intact when measuring. No new bottleneck was
+isolated here, so no broader performance optimization is claimed.
+
+
+## 2026-10-30: equippable Musashi Leaping Strike
+
+The user requested an aerial attack skill usable by other fighters and chose
+attack-while-airborne as its trigger. Equip **Leaping Strike · Air Attack** in
+any numbered slot under Q → Skills & Jump. Either attack button after either
+jump starts the dive; the assigned skill key also works airborne. Space stays
+manual. Borrow Musashi's Variable Double Jump separately through Jump Style.
+Unequipping restores ordinary aerial attacks and cancels an active native dive.
+
+This adds behavior, not a measured performance fix. The smallest change reuses
+Fusion4's recovered apex/downstroke/landing phases, existing local native combat
+queries, jump budget and prepared spell owners/effects. Other fighters retain
+their own compatible attack gestures. No animation transfer, runtime retargeter,
+new simulation, asset export or repeated combat-time resource loading was added.
+The skill is an adaptation of that verified sequence; it is not claimed to be
+the still-unidentified original Rumparoni-SP.
+
+Fresh desktop-launcher validation passes 56 assertions: manual first/second
+jumps, both attack buttons, unchanged ground attacks, native enemy damage and
+landing, equipping/unequipping, interruptions, Goemon and Magic Swordsman
+borrowing, twelve repeated casts and five simultaneous native allies. All three
+rendered character captures were reviewed. Repeated use retained zero nodes
+and resources. Manual player-step p95 was 1.078 ms and maximum 9.013 ms; physics
+callback interval p95 was 17.628 ms and maximum 66.051 ms. These include fixture
+resets and are diagnostics, not a rendered-frame benchmark or a claim of smooth
+full-army gameplay. The larger callback gap has not been attributed to this skill.
+
+Active asset preservation, 69 toolkit unit checks, 12,973 imported asset checks,
+98 outfit checks, 13 Musashi motion checks, 86 structure checks, 3,714 modular
+spell checks, 592 numbered-skill checks and 86 existing Musashi technique checks
+pass at this test revision. Evidence
+and tested-input hashes are under
+`build/Other Files/Asset Toolkit/Musashi Leaping Strike/`. No app was exported.
+To verify by hand, equip the skill, jump once or twice, click attack, then remove
+it and repeat. Try the same equipment on another fighter and confirm normal
+movement returns after landing. A full-army/long-session benchmark was not run
+for this skill change.
+
+
+## Dark Lumina 3 Water: five-bubble pops — 2026-10-30
+
+The requested Water sequence now pops every falling bubble into five radial
+bubbles, each of which pops once without spawning another generation. The old
+randomly selected eight-way split is removed from both the player/borrowed
+adapter and native enemy combat. Six primary drops, queued casts, spread, travel,
+hit/cover checks, primary damage and half-damage children stay with the existing
+owners. Recovered bubble/pop sprites, shared materials, native queries and
+projectile pools are reused; no asset export, animation transfer, new simulation
+or per-enemy renderer was added.
+
+The concrete allocation issue was the old 32-shot Water pool. Two repetitions
+of nine accelerated airborne volleys reached 100 concurrent shots and caused
+68 misses after the five-child change. Preparing 128 Water shots on selection
+removes those combat-time allocations. Fresh desktop-launcher checks pass all
+36 assertions, including ground/timeout/enemy contact, both pop generations,
+pooled state reset, borrowed Water and repeated queues. The shared prepared pool
+remains at 836 with zero misses and zero retained nodes/resources in that fixture.
+Fresh native checks pass six simultaneous bosses producing six parent and thirty
+child pops at 20/30/60 Hz; existing six-family native checks also pass.
+
+Desktop manual-step p95 was 5.360 ms; callback interval p95/max were
+21.008/175.223 ms. Existing headless queue/regression work overlapped this run,
+and the earlier diagnostics also shared desktop/build activity. These are short
+fixture diagnostics, not a controlled before/after comparison, rendered FPS
+measurement, speedup or proof of smooth full-army play. The 159-check elemental
+queue suite and 128-check six-family gameplay suite pass. Toolkit Python 69,
+common imports 12,973, Musashi outfit 98, Musashi player motion 13 and structures
+86 pass. Earlier diagnostic fixture failures are retained separately, including
+a target removed from the test list and child contacts counted as parent contacts;
+the final fixture isolates the parent's hit and passes. The completeness suite
+passes 127 checks on an unchanged rerun; its first headless run missed the Fire
+audio-count assertion. That diagnostic remains recorded, not counted as a pass;
+no Fire audio logic was changed to suppress it.
+
+Verify through Play Goemon: select Dark Lumina 3 and press 2 Water repeatedly,
+then equip Water on another fighter. Each falling bubble should visibly pop into
+five travelling bubbles, which pop and disappear without another split. Check
+`dark_lumina_3_water_test.gd` and `dark_lumina_3_queue_test.gd` when changing this
+attack again; watch pool misses before changing capacity. Reports, captures and
+tested-input hashes are in `build/Other Files/Asset Toolkit/Dark Lumina 3/Water Bubbles/`.
+No app was exported or full-army/long-session soak run for this change.
+
+
+### Water pops only on contact — 2026-10-30 follow-up
+
+The user clarified that bubbles must only pop when they touch something. The
+previous implementation sent both collision and lifetime expiry through impact,
+so a bubble could pop and split in empty air. Water now uses silent retirement
+for expiry in both the shared player/borrowed projectile and native enemy
+runtime. Contact still plays the recovered pop and creates five children; child
+contacts pop without another split. Native child bubbles also use the existing
+ground-height contact check. Other spell expiry behavior is retained.
+
+This fixes the impact condition, not a measured CPU/GPU bottleneck. Existing
+lifetime caps still bound missed projectiles: an unhit bubble can disappear
+quietly, without pop graphics, sound, damage or children. Cast/release counts,
+damage, travel, cover checks, prepared assets and the existing 128-shot Water
+pool remain. There is no new physics owner, per-unit renderer or resource loading
+in combat. The earlier timeout-splitting measurements above are historical and
+do not verify this contact-only revision.
+
+To verify, use Play Goemon and cast 2 Water at ground, scenery and enemies.
+Contact should create the five-bubble ring; a missed airborne bubble must never
+play a pop or split when its lifetime ends. Borrow Water on another fighter and
+repeat. The focused fixture separately checks untouched parents/children before
+expiry, silent expiry, parent ground/enemy contacts, secondary ground contacts,
+numbered/borrowed casts and nine fast ground/airborne volleys. Full volleys still
+release six parents; children are required only for actual contacts.
+
+Fresh source checks pass: native six-family regressions plus six simultaneous
+bosses in three contact/expiry scenarios at 20/30/60 Hz; toolkit Python 69; common
+imports 12,973; Musashi outfit 98; Musashi motion 13; structures 86; active asset
+preservation. Headless Water passes all 26 checks with zero pool misses or
+retained nodes/resources and a 72-shot peak. Evidence and captures live in
+`build/Other Files/Asset Toolkit/Dark Lumina 3/Water Contact/`. The first desktop
+attempt changed camera/gameplay state while running; it is retained as a failed
+diagnostic. The fixture now isolates physical input and calls the existing
+numbered-skill handler directly. No source input behavior was changed.
+
+The corrected desktop-launcher run passes all 33 checks with zero pool misses,
+zero retained nodes/resources and a 79-shot peak. Captures verify an untouched
+bubble, silent expiry, the contact split and the secondary contact pop. Manual
+step p95 is 1.931 ms; callback interval p95/max are 18.886/1012.197 ms. The
+large callback gap is not attributed to Water, and this shared-desktop fixture
+is not a controlled FPS comparison or proof of full-army smoothness. Production
+inputs and the rebuilt universal native library match the recorded hashes.
+No app export or full-army/long-session benchmark was run for this follow-up.
+
+## Free level-up offers, named companies/heroes and player reach — 2026-11-05
+
+Level-ups now draw three distinct cards across the full eligible catalog, with
+independent unchanged rarity odds. Tower/Worker/Character remain descriptive
+labels, not slot restrictions. There are nine ordinary and twelve legendary
+cards. Far-reaching Strikes adds +25% melee reach per normal rank to the
+controlled character only (+50/75/100% for Silver/Gold/Diamond); it follows
+character switching and resets with the run. Five named hero cards replace the
+random hero reward. Five named company cards each grant five of the same troop.
+Heavenly Artillery and Royal Workforce remain in the shared legendary pool.
+
+This is requested gameplay work, not an isolated performance bottleneck fix.
+The smallest change adds one multiplier to the existing melee reach setting and
+uses existing contact shapes, painted waves and cached terrain outline. Mirror
+approach distance now reads the body's own reach so a player-only card cannot
+make copies stop outside their real reach. Rewards use the existing native
+mercenary/mirror owners, safe-arrival checks, batch rollback and pooled models.
+Card icons reuse cached selection art. No new simulation, art, renderer, combat
+resource loading or effect pool was introduced.
+
+Fresh checks pass: progression 598; existing team gameplay 123 headless; named
+hero combat/lifetime/reuse 47 headless; the new catalog fixture 126 headless and
+130 through Play Goemon with painterly scenery. The latter checks real native
+contact beyond baseline reach, fourteen fighter switches, five simultaneous
+mirror copies without the player-only range bonus, every named hero and company,
+blocked rewards, repeated company reuse and UI cleanup. Inspected captures show
+all-Character offers, named companies and named heroes at 1280×800 and 960×640.
+Repeated company choices retain no additional nodes/resources after warmup.
+Asset preservation, 69 toolkit Python checks, 12,973 imported checks, 98 Musashi
+outfit checks, 13 player-motion checks and 86 structure checks pass.
+
+The desktop fixture sampled the cached outline query plus reach lookup for 240
+calls at zero/five ranks: p95 .479/.028 ms, maxima 8.293/.207 ms. Headless p95
+was .018 ms in both cases. These short shared-machine diagnostics do not show
+a speedup, isolate the desktop outlier, or establish full-army FPS/long-session
+balance. The user's October 23 smoothness report and earlier stress results
+remain historical. Further optional desktop battle reruns yielded to a regular
+source game already holding the launcher lock; that game was left running.
+
+Verify through Play Goemon: earn Far-reaching Strikes, compare the faint melee
+outline and actual reach, then switch fighters. Expect allies to keep their own
+reach. Pick a named Legendary card and check that exact hero or five matching
+troops arrive. All three offers may share a category. For faster reward testing,
+change rarity odds for a new run through Core Game Balance, then restore your
+preferred odds. Evidence and source hashes are under
+`build/Other Files/Team Leveling/Free Draft/`. No app was exported.
+
+### Mountain King legendary follow-up — 2026-11-05
+
+Mountain King now has his own `Mountain King joins` card in the shared
+Legendary pool. The catalog has 22 cards: nine ordinary and thirteen legendary,
+including six named heroes. Slot 33 joins the existing hero-reward allowlist;
+its prepared model, portrait, Storm Bolt, Thunder Clap, Bash, Avatar and native
+kind 133 reuse the same summon owner. No new animation, renderer, combat loop
+or pool was added. There is no isolated performance bottleneck or new FPS claim
+for this catalog-only change. Rarity odds remain unchanged.
+
+Verify in a new Play Goemon run: choose Mountain King joins and check that he
+arrives at the castle, fights with his existing skills, and survives character
+switching until defeated or the run ends. Evidence is under
+`build/Other Files/Team Leveling/Mountain King/`; the preceding five-hero
+measurements remain historical. No app export was requested.
+
+Fresh follow-up checks pass: 601 progression assertions, including a forced
+Legendary coverage sweep; 54 six-hero native summon/combat/lifetime/reset checks
+headless; asset preservation; 69 toolkit unit checks; 12,973 imported checks;
+98 outfit, 13 motion and 86 structure checks. The initial default-odds sample
+missed one legendary and failed its catalog-coverage assertion; coverage now
+forces Legendary while independent default-odds checks remain intact. The desktop
+launcher yielded to an already-running verification, so no fresh rendered
+Mountain King card, frame-time result or full-army soak is claimed here.
+
+### Mountain King cosmetic taunt — 2026-11-05
+
+Historical first implementation; the aggro follow-up below supersedes its
+cosmetic-only targeting rule and verification instructions.
+
+The user requested a taunt-looking skill and chose gesture/war cry only.
+Mountain King's empty fourth slot now plays his existing `Stand - 3` challenge
+gesture and original `HeroMountainKingWarcry1`. Avatar uses `Alternate Stand - 3`.
+The existing controller owns its 3.167-second duration, grounded stance and
+interruption/finish lifecycle. It deals no damage and changes no enemy targeting
+or defensive stats. Existing saved fourth-slot assignments still override it.
+Native-owned allied Mountain Kings reuse the same controller and prepared rig.
+No animation transfer, export, renderer, resource loading or new pool was added.
+
+Fresh focused checks pass 29 headless assertions and 31 through Play Goemon
+with painterly scenery. They cover the fourth-key path, original audio, Avatar,
+interruptions, no damage/aggro, assignment overrides, twelve repeated gestures
+and five simultaneous native allies. Repeats retain no additional nodes or
+resources; projectile pool misses remain zero. Normal and Avatar captures were
+visually reviewed. The final desktop manual-step p95/max are 2.568/19.727 ms;
+these include fixture work and concurrent checks, not rendered frame intervals,
+a controlled speed comparison or evidence of full-army smoothness. This is a
+cosmetic addition, not a measured bottleneck fix. Earlier smoothness reports
+and measurements remain historical.
+
+Asset preservation, 69 toolkit unit tests, 12,973 imported checks, 98 Musashi
+outfit checks, 13 player-motion checks and 86 structure checks pass. The broader numbered-controls suite
+reports 593/594 assertions, failing Blademaster's key-2 activation; its isolated
+control also fails. No Blademaster logic was changed for this task. Initial taunt
+fixture failures and final passing results remain in
+`build/Other Files/Mountain King Taunt/`: the fixture now settles newly created
+allied physics bodies, disables their auto attack and pauses automatic game
+updates while manually stepping actions. Production behavior was not relaxed.
+
+Verify with Play Goemon: select Mountain King, press **4**, then repeat in Avatar.
+He should raise/spread both weapons and shout, without harming or attracting
+enemies. Evade or switch fighters to cancel. A saved skill in slot 4 takes
+precedence; remove that assignment to restore the native taunt. No app export
+or full-army/long-session benchmark was run.
+
+### Mountain King attracts enemies; red Avatar icon — 2026-11-05
+
+The user now requests actual attraction and a red version of the Avatar icon.
+The earlier taunt deliberately had no aggro, so this addresses missing requested
+behavior, not an isolated CPU/GPU bottleneck. Each shout now publishes eight
+seconds of player taunt priority through the existing external-target snapshot.
+Native allied Mountain Kings reuse their existing `buff_left` lifetime and
+taunt selection; no new simulation, renderer, per-caster army scan or resource
+pool was added. Their status enters through the existing native HIT binding.
+Normal reachability, targetability, death and native ownership still apply.
+The original gesture/audio and all other skill damage/timing remain intact.
+Interrupting the gesture retains the timed effect; death or character switching
+clears the player's taunt, and native despawn retires allied taunts safely.
+
+Slot 4 draws the exact existing Avatar texture through a preloaded immutable
+red material. The blue Avatar icon and model materials remain independent.
+No bitmap, geometry or animation was exported or transferred.
+
+Fresh checks pass 46 headless and 49 desktop-launcher assertions, including
+three real native soldiers switching from ordinary objectives and closing
+roughly 9.5 metres toward Mountain King in two simulated seconds. The fixture
+first certifies three walkable routes on the actual Wind Meadow map. Its initial
+castle-side positions were on disconnected raised ground and correctly failed
+the approach check; these diagnostics remain preserved. Normal/Avatar icon
+and gesture captures plus native pursuit were visually reviewed. An initial
+pixel sampler used logical HUD coordinates on a stretched viewport and produced
+a false color failure; that fragile check was removed, retaining the artwork/
+material isolation assertions and actual rendered review.
+
+Twelve repeated gestures retain no additional nodes/resources, with zero pool
+misses; five simultaneous native allies receive the same timed status. Native
+Mountain King, mirror and 46-case target-decision suites pass; new native cases
+cover player/allied acquisition, movement, expiry, overlapping taunters, death,
+slot reuse and invalid team at 20/30/60 Hz. Existing Knight integration passes
+33 assertions and retains its teardown RID/resource warnings. The universal
+native library was rebuilt while the game was closed. Asset preservation,
+69 toolkit unit tests, 12,973 imported checks, 98 outfit, 13 player-motion and
+86 structure checks pass. Earlier broad-control failures above were not rerun
+or reclassified as passing by this follow-up.
+
+Final desktop manual player/projectile-step p95/max are .428/.854 ms; native
+integration runs outside that sample. These short diagnostic timings are not
+rendered frame intervals, a controlled performance comparison or evidence of
+full-army smoothness. Evidence and source/library hashes are under
+`build/Other Files/Mountain King Taunt/Aggro/`.
+
+Verify through Play Goemon: press **4** on reachable ground and watch nearby
+troops redirect toward Mountain King for eight seconds. Try Avatar and check
+the fourth icon is red while the third stays blue. Closed walls, height layers
+and disconnected routes still block pursuit; a taunt does not teleport enemies
+or breach the castle. Existing slot-4 overrides take precedence. No app export
+or long-session/full-army benchmark was run.

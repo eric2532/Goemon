@@ -1,0 +1,10 @@
+{
+  "token": "0-6",
+  "prompt": "BACKGROUND REMOVAL ONLY. Remove the erroneous white/gray background, haze and ground shadows from this 6 columns x 3 rows Kazi animation sheet. Make all empty areas between/around the 18 characters genuinely fully transparent (alpha 0). Preserve all 18 characters, their exact positions and sizes, longer thin curved swords, faces, clothes, body poses, color, lighting and violet sparks. Do not redraw, shift or reshape any character. Do not add a painted checkerboard or gray/white matte. This is a transparent game sprite sheet. Output same canvas size/aspect and 6x3 grid. Isolate character and purple effects with clean alpha edges; no background fog.",
+  "references": [
+    "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Cross Gate 102488/HD Preview/Rejected/long-blade-0-6-opaque-draft.png"
+  ],
+  "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-35bd6fde-946c-4513-b205-c0ac55eb0a0a.png",
+  "tool": "built-in image_gen",
+  "sha256": "8b62472f2de73b7c08e2513cd5d0c12e070f9897b238531d5395c536df2bd7c6"
+}

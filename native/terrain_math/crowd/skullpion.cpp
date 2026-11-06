@@ -25,10 +25,11 @@ void Combat::boss_enter(Unit& u,int move,Vec3 aim){
 }
 void Combat::boss_decide(Crowd& crowd,Unit& u,double dt){
     auto& b=skullpions_[u.handle];u.has_goal=false;
-    if(dt<=0||data_.skullpion.empty())return;
+    if(dt<=0||u.stun>0||data_.skullpion.empty())return;
     b.seek_left=std::max(0.0,b.seek_left-dt);
     if(u.action_active){
         // Compress only the sand windup; retain its active animation and recovery.
+        if(u.action!=106&&u.action!=107)dt*=u.attack_slow_factor;
         double windup=u.action==103?std::min(dt,std::max(0.0,2.33-b.time)/5.0):0;
         b.time+=dt+windup*4;u.action_time=b.time;return;
     }
@@ -40,9 +41,11 @@ void Combat::boss_decide(Crowd& crowd,Unit& u,double dt){
             b.climb=crowd.terrain.climb_surface(u.position,climb_radius,35);
             if(b.climb.valid){boss_enter(u,6,b.climb.crest);u.yaw=std::atan2(-b.climb.normal.x,-b.climb.normal.z);return;}
             b.castle_found=false;float nearest=INFINITY;int priority=-1;
-            for(const auto& fort:targets_)if(fort.kind==2&&fort.hp>0&&fort.maximum.y-fort.minimum.y>=12){
+            for(const auto& fort:targets_)if(fort.kind==2&&fort.hp>0&&fort.targetable&&fort.maximum.y-fort.minimum.y>=12){
                 Vec3 face{std::clamp(u.position.x,fort.minimum.x,fort.maximum.x),fort.minimum.y,std::clamp(u.position.z,fort.minimum.z,fort.maximum.z)};
-                float gap=flat(u.position,face);if(fort.assault_priority<priority||(fort.assault_priority==priority&&gap>=nearest))continue;
+                float gap=flat(u.position,face);
+                if(fort.assault_priority==4&&gap>28)continue;
+                if(fort.assault_priority<priority||(fort.assault_priority==priority&&gap>=nearest))continue;
                 Vec3 outward=normalized(Vec3{u.position.x-face.x,0,u.position.z-face.z});
                 if(length(outward)<.01f)outward=normalized(u.position-(fort.minimum+fort.maximum)*.5f);
                 outward.y=0;if(length(outward)<.01f)outward={0,0,1};
@@ -70,11 +73,12 @@ void Combat::boss_decide(Crowd& crowd,Unit& u,double dt){
     boss_enter(u,move,aim);
 }
 bool Combat::boss_move(Crowd& crowd,Unit& u,double dt,Vec3& next){
+    if(u.stun>0)return true;
     auto found=skullpions_.find(u.handle);if(found==skullpions_.end()||!u.action_active)return false;
     auto& b=found->second;int move=u.action-100;double t=b.time;
     if(move==1&&t>=.65&&t<1.45){
         Vec3 direction{std::sin(u.yaw),0,std::cos(u.yaw)};
-        next=crowd.terrain.direct_move(u.position,direction*float(20*dt),u.radius,u.support_layer);return true;
+        next=crowd.terrain.direct_move(u.position,direction*float(20*dt*u.attack_slow_factor),u.radius,u.support_layer);return true;
     }
     if(move==6){
         u.special_time+=dt;
@@ -150,7 +154,7 @@ void Combat::boss_area(Crowd& crowd,Unit& u,Vec3 center,float reach,double damag
     Vec3 pad{reach,8,reach};
     for(auto h:crowd.query(center-pad,center+pad,1)){
         auto ally=crowd.unit(h);if(!ally||!contacts(ally->position)||!crowd.terrain.ray_clear(center+Vec3{0,1,0},ally->position+Vec3{0,1,0}))continue;
-        Hit damage_hit;damage_hit.amount=damage;damage_hit.source_id=u.logical_id;damage_hit.direction=normalized(ally->position-center);
+        Hit damage_hit;damage_hit.amount=damage;damage_hit.magical=magical_attack(u.kind,poison?105:u.action,false);damage_hit.source_id=u.logical_id;damage_hit.direction=normalized(ally->position-center);
         if(wind){damage_hit.direction=normalized(ally->position-u.position);damage_hit.impulse=damage_hit.direction*24;damage_hit.flinch=.3;}
         if(poison){damage_hit.effect=2;damage_hit.slow_factor=.55f;damage_hit.status_seconds=4;}
         hit(crowd,h,damage_hit);if(wind)track_wind(h,ally->position);

@@ -76,7 +76,7 @@ func _draw():
 	draw_circle(Vector2(68,76),27,Color("173d64"))
 	draw_arc(Vector2(68,76),29,-PI/2,PI*1.5,48,gold,2,true)
 	text(Vector2(53,85),"蒼",25,gold)
-	text(Vector2(112,58),p.RogueRoster.name_for(p.character_id).to_upper() if p.is_rogue_character() or p.character_id in [13,28,31,32] else ("E D O / FIRE" if p.character_id==2 else "G O E M O N"),15,gold)
+	text(Vector2(112,58),p.RogueRoster.name_for(p.character_id).to_upper() if p.is_rogue_character() or p.character_id in [13,28,31,32,33] else ("E D O / FIRE" if p.character_id==2 else "G O E M O N"),15,gold)
 	draw_rect(Rect2(112,73,193,10),Color("23404a"))
 	draw_rect(Rect2(112,73,193*p.hp/p.max_hp,10),Color("80dfac"))
 	text(Vector2(112,107),"VITALITY  %03d / %03d" % [int(p.hp),int(p.max_hp)],13)
@@ -112,6 +112,7 @@ func _draw():
 			number_actions="1 Dash · 2 Surge · 3 Sky strike · 4 Coins · 5 Chain"
 			primary=["LMB · 3-hit combo   RMB · Heavy","LMB / RMB · Flaming ryo" if p.surge_left>0 else "LMB / RMB · Throw coin","LMB / RMB · Chain throw"][clampi(p.weapon_slot-1,0,2)]
 		if p.character_id in [31,32]:number_actions="1 Bladestorm" if p.character_id==31 else "1 Metamorphosis";primary="LMB Sword combo · RMB Critical strike" if p.character_id==31 else "LMB Glaives / Demon bolt · RMB Metamorphosis"
+		if p.character_id==33:number_actions="1 Storm Bolt · 2 Thunder Clap · 3 Avatar";primary="LMB Hammer / Axe · Passive Bash · RMB Storm Bolt"
 		if p.character_id==28:number_actions="Kojiro · Q Fighters";primary="LMB · Cut → Return cut / Aerial cuts   RMB / T · Wave"
 		if p.character_id==13:number_actions="1 Spin · 2 Mighty · 3 Kick · 4 Grenade · Hold 5 3-Way";primary="LMB · Fusion   RMB · Lumina"
 		if p.character_id==30:number_actions="1 Wind · 2 Water · 3 Fire · 4 Earth · 5 Sky";primary="LMB · Kojiro’s Wind wave → Two piercing energy blades"

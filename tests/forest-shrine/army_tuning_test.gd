@@ -33,7 +33,7 @@ func run():
    var resource:Resource=data.pose_resources[kind]
    var baked:Resource=load("res://assets/characters/ally_crowd/%d.res"%kind)
    check(resource.get_meta("mesh").get_surface_count()==baked.get_meta("mesh").get_surface_count(),"Kit%d custom reach preserves original mesh surfaces"%kind)
-   check(resource.get_meta("contacts").primary0[roundi(original[kind].primary[0].contact*60)].length()>baked.get_meta("contacts").primary0[roundi(original[kind].primary[0].contact*60)].length()*1.2,"Kit%d extended contact follows a visibly longer weapon"%kind)
+   check(resource.get_meta("contacts").primary0[roundi(original[kind].primary[0].contact*60)].length()>baked.get_meta("contacts").primary0[roundi(original[kind].primary[0].contact*60)].length()*1.2,"Kit%d extended contact retains its full wave endpoint"%kind)
   unit.free()
  var again:Dictionary=data_script.from_model(game.model,1,game)
  var cached:Dictionary=data_script.from_model(game.model,1,game)

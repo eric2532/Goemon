@@ -138,6 +138,7 @@ func update(state:Dictionary,delta:float,time:float):
 		var native_weapon:Transform3D=source.get("0x9002518",source["0x9005868"]*rom_grip)
 		weapon_pose=Transform3D(native_weapon.basis.orthonormalized()*weapon_alignment,native_weapon.origin*source_scale+source_offset)
 	var size_=float(state.get("meleeVisualScale",1.0))*(3.0 if float(state.get("buffTime",0))>0 else 1.0)
+	if not state.get("uncappedWeapon",false):size_=preload("res://scripts/weapon_proportions.gd").reach_visual_scale(size_)
 	weapon_pose.basis=weapon_pose.basis.scaled(Vector3.ONE*size_)
 	weapon.global_transform=global_transform*weapon_pose
 	var old_axis:Vector3=actor.WEAPON_AXES[actor.id]

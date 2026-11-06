@@ -141,6 +141,7 @@ func capture_sweep():
 	DirAccess.make_dir_recursive_absolute(output)
 	var selected=[]
 	var chosen=["build","reverse_build","work_loop","upgrade_preview"] if options.asset=="goldmine" else ["Table_00__800d46e4","Table_07__800d4944","Extra__800d4c94","Extra__800d4f14","Extra__800d5360","Extra__800d4be0"]
+	if options.asset=="musashi":chosen.append_array(["Extra__800d51e0","Recovered__800d524c","Recovered__800d52a8","Recovered__800d52e8","Recovered__800d533c"])
 	if options.asset=="kojiro":chosen=["Source__801e2170","Source__801e2478","Source__801e2660","Source__801e2708","Source__801e2910","Source__801e2b50","Source__801e2ce8"]
 	if options.asset=="sonic":chosen=["Sonic Stand","Sonic Walk","Sonic Speedwalk","Sonic Jog","Sonic Run","Sonic Sprint","Sonic Brake","Sonic Fall"]
 	for i in clips.item_count:

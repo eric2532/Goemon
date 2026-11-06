@@ -626,10 +626,10 @@ void projectile_buffers(void* snapshot,double bullet_scale,const int32_t* limits
     for(size_t i=0;i<batches.size();++i){auto key=i>=22?"finale-shot"+std::to_string(i-22):i<16?"bullet"+std::to_string(i):(i==16?std::string("star"):(i==17?std::string("ranger-arrow"):(i==18?std::string("ranger-power-arrow"):(i==19?std::string("skullpion-ball"):(i==20?std::string("dragon"):std::string("dark-lumina-ball"))))));field(&output,key.c_str(),F32,batches[i]);}
     put(result,"projectiles",DICT,&output);destructor(DICT)(&output);field(result,"shields",F32,shield);put_bool(result,"valid",true);
 }
-enum Method{CONFIGURE,SPAWN,DESPAWN,VALID,CLEAR,SNAPSHOT,QUERY,NAVIGATION,GOALS,STEP,KITS,HIT,EVENTS,TARGETS,STATE,POSE,RENDER,REST,GUARD,REST_TICK,FILTER_BOXES,INSTANCE_BUFFERS,NEARBY_POINTS,SYNC_FACADES,SYNC_HELPERS,QUERY_STATS,COLLECTORS,STEP_PROFILE,BEGIN_STEP,FINISH_STEP,CAPTURE_HELPERS,SNAPSHOT_HELPERS,PARALLEL_MOVEMENT,SCENE_EVENTS,REGISTER_FACADE,SYNC_REGISTERED,INDEX_ENEMIES,PROJECTILE_BUFFERS,SYNC_MODEL_ROWS,SYNC_MODEL_ROWS_FOR,QUERY_ACTORS,MIRROR,MIRROR_BUSY,ENEMY_SCALING,COUNT};
-const VT types[COUNT][6]={{INT,INT},{INT,INT,INT,VEC3,FLOAT,FLOAT},{INT},{INT},{},{},{AABB,INT},{DICT},{I64,V3S,F32},{FLOAT},{DICT},{INT,DICT},{},{DICT},{INT},{INT,VEC3,FLOAT},{},{},{INT,VEC3,FLOAT},{FLOAT},{V3S,V3S,VEC3,VEC3},{DICT,DICT},{V3S,VEC3,FLOAT},{DICT,DICT,DICT,DICT,GDEXTENSION_VARIANT_TYPE_OBJECT},{DICT,DICT},{BOOL},{DICT,DICT,DICT,FLOAT,FLOAT,FLOAT},{BOOL},{FLOAT},{},{},{DICT,DICT,DICT},{BOOL},{},{INT,DICT,GDEXTENSION_VARIANT_TYPE_OBJECT},{DICT},{ARRAY,DICT,DICT},{DICT,FLOAT,GDEXTENSION_VARIANT_TYPE_VECTOR2I},{},{I64},{AABB,DICT,ARRAY,ARRAY},{INT,INT,FLOAT,FLOAT,VEC3},{INT,BOOL},{INT,FLOAT,FLOAT}};
-const VT outputs[COUNT]={NIL,INT,NIL,BOOL,NIL,DICT,I64,NIL,NIL,NIL,BOOL,DICT,ARRAY,NIL,DICT,NIL,DICT,NIL,NIL,NIL,I64,DICT,I64,INT,INT,DICT,DICT,DICT,BOOL,NIL,DICT,INT,NIL,ARRAY,BOOL,INT,DICT,DICT,INT,INT,ARRAY,BOOL,NIL,BOOL};
-const int counts[COUNT]={2,6,1,1,0,0,2,1,3,1,1,2,0,1,1,3,0,0,3,1,4,2,3,5,2,1,6,1,1,0,0,3,1,0,3,1,3,3,0,1,4,5,2,3};
+enum Method{CONFIGURE,SPAWN,DESPAWN,VALID,CLEAR,SNAPSHOT,QUERY,NAVIGATION,GOALS,STEP,KITS,HIT,EVENTS,TARGETS,STATE,POSE,RENDER,REST,GUARD,REST_TICK,FILTER_BOXES,INSTANCE_BUFFERS,NEARBY_POINTS,SYNC_FACADES,SYNC_HELPERS,QUERY_STATS,COLLECTORS,STEP_PROFILE,BEGIN_STEP,FINISH_STEP,CAPTURE_HELPERS,SNAPSHOT_HELPERS,PARALLEL_MOVEMENT,SCENE_EVENTS,REGISTER_FACADE,SYNC_REGISTERED,INDEX_ENEMIES,PROJECTILE_BUFFERS,SYNC_MODEL_ROWS,SYNC_MODEL_ROWS_FOR,QUERY_ACTORS,MIRROR,MIRROR_BUSY,ENEMY_SCALING,CAN_REACH,COUNT};
+const VT types[COUNT][6]={{INT,INT},{INT,INT,INT,VEC3,FLOAT,FLOAT},{INT},{INT},{},{},{AABB,INT},{DICT},{I64,V3S,F32},{FLOAT},{DICT},{INT,DICT},{},{DICT},{INT},{INT,VEC3,FLOAT},{},{},{INT,VEC3,FLOAT},{FLOAT},{V3S,V3S,VEC3,VEC3},{DICT,DICT},{V3S,VEC3,FLOAT},{DICT,DICT,DICT,DICT,GDEXTENSION_VARIANT_TYPE_OBJECT},{DICT,DICT},{BOOL},{DICT,DICT,DICT,FLOAT,FLOAT,FLOAT},{BOOL},{FLOAT},{},{},{DICT,DICT,DICT},{BOOL},{},{INT,DICT,GDEXTENSION_VARIANT_TYPE_OBJECT},{DICT},{ARRAY,DICT,DICT},{DICT,FLOAT,GDEXTENSION_VARIANT_TYPE_VECTOR2I},{},{I64},{AABB,DICT,ARRAY,ARRAY},{INT,INT,FLOAT,FLOAT,VEC3},{INT,BOOL},{INT,FLOAT,FLOAT},{VEC3,VEC3,FLOAT}};
+const VT outputs[COUNT]={NIL,INT,NIL,BOOL,NIL,DICT,I64,NIL,NIL,NIL,BOOL,DICT,ARRAY,NIL,DICT,NIL,DICT,NIL,NIL,NIL,I64,DICT,I64,INT,INT,DICT,DICT,DICT,BOOL,NIL,DICT,INT,NIL,ARRAY,BOOL,INT,DICT,DICT,INT,INT,ARRAY,BOOL,NIL,BOOL,BOOL};
+const int counts[COUNT]={2,6,1,1,0,0,2,1,3,1,1,2,0,1,1,3,0,0,3,1,4,2,3,5,2,1,6,1,1,0,0,3,1,0,3,1,3,3,0,1,4,5,2,3,3};
 void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
     auto& owner=*static_cast<Instance*>(instance);auto& crowd=owner.crowd;
     const auto method=intptr_t(userdata);
@@ -637,6 +637,7 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
     // Every shared-state read/write joins first, including hits and retirement.
     if(method!=BEGIN_STEP&&method!=FINISH_STEP&&method!=COLLECTORS&&method!=NEARBY_POINTS&&method!=SNAPSHOT_HELPERS&&method!=INDEX_ENEMIES&&method!=PROJECTILE_BUFFERS)crowd.finish_step();
     switch(method){
+        case CAN_REACH:*static_cast<GDExtensionBool*>(ret)=crowd.terrain.reachable(*static_cast<const army::Vec3*>(args[0]),*static_cast<const army::Vec3*>(args[1]),float(*static_cast<const double*>(args[2])),-1);break;
         case ENEMY_SCALING:*static_cast<GDExtensionBool*>(ret)=crowd.set_enemy_scaling(*static_cast<const int64_t*>(args[0]),*static_cast<const double*>(args[1]),*static_cast<const double*>(args[2]));break;
         case MIRROR:*static_cast<GDExtensionBool*>(ret)=crowd.set_mirror(*static_cast<const int64_t*>(args[0]),*static_cast<const int64_t*>(args[1]),*static_cast<const double*>(args[2]),*static_cast<const double*>(args[3]),*static_cast<const army::Vec3*>(args[4]));break;
         case MIRROR_BUSY:if(auto u=crowd.unit(*static_cast<const int64_t*>(args[0]));u&&u->mirror_actions>0){u->mirror_busy=*static_cast<const GDExtensionBool*>(args[1]);if(u->mirror_busy)u->has_goal=false;}break;
@@ -819,7 +820,8 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
             hit.direction=scalar<army::Vec3>(dict,"direction",VEC3,{});hit.projectile=scalar<GDExtensionBool>(dict,"projectile",BOOL,0);hit.heavy=scalar<GDExtensionBool>(dict,"heavy",BOOL,0);hit.critical=scalar<GDExtensionBool>(dict,"critical",BOOL,0);
             hit.responsive_recoil=scalar<GDExtensionBool>(dict,"responsive_recoil",BOOL,0);
             hit.impulse=scalar<army::Vec3>(dict,"knockback",VEC3,{});hit.flinch=scalar<double>(dict,"flinch",FLOAT,0);hit.add_impulse=scalar<GDExtensionBool>(dict,"add_impulse",BOOL,0);
-            hit.effect=equals(dict,"element","ice")?1:(equals(dict,"element","slow")?2:0);hit.slow_factor=float(scalar<double>(dict,"slow_factor",FLOAT,1));
+            hit.effect=equals(dict,"element","ice")?1:(equals(dict,"element","slow")?2:(equals(dict,"element","avatar")?3:(equals(dict,"element","stun")?4:(equals(dict,"element","taunt")?5:0))));
+            hit.attack_slow_factor=float(scalar<double>(dict,"attack_slow_factor",FLOAT,1));hit.magical=scalar<GDExtensionBool>(dict,"magical",BOOL,0);hit.slow_factor=float(scalar<double>(dict,"slow_factor",FLOAT,1));
             auto result=crowd.combat.hit(crowd,*static_cast<const int64_t*>(args[0]),hit);
             put_bool(ret,"accepted",result.accepted);put_bool(ret,"dead",result.dead);put(ret,"hp",FLOAT,&result.hp);break;
         }
@@ -838,7 +840,7 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
             auto priorities=vector<int32_t>(dict,"assault_priority",I32);
             std::vector<army::ExternalTarget> targets;
             if(ids.size()==kinds.size()&&ids.size()==positions.size()&&ids.size()==hp.size())for(size_t i=0;i<ids.size();++i){
-                army::ExternalTarget target;target.id=ids[i];target.kind=kinds[i];target.foot=positions[i];target.hp=hp[i];target.targetable=i>=valid.size()||valid[i];target.taunting=i<taunts.size()&&taunts[i];target.minimum=i<lows.size()?lows[i]:positions[i];target.maximum=i<highs.size()?highs[i]:positions[i];target.ignore_building=i<ignores.size()?ignores[i]:-1;target.assault_priority=i<priorities.size()?std::clamp(priorities[i],0,2):0;targets.push_back(target);
+                army::ExternalTarget target;target.id=ids[i];target.kind=kinds[i];target.foot=positions[i];target.hp=hp[i];target.targetable=i>=valid.size()||valid[i];target.taunting=i<taunts.size()&&taunts[i];target.minimum=i<lows.size()?lows[i]:positions[i];target.maximum=i<highs.size()?highs[i]:positions[i];target.ignore_building=i<ignores.size()?ignores[i]:-1;target.assault_priority=i<priorities.size()?std::clamp(priorities[i],0,4):0;targets.push_back(target);
             }
             crowd.combat.set_targets(std::move(targets));
             auto shelter_ids=vector<int64_t>(dict,"shelter_ids",I64);auto entrances=vector<army::Vec3>(dict,"shelter_entrances",V3S),centers=vector<army::Vec3>(dict,"shelter_centers",V3S);auto damage_serial=vector<int64_t>(dict,"shelter_damage",I64);std::vector<army::ShelterTarget> shelters;
@@ -960,6 +962,7 @@ bool initialize(GDExtensionInterfaceGetProcAddress proc,GDExtensionClassLibraryP
     const char* instances[]={"snapshot","profiles"};bind(INSTANCE_BUFFERS,"instance_buffers",instances);
     const char* boxes[]={"minimums","maximums","minimum","maximum"};bind(FILTER_BOXES,"filter_boxes",boxes);
     const char* navigation[]={"data"};bind(NAVIGATION,"set_navigation",navigation);
+    const char* reachable[]={"from","goal","radius"};bind(CAN_REACH,"can_reach",reachable);
     const char* goals[]={"handles","positions","speeds"};bind(GOALS,"set_goals",goals);
     const char* step[]={"delta"};bind(STEP,"step",step);
     const char* kits[]={"data"};bind(KITS,"configure_kits",kits);

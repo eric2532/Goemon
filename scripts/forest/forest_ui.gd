@@ -9,10 +9,13 @@ var hero_name: Label
 var hero_dock: Panel
 var enemy_minimap
 var resource_hub: Panel
+var wave_countdown:Label
 var view_settings_preview=false
 var applied_hud_scale=-1.0
 var hero_portrait: TextureRect
 var loadout_slots: HBoxContainer
+const MOUNTAIN_ICONS={"mountain-king/storm-bolt":preload("res://assets/characters/warcraft/mountain-king/icons/StormBolt.png"),"mountain-king/thunder-clap":preload("res://assets/characters/warcraft/mountain-king/icons/ThunderClap.png"),"mountain-king/avatar":preload("res://assets/characters/warcraft/mountain-king/icons/Avatar.png")}
+const TAUNT_ICON_MATERIAL=preload("res://assets/materials/mountain_taunt_icon.tres")
 var loadout_buttons: Array[Button]=[]
 var cape_buttons:Array[Button]=[]
 var spell_summary:Label
@@ -67,7 +70,8 @@ var team_level_label:Label
 var team_xp_bar:ProgressBar
 var painterly_button: Button
 var preparation_actions: HFlowContainer
-var build_bar: HBoxContainer
+var build_bar: GridContainer
+var build_frame: PanelContainer
 var bar_paper: Panel
 var inspection: PanelContainer
 var inspect_text: Label
@@ -80,7 +84,7 @@ var preview_clock=0.0
 var job_preview={"mine":0,"tower":0,"repair":0,"idle":0}
 const INK=Color("f0edf4")
 const PAPER=Color("f0edf4")
-const LABELS={"mine":"Gold mine","tower":"Stone watchtower","wall":"Stone wall","gate":"Gate","barracks":"Barracks","enemy_castle":"Enemy castle · Free"}
+const LABELS={"mine":"Gold mine","tower":"Guard Tower","cannon_tower":"Cannon Tower","wall":"Stone wall","gate":"Gate","barracks":"Farm","enemy_castle":"Enemy castle · Free"}
 func style(color: Color,border: Color=Color("827859"))->StyleBoxFlat:
 	var s=StyleBoxFlat.new();s.bg_color=color;s.border_color=border
 	s.set_border_width_all(2);s.set_corner_radius_all(3);s.content_margin_left=14;s.content_margin_right=14;s.content_margin_top=10;s.content_margin_bottom=10
@@ -119,6 +123,11 @@ func make_status_hubs():
 			worker_count=count;count.name="WorkerCount";count.position.y=19
 	gold_count.tooltip_text="Ryo · Enemy kills pay automatically · Workers spend 1 ryo per 10 HP repaired";worker_count.tooltip_text="Workers"
 	make_hero_dock()
+	wave_countdown=label_at("",Vector2.ZERO,18);wave_countdown.name="WaveCountdown"
+	wave_countdown.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	wave_countdown.offset_left=-140;wave_countdown.offset_right=140;wave_countdown.offset_top=16;wave_countdown.offset_bottom=80
+	wave_countdown.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;wave_countdown.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
+	wave_countdown.mouse_filter=Control.MOUSE_FILTER_IGNORE;wave_countdown.add_theme_stylebox_override("normal",skin.lacquer())
 func make_hero_dock():
 	hero_dock=panel("HeroDock",Control.PRESET_TOP_LEFT,Rect2(22,28,250,84))
 	dock_icon(hero_dock,skin.texture("ring"),Vector2(140,-8),Vector2(100,100))
@@ -202,6 +211,7 @@ func open_build_menu():
 	game.build_kind="";game.wall_start=Vector2i(-999,-999);game.world.preview.hide()
 	preparation_mode="build";build_menu_expanded=true;preparation_tools_open=false;selected_id=-1;sync()
 func choose_preparation_build(kind:String):
+	if kind=="cannon_tower":game.placement_audio.play_cannon("select")
 	game.select_build(kind);preparation_mode="build";build_menu_expanded=true;sync()
 func preparation_menu_input(event:InputEvent)->bool:
 	if not event is InputEventKey or event.shift_pressed or event.ctrl_pressed or event.alt_pressed or event.meta_pressed:return false
@@ -225,6 +235,7 @@ func preparation_menu_input(event:InputEvent)->bool:
 				if index<2:choose_preparation_build(["tower","barracks"][index])
 				elif index==2:game.recruit_worker()
 				elif index==3 and game.model.has_enemy_castles():choose_preparation_build("enemy_castle")
+				elif index==4:choose_preparation_build("cannon_tower")
 			elif preparation_mode=="mercenaries" and index<MERCENARY_SHORTCUTS.size():game.explorer_helpers.request(MERCENARY_SHORTCUTS[index])
 		return true
 	return false
@@ -239,25 +250,28 @@ func _input(event):
 
 func sync_character():
 	var p=game.player
+	var prep=game.model.phase=="preparing"
+	for control in [hero_name,loadout_slots,spell_dock]:control.visible=not prep
+	for button in cape_buttons:button.visible=not prep
 	var spells=PackedStringArray()
 	var equipped=p.spell_loadout.assignments(p.character_id)
 	for i in p.spell_loadout.numbered_slots.size():
 		var slot:Array=p.spell_loadout.numbered_slots[i]
 		var action=p.spell_loadout.Catalog.SLOTS.keys()[i]
 		var cooldown=p.spell_loadout.cooldown_for(action) if equipped.has(action) else 0.0
+		if p.character_id==33 and i<3 and not equipped.has(action):cooldown=[p.active_ability.bolt_cooldown,p.active_ability.clap_cooldown,p.active_ability.avatar_cooldown][i]
 		spells.append("%d  %s%s"%[i+1,"Empty · Equip in Skills & Jump" if slot.is_empty() else slot[0]," (%.1fs)"%cooldown if cooldown>.05 else ""])
 	if p.character_id==13:spells.append("E Hold charge · R Hold guard · More skills in Q")
 	if p.character_id==30:spells.append("LMB Kojiro Wind → 2 piercing blades · Space Fly · Shift Boost")
 	if p.character_id==32 and p.can_fly():spells.append("Hold Space Fly · Release Descend · Shift Boost")
 	if p.is_meta_shooter():spells.append("Mouse Aim · Hold LMB Energy bolts · WASD Strafe")
-	spell_summary.text="\n".join(spells);spell_dock.visible=true
+	spell_summary.text="\n".join(spells)
 	if portrait_id!=p.character_id:
 		portrait_id=p.character_id
-		ben_utility_tile.visible=p.character_id in [13,14,15,16,17];hero_dock.size.x=320 if p.character_id in [13,14,15,16,17] else 250
 		ben_utility_tile.tooltip_text="Hold E · Sword Shield" if p.character_id==17 else "E · Ice kunai / Hold for Hail Beam · T / Shift+T Hair · R Super Jump" if p.character_id==16 else ("E · Smoke assault · R · Quick Burst" if p.character_id==14 else "Tap E · Star fan / Hold E · Axes")
 		leader_utility_icon.texture=load(Roster.icon_path("ice" if p.character_id==16 else ("fire" if p.character_id==14 else "shuriken")))
 		if p.character_id==13:
-			ben_utility_tile.tooltip_text="1 Rotation · 2 Mighty Strike · 3 D-Kick · 4 Grenade · Hold 5 3-Way · More in Skills & Jump"
+			ben_utility_tile.tooltip_text="1 X Slash · 2 Tenderize · 3 Desperado · 4 Rotation · 5 Mighty Strike · More in Skills & Jump"
 			leader_utility_icon.texture=load(Roster.icon_path("sword"))
 		var primary="pipe";var secondary="wave";var accent=Color("edcf87");class_cooldowns={};cooldown_peaks=[0.0,0.0]
 		if p.is_rogue_character():
@@ -266,17 +280,23 @@ func sync_character():
 			primary_icon.tooltip_text=data.abilities.cutlass.name;secondary_icon.tooltip_text=data.abilities.flintlock.name
 		else:
 			hero_name.text="Edo" if p.character_id==2 else "Goemon"
-			if (p.character_id in [13,14,15,16,17,18,19,28,31,32] or Roster.is_enemy(p.character_id)):hero_name.text=Roster.name_for(p.character_id)
-			hero_portrait.texture=Roster.portrait(p.character_id) if (p.character_id in [13,14,15,16,17,18,19,28,31,32] or Roster.is_enemy(p.character_id)) else load("res://assets/models/characters/goemon_cosplay/portraits/%s.png"%hero_name.text.to_lower())
+			if (p.character_id in [13,14,15,16,17,18,19,28,31,32,33,34] or Roster.is_enemy(p.character_id)):hero_name.text=Roster.name_for(p.character_id)
+			hero_portrait.texture=Roster.portrait(p.character_id) if (p.character_id in [13,14,15,16,17,18,19,28,31,32,33,34] or Roster.is_enemy(p.character_id)) else load("res://assets/models/characters/goemon_cosplay/portraits/%s.png"%hero_name.text.to_lower())
 			if p.character_id==2:primary="fire";secondary="spark";accent=Color("ff956f")
 			primary_icon.tooltip_text="Fireballs" if p.character_id==2 else "Pipe combo";secondary_icon.tooltip_text="Giant fireball" if p.character_id==2 else "Heavy strike"
+			if p.character_id==34:
+				primary="sword";secondary="sword";accent=Color("c48aff")
+				primary_icon.tooltip_text="Kazi · Sword attack";secondary_icon.tooltip_text="Kazi · Sword attack"
 			if p.character_id==13:
 				primary="sword";secondary="sword";accent=Color("bba4f2")
-				primary_icon.tooltip_text="LMB · Fusion · Click for each cut";secondary_icon.tooltip_text="RMB · Lumina · Standing / airborne strike"
+				primary_icon.tooltip_text="LMB · Fusion · LMB, LMB, RMB: Tenderize";secondary_icon.tooltip_text="RMB · Lumina · After a Fusion hit: X Slash · Then LMB, RMB: Desperado"
 			if p.character_id in [31,32]:
 				primary="sword";secondary="spark";accent=Color(Roster.data(p.character_id).color)
 				primary_icon.tooltip_text="Sword combo" if p.character_id==31 else "Glaive combo / Demon bolt"
 				secondary_icon.tooltip_text="Critical strike" if p.character_id==31 else "Metamorphosis"
+			if p.character_id==33:
+				primary="sword";secondary="spark";accent=Color("278dff")
+				primary_icon.tooltip_text="Hammer / Axe combo · Passive Bash";secondary_icon.tooltip_text="Storm Bolt"
 			if p.character_id==28:
 				primary="sword";secondary="wave";accent=Color("d999e6")
 				primary_icon.tooltip_text="LMB · Cut → Return cut / Aerial cuts";secondary_icon.tooltip_text="RMB / T · Sword wave"
@@ -318,7 +338,7 @@ func sync_character():
 		leader_utility_icon.texture=preload("res://assets/characters/recovered_yae/icons/shield_icon.png")
 	if p.character_id==Roster.MASTER_CHIEF_ID:
 		primary_icon.texture=load(preload("res://scripts/master_chief_weapons.gd").icon_path(p.master_chief_combat.weapon_slot))
-	(hero_portrait.material as ShaderMaterial).set_shader_parameter("face_crop",Vector4(0,0,1,1) if (p.character_id in [16,17,18,19,28,31,32] or Roster.is_enemy(p.character_id)) else Vector4(.3375,.20,.325,.52))
+	(hero_portrait.material as ShaderMaterial).set_shader_parameter("face_crop",Vector4(0,0,1,1) if (p.character_id in [16,17,18,19,28,31,32,33,34] or Roster.is_enemy(p.character_id)) else Vector4(.3375,.20,.325,.52))
 	if p.character_id==1:
 		primary_icon.texture=goemon_weapon_icon(p.weapon_slot);secondary_icon.texture=primary_icon.texture
 		primary_icon.tooltip_text=["Gold pipe · Three-hit combo","Flaming ryo · Throw immediately" if p.surge_left>0 else "Ryo · Throw","Chain pipe · Throw, then move your aim to swing"][clampi(p.weapon_slot-1,0,2)]
@@ -329,10 +349,10 @@ func sync_character():
 	if p.is_meta_shooter():primary_icon.tooltip_text="Mouse · Aim · Hold LMB · Energy bolts · WASD · Strafe"
 	if p.spell_loadout.assignments(p.character_id).has("equip"):
 		var spec=p.spell_loadout.Catalog.all()[p.spell_loadout.spell_for(p.character_id,"equip")]
-		ben_utility_tile.show();hero_dock.size.x=320
 		ben_utility_tile.tooltip_text="E · "+spec.name
 		leader_utility_icon.texture=load(Roster.icon_path(str(spec.get("icon","spark"))))
-	ben_utility_tile.visible=p.character_id==13 and p.active_ability.guarding()
+	ben_utility_tile.visible=not prep and p.character_id==13 and p.active_ability.guarding()
+	hero_dock.size.x=320 if not prep and (p.character_id in [13,14,15,16,17] or equipped.has("equip")) else 250
 	sync_health()
 	musashi_charge_label.text=""
 	if p.character_id==13 and p.active_ability.guarding():
@@ -384,15 +404,6 @@ func make_button(text_: String,action: Callable,width: float=150)->Button:
 	button.add_theme_font_size_override("font_size",18);button.pressed.connect(action);return button
 func make_preparation_button(text_:String,action:Callable,width:float=150,primary:bool=false)->Button:
 	var button=make_button(text_,action,width);PreparationSkin.apply_button(button,primary);return button
-func icon(kind: String)->Texture2D:
-	var drawing={
-	"mine":"<path d='M12 60 L23 28 43 13 64 29 76 59Z' fill='#818677'/><path d='M25 63V39H58V63M19 35H65M35 61V45H49V61' fill='none'/><path d='M25 27L31 16 39 25 32 34Z M61 43L68 31 75 39 69 48Z' fill='#d3a452'/>",
-	"tower":"<path d='M23 71V28M60 71V28M20 49H64M24 68L60 50M27 30L60 46' fill='none'/><path d='M17 29L42 10 69 29Z' fill='#618488'/><path d='M18 31H66V45H18Z' fill='#ac8759'/>",
-	"barracks":"<path d='M13 31h62v39H13Z' fill='#92998c'/><path d='M12 35V17h12v10h12V17h12v10h12V17h12v18Z' fill='#adb29f'/><path d='M34 70V44h20v26' fill='#35433c'/><path d='M23 43v14m40-14v14M14 61h17m26 0h17' fill='none'/><path d='M43 12V3h22v12H43' fill='#b75543'/>",
-	"wall":"<path d='M12 68V26L20 15 28 26V68M28 68V24L36 13 44 24V68M44 68V25L52 14 60 25V68M60 68V27L68 16 76 27V68' fill='#aa8455'/><path d='M10 38H77M10 58H77' fill='none'/>",
-	"gate":"<path d='M14 69V24H25V69M61 69V24H72V69' fill='#a97d4d'/><path d='M10 18H76V29H10Z' fill='#ad8656'/><path d='M27 35H59V64H27Z M43 35V64M29 38L56 59' fill='none'/>"}[kind]
-	var svg="<svg xmlns='http://www.w3.org/2000/svg' width='88' height='80' viewBox='0 0 88 80'><g stroke='#384438' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'>"+drawing+"</g></svg>"
-	var image=Image.new();image.load_svg_from_string(svg);return ImageTexture.create_from_image(image)
 func _ready():
 	theme=PreparationSkin.theme()
 	process_mode=Node.PROCESS_MODE_ALWAYS;mouse_filter=Control.MOUSE_FILTER_IGNORE;set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -426,21 +437,34 @@ func _ready():
 	team_level_label=dock_label(health_column,"",Vector2.ZERO,13);team_level_label.name="TeamLevel";team_level_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 	bar_paper=Panel.new();bar_paper.name="BuildPaper";bar_paper.theme=PreparationSkin.theme();bar_paper.add_theme_stylebox_override("panel",PreparationSkin.panel());add_child(bar_paper)
 	bar_paper.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE);bar_paper.offset_left=16;bar_paper.offset_right=-16;bar_paper.offset_top=-130;bar_paper.offset_bottom=-16
-	build_bar=HBoxContainer.new();build_bar.name="BuildBar";build_bar.add_theme_constant_override("separation",7);add_child(build_bar)
-	build_bar.alignment=BoxContainer.ALIGNMENT_CENTER
-	build_bar.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE);build_bar.offset_left=30;build_bar.offset_right=-30;build_bar.offset_top=-117;build_bar.offset_bottom=-29
+	build_frame=PanelContainer.new();build_frame.name="BuildGridFrame";build_frame.add_theme_stylebox_override("panel",PreparationSkin.panel());add_child(build_frame)
+	build_frame.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+	build_bar=GridContainer.new();build_bar.name="BuildBar";build_bar.columns=4;build_frame.add_child(build_bar)
+	build_bar.add_theme_constant_override("h_separation",8);build_bar.add_theme_constant_override("v_separation",8)
 	for kind in ["tower","barracks"]:
-		var caption={"tower":"1 · Tower","barracks":"2 · Barracks"}[kind]
-		var b=make_preparation_button("%s\n%d ryo"%[caption,game.model.COSTS[kind]],choose_preparation_build.bind(kind),150)
-		b.name=kind.capitalize();PreparationSkin.apply_card(b,icon(kind))
+		var b=make_preparation_button("",choose_preparation_build.bind(kind),104)
+		b.name=kind.capitalize();PreparationSkin.apply_card(b,hud_icons.get_icon(kind))
 		build_bar.add_child(b);build_buttons[kind]=b
-	var recruit=make_preparation_button("3 · Worker\n50 ryo",game.recruit_worker,150)
+	var recruit=make_preparation_button("",game.recruit_worker,104)
 	PreparationSkin.apply_card(recruit,hud_icons.get_icon("worker"))
 	recruit.name="Recruit";build_bar.add_child(recruit)
 	build_bar.move_child(recruit,2)
-	var castle=make_preparation_button("4 · Enemy castle\nFree · Testing",choose_preparation_build.bind("enemy_castle"),190)
-	castle.name="EnemyCastle";castle.tooltip_text="Wind Meadow Valley · Place on level ground; clears trees · R rotates · Free for balance testing. Restart removes unsaved placements."
-	PreparationSkin.apply_card(castle,icon("barracks"));build_bar.add_child(castle);build_buttons.enemy_castle=castle
+	var castle=make_preparation_button("",choose_preparation_build.bind("enemy_castle"),104);castle.name="EnemyCastle"
+	PreparationSkin.apply_card(castle,hud_icons.get_icon("enemy_castle"));build_bar.add_child(castle);build_buttons.enemy_castle=castle
+	var cannon=make_preparation_button("",choose_preparation_build.bind("cannon_tower"),104);cannon.name="CannonTower"
+	PreparationSkin.apply_card(cannon,hud_icons.get_icon("cannon_tower"));build_bar.add_child(cannon);build_buttons.cannon_tower=cannon
+	for i in build_bar.get_child_count():
+		var button:Button=build_bar.get_child(i);button.text="";button.custom_minimum_size=Vector2(104,104)
+		button.vertical_icon_alignment=VERTICAL_ALIGNMENT_CENTER;button.add_theme_constant_override("icon_max_width",80)
+		var shortcut=dock_label(button,str(i+1),Vector2(5,5),28);shortcut.name="Shortcut";shortcut.size=Vector2(36,36)
+		shortcut.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;shortcut.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
+		var keycap=skin.attack_style();keycap.set_corner_radius_all(4);keycap.set_border_width_all(2)
+		shortcut.add_theme_stylebox_override("normal",keycap)
+	recruit.tooltip_text="Worker\n50 ryo\nShortcut: 3"
+	castle.tooltip_text="Enemy castle · Skullpion statue\nFree · Testing\nShortcut: 4 · R rotates\nDestroy the statue to stop reinforcements.\nPlace on level ground; clears trees.\nRestart removes unsaved placements."
+	for i in range(5,12):
+		var slot=Button.new();slot.name="EmptySlot%d"%(i+1);slot.custom_minimum_size=Vector2(104,104);slot.disabled=true
+		slot.add_theme_stylebox_override("disabled",skin.attack_style());slot.self_modulate.a=.45;build_bar.add_child(slot)
 	start_wave_button=make_preparation_button("START",game.start_wave,110,true);start_wave_button.name="StartWave";start_wave_button.custom_minimum_size.y=44;add_child(start_wave_button)
 	start_wave_button.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
 	start_wave_button.offset_left=-132;start_wave_button.offset_right=-22;start_wave_button.offset_top=-60;start_wave_button.offset_bottom=-16
@@ -448,7 +472,9 @@ func _ready():
 	build_menu_button=make_preparation_button("Build",open_build_menu,0)
 	build_menu_button.name="PreparationBuilds";build_menu_button.toggle_mode=true;build_menu_button.custom_minimum_size.y=32;preparation_header.add_child(build_menu_button)
 	guard_shop_button=make_preparation_button("Mercenaries",show_guard_shop,0);guard_shop_button.name="PreparationHireGuards";guard_shop_button.toggle_mode=true;guard_shop_button.custom_minimum_size.y=32;preparation_header.add_child(guard_shop_button)
-	var tools=make_preparation_button("Tools",func():preparation_tools_open=not preparation_tools_open;sync(),0);tools.name="PreparationTools";tools.custom_minimum_size.y=32;preparation_header.add_child(tools)
+	var tools=make_preparation_button("Tools",func():
+		var show_tools=not preparation_tools_open;close_preparation_menu();preparation_tools_open=show_tools;sync(),0)
+	tools.name="PreparationTools";tools.custom_minimum_size.y=32;preparation_header.add_child(tools)
 	map_size_controls=HBoxContainer.new();map_size_controls.name="PreparationMapSize";map_size_controls.add_theme_constant_override("separation",8);preparation_header.add_child(map_size_controls)
 	smaller_map_button=make_preparation_button("Smaller ÷1.5",game.request_map_resize.bind(-1),0);smaller_map_button.name="PreparationSmallerMap";smaller_map_button.custom_minimum_size.y=32;smaller_map_button.add_theme_font_size_override("font_size",14);map_size_controls.add_child(smaller_map_button)
 	map_size_label=Label.new();map_size_label.name="PreparationMapSizeLabel";map_size_label.add_theme_font_size_override("font_size",14);map_size_controls.add_child(map_size_label)
@@ -462,11 +488,12 @@ func _ready():
 	inspection.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT);inspection.offset_left=-300;inspection.offset_right=-24;inspection.offset_top=136
 	var column=VBoxContainer.new();column.add_theme_constant_override("separation",9);inspection.add_child(column)
 	inspect_text=Label.new();inspect_text.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;inspect_text.add_theme_color_override("font_color",INK);inspect_text.add_theme_font_size_override("font_size",18);column.add_child(inspect_text)
-	for data in [["Assign workers",func():game.model.workforce.assign_workers(selected_id)],["Auto assign",func():
-		for w in game.model.workers.values():
-			if w.job==selected_id:game.model.workforce.leave_shelter(w);game.model.workforce.leave_tower(w);w.job=-1;w.state="idle";w.path=[]],["Repair building",func():
+	for data in [["Repair building",func():
 		if not game.model.repair(selected_id):notify("Nothing to repair, or not enough ryo")],["Remove · 50% refund",func():
-		if game.model.demolish(selected_id):selected_id=-1;game.world.sync(0)]]:
+		var removed_cannon=game.model.buildings.get(selected_id,{}).get("kind","")=="cannon_tower"
+		if game.model.demolish(selected_id):
+			if removed_cannon:game.placement_audio.play_cannon("cancel")
+			selected_id=-1;game.world.sync(0)]]:
 		var b=make_preparation_button(data[0],data[1],240);b.custom_minimum_size.y=42;column.add_child(b)
 	inspection.hide();sync()
 	reticle=Control.new();reticle.name="FreeReticle";reticle.mouse_filter=Control.MOUSE_FILTER_IGNORE;reticle.z_index=100
@@ -475,7 +502,7 @@ func _ready():
 	master_chief_hud=preload("res://scripts/master_chief_hud.gd").new();master_chief_hud.name="MasterChiefHUD";master_chief_hud.game=game;add_child(master_chief_hud)
 func notify(text_: String):message=text_;message_left=4.0
 func sync_preparation_dock():
-	var expanded=build_menu_expanded or guard_shop_open()
+	var expanded=guard_shop_open()
 	PreparationSkin.layout_cards(bar_paper,0)
 	bar_paper.offset_top=-152 if expanded else -62;bar_paper.offset_bottom=-8
 	if not expanded:bar_paper.offset_right=preparation_header.get_combined_minimum_size().x+54
@@ -483,20 +510,31 @@ func sync_preparation_dock():
 	preparation_header.offset_right=preparation_header.get_combined_minimum_size().x+38
 	preparation_header.offset_top=-50;preparation_header.offset_bottom=-16
 	build_menu_button.set_pressed_no_signal(preparation_mode=="build");guard_shop_button.set_pressed_no_signal(preparation_mode=="mercenaries")
-	PreparationSkin.layout_cards(build_bar)
 	for kind in build_buttons:
 		var button:Button=build_buttons[kind];button.toggle_mode=true;button.set_pressed_no_signal(game.build_kind==kind)
 		button.disabled=not game.model.has_enemy_castles() if kind=="enemy_castle" else game.model.gold<game.model.COSTS[kind]
+		if kind!="enemy_castle":button.tooltip_text="%s\n%d ryo\nShortcut: %s"%[LABELS[kind],game.model.COSTS[kind],button.get_node("Shortcut").text]
+	build_buttons.tower.tooltip_text+="\nFires automatically · No workers needed"
+	build_buttons.cannon_tower.tooltip_text+="\nGround splash · 100% / 50% / 10%\nSlower shells · No workers needed"
 	build_bar.get_node("Recruit").disabled=game.model.gold<50 or not game.model.can_recruit(1)
 func sync_hud_layout(prep: bool):
 	var factor: float=game.settings.forest_hud_scale
 	if factor!=applied_hud_scale:
 		applied_hud_scale=factor
 		resource_hub.pivot_offset=Vector2(348,0);hero_dock.pivot_offset=Vector2.ZERO
-		for hub in [resource_hub,shrine_health_dock,hero_dock]:hub.scale=Vector2.ONE*factor
-	var left_hud_bottom=loadout_slots.get_global_rect().end.y
+		for hub in [resource_hub,shrine_health_dock,hero_dock,wave_countdown]:hub.scale=Vector2.ONE*factor
+	wave_countdown.pivot_offset=Vector2(140,0)
+	var top_shift=88*factor if wave_countdown.visible and size.x-44-598*factor<312*factor else 0.0
+	hero_dock.offset_top=28+top_shift;hero_dock.offset_bottom=112+top_shift
+	resource_hub.offset_top=20+top_shift;resource_hub.offset_bottom=88+top_shift
+	var left_hud_bottom=hero_dock.get_global_rect().end.y
+	if loadout_slots.visible:left_hud_bottom=maxf(left_hud_bottom,loadout_slots.get_global_rect().end.y)
 	if spell_dock.visible:left_hud_bottom=maxf(left_hud_bottom,spell_dock.get_global_rect().end.y)
-	inspection.position.y=20+68*factor+12
+	var grid_size=build_frame.get_combined_minimum_size()
+	var grid_scale=clampf(minf((size.y-left_hud_bottom-140)/grid_size.y,(size.x-44)/grid_size.x),.5,1.0)
+	build_frame.scale=Vector2.ONE*grid_scale;build_frame.pivot_offset=Vector2(0,grid_size.y)
+	build_frame.offset_left=22;build_frame.offset_right=22+grid_size.x;build_frame.offset_top=-72-grid_size.y;build_frame.offset_bottom=-72
+	inspection.position.y=resource_hub.get_global_rect().end.y+12
 	enemy_minimap.set_layout(factor,size.y-left_hud_bottom-40.0)
 	sync_preparation_dock()
 	preparation_actions.offset_right=minf(920,size.x-208)
@@ -504,9 +542,14 @@ func sync_hud_layout(prep: bool):
 	preparation_actions.offset_top=-70-tools_height
 	var expanded=prep and (build_menu_expanded or guard_shop_open())
 	var raised=expanded or (prep and preparation_tools_open) or size.x<=1280*factor or preparation_header.get_global_rect().end.x+20>(size.x-560*factor)*.5
-	var bottom=164.0 if expanded else (86.0+tools_height if prep and preparation_tools_open else (76.0 if raised and prep else 16.0))
+	var grid_open=prep and build_menu_expanded
+	var bottom=76.0 if grid_open else (164.0 if expanded else (86.0+tools_height if prep and preparation_tools_open else (76.0 if raised and prep else 16.0)))
 	var width=minf(560,(size.x-64)/factor)
-	shrine_health_dock.offset_left=-width*.5;shrine_health_dock.offset_right=width*.5
+	var center_offset=0.0
+	if grid_open:
+		var left=build_frame.get_global_rect().end.x+16
+		width=minf(width,(size.x-left-22)/factor);center_offset=(left-22)*.5
+	shrine_health_dock.offset_left=center_offset-width*.5;shrine_health_dock.offset_right=center_offset+width*.5
 	shrine_health_dock.offset_top=-bottom-140;shrine_health_dock.offset_bottom=-bottom
 	shrine_health_dock.pivot_offset=Vector2(width*.5,140)
 	painterly_button.text="PAINTERLY: ON" if game.painterly_preview else "PAINTERLY: OFF"
@@ -515,6 +558,7 @@ func sync_hud_layout(prep: bool):
 	var hint_top=0.0
 	if hint_width<320:
 		hint_width=minf(760,size.x-44);hint_top=left_hud_bottom+8
+	if wave_countdown.visible:hint_top=maxf(hint_top,wave_countdown.get_global_rect().end.y+8)
 	hint.offset_left=-hint_width*.5;hint.offset_right=hint_width*.5
 	hint.offset_top=hint_top
 	hint.offset_bottom=hint.offset_top+maxf(48,hint.get_combined_minimum_size().y)
@@ -527,7 +571,8 @@ func sync():
 	if respawn_notice.visible:respawn_notice.text="Respawning in %d"%ceili(game.respawn_left)
 	bar_paper.visible=prep and not view_settings_preview and not is_instance_valid(overlay)
 	preparation_header.visible=bar_paper.visible and game.playing and not game.ordinary_pause and not game.settings_open and not game.rogue_roster_open
-	build_bar.visible=preparation_header.visible and build_menu_expanded
+	build_frame.visible=preparation_header.visible and build_menu_expanded
+	build_bar.visible=build_frame.visible
 	start_wave_button.text="START"
 	start_wave_button.visible=preparation_header.visible
 	preparation_actions.visible=preparation_header.visible and preparation_tools_open
@@ -541,6 +586,8 @@ func sync():
 	gold_count.text=skin.format_gold(m.gold);worker_count.text=str(m.workers.size())
 	gold_count.add_theme_font_size_override("font_size",24 if gold_count.text.length()<=10 else 18)
 	ryo_caption.text=""
+	wave_countdown.visible=game.playing and m.phase in ["preparing","wave"] and not is_instance_valid(overlay) and not game.settings_open and not game.rogue_roster_open
+	wave_countdown.text=m.waves.countdown_text()
 	sync_character()
 	sync_hud_layout(prep)
 	enemy_minimap.set_active(game.playing and m.phase=="wave" and (not game.paused or view_settings_preview) and not game.transitioning and not game.won and game.player.hp>0 and not is_instance_valid(overlay) and not game.rogue_roster_open and (not game.settings_open or view_settings_preview))
@@ -551,6 +598,8 @@ func sync():
 		cape_buttons[i].set_pressed_no_signal(game.player.scarf_equipped and (game.player.gold_cloak if i==1 else not game.player.gold_cloak))
 		cape_buttons[i].mouse_filter=Control.MOUSE_FILTER_STOP if prep else Control.MOUSE_FILTER_IGNORE
 	# Combat captures the cursor for aiming; mouse selection belongs to the building map.
+	var icon_loadout=game.player.spell_loadout.assignments(game.player.character_id)
+	var icon_defaults=game.player.spell_loadout.Catalog.defaults(game.player.character_id)
 	for i in range(loadout_buttons.size()):
 		var slot:Array=game.player.spell_loadout.numbered_slots[i]
 		var button=loadout_buttons[i]
@@ -558,7 +607,15 @@ func sync():
 		button.mouse_filter=Control.MOUSE_FILTER_STOP if prep else Control.MOUSE_FILTER_IGNORE
 		button.set_pressed_no_signal(game.player.spell_loadout.held_numbers.has(i+1))
 		helper_portraits[i].hide()
+		var action=game.player.spell_loadout.Catalog.SLOTS.keys()[i]
+		var spell_id=icon_loadout.get(action,icon_defaults.get(action,""))
+		if game.player.character_id==33 and i==2 and not icon_loadout.has(action):spell_id="mountain-king/avatar"
+		var taunt_icon=game.player.character_id==33 and i==3 and not icon_loadout.has(action)
+		if taunt_icon:spell_id="mountain-king/avatar"
+		if MOUNTAIN_ICONS.has(spell_id):
+			helper_portraits[i].material=TAUNT_ICON_MATERIAL if taunt_icon else null;helper_portraits[i].texture=MOUNTAIN_ICONS[spell_id];helper_portraits[i].show()
 		button.tooltip_text="%d · %s"%[i+1,"Empty · Equip in Q → Skills & Jump" if slot.is_empty() else slot[0]]
+		if taunt_icon:button.tooltip_text+=" · Attracts reachable enemies for 8 seconds"
 
 	var shrine=m.shrine()
 	shrine_health_bar.max_value=shrine.get("max_hp",1);shrine_health_bar.value=shrine.get("hp",0)
@@ -575,13 +632,15 @@ func sync():
 		var count=0
 		for w in m.workers.values():
 			if w.follow:count+=1
-		text_="%d following · Release V: %d tower / %d repair / %d wait"%[count,job_preview.tower,job_preview.repair,job_preview.idle]
+		text_="%d following · Release V: %d mine / %d repair / %d wait"%[count,job_preview.mine,job_preview.repair,job_preview.idle]
 	hint.text=message if message_left>0 and not m.workforce.held else ("" if prep and game.build_kind.is_empty() and (build_menu_expanded or guard_shop_open()) else text_)
 	hint.visible=not view_settings_preview and not hint.text.is_empty() and not is_instance_valid(overlay)
 	inspection.visible=prep and not view_settings_preview and m.buildings.has(selected_id) and game.build_kind.is_empty() and not is_instance_valid(overlay)
 	if inspection.visible:
 		var b: Dictionary=m.buildings[selected_id]
-		inspect_text.text="%s\nHP  %d / %d\nCrew  %d / %d"%["Goemon statue" if b.kind=="shrine" else LABELS[b.kind],b.hp,b.max_hp,m.workforce.count_job(b.id),m.workforce.capacity(b)]
+		inspect_text.text="%s\nHP  %d / %d"%["Goemon statue" if b.kind=="shrine" else LABELS[b.kind],b.hp,b.max_hp]
+		if b.kind in ["tower","cannon_tower"]:inspect_text.text+="\nAutomatic · No workers needed\n%d shots per volley"%m.balance.tower_workers
+		else:inspect_text.text+="\nCrew  %d / %d"%[m.workforce.count_job(b.id),m.workforce.capacity(b)]
 		if b.kind=="wall":inspect_text.text+="\nIndestructible · No repairs needed"
 		elif b.kind in ["gate","shrine","barracks"]:
 			inspect_text.text+="\nAuto repair · 1 ryo / 10 HP"

@@ -1,5 +1,8 @@
 shader_type spatial;
 render_mode cull_back;
+#include "res://scripts/forest/attack_range.gdshaderinc"
+#include "res://scripts/forest/castle_stone.gdshaderinc"
+uniform bool use_castle_stone = false;
 uniform vec4 stone_color : source_color = vec4(.48,.51,.48,1.0);
 uniform sampler2D rock_texture : source_color, filter_linear_mipmap_anisotropic, repeat_enable;
 uniform bool masonry = false;
@@ -37,6 +40,7 @@ void fragment() {
 	}
 	float moss=(1.0-smoothstep(.15,2.5,stone_point.y))*.18;
 	color=mix(color,vec3(.20,.28,.16),moss);
-	ALBEDO=color;
+	if(use_castle_stone) color=castle_stone(stone_point,stone_normal);
+	ALBEDO=attack_range_ink(color,stone_point,stone_normal);
 	ROUGHNESS=.96;SPECULAR=.18;
 }

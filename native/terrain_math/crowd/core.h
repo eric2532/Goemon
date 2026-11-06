@@ -25,7 +25,7 @@ struct Unit {
     Vec3 target_goal;
     Vec3 approach_minimum,approach_maximum;
     int64_t approach_target=0;
-    bool approach_ready=false;
+    bool approach_ready=false,base_marching=false;
     float guard_radius=0;
     int shelter_mode=0;int64_t shelter_id=-1;Vec3 shelter_exit;double shelter_retry=0;
     double bunker_shot=0,bunker_age=0;int64_t bunker_damage=0;bool bunker_pending=false;int bunker_stage=0;Vec3 bunker_launch,bunker_aim;
@@ -40,7 +40,8 @@ struct Unit {
     double retaliation=0;int64_t retaliation_source=0;
     double shot_left=0,recovery_left=0,landing_left=0,flash_left=0;
     int pose_row=-1;
-    float slow_factor=1;
+    float slow_factor=1,attack_slow_factor=1;
+    double attack_slow_left=0,avatar_left=0;
     Handle target_handle=0;
     int64_t external_target=0;
     mutable uint64_t external_revision=UINT64_MAX;

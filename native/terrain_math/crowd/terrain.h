@@ -29,8 +29,10 @@ struct NavigationWork {bool enabled=false;uint64_t route_hits=0,waypoints=0,flow
 class Terrain {
     friend struct NavigationCacheTest;
     friend struct TerrainClearanceTest;
+    friend struct AirSharingTest;
+    friend class Crowd;
 public:
-    void configure(NavigationData data);
+    void configure(NavigationData data,const Terrain* shared_air=nullptr);
     mutable AirQueryWork air_profile;
     mutable NavigationWork navigation_profile;
     Vec3 move(Vec3 from,Vec3 goal,float speed,float delta,float radius,int& layer,bool& routing,Vec3 avoidance={},float lane=0);
@@ -54,7 +56,7 @@ private:
         std::vector<int> components;
     };
     struct Flow {int64_t topology=0;int goal=0;std::vector<float> cost;uint64_t used=0;};
-    struct RouteCertificate {std::array<uint32_t,6> key{};Vec3 point{};bool valid=false;};
+    struct RouteCertificate {std::array<uint32_t,8> key{};Vec3 point{};bool valid=false;};
     std::vector<RouteCertificate> route_certificates_;
     NavigationData data_;
     std::vector<double> field_spans_;
@@ -66,15 +68,17 @@ private:
     uint64_t clock_=0;
     mutable uint32_t obstacle_visit_=0;
     mutable std::vector<uint32_t> obstacle_visited_;
-    std::vector<Vec3> air_faces_,air_minimum_,air_maximum_;
-    std::vector<int64_t> air_owner_;
-    std::unordered_map<uint64_t,std::vector<int>> air_grid_;
-    std::unordered_map<uint64_t,std::vector<int>> air_dynamic_grid_;
     struct AirNode {Vec3 low,high;int left=-1,right=-1,first=0,count=0;};
-    std::vector<int> air_order_;
-    std::vector<AirNode> air_nodes_;
-    size_t air_base_faces_=0,air_base_nodes_=0;
-    int air_dynamic_root_=-1;
+    struct AirGeometry {
+        std::vector<Vec3> faces,minimum,maximum;
+        std::vector<int64_t> owner;
+        std::unordered_map<uint64_t,std::vector<int>> grid,dynamic_grid;
+        std::vector<int> order;
+        std::vector<AirNode> nodes;
+        size_t base_faces=0,base_nodes=0;
+        int dynamic_root=-1;
+    };
+    std::shared_ptr<AirGeometry> air_=std::make_shared<AirGeometry>();
     int build_air_node(int first,int end);
     void build_air(bool reuse_base,size_t input_start);
     template<class Visitor> bool visit_air(Vec3 low,Vec3 high,Visitor&& visitor) const;

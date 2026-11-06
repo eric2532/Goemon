@@ -96,8 +96,11 @@ func run():
  var clips:Dictionary=p.model.resource.get_meta("clips")
  for key in clips:
   p.model.pose(key,float(clips[key].ticks)*.5,false)
-  await frames(2);await RenderingServer.frame_post_draw
-  check(p.model.current_clip==key and root.get_texture().get_image().save_png(OUT+"motion-"+key+".png")==OK,"Rendered preserved motion "+key)
+  await frames(2)
+  check(p.model.current_clip==key,"Preserved motion "+key)
+  if DisplayServer.get_name()!="headless":
+   await RenderingServer.frame_post_draw
+   check(root.get_texture().get_image().save_png(OUT+"motion-"+key+".png")==OK,"Rendered preserved motion "+key)
  fresh();await advance(3)
  tap("jump");var jump_high=p.position.y;var jump_air=false;var jump_landed=0
  for frame in 100:

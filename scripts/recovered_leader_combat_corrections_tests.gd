@@ -5,15 +5,17 @@ func event(action: String,pressed: bool=true)->InputEventAction:
 func projectiles()->Array:
 	return get_nodes_in_group("leader_projectiles").filter(func(p):return not p.is_queued_for_deletion())
 func clear_projectiles():
-	for p in get_nodes_in_group("leader_projectiles"):p.free()
+	for p in get_nodes_in_group("leader_projectiles"):p.retire()
 func run():
 	game=load("res://scenes/forest_title.tscn").instantiate();game.settings_path="user://leader-corrections-%s.cfg"%OS.get_process_id()
 	root.add_child(game);current_scene=game;await frames(5)
 	game.begin_forest();game.choose_rogue_character(15);game.start_wave()
 	game.tuning.invincible=true;game.tuning.freeze_ai=true;game.tuning.critical_chance=0;game.character_tuning={}
 	await frames(10)
-	var p=game.player;p.set_physics_process(false)
-	p.position=Vector3(0,.05,18);p.velocity=Vector3.DOWN;p.move_and_slide();p.velocity=Vector3.ZERO
+	var p=game.player;p.smoke_mode=true;p.smoke_move=Vector2.ZERO
+	p.position=Vector3(0,.05,18);p.velocity=Vector3.ZERO;await frames(30)
+	check(p.is_on_floor() and not p.flying,"Ground bombing fixture settles through real body physics")
+	p.set_physics_process(false)
 	var c=p.active_ability
 	p._unhandled_input(event("equip"))
 	check("source_14" in c.clip,"Ben E starts the original ground projectile-throw animation")
@@ -59,6 +61,9 @@ func run():
 	c._notification(NOTIFICATION_APPLICATION_FOCUS_OUT);c.tick(1)
 	check(projectiles().size()==count and not c.is_attacking(),"Focus loss cancels the held bomb barrage")
 	clear_projectiles();c.cancel();p.select_character(14);c=p.active_ability
+	game.camera_rig.set_process(false)
+	game.camera_rig.camera.global_position=p.position+Vector3(0,1.5,8)
+	game.camera_rig.camera.look_at(p.position+Vector3(0,1.5,-50))
 	p._unhandled_input(event("light_attack"));c.tick(.04)
 	check("source_06" in c.clip,"Ed uses the original looping beam pose")
 	c.tick(.31)

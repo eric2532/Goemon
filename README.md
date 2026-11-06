@@ -1,6 +1,6 @@
 # Goemon
 
-Goemon is a Godot action and defense game. Forest Shrine is the current player experience: prepare the fort, build defenses, assign workers, and destroy the four enemy castles in Wind Meadow Valley. The central castle is a square centered on the Goemon statue, with one gate and two defending towers on each side. Four roads connect its gates to the valley routes. The valley is twice as wide and deep (four times the area), with four enemy forts retaining the original castle’s perimeter, gate and towers. Each contains a barracks and faces the central castle across connected clearings and wide routes. Earlier maps and named custom maps remain available in the map editor.
+Goemon is a Godot action and defense game. Forest Shrine is the current player experience: prepare the fort, build defenses, and destroy the four enemy Skullpion statues in Wind Meadow Valley. Workers staff buildings automatically. The central castle has a raised square courtyard with four side stairs and two defending towers on each side. Four roads connect it to the valley routes and enemy forts. Wind Meadow Valley is the only bundled playable map, in standard and large sizes. User-saved maps remain available in the map editor; retired layouts are excluded regression fixtures.
 
 ## Play and edit
 
@@ -13,7 +13,7 @@ Godot 4.6 is used by the project. Runtime GLBs and animation data are supplied; 
 During preparation, open **Mercenaries** with **M**, then click a card or press
 **1 Ninja, 2 Dragoon, 3 Ranger, 4 Explorer, 5 Knight**. Each press hires one ally
 at clear ground near your castle for the displayed ryo price and two food.
-They attack enemies entering their guard area and return when the area is clear.
+They seek enemies across the valley and return home when the area is clear.
 
 **Smaller ÷1.5** and **Bigger ×1.5** are directly on the preparation map beside
 Build and Tools. Each click divides or multiplies the map's width and length;
@@ -23,6 +23,27 @@ move the cliff under a structure or character. The first resize prepares terrain
 and can pause for several seconds. Use **Tools → Map Editor → Save** to keep a resized custom
 layout across restarts. The editor's **New preset…** menu loads a fresh standard
 or large valley.
+
+In **Tools → Map Editor**, the 3×3 build grid uses **1–9** (including the keypad).
+The first page is **1 Guard Tower, 2 Cannon Tower, 3 Farm, 4 Wall, 5 Gate,
+6 Tree, 7 Mossy Rock, 8 Spawn Portal, 9 Road**. **[ / ]** or **Page Up / Page Down**
+switch between the three asset pages; numbering restarts at 1
+on each page. These hotkeys stay inactive while typing map names or numeric values.
+
+Page two adds **Bush, Cedar, Pine, Sakura, Bamboo, River Rock, Moss Boulder,
+Stone Block and Wall Cap**. Page three adds **Wall Corner, Wall Piece, Wall Ruins
+and Fence**. The new tree appearances reuse the meadow's organic foliage with a
+Breath of the Wild inspired natural palette and soft shading. Modular pieces
+provide ground-level static scenery/cover; functional structures use page one.
+
+Choose a scenery piece, set **Scenery size**
+(0.5×–2×) and **Rotation**, then click the ground to place it. Use **Select** and
+click a placed tree or rock to change those values; **R** turns scenery by 15°.
+**Undo / Redo**, **Save / Load**, and **Play map** retain these transformations.
+Rocks and trunks block movement at their fitted size. Keep scenery clear of
+roads, structures and portal exits. Ordinary tree/rock edits update only the
+affected scenery chunks; loading a layout or starting Play map still prepares
+the complete map and can pause briefly.
 
 ## Team leveling
 
@@ -55,8 +76,10 @@ Use the installed Godot executable if `godot` is not on PATH. Native render and 
 
 Open **Tools → Core Game Balance** on the building map. Each wave has separate
 counts for Sword, Gun, Spear, Vambee, Haya Wolf, Vambee Torso, Slow Guy and
-Skullpion. Zero excludes a type; changes apply to the next run. Barracks maps
-repeat the Wave 1 mix until their barracks are destroyed. Old combined settings
+Skullpion. Zero excludes a type. START releases the first wave; later waves
+arrive every 60 seconds and retain any blocked arrivals from earlier waves.
+Up to three ordinary enemies also arrive each second at reachable clear ground,
+sharing the same wave totals and active cap. Old combined settings
 migrate once, preserving effective enemy totals and the saved boss toggle.
 
 Starting group size (10) and Growth per group (+1) control arrivals independently
@@ -85,8 +108,9 @@ every fighter through **Q → Skills & Jump → Ranger · Rapid Shot** on any of
 His original five-arrow Fan Shot and primary combo remain separate.
 
 Goemon uses **1 Dash, 2 Surge, 3 Sky Strike, 4 Coins, 5 Chain Pipe**.
-Musashi uses **1 Rotation, 2 Mighty Strike, 3 D-Kick, 4 Grenade, hold 5 3-Way**;
-equip Fence, Homing, Guard or Charged Rotation in any slot when preferred. His
+Musashi uses **1 X Slash, 2 Tenderize, 3 Desperado, 4 Rotation, 5 Mighty Strike**;
+equip Grenade, 3-Way, D-Kick, Fence, Homing, Guard, Charged Rotation or
+Leaping Strike in any slot when preferred. His
 existing E charge and R guard remain available. Chief keeps his five weapons
 unless a slot is explicitly equipped with a skill. Mouse attacks, movement,
 Space, C, Z/X capes and preparation menu shortcuts retain their roles.
@@ -107,6 +131,13 @@ charge/release, buffs, cooldown preservation and equipment UI checks. Add
 Read [the Blender workflow](docs/BLENDER_PIPELINE.md) and the [character art standard](docs/art-direction/goemon-character-standard.txt) before editing masters. Animation and weapon workbenches under `docs/` keep their own `START_HERE.txt` instructions beside the editable files. Follow the relevant asset's README and provenance rather than an old milestone report.
 
 [Sound Studio](docs/SOUND_STUDIO.md) documents recording and replacing attack sounds. The selected visual inspiration reference is [Game Art Style](https://gameartstyle.loopyhop.com/).
+
+The game icon renders the existing playable Goemon head into `icon.png` and
+`icon.icns`. To regenerate both on macOS, close the game and run
+`"/Users/eric/Desktop/Play Goemon.command" --script res://tools/render_game_icon.gd`.
+This changes no model or animation and stages icon sizes under `build/Other Files/Game Icon/`.
+Add `-- --launcher` to render the Play command's three-quarter face icon in that
+staging folder without replacing the game's front-facing icon.
 
 ## App delivery
 

@@ -1,0 +1,1480 @@
+{
+  "owner": "raw/SC04.CD.dir/FILE_011.dir/4.7",
+  "owner_sha256": "a64f90bde755b965b8114ca701e5f85816df37835a6a1826ff967146a2446246",
+  "header_address": "0x800c9158",
+  "bank": "bank_8e99397932167168",
+  "bank_sha256": "8e99397932167168f3042e46740bb1bc7ec57df32b101f1feedb7a50c2789b58",
+  "bank_samples": [
+    {
+      "index": 1,
+      "id": "sample_84836905cec720dd",
+      "body_offset": 0,
+      "bytes": 4640
+    },
+    {
+      "index": 2,
+      "id": "sample_75a78ee1329231d3",
+      "body_offset": 4640,
+      "bytes": 4576
+    },
+    {
+      "index": 3,
+      "id": "sample_5b3c20bb0f66620c",
+      "body_offset": 9216,
+      "bytes": 8672
+    },
+    {
+      "index": 4,
+      "id": "sample_30a9b8147c4df8c2",
+      "body_offset": 17888,
+      "bytes": 3088
+    },
+    {
+      "index": 5,
+      "id": "sample_65b24a68b9f2115a",
+      "body_offset": 20976,
+      "bytes": 15680
+    },
+    {
+      "index": 6,
+      "id": "sample_5fb8e2e871bfd41f",
+      "body_offset": 36656,
+      "bytes": 13936
+    },
+    {
+      "index": 7,
+      "id": "sample_1ac2cc3ce53b372a",
+      "body_offset": 50592,
+      "bytes": 4080
+    },
+    {
+      "index": 8,
+      "id": "sample_0f865aacf5c3749e",
+      "body_offset": 54672,
+      "bytes": 2784
+    },
+    {
+      "index": 9,
+      "id": "sample_5e464088f7ae5ef4",
+      "body_offset": 57456,
+      "bytes": 7792
+    },
+    {
+      "index": 10,
+      "id": "sample_afd32ce20acb8fb8",
+      "body_offset": 65248,
+      "bytes": 6512
+    },
+    {
+      "index": 11,
+      "id": "sample_42676fa140c87daf",
+      "body_offset": 71760,
+      "bytes": 3696
+    },
+    {
+      "index": 12,
+      "id": "sample_ce873a48e4908dbd",
+      "body_offset": 75456,
+      "bytes": 4832
+    },
+    {
+      "index": 13,
+      "id": "sample_d70c03b7f2bda6a5",
+      "body_offset": 80288,
+      "bytes": 4080
+    },
+    {
+      "index": 14,
+      "id": "sample_aa341a9d46b5bd0a",
+      "body_offset": 84368,
+      "bytes": 4656
+    },
+    {
+      "index": 15,
+      "id": "sample_e2cdbaab696bf573",
+      "body_offset": 89024,
+      "bytes": 2736
+    },
+    {
+      "index": 16,
+      "id": "sample_b13de29b13e39e33",
+      "body_offset": 91760,
+      "bytes": 2896
+    },
+    {
+      "index": 17,
+      "id": "sample_7093af1a27cb1bc6",
+      "body_offset": 94656,
+      "bytes": 3552
+    },
+    {
+      "index": 18,
+      "id": "sample_59fea265f4088ca2",
+      "body_offset": 98208,
+      "bytes": 3888
+    },
+    {
+      "index": 19,
+      "id": "sample_cb31e465702d742b",
+      "body_offset": 102096,
+      "bytes": 3104
+    },
+    {
+      "index": 20,
+      "id": "sample_d142ae2d50d750c8",
+      "body_offset": 105200,
+      "bytes": 10144
+    },
+    {
+      "index": 21,
+      "id": "sample_49823c05210cd920",
+      "body_offset": 115344,
+      "bytes": 4416
+    },
+    {
+      "index": 22,
+      "id": "sample_9bd06e398db2c489",
+      "body_offset": 119760,
+      "bytes": 2640
+    },
+    {
+      "index": 23,
+      "id": "sample_00ddde3e0aae0f88",
+      "body_offset": 122400,
+      "bytes": 3472
+    },
+    {
+      "index": 24,
+      "id": "sample_b0cd5fee7de65855",
+      "body_offset": 125872,
+      "bytes": 12800
+    }
+  ],
+  "events": {
+    "7da:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_7da.wav",
+      "resolved_id": "0x7da",
+      "dispatch_hex": "01080200",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8728",
+          "record_hex": "c8000000003c6700330000000000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 0,
+          "tone": 0,
+          "tone_hex": "00007f4048003c3c000000000000b1b2ff80c01f00000100c000c100c200c300",
+          "sample_id": "sample_84836905cec720dd",
+          "sample_index": 1,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "da78a541a31ee01fb24c89b74b5bd26f38a6d1bc075ad85c7fed18895fb09e30"
+    },
+    "7db:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_7db.wav",
+      "resolved_id": "0x7db",
+      "dispatch_hex": "01080201",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c873c",
+          "record_hex": "c8000000003e6700330100000000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 0,
+          "tone": 1,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80c01f00000200c000c100c200c300",
+          "sample_id": "sample_75a78ee1329231d3",
+          "sample_index": 2,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "6c9146ca7d0d0209de0e88afc6ad5779753443f8af63f70c4b02974a1c4d6f02"
+    },
+    "7dc:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_7dc.wav",
+      "resolved_id": "0x7dc",
+      "dispatch_hex": "01080202",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8750",
+          "record_hex": "c800000000405d00330200000000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 0,
+          "tone": 2,
+          "tone_hex": "00007f404c004040000000000000b1b2ff80c01f00000300c000c100c200c300",
+          "sample_id": "sample_5b3c20bb0f66620c",
+          "sample_index": 3,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "0a8f2407535cf4546afdaa446ac7e255ac2d6bd05931feb258d4e5170fa52b94"
+    },
+    "7dd:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_7dd.wav",
+      "resolved_id": "0x7dd",
+      "dispatch_hex": "01080203",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8764",
+          "record_hex": "c800000000415d003303000000000000fc800c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 0,
+          "tone": 3,
+          "tone_hex": "00007f4041004141000000000000b1b2ffa5ea5f00000400c000c100c200c300",
+          "sample_id": "sample_30a9b8147c4df8c2",
+          "sample_index": 4,
+          "pitch_q8": 16640,
+          "curve": [
+            2,
+            12,
+            2,
+            40,
+            2,
+            90,
+            2,
+            45,
+            2
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "8f615a9b68d4c87f0777136e0a027b6793475f4745ee7776d2cb099e10bfd598"
+    },
+    "7e3:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_7e3.wav",
+      "resolved_id": "0x7e3",
+      "dispatch_hex": "01080206",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c87a0",
+          "record_hex": "c8000000003e7400330601010000000084860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 2,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80ef5f01000600c000c100c200c300",
+          "sample_id": "sample_5fb8e2e871bfd41f",
+          "sample_index": 6,
+          "pitch_q8": 15872,
+          "curve": [
+            2,
+            30,
+            5,
+            8,
+            32,
+            18432,
+            21504,
+            16,
+            120
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c87b4",
+          "record_hex": "c8001e0000436c00330c01000000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 5,
+          "tone_hex": "00007f4055004343000000000000b1b2ffb5e35f01000600c000c100c200c300",
+          "sample_id": "sample_5fb8e2e871bfd41f",
+          "sample_index": 6,
+          "pitch_q8": 17152,
+          "curve": [],
+          "delay_frames": 22050
+        }
+      ],
+      "sha256": "2123d0f385e2c43e8aacde92e9c02d9b96904f4b26fe26b4ea9836a702c7a26a"
+    },
+    "84c:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_84c.wav",
+      "resolved_id": "0x84c",
+      "dispatch_hex": "01080204",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8778",
+          "record_hex": "fa000000003c7c00330401010000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 0,
+          "tone_hex": "00007c4048003c3c000000000000b1b2d880435101000500c000c100c200c300",
+          "sample_id": "sample_65b24a68b9f2115a",
+          "sample_index": 5,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c878c",
+          "record_hex": "fa000000003c7c00330502000000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 1,
+          "tone_hex": "00007c4054003c3c000000000000b1b2ffb5c35f01000500c000c100c200c300",
+          "sample_id": "sample_65b24a68b9f2115a",
+          "sample_index": 5,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "5d0e7b615a30efabe858b6e98fb0e050d369229b8ebf12dc6926fbec15343675"
+    },
+    "88a:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_88a.wav",
+      "resolved_id": "0x88a",
+      "dispatch_hex": "0108020c",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8818",
+          "record_hex": "f0001000003c6a00330f00010000000088860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 8,
+          "tone_hex": "00007f4054004848000000000c06b1b2ffa5ed5f01000d00c000c100c200c300",
+          "sample_id": "sample_d70c03b7f2bda6a5",
+          "sample_index": 13,
+          "pitch_q8": 15360,
+          "curve": [
+            5,
+            8,
+            32,
+            18432,
+            21504,
+            16,
+            120,
+            0,
+            5
+          ],
+          "delay_frames": 11760
+        },
+        {
+          "record_address": "0x800c882c",
+          "record_hex": "c8000000004d64003312000100000000b8860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 11,
+          "tone_hex": "00047f404d004d4d000000000000b1b2ffb9ed5f01001600c000c100c200c300",
+          "sample_id": "sample_9bd06e398db2c489",
+          "sample_index": 22,
+          "pitch_q8": 19712,
+          "curve": [
+            2,
+            120,
+            2,
+            22,
+            5,
+            8,
+            48,
+            15872,
+            15872
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8840",
+          "record_hex": "65000000004d5c003313000000000000b8860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 12,
+          "tone_hex": "0004644059004d4d000000000000b1b2ffbbee5f01001600c000c100c200c300",
+          "sample_id": "sample_9bd06e398db2c489",
+          "sample_index": 22,
+          "pitch_q8": 19712,
+          "curve": [
+            2,
+            120,
+            2,
+            22,
+            5,
+            8,
+            48,
+            15872,
+            15872
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "7e3a0df21ce048e8b312efc42b1aa60555be288d39473a01a45f3b66fec04235"
+    },
+    "88c:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_88c.wav",
+      "resolved_id": "0x88c",
+      "dispatch_hex": "0108022e",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8ac0",
+          "record_hex": "c8000000004c6c00331100000000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 10,
+          "tone_hex": "00007f4058004c4c000000000000b1b2ff80c35f01001500c000c100c200c300",
+          "sample_id": "sample_49823c05210cd920",
+          "sample_index": 21,
+          "pitch_q8": 19456,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "eb349c583c0575ea81f67999adbaccb6668173052e073adccb62a330086e5fa5"
+    },
+    "8c1:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_8c1.wav",
+      "resolved_id": "0x8c1",
+      "dispatch_hex": "01080229",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8a5c",
+          "record_hex": "c8000000004f64003314000100000000bc860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 13,
+          "tone_hex": "00047f4059004f4f000000000000b1b2ff25ed5f01001200c000c100c200c300",
+          "sample_id": "sample_59fea265f4088ca2",
+          "sample_index": 18,
+          "pitch_q8": 20224,
+          "curve": [
+            2,
+            22,
+            5,
+            8,
+            48,
+            15872,
+            15872,
+            64,
+            0
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8a70",
+          "record_hex": "c800000000475a00332200000000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 12,
+          "tone_hex": "00007f4053004848000000000000b1b2ff80e35f02001300c000c100c200c300",
+          "sample_id": "sample_cb31e465702d742b",
+          "sample_index": 19,
+          "pitch_q8": 18176,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "a5df0cba120cd5291a476dc7a8a8b3dd587db810ea4c8fb4dc707b80bec40644"
+    },
+    "8c2:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_8c2.wav",
+      "resolved_id": "0x8c2",
+      "dispatch_hex": "0108021d",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c896c",
+          "record_hex": "fa000000003c6800331501010000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 0,
+          "tone_hex": "00006a40507d3c3c000000000000b1b2ffafe35f02000500c000c100c200c300",
+          "sample_id": "sample_65b24a68b9f2115a",
+          "sample_index": 5,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8980",
+          "record_hex": "fa000000003c7a00331601010000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 1,
+          "tone_hex": "000064405c7d3c3c000000000000b1b2ff37e35f02000500c000c100c200c300",
+          "sample_id": "sample_65b24a68b9f2115a",
+          "sample_index": 5,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8994",
+          "record_hex": "fa000000003c5400331701010000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 2,
+          "tone_hex": "00006440687d3c3c000000000000b1b2ff3fe35f02000500c000c100c200c300",
+          "sample_id": "sample_65b24a68b9f2115a",
+          "sample_index": 5,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c89a8",
+          "record_hex": "fa00240000455001331d010100000000e0860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 7,
+          "tone_hex": "00047f404d004141000000000000b1b2ff35ed5f02000a00c000c100c200c300",
+          "sample_id": "sample_afd32ce20acb8fb8",
+          "sample_index": 10,
+          "pitch_q8": 17664,
+          "curve": [
+            2,
+            92,
+            8,
+            6,
+            128,
+            62464,
+            62464,
+            64,
+            0
+          ],
+          "delay_frames": 26460
+        },
+        {
+          "record_address": "0x800c89bc",
+          "record_hex": "fa0026000045507f331d010000000000e0860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 7,
+          "tone_hex": "00047f404d004141000000000000b1b2ff35ed5f02000a00c000c100c200c300",
+          "sample_id": "sample_afd32ce20acb8fb8",
+          "sample_index": 10,
+          "pitch_q8": 17664,
+          "curve": [
+            2,
+            92,
+            8,
+            6,
+            128,
+            62464,
+            62464,
+            64,
+            0
+          ],
+          "delay_frames": 27930
+        }
+      ],
+      "sha256": "0aa7db49c4c579335275f95b3ddf411cb883b37fc8d13a0e05296472bcc30665"
+    },
+    "8f8:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_8f8.wav",
+      "resolved_id": "0x8f8",
+      "dispatch_hex": "01080216",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c88e0",
+          "record_hex": "c8000000004c6a00331901000000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 15,
+          "tone_hex": "00007f4058004c4c000000000000b1b2ff80c35f01001100c000c100c200c300",
+          "sample_id": "sample_7093af1a27cb1bc6",
+          "sample_index": 17,
+          "pitch_q8": 19456,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "8fd6a7cfe812b027555ee15da45449fcb8662a90ecf52a18e9944a997344dadb"
+    },
+    "906:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_906.wav",
+      "resolved_id": "0x906",
+      "dispatch_hex": "01080217",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c88f4",
+          "record_hex": "c8000000004874003306010124000000c0860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 2,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80ef5f01000600c000c100c200c300",
+          "sample_id": "sample_5fb8e2e871bfd41f",
+          "sample_index": 6,
+          "pitch_q8": 18432,
+          "curve": [
+            5,
+            8,
+            48,
+            15872,
+            15872,
+            64,
+            0,
+            0,
+            8
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8908",
+          "record_hex": "c8001a00003e6c003306010024000000d0860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 2,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80ef5f01000600c000c100c200c300",
+          "sample_id": "sample_5fb8e2e871bfd41f",
+          "sample_index": 6,
+          "pitch_q8": 15872,
+          "curve": [
+            8,
+            20,
+            32,
+            62464,
+            62464,
+            32,
+            0,
+            0,
+            2
+          ],
+          "delay_frames": 19110
+        }
+      ],
+      "sha256": "ca4273b4f5e4e84726ad3848ede02455e060b20d50ddfffee10c69117eedc1a2"
+    },
+    "907:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_907.wav",
+      "resolved_id": "0x907",
+      "dispatch_hex": "01080219",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c891c",
+          "record_hex": "fa000000003c7800330401010000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 0,
+          "tone_hex": "00007c4048003c3c000000000000b1b2d880435101000500c000c100c200c300",
+          "sample_id": "sample_65b24a68b9f2115a",
+          "sample_index": 5,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8930",
+          "record_hex": "fa000000003c7400330502000000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 1,
+          "tone_hex": "00007c4054003c3c000000000000b1b2ffb5c35f01000500c000c100c200c300",
+          "sample_id": "sample_65b24a68b9f2115a",
+          "sample_index": 5,
+          "pitch_q8": 15360,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "117d48dd88f94a56623dfd3b43940f11d3b23796278626c5ed5be8892904fed0"
+    },
+    "938:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_938.wav",
+      "resolved_id": "0x938",
+      "dispatch_hex": "01080208",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c87c8",
+          "record_hex": "c800000000456a00330801000000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 0,
+          "tone": 5,
+          "tone_hex": "00047f4051004545000000000000b1b2ff80c35f00000900c000c100c200c300",
+          "sample_id": "sample_5e464088f7ae5ef4",
+          "sample_index": 9,
+          "pitch_q8": 17664,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "7f3ea8650dadc9566c77e50832b00402d7a0a8af8550bb1e6187ecec4d8aa553"
+    },
+    "939:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_939.wav",
+      "resolved_id": "0x939",
+      "dispatch_hex": "0108020a",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c87f0",
+          "record_hex": "c800000000477400330b0101000000007c860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 0,
+          "tone": 6,
+          "tone_hex": "00047f4052004747000000000000b1b2ffaaed5f00000a00c000c100c200c300",
+          "sample_id": "sample_afd32ce20acb8fb8",
+          "sample_index": 10,
+          "pitch_q8": 18176,
+          "curve": [
+            2,
+            30,
+            2,
+            6,
+            2,
+            30,
+            5,
+            8,
+            32
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8804",
+          "record_hex": "c800000000456000330801000000000080860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 0,
+          "tone": 5,
+          "tone_hex": "00047f4051004545000000000000b1b2ff80c35f00000900c000c100c200c300",
+          "sample_id": "sample_5e464088f7ae5ef4",
+          "sample_index": 9,
+          "pitch_q8": 17664,
+          "curve": [
+            2,
+            6,
+            2,
+            30,
+            5,
+            8,
+            32,
+            18432,
+            21504
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "bff94bb9c2edeae322f188b2c92ec93d0b07a967975d2967e79e8e55384df69f"
+    },
+    "946:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_946.wav",
+      "resolved_id": "0x946",
+      "dispatch_hex": "0108021b",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8944",
+          "record_hex": "fa000000003e7400331a01010000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 4,
+          "tone_hex": "00006a404a003e3e000000000000b1b2ff2fe35f02000500c000c100c200c300",
+          "sample_id": "sample_65b24a68b9f2115a",
+          "sample_index": 5,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8958",
+          "record_hex": "fa000000003e7400331b01000000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 5,
+          "tone_hex": "0000644052003e3e000000000000b1b2ff80e35f02000b00c000c100c200c300",
+          "sample_id": "sample_42676fa140c87daf",
+          "sample_index": 11,
+          "pitch_q8": 15872,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "4dd4e19011c568e743ccdfd75ecc444bbf42bd23b39c1f040c93e6e7338bb90f"
+    },
+    "990:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_990.wav",
+      "resolved_id": "0x990",
+      "dispatch_hex": "01080211",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c887c",
+          "record_hex": "c800000000485000332200010000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 12,
+          "tone_hex": "00007f4053004848000000000000b1b2ff80e35f02001300c000c100c200c300",
+          "sample_id": "sample_cb31e465702d742b",
+          "sample_index": 19,
+          "pitch_q8": 18432,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8890",
+          "record_hex": "c800000000474e00332101000000000004870c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 11,
+          "tone_hex": "00007f4051004747000000000000b1b2ff2feb5f02001200c000c100c200c300",
+          "sample_id": "sample_59fea265f4088ca2",
+          "sample_index": 18,
+          "pitch_q8": 18176,
+          "curve": [
+            10,
+            6,
+            256,
+            512,
+            16,
+            2048,
+            2048,
+            16,
+            24
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "003085e6d6673a3db6ed442f65a27a97aae293e4e6432e2cb491ab57e30a58f1"
+    },
+    "992:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_992.wav",
+      "resolved_id": "0x992",
+      "dispatch_hex": "01080222",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c89d0",
+          "record_hex": "fa00000000407400331c01010000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 6,
+          "tone_hex": "00007f4058004040000000000000b1b2ff80e35f02001400c000c100c200c300",
+          "sample_id": "sample_d142ae2d50d750c8",
+          "sample_index": 20,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c89e4",
+          "record_hex": "fa00000000406e00331f01000000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 9,
+          "tone_hex": "00006e4064004040000000000000b1b2ff3de35f02001400c000c100c200c300",
+          "sample_id": "sample_d142ae2d50d750c8",
+          "sample_index": 20,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "478e4b13793971f1f0999743a050d252ca2cda8874b272606c92dee68133e33b"
+    },
+    "994:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_994.wav",
+      "resolved_id": "0x994",
+      "dispatch_hex": "01080224",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c89f8",
+          "record_hex": "fa00000000407600331c01010000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 6,
+          "tone_hex": "00007f4058004040000000000000b1b2ff80e35f02001400c000c100c200c300",
+          "sample_id": "sample_d142ae2d50d750c8",
+          "sample_index": 20,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8a0c",
+          "record_hex": "c800080000456900330d01000000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 6,
+          "tone_hex": "0000604051004545000000000000b1b2ff80c35f01000b00c000c100c200c300",
+          "sample_id": "sample_42676fa140c87daf",
+          "sample_index": 11,
+          "pitch_q8": 17664,
+          "curve": [],
+          "delay_frames": 5880
+        }
+      ],
+      "sha256": "950afbf2ef0591a8e42e1151ab3912faf3d5c61e8a55ce579e41d4512b7033d8"
+    },
+    "9c2:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_9c2.wav",
+      "resolved_id": "0x9c2",
+      "dispatch_hex": "01080226",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8a20",
+          "record_hex": "c800000000436400331e010028000000f4860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 8,
+          "tone_hex": "00007f404f004343000000000000b1b2ff35ec5f02001000c000c100c200c300",
+          "sample_id": "sample_b13de29b13e39e33",
+          "sample_index": 16,
+          "pitch_q8": 17152,
+          "curve": [
+            8,
+            28,
+            32,
+            62464,
+            62464,
+            32,
+            40,
+            0,
+            10
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "cf67f401c2cf17ddfb9cc4c8560af411d0afd2b36993e711936ca24bc0471594"
+    },
+    "9c3:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_9c3.wav",
+      "resolved_id": "0x9c3",
+      "dispatch_hex": "01080227",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8a34",
+          "record_hex": "c8000b00004566003320010118000000e4860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 10,
+          "tone_hex": "00007f4057004545000000000000b1b2ff31e35f02000b00c000c100c200c300",
+          "sample_id": "sample_42676fa140c87daf",
+          "sample_index": 11,
+          "pitch_q8": 17664,
+          "curve": [
+            8,
+            6,
+            128,
+            62464,
+            62464,
+            64,
+            0,
+            0,
+            8
+          ],
+          "delay_frames": 8085
+        },
+        {
+          "record_address": "0x800c8a48",
+          "record_hex": "f000000000426600331c01001800000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 6,
+          "tone_hex": "00007f4058004040000000000000b1b2ff80e35f02001400c000c100c200c300",
+          "sample_id": "sample_d142ae2d50d750c8",
+          "sample_index": 20,
+          "pitch_q8": 16896,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "72d584461db9b7ad95c610b381d9452d0402a0a5bbe8c589eff345ab550e5d73"
+    },
+    "9c4:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_9c4.wav",
+      "resolved_id": "0x9c4",
+      "dispatch_hex": "01080232",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8b10",
+          "record_hex": "c800000000416400331e010028000000f4860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 8,
+          "tone_hex": "00007f404f004343000000000000b1b2ff35ec5f02001000c000c100c200c300",
+          "sample_id": "sample_b13de29b13e39e33",
+          "sample_index": 16,
+          "pitch_q8": 16640,
+          "curve": [
+            8,
+            28,
+            32,
+            62464,
+            62464,
+            32,
+            40,
+            0,
+            10
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "3e3e663957e46e69f5e0cb000773a442ae4889e9fad9fd9d6452dea611c84758"
+    },
+    "b29:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_b29.wav",
+      "resolved_id": "0xb29",
+      "dispatch_hex": "0108022b",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8a84",
+          "record_hex": "c8000000004a7800332300010000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 13,
+          "tone_hex": "00007f4056004a4a000000000000b1b2ffa5ed5f02001800c000c100c200c300",
+          "sample_id": "sample_b0cd5fee7de65855",
+          "sample_index": 24,
+          "pitch_q8": 18944,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8a98",
+          "record_hex": "c8000000004a7400332401010000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 14,
+          "tone_hex": "00007f4062004a4a000000000000b1b2ff80e35f02001800c000c100c200c300",
+          "sample_id": "sample_b0cd5fee7de65855",
+          "sample_index": 24,
+          "pitch_q8": 18944,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8aac",
+          "record_hex": "c8001e00004a7000332501000000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 15,
+          "tone_hex": "00007f406e004a4a000000000000b1b2ff31e35f02001800c000c100c200c300",
+          "sample_id": "sample_b0cd5fee7de65855",
+          "sample_index": 24,
+          "pitch_q8": 18944,
+          "curve": [],
+          "delay_frames": 22050
+        }
+      ],
+      "sha256": "75f383e09d800c4bc47dde769f6dae05316a2952f5bdbc0bd8701b9b6fe7b4ce"
+    },
+    "b36:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_b36.wav",
+      "resolved_id": "0xb36",
+      "dispatch_hex": "0108022f",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8ad4",
+          "record_hex": "c8000000003c6400332600010000000018870c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 0,
+          "tone": 7,
+          "tone_hex": "00007f4053004848000000000000b1b2ffa5ec5f00001200c000c100c200c300",
+          "sample_id": "sample_59fea265f4088ca2",
+          "sample_index": 18,
+          "pitch_q8": 15360,
+          "curve": [
+            8,
+            8,
+            640,
+            4864,
+            9216,
+            16,
+            24,
+            0,
+            200
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8ae8",
+          "record_hex": "c8000000004a6400332700000000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 0,
+          "tone": 8,
+          "tone_hex": "00007f405a114a4a000000000000b1b2ff80e35f00001700c000c100c200c300",
+          "sample_id": "sample_00ddde3e0aae0f88",
+          "sample_index": 23,
+          "pitch_q8": 18944,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "abd6a1bf0bf76331c821e017234dbc19a77364ff352d2709f145c6c4e462f33b"
+    },
+    "b37:0": {
+      "file": "assets/audio/recovered_frost_dragon/roar.wav",
+      "resolved_id": "0xb37",
+      "dispatch_hex": "01080222",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c89d0",
+          "record_hex": "fa00000000407400331c01010000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 6,
+          "tone_hex": "00007f4058004040000000000000b1b2ff80e35f02001400c000c100c200c300",
+          "sample_id": "sample_d142ae2d50d750c8",
+          "sample_index": 20,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c89e4",
+          "record_hex": "fa00000000406e00331f01000000000000000000",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 2,
+          "tone": 9,
+          "tone_hex": "00006e4064004040000000000000b1b2ff3de35f02001400c000c100c200c300",
+          "sample_id": "sample_d142ae2d50d750c8",
+          "sample_index": 20,
+          "pitch_q8": 16384,
+          "curve": [],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "478e4b13793971f1f0999743a050d252ca2cda8874b272606c92dee68133e33b"
+    },
+    "b38:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_b38.wav",
+      "resolved_id": "0xb38",
+      "dispatch_hex": "01080231",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8afc",
+          "record_hex": "c8000000004c6400332800000000000038810c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 0,
+          "tone": 9,
+          "tone_hex": "00007f404c004c4c000000000000b1b2ffa5ed5f00001600c000c100c200c300",
+          "sample_id": "sample_9bd06e398db2c489",
+          "sample_index": 22,
+          "pitch_q8": 19456,
+          "curve": [
+            10,
+            4,
+            1024,
+            62464,
+            400,
+            0,
+            3072,
+            4,
+            24
+          ],
+          "delay_frames": 0
+        }
+      ],
+      "sha256": "be2a97af97343e7922d2e6789017f0a792ba313c01bde99073e9a2741b84af3e"
+    },
+    "ba9:0": {
+      "file": "build/Other Files/Asset Toolkit/Dragoon Frost Dragon Audio/Source Catalog/event_ba9.wav",
+      "resolved_id": "0xba9",
+      "dispatch_hex": "01080233",
+      "enabled": true,
+      "layers": [
+        {
+          "record_address": "0x800c8b24",
+          "record_hex": "c8000000004874003306010124000000c0860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 2,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80ef5f01000600c000c100c200c300",
+          "sample_id": "sample_5fb8e2e871bfd41f",
+          "sample_index": 6,
+          "pitch_q8": 18432,
+          "curve": [
+            5,
+            8,
+            48,
+            15872,
+            15872,
+            64,
+            0,
+            0,
+            8
+          ],
+          "delay_frames": 0
+        },
+        {
+          "record_address": "0x800c8b38",
+          "record_hex": "c8001a00003e6c003306010124000000d0860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 2,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80ef5f01000600c000c100c200c300",
+          "sample_id": "sample_5fb8e2e871bfd41f",
+          "sample_index": 6,
+          "pitch_q8": 15872,
+          "curve": [
+            8,
+            20,
+            32,
+            62464,
+            62464,
+            32,
+            0,
+            0,
+            2
+          ],
+          "delay_frames": 19110
+        },
+        {
+          "record_address": "0x800c8b4c",
+          "record_hex": "c8003e00003868003306010024000000d0860c80",
+          "bank_slot": 51,
+          "bank": "bank_8e99397932167168",
+          "program": 1,
+          "tone": 2,
+          "tone_hex": "00007f404a003e3e000000000000b1b2ff80ef5f01000600c000c100c200c300",
+          "sample_id": "sample_5fb8e2e871bfd41f",
+          "sample_index": 6,
+          "pitch_q8": 14336,
+          "curve": [
+            8,
+            20,
+            32,
+            62464,
+            62464,
+            32,
+            0,
+            0,
+            2
+          ],
+          "delay_frames": 45570
+        }
+      ],
+      "sha256": "b105e51e7de3bc3e18bacb48f4832d1eb86b9a7b05208dd6c8a1a5ced1577026"
+    }
+  },
+  "scene_aliases": {},
+  "unresolved_scene_aliases": {},
+  "source_resource_level": 51,
+  "scene_column": 2,
+  "scene_level_map": [
+    1,
+    0,
+    0,
+    0,
+    2,
+    3
+  ],
+  "scene_resolution_trace": "8002F4E4: resource level minus owner+4 indexes owner+8; the resulting 1-based value selects the owner+10 sound row column.",
+  "retained_banks": {
+    "51": {
+      "id": "bank_8e99397932167168",
+      "sha256": "8e99397932167168f3042e46740bb1bc7ec57df32b101f1feedb7a50c2789b58",
+      "samples": [
+        {
+          "index": 1,
+          "id": "sample_84836905cec720dd",
+          "body_offset": 0,
+          "bytes": 4640
+        },
+        {
+          "index": 2,
+          "id": "sample_75a78ee1329231d3",
+          "body_offset": 4640,
+          "bytes": 4576
+        },
+        {
+          "index": 3,
+          "id": "sample_5b3c20bb0f66620c",
+          "body_offset": 9216,
+          "bytes": 8672
+        },
+        {
+          "index": 4,
+          "id": "sample_30a9b8147c4df8c2",
+          "body_offset": 17888,
+          "bytes": 3088
+        },
+        {
+          "index": 5,
+          "id": "sample_65b24a68b9f2115a",
+          "body_offset": 20976,
+          "bytes": 15680
+        },
+        {
+          "index": 6,
+          "id": "sample_5fb8e2e871bfd41f",
+          "body_offset": 36656,
+          "bytes": 13936
+        },
+        {
+          "index": 7,
+          "id": "sample_1ac2cc3ce53b372a",
+          "body_offset": 50592,
+          "bytes": 4080
+        },
+        {
+          "index": 8,
+          "id": "sample_0f865aacf5c3749e",
+          "body_offset": 54672,
+          "bytes": 2784
+        },
+        {
+          "index": 9,
+          "id": "sample_5e464088f7ae5ef4",
+          "body_offset": 57456,
+          "bytes": 7792
+        },
+        {
+          "index": 10,
+          "id": "sample_afd32ce20acb8fb8",
+          "body_offset": 65248,
+          "bytes": 6512
+        },
+        {
+          "index": 11,
+          "id": "sample_42676fa140c87daf",
+          "body_offset": 71760,
+          "bytes": 3696
+        },
+        {
+          "index": 12,
+          "id": "sample_ce873a48e4908dbd",
+          "body_offset": 75456,
+          "bytes": 4832
+        },
+        {
+          "index": 13,
+          "id": "sample_d70c03b7f2bda6a5",
+          "body_offset": 80288,
+          "bytes": 4080
+        },
+        {
+          "index": 14,
+          "id": "sample_aa341a9d46b5bd0a",
+          "body_offset": 84368,
+          "bytes": 4656
+        },
+        {
+          "index": 15,
+          "id": "sample_e2cdbaab696bf573",
+          "body_offset": 89024,
+          "bytes": 2736
+        },
+        {
+          "index": 16,
+          "id": "sample_b13de29b13e39e33",
+          "body_offset": 91760,
+          "bytes": 2896
+        },
+        {
+          "index": 17,
+          "id": "sample_7093af1a27cb1bc6",
+          "body_offset": 94656,
+          "bytes": 3552
+        },
+        {
+          "index": 18,
+          "id": "sample_59fea265f4088ca2",
+          "body_offset": 98208,
+          "bytes": 3888
+        },
+        {
+          "index": 19,
+          "id": "sample_cb31e465702d742b",
+          "body_offset": 102096,
+          "bytes": 3104
+        },
+        {
+          "index": 20,
+          "id": "sample_d142ae2d50d750c8",
+          "body_offset": 105200,
+          "bytes": 10144
+        },
+        {
+          "index": 21,
+          "id": "sample_49823c05210cd920",
+          "body_offset": 115344,
+          "bytes": 4416
+        },
+        {
+          "index": 22,
+          "id": "sample_9bd06e398db2c489",
+          "body_offset": 119760,
+          "bytes": 2640
+        },
+        {
+          "index": 23,
+          "id": "sample_00ddde3e0aae0f88",
+          "body_offset": 122400,
+          "bytes": 3472
+        },
+        {
+          "index": 24,
+          "id": "sample_b0cd5fee7de65855",
+          "body_offset": 125872,
+          "bytes": 12800
+        }
+      ]
+    }
+  },
+  "notes": [
+    "Frost Dragon HP at 0x801EFD28 identifies SC04/011.",
+    "Opening handler 0x80187068 calls B37 at 0x8018715C after starting the boss HP display.",
+    "Adaptation: Dragoon Dragon Leap voice on landing; original impact and combat unchanged.",
+    "Every owner event alias and all stage samples retained; unrelated events are not labelled as character actions.",
+    "Dry authentic SPU ADPCM with source pitch curves, layer delays and relative volume. PSX ADSR, reverb, Gaussian interpolation and key-off loops are not emulated."
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "token": "0-4",
+  "prompt": "Image 1 is the existing illustrated Kazi sprite sheet to edit; image 2 locks this view and character identity; image 3 defines ONLY the new longer blade shape/length. Preserve the exact swept black hair, green face marking, stern face, charcoal coat, white collar, gold waist buttons, black boots, short hilt and thin dark curved sword shape. Match the blade length in image 3: roughly 35 percent of his standing body height, about one and a half head widths, not a dagger. Keep blade thickness narrow and its tapered curved silhouette. Do not change the hilt/grip, hand, face, outfit, body proportions, palette, lighting or purple energy design. Change ONLY the blade length in every occupied sprite to the new longer slim curved sword. Preserve every existing body pose and foot position, action sequence and effect phase, cell placement and body scale. Do not redraw the animation or change its character style. Keep the blade shape/length consistent between frames, including recoil/fall/casting. If the blade is hidden by the body or effect, retain that occlusion.Output EXACTLY 6 columns x 3 rows, 18 occupied cells ordered left-to-right top-to-bottom; trailing cells empty. Keep canvas aspect and uniform grid. Every sprite faces front right three-quarter toward viewer and image right. Hold that view in ALL frames. Keep all art/effects within its own cell with 16 transparent pixels of padding at EVERY edge; never cut tips or add neighboring fragments. True transparent background. No text, labels, grid lines, backgrounds or shadows.",
+  "references": [
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/masters/0-4.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/masters/0-4.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/identity-long-blade.png"
+  ],
+  "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-ba529a30-91ec-45be-b0fd-356c7d176419.png",
+  "tool": "built-in image_gen",
+  "sha256": "e096550a0600f4d5b2c4ed26a62d56184d971dc1bd9bfc2bc3c78625cb587267"
+}

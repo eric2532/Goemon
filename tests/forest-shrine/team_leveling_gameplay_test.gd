@@ -18,14 +18,14 @@ func capture(label_:String):
 	check(root.get_texture().get_image().save_png(OUT+label_+".png")==OK,"Capture "+label_)
 func choose(id:String,rarity:int=0):
 	var p=game.model.team_progression
-	var index=["Tower","Worker","Character"].find(p.CARDS[id].category);p.offer[index]=id;p.offer_rarities[index]=rarity
+	var index=maxi(0,p.offer.find(id));p.offer[index]=id;p.offer_rarities[index]=rarity
 	game.team_upgrade_picker.refresh()
 	var started=Time.get_ticks_usec()
 	check(game.choose_team_upgrade(id,p.choice_level()),"Choose "+id)
 	if rarity==4:legendary_choice_ms.append((Time.get_ticks_usec()-started)/1000.0)
 func legendary_offer():
 	var p=game.model.team_progression;p.award_kills(p.kills_required());game._process(0)
-	p.offer.assign(["legendary_tower","legendary_workers","legendary_mercenaries"]);p.offer_rarities.fill(4);game.team_upgrade_picker.refresh()
+	p.offer.assign(["legendary_tower","legendary_workers","legendary_dragoons"]);p.offer_rarities.fill(4);game.team_upgrade_picker.refresh()
 func legendary_rewards():
 	var p=game.model.team_progression;var h=game.explorer_helpers;var m=game.model
 	var initial_workers=m.workers.size();m.gold=0;m.starting_food=0
@@ -58,12 +58,12 @@ func legendary_rewards():
 	check(is_equal_approx(p.multiplier("tower_damage"),old_multiplier*25),"Repeated legendary tower choices multiply again")
 	var previous=h.active_units().size();legendary_offer();choice=p.choice_level()
 	var explored=m.explored.duplicate();m.explored.clear();var state=p.rng.state
-	check(not game.choose_team_upgrade("legendary_mercenaries",choice) and p.pending()==1 and h.active_units().size()==previous and p.rng.state==state,"Blocked castle preserves the legendary choice, recruits and random state")
+	check(not game.choose_team_upgrade("legendary_dragoons",choice) and p.pending()==1 and h.active_units().size()==previous and p.rng.state==state,"Blocked castle preserves the legendary choice, recruits and random state")
 	m.explored=explored
-	check(game.choose_team_upgrade("legendary_mercenaries",choice),"Unblocked legendary reward can be retried")
-	check(h.active_units().size()==previous+5 and m.gold==0,"Legendary grants five free random mercenaries during battle")
-	check(not game.choose_team_upgrade("legendary_mercenaries",choice) and h.active_units().size()==previous+5,"A stale mercenary selection cannot grant twice")
-	legendary_offer();choose("legendary_mercenaries",4)
+	check(game.choose_team_upgrade("legendary_dragoons",choice),"Unblocked legendary reward can be retried")
+	check(h.active_units().size()==previous+5 and m.gold==0,"Legendary grants five free Dragoons during battle")
+	check(not game.choose_team_upgrade("legendary_dragoons",choice) and h.active_units().size()==previous+5,"A stale mercenary selection cannot grant twice")
+	legendary_offer();choose("legendary_rangers",4)
 	var units=h.active_units();var kinds={};var separated=true
 	for i in units.size():
 		var unit=units[i];kinds[unit.slot]=true
@@ -71,7 +71,7 @@ func legendary_rewards():
 		check(unit.position.distance_to(m.center(m.shrine()))<44,"Reward recruit arrives near the castle")
 		for j in i:
 			if unit.position.distance_to(units[j].position)<1.4:separated=false
-	check(units.size()==previous+10 and kinds.size()>1 and separated,"Repeated rewards produce separated random mercenaries")
+	check(units.size()==previous+10 and h.active_units(0).size()==5 and h.active_units(1).size()==5 and separated,"Named company rewards produce five of each selected type with safe spacing")
 	check(not h.request(0) and not m.workforce.recruit(),"Ordinary paid recruitment still requires preparation")
 	var point=units[0].position+Vector3(.5,0,.5);var runtime=game.army_runtime
 	var target=runtime.spawn(900010,0,0,point,1000000,.4)
@@ -143,8 +143,8 @@ func run():
 		for label_ in ["Category","Rarity","Title","Description","Rank"]:
 			check(button.get_global_rect().encloses(button.find_child(label_,true,false).get_global_rect()),"Card text fits: "+label_)
 		check(button.get_node("Shine").visible,"Rare cards have a visible shine")
-	check(picker.buttons[0].find_child("Description",true,false).text.contains("40%") and picker.buttons[1].find_child("Description",true,false).text.contains("75%") and picker.buttons[2].find_child("Description",true,false).text.contains("60%"),"Silver, gold and diamond descriptions show multiplied bonuses")
-	check(picker.buttons[2].find_child("Rank",true,false).text=="RANK 0 → 4","Rank preview includes the diamond bonus")
+	check(picker.buttons[0].find_child("Description",true,false).text.contains("60%") and picker.buttons[1].find_child("Description",true,false).text.contains("150%") and picker.buttons[2].find_child("Description",true,false).text.contains("120%"),"Silver, gold and diamond descriptions show stronger multiplied bonuses")
+	check(picker.buttons[2].find_child("Rank",true,false).text=="RANK 0 → 4\nTEAM TOTAL ×1.00 → ×2.20","Rank and total preview include the diamond bonus")
 	check(picker.heading.get_global_rect().position.y>=0,"Level heading fits inside the viewport")
 	await capture("02-three-team-cards")
 	var shine_frames=[];var last_frame=Time.get_ticks_usec()
@@ -165,7 +165,7 @@ func run():
 	var key=InputEventKey.new();key.physical_keycode=KEY_3;key.pressed=true;game._input(key)
 	check(p.ranks.get("character_damage",0)==4,"Keyboard 3 selects the diamond Character card")
 	check(not is_instance_valid(game.team_upgrade_picker) and not game.paused and not paused,"Last choice restores battle state")
-	check(is_equal_approx(hero.damage_multiplier(),base_damage*1.6) and is_equal_approx(hero.base_attack_speed_multiplier(),base_speed),"Diamond damage selection applies only its 60% shared bonus")
+	check(is_equal_approx(hero.damage_multiplier(),base_damage*2.2) and is_equal_approx(hero.base_attack_speed_multiplier(),base_speed),"Diamond damage selection applies its 120% shared bonus")
 	check(not game.choose_team_upgrade(old_id,old_level),"Old selection cannot apply twice")
 	p.award_kills(70);game._process(0)
 	check(p.pending()==2,"Two earned levels queue two choices")
@@ -180,7 +180,7 @@ func run():
 		hero.select_character(id);hero.attack_chain.reset()
 		var upgraded_damage=hero.damage_multiplier();var upgraded_speed=hero.base_attack_speed_multiplier()
 		hero.team_progression=null;var plain_damage=hero.damage_multiplier();var plain_speed=hero.base_attack_speed_multiplier();hero.team_progression=p
-		check(is_equal_approx(upgraded_damage,plain_damage*1.6) and is_equal_approx(upgraded_speed,plain_speed*1.1),"Character switch preserves team damage and cadence: %d"%id)
+		check(is_equal_approx(upgraded_damage,plain_damage*2.2) and is_equal_approx(upgraded_speed,plain_speed*1.2),"Character switch preserves team damage and cadence: %d"%id)
 	hero.select_character(31)
 	var mirrors=hero.active_ability.mirrors
 	check(mirrors.cast(),"Five pooled mirrors spawn through the real skill")

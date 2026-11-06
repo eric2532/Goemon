@@ -1,0 +1,11 @@
+{
+  "token": "8-4",
+  "prompt": "Correct the TWO-FRAME HIT REACTION sprite sheet in image 1, exactly TWO columns and ONE row, with transparent background. Image 2 is the approved Kazi identity and view. The current weapon is too long: replace BOTH blades with the approved SHORT CURVED DAGGER, blade only about ONE HEAD WIDTH long, roughly HALF of current blade length. Preserve the right hand, hilt grip, two reaction poses, body scale, energy, canvas placement, swept black hair, marked face, charcoal split coat, white collar and gold buttons. Keep the same view as image 2 in BOTH sprites. In frame 1 he hunches forward from a hit (bend at waist, no turn around); in frame 2 he recoils leaning backwards. For front-threequarter views show his marked face and white chest collar even while hunching. Never change his chest to his back between poses. No long swords. Keep 20 pixel transparent margins around each sprite and cell boundaries. Clean hand-painted HD game sprites, exact same outfit and proportions. No text, grid lines, background or shadows. CRITICAL ORIENTATION: FRONT RIGHT three-quarter: look diagonally toward viewer and image right. Image 2 fixes the character view, head, face, costume and short curved DAGGER. The source image 1 supplies action/pose gestures and effects ONLY. Even if a source gesture turns frontal, redraw that gesture in the requested camera angle. Keep the same dagger shape and same anatomical right hand in every pose. No long sword. No extra face, change of view or front/rear flip during the animation. Feet alternate smoothly in walk/run; no repeated idle pose.",
+  "references": [
+    "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Cross Gate 102488/HD Preview/Rejected/8-4-blade-view-draft.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/masters/0-4.png"
+  ],
+  "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-92b3deb7-18f0-4af4-b95d-332f3e3c6055.png",
+  "tool": "built-in image_gen",
+  "sha256": "f71a9ec7759feed0fcb077d4384ad7c0e718834d6ba9c685c46aa95a3be09244"
+}

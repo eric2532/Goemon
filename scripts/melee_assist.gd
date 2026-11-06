@@ -71,7 +71,7 @@ func begin(hero,angle: float,weapon_reach: float):
 	var contact=point(hero,candidate,angle,reach+.75,RETAIN_ANGLE)
 	if remaining<=0 or contact==Vector3.INF:
 		candidate=null;var best=INF
-		for enemy in hero.game.enemies:
+		for enemy in AttackChain.enemy_candidates(hero.game,hero.global_position,reach+.35):
 			var p=point(hero,enemy,angle,reach+.35)
 			if p==Vector3.INF:continue
 			var offset=p-hero.global_position

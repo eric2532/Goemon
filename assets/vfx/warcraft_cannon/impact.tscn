@@ -1,0 +1,251 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/vfx/warcraft_cannon/clouds8x8.png" id="1_t4hh8"]
+[ext_resource type="Texture2D" path="res://assets/vfx/warcraft_cannon/rock64.png" id="2_2n8h7"]
+[ext_resource type="Texture2D" path="res://assets/vfx/warcraft_cannon/shockwave10.png" id="3_i1i5n"]
+[ext_resource type="Texture2D" path="res://assets/vfx/warcraft_cannon/genericglowx.png" id="4_3q3ta"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ktxx1"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+disable_fog = true
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_t4hh8")
+billboard_mode = 3
+particles_anim_h_frames = 8
+particles_anim_v_frames = 8
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_gtllk"]
+material = SubResource("StandardMaterial3D_ktxx1")
+size = Vector2(2, 2)
+
+[sub_resource type="Curve" id="Curve_w5trw"]
+_limits = [0.0, 8.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 0.9797297), 0.0, 0.0, 0, 0, Vector2(1, 0.59290534), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_wkvbr"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.780392, 0.101961, 0.0117647, 1, 0.941177, 0.423529, 0.141176, 1, 0.764706, 0.298039, 0.0666667, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_njrk6"]
+transparency = 1
+shading_mode = 0
+disable_fog = true
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_2n8h7")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_bgiei"]
+material = SubResource("StandardMaterial3D_njrk6")
+size = Vector2(2, 2)
+
+[sub_resource type="Curve" id="Curve_0hlbn"]
+_limits = [0.0, 8.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_uis86"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ry3kq"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+disable_fog = true
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_i1i5n")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_01um0"]
+material = SubResource("StandardMaterial3D_ry3kq")
+size = Vector2(2, 2)
+
+[sub_resource type="Curve" id="Curve_yo1r0"]
+_limits = [0.0, 8.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 3.8769715), 0.0, 0.0, 0, 0, Vector2(1, 5.009464), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_yao24"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.992157, 0.67451, 0.176471, 1, 0.992157, 0.964706, 0.196078, 0.7647059, 1, 1, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_107i5"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+disable_fog = true
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_t4hh8")
+billboard_mode = 3
+particles_anim_h_frames = 8
+particles_anim_v_frames = 8
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_2jdj8"]
+material = SubResource("StandardMaterial3D_107i5")
+size = Vector2(2, 2)
+
+[sub_resource type="Curve" id="Curve_lccdk"]
+_limits = [0.0, 8.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 0.64106846), 0.0, 0.0, 0, 0, Vector2(1, 0.31552586), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_umn60"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.2, 0.141176, 1, 1, 0.2, 0.141176, 1, 1, 0.980392, 0.74902, 0.34902, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cy2rp"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+disable_fog = true
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("4_3q3ta")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_0jej0"]
+material = SubResource("StandardMaterial3D_cy2rp")
+size = Vector2(2, 2)
+
+[sub_resource type="Curve" id="Curve_fnx8u"]
+_limits = [0.0, 8.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 3.6804976), 0.0, 0.0, 0, 0, Vector2(1, 4.5228214), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_vwsgo"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.992157, 0.67451, 0.176471, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="CannonBurst" type="Node3D" unique_id=722316726]
+
+[node name="BlizParticle01" type="CPUParticles3D" parent="." unique_id=1334898672]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1115706, 0.0699894, -0.1427052)
+cast_shadow = 0
+emitting = false
+amount = 18
+lifetime = 0.35
+one_shot = true
+explosiveness = 0.9
+local_coords = true
+mesh = SubResource("QuadMesh_gtllk")
+emission_shape = 3
+emission_box_extents = Vector3(1.1999999, 0, 1.1999999)
+direction = Vector3(0, 1, 0)
+spread = 28.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 23.52
+initial_velocity_max = 24.48
+scale_amount_min = 3.552
+scale_amount_max = 3.552
+scale_amount_curve = SubResource("Curve_w5trw")
+color_ramp = SubResource("Gradient_wkvbr")
+anim_speed_min = 2.857143
+anim_speed_max = 2.857143
+
+[node name="BlizParticle08rocks" type="CPUParticles3D" parent="." unique_id=1391052484]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1115706, 2.14278, -0.1427052)
+cast_shadow = 0
+emitting = false
+amount = 4
+one_shot = true
+explosiveness = 0.9
+local_coords = true
+mesh = SubResource("QuadMesh_bgiei")
+emission_shape = 3
+emission_box_extents = Vector3(0, 0, 0)
+direction = Vector3(0, 1, 0)
+spread = 50.5
+gravity = Vector3(0, -72.371994, 0)
+initial_velocity_min = 21.024
+initial_velocity_max = 36.576
+scale_amount_min = 0.36
+scale_amount_max = 0.36
+scale_amount_curve = SubResource("Curve_0hlbn")
+color_ramp = SubResource("Gradient_uis86")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="BlizParticle08shockwaves" type="CPUParticles3D" parent="." unique_id=1028462850]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.009656941, 1.03002, -0.1427052)
+cast_shadow = 0
+emitting = false
+amount = 5
+lifetime = 0.3
+one_shot = true
+explosiveness = 0.9
+local_coords = true
+mesh = SubResource("QuadMesh_01um0")
+emission_shape = 3
+emission_box_extents = Vector3(0, 0, 0)
+direction = Vector3(0, 1, 0)
+spread = 1.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -1.824
+initial_velocity_max = -1.824
+scale_amount_min = 1.9020001
+scale_amount_max = 1.9020001
+scale_amount_curve = SubResource("Curve_yo1r0")
+color_ramp = SubResource("Gradient_yao24")
+anim_speed_min = 3.3333333
+anim_speed_max = 3.3333333
+
+[node name="BlizParticle08x" type="CPUParticles3D" parent="." unique_id=225170694]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1115706, 0.4457208, -0.1427052)
+cast_shadow = 0
+emitting = false
+amount = 12
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.9
+local_coords = true
+mesh = SubResource("QuadMesh_2jdj8")
+emission_shape = 3
+emission_box_extents = Vector3(1.1999999, 0, 1.1999999)
+direction = Vector3(0, 1, 0)
+spread = 60.5
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 21.168
+initial_velocity_max = 22.032
+scale_amount_min = 3.594
+scale_amount_max = 3.594
+scale_amount_curve = SubResource("Curve_lccdk")
+color_ramp = SubResource("Gradient_umn60")
+anim_speed_min = 2.5
+anim_speed_max = 2.5
+
+[node name="BlizParticle08shockwaves01" type="CPUParticles3D" parent="." unique_id=396346]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.009656941, 1.272666, -0.1427052)
+cast_shadow = 0
+emitting = false
+amount = 3
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.9
+local_coords = true
+mesh = SubResource("QuadMesh_0jej0")
+emission_shape = 3
+emission_box_extents = Vector3(0, 0, 0)
+direction = Vector3(0, 1, 0)
+spread = 7.5
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -1.824
+initial_velocity_max = -1.824
+scale_amount_min = 1.446
+scale_amount_max = 1.446
+scale_amount_curve = SubResource("Curve_fnx8u")
+color_ramp = SubResource("Gradient_vwsgo")
+anim_speed_min = 2.5
+anim_speed_max = 2.5

@@ -20,4 +20,16 @@ func run():
  bad=report.duplicate(true);bad.frame_ms.fill(1.0);check(not Metrics.violations(bad).is_empty(),"Raw frame intervals must cover measured wall duration")
  for value in [-1.0,NAN,INF]:
   bad=report.duplicate(true);bad.frame_ms[0]=value;check(not Metrics.violations(bad).is_empty(),"Invalid frame durations cannot qualify")
+ bad=report.duplicate(true);bad.changed_inputs=["native/terrain_math/crowd/combat.cpp"]
+ check(not Metrics.violations(bad).is_empty(),"A source edit during measurement cannot qualify")
+ var held=report.duplicate(true);held.wall_seconds=75;held.measurement_seconds=60;held.focus_wait_seconds=15
+ check(Metrics.violations(held).is_empty(),"Recorded focus holds preserve sixty active seconds of measured battle")
+ bad=held.duplicate(true);bad.erase("focus_wait_seconds")
+ check(not Metrics.violations(bad).is_empty(),"Unaccounted wall time cannot be hidden as a focus hold")
+ for value in [-1.0,0.0,NAN,INF]:
+  bad=report.duplicate(true);bad.measurement_seconds=value
+  check(not Metrics.violations(bad).is_empty(),"Invalid active measurement durations cannot qualify")
+ for value in [-1.0,NAN,INF]:
+  bad=report.duplicate(true);bad.measurement_seconds=60;bad.focus_wait_seconds=value
+  check(not Metrics.violations(bad).is_empty(),"Invalid focus wait accounting cannot qualify")
  print("ARMY_BENCHMARK_COVERAGE_RESULT checks=",checks," failures=",failures);quit(1 if failures else 0)

@@ -51,7 +51,7 @@ func spawn(variant: int,reserved: Array,portal_index: int=-1)->bool:
 		for lateral in ([0] if variant in [2,4] else [0,3,-3,6,-6,9,-9,12,-12]):
 			var point=exit_point(portal,variant)+side*lateral
 			point.y=m.surface_height(point.x,point.z)
-			if m.trees.has(m.cell_of(point)):continue
+			if m.scenery_cells.has(m.cell_of(point)):continue
 			var facing=atan2(-forward.x,-forward.z);var probe={"pos":point,"variant":variant,"facing":facing}
 			if not navigation.move_clear(point,Roles.footprint_radius(variant,m.balance.enemy_size_mult)) or navigation.fitted_blocker(probe,point)>=0:continue
 			var clear=true

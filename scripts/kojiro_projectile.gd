@@ -2,6 +2,7 @@ extends "res://scripts/character_projectile.gd"
 ## Original effect pages and wind geometry on the shared projectile lease.
 const ROOT="res://assets/characters/recovered_kojiro/effects/"
 const SPELL_SCALE=3.0
+const PHOENIX_LIFT=2.0
 # The authored idle body is 84 source units tall; portable effects need the same fitted scale.
 const SOURCE_UNIT=preload("res://scripts/character_proportions.gd").GOEMON_HEIGHT*preload("res://scripts/character_proportions.gd").KOJIRO_SIZE/84.0
 var kind="homing"
@@ -17,8 +18,10 @@ var trail_tick=0
 var hit_targets={}
 var visual:MeshInstance3D
 var effect_material:ShaderMaterial
+var visual_frame=-1
 static var wind_mesh:Mesh
 static var quad_meshes={}
+static var materials:Dictionary={}
 
 func _ready():
 	visual=MeshInstance3D.new();add_child(visual)
@@ -35,52 +38,68 @@ func _ready():
 	else:
 		if not quad_meshes.has(kind):
 			var quad=QuadMesh.new();quad.size=Vector2(80,64) if kind=="wave" else Vector2.ONE*(16 if kind=="spark" else 32)
-			if kind=="wave":quad.center_offset.y=32 # Grow above the flight plane instead of burying the enlarged bird.
 			quad_meshes[kind]=quad
 		visual.mesh=quad_meshes[kind]
-	effect_material=ShaderMaterial.new();effect_material.shader=preload("res://assets/characters/recovered_skullpion/effects/volley.gdshader")
-	effect_material.set_shader_parameter("atlas",load("res://assets/characters/recovered_musashi/assimilation/rocket_trail.png" if kind=="dust" else ROOT+kind+".png"))
-	effect_material.set_shader_parameter("frames",8 if kind=="wave" else 2 if kind=="wind" else 10 if kind=="dust" else 1)
-	effect_material.set_shader_parameter("billboard",kind not in ["wind","wave"])
-	# The frontal phoenix art faces along flight; camera roll made forward casts look sideways.
-	effect_material.set_shader_parameter("directional_billboard",kind=="homing")
-	if kind=="homing":effect_material.set_shader_parameter("sprite_forward",Vector2(1,-1).normalized())
+	# Heads lead on image -Y for the phoenix, diagonally down-right for white birds.
+	if kind in ["wave","homing"]:visual.rotation.x=-PI/2
+	if kind=="homing":visual.rotation.z=-PI/4
+	if not materials.has(kind):
+		var material=ShaderMaterial.new();material.shader=preload("res://assets/characters/recovered_skullpion/effects/volley.gdshader")
+		material.set_shader_parameter("atlas",load("res://assets/characters/recovered_musashi/assimilation/rocket_trail.png" if kind=="dust" else ROOT+kind+".png"))
+		material.set_shader_parameter("frames",float(8 if kind=="wave" else 2 if kind=="wind" else 10 if kind=="dust" else 1))
+		material.set_shader_parameter("billboard",kind not in ["wind","wave","homing"])
+		material.set_shader_parameter("instanced",true);material.set_shader_parameter("playback_fps",1.0)
+		materials[kind]=material
+	effect_material=materials[kind]
 	visual.material_override=effect_material;visual.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 func restart_visual():
+	visual_frame=-1
 	age=0;trail_tick=0;lifetime=10.0/30 if kind=="dust" else 1.0 if kind=="spark" else 3.0
 	if kind=="wind":rotation.y=atan2(velocity.x,velocity.z)
-	elif kind=="wave" and velocity.length_squared()>.001:
+	elif kind in ["wave","homing"] and velocity.length_squared()>.001:
 		rotation=Vector3(-atan2(velocity.y,Vector2(velocity.x,velocity.z).length()),atan2(velocity.x,velocity.z),0)
-	elif kind=="homing" and velocity.length_squared()>.001:quaternion=Quaternion(Vector3.BACK,velocity.normalized())
 	update_visual()
 
 func update_visual():
 	var growth=minf(4,1+age*30/16) if kind=="wave" else 1+age*30/32 if kind=="wind" else 2 if kind=="spark" else 3 if kind=="dust" else 1
 	# Preserve hit growth while the phoenix opens more slowly from a smaller launch.
 	contact_scale=unit*size_factor*growth*SPELL_SCALE
-	if kind=="wave":growth=lerpf(.5,4,minf(age/2.0,1))
+	if kind=="wave":
+		growth=lerpf(.5,4,minf(age/2.0,1))
+		visual.rotation.x=-PI/2-deg_to_rad(15)*minf(age/2.0,1)
+		if velocity.length_squared()>.001:rotation=Vector3(-atan2(velocity.y,Vector2(velocity.x,velocity.z).length()),atan2(velocity.x,velocity.z),0)
 	visual.scale=Vector3.ONE*unit*size_factor*growth*SPELL_SCALE*skill_factor("size")
-	effect_material.set_shader_parameter("frame",posmod(floori(age*30),8 if kind=="wave" else 2 if kind=="wind" else 10 if kind=="dust" else 1))
+	var frame=posmod(floori(age*30),8 if kind=="wave" else 2 if kind=="wind" else 10 if kind=="dust" else 1)
+	if frame!=visual_frame:visual.set_instance_shader_parameter("playback_age",float(frame));visual_frame=frame
 
 func _physics_process(delta:float):
 	if not is_instance_valid(hero) or not game.playing:retire();return
 	if game.paused or game.transitioning:return
 	age+=delta
 	if age>=lifetime:retire();return
+	if kind=="wave":velocity.y+=PHOENIX_LIFT*delta
+	if kind in ["spark","dust"]:
+		# Cosmetic size is fixed at launch; only dust advances its atlas cell.
+		if kind=="dust":
+			var frame=posmod(floori(age*30),10)
+			if frame!=visual_frame:visual.set_instance_shader_parameter("playback_age",float(frame));visual_frame=frame
+		if velocity!=Vector3.ZERO:global_position+=velocity*delta
+		return
 	update_visual()
-	if kind in ["spark","dust"]:global_position+=velocity*delta;return
 	if kind=="homing":
 		if is_instance_valid(target) and not target.dead:
 			var aim=AttackChain.aim_point(target,global_position)-global_position
 			if aim.length_squared()>.001:velocity=velocity.normalized().slerp(aim.normalized(),minf(1,delta*3))*velocity.length()
-		if velocity.length_squared()>.001:quaternion=Quaternion(Vector3.BACK,velocity.normalized())
+		if velocity.length_squared()>.001:rotation=Vector3(-atan2(velocity.y,Vector2(velocity.x,velocity.z).length()),atan2(velocity.x,velocity.z),0)
 		var tick=floori(age*30/4)
 		if tick>trail_tick:trail_tick=tick;spark(global_position,Vector3.ZERO)
 	if kind=="wind" and floori(age*30)>trail_tick:
 		trail_tick=floori(age*30)
 		projectile_pool.launch(hero,get_script(),"dust",{"kind":"dust","position":global_position,"unit":unit,"velocity":velocity.normalized().rotated(Vector3.UP,PI*.5)*16*30*unit,"damage":0.0})
-	var from=global_position;var next=from+velocity*delta
+	var motion=velocity*delta
+	if kind=="wave":motion.y-=PHOENIX_LIFT*.5*delta*delta # Midpoint integration keeps lift consistent across frame rates.
+	var from=global_position;var next=from+motion
 	var wall=AttackChain.world_ray(self,from,next)
 	var end:Vector3=next if wall.is_empty() else wall.position
 	var radius=unit*(16 if kind=="homing" else 48)*contact_scale/maxf(unit,.001)*skill_factor("hit_area")

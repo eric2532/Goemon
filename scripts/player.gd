@@ -30,7 +30,7 @@ const BEN_FLIGHT_BOOST_ASCENT_SPEED=24.0
 var melee_assist=preload("res://scripts/melee_assist.gd").new()
 const Proportions=preload("res://scripts/character_proportions.gd")
 const OriginalGoemon=preload("res://scripts/recovered_goemon_combat_profile.gd")
-const ROSTER={31:{"name":"Blademaster","character":31,"model":preload("res://scripts/warcraft_model.gd"),"combat":preload("res://scripts/warcraft_combat.gd")},32:{"name":"Illidan","character":32,"model":preload("res://scripts/warcraft_model.gd"),"combat":preload("res://scripts/warcraft_combat.gd")},30:{"name":"Dark Lumina 3","role":18,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/dark_lumina_3_combat.gd")},29:{"name":"Dark Lumina 2","role":17,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},28:{"name":"Kojiro","model":preload("res://scripts/kojiro_model.gd"),"combat":preload("res://scripts/kojiro_combat.gd")},1: {"name":"Goemon", "model":preload("res://scripts/recovered_goemon_model.gd")},2: {"name":"Edo", "model":preload("res://assets/characters/musashi/model/musashi_model.gd"),"combat":preload("res://assets/characters/musashi/combat/musashi_combat.gd")},13: {"name":"Musashi","model":preload("res://scripts/recovered_musashi_model.gd"),"combat":preload("res://scripts/recovered_musashi_combat.gd")},14:{"name":"Ed","model":preload("res://scripts/recovered_ed_model.gd"),"combat":preload("res://scripts/recovered_leader_combat.gd")},15:{"name":"Ben","model":preload("res://scripts/recovered_ben_model.gd"),"combat":preload("res://scripts/recovered_leader_combat.gd")},16:{"name":"Sasuke","model":preload("res://scripts/recovered_sasuke_model.gd"),"combat":preload("res://scripts/recovered_sasuke_combat.gd")},17:{"name":"Yae","model":preload("res://scripts/recovered_yae_model.gd"),"combat":preload("res://scripts/recovered_yae_combat.gd")},18:{"name":"Master Chief","model":preload("res://scripts/master_chief_model.gd"),"combat":preload("res://scripts/master_chief_combat.gd")},19:{"name":"Sonic","model":preload("res://scripts/sonic_model.gd"),"combat":preload("res://scripts/sonic_combat.gd")},20:{"name":"Red Soldier","role":0,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},21:{"name":"Blue Gunner","role":1,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},22:{"name":"Green Spearman","role":3,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},23:{"name":"Vambee","role":6,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},24:{"name":"Haya Wolf","role":9,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},25:{"name":"Vambee Torso","role":14,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},26:{"name":"Slow Guy","role":16,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},27:{"name":"Skullpion","role":4,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")}}
+const ROSTER={34:{"name":"Kazi","model":preload("res://scripts/crossgate_model.gd"),"combat":preload("res://scripts/crossgate_combat.gd")},33:{"name":"Mountain King","character":33,"model":preload("res://scripts/warcraft_model.gd"),"combat":preload("res://scripts/mountain_king_combat.gd")},31:{"name":"Blademaster","character":31,"model":preload("res://scripts/warcraft_model.gd"),"combat":preload("res://scripts/warcraft_combat.gd")},32:{"name":"Illidan","character":32,"model":preload("res://scripts/warcraft_model.gd"),"combat":preload("res://scripts/warcraft_combat.gd")},30:{"name":"Dark Lumina 3","role":18,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/dark_lumina_3_combat.gd")},29:{"name":"Dark Lumina 2","role":17,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},28:{"name":"Kojiro","model":preload("res://scripts/kojiro_model.gd"),"combat":preload("res://scripts/kojiro_combat.gd")},1: {"name":"Goemon", "model":preload("res://scripts/recovered_goemon_model.gd")},2: {"name":"Edo", "model":preload("res://assets/characters/musashi/model/musashi_model.gd"),"combat":preload("res://assets/characters/musashi/combat/musashi_combat.gd")},13: {"name":"Musashi","model":preload("res://scripts/recovered_musashi_model.gd"),"combat":preload("res://scripts/recovered_musashi_combat.gd")},14:{"name":"Ed","model":preload("res://scripts/recovered_ed_model.gd"),"combat":preload("res://scripts/recovered_leader_combat.gd")},15:{"name":"Ben","model":preload("res://scripts/recovered_ben_model.gd"),"combat":preload("res://scripts/recovered_leader_combat.gd")},16:{"name":"Sasuke","model":preload("res://scripts/recovered_sasuke_model.gd"),"combat":preload("res://scripts/recovered_sasuke_combat.gd")},17:{"name":"Yae","model":preload("res://scripts/recovered_yae_model.gd"),"combat":preload("res://scripts/recovered_yae_combat.gd")},18:{"name":"Master Chief","model":preload("res://scripts/master_chief_model.gd"),"combat":preload("res://scripts/master_chief_combat.gd")},19:{"name":"Sonic","model":preload("res://scripts/sonic_model.gd"),"combat":preload("res://scripts/sonic_combat.gd")},20:{"name":"Red Soldier","role":0,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},21:{"name":"Blue Gunner","role":1,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},22:{"name":"Green Spearman","role":3,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},23:{"name":"Vambee","role":6,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},24:{"name":"Haya Wolf","role":9,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},25:{"name":"Vambee Torso","role":14,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},26:{"name":"Slow Guy","role":16,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},27:{"name":"Skullpion","role":4,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")}}
 const RogueRoster=preload("res://scripts/rogue_roster.gd")
 const GroundResponse=preload("res://scripts/ground_movement_response.gd")
 var model: HeroModel
@@ -71,6 +71,7 @@ var wall_jump_origin=Vector3.ZERO
 var wall_jump_grace=0.0
 var wall_jump_recovery=0.0
 var trail_time=0.0
+const FOOTSTEP_INTERVAL=.30
 var foot_time=0.0
 var last_foot_events=0
 var soft_target=true
@@ -163,6 +164,7 @@ func _ready():
 	charge_ring=Node3D.new();add_child(charge_ring)
 	charge_ring.hide()
 	max_hp=combat_tuning("max_hp")*progression.health_multiplier()*(1.0+.1*run_upgrades.vitality)
+	if character_id==33 and active_ability!=null and active_ability.demon:max_hp+=500
 	hp=max_hp
 	# Load registered visuals during startup so selection does not load a GLB mid-fight.
 	for id in ROSTER:
@@ -354,6 +356,11 @@ func uses_rogue_pipe_profile()->bool:
 
 # Hero-owned audio carries its source even when this Hero is an allied defender.
 func play_sound(kind: String,volume: float=1.0,ticket: Dictionary={}):
+	if ai_controlled and not game.move_audio.ally_nearby(game,global_position):return
+	if kind in ["step","musashi_step_0","musashi_step_1","dark_lumina_2_step"]:
+		# Movement upgrades must not turn ground contacts into a burst of audio.
+		if foot_time>.000001:return
+		foot_time=FOOTSTEP_INTERVAL
 	if kind=="land" and character_id==29:
 		kind="dark_lumina_2_slam"
 		if active_ability!=null and active_ability.is_attacking() and active_ability.action==active_ability.Dark.SLAM:active_ability.state.landing_sound=true
@@ -449,7 +456,7 @@ func take_hit(amount: float, direction: Vector3, projectile: bool=false):
 		if amount<=0:return
 	if character_id==17 and projectile and active_ability!=null and active_ability.blocks_projectile(direction):return
 	if sky_strike.active or forward_dash.immunity_left>0 or invuln>0 or melee_contact_guarded() or hp<=0 or game.tuning.invincible or (active_ability!=null and active_ability.protects_player()): return
-	if character_id==13:
+	if character_id in [13,33]:
 		amount=active_ability.filter_damage(amount,direction,projectile)
 		if amount<=0:return
 	if is_rogue_character():
@@ -463,14 +470,15 @@ func take_hit(amount: float, direction: Vector3, projectile: bool=false):
 	if is_rogue_character():active_ability.receive_knockback(direction)
 	game.camera_rig.impulse=0.18
 	game.burst(global_position+Vector3.UP,Color("ff6a55"),12)
-	play_sound("wc_demon_death" if character_id==32 and hp<=0 and active_ability.demon else "death" if character_id in [16,17,28,29,30,31,32] and hp<=0 else "hurt")
+	play_sound("wc_demon_death" if character_id==32 and hp<=0 and active_ability.demon else "death" if character_id in [16,17,28,29,30,31,32,33] and hp<=0 else "hurt")
 	if hp<=0:
-		if character_id in [16,17,28,29,31,32] and active_ability!=null:active_ability.die()
+		if character_id in [16,17,28,29,31,32,33,34] and active_ability!=null:active_ability.die()
 		game.defeat()
 
 func _physics_process(delta):
 	var original_pipe_tick:Dictionary={}
 	if not game.playing or game.paused or game.transitioning or hp<=0: return
+	foot_time=maxf(0,foot_time-delta)
 	clear_character_cooldowns()
 	if jump_style.active():
 		jump_buffer=maxf(0,jump_buffer-delta);jump_style.update_flight()
@@ -510,6 +518,7 @@ func _physics_process(delta):
 	if powerups.attack_speed<=0:attack_speed_stacks=0
 	if is_rogue_character():
 		active_ability.physics_step(delta)
+		_update_footsteps(Vector2(velocity.x,velocity.z).length())
 		return
 	if character_id==19:
 		active_ability.physics_step(delta)
@@ -697,7 +706,7 @@ func _physics_process(delta):
 			var raised=global_transform
 			raised.origin.y+=0.32
 			if not test_move(raised,motion): position.y+=0.32
-	if (character_id in [14,15,16,17,28,31,32] or RogueRoster.is_enemy(character_id)) and active_ability!=null:
+	if (character_id in [14,15,16,17,28,31,32,33,34] or RogueRoster.is_enemy(character_id)) and active_ability!=null:
 		var authored_motion: Vector3=active_ability.ground_attack_velocity()
 		if authored_motion!=Vector3.INF:
 			velocity.x=authored_motion.x;velocity.z=authored_motion.z
@@ -730,7 +739,7 @@ func _physics_process(delta):
 	flight_lean=lerpf(flight_lean,(-.28 if boosting else -.18) if flying else 0.0,1-exp(-delta*9))
 	if character_id==1:model.body.rotation.x+=flight_lean
 	air_turn=maxf(0,air_turn-delta)
-	if air_turn>0 and character_id not in [13,14,15,16,17,18,19,28,31,32] and not RogueRoster.is_enemy(character_id):
+	if air_turn>0 and character_id not in [13,14,15,16,17,18,19,28,31,32,33,34] and not RogueRoster.is_enemy(character_id):
 		if scarf_equipped and character_id==1:
 			var progress=clampf(1-air_turn/.42,0,1)
 			var tuck=sin(PI*progress)
@@ -770,17 +779,21 @@ func _physics_process(delta):
 				heavy_buffer=0;start_attack(true)
 			elif not attack_heavy and combo<3 and (not game.rogue_battle_mode or (quick_attacks.active and quick_attacks.action==1)):start_attack(false,combo+1)
 	model.visible=not (invuln>0 and int(invuln*20)%2==0) and not ((is_master_chief() or is_meta_shooter()) and is_instance_valid(game.camera_rig) and game.camera_rig.first_person_mode)
-	if model.locomotion.step_events!=last_foot_events:
-		last_foot_events=model.locomotion.step_events
-		if is_on_floor() and horizontal>(.25 if character_id==17 else 1.0):
-			game.burst(global_position,Color("e0d2a4"),2,0.55)
-			if character_id!=29:play_sound("step",0.22)
+	_update_footsteps(horizontal)
 	trail_time-=delta
 	if horizontal>14 and trail_time<=0:
 		trail_time=0.065
 		game.wind(global_position+Vector3(0,0.8,0),-facing)
 	_finish_movement_bounds()
 	if character_id==2:musashi.after_pose()
+
+func _update_footsteps(horizontal:float):
+	if model.locomotion.step_events==last_foot_events:return
+	last_foot_events=model.locomotion.step_events
+	if not is_on_floor() or horizontal<=(.25 if character_id==17 else 1.0):return
+	if not is_rogue_character():game.burst(global_position,Color("e0d2a4"),2,0.55)
+	if character_id in [31,32,33] and last_foot_events%2==0:return
+	if character_id!=29:play_sound("step",.65 if character_id in SoundLibrary.GOEMON_FOOTSTEP_IDS else .22)
 
 func _physics_musashi(delta:float):
 	# Keep source speed, acceleration, jump cut and L-Belt double jump isolated
@@ -973,7 +986,7 @@ func melee_range_multiplier()->float:
 	return range_multiplier()*melee_reach_setting()*(combat_tuning("surge_range") if attack_charged and surge_left<=0 else 1.0)
 
 func melee_reach_setting()->float:
-	return combat_tuning("melee_reach")*(spell_loadout.melee_multiplier() if spell_loadout!=null and not spell_loadout.dispatching else 1.0)
+	return combat_tuning("melee_reach")*(spell_loadout.melee_multiplier() if spell_loadout!=null and not spell_loadout.dispatching else 1.0)*(team_progression.multiplier("player_range") if team_progression!=null and game.player==self else 1.0)
 
 func attack_reach_multiplier()->float:
 	var basic = not attack_heavy and not attack_charged and not wide_swing
@@ -999,6 +1012,7 @@ func _grounded_pipe_plant(step: float)->bool:
 	return GroundResponse.strike_planted(attack_duration-attack_left,contact,attack_duration,step)
 
 func melee_strike_reach()->float:
+	if character_id==34:return (active_ability.REACH+active_ability.RADIUS)*melee_range_multiplier()
 	if character_id in [16,17] and active_ability!=null:return active_ability.melee_reach()
 	if character_id==15:return 2.9*preload("res://scripts/character_proportions.gd").BEN_MODEL_SCALE*growth_multiplier()*pickup_multiplier("range")*melee_reach_setting()
 	if character_id==13:return (2.1 if attack_heavy else 1.8)*contact_size_multiplier()*pickup_multiplier("range")*melee_reach_setting()
@@ -1111,6 +1125,7 @@ func select_character(id: int):
 	refresh_max_health()
 	hp=max_hp*health_fraction
 	last_foot_events=model.locomotion.step_events
+	foot_time=0
 	if not ai_controlled and game.rogue_roster_mode and id in RogueRoster.PLAYABLE_IDS:game.selected_rogue_id=id
 	if ai_controlled:return
 	if is_instance_valid(game.camera_rig):game.camera_rig.sync_character_view()
@@ -1176,6 +1191,7 @@ func attack_speed_multiplier()->float:
 func refresh_max_health(heal_growth: bool=false):
 	var previous=max_hp
 	max_hp=combat_tuning("max_hp")*progression.health_multiplier()*(1.0+.1*run_upgrades.vitality)
+	if character_id==33 and active_ability!=null and active_ability.demon:max_hp+=500
 	hp=minf(max_hp,hp+(maxf(0,max_hp-previous) if heal_growth else 0.0))
 
 func award_kill():
@@ -1271,7 +1287,7 @@ func has_offensive_action()->bool:
 	if spell_loadout!=null and spell_loadout.current!=null:return true
 	if attack_left>0 or attack_motion_pending or impact_pause>0 or primary_down or charge_elapsed>0 or heavy_buffer>0:return true
 	if sky_strike.active or forward_dash.active or chain_pipe_combat.active or quick_attacks.active or not quick_attacks.pending.is_empty():return true
-	return active_ability!=null and (active_ability.has_offensive_action() if is_rogue_character() else ((character_id in [13,14,15,16,17,18,19,28,31,32] or RogueRoster.is_enemy(character_id)) and active_ability.is_attacking()))
+	return active_ability!=null and (active_ability.has_offensive_action() if is_rogue_character() else ((character_id in [13,14,15,16,17,18,19,28,31,32,33,34] or RogueRoster.is_enemy(character_id)) and active_ability.is_attacking()))
 
 func interrupt_attack_for_movement(preserve_motion: bool=false):
 	if spell_loadout!=null:spell_loadout.interrupt()

@@ -43,6 +43,7 @@ func make_game(layout:String)->Node:
  game.camera_rig.camera.global_position=Vector3(0,24,80);game.camera_rig.camera.look_at(Vector3(0,1,52))
  return game
 func freeze_background():
+ game.forest_ui.set_process(false) # The reference wave owner has no live HUD clock.
  if is_instance_valid(game.army_runtime):game.army_runtime.set_process(false)
  game.set_physics_process(false);game.set_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
  for unit in game.explorer_helpers.pool:unit.set_physics_process(false)

@@ -17,7 +17,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from recover_musashi_motion_continuations import quaternion, source_transform, trs
 
 MISSING = [0x800D4D88, 0x800D4DA8, 0x800D4DB4, 0x800D4DD4, 0x800D4DF4,
-           0x800D4E6C, 0x800D52A8, 0x800D52E8, 0x800D533C, 0x800D5C6C, 0x800D53A4]
+           0x800D4E6C, 0x800D52A8, 0x800D52E8, 0x800D533C, 0x800D5C6C, 0x800D53A4,
+           0x800D524C]
 ACTION_ENTRIES = dict(fusion_1=0x800D4C94, fusion_2=0x800D4CE4,
                       fusion_3=0x800D4D38, fusion_4=0x800D4D88,
                       fusion_4_rise=0x800D4DA8, fusion_4_apex=0x800D4DB4,
@@ -26,7 +27,11 @@ ACTION_ENTRIES = dict(fusion_1=0x800D4C94, fusion_2=0x800D4CE4,
                       air_fusion=0x800D4E94, moving_air_fusion=0x800D4ED4,
                       guard=0x800D5734, guard_walk=0x800D5790,
                       rotation=0x800D5360, rotation_end=0x800D53A4,
-                      counter=0x800D552C, hurt=0x800D5880)
+                      counter=0x800D552C, hurt=0x800D5880,
+                      crosswise=0x800D4F14, tenderize=0x800D51E0,
+                      tenderize_end=0x800D524C, desperado=0x800D52A8,
+                      desperado_dual=0x800D52E8, desperado_fusion=0x800D52E8, desperado_end=0x800D533C,
+                      dashing_pierce=0x800D4E6C)
 
 
 def hidden_parts(events, tick, initial_flags=0x10000000):
@@ -86,7 +91,8 @@ def recover(root: Path, glb_path: Path):
 
     def describe(address):
         clip = reader['decode'](address)
-        matching = sorted(n for n in names if n.endswith('%08x' % address))
+        matching = sorted((n for n in names if n.endswith('%08x' % address)),
+                          key=lambda n: (not n.startswith('Recovered__'), n))
         active = [e['tick'] for e in clip['events'] if e['word'] == '0x14']
         return dict(address=hex(address), clip=matching[0] if matching else 'Recovered__%08x' % address,
                     ticks=clip['ticks'], terminal=clip['terminal'], frames=clip['frames'],
@@ -103,8 +109,9 @@ def recover(root: Path, glb_path: Path):
         # Normal gameplay entry context has Fusion drawn and Lumina sheathed.
         # Explicit command flags override this immediately. Bare continuation
         # entries retain that inherited context, recorded in the manifest.
-        clip['initial_visibility_opcodes'] = [18] if address == 0x800D53A4 else [19]
-        clip['initial_visibility_flags'] = 0x30000000 if address == 0x800D53A4 else 0x10000000
+        drawn_lumina = address in (0x800D53A4, 0x800D524C)
+        clip['initial_visibility_opcodes'] = [18] if drawn_lumina else [19]
+        clip['initial_visibility_flags'] = 0x30000000 if drawn_lumina else 0x10000000
         expanded = clip['frames'] + [dict(tick=clip['ticks'], pose=clip['frames'][-1]['pose'])]
         if append:
             times = add([f['tick'] / 30 for f in expanded], 'SCALAR')

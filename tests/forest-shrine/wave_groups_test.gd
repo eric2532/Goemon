@@ -6,7 +6,7 @@ const PORTALS=[{"x":0,"z":24,"rotation":0},{"x":24,"z":0,"rotation":3},{"x":0,"z
 func fresh(camps:bool=false,spots:int=4,total:int=83):
 	var model=Model.new();model.reset(42,{"waves":[[total,0,0,0,0,0,0,0,0,0]]},Camps.layout() if camps else {},false)
 	if not camps:model.portals=PORTALS.slice(0,spots).duplicate(true)
-	model.start_wave();return model
+	model.start_wave();model.waves.random_spawn_clock=100000;return model # Isolate castle group gates from map arrivals.
 
 func clear_exits(model):
 	for enemy in model.enemies.values():enemy.pos=Vector3.ZERO
@@ -26,9 +26,9 @@ func source_counts(model)->Array:
 
 func model_checks():
 	var model=fresh();var waves=model.waves
-	waves.tick(1.9,model.hero_position)
-	check(model.enemies.is_empty(),"The original wave opening delay remains")
-	waves.tick(.2,model.hero_position);fill_groups(model)
+	waves.tick(0,model.hero_position)
+	check(not model.enemies.is_empty(),"The first group arrives on START without a countdown")
+	fill_groups(model)
 	check(source_counts(model)==[10,10,10,10] and waves.pending==43,"Each of four spots releases ten enemies: forty total")
 	var first=waves.spawn_groups[0].members.keys();var other_groups=[]
 	for source in [1,2,3]:other_groups.append(waves.spawn_groups[source].members.keys())
@@ -55,7 +55,7 @@ func model_checks():
 	waves.enemy_started_attack(other_groups[1][0]);waves.enemy_started_attack(other_groups[2][0])
 	check(fill_groups(model)==9 and waves.pending==0,"Simultaneous spots share the exact final remainder without overspawning")
 	check(model.balance.waves[0]==[83,0,0,0,0,0,0,0,0,0] and waves.spawned==83,"Exact wave totals and saved composition are preserved")
-	model.enemies.clear();waves.tick(.2,model.hero_position)
+	model.enemies.clear();waves.tick(60,model.hero_position)
 	check(model.phase=="victory","The final partial groups still allow normal victory")
 	model.phase="preparing";model.wave=0;model.start_wave()
 	check(waves.spawn_groups.is_empty(),"Starting a wave clears all previous groups and engagement latches")
@@ -79,7 +79,7 @@ func model_checks():
 	model.trees.clear();model.rebuild_navigation()
 	check(fill_groups(model)==10 and source_counts(model)==[10,10,10,10],"Clearing the blocked spot fills only its own first ten")
 	model=fresh(true);waves=model.waves
-	check(fill_groups(model)==30 and waves.pending==0,"Three-camp maps release ten from each camp")
+	check(fill_groups(model)==30 and waves.pending==53,"Three-camp maps release ten from each camp")
 	var destroyed=waves.spawn_groups[0].members.keys()[0]
 	model.damage_enemy_objective(0,99999);waves.enemy_started_attack(destroyed)
 	check(fill_groups(model)==0,"Destroying one camp stops its reinforcements without releasing other groups")
@@ -91,7 +91,7 @@ func model_checks():
 	check(fill_groups(model)==10 and waves.spawn_groups.has(-1),"Maps without portals retain one ten-enemy arrival group")
 	waves.enemy_started_attack(waves.spawn_groups[-1].members.keys()[0])
 	check(fill_groups(model)==11,"Nonportal enemies grow the next group at attack startup")
-	model=fresh(true);waves=model.waves
+	model=fresh(true,4,10000);waves=model.waves
 	for size in range(10,16):
 		check(fill_groups(model)==3*size,"All camps fill growing groups of %d across retries"%size)
 		check(waves.spawn_groups.values().all(func(group):return group.target_size==size),"Retries never increase group size")
@@ -111,8 +111,29 @@ func model_checks():
 	model.portals[2].hp=0
 	check(not waves.spawn_skullpion([],2),"Boss fallback cannot escape a destroyed spot through another portal")
 
+func camp_wave_checks():
+	var configured=[[13,0,0,0,0,0,0,0,0,0],[0,0,0,7,0,0,0,0,0,0],[0,0,0,0,13,0,0,0,0,0]]
+	var model=Model.new();model.reset(42,{"waves":configured},Camps.layout(),false);model.start_wave()
+	var waves=model.waves
+	waves.tick(0,model.hero_position);fill_groups(model)
+	check(model.wave==1 and waves.spawned==13 and waves.pending==0,"Castle wave one releases its exact finite total")
+	check(model.enemies.values().all(func(enemy):return enemy.variant==0),"Only the first mix arrives before minute two")
+	waves.enemy_started_attack(model.enemies.keys()[0])
+	check(fill_groups(model)==0 and model.wave==1,"Attacks cannot advance the next scheduled wave")
+	waves.tick(60,model.hero_position);fill_groups(model)
+	check(model.wave==2 and waves.spawned==20 and waves.pending==0,"Minute two releases exactly seven Vambees")
+	check(waves.spawn_groups.values().all(func(group):return group.number==1),"A scheduled wave resets each entrance's growth")
+	waves.tick(60,model.hero_position);fill_groups(model)
+	check(model.wave==3 and waves.spawned==33 and waves.pending==0,"Minute three releases exactly thirteen wolves")
+	check(fill_groups(model)==0 and model.balance.waves==configured,"The final wave does not repeat or mutate saved composition")
+	model.enemies.clear();waves.tick(60,model.hero_position)
+	check(model.phase=="victory","Clearing all scheduled castle waves after their final minute wins")
+	model.phase="preparing";model.start_wave()
+	check(model.wave==1 and waves.released_waves==1 and waves.wave_clock==60 and waves.spawn_groups.is_empty(),"Restarting resets clock, mix and growth")
+
 func run():
 	model_checks()
+	camp_wave_checks()
 	native_start_checks()
 	if "--visual" in OS.get_cmdline_user_args():await native_checks()
 	print("WAVE_GROUPS_RESULT checks=%d failures=%d"%[checks,failures]);quit(1 if failures else 0)
@@ -140,7 +161,8 @@ func native_checks():
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path="user://wave-groups-%d.cfg"%OS.get_process_id()
 	root.add_child(game);current_scene=game;await frames(5)
 	game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
-	game.model.balance.waves=[[120,0,0,0,0,0,0,0,0,0]];game.start_wave()
+	game.core_balance.waves=[[100,0,0,0,0,0,0,0,0,0]];game.start_wave();game.model.waves.random_spawn_clock=100000
+	game.model.waves.tick(60,game.player.position)
 	var waves=game.model.waves;var runtime=game.army_runtime
 	waves.spawn_clock=0
 	for tick in 900:
@@ -167,7 +189,9 @@ func native_checks():
 		if runtime.handles.size()==51:break
 	check(source_counts(game.model)==[21,10,10,10] and runtime.handles.size()==51,"Only the attacking spot admits eleven next; the other thirty keep waiting")
 	var second_id=waves.spawn_groups[0].members.keys()[0]
+	check(game.model.wave==1 and waves.spawn_groups[0].members.keys().all(func(member):return game.model.enemies[member].variant==0),"The next eleven native enemies retain the current scheduled mix")
 	check(is_equal_approx(runtime.unit_state(runtime.handles[second_id]).max_hp,waves.role_stats(0).hp*1.2),"Rendered second group enters native combat with 20 percent more health")
+	await capture_camp_group("timed-wave-group-2",second_id)
 	for source in [1,2,3]:check(waves.spawn_groups[source].members.keys()==other_groups[source-1],"Rendered spot %d retains its original group"%source)
 	check(not waves.spawn_groups[0].engaged and waves.spawn_batch()==0,"The attacking spot's second group gets a fresh gate")
 	id=waves.spawn_groups[0].members.keys()[0];handle=runtime.handles[id]
@@ -183,7 +207,9 @@ func native_checks():
 		if runtime.handles.size()==63:break
 	check(source_counts(game.model)==[33,10,10,10] and runtime.handles.size()==63,"The next native group grows to twelve while other spots still wait")
 	var third_id=waves.spawn_groups[0].members.keys()[0]
+	check(game.model.wave==1 and waves.spawn_groups[0].members.keys().all(func(member):return game.model.enemies[member].variant==0),"The next twelve native enemies retain the current scheduled mix")
 	check(is_equal_approx(runtime.unit_state(runtime.handles[third_id]).max_hp,waves.role_stats(0).hp*1.4),"Rendered third group enters native combat with 40 percent more health")
+	await capture_camp_group("timed-wave-group-3",third_id)
 	var xp=game.model.team_progression;xp.reset()
 	for victim in [second_id,third_id]:
 		var actor=runtime.enemy_target(victim)
@@ -200,3 +226,11 @@ func native_checks():
 	var config_path=game.settings_path
 	stop_audio(game);game.move_audio.stop();current_scene=null;game.queue_free();await frames(3)
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(config_path))
+
+func capture_camp_group(label_:String,id:int):
+	if DisplayServer.get_name()=="headless":return
+	var point:Vector3=game.army_runtime.unit_state(game.army_runtime.handles[id]).position
+	game.camera_rig.camera.global_position=point+Vector3(15,12,18)
+	game.camera_rig.camera.look_at(point+Vector3.UP*2)
+	await process_frame;await RenderingServer.frame_post_draw
+	root.get_texture().get_image().save_png("res://build/Other Files/Asset Toolkit/Wave Groups/"+label_+".png")

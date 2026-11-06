@@ -4,6 +4,7 @@ extends SceneTree
 var game
 var checks=0
 var failures=0
+var config_path="user://explorer-close-assist-%d.cfg"%OS.get_process_id()
 const ORIGIN=Vector3(0,.1,70)
 class InvalidGeometryRaider extends "res://tests/forest-shrine/reference/forest_raider.gd":
 	var invalid_bounds=false
@@ -26,6 +27,7 @@ func press(down: bool):
 	Input.parse_input_event(event);Input.flush_buffered_events()
 func fresh(hero_id: int=11):
 	press(false)
+	game.army_runtime.clear()
 	for actor in game.actors.values():
 		if is_instance_valid(actor):actor.queue_free()
 	game.actors.clear();game.enemies.clear();game.model.enemies.clear()
@@ -41,16 +43,15 @@ func fresh(hero_id: int=11):
 	for i in range(20):game.player.active_ability._move_body(1.0/60)
 	game.player.active_ability.player.pos=game.player.global_position
 func target(offset: Vector3,variant: int=0):
-	var id=9000+game.model.enemies.size()
-	var data={"id":id,"variant":variant,"pos":ORIGIN+offset,"hp":10000.0,"max_hp":10000.0,"velocity":Vector3.ZERO,"stun":100.0,"attack":false,"clock":0.0,"facing":0.0,"action":"walk","action_left":0.0,"attack_progress":0.0,"walk_phase":0.0}
-	game.model.enemies[id]=data;game.sync_enemies()
-	var actor=game.actors[id];actor.set_physics_process(false);actor._sync_fitted_pose()
+	var data=game.model.waves.spawn_enemy(variant,ORIGIN+offset);data.hp=10000;data.max_hp=10000;data.stun=100
+	game.sync_enemies()
+	var actor=game.actors[data.id];actor.set_physics_process(false);actor._sync_fitted_pose()
 	game.model.update_vision(ORIGIN)
 	return data
 func swing_steps(combat,steps: int=5):
 	for i in steps:combat.tick(.012,false)
 func run():
-	game=load("res://scenes/forest_shrine.tscn").instantiate();root.add_child(game);current_scene=game
+	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=config_path;root.add_child(game);current_scene=game
 	await frames(3);game.start_wave();game.model.waves.spawn_clock=10000;game.model.waves.pending=0
 	game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
 	game.tuning.invincible=true;game.tuning.critical_chance=0.0
@@ -89,12 +90,16 @@ func run():
 	await fresh(5);target(Vector3(1.25,0,-2.6));combat=game.player.active_ability
 	press(true);press(false);var angle=float(combat.player.attack.angle);swing_steps(combat)
 	check(absf(wrapf(float(combat.player.attack.angle)-angle,-PI,PI))>.03,"Ninja shares the gentle hidden melee assistance")
-	# A giant root lies far away while its fitted foot is beside Explorer.
-	await fresh();var giant=target(Vector3(-4.65,0,5),2);combat=game.player.active_ability
+	# The current native boss has a distant root and a nearby fitted surface.
+	await fresh()
+	var boss_bounds=preload("res://scripts/forest/forest_enemy_contact.gd").shapes(4,false,game.army_runtime.enemy_size)[0].bounds
+	var giant=target(Vector3(1.0-boss_bounds.position.x,0,-1.8-boss_bounds.end.z),4);combat=game.player.active_ability
 	var foot: Vector3=game.actors[giant.id].combat_contact_point(game.player.position+Vector3.UP)
 	var toward=foot-game.player.position
-	game.camera_rig.yaw=atan2(-toward.x,-toward.z);combat.aim=foot;combat.attack();swing_steps(combat)
-	check(giant.hp<10000,"Explorer assists toward the nearby fitted giant foot rather than its distant root")
+	game.camera_rig.yaw=atan2(-toward.x,-toward.z);combat.aim=foot;combat.attack()
+	check(giant.pos.distance_to(ORIGIN)>20 and Vector2(toward.x,toward.z).length()<combat.player.attack.reach,"Boss fixture keeps the root distant and its fitted surface inside weapon reach")
+	swing_steps(combat)
+	check(giant.hp<10000,"Explorer assists toward a native boss's nearby fitted surface despite its distant root")
 	for side in [-1.0,1.0]:
 		await fresh();var nearby=target(Vector3(side*1.25,0,-2.6))
 		game.player.set_physics_process(true)
@@ -111,13 +116,13 @@ func run():
 	press(true);press(false);swing_steps(combat)
 	committed=float(combat.player.attack.angle)
 	game.model.enemies.values()[0].pos=ORIGIN+Vector3(-1.25,0,-2.6)
-	game.actors.values()[0].position=game.model.enemies.values()[0].pos
+	game.army_runtime.native.set_pose(game.actors.values()[0].handle,game.model.enemies.values()[0].pos,0);game.army_runtime.sync_compatibility()
 	combat.tick(.012,false)
 	check(absf(wrapf(float(combat.player.attack.angle)-committed,-PI,PI))<.001,"Assistance ends at contact instead of tracking through recovery")
 	await fresh();var removed=target(Vector3(1.25,0,-2.6));combat=game.player.active_ability
 	press(true);press(false)
 	var removed_actor=game.actors[removed.id]
-	removed_actor.queue_free();game.model.enemies.erase(removed.id);await frames()
+	game.army_runtime.despawn(removed_actor.handle);removed_actor.queue_free();game.model.enemies.erase(removed.id);await frames()
 	combat.tick(.012,false)
 	check(game.player.melee_assist.target()==null,"Freeing a target during windup releases its cached reference safely")
 	var remaining=InvalidGeometryRaider.new();remaining.game=game;remaining.position=ORIGIN+Vector3(1.25,0,-2.6);remaining.variant=0
@@ -145,4 +150,5 @@ func run():
 	check(game.player.position.x>-.7,"Explorer attack motion cannot cross solid terrain")
 	blocker.queue_free()
 	game.queue_free();paused=false;await frames(3);await create_timer(.35).timeout
+	if FileAccess.file_exists(config_path):DirAccess.remove_absolute(ProjectSettings.globalize_path(config_path))
 	print("FOREST_EXPLORER_ASSIST_RESULT checks=%d failures=%d"%[checks,failures]);quit(1 if failures else 0)

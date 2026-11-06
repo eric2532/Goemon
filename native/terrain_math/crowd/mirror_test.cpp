@@ -11,6 +11,12 @@ static KitData kits(){
  d.bullet_speed=8.64f;d.bullet_life=3.34f;d.bullet_tail=.576f;d.bullet_radius=.576f;return d;
 }
 int main(){
+ {Crowd boundary;boundary.configure(8,8);
+  auto kazi=boundary.spawn(-1,1,134,{0,0,0},100,.4);
+  auto unknown=boundary.spawn(-2,1,135,{0,0,0},100,.4);
+  assert(boundary.set_mirror(kazi,2,7,3,{0,0,-1}));
+  assert(!boundary.set_mirror(unknown,2,7,3,{0,0,-1}));
+ }
  Crowd c;c.configure(32,16);c.set_navigation(NavigationData{});assert(c.combat.configure(kits()));
  auto h=c.spawn(-1,1,131,{0,0,0},150,.4);auto e=c.spawn(1,0,0,{0,0,20},100000,.4);c.unit(e)->frozen=100;
  auto close=c.spawn(2,0,0,{0,0,-10},100000,.4);c.unit(close)->frozen=100;
@@ -71,5 +77,48 @@ int main(){
  assert(c.set_mirror(h,3,7,3,{0,0,-1}));bool attacked=false;
  for(int i=0;i<60;++i){c.step(1.0/60);for(auto event:c.combat.events())if(event.action_index>=400)attacked=true;c.combat.clear_events();}
  assert(attacked&&c.unit(h)->position.z>0);
+ // Permanent recruits defend their territory and survive rest.
+ c.clear();c.set_navigation(NavigationData{});assert(c.combat.configure(kits()));
+ h=c.spawn(-1,1,131,{0,0,0},100,.4);c.set_guard(h,{0,0,0},18);
+ assert(c.set_mirror(h,3,7,3,{0,0,-1}));
+ e=c.spawn(1,0,0,{90,0,0},100000,1.3);c.unit(e)->frozen=100;
+ c.step(1.0/60);
+ assert(!c.unit(h)->target_handle&&!c.unit(h)->has_goal);
+ c.set_pose(e,{12,0,0},0);c.unit(h)->think_left=0;c.step(1.0/60);
+ assert(c.unit(h)->target_handle==e&&c.unit(h)->position.x>0);
+ c.set_pose(h,{8,0,0},0);c.set_pose(e,{90,0,0},0);c.unit(h)->think_left=0;c.step(1.0/60);
+ assert(!c.unit(h)->target_handle&&c.unit(h)->has_goal&&c.unit(h)->goal.x==0);
+ c.unit(h)->mirror_busy=true;c.rest_allies();
+ assert(c.valid(h)&&!c.valid(e)&&c.unit(h)->hp==100);
+ assert(c.unit(h)->mirror_actions==3&&c.unit(h)->mirror_speed==7&&c.unit(h)->mirror_reach==3&&c.unit(h)->mirror_busy);
+ c.unit(h)->mirror_busy=false;
+ e=c.spawn(2,0,0,{-90,0,0},100000,1.3);c.unit(e)->frozen=100;
+ c.step(1.0/60);assert(!c.unit(h)->target_handle&&c.unit(h)->has_goal);
+ c.set_pose(e,{-12,0,0},0);c.unit(h)->think_left=0;c.step(1.0/60);assert(c.unit(h)->target_handle==e);
+ // The normal temporary skill retains its local search and independent waiting.
+ c.set_pose(e,{-90,0,0},0);
+ auto temporary=c.spawn(-2,1,131,{0,0,0},100,.4);
+ assert(c.set_mirror(temporary,3,7,3,{0,0,-1}));c.step(1.0/60);
+ assert(!c.unit(temporary)->target_handle&&!c.unit(temporary)->has_goal);
+ // Hills and cover must allow pursuit without allowing attacks through a wall.
+ NavigationData hill;hill.origin={-120,0,-120};hill.width=81;hill.spacing=3;
+ hill.heights.resize(81*81);hill.covered.assign(81*81,1);
+ for(int z=0;z<81;++z)for(int x=0;x<81;++x)hill.heights[z*81+x]=x*.25f;
+ hill.obstacle_min={{-1,0,-12}};hill.obstacle_max={{1,30,12}};
+ for(int hz:{20,30,60}){
+  c.clear();c.set_navigation(hill);assert(c.combat.configure(kits()));
+  h=c.spawn(-1,1,131,{-2,118.0f/12,0},100,.4);c.set_guard(h,c.unit(h)->position,18);
+  assert(c.set_mirror(h,3,7,6,{0,0,-1}));
+  e=c.spawn(1,0,0,{2,122.0f/12,0},100000,1.3);c.unit(e)->frozen=100;
+  bool reached=false;
+  for(int i=0;i<hz*30;++i){
+   c.step(1.0/hz);
+   for(auto event:c.combat.events())if(event.action_index>=400){
+    assert(c.allied_terrain.ray_clear(c.unit(h)->position+Vec3{0,1,0},event.position));reached=true;
+   }
+   c.combat.clear_events();
+  }
+  assert(reached&&c.unit(h)->position.x>1);
+ }
  std::cout<<"ARMY_MIRROR_RESULT failures=0 choices="<<choices.size()<<"\n";
 }

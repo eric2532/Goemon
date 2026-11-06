@@ -165,6 +165,9 @@ func _original(slot: String)->AudioStream:
 	return SoundLibrary.original_for(14,slot)
 
 func _sync_audio():
+	if hero.ai_controlled and not game.move_audio.ally_nearby(game,hero.global_position):
+		for player in [charge,bed,loop]:player.stop()
+		return
 	var lib=game.sound_library
 	var pause=_paused()
 	if not releasing and not _charge_started and not pause:

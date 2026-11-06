@@ -142,11 +142,14 @@ func run():
 	check(skill.kick_vertical>0,"Original gravity turns the kick downward")
 	c.after_source_motion(true,false);check(not c.is_attacking(),"D-Kick lands without leaving movement locked")
 	# Five-slot routing keeps Grenade and held 3-Way in reach.
+	game.player.spell_loadout.equip(13,"special_4","musashi/grenade")
+	game.player.spell_loadout.equip(13,"special_5","musashi/three-way")
 	plant();var press=InputEventKey.new();press.physical_keycode=KEY_4;press.pressed=true;game.forest_ui._input(press)
-	check(c.action_key=="grenade","Forest HUD routes key4 to Grenade")
-	c.cancel();press.physical_keycode=KEY_5;game.forest_ui._input(press)
-	check(skill.held and c.action_key=="three_way","Forest HUD routes key5 to held3-Way")
-	press.pressed=false;game.forest_ui._input(press);check(not skill.held,"Forest HUD also routes key5 release")
+	check(game.player.spell_loadout.current.controller.action_key=="grenade","Forest HUD routes equipped key4 to Grenade")
+	game.player.spell_loadout.cancel();press.physical_keycode=KEY_5;game.forest_ui._input(press)
+	var equipped=game.player.spell_loadout.current.controller
+	check(equipped.assimilation.held and equipped.action_key=="three_way","Forest HUD routes equipped key5 to held3-Way")
+	press.pressed=false;game.forest_ui._input(press);check(not equipped.assimilation.held,"Forest HUD also routes key5 release")
 	c.cancel();game.player.select_character(1);game.forest_ui.sync()
 	check(game.forest_ui.loadout_buttons.size()==5,"Other fighters retain their existing five-slot layout")
 	game.player.select_character(13);game.forest_ui.sync()

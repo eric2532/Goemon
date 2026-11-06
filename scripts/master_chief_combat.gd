@@ -39,10 +39,12 @@ var rockets:Array[Dictionary]=[]
 var rocket_cursor=0
 var weapon_cooldowns=[0.0,0.0,0.0,0.0,0.0]
 var sword_swing:Dictionary={}
+var sword_brush:MeshInstance3D
 
 func _ready():
 	native_fx=load("res://scripts/halo_weapon_effects.gd").new()
 	native_fx.game=game;native_fx.hero=hero;add_child(native_fx)
+	sword_brush=preload("res://scripts/recovered_leader_trail.gd").new();sword_brush.light_color=Color("75dfff");add_child(sword_brush)
 	for i in ROCKET_POOL_SIZE:
 		var visual=load(GameAssets.model_path("res://assets/characters/master_chief/rocket_projectile.glb")).instantiate()
 		add_child(visual);visual.top_level=true;visual.hide()
@@ -62,6 +64,7 @@ func select_slot(slot:int):
 	# Preserve each weapon's recovery time; quick switching cannot bypass cadence.
 	weapon_cooldowns[weapon_slot-1]=maxf(0,cooldown)
 	sword_swing.clear()
+	if sword_brush!=null:sword_brush.clear()
 	primary_held=false;is_firing=false;weapon_slot=slot;cooldown=weapon_cooldowns[slot-1]
 	native_fx.cancel_ejection()
 	sync_viewmodel()
@@ -166,9 +169,16 @@ func fire_bullets(origin:Vector3,direction:Vector3,muzzle:Vector3,obstruction:Di
 			elif weapon_slot==4:amount*=2.0
 		target.take_hit(amount,hit_directions[target],false,hit_ticket);hit_marker_timer=.14
 func advance_sword(delta:float):
+	if sword_brush!=null:sword_brush.advance(delta,PackedVector3Array(),false,false)
 	if sword_swing.is_empty():return
 	var previous=float(sword_swing.age);var current=previous+maxf(0,delta)
 	sword_swing.age=current
+	if previous<SWORD_WINDUP and current>=SWORD_WINDUP:
+		var camera=game.camera_rig.camera
+		var origin=hero.global_position+Vector3.UP*1.5 if hero.mirror_copy else camera.global_position
+		var forward=hero.combat_attack_direction() if hero.mirror_copy else -camera.global_basis.z
+		var up=Vector3.UP if hero.mirror_copy else camera.global_basis.y
+		sword_brush.paint_arc(origin,origin+forward*Weapons.data(5).range,up,SWORD_SWEEP_ANGLE)
 	if not sword_swing.hit and current>=SWORD_WINDUP and previous<SWORD_CONTACT_END:
 		var start=maxf(previous,SWORD_WINDUP);var end=minf(current,SWORD_CONTACT_END)
 		# Sample the swept arc between physics frames, including a long frame
@@ -312,6 +322,7 @@ func blocks_movement()->bool:return false
 func protects_player()->bool:return false
 func cancel(_preserve_power:bool=false):
 	sword_swing.clear()
+	if sword_brush!=null:sword_brush.clear()
 	primary_held=false;is_firing=false;hit_marker_timer=0;headshot_marker_timer=0
 	# Keep recovery clocks when focus/menu interruption cancels input.
 	for item in rockets:retire_rocket(item)

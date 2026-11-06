@@ -1,0 +1,93 @@
+[
+  {
+    "token": "0-0",
+    "sha256": "1c42ceb1bc78c413d9305f9e7f6386f6078a056b4a34cd28c4171dbda550cc58",
+    "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-1fd2fa96-aaf5-430f-96b0-47602ffda39d.png",
+    "tool": "built-in image_gen",
+    "prompt_record": "Historical pilot/idle submission text was not retained verbatim. jobs.json records the intended redraw specification; this is not an exact submitted-prompt log."
+  },
+  {
+    "token": "0-1",
+    "sha256": "5d1984456cff751ef334699bfd9afabe65f0f23be6be3b39954ff6e0a1b93677",
+    "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-06a81bdf-eae0-4d35-97f0-9cfff7fc10af.png",
+    "tool": "built-in image_gen",
+    "prompt_record": "Historical pilot/idle submission text was not retained verbatim. jobs.json records the intended redraw specification; this is not an exact submitted-prompt log."
+  },
+  {
+    "token": "0-2",
+    "sha256": "aafb14b1a700ffac55c64567259c03d573a83b79164feec76dcad27ea1a79539",
+    "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-e34e3ee7-f8a0-4afd-acd7-1b5347efe302.png",
+    "tool": "built-in image_gen",
+    "prompt_record": "Historical pilot/idle submission text was not retained verbatim. jobs.json records the intended redraw specification; this is not an exact submitted-prompt log."
+  },
+  {
+    "token": "0-3",
+    "sha256": "82544af95e17272591dcf31a18eafc82a9ba1aab12f111a85c4cb3a70d65c4a2",
+    "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-093e0de2-7e3a-4a21-a9a5-31c82d71ceee.png",
+    "tool": "built-in image_gen",
+    "prompt_record": "Historical pilot/idle submission text was not retained verbatim. jobs.json records the intended redraw specification; this is not an exact submitted-prompt log."
+  },
+  {
+    "token": "0-5",
+    "sha256": "46a406120a772a0d3812c4f2938a0585866e61c1f4a94e55d0ab0655eb3baef9",
+    "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-94bdf5ca-613a-43f2-917d-a7b13fd9f06e.png",
+    "tool": "built-in image_gen",
+    "prompt_record": "Historical pilot/idle submission text was not retained verbatim. jobs.json records the intended redraw specification; this is not an exact submitted-prompt log."
+  },
+  {
+    "token": "0-7",
+    "sha256": "039619f96b5e051e04e4504e143aebdedfae023b9f9e5ee9b15dae764f5af84a",
+    "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-d7824d7e-0764-4661-ba76-002e53485666.png",
+    "tool": "built-in image_gen",
+    "prompt_record": "Historical pilot/idle submission text was not retained verbatim. jobs.json records the intended redraw specification; this is not an exact submitted-prompt log."
+  },
+  {
+    "token": "1-1",
+    "sha256": "0d7d9117399b8638d32b280f83d9338367a766653de144c3da85baf6bddc835f",
+    "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-86ba3681-6fa7-47a6-aead-af907a8f96fa.png",
+    "tool": "built-in image_gen",
+    "prompt_record": "Historical pilot/idle submission text was not retained verbatim. jobs.json records the intended redraw specification; this is not an exact submitted-prompt log."
+  },
+  {
+    "token": "1-5",
+    "sha256": "aa14233a6ba541a039d4056d898bf9ac0eeecfe450e866213019b5d6d61c6839",
+    "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-8764b2f4-9b23-4ec9-9e82-950782ccaeef.png",
+    "tool": "built-in image_gen",
+    "prompt_record": "Historical pilot/idle submission text was not retained verbatim. jobs.json records the intended redraw specification; this is not an exact submitted-prompt log."
+  },
+  {
+    "token": "10-5",
+    "sha256": "a2c240f6d13eaf69b02544d342b5e00f70bc7cc6f6a3fe4fb9cdb9d365d7ebad",
+    "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-d49fd497-3d5e-4c98-bc1f-c0635760c38d.png",
+    "tool": "built-in image_gen",
+    "prompt_record": "Historical pilot/idle submission text was not retained verbatim. jobs.json records the intended redraw specification; this is not an exact submitted-prompt log."
+  },
+  {
+    "token": "3-5",
+    "sha256": "e1d0ef1a9c44dc4885d641cf3d636f5650fcf7546ebff409026f30f8b029e1f3",
+    "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-a66cdf7f-f45a-49e8-88c2-bb1a996c2aaa.png",
+    "tool": "built-in image_gen",
+    "prompt_record": "Historical pilot/idle submission text was not retained verbatim. jobs.json records the intended redraw specification; this is not an exact submitted-prompt log."
+  },
+  {
+    "token": "5-1",
+    "sha256": "54c80a7326c4e2bac0426013548db468349defeb964381e8a8eda0f843959f4d",
+    "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-a96f8f6b-07f1-467c-a73e-f7b19efbd3bd.png",
+    "tool": "built-in image_gen",
+    "prompt_record": "Historical pilot/idle submission text was not retained verbatim. jobs.json records the intended redraw specification; this is not an exact submitted-prompt log."
+  },
+  {
+    "token": "5-5",
+    "sha256": "aa42dd4065709fbc84aae4501739822d902db3e3d96ab8c6a4f0d4188ac4973f",
+    "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-8e6fae99-4c01-4e71-80ca-eed8677eb39e.png",
+    "tool": "built-in image_gen",
+    "prompt_record": "Historical pilot/idle submission text was not retained verbatim. jobs.json records the intended redraw specification; this is not an exact submitted-prompt log."
+  },
+  {
+    "token": "6-5",
+    "sha256": "dd39d0a362d793d3e2dbd253bc611ea59af4b6549f92983ea8fa4a2709711cde",
+    "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-72245d91-8084-485a-a990-3613e057c8d4.png",
+    "tool": "built-in image_gen",
+    "prompt_record": "Historical pilot/idle submission text was not retained verbatim. jobs.json records the intended redraw specification; this is not an exact submitted-prompt log."
+  }
+]

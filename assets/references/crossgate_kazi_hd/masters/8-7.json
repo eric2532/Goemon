@@ -1,0 +1,11 @@
+{
+  "token": "8-7",
+  "prompt": "Precise weapon correction on image 1 only: this is a TWO columns x ONE row hit-reaction sprite sheet. Replace BOTH long blades with the approved SHORT CURVED DAGGER from image 2. Keep the current hilts and grips fixed, but make blade length only ONE HEAD WIDTH, about HALF its current length. Retain exactly both poses and their left side profile, identity, proportions, swept hair, marked face, white collar, charcoal split coat, gold buttons, black boots, purple sparks, cell placement, transparent background and sheet aspect. No other costume, face, body, animation or camera-view changes. No long swords. Clean sharp hand-painted game art; no background/text/grid/shadows. CRITICAL ORIENTATION: EXACT LEFT SIDE PROFILE: nose points horizontally image left, only one eye, one side of coat. Never frontal. Image 2 fixes the character view, head, face, costume and short curved DAGGER. The source image 1 supplies action/pose gestures and effects ONLY. Even if a source gesture turns frontal, redraw that gesture in the requested camera angle. Keep the same dagger shape and same anatomical right hand in every pose. No long sword. No extra face, change of view or front/rear flip during the animation. Feet alternate smoothly in walk/run; no repeated idle pose.",
+  "references": [
+    "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Cross Gate 102488/HD Preview/Rejected/8-7-blade-view-draft.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/masters/0-7.png"
+  ],
+  "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-4638c933-2a95-4437-8cf8-e2c4b4cafd21.png",
+  "tool": "built-in image_gen",
+  "sha256": "ecb688779b3ce3b8afd497311669447be045ef7946f8bfc1da1de1abf5d1455c"
+}

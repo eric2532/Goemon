@@ -84,7 +84,7 @@ func completed_repairs_release_workers():
 	m.update_vision(m.point(Vector2i(7,3)))
 	var tower=m.build("tower",Vector2i(10,4),0)
 	m.gold=0;m.phase="wave";work(m,.6)
-	check(m.workforce.count_job(door.id)==0 and m.workforce.count_job(tower.id)==3,"Workers avoid unaffordable repairs and staff available defenses")
+	check(m.workforce.count_job(door.id)==0 and m.workforce.count_job(tower.id)==0,"Workers avoid unaffordable repairs and autonomous towers")
 
 func unusable_assignments_find_new_work():
 	var m=fresh();var w=only_worker(m)
@@ -104,7 +104,7 @@ func unusable_assignments_find_new_work():
 	for i in range(200):
 		m.workforce.tick(.1,m.hero_position)
 		if w.job==tower.id:returned_to_tower=true
-	check(not returned_to_tower and w.state=="retreat","An evacuated tower crew waits safely while its saved tower is still collapsing")
+	check(not returned_to_tower and w.state=="idle","Workers remain free even when a nearby tower is collapsing")
 
 func depleted_and_removed_jobs_preserve_cargo():
 	var m=fresh();var w=only_worker(m)
@@ -114,7 +114,7 @@ func depleted_and_removed_jobs_preserve_cargo():
 	var before=m.gold
 	work(m,30)
 	check(m.deposits[mine.cell]==0 and m.gold==before+10,"The final finite mine load reaches the treasury exactly once")
-	check(w.job==tower.id and w.state=="garrison","A depleted mine releases its last worker to a productive tower job")
+	check(w.job==-1 and w.state=="idle","A depleted mine releases its last worker without staffing an automatic tower")
 	m=fresh();w=only_worker(m);mine=m.build("mine",Vector2i(-5,1),0)
 	w.pos=m.point(m.entry(mine));m.workforce.assign_idle(mine.id);m.phase="wave"
 	work(m,5.1)
@@ -124,10 +124,10 @@ func depleted_and_removed_jobs_preserve_cargo():
 
 func manual_orders_and_wounds():
 	var assigned_model=fresh();var assigned_worker=only_worker(assigned_model)
-	var assigned_tower=assigned_model.build("tower",Vector2i(4,5),0)
+	var assigned_tower=assigned_model.build("mine",Vector2i(5,1),0)
 	assigned_model.build("mine",Vector2i(-5,1),0)
 	assigned_model.workforce.assign_idle(assigned_tower.id);assigned_model.phase="wave";work(assigned_model,15)
-	check(assigned_worker.job==assigned_tower.id and assigned_worker.state=="garrison","A manual tower assignment remains in place when higher-priority mining work is available")
+	check(assigned_worker.job==assigned_tower.id and assigned_worker.state in ["mine","deliver","travel"],"A manual mine assignment remains in place when other mining work is available")
 	var m=fresh();var w=only_worker(m)
 	var mine=m.build("mine",Vector2i(-5,1),0)
 	w.pos=m.point(m.entry(mine));m.workforce.assign_idle(mine.id);m.phase="wave"
@@ -158,7 +158,7 @@ func preparation_reserves_without_production():
 	m=fresh();m.shrine().hp-=100;before=m.gold;var hp=m.shrine().hp
 	if m.workforce.has_method("prepare_tick"):
 		for i in range(100):m.workforce.prepare_tick(.1)
-	check(m.gold==before-10 and m.shrine().hp==hp+100,"Workers finish preparation repairs and spend only the ten ryo required to restore 100 health")
+	check(m.gold==before-8 and m.shrine().hp==hp+100,"Workers finish preparation repairs and spend only the eight ryo required to restore 100 health")
 
 func explicit_reassignment():
 	var m=fresh()
@@ -167,37 +167,40 @@ func explicit_reassignment():
 	var west=m.build("mine",Vector2i(-5,1),0)
 	var east=m.build("mine",Vector2i(5,1),0)
 	work(m,20)
-	var tower=m.build("tower",Vector2i(4,5),0)
-	check(m.workforce.assign_workers(tower.id)==3,"A new tower receives three workers even when both mines hold every worker")
+	var tower=m._make_building("mine",Vector2i(4,5),0);m.deposits[tower.cell]=1200;m.rebuild_navigation()
+	check(m.workforce.assign_workers(tower.id)==3,"A new mine receives three workers even when both mines hold every worker")
 	check(m.workforce.count_job(west.id)==3 and m.workforce.count_job(east.id)==0,"The redirect chooses the nearer active miners and leaves the distant mine productive")
 	check(m.workforce.assign_workers(tower.id)==0 and m.workforce.count_job(tower.id)==3,"Repeated explicit assignments never exceed the selected building capacity")
 	work(m,20)
-	check(m.workforce.count_job(tower.id)==3 and m.workforce.count_job(west.id)==3,"Automatic work preserves the explicit tower assignment and the remaining productive mine crew")
+	check(m.workforce.count_job(tower.id)==3 and m.workforce.count_job(west.id)==3,"Automatic work preserves the explicit mine assignment and the remaining productive mine crew")
 
 	m=fresh();west=m.build("mine",Vector2i(-5,1),0);east=m.build("mine",Vector2i(5,1),0);work(m,20)
-	tower=m.build("tower",Vector2i(4,5),0)
+	tower=m._make_building("mine",Vector2i(4,5),0);m.deposits[tower.cell]=1200;m.rebuild_navigation()
 	m.workforce.recruit(true);m.workforce.recruit(true)
 	var idle_ids=[]
 	for w in m.workers.values():
 		if w.state=="idle":idle_ids.append(w.id);w.pos=m.point(Vector2i(13,12))
 	m.workforce.assign_workers(tower.id)
 	check(idle_ids.size()==2 and idle_ids.all(func(id):return m.workers[id].job==tower.id),"Explicit reassignment uses idle workers before interrupting nearer productive crews")
-	check(m.workforce.count_job(west.id)+m.workforce.count_job(east.id)==5,"Only the remaining empty tower slot redirects an active miner")
+	check(m.workforce.count_job(west.id)+m.workforce.count_job(east.id)==5,"Only the remaining empty mine slot redirects an active miner")
 
-	m=fresh();var carrier=only_worker(m);west=m.build("mine",Vector2i(-5,1),0);tower=m.build("tower",Vector2i(4,5),0)
+	m=fresh();var carrier=only_worker(m);west=m.build("mine",Vector2i(-5,1),0);tower=m._make_building("mine",Vector2i(4,5),0);m.deposits[tower.cell]=1200;m.rebuild_navigation()
 	carrier.pos=m.point(m.entry(west));m.workforce.assign_idle(west.id);m.phase="wave";work(m,5.1);m.phase="preparing"
 	var before=m.gold
 	check(carrier.cargo==10 and m.workforce.assign_workers(tower.id)==1 and carrier.cargo==10,"Redirecting a carrier preserves its freshly mined load")
 	work(m,20)
-	check(m.gold==before+10 and carrier.cargo==0 and carrier.job==tower.id and carrier.state=="garrison","The redirected miner deposits gold before taking up the tower job")
-	var origin: Vector3=carrier.pos;var entrance=m.point(m.entry(tower))
-	check(m.workforce.assign_workers(west.id)==1 and carrier.pos==origin,"Redirecting a garrison reserves its new job without teleporting off the deck")
+	check(m.gold==before+10 and carrier.cargo==0 and carrier.job==tower.id and carrier.state=="mine","The redirected miner deposits gold before taking up the mine job")
+	# A historical garrison can still leave its former deck safely.
+	var old_tower=m._make_building("tower",Vector2i(8,5),0);m.rebuild_navigation()
+	carrier.job=old_tower.id;carrier.state="garrison";carrier.pos=m.center(old_tower)
+	var origin: Vector3=carrier.pos;var entrance=m.point(m.entry(old_tower))
+	check(m.workforce.assign_workers(west.id)==1 and carrier.pos==origin,"Redirecting an old garrison preserves its exit position")
 	m.workforce.prepare_tick(.1)
-	check(carrier.pos.distance_to(origin)<1.0 and carrier.pos.distance_to(entrance)<origin.distance_to(entrance) and carrier.get("deck_height",0)>0,"A redirected garrison descends gradually toward its old tower entrance")
+	check(carrier.pos.distance_to(origin)<1.0 and carrier.pos.distance_to(entrance)<origin.distance_to(entrance) and carrier.get("deck_height",0)>0,"An old garrison descends gradually toward its former entrance")
 	work(m,20)
-	check(carrier.job==west.id and carrier.state=="mine" and not carrier.has("exit_point"),"The redirected garrison completes its exit and reaches the new workplace")
+	check(carrier.job==west.id and carrier.state=="mine" and not carrier.has("exit_point"),"The old garrison completes its exit and reaches the new workplace")
 
-	m=fresh();tower=m.build("tower",Vector2i(4,5),0)
+	m=fresh();tower=m._make_building("mine",Vector2i(4,5),0);m.deposits[tower.cell]=1200;m.rebuild_navigation()
 	var protected=m.workers.values()
 	for i in range(4):protected[i].state=["wounded","retreat","follow","move"][i]
 	protected[2].follow=true

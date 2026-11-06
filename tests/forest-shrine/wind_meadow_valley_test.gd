@@ -13,35 +13,15 @@ func run():
  check(model.terrain_source=="wind_meadow" and model.has_enemy_camps() and not model.enemy_camps_prototype,"Valley uses production terrain and camp contracts")
  check(model.portals.size()==4 and model.active_enemy_camps()==4 and model.enemy_statue.is_empty(),"Four cardinal castles are the only enemy objectives")
  check(model.has_enemy_castles() and model.navigation_region.size==Vector2i(160,160),"The playable map has four times the ground area")
- var old=document.data.duplicate(true);old.terrain_scale=1.0;old.trees=[];old.roads=[]
+ var old=document.data.duplicate(true);old.terrain_scale=1.0;old.trees=[];old.roads=[];old.erase("raised_castle")
  for i in 4:
   old.portals[i].x=int(preload("res://scripts/forest/forest_wind_meadow_layout.gd").CLEARINGS[i].x/6);old.portals[i].z=int(preload("res://scripts/forest/forest_wind_meadow_layout.gd").CLEARINGS[i].z/6)
  var legacy=preload("res://scripts/forest/forest_model.gd").new();legacy.reset(42,{},old,false)
  check(not legacy.has_enemy_castles() and legacy.terrain.width==161 and legacy.portals[0].spawn_distance==24,"Earlier saved valleys retain their original terrain and barracks")
  check(Document.validate(old).is_empty(),"Earlier valley maps still validate")
  check(model.waves.active_cap()==240,"Normal native army cap stays unchanged")
- var original=JSON.parse_string(FileAccess.get_file_as_string(Document.FOUR_GATES_PATH))
- var castle_ok=true
- var current=document.data.buildings.filter(func(b):return b.kind!="mine");var expected=original.buildings.filter(func(b):return b.kind!="mine")
- castle_ok=current.size()==expected.size()
- for i in mini(current.size(),expected.size()):
-  for key in ["kind","x","z","rotation","span"]:castle_ok=castle_ok and current[i][key]==expected[i][key]
- check(castle_ok,"The central castle reuses the complete square four-gate fort")
- var fort={}
- var gates=model.buildings.values().filter(func(b):return b.kind=="gate")
- check(gates.size()==4 and model.buildings.values().filter(func(b):return b.kind=="tower").size()==8,"One gate and two defensive towers per side")
- for b in model.buildings.values():
-  if b.kind in ["wall","gate"]:
-   for cell in model.footprint(b.kind,b.cell,b.rotation,b.get("span",0)):fort[cell]=b.kind
- check(fort.keys().all(func(c):return fort.get(Vector2i(-c.y,c.x),"")==fort[c]),"Castle perimeter is square and rotationally centered on the statue")
- check(model.center(model.shrine())==Vector3.ZERO,"The statue remains at the exact center of the square")
- for x in range(-8,9):
-  for z in range(-8,9):
-   if absi(x)==8 or absi(z)==8:check(fort.has(Vector2i(x,z)),"Square perimeter has no unintended opening at "+str(Vector2i(x,z)))
- for gate in gates:
-  var center:Vector3=model.center(gate)
-  check(preload("res://scripts/forest/forest_wind_meadow_layout.gd").road_distance(Vector2(center.x,center.z),model.terrain_scale)<.001,"Every gate meets a valley road")
-  check(not model.route(model.shrine_entry(),gate.cell).is_empty(),"Every gate connects to the statue courtyard")
+ check(document.data.buildings.is_empty() and model.buildings.size()==1 and model.shrine().kind=="shrine","The bundled opening contains only the Goemon statue")
+ check(model.center(model.shrine()).is_equal_approx(Vector3(0,preload("res://scripts/forest/forest_wind_meadow_layout.gd").CASTLE_HEIGHT,0)),"The statue remains centered on the raised courtyard")
  var field=preload("res://scripts/forest/crowd/army_runtime.gd").navigation_data(model)
  check(field.width==321 and field.origin==Vector3(-480,0,-480) and field.heights==model.terrain.heights,"Native armies borrow the same baked terrain")
  model.waves.navigation.terrain_corridors._refresh(model)
@@ -63,7 +43,8 @@ func run():
  var handles=PackedInt64Array();var goals=PackedVector3Array();var speeds=PackedFloat32Array()
  for i in 4:
   var p:Vector3=model.waves.routes.exit_point(model.portals[i],0);p.y=model.surface_height(p.x,p.z)
-  handles.append(runtime.spawn(1000+i,0,0,p,100,1.3));goals.append([Vector3(-3,0,-60),Vector3(60,0,-3),Vector3(3,0,60),Vector3(-60,0,3)][i]);speeds.append(6)
+  var goal:Vector3=[Vector3(-3,0,-60),Vector3(60,0,-3),Vector3(3,0,60),Vector3(-60,0,3)][i];goal.y=model.surface_height(goal.x,goal.z)
+  handles.append(runtime.spawn(1000+i,0,0,p,100,1.3));goals.append(goal);speeds.append(6)
  for tick in 12000:runtime.step(1.0/60,{"goal_handles":handles,"goal_positions":goals,"goal_speeds":speeds})
  var snapshot:Dictionary=runtime.snapshot()
  for i in handles.size():
@@ -86,12 +67,7 @@ func run():
  for batch:MultiMeshInstance3D in game.world.forest_root.find_children("*","MultiMeshInstance3D",true,false):
   if batch.get_meta("wind_meadow_canopy",false):tree_count+=batch.multimesh.instance_count;tree_batches+=1
  check(tree_count==game.model.trees.size() and tree_batches>1,"Spatial tree batches retain every authored tree")
- var gate:Node3D
- for b in game.model.buildings.values():
-  var node:Node3D=game.world.structure_nodes[b.id]
-  if b.kind=="gate":gate=node.get_node("GateDoor")
-  if b.kind=="tower":check(node.get_node("TowerDeck")!=null and node.find_child("WindMeadowAsset",true,false)!=null,"New tower retains its existing deck collider")
- check(gate!=null and gate.get_node("PaintedLeaf")!=null and gate.get_node("GateDoorCollider")!=null,"New gate retains its moving collider and painted leaf")
+ check(game.world.structure_nodes.size()==1 and game.world.structure_nodes.has(game.model.shrine().id),"Normal Play renders only the starting statue")
  check(game.world.playable_bounds.size==Vector2(936,936),"Player movement reaches the enlarged battlefield")
  check(game.preparation_map_frame().size==1070 and game.preparation_zoom_limits().y==1200,"Overview and zoom cover the larger map")
  for target in game.enemy_objectives:

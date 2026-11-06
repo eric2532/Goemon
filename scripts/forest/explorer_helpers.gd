@@ -1,13 +1,13 @@
 extends Node
-## Paid mercenaries spawn at the castle and defend their nearby guard area.
+## Paid mercenaries defend the castle and its four surrounding hills.
 const Unit=preload("res://scripts/forest/crowd/army_helper_unit.gd")
 const KITS=[8,10,5,7,11]
 const COUNTS=[1,1,1,1,1]
 const COSTS=[120,60,60,150,80]
-const GUARD_RADIUS=18.0
+const GUARD_RADIUS=140.0
 const NAMES=["Dragoon","Ranger","Ninja","Knight","Explorer"]
 const HEALTH=[200,100,100,500,200]
-const HEROES=[1,13,28,31,32]
+const HEROES=[1,13,28,31,32,33]
 var legendary_heroes
 const LABELS=["Dragoon · 200 HP · Spear combat","Ranger · 100 HP · Rapid shots","Ninja · 100 HP · Shadow Cut","Knight · 500 HP · Shield counters","Explorer · 200 HP · Blade combos"]
 var game
@@ -207,32 +207,35 @@ func castle_point(slot:int,reward:bool,spacing:float=1.4)->Vector3:
     if legendary_heroes!=null and legendary_heroes.bodies.any(func(body):return body.leased and body.position.distance_to(stand_point(point))<maxf(spacing,clampf(body.model.scale.x*1.25,1.4,8.0))):continue
     if placement_error(slot,point,0,reward).is_empty():return stand_point(point)
  return Vector3.INF
-func grant_hero(rng:RandomNumberGenerator)->bool:
- var previous=rng.state;var character:int=HEROES[rng.randi_range(0,HEROES.size()-1)]
+func grant_hero(character:int)->bool:
+ if character not in HEROES or not game.playing or game.model.phase not in ["preparing","wave"]:return false
  var point=castle_point(0,true,clampf(game.balance_value(character,"model_scale")*1.25,1.4,8.0))
- if not point.is_finite():rng.state=previous;game.toast("No clear space for a hero · Choose another card");return false
+ if not point.is_finite():game.toast("No clear space for a hero · Choose another card");return false
  if not legendary_heroes.reinforce(character,point):
-  rng.state=previous;game.toast("Hero could not arrive · Choose another card");return false
+  game.toast("Hero could not arrive · Choose another card");return false
  return true
-func grant_random(count:int,rng:RandomNumberGenerator)->bool:
- var previous=active_units();var rng_state=rng.state;var serial=summon_serial
+func grant_company(count:int,slot:int)->bool:
+ if count<=0 or slot<0 or slot>=KITS.size():return false
+ var previous=active_units();var serial=summon_serial
  if previous.size()+count>2000:game.toast("Ally limit reached · Choose another card or make room");return false
  for i in count:
-  if request(rng.randi_range(0,KITS.size()-1),true):continue
+  if request(slot,true):continue
   # Keep the card unspent if any recruit cannot safely arrive.
   for unit in active_units():
    if not previous.has(unit):unit.park()
-  rng.state=rng_state;summon_serial=serial;sync_targets();return false
+  summon_serial=serial;sync_targets();return false
  return true
 func begin_placement(slot:int)->bool:
  if slot<0 or slot>=KITS.size() or not available():return false
  if game.model.gold<COSTS[slot]:game.toast("Need %d ryo to hire a %s"%[COSTS[slot],NAMES[slot]]);return false
- if not game.model.can_recruit(2):game.toast("Need 2 food · Build a barracks");return false
+ if not game.model.can_recruit(2):game.toast("Need 2 food · Build a farm");return false
  if active_units().size()>=2000:game.toast("Ally limit reached");return false
  cancel_placement(false);selected_slot=slot
  game.build_kind="";game.world.preview.hide();game.forest_ui.selected_id=-1
  game.toast("%s · %d ryo · Click clear ground to assign a guard post"%[NAMES[slot],COSTS[slot]])
  return true
+func guard_radius()->float:return GUARD_RADIUS*game.model.terrain_scale
+func guard_center()->Vector3:return game.model.center(game.model.shrine())
 func stand_point(point:Vector3)->Vector3:
  return Vector3(point.x,game.model.surface_height(point.x,point.z)+.12,point.z)
 func placement_error(slot:int,point:Vector3,exclude:int=0,reward:bool=false)->String:
@@ -243,7 +246,7 @@ func placement_error(slot:int,point:Vector3,exclude:int=0,reward:bool=false)->St
  if not point.is_finite():return "Choose clear ground"
  if exclude==0:
   if not reward and game.model.gold<COSTS[slot]:return "Not enough ryo"
-  if not reward and not game.model.can_recruit(2):return "Need 2 food · Build a barracks"
+  if not reward and not game.model.can_recruit(2):return "Need 2 food · Build a farm"
   if active_units().size()>=2000:return "Ally limit reached"
  var m=game.model;var cell=m.cell_of(point)
  if not m.ALLIED_REGION.has_point(cell):return "Beyond the settlement boundary"
@@ -273,7 +276,7 @@ func purchase(slot:int,point:Vector3,reward:bool=false)->bool:
  if not reward:game.model.gold-=COSTS[slot]
  summon_serial+=1
  cancel_placement(false);sync_targets();game.forest_ui.sync()
- if not reward:game.toast("%s hired · %d ryo · Defending the castle"%[NAMES[slot],COSTS[slot]])
+ if not reward:game.toast("%s hired · %d ryo · Defends the castle and four hills"%[NAMES[slot],COSTS[slot]])
  return true
 func relocate(actor_id:int,point:Vector3)->bool:
  var unit=target_actor(actor_id)
@@ -284,11 +287,11 @@ func relocate(actor_id:int,point:Vector3)->bool:
  game.toast("Guard post moved · No charge")
  return true
 func guard_target_allowed(_unit,enemy)->bool:
- return valid_target(enemy)
+ return valid_target(enemy) and maxf(absf(enemy.global_position.x-guard_center().x),absf(enemy.global_position.z-guard_center().z))<=guard_radius()
 func closest_guard_target(unit):
  # Share the spatial snapshot and refine only competitive native contacts.
- # Preparation posts no longer limit combat acquisition or pursuit.
- return closest_target(unit.global_position)
+ var rows=melee_candidates(guard_center(),guard_radius()).filter(func(row):return guard_target_allowed(unit,row.enemy))
+ return _closest_from_rows(rows,unit.global_position,INF)
 func ally_at(point:Vector3):
  var best=null;var distance=3.0*3.0
  for unit in active_units():
@@ -331,13 +334,15 @@ func update_placement_preview():
  placement_hint=(NAMES[slot]+" · "+("%d ryo · "%COSTS[slot] if selected_slot>=0 else "Move post · ")+"Click to assign · Right-click / Esc cancel") if error.is_empty() else error
  show_guard_area(point,error.is_empty())
 func show_guard_area(point:Vector3,valid:bool):
+ point=guard_center()
  preview_material.albedo_color=Color("83d9ac") if valid else Color("eb775f")
  if not point.is_equal_approx(preview_position):
   preview_position=point
   var mesh=ImmediateMesh.new();mesh.surface_begin(Mesh.PRIMITIVE_LINES)
   for i in 64:
    for angle in [TAU*i/64.0,TAU*(i+1)/64.0]:
-    var offset=Vector3(cos(angle),0,sin(angle))*GUARD_RADIUS
+    var offset=Vector3(cos(angle),0,sin(angle))
+    offset*=guard_radius()/maxf(absf(offset.x),absf(offset.z))
     offset.y=game.model.surface_height(point.x+offset.x,point.z+offset.z)-game.model.surface_height(point.x,point.z)+.2
     mesh.surface_add_vertex(offset)
   mesh.surface_end();guard_preview.mesh=mesh

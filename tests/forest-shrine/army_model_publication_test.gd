@@ -14,12 +14,16 @@ func run():
  var army=game.army_runtime;army.profile_enabled=true
  var row:Dictionary=game.model.waves.spawn_enemy(0,Vector3(-60,0,60));var far:Dictionary=game.model.waves.spawn_enemy(1,Vector3(100,0,-100));army.import_arrivals();army.sync_compatibility()
  var actor=game.actors[row.id];var handle:int=actor.handle
+ var gate:Dictionary=game.model.buildings.values().filter(func(b):return b.kind=="gate")[0]
  var readers={
   "world tick":func():game.model.tick(0,game.player.position),
   "minimap":func():game.forest_ui.enemy_minimap.refresh(),
   "tower candidates":func():game.model.workforce.tower_candidates(actor.position),
   "worker threat":func():check(game.model.workforce.threatened(actor.position+Vector3.RIGHT),"Worker threat reads the current native position without model copies"),
-  "gate repair":func():game.model.close_repaired_gate(-999),
+  "invalid gate repair":func():check(not game.model.close_repaired_gate(-999),"Missing gates reject repair"),
+  "gate repair":func():
+   gate.breached=true;gate.hp=gate.max_hp
+   check(game.model.close_repaired_gate(gate.id) and not gate.breached,"A fully repaired empty gate closes after reading current enemies"),
   "portal spawn capture":func():game.model.waves.begin_spawn_query();game.model.waves.end_spawn_query(),
   "spawn clearance":func():game.model.waves.spawn_space_clear(Vector3(-60,0,60),1.3),
   "tower arrow simulation":func():
@@ -38,7 +42,7 @@ func run():
   check(row.pos==old_point,label_+": unused model row was not rewritten by physics")
   var before:int=army.model_rows_publications;var writes:int=army.model_rows_written;var far_before:Vector3=far.pos
   readers[label_].call()
-  if label_ in ["world tick","minimap","worker threat"]:
+  if label_ in ["world tick","minimap","worker threat","invalid gate repair"]:
    check(row.pos==old_point and army.model_rows_publications==before,label_+": packed/native readers create no model copies")
    if label_=="minimap":check(game.forest_ui.enemy_minimap.markers[0].is_equal_approx(game.forest_ui.enemy_minimap.map_position(point)),"Minimap reads current packed positions in original model order")
   else:

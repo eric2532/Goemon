@@ -86,5 +86,46 @@ int main(){
  auto worker=point(50,{-12,0,20});c.combat.set_targets({worker});choose();Vec3 foot;
  worker.foot=worker.minimum=worker.maximum={-12,0,30};c.combat.set_targets({worker});assert(TargetDecisionTest::foot(c,u,foot)&&foot.z==30);++checks;
  worker.hp=0;c.combat.set_targets({worker});choose();assert(u.external_kind<0);
+ // March on the castle; only nearby military buildings interrupt the assault.
+ nav=ground();c.set_navigation(nav);c.set_pose(h,{-30,0,0},0);
+ shrine=building(20,{20,0,-4},{28,10,4},2);
+ auto barracks=building(70,{60,0,-4},{68,12,4},4),tower=building(71,{-4,0,20},{4,18,28},4);
+ c.combat.set_targets({shrine,barracks,tower});choose();assert(u.external_kind==2&&u.external_target==20);
+ c.set_pose(h,{-10,0,20},0);choose();assert(u.external_target==71);
+ worker=point(50,{-9,0,20});c.combat.set_targets({worker,shrine,barracks,tower});choose();assert(u.external_target==71);
+ tower.hp=0;c.combat.set_targets({shrine,barracks,tower});choose();assert(u.external_target==20);
+ tower.hp=100;tower.targetable=false;c.combat.set_targets({shrine,tower});choose();assert(u.external_target==20);
+ tower.targetable=true;barracks=building(70,{-8,0,30},{0,12,38},4);c.combat.set_targets({shrine,barracks});choose();assert(u.external_target==70);
+ c.set_pose(h,{-50,0,20},0);choose();assert(u.external_target==20);
+ // Measure aggro from the footprint edge, including the exact 28-unit boundary.
+ c.set_pose(h,{-32,0,20},0);c.combat.set_targets({shrine,tower});choose();assert(u.external_target==71);
+ c.set_pose(h,{-32.1f,0,20},0);choose();assert(u.external_target==20);
+ hero=point(0,{-30,0,20},0);c.combat.set_targets({shrine,tower,hero});choose();assert(u.external_kind==0);
+ c.combat.set_targets({shrine,tower});defender=c.spawn(-3,1,11,{-30,0,20},100,.4);choose();assert(u.target_handle==defender);c.despawn(defender);
+ hero.taunting=true;c.combat.set_targets({shrine,tower,hero});choose();assert(u.external_kind==0);
+ hero.taunting=false;u.retaliation=4;u.retaliation_source=0;c.combat.set_targets({shrine,tower,hero});choose();assert(u.external_kind==0);u.retaliation=0;
+ // Sealed nearby defenses cannot pin an assault: breach the gate first.
+ c.set_pose(h,{-24,0,0},0);enclose(nav);c.set_navigation(nav);
+ tower=building(71,{-2,0,-2},{2,18,2},4);shrine=building(20,{-2,0,-2},{2,10,2},2);gate=building(21,{-9,0,-9},{-3,20,9},1);
+ c.combat.set_targets({tower,shrine,gate});choose();assert(u.external_target==21);
+ nav.obstacle_min.erase(nav.obstacle_min.begin());nav.obstacle_max.erase(nav.obstacle_max.begin());c.set_navigation(nav);
+ c.combat.set_targets({tower,shrine});choose();assert(u.external_target==71);
+ tower.hp=0;c.combat.set_targets({tower,shrine});choose();assert(u.external_target==20);
+ // With no reachable contact, advance toward the main base on clear ground.
+ nav=ground();enclose(nav);c.set_navigation(nav);c.set_pose(h,{-48,0,0},0);
+ c.combat.set_targets({shrine});choose();assert(u.external_kind<0&&u.has_goal&&u.base_marching);
+ assert(horizontal(u.target_goal,shrine.foot)<horizontal(u.position,shrine.foot));
+ assert(c.terrain.reachable(u.position,u.target_goal,u.radius,0));
+ auto distant_worker=point(90,{-48,0,70});auto distant_ally=c.spawn(-90,1,11,{-48,0,80},100,.4);
+ c.combat.set_targets({shrine,distant_worker});choose();assert(u.external_kind<0&&u.has_goal);c.despawn(distant_ally);
+ auto staging=u.target_goal;choose();assert(length(staging-u.target_goal)<.001f); // reuse without inventing a combat target
+ c.combat.set_targets({shrine,gate});choose();assert(u.external_target==21&&!u.base_marching);
+ // Death and stealth discard the old target and immediately resume the base assault.
+ nav=ground();c.set_navigation(nav);c.set_pose(h,{-30,0,0},0);
+ shrine=building(20,{20,0,-4},{28,10,4},2);hero=point(0,{-28,0,0},0);
+ c.combat.set_targets({shrine,hero});choose();assert(u.external_kind==0);
+ hero.targetable=false;c.combat.set_targets({shrine,hero});choose();assert(u.external_kind==2&&u.external_target==20);
+ hero.targetable=true;hero.hp=0;c.combat.set_targets({shrine,hero});choose();assert(u.external_target==20);
+ c.combat.set_targets({});choose();assert(!u.has_goal&&u.external_kind<0);
  std::cout<<"ARMY_TARGET_DECISION_RESULT checks="<<checks<<" failures=0\n";
 }

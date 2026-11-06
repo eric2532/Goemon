@@ -86,5 +86,23 @@ int main(int argc,char** argv){
         for(int i=0;i<8;++i){float distance=20+float(i)*3;Vec3 p=side<2?Vec3{side==0?-distance:distance,0,0}:Vec3{0,0,side==2?-distance:distance};c.spawn(i+1,0,0,p,192,1.3);}
         assert(attackers(c,2400).size()==8);
     }
+    // A local tower can replace the shrine while the route first moves away from its cliff.
+    for(int half_width:{12,21}){
+        NavigationData d;d.origin={-180,0,-180};d.width=121;d.spacing=3;
+        d.heights.assign(121*121,0);d.covered.assign(121*121,1);
+        for(int z=0;z<121;++z)for(int x=0;x<121;++x){
+            float px=x*3-180,pz=z*3-180;
+            if(std::abs(px)<=54&&std::abs(pz)<=54)d.heights[z*121+x]=32;
+            else if(px>54&&std::abs(pz+3)<=half_width)d.heights[z*121+x]=32*std::clamp((150-px)/96,0.0f,1.0f);
+        }
+        ExternalTarget tower;tower.id=24;tower.kind=2;tower.hp=1e9;tower.minimum={27,32,15};tower.maximum={39,42,27};tower.foot={33,32,21};tower.assault_priority=4;
+        ExternalTarget shrine;shrine.id=1;shrine.kind=2;shrine.hp=1e9;shrine.minimum={-9,32,-9};shrine.maximum={9,48,9};shrine.foot={0,32,0};shrine.assault_priority=2;
+        d.obstacle_min={tower.minimum,shrine.minimum};d.obstacle_max={tower.maximum,shrine.maximum};
+        d.ray_min=d.obstacle_min;d.ray_max=d.obstacle_max;d.ray_owner={24,1};
+        c.configure(128,2000);c.set_navigation(d);auto data=kits();data.soldier_profiles[1]=5.2f;
+        assert(c.combat.configure(data));c.combat.set_targets({tower,shrine});
+        c.spawn(78,0,0,{120,0,78},192,1.3f);c.spawn(79,0,0,{102,0,84},192,1.3f);
+        assert(attackers(c,12000,24).size()==2 && "Retargeting must not trap troops against a raised castle's side");
+    }
     std::cout<<"ARMY_FORMATION_RESULT failures=0\n";
 }

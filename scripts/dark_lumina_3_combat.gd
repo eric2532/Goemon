@@ -11,7 +11,6 @@ const SWORD_SECTIONS=[
  {"clip":"Source__801ef3b8","start":16,"ticks":16,"contact":7}]
 var move=0
 var origin=Vector3.ZERO
-var bursting_drop=0
 var combo=-1
 var combo_timer=0.0
 var queued_cut=false
@@ -23,7 +22,8 @@ func prepare_projectiles():
  Pool.service(game).warm(hero,WaveShot,"dust",{"kind":"dust"},128)
  game.sound_library.gain_for(30,"finale_cast")
  # Consecutive airborne queues at maximum pickup speed overlap eight Fire volleys.
- for i in [0,1,2,3,5]:Pool.service(game).warm(hero,FinaleShot,"finale%d"%i,{"kind":i},256 if i==3 else 32 if i==2 else Finale.WIND_POOL if i==1 else 8)
+ # Water reserves prepared leases for overlapping five-way contact splits.
+ for i in [0,1,2,3,5]:Pool.service(game).warm(hero,FinaleShot,"finale%d"%i,{"kind":i},256 if i==3 else 128 if i==2 else Finale.WIND_POOL if i==1 else 8)
 func input(event:InputEvent):
  if not active or event.is_echo() or hero.dodge_time>0:return
  if event is InputEventKey and event.pressed:
@@ -66,7 +66,6 @@ func start_move(index:int):
   return
  if is_attacking():return
  origin=hero.global_position
- bursting_drop=randi_range(0,5)
  move=index;mode="attack";elapsed=0;marker=0;reaction=0;hits.clear()
  earth_waves=1 if move==4 else 0
  spell_casts=1 if move in [1,2,3] else 0
@@ -101,7 +100,7 @@ func tick(delta:float,after_pose:bool=false):
  while marker<mini(floori(elapsed*30)+1,roundi(duration*30)):
   var source_tick=marker%Finale.moves[move].size() if move in [1,2,3] else marker
   if source_tick==0 and marker>0:
-   hits.clear();bursting_drop=randi_range(0,5)
+   hits.clear()
    cue(31,hero.global_position);cue(move,hero.global_position)
   var frame=Finale.frame(move,source_tick)
   var event:int=frame.event
@@ -152,7 +151,7 @@ func release_event(event:int,tick_:int):
   cue(11,point,direction,tick_);return
  if event==1 and tick_==88:point.y=hero.global_position.y+.025*Finale.SCALE
  if event in [1,3,4,7]:
-  Pool.service(game).launch(hero,FinaleShot,"finale%d"%move,{"kind":move,"piercing":mode=="combo","burst":move==2 and (tick_-60)/24==bursting_drop,"cross_slash":move==0 and tick_>88,"slash_yaw":Finale.SWORD_CROSS_ANGLE*(1 if tick_==127 else -1) if move==0 and tick_>88 else 0.0,"position":point,"velocity":direction*Finale.SHOT_SPEED[move],"lifetime":Finale.SHOT_LIFE[move],"damage":Roles.stats(role).damage*Finale.DAMAGE[move]*hero.damage_multiplier(),"attack_ticket":ticket.duplicate()})
+  Pool.service(game).launch(hero,FinaleShot,"finale%d"%move,{"kind":move,"piercing":mode=="combo","cross_slash":move==0 and tick_>88,"slash_yaw":Finale.SWORD_CROSS_ANGLE*(1 if tick_==127 else -1) if move==0 and tick_>88 else 0.0,"position":point,"velocity":direction*Finale.SHOT_SPEED[move],"lifetime":Finale.SHOT_LIFE[move],"damage":Roles.stats(role).damage*Finale.DAMAGE[move]*hero.damage_multiplier(),"attack_ticket":ticket.duplicate()})
  if event!=4:cue(event+10,point,direction,tick_)
 func wind_shot(from:Vector3,direction:Vector3):
  Pool.service(game).launch(hero,FinaleShot,"finale1",{"kind":1,"position":from,"velocity":direction*Finale.SHOT_SPEED[1],"lifetime":Finale.SHOT_LIFE[1],"damage":Roles.stats(role).damage*Finale.DAMAGE[1]*.5*hero.damage_multiplier(),"attack_ticket":ticket.duplicate()})
@@ -175,7 +174,7 @@ func area(center:Vector3,radius:float,factor:float,wind:bool)->Array:
    else:game.confirm_impact(enemy,point,hero.facing,1,false,30)
  return victims
 func cue(code:int,point:Vector3,direction:Vector3=Vector3.INF,source_tick:int=-1):
- if game.get("crowd")!=null:game.crowd.army.presentation.finale_cue(point,code,direction if direction.is_finite() else hero.facing,get_instance_id(),source_tick if source_tick>=0 else floori(elapsed*30),CAST_RATE*hero.attack_speed_multiplier() if is_attacking() else 1.0,skill_factor("size",ticket))
+ if game.get("crowd")!=null:game.crowd.army.presentation.finale_cue(point,code,direction if direction.is_finite() else hero.facing,get_instance_id(),source_tick if source_tick>=0 else floori(elapsed*30),CAST_RATE*hero.attack_speed_multiplier() if is_attacking() else 1.0,skill_factor("size",ticket),ticket)
 func ground_attack_velocity()->Vector3:
  return hero.facing*Finale.frame(move,floori(elapsed*30)).speed if mode=="attack" else Vector3.INF
 func is_attacking()->bool:return mode in ["attack","combo"]

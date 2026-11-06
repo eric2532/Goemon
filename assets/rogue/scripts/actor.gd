@@ -474,6 +474,12 @@ func _shot(remaining: float) -> void:
 func animate_pose(state: Dictionary, dt: float, time: float, movement: float = 0.0) -> void:
 	if not is_instance_valid(model):
 		return
+	if not state.get("uncappedWeapon",false):
+		state=state.duplicate()
+		state.meleeVisualScale=preload("res://scripts/weapon_proportions.gd").reach_visual_scale(float(state.get("meleeVisualScale",1)))
+		if state.get("attack") is Dictionary and state.attack.has("meleeWeaponScale"):
+			state.attack=state.attack.duplicate()
+			state.attack.meleeWeaponScale=preload("res://scripts/weapon_proportions.gd").reach_visual_scale(float(state.attack.meleeWeaponScale))
 	var is_player: bool = bool(state.get("isPlayer", id not in ["revenant", "warden"]))
 	for joint in joints.values():
 		joint.node.transform = joint.transform

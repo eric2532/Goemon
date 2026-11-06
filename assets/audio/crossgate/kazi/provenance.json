@@ -1,0 +1,26 @@
+{
+  "sounds": {
+    "103": {
+      "file": "sounds/cgply01a.wav",
+      "source": "NewClient.7z/bin/se/cgply01a.wav",
+      "sha256": "3cdb3c56c1cb5d52057fbc50187ef903bf77f56e8eecb0763b1faddeab415d10",
+      "pcmSha256": "57be7a44a79453b314a22efe0509fc33e028e9e5892a11d0d34e9d8078a281dc",
+      "channels": 1,
+      "sampleWidth": 2,
+      "sampleRate": 22050,
+      "frames": 2881
+    },
+    "255": {
+      "file": "sounds/cgefc04.wav",
+      "source": "NewClient.7z/bin/se/cgefc04.wav",
+      "sha256": "31f86763202abadf8259b33c0550afef25ac142cfee500ba9cd63232f39355c5",
+      "pcmSha256": "2fc8fca4368e006faa4b8db78b79e32bc59f55dd8b1188bfc3d2897267c6c0a0",
+      "channels": 1,
+      "sampleWidth": 2,
+      "sampleRate": 22050,
+      "frames": 16448
+    }
+  },
+  "swing": "Original ex:1727 attack-frame markers, zero-based frames 3/7; direction 0 has only frame 3.",
+  "hit": "Recovered Cross Gate generic physical impact 255; Kazi-specific contact selection is unverified."
+}

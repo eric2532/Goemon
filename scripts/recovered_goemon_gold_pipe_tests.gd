@@ -31,8 +31,10 @@ func run():
     model.apply_native_pose(action,time_)
     var source:Transform3D=model.sampler.sample_source(action,time_)["0x9002518"]
     var expected=Transform3D(source.basis.scaled(Vector3.ONE*model.source_scale),source.origin*model.source_scale+model.source_offset)
+    var magnitude=expected.basis.get_scale().length()/sqrt(3.0)/model.source_scale
+    expected.basis=expected.basis.scaled(Vector3.ONE/maxf(1.0,magnitude/1.35))
     exact=exact and model.pipe.transform.is_equal_approx(expected) and model.pipe.visible
-  check(exact,"Gold Pipe follows every native weapon matrix across all six third-tier actions")
+  check(exact,"Gold Pipe preserves native grips and rotations with bounded visual enlargement across all six actions")
   model.apply_native_pose(0x0F,.1)
   check(not model.pipe.visible,"Original running leaves the hand empty between Gold Pipe attacks")
  model.queue_free();await process_frame

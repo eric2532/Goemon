@@ -4,6 +4,7 @@ extends RefCounted
 const Art=preload("res://scripts/forest/forest_art.gd")
 const Profile=preload("res://scripts/forest/forest_structure_profile.gd")
 const Meadow=preload("res://scripts/forest/forest_wind_meadow_assets.gd")
+const STATUE=preload("res://assets/models/forest/skullpion_stone_statue.res")
 static var pieces:Array=[]
 static func prepare():
 	if not pieces.is_empty():return
@@ -32,6 +33,16 @@ static func _add_piece(b:Dictionary,position_:Vector3):
 		if shape.shape is BoxShape3D:piece.boxes.append(transform_*AABB(-shape.shape.size*.5,shape.shape.size))
 	node.free();pieces.append(piece)
 static func basis(portal:Dictionary)->Basis:return Basis(Vector3.UP,(2-int(portal.rotation))*PI*.5)
+static func statue_boxes(portal:Dictionary)->Array[AABB]:
+	var result:Array[AABB]=[AABB(Vector3(-15.3,0,-15.3),Vector3(30.6,Profile.PEDESTAL_HEIGHT,30.6))]
+	var transform_=Transform3D(basis(portal),Vector3.UP*Profile.PEDESTAL_HEIGHT)
+	for box:AABB in STATUE.get_meta("part_boxes"):result.append(transform_*box)
+	return result
+static func build_statue(parent:Node3D,portal:Dictionary):
+	var root=Node3D.new();root.name="SkullpionStatue";root.basis=basis(portal);root.set_meta("native_terrain",true);parent.add_child(root)
+	var pedestal=Node3D.new();pedestal.scale=Vector3(1.8,1,1.8);root.add_child(pedestal)
+	preload("res://scripts/forest/forest_stone_fort.gd").pedestal(pedestal)
+	var mesh=MeshInstance3D.new();mesh.name="CarvedSkullpion";mesh.mesh=STATUE;mesh.position.y=Profile.PEDESTAL_HEIGHT;root.add_child(mesh)
 static func section_boxes(portal:Dictionary,index:int)->Array[AABB]:
 	prepare()
 	var result:Array[AABB]=[];var transform_=Transform3D(basis(portal),Vector3.ZERO)
@@ -77,7 +88,10 @@ static func build_ruins(parent:Node3D,portal:Dictionary,art:Dictionary)->Diction
 		var group=Node3D.new();root.add_child(group);Meadow.batch(group,"buildings/"+asset,poses[asset])
 		for state in states:
 			if state.asset==asset:state.batches=group.get_children()
-	var keep=Node3D.new();keep.name="KeepRuins";parent.add_child(keep);Meadow.batch(keep,"buildings/barracks_ruins",[Transform3D.IDENTITY]);keep.hide()
+	var keep=Node3D.new();keep.name="StatueRuins";parent.add_child(keep)
+	var rubble=[]
+	for i in 9:rubble.append(Transform3D(Basis(Vector3.UP,i*2.4).scaled_local(Vector3(1.5,.35,1.2)),Vector3((i%3-1)*8,.1,(i/3-1)*8)))
+	Meadow.batch(keep,"buildings/stone_block",rubble);keep.hide()
 	var collapse=preload("res://scripts/forest/forest_wall_collapse.gd").new();root.add_child(collapse);collapse.setup(art.wall_poses)
 	return {"states":states,"keep":keep,"collapse":collapse}
 static func breach(art:Dictionary,ruins:Dictionary,index:int):

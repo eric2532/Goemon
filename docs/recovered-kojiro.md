@@ -255,6 +255,10 @@ source identity and prepared pitch. Sound Studio exposes the sword cut and keeps
 recording, gain and mute controls. Prepared resources and existing bounded voices
 are reused. Cancellation before the strike marker does not produce a late cut.
 
+Kojiro's default footsteps reuse Musashi's prepared `foot_contact.wav` sample.
+His existing stride events and playback level stay unchanged; Sound Studio
+recordings, gain, mute and Restore default continue to work through SoundLibrary.
+
 These are recovered combat assets, not a claim of full PlayStation emulation:
 Godot blending/projection, homing steering and hit feedback differ; the audio
 renderer preserves samples, pitch curves and layers but does not emulate the
@@ -299,3 +303,17 @@ timing/counts, real native damage, wall obstruction, aerial attacks, pool reset,
 focus loss, switching, skill transfer and gallery selection. Its timing report
 measures player/projectile CPU in a controlled scene; it is not an army stress
 test or proof of full-game frame rate.
+
+### Combined blade presentation — 2026-10-30
+
+Kojiro retains the original additive RGB (240,120,240) physical-blade ribbon
+alongside the newer strong ink crescent. The tick-15 hit marker occurs during
+the first cut's rear windup, so it only arms the new visual. The long crescent
+samples the subsequent front-facing blade movement and fades in .18 seconds.
+Three recent authored poses seed missed render poses, restoring the animation
+cursor afterward. A static forward endpoint receives a small .12-radian cap
+bent toward the target. No full-range crescent is emitted from the rear windup.
+The original compact glow retains its source cadence/window and 16/30-second
+fade. Both layers keep their own prepared meshes/materials, clear on cancel/hide
+and respect reduced flashes. Contact timing, hit queries and reach stay under
+KojiroCombat. Evidence: `build/Other Files/Asset Toolkit/Kojiro Forward Cut/`.

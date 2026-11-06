@@ -62,8 +62,8 @@ func dispatch():
 		if w.follow or w.state in ["wounded","retreat","follow","move"]:continue
 		var current:Dictionary=m.buildings.get(w.job,{})
 		var kind:String=current.get("kind","")
-		if w.job!=-1 and kind not in ["mine","tower"]:continue
-		candidates.append({"worker":w,"priority":0 if w.job==-1 else (2 if kind=="tower" else 1)})
+		if w.job!=-1 and kind not in ["mine","tower","cannon_tower"]:continue
+		candidates.append({"worker":w,"priority":0 if w.job==-1 else (2 if kind in ["tower","cannon_tower"] else 1)})
 	candidates.sort_custom(func(a,b):return a.priority<b.priority if a.priority!=b.priority else a.worker.id<b.worker.id)
 	for candidate in candidates:
 		var w:Dictionary=candidate.worker

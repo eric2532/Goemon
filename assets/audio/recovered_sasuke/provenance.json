@@ -2461,7 +2461,7 @@
   },
   "silent_event": "201 renders all-zero PCM and is represented by null runtime slots, without packaging a fake audible replacement.",
   "jetpack_sustain": "Event14F is finite. Two original internally looping ADPCM layers run from0.03s to source stop1.525s; no external WAV loop is added. Original callback high-bit814F stops it early.",
-  "adaptation_silence": "The runtime dash/step/environment_hit aliases intentionally return null because this adaptation has no verified native source action for them. Shared game pickup/orb sounds are outside this character library.",
+  "adaptation_silence": "The runtime dash/environment_hit aliases intentionally return null because this adaptation has no verified native source action for them. Shared game pickup/orb sounds are outside this character library.",
   "shared_charge_sustain_proof": {
     "charge_sustain_verification.json": {
       "sha256": "0e6a377edcf820e953ecc3168d83b52ebded120aa88a933f311c21246008e85c",
@@ -3101,5 +3101,21 @@
         }
       }
     }
+  },
+  "walking": {
+    "event": "0x218",
+    "runtime_sample": "assets/audio/recovered_yae/event_217.wav",
+    "source_handler": "0x801E3400 -> 0x801DD720 -> 0x801DD6E0",
+    "verified_actions": [
+      "0x0C",
+      "0x0D",
+      "0x0E",
+      "0x0F"
+    ],
+    "verifier": "tools/verify_goemon_footsteps.py",
+    "report": "build/Other Files/Asset Toolkit/Original Footsteps/source-verification.json",
+    "pcm_verification": "Fresh original sequencer renders of native events217/218 match the existing prepared WAVs byte for byte; this establishes source authenticity, separate from the requested shared gameplay default.",
+    "source_sample": "assets/audio/recovered_sasuke/event_218.wav",
+    "gameplay_default": "User-requested shared Goemon event217, selected centrally by SoundLibrary.GOEMON_FOOTSTEP_IDS. Original Sasuke event218 and its source proof remain preserved."
   }
 }

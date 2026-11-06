@@ -198,6 +198,7 @@ func hide_source_geometry():
 
 func can_cast()->bool:
  if source_id==30 and spec.args[0] in [1,2,3,4] and controller.mode=="attack" and controller.move==spec.args[0]:return true
+ if source_id==33:return (spec.method=="start_clap" or not controller.is_attacking()) and cooldown_remaining()<=0 and (spec.method!="start_clap" or hero.is_on_floor())
  if source_id in [31,32]:return spec.method=="toggle_immolation" or (not controller.is_attacking() and cooldown_remaining()<=0)
  if controller is KnightLion:return controller.can_cast()
  if source_id==19:return not controller.is_attacking() and (controller.can_homing() if spec.method=="start_homing" else hero.is_on_floor())
@@ -209,11 +210,14 @@ func can_cast()->bool:
    var slot:String=spec.args[0]
    return slot=="rapid_shot" or controller.player.cooldowns[slot]<=0 or (slot=="flintlock" and controller.energy_ready())
  if source_id==2 and spec.method=="activate_shield":return (controller.shield_left<=0 and controller.shield_cooldown<=0) or hero.attack_chain.unleashed()
- if source_id==13:return (hero.is_on_floor() or (spec.method=="select_number" and spec.args[0]==3)) and not controller.is_attacking()
+ if source_id==13:
+  if spec.method=="start_leaping_strike":return not hero.is_on_floor() and not controller.is_attacking() and hero.dodge_time<=0
+  return (hero.is_on_floor() or (spec.method=="select_number" and spec.args[0]==3)) and not controller.is_attacking()
  if spec.method=="dash":return hero.dodge_cooldown<=0 or hero.attack_chain.unleashed()
  return true
 
 func cooldown_state()->Dictionary:
+ if source_id==33:return {"bolt_cooldown":controller.bolt_cooldown,"clap_cooldown":controller.clap_cooldown}
  if source_id in [31,32]:return {"cooldown":controller.cooldown,"wind_cooldown":controller.wind_cooldown,"mirror_cooldown":controller.mirror_cooldown}
  if controller is KnightLion:return {"lion":controller.cooldown}
  if controller is RogueRuntime:return controller.player.cooldowns.duplicate()
@@ -221,6 +225,8 @@ func cooldown_state()->Dictionary:
  return {}
 
 func restore_cooldowns(values:Dictionary):
+ if source_id==33:
+  for key in ["bolt_cooldown","clap_cooldown"]:controller.set(key,float(values.get(key,0)))
  if source_id in [31,32]:
   for key in ["cooldown","wind_cooldown","mirror_cooldown"]:controller.set(key,float(values.get(key,0)))
  if controller is KnightLion:controller.cooldown=float(values.get("lion",0))
@@ -228,6 +234,7 @@ func restore_cooldowns(values:Dictionary):
  elif source_id==2:controller.shield_cooldown=float(values.get("shield",0))
 
 func cooldown_remaining()->float:
+ if source_id==33:return controller.bolt_cooldown if spec.method=="start_bolt" else controller.clap_cooldown
  if source_id in [31,32]:return controller.wind_cooldown if spec.method=="start_wind" else controller.mirror_cooldown if spec.method=="start_mirrors" else controller.cooldown
  if controller is KnightLion:return controller.cooldown
  if controller is RogueRuntime:

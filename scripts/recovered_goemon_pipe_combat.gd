@@ -1,6 +1,6 @@
 extends RefCounted
-## Goemon's active Gold Pipe swing sweeps the rendered vertices through the same
-## native poses and world transform as the model. No fixed range/cone is involved.
+## Gold Pipe contact sweeps the full-reach vertices through the native poses.
+## The compact weapon and extended wave share this motion; no radial cone is used.
 const Profile=preload("res://scripts/recovered_goemon_combat_profile.gd")
 const PADDING_AXES=[Vector3.LEFT,Vector3.RIGHT,Vector3.UP,Vector3.DOWN,Vector3.FORWARD,Vector3.BACK]
 var hero:Hero

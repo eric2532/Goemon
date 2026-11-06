@@ -4,7 +4,9 @@ signal changed
 const SLOTS={"orb_ice":"Orb · ice burst", "orb_fire":"Orb · fire burst", "orb_magnet":"Orb · magnet", "enemy_reaction":"Enemy · reaction", "environment_hit":"Environment · impact", "swing":"Pipe · light swing", "heavy_swing":"Pipe · heavy swing", "hit":"Enemy · light impact", "heavy_hit":"Enemy · heavy impact", "throw":"Coin · throw", "coin_hit":"Coin · impact", "coin_heavy_hit":"Coin · heavy impact", "hurt":"Player · hurt", "jump":"Jump", "land":"Landing", "dash":"Evade", "step":"Footstep", "spark":"Pickup / energy", "goemon_dash":"Goemon · E dash", "goemon_dash_hit":"Goemon · E shove", "spin_swing":"Goemon · wind spin", "giant_toss":"Goemon · giant coin toss", "sky_leap":"Goemon · T leap", "sky_stomp":"Goemon · T impact", "chain_throw":"Chain pipe · piercing throw", "chain_sweep":"Chain pipe · fan swing", "chain_hit":"Chain pipe · impact", "chain_explosion":"Chain pipe · R explosion", "chain_fire_sweep":"Chain pipe · R fire swing", "edo_volley":"Edo · triple fireball", "edo_giant":"Edo · giant fireball", "fire_impact":"Edo · fireball impact", "edo_shield":"Edo · R shield activation", "edo_beam_start":"Edo · beam start", "edo_beam_loop":"Edo · sustained beam", "edo_meteor_cast":"Edo · T meteor summon", "edo_meteor_strike":"Edo · T ground strike", "edo_meteor_impact":"Edo · meteor explosion", "edo_dodge":"Edo · fire dodge", "edo_dodge_impact":"Edo · dodge explosion"}
 const Roster=preload("res://scripts/rogue_roster.gd")
 const COMMON_SLOTS=["jump","land","dash","step","hurt","hit","heavy_hit","enemy_reaction","environment_hit","spark","orb_ice","orb_fire","orb_magnet"]
-const HUMANOID_LANDING_IDS=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,22,23,25,26,28,31,32]
+const GOEMON_FOOTSTEP_IDS=[1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,17,31,32,33,34]
+const GOEMON_FOOTSTEP=preload("res://assets/audio/recovered_yae/event_217.wav")
+const HUMANOID_LANDING_IDS=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,22,23,25,26,28,31,32,33,34]
 # Goemon and Yae share ROM event 21E; reuse the existing prepared sample.
 const HUMANOID_LANDING=preload("res://assets/audio/recovered_yae/event_21e.wav")
 const LANDING_FILE="res://assets/characters/recovered_skullpion/audio/ground_impact.wav"
@@ -86,6 +88,9 @@ static func slots_for(id: int)->Dictionary:
 	elif CLASS_EVENTS.has(id):
 		for event in CLASS_EVENTS[id]+["fire"]:result["native_"+event]=NATIVE_SLOTS["native_"+event]
 	for key in COMMON_SLOTS:result[key]=SLOTS[key]
+	if id==34:
+		result.swing="Kazi · original sword swing"
+		result.hit="Kazi · Cross Gate impact";result.heavy_hit=result.hit
 	if id==13:
 		result.swing="Fusion · swing";result.heavy_swing="Lumina · swing"
 		result.hit="Swords · normal enemy hit";result.heavy_hit="Lumina · enemy hit"
@@ -95,6 +100,7 @@ static func slots_for(id: int)->Dictionary:
 		result.musashi_dkick_hit="D-Kick · original contact"
 		for entry in [["musashi_fence","Fence · crescent launch"],["musashi_fence_hit","Fence · crescent impact"],["musashi_homing","Homing · rocket launch"],["musashi_homing_hit","Homing · rocket impact"],["musashi_grenade","Grenade · throw"],["musashi_grenade_hit","Grenade · explosion"],["musashi_three_way","3-Way · gunfire"]]:result[entry[0]]=entry[1]
 	if id==7:result.knight_finisher_hit="Fourth swing · Musashi aerial finisher impact"
+	if id==8:result.dragoon_hunt="Hunting dragon · ground attack"
 	if id in [14,15]:
 		for key in ["heavy_swing","throw","edo_beam_start","fire_impact"]:result[key]=SLOTS[key]
 	if id==14:
@@ -109,7 +115,7 @@ static func slots_for(id: int)->Dictionary:
 		result.ben_polearm_strike_voice="Ben · polearm follow-through voice";result.ben_polearm_dash="Ben · polearm dash";result.ben_polearm_finish="Ben · polearm finish"
 	if id==16:result.merge(preload("res://scripts/recovered_sasuke_audio.gd").slot_labels(),true)
 	if id==17:result.merge(preload("res://scripts/recovered_yae_audio.gd").slot_labels(),true)
-	if id in [31,32]:result.merge(preload("res://scripts/warcraft_audio.gd").slot_labels(id),true)
+	if id in [31,32,33]:result.merge(preload("res://scripts/warcraft_audio.gd").slot_labels(id),true)
 	if id==28:result.merge(preload("res://scripts/kojiro_audio.gd").slot_labels(),true)
 	if id==30:result.merge(preload("res://scripts/forest/dark_lumina_3_kit.gd").slot_labels(),true)
 	if id==19:result.merge(preload("res://scripts/sonic_audio.gd").slot_labels(),true)
@@ -290,8 +296,14 @@ func stream_for(id: int,slot: String,fallback: AudioStream)->AudioStream:
 	return playback_for(id,slot,fallback).stream
 
 static func original_for(id: int,slot: String)->AudioStream:
-	if id in [31,32]:return preload("res://scripts/warcraft_audio.gd").stream_for(id,slot)
+	if id==34 and slot=="swing":return preload("res://assets/audio/crossgate/kazi/cgply01a.wav")
+	if id==34 and slot in ["hit","heavy_hit"]:return preload("res://assets/audio/crossgate/kazi/cgefc04.wav")
+	if id==8 and slot=="move_secondary_voice":return preload("res://assets/audio/recovered_frost_dragon/roar.wav")
+	if id==8 and slot=="dragoon_hunt":return preload("res://assets/audio/recovered_frost_dragon/ground_attack.wav")
+	if slot=="step" and id in GOEMON_FOOTSTEP_IDS:return GOEMON_FOOTSTEP
+	if id in [31,32,33]:return preload("res://scripts/warcraft_audio.gd").stream_for(id,slot)
 	if slot=="land" and id in HUMANOID_LANDING_IDS:return shared_default_for(id,slot)
+	if id==27 and slot=="land":return landing_sound if landing_sound!=null else preload("res://assets/characters/recovered_monsters/audio/dark_lumina_2/slam.wav")
 	if id==27:return preload("res://scripts/character_audio_bank.gd").event("res://assets/characters/recovered_skullpion/audio/",SKULLPION_FILES,slot)
 	if id==30:return preload("res://scripts/forest/dark_lumina_3_kit.gd").stream_for(slot)
 	if id==29:return preload("res://scripts/forest/dark_lumina_kit.gd").stream_for(slot)
@@ -320,11 +332,11 @@ static func original_for(id: int,slot: String)->AudioStream:
 	return preload("res://scripts/recovered_musashi_audio.gd").stream_for(slot) if id==13 else null
 
 static func shared_default_for(id:int,slot:String)->AudioStream:
+	if slot=="step":return GOEMON_FOOTSTEP
 	if slot=="team_level_up":return preload("res://assets/audio/recovered_musashi/level_up.wav")
 	if slot=="jump":return preload("res://assets/audio/recovered_yae/event_21d.wav")
 	if slot=="spark":return preload("res://assets/characters/recovered_skullpion/audio/core_recover.wav")
-	if slot=="land" and id in HUMANOID_LANDING_IDS:return HUMANOID_LANDING
-	if slot=="land":return landing_sound if landing_sound!=null else preload("res://assets/characters/recovered_monsters/audio/dark_lumina_2/slam.wav")
+	if slot=="land":return HUMANOID_LANDING
 	return null if id==9 and slot in ["hit","heavy_hit"] else COMBAT_DEFAULTS.get(slot)
 
 static func source_slot_is_silent(id:int,slot:String)->bool:
@@ -387,6 +399,7 @@ func playback_for(id: int,slot: String,fallback: AudioStream,legacy_override: St
 	# Shared ROM fallbacks retain their prepared pitch, including enemy-owned hits.
 	if original==null and fallback!=null and fallback==COMBAT_DEFAULTS.get(slot):original=fallback
 	if source_slot_is_silent(id,slot) and recorded==null:original=null;fallback=null;muted=true
+	if id==8 and slot in ["native_slam","move_secondary_weapon","move_secondary_voice"]:gain*=.8
 	return {"stream":recorded if recorded else (original if original else fallback),"recorded":recorded!=null,"original":original!=null and recorded==null,"gain":gain,"muted":muted}
 
 func devices()->PackedStringArray:
@@ -429,6 +442,9 @@ func begin(slot: String)->bool:
 	changed.emit();return true
 
 func _process(delta):
+	if is_instance_valid(game):
+		game.move_audio.stop_distant(game,game.voices)
+		game.move_audio.stop_distant(game,game.move_audio.voices)
 	if not recording:return
 	elapsed+=delta
 	if capture.get_frames_available()>0:

@@ -4,6 +4,7 @@ var game
 var hero: Hero
 var shared: Node
 func play(event: String,options: Dictionary={}):
+ if not preload("res://scripts/move_audio.gd").ally_nearby(game,hero.global_position):return
  var own=options.duplicate();own.character_id=hero.character_id
  if not own.has("ticket"):own.ticket=hero.active_ability._ticket if hero.is_rogue_character() else hero.attack_chain.active_ticket
  own.volume=float(own.get("volume",own.get("gain",1.0)))*.5

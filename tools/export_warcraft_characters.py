@@ -43,7 +43,7 @@ def export(name, key):
     bpy.ops.wm.open_mainfile(filepath=str(master))
     scene = bpy.context.scene
     rig = next(o for o in scene.objects if o.type == "ARMATURE")
-    model_name = {"blademaster": "HeroBladeMaster", "demon-hunter": "IllidanEvil", "peasant": "Peasant"}[key]
+    model_name = {"blademaster": "HeroBladeMaster", "demon-hunter": "IllidanEvil", "peasant": "Peasant", "mountain-king": "HeroMountainKing"}[key]
     model = json.loads((SOURCE / "work" / (model_name + ".mdx.json")).read_text())
     out = ROOT / "assets/models/characters/warcraft" / key
     data = ROOT / "assets/characters/warcraft" / key
@@ -51,7 +51,10 @@ def export(name, key):
     data.mkdir(parents=True, exist_ok=True)
     meshes = sorted((o for o in scene.objects if o.type == "MESH" and o.name.split()[0].isdigit()), key=lambda o: int(o.name.split()[0]))
     particles = sorted((o for o in scene.objects if o.type == "MESH" and o.get("source_emitter")), key=lambda o: o.name)
-    info = {"source": str(master), "sha256": before, "fps": 30, "meshes": [], "particles": [], "clips": {}}
+    info = {"billboards": [n["Name"] for n in model["Nodes"] if n["Flags"] & (8 | 64)], "upright": [n["Name"] for n in model["Nodes"] if n["Flags"] & 64 and not n["Flags"] & 8], "source": str(master), "sha256": before, "fps": 30, "meshes": [], "particles": [], "clips": {}}
+    if scene.get("goemon_energy_color"):
+        info["authored_energy"] = True
+        info["energy_color"] = scene["goemon_energy_color"]
     if key == "blademaster":
         # Use the original red team color and hero glow without changing the editable master.
         team_textures = prepare_blademaster_team_color(package)
@@ -76,9 +79,10 @@ def export(name, key):
         obj.name = "Geoset_%02d" % i
         layers = model["Materials"][model["Geosets"][i]["MaterialID"]]["Layers"]
         images = [n.image for n in obj.data.materials[0].node_tree.nodes if n.type == "TEX_IMAGE"]
-        image = images[-1]
+        layered_skin = key == "mountain-king" and len(layers) > 1
+        image = images[-2] if layered_skin else images[-1]
         pixels = np.array(image.pixels[:], dtype=np.float32).reshape(-1, 4)
-        if len(images) == 2:
+        if (len(images) == 2 and not layered_skin) or (layered_skin and len(images) == 3):
             # Composite the prepared team layer under the authored skin's alpha.
             team = np.array(images[0].pixels[:4], dtype=np.float32)
             pixels[:, :3] = pixels[:, :3] * pixels[:, 3:4] + team[:3] * (1 - pixels[:, 3:4])
@@ -103,6 +107,17 @@ def export(name, key):
         obj.data.materials.clear()
         obj.data.materials.append(mat)
         info["meshes"].append({"name": obj.name, "mode": mode, "tint": next((a.get("Color", [1, 1, 1]) for a in model.get("GeosetAnims", []) if a["GeosetId"] == i), [1, 1, 1])})
+        if layered_skin:
+            alternate = images[-1]
+            alternate_pixels = np.array(alternate.pixels[:], dtype=np.float32).reshape(-1, 4)
+            if len(images) == 3:
+                team = np.array(images[0].pixels[:4], dtype=np.float32)
+                alternate_pixels[:, :3] = alternate_pixels[:, :3] * alternate_pixels[:, 3:4] + team[:3] * (1-alternate_pixels[:, 3:4])
+                alternate_pixels[:, 3] = 1
+            alt = bpy.data.images.new(key + "_avatar_%02d" % i, width=alternate.size[0], height=alternate.size[1], alpha=True)
+            alt.pixels.foreach_set(alternate_pixels.ravel())
+            alt.filepath_raw = str(data / ("avatar_%02d.png" % i)); alt.file_format = "PNG"; alt.save()
+            info["meshes"][-1]["alternate_texture"] = "avatar_%02d.png" % i
     particle_images = set()
     for index, obj in enumerate(particles):
         prefix = obj.data.name
@@ -135,9 +150,11 @@ def export(name, key):
                 p = particle["prefix"]
                 if rig.get(p + "alpha", 0) > .001:
                     active.append([i] + [round(float(rig.get(p + channel, 0)), 6) for channel in ["x", "y", "z", "size", "alpha", "r", "g", "b", "u", "v"]])
-            frames.append({"opacity": opacity, "particles": active})
+            sample = {"opacity": opacity, "particles": active}
+            if key == "mountain-king":sample["avatar"] = round(float(rig.get("avatar_skin", 0)), 6)
+            frames.append(sample)
         info["clips"][action.name] = frames
-    rig.animation_data.action = bpy.data.actions["Stand"]
+    rig.animation_data.action = bpy.data.actions["Stand - 1" if key == "mountain-king" else "Stand"]
     rig.animation_data.action_slot = rig.animation_data.action.slots[0]
     scene.frame_set(0)
     points = []
@@ -160,6 +177,10 @@ def export(name, key):
     info["glb_sha256"] = digest(out / (key + ".glb"))
     (data / "motion.json").write_text(json.dumps(info, separators=(",", ":")) + "\n")
     (data / "audio").mkdir(exist_ok=True)
+    if name == "MountainKing":
+        (data / "icons").mkdir(exist_ok=True)
+        for icon in ["StormBolt", "ThunderClap", "Avatar", "Bash"]:
+            shutil.copy2(package / "original/ReplaceableTextures/CommandButtons" / ("BTN" + icon + ".png"), data / "icons" / (icon + ".png"))
     audio_package = SOURCE / "assets/DemonHunter" if name == "Illidan" else package
     for sound in (audio_package / "sounds").glob("*.wav"):
         shutil.copy2(sound, data / "audio" / sound.name)
@@ -187,7 +208,7 @@ def export(name, key):
 
 
 selected = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
-assert not selected or selected in [["Blademaster"], ["Illidan"], ["Peasant"]], selected
-for name, key in [("Blademaster", "blademaster"), ("Illidan", "demon-hunter"), ("Peasant", "peasant")]:
-    if (not selected and name != "Peasant") or name in selected:
+assert not selected or selected in [["Blademaster"], ["Illidan"], ["Peasant"], ["MountainKing"]], selected
+for name, key in [("Blademaster", "blademaster"), ("Illidan", "demon-hunter"), ("Peasant", "peasant"), ("MountainKing", "mountain-king")]:
+    if (not selected and name in ["Blademaster", "Illidan"]) or name in selected:
         export(name, key)

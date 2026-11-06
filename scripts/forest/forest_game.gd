@@ -11,6 +11,7 @@ const PLAYER_RESPAWN_PROTECTION=2.0
 const PLAYER_SPAWN_CELL=Vector2i(0,3)
 const PREPARATION_ZOOM_STEP=1.15
 const PREPARATION_ZOOM_MIN=20.0
+const PREPARATION_CAMERA_OFFSET=Vector3(55,150,118)
 @export var launch_to_title=false
 var model
 var explorer_helpers
@@ -65,7 +66,7 @@ func _ready():
 	painterly_preview=bool(get_tree().get_meta("forest_painterly_preview",OS.has_feature("painterly_preview") or "--painterly-preview" in OS.get_cmdline_user_args()))
 	world=ForestWorld.new();world.model=model;world.painterly_preview_enabled=painterly_preview;world.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(world)
 	tower_arrows=preload("res://scripts/forest/forest_tower_arrows.gd").new();tower_arrows.game=self;add_child(tower_arrows)
-	player=Hero.new();player.game=self;player.position=Vector3(0,.15,18);player.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(player)
+	player=Hero.new();player.game=self;player.position=model.point(PLAYER_SPAWN_CELL)+Vector3.UP*.15;player.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(player)
 	selected_rogue_id=int(get_tree().get_meta("forest_fighter",1))
 	if selected_rogue_id not in player.RogueRoster.selection_ids():selected_rogue_id=1
 	get_tree().set_meta("forest_fighter",selected_rogue_id)
@@ -134,6 +135,7 @@ func _notification(what):
 		camera_focused=true;_sync_camera_mouse()
 func set_phase_view():
 	if not model.construction_completed.is_connected(_clear_construction_occupants):model.construction_completed.connect(_clear_construction_occupants)
+	if not model.wave_started.is_connected(_sync_wave_balance):model.wave_started.connect(_sync_wave_balance)
 	if model.phase=="preparing" and is_instance_valid(player):
 		var hero_cell:Vector2i=model.cell_of(player.position)
 		if not model.navigation_region.has_point(hero_cell) or model.occupancy.has(hero_cell) or model.allied_grid.is_point_solid(hero_cell):
@@ -184,7 +186,10 @@ func set_phase_view():
 	elif model.phase=="victory":
 		for target in enemy_objectives:
 			if not target.castle_ruins.is_empty():target.castle_ruins.collapse.process_mode=Node.PROCESS_MODE_ALWAYS
-		won=true;forest_ui.show_overlay("VALLEY LIBERATED" if model.terrain_source=="wind_meadow" else "ENEMY CASTLE FALLEN" if model.enemy_camps_prototype else "THE SHRINE ENDURES",("All enemy castles destroyed." if model.has_enemy_castles() else "All four enemy barracks destroyed.") if model.terrain_source=="wind_meadow" else "All camps and the enemy statue destroyed." if model.enemy_camps_prototype else "%d waves survived. The forest is yours."%model.balance.waves.size(),false)
+		var survived=model.waves.released_waves==model.balance.waves.size() and model.waves.pending==0 and model.enemies.is_empty()
+		var detail=("All enemy Skullpion statues destroyed." if model.has_enemy_castles() else "All four enemy farms destroyed.") if model.terrain_source=="wind_meadow" else "All camps and the enemy statue destroyed."
+		if survived:detail="%d waves survived. The forest is yours."%model.balance.waves.size()
+		won=true;forest_ui.show_overlay("VALLEY LIBERATED" if model.terrain_source=="wind_meadow" else "ENEMY CASTLE FALLEN" if model.enemy_camps_prototype else "THE SHRINE ENDURES",detail,false)
 	else:forest_ui.show_overlay("THE SHRINE HAS FALLEN","Wave %d · Gather your strength and try again."%model.wave,false)
 	sync_training_dummy()
 	for target in enemy_objective_targets:
@@ -209,7 +214,9 @@ func preparation_map_frame()->Dictionary:
 func update_preparation_camera():
 	var cam=camera_rig.camera;cam.projection=Camera3D.PROJECTION_ORTHOGONAL;cam.size=preparation_size
 	cam.far=maxf(1400,preparation_size*3)
-	cam.global_position=pan+Vector3(0,160,110)*maxf(1.0,preparation_size/535.0);cam.look_at(pan,Vector3.UP)
+	cam.global_position=pan+PREPARATION_CAMERA_OFFSET*maxf(1.0,preparation_size/535.0);cam.look_at(pan,Vector3.UP)
+func preparation_pan_direction(move_:Vector2)->Vector3:
+	return Vector3(move_.x,0,move_.y).rotated(Vector3.UP,atan2(PREPARATION_CAMERA_OFFSET.x,PREPARATION_CAMERA_OFFSET.z))
 func preparation_zoom_limits()->Vector2:
 	return Vector2(PREPARATION_ZOOM_MIN,maxf(PREPARATION_ZOOM_MIN,600.0*model.terrain_scale*model.map_expansion if model!=null else 600.0))
 func clamp_preparation_pan():
@@ -221,7 +228,10 @@ func _preparation_zoom_available()->bool:
 	if is_instance_valid(forest_ui) and is_instance_valid(forest_ui.overlay):return false
 	return is_instance_valid(camera_rig)
 func zoom_preparation(steps:float,screen:Vector2=Vector2(INF,INF))->bool:
-	if not _preparation_zoom_available() or not is_finite(steps):return false
+	if not _preparation_zoom_available():return false
+	return _zoom_preparation_view(steps,screen)
+func _zoom_preparation_view(steps:float,screen:Vector2=Vector2(INF,INF))->bool:
+	if not is_finite(steps):return false
 	var limits=preparation_zoom_limits()
 	var next_size=clampf(preparation_size*pow(PREPARATION_ZOOM_STEP,-clampf(steps,-100,100)),limits.x,limits.y)
 	if is_equal_approx(next_size,preparation_size):return false
@@ -242,37 +252,42 @@ func reset_preparation_zoom()->bool:
 	var frame=preparation_map_frame();pan=frame.pan;pan.y=0
 	var limits=preparation_zoom_limits();preparation_size=clampf(frame.size,limits.x,limits.y)
 	update_preparation_camera();return true
-func _preparation_zoom_input(event:InputEvent)->bool:
+func _preparation_zoom_input(event:InputEvent,editor:bool=false)->bool:
+	var zoom=_zoom_preparation_view if editor else zoom_preparation
 	if event is InputEventKey:
 		if event.ctrl_pressed or event.alt_pressed or event.meta_pressed:return false
 		var focus=get_viewport().gui_get_focus_owner()
 		if focus is LineEdit or focus is TextEdit:return false
 		var code=event.physical_keycode if event.physical_keycode!=0 else event.keycode
 		if code not in [KEY_PLUS,KEY_EQUAL,KEY_KP_ADD,KEY_MINUS,KEY_KP_SUBTRACT]:return false
-		if event.pressed and not event.echo:zoom_preparation(-1 if code in [KEY_MINUS,KEY_KP_SUBTRACT] else 1)
+		if event.pressed and not event.echo:zoom.call(-1 if code in [KEY_MINUS,KEY_KP_SUBTRACT] else 1)
 		return true
 	# Controls may pass wheel events through even when they stop clicks.
 	if get_viewport().gui_get_hovered_control()!=null:return false
 	if event is InputEventMouseButton and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
 		if event.pressed:
 			var amount=absf(event.factor) if event.factor!=0 else 1.0
-			zoom_preparation(amount if event.button_index==MOUSE_BUTTON_WHEEL_UP else -amount,event.position)
+			zoom.call(amount if event.button_index==MOUSE_BUTTON_WHEEL_UP else -amount,event.position)
 		return true
 	if event is InputEventMagnifyGesture:
-		if is_finite(event.factor) and event.factor>0:zoom_preparation(log(event.factor)/log(PREPARATION_ZOOM_STEP),event.position)
+		if is_finite(event.factor) and event.factor>0:zoom.call(log(event.factor)/log(PREPARATION_ZOOM_STEP),event.position)
 		return true
 	if event is InputEventPanGesture:
-		zoom_preparation(-event.delta.y*.25,event.position);return true
+		zoom.call(-event.delta.y*.25,event.position);return true
 	return false
 func start_wave():
 	if not playing or ordinary_pause or rogue_roster_open or (is_instance_valid(map_editor) and map_editor.active):return
 	if model.phase=="preparing":
-		if model.balance.enemy_size_mult!=core_balance.enemy_size_mult:model.navigation_revision+=1
-		for key in ["enemy_health_mult","enemy_damage_mult","enemy_speed_mult","enemy_size_mult","boss_health","boss_speed"]:model.balance[key]=core_balance[key]
-		model.balance.enemy_profiles=core_balance.enemy_profiles.duplicate(true)
-		model.waves.stats_cache.clear()
+		model.balance.waves=core_balance.waves.duplicate(true)
+		for key in ["spawn_group_start","spawn_group_growth"]:model.balance[key]=core_balance[key]
+		_sync_wave_balance()
 	if model.start_wave():
 		forest_ui.selected_id=-1;set_phase_view()
+func _sync_wave_balance():
+	if model.balance.enemy_size_mult!=core_balance.enemy_size_mult:model.navigation_revision+=1
+	for key in ["enemy_health_mult","enemy_damage_mult","enemy_speed_mult","enemy_size_mult","boss_health","boss_speed"]:model.balance[key]=core_balance[key]
+	model.balance.enemy_profiles=core_balance.enemy_profiles.duplicate(true)
+	model.waves.stats_cache.clear()
 func select_build(kind: String):
 	if not playing or ordinary_pause or model.phase!="preparing":return
 	if kind=="mine":return
@@ -283,7 +298,7 @@ func recruit_worker():
 	if not playing or ordinary_pause or settings_open or rogue_roster_open or model.phase!="preparing":return
 	build_kind="";world.preview.hide()
 	if model.workforce.recruit():world.sync(0)
-	else:toast("Need 1 food · Build a barracks" if not model.can_recruit(1) else "Need 50 ryo")
+	else:toast("Need 1 food · Build a farm" if not model.can_recruit(1) else "Need 50 ryo")
 func ground_at(screen: Vector2)->Vector3:
 	var cam=camera_rig.camera;var from=cam.project_ray_origin(screen);var direction=cam.project_ray_normal(screen)
 	if model.has_elevation():
@@ -318,7 +333,7 @@ func place_cell(cell: Vector2i)->bool:
 	if not reason.is_empty():toast(reason);return false
 	var b=model.build(build_kind,target_cell,build_rotation)
 	if b.is_empty():return false
-	if b.kind in ["mine","tower"]:model.workforce.assign_idle(b.id)
+	if b.kind=="mine":model.workforce.assign_idle(b.id)
 	forest_ui.selected_id=b.id;world.sync(0)
 	if is_instance_valid(placement_audio):placement_audio.play_placement(b.kind)
 	# Keep the chosen building and rotation ready for another placement.
@@ -398,7 +413,7 @@ func _unhandled_input(event):
 			build_rotation=(build_rotation+1)%4;wall_start=Vector2i(-999,-999)
 			get_viewport().set_input_as_handled();return
 	if event is InputEventMouseMotion and event.button_mask&MOUSE_BUTTON_MASK_MIDDLE:
-		pan+=Vector3(-event.relative.x,0,-event.relative.y)*preparation_size/700.0;clamp_preparation_pan();update_preparation_camera()
+		pan+=preparation_pan_direction(-event.relative)*preparation_size/700.0;clamp_preparation_pan();update_preparation_camera()
 	if event is InputEventMouseButton:
 		if event.button_index==MOUSE_BUTTON_RIGHT and event.pressed:build_kind="";world.preview.hide();wall_start=Vector2i(-999,-999)
 		if event.button_index==MOUSE_BUTTON_LEFT:
@@ -406,7 +421,9 @@ func _unhandled_input(event):
 			if event.pressed:
 				if build_kind=="wall":wall_start=cell
 				elif not build_kind.is_empty():place_cell(cell)
-				else:forest_ui.selected_id=model.occupancy.get(cell,-1)
+				else:
+					forest_ui.selected_id=model.occupancy.get(cell,-1)
+					if model.buildings.get(forest_ui.selected_id,{}).get("kind","")=="cannon_tower":placement_audio.play_cannon("select")
 			elif build_kind=="wall" and wall_start.x!=-999:
 				var cells=wall_cells(cell)
 				var result=model.build_wall_line(cells,build_rotation)
@@ -445,7 +462,7 @@ func _process(delta):
 		if model.phase=="preparing":
 			model.tick(delta,player.position)
 			var move_=Input.get_vector("move_left","move_right","move_forward","move_back")
-			pan+=Vector3(move_.x,0,move_.y)*delta*preparation_size*.7
+			pan+=preparation_pan_direction(move_)*delta*preparation_size*.7
 			clamp_preparation_pan();update_preparation_camera()
 			if not build_kind.is_empty():
 				update_build_preview(model.cell_of(ground_at(get_viewport().get_mouse_position())))
@@ -498,6 +515,7 @@ func _physics_process(delta):
 			"arrow":
 				tower_arrows.launch(event)
 			"arrow_impact":tower_arrows.impact(event)
+			"cannon_sound":placement_audio.play_cannon(event.event,event.point)
 	model.events.clear();sync_enemies()
 	if model.phase!=last_phase:set_phase_view()
 	_army_profile("game_events",cpu_clock)
@@ -599,9 +617,10 @@ func show_team_upgrade():
 	ui.add_child(team_upgrade_picker)
 func choose_team_upgrade(id:String,offered_level:int)->bool:
 	if not is_instance_valid(team_upgrade_picker) or model.phase not in ["wave","preparing"] or not model.team_progression.can_choose(id,offered_level):return false
-	if id=="legendary_mercenaries" and not explorer_helpers.grant_random(5,model.team_progression.rng):
+	var card=model.team_progression.CARDS[id]
+	if card.has("mercenary") and not explorer_helpers.grant_company(5,card.mercenary):
 		forest_ui.sync();return false
-	if id=="legendary_hero" and not explorer_helpers.grant_hero(model.team_progression.rng):return false
+	if card.has("hero") and not explorer_helpers.grant_hero(card.hero):return false
 	if id=="legendary_workers":
 		for i in 10:model.workforce.recruit(true)
 		world.sync(0)
@@ -623,8 +642,8 @@ func defeat():
 	# model to defeat; keep workers, enemies and the current wave running.
 	if model.phase!="wave" or respawn_left>0:return
 	respawn_left=PLAYER_RESPAWN_DELAY;model.hero_targetable=false
-	player.cancel_charge(player.character_id in [31,32]);player.reset_auto_attack();player.velocity=Vector3.ZERO
-	if player.character_id in [16,17,30,31,32]:player.active_ability.die()
+	player.cancel_charge(player.character_id in [31,32,33]);player.reset_auto_attack();player.velocity=Vector3.ZERO
+	if player.character_id in [16,17,30,31,32,33]:player.active_ability.die()
 	hit_stop=0;Engine.time_scale=1
 	_sync_camera_mouse();forest_ui.sync()
 func _tick_player_respawn(delta:float):
@@ -805,7 +824,7 @@ func resize_preparation_map(direction:int)->bool:
 	document.data.map_expansion=expansion
 	var error=MapDocument.validate(document.data)
 	if not error.is_empty():toast("Cannot resize: "+error+" Your map is unchanged.");return false
-	var terrain=ForestModel.create_terrain(model.terrain_source,model.terrain_scale,expansion);terrain.configure(model.ramparts)
+	var terrain=ForestModel.create_terrain(model.terrain_source,model.terrain_scale,expansion,model.raised_castle);terrain.configure(model.ramparts)
 	var protected_cells=[]
 	for building in model.buildings.values():protected_cells.append_array(model.footprint(building.kind,building.cell,building.rotation,building.get("span",0)))
 	for portal in model.portals:protected_cells.append_array(ForestModel.portal_cells(portal))
@@ -835,7 +854,8 @@ func open_map_editor():
 	if not playing or ordinary_pause or settings_open or rogue_roster_open or model.phase!="preparing":return
 	build_kind="";wall_start=Vector2i(-999,-999);world.preview.hide();forest_ui.selected_id=-1
 	map_editor.open()
-func preview_forest_map(layout: Dictionary,preview: bool=true):
+func preview_forest_map(layout: Dictionary,preview: bool=true,reuse_world:bool=false):
+	var previous=model
 	respawn_left=0.0
 	var saved_pan=pan
 	if is_instance_valid(explorer_helpers):explorer_helpers.clear()
@@ -844,7 +864,12 @@ func preview_forest_map(layout: Dictionary,preview: bool=true):
 		for x in range(-40,40):
 			for z in range(-40,40):model.explored[Vector2i(x,z)]=true;model.visible_cells[Vector2i(x,z)]=true
 	else:
+		player.position=model.point(PLAYER_SPAWN_CELL)+Vector3.UP*.15
 		player.progression.reset(false);player.refresh_max_health();player.hp=player.max_hp;won=false;checkpoint=player.position
 	player.team_progression=model.team_progression
-	world.model=model;world.reload_map();army_runtime.reset_world();set_phase_view()
+	var reuse=preview and reuse_world and world.can_reuse_map(model)
+	world.model=model
+	if reuse:world.reload_preview(previous)
+	else:world.reload_map()
+	army_runtime.reset_world();set_phase_view()
 	if preview:pan=saved_pan;update_preparation_camera()

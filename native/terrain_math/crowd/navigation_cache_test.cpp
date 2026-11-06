@@ -14,7 +14,10 @@ struct NavigationCacheTest {
     assert(x.heights.size()==y.heights.size()&&!std::memcmp(x.heights.data(),y.heights.data(),x.heights.size()*sizeof(float)));
  }
  static Vec3 actual(Terrain& t,Vec3 from,Vec3 goal,float radius,int layer){return t.waypoint(from,goal,radius,layer);}
- // Original uncached selector, with the new certified goal connection.
+ static bool exact_segment(Terrain& t,Vec3 from,Vec3 goal,float radius){
+    auto spans=std::move(t.field_spans_);bool result=t.segment(from,goal,radius,0);t.field_spans_=std::move(spans);return result;
+ }
+ // Uncached selector, with certified goal connections and horizontal flow costs.
  static Vec3 reference(Terrain& t,Vec3 from,Vec3 goal,float radius,int layer){
     constexpr float STEP=6;
     constexpr int dx[]={1,-1,0,0},dz[]={0,0,1,-1};
@@ -53,7 +56,7 @@ struct NavigationCacheTest {
     Vec3 best{NAN,0,0};float score=INFINITY;
     for(int z=std::max(0,fz-1);z<=std::min(grid.nz-1,fz+1);++z)for(int x=std::max(0,fx-1);x<=std::min(grid.nx-1,fx+1);++x){
         int i=z*grid.nx+x;if(!std::isfinite(found->cost[i]))continue;
-        Vec3 point{t.minimum_.x+x*STEP,grid.heights[i],t.minimum_.z+z*STEP};float distance=length(point-from);
+        Vec3 point{t.minimum_.x+x*STEP,grid.heights[i],t.minimum_.z+z*STEP};float distance=std::hypot(point.x-from.x,point.z-from.z);
         if(distance<.1f||found->cost[i]+distance>=score||!t.segment(from,point,radius,layer))continue;
         score=found->cost[i]+distance;best=point;
     }
@@ -79,6 +82,17 @@ int main(){
  for(int i=0;i<1100;++i)query({-48,0,-48},{-42,0,-48},.4f,0);
  auto hits=t.navigation_profile.route_hits;
  assert(hits>1000 && "Repeated exact route queries must reuse certificates");
+ // Both successful and blocked exact repeats skip goal-connection work too.
+ for(Vec3 goal:std::vector<Vec3>{{24,0,12},{1000,0,1000}}){
+  Vec3 from{-24,0,-12};auto expected=NavigationCacheTest::reference(t,from,goal,.4f,0);
+  equal(NavigationCacheTest::actual(t,from,goal,.4f,0),expected);
+  auto segments=t.navigation_profile.segments,heights=t.navigation_profile.heights;
+  equal(NavigationCacheTest::actual(t,from,goal,.4f,0),expected);
+  assert(t.navigation_profile.segments==segments&&t.navigation_profile.heights==heights);
+  auto hits=t.navigation_profile.route_hits;goal.x=std::nextafter(goal.x,INFINITY);
+  equal(NavigationCacheTest::actual(t,from,goal,.4f,0),NavigationCacheTest::reference(t,from,goal,.4f,0));
+  assert(t.navigation_profile.route_hits==hits);
+ }
  // Local obstacle updates must match a complete rebuild, including boundary edges.
  for(int update=0;update<6;++update){
   for(float radius:{.4f,3.9f,12.0f,12.096f})for(int layer:{0,1})NavigationCacheTest::actual(t,{-24,0,-12},{24,0,12},radius,layer);
@@ -112,5 +126,67 @@ int main(){
  auto segments=t.navigation_profile.segments;
  equal(NavigationCacheTest::actual(t,route_from,route_goal,.4f,0),expected);
  assert(t.navigation_profile.segments-segments<64 && "Goal and entry certificates must stay bounded to nearby grid cells");
+ // Choosing the same nearest connector needs fewer long corridor checks.
+ Terrain reference_goal,ordered_goal;reference_goal.configure(flat);ordered_goal.configure(flat);
+ reference_goal.navigation_profile.enabled=true;ordered_goal.navigation_profile.enabled=true;
+ NavigationCacheTest::actual(reference_goal,{-30,0,-30},{30,0,30},.4f,0);
+ NavigationCacheTest::actual(ordered_goal,{-30,0,-30},{30,0,30},.4f,0);
+ auto before_segments=reference_goal.navigation_profile.segments,after_segments=ordered_goal.navigation_profile.segments;
+ auto before_heights=reference_goal.navigation_profile.heights,after_heights=ordered_goal.navigation_profile.heights;
+ equal(NavigationCacheTest::reference(reference_goal,{1,0,1},{49,0,49},.4f,0),NavigationCacheTest::actual(ordered_goal,{1,0,1},{49,0,49},.4f,0));
+ assert(ordered_goal.navigation_profile.segments-after_segments<reference_goal.navigation_profile.segments-before_segments);
+ assert(ordered_goal.navigation_profile.heights-after_heights<reference_goal.navigation_profile.heights-before_heights);
+ std::cout<<"GOAL_CONNECTOR_WORK reference_segments="<<reference_goal.navigation_profile.segments-before_segments<<" ordered_segments="<<ordered_goal.navigation_profile.segments-after_segments<<" reference_heights="<<reference_goal.navigation_profile.heights-before_heights<<" ordered_heights="<<ordered_goal.navigation_profile.heights-after_heights<<"\n";
+ // Slow troops must make progress up a supported slope instead of revisiting its last waypoint.
+ NavigationData slope=flat;
+ for(int z=0;z<41;++z)for(int x=0;x<41;++x)slope.heights[z*41+x]=x*.9f;
+ t.configure(slope);
+ for(int hz:{20,30,60})for(float lane:{-2.5f,0.0f,2.5f}){
+  Vec3 position{-48,float(t.height(-48,0)),0},destination{48,float(t.height(48,0)),0};int layer=0;bool routing=true;
+  assert(t.reachable(position,destination,1.3f,layer));
+  for(int tick=0;tick<hz*100;++tick)position=t.move(position,destination,1.25f,1.0f/hz,1.3f,layer,routing,{},lane);
+  assert(length(position-destination)<.1f && "Supported uphill routes must reach the goal");++checks;
+ }
+ // A valid long segment at a ramp shoulder can skip an invalid sub-frame prefix.
+ NavigationData shoulder;shoulder.origin={-180,0,-180};shoulder.width=121;shoulder.spacing=3;
+ shoulder.heights.assign(121*121,0);shoulder.covered.assign(121*121,1);
+ for(int z=0;z<121;++z)for(int x=0;x<121;++x)if(std::abs(z*3-180+3)<=21)
+  shoulder.heights[z*121+x]=32*std::clamp((150-float(x*3-180))/96,0.0f,1.0f);
+ t.configure(shoulder);
+ for(int hz:{20,30,60,144})for(float lane:{-3.042f,0.0f,3.042f}){
+  Vec3 position{148.8493f,0,19.20672f},destination{60,30,0};int layer=0;bool routing=true;
+  assert(t.clear(position,1.3f,layer)&&t.reachable(position,destination,1.3f,layer));
+  for(int tick=0;tick<hz*30;++tick){position=t.move(position,destination,5.2f,1.0f/hz,1.3f,layer,routing,{},lane);assert(t.clear(position,1.3f,layer));}
+  assert(length(position-destination)<.1f && "Try another neighbor when the first route step hits a shoulder");++checks;
+ }
+ // Narrow stairs must not oscillate between two partly supported route entries.
+ for(int half_width:{12,21}){
+  std::fill(shoulder.heights.begin(),shoulder.heights.end(),0);
+  for(int z=0;z<121;++z)for(int x=0;x<121;++x)if(std::abs(z*3-180+3)<=half_width)
+   shoulder.heights[z*121+x]=32*std::clamp((150-float(x*3-180))/96,0.0f,1.0f);
+  t.configure(shoulder);
+  for(int hz:{20,30,60,144})for(float lane:{-2.535f,0.0f,2.535f}){
+   Vec3 position{148.9549f,0,half_width-1.76958f},destination{60,30,0};int layer=0;bool routing=true;
+   assert(t.clear(position,1.3f,layer));
+   for(int tick=0;tick<hz*30;++tick){position=t.move(position,destination,5.2f,1.0f/hz,1.3f,layer,routing,{},lane);assert(t.clear(position,1.3f,layer));}
+   assert(length(position-destination)<.1f && "Corridor certificates must include triangle-edge clearance extrema");++checks;
+  }
+ }
+ for(const auto& surface:{flat,slope,shoulder})for(float spacing:{3.0f,4.5f}){
+  auto scaled=surface;scaled.spacing=spacing;t.configure(scaled);
+  for(int i=0;i<1000;++i){
+   Vec3 a{pos(rng),0,pos(rng)},b{pos(rng),0,pos(rng)};a.y=float(t.height(a.x,a.z));b.y=float(t.height(b.x,b.z));float radius=.3f+float(i%70)*.1f;
+   assert(t.segment(a,b,radius,0)==NavigationCacheTest::exact_segment(t,a,b,radius));++checks;
+  }
+ }
+ // Ordinary 3.9-metre army bodies fit the certified neighbourhood too.
+ t.configure(flat);t.navigation_profile.enabled=true;
+ auto heights=t.navigation_profile.heights;
+ bool certified=t.segment({-48,0,-48},{48,0,48},3.9f,0);
+ auto fast_heights=t.navigation_profile.heights-heights;heights=t.navigation_profile.heights;
+ assert(certified==NavigationCacheTest::exact_segment(t,{-48,0,-48},{48,0,48},3.9f));
+ auto exact_heights=t.navigation_profile.heights-heights;
+ std::cout<<"SOLDIER_CORRIDOR_WORK certified_heights="<<fast_heights<<" exact_heights="<<exact_heights<<std::endl;
+ assert(fast_heights*4<exact_heights && "Normal army radii must reuse flat-terrain clearance certificates");++checks;
  std::cout<<"NAVIGATION_CACHE_RESULT checks="<<checks<<" hits="<<hits<<"\n";
 }

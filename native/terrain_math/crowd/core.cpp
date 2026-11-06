@@ -172,8 +172,10 @@ std::vector<Handle> Crowd::query(Vec3 a,Vec3 b,int team,bool ordered){
 void Crowd::set_navigation(NavigationData data){
     NavigationData friendly=data;
     if(data.friendly_navigation){friendly.obstacle_min=std::move(friendly.friendly_obstacle_min);friendly.obstacle_max=std::move(friendly.friendly_obstacle_max);}
-    allied_terrain.configure(std::move(friendly));
+    // Both domains change together; release the sibling before updating shared geometry.
+    if(allied_terrain.air_==terrain.air_)allied_terrain.air_=std::make_shared<Terrain::AirGeometry>();
     terrain.configure(std::move(data));
+    allied_terrain.configure(std::move(friendly),&terrain);
     for(auto& u:units_){u.support_layer=-1;u.routing=false;u.approach_ready=false;}
 }
 void Crowd::rest_allies(){
@@ -181,13 +183,15 @@ void Crowd::rest_allies(){
     for(auto& u:units_)if(u.alive){
         if(u.team==0){despawn(u.handle);continue;}
         Unit old=std::move(u);u={};u.handle=old.handle;u.logical_id=old.logical_id;u.team=old.team;u.kind=old.kind;u.hp=old.hp;u.max_hp=old.max_hp;u.radius=old.radius;u.position=old.position;u.yaw=old.yaw;u.guard_post=old.guard_post;u.guard_radius=old.guard_radius;u.alive=true;if(old.shelter_mode==2){u.shelter_mode=2;u.shelter_id=old.shelter_id;u.shelter_exit=old.shelter_exit;}combat.spawned(u);
+        // Prepared hero bodies and their action leases survive between waves.
+        u.mirror_actions=old.mirror_actions;u.mirror_speed=old.mirror_speed;u.mirror_reach=old.mirror_reach;u.mirror_approach=old.mirror_approach;u.mirror_busy=old.mirror_busy;
     }
     dirty_=true;++pose_revision_;
 }
 void Crowd::set_guard(Handle h,Vec3 point,float radius){if(auto u=unit(h);u&&bounded(point)&&std::isfinite(radius)&&radius>=0){u->guard_post=point;u->guard_radius=radius;u->think_left=0;}}
 bool Crowd::set_mirror(Handle h,int actions,float speed,float reach,Vec3 approach){
     auto u=unit(h);
-    if(!u||u->team!=1||u->kind<101||u->kind>132||actions<1||actions>7||!std::isfinite(speed)||speed<=0||speed>200||!std::isfinite(reach)||reach<=0||reach>200)return false;
+    if(!u||u->team!=1||u->kind<101||u->kind>134||actions<1||actions>7||!std::isfinite(speed)||speed<=0||speed>200||!std::isfinite(reach)||reach<=0||reach>200)return false;
     if(!bounded(approach))return false;
     approach.y=0;if(length(approach)<.001f)return false;
     u->mirror_approach=normalized(approach)*(reach*.8f);
@@ -196,7 +200,14 @@ bool Crowd::set_mirror(Handle h,int actions,float speed,float reach,Vec3 approac
 }
 void Crowd::set_goal(Handle handle,Vec3 goal,float speed){
     auto u=unit(handle);if(!u||!bounded(goal)||!std::isfinite(speed)||speed<0)return;
-    if(length(goal-u->goal)>3)u->routing=false;
+    // Mercenary approach offsets are horizontal; routes need the destination's ground height.
+    if(u->team==1&&u->guard_radius>0){goal.y=float(allied_terrain.height(goal.x,goal.z,std::max(0,u->support_layer)));if(!finite(goal))return;}
+    if(length(goal-u->goal)>3){
+        // Retargeting beside a cliff must keep the detour instead of restarting direct steering.
+        auto& ground=u->team==1?allied_terrain:terrain;
+        int layer=u->support_layer<0?ground.choose_layer(u->position):u->support_layer;
+        u->routing=!ground.segment(u->position,goal,u->radius,layer);
+    }
     u->goal=goal;u->move_speed=speed;u->has_goal=true;
 }
 void Crowd::step(double delta){

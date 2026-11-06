@@ -1,0 +1,25 @@
+[gd_scene format=3]
+
+[ext_resource type="Material" path="res://assets/models/cedar_pass/shared_matte.tres" id="1_x2u6s"]
+[ext_resource type="PackedScene" path="res://assets/models/cedar_pass/river_rock.glb" id="2_b3v5r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c8rjn"]
+size = Vector3(4.137549, 1.3, 2.2322347)
+
+[node name="RiverCluster" type="Node3D" unique_id=37799629]
+metadata/scenery_material = ExtResource("1_x2u6s")
+metadata/scenery_bounds = AABB(-2.2403464, 0, -0.93083876, 4.137549, 1.3, 2.2322347)
+
+[node name="Part0" type="Node3D" parent="." unique_id=904005098 instance=ExtResource("2_b3v5r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="Part1" type="Node3D" parent="." unique_id=259408448 instance=ExtResource("2_b3v5r")]
+transform = Transform3D(-0.3281499, 0, 0.5610861, 0, 0.65, 0, -0.5610861, 0, -0.3281499, 1, 0, 0.3)
+
+[node name="@StaticBody3D@245" type="StaticBody3D" parent="." unique_id=1484273374]
+collision_mask = 0
+metadata/halo_material = "stone"
+
+[node name="@CollisionShape3D@246" type="CollisionShape3D" parent="@StaticBody3D@245" unique_id=2022008798]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17157197, 0.65, 0.1852786)
+shape = SubResource("BoxShape3D_c8rjn")

@@ -150,12 +150,14 @@ func sync_skeleton():
 
 func animate(delta: float, speed: float, grounded: bool, vertical: float, attack: float, heavy: bool, combo: int, dodge: bool):
 	if locomotion!=null:
-		body.position=Vector3.ZERO
-		body.rotation=Vector3.ZERO
-		body.scale=Vector3.ONE
-		for arm in arms: arm.rotation=Vector3.ZERO
-		for leg in legs: leg.rotation=Vector3.ZERO
-		head.rotation=Vector3.ZERO
+		if body.position!=Vector3.ZERO:body.position=Vector3.ZERO
+		if body.rotation!=Vector3.ZERO:body.rotation=Vector3.ZERO
+		if body.scale!=Vector3.ONE:body.scale=Vector3.ONE
+		for arm in arms:
+			if arm.rotation!=Vector3.ZERO:arm.rotation=Vector3.ZERO
+		for leg in legs:
+			if leg.rotation!=Vector3.ZERO:leg.rotation=Vector3.ZERO
+		if head.rotation!=Vector3.ZERO:head.rotation=Vector3.ZERO
 		landing=move_toward(landing,0,delta*5)
 		var charge_target=1.0 if charge_requested else ((1.0-smoothstep(0.70,1.0,charge_release)) if charge_release>=0 else 0.0)
 		charge_pose_weight=move_toward(charge_pose_weight,charge_target,delta*8.0)

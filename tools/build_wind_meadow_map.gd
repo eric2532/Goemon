@@ -57,6 +57,7 @@ func _initialize():
   for x in range(int(-32*SCALE),int(32*SCALE)+1,2):
    var p=Vector2(x*6,z*6)
    if p.length()<90 or p.length()>188*SCALE or Layout.road_distance(p,SCALE)<24:continue
+   if map.get("raised_castle",false) and Layout.castle_height(p)>0:continue
    var clear=true
    for camp in Layout.clearings(SCALE):
     if p.distance_to(Vector2(camp.x,camp.z))<85:clear=false

@@ -40,6 +40,9 @@ Rogue projectile cache and AttackChain's local candidates/exact contacts.
 Allied flight: native/terrain_math/crowd/combat.cpp, using the existing native
 Projectile owner, terrain casts, hit events and projectile presentation batch.
 Flight constants are supplied to native kit data from the player module.
+2026-10-29: hunting VISUAL_SCALE is now 1.15, matching the existing descent
+scale instead of shrinking to .7. This changes presentation only: hit width,
+damage, travel, target search and lifetime retain their existing values.
 A separate hit list belongs to each cast/pass; targets are not kept as live
 actor references. Large player updates subdivide into 1/60-second steps.
 Rebuild the native library with native/terrain_math/build.sh while Play is closed.

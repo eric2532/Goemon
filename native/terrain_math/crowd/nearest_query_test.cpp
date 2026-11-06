@@ -79,19 +79,26 @@ int main(){
   for(int i=0;i<1000;++i){auto enemy=c.spawn(i+2,0,0,{pos(rng),y(rng),pos(rng)},192,1.3f*size);c.set_pose(enemy,c.unit(enemy)->position,yaw(rng));}
   for(int i=0;i<200;++i)compare({pos(rng),y(rng),pos(rng)});
  }
- // Paid defenders acquire only contacts inside their post's area, even after pursuit.
- c.clear();NearestQueryTest::size(c,1);
+ // Guards keep the home territory even after being displaced.
+ c.clear();NearestQueryTest::size(c,1);c.set_navigation(NavigationData{});
  auto guard=c.spawn(-1,1,11,{0,0,0},200,.4);c.set_guard(guard,{0,0,0},18);
  auto distant=c.spawn(1,0,0,{60,0,0},100,1.3);
  assert(!NearestQueryTest::guard(c,guard));++checks;
  auto near=c.spawn(2,0,0,{12,0,0},100,1.3);
  assert(NearestQueryTest::guard(c,guard)==near);++checks;
- c.set_pose(guard,{40,0,0},0);
+ c.set_pose(guard,{40,0,0},0);assert(NearestQueryTest::guard(c,guard)==near);++checks;
+ c.set_pose(near,{18,0,0},0);assert(NearestQueryTest::guard(c,guard)==near);++checks;
+ c.set_pose(near,{18.01f,0,0},0);assert(!NearestQueryTest::guard(c,guard));++checks;
+ c.set_pose(near,{17,0,17},0);assert(NearestQueryTest::guard(c,guard)==near);++checks; // hill corner
+ c.set_pose(guard,{0,12,0},0);assert(NearestQueryTest::guard(c,guard)==near);++checks; // Dragoon entrance
+ // A nearby enemy inside a building must not pin a guard while another is reachable.
+ NavigationData nav;nav.obstacle_min={{3,0,-3}};nav.obstacle_max={{9,10,3}};c.set_navigation(nav);
+ c.set_pose(guard,{0,0,0},0);c.set_pose(near,{6,0,0},0);c.set_pose(distant,{0,0,16},0);
+ assert(NearestQueryTest::guard(c,guard)==distant);++checks;
+ c.despawn(distant);assert(!NearestQueryTest::guard(c,guard));++checks;
+ // Gameplay territory is centered on the castle, independent of purchase/relocation posts.
+ ExternalTarget base;base.id=10;base.kind=2;base.hp=100;base.foot={60,0,0};base.assault_priority=2;
+ c.combat.set_targets({base});c.set_pose(near,{65,0,0},0);
  assert(NearestQueryTest::guard(c,guard)==near);++checks;
- c.set_pose(near,{60,0,0},0);assert(!NearestQueryTest::guard(c,guard));++checks;
- c.set_pose(distant,{18.5f,0,0},0);assert(NearestQueryTest::guard(c,guard)==distant);++checks;
- c.set_pose(distant,{19,0,0},0);assert(!NearestQueryTest::guard(c,guard));++checks;
- c.set_pose(near,{0,0,18},0);assert(NearestQueryTest::guard(c,guard)==near);++checks;
- c.despawn(near);assert(!NearestQueryTest::guard(c,guard));++checks;
  std::cout<<"ARMY_NEAREST_QUERY_RESULT checks="<<checks<<" fitted="<<fitted<<" failures=0\n";
 }

@@ -48,7 +48,14 @@ func _ready():
  coin=Node3D.new();rig_visual.add_child(coin);coin.hide()
  chain_pipe=ChainPipeVisual.new();rig_visual.add_child(chain_pipe);chain_pipe.hide()
  locomotion=NativeLocomotion.new(self);process_priority=30
+ for i in 2:
+  var trail=preload("res://scripts/recovered_leader_trail.gd").new();trail.name="WeaponReachWave%d"%i;trail.light_color=Color("d7d4ac");trail.heavy_color=trail.light_color;add_child(trail);reach_trails.append(trail)
+ visibility_changed.connect(func():
+  if not visible:
+   for trail in reach_trails:trail.clear())
  apply_native_pose(0,0)
+var reach_trails:Array=[]
+var reach_delta=0.0
 func cape_skeleton()->Skeleton3D:return robe_skeleton
 func _cape_pose(pose:Transform3D)->Transform3D:
  return rig_visual.transform*pose*rig_visual.transform.affine_inverse()
@@ -58,9 +65,10 @@ func reach_scale()->float:
  var actor:Variant=combat.get('hero')
  if not is_instance_valid(actor):return 1.0
  return float(actor.pickup_multiplier('range'))*float(actor.melee_reach_setting())
-func scaled_source_pose(action_id:int,seconds:float)->Dictionary:
+func scaled_source_pose(action_id:int,seconds:float,visual:bool=false)->Dictionary:
  var source:Dictionary=sampler.sample_source(action_id,seconds)
  var factor=reach_scale()
+ if visual:factor=WeaponProportions.reach_visual_scale(factor)
  if is_equal_approx(factor,1.0):return source
  var hair_action=action_id in [0x5f,0x67,0x6f,0x9a]
  var pointers:Array=['0x9004918','0x90063d8'] if hair_action else KUNAI
@@ -71,7 +79,7 @@ func scaled_source_pose(action_id:int,seconds:float)->Dictionary:
   source[pointer]=Transform3D(native.basis.scaled(Vector3.ONE*factor),anchor+(native.origin-anchor)*factor)
  return source
 func apply_native_pose(action_id:int,seconds:float):
- var source:Dictionary=scaled_source_pose(action_id,seconds)
+ var source:Dictionary=scaled_source_pose(action_id,seconds,true)
  if source.is_empty():return
  source_action=action_id;source_time=seconds
  NativeBody.set_face(native_parts,action_id,seconds)
@@ -110,3 +118,16 @@ func set_surge(_active:bool):pass
 func apply_skin(_id:String):skin_id=HeroSkins.DEFAULT_ID
 func create_projectile_visual(kind:String)->Node3D:
  return NativeBody.create_projectile(kind,source_scale)
+
+func animate(delta:float,speed:float,grounded:bool,vertical:float,attack:float,heavy:bool,combo:int,dodge:bool):
+ super.animate(delta,speed,grounded,vertical,attack,heavy,combo,dodge)
+ reach_delta+=delta
+func sync_skeleton():
+ super.sync_skeleton()
+ var active=is_instance_valid(combat) and combat.mode in ["primary","hair_up","hair_forward"]
+ var segments=weapon_segments(source_action,source_time) if active else []
+ for i in reach_trails.size():
+  var pair=PackedVector3Array()
+  if i<segments.size():pair=PackedVector3Array([global_transform*segments[i].base,global_transform*segments[i].tip])
+  reach_trails[i].advance(reach_delta,pair,active,false)
+ reach_delta=0.0

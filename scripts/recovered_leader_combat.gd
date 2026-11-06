@@ -390,6 +390,7 @@ func cancel(_preserve_power: bool=false):
  clip="";mode="";elapsed=0;combo_timer=0;recovery_time=-1
  if is_instance_valid(hero):
   var model=hero.character_models.get(15)
-  if is_instance_valid(model) and is_instance_valid(model.sword_trail):model.sword_trail.clear()
+  if is_instance_valid(model) and is_instance_valid(model.sword_trail):
+   model.sword_trail.clear();model.original_blade_trail.clear()
 func hit():cancel()
 func interrupt_for_dodge():cancel()

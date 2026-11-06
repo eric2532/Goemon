@@ -38,5 +38,5 @@ const BOW_LOCAL_GRIP=Vector3(.85,1.25,.6)
 # Native Peasant right-hand grip in Stand Ready, shared by bow and arrow targeting.
 const TOWER_MUZZLE_OFFSET=Vector3(-.752981,1.493069,-.085336)
 const WORKER_CONTACT_HEIGHT=1.6
-const HEIGHTS={"wall":WALL_HEIGHT,"gate":GATE_HEIGHT,"shrine":STATUE_HEIGHT+PEDESTAL_HEIGHT,"tower":TOWER_HEIGHT,"mine":6.0,"barracks":BARRACKS_HEIGHT}
+const HEIGHTS={"wall":WALL_HEIGHT,"gate":GATE_HEIGHT,"shrine":STATUE_HEIGHT+PEDESTAL_HEIGHT,"tower":TOWER_HEIGHT,"cannon_tower":23.66,"mine":6.0,"barracks":BARRACKS_HEIGHT}
 static func height(kind:String)->float:return HEIGHTS.get(kind,4.0)

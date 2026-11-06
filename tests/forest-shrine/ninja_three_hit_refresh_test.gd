@@ -18,6 +18,7 @@ func press(down: bool):
  Input.parse_input_event(event);Input.flush_buffered_events()
 func fresh(hero_id: int=11):
  press(false)
+ game.army_runtime.clear()
  for actor in game.actors.values():
   if is_instance_valid(actor):actor.queue_free()
  game.actors.clear();game.enemies.clear();game.model.enemies.clear()
@@ -33,10 +34,9 @@ func fresh(hero_id: int=11):
  for i in range(20):game.player.active_ability._move_body(1.0/60)
  game.player.active_ability.player.pos=game.player.global_position
 func target(offset: Vector3,variant: int=0):
- var id=9000+game.model.enemies.size()
- var data={"id":id,"variant":variant,"pos":ORIGIN+offset,"hp":10000.0,"max_hp":10000.0,"velocity":Vector3.ZERO,"stun":100.0,"attack":false,"clock":0.0,"facing":0.0,"action":"walk","action_left":0.0,"attack_progress":0.0,"walk_phase":0.0}
- game.model.enemies[id]=data;game.sync_enemies()
- var actor=game.actors[id];actor.set_physics_process(false);actor._sync_fitted_pose()
+ var data=game.model.waves.spawn_enemy(variant,ORIGIN+offset);data.hp=10000;data.max_hp=10000;data.stun=100
+ game.sync_enemies()
+ var actor=game.actors[data.id];actor.set_physics_process(false);actor._sync_fitted_pose()
  game.model.update_vision(ORIGIN)
  return data
 func prepare(id: int):
@@ -93,10 +93,11 @@ func run():
  # Misses preserve partial progress and never earn a hit themselves.
  e=await reset_target();c=game.player.active_ability;swing(c);swing(c,1)
  var enemy=game.actors[e.id];var pos: Vector3=enemy.position
- enemy.position+=Vector3.BACK*30;e.pos=enemy.position;enemy._sync_fitted_pose()
+ e.pos=pos+Vector3.BACK*30
+ game.army_runtime.native.set_pose(enemy.handle,e.pos,0);game.army_runtime.sync_compatibility();enemy._sync_fitted_pose()
  swing(c,2)
  check(c.player.ninjaHits==2 and c.player.cooldowns.flintlock>0,"A missed third swing neither refreshes nor discards the two confirmed hits")
- enemy.position=pos;e.pos=pos;enemy._sync_fitted_pose();swing(c)
+ e.pos=pos;game.army_runtime.native.set_pose(enemy.handle,pos,0);game.army_runtime.sync_compatibility();enemy._sync_fitted_pose();swing(c)
  check(c.player.cooldowns.flintlock==0,"The next landed swing after a miss completes the three-hit refresh")
  # An already-ready cooldown cannot bank a future automatic reset.
  e=await reset_target();c=game.player.active_ability;c.player.cooldowns.flintlock=0

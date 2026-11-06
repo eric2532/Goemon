@@ -237,6 +237,7 @@ func _sample_weapon_brush(attack: Variant, blades: Array, tint: Color, accelerat
 		if not is_instance_valid(blade.node):return
 		var uid=blade.node.get_instance_id()
 		var pose=[blade.node.to_global(Vector3.ZERO),blade.node.to_global(blade.axis)]
+		if attack is Dictionary:pose[1]=pose[0]+(pose[1]-pose[0])*float(attack.get("bladeWaveScale",1.0))
 		if previous_poses.has(uid):previous.append(previous_poses[uid])
 		current.append(pose);previous_poses[uid]=pose
 	if current.is_empty():return
@@ -266,7 +267,13 @@ func _sample_weapon_brush(attack: Variant, blades: Array, tint: Color, accelerat
 		if legacy:
 			ribbon.material_override.set_shader_parameter("crimson",crimson)
 			ribbon.material_override.set_shader_parameter("purple_energy",not crimson)
-		else:ribbon.material_override=preload("res://assets/rogue/scripts/ink_brush_style.gd").material(tint)
+		else:
+			ribbon.material_override=preload("res://assets/rogue/scripts/ink_brush_style.gd").material(tint)
+			ribbon.material_override.set_shader_parameter("strong_energy",true)
+			ribbon.original_brush=preload("res://assets/rogue/scripts/magic_sword_brush.gd").new()
+			ribbon.original_brush.name="OriginalWeaponBrush";ribbon.original_brush.material_override=Ink.material(tint)
+			ribbon.add_child(ribbon.original_brush)
+		ribbon.wave_scale=maxf(.001,float(attack.get("bladeWaveScale",1.0)))
 		item = {}
 		item.cut_index=attack.index
 		_add(ribbon,life,"magic-brush",item)
@@ -278,6 +285,9 @@ func _sample_weapon_brush(attack: Variant, blades: Array, tint: Color, accelerat
 	item.sampleTime=attack.time
 	item.node.material_override.set_shader_parameter("fade",1.0)
 	item.node.material_override.set_shader_parameter("energy",.42 if reduced_flashes else (1.15 if attack.index==(4 if crimson else 2) else 1.0))
+	if item.node.original_brush!=null:
+		item.node.original_brush.material_override.set_shader_parameter("fade",1.0)
+		item.node.original_brush.material_override.set_shader_parameter("energy",item.node.material_override.get_shader_parameter("energy"))
 	item.node.sample_blades(current)
 
 func particles(pos: Vector3, color: Color = GOLD, count: int = 12, power: float = 1.0) -> void:
@@ -402,10 +412,13 @@ func weapon_impact(pos: Vector3, angle: float, style: String = "sword", color: C
 	group.name = "WeaponImpact_" + style
 	group.position = pos + Vector3(0, 1.0, 0)
 	group.rotation.y = angle
-	var strength: float = 1.35 if heavy else 1.0
+	group.scale = Vector3.ONE * (1.0 if reduced_flashes else 1.6)
+	var strength: float = 1.5 if heavy else 1.0
 	var pieces: Array = []
 	var magic_ring: MeshInstance3D
-	if not style.is_empty():
+	var piercing: bool = style in ["pierce", "arrow", "crimson-arrow", "lance", "thrust"]
+	var blunt: bool = style in ["bash", "pipe", "gold-pipe", "low-pipe", "staff", "slam"]
+	if not style.is_empty() and not piercing and not blunt:
 		var crimson: bool = style=="samurai-cut"
 		var legacy: bool=style in ["claymore","wave","samurai-cut"]
 		group.name=("SamuraiInkImpact" if crimson else "MagicInkImpact") if legacy else "RosterInkImpact_"+style
@@ -421,7 +434,7 @@ func weapon_impact(pos: Vector3, angle: float, style: String = "sword", color: C
 		magic_ring=_mesh(_ring_geometry(1.0,.10 if style=="gold-pipe" else .055,TAU,32),(Color("ff4965") if crimson else Color("b37aff")) if legacy else color,.65)
 		group.add_child(magic_ring)
 		particles(pos,(Color("ff2848") if crimson else Color("ad72ff")) if legacy else color,12 if heavy else 8,.85)
-	elif style in ["pierce", "arrow", "crimson-arrow", "lance", "thrust"]:
+	elif piercing:
 		for i in range(5):
 			var shard: MeshInstance3D = _mesh(_spear((1.4 if i == 0 else 0.65) * strength, 0.12 if i == 0 else 0.045, 0.035), Color("ecfcff") if i == 0 else color, 0.85 if i == 0 else 0.5)
 			var side: float = float(i - 2)
@@ -431,7 +444,7 @@ func weapon_impact(pos: Vector3, angle: float, style: String = "sword", color: C
 			pieces.append({"node": shard, "drive": 1.4 + i * 0.25})
 		particles(pos, color, 7 if heavy else 4, 0.48)
 	else:
-		var bash: bool = style in ["bash", "pipe", "low-pipe", "staff", "slam"]
+		var bash: bool = blunt
 		for i in range(5 if bash else 3):
 			var mesh: MeshInstance3D = _mesh(_diamond((1.75 if i == 0 else 0.78) * strength, 0.13 if bash else (0.065 if i == 0 else 0.035)), Color("fffae8") if i == 0 else color, 0.9 if i == 0 else 0.55)
 			mesh.rotation.z = i * PI / 5.0 if bash else (-0.16 if style == "iaijutsu" else -0.58) + (1.45 if i == 1 else (0.08 if i == 2 else 0.0))
@@ -707,6 +720,10 @@ func create_projectile(kind: String, color: Color = TEAL) -> Node3D:
 	var group: Node3D = Node3D.new()
 	group.name = "Projectile_" + kind
 	match kind:
+		"cannon-shell":
+			group.add_child(preload("res://assets/models/effects/warcraft_cannon_shell.glb").instantiate())
+		"cannon-burst":
+			group.add_child(preload("res://assets/vfx/warcraft_cannon/impact.tscn").instantiate())
 		"dragon":
 			var dragon=_dragon_mesh("DragoonHuntingDragon",1.0)
 			dragon.material_override.set_shader_parameter("hunting",true)
@@ -868,7 +885,7 @@ func tick(dt: float) -> void:
 				node.material_override.set_shader_parameter("progress",t)
 				node.rotation.y=float(item.angle)+sin(t*PI)*.4
 			"magic-brush":
-				node.material_override.set_shader_parameter("fade",pow(remaining,.85))
+				_fade(node,pow(remaining,.85))
 			"particle-burst":
 				for j in range(item.sparks.size()):
 					var spark: Dictionary = item.sparks[j]
@@ -936,7 +953,7 @@ func tick(dt: float) -> void:
 					collar.scale = Vector3.ONE * (0.5 + phase * 1.55)
 					_fade(collar, sin(phase * PI) * fade)
 			"impact":
-				_fade(node, pow(remaining, 0.65))
+				_fade(node, remaining)
 				if is_instance_valid(item.get("magicRing")):
 					item.magicRing.scale=Vector3.ONE*(.25+t*1.65)*float(item.strength)
 				for piece in item.pieces:

@@ -15,7 +15,7 @@ func action(name_:String,pressed:bool=true):
 	game.player._input(event)
 	if pressed:game.player._unhandled_input(event)
 func ground_player(p):
-	p.position=Vector3(0,.05,18)
+	p.position=Vector3(0,game.model.surface_height(0,18)+.05,18)
 	for i in 3:p.velocity=Vector3.DOWN*20;p.move_and_slide()
 	p.velocity=Vector3.ZERO
 func run():

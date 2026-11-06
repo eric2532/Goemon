@@ -12,6 +12,7 @@ var dispatching=false
 var casting_id=""
 var numbered_slots:Array=[]
 var held_numbers:Dictionary={}
+var air_attack_action=""
 
 func assignments(character:int)->Dictionary:
  var saved=Catalog.valid_loadouts(hero.game.settings.get("spell_loadouts",{}))
@@ -32,14 +33,21 @@ func equip(character:int,action:String,id:String)->bool:
  if slots.is_empty():saved.erase(str(character))
  else:saved[str(character)]=slots
  hero.game.settings.spell_loadouts=saved;hero.game.save_settings()
+ if character==13 and hero.character_id==13 and hero.active_ability.combo_skill=="leaping-strike":hero.active_ability.cancel()
  prepare()
  return true
 
 func prepare():
  hero.jump_style.prepare()
  numbered_slots=slots_for(hero.character_id)
+ air_attack_action=""
+ var slots=assignments(hero.character_id)
+ for action in Catalog.SLOTS:
+  if slots.has(action) and Catalog.all()[slots[action]].get("air_attack",false):
+   air_attack_action=action;break
  # Selection/equipment pays setup once; input only starts prepared controllers.
  var equipped=assignments(hero.character_id).values().filter(func(id):return not hero.mirror_copy or id!="blademaster/mirror-image")
+ if hero.character_id==13:equipped=equipped.filter(func(id):return Catalog.all()[id].method not in ["start_combo","start_leaping_strike"])
  for key in instances.keys():
   if key.begins_with("%d:"%hero.character_id) and equipped.has(instances[key].spec.id):continue
   retired_cooldowns[key]=instances[key].cooldown_state()
@@ -107,26 +115,35 @@ func _instance(id:String)->Node:
 
 func input(event:InputEvent)->bool:
  var slots=assignments(hero.character_id)
+ if not air_attack_action.is_empty() and not hero.is_on_floor() and (event.is_action_pressed("light_attack") or event.is_action_pressed("heavy_attack")):
+  if not event.is_echo():_cast(slots[air_attack_action],air_attack_action)
+  return true
  for action in slots:
   if not event.is_action(action):continue
   if event.is_echo():return true
   if event.is_action_pressed(action):
-   var instance=instances.get("%d:%s"%[hero.character_id,slots[action]])
-   if instance==null:return true
-   if instance==current and instance.held:
-    held_slots[action]=instance;return true
-   if not instance.can_cast():return true
-   if instance==current and (instance.spec.method=="sky" or (instance.source_id==30 and instance.spec.args[0] in [1,2,3,4])):
-    held_slots[action]=instance;dispatching=true;casting_id=instance.spec.id;instance.cast();casting_id="";dispatching=false;return true
-   if current!=null and current!=instance:interrupt()
-   hero.interrupt_attack_for_movement()
-   held_slots[action]=instance
-   dispatching=true;casting_id=instance.spec.id;instance.cast();casting_id="";dispatching=false
-   if instance.busy():current=instance
+   _cast(slots[action],action)
   return true
  if current!=null and (event.is_action_pressed("light_attack") or event.is_action_pressed("heavy_attack") or event.is_action_pressed("dodge")):
   interrupt()
  return false
+
+func _cast(id:String,action:String):
+ var spec:Dictionary=Catalog.all()[id]
+ if hero.character_id==13 and spec.source==13 and spec.method in ["start_combo","start_leaping_strike"]:
+  hero.active_ability.callv(spec.method,spec.args);return
+ var instance=instances.get("%d:%s"%[hero.character_id,id])
+ if instance==null:return
+ if instance==current and instance.held:
+  held_slots[action]=instance;return
+ if not instance.can_cast():return
+ if instance==current and (instance.spec.method=="sky" or (instance.source_id==30 and instance.spec.args[0] in [1,2,3,4])):
+  held_slots[action]=instance;dispatching=true;casting_id=instance.spec.id;instance.cast();casting_id="";dispatching=false;return
+ if current!=null and current!=instance:interrupt()
+ hero.interrupt_attack_for_movement()
+ held_slots[action]=instance
+ dispatching=true;casting_id=instance.spec.id;instance.cast();casting_id="";dispatching=false
+ if instance.busy():current=instance
 
 func release_input(event:InputEvent):
  for action in held_slots.keys():
@@ -186,7 +203,11 @@ func tick(delta:float)->bool:
  hero.model.rotation.y=atan2(-hero.facing.x,-hero.facing.z)
  # The receiving body presents the gesture; the donor retains authored hit timing.
  var posed=(current.source_id==1 and current.spec.method=="sky") or (current.source_id==2 and current.spec.method=="teleport")
- if hero.model.has_method("animate_spell"):hero.model.animate_spell(delta,current)
+ if current.spec.get("air_attack",false) and not hero.model.has_method("animate_spell"):
+  var saved=current.snapshot();current.restore(current.hero_state)
+  hero.model.animate(delta,0,hero.is_on_floor(),hero.velocity.y,clampf(hero.attack_left/maxf(.001,hero.attack_duration),.001,1),hero.attack_heavy,hero.combo,false)
+  hero.model.sync_skeleton();current.restore(saved)
+ elif hero.model.has_method("animate_spell"):hero.model.animate_spell(delta,current)
  elif not posed:hero.model.animate(delta,Vector2(hero.velocity.x,hero.velocity.z).length(),hero.is_on_floor(),hero.velocity.y,0,false,0,false)
  if current.controller is Instance.KnightLion:current.controller.animate_cast(delta)
  if current.source_id==29 and current.controller.action==current.controller.Dark.SPIN and busy and hero.character_id!=29:

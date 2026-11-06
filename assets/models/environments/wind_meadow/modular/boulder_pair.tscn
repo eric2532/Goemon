@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/environments/wind_meadow/mossy_boulder.glb" id="1_kcrqy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vx1fi"]
+size = Vector3(4.762747, 1.32, 3.252003)
+
+[node name="BoulderPair" type="Node3D" unique_id=1152072215]
+metadata/scenery_bounds = AABB(-2.507321, 0, -1.7275625, 4.762747, 1.32, 3.252003)
+
+[node name="Part0" type="Node3D" parent="." unique_id=1187081492 instance=ExtResource("1_kcrqy")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -1.05, 0, -0.25)
+
+[node name="Part1" type="Node3D" parent="." unique_id=706218429 instance=ExtResource("1_kcrqy")]
+transform = Transform3D(-0.0708645, 0, 0.54541564, 0, 0.55, 0, -0.54541564, 0, -0.0708645, 1.15, 0, 0.4)
+
+[node name="@StaticBody3D@243" type="StaticBody3D" parent="." unique_id=689458015]
+collision_mask = 0
+metadata/halo_material = "stone"
+
+[node name="@CollisionShape3D@244" type="CollisionShape3D" parent="@StaticBody3D@243" unique_id=360921529]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12594748, 0.66, -0.10156107)
+shape = SubResource("BoxShape3D_vx1fi")

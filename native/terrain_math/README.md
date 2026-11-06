@@ -29,6 +29,40 @@ Godot discovers `terrain_math.gdextension` on editor import. Before import, the 
 
 ## Headless smoke checks
 
+Standalone C++ regressions live in `crowd/*_test.cpp`. Compile each with the
+non-test `crowd/*.cpp` sources, C++17, pthreads, `-ffp-contract=off` and
+`-fno-fast-math`, with assertions enabled. Dark Lumina 3 includes its saved kit
+from `tests/forest-shrine/reference/finale_kit.h`; no generated build-folder
+header or extra include path is required. This fixture is excluded from game
+exports with the rest of `tests/`.
+
+Enemy and ally navigation retain separate blockers while reusing one immutable
+air-collision mesh/index when field data, bounds, layers and physical faces/owners
+match exactly. Standalone terrain copies retain their old geometry on revision.
+Buffers reserve the same triangle stream and BVH capacity, including wall growth;
+no geometry or contact samples are removed. `crowd/air_sharing_test.cpp` checks
+sharing, copy isolation, clipped flat bounds, exact contacts and bounded capacity.
+
+Waypoint certificates use exact root/goal/radius/layer inputs and are invalidated
+by navigation configuration. The nearest-first goal connector preserves the
+original strict-distance and row-order selection. `crowd/navigation_cache_test.cpp`
+compares it with the uncached selector, including blocked repeats and map changes.
+
+Covered terrain corridor certificates include ordinary army bodies when their
+radius plus the next .7 m sample fits inside two grid cells, with a rounding
+margin. This reuses the existing neighbourhood bounds; terrain/obstacle contact
+rules stay exact. The navigation cache regression compares normal/large spacing
+and larger radii with uncached segments and checks reduced height-sample work.
+
+Random map arrivals use `GoemonCrowdRuntime.can_reach(from, goal, radius)` to
+query the army's existing terrain connectivity. It joins pending simulation
+before reading the shared navigation data. Spawn clearance still checks scenery,
+body spacing and player/worker distance. Closed castles admit arrivals through
+reachable exterior approaches without pretending their gates are already open.
+`tests/forest-shrine/random_enemy_spawn_test.gd` covers this binding and the
+rendered assault; `crowd/navigation_cache_test.cpp` covers uphill progress and
+immediate steps at narrow ramp shoulders.
+
 Player and borrowed-skill candidate queries use
 `GoemonCrowdRuntime.ordered_enemy_candidates(bounds, actors, source, extras)`.
 It joins pending simulation, queries the existing native spatial grid, rejects

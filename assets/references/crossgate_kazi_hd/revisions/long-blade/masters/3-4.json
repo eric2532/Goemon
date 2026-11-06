@@ -1,0 +1,12 @@
+{
+  "token": "3-4",
+  "prompt": "Image 1 is the existing illustrated Kazi sprite sheet to edit; image 2 locks this view and character identity; image 3 defines ONLY the new longer blade shape/length. Preserve the exact swept black hair, green face marking, stern face, charcoal coat, white collar, gold waist buttons, black boots, short hilt and thin dark curved sword shape. Match the blade length in image 3: roughly 35 percent of his standing body height, about one and a half head widths, not a dagger. Keep blade thickness narrow and its tapered curved silhouette. Do not change the hilt/grip, hand, face, outfit, body proportions, palette, lighting or purple energy design. IMPROVE THE RUN LOOP as well as lengthening the sword. Exactly 18 genuinely distinct, evenly spaced poses for ONE full left/right stride; do not repeat each body pose three times. Frames 0 and 9 are opposite foot contacts, 4 and 13 passing poses, 7 and 16 recovery before contact. Feet alternate with clear hip/knee/ankle motion and no ice skating; opposite free-arm swing, natural slight forward lean, coat/hair follow-through. Keep pelvis/head centered at one fixed root with only a small smooth vertical bob (less than 3 percent of body height). No crouch-to-tall jumps, no hopping, no fast body scale changes. Frame 17 flows naturally to frame 0. Read as a continuous grounded run-in-place, not a series of lunges. Keep the illustrated rendering/style unchanged.Output EXACTLY 6 columns x 3 rows, 18 occupied cells ordered left-to-right top-to-bottom; trailing cells empty. Keep canvas aspect and uniform grid. Every sprite faces front right three-quarter toward viewer and image right. Hold that view in ALL frames. Keep all art/effects within its own cell with 16 transparent pixels of padding at EVERY edge; never cut tips or add neighboring fragments. True transparent background. No text, labels, grid lines, backgrounds or shadows.",
+  "references": [
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/masters/3-4.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/masters/0-4.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/identity-long-blade.png"
+  ],
+  "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-c09a399b-45a4-4429-88ac-5368e20b7519.png",
+  "tool": "built-in image_gen",
+  "sha256": "183df473e49f527f89737746bd0c806afa8657e2552bef2018d231ea38e374d0"
+}

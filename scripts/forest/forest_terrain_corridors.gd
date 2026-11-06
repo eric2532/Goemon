@@ -31,7 +31,7 @@ func _refresh(model):
   bounds=model.world_bounds();rect_bounds=terrain.get_script() in [BloodGulch,WindMeadow]
  elif model.has_method("navigation_bounds"):
   bounds=model.navigation_bounds();rect_bounds=terrain.get_script() in [BloodGulch,WindMeadow]
- var next=[terrain.get_instance_id(),terrain.pieces.duplicate(true),model.trees.duplicate(),model.roads.duplicate()]
+ var next=[terrain.get_instance_id(),terrain.pieces.duplicate(true),model.trees.duplicate(),model.scenery_obstacles.duplicate(),model.roads.duplicate()]
  if native_field:
   next.append_array([terrain.width,terrain.spacing,terrain.heights.duplicate(),terrain.covered.duplicate(),origin,bounds,rect_bounds])
  elif terrain.get_script()!=Ramparts:
@@ -48,7 +48,8 @@ func _refresh(model):
   # An older installed library can still accelerate the original domain.
   if native_sampler!=null:
    var trees=PackedVector2Array();var roads=PackedVector2Array();var walls=PackedVector3Array()
-   for cell in model.trees:trees.append(Vector2(cell.x*model.CELL,cell.y*model.CELL))
+   for cell in model.trees:
+    if not model.tree_rotations.has(cell):trees.append(Vector2(cell.x*model.CELL,cell.y*model.CELL))
    for cell in model.roads:roads.append(Vector2(cell))
    var navigation=navigation_ref.get_ref();navigation._refresh_candidates()
    for wall_bounds in navigation.building_contact_bounds.values():
@@ -59,7 +60,13 @@ func _refresh(model):
 func probe(points:PackedVector3Array,radii:PackedFloat64Array)->PackedFloat64Array:
  if points.size()!=radii.size():return PackedFloat64Array()
  var model=model_ref.get_ref();_refresh(model)
- if native_sampler!=null:return native_sampler.probe(points,radii)
+ if native_sampler!=null:
+  var sampled:PackedFloat64Array=native_sampler.probe(points,radii)
+  if model.authored_scenery:
+   var navigation=navigation_ref.get_ref()
+   for i in points.size():
+    if sampled[i*2+1]!=0 and not navigation.scenery_clear(points[i],14.0 if radii[i]>=8.5 else radii[i]):sampled[i*2+1]=0
+  return sampled
  var navigation=navigation_ref.get_ref();var result=PackedFloat64Array();result.resize(points.size()*2)
  for i in points.size():
   var p:Vector3=points[i];var floor_:float=model.surface_height(p.x,p.z)
@@ -78,6 +85,9 @@ func support(from:Vector3,to:Vector3,radius:float,spacing:float,on_road:bool,hor
  if entries.has(key):return entries[key]
  if native_sampler!=null:
   var native_points:PackedVector3Array=native_sampler.sample(from,to,radius,spacing,horizontal,on_road)
+  if model.authored_scenery:
+   for point in native_points:
+    if not navigation.scenery_clear(point,14.0 if radius>=8.5 else radius):native_points=PackedVector3Array();break
   return _store(key,not native_points.is_empty(),native_points)
  var distance=Vector2(to.x-from.x,to.z-from.z).length() if horizontal else from.distance_to(to)
  var steps=maxi(1,ceili(distance/spacing));var points=PackedVector3Array();var previous=from

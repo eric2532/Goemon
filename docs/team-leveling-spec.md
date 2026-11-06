@@ -1,12 +1,14 @@
-# Team leveling — first playable version
+# Team leveling
 
-Implemented for Goemon / Wind Meadow Valley on 2026-10-27.
+Implemented for Goemon / Wind Meadow Valley on 2026-10-27; current catalog updated 2026-11-05.
 
 The settlement levels as one team. A level earns one shared upgrade, chosen from
-three cards: **Tower**, **Worker**, and **Character**. Only the selected card takes
-effect. The benefit applies to every eligible friendly unit or tower, including
-ones recruited, built, summoned, or selected later in the run. Enemies receive no
-bonus. Team levels do not automatically raise personal health, movement, jump
+three distinct cards drawn from the full eligible pool. **Tower**, **Worker**,
+and **Character** are labels, not fixed slots: all three can share a category.
+Only the selected card takes effect. Team benefits apply to every eligible
+friendly unit or tower, including future arrivals. Far-reaching Strikes applies
+only to the controlled character, including after switching fighters. Enemies
+receive no bonus. Team levels do not automatically raise personal health, movement, jump
 height, or coin count.
 
 ## XP and lifetime
@@ -35,6 +37,12 @@ Wind Meadow uses continuous groups from each surviving enemy entrance. Each
 entrance advances independently when its current full group starts attacking or
 is wiped out. Existing opening delay, count growth, blocked-entrance retries,
 active cap, routes and combat timing are retained.
+
+As of 2026-10-28, configured wave counts are shared across all castles. After
+spawning a wave's exact count, entrances use the next configured mix, skipping
+empty waves and repeating the final mix. Mix changes can occur inside a group;
+they preserve each entrance's group size, strength, XP tier and release gate.
+Destroying all keeps remains the victory condition. Counts apply from a new run.
 
 | Group at that entrance | Default count | Health | Damage | XP per defeat |
 | --- | --- | --- | --- | --- |
@@ -82,15 +90,17 @@ Ordinary kills and selecting an upgrade do not replay it. The existing sound
 pool handles playback; the prepared sequence needs no runtime decoding.
 See `assets/audio/recovered_musashi/level_up_provenance.json` for source notes.
 
-## Initial card catalog
+## Current card catalog
 
-Each offer randomly selects one eligible card from each category, using its own
-run-seeded random generator so offers do not disturb enemy-wave randomness.
+Each offer randomly selects three distinct eligible cards across all categories,
+using its own run-seeded random generator so offers do not disturb enemy-wave
+randomness. Each slot rolls rarity, then uniformly draws a matching eligible card
+not already in the offer. There are nine ordinary and thirteen legendary cards.
 Each of the three cards also rolls its own independent rarity. Multiple rare
 cards, including matching rarities, can appear together. The rolled rarity stays
 fixed until selection; UI refreshes do not reroll it.
 
-| Rarity | Chance per card | Bonus strength |
+| Rarity | Default chance per card | Bonus strength |
 | --- | --- | --- |
 | Normal | 84.75% | ×1 |
 | Silver | 10% | ×2 |
@@ -98,27 +108,37 @@ fixed until selection; UI refreshes do not reroll it.
 | Diamond | 1% | ×4 |
 | Legendary | 0.25% | Special reward below |
 
-These rarer odds follow the user's October 27 preference; the legendary addition
-takes 0.25 percentage points from normal cards. Ordinary rarity strength multiplies
-the **added bonus**, not the unit's total stat: United Strength gives +15%, +30%,
-+45%, or +60% damage. A selection adds 1/2/3/4 effective ranks through the same
-team multipliers. The description and rank preview show the actual award.
+These default odds follow the user's October 27 preference. In **Core Game
+Balance → Level-up Card Chances**, Silver, Gold, Diamond and Legendary can each
+be adjusted in 0.01 percentage-point steps, including zero. Normal automatically
+fills the remainder. Each control stops at the percentage remaining after the
+other rare chances, so changing one never takes probability from another.
+Settings save automatically and apply to the next run; the current run and its
+already offered cards retain their odds. Reset Core Balance restores the defaults.
+Old saves without these fields also retain the defaults. Malformed saved values
+fall back or clamp; overfull files are capped to 100% in displayed rarity order.
+
+Ordinary rarity strength multiplies the **added bonus**, not the unit's total
+stat: United Strength now gives +30%, +60%, +90%, or +120% damage. A selection
+adds 1/2/3/4 effective ranks through the same team multipliers. The description,
+rank and before/after team-total preview show the actual award, including existing
+legendary tower stacks.
 
 ### Legendary rewards
 
-Four special cards occupy the same Tower / Worker / Character slots
-when those slots roll legendary. The Character slot chooses evenly between the
-mercenary and hero rewards, so each appears in 0.125% of Character offers.
+Thirteen named special cards share one pool whenever a slot rolls legendary.
+The card states exactly which hero or company will arrive; selection performs
+no additional random character roll. Categories do not constrain a slot.
 They use animated rainbow borders, a larger
 outer glow, broad moving highlights and oversized sparkles, with a LEGENDARY
 badge and the exact reward instead of a generic stat multiplier.
 
-| Slot | Card | Reward |
+| Category | Card | Reward |
 | --- | --- | --- |
 | Tower | Heavenly artillery | All current and future towers deal 5× total damage for this run, including ordinary tower-damage upgrades. Each later selection multiplies by five again. |
 | Worker | Royal workforce | Immediately grants 10 free workers at the castle. |
-| Character | Mercenary company | Immediately grants 5 free random mercenaries at safe castle positions. Each recruit independently draws from Dragoon, Ranger, Ninja, Knight and Explorer; duplicates are possible. |
-| Character | A legend joins | Summons one random hero: Goemon, Musashi, Kojiro, Blademaster or Illidan, with equal odds. They use their own configured stats and existing attacks/skills, inherit team bonuses, and stay until defeated or the run ends. |
+| Character | Dragoon / Ranger / Ninja / Knight / Explorer company (five separate cards) | Immediately grants 5 of the named mercenary at safe castle positions. |
+| Character | Goemon / Musashi / Kojiro / Blademaster / Illidan / Mountain King joins (six separate cards) | Summons the named hero. They use their own configured stats and existing attacks/skills, inherit team bonuses, and stay until defeated or the run ends. |
 
 Recruit rewards work during battle and bypass gold and food admission checks.
 The new units still count toward food usage; normal paid recruitment retains its
@@ -128,14 +148,14 @@ team bonuses. Repeated cards grant another complete batch. They are run-only.
 
 Mercenary rewards retain exploration, terrain, building, portal, body-spacing,
 physics and native-capacity checks. If all five cannot arrive, retire only that
-attempt's recruits, restore its random state and leave the choice unspent. The
-player can select another offered card. Invalid or
-stale choices cannot grant units. Fresh runs clear both recruits and tower stacks.
+attempt's recruits, restore its recruitment accounting and leave the choice
+unspent. The player can select another offered card. Invalid or stale choices
+cannot grant units. Fresh runs clear both recruits and tower stacks.
 
 The hero reward reuses `warcraft_mirrors.gd` and `mirror_body.gd` with one
 indefinite lease, separate from the normal five-copy, fifteen-second skill.
 Native navigation, health and action choices remain authoritative. Only the
-rolled hero's model and skills are prepared, during the paused choice; retired
+named hero's model and skills are prepared, during the paused choice; retired
 bodies can be reused. Larger hero models get more arrival space. Heroes do not
 take a paid mercenary food slot. Player changes do not change their identity.
 Run reset disconnects action/step callbacks and cancels leased projectiles.
@@ -146,21 +166,22 @@ pool ownership; summoned Goemon no longer reads the selected player's model.
 
 | Category | Card | Normal-card effect per selection |
 | --- | --- | --- |
-| Tower | Reinforced stone | +20% effective durability for every tower |
-| Tower | Rapid volleys | +15% firing rate for every staffed tower |
-| Tower | Heavy arrows | +20% arrow damage for every tower |
-| Worker | Expert repairs | +25% repair rate for all workers |
-| Worker | Swift response | +15% movement speed for all workers |
+| Tower | Reinforced stone | +30% effective durability for every tower |
+| Tower | Rapid volleys | +25% firing rate for every tower |
+| Tower | Heavy ammunition | +30% damage for every tower |
+| Worker | Expert repairs | +50% repair rate for all workers |
+| Worker | Swift response | +25% movement speed for all workers |
 | Worker | Back on our feet | Wounded workers revive at the castle after 12 seconds during battle |
-| Character | United strength | +15% attack and spell damage for the player, friendly fighters, and summoned copies |
-| Character | Battle rhythm | +10% attack cadence for the player, friendly fighters, and summoned copies |
+| Character | United strength | +30% attack and spell damage for the player, friendly fighters, and summoned copies |
+| Character | Battle rhythm | +20% attack cadence for the player, friendly fighters, and summoned copies |
+| Character | Far-reaching strikes | +25% melee attack reach for the controlled character only |
 
 Numerical ranks add to the base multiplier, rather than compounding: two normal
-United Strength cards mean ×1.30 damage; two normal Rapid Volleys mean ×1.30 fire rate.
+United Strength cards mean ×1.60 damage; two normal Rapid Volleys mean ×1.50 fire rate.
 Existing balance settings and temporary buffs multiply with these run bonuses.
-Reinforced Stone divides incoming tower damage by `1 + 0.20 × rank`; it does not
+Reinforced Stone divides incoming tower damage by `1 + 0.30 × rank`; it does not
 heal a tower or change its configured maximum health. At rank one this means
-16.67% less incoming damage and 20% more effective durability.
+23.08% less incoming damage and 30% more effective durability.
 
 Revival is a single unlock and disappears from later offers. Its rarity increases
 revival speed: normal/silver/gold/diamond workers return after 12/6/4/3 seconds.
@@ -177,6 +198,13 @@ Permanent walls and the existing tower garrison job retain their current rules.
 Repair upgrades retain the price of **1 ryo per 10 HP** and stop when funds run
 out. Movement upgrades also affect following, retreats, deliveries, and leaving
 tower decks. Repair-target selection runs at the existing assignment cadence.
+
+Far-reaching Strikes adds +25% / +50% / +75% / +100% reach at
+Normal / Silver / Gold / Diamond rarity. Ranks add to the player multiplier and
+reset each run. The existing melee reach setting carries it through each
+compatible controller, contact shape, painted wave and cached ground outline.
+It does not grant allied mercenaries, heroes or mirror copies more reach, or
+extend projectile travel. Mirror approach distance uses the body's own reach.
 
 Character damage includes spells through the shared outgoing damage multiplier;
 there is no separate spell-only card in this first version. Attack speed uses
@@ -213,7 +241,7 @@ consumption, rank stacking, resets, actual tower damage/cadence, worker recovery
 repair costs, nearest jobs, and native ally damage/contact timing. Rarity checks
 cover exact odds, 10,000 seeded offers, independent slots, every card at every
 rarity, mixed-rarity stacking, revival durations and diamond native contacts.
-Legendary checks cover exact odds, fixed rewards, partial-batch rollback, fivefold
+Legendary checks cover exact odds, named rewards, partial-batch rollback, fivefold
 arrow damage, free battle recruitment and reset. `legendary_reward_failure_fixture.gd`
 injects a failure after two recruits to exercise rollback without changing gameplay.
 
@@ -232,7 +260,7 @@ belongs in `build/Other Files/Team Leveling/`.
 The same fixture presents all three rainbow cards at both window sizes, grants
 multiple worker/mercenary batches at zero gold and full food, checks blocked-base
 retry and stale clicks, and runs the granted native mercenaries in combat.
-Run `legendary_hero_test.gd` through the desktop launcher for all five hero rolls,
+Run `legendary_hero_test.gd` through the desktop launcher for all six named hero cards,
 sixteen seconds of native combat, player switching, charged-coin ownership,
 death/reuse and reset. `mirror_image_test.gd` protects the ordinary shared summon
 across all 32 fighters, including its fifteen-second lifetime and stale handles.
@@ -254,3 +282,14 @@ unit benefits. Change fighters, proceed to another wave, then restart and verify
 TEAM LV 1 and baseline behavior. The XP curve and card percentages are initial
 balance values and need normal-play feedback; focused tests do not establish
 long-session balance or full-army performance.
+
+## Free card pool and named rewards — 2026-11-05
+
+`team_card_catalog_test.gd` exercises player-only reach, real native contact beyond
+the former reach, character switching, mirror exclusion, all six hero cards,
+all five homogeneous companies, blocked rewards, repeated pooled reuse and
+portrait/text layout at both window sizes through the real picker. Run it with
+Play Goemon. Current evidence is under
+`build/Other Files/Team Leveling/Free Draft/`; this is separate from the historical
+acceptance results above. No saved-map or character-balance schema changes are
+needed because card ranks and offers are run-only.

@@ -115,3 +115,72 @@ weights, topology and 33,094-triangle budget are unchanged. Source before this
 sculpt is retained at `refs/codex/illidan-before-fuller-palms`; its one-time sculpt
 script, preservation report and actual game captures are under
 `build/Other Files/Asset Toolkit/Illidan Hands/Fuller Palms/`.
+
+Finger-length follow-up, 2026-10-28: the user still found the fingers too long.
+The four non-thumb finger chains and their claws are another 10% shorter than
+the fuller-palm version (81% of the earlier doubled length). Keep their existing
+thickness, fuller palms, thumbs and casting animation. The prepared mesh and
+finger bind positions change together; the palm Muzzle socket stays unchanged.
+The previous source is `refs/codex/illidan-before-second-finger-shortening`;
+the guarded one-time edit and verification evidence are under
+`build/Other Files/Asset Toolkit/Illidan Hands/Shorter Fingers/`.
+
+Stronger fingers follow-up, 2026-10-28: the finger and claw cross-sections are
+12% thicker, fading gently into the smooth finger bases. Preserve the shortened
+lengths, fuller palms, rig, weights and authored poses; do not restore MCP lumps.
+The previous source is `refs/codex/illidan-before-stronger-fingers`; the guarded
+one-time sculpt and evidence are in
+`build/Other Files/Asset Toolkit/Illidan Hands/Stronger Fingers/`.
+
+Palm-girth follow-up, 2026-10-28: the palm and thumb-pad volume is up to 15%
+deeper and 8% wider, fading into the wrist and finger roots. Preserve the smooth
+bases, shorter/thicker fingers, claws, rig and casting keys. The previous source
+is `refs/codex/illidan-before-palm-girth`; the guarded sculpt and evidence are in
+`build/Other Files/Asset Toolkit/Illidan Hands/Fuller Palm Girth/`.
+
+Nail/proportion follow-up, 2026-10-28: replace the broad pointed caps with thin,
+curved dorsal nails whose inset roots blend from skin into dark keratin. Rounded
+fingertip pads support the transition. All ten digit chains are another 10%
+shorter; the palms are 10% narrower, with finger roots moved inward to match.
+Keep finger thickness, palm depth, animation keys and the central Muzzle socket.
+The two meshes/materials and 37 bones remain; the prepared detail is now 35,074
+triangles. The previous source is `refs/codex/illidan-before-integrated-nails`;
+the guarded authoring pass and evidence are under
+`build/Other Files/Asset Toolkit/Illidan Hands/Integrated Nails/`.
+
+Finger-root follow-up, 2026-10-28: the user found the palm/finger connection too
+thin. The eight long-finger bases and neighboring webbing now flare smoothly
+into the palm; sampled root radii are about 22–24% fuller. Preserve this connected
+taper without separate round knuckle lumps. The latest lengths, nail geometry,
+palm proportions, rig, weights and authored poses remain intact; there are still
+35,074 triangles. The previous source is
+`refs/codex/illidan-before-stronger-finger-roots`; the guarded sculpt and evidence
+are in `build/Other Files/Asset Toolkit/Illidan Hands/Stronger Finger Roots/`.
+
+Forearm follow-up, 2026-10-28: soften the faceted/cylindrical forearm surface
+with rounded contours, a gentle muscle-to-wrist taper and oval cross-sections.
+Preserve overall arm bulk and the completed hands/finger roots exactly. This is
+an offline surface edit with the same 35,074 triangles, rig, weights and clips.
+The previous source is `refs/codex/illidan-before-smoother-forearms`; the guarded
+sculpt and evidence are in
+`build/Other Files/Asset Toolkit/Illidan Hands/Smoother Forearms/`.
+
+## Mountain King — 2026-10-30
+
+Slot 33 uses the authoritative external `Warcraft/assets/MountainKing/MountainKing.blend`
+and its separate portrait master. Read that package README before editing. Keep
+all 27 body /10 portrait actions, eight body geosets, native bones and the animated
+`avatar_skin` property: normal/Avatar are layers of the same geometry. Export
+read-only with `tools/export_warcraft_characters.py -- MountainKing` under Blender;
+default exports remain Blademaster/Illidan. Follow recipe `warcraft-mountain-king`
+and the pipeline in `docs/recovered-warcraft.md`. The requested blue glow is baked into the saved master's packed texture
+(2026-10-30 follow-up). Armor and clothes are also authored blue in both
+body and portrait masters, including Avatar armor. Preserve the face/beard and
+gold accents; original extracted textures remain untouched. Preserve authored blue;
+do not restore a runtime-only tint. `tools/author_mountain_king_blue.py` records
+geometry/UV/weight/rig/action preservation for that source edit.
+Effect resources are prepared by `tools/recover_mountain_king_effects.cjs` and
+`tools/bake_mountain_king_effects.gd`, never by per-character runtime retargeting.
+The effect baker colors both additive energy and the hammer's opaque TeamColor00
+layer blue (2026-11-05); preserve the original extracted red source texture and
+sampled Birth/Death motion. Rebuild the effect resource instead of tinting casts.

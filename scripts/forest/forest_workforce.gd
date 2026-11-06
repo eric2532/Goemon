@@ -11,6 +11,11 @@ var held=false
 var release_point=Vector3.ZERO
 var assignment_clock=0.0
 const ARROW_SPEED=70.0
+# Native 50/100/125 splash rings at 0.06 metres per Warcraft unit.
+const CANNON_RADII=[3.0,6.0,7.5]
+const CANNON_SPEED=42.0
+const CANNON_DAMAGE=100.5/18.0
+const CANNON_INTERVAL=2.5/1.4
 var arrows: Dictionary={}
 var tower_candidate_work=0
 var _tower_capture_active=false
@@ -37,7 +42,6 @@ func count_job(id: int)->int:
 func capacity(b: Dictionary)->int:
 	match b.kind:
 		"mine":return 3 if m.deposits.get(b.cell,0)>0 else 0
-		"tower":return m.balance.tower_workers
 		"shrine","gate","barracks":return 2 if (b.hp>0 or b.get("breached",false)) and b.hp<b.max_hp and m.gold>=1 else 0
 	return 0
 func jobs_near(p: Vector3)->Array:
@@ -71,7 +75,7 @@ func release_job(w: Dictionary):
 func job_is_safe(b: Dictionary)->bool:
 	if Repairs.repairable(b):return repairs.job_is_safe(b)
 	if m.phase!="wave":return true
-	if b.kind=="tower" and b.hp<b.max_hp*.2:return false
+	if b.kind in ["tower","cannon_tower"] and b.hp<b.max_hp*.2:return false
 	return not threatened(m.point(m.entry(b))) and not threatened(m.center(b))
 func automatic_job(w: Dictionary)->Dictionary:
 	var best={};var best_priority=99;var distance=INF
@@ -135,7 +139,7 @@ func preview_jobs(p: Vector3)->Dictionary:
 		if b.is_empty():result.idle+=1
 		else:
 			reservations[b.id]=reservations.get(b.id,0)+1
-			result["repair" if Repairs.repairable(b) else b.kind]+=1
+			result["repair" if Repairs.repairable(b) else "tower" if b.kind=="cannon_tower" else b.kind]+=1
 	return result
 func assign_nearest(w: Dictionary,p: Vector3):
 	var best=nearest_job(w,p)
@@ -285,9 +289,6 @@ func tower_candidates(point:Vector3)->Array:
 func tick(delta: float,hero: Vector3):
 	_tower_capture_active=true;_tower_capture_ready=false
 	repairs.finish_breaches()
-	# Poses stay fixed throughout this workforce tick. Share their exact bounds
-	# across towers before paying for a fitted contact-point query.
-	var target_bounds:Dictionary={}
 	if m.phase=="wave":tick_arrows(delta)
 	assignment_clock-=delta
 	if assignment_clock<=0:auto_assign();assignment_clock=.5
@@ -330,7 +331,7 @@ func tick(delta: float,hero: Vector3):
 		if w.state=="travel":
 			var destination: Vector2i=w.get("repair_cell",m.entry(b)) if Repairs.repairable(b) else m.entry(b)
 			if not move(w,destination,delta):continue
-			w.state={"mine":"mine","tower":"garrison","shrine":"repair","wall":"repair","gate":"repair","barracks":"repair"}.get(b.kind,"idle")
+			w.state={"mine":"mine","tower":"garrison","cannon_tower":"garrison","shrine":"repair","wall":"repair","gate":"repair","barracks":"repair"}.get(b.kind,"idle")
 			if b.kind=="barracks":
 				w.sheltered_building=b.id;w.shelter_exit=m.point(m.entry(b));w.pos=m.center(b)
 			if w.state=="garrison":w.pos=m.center(b)+Vector3((w.id%3-1)*1.4,0,0)
@@ -343,38 +344,55 @@ func tick(delta: float,hero: Vector3):
 				w.timer=0;var load_=mini(10,m.deposits.get(b.cell,0))
 				if load_<=0:w.state="idle";w.job=-1
 				else:m.deposits[b.cell]-=load_;w.cargo=load_;w.state="deliver"
-		elif w.state=="garrison":
-			w.timer=maxf(0,w.timer-delta)
-			if w.timer<=0:
-				var target={};var nearest=48.0*48.0
-				for e in tower_candidates(w.pos):
-					if e.hp<=0:continue
-					if not target_bounds.has(e.id):target_bounds[e.id]=Contact.bounds(e)
-					var box:AABB=target_bounds[e.id]
-					if w.pos.distance_squared_to(w.pos.clamp(box.position,box.end))>=nearest:continue
-					var aim: Vector3=e.pos-w.pos
-					var facing=atan2(aim.x,aim.z)
-					var muzzle: Vector3=w.pos+Vector3.UP*Profile.TOWER_DECK_HEIGHT+Basis(Vector3.UP,facing)*Profile.TOWER_MUZZLE_OFFSET
-					var hurt=Roles.hurt_point(e,muzzle)
-					var distance=w.pos.distance_squared_to(hurt)
-					if e.hp>0 and distance<nearest and (m.visible_at(e.pos) or m.visible_at(hurt)):target=e;nearest=distance
-				if not target.is_empty():
-					w.timer=1.0/(m.balance.tower_attack_speed*m.team_progression.multiplier("tower_speed"))
-					var aim: Vector3=target.pos-w.pos
-					w.facing=atan2(aim.x,aim.z)
-					var from: Vector3=w.pos+Vector3.UP*Profile.TOWER_DECK_HEIGHT+Basis(Vector3.UP,w.facing)*Profile.TOWER_MUZZLE_OFFSET
-					var id=m.next_id;m.next_id+=1
-					arrows[id]={"id":id,"from":from,"pos":from,"target":target.id,"age":0.0}
-					m.events.append({"kind":"arrow","id":id,"from":from,"to":Roles.hurt_point(target,from)})
+
+	if m.phase=="wave":tick_towers(delta)
 
 	_tower_capture_active=false;_tower_capture_ready=false;_tower_rows.clear();_tower_handles.clear();_tower_fallback.clear()
+
+func tick_towers(delta:float):
+	# Share fitted contacts and the native snapshot across all automatic towers.
+	var target_bounds:Dictionary={}
+	for b in m.buildings.values():
+		if b.kind not in ["tower","cannon_tower"] or b.hp<=0:continue
+		b.clock=maxf(0,b.clock-delta)
+		if b.clock>0:continue
+		var point:Vector3=m.center(b)
+		var target={};var nearest=48.0*48.0
+		for e in tower_candidates(point):
+			if e.hp<=0:continue
+			if b.kind=="cannon_tower" and e.pos.y>m.surface_height(e.pos.x,e.pos.z)+3.0:continue
+			if not target_bounds.has(e.id):target_bounds[e.id]=Contact.bounds(e)
+			var box:AABB=target_bounds[e.id]
+			if point.distance_squared_to(point.clamp(box.position,box.end))>=nearest:continue
+			var aim:Vector3=e.pos-point
+			var muzzle:Vector3=point+Vector3.UP*Profile.TOWER_DECK_HEIGHT+Basis(Vector3.UP,atan2(aim.x,aim.z))*Profile.TOWER_MUZZLE_OFFSET
+			var hurt=Roles.hurt_point(e,muzzle)
+			var distance=point.distance_squared_to(hurt)
+			if distance<nearest and (m.visible_at(e.pos) or m.visible_at(hurt)):target=e;nearest=distance
+		if target.is_empty():continue
+		b.clock=attack_interval(b)
+		var aim:Vector3=target.pos-point
+		var facing=atan2(aim.x,aim.z)
+		for slot in m.balance.tower_workers:
+			var from:Vector3=point+Vector3((slot%3-1)*1.4,0,0)+Vector3.UP*Profile.TOWER_DECK_HEIGHT+Basis(Vector3.UP,facing)*Profile.TOWER_MUZZLE_OFFSET
+			var id=m.next_id;m.next_id+=1
+			var shot={"id":id,"from":from,"pos":from,"target":target.id,"age":0.0}
+			var to=Roles.hurt_point(target,from)
+			if b.kind=="cannon_tower":
+				from=point+Vector3.UP*18.0+Basis(Vector3.UP,facing)*Vector3(0,0,6.5)
+				to=Roles.hurt_point(target,from)
+				shot.merge({"cannon":true,"from":from,"pos":from,"to":to,"duration":maxf(.1,from.distance_to(to)/CANNON_SPEED),"damage":m.balance.tower_damage*CANNON_DAMAGE*m.team_progression.multiplier("tower_damage")},true)
+			arrows[id]=shot
+			m.events.append({"kind":"arrow","id":id,"from":from,"to":to,"cannon":b.kind=="cannon_tower"})
 
 func tick_arrows(delta: float):
 	m.sync_enemy_targets(arrows.values().map(func(arrow):return arrow.target))
 	for id in arrows.keys():
 		var arrow: Dictionary=arrows[id]
-		var target: Dictionary=m.enemies.get(arrow.target,{})
 		arrow.age+=delta
+		if arrow.get("cannon",false):
+			tick_cannon(arrow);continue
+		var target: Dictionary=m.enemies.get(arrow.target,{})
 		if target.is_empty() or target.hp<=0 or arrow.age>1.5:
 			arrows.erase(id);continue
 		var to: Vector3=Roles.hurt_point(target,arrow.pos)
@@ -385,3 +403,34 @@ func tick_arrows(delta: float):
 			m.events.append({"kind":"arrow_impact","id":id,"to":to,"direction":direction})
 			arrows.erase(id)
 		else:arrow.pos=arrow.pos.move_toward(to,ARROW_SPEED*delta)
+
+func attack_interval(building:Dictionary)->float:
+	return (CANNON_INTERVAL if building.kind=="cannon_tower" else 1.0)/(m.balance.tower_attack_speed*m.team_progression.multiplier("tower_speed"))
+
+func tick_cannon(shot:Dictionary):
+	var t=clampf(shot.age/shot.duration,0,1)
+	var next:Vector3=shot.from.lerp(shot.to,t)+Vector3.UP*(4.0*t*(1.0-t)*shot.from.distance_to(shot.to)*.35)
+	var game=m.army_runtime.game_ref.get_ref() if is_instance_valid(m.army_runtime) and m.army_runtime.game_ref!=null else null
+	var wall:Dictionary=AttackChain.world_ray(game.world,shot.pos,next) if is_instance_valid(game) else {}
+	var direction:Vector3=(next-shot.pos).normalized()
+	shot.pos=next if wall.is_empty() else wall.position+wall.normal*.05
+	if t<1 and wall.is_empty():return
+	cannon_splash(shot.pos,shot.damage,direction)
+	m.events.append({"kind":"arrow_impact","id":shot.id,"to":shot.pos,"direction":direction,"cannon":true})
+	arrows.erase(shot.id)
+
+func cannon_splash(point:Vector3,damage:float,direction:Vector3):
+	var runtime=m.army_runtime
+	if not is_instance_valid(runtime) or runtime.game_ref==null:return
+	var game=runtime.game_ref.get_ref()
+	if not is_instance_valid(game):return
+	# Reuse the native local index, fitted contacts and ordinary tower hit delivery.
+	for enemy in runtime.enemy_candidates(point,CANNON_RADII[2]):
+		if not is_instance_valid(enemy) or enemy.dead:continue
+		if enemy.global_position.y>m.surface_height(enemy.global_position.x,enemy.global_position.z)+3.0:continue
+		var contact=AttackChain.segment_contact(enemy,point,point,CANNON_RADII[2])
+		if contact.is_empty() or not AttackChain.clear_line(game.world,point,contact.point):continue
+		var distance=point.distance_to(contact.point)
+		if distance>CANNON_RADII[2]:continue
+		var factor=1.0 if distance<=CANNON_RADII[0] else .5 if distance<=CANNON_RADII[1] else .1
+		enemy.take_hit(damage*factor,direction,false,{"tower":true,"projectile":true})

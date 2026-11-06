@@ -336,6 +336,13 @@
     "bytes": 129808
   },
   {
+    "asset": "effects/warcraft_cannon_shell",
+    "triangles": 10,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 8084
+  },
+  {
     "asset": "enemies/guardian_0",
     "triangles": 9664,
     "meshes": 2,
@@ -427,6 +434,13 @@
     "bytes": 73524
   },
   {
+    "asset": "environments/wind_meadow/bamboo_cluster",
+    "triangles": 1236,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 79744
+  },
+  {
     "asset": "environments/wind_meadow/broadleaf_tree",
     "triangles": 6396,
     "meshes": 2,
@@ -435,17 +449,24 @@
   },
   {
     "asset": "environments/wind_meadow/buildings/barracks",
-    "triangles": 4773,
-    "meshes": 3,
-    "surfaces": 3,
-    "bytes": 1311388
+    "triangles": 171,
+    "meshes": 1,
+    "surfaces": 2,
+    "bytes": 368112
   },
   {
     "asset": "environments/wind_meadow/buildings/barracks_ruins",
-    "triangles": 3831,
+    "triangles": 639,
     "meshes": 1,
-    "surfaces": 1,
-    "bytes": 1222260
+    "surfaces": 3,
+    "bytes": 1350652
+  },
+  {
+    "asset": "environments/wind_meadow/buildings/cannon_tower",
+    "triangles": 215,
+    "meshes": 1,
+    "surfaces": 2,
+    "bytes": 199272
   },
   {
     "asset": "environments/wind_meadow/buildings/gate_frame",
@@ -470,10 +491,10 @@
   },
   {
     "asset": "environments/wind_meadow/buildings/tower_ruins",
-    "triangles": 2818,
+    "triangles": 523,
     "meshes": 1,
-    "surfaces": 1,
-    "bytes": 1141804
+    "surfaces": 3,
+    "bytes": 1174400
   },
   {
     "asset": "environments/wind_meadow/buildings/wall_cap",
@@ -505,10 +526,17 @@
   },
   {
     "asset": "environments/wind_meadow/buildings/watchtower",
-    "triangles": 7695,
-    "meshes": 3,
-    "surfaces": 3,
-    "bytes": 1510876
+    "triangles": 156,
+    "meshes": 1,
+    "surfaces": 2,
+    "bytes": 197492
+  },
+  {
+    "asset": "environments/wind_meadow/cedar_tree",
+    "triangles": 6396,
+    "meshes": 2,
+    "surfaces": 2,
+    "bytes": 587784
   },
   {
     "asset": "environments/wind_meadow/flowers_blue",
@@ -558,6 +586,20 @@
     "meshes": 1,
     "surfaces": 1,
     "bytes": 20892
+  },
+  {
+    "asset": "environments/wind_meadow/pine_tree",
+    "triangles": 6396,
+    "meshes": 2,
+    "surfaces": 2,
+    "bytes": 587784
+  },
+  {
+    "asset": "environments/wind_meadow/sakura_tree",
+    "triangles": 6396,
+    "meshes": 2,
+    "surfaces": 2,
+    "bytes": 587784
   },
   {
     "asset": "environments/wind_meadow/terraced_mountain",

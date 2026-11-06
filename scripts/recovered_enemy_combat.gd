@@ -198,6 +198,7 @@ func strike(from:Vector3,to:Vector3,radius:float,damage_scale:float=1.0,min_dot:
   from*=Vector3(Dark.SCALE*Dark.ATTACK_RANGE,1,Dark.SCALE*Dark.ATTACK_RANGE);to*=Vector3(Dark.SCALE*Dark.ATTACK_RANGE,1,Dark.SCALE*Dark.ATTACK_RANGE);radius*=Dark.SCALE*Dark.ATTACK_RANGE
  var center=hero.global_position if not origin.is_finite() else origin
  var a=center+cast_model().basis*(from*reach);var b=center+cast_model().basis*(to*reach)
+ if role==Dark.ROLE and action==Dark.CLAW:cast_model().pressure_trail.paint_arc(a,b,Vector3.UP,.55)
  for enemy in AttackChain.segment_enemy_candidates(game,a,b,radius*reach):
   if not is_instance_valid(enemy) or enemy.dead or hits.has(enemy.get_instance_id()):continue
   if game.has_method("forest_enemy_visible") and not game.forest_enemy_visible(enemy):continue
@@ -235,6 +236,7 @@ func hit():
  cancel(true);mode="hurt";reaction=.3
  clip="801ae2c4" if role==Roles.BOSS else Dark.HURT_CLIP if role==Dark.ROLE else str(Visual.data(role).get_meta("semantics").hurt[0])
 func cancel(_preserve_power:bool=false):
+ if is_instance_valid(cast_model()) and cast_model().pressure_trail!=null:cast_model().pressure_trail.clear()
  if role==Dark.ROLE and is_inside_tree():
   if is_instance_valid(cast_model()):cast_model().body.rotation.y=0
   if spell_owner!=null and is_attacking() and action==Dark.SPIN:hero.model.rotation.y=atan2(-hero.facing.x,-hero.facing.z)
@@ -249,9 +251,10 @@ func cancel(_preserve_power:bool=false):
  mode="";clip="";elapsed=0;pose_tick=0;aim=Vector3.ZERO;hits.clear();state.clear();captured=null;fire_target=null;jump_started=false;hero.attack_left=0
 
 func dark_cue(cue:int):
- if game.get("crowd")!=null:game.crowd.army.presentation.dark_cue(hero.global_position,cue,cast_model().rotation.y,get_instance_id(),hero.attack_speed_multiplier(),state.get("spin_sign",1),not (cue==8 and spell_owner==null and state.get("landing_sound",false)),true)
+ if game.get("crowd")!=null:game.crowd.army.presentation.dark_cue(hero.global_position,cue,cast_model().rotation.y,get_instance_id(),hero.attack_speed_multiplier(),state.get("spin_sign",1),not (cue==8 and spell_owner==null and state.get("landing_sound",false)),true,ticket)
 func dark_sound(cue:String):
- if game.get("crowd")!=null:game.crowd.army.presentation.dark_sound(hero.global_position,cue,true)
+ if cue=="step":hero.play_sound("dark_lumina_2_step");return
+ if game.get("crowd")!=null:game.crowd.army.presentation.dark_sound(hero.global_position,cue,true,ticket)
 func start_dark_attack(which:int):
  if role!=Dark.ROLE or which not in [Dark.CLAW,Dark.FIRE,Dark.SLAM,Dark.SPIN] or is_attacking() or hero.hp<=0:return
  var previous_yaw=cast_model().rotation.y

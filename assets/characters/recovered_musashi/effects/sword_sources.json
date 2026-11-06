@@ -4426,6 +4426,2059 @@
       "terminal": "stop",
       "externally_clocked": false,
       "continuation_of": null
+    },
+    "crosswise": {
+      "clip": "Extra__800d4f14",
+      "stream": "0x800d4f14",
+      "weapon": "lumina",
+      "effect_descriptor": 0,
+      "ticks": 21,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801057e8",
+          "pose_header_sha256": "2e554950a59de1a0bf9c08d16e449a1e06b4e6735bfd31076e09a081d97e0596",
+          "endpoints_source": [
+            [
+              -41,
+              -19,
+              -2
+            ],
+            [
+              21,
+              -23,
+              25
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801058e8",
+          "pose_header_sha256": "46d3f57f764f58cda4029b0eec2f5ffd3f832aedf43fb2d4601f7b67277328d0",
+          "endpoints_source": [
+            [
+              -37,
+              -20,
+              -4
+            ],
+            [
+              21,
+              -29,
+              29
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801059e8",
+          "pose_header_sha256": "2ae69898cc39afb90470e851ce753ee4fd7ce7e49dcb3ab79e09df07ea7f0d59",
+          "endpoints_source": [
+            [
+              4,
+              -26,
+              72
+            ],
+            [
+              15,
+              -45,
+              7
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ae8",
+          "pose_header_sha256": "c833ddb8465ab0d3c6763e67c679aa8c6bc4ea7feba1942ec9db6f1c7411c9a3",
+          "endpoints_source": [
+            [
+              5,
+              -27,
+              68
+            ],
+            [
+              17,
+              -49,
+              3
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105be8",
+          "pose_header_sha256": "b216209bbd53954aab2f36c14d7c2d1afb968780da89a70a658edc7d9097fd2b",
+          "endpoints_source": [
+            [
+              5,
+              -31,
+              65
+            ],
+            [
+              18,
+              -51,
+              0
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ce8",
+          "pose_header_sha256": "091b62bb0037a33fa46b10ffb65d180e3870617b8ee8d016adc53470245f5157",
+          "endpoints_source": [
+            [
+              14,
+              -47,
+              64
+            ],
+            [
+              17,
+              -51,
+              -4
+            ]
+          ]
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105de8",
+          "pose_header_sha256": "ebb94304e902f390522ee406a50db896144b4175c9c765bf364a598426bf14f5",
+          "endpoints_source": [
+            [
+              19,
+              -63,
+              60
+            ],
+            [
+              16,
+              -49,
+              -7
+            ]
+          ]
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ee8",
+          "pose_header_sha256": "6a5f9acd2b131ba4bf54da5f25d02d9dfe833a3797daed6238a7074d9c307fa7",
+          "endpoints_source": [
+            [
+              23,
+              -77,
+              52
+            ],
+            [
+              16,
+              -48,
+              -9
+            ]
+          ]
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105fe8",
+          "pose_header_sha256": "be9823136ce3621cc3f31f92907f84982e95c231184dd80e671c3ab099d971be",
+          "endpoints_source": [
+            [
+              23,
+              -78,
+              52
+            ],
+            [
+              16,
+              -49,
+              -10
+            ]
+          ]
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801060e8",
+          "pose_header_sha256": "5d0c44379b9a0273cbef327b50d98a2225edc15eaf34bea154366128d4299117",
+          "endpoints_source": [
+            [
+              23,
+              -83,
+              -44
+            ],
+            [
+              6,
+              -25,
+              -12
+            ]
+          ]
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801061e8",
+          "pose_header_sha256": "55bf27013014dbd16574f74521e30848f905047f940ef412c845ffc624a19eca",
+          "endpoints_source": [
+            [
+              9,
+              -42,
+              -80
+            ],
+            [
+              3,
+              -21,
+              -15
+            ]
+          ]
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801062e8",
+          "pose_header_sha256": "ed5e1f70c6e26abdd25da060295cebec53e82c0dddfe25e58c553ec4879bd84e",
+          "endpoints_source": [
+            [
+              -5,
+              -12,
+              -86
+            ],
+            [
+              0,
+              -17,
+              -18
+            ]
+          ]
+        },
+        {
+          "tick": 12,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801063e8",
+          "pose_header_sha256": "2c14f924a9c896229a87c3bf99b8561bcc8fb969b1bf30db1bbfee5e59c72802",
+          "endpoints_source": [
+            [
+              -7,
+              -5,
+              -85
+            ],
+            [
+              -1,
+              -17,
+              -17
+            ]
+          ]
+        },
+        {
+          "tick": 13,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801064e8",
+          "pose_header_sha256": "5759e28274a1b7bb2c614e247a1dc1184eeeec600e241dfc6e335c9ca1a1afa0",
+          "endpoints_source": [
+            [
+              -6,
+              -8,
+              -85
+            ],
+            [
+              0,
+              -18,
+              -17
+            ]
+          ]
+        },
+        {
+          "tick": 14,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801065e8",
+          "pose_header_sha256": "4dd481d48c16892c385606b1d0f66358de60bbc4afebaa49f0fd0f46b6181a85",
+          "endpoints_source": [
+            [
+              4,
+              -11,
+              -80
+            ],
+            [
+              5,
+              -19,
+              -11
+            ]
+          ]
+        },
+        {
+          "tick": 15,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801066e8",
+          "pose_header_sha256": "ccf75bfe044ee829eeeddd830e138d1456603078f6703c25fcbf31b5060e0bf0",
+          "endpoints_source": [
+            [
+              7,
+              -17,
+              -70
+            ],
+            [
+              11,
+              -23,
+              -1
+            ]
+          ]
+        },
+        {
+          "tick": 16,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801067e8",
+          "pose_header_sha256": "750e18af77cc96fbb9d364953c82e788826a6f03c104e85851a383f333bbd87d",
+          "endpoints_source": [
+            [
+              8,
+              -14,
+              -60
+            ],
+            [
+              15,
+              -23,
+              7
+            ]
+          ]
+        },
+        {
+          "tick": 17,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801068e8",
+          "pose_header_sha256": "f78b7d95a3e90507477d78f0449e3e72e7610d3f81afce888eef3d9a4b1b7bb8",
+          "endpoints_source": [
+            [
+              13,
+              -15,
+              -48
+            ],
+            [
+              14,
+              -24,
+              20
+            ]
+          ]
+        },
+        {
+          "tick": 18,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801069e8",
+          "pose_header_sha256": "08be27d1cf283cde773d8455f36b7bc1647823b8937998b8d9b8079dffc22358",
+          "endpoints_source": [
+            [
+              -31,
+              -19,
+              9
+            ],
+            [
+              36,
+              -33,
+              5
+            ]
+          ]
+        },
+        {
+          "tick": 19,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106ae8",
+          "pose_header_sha256": "c9d239f0a740502b169926c5b39662e4183a44b262e57446697e9c5c83b329fe",
+          "endpoints_source": [
+            [
+              -39,
+              -19,
+              16
+            ],
+            [
+              29,
+              -23,
+              13
+            ]
+          ]
+        },
+        {
+          "tick": 20,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106be8",
+          "pose_header_sha256": "ae76e90083e1773e3f797fc5d6a02a45bc67d2ec4e1e743903c0746000392496",
+          "endpoints_source": [
+            [
+              36,
+              -37,
+              -52
+            ],
+            [
+              22,
+              -18,
+              12
+            ]
+          ]
+        }
+      ],
+      "terminal": "pause",
+      "externally_clocked": false,
+      "continuation_of": null
+    },
+    "tenderize": {
+      "clip": "Extra__800d51e0",
+      "stream": "0x800d51e0",
+      "weapon": "lumina",
+      "effect_descriptor": 12,
+      "ticks": 18,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106be8",
+          "pose_header_sha256": "ae76e90083e1773e3f797fc5d6a02a45bc67d2ec4e1e743903c0746000392496",
+          "endpoints_source": [
+            [
+              36,
+              -37,
+              -52
+            ],
+            [
+              22,
+              -18,
+              12
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106ae8",
+          "pose_header_sha256": "c9d239f0a740502b169926c5b39662e4183a44b262e57446697e9c5c83b329fe",
+          "endpoints_source": [
+            [
+              -39,
+              -19,
+              16
+            ],
+            [
+              29,
+              -23,
+              13
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801069e8",
+          "pose_header_sha256": "08be27d1cf283cde773d8455f36b7bc1647823b8937998b8d9b8079dffc22358",
+          "endpoints_source": [
+            [
+              -31,
+              -19,
+              9
+            ],
+            [
+              36,
+              -33,
+              5
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801068e8",
+          "pose_header_sha256": "f78b7d95a3e90507477d78f0449e3e72e7610d3f81afce888eef3d9a4b1b7bb8",
+          "endpoints_source": [
+            [
+              13,
+              -15,
+              -48
+            ],
+            [
+              14,
+              -24,
+              20
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801067e8",
+          "pose_header_sha256": "750e18af77cc96fbb9d364953c82e788826a6f03c104e85851a383f333bbd87d",
+          "endpoints_source": [
+            [
+              8,
+              -14,
+              -60
+            ],
+            [
+              15,
+              -23,
+              7
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801066e8",
+          "pose_header_sha256": "ccf75bfe044ee829eeeddd830e138d1456603078f6703c25fcbf31b5060e0bf0",
+          "endpoints_source": [
+            [
+              7,
+              -17,
+              -70
+            ],
+            [
+              11,
+              -23,
+              -1
+            ]
+          ]
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801065e8",
+          "pose_header_sha256": "4dd481d48c16892c385606b1d0f66358de60bbc4afebaa49f0fd0f46b6181a85",
+          "endpoints_source": [
+            [
+              4,
+              -11,
+              -80
+            ],
+            [
+              5,
+              -19,
+              -11
+            ]
+          ]
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801064e8",
+          "pose_header_sha256": "5759e28274a1b7bb2c614e247a1dc1184eeeec600e241dfc6e335c9ca1a1afa0",
+          "endpoints_source": [
+            [
+              -6,
+              -8,
+              -85
+            ],
+            [
+              0,
+              -18,
+              -17
+            ]
+          ]
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801063e8",
+          "pose_header_sha256": "2c14f924a9c896229a87c3bf99b8561bcc8fb969b1bf30db1bbfee5e59c72802",
+          "endpoints_source": [
+            [
+              -7,
+              -5,
+              -85
+            ],
+            [
+              -1,
+              -17,
+              -17
+            ]
+          ]
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801062e8",
+          "pose_header_sha256": "ed5e1f70c6e26abdd25da060295cebec53e82c0dddfe25e58c553ec4879bd84e",
+          "endpoints_source": [
+            [
+              -5,
+              -12,
+              -86
+            ],
+            [
+              0,
+              -17,
+              -18
+            ]
+          ]
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801061e8",
+          "pose_header_sha256": "55bf27013014dbd16574f74521e30848f905047f940ef412c845ffc624a19eca",
+          "endpoints_source": [
+            [
+              9,
+              -42,
+              -80
+            ],
+            [
+              3,
+              -21,
+              -15
+            ]
+          ]
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801060e8",
+          "pose_header_sha256": "5d0c44379b9a0273cbef327b50d98a2225edc15eaf34bea154366128d4299117",
+          "endpoints_source": [
+            [
+              23,
+              -83,
+              -44
+            ],
+            [
+              6,
+              -25,
+              -12
+            ]
+          ]
+        },
+        {
+          "tick": 12,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105fe8",
+          "pose_header_sha256": "be9823136ce3621cc3f31f92907f84982e95c231184dd80e671c3ab099d971be",
+          "endpoints_source": [
+            [
+              23,
+              -78,
+              52
+            ],
+            [
+              16,
+              -49,
+              -10
+            ]
+          ]
+        },
+        {
+          "tick": 13,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ee8",
+          "pose_header_sha256": "6a5f9acd2b131ba4bf54da5f25d02d9dfe833a3797daed6238a7074d9c307fa7",
+          "endpoints_source": [
+            [
+              23,
+              -77,
+              52
+            ],
+            [
+              16,
+              -48,
+              -9
+            ]
+          ]
+        },
+        {
+          "tick": 14,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105de8",
+          "pose_header_sha256": "ebb94304e902f390522ee406a50db896144b4175c9c765bf364a598426bf14f5",
+          "endpoints_source": [
+            [
+              19,
+              -63,
+              60
+            ],
+            [
+              16,
+              -49,
+              -7
+            ]
+          ]
+        },
+        {
+          "tick": 15,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ce8",
+          "pose_header_sha256": "091b62bb0037a33fa46b10ffb65d180e3870617b8ee8d016adc53470245f5157",
+          "endpoints_source": [
+            [
+              14,
+              -47,
+              64
+            ],
+            [
+              17,
+              -51,
+              -4
+            ]
+          ]
+        },
+        {
+          "tick": 16,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105be8",
+          "pose_header_sha256": "b216209bbd53954aab2f36c14d7c2d1afb968780da89a70a658edc7d9097fd2b",
+          "endpoints_source": [
+            [
+              5,
+              -31,
+              65
+            ],
+            [
+              18,
+              -51,
+              0
+            ]
+          ]
+        },
+        {
+          "tick": 17,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ae8",
+          "pose_header_sha256": "c833ddb8465ab0d3c6763e67c679aa8c6bc4ea7feba1942ec9db6f1c7411c9a3",
+          "endpoints_source": [
+            [
+              5,
+              -27,
+              68
+            ],
+            [
+              17,
+              -49,
+              3
+            ]
+          ]
+        }
+      ],
+      "terminal": "pause",
+      "externally_clocked": false,
+      "continuation_of": null
+    },
+    "tenderize_end": {
+      "clip": "Recovered__800d524c",
+      "stream": "0x800d524c",
+      "weapon": "lumina",
+      "effect_descriptor": 12,
+      "ticks": 17,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105be8",
+          "pose_header_sha256": "b216209bbd53954aab2f36c14d7c2d1afb968780da89a70a658edc7d9097fd2b",
+          "endpoints_source": [
+            [
+              5,
+              -31,
+              65
+            ],
+            [
+              18,
+              -51,
+              0
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ce8",
+          "pose_header_sha256": "091b62bb0037a33fa46b10ffb65d180e3870617b8ee8d016adc53470245f5157",
+          "endpoints_source": [
+            [
+              14,
+              -47,
+              64
+            ],
+            [
+              17,
+              -51,
+              -4
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105de8",
+          "pose_header_sha256": "ebb94304e902f390522ee406a50db896144b4175c9c765bf364a598426bf14f5",
+          "endpoints_source": [
+            [
+              19,
+              -63,
+              60
+            ],
+            [
+              16,
+              -49,
+              -7
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105ee8",
+          "pose_header_sha256": "6a5f9acd2b131ba4bf54da5f25d02d9dfe833a3797daed6238a7074d9c307fa7",
+          "endpoints_source": [
+            [
+              23,
+              -77,
+              52
+            ],
+            [
+              16,
+              -48,
+              -9
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80105fe8",
+          "pose_header_sha256": "be9823136ce3621cc3f31f92907f84982e95c231184dd80e671c3ab099d971be",
+          "endpoints_source": [
+            [
+              23,
+              -78,
+              52
+            ],
+            [
+              16,
+              -49,
+              -10
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801060e8",
+          "pose_header_sha256": "5d0c44379b9a0273cbef327b50d98a2225edc15eaf34bea154366128d4299117",
+          "endpoints_source": [
+            [
+              23,
+              -83,
+              -44
+            ],
+            [
+              6,
+              -25,
+              -12
+            ]
+          ]
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801061e8",
+          "pose_header_sha256": "55bf27013014dbd16574f74521e30848f905047f940ef412c845ffc624a19eca",
+          "endpoints_source": [
+            [
+              9,
+              -42,
+              -80
+            ],
+            [
+              3,
+              -21,
+              -15
+            ]
+          ]
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801062e8",
+          "pose_header_sha256": "ed5e1f70c6e26abdd25da060295cebec53e82c0dddfe25e58c553ec4879bd84e",
+          "endpoints_source": [
+            [
+              -5,
+              -12,
+              -86
+            ],
+            [
+              0,
+              -17,
+              -18
+            ]
+          ]
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801063e8",
+          "pose_header_sha256": "2c14f924a9c896229a87c3bf99b8561bcc8fb969b1bf30db1bbfee5e59c72802",
+          "endpoints_source": [
+            [
+              -7,
+              -5,
+              -85
+            ],
+            [
+              -1,
+              -17,
+              -17
+            ]
+          ]
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801064e8",
+          "pose_header_sha256": "5759e28274a1b7bb2c614e247a1dc1184eeeec600e241dfc6e335c9ca1a1afa0",
+          "endpoints_source": [
+            [
+              -6,
+              -8,
+              -85
+            ],
+            [
+              0,
+              -18,
+              -17
+            ]
+          ]
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801065e8",
+          "pose_header_sha256": "4dd481d48c16892c385606b1d0f66358de60bbc4afebaa49f0fd0f46b6181a85",
+          "endpoints_source": [
+            [
+              4,
+              -11,
+              -80
+            ],
+            [
+              5,
+              -19,
+              -11
+            ]
+          ]
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801066e8",
+          "pose_header_sha256": "ccf75bfe044ee829eeeddd830e138d1456603078f6703c25fcbf31b5060e0bf0",
+          "endpoints_source": [
+            [
+              7,
+              -17,
+              -70
+            ],
+            [
+              11,
+              -23,
+              -1
+            ]
+          ]
+        },
+        {
+          "tick": 12,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801067e8",
+          "pose_header_sha256": "750e18af77cc96fbb9d364953c82e788826a6f03c104e85851a383f333bbd87d",
+          "endpoints_source": [
+            [
+              8,
+              -14,
+              -60
+            ],
+            [
+              15,
+              -23,
+              7
+            ]
+          ]
+        },
+        {
+          "tick": 13,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801068e8",
+          "pose_header_sha256": "f78b7d95a3e90507477d78f0449e3e72e7610d3f81afce888eef3d9a4b1b7bb8",
+          "endpoints_source": [
+            [
+              13,
+              -15,
+              -48
+            ],
+            [
+              14,
+              -24,
+              20
+            ]
+          ]
+        },
+        {
+          "tick": 14,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x801069e8",
+          "pose_header_sha256": "08be27d1cf283cde773d8455f36b7bc1647823b8937998b8d9b8079dffc22358",
+          "endpoints_source": [
+            [
+              -31,
+              -19,
+              9
+            ],
+            [
+              36,
+              -33,
+              5
+            ]
+          ]
+        },
+        {
+          "tick": 15,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106ae8",
+          "pose_header_sha256": "c9d239f0a740502b169926c5b39662e4183a44b262e57446697e9c5c83b329fe",
+          "endpoints_source": [
+            [
+              -39,
+              -19,
+              16
+            ],
+            [
+              29,
+              -23,
+              13
+            ]
+          ]
+        },
+        {
+          "tick": 16,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x80106be8",
+          "pose_header_sha256": "ae76e90083e1773e3f797fc5d6a02a45bc67d2ec4e1e743903c0746000392496",
+          "endpoints_source": [
+            [
+              36,
+              -37,
+              -52
+            ],
+            [
+              22,
+              -18,
+              12
+            ]
+          ]
+        }
+      ],
+      "terminal": "pause",
+      "externally_clocked": false,
+      "continuation_of": null
+    },
+    "desperado": {
+      "clip": "Recovered__800d52a8",
+      "stream": "0x800d52a8",
+      "weapon": "fusion",
+      "effect_descriptor": 8,
+      "ticks": 11,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e6ce8",
+          "pose_header_sha256": "1627c857ded0b373cd83a49d9bb0eb9da522cf7b91cc5d58ed387d9dbdcf0111",
+          "endpoints_source": [
+            [
+              -46,
+              -30,
+              32
+            ],
+            [
+              -16,
+              -32,
+              24
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e6de8",
+          "pose_header_sha256": "5810688370cd7f20ce0bd79e84ada877be4e9f7c59050dd43742217f6432b0f1",
+          "endpoints_source": [
+            [
+              -26,
+              -8,
+              36
+            ],
+            [
+              -9,
+              -32,
+              26
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e6ee8",
+          "pose_header_sha256": "dfeb444876d6c4096934374126797e5e93793a95278b5f1ca4936ad522c72037",
+          "endpoints_source": [
+            [
+              17,
+              -11,
+              34
+            ],
+            [
+              0,
+              -37,
+              27
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e6fe8",
+          "pose_header_sha256": "a8e3d7ccbd95ea729fd1035fa12e61ad105834cc5d79cba1bb739e466c9642f8",
+          "endpoints_source": [
+            [
+              14,
+              -21,
+              44
+            ],
+            [
+              -4,
+              -40,
+              27
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e70e8",
+          "pose_header_sha256": "760ca1d5da4b871574c23129230f408d146f76c9ee9ff19a0b0b8817489bd756",
+          "endpoints_source": [
+            [
+              12,
+              -38,
+              47
+            ],
+            [
+              -8,
+              -44,
+              24
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e71e8",
+          "pose_header_sha256": "75a7de977bae2332ea4248c75ad82f1e8b62cac123fb26c44aaf5fdfa9859021",
+          "endpoints_source": [
+            [
+              9,
+              -52,
+              40
+            ],
+            [
+              -12,
+              -47,
+              19
+            ]
+          ]
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e72e8",
+          "pose_header_sha256": "a9fc47b6874e97930c49d83e503830d5ba881a346401435752597312c85f3958",
+          "endpoints_source": [
+            [
+              -23,
+              -71,
+              22
+            ],
+            [
+              -20,
+              -46,
+              4
+            ]
+          ]
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e73e8",
+          "pose_header_sha256": "d1d62bc3c634695af5359484f4f9012cbf4a2af784e8755f988088bef2d8e991",
+          "endpoints_source": [
+            [
+              -31,
+              -67,
+              -15
+            ],
+            [
+              -19,
+              -38,
+              -13
+            ]
+          ]
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e74e8",
+          "pose_header_sha256": "208da5ff1f4034cf467df44c859f6ece984ff660cc36209c92672e928d90268b",
+          "endpoints_source": [
+            [
+              -1,
+              -32,
+              -53
+            ],
+            [
+              -3,
+              -17,
+              -25
+            ]
+          ]
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e75e8",
+          "pose_header_sha256": "2c51c8d7efe57dc1804ffd623f2e8e66b797646daa737220a567ad4a52e48ede",
+          "endpoints_source": [
+            [
+              17,
+              -4,
+              -49
+            ],
+            [
+              6,
+              -12,
+              -20
+            ]
+          ]
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e76e8",
+          "pose_header_sha256": "e5d3c769baec17b52f5d0913cea702ac356278c12a84eee6efca7f1713c0ac75",
+          "endpoints_source": [
+            [
+              20,
+              -4,
+              -48
+            ],
+            [
+              7,
+              -12,
+              -20
+            ]
+          ]
+        }
+      ],
+      "terminal": "stop",
+      "externally_clocked": false,
+      "continuation_of": null
+    },
+    "desperado_dual": {
+      "clip": "Recovered__800d52e8",
+      "stream": "0x800d52e8",
+      "weapon": "lumina",
+      "effect_descriptor": 13,
+      "ticks": 12,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010c7e8",
+          "pose_header_sha256": "f4285bd7ba0118aa3560d555d3863326f8ad0fe952939fce9f1db119d1259637",
+          "endpoints_source": [
+            [
+              67,
+              -56,
+              -16
+            ],
+            [
+              27,
+              -42,
+              7
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010c8e8",
+          "pose_header_sha256": "f15fd3b25d8b03f54e0b7e54e009540d3bfb00a1c8db39cfdd84d1715d93f29e",
+          "endpoints_source": [
+            [
+              54,
+              -45,
+              -37
+            ],
+            [
+              24,
+              -37,
+              0
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010c9e8",
+          "pose_header_sha256": "f5cc8003807bb1f7d148f391a0ac76094f7a15df165754d4aad24ea5f08b1bda",
+          "endpoints_source": [
+            [
+              19,
+              -24,
+              -58
+            ],
+            [
+              17,
+              -29,
+              -9
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cae8",
+          "pose_header_sha256": "e37e3748d7daf7c5a6dc427c9732896615262340e7fd175f3ca59a521ca1eafd",
+          "endpoints_source": [
+            [
+              -8,
+              -5,
+              -57
+            ],
+            [
+              10,
+              -21,
+              -15
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cbe8",
+          "pose_header_sha256": "332da3c84db0adb00fb270f0d11da8572cb452be281c2f6bdbc9f8375b08405b",
+          "endpoints_source": [
+            [
+              -49,
+              -10,
+              -12
+            ],
+            [
+              0,
+              -17,
+              -12
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cce8",
+          "pose_header_sha256": "ef0defa96be565f8ddd8cfc9c45fdee54018015da9ae751c7940964a047079b0",
+          "endpoints_source": [
+            [
+              -48,
+              -8,
+              1
+            ],
+            [
+              -2,
+              -13,
+              -14
+            ]
+          ]
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cde8",
+          "pose_header_sha256": "566e76fff7a805d0271e7283a435bca64d0b05124bbf7acc467bda414a18e5a8",
+          "endpoints_source": [
+            [
+              -48,
+              -8,
+              0
+            ],
+            [
+              -2,
+              -13,
+              -14
+            ]
+          ]
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cee8",
+          "pose_header_sha256": "f1ff88a97ff918dbabce4667105f7f784ac67cea7eab70e27c6dc3390c8ce842",
+          "endpoints_source": [
+            [
+              -48,
+              -8,
+              1
+            ],
+            [
+              -2,
+              -13,
+              -14
+            ]
+          ]
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cfe8",
+          "pose_header_sha256": "080b258b52a8ee266dc3addc8ba689d5e68ebbf69a9285112b985088a724ef09",
+          "endpoints_source": [
+            [
+              -9,
+              -23,
+              -74
+            ],
+            [
+              7,
+              -22,
+              -28
+            ]
+          ]
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010d0e8",
+          "pose_header_sha256": "dc31178eedfb308cbfa56a19aacd721e01282bcfd930d79a10172dc639cbaaa2",
+          "endpoints_source": [
+            [
+              44,
+              -32,
+              -67
+            ],
+            [
+              20,
+              -33,
+              -25
+            ]
+          ]
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010d1e8",
+          "pose_header_sha256": "b382733b45b9743ea193ec80772586ba80bf35ffe6c8513548b02871923f269b",
+          "endpoints_source": [
+            [
+              76,
+              -38,
+              -17
+            ],
+            [
+              29,
+              -38,
+              -3
+            ]
+          ]
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010d2e8",
+          "pose_header_sha256": "15a400bf66c2a153ad45f67bc7d7f4e4fc17b1b53cdc53d22508d6afd94e437c",
+          "endpoints_source": [
+            [
+              76,
+              -43,
+              30
+            ],
+            [
+              30,
+              -40,
+              14
+            ]
+          ]
+        }
+      ],
+      "terminal": "pause",
+      "externally_clocked": false,
+      "continuation_of": null
+    },
+    "desperado_end": {
+      "clip": "Recovered__800d533c",
+      "stream": "0x800d533c",
+      "weapon": "lumina",
+      "effect_descriptor": 13,
+      "ticks": 6,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010d1e8",
+          "pose_header_sha256": "b382733b45b9743ea193ec80772586ba80bf35ffe6c8513548b02871923f269b",
+          "endpoints_source": [
+            [
+              76,
+              -38,
+              -17
+            ],
+            [
+              29,
+              -38,
+              -3
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010d0e8",
+          "pose_header_sha256": "dc31178eedfb308cbfa56a19aacd721e01282bcfd930d79a10172dc639cbaaa2",
+          "endpoints_source": [
+            [
+              44,
+              -32,
+              -67
+            ],
+            [
+              20,
+              -33,
+              -25
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cfe8",
+          "pose_header_sha256": "080b258b52a8ee266dc3addc8ba689d5e68ebbf69a9285112b985088a724ef09",
+          "endpoints_source": [
+            [
+              -9,
+              -23,
+              -74
+            ],
+            [
+              7,
+              -22,
+              -28
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cee8",
+          "pose_header_sha256": "f1ff88a97ff918dbabce4667105f7f784ac67cea7eab70e27c6dc3390c8ce842",
+          "endpoints_source": [
+            [
+              -48,
+              -8,
+              1
+            ],
+            [
+              -2,
+              -13,
+              -14
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cde8",
+          "pose_header_sha256": "566e76fff7a805d0271e7283a435bca64d0b05124bbf7acc467bda414a18e5a8",
+          "endpoints_source": [
+            [
+              -48,
+              -8,
+              0
+            ],
+            [
+              -2,
+              -13,
+              -14
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cce8",
+          "pose_header_sha256": "ef0defa96be565f8ddd8cfc9c45fdee54018015da9ae751c7940964a047079b0",
+          "endpoints_source": [
+            [
+              -48,
+              -8,
+              1
+            ],
+            [
+              -2,
+              -13,
+              -14
+            ]
+          ]
+        }
+      ],
+      "terminal": "stop",
+      "externally_clocked": false,
+      "continuation_of": null
+    },
+    "desperado_fusion": {
+      "clip": "Recovered__800d52e8",
+      "stream": "0x800d52e8",
+      "weapon": "fusion",
+      "effect_descriptor": 9,
+      "ticks": 12,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010c7e8",
+          "pose_header_sha256": "f4285bd7ba0118aa3560d555d3863326f8ad0fe952939fce9f1db119d1259637",
+          "endpoints_source": [
+            [
+              17,
+              -4,
+              -49
+            ],
+            [
+              6,
+              -12,
+              -20
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010c8e8",
+          "pose_header_sha256": "f15fd3b25d8b03f54e0b7e54e009540d3bfb00a1c8db39cfdd84d1715d93f29e",
+          "endpoints_source": [
+            [
+              29,
+              -31,
+              -18
+            ],
+            [
+              3,
+              -15,
+              -12
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010c9e8",
+          "pose_header_sha256": "f5cc8003807bb1f7d148f391a0ac76094f7a15df165754d4aad24ea5f08b1bda",
+          "endpoints_source": [
+            [
+              29,
+              -29,
+              -8
+            ],
+            [
+              2,
+              -15,
+              -12
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cae8",
+          "pose_header_sha256": "e37e3748d7daf7c5a6dc427c9732896615262340e7fd175f3ca59a521ca1eafd",
+          "endpoints_source": [
+            [
+              29,
+              -22,
+              -1
+            ],
+            [
+              1,
+              -14,
+              -13
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cbe8",
+          "pose_header_sha256": "332da3c84db0adb00fb270f0d11da8572cb452be281c2f6bdbc9f8375b08405b",
+          "endpoints_source": [
+            [
+              27,
+              -14,
+              0
+            ],
+            [
+              0,
+              -13,
+              -14
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cce8",
+          "pose_header_sha256": "ef0defa96be565f8ddd8cfc9c45fdee54018015da9ae751c7940964a047079b0",
+          "endpoints_source": [
+            [
+              25,
+              -9,
+              1
+            ],
+            [
+              -1,
+              -13,
+              -14
+            ]
+          ]
+        },
+        {
+          "tick": 6,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cde8",
+          "pose_header_sha256": "566e76fff7a805d0271e7283a435bca64d0b05124bbf7acc467bda414a18e5a8",
+          "endpoints_source": [
+            [
+              25,
+              -10,
+              1
+            ],
+            [
+              -1,
+              -14,
+              -13
+            ]
+          ]
+        },
+        {
+          "tick": 7,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cee8",
+          "pose_header_sha256": "f1ff88a97ff918dbabce4667105f7f784ac67cea7eab70e27c6dc3390c8ce842",
+          "endpoints_source": [
+            [
+              25,
+              -11,
+              2
+            ],
+            [
+              -1,
+              -16,
+              -12
+            ]
+          ]
+        },
+        {
+          "tick": 8,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010cfe8",
+          "pose_header_sha256": "080b258b52a8ee266dc3addc8ba689d5e68ebbf69a9285112b985088a724ef09",
+          "endpoints_source": [
+            [
+              19,
+              -17,
+              -39
+            ],
+            [
+              -5,
+              -23,
+              -21
+            ]
+          ]
+        },
+        {
+          "tick": 9,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010d0e8",
+          "pose_header_sha256": "dc31178eedfb308cbfa56a19aacd721e01282bcfd930d79a10172dc639cbaaa2",
+          "endpoints_source": [
+            [
+              -28,
+              -31,
+              -51
+            ],
+            [
+              -17,
+              -33,
+              -21
+            ]
+          ]
+        },
+        {
+          "tick": 10,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010d1e8",
+          "pose_header_sha256": "b382733b45b9743ea193ec80772586ba80bf35ffe6c8513548b02871923f269b",
+          "endpoints_source": [
+            [
+              -55,
+              -38,
+              -12
+            ],
+            [
+              -25,
+              -38,
+              -2
+            ]
+          ]
+        },
+        {
+          "tick": 11,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x8010d2e8",
+          "pose_header_sha256": "15a400bf66c2a153ad45f67bc7d7f4e4fc17b1b53cdc53d22508d6afd94e437c",
+          "endpoints_source": [
+            [
+              -56,
+              -40,
+              24
+            ],
+            [
+              -27,
+              -40,
+              11
+            ]
+          ]
+        }
+      ],
+      "terminal": "pause",
+      "externally_clocked": false,
+      "continuation_of": null
+    },
+    "dashing_pierce": {
+      "clip": "Recovered__800d4e6c",
+      "stream": "0x800d4e6c",
+      "weapon": "fusion",
+      "effect_descriptor": 6,
+      "ticks": 6,
+      "frames": [
+        {
+          "tick": 0,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e7fe8",
+          "pose_header_sha256": "d0aa14ffaa2fe22152fced14f356eb51b8afd1536027f13e736c8cf00442c4d6",
+          "endpoints_source": [
+            [
+              29,
+              -9,
+              -31
+            ],
+            [
+              13,
+              -28,
+              -11
+            ]
+          ]
+        },
+        {
+          "tick": 1,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e80e8",
+          "pose_header_sha256": "fd54f04f4553dbeb9cc19726541b33209f09405d21fe72120d8fe4808d29c268",
+          "endpoints_source": [
+            [
+              15,
+              -13,
+              -40
+            ],
+            [
+              11,
+              -28,
+              -13
+            ]
+          ]
+        },
+        {
+          "tick": 2,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e81e8",
+          "pose_header_sha256": "b8d1305530f26361cdfb33221d9c6ec12f00b84922b908fadf1a4dbfb4cb984d",
+          "endpoints_source": [
+            [
+              -7,
+              -27,
+              -52
+            ],
+            [
+              1,
+              -27,
+              -22
+            ]
+          ]
+        },
+        {
+          "tick": 3,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e82e8",
+          "pose_header_sha256": "2609526d4654dd4b9c58bda0a72b7fc02a7ac96453187e57eed051b70d636800",
+          "endpoints_source": [
+            [
+              -20,
+              -30,
+              -60
+            ],
+            [
+              -9,
+              -29,
+              -31
+            ]
+          ]
+        },
+        {
+          "tick": 4,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e83e8",
+          "pose_header_sha256": "2609526d4654dd4b9c58bda0a72b7fc02a7ac96453187e57eed051b70d636800",
+          "endpoints_source": [
+            [
+              -20,
+              -30,
+              -60
+            ],
+            [
+              -9,
+              -29,
+              -31
+            ]
+          ]
+        },
+        {
+          "tick": 5,
+          "hold_ticks": 1,
+          "source_hold_ticks": 1,
+          "pose": "0x800e84e8",
+          "pose_header_sha256": "2609526d4654dd4b9c58bda0a72b7fc02a7ac96453187e57eed051b70d636800",
+          "endpoints_source": [
+            [
+              -20,
+              -30,
+              -60
+            ],
+            [
+              -9,
+              -29,
+              -31
+            ]
+          ]
+        }
+      ],
+      "terminal": "pause",
+      "externally_clocked": false,
+      "continuation_of": null
     }
   },
   "raw_assets": [
@@ -4595,9 +6648,9 @@
       "path": "sword/pose_headers.bin",
       "source": "raw/MAIN.CD.dir/FILE_010.dir/1.1",
       "format": "repeated little-endian u32 VRAM address + 16 raw pose-header bytes",
-      "byte_length": 2760,
-      "count": 138,
-      "sha256": "d3c12e994b84a57525485d44f6be06848a8f6db9f588bbe2fe080ea71b00f5c9"
+      "byte_length": 3000,
+      "count": 150,
+      "sha256": "b20b217e47a6a2c1090a51e2d84ac45d1605612e18482e014d55779b7fbec4e1"
     }
   ],
   "limitations": [

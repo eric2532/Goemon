@@ -44,9 +44,13 @@ func run():
 	check(combat.weapon_slot==5 and view.weapon_slot==5,"Physical 5 equips the sword and first-person hands")
 	check(commands.is_empty(),"Chief's sword hotkey does not issue the old ally command")
 	check(view.animations.has_animation("firing") and view.animations.has_animation("idle"),"Sword has visible swing and idle animation")
-	check(view.sword_visual.blade_surfaces==2 and view.sword_visual.glow.multimesh.instance_count==128,"Both native blade surfaces and their two bounded glow paths are present")
+	var blade_count=0
+	for mesh in view.sword_visual.model.find_children("*","MeshInstance3D",true,false):
+		for surface in mesh.mesh.get_surface_count():
+			if mesh.mesh.surface_get_material(surface).resource_name.begins_with("es blade"):blade_count+=1
+	check(blade_count>0 and view.sword_visual.blade_surfaces==blade_count and view.sword_visual.glow.multimesh.instance_count==128 and view.sword_visual.anchors.all(func(path):return path.size()==5 and path.all(is_instance_valid)),"Every shipped blade surface and both bounded glow paths are present")
 	check(preload("res://scripts/sound_library.gd").moves_for(18).has("energy_sword"),"Sword swing remains editable through Sound Studio")
-	var target=await spawn(Vector3(0,100,104.5))
+	var target=await spawn(Vector3(0,100,107))
 	reset_swing();var before=target.hp;combat.fire_shot()
 	check(target.hp==before,"Sword damage waits for the swing contact window")
 	combat.tick(.05);check(target.hp==before,"Sword wind-up cannot deal early damage")
@@ -58,7 +62,7 @@ func run():
 	check(target.hp==before,"Sword cannot hit a distant enemy")
 	place(target,Vector3(0,100,118));reset_swing();before=target.hp;combat.fire_shot();combat.tick(.4)
 	check(target.hp==before,"Sword cannot hit an enemy behind the player")
-	place(target,Vector3(0,100,104.5));var wall=StaticBody3D.new();wall.collision_layer=1
+	place(target,Vector3(0,100,107));var wall=StaticBody3D.new();wall.collision_layer=1
 	var shape=CollisionShape3D.new();shape.shape=BoxShape3D.new();shape.shape.size=Vector3(8,8,.3);wall.add_child(shape);game.add_child(wall);wall.position=Vector3(0,102,108.7);await frames()
 	reset_swing();before=target.hp;combat.fire_shot();combat.tick(.4)
 	check(target.hp==before,"Walls block the blade's contact sweep")

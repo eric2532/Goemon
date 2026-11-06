@@ -68,7 +68,7 @@ func run():
   for i in 12:
    pool.last_events.clear();shot.id=1000+cycle*12+i;tower.launch(shot);tower.impact(hit)
   await frames();tower.clear();await frames(12)
- check(pool.voices.map(func(v):return v.get_instance_id())==voice_ids and pool.cache.size()==2,"Sixty repeated tower shots reuse the same bounded voices and prepared events")
+ check(pool.voices.map(func(v):return v.get_instance_id())==voice_ids and pool.cache.size()==4,"Sixty repeated tower shots reuse the same bounded voices and prepared events")
  check(load("res://scripts/character_audio_bank.gd").streams.size()==bank_size,"Repeated tower attacks load no new audio resources")
  check(Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)==resources,"Repeated tower volleys retain no resources after cleanup")
  check(tower.visuals.is_empty() and tower.get_child_count()==2 and pool.voices.all(func(v):return not v.playing),"Tower reset clears arrows and stops every voice")

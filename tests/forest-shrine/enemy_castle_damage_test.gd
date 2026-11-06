@@ -1,20 +1,29 @@
 extends "res://scripts/recovered_leaders_tests.gd"
 class Battle extends "res://scripts/forest/forest_game.gd":
 	func _sync_camera_mouse():Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
-const OUT="res://build/Other Files/Asset Toolkit/Wind Meadow/Castle Breaches/"
+var OUT="res://build/Other Files/Asset Toolkit/Wind Meadow/Castle Breaches/"
 const Castle=preload("res://scripts/forest/forest_enemy_castle.gd")
 var timings={}
 
 func run():
 	root.size=Vector2i(1280,800)
 	set_meta("forest_fighter",1);set_meta("forest_painterly_preview",true)
-	var doc=preload("res://scripts/forest/forest_map_document.gd").new();doc.load_wind_meadow();set_meta("forest_custom_layout",doc.data)
+	var doc=preload("res://scripts/forest/forest_map_document.gd").new();doc.load_wind_meadow()
+	if "--large" in OS.get_cmdline_user_args():doc.load_wind_meadow_large();OUT+="Large/"
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUT))
+	set_meta("forest_custom_layout",doc.data)
 	game=Battle.new();game.settings_path="user://castle-damage-%d.cfg"%OS.get_process_id()
 	root.add_child(game);current_scene=game;await frames(5)
 	var targets=game.enemy_objectives.duplicate();var castle=targets[0];var player=game.player
 	check(targets.size()==4,"Four keeps retain the existing objective and victory ownership")
 	for keep in targets:
 		check(keep.hp==6000 and keep.max_hp==6000,"Enemy keep starts with 6000 HP")
+		var statue=keep.visual.get_node("SkullpionStatue")
+		check(statue.get_node("CarvedSkullpion").mesh==Castle.STATUE and Castle.STATUE.get_surface_count()==1,"Each castle reuses the same single-surface Skullpion statue")
+		check(statue.find_children("*","AnimationPlayer",true,false).is_empty() and statue.find_children("*","Skeleton3D",true,false).is_empty(),"Static statues have no boss animation or skeleton runtime")
+		check(statue.basis.is_equal_approx(Castle.basis(keep.data())) and keep.name_tag.text.contains("SKULLPION STATUE"),"Every rotated castle faces its statue toward the entrance and names the objective")
+		check(keep.target_boxes.size()==23 and keep.physical.get_child_count()==23,"Pedestal and 22 fitted parts share combat and physical shapes")
+		check(not game.model.waves.navigation.move_clear(keep.position+Vector3(14,1,0),1.3),"Native navigation includes the wider statue pedestal")
 		check(keep.sections.size()>50 and keep.sections.all(func(p):return p.hp==6000 and p.max_hp==6000),"Every wall panel, gate and tower has its own 6000 HP pool")
 		check(keep.sections.filter(func(p):return p.data().kind=="wall").all(func(p):return p.wall_damage[0].stage==0),"Healthy panels start without cracks")
 		check(keep.castle_art.walls.size()==1,"Intact wall panels share one rendering batch")
@@ -148,8 +157,32 @@ func run():
 		wall=panel_near(keep,keep.position+Castle.basis(keep.data())*Vector3(48,2,0));wall.take_hit(1,Vector3.LEFT,false,{"tower":true})
 		check(keep.castle_impact.dust.scale_amount_max==2,"Shared emitters reset after a breach before the next ordinary hit")
 	for keep in targets:
+		var forward=Castle.basis(keep.data())*Vector3.BACK
+		player.position=keep.position+forward*18+Vector3.UP*.1;player.facing=-forward
+		var before:float=keep.hp
+		player.cancel_charge(true);player.select_character(1)
+		game.camera_rig.yaw=atan2(forward.x,forward.z)
+		game.camera_rig.camera.global_position=player.position+forward*5+Vector3.UP*4
+		game.camera_rig.camera.look_at(keep.position+Vector3.UP*2)
+		await frames(2);player.start_attack(false,1)
+		for tick in 100:player._physics_process(1.0/60)
+		check(keep.hp<before and not keep.dead,"Actual Goemon melee damages the statue at the pedestal on every rotation")
+		player.cancel_charge(true);player.select_character(player.RogueRoster.MASTER_CHIEF_ID)
+		var start_point:Vector3=keep.position+forward*20+Vector3.UP*2
+		var end_point:Vector3=keep.position+Vector3.UP*2
+		check(player.master_chief_combat.trace(start_point,end_point).target==keep,"Actual bullet trace selects the statue through the open courtyard")
+		before=keep.hp
+		player.master_chief_combat.fire_bullets(start_point,-forward,start_point,{"impact":false},player.attack_chain.begin("chief"),10,{"range":30.0},false)
+		check(keep.hp<before,"Actual bullets damage the same statue health pool")
+		player.select_character(1)
+		await shot("statue-%d"%keep.objective_index,keep,Vector3(5,16,32),Vector3(0,13,0))
+		var statue_nodes=keep.find_children("*","",true,false).size()
+		for i in 5:keep.take_hit(1,Vector3.FORWARD,false,{"tower":true})
+		check(keep.find_children("*","",true,false).size()==statue_nodes and keep.visual.get_node("SkullpionStatue/CarvedSkullpion").mesh==Castle.STATUE,"Repeated hits reuse the statue, materials and prepared effects")
 		keep.take_hit(99999,Vector3.FORWARD,true,{"tower":true})
 		check(keep.dead and keep.sections.all(func(p):return p.dead) and keep.castle_ruins.keep.visible,"Destroying the keep retires remaining fortifications and reveals the complete ruins")
+		check(keep.physical.collision_layer==0 and player.master_chief_combat.trace(start_point,end_point).target==null,"Destroyed statues leave no physical or projectile blocker")
+		check(game.model.waves.navigation.move_clear(keep.position+Vector3(14,1,0),1.3),"Statue destruction releases its native navigation obstacle")
 	check(game.model.phase=="victory" and game.model.waves.spawn_batch()==0,"Only destroying all four keeps wins and stops reinforcements")
 	check(preload("res://scripts/forest/forest_camp_prototype.gd").obstacles(game.model).is_empty() and game.enemy_objective_targets.is_empty(),"Defeated forts leave no navigation obstacles or registered static targets")
 	check(targets.all(func(k):return k.castle_ruins.collapse.active.size()>20),"All four destroyed keeps animate their remaining wall panels together")

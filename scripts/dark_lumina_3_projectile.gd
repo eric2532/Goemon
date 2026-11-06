@@ -10,7 +10,6 @@ var slash_yaw=0.0
 var piercing=false
 var hit_targets={}
 var secondary=false
-var burst=false
 var grounded=false
 var pulse=0.0
 var visual:MultiMeshInstance3D
@@ -35,7 +34,7 @@ func _physics_process(delta:float):
  if not is_instance_valid(hero) or not game.playing:retire();return
  if game.paused or game.transitioning:return
  var before=age;age+=delta;lifetime-=delta
- if kind==3 and not grounded and before<8.0/30 and age>=8.0/30 and game.get("crowd")!=null:game.crowd.army.presentation.finale_cue(global_position,14,velocity.normalized(),get_instance_id(),0,1.0,skill_factor("size"))
+ if kind==3 and not grounded and before<8.0/30 and age>=8.0/30 and game.get("crowd")!=null:game.crowd.army.presentation.finale_cue(global_position,14,velocity.normalized(),get_instance_id(),0,1.0,skill_factor("size"),attack_ticket)
  for i in visual.multimesh.instance_count:visual.multimesh.set_instance_custom_data(i,Color(maxf(0,age-(i*.06 if kind==3 else 0.0)),1 if i==0 or kind==1 else .25/i,0,0))
  if grounded:
   pulse-=delta
@@ -68,15 +67,16 @@ func _physics_process(delta:float):
    else:game.confirm_impact(contact.enemy,contact.point,velocity.normalized(),1,true,30,false)
    impact(contact.point);return
  if not wall.is_empty() or lifetime<=0:
+  if kind==2 and wall.is_empty():retire();return
   impact(next if wall.is_empty() else wall.position);return
  global_position=next
 func impact(point:Vector3):
  # Keep the low wave at its flight height instead of moving it onto the enemy's body.
  var effect_point=global_position if kind==0 else point
- if game.get("crowd")!=null:game.crowd.army.presentation.finale_cue(effect_point,43 if kind==0 and cross_slash else 42 if kind==2 and secondary else 20+kind,velocity.normalized(),get_instance_id(),0,1.0,skill_factor("size"))
- if kind==2 and burst and not secondary:
-  for i in 8:
-   var direction=Vector3(sin(i*TAU/8),0,cos(i*TAU/8))
+ if game.get("crowd")!=null:game.crowd.army.presentation.finale_cue(effect_point,43 if kind==0 and cross_slash else 42 if kind==2 and secondary else 20+kind,velocity.normalized(),get_instance_id(),0,1.0,skill_factor("size"),attack_ticket)
+ if kind==2 and not secondary:
+  for i in 5:
+   var direction=Vector3(sin(i*TAU/5),0,cos(i*TAU/5))
    projectile_pool.launch(hero,get_script(),"finale2",{"kind":2,"secondary":true,"position":point+Vector3.UP*.4*Finale.SCALE,"velocity":direction*8*Finale.SCALE,"lifetime":Finale.WATER_BURST_LIFE,"damage":damage*.5,"attack_ticket":attack_ticket.duplicate()})
  if kind==3 and not grounded:
   var floor_hit=AttackChain.world_ray(self,point+Vector3.UP*.1,point-Vector3.UP*Finale.FALL_HEIGHT)

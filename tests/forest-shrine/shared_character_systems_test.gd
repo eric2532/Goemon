@@ -31,6 +31,11 @@ func run():
  check(AudioBank.sample(samples.ROOT+"event_210.wav")==samples.stream_for("swing"),"Event maps reuse the same sample resource")
  var rogue_audio=game.get_node("RogueSharedClassAudio");rogue_audio.volume=.55;rogue_audio.last_events.erase("cast");rogue_audio.play("cast",{"character_id":6,"volume":0})
  check(rogue_audio.cache.get("cast-mage")==AudioBank.sample("res://assets/rogue/audio/cast-mage.wav") and game.sounds.fire_cast==AudioBank.sample("res://assets/characters/musashi/audio/fire_cast.wav"),"Rogue classes and Edo use the same sample bank as the recovered fighters")
+ var shared_fx=game.get_node("RogueSharedClassEffects")
+ var borrowed=load("res://scripts/spells/spell_instance.gd").new();p.add_child(borrowed)
+ borrowed.setup(p,loadout.Catalog.all()["ranger/rapid-shot"])
+ p.ai_controlled=true;borrowed.queue_free();await process_frame;await process_frame;p.ai_controlled=false
+ check(is_instance_valid(shared_fx) and game.get_node_or_null("RogueSharedClassEffects")==shared_fx,"Deleting an AI borrowed skill preserves the shared impact effects")
  p.select_character(16)
  var config={"kind":"ice","position":Vector3(0,20,60),"velocity":Vector3.FORWARD,"attack_ticket":{"source_character_id":16}}
  var shot=pool.launch(p,Ice,"sasuke/ice",config)
@@ -86,7 +91,7 @@ func run():
   check(mesh!=null and mesh.get_surface_count()>0,"Shared native renderer supports textured and untextured role%d"%kind)
  p.free()
  check(pool.all.is_empty() and pool.idle.is_empty(),"Caster deletion removes active and parked projectile ownership")
- game.queue_free();paused=false;await frames();await create_timer(.15).timeout
+ game.free();game=null;paused=false;await frames();await create_timer(.15).timeout
  if FileAccess.file_exists(cfg):DirAccess.remove_absolute(ProjectSettings.globalize_path(cfg))
  print("SHARED_CHARACTER_SYSTEMS_RESULT checks=%d failures=%d"%[checks,failures]);quit(1 if failures else 0)
 

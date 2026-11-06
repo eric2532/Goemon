@@ -8,7 +8,7 @@ func _initialize():
 	call_deferred("run")
 func run():
 	var path="res://tests/forest-shrine/reference/forest_model.gd"
-	check(ResourceLoader.exists(path),"Forest simulation exists for grid construction and fog")
+	check(ResourceLoader.exists(path),"Forest simulation exists for grid construction and visibility")
 	if failures:finish();return
 	var m=load(path).new();preload("res://tests/forest-shrine/empty_settlement.gd").reset(m)
 	check(m.gold==1000000 and m.phase=="preparing","A fresh preparation starts with its own treasury")
@@ -33,9 +33,9 @@ func run():
 	m.update_vision(Vector3(84,0,0))
 	check(m.visible_at(Vector3(84,0,0)),"Hero vision reveals the ground at the hero")
 	m.update_vision(Vector3(0,0,18))
-	check(m.explored_at(Vector3(84,0,0)) and not m.visible_at(Vector3(84,0,0)),"Exploration persists after current sight moves away")
+	check(m.explored_at(Vector3(84,0,0)) and m.visible_at(Vector3(84,0,0)),"Retired fog leaves ground revealed when the hero moves away")
 	preload("res://tests/forest-shrine/empty_settlement.gd").reset(m)
-	check(not m.explored_at(Vector3(84,0,0)),"New runs clear fog memory")
+	check(m.explored.size()==m.navigation_region.get_area() and m.visible_cells.size()==m.navigation_region.get_area(),"New runs reveal the whole playable region")
 	check(m.has_method("build_wall_line"),"Wall drags are an atomic transaction")
 	if m.has_method("build_wall_line"):
 		m.gold=15

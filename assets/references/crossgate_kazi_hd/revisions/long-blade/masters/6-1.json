@@ -1,0 +1,10 @@
+{
+  "token": "6-1",
+  "prompt": "Use case: background-extraction. Edit ONLY the background of this exact 5 column by 6 row 30-frame Kazi sprite sheet. Remove all gray cloud/matte to true alpha zero; preserve all character, sword, violet light, poses, scale, grid and original colors. No ground shadow. Return transparent PNG.",
+  "references": [
+    "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Cross Gate 102488/HD Preview/Rejected/long-blade-6-1-second-draft.png"
+  ],
+  "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-7f41f9f1-e3bd-4949-a6a6-2f87dfc14ec3.png",
+  "tool": "built-in image_gen",
+  "sha256": "6dfcb80a872c54908542111c3332470532fa69f3d35b5f757c97af9cc9953746"
+}

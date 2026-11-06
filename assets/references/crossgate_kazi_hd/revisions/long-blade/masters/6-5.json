@@ -1,0 +1,10 @@
+{
+  "token": "6-5",
+  "prompt": "Use case: precise-object-edit. This is exactly a 5-column by 6-row 30-frame game animation sprite sheet. Keep the exact Kazi character, thin curved longer sword, pose order and violet effects. In EACH of the 30 cells, uniformly reduce ALL artwork to HALF its present size, centered within THAT SAME cell, preserving relative body/sword/effect proportions. This is technical safe-margin correction, not a redesign. Every cell must have broad clear fully transparent margins with no energy touching any cell boundary. No new background, no gray haze or ground shadow. True transparent alpha zero between sprites. Exactly 30 occupied cells, 5 columns x 6 rows, left-right top-bottom.",
+  "references": [
+    "/Users/eric/Desktop/Projects_Codex/Sonic/build/Other Files/Cross Gate 102488/HD Preview/Rejected/long-blade-6-5-second-draft.png"
+  ],
+  "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-b12e122c-9b2a-4475-91fb-a963d3474c14.png",
+  "tool": "built-in image_gen",
+  "sha256": "a7daeb1f4a2fe808ea56a392fce7bdaf97984141a3b25513cb26e44b5eba32bd"
+}

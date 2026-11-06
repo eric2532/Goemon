@@ -2,6 +2,7 @@ class_name Geo
 extends RefCounted
 
 static var mats: Dictionary = {}
+static var sphere_mesh: SphereMesh
 static func mat(hex: String, metallic: float = 0.0, glow: float = 0.0) -> StandardMaterial3D:
 	var key = hex + str(metallic) + str(glow)
 	if mats.has(key): return mats[key]
@@ -36,12 +37,13 @@ static func box(parent: Node3D, p: Vector3, size: Vector3, material: Material, c
 	return mesh(parent, m, p, material, collision)
 
 static func sphere(parent: Node3D, p: Vector3, size: Vector3, material: Material) -> MeshInstance3D:
-	var m = SphereMesh.new()
-	m.radius = 0.5
-	m.height = 1.0
-	m.radial_segments = 16
-	m.rings = 8
-	var n = mesh(parent, m, p, material)
+	if sphere_mesh == null:
+		sphere_mesh = SphereMesh.new()
+		sphere_mesh.radius = 0.5
+		sphere_mesh.height = 1.0
+		sphere_mesh.radial_segments = 16
+		sphere_mesh.rings = 8
+	var n = mesh(parent, sphere_mesh, p, material)
 	n.scale = size
 	return n
 

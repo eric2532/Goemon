@@ -15,6 +15,7 @@ var cast_owner:Node
 var current_clip=""
 var current_row=0
 var walk_tick=0.0
+var pressure_trail:MeshInstance3D
 
 func _ready():
  body=Node3D.new();add_child(body)
@@ -40,6 +41,10 @@ func _ready():
   crowd.multimesh.mesh=meshes[role];crowd.multimesh.instance_count=1
   crowd.multimesh.set_instance_transform(0,Transform3D.IDENTITY)
   crowd.custom_aabb=meshes[role].custom_aabb if role in [Roles.DARK_LUMINA_2,Roles.DARK_LUMINA_3] else resource.get_meta("bounds");body.add_child(crowd)
+ if role==Roles.DARK_LUMINA_2:
+  pressure_trail=preload("res://scripts/recovered_leader_trail.gd").new();pressure_trail.light_color=Color(preload("res://scripts/rogue_roster.gd").ENEMIES[29].color);add_child(pressure_trail)
+  visibility_changed.connect(func():
+   if not visible:pressure_trail.clear())
  animate(0,0,true,0,0,false,0,false)
 
 func bounds()->AABB:
@@ -58,6 +63,7 @@ func pose(clip:String,tick:float,loop:bool):
  crowd.multimesh.set_instance_custom_data(0,Color(current_row,0,color_mode,0))
 
 func animate(delta:float,speed:float,grounded:bool,vertical:float,_attack:float,_heavy:bool,_combo:int,_dodge:bool):
+ if pressure_trail!=null:pressure_trail.advance(delta,PackedVector3Array(),false,false)
  pose_clock+=delta;cast_owner=null;cast_clock=0
  locomotion.update(delta,locomotion_velocity,grounded,vertical,0,false)
  body.rotation.y=0

@@ -1,5 +1,11 @@
 # Wind Meadow — original landscape kit
 
+The compatible modular expansion (2026-10-31) is documented in
+[`docs/wind-meadow/modular-kit.md`](../../../../docs/wind-meadow/modular-kit.md).
+It adds seven existing-owner ramp/deck/junction recipes and three rock/fence compositions.
+Its scenes reference the existing exports; no master here was duplicated or
+regenerated. Use that guide for pivots, native support and the separate test map.
+
 Created 2026-10-23 from the user's supplied open-air fantasy landscape reference.
 The art uses new geometry and colors; no game assets or screenshot pixels were extracted.
 The chosen [Game Art Style atlas](https://gameartstyle.loopyhop.com/) was consulted for visual direction.
@@ -78,3 +84,44 @@ Custom saved maps retain their terrain identity; gameplay objective HP is reset
 on a new run. See `docs/goemon-performance-guide.md` for fresh measured frame
 times, actual controller travel times, verification commands and limitations.
 No app export is required for source iteration.
+
+## Map-grid foliage variants — 2026-10-30
+
+The user's direction is Breath of the Wild inspired scenery, with natural colors,
+organic silhouettes and soft painted shading. The earlier flat Cedar Pass crowns
+were rejected beside this meadow. The grid's `cedar`, `pine`, `sakura` and `bamboo`
+IDs now use `cedar_tree`, `pine_tree`, `sakura_tree` and `bamboo_cluster` here and
+under `assets/models/environments/wind_meadow/`. Saved map IDs, placement origins,
+size/rotation and native collision ownership remain unchanged.
+
+Cedar, pine and sakura reuse the approved broadleaf bark and every original leaf
+card (6,396 triangles and two parts each). They reshape that existing geometry
+into a tapered cedar, layered pine and broad blossom crown. Sakura's painted
+colors use muted rose shadows and warm cream-pink light. Bamboo reuses the Cedar
+Pass export's 1,236 triangles with softened stem normals and meadow greens.
+All four use the existing foliage shader; tree canopies retain wind/cutaway.
+No changes were made to the broadleaf/shrub masters or original Cedar Pass GLBs.
+
+`tools/prepare_meadow_tree_variants.py` performed initial preparation, checks
+protected hashes and refuses to overwrite these editable masters. Do not rerun
+it over artist edits. Edit the saved variants and export with the existing tool:
+
+```sh
+/Applications/Blender.app/Contents/MacOS/Blender --background \
+  assets/blender/environments/wind_meadow/sakura_tree.blend \
+  --python tools/export_blender.py
+```
+
+Run audit, the named `meadow-cedar-tree`, `meadow-pine-tree`, `meadow-sakura-tree`
+or `meadow-bamboo-cluster` optimization recipe, import and preservation checks.
+The initial lossless pass retains the source meshes/surfaces unchanged, so no
+candidate was activated. Keep `Body` and `Canopy` separate and preserve UVs and
+vertex colors. Review the actual game camera beside the original broadleaf.
+Evidence and protected hashes are in `build/Other Files/Asset Toolkit/Map Catalog/`.
+
+The same grid reuses `leafy_shrub`, Cedar Pass `river_rock`, `moss_boulder`, `fence`,
+and this kit's `buildings/stone_block`, `wall_cap`, `wall_corner`, `wall_section`
+and `wall_ruins`. The fence uses 1.875 base scale to meet the six-metre grid.
+Modular pieces are ground-level static scenery/cover; functional structures keep
+existing construction/combat owners. Torii/door openings and elevated assemblies
+need their actual clearance/support contracts before adding them as map pieces.

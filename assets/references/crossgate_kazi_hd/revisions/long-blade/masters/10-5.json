@@ -1,0 +1,12 @@
+{
+  "token": "10-5",
+  "prompt": "Repair the sprite sheet layout without changing its illustrated style. Image 1 supplies the EXACT 12 character poses and effects; image 2 confirms original pose sequence and character identity; image 3 defines the longer thin curved sword (blade about 35 percent of body height, narrow tapered dark metal, same hilt and curve). Exactly 4 columns x 3 rows in the same order; trailing cells empty. Scale EVERY frame's entire character+weapon+effects uniformly to 70 percent of its previous size ABOUT ITS OWN CELL CENTER, with consistent scale across ALL frames. The game restores body size offline; this is only room for clean transparent margins. Preserve all proportions, face, clothes, palette, poses, effect phases and direction. Reconstruct any previously cut sword/energy tip. No art may cross a cell boundary: leave at least 16 fully transparent pixels at EVERY edge of EVERY cell, including all glows. Preserve the sword length relative to the body. All empty background must be genuine alpha 0: remove any white/gray matte, fog or floor shadow. No labels, grid lines or background. Preserve image 2's falling sequence: end with his body lying HORIZONTALLY on his side on the ground, head at one end and feet at the other. Never finish upside down/headstanding or somersaulting. Keep all source turning poses in sequence.",
+  "references": [
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/masters/10-5.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/masters/10-5.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/identity-long-blade.png"
+  ],
+  "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-f3dda7d9-4e9c-4f38-922c-4f60561cbe3a.png",
+  "tool": "built-in image_gen",
+  "sha256": "04e64588c9dd84aa8f19f727501bfa967b3f1053d21d06e3b957cb7146ca9ea4"
+}

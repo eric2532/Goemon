@@ -28,6 +28,9 @@ The user wants exactly one playable app in the build folder: `build/Goemon.app`.
 
 ## Character and skill performance
 
+- Goemon's walking/footstep sound is the default for all new characters and every shared footstep fallback. Never use the early prototype `audio/step.wav` in gameplay or previews. Reuse SoundLibrary's prepared sample and voice pool; preserve distinct recovered character audio and user recordings/gain/mute overrides.
+- Goemon's landing sound (prepared ROM event 21E) is also the default for all new characters and every shared landing fallback. Preserve distinct recovered boss/character impacts and user recordings/gain/mute overrides; do not give a new character the heavy boss landing by default.
+
 - Enemies and bosses must reuse the native army lifecycle, queries, combat and
   pooled presentation. Add type/attack data instead of another simulation or
   renderer per enemy. Reuse the editable rigid-enemy Blender export/bake workflow
@@ -58,6 +61,13 @@ The user wants exactly one playable app in the build folder: `build/Goemon.app`.
 - Keep one authoritative editable source per reusable asset and reference its exported mesh/resource for repeated placements. Preserve origins, dimensions, sockets, collision/navigation and gameplay ownership; isolate variations so editing a shared material cannot change unrelated assets. Record useful pieces and their source/export paths in the nearest asset guide.
 
 ## Game art inspiration
+
+- User correction (2026-10-30): scenery should follow a Breath of the Wild inspired
+  direction: organic silhouettes, clustered foliage, natural greens/bark and soft
+  painted shading. Avoid the visibly faceted Cedar Pass tree crowns in the map
+  grid. Reuse the Wind Meadow tree masters and shared foliage shader; keep the
+  original Cedar Pass assets intact for their existing uses. Editable grid tree
+  variants and their export instructions are in the Wind Meadow asset guide.
 
 - The user selected [Game Art Style](https://gameartstyle.loopyhop.com/) as a reference for game art inspiration. Consult it when exploring visual styles, environments, characters, or interface art for this project.
 

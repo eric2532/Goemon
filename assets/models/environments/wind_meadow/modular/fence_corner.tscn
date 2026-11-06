@@ -1,0 +1,25 @@
+[gd_scene format=3]
+
+[ext_resource type="Material" path="res://assets/models/cedar_pass/shared_matte.tres" id="1_62ja5"]
+[ext_resource type="PackedScene" path="res://assets/models/cedar_pass/fence.glb" id="2_daysc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mqocr"]
+size = Vector3(6, 3, 6)
+
+[node name="FenceCorner" type="Node3D" unique_id=1847123370]
+metadata/scenery_material = ExtResource("1_62ja5")
+metadata/scenery_bounds = AABB(-3.0000002, 0, -3, 6, 3, 6)
+
+[node name="Part0" type="Node3D" parent="." unique_id=537195673 instance=ExtResource("2_daysc")]
+transform = Transform3D(1.875, 0, 0, 0, 1.875, 0, 0, 0, 1.875, 0, 0, -2.83125)
+
+[node name="Part1" type="Node3D" parent="." unique_id=1755815405 instance=ExtResource("2_daysc")]
+transform = Transform3D(-8.195885e-08, 0, 1.875, 0, 1.875, 0, -1.875, 0, -8.195885e-08, -2.83125, 0, 0)
+
+[node name="@StaticBody3D@247" type="StaticBody3D" parent="." unique_id=105895494]
+collision_mask = 0
+metadata/halo_material = "wood"
+
+[node name="@CollisionShape3D@248" type="CollisionShape3D" parent="@StaticBody3D@247" unique_id=185550952]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3841858e-07, 1.5, 0)
+shape = SubResource("BoxShape3D_mqocr")

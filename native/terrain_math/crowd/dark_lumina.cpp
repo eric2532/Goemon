@@ -22,7 +22,7 @@ void Combat::lumina_decide(Crowd& crowd,Unit& u,double dt){
     if(u.recovery_left>0){u.has_goal=false;return;}
     u.think_left-=dt;Vec3 foot;
     if(u.think_left<=0||((u.target_handle||u.external_kind>=0)&&!target(crowd,u,foot))){choose_target(crowd,u);u.think_left=.1;}
-    if(!target(crowd,u,foot)){u.has_goal=false;return;}
+    if(!target(crowd,u,foot)){return;}
     const auto& profile=soldiers_[17];Vec3 direction=foot-u.position;
     float desired=std::atan2(-direction.x,-direction.z),turn=std::remainder(desired-u.yaw,float(2*M_PI));
     float amount=profile.turn_speed*float(dt);u.yaw+=std::clamp(turn,-amount,amount);

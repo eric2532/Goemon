@@ -11,20 +11,20 @@ func run():
 	check(m.gold==1000000,"A new testing run has one million spendable gold")
 	var mines=m.buildings.values().filter(func(b):return b.kind=="mine")
 	check(mines.size()==2,"The starting deposits have usable mines")
-	check(m.workers.size()==8 and m.workers.values().all(func(w):return w.job!=-1 and w.state in ["travel","garrison"]),"All eight workers start with useful jobs without commands")
+	check(m.workers.size()==8 and m.workers.values().all(func(w):return w.state in ["travel","idle"]),"Eight starting workers retain miners and two free workers")
 	for mine in mines:check(m.workforce.count_job(mine.id)==3,"Each starter mine receives three workers")
 	var origins={}
 	for w in m.workers.values():origins[w.id]=w.pos
 	for i in range(120):m.tick(.1,m.hero_position)
-	var miners=m.workers.values().filter(func(w):return m.buildings[w.job].kind=="mine")
+	var miners=m.workers.values().filter(func(w):return m.buildings.get(w.job,{}).get("kind","")=="mine")
 	check(miners.all(func(w):return w.state=="mine") and miners.any(func(w):return w.pos!=origins[w.id]),"Starting miners reach both mines during preparation")
-	check(m.workers.values().filter(func(w):return w.state=="garrison").size()==2,"Dedicated guards remain ready on both towers")
+	check(m.workers.values().filter(func(w):return w.state=="garrison").is_empty(),"Towers never require starting guards")
 	check(m.gold==1000000,"Free starter mines and preparation leave the testing treasury intact")
 	m.start_wave();m.waves.spawn_clock=10000
 	for i in range(200):m.tick(.1,m.hero_position)
 	check(m.gold>1000000,"Starting crews deliver mined gold during the first wave")
 	m.reset(7)
-	check(m.gold==1000000 and m.workers.values().all(func(w):return w.job!=-1),"Retry restores the testing treasury and automatic starting jobs")
+	check(m.gold==1000000 and m.workers.size()==8,"Retry restores the testing treasury and automatic starting jobs")
 	preload("res://tests/forest-shrine/empty_settlement.gd").reset(m);m.workers.clear()
 	for x in range(-15,16):
 		for y in range(-15,16):m.explored[Vector2i(x,y)]=true

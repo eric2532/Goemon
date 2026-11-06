@@ -17,7 +17,8 @@ func advance(count:int,delta:float=1.0/60):
 		var start=Time.get_ticks_usec()
 		var sound_order=game.voice_idx
 		game.player._physics_process(delta)
-		if game.voice_idx>sound_order and game.last_sound_voice.get_meta("kind","")=="step":footsteps.append(game.last_sound_voice.stream)
+		for voice in game.voices:
+			if voice.get_meta("order",-1)>sound_order and voice.get_meta("kind","")=="step":footsteps.append(voice.stream)
 		for nodes in Pool.service(game).all.values():
 			for shot in nodes:
 				if shot.pool_live and shot.get_script()==Shot:shot._physics_process(delta)
@@ -33,7 +34,8 @@ func capture(label_:String):
 
 func run():
 	create_timer(180).timeout.connect(func():printerr("WARCRAFT_TIMEOUT");quit(1))
-	await setup_fixture();game.tuning.invincible=true
+	var document=load("res://scripts/forest/forest_map_document.gd").new();document.load_wind_meadow()
+	await setup_fixture(document.data);game.tuning.invincible=true
 	game.camera_rig.set_process_unhandled_input(false)
 	var p=game.player;var pool=Pool.service(game)
 	pool.launched.connect(func(shot):
@@ -95,9 +97,11 @@ func run():
 		var goemon_step=game.sound_default(1,"step")
 		check(goemon_step!=null and game.sound_preview(id,"step")==goemon_step,"Walking preview shares Goemon's footstep %d"%id)
 		live=true;fresh();footsteps.clear();p.smoke_move=Vector2.RIGHT
+		var first_step=p.model.locomotion.step_events
 		Input.action_press("walk_modifier");await advance(120);Input.action_release("walk_modifier")
-		check(footsteps.size()>=3 and footsteps.all(func(sound):return sound==goemon_step),"Repeated real walking uses Goemon's footstep %d"%id)
-		check(game.last_sound_voice.pitch_scale>=.92 and game.last_sound_voice.pitch_scale<=1.08,"Walking keeps Goemon's pitch variation %d"%id)
+		var expected_steps=ceili(p.model.locomotion.step_events/2.0)-ceili(first_step/2.0)
+		check(expected_steps>0 and footsteps.size()==expected_steps and footsteps.all(func(sound):return sound==goemon_step),"Repeated real walking keeps Goemon's sample and existing every-other-step cadence %d"%id)
+		check(game.last_sound_voice.pitch_scale==1.0,"Walking keeps Goemon's recovered source pitch %d"%id)
 		p.smoke_move=Vector2.ZERO;await advance(30);footsteps.clear();await advance(30)
 		check(footsteps.is_empty(),"Standing still stops footsteps %d"%id)
 		live=false;fresh();await advance(12)

@@ -46,17 +46,20 @@ static func building(b: Dictionary)->Node3D:
 			Geo.box(root,Vector3(4,1.1,5.6),Vector3(2.4,1.8,2),Geo.mat(WOOD))
 			Geo.sphere(root,Vector3(4,2.1,5.6),Vector3(2,.5,1.6),Geo.mat(GOLD,.4,.15))
 			solid(root,Vector3(0,2,0),Vector3(17.6,4,11.6))
-		"tower":
-			if meadow:Meadow.building(root,"watchtower")
+		"tower","cannon_tower":
+			if b.kind=="cannon_tower":Meadow.building(root,"cannon_tower")
+			elif meadow:Meadow.building(root,"watchtower")
 			else:StoneFort.tower(root)
-			solid(root,Vector3(0,Profile.TOWER_BODY_HEIGHT*.5,0),Vector3(10,Profile.TOWER_BODY_HEIGHT,10))
-			var deck=solid(root,Vector3(0,Profile.TOWER_DECK_CENTER,0),Vector3(11,Profile.TOWER_DECK_THICKNESS,11));deck.name="TowerDeck"
-			solid(root,Vector3(0,Profile.TOWER_LOOKOUT_CENTER,-4),Vector3(11.8,Profile.TOWER_LOOKOUT_THICKNESS,4))
-			var pillar_height=Profile.TOWER_LOOKOUT_HEIGHT-Profile.TOWER_DECK_HEIGHT-.5
-			for x in [-4.7,4.7]:solid(root,Vector3(x,Profile.TOWER_DECK_HEIGHT+pillar_height*.5,-4.7),Vector3(.85,pillar_height,.85))
-			for side in [-1,1]:
-				solid(root,Vector3(0,Profile.TOWER_DECK_HEIGHT+.6,side*5),Vector3(10.5,1.2,.35))
-				solid(root,Vector3(side*5,Profile.TOWER_DECK_HEIGHT+.6,0),Vector3(.35,1.2,10.5))
+			if b.kind=="cannon_tower":solid(root,Vector3(0,11.83,0),Vector3(8.34,23.66,8.18))
+			else:
+				solid(root,Vector3(0,Profile.TOWER_BODY_HEIGHT*.5,0),Vector3(10,Profile.TOWER_BODY_HEIGHT,10))
+				var deck=solid(root,Vector3(0,Profile.TOWER_DECK_CENTER,0),Vector3(11,Profile.TOWER_DECK_THICKNESS,11));deck.name="TowerDeck"
+				solid(root,Vector3(0,Profile.TOWER_LOOKOUT_CENTER,-4),Vector3(11.8,Profile.TOWER_LOOKOUT_THICKNESS,4))
+				var pillar_height=Profile.TOWER_LOOKOUT_HEIGHT-Profile.TOWER_DECK_HEIGHT-.5
+				for x in [-4.7,4.7]:solid(root,Vector3(x,Profile.TOWER_DECK_HEIGHT+pillar_height*.5,-4.7),Vector3(.85,pillar_height,.85))
+				for side in [-1,1]:
+					solid(root,Vector3(0,Profile.TOWER_DECK_HEIGHT+.6,side*5),Vector3(10.5,1.2,.35))
+					solid(root,Vector3(side*5,Profile.TOWER_DECK_HEIGHT+.6,0),Vector3(.35,1.2,10.5))
 		"wall":
 			var span: int=b.get("span",preload("res://scripts/forest/forest_model.gd").SIZES.wall.x)
 			var extension: Vector2=b.get("wall_extensions",Vector2.ZERO)
@@ -86,11 +89,11 @@ static func building(b: Dictionary)->Node3D:
 	return root
 static func add_foundation(root:Node3D,b:Dictionary):
 	var depth=float(b.get("foundation_depth",0.0))
-	if not is_finite(depth) or depth<=.001 or b.kind not in ["tower","barracks","wall","gate"]:return
+	if not is_finite(depth) or depth<=.001 or b.kind not in ["tower","cannon_tower","barracks","wall","gate"]:return
 	var foundation=Node3D.new();foundation.name="TerrainFoundation";root.add_child(foundation)
 	var pieces=[];var color=Color("68796f")
 	match b.kind:
-		"tower":pieces.append([0.0,11.7,11.7])
+		"tower","cannon_tower":pieces.append([0.0,11.7,11.7])
 		"barracks":pieces.append([0.0,17.8,17.8])
 		"wall":
 			var extension:Vector2=b.get("wall_extensions",Vector2.ZERO)

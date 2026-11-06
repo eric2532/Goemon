@@ -41,6 +41,7 @@ func _refresh_candidates():
 	for b in model.buildings.values():
 		var size_:Vector2i=model.dimensions(b.kind,b.rotation,b.get("span",0))
 		var first:Vector3=model.point(b.cell)-Vector3(3,0,3)
+		first.y=model.center(b).y
 		building_contact_bounds[b.id]=[first,first+Vector3(size_.x*6,0,size_.y*6)]
 		if b.kind=="gate" and b.get("breached",false):
 			var center:Vector3=model.center(b)
@@ -59,8 +60,9 @@ func _nearby_trees(cell: Vector2i,cells: int)->Array:
 		for dx in range(-cells,cells+1):
 			for dz in range(-cells,cells+1):
 				var t=cell+Vector2i(dx,dz)
-				if model.trees.has(t):found.append(Vector2(t.x*model.CELL,t.y*model.CELL))
-		tree_candidates[key]=found
+				for anchor in model.scenery_cells.get(t,[]):
+					if anchor not in found:found.append(anchor)
+		tree_candidates[key]=found.map(func(anchor):return model.scenery_obstacles[anchor])
 	return tree_candidates[key]
 func _nearby_buildings(cell: Vector2i,cells: int)->Array:
 	_refresh_candidates()
@@ -83,12 +85,13 @@ func refresh():
 		for z in range(m.navigation_region.position.y,m.navigation_region.end.y):
 			var c=Vector2i(x,z);var p: Vector3=m.point(c)
 			grid.set_point_solid(c,not m.world_bounds().grow(-14).has_point(Vector2(p.x,p.z)) or not m.terrain.disk_clear(p,14.75) or m.terrain.cliff_cell(c))
-	for tree in m.trees:
-		for dx in range(-3,4):
-			for dz in range(-3,4):
-				var c: Vector2i=tree+Vector2i(dx,dz)
-				var offset=Vector2(maxf(0,absf(dx*6)-1.25),maxf(0,absf(dz*6)-1.25))
-				if m.navigation_region.has_point(c) and offset.length()<14.05:grid.set_point_solid(c,true)
+	for box:AABB in m.scenery_obstacles.values():
+		var first=m.cell_of(box.position-Vector3.ONE*20);var end=m.cell_of(box.end+Vector3.ONE*20)
+		for x in range(first.x,end.x+1):
+			for z in range(first.y,end.y+1):
+				var c=Vector2i(x,z);var point=Vector2(x*6,z*6)
+				var nearest=point.clamp(Vector2(box.position.x,box.position.z),Vector2(box.end.x,box.end.z))
+				if m.navigation_region.has_point(c) and point.distance_to(nearest)<14.05:grid.set_point_solid(c,true)
 	var weights={}
 	for occupied in m.occupancy:
 		for dx in range(-2,3):
@@ -107,13 +110,16 @@ func terrain_obstacles_clear(p:Vector3,radius:float)->bool:
 	if radius>=8.5:radius=14.0
 	# Tile centers have half-cell boundary padding. Tree trunks are fitted2.5m boxes.
 	if not m.world_bounds().grow(-radius).has_point(Vector2(p.x,p.z)):return false
-	var c: Vector2i=m.cell_of(p);var cells=ceili((radius+1.8)/m.CELL)+1
-	for center in _nearby_trees(c,cells):
-		var offset=Vector2(maxf(0,absf(p.x-center.x)-1.25),maxf(0,absf(p.z-center.y)-1.25))
+	return scenery_clear(p,radius)
+func scenery_clear(p:Vector3,radius:float)->bool:
+	var c:Vector2i=m.cell_of(p);var cells=ceili((radius+3)/m.CELL)+1
+	for box:AABB in _nearby_trees(c,cells):
+		var offset=Vector2(maxf(0,maxf(box.position.x-p.x,p.x-box.end.x)),maxf(0,maxf(box.position.z-p.z,p.z-box.end.z)))
 		if offset.length()<radius+.05:return false
 	return true
 func building_point(b: Dictionary,p: Vector3)->Vector3:
 	var size_: Vector2i=m.dimensions(b.kind,b.rotation,b.get("span",0));var first: Vector3=m.point(b.cell)-Vector3(3,0,3)
+	first.y=m.center(b).y
 	var last=first+Vector3(size_.x*6,0,size_.y*6)
 	return Vector3(clampf(p.x,first.x,last.x),first.y,clampf(p.z,first.z,last.z))
 func blocker(p: Vector3,radius: float)->int:
@@ -152,7 +158,7 @@ func clearance_grid(variant: int)->AStarGrid2D:
 		var walls=[]
 		for b in m.buildings.values():
 			if b.kind=="wall":walls.append([b.id,b.cell,b.rotation,b.get("span",0)])
-		var signature=[m.terrain.get_instance_id(),m.ramparts.hash(),m.trees.hash(),walls]
+		var signature=[m.terrain.get_instance_id(),m.ramparts.hash(),m.scenery_obstacles.hash(),walls]
 		if clearance_signature!=signature:
 			clearance_grids.clear();clearance_weight_cells.clear();clearance_signature=signature
 		for existing in clearance_grids.values():
@@ -379,9 +385,11 @@ func line_clear(from: Vector3,to: Vector3,ignore_building: int=-1)->bool:
 	for i in range(1,steps):
 		var p=from.lerp(to,float(i)/steps);var c: Vector2i=m.cell_of(p)
 		if p.y<m.surface_height(p.x,p.z)-.05:return false
-		if m.trees.has(c):
-			var q: Vector3=m.point(c)
-			if absf(p.x-q.x)<1.5 and absf(p.z-q.z)<1.5 and p.y<q.y+12:return false
+		for anchor in m.scenery_cells.get(c,[]):
+			if m.trees.has(anchor) and not m.tree_rotations.has(anchor):
+				var q:Vector3=m.scenery_point(anchor)
+				if absf(p.x-q.x)<1.5 and absf(p.z-q.z)<1.5 and p.y<q.y+12:return false
+			elif m.scenery_obstacles[anchor].has_point(p):return false
 		var id: int=m.occupancy.get(c,-1)
 		if id>=0 and id!=ignore_building and m.buildings.has(id):
 			var b: Dictionary=m.buildings[id];var h=Profile.height(b.kind)

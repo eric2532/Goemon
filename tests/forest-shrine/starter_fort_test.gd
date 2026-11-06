@@ -15,7 +15,7 @@ func run():
 	check(towers.size()==2,"A fresh camp has two watchtowers")
 	check(not walls.is_empty(),"The fort starts with real defensive walls")
 	check(m.gold==1000000,"Starter fort does not charge the testing treasury")
-	check(m.workers.size()==8,"Six miners and two tower guards start without recruitment")
+	check(m.workers.size()==8,"Six miners and two spare workers start without recruitment")
 	if gates.size()!=1 or towers.size()!=2 or walls.is_empty():finish();return
 	var gate: Dictionary=gates[0]
 	var interior=inside_cells(m,false)
@@ -29,25 +29,26 @@ func run():
 		if b.kind=="mine":check(m.workforce.count_job(b.id)==3,"Each mine retains its full three-person crew")
 	for tower in towers:
 		var guards=m.workers.values().filter(func(w):return w.job==tower.id)
-		check(guards.size()==1 and guards[0].state=="garrison","Each tower already has a guard on its deck")
+		check(guards.is_empty(),"Each tower works without taking a worker")
 	for outside in [Vector2i(0,15),Vector2i(0,-15),Vector2i(-15,0),Vector2i(15,0)]:
 		var route=m.route(m.shrine_entry(),outside)
 		check(not route.is_empty() and route.any(func(c):return m.occupancy.get(c,-1)==gate.id),"Friendly travel in every direction crosses the single gate")
 	var before=m.gold
 	for i in range(120):m.tick(.1,m.hero_position)
 	check(m.gold==before,"Ready fort produces no gold during preparation")
-	check(m.workers.values().all(func(w):return w.state in ["mine","garrison"]),"Starter jobs stay useful without any player commands")
+	check(m.workers.values().all(func(w):return w.state in ["mine","idle"]),"Starter jobs stay useful without any player commands")
 	await physical_perimeter(m,walls,gate)
-	# Real breach pressure must remain possible against the ready enclosure.
+	# Automatic volleys work inside the ready enclosure.
 	m.start_wave();m.waves.spawn_clock=100000
 	var target=m.waves.spawn_enemy(0,m.center(gate)+Vector3(0,0,12));target.hp=1000;target.stun=100
 	m.workforce.tick(.1,m.hero_position)
-	check(m.events.filter(func(e):return e.kind=="arrow").size()==2,"Both ready guards shoot without any player assignment")
+	check(m.events.filter(func(e):return e.kind=="arrow").size()==2*m.balance.tower_workers,"Both empty towers fire complete automatic volleys")
 	m.enemies.clear();m.workforce.arrows.clear();m.events.clear()
+	for tower in towers:tower.clock=1000
 	var wall: Dictionary=walls[0];var hp=wall.hp
 	var p=m.center(wall);m.waves.spawn_enemy(3,p+Vector3(0,0,-12))
 	for i in range(160):m.tick(.1,Vector3(150,0,150))
-	check(not m.buildings.has(wall.id) or wall.hp<hp,"Enemies can attack and breach the starter enclosure")
+	check(m.buildings.has(wall.id) and wall.hp==hp,"Current permanent walls retain their indestructible contract")
 	m.reset(7)
 	check(m.buildings.values().filter(func(b):return b.kind=="gate").size()==1 and m.workers.size()==8,"Retry restores the same ready fort and staffed jobs")
 	finish()

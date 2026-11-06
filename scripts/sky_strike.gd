@@ -44,7 +44,11 @@ func begin()->bool:
 	hero.jump_buffer=0;hero.jump_windup=0;hero.dodge_time=0;hero.air_turn=0
 	origin=hero.global_position
 	var hurt=AttackChain.contact_point(target,origin+Vector3.UP,target.global_position)
-	var direction=hurt-origin;direction.y=0;direction=direction.normalized()
+	var direction=hurt-origin;direction.y=0
+	if direction.is_zero_approx():
+		direction=hero.facing;direction.y=0
+		if direction.is_zero_approx():direction=Vector3.FORWARD
+	direction=direction.normalized()
 	landing=hurt-direction*(target.body_radius+.65)
 	landing.y=hero.game.world.surface_height_at(landing)+.1
 	# Validate the capsule along the complete arc before committing to the movement.

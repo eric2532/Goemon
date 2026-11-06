@@ -86,6 +86,7 @@ func tick(delta:float,after_pose:bool=false):
 		if next:start_attack()
 
 func strike():
+	cast_model().seed_sword_trail()
 	sound("sword_cut")
 	var points: Array=Model.data().contacts.air_spin if spec.clip==Model.data().semantics.air_spin else Model.data().contacts.slash
 	var visual=cast_model();var origin:Vector3=visual.source_point(points[0])
@@ -103,13 +104,22 @@ func strike():
 			if hero.ai_controlled:game.confirm_ally_impact(enemy,contact.point,hero.facing,1,false,28)
 			else:game.confirm_impact(enemy,contact.point,hero.facing,1,false,28)
 
+func melee_visual_reach()->float:
+	var points: Array=Model.data().contacts.air_spin if clip==Model.data().semantics.air_spin else Model.data().contacts.slash
+	var model=cast_model();var origin:Vector3=model.source_point(points[0]);var reach=0.0
+	var radius=24.0*model.source_unit()*hero.melee_reach_setting()
+	for endpoint in points.slice(1):
+		var end:Vector3=origin+(model.source_point(endpoint)-origin)*hero.melee_reach_setting()*hero.pickup_multiplier("range")-hero.global_position
+		reach=maxf(reach,Vector2(end.x,end.z).length()+radius)
+	return reach
+
 func release(index:int):
 	var visual=cast_model()
 	var unit=visual.source_unit()
 	var point=visual.source_point([16,-32,-24] if mode=="homing" else [0,-32 if mode=="wave" else 0,-24])
 	var direction:Vector3=hero.facing
 	if mode=="wave":
-		point=hero.global_position+Vector3.UP*1.65*hero.contact_size_multiplier()
+		point=hero.global_position+Vector3.UP*3.9*hero.growth_multiplier()
 		direction=(hero.ai_aim-point).normalized() if hero.ai_controlled else game.projectile_direction(point)
 		if hero.is_on_floor():direction.y=0
 		direction=direction.normalized() if direction.length_squared()>.001 else hero.facing
@@ -120,7 +130,7 @@ func release(index:int):
 	var target=AttackChain.screen_target(hero,point,100.0,true) if mode=="homing" else null
 	var spread:Array=spec.get("spread",[0])
 	for angle in spread:
-		Pool.service(game).launch(hero,Shot,mode,{"kind":mode,"position":point,"velocity":direction.rotated(Vector3.UP,float(angle)*TAU/4096)*(24 if mode=="homing" else 16)*30*unit,
+		Pool.service(game).launch(hero,Shot,mode,{"kind":mode,"position":point,"velocity":direction.rotated(Vector3.UP,float(angle)*TAU/4096)*(24 if mode=="homing" else 32 if mode=="wave" else 16)*30*unit,
 			"target":target,"unit":unit,"size_factor":float(spec.scales[index]) if spec.has("scales") else 1.0,
 			"damage":(32.0 if mode=="homing" else 48.0)*DAMAGE_SCALE*hero.damage_multiplier(),"attack_ticket":ticket.duplicate(true)})
 
@@ -142,4 +152,8 @@ func finish_attack():
 	mode="";clip="";elapsed=0;marker=0;queued=false;hits.clear();ticket={};spec={};events=[];hero.attack_left=0
 func cancel(_preserve_power:bool=false):
 	finish_attack();combo=-1;combo_timer=0;air_combo=0
-	if is_instance_valid(cast_model()) and is_instance_valid(cast_model().trail):cast_model().trail.clear()
+	var model=cast_model()
+	if is_instance_valid(model):
+		model.sword_contact_ready=false
+		for stroke in [model.trail,model.blade_trail]:
+			if is_instance_valid(stroke):stroke.clear()

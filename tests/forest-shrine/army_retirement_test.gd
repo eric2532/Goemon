@@ -24,9 +24,12 @@ func run():
  var id:int=ids[999];var victim=game.actors[id];var gold:int=game.model.gold
  army.apply_hit(army.handles[id],{"amount":100000,"source_id":-1})
  check(victim.dead and victim.collision_layer==0 and game.model.gold==gold+12,"Death removes the hitbox and pays before cleanup")
+ check(not army.enemy_candidates(Vector3(0,0,70),.01).has(game.actors[ids[-1]]),"Death dispatch keeps local target queries bounded before facade cleanup")
+ check(not army.enemy_candidates(victim.global_position,.01).has(victim),"Deferred query registration cannot return a dead native handle")
  army.sync_compatibility()
  check(army.retirement_rows_visited==visited+1 and not game.model.enemies.has(id) and not game.actors.has(id) and not army.enemies.has(id) and not game.enemies.has(victim),"One death retires exactly one model and contact facade")
  check(victim.is_queued_for_deletion(),"Retirement preserves deferred destruction for in-flight attack snapshots")
+ check(not army.query_actors.has(victim.handle),"Facade cleanup also retires its query registration")
  army.sync_compatibility();check(army.retirement_rows_visited==visited+1 and game.model.gold==gold+12,"Repeated sync does not rescan or repay deaths")
  var retired:int=ids[100];army.despawn(army.handles[retired]);army.sync_compatibility()
  check(not game.model.enemies.has(retired) and not game.actors.has(retired),"Explicit despawn uses the same bounded retirement queue")

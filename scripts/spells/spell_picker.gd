@@ -73,7 +73,11 @@ func refresh():
    if option.get_item_metadata(index)==selected:option.select(index);break
   var native_slot:Array=Catalog.hotbar(character)[Catalog.SLOTS.keys().find(action)]
   option.set_item_text(0,"Original · "+(str(native_slot[0]) if not native_slot.is_empty() else "Empty"))
- note.text=(Jumps.STYLES[jump_id].description+"\n" if Jumps.STYLES.has(jump_id) else "")+"Saved per fighter. Q / Esc returns to the fighter gallery."
+ note.text=(Jumps.STYLES[jump_id].description+"\n" if Jumps.STYLES.has(jump_id) else "")
+ for id in overrides.values():
+  if Catalog.all()[id].get("air_attack",false):
+   note.text+=Catalog.all()[id].description+"\n";break
+ note.text+="Saved per fighter. Q / Esc returns to the fighter gallery."
  syncing=false
 
 func _input(event:InputEvent):

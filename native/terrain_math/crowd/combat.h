@@ -8,6 +8,7 @@
 #include <unordered_set>
 #include <unordered_map>
 namespace army {
+inline bool magical_attack(int kind,int action,bool projectile){return kind==18||(kind==17&&projectile)||(kind==4&&(action==103||action==105));}
 class Crowd;
 struct Unit;
 struct Hit {
@@ -15,7 +16,8 @@ struct Hit {
     int64_t source_id=0,ticket_id=0;
     Vec3 direction,impulse;double flinch=0;bool add_impulse=false;
     bool projectile=false,heavy=false,critical=false,provoke=true,responsive_recoil=false;
-    int effect=0;float slow_factor=1;
+    int effect=0;float slow_factor=1,attack_slow_factor=1;
+    bool magical=false;
 };
 struct HitResult {bool accepted=false,dead=false;double hp=0;};
 enum EventKind{MELEE,MUZZLE,BULLET,DONE,DAMAGE,DEATH,EXTERNAL_DAMAGE,PROJECTILE_IMPACT,STATUS_EVENT,LANDING_PULSE,SHIELD_COUNTER,ATTACK_STARTED};
@@ -37,7 +39,7 @@ struct Projectile {
     std::shared_ptr<ProjectileCast> cast;
     int owner_kind=0,effect_kind=0;
     int source_team=0,target_kind=-1;int64_t target_id=0,target_handle=0,ignore_building=-1;
-    bool ranger=false,curved=false,power=false,heavy=false,finale_burst=false;
+    bool ranger=false,curved=false,power=false,heavy=false;
     Vec3 origin,curve,flight_direction;
     float distance=0,range=0,scale=1,yaw_offset=0;
     double dash_left=0;
@@ -134,6 +136,7 @@ private:
     void emit(Event event);
     void attack_started(const Unit& unit);
     void choose_target(Crowd& crowd,Unit& unit);
+    void march_on_base(Crowd& crowd,Unit& unit);
     bool target_approach(Crowd& crowd,const Unit& unit,Vec3& goal);
     struct TargetCandidate {int row=-1;int64_t handle=0;float distance=0;int priority=0;};
     std::vector<TargetCandidate> target_candidates_;

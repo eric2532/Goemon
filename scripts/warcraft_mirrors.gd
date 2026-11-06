@@ -28,10 +28,13 @@ func reinforce(character:int,point:Vector3)->bool:
  body.activate()
  body.global_position=point;body.facing=Vector3.FORWARD;body.ai_aim=point+Vector3.FORWARD*50
  var handle:int=runtime.spawn(-int(body.get_instance_id())*8-1,1,100+character,point,body.max_hp,.4)
- var reach=Kit.MELEE_REACH if character in [31,32] else 3.0
+ var reach=Kit.MELEE_REACH if character in [31,32,33] else 3.0
  if handle==0 or not runtime.native.set_mirror(handle,body.actions.size(),body.combat_tuning("walk_speed")*body.movement_multiplier(),reach*body.contact_size_multiplier()*body.melee_reach_setting(),Vector3.FORWARD):
   if handle!=0:runtime.despawn(handle)
   body.retire();return false
+ body.native_handle=handle
+ # Permanent card recruits share the castle defense area and return post.
+ runtime.native.set_guard(handle,point,hero.game.explorer_helpers.guard_radius())
  handles.resize(bodies.size());handles[bodies.find(body)]=handle;left=INF
  if not runtime.mirror_action.is_connected(_action):runtime.mirror_action.connect(_action)
  if not runtime.mirrors_advanced.is_connected(tick):runtime.mirrors_advanced.connect(tick)
@@ -67,15 +70,16 @@ func cast()->bool:
  clear()
  for i in Kit.MIRROR_COUNT:
   var id=-int(hero.get_instance_id())*8-i-1
-  var handle:int=runtime.spawn(id,1,100+hero.character_id,points[i],hero.max_hp,.4)
+  var health=hero.max_hp-(500 if hero.character_id==33 and hero.active_ability.demon else 0)
+  var handle:int=runtime.spawn(id,1,100+hero.character_id,points[i],health,.4)
   if handle==0:clear();return false
   handles.append(handle)
-  var body=bodies[i];body.copy_from(hero);body.global_position=points[i];body.facing=direction;body.ai_aim=points[i]+direction*50
+  var body=bodies[i];body.copy_from(hero);body.native_handle=handle;body.global_position=points[i];body.facing=direction;body.ai_aim=points[i]+direction*50
   body.velocity=Vector3.DOWN;body.move_and_slide()
   var speed=hero.combat_tuning("walk_speed")*hero.movement_multiplier()
   var approach=direction.rotated(Vector3.UP,TAU*i/Kit.MIRROR_COUNT)
-  var reach=Kit.MELEE_REACH if hero.character_id in [31,32] else 3.0
-  if not runtime.native.set_mirror(handle,body.actions.size(),speed,reach*hero.contact_size_multiplier()*hero.melee_reach_setting(),approach):clear();return false
+  var reach=Kit.MELEE_REACH if hero.character_id in [31,32,33] else 3.0
+  if not runtime.native.set_mirror(handle,body.actions.size(),speed,reach*body.contact_size_multiplier()*body.melee_reach_setting(),approach):clear();return false
  left=Kit.MIRROR_TIME
  runtime.mirror_action.connect(_action);runtime.mirrors_advanced.connect(tick)
  return true

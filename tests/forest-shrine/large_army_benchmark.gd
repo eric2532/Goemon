@@ -2,6 +2,8 @@ extends SceneTree
 ## Real foreground game, normal kit stats, explicit per-death reinforcements.
 class Battle extends "res://scripts/forest/forest_game.gd":
  var cold_collision=false
+ # Keep the measured battle at its initial stats without paused upgrade cards.
+ func award_team_kill(_reward_tenths:int=10):pass
  func _physics_process(delta:float):
   if cold_collision and is_instance_valid(army_runtime) and army_runtime.navigation_revision!=model.navigation_revision:army_runtime.static_collision_cache.clear()
   super._physics_process(delta)
@@ -24,6 +26,11 @@ var options={}
 var phase="loading"
 var spawn_started=0
 var started=0
+var wall_started=0
+var focus_hold_at=0
+var focus_ready_at=0
+var focus_wait_usec=0
+var focus_holds=0
 var previous=0
 var initial_sim=0.0
 var initial_steps=0
@@ -67,6 +74,8 @@ var spike_phases=[]
 var previous_profile={}
 var previous_kernel={}
 func _initialize():
+ physics_frame.connect(_monitor_focus)
+ process_frame.connect(_monitor_focus)
  for argument in OS.get_cmdline_user_args():
   if argument.begins_with("--"):
    var parts=argument.substr(2).split("=",true,1);options[parts[0]]=parts[1] if parts.size()>1 else "true"
@@ -139,13 +148,15 @@ func setup():
  else:await create_timer(2.0).timeout
  # Loading/warmup can lose focus on macOS; measurement starts only after return.
  if options.has("await-focus") and DisplayServer.get_name()!="headless":
+  game.paused=true;paused=true
+  DisplayServer.window_move_to_foreground();root.grab_focus()
   var focus_started=Time.get_ticks_msec()
   var focused_since=Time.get_ticks_msec()
   while Time.get_ticks_msec()-focused_since<3000:
-   if Time.get_ticks_msec()-focus_started>60000:printerr("FAIL: Benchmark lost focus before measurement");quit(2);return
+   if Time.get_ticks_msec()-focus_started>300000:printerr("FAIL: Benchmark lost focus before measurement");quit(2);return
    if not DisplayServer.window_is_focused():focused_since=Time.get_ticks_msec()
    await process_frame
- paused=false
+ game.paused=false;paused=false
  for path in ["scripts/forest/forest_wind_meadow_art.gd","scripts/forest/forest_wind_meadow_assets.gd","scripts/forest/forest_wind_meadow_terrain.gd","scripts/forest/forest_wind_meadow_layout.gd","scripts/forest/wind_meadow_ground.gdshader","scripts/forest/wind_meadow_foliage.gdshader","scripts/forest/blood_gulch_environment.gd"]:fingerprints[path]=FileAccess.get_sha256("res://"+path)
  for path in ["native/terrain_math/crowd/air.cpp","scripts/forest/skullpion_effects.gd","scripts/forest/dark_lumina_kit.gd","assets/characters/recovered_monsters/dark_lumina_2_effects/stomp_wave.gdshader"]:fingerprints[path]=FileAccess.get_sha256("res://"+path)
  initial_replacements=replacements
@@ -154,9 +165,9 @@ func setup():
  initial_model_publications=army.model_rows_publications;initial_model_rows=army.model_rows_written
  start_memory=OS.get_static_memory_usage();initial_counts=army.observed_counts.duplicate(true);initial_sim=army.simulation_seconds;initial_steps=army.simulation_steps;initial_worker_jobs=army.worker_jobs;initial_helper_overlaps=army.helper_overlap_calls;initial_presentations=army.presentation_frames;army.profile_totals.clear();army.native.simulation_profile(true);army.native.query_stats(true);bucket_counts=army.observed_counts.duplicate(true)
  root.grab_focus()
- started=Time.get_ticks_usec();previous=started;phase="measuring"
+ started=Time.get_ticks_usec();wall_started=started;previous=started;phase="measuring"
  print("BENCHMARK_STATE ",JSON.stringify(blocked_state()))
- print("BENCHMARK_STARTED enemies=",enemy_count," allies=",ally_count," scenario=",scenario," duration=",duration," pid=",OS.get_process_id()," spawn_warmup_ms=",(started-spawn_started)/1000.0)
+ print("BENCHMARK_STARTED enemies=",enemy_count," allies=",ally_count," scenario=",scenario," duration=",duration," pid=",OS.get_process_id()," spawn_warmup_ms=",(wall_started-spawn_started)/1000.0)
 func spawn_points(center:Vector3,near:float,far:float,radius:float,wanted:int)->PackedVector3Array:
  var points=PackedVector3Array();var m=game.model;var grid=m.enemy_grid if radius>1 else m.allied_grid
  for attempt in maxi(100000,wanted*200):
@@ -183,7 +194,9 @@ func spawn_ally(slot:int,unit:Node=null):
  if not army.valid(unit.handle):printerr("FAIL: Reinforcement ally allocation rejected");stopped=true
 func reinforce(event:Dictionary):
  if stopped:return
- if event.team==0:spawn_enemy()
+ if event.team==0:
+  # This fixture measures a fixed roster, replacing each death once.
+  game.model.waves.kill_spawn_pending=0;spawn_enemy()
  else:
   var unit=army.allies.get(event.target_id)
   if is_instance_valid(unit):spawn_ally(unit.slot,unit)
@@ -194,6 +207,22 @@ func blocked_state()->Dictionary:
  for field in ["playing","paused","ordinary_pause","settings_open","rogue_roster_open","transitioning","camera_focused"]:state[field]=game.get(field)
  state.map_editor=game.map_editor.active
  return state
+func benchmark_has_focus()->bool:return DisplayServer.get_name()=="headless" or DisplayServer.window_is_focused()
+func _monitor_focus():
+ if not options.has("await-focus") or phase not in ["measuring","focus-wait"]:return
+ var now=Time.get_ticks_usec()
+ if phase=="measuring" and not benchmark_has_focus():
+  phase="focus-wait";focus_hold_at=previous;focus_ready_at=0;focus_holds+=1
+  game.paused=true;paused=true
+  print("BENCHMARK_FOCUS_HOLD active_seconds=",(previous-started)/1000000.0)
+ elif phase=="focus-wait":
+  if now-focus_hold_at>300000000:printerr("FAIL: Foreground test did not resume within five minutes");quit(2);return
+  if not benchmark_has_focus():focus_ready_at=0;return
+  if focus_ready_at==0:focus_ready_at=now
+  if now-focus_ready_at<3000000:return
+  var gap=now-focus_hold_at;started+=gap;focus_wait_usec+=gap;previous=now
+  game.paused=false;paused=false;phase="measuring"
+  print("BENCHMARK_FOCUS_RESUME wait_seconds=",gap/1000000.0)
 func _process(_delta:float)->bool:
  if phase!="measuring":return false
  var now=Time.get_ticks_usec()
@@ -241,7 +270,7 @@ func finish():
  append_activity(elapsed)
  var steps=maxi(1,army.simulation_steps-initial_steps);var cpu={}
  for key in army.profile_totals:cpu[key]=army.profile_totals[key]/steps
- var report={"enemies":enemy_count,"allies":ally_count,"minimum_enemies":min_enemy,"minimum_allies":min_ally,"scenario":scenario,"wall_seconds":elapsed,"simulation_seconds":army.simulation_seconds-initial_sim,"frames":frames_ms.size(),"attacks":int(counts.get("melee",0))+int(counts.get("bullet",0))+int(counts.get("landing_pulse",0)),"damage_events":int(counts.get("damage",0))+int(counts.get("external_damage",0)),"deaths":int(counts.get("death",0)),"replacements":replacements-initial_replacements,"foreground":DisplayServer.get_name()!="headless" and RenderingServer.get_rendering_device()!=null and float(focus_frames)/maxi(1,frames_ms.size())>=.95,"focus_fraction":float(focus_frames)/maxi(1,frames_ms.size()),"gpu_timing_available":gpu_ms.any(func(ms):return ms>0),"normal_stats":not game.tuning.invincible and not game.tuning.freeze_ai and Engine.time_scale==1,"frame_ms":frames_ms,"dropped_hits":army.event_gaps,"fps":frames_ms.size()/maxf(.001,elapsed),"frame_times":Metrics.summary(frames_ms),"render_cpu":Metrics.summary(cpu_ms),"render_gpu":Metrics.summary(gpu_ms),"physics_phases_ms":cpu,"events":counts,"spawn_warmup_ms":(started-spawn_started)/1000.0,"memory_samples":memory,"initial_memory":start_memory,"final_memory":OS.get_static_memory_usage(),"draw_calls":Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),"primitives":Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME),"nodes":Performance.get_monitor(Performance.OBJECT_NODE_COUNT),"resources":Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT),"presentation":game.crowd.army.counts(),"terrain_source":game.model.terrain_source,"terrain_hash":FileAccess.get_sha256("res://assets/maps/%s/surface.res"%game.model.terrain_source),"map_hash":FileAccess.get_sha256("res://assets/maps/forest_%s.json"%game.model.terrain_source),"device":RenderingServer.get_rendering_device().get_device_name() if RenderingServer.get_rendering_device()!=null else "headless","processor":OS.get_processor_name(),"process_id":OS.get_process_id(),"resolution":[root.size.x,root.size.y]}
+ var report={"enemies":enemy_count,"allies":ally_count,"minimum_enemies":min_enemy,"minimum_allies":min_ally,"scenario":scenario,"wall_seconds":(Time.get_ticks_usec()-wall_started)/1000000.0,"measurement_seconds":elapsed,"focus_wait_seconds":focus_wait_usec/1000000.0,"focus_holds":focus_holds,"simulation_seconds":army.simulation_seconds-initial_sim,"frames":frames_ms.size(),"attacks":int(counts.get("melee",0))+int(counts.get("bullet",0))+int(counts.get("landing_pulse",0)),"damage_events":int(counts.get("damage",0))+int(counts.get("external_damage",0)),"deaths":int(counts.get("death",0)),"replacements":replacements-initial_replacements,"foreground":DisplayServer.get_name()!="headless" and RenderingServer.get_rendering_device()!=null and float(focus_frames)/maxi(1,frames_ms.size())>=.95,"focus_fraction":float(focus_frames)/maxi(1,frames_ms.size()),"gpu_timing_available":gpu_ms.any(func(ms):return ms>0),"normal_stats":not game.tuning.invincible and not game.tuning.freeze_ai and Engine.time_scale==1,"frame_ms":frames_ms,"dropped_hits":army.event_gaps,"fps":frames_ms.size()/maxf(.001,elapsed),"frame_times":Metrics.summary(frames_ms),"render_cpu":Metrics.summary(cpu_ms),"render_gpu":Metrics.summary(gpu_ms),"physics_phases_ms":cpu,"events":counts,"spawn_warmup_ms":(wall_started-spawn_started)/1000.0,"memory_samples":memory,"initial_memory":start_memory,"final_memory":OS.get_static_memory_usage(),"draw_calls":Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),"primitives":Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME),"nodes":Performance.get_monitor(Performance.OBJECT_NODE_COUNT),"resources":Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT),"presentation":game.crowd.army.counts(),"terrain_source":game.model.terrain_source,"terrain_hash":FileAccess.get_sha256("res://assets/maps/%s/surface.res"%game.model.terrain_source),"map_hash":FileAccess.get_sha256("res://assets/maps/forest_%s.json"%game.model.terrain_source),"device":RenderingServer.get_rendering_device().get_device_name() if RenderingServer.get_rendering_device()!=null else "headless","processor":OS.get_processor_name(),"process_id":OS.get_process_id(),"resolution":[root.size.x,root.size.y]}
  report.mesh_lods=get_meta("forest_army_mesh_lods")
  report.bounded_combat_queries=get_meta("forest_army_bounded_queries")
  report.compact_scene_events=army.compact_scene_events

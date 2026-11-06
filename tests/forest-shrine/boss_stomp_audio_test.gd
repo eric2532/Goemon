@@ -59,7 +59,7 @@ func run():
  var p=game.player;var presentation=game.crowd.army.presentation
  for id in [27,29]:
   p.select_character(id);fresh();await advance(4);reset_audio()
-  var expected=SoundLibrary.shared_default_for(27,"land") if id==27 else Dark.sounds.slam
+  var expected=SoundLibrary.original_for(27,"land") if id==27 else Dark.sounds.slam
   var skull_before=p.model.skull.audio_started if id==27 else 0
   tap("heavy_attack");await advance(12)
   check(heard.is_empty(),"Boss %d emits no landing sound during windup"%id)
@@ -78,7 +78,7 @@ func run():
  check(heard.size()==1 and heard[0].stream==Dark.sounds.slam,"DL2 ordinary falls use the same stomp landing impact")
  p.select_character(1);fresh();await advance(4);p.spell_loadout.equip(1,"equip","dark-lumina-2/shockwave")
  p.position.y+=12;p.velocity=Vector3.DOWN*20;p.move_and_slide();reset_audio();tap("equip");await advance(150)
- check(spatial_stomps.size()==1 and spatial_stomps[0].floor,"Borrowed DL2 stomp retains one original donor impact on landing")
+ check(spatial_stomps.size()==1 and spatial_stomps[0].floor,"Borrowed DL2 stomp retains one original donor impact on landing (heard=%s)"%str(spatial_stomps))
  await record("borrowed-stomp-29");p.spell_loadout.equip(1,"equip","")
  var lib=game.sound_library
  for id in [27,29]:

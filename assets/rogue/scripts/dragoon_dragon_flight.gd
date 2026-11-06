@@ -6,7 +6,7 @@ const DAMAGE=192.0
 const WIDTH=2.2
 const SEEK=24.0
 const DASH_TIME=.35
-const VISUAL_SCALE=.7
+const VISUAL_SCALE=1.15
 
 static func launch(g,t:Dictionary):
 	var mesh=g.fx.create_projectile("dragon",Color.WHITE)

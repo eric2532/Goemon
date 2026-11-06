@@ -1,0 +1,668 @@
+[
+  {
+    "path": "Units/Human/HeroMountainKing/heromountainking.blp",
+    "archive": "War3x.mpq",
+    "bytes": 77979,
+    "sha256": "b1a1791e42378ef7c3c0a66e86d4b3ee34211d0700de7fdac60e1acaff87c5d9"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/heromountainkingAvatar.blp",
+    "archive": "War3x.mpq",
+    "bytes": 94373,
+    "sha256": "79f2105253af54284083440194d50e97d4981eef26e3d75322fc5145b94c1935"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKing.mdx",
+    "archive": "War3Patch.mpq",
+    "bytes": 285253,
+    "sha256": "e454b8cfc7e80cf795dd0b55b34a7676c63e77f4fbd4f516158a949a275cfb63"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKing_Portrait.mdx",
+    "archive": "War3Patch.mpq",
+    "bytes": 69845,
+    "sha256": "b68a8ac912a00e0158a57d3d57aeac1adf6d8834bd758391080f7a0fc4f5e2e8"
+  },
+  {
+    "path": "Abilities/Spells/Human/Thunderclap/Lightning2b.blp",
+    "archive": "war3.mpq",
+    "bytes": 7531,
+    "sha256": "23a169b4e9514fcf6ba46fb494d40f334377aa680006fa092f22820a063f9850"
+  },
+  {
+    "path": "ReplaceableTextures/CommandButtons/BTNAvatar.blp",
+    "archive": "war3.mpq",
+    "bytes": 9227,
+    "sha256": "0d974bd36660f2b7a8b8c609942810f48772abcca6cadb98fbda063a8ab5e39e"
+  },
+  {
+    "path": "ReplaceableTextures/CommandButtons/BTNAvatarOff.blp",
+    "archive": "war3.mpq",
+    "bytes": 8918,
+    "sha256": "840a28a32fe00e49dddfdf4880f015aade18a48edc38dd26fa60d9461323e264"
+  },
+  {
+    "path": "ReplaceableTextures/CommandButtons/BTNAvatarOn.blp",
+    "archive": "war3.mpq",
+    "bytes": 9238,
+    "sha256": "5582c0a997c89c6cd5f2ddfadd0e9e0479d0790706a649c0d443ed0846b0dff9"
+  },
+  {
+    "path": "ReplaceableTextures/CommandButtons/BTNBash.blp",
+    "archive": "war3.mpq",
+    "bytes": 8417,
+    "sha256": "ab1a693384160d51e089a3c54ee239b65331952a2782f74ff723c92861520fdd"
+  },
+  {
+    "path": "ReplaceableTextures/CommandButtons/BTNHeroMountainKing.blp",
+    "archive": "war3.mpq",
+    "bytes": 8454,
+    "sha256": "324dd94334c1597f44ad3c07363fb1fc236500efe702d51d63ce4606a1d16eec"
+  },
+  {
+    "path": "ReplaceableTextures/CommandButtons/BTNStormBolt.blp",
+    "archive": "war3.mpq",
+    "bytes": 7592,
+    "sha256": "f2ac1d186f94e190bbf80cb4e5f09bb3db2d50d29f4e98b0e6fd0ed130570d39"
+  },
+  {
+    "path": "ReplaceableTextures/CommandButtons/BTNThunderClap.blp",
+    "archive": "war3.mpq",
+    "bytes": 7358,
+    "sha256": "93622d3fbe892236d26c4bf39533d52b66fa97e8d1986e682f96b5905d2c87a4"
+  },
+  {
+    "path": "ReplaceableTextures/CommandButtonsDisabled/DISBTNHeroMountainKing.blp",
+    "archive": "war3.mpq",
+    "bytes": 5600,
+    "sha256": "9fd46b70149843a24cc524c94463e4107013365d7d4aca59ee36c3feac4db2ca"
+  },
+  {
+    "path": "ReplaceableTextures/PassiveButtons/PASBTNBash.blp",
+    "archive": "war3.mpq",
+    "bytes": 7036,
+    "sha256": "9ee82d8ce16083c5aeea58968a37c8a5d3b03316d04b315a7b5e4e8f0a570a31"
+  },
+  {
+    "path": "ReplaceableTextures/Splats/ThunderClapUbersplat.blp",
+    "archive": "war3.mpq",
+    "bytes": 133355,
+    "sha256": "0499a000dd13df302db42e57f69dd782ddbc471e011b7fd9da175903b3510b66"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor00.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "db8efb0a2d76cb4e472c3395086f35391a25c81760509dc58ed109b79e1b9ef6"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor01.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "5521bd761c6bfdb34f742fb3acbe9b8d3a19d07bf6da323a2216e478b5817564"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor02.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "1a33afc10d67014dba95ec31c185bddb2ee62d5d7c62626af9ac3bbbcea36ce8"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor03.blp",
+    "archive": "war3.mpq",
+    "bytes": 1364,
+    "sha256": "879d401e6b8dd2005054688c295d6554c47b914dce0795440ddb676724a2ef91"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor04.blp",
+    "archive": "war3.mpq",
+    "bytes": 1370,
+    "sha256": "f5b015cfe28d21d3c36e14acc2b141f0be30699cdcd644d75e6748a0b8ed41f5"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor05.blp",
+    "archive": "war3.mpq",
+    "bytes": 1364,
+    "sha256": "d0a23c5dd00c59cf5602535482ec2d1e4fd8a0e7f5c7b9327a255bc5b2c2ec97"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor06.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "d799d93194182a56cd8cec408e11214ff5b965fee850bed72a2ec90331dddc98"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor07.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "1ae0931f626db4ac9659d1331e9ca92d09c2b7407d47531fb40c74d008f28587"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor08.blp",
+    "archive": "war3.mpq",
+    "bytes": 1360,
+    "sha256": "eb9faf6de202dc6ed81f38d01a2b9fe26b51aa49b02d7470f65cab577ac957fa"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor09.blp",
+    "archive": "war3.mpq",
+    "bytes": 1364,
+    "sha256": "0acbcedbde39d7fc1ea4752482648c0402b2a906135eab911a5bffc25858e9a6"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor10.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "1349b880e72ba8c3dbbcc3629a43b689e19ed2fcceaf282c58f094e45e43770d"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor11.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "71456b84e06b13c4b2bd3ab9a72ed8bb41d117af15521516e6d88a836a3c7ddd"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor12.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "02ae9b33df5e996d3ded9de3d515fb6aa60720912e309885c495ba289afeb48a"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor13.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "02ae9b33df5e996d3ded9de3d515fb6aa60720912e309885c495ba289afeb48a"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor14.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "02ae9b33df5e996d3ded9de3d515fb6aa60720912e309885c495ba289afeb48a"
+  },
+  {
+    "path": "ReplaceableTextures/TeamColor/TeamColor15.blp",
+    "archive": "war3.mpq",
+    "bytes": 1368,
+    "sha256": "02ae9b33df5e996d3ded9de3d515fb6aa60720912e309885c495ba289afeb48a"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow00.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "bfc0800307b317b820ee786e5c9587a13893f158f37680672bd98e077c923c38"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow01.blp",
+    "archive": "war3.mpq",
+    "bytes": 1709,
+    "sha256": "c36510d9886113d75e484bc6599ec75f1afac6cd5fd8113cafc0a0ae3542d2b1"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow02.blp",
+    "archive": "war3.mpq",
+    "bytes": 1807,
+    "sha256": "487721616303f1a84969fccff2b1df2c34a4a28135f4f701b88f4d575f50e18e"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow03.blp",
+    "archive": "war3.mpq",
+    "bytes": 1680,
+    "sha256": "ee0e4d372ebb66e254ed4b1f63aad46c74cb55a21778f1539ea5e10f86bf9743"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow04.blp",
+    "archive": "war3.mpq",
+    "bytes": 1795,
+    "sha256": "abce29ecb184869e17799881f067b9dff9b1da6d2af97a05e56ce33cb8843adf"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow05.blp",
+    "archive": "war3.mpq",
+    "bytes": 1781,
+    "sha256": "a4f7b72f5d530eb52cabd56f64ebf8e9020a00a9d993a55a2a422e3470adbfd6"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow06.blp",
+    "archive": "war3.mpq",
+    "bytes": 1677,
+    "sha256": "487161ac56e96ecf5bf0aa92bf2c2fa48afb7f0c0ee9ceec996b8b5e17dee03d"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow07.blp",
+    "archive": "war3.mpq",
+    "bytes": 1847,
+    "sha256": "cce904c52af44078128e109f05d5efffe0a9b71339d40644957e6ad6af159237"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow08.blp",
+    "archive": "war3.mpq",
+    "bytes": 1841,
+    "sha256": "2af22a9de078166f22c3e615832414ec53d99e5186fae50070fda4fc009afd47"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow09.blp",
+    "archive": "war3.mpq",
+    "bytes": 1872,
+    "sha256": "7b493a1b976c0d07c60e1521d58dba4829be8af03650fee4249e1e055371820c"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow10.blp",
+    "archive": "war3.mpq",
+    "bytes": 1679,
+    "sha256": "22b0c58ce32a9299b9a632ebadc6a07b628a92c040d4e6ee65e5dab6e111d4e0"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow11.blp",
+    "archive": "war3.mpq",
+    "bytes": 1638,
+    "sha256": "9135d0a7b72345eb85eb0f094abc5916d1c8f56315472240010e32823051154d"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow12.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "0f341c3be7b6c43214c54c033d4f62e3947ca6fb027d878e61ff103bb9415cd5"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow13.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "0f341c3be7b6c43214c54c033d4f62e3947ca6fb027d878e61ff103bb9415cd5"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow14.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "0f341c3be7b6c43214c54c033d4f62e3947ca6fb027d878e61ff103bb9415cd5"
+  },
+  {
+    "path": "ReplaceableTextures/TeamGlow/TeamGlow15.blp",
+    "archive": "war3.mpq",
+    "bytes": 1655,
+    "sha256": "0f341c3be7b6c43214c54c033d4f62e3947ca6fb027d878e61ff103bb9415cd5"
+  },
+  {
+    "path": "Abilities/Spells/Human/Avatar/AvatarCaster.mdx",
+    "archive": "war3.mpq",
+    "bytes": 20938,
+    "sha256": "3f7272133503d590739385a7e1cfc831d618af02739aa2d49c438295b23786a0"
+  },
+  {
+    "path": "Abilities/Spells/Human/StormBolt/StormBoltMissile.mdx",
+    "archive": "war3.mpq",
+    "bytes": 37213,
+    "sha256": "06bf531f7907bed58613b09ad04ff2e84400fcac2322c37f8e8994f2caadfb84"
+  },
+  {
+    "path": "Abilities/Spells/Human/StormBolt/StormBoltTarget.mdx",
+    "archive": "war3.mpq",
+    "bytes": 2668,
+    "sha256": "405fbfc986001375ab17d97e05f621142f6d1be0e474a5bb39bf7e32ac3a4abf"
+  },
+  {
+    "path": "Abilities/Spells/Human/Thunderclap/ThunderclapCaster.mdx",
+    "archive": "war3.mpq",
+    "bytes": 40937,
+    "sha256": "1ceeca0867461a12e6f5516d4a7466bf5670ab975f5ed986afea8b6df34ddf69"
+  },
+  {
+    "path": "Abilities/Spells/Human/Thunderclap/ThunderclapTarget.mdx",
+    "archive": "war3.mpq",
+    "bytes": 2668,
+    "sha256": "8c0090549b8e86f8e2cb55e78b0da192b4334ea58f22e989fd6f9a0856870e5f"
+  },
+  {
+    "path": "abilities/Spells/Human/Avatar/Avatar.wav",
+    "archive": "war3.mpq",
+    "bytes": 141176,
+    "sha256": "4604841204ac81f4fb5b2e3eb9335c060350cf262e76ed23cd075054bb1cedb9"
+  },
+  {
+    "path": "abilities/Spells/Human/StormBolt/StormBoltLaunch.wav",
+    "archive": "war3.mpq",
+    "bytes": 87672,
+    "sha256": "b2c01a1afe4de63b4edb63e1ff2ad5197c0b1819687152640369ada6dc6aa2a8"
+  },
+  {
+    "path": "abilities/Spells/Human/StormBolt/ThunderBoltMissileDeath.wav",
+    "archive": "war3.mpq",
+    "bytes": 98632,
+    "sha256": "bc66dbf49a467e5b1a075b2c7553ac53b18508500b8a8a052039ec97bee1d709"
+  },
+  {
+    "path": "abilities/Spells/Human/Thunderclap/ThunderclapCaster.wav",
+    "archive": "war3.mpq",
+    "bytes": 152306,
+    "sha256": "4b05dc7887580a225cf0b23e13fbf29ec7d652840d22d4c7657ba2ce2312c02a"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainkingAttack1.wav",
+    "archive": "war3.mpq",
+    "bytes": 50438,
+    "sha256": "d8f10729cb932cb91a716ec2077a665a0d8df135623ef131c5b916521536683e"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingDeath.wav",
+    "archive": "war3.mpq",
+    "bytes": 118326,
+    "sha256": "57db9b79815380813d9045d7c44aea26893d7e35fcc973f07ef5fd32122dd639"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingPissed1.wav",
+    "archive": "war3.mpq",
+    "bytes": 140662,
+    "sha256": "f7b089e58d1bc78c97cdf106e15405d17752222bf8973d9c2408faeafc08cae5"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingPissed2.wav",
+    "archive": "war3.mpq",
+    "bytes": 89718,
+    "sha256": "6dc62cfb0e518c40a8913893256b764984fa685c2df68f6a1610d106a03fd1fc"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingPissed3.wav",
+    "archive": "war3.mpq",
+    "bytes": 175702,
+    "sha256": "d0ada8e076ca4405bd37e059b91b5cf400f4aa0d5b4c0674ae15d0e65b757203"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingPissed4.wav",
+    "archive": "war3.mpq",
+    "bytes": 114806,
+    "sha256": "992fb521cf96f2d9da4abf2145948d43c24f7acf419ce28ef3446a9ef38c2a77"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingPissed5.wav",
+    "archive": "war3.mpq",
+    "bytes": 205430,
+    "sha256": "c515779d34ca6e3d22368ea7682e2a05463bb55c387ce2430633023128ac3e62"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingPissed6.wav",
+    "archive": "war3.mpq",
+    "bytes": 41206,
+    "sha256": "f3bfcf102d5ca0dc8812bed1f4dc8f7c42c78164cdbdeca386120e22e099b955"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingPissed7.wav",
+    "archive": "war3.mpq",
+    "bytes": 84342,
+    "sha256": "060d6b801bcf52fb153cfaa8c82ad04649cd3da1e7f86f4b2e33a5ae91c2a0e4"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingReady1.wav",
+    "archive": "war3.mpq",
+    "bytes": 65398,
+    "sha256": "bd97fa15292f6f0cbd3b483ede90d5b7008c38368205752dee83b4cbfdef1ec0"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingWarcry1.wav",
+    "archive": "war3.mpq",
+    "bytes": 130934,
+    "sha256": "27049fe98b92294a1b93ba10900936475ffbc6cec760a80612f5109612673a13"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingWhat1.wav",
+    "archive": "war3.mpq",
+    "bytes": 22454,
+    "sha256": "9dfb5700b30fa67ba8257f01e7154ecead251be65202da33fe869e4a9c4ea9e4"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingWhat2.wav",
+    "archive": "war3.mpq",
+    "bytes": 78198,
+    "sha256": "6c80b0e70dba2b96e5e3211426bb4526bfcf5ea7f0a28a4cb28768de8c46a41f"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingWhat3.wav",
+    "archive": "war3.mpq",
+    "bytes": 46838,
+    "sha256": "587e6cfa03a7bdcd930416f20760a2f70f7fab8d366d81037e2031ba2ba7003d"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingWhat4.wav",
+    "archive": "war3.mpq",
+    "bytes": 19382,
+    "sha256": "09418cb5f7b6787ccf770662bd4c00664544969282112dbd36ec8a59b218e61c"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingYes1.wav",
+    "archive": "war3.mpq",
+    "bytes": 38838,
+    "sha256": "9b8622a036ae4437a883b2ba89d06a9a60bcfe53a887c220bc253a4c2089e4f6"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingYes2.wav",
+    "archive": "war3.mpq",
+    "bytes": 39414,
+    "sha256": "7d67281e5b62a1f803abfd244334bc6a9b543936cfdd7658f98ec82225a264cb"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingYes3.wav",
+    "archive": "war3.mpq",
+    "bytes": 25206,
+    "sha256": "19e7db28d202f498c70a3c3f39849682cfdf73c7ccf9cc03607dbe03d22301e2"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingYes4.wav",
+    "archive": "war3.mpq",
+    "bytes": 29430,
+    "sha256": "82401c55cb010e7a4ab9e324143f2d9c02683644e893f2d066b735ef7c0e5b7e"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingYesAttack1.wav",
+    "archive": "war3.mpq",
+    "bytes": 43126,
+    "sha256": "12fce5635113ea548d379fd11936f97ecda2641e91bc837cd6a9d90c85f0b74c"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingYesAttack2.wav",
+    "archive": "war3.mpq",
+    "bytes": 66678,
+    "sha256": "b340f799aa3deaa5c0feb6b9673d2e0997f560159f9742f16dcbb35048903633"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingYesAttack3.wav",
+    "archive": "war3.mpq",
+    "bytes": 48502,
+    "sha256": "e5bb102d3ed016c32284e3d1a17597bf3375ff961f8c9727a16fbed13ea931ed"
+  },
+  {
+    "path": "Units/Human/HeroMountainKing/HeroMountainKingYesAttack4.wav",
+    "archive": "war3.mpq",
+    "bytes": 54006,
+    "sha256": "448a8ee3ee58e4142f7225209f9aed6887ff494ff25adc59db2c88b5a8c3acc1"
+  },
+  {
+    "path": "Textures/heromountainking.blp",
+    "archive": "War3Patch.mpq",
+    "bytes": 77979,
+    "sha256": "b1a1791e42378ef7c3c0a66e86d4b3ee34211d0700de7fdac60e1acaff87c5d9"
+  },
+  {
+    "path": "Textures/star2_32.blp",
+    "archive": "War3x.mpq",
+    "bytes": 2568,
+    "sha256": "58becb3b4a758b2d0dbde44584f78d975b43979fc49ae176c6c2cc748858079f"
+  },
+  {
+    "path": "Textures/GenericGlowFaded.blp",
+    "archive": "War3x.mpq",
+    "bytes": 8215,
+    "sha256": "aa77fb0d8d826f325b96b4f9266bb82f2d4152909ee94dd59f8b8a75a86c8f3d"
+  },
+  {
+    "path": "Textures/CloudSingle.blp",
+    "archive": "War3x.mpq",
+    "bytes": 4430,
+    "sha256": "255a9e8ac8847d2393389bd9c83f916de9eb8f1b73b6e934df355cfba054c746"
+  },
+  {
+    "path": "ReplaceableTextures/HeroMountainKing/heromountainking.blp",
+    "archive": "war3.mpq",
+    "bytes": 77982,
+    "sha256": "c1490456534bfd772aadd2417acb78ea675bcd21afe03cf416b47f464da3d54e"
+  },
+  {
+    "path": "Textures/firering4.blp",
+    "archive": "War3x.mpq",
+    "bytes": 3681,
+    "sha256": "5b3c610b6e56720d458ff81ff81b1fda30252ef435816c99bea38af83e1657c7"
+  },
+  {
+    "path": "Textures/Zap1.blp",
+    "archive": "War3x.mpq",
+    "bytes": 8314,
+    "sha256": "eee0fa72bdc07c8c64d74afdf8f8dc1b7232f226d2b78f0307cb46dd7cef38fa"
+  },
+  {
+    "path": "Textures/Blue_Glow2.blp",
+    "archive": "War3x.mpq",
+    "bytes": 1958,
+    "sha256": "dcbf0770aa792883d3d7ad0b93052d5a9a1b264ac841dae43b7876f26cbfd793"
+  },
+  {
+    "path": "Textures/E_Smoke_Anim256.blp",
+    "archive": "war3.mpq",
+    "bytes": 126500,
+    "sha256": "95c52439be60ab038cc545f036d2761846ac8995fafb993e519a34bda23f66dd"
+  },
+  {
+    "path": "Textures/star32.blp",
+    "archive": "War3x.mpq",
+    "bytes": 2402,
+    "sha256": "02a4dea6a2b41334f31d43f86a060e5c5a170775e835d28876d23f51ca56bd09"
+  },
+  {
+    "path": "Textures/Purple_Glow_Dim.blp",
+    "archive": "war3.mpq",
+    "bytes": 1913,
+    "sha256": "68d2aa152ce0896f6376a2d799673d8d3b5cb2182d70c1df013a398d02d057be"
+  },
+  {
+    "path": "Textures/lensflare1A.blp",
+    "archive": "War3x.mpq",
+    "bytes": 3222,
+    "sha256": "465162610e94a7200d75058180ba9bb7252af93a076cafa2bc874335a4392c49"
+  },
+  {
+    "path": "Textures/Dust3.blp",
+    "archive": "War3x.mpq",
+    "bytes": 4987,
+    "sha256": "339c746aa6d54a4ea901ce3eb47aa717e1170a97d91b0c6ed4ec28facca6be39"
+  },
+  {
+    "path": "Textures/Magic1.blp",
+    "archive": "war3.mpq",
+    "bytes": 5790,
+    "sha256": "3e7a785bb75dc4bd4bb62e92e35fbfd8857bdc1ed03c855621ff593e61ffd2ca"
+  },
+  {
+    "path": "Textures/LightningBall.blp",
+    "archive": "War3x.mpq",
+    "bytes": 6316,
+    "sha256": "5c5598e31a3df29691e736c2966f4f581f9b9ff3f1c547c7a5e0c26d6ca351f7"
+  },
+  {
+    "path": "Sound/Units/Human/HumanDissipate1.wav",
+    "archive": "war3.mpq",
+    "bytes": 100140,
+    "sha256": "073644b8398dd1cfd25a2bbdfbb228078675a48027df0652c8819e25720d3c2f"
+  },
+  {
+    "path": "Sound/Units/Combat/EtherealHeavyHit1.wav",
+    "archive": "war3.mpq",
+    "bytes": 47212,
+    "sha256": "8bd8811b5b9b760129845d4160aca4bc0b9e86490cfccfc4c7fe118e35fd0e00"
+  },
+  {
+    "path": "Sound/Units/Combat/EtherealHeavyHit2.wav",
+    "archive": "war3.mpq",
+    "bytes": 54764,
+    "sha256": "fcea2b9e811cd61a8b993d95efd8923745f0a4aa0376c8c908ead66c6cdfd3ac"
+  },
+  {
+    "path": "Sound/Units/Combat/EtherealHeavyHit3.wav",
+    "archive": "war3.mpq",
+    "bytes": 47148,
+    "sha256": "44351173beef0a4f9bf82738b12d1f27a8ab9a6604fb88f80ca5acf731da9413"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavyBashFlesh1.wav",
+    "archive": "war3.mpq",
+    "bytes": 29302,
+    "sha256": "b3e1a51cc1f672984b8e763efb2a79d718c0dd8d8db2070fcdb15bad0e1a8a00"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavyBashFlesh2.wav",
+    "archive": "war3.mpq",
+    "bytes": 30070,
+    "sha256": "1a73a2feb4643b105b15c7e31403a9dbe9a11589b667c53a4b9290296a1f1abf"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavyBashFlesh3.wav",
+    "archive": "war3.mpq",
+    "bytes": 31990,
+    "sha256": "af6f641ebc2d16a10b1f18c579f912dffb88e70fe198e4942498f7531d6ede04"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavyBashMetal1.wav",
+    "archive": "war3.mpq",
+    "bytes": 59254,
+    "sha256": "1ee9a6aa87ced5c3776322be5178e929786fc1cecb9fe91234a4625837c2b15b"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavyBashMetal2.wav",
+    "archive": "war3.mpq",
+    "bytes": 55158,
+    "sha256": "8705c2ff753509b3402a79d6fd6a698647f5fdfa64759dbd2aedaeee471ec0c2"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavyBashMetal3.wav",
+    "archive": "war3.mpq",
+    "bytes": 52854,
+    "sha256": "e6c07fdbf72ccf151ed88c5e113f17c0bd00af80f54610e087cb5b0fe2153aa3"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavyBashStone1.wav",
+    "archive": "war3.mpq",
+    "bytes": 54904,
+    "sha256": "1c2ff73e656374522b7b0af1a599d0b9af331524984a522756f0c9b2176d42c6"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavyBashStone2.wav",
+    "archive": "war3.mpq",
+    "bytes": 40054,
+    "sha256": "09174997f3d094b88b11db10e3c62e920d62d0f7ecd890976d9ba0f2a19c8009"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavyBashStone3.wav",
+    "archive": "war3.mpq",
+    "bytes": 33270,
+    "sha256": "e6b89b439df83ea126224e4ecd7ee3480e2fe74fcb5dcdc3323cbf380269d7be"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavyBashWood1.wav",
+    "archive": "war3.mpq",
+    "bytes": 36982,
+    "sha256": "fff28f9297d78d746a7375f19aafbb982dae69fc9abe7bae01323c6d9dc6688c"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavyBashWood2.wav",
+    "archive": "war3.mpq",
+    "bytes": 35670,
+    "sha256": "8f22a8ba31e4d8f234d126d74315df969b97f968666233066e20181ecdf0e88d"
+  },
+  {
+    "path": "Sound/Units/Combat/MetalHeavyBashWood3.wav",
+    "archive": "war3.mpq",
+    "bytes": 55414,
+    "sha256": "b589c1e96ad8cb32b9ee5c6d050ee92f071d7c3e7425ad65b50cdd3f1d81984f"
+  },
+  {
+    "path": "Abilities/Spells/Orc/StasisTrap/StasisTotemTarget.mdx",
+    "archive": "war3.mpq",
+    "sha256": "332885efcc946fdaadf08917ca8ef911e31ae1e38b80a063596708cc645b08e1",
+    "bytes": 2668
+  }
+]

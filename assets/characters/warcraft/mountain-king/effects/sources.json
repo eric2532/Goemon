@@ -1,0 +1,139 @@
+{
+  "sources": {
+    "Abilities/Spells/Human/StormBolt/StormBoltMissile.mdx": "06bf531f7907bed58613b09ad04ff2e84400fcac2322c37f8e8994f2caadfb84",
+    "ReplaceableTextures/TeamColor/TeamColor00.png": "0687ea587b099486218a213ea35bf638a89762cbb8e33382a413a21f00a6b3a4",
+    "ReplaceableTextures/HeroMountainKing/heromountainking.png": "3e0a9bcd17522e4b7c0e9cbac63d28cd879f49837ab6b1eb6b23e44c426c6947",
+    "ReplaceableTextures/TeamGlow/TeamGlow00.png": "9f4e011cd8ba1ed8a2ead43664c0d85bd00d3a18e7986eb92d0c9ff713674c7c",
+    "Textures/firering4.png": "ddecfab863301c259f6b15071e81b185678fed9fa766c95ed52bc4fff0aec2ea",
+    "Textures/Zap1.png": "038bb98a631f444139f6598f339753ef03d9619ad75eed0fb2bc0ed9e995f94b",
+    "Textures/Blue_Glow2.png": "650faa58fddfb21e235b90318928f05488b8dfb64149929bfecf3d8c7248b5b6",
+    "Textures/E_Smoke_Anim256.png": "7103b8b7a96b03ac9d54b28c39218596dc5b6815a2a22f6bbc653e0114200a46",
+    "Textures/star32.png": "1d25d860f864695456fe348b583b47690297e2361c77933a0452c5852cdae8e8",
+    "Textures/Purple_Glow_Dim.png": "65679f426e99b986b65ee89c3d0a46e6c1103719bf021a1be3d8ae68e6070b07",
+    "Textures/lensflare1A.png": "9ef4c10eceff9a3fa631cd3ae9652383ff2daec2be36d8abdf638a45a7bde1b1",
+    "Textures/Dust3.png": "c147e01cbecf2a3284eb2a5cb759c4a461738d2745c549e56dc8419f157b73dd",
+    "Abilities/Spells/Human/Thunderclap/ThunderclapCaster.mdx": "1ceeca0867461a12e6f5516d4a7466bf5670ab975f5ed986afea8b6df34ddf69",
+    "Textures/LightningBall.png": "0aba8a7725c18eeeb03c1160a9395d9331f9e02796821ba5b85ce7f10e6cc35c",
+    "abilities/Spells/Human/Thunderclap/Lightning2b.png": "9fbc4488b385e80ae48d19197ea1d6d2f2a6d826357afbf5eb33581892c2ab10",
+    "Abilities/Spells/Human/Avatar/AvatarCaster.mdx": "3f7272133503d590739385a7e1cfc831d618af02739aa2d49c438295b23786a0",
+    "Abilities/Spells/Human/StormBolt/StormBoltTarget.mdx": "405fbfc986001375ab17d97e05f621142f6d1be0e474a5bb39bf7e32ac3a4abf",
+    "Textures/Magic1.png": "c3759f262600656d7331e70dcc55b1878a758a59023ae90b9bd033d1f6eafc49",
+    "Abilities/Spells/Human/Thunderclap/ThunderclapTarget.mdx": "8c0090549b8e86f8e2cb55e78b0da192b4334ea58f22e989fd6f9a0856870e5f",
+    "Abilities/Spells/Orc/StasisTrap/StasisTotemTarget.mdx": "332885efcc946fdaadf08917ca8ef911e31ae1e38b80a063596708cc645b08e1",
+    "Units/Human/HeroMountainKing/HeroMountainKing.mdx": "e454b8cfc7e80cf795dd0b55b34a7676c63e77f4fbd4f516158a949a275cfb63",
+    "Textures/heromountainking.png": "3e0a9bcd17522e4b7c0e9cbac63d28cd879f49837ab6b1eb6b23e44c426c6947",
+    "units/Human/HeroMountainKing/heromountainkingAvatar.png": "4e4079c707dc734ef9ae1f486bf77bdbd56a80a23f3caec17da157bb99c1a140",
+    "Textures/star2_32.png": "1fc9f077ae5e3bb5b2eb69517dde32be01fa1cb8e17364c00caff2a5a5a46a2d",
+    "Textures/GenericGlowFaded.png": "b9acf3883792685e35230999886687eff70b004eabf6832e91492302d7c6c5c5",
+    "Textures/CloudSingle.png": "f062c1bdd1f01be8135d2b472f9510331ded5e8c182907131476c6fbbc815cf4"
+  },
+  "effects": {
+    "bolt": {
+      "file": "Abilities/Spells/Human/StormBolt/StormBoltMissile.mdx",
+      "clips": {
+        "Birth": {
+          "duration": 1.5,
+          "frames": 46
+        },
+        "Death": {
+          "duration": 1.267,
+          "frames": 40
+        }
+      }
+    },
+    "clap": {
+      "file": "Abilities/Spells/Human/Thunderclap/ThunderclapCaster.mdx",
+      "clips": {
+        "stand": {
+          "duration": 1.3,
+          "frames": 40
+        }
+      }
+    },
+    "avatar": {
+      "file": "Abilities/Spells/Human/Avatar/AvatarCaster.mdx",
+      "clips": {
+        "Spell": {
+          "duration": 0.567,
+          "frames": 19
+        }
+      }
+    },
+    "stun": {
+      "file": "Abilities/Spells/Human/StormBolt/StormBoltTarget.mdx",
+      "clips": {
+        "Birth": {
+          "duration": 0.434,
+          "frames": 15
+        },
+        "Stand": {
+          "duration": 2.367,
+          "frames": 73
+        },
+        "Death": {
+          "duration": 3.333,
+          "frames": 101
+        }
+      }
+    },
+    "bash": {
+      "file": "Abilities/Spells/Human/Thunderclap/ThunderclapTarget.mdx",
+      "clips": {
+        "Birth": {
+          "duration": 0.434,
+          "frames": 15
+        },
+        "Stand": {
+          "duration": 2.367,
+          "frames": 73
+        },
+        "Death": {
+          "duration": 3.333,
+          "frames": 101
+        }
+      }
+    },
+    "slow": {
+      "file": "Abilities/Spells/Orc/StasisTrap/StasisTotemTarget.mdx",
+      "clips": {
+        "Birth": {
+          "duration": 0.434,
+          "frames": 15
+        },
+        "Stand": {
+          "duration": 2.367,
+          "frames": 73
+        },
+        "Death": {
+          "duration": 3.333,
+          "frames": 101
+        }
+      }
+    },
+    "body": {
+      "file": "Units/Human/HeroMountainKing/HeroMountainKing.mdx",
+      "clips": {
+        "Spell Slam": {
+          "duration": 0.9,
+          "frames": 28
+        },
+        "Attack Slam": {
+          "duration": 1,
+          "frames": 31
+        },
+        "Alternate Spell Slam": {
+          "duration": 0.9,
+          "frames": 28
+        },
+        "Attack Slam Alternate": {
+          "duration": 1,
+          "frames": 31
+        },
+        "Morph Alternate": {
+          "duration": 0.333,
+          "frames": 11
+        }
+      }
+    }
+  }
+}

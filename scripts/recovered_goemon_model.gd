@@ -18,6 +18,10 @@ var original_ranged_action=0x7C
 var original_ranged_rate=1.0
 var native_bones:Dictionary={}
 var robe_skeleton:Skeleton3D
+var reach_trail:MeshInstance3D
+var pipe_tip=Vector3.ZERO
+var pipe_extension=1.0
+var reach_delta=0.0
 
 func _ready():
 	set_meta("original_goemon",true)
@@ -50,6 +54,13 @@ func _ready():
 	_build_compatibility_skeleton(reference)
 	pipe=Node3D.new();pipe.name="OriginalPipe";rig_visual.add_child(pipe)
 	OriginalWeapons.install(self)
+	var points:Array[Vector3]=[]
+	_mesh_points(pipe,Transform3D.IDENTITY,points)
+	for point in points:
+		if point.length_squared()>pipe_tip.length_squared():pipe_tip=point
+	reach_trail=preload("res://scripts/recovered_leader_trail.gd").new();reach_trail.name="PipeReachWave";reach_trail.light_color=Color("ffdf83");add_child(reach_trail)
+	visibility_changed.connect(func():
+		if not visible:reach_trail.clear())
 	OriginalWeapons.warmup_coins()
 	coin=Node3D.new();coin.name="OriginalHeldCoin";rig_visual.add_child(coin);coin.add_child(OriginalWeapons.create_coin());coin.hide()
 	chain_pipe=ChainPipeVisual.new();chain_pipe.link_thickness=1.0;rig_visual.add_child(chain_pipe);chain_pipe.hide()
@@ -115,6 +126,9 @@ func attach_native_weapons(source:Dictionary):
 	if not source.has("0x9002518"):weapon_source=sampler.sample_source(0x68,0)
 	var shaft:Transform3D=weapon_source["0x9002518"]
 	pipe.transform=_pipe_transform(shaft,pipe_visual_scale)
+	var displayed=pipe.basis.get_scale().abs().length()/sqrt(3.0)/source_scale
+	pipe_extension=maxf(1.0,displayed/WeaponProportions.MAX_REACH_VISUAL_SCALE)
+	pipe.basis=pipe.basis.scaled(Vector3.ONE/pipe_extension)
 	pipe.visible=equipped and not chain_selected and source.has("0x9002518")
 	var hand:Transform3D=source.get("0x90074e8",shaft)
 	var hand_pose=Transform3D(hand.basis,hand.origin*source_scale+source_offset)
@@ -138,6 +152,20 @@ func animate(delta:float,speed:float,grounded:bool,vertical:float,attack:float,h
 		transform_age+=delta
 		if golden_requested and transform_age>=Profile.cue_time(0x82,10):_set_golden(true)
 	super.animate(delta,speed,grounded,vertical,attack,heavy,combo,dodge)
+	reach_delta+=delta
+
+func sync_skeleton():
+	super.sync_skeleton()
+	if not is_instance_valid(reach_trail):return
+	var actor=get_parent()
+	var active=actor is Hero and actor.uses_original_goemon_attack() and actor.attack_left>0
+	var pair=PackedVector3Array()
+	if active:
+		var stage=3 if actor.attack_heavy else actor.combo
+		var pose=rig_visual.global_transform*pipe_pose(Profile.COMBO_ACTIONS[clampi(stage-1,0,2)],actor.attack_duration-actor.attack_left,pipe_visual_scale)
+		pair=PackedVector3Array([pose.origin,pose*pipe_tip])
+	reach_trail.advance(reach_delta,pair,active,actor is Hero and actor.attack_heavy)
+	reach_delta=0.0
 
 func combat_pose(_attack:float,heavy:bool,combo:int,_dodge:bool):
 	pipe_combo_stage=3 if heavy else combo

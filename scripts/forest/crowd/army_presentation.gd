@@ -5,6 +5,7 @@ const Soldier=preload("res://scripts/forest/forest_thirstquencher_visual.gd")
 const Finale=preload("res://scripts/forest/dark_lumina_3_kit.gd")
 const Dark=preload("res://scripts/forest/dark_lumina_kit.gd")
 const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
+const MoveAudio=preload("res://scripts/move_audio.gd")
 const MONSTER_SOUNDS={6:{"melee":preload("res://assets/characters/recovered_monsters/audio/vambee/bite_column2.wav"),"damage":preload("res://assets/characters/recovered_monsters/audio/vambee/hit_column2.wav")},9:{"melee":preload("res://assets/characters/recovered_monsters/audio/karate_wolf/kick.wav"),"damage":preload("res://assets/characters/recovered_monsters/audio/karate_wolf/hit_column1.wav"),"death":preload("res://assets/characters/recovered_monsters/audio/karate_wolf/death.wav")},14:{"melee":preload("res://assets/characters/recovered_monsters/audio/vambee/bite_column2.wav"),"death":preload("res://assets/characters/recovered_monsters/audio/vambee/vanish_column2.wav")},16:{"melee":preload("res://assets/characters/recovered_monsters/audio/haya_wolf/kick.wav"),"damage":preload("res://assets/characters/recovered_monsters/audio/haya_wolf/hit_column1.wav"),"death":preload("res://assets/characters/recovered_monsters/audio/haya_wolf/death.wav")}}
 const MAX_EFFECTS=384
 const MAX_CORPSES=128
@@ -66,6 +67,7 @@ func configure(owner_:Node,shared_meshes:Dictionary={}):
 func make_batch(mesh:Mesh,label_:String)->MultiMeshInstance3D:
  var node=MultiMeshInstance3D.new();node.name=label_;node.multimesh=MultiMesh.new();node.multimesh.transform_format=MultiMesh.TRANSFORM_3D;node.multimesh.use_custom_data=true;node.multimesh.mesh=mesh;node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(node);return node
 func present(events:Array,snapshot:Dictionary={}):
+ var camera=get_viewport().get_camera_3d()
  for event in events:
   var serial=int(event.get("serial",0))
   if serial>0 and serial<=last_serial:continue
@@ -76,7 +78,7 @@ func present(events:Array,snapshot:Dictionary={}):
    var slot="wc_spin" if kind=="status" and int(event.get("action_index",0))==9 else "wc_mirror_end" if kind=="death" else "wc_slam" if int(event.get("action_index",0))==2 else "wc_attack_%d"%(int(event.get("action_index",0))%2+1)
    if kind in ["melee","death","status"]:
     var playback=game.sound_library.playback_for(31,slot,null)
-    if not playback.muted:play_sound(point,playback.stream,playback.gain*.65)
+    if not playback.muted and MoveAudio.ally_nearby(game,point):play_sound(point,playback.stream,playback.gain*.65)
   if type==Finale.ROLE:
    if kind=="status" and int(event.get("action_index",0))>=300:finale_cue(point,int(event.action_index)-300,event.get("direction",Vector3.FORWARD),-int(event.source_id),int(event.get("source_tick",0)))
    elif kind=="projectile_impact":
@@ -94,7 +96,7 @@ func present(events:Array,snapshot:Dictionary={}):
   if MONSTER_SOUNDS.has(type) and MONSTER_SOUNDS[type].has(kind):play_sound(point,MONSTER_SOUNDS[type][kind])
   if kind=="status" and int(event.get("action_index",0))==18 and is_instance_valid(game):
    var playback=game.sound_library.playback_for(7,"knight_finisher_hit",null)
-   if not playback.muted:play_sound(point,playback.stream,playback.gain)
+   if not playback.muted and MoveAudio.ally_nearby(game,point):play_sound(point,playback.stream,playback.gain)
   if kind=="status" and int(event.get("action_index",0))==17 and int(event.get("amount",-1))==Roles.VAMBEE and corpses.size()<corpse_capacity:
    var direction:Vector3=event.get("direction",Vector3.BACK)
    corpses.append({"age":0.0,"life":1.0,"kind":Roles.VAMBEE_LEGS,"position":point,"velocity":Vector3.ZERO,"yaw":atan2(direction.x,direction.z),"pitch":0.0,"tumble":false})
@@ -106,10 +108,21 @@ func present(events:Array,snapshot:Dictionary={}):
     corpses.append({"age":0.0,"life":.8 if tumble else float(clips[semantic.death].ticks)/30+(80.0/30 if type==Dark.ROLE else .2),"kind":type,"position":point+Vector3.UP*.36*Soldier.SCALE*enemy_size if tumble else point,"velocity":(Vector3.UP*4.8+Vector3(sin(yaw),0,cos(yaw))*2.4)*Soldier.SCALE*enemy_size if tumble else Vector3.ZERO,"yaw":yaw,"pitch":deg_to_rad(67.5) if tumble else 0.0,"tumble":tumble})
    add_effect("smoke",point+Vector3.UP,.45,1.5)
   elif kind=="damage":
-   add_effect("spark",point,.18,1.0);label_damage(point,event.amount,event.get("heavy",false),event.get("critical",false))
+   var emphasis=4.6 if event.get("critical",false) else 3.8 if event.get("heavy",false) else 3.0
+   var impact_point=point
+   var target=game.actors.get(int(event.get("target_id",0))) if is_instance_valid(game) and int(event.get("team",0))==0 else null
+   if is_instance_valid(target) and camera!=null:
+    impact_point=target.combat_contact_point(Vector3(camera.global_position.x,point.y,camera.global_position.z))
+    impact_point+=(camera.global_position-impact_point).normalized()*.04
+   var contact=add_effect("spark",impact_point,.18,emphasis)
+   if not contact.is_empty():contact.contact=true
+   label_damage(point,event.amount,event.get("heavy",false),event.get("critical",false))
   elif kind=="landing_pulse":
    var pulse=clampi(int(event.get("action_index",0)),0,2)
    add_effect("ring",point,.38,[12.6,16.2,19.8][pulse]*dragon_scale)
+   if pulse<2 and is_instance_valid(game):
+    var playback=game.sound_library.playback_for(8,"move_secondary_voice" if pulse==0 else "dragoon_hunt",null)
+    if not playback.muted and MoveAudio.ally_nearby(game,point):play_sound(point,playback.stream,playback.gain)
   elif kind=="status" and int(event.get("action_index",0))==14:add_effect("ring",point,.7,9)
   elif kind=="muzzle":add_effect("spark",point,.12,.6)
   elif kind=="bullet" and int(event.get("team",0))==0 and type not in [Dark.ROLE,Finale.ROLE]:gunshot(point)
@@ -147,7 +160,7 @@ func play_sound(point:Vector3,stream:AudioStream,gain:float=1.0,audible_range:fl
   for voice in voices:
    if voice.get_meta("loop_owner",0)<0 and (selected==null or voice.get_meta("started",0)<selected.get_meta("started",0)):selected=voice
  if selected==null:return null
- selected.stop();selected.set_meta("loop_until",0);selected.set_meta("loop_owner",0);selected.set_meta("finale_loop","");selected.set_meta("started",clock)
+ selected.stop();selected.set_meta("loop_until",0);selected.set_meta("loop_owner",0);selected.set_meta("finale_loop","");selected.set_meta("audio_ticket",{});selected.set_meta("started",clock)
  selected.max_distance=audible_range;selected.unit_size=12*audible_range/65
  # The Master bus already applies the user's game volume.
  selected.stream=stream;selected.position=point;selected.pitch_scale=1.0;selected.volume_db=linear_to_db(maxf(.0001,.55*gain));selected.play();next_sound=clock+.035;return selected
@@ -157,15 +170,17 @@ func tick(delta:float):
   return
  var dt=maxf(0,delta);clock+=dt
  for voice in voices:
+  if voice.playing and not MoveAudio.ticket_audible(game,voice.get_meta("audio_ticket",{})):voice.stop()
   if voice.playing and float(voice.get_meta("loop_until",0))>0 and clock>=float(voice.get_meta("loop_until")):voice.stop()
  for i in range(effects.size()-1,-1,-1):
   var before:float=effects[i].age
   effects[i].age+=dt
   if effects[i].kind=="finale-core":
+   var audio_ticket:Dictionary=effects[i].get("audio_ticket",{})
    if before<.7 and effects[i].age>=.7:add_effect("finale-burst",effects[i].position,24.0/30,3.0/16,effects[i].yaw)
-   if before<.1 and effects[i].age>=.1:finale_loop(effects[i].position,"core_loop",1.1,0)
+   if before<.1 and effects[i].age>=.1:finale_loop(effects[i].position,"core_loop",1.1,effects[i].owner_id if audio_ticket.get("allied",false) else 0,audio_ticket)
    for cue in [[.3,"core_hit"],[.7,"core_burst"],[1.2,"defeat"],[1.8,"ending"]]:
-    if before<cue[0] and effects[i].age>=cue[0]:finale_sound(effects[i].position,cue[1],effects[i].get("foreground",false))
+    if before<cue[0] and effects[i].age>=cue[0]:finale_sound(effects[i].position,cue[1],effects[i].get("foreground",false),audio_ticket)
   if effects[i].age>=effects[i].life:effects.remove_at(i)
  for i in range(corpses.size()-1,-1,-1):
   var row=corpses[i];var before:float=row.age;row.age+=dt
@@ -205,6 +220,9 @@ func show_rows(node:MultiMeshInstance3D,poses:Array,custom:Array):
  mm.visible_instance_count=poses.size();mm.custom_aabb=AABB(Vector3(-1000,-1000,-1000),Vector3.ONE*2000)
 func draw_effects():
  var grouped={}
+ var camera=get_viewport().get_camera_3d()
+ var contact_basis=camera.global_basis.orthonormalized() if camera!=null else Basis.IDENTITY
+ var contact_fade=.35 if is_instance_valid(game) and game.settings.get("reduced_flashes",false) else 1.0
  for record in effects:
   var key:String=record.kind
   if record.age<0:continue
@@ -213,6 +231,12 @@ func draw_effects():
   if key in ["dark-spin_dust","dark-spin_debris"]:
    dark_spin_poses(record,poses,colors);continue
   var t=float(record.age)/record.life;var scale_=float(record.scale);var basis=Basis.IDENTITY
+  if key=="spark" and record.get("contact",false):
+   # Reuse the small painted spark as a readable, camera-facing contact star.
+   for ray in 3:
+    var pose=(contact_basis*Basis(Vector3.FORWARD,ray*PI/3)).scaled(Vector3.ONE*scale_*(.95+.15*sin(t*PI)))
+    poses.append(Transform3D(pose,record.position));colors.append(Color(record.age,(1-t)*contact_fade,0,0))
+   continue
   if key.begins_with("finale-"):
    basis=Basis(Vector3.UP,float(record.yaw))
    if key in ["finale-sword_wave","finale-sword_cross"]:basis=Basis(Vector3.UP,float(record.yaw)+PI)
@@ -292,16 +316,17 @@ func counts()->Dictionary:
 func suspend_audio():
  for voice in voices:voice.stop()
 
-func dark_sound(point:Vector3,cue:String,foreground:bool=false):
+func dark_sound(point:Vector3,cue:String,foreground:bool=false,ticket:Dictionary={}):
+ if not MoveAudio.ticket_audible(game,ticket):return
  if Dark.sounds.has(cue) and is_instance_valid(game):
   var playback=game.sound_library.playback_for(Dark.PLAYER,Dark.slot_for(cue),Dark.sounds[cue])
   if playback.muted:return
   if foreground:
-   game.sound(Dark.slot_for(cue),1.0,false,{},Dark.PLAYER);return game.last_sound_voice
+   game.sound(Dark.slot_for(cue),1.0,false,ticket,Dark.PLAYER);return game.last_sound_voice
   return play_sound(point,playback.stream,playback.gain,Dark.SOUND_RANGE,cue=="slam")
-func dark_cue(point:Vector3,cue:int,yaw:float=0.0,owner_id:int=0,playback_rate:float=1.0,spin_sign:float=1.0,play_audio:bool=true,foreground:bool=false):
+func dark_cue(point:Vector3,cue:int,yaw:float=0.0,owner_id:int=0,playback_rate:float=1.0,spin_sign:float=1.0,play_audio:bool=true,foreground:bool=false,ticket:Dictionary={}):
  var names=["claw","fire_charge","step","","grab","throw_full","breath","fire_release","slam","","","spin","","","step"]
- if play_audio and cue>=0 and cue<names.size():dark_sound(point,names[cue],foreground)
+ if play_audio and cue>=0 and cue<names.size():dark_sound(point,names[cue],foreground,ticket)
  if cue==1:add_effect("dark-ember",point+Basis(Vector3.UP,yaw)*Dark.MOUTH,1.5,.8)
  if cue in [8,9]:add_effect("dark-stomp_wave",point+Vector3.UP*.08,56.0/30,Dark.SHOCK_RADIUS*(1.0 if cue==9 else .7)/1056.0)
  if cue==15:
@@ -337,15 +362,15 @@ func dark_spin_poses(record:Dictionary,poses:Array,colors:Array):
     var size=(.6+age*3)*Dark.SCALE*(1-age/life)
     poses.append(Transform3D(Basis.IDENTITY.scaled(Vector3.ONE*size),at));colors.append(Color(age,1-age/life,0,0))
 
-func finale_cue(point:Vector3,cue:int,direction:Vector3=Vector3.FORWARD,owner_id:int=0,source_tick:int=0,playback_rate:float=1.0,visual_scale:float=1.0):
+func finale_cue(point:Vector3,cue:int,direction:Vector3=Vector3.FORWARD,owner_id:int=0,source_tick:int=0,playback_rate:float=1.0,visual_scale:float=1.0,ticket:Dictionary={}):
  var yaw=atan2(-direction.x,-direction.z)
  var sound=""
  if cue<6:
   if cue==1:
    var playback=game.sound_library.playback_for(30,"finale_wind_start",Finale.sounds.wind_start)
-   if not playback.muted:
+   if not playback.muted and MoveAudio.ticket_audible(game,ticket):
     var voice=play_sound(point,playback.stream,Finale.SOUND_GAIN.wind_start*playback.gain,Finale.SOUND_RANGE,owner_id>0)
-    if voice!=null:voice.set_meta("loop_owner",owner_id)
+    if voice!=null:voice.set_meta("loop_owner",owner_id);voice.set_meta("audio_ticket",ticket)
    for side in [-1,1]:
     for kind in ["finale-wind","finale-wind_outer"]:
      var wind=add_effect(kind,point+Vector3.UP*1.2*Finale.SCALE,316.0/30/playback_rate,visual_scale,yaw,owner_id)
@@ -363,7 +388,7 @@ func finale_cue(point:Vector3,cue:int,direction:Vector3=Vector3.FORWARD,owner_id
   elif cue==5:add_effect("finale-sky_spark_2",point+Vector3.UP*Finale.SCALE,.8,visual_scale,yaw,owner_id)
   elif cue==4:sound="cast"
  elif cue==11:sound="sword_cross" if source_tick>88 else "sword_wave"
- elif cue==12:finale_loop(point,"wind_loop",(316-source_tick)/30.0/playback_rate,owner_id)
+ elif cue==12:finale_loop(point,"wind_loop",(316-source_tick)/30.0/playback_rate,owner_id,ticket)
  elif cue==13:pass
  elif cue==14:sound="fire_fall"
  elif cue==15:
@@ -384,27 +409,28 @@ func finale_cue(point:Vector3,cue:int,direction:Vector3=Vector3.FORWARD,owner_id
    if not wing.is_empty():wing.mirrored=side<0
  elif cue==42:add_effect("finale-water_secondary",point,.5,visual_scale,yaw)
  elif cue in [20,22,23,25,43]:
-  if cue==23:finale_loop(point,"fire_loop",2.7,owner_id)
+  if cue==23:finale_loop(point,"fire_loop",2.7,owner_id,ticket)
   sound="water_burst" if cue==22 else "" if cue==23 else "impact"
   var effect="sword_wave" if cue==20 else "water" if cue==22 else "fire" if cue==23 else "sky_spark_1" if cue==25 else "sword_cross"
   add_effect("finale-"+effect,point+(Vector3.UP*.12 if cue==25 else Vector3.ZERO),1.0 if cue==22 else .8 if cue==25 else .16 if cue in [20,43] else .6,visual_scale,yaw)
  elif cue==30:
   sound="core_charge";var core=add_effect("finale-core",point+Vector3.UP*Finale.SCALE,2.2,visual_scale,yaw)
-  if not core.is_empty():core.foreground=owner_id>0
+  if not core.is_empty():core.foreground=owner_id>0;core.audio_ticket=ticket
   add_effect("finale-core_open",point+Vector3.UP*Finale.SCALE,2,visual_scale,yaw);add_effect("finale-core_rays",point,2,.125,yaw);add_effect("finale-ending",point,2,.125,yaw)
  elif cue==31:cancel_finale(owner_id)
  elif cue==32:sound="cast"
  elif cue==33:sound="sword_swing"
  elif cue==34:sound="earth_rumble"
  elif cue==35:add_effect("finale-sky_spark_3",point+Vector3.UP*Finale.SCALE,.8,visual_scale,yaw)
- if not sound.is_empty():finale_sound(point,sound,owner_id>0)
+ if not sound.is_empty():finale_sound(point,sound,owner_id>0,ticket)
 
-func finale_sound(point:Vector3,cue:String,priority:bool=false):
+func finale_sound(point:Vector3,cue:String,priority:bool=false,ticket:Dictionary={}):
+ if not MoveAudio.ticket_audible(game,ticket):return
  var playback=game.sound_library.playback_for(30,"finale_"+cue,Finale.sounds[cue])
  if playback.muted:return
  var gain=float(Finale.SOUND_GAIN.get(cue,1.0))
  if priority:
-  game.sound("finale_"+cue,gain,false,{},30);return game.last_sound_voice
+  game.sound("finale_"+cue,gain,false,ticket,30);return game.last_sound_voice
  return play_sound(point,playback.stream,playback.gain*gain,Finale.SOUND_RANGE)
 
 func cancel_finale(owner_id:int):
@@ -413,8 +439,9 @@ func cancel_finale(owner_id:int):
   if effects[i].get("owner_id",0)==owner_id:effects.remove_at(i)
  for voice in voices:
   if voice.get_meta("loop_owner",0)==owner_id:voice.stop()
-func finale_loop(point:Vector3,cue:String,duration:float,owner_id:int):
- if cue=="fire_loop":owner_id=0
+func finale_loop(point:Vector3,cue:String,duration:float,owner_id:int,ticket:Dictionary={}):
+ if not MoveAudio.ticket_audible(game,ticket):return
+ if cue=="fire_loop" and not ticket.get("allied",false):owner_id=0
  for voice in voices:
   if voice.playing and voice.get_meta("loop_owner",0)==owner_id and voice.get_meta("finale_loop","")==cue:
    if cue=="wind_loop":voice.position=point
@@ -423,4 +450,4 @@ func finale_loop(point:Vector3,cue:String,duration:float,owner_id:int):
  if playback.muted:return
  var stream=Finale.loops[cue] if playback.stream==Finale.sounds[cue] else game.sound_library.recorded_loop_for(30,"finale_"+cue,playback.stream)
  var voice=play_sound(point,stream,float(Finale.SOUND_GAIN.get(cue,.6))*playback.gain,Finale.SOUND_RANGE,owner_id>=0)
- if voice!=null:voice.set_meta("loop_until",clock+duration);voice.set_meta("loop_owner",owner_id);voice.set_meta("finale_loop",cue)
+ if voice!=null:voice.set_meta("loop_until",clock+duration);voice.set_meta("loop_owner",owner_id);voice.set_meta("finale_loop",cue);voice.set_meta("audio_ticket",ticket)

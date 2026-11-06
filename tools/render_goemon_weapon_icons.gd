@@ -38,6 +38,7 @@ func bounds_in_view(weapon: Node3D) -> AABB:
 	var bounds := AABB()
 	var first := true
 	for part: MeshInstance3D in weapon.find_children("*", "MeshInstance3D", true, false):
+		if not part.is_visible_in_tree() or part.layers==0:continue
 		for surface in range(part.mesh.get_surface_count()):
 			var vertices: PackedVector3Array = part.mesh.surface_get_arrays(surface)[Mesh.ARRAY_VERTEX]
 			for vertex in vertices:
@@ -46,7 +47,7 @@ func bounds_in_view(weapon: Node3D) -> AABB:
 				first = false
 	return bounds
 
-func render_icon(file_name: String, weapon: Node3D, pose: Basis) -> void:
+func render_icon(file_name: String, weapon: Node3D, pose: Basis, output: String=OUTPUT) -> void:
 	var viewport := SubViewport.new()
 	viewport.size = Vector2i(RESOLUTION, RESOLUTION)
 	viewport.transparent_bg = true
@@ -85,7 +86,8 @@ func render_icon(file_name: String, weapon: Node3D, pose: Basis) -> void:
 	await RenderingServer.frame_post_draw
 	var rendered := viewport.get_texture().get_image()
 	rendered.resize(256, 256, Image.INTERPOLATE_LANCZOS)
-	var path := OUTPUT + file_name + ".png"
+	assert(rendered.get_used_rect().size.x>0,"Icon render is empty: "+file_name)
+	var path := output + file_name + ".png"
 	var error := rendered.save_png(path)
 	assert(error == OK, "Unable to save " + path)
 	print("GOEMON_WEAPON_ICON ", path, " source_bounds=", bounds, " image=", rendered.get_size())

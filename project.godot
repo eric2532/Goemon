@@ -1,4 +1,4 @@
-; Goemon — original procedural Godot vertical slice
+; Goemon — painterly action and defense game
 config_version=5
 
 [application]
@@ -10,10 +10,11 @@ config/custom_user_dir_name.crosshair_aim="Godot/app_userdata/Goemon Fire Siege 
 config/custom_user_dir_name.fire_siege="Godot/app_userdata/Goemon Fire Siege"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Godot/app_userdata/Azure Ember"
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
+config/macos_native_icon="res://icon.icns"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/description="Forest Shrine: defend four gates with individually chosen AI heroes, build defenses from overhead, and fight with eighteen playable characters including first-person Master Chief with an infinite-ammo assault rifle, eight portals, painterly scenery and fog of war."
+config/description="Forest Shrine: build and repair defenses in Wind Meadow Valley, fight with the playable roster, and lead native armies against four enemy strongholds with painterly scenery."
 
 [display]
 window/size/viewport_width=1440

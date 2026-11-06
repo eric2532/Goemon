@@ -1,7 +1,7 @@
 extends "res://scripts/recovered_goemon_gameplay_tests.gd"
 const Pool=preload("res://scripts/character_projectile_pool.gd")
 const Shot=preload("res://scripts/kojiro_projectile.gd")
-const OUT="res://build/Other Files/Asset Toolkit/Kojiro/Ground Combo/"
+const OUT="res://build/Other Files/Asset Toolkit/Kojiro/Phoenix Rise/"
 var launches=[]
 var release_data=[]
 var timings=[]
@@ -41,7 +41,7 @@ func run():
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUT))
 	create_timer(180).timeout.connect(func():printerr("KOJIRO_TIMEOUT");quit(1))
 	if DisplayServer.get_name()!="headless":
-		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_ALWAYS_ON_TOP,true);DisplayServer.window_move_to_foreground()
+		root.set_flag(Window.FLAG_NO_FOCUS,true) # Desktop focus changes must not cancel manually stepped casts.
 	root.focus_exited.connect(func():focus_losses+=1)
 	await setup_fixture()
 	game.tuning.invincible=true # This fixture measures outgoing attacks, not survival.
@@ -126,7 +126,7 @@ func run():
 		for i in released.size():
 			check(is_equal_approx(released[i].size,3.0*(float(combat.spec.scales[i]) if action=="wind" else 1.0)),"Spell retains its base size multiplier and launch growth: "+action)
 			check(is_equal_approx(released[i].damage,96.0 if action=="homing" else 144.0),"Spell damage is tripled once: "+action)
-			check(is_equal_approx(released[i].velocity.length(),(24 if action=="homing" else 16)*30*model.source_unit()),"Spell scaling does not change travel speed: "+action)
+			check(is_equal_approx(released[i].velocity.length(),(24 if action=="homing" else 32 if action=="wave" else 16)*30*model.source_unit()),"Phoenix is twice as fast; other spells retain speed: "+action)
 		if action=="homing":
 			for i in [0,2]:check(is_equal_approx(released[i].velocity.normalized().dot(released[1].velocity.normalized()),cos(PI/4)),"Three birds retain the ROM's 45-degree fan")
 		await capture(action);await advance(230)
@@ -134,30 +134,40 @@ func run():
 		var children=release_data.filter(func(item):return item.kind in ["spark","dust"])
 		check(children.all(func(item):return is_equal_approx(item.size,3.0)),"All child effects are three times their original size: "+action)
 	var homing=pool.launch(p,Shot,"homing",{"kind":"homing","position":ORIGIN+Vector3.UP*10000,"velocity":Vector3.RIGHT*20,"target":game.training_dummy,"unit":model.source_unit()})
-	check(homing.visual.global_basis.z.normalized().dot(homing.velocity.normalized())>.999,"Homing bird faces its launch direction")
+	check((homing.visual.global_basis*Vector3(1,-1,0)).normalized().dot(homing.velocity.normalized())>.999,"White bird flies head-first along its launch direction")
+	check(homing.effect_material.get_shader_parameter("atlas").resource_path.ends_with("homing.png"),"Small birds retain their original white artwork")
 	for i in 10:
 		homing._physics_process(1.0/60)
-		check(homing.visual.global_basis.z.normalized().dot(homing.velocity.normalized())>.999,"Homing bird turns with steering in the same tick")
+		check((homing.visual.global_basis*Vector3(1,-1,0)).normalized().dot(homing.velocity.normalized())>.999,"White bird turns head-first with steering in the same tick")
 	check(homing.velocity.normalized().dot(Vector3.RIGHT)<.99 and is_equal_approx(homing.velocity.length(),20),"Homing still bends toward its target without changing speed")
 	homing.retire()
-	# The frontal phoenix art faces velocity in world space, with level wings.
+	# Match the actual sprite's head axis, not the quad's surface normal.
 	for direction in [Vector3.FORWARD,Vector3.BACK,Vector3.RIGHT,Vector3.LEFT,Vector3(1,.7,-1).normalized(),Vector3.UP,Vector3.DOWN]:
 		var bird=pool.launch(p,Shot,"wave",{"kind":"wave","position":ORIGIN+Vector3.UP*10,"velocity":direction*20,"unit":model.source_unit()})
-		check(bird.visual.global_basis.z.normalized().dot(direction)>.999,"Phoenix faces along flight: "+str(direction))
+		check((-bird.visual.global_basis.y.normalized()).dot(direction)>.999,"Phoenix flies head-first along flight: "+str(direction))
 		check(absf(bird.visual.global_basis.x.normalized().y)<.001,"Phoenix wings stay level")
+		check(absf(bird.visual.global_basis.z.normalized().dot(direction))<.001 and bird.visual.mesh.center_offset==Vector3.ZERO,"Phoenix lies centered in its flight plane")
 		check(not bird.effect_material.get_shader_parameter("billboard") and not bird.effect_material.get_shader_parameter("directional_billboard"),"Camera cannot rotate the phoenix away from its physical heading")
 		var base_scale=bird.unit*Shot.SPELL_SCALE
 		for sample in [[0.0,.5,1.0],[.5,1.375,1.9375],[1.0,2.25,2.875],[1.5,3.125,3.8125],[2.0,4.0,4.0],[2.9,4.0,4.0]]:
 			bird.age=sample[0];bird.update_visual()
 			check(is_equal_approx(bird.visual.scale.x/base_scale,sample[1]),"Phoenix grows gradually to its existing maximum at age %.1f"%bird.age)
 			check(is_equal_approx(bird.contact_scale/base_scale,sample[2]),"Phoenix preserves hit growth at age %.1f"%bird.age)
+			check(is_equal_approx((-bird.visual.global_basis.y.normalized()).dot(bird.velocity.normalized()),cos(deg_to_rad(15)*minf(bird.age/2.0,1))),"Phoenix gradually lifts its head fifteen degrees over two seconds")
 		bird.attack_ticket={"skill_size":2.0,"skill_hit_area":.5};bird.update_visual()
 		check(is_equal_approx(bird.visual.scale.x,base_scale*8) and is_equal_approx(bird.contact_scale,base_scale*4),"Visual tuning remains independent of phoenix hit growth")
 		bird.attack_ticket={};bird.restart_visual()
 		check(is_equal_approx(bird.visual.scale.x,base_scale*.5),"Restart restores the small phoenix instead of its previous full size")
 		var start=bird.global_position
 		bird._physics_process(1.0/60)
-		check(bird.global_position.is_equal_approx(start+direction*20/60),"Phoenix advances straight along its nose without sideways drift")
+		check(bird.global_position.is_equal_approx(start+direction*20/60+Vector3.UP/3600.0),"Phoenix begins a gentle upward curve without sideways drift")
+		bird.retire()
+	for delta in [1.0/20,1.0/30,1.0/60,.5]:
+		var bird=pool.launch(p,Shot,"wave",{"kind":"wave","position":ORIGIN+Vector3.UP*10000,"velocity":Vector3.FORWARD*32*30*model.source_unit(),"unit":model.source_unit()})
+		var start=bird.global_position;var initial_velocity=bird.velocity
+		for i in roundi(2.0/delta):bird._physics_process(delta)
+		check(bird.pool_live and bird.global_position.distance_to(start+initial_velocity*2+Vector3.UP*4)<.03,"Phoenix rises four metres in two seconds at delta %.4f"%delta)
+		check(bird.velocity.distance_to(initial_velocity+Vector3.UP*4)<.001,"The upward curve preserves doubled forward speed")
 		bird.retire()
 	var camera_transform=game.camera_rig.camera.transform
 	for direction in [Vector3.FORWARD,Vector3.RIGHT,Vector3.BACK,Vector3.LEFT]:
@@ -166,10 +176,13 @@ func run():
 		game.camera_rig.camera.position=p.position-direction*10+Vector3.UP*6
 		game.camera_rig.camera.look_at(p.position+direction*15+Vector3.UP)
 		combat.start_skill("wave");await advance(16)
-		var launch=release_data.filter(func(item):return item.kind=="wave")[0]
+		var released=release_data.filter(func(item):return item.kind=="wave")
+		check(released.size()==1,"Aimed phoenix releases once before checking its trajectory")
+		if released.is_empty():continue
+		var launch=released[0]
 		check(launch.velocity.normalized().dot(direction)>.999,"Phoenix uses actual player crosshair aim: "+str(direction))
 		# Compare at release; the player's subsequent floor settling must not move the expected muzzle.
-		check(launch.position.distance_to(launch.caster_position+Vector3.UP*1.65*p.contact_size_multiplier()+launch.velocity.normalized()*.9*p.contact_size_multiplier())<.001,"Phoenix launches centered above and ahead along its actual aim")
+		check(launch.position.distance_to(launch.caster_position+Vector3.UP*1.3*preload("res://scripts/forest/dark_lumina_3_kit.gd").SCALE*p.growth_multiplier()+launch.velocity.normalized()*.9*p.contact_size_multiplier())<.001,"Phoenix matches Lumina's second-wave height and keeps its forward muzzle")
 		await advance(12);await capture("phoenix-heading-%d"%int(game.camera_rig.yaw*100));await advance(228)
 	game.camera_rig.camera.transform=camera_transform;game.camera_rig.yaw=0
 	realtime=false
@@ -177,10 +190,11 @@ func run():
 	for kind in ["homing","wave","wind","spark","dust"]:
 		for i in 50:
 			var shot=pool.launch(p,Shot,kind,{"kind":kind,"target":game.training_dummy,"attack_ticket":{"sample":i}})
-			if i==0:check(shot.effect_material.get_shader_parameter("directional_billboard")== (kind=="homing") and shot.effect_material.get_shader_parameter("billboard")== (kind not in ["wind","wave"]),"Pooled effects retain their own flight presentation: "+kind)
+			if i==0:check(not shot.effect_material.get_shader_parameter("directional_billboard") and shot.effect_material.get_shader_parameter("billboard")== (kind not in ["wind","wave","homing"]),"Pooled effects retain their own flight presentation: "+kind)
 			shot.hit_targets[123]=true;shot.age=5;shot.retire()
 			shot=pool.launch(p,Shot,kind,{"kind":kind})
 			check(shot.age==0 and shot.target==null and shot.hit_targets.is_empty() and shot.attack_ticket.is_empty(),"Lease resets "+kind)
+			if kind=="wave" and i==0:check(is_equal_approx(shot.visual.rotation.x,-PI/2) and shot.velocity==Vector3.ZERO,"Reused phoenix clears its previous lift and raised-head pose")
 			shot.retire()
 	check(pool.created==created,"Repeated shots reuse prepared nodes without growth")
 	var flight_nodes=Performance.get_monitor(Performance.OBJECT_NODE_COUNT)
@@ -194,7 +208,7 @@ func run():
 			check(is_equal_approx(bird.visual.scale.x,bird.unit*Shot.SPELL_SCALE*.5),"Every reused simultaneous phoenix launches small")
 			var start=bird.global_position;var velocity=bird.velocity
 			for i in 12:bird._physics_process(1.0/60)
-			check(bird.global_position.distance_to(start+velocity*.2)<.01 and bird.visual.global_basis.z.normalized().dot(velocity.normalized())>.999,"Simultaneous reused phoenixes keep independent straight flight and heading")
+			check(bird.global_position.distance_to(start+velocity*.2+Vector3.UP*.04)<.01 and (-bird.visual.global_basis.y.normalized()).dot(bird.velocity.normalized())>cos(deg_to_rad(15))-.0001,"Simultaneous reused phoenixes retain independent rising flight")
 			check(is_equal_approx(bird.visual.scale.x,bird.unit*Shot.SPELL_SCALE*.85),"Simultaneous phoenixes grow during real flight steps")
 			bird.retire()
 	check(pool.created==created,"Three volleys of twelve phoenixes retain the prepared pool")
@@ -209,9 +223,10 @@ func run():
 		check(pool.created==created,"Back-to-back accelerated casts fit the prepared pool: "+action)
 	print("KOJIRO_POOL_CAPACITY ",pool.all.keys().map(func(key):return [key,pool.all[key].size()]))
 	game.training_dummy.home=ORIGIN+Vector3(0,0,-2);game.training_dummy.position=game.training_dummy.home
-	var trail=model.trail;trail.clear()
-	for i in 240:trail.advance(1.0/120,PackedVector3Array([Vector3(i*.01,0,0),Vector3(i*.01,1,0)]),true,false)
-	check(trail.samples.size()<=17,"Sword trail stays at source cadence on a 120 Hz display");trail.clear()
+	for trail in [model.trail,model.blade_trail]:
+		trail.clear()
+		for i in 240:trail.advance(1.0/120,PackedVector3Array([Vector3(i*.01,0,0),Vector3(i*.01,1,0)]),true,false)
+		check(trail.samples.size()<=17,"Each sword layer stays at source cadence on a 120 Hz display");trail.clear()
 	# The ROM contact coordinates must reach native proxies without bypassing walls.
 	fresh();await advance(12)
 	var owner=game.army_runtime
@@ -267,7 +282,7 @@ func run():
 	check(mirrors.cast(),"Five native-owned Kojiro allies can cast together")
 	var mirror_shots=[]
 	var record_mirror=func(shot):
-		if shot.get_script()==Shot and shot.kind=="wave" and shot.hero in mirrors.bodies:mirror_shots.append(shot)
+		if shot.get_script()==Shot and shot.kind in ["wave","homing"] and shot.hero in mirrors.bodies:mirror_shots.append(shot)
 	pool.launched.connect(record_mirror)
 	for i in mirrors.bodies.size():
 		var body=mirrors.bodies[i]
@@ -277,8 +292,17 @@ func run():
 		owner.step(1.0/60,{"targets":[]});await advance(1)
 	check(mirror_shots.size()==5,"Each simultaneous native ally releases one phoenix")
 	for shot in mirror_shots:
-		check(shot.visual.global_basis.z.normalized().dot(shot.velocity.normalized())>.999 and absf(shot.visual.global_basis.x.normalized().y)<.001,"Native ally phoenix keeps its own heading and level wings")
+		check((-shot.visual.global_basis.y.normalized()).dot(shot.velocity.normalized())>cos(deg_to_rad(15)*minf(shot.age/2.0,1))-.0001 and absf(shot.visual.global_basis.x.normalized().y)<.001,"Native ally phoenix rises head-first with level wings")
 	await capture("phoenix-native-allies")
+	mirror_shots.clear()
+	for body in mirrors.bodies:
+		body.active_ability.cancel();body.active_ability.start_skill("homing")
+	for i in 30:
+		owner.step(1.0/60,{"targets":[]});await advance(1)
+	check(mirror_shots.size()==15,"Five simultaneous native allies each release three white birds")
+	for shot in mirror_shots:
+		check((shot.visual.global_basis*Vector3(1,-1,0)).normalized().dot(shot.velocity.normalized())>.999,"Native ally white bird steers head-first in its flight plane")
+	await capture("homing-native-allies")
 	pool.launched.disconnect(record_mirror);mirrors.dispose();await frames(2)
 	var profiles=[]
 	for id in [1,28]:

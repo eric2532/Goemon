@@ -522,7 +522,7 @@ func primary_range_scale() -> float:
 	# Arrows/fireballs already show their full travel. Only melee had invisible reach.
 	return range_scale() * (3.0 if class_id in ["mage","ranger"] else PRIMARY_RANGE_MULTIPLIER*hero.melee_contact_multiplier())
 
-func fit_primary_reach(a: Dictionary) -> void:
+func fit_primary_reach(a: Dictionary,preview:bool=false) -> void:
 	if a.get("style","")=="dragoon-sweep":
 		# Preserve the authored sweep's three arcs; extend its lance and radius.
 		a.meleeWeaponScale=melee_reach_scale()
@@ -533,6 +533,7 @@ func fit_primary_reach(a: Dictionary) -> void:
 	var saved_transform: Transform3D=visual_actor.model.transform
 	var sample: Dictionary=player.duplicate()
 	sample.attack=a.duplicate()
+	sample.uncappedWeapon=true
 	sample.attack.time=a.contact
 	sample.meleeVisualScale=range_scale()*melee_reach_scale()/maxf(.01,hero.growth_multiplier())
 	if class_id=="master-thief" and buff_time()>0:sample.meleeVisualScale*=1.8
@@ -545,8 +546,10 @@ func fit_primary_reach(a: Dictionary) -> void:
 	a.reach=maxf(Vector2(tip.x-origin.x,tip.z-origin.z).length(),Vector2(weapon.global_position.x-origin.x,weapon.global_position.z-origin.z).length())+.12*hero.growth_multiplier()
 	a.reach*=hero.melee_contact_multiplier()
 	a.meleeVisualScale=sample.meleeVisualScale
+	var full_scale=sample.meleeVisualScale*(3.0 if class_id=="master-thief" and buff_time()>0 else 1.0)
+	a.bladeWaveScale=full_scale/preload("res://scripts/weapon_proportions.gd").reach_visual_scale(full_scale)
 	a.weaponContact=true
-	if game.has_method("forest_enemy_visible") and a.get("weapon","cutlass")=="cutlass":
+	if not preview and game.has_method("forest_enemy_visible") and a.get("weapon","cutlass")=="cutlass":
 		hero.melee_assist.begin(hero,a.angle,a.reach)
 	visual_actor.animate_pose(player,0,time,0)
 	visual_actor.model.transform=saved_transform
@@ -823,6 +826,7 @@ func physics_step(delta: float) -> void:
 	_enforce_bounds()
 	_sync_hero()
 	animation_velocity = (hero.global_position - previous) / maxf(delta, 0.001)
+	hero.model.locomotion.tick(delta,Vector2(animation_velocity.x,animation_velocity.z).length(),hero.is_on_floor())
 	_animate(delta * hero.attack_speed_multiplier(), Vector2(hero.global_position.x - previous.x, hero.global_position.z - previous.z).length() / maxf(delta, 0.001) / maxf(0.1, class_data().speed))
 	_update_hooks()
 
@@ -1732,7 +1736,7 @@ func _update_hooks() -> void:
 
 func _exit_tree() -> void:
 	_clear_dragon_dive()
-	if is_instance_valid(hero) and hero.ai_controlled and is_instance_valid(fx):fx.queue_free()
+	if spell_owner==null and is_instance_valid(hero) and hero.ai_controlled and is_instance_valid(fx):fx.queue_free()
 	if is_instance_valid(_leap_preview):_leap_preview.queue_free()
 	_clear_projectiles()
 	if is_instance_valid(_hooks):
@@ -1751,6 +1755,8 @@ func resolve_area_pulse(pulse: Dictionary) -> void:
 	_ticket = prior_ticket
 	_resolution_ticket = prior_resolution
 	fx.lance_wave(pulse.pos, pulse.radius * pulse.rangeScale, pulse.index)
+	# Let landing lead, then reuse the first follow-up's existing hunting-pass timing.
+	if pulse.index==1:game.move_audio.play_voice(game,8,"dragoon_hunt",pulse.ticket)
 
 func buff_time()->float:
 	var equipped=hero.spell_loadout.buff(hero.RogueRoster.hero_id(class_id)) if is_instance_valid(hero) and hero.spell_loadout!=null else 0.0

@@ -7,7 +7,11 @@ var source_scale=0.016
 var source_metadata:Dictionary={}
 
 func _init():
-	if archive.is_empty():archive=JSON.parse_string(FileAccess.get_file_as_string(DATA_PATH))
+	if archive.is_empty():
+		archive=JSON.parse_string(FileAccess.get_file_as_string(DATA_PATH))
+		for clip in archive.clips.values():
+			for frame in clip.frames:
+				for i in frame.size():frame[i]=_transform(frame[i])
 	source_metadata=archive.metadata
 
 func frame_count(action_id:int)->int:
@@ -28,8 +32,8 @@ func sample_source(action_id:int,time_seconds:float)->Dictionary:
 	for i in range(clip.pointers.size()):
 		var key:String=clip.pointers[i]
 		if key=="0x0":continue
-		var first=_transform(clip.frames[a][i])
-		result[key]=first if t<0.000001 else _interpolate_transform(first,_transform(clip.frames[b][i]),t)
+		var first:Transform3D=clip.frames[a][i]
+		result[key]=first if t<0.000001 else _interpolate_transform(first,clip.frames[b][i],t)
 	return result
 
 func sample_part(action_id:int,time_seconds:float,part:String)->Transform3D:
@@ -42,8 +46,8 @@ func sample_part(action_id:int,time_seconds:float,part:String)->Transform3D:
 	if index<0:return Transform3D.IDENTITY
 	var position=clampf(time_seconds*30.0*native_rate(action_id),0.0,float(clip.frame_count)-1.0)
 	var a=int(floor(position));var b=mini(a+1,int(clip.frame_count)-1);var t=position-a
-	var first=_transform(clip.frames[a][index])
-	return first if t<0.000001 else _interpolate_transform(first,_transform(clip.frames[b][index]),t)
+	var first:Transform3D=clip.frames[a][index]
+	return first if t<0.000001 else _interpolate_transform(first,clip.frames[b][index],t)
 
 func _transform(values:Array)->Transform3D:
 	return Transform3D(Basis(Vector3(values[0],values[1],values[2]),Vector3(values[3],values[4],values[5]),Vector3(values[6],values[7],values[8])),Vector3(values[9],values[10],values[11]))

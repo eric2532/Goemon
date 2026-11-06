@@ -16,12 +16,12 @@ void Combat::finale_decide(Crowd& crowd,Unit& u,double dt){
     if(u.recovery_left>0){u.has_goal=false;return;}
     u.think_left-=dt;Vec3 foot;
     if(u.think_left<=0||((u.target_handle||u.external_kind>=0)&&!target(crowd,u,foot))){choose_target(crowd,u);u.think_left=.1;}
-    if(!target(crowd,u,foot)){u.has_goal=false;return;}
+    if(!target(crowd,u,foot)){return;}
     const auto& profile=soldiers_[18];Vec3 direction=foot-u.position;
     float desired=std::atan2(-direction.x,-direction.z),turn=std::remainder(desired-u.yaw,float(2*M_PI));
     u.yaw+=std::clamp(turn,-float(profile.turn_speed*dt),float(profile.turn_speed*dt));
     if(std::abs(turn)<.35f&&std::hypot(direction.x,direction.z)<=24*data_.finale_scale*data_.enemy_size&&std::abs(direction.y)<6&&crowd.terrain.ray_clear(u.position+Vec3{0,1,0},foot+Vec3{0,1,0},u.external_kind==2?u.external_target:-1)){
-        u.action=300+u.combo_serial++%6;u.action_active=true;u.phase_tick=0;u.action_time=0;u.sweep_marker=0;u.landing_goal=foot;u.dash_previous=u.position;u.has_goal=false;u.action_hits.clear();u.primary_hit=false;u.soldier_shots=int(random(u)*6);
+        u.action=300+u.combo_serial++%6;u.action_active=true;u.phase_tick=0;u.action_time=0;u.sweep_marker=0;u.landing_goal=foot;u.dash_previous=u.position;u.has_goal=false;u.action_hits.clear();u.primary_hit=false;
         attack_started(u);
         finale_cue(u,u.action-300,u.position);return;
     }
@@ -63,7 +63,7 @@ void Combat::finale_advance(Crowd& crowd,Unit& u,double dt){
             int index=(tick-60)/6;float angle=float(index*2*M_PI/5+(tick-60)*2*M_PI/31);
             Vec3 at=u.landing_goal+Vec3{std::sin(angle)*7,1,std::cos(angle)*7}*(data_.finale_scale*data_.enemy_size);finale_cue(u,16,at,tick);
         }else{
-            Projectile p;p.id=next_projectile_++;p.source_id=u.logical_id;p.owner_kind=18;p.effect_kind=move;p.power=move==0&&tick>88;p.finale_burst=move==2&&(tick-60)/24==u.soldier_shots;p.source_team=0;
+            Projectile p;p.id=next_projectile_++;p.source_id=u.logical_id;p.owner_kind=18;p.effect_kind=move;p.power=move==0&&tick>88;p.source_team=0;
             p.position=u.position+(Vec3{0,1.3f,0}+forward*1.5f)*(data_.finale_scale*data_.enemy_size);p.direction=forward;
             if(event==1&&tick==88)p.position.y=u.position.y+.025f*data_.finale_scale*data_.enemy_size;
             if(event==7){int index=(tick-139)/12;float angle=float(index*2*M_PI/5);p.position=u.landing_goal+Vec3{std::sin(angle)*7,1,std::cos(angle)*7}*(data_.finale_scale*data_.enemy_size);p.direction=normalized(u.landing_goal+Vec3{0,data_.finale_scale*data_.enemy_size,0}-p.position);}

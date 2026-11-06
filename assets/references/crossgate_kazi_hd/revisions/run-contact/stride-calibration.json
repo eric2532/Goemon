@@ -1,0 +1,17 @@
+{
+  "master": "revisions/run-contact/masters/3-3.png",
+  "stance_frames": [
+    0,
+    5
+  ],
+  "stance_sole_center_x": [
+    168.5,
+    69
+  ],
+  "authoring_units": 2.945945945945946,
+  "stance_travel_meters": 1.3105678133911793,
+  "stance_phase": 0.2777777777777778,
+  "full_stride_meters": 4.718044128208246,
+  "rounded_runtime_stride": 4.7,
+  "method": "Median neutral pixels in lowest five body rows, side view; canonical 148-pixel running stance for every direction. Other views foreshorten this stride; finite drawn frames approximate foot locking."
+}

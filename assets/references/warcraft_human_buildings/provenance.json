@@ -1,0 +1,134 @@
+[
+  {
+    "path": "buildings/human/farm/farm.mdx",
+    "archive": "war3.mpq",
+    "sha256": "5d43eab618c1484b707d9b5674ce7b9257f55bb9a962ba2b280584b07a253129",
+    "bytes": 86628
+  },
+  {
+    "path": "buildings/human/humantower/humantower.mdx",
+    "archive": "War3x.mpq",
+    "sha256": "f1f4baa31baf2ef81545806210a371d9f4a016d88ecef7a7242f2550b8283512",
+    "bytes": 184980
+  },
+  {
+    "path": "replaceabletextures/teamcolor/teamcolor01.blp",
+    "archive": "war3.mpq",
+    "sha256": "5521bd761c6bfdb34f742fb3acbe9b8d3a19d07bf6da323a2216e478b5817564",
+    "bytes": 1368
+  },
+  {
+    "path": "replaceabletextures/teamglow/teamglow01.blp",
+    "archive": "war3.mpq",
+    "sha256": "c36510d9886113d75e484bc6599ec75f1afac6cd5fd8113cafc0a0ae3542d2b1",
+    "bytes": 1709
+  },
+  {
+    "path": "replaceabletextures/commandbuttons/btnfarm.blp",
+    "archive": "war3.mpq",
+    "sha256": "20cd69a301b7504dc2f2d42faefce1f3164f72a8230956a8cb31205135859db9",
+    "bytes": 7523
+  },
+  {
+    "path": "replaceabletextures/commandbuttons/btnguardtower.blp",
+    "archive": "war3.mpq",
+    "sha256": "cf1a7952df059828aa703307d53395084f30d44f3516f8ea69ad55ba0b581153",
+    "bytes": 7620
+  },
+  {
+    "path": "buildings/human/farm/house.blp",
+    "archive": "war3.mpq",
+    "sha256": "70fddffa0c27719804d42641f8e9d290647877f1f747a8bf0e50d0831c8d0af8",
+    "bytes": 94308
+  },
+  {
+    "path": "textures/doodads0.blp",
+    "archive": "War3x.mpq",
+    "sha256": "07597713ca051b83f942d12917efe3a97fb876cfb087e4298ccac9e60ae061c4",
+    "bytes": 107576
+  },
+  {
+    "path": "textures/dust5a.blp",
+    "archive": "war3.mpq",
+    "sha256": "4e61eb9a97de2d4ea94b3558d1350da267b85514ee2e680eed9eac18420727a6",
+    "bytes": 3014
+  },
+  {
+    "path": "textures/cloudsingle.blp",
+    "archive": "War3x.mpq",
+    "sha256": "255a9e8ac8847d2393389bd9c83f916de9eb8f1b73b6e934df355cfba054c746",
+    "bytes": 4430
+  },
+  {
+    "path": "textures/humanbase.blp",
+    "archive": "War3x.mpq",
+    "sha256": "4df79837ee7bc406d492b9fd134cb05d98eec16edd77b6301478ea84d65373bc",
+    "bytes": 22486
+  },
+  {
+    "path": "textures/rockparticle.blp",
+    "archive": "War3x.mpq",
+    "sha256": "cbb4b7810a9ca308b50cb5c963ffb0aa82b7e94c51747f18b48fee384fd46ba8",
+    "bytes": 1953
+  },
+  {
+    "path": "textures/spinningboard.blp",
+    "archive": "War3x.mpq",
+    "sha256": "d19261f38f1c144445466e8fa1768ae680b9aaa50f48d3403f21da564e511d39",
+    "bytes": 3253
+  },
+  {
+    "path": "textures/clouds8x8fire.blp",
+    "archive": "War3x.mpq",
+    "sha256": "f78c6653af9f43e01060814cef22b5b724cd817d9821755ec123ca17787931dd",
+    "bytes": 144037
+  },
+  {
+    "path": "textures/cartooncloud.blp",
+    "archive": "war3.mpq",
+    "sha256": "cf328b5865d3a92093f07e88d8c4c48332de957f9c1b840361ea496ab4b3c0e5",
+    "bytes": 2395
+  },
+  {
+    "path": "textures/deathsmug.blp",
+    "archive": "War3x.mpq",
+    "sha256": "dc9bbdcbfe7892b007a82f9526e745b5fce34ddecb5332a114d228affd07f507",
+    "bytes": 2653
+  },
+  {
+    "path": "textures/dust3x.blp",
+    "archive": "War3x.mpq",
+    "sha256": "31ad76beabea1edcf55dafda4d65ae7dad747354c99634b0d35aa1f88e540c69",
+    "bytes": 6050
+  },
+  {
+    "path": "textures/tower.blp",
+    "archive": "War3x.mpq",
+    "sha256": "73e94735fdcf24cc941118c5530cd4b3341949ca912cd557a087227d31b094c8",
+    "bytes": 55176
+  },
+  {
+    "path": "textures/clouds8x8.blp",
+    "archive": "War3x.mpq",
+    "sha256": "0e07abf3289320564628e4359652e738c015cd7930d840b68e4d24b096ea88ea",
+    "bytes": 117606
+  },
+  {
+    "path": "buildings/human/humantower/humanmagictower.blp",
+    "archive": "War3x.mpq",
+    "sha256": "a385176564c44ed13e24ae71eb3131e54f3b2a693ad5dac92152a4ef10de9785",
+    "bytes": 56084
+  },
+  {
+    "path": "textures/blue_glow2.blp",
+    "archive": "War3x.mpq",
+    "sha256": "dcbf0770aa792883d3d7ad0b93052d5a9a1b264ac841dae43b7876f26cbfd793",
+    "bytes": 1958
+  },
+  {
+    "path": "textures/genericglow2b.blp",
+    "archive": "War3x.mpq",
+    "sha256": "af14264cc0b25bc8e58437c3e53539d53a8497aba5d292a3733e78f08af13086",
+    "bytes": 8364
+  }
+]

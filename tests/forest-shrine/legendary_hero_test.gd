@@ -10,20 +10,21 @@ func run():
 	game.player.set_process_input(false);game.player.set_process_unhandled_input(false)
 	game.music.stop();root.title="Goemon Legendary Hero Verification"
 	var p=game.model.team_progression;var helpers=game.explorer_helpers;var heroes=helpers.legendary_heroes;var runtime=game.army_runtime
-	check(helpers.HEROES.map(func(id):return game.player.ROSTER[id].name)==["Goemon","Musashi","Kojiro","Blademaster","Illidan"],"Card names match the actual playable hero IDs")
+	check(helpers.HEROES.map(func(id):return game.player.ROSTER[id].name)==["Goemon","Musashi","Kojiro","Blademaster","Illidan","Mountain King"],"Card names match the actual playable hero IDs")
 	p.ranks.character_damage=2;game.model.gold=0;game.model.starting_food=0
 	var chosen=[]
 	for character in helpers.HEROES:
-		legendary_offer();p.offer[2]="legendary_hero";game.team_upgrade_picker.refresh()
+		var card_id=""
+		for id in p.CARDS:
+			if p.CARDS[id].get("hero",-1)==character:card_id=id
+		legendary_offer();p.offer[2]=card_id;game.team_upgrade_picker.refresh()
 		if character==1:await create_timer(.3).timeout;await capture("06-legendary-hero-card")
-		for seed_ in 1000:
-			var probe=RandomNumberGenerator.new();probe.seed=seed_
-			if helpers.HEROES[probe.randi_range(0,helpers.HEROES.size()-1)]==character:p.rng.seed=seed_;break
+		if character==33:await create_timer(.3).timeout;await capture("09-mountain-king-card")
 		var choice=p.choice_level();var count=heroes.bodies.filter(func(body):return body.leased).size()
-		check(game.choose_team_upgrade("legendary_hero",choice),"Random hero card can summon fighter %d"%character)
+		check(game.choose_team_upgrade(card_id,choice),"Named hero card summons fighter %d"%character)
 		var body=heroes.bodies.back();chosen.append(body)
-		check(heroes.bodies.filter(func(candidate):return candidate.leased).size()==count+1 and body.character_id==character,"Exactly one independently rolled hero arrives")
-		check(not game.choose_team_upgrade("legendary_hero",choice),"Stale hero choice cannot grant twice")
+		check(heroes.bodies.filter(func(candidate):return candidate.leased).size()==count+1 and body.character_id==character,"Exactly the hero named on the card arrives")
+		check(not game.choose_team_upgrade(card_id,choice),"Stale hero choice cannot grant twice")
 		var handle=heroes.handles[heroes.bodies.find(body)];var state=runtime.unit_state(handle)
 		check(state.get("kind",0)==100+character and state.get("hp",0)==body.max_hp,"Hero life is owned by the native army with its own health")
 		check(body.team_progression==p and game.model.gold==0 and helpers.active_units().is_empty(),"Hero receives team upgrades without charging or adding ordinary mercenaries")
@@ -59,7 +60,7 @@ func run():
 		if frame==120:await capture("08-legendary-heroes-combat")
 	check(chosen.all(func(body):return body.leased),"Heroes remain after sixteen simulated seconds")
 	for body in chosen:check(not body.action_history.is_empty(),"Hero autonomously uses existing attacks/skills: %d"%body.character_id)
-	check(runtime.event_log.any(func(event):return event.kind=="damage" and event.target_id>=910000 and event.target_id<910005 and event.amount>0),"Hero abilities hit real native enemies")
+	check(runtime.event_log.any(func(event):return event.kind=="damage" and event.target_id>=910000 and event.target_id<910000+chosen.size() and event.amount>0),"Hero abilities hit real native enemies")
 	var blade=chosen[3];var index=heroes.bodies.find(blade);var old_handle=heroes.handles[index]
 	runtime.apply_hit(old_handle,{"amount":1000000.0});heroes.tick(1.0/60)
 	check(not blade.leased and not runtime.valid(old_handle),"Defeated hero retires its attacks and native identity")

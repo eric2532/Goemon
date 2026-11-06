@@ -7,8 +7,9 @@ const FILES={"kojiro_homing_voice":"homing_voice","kojiro_homing_release":"homin
 	"kojiro_air_cut_voice":"air_cut_voice","kojiro_air_spin_voice":"air_spin_voice",
 	"hurt":["hurt_1","hurt_2"],"death":"defeat",
 	"kojiro_unused_a83":"unused_voice_a83","kojiro_unused_a84":"unused_voice_a84",
-	"swing":"","heavy_swing":"","jump":"","land":"","step":"","dash":"","enemy_reaction":"","coin_hit":"","coin_heavy_hit":""}
+	"swing":"","heavy_swing":"","jump":"","land":"","dash":"","enemy_reaction":"","coin_hit":"","coin_heavy_hit":""}
 static func stream_for(slot:String)->AudioStream:
+	if slot=="step":return preload("res://assets/audio/recovered_musashi/foot_contact.wav")
 	# The USA duel disables its sword event; reuse the shared prepared cut.
 	if slot=="kojiro_sword_cut":return SWORD_CUT
 	return preload("res://scripts/character_audio_bank.gd").event(ROOT,FILES,slot)

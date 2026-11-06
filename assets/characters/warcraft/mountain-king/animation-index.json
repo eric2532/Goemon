@@ -1,0 +1,164 @@
+[
+  {
+    "name": "Stand - 1",
+    "start_ms": 167,
+    "end_ms": 1667,
+    "seconds": 1.5
+  },
+  {
+    "name": "Stand Ready",
+    "start_ms": 2000,
+    "end_ms": 3500,
+    "seconds": 1.5
+  },
+  {
+    "name": "Stand - 2",
+    "start_ms": 3667,
+    "end_ms": 5967,
+    "seconds": 2.3
+  },
+  {
+    "name": "Stand - 3",
+    "start_ms": 6133,
+    "end_ms": 9300,
+    "seconds": 3.167
+  },
+  {
+    "name": "Stand - 4",
+    "start_ms": 9433,
+    "end_ms": 14800,
+    "seconds": 5.367
+  },
+  {
+    "name": "Attack -1",
+    "start_ms": 14967,
+    "end_ms": 15967,
+    "seconds": 1.0
+  },
+  {
+    "name": "Attack -2",
+    "start_ms": 16500,
+    "end_ms": 17500,
+    "seconds": 1.0
+  },
+  {
+    "name": "Walk",
+    "start_ms": 18333,
+    "end_ms": 19167,
+    "seconds": 0.834
+  },
+  {
+    "name": "Death",
+    "start_ms": 19333,
+    "end_ms": 21833,
+    "seconds": 2.5
+  },
+  {
+    "name": "Spell Throw",
+    "start_ms": 23367,
+    "end_ms": 24733,
+    "seconds": 1.366
+  },
+  {
+    "name": "Spell Slam",
+    "start_ms": 25300,
+    "end_ms": 26200,
+    "seconds": 0.9
+  },
+  {
+    "name": "Dissipate",
+    "start_ms": 30100,
+    "end_ms": 32100,
+    "seconds": 2.0
+  },
+  {
+    "name": "Attack Slam",
+    "start_ms": 32633,
+    "end_ms": 33633,
+    "seconds": 1.0
+  },
+  {
+    "name": "Alternate Stand - 1",
+    "start_ms": 65167,
+    "end_ms": 66667,
+    "seconds": 1.5
+  },
+  {
+    "name": "Alternate Ready",
+    "start_ms": 67000,
+    "end_ms": 68500,
+    "seconds": 1.5
+  },
+  {
+    "name": "Alternate Stand - 2",
+    "start_ms": 68667,
+    "end_ms": 70967,
+    "seconds": 2.3
+  },
+  {
+    "name": "Alternate Stand - 3",
+    "start_ms": 71133,
+    "end_ms": 74300,
+    "seconds": 3.167
+  },
+  {
+    "name": "Alternate Stand - 4",
+    "start_ms": 74433,
+    "end_ms": 79800,
+    "seconds": 5.367
+  },
+  {
+    "name": "Alternate Attack -1",
+    "start_ms": 79967,
+    "end_ms": 80967,
+    "seconds": 1.0
+  },
+  {
+    "name": "Alternate Attack -2",
+    "start_ms": 81500,
+    "end_ms": 82500,
+    "seconds": 1.0
+  },
+  {
+    "name": "Alternate Walk",
+    "start_ms": 83333,
+    "end_ms": 84167,
+    "seconds": 0.834
+  },
+  {
+    "name": "Alternate Death",
+    "start_ms": 84333,
+    "end_ms": 86833,
+    "seconds": 2.5
+  },
+  {
+    "name": "Alternate Spell Throw",
+    "start_ms": 88367,
+    "end_ms": 89733,
+    "seconds": 1.366
+  },
+  {
+    "name": "Alternate Spell Slam",
+    "start_ms": 90300,
+    "end_ms": 91200,
+    "seconds": 0.9
+  },
+  {
+    "name": "Alternate Dissipate",
+    "start_ms": 95100,
+    "end_ms": 97100,
+    "seconds": 2.0
+  },
+  {
+    "name": "Attack Slam Alternate",
+    "start_ms": 98433,
+    "end_ms": 99433,
+    "seconds": 1.0
+  },
+  {
+    "name": "Morph Alternate",
+    "start_ms": 99667,
+    "end_ms": 100000,
+    "seconds": 0.333
+  }
+]

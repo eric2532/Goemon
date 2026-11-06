@@ -41,6 +41,8 @@ var was_grounded=true
 var palette_materials: Array[ShaderMaterial]=[]
 var palette_environment=Vector3(-1,-1,-1)
 var sword_trail: MeshInstance3D
+var dual_sword_trail:MeshInstance3D
+var crosswise_effect:Node3D
 var rotation_effect: Node3D
 var outfit_mask=31
 var presentation_scale=preload("res://scripts/character_proportions.gd").MUSASHI_SIZE
@@ -89,6 +91,8 @@ func _ready():
 	_sync_palette_environment()
 	sword_trail=preload("res://scripts/recovered_musashi_trail.gd").new()
 	sword_trail.name="MusashiBladeTrail";add_child(sword_trail)
+	dual_sword_trail=preload("res://scripts/recovered_musashi_trail.gd").new();add_child(dual_sword_trail)
+	crosswise_effect=preload("res://scripts/recovered_musashi_crosswise_effect.gd").new();add_child(crosswise_effect)
 	rotation_effect=preload("res://scripts/recovered_musashi_rotation_effect.gd").new();rotation_effect.name="MusashiRotationEffect";add_child(rotation_effect)
 
 func _install_palette():
@@ -196,7 +200,7 @@ func animate(delta: float,speed: float,grounded: bool,vertical: float,_attack: f
 				for marker in markers:
 					var crossings=floori((after-marker+.000001)/length)-floori((before-marker+.000001)/length)
 					for i in crossings:
-						combat.game.sound("musashi_step_%d"%step_side,.22,false,{},13);step_side=1-step_side
+						combat.hero.play_sound("musashi_step_%d"%step_side,.22);step_side=1-step_side
 			gait_phase=fposmod(after/length,1.0)
 	if is_instance_valid(combat) and combat.is_attacking():
 		_sample(combat.clip,combat.elapsed)
@@ -224,6 +228,8 @@ func animate(delta: float,speed: float,grounded: bool,vertical: float,_attack: f
 	last_vertical=vertical
 	if is_instance_valid(sword_trail):
 		if is_instance_valid(combat):sword_trail.advance_model(delta,self,combat)
+	if is_instance_valid(dual_sword_trail) and is_instance_valid(combat):dual_sword_trail.advance_model(delta,self,combat)
+	if is_instance_valid(crosswise_effect):crosswise_effect.advance(delta)
 	if is_instance_valid(rotation_effect):rotation_effect.advance(delta)
 
 func sword_segment(heavy: bool)->PackedVector3Array:

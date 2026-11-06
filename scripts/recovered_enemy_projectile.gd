@@ -49,6 +49,6 @@ func _physics_process(delta:float):
   else:game.confirm_impact(contact.enemy,contact.point,velocity.normalized(),0,true,Dark.PLAYER if dark else 21,not dark)
  if not contact.is_empty() or not wall.is_empty() or lifetime<=0:
   if dark and game.get("crowd")!=null:
-   game.crowd.army.presentation.dark_sound(end,"fire_impact",true);game.crowd.army.presentation.add_effect("dark-impact",end,.53,1)
+   game.crowd.army.presentation.dark_sound(end,"fire_impact",true,attack_ticket);game.crowd.army.presentation.add_effect("dark-impact",end,.53,1)
   retire();return
  global_position=next

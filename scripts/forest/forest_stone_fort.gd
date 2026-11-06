@@ -51,10 +51,12 @@ static func tower(parent:Node3D):
 	for side in [-1,1]:
 		Geo.box(parent,Vector3(0,body*.68,side*5.015),Vector3(.28,1.65,.035),Geo.mat("35433c"))
 		Geo.box(parent,Vector3(side*5.015,body*.68,0),Vector3(.035,1.65,.28),Geo.mat("35433c"))
-static func shrine(parent:Node3D):
+static func pedestal(parent:Node3D):
 	Geo.box(parent,Vector3(0,.4,0),Vector3(17,.8,17),material(Color("68786e")))
 	Geo.box(parent,Vector3(0,1.35,0),Vector3(15,1.1,15),material(Color("8b9789")))
 	Geo.box(parent,Vector3(0,2.35,0),Vector3(15.8,.9,15.8),material(Color("b0b4a2"),false))
+static func shrine(parent:Node3D):
+	pedestal(parent)
 	var scene=load("res://assets/models/forest/goemon_stone_statue.scn")
 	if scene!=null:
 		var statue=scene.instantiate();statue.name="GoemonStoneStatue";statue.position.y=Profile.PEDESTAL_HEIGHT;statue.rotation.y=PI;parent.add_child(statue)

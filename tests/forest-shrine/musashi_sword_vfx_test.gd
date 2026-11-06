@@ -36,6 +36,6 @@ func run():
  trail.begin_action('fusion_4')
  for i in 20:trail.source_tick(pair,.054)
  check(trail.samples.size()==16,'native sixteen-pair ring capacity')
- check(trail.trail_material.shader.code.contains('blend_add'),'native additive material')
+ check(trail.trail_material.shader==preload('res://assets/rogue/shaders/magic_ink_brush.gdshader') and trail.trail_material.get_shader_parameter('strong_energy'),'shared bright-edged crescent retains native effect timing')
  print('MUSASHI_SWORD_VFX_TEST checks=',checks,' failures=',failures)
  trail.queue_free();await process_frame;quit(1 if failures else 0)

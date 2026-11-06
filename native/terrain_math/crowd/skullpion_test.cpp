@@ -120,7 +120,19 @@ static void sand_beam(){
   assert(c.combat.projectiles_.empty());
  }
 }
+static void castle_aggro(){
+ Crowd c;c.configure(10,10);assert(c.combat.configure(kit()));c.set_navigation(NavigationData{});
+ auto h=c.spawn(1,0,4,{0,0,0},30000,18);auto& u=*c.unit(h);auto& state=c.combat.skullpions_[h];state.wait=0;
+ ExternalTarget shrine;shrine.kind=2;shrine.id=20;shrine.hp=1000;shrine.minimum={60,0,-4};shrine.maximum={68,20,4};shrine.assault_priority=2;
+ auto tower=shrine;tower.id=21;tower.minimum={-4,0,100};tower.maximum={4,20,108};tower.assault_priority=4;
+ auto choose=[&](){state.seek_left=0;c.combat.set_targets({shrine,tower});c.combat.boss_decide(c,u,.01);};
+ choose();assert(u.has_goal&&u.goal.x>40&&u.goal.z==0);
+ tower.minimum.z=20;tower.maximum.z=28;choose();assert(u.goal.x==0&&u.goal.z>0&&u.goal.z<2);
+ tower.hp=0;choose();assert(u.goal.x>40&&u.goal.z==0);
+ tower.hp=1000;tower.targetable=false;choose();assert(u.goal.x>40&&u.goal.z==0);
+}
 static void run(){
+ castle_aggro();
  sand_beam();
  Crowd c;c.configure(20,20);c.parallel_movement_enabled=false;assert(c.combat.configure(kit()));
  NavigationData nav;nav.width=21;nav.spacing=10;nav.origin={-100,0,-100};nav.bounds_min={-100,0,-100};nav.bounds_max={100,0,100};nav.heights.resize(441);nav.covered.resize(441,1);c.set_navigation(nav);

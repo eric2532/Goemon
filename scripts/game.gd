@@ -492,8 +492,9 @@ func setup_inputs():
 func setup_audio():
 	move_audio.prepare(self)
 	for kind in ["fire_cast","fire_impact"]:sounds[kind]=preload("res://scripts/character_audio_bank.gd").sample("res://assets/characters/musashi/audio/"+kind+".wav")
-	for name in ["swing","heavy_swing","dash","hurt","step","spark","sky_leap","sky_stomp"]:
+	for name in ["swing","heavy_swing","dash","hurt","spark","sky_leap","sky_stomp"]:
 		sounds[name]=preload("res://scripts/character_audio_bank.gd").sample("res://audio/"+name+".wav")
+	sounds["step"]=SoundLibrary.GOEMON_FOOTSTEP
 	sounds.merge(SoundLibrary.COMBAT_DEFAULTS,true)
 	sounds["jump"]=SoundLibrary.shared_default_for(0,"jump")
 	sounds["land"]=SoundLibrary.shared_default_for(0,"land")
@@ -606,6 +607,7 @@ func sound(kind: String,volume: float=1.0,enemy_source: bool=false,ticket: Dicti
 	voice_idx+=1
 	last_sound_voice=a
 	a.set_meta("order",voice_idx);a.set_meta("kind",kind)
+	a.set_meta("audio_ticket",ticket)
 	a.stream=playback.stream
 	a.volume_db=linear_to_db(volume*0.55*playback.gain*(0.45 if impact else 1.0))
 	a.pitch_scale=1.0 if playback.recorded or playback.get("original",false) else randf_range(0.92,1.08)
@@ -2140,7 +2142,7 @@ func confirm_ally_impact(victim: Ninja,point: Vector3,direction: Vector3,strengt
 			if not has_method("forest_point_visible") or call("forest_point_visible",point):
 				preload("res://scripts/recovered_goemon_vfx.gd").hit(self,point,strength==2)
 		else:impact_effect(point,direction,strength)
-	if source_character not in [16,17] and not (projectile and source_character in [13,15]):sound("coin_hit" if projectile else "hit",.35,source_character<=0,{},source_character)
+	if source_character not in [16,17] and not (projectile and source_character in [13,15]) and move_audio.ally_nearby(self,point):sound("coin_hit" if projectile else "hit",.35,source_character<=0,{},source_character)
 
 func confirm_impact(victim: Ninja, point: Vector3, direction: Vector3, strength: int, projectile: bool, source_character:int=0,spawn_visuals: bool=true):
 	var duration=[0.035,0.060,0.095][clampi(strength,0,2)]
@@ -2153,7 +2155,7 @@ func confirm_impact(victim: Ninja, point: Vector3, direction: Vector3, strength:
 	# Red pipe chains keep moving through impact; enemy recoil still sells the hit.
 	if not projectile and (rogue_battle_mode or not (player.character_id==1 and player.weapon_slot==1 and player.attack_chain.energized())):
 		var self_pause=duration
-		if has_method("forest_enemy_visible") and player.character_id==1 and player.pipe_contact_phase>=0:self_pause=minf(duration,.045 if player.combo==3 else .025)
+		if has_method("forest_enemy_visible") and player.character_id==1 and (player.pipe_contact_phase>=0 or player.uses_original_goemon_attack()):self_pause=minf(duration,.045 if player.attack_heavy or player.combo==3 else .025)
 		player.impact_pause=maxf(player.impact_pause,self_pause)
 	hit_stop=maxf(hit_stop,duration)
 	camera_rig.kick(direction,[0.035,0.065,0.12][clampi(strength,0,2)])

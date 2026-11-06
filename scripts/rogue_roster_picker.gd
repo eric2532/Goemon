@@ -81,7 +81,7 @@ func refresh_type(node: Node,readability: float):
 func fighter_card(id: int)->Button:
 	var data=Roster.data(id) if id>=3 else {"id":"goemon" if id==1 else "edo","name":"Goemon" if id==1 else "Edo","color":"#edcf87" if id==1 else "#ff956f","description":"Pipe master. Sweeping combos, heavy strikes and sky attacks." if id==1 else "Firecaster. Fireballs, blue surge and a meteor barrage."}
 	if id==Roster.SONIC_ID:data={"id":"sonic","name":"Sonic","color":"#559dff","description":"Space / LMB: jump; press again in the air for Homing Attack. Hold RMB / E and release for Spin Dash. R: aerial Homing Attack. C: uncurl. Q: fighters."}
-	if id==Roster.MUSASHI_ID:data={"id":"musashi","name":"Musashi","color":"#bba4f2","description":"Fusion, Lumina and five original enemy skills: D-Kick, Fence, Homing, Grenade and 3-Way. Hold R to guard."}
+	if id==Roster.MUSASHI_ID:data={"id":"musashi","name":"Musashi","color":"#bba4f2","description":"Fusion and Lumina with Crosswise Cut (X Slash), Tenderize and Desperado. Original enemy skills and R to guard."}
 	if id==Roster.SASUKE_ID:data={"id":"sasuke","name":"Sasuke","color":"#d7d4ac","description":"Mechanical ninja. Gold kunai combo, firecracker bombs, freezing kunai and charged Hail Beam, hair attacks and Super Jump. All equipment unlocked."}
 	if id==Roster.YAE_ID:data={"id":"yae","name":"Yae","color":"#b4e4c3","description":"Secret ninja agent. Tier 3 gold katana combo, Sword Shield and bazooka with a charged lock-on shot. All combat equipment unlocked."}
 	if id==Roster.MASTER_CHIEF_ID:data={"id":"master-chief","name":"Master Chief","color":"#a6d9b4","description":"Spartan-117. First-person combat. 1: Rocket launcher, 2: Pistol, 3: Shotgun, 4: Assault rifle, 5: Energy sword. Pistol headshots kill in one hit; rifle headshots deal double damage. LMB fires guns or swings the sword. Infinite ammunition. Mouse to aim. Q returns to the fighter gallery."}
@@ -109,7 +109,9 @@ func fighter_card(id: int)->Button:
 	if Roster.is_enemy(id):
 		for line in ["1–5  Wind · Water · Fire · Earth · Sky" if id==30 else "LMB  Tail sweep" if id==27 else "LMB  Original attack","LMB Three-cut combo · RMB Sword rush" if id==30 else "RMB  Jump stomp" if id==27 else "Recovered enemy fighter","1–5  Special skills · Q to equip","C  Evade · Space  Jump"]:contents.add_child(label(line,13))
 	elif Roster.WARCRAFT.has(id):
-		for line in (["LMB Sword combo · RMB Critical strike","1 Bladestorm · Q Shared skills","Space Jump · C Evade"] if id==31 else ["LMB Glaives / Demon bolt","RMB / 1 Metamorphosis · Q Shared skills","Space Jump / Meta Fly · Shift Boost · C Evade"]):contents.add_child(label(line,14))
+		for line in (["LMB Sword combo · RMB Critical strike","1 Bladestorm · Q Shared skills","Space Jump · C Evade"] if id==31 else ["LMB Hammer and axe · Passive Bash","1 Storm Bolt · 2 Thunder Clap · 3 Avatar","Space Jump · C Evade · Q Shared skills"] if id==33 else ["LMB Glaives / Demon bolt","RMB / 1 Metamorphosis · Q Shared skills","Space Jump / Meta Fly · Shift Boost · C Evade"]):contents.add_child(label(line,14))
+	elif id==Roster.KAZI_ID:
+		for line in ["Blue Cross Gate #102488","LMB / RMB  Sword attack","Shift Sprint · Space Jump · C Evade","Q Shared skills"]:contents.add_child(label(line,14))
 	elif id==Roster.KOJIRO_ID:
 		for line in ["LMB  Cut → Turn → Flip","1 Homing · 2 Wind","RMB / 3  Sword wave","C  Evade · Space  Jump"]:contents.add_child(label(line,14))
 	elif id==Roster.SONIC_ID:
@@ -126,7 +128,7 @@ func fighter_card(id: int)->Button:
 		for line in ["LMB  Gold kunai · RMB  Bomb","1 / Hold  Ice kunai / Hail Beam","3 Up hair · 4 Forward hair · 5 Bomb","2  Super Jump · C  Evade"]:contents.add_child(label(line,14))
 	elif id==Roster.MUSASHI_ID:
 		contents.add_child(label("Sword fighter",13,Color("aac3b6")))
-		for line in ["LMB Fusion · RMB Lumina · 1 Spin · 2 Mighty","3 D-Kick · 4 Grenade · Hold 5 3-Way","More abilities in Skills & Jump","R Guard · Space Double jump · Q Fighters"]:contents.add_child(label(line,14))
+		for line in ["LMB Fusion · RMB Lumina","1 X Slash · 2 Tenderize · 3 Desperado","One press performs the full combo","4 Lumina Rotation · 5 Mighty Strike","More abilities in Skills & Jump","R Guard · Space Double jump · Q Fighters"]:contents.add_child(label(line,14))
 	elif id in [Roster.ED_ID,Roster.BEN_ID]:
 		contents.add_child(label("Beam caster" if id==14 else "Flying polearm fighter",13,Color("aac3b6")))
 		for line in (["LMB / Hold  Beam blast","RMB  Bouncing fireballs","1 Smoke · 2 Burst · 3 Fireballs · 4 Beam","C  Evade","Space  Jump","Shift  Sprint · Q  Fighters"] if id==14 else ["LMB / Hold  Guandao combo","1 Stars / Axes · 2 Bombs · 3 Axes","Hold Space  Fly · Release  Descend","C  Evade · Shift  Boost"]):contents.add_child(label(line,14))

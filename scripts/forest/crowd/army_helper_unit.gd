@@ -20,13 +20,13 @@ func summon(_target,point:Vector3,_wait:float):
  if handle==0:state="idle";hp=0;return false
  runtime.allies[gate_id]=self;runtime.register_actor_facade(self)
  guard_post=point;position=point;age=0;state="prepared" if game.model.phase=="preparing" else "acting"
- runtime.set_guard(handle,point,director.GUARD_RADIUS);director.smoke_at(point)
+ runtime.set_guard(handle,point,director.guard_radius());director.smoke_at(point)
 func park():
  if runtime.valid(handle):runtime.despawn(handle)
  handle=0;state="idle";dead=false;guard_post=Vector3.INF;hp=0;director.remove_taunt(self)
 func assign_guard_post(point:Vector3):
  guard_post=point;position=point
- if runtime.valid(handle):runtime.set_pose(handle,point,rotation.y);runtime.set_guard(handle,point,director.GUARD_RADIUS)
+ if runtime.valid(handle):runtime.set_pose(handle,point,rotation.y);runtime.set_guard(handle,point,director.guard_radius())
 func rest_between_waves():
  if dead or not runtime.valid(handle):return
  state="prepared";age=0

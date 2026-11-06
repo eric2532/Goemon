@@ -145,6 +145,9 @@ func player_hunt():
  c.Actions.lance_impact(c,{"ticket":ticket,"rangeScale":c.range_scale()})
  check(c.projectiles.size()==1 and c.projectiles[0].kind=="dragon" and c.player.pulses.size()==2,"Real landing releases one hunting dragon plus the existing three shockwaves")
  var shot=c.projectiles[0];var node=shot.mesh
+ var dive=c.fx.dragon_descent(game.player,c.player.angle,c.range_scale(),true)
+ check(is_equal_approx(node.scale.x,dive.global_basis.get_scale().x),"The hunting dragon matches the diving dragon's full size")
+ c.fx.finish_dragon_descent(dive)
  var hp=[]
  for id in foes:hp.append(game.army_runtime.unit_state(game.army_runtime.handles[id]).hp)
  for frame in 170:

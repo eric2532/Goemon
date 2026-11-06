@@ -2,7 +2,8 @@ extends RefCounted
 ## Sparse per-character overrides; the old prototype section remains the baseline.
 const Roster=preload("res://scripts/rogue_roster.gd")
 static var _native_scales:Dictionary={}
-const MELEE_IDS=[1,3,4,5,7,8,9,11,12,13,15,16,17,28,31,32]
+static var _profile_keys:Dictionary={}
+const MELEE_IDS=[1,3,4,5,7,8,9,11,12,13,15,16,17,28,31,32,33,34]
 const MELEE_ROWS=[["melee_reach","Melee reach ×",.5,10,.05]]
 const COMMON_ROWS=[
 	["model_scale","Model size ×",.1,10,.1],
@@ -17,7 +18,10 @@ const COMMON_ROWS=[
 ]
 
 static func key_for(id: int)->String:
-	return "goemon" if id==1 else ("edo" if id==2 else Roster.class_id(id))
+	if id==1:return "goemon"
+	if id==2:return "edo"
+	if not _profile_keys.has(id):_profile_keys[id]=Roster.class_id(id)
+	return _profile_keys[id]
 
 static func name_for(id: int)->String:
 	return "Goemon" if id==1 else ("Edo" if id==2 else Roster.name_for(id))
@@ -25,7 +29,7 @@ static func name_for(id: int)->String:
 static func special_rows(id: int)->Array:
 	if id==1:return MELEE_ROWS+[["pipe_range","Pipe reach (m)",1.5,12,.25]]+PrototypeTuning.COIN_ROWS
 	if id==2:return PrototypeTuning.BEAM_ROWS
-	if id in [31,32]:return [["attack_speed","Attack speed ×",.1,10,.1]]+MELEE_ROWS
+	if id in [31,32,33]:return [["attack_speed","Attack speed ×",.1,10,.1]]+MELEE_ROWS
 	return MELEE_ROWS if id in MELEE_IDS or Roster.is_enemy(id) else []
 
 static func sanitized(values: Dictionary,id: int)->Dictionary:
@@ -46,8 +50,8 @@ static func load_profiles(values: Dictionary)->Dictionary:
 static func value(baseline: Dictionary,profiles: Dictionary,id: int,key: String)->float:
 	var overrides: Dictionary=profiles.get(key_for(id),{})
 	if overrides.has(key):return float(overrides[key])
-	if key=="model_scale":return 6.0 if id in [31,32] else 1.0
-	if key=="attack_speed":return 3.0 if id in [31,32] else 1.0
+	if key=="model_scale":return 6.0 if id in [31,32,33] else 1.0
+	if key=="attack_speed":return 3.0 if id in [31,32,33] else 1.0
 	if id==29 and key=="max_hp":return preload("res://scripts/forest/dark_lumina_kit.gd").HEALTH
 	if key in ["melee_reach","jump_height"]:return 1.0
 	if key=="critical_chance":return clampf(float(baseline.get(key,5.0)),0,100)

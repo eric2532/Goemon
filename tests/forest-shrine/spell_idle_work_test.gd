@@ -16,6 +16,7 @@ func run():
  check(p.active_ability.is_attacking(),"Playable Kojiro still starts his own automatic primary")
  var trail=Trail.new();root.add_child(trail)
  for i in 5:trail.advance(1.0/60,PackedVector3Array([Vector3(i,0,0),Vector3(i,1,0)]),true,false)
+ trail.flush_mesh()
  check(trail.mesh!=null and trail.samples.size()>1,"Visible blade motion produces its ribbon")
  trail.layers=0
  var before=Time.get_ticks_usec()
@@ -24,6 +25,7 @@ func run():
  check(trail.mesh==null and trail.samples.is_empty(),"Hidden donor trails clear history and allocate no invisible ribbon")
  trail.layers=1
  for i in 3:trail.advance(1.0/60,PackedVector3Array([Vector3(i,0,0),Vector3(i,1,0)]),true,false)
+ trail.flush_mesh()
  check(trail.mesh!=null and trail.samples.size()==3,"Revealed trails restart without stale distant points")
  trail.queue_free();game.queue_free();await frames(3)
  if FileAccess.file_exists(cfg):DirAccess.remove_absolute(ProjectSettings.globalize_path(cfg))

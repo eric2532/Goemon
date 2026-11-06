@@ -38,7 +38,7 @@ func _ready():
  ring=MeshInstance3D.new();ring.mesh=circle;ring.material_override=material(Color(1,.25,.06,.32));ring.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;ring.hide();add_child(ring)
  effects=preload("res://scripts/forest/skullpion_effects.gd").new();add_child(effects)
  sand=effects.sand;drill=effects.drill
- for sid in SOUND_NAMES:sounds[sid]=SoundLibrary.shared_default_for(27,"land") if sid==0x560 else load("res://assets/characters/recovered_skullpion/audio/"+SOUND_NAMES[sid]+".wav")
+ for sid in SOUND_NAMES:sounds[sid]=SoundLibrary.original_for(27,"land") if sid==0x560 else load("res://assets/characters/recovered_skullpion/audio/"+SOUND_NAMES[sid]+".wav")
  # Reuse the original blast stream for held casts without loading audio in combat.
  sounds[0x55c]=sounds[0x55c].duplicate()
  sounds[0x55c].loop_mode=AudioStreamWAV.LOOP_FORWARD

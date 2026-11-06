@@ -36,6 +36,8 @@ func run():
 	game.player.smoke_mode=true;game.tuning.freeze_ai=true;game.tuning.critical_chance=0
 	game.character_tuning={};game.tuning.invincible=true
 	await frames(10)
+	await frames(ceili(p.model.animation_player.get_animation(p.model.LAND).length*Engine.physics_ticks_per_second)+2)
+	check(p.is_on_floor(),"Movement fixture settles through the recovered landing pose")
 	var before=p.position
 	p.smoke_move=Vector2(1,0);await frames(20);p.smoke_move=Vector2.ZERO
 	check(p.position.distance_to(before)>.4,"Musashi moves through the real character controller")
@@ -49,12 +51,12 @@ func run():
 	game.player.set_physics_process(false);p.velocity=Vector3.ZERO
 	p.position=Vector3(0,.05,18);p.facing=Vector3.FORWARD;p.model.rotation=Vector3.ZERO
 	game.camera_rig.yaw=0
-	game.model.waves.spawn_one()
-	var target=game.model.enemies.values().back()
-	target.pos=p.position+Vector3.FORWARD*1.3;target.hp=1000;target.max_hp=1000;target.stun=100
+	var target=game.model.waves.spawn_enemy(0,p.position+Vector3.FORWARD*1.3)
+	target.hp=1000;target.max_hp=1000;target.stun=100
 	game.model.update_vision(p.position);game.sync_enemies()
 	var enemy=game.actors[target.id]
 	var combat=p.active_ability
+	check(enemy.hp==1000,"Contact fixture imports the requested native HP before attacking")
 	combat.cancel();await button(true);await button(false)
 	check(combat.is_attacking(),"Left click begins a real sword attack")
 	combat.tick(.04,false)
