@@ -1,0 +1,102 @@
+{
+  "105": {
+    "file": "res://assets/characters/crossgate/weapons/audio/cgply02a.wav",
+    "sha256": "aff7583987928a456e7aec09866b990c667addb74b4321ae8838dc4ed1ae49d9"
+  },
+  "135": {
+    "file": "res://assets/characters/crossgate/weapons/audio/cgply12a.wav",
+    "sha256": "6746f925d16eaaea11c9ff834a31b3e55e1fa9521d5d638c684721f08f2f2b3f"
+  },
+  "113": {
+    "file": "res://assets/characters/crossgate/weapons/audio/cgply06a1.wav",
+    "sha256": "0bc101973706cc05d3f4d9dd253c34bde668e991aa9b555f094c4dd2b1610a42"
+  },
+  "115": {
+    "file": "res://assets/characters/crossgate/weapons/audio/cgply06a2.wav",
+    "sha256": "b2cca14878e0be8ee336366ae3b4594ece49af23d332b315e4a94691c36c766a"
+  },
+  "101": {
+    "file": "res://assets/audio/crossgate/selected_cast/cgply00a.wav",
+    "sha256": "f03e15fa597dc8191bbc61b308de81d5e90cc2502d311fd3f52edf3ea4a2e6de"
+  },
+  "131": {
+    "file": "res://assets/audio/crossgate/kazi/cgply10a.wav",
+    "sha256": "732704efc243e1719059d2690958dda57218831799407f2b3d0407f1806d11f6"
+  },
+  "109": {
+    "file": "res://assets/characters/crossgate/weapons/audio/cgply04a.wav",
+    "sha256": "b9aaacb4dd15765eb6e9933eaddd7e97cb77d9aafb67b616c009e9b53c0258d9"
+  },
+  "139": {
+    "file": "res://assets/audio/crossgate/selected_cast/cgply14a.wav",
+    "sha256": "57db49f71ba86d73f71fce54d87fb34fce2446ef67c50d13fd54461f23e07a4d"
+  },
+  "108": {
+    "file": "res://assets/audio/crossgate/shin/cgply03b.wav",
+    "sha256": "c0e1a1e5a610fe2fd8792eb43a9df9e4d2166ad9b892f70e3e0f00f581a40de2"
+  },
+  "138": {
+    "file": "res://assets/audio/crossgate/shin/cgply13b.wav",
+    "sha256": "1916ade510301f0a84f9bdd21ee6af2c8c97f6f90b828fce8a0955432f85f1ff"
+  },
+  "106": {
+    "file": "res://assets/audio/crossgate/bog/cgply02b.wav",
+    "sha256": "700aa13b9eadf40b935c5ec3188673aa7b8ef43c466c35c8d8d08e064452dc1e"
+  },
+  "136": {
+    "file": "res://assets/audio/crossgate/bog/cgply12b.wav",
+    "sha256": "018e233ed5f2b005fb84cd8afc656a1f7735a23b5ee13804337b443269c651c8"
+  },
+  "103": {
+    "file": "res://assets/characters/crossgate/weapons/audio/cgply01a.wav",
+    "sha256": "3cdb3c56c1cb5d52057fbc50187ef903bf77f56e8eecb0763b1faddeab415d10"
+  },
+  "133": {
+    "file": "res://assets/characters/crossgate/weapons/audio/cgply11a.wav",
+    "sha256": "395f29254474df1b967281b73d8494fc623a1afad5df1a6131a23bcc515cb520"
+  },
+  "134": {
+    "file": "res://assets/characters/crossgate/weapons/audio/cgply11b.wav",
+    "sha256": "388b3cdd3eea279d46b552427b37deb3956ce4dda8c3ade92aa7f08f252580c1"
+  },
+  "114": {
+    "file": "res://assets/audio/crossgate/lancelot/cgply06b1.wav",
+    "sha256": "73c6cd15cdf51bfc99809ae87ee6be02b6a80a7e20cb9af5070d61e006f9c8d1"
+  },
+  "116": {
+    "file": "res://assets/audio/crossgate/lancelot/cgply06b2.wav",
+    "sha256": "8ca384351e5b2ff0542d9f294a089ba0f99ff49223d41e167a19ecbfc68427dc"
+  },
+  "110": {
+    "file": "res://assets/audio/crossgate/shin/cgply04b.wav",
+    "sha256": "00aa2fcdc80ad42c8369e74932fdb0cc40d4c467e46e8222dcac54fc6d82372d"
+  },
+  "140": {
+    "file": "res://assets/audio/crossgate/shin/cgply14b.wav",
+    "sha256": "b537278ba3d4865e737667e60ac8cda96a7da097dd83fe8cbb9d1835278318e9"
+  },
+  "104": {
+    "file": "res://assets/audio/crossgate/shin/cgply01b.wav",
+    "sha256": "bd0fbef5ea2c1df8e882dab4d6ba69f3f00368c62a52e6ca5adeb0aaa4a12c89"
+  },
+  "117": {
+    "file": "res://assets/audio/crossgate/selected_cast/cgply07a.wav",
+    "sha256": "430952d67eb965dc5af6b1d1a3b32337508fe4f5bc3a1b9e6d0f1587cb51df9a"
+  },
+  "137": {
+    "file": "res://assets/characters/crossgate/weapons/audio/cgply13a.wav",
+    "sha256": "33ec1eb504bda79d63673bed10b0bd9ed2af431622e63fa76b67aaa4863777aa"
+  },
+  "102": {
+    "file": "res://assets/audio/crossgate/shin/cgply00b.wav",
+    "sha256": "113143c400545d1c5fcc3753f98cac148a313cb0b0123536e8341f12b664a6c3"
+  },
+  "107": {
+    "file": "res://assets/characters/crossgate/weapons/audio/cgply03a.wav",
+    "sha256": "622e1f757eb261040456991828a34fddced6d3b48c966b4cea272278974966fd"
+  },
+  "132": {
+    "file": "res://assets/audio/crossgate/kazi/cgply10b.wav",
+    "sha256": "50d6db3e270e7c737ee37ea827580b965c9e46c790a03d942808c1ff9027a09e"
+  }
+}

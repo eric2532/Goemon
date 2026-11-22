@@ -1,0 +1,4983 @@
+{
+  "34": {
+    "102488": {
+      "sword": {
+        "native": 0
+      }
+    },
+    "100028": {
+      "sword": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/original-2399/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/original-2400/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/original-2401/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/original-2403/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/original-2404/"
+      }
+    },
+    "100034": {
+      "sword": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/original-2405/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/original-2406/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/original-2407/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/original-2409/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/original-2410/"
+      }
+    },
+    "100040": {
+      "sword": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/original-2411/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/original-2412/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/original-2413/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/original-2415/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/original-2416/"
+      }
+    },
+    "100046": {
+      "sword": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/original-2417/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/original-2418/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/original-2419/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/original-2421/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/original-2422/"
+      }
+    },
+    "100049": {
+      "sword": {
+        "native": 0
+      }
+    },
+    "100891": {
+      "sword": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-837/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-840/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/joy-816/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-814/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-933/"
+      }
+    },
+    "100918": {
+      "sword": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-782/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-783/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/joy-784/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-786/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-787/"
+      }
+    },
+    "100969": {
+      "sword": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/v3-599/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/v3-402/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/v3-586/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/v3-628/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/v3-385/"
+      }
+    },
+    "105564": {
+      "sword": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-424/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-425/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-426/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-428/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-429/"
+      }
+    },
+    "105570": {
+      "sword": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-430/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-431/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-432/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-434/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-435/"
+      }
+    },
+    "105608": {
+      "sword": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-418/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-419/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-420/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-422/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-423/"
+      }
+    },
+    "109146": {
+      "sword": {
+        "native": 0
+      }
+    },
+    "109890": {
+      "sword": {
+        "native": 0
+      }
+    },
+    "109891": {
+      "sword": {
+        "native": 0
+      }
+    }
+  },
+  "35": {
+    "0": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-830/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-951/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/joy-841/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-851/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-902/"
+      }
+    },
+    "108921": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "109897": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "109903": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "109909": {
+      "staff": {
+        "native": 0
+      }
+    },
+    "100250": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100256": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100262": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100268": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105700": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105706": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105943": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105949": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "119255": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "120274": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100656": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100737": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100743": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105250": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105256": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105262": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105268": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105718": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105754": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105766": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "120256": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "120262": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "120268": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100650": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105760": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105603": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "unarmed": {
+        "native": 3
+      },
+      "sword": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "111691": {
+      "unarmed": {
+        "native": 0
+      }
+    }
+  },
+  "36": {
+    "0": {
+      "sword": {
+        "native": 0
+      },
+      "kunai": {
+        "native": 1
+      },
+      "unarmed": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-596/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-597/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-600/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-601/"
+      }
+    }
+  },
+  "37": {
+    "100050": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/original-2423/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/original-2424/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/original-2427/"
+      }
+    },
+    "100056": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/original-2429/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/original-2430/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/original-2433/"
+      }
+    },
+    "100062": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/original-2435/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/original-2436/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/original-2439/"
+      }
+    },
+    "100068": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/original-2441/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/original-2442/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/original-2445/"
+      }
+    },
+    "100175": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-818/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-925/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-845/"
+      }
+    },
+    "100181": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-943/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-820/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-821/"
+      }
+    },
+    "100187": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-931/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-934/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-961/"
+      }
+    },
+    "100193": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/puk2-363/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk2-364/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/puk2-367/"
+      }
+    },
+    "100200": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-832/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-842/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-835/"
+      }
+    },
+    "100206": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-910/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-849/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-848/"
+      }
+    },
+    "100212": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-819/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-917/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-908/"
+      }
+    },
+    "100450": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-752/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-753/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-756/"
+      }
+    },
+    "100978": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/v3-398/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/v3-630/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/v3-494/"
+      }
+    },
+    "105573": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-436/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-437/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-440/"
+      }
+    },
+    "105610": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-355/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-356/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-359/"
+      }
+    },
+    "105616": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-361/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-362/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-365/"
+      }
+    },
+    "105622": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-367/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-368/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-371/"
+      }
+    },
+    "105628": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-373/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-374/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-377/"
+      }
+    },
+    "105634": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-379/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-380/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-383/"
+      }
+    },
+    "105737": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-482/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-485/"
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-481/"
+      }
+    },
+    "105742": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-487/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-488/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-491/"
+      }
+    },
+    "105748": {
+      "unarmed": {
+        "native": 0
+      },
+      "sword": {
+        "native": 1
+      },
+      "polearm": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-493/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-494/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-497/"
+      }
+    },
+    "100462": {
+      "sword": {
+        "native": 0
+      }
+    },
+    "108151": {
+      "sword": {
+        "native": 0
+      }
+    },
+    "900050": {
+      "sword": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/shin/900050/axe/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/shin/900050/polearm/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/shin/900050/staff/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/shin/900050/bow/"
+      },
+      "kunai": {
+        "root": "res://assets/characters/crossgate/shin/900050/kunai/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/shin/900050/boomerang/"
+      }
+    }
+  },
+  "38": {
+    "106707": {
+      "sword": {
+        "native": 0
+      }
+    },
+    "109140": {
+      "sword": {
+        "native": 0
+      }
+    },
+    "111624": {
+      "sword": {
+        "native": 0
+      }
+    },
+    "111625": {
+      "sword": {
+        "native": 0
+      }
+    },
+    "118986": {
+      "unarmed": {
+        "native": 0
+      }
+    },
+    "118987": {
+      "sword": {
+        "native": 0
+      }
+    },
+    "118993": {
+      "sword": {
+        "native": 0
+      }
+    },
+    "108313": {
+      "polearm": {
+        "native": 0
+      }
+    },
+    "120440": {
+      "sword": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-658/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-659/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-661/",
+        "native": 1
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-662/"
+      }
+    },
+    "100055": {
+      "polearm": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/original-2423/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/original-2424/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/original-2425/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/original-2426/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/original-2427/"
+      }
+    },
+    "100053": {
+      "sword": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/original-2423/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/original-2424/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/original-2425/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/original-2427/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/original-2428/"
+      }
+    },
+    "100882": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105050": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105056": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105062": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105068": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "120346": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "120352": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "106756": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "120418": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "sword": {
+        "native": 2
+      },
+      "staff": {
+        "native": 3
+      },
+      "polearm": {
+        "native": 4
+      }
+    },
+    "100299": {
+      "sword": {
+        "native": 0
+      }
+    },
+    "108312": {
+      "polearm": {
+        "native": 0
+      }
+    },
+    "120383": {
+      "unarmed": {
+        "native": 0
+      }
+    },
+    "120382": {
+      "unarmed": {
+        "native": 0
+      }
+    },
+    "120445": {
+      "sword": {
+        "native": 0
+      }
+    }
+  },
+  "39": {
+    "105178": {
+      "sword": {
+        "native": 0
+      },
+      "kunai": {
+        "native": 1
+      },
+      "unarmed": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-301/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-302/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-305/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-306/"
+      }
+    },
+    "105486": {
+      "sword": {
+        "native": 0
+      },
+      "kunai": {
+        "native": 1
+      },
+      "unarmed": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-289/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-290/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-293/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-294/"
+      }
+    },
+    "105492": {
+      "sword": {
+        "native": 0
+      },
+      "kunai": {
+        "native": 1
+      },
+      "unarmed": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-295/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-296/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-299/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-300/"
+      }
+    },
+    "105696": {
+      "sword": {
+        "native": 0
+      },
+      "kunai": {
+        "native": 1
+      },
+      "unarmed": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-439/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-440/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-443/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-444/"
+      }
+    },
+    "106052": {
+      "sword": {
+        "native": 0
+      },
+      "kunai": {
+        "native": 1
+      },
+      "unarmed": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-384/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-385/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-388/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-389/"
+      }
+    },
+    "106058": {
+      "sword": {
+        "native": 0
+      },
+      "kunai": {
+        "native": 1
+      },
+      "unarmed": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-390/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-391/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-394/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-395/"
+      }
+    },
+    "106064": {
+      "sword": {
+        "native": 0
+      },
+      "kunai": {
+        "native": 1
+      },
+      "unarmed": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-396/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-397/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-400/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-401/"
+      }
+    },
+    "106070": {
+      "sword": {
+        "native": 0
+      },
+      "kunai": {
+        "native": 1
+      },
+      "unarmed": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-402/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-403/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-406/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-407/"
+      }
+    },
+    "106182": {
+      "sword": {
+        "native": 0
+      },
+      "kunai": {
+        "native": 1
+      },
+      "unarmed": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-876/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-877/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-880/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-881/"
+      }
+    },
+    "106188": {
+      "sword": {
+        "native": 0
+      },
+      "kunai": {
+        "native": 1
+      },
+      "unarmed": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-882/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-883/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-886/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-887/"
+      }
+    },
+    "106477": {
+      "sword": {
+        "native": 0
+      },
+      "kunai": {
+        "native": 1
+      },
+      "unarmed": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-674/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-675/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-678/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-679/"
+      }
+    },
+    "119308": {
+      "sword": {
+        "native": 0
+      },
+      "kunai": {
+        "native": 1
+      },
+      "unarmed": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1087/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1088/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1188/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1189/"
+      }
+    },
+    "120234": {
+      "sword": {
+        "native": 0
+      },
+      "kunai": {
+        "native": 1
+      },
+      "unarmed": {
+        "native": 2
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1087/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1088/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1188/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1189/"
+      }
+    }
+  },
+  "40": {
+    "100625": {
+      "axe": {
+        "native": 0
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-621/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/joy-622/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-623/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-624/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-625/"
+      }
+    },
+    "100942": {
+      "axe": {
+        "native": 0
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/v3-394/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/v3-429/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/v3-441/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/v3-437/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/v3-418/"
+      }
+    }
+  },
+  "42": {
+    "100224": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-672/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-673/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-674/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-675/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-677/"
+      }
+    },
+    "100230": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-678/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-679/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-680/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-681/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-683/"
+      }
+    },
+    "100774": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-795/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-796/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-797/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-798/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-800/"
+      }
+    },
+    "105430": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-235/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-240/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-236/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-237/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-239/"
+      }
+    },
+    "105824": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-469/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-470/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-471/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-472/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-474/"
+      }
+    },
+    "105830": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-475/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-476/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-477/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-478/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-480/"
+      }
+    },
+    "105837": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-458/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-530/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-531/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-532/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-534/"
+      }
+    },
+    "106275": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-528/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-529/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/ex-530/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-531/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-533/"
+      }
+    },
+    "106281": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-534/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-535/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/ex-536/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-537/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-539/"
+      }
+    },
+    "106287": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-540/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-541/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/ex-542/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-543/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-545/"
+      }
+    },
+    "106293": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-546/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-547/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/ex-548/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-549/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-551/"
+      }
+    },
+    "106625": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-710/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-711/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/joy-712/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-713/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-715/"
+      }
+    },
+    "111669": {
+      "staff": {
+        "native": 0
+      }
+    },
+    "120322": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/v3-953/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/v3-954/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/v3-955/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/v3-956/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/v3-958/"
+      }
+    },
+    "120387": {
+      "staff": {
+        "native": 0
+      }
+    },
+    "120388": {
+      "staff": {
+        "native": 0
+      }
+    },
+    "120484": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-778/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-779/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-780/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-781/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-783/"
+      }
+    },
+    "120490": {
+      "staff": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-784/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-785/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-786/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-787/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-789/"
+      }
+    },
+    "106706": {
+      "staff": {
+        "native": 0
+      }
+    },
+    "120389": {
+      "sword": {
+        "native": 0
+      }
+    }
+  },
+  "43": {
+    "105206": {
+      "bow": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-331/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-333/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-334/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-335/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-336/"
+      }
+    },
+    "105212": {
+      "bow": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-337/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-339/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-340/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-341/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-342/"
+      }
+    },
+    "105907": {
+      "bow": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-97/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-99/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-100/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-101/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-102/"
+      }
+    },
+    "106125": {
+      "bow": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-456/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/ex-458/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-459/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-460/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-461/"
+      }
+    },
+    "106131": {
+      "bow": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-462/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/ex-464/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-465/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-466/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-467/"
+      }
+    },
+    "106137": {
+      "bow": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-468/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/ex-470/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-471/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-472/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-473/"
+      }
+    },
+    "106143": {
+      "bow": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-474/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/ex-476/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-477/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-478/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-479/"
+      }
+    },
+    "106550": {
+      "bow": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-692/"
+      },
+      "unarmed": {
+        "root": "res://assets/characters/crossgate/weapons/joy-694/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-695/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-696/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-697/"
+      }
+    }
+  },
+  "44": {
+    "100731": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/puk2-1274/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk2-1275/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/puk2-1277/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/puk2-1278/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/puk2-1279/"
+      }
+    },
+    "105194": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-319/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-320/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-322/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-323/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-324/"
+      }
+    },
+    "105800": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-445/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-446/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-448/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-449/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-450/"
+      }
+    },
+    "105806": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-451/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-452/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-454/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-455/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-456/"
+      }
+    },
+    "106025": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-360/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-361/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-363/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-364/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-365/"
+      }
+    },
+    "106031": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-366/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-367/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-369/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-370/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-371/"
+      }
+    },
+    "106037": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-372/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-373/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-375/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-376/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-377/"
+      }
+    },
+    "106043": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-378/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-379/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-381/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-382/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-383/"
+      }
+    },
+    "106228": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-900/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-901/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-903/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-904/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-905/"
+      }
+    },
+    "106450": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-668/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-669/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-671/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-672/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-673/"
+      }
+    },
+    "106762": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/v3-504/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/v3-615/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/v3-417/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/v3-584/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/v3-450/"
+      }
+    },
+    "119300": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-116/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-117/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-119/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-120/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-121/"
+      }
+    },
+    "120244": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1101/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1102/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1104/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1105/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1106/"
+      }
+    },
+    "120250": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1107/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1108/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1110/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1111/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1112/"
+      }
+    },
+    "120466": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-760/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-761/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-763/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-764/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-765/"
+      }
+    },
+    "120472": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-766/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-767/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-769/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-770/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-771/"
+      }
+    },
+    "120478": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-772/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-773/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-775/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-776/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ch1-777/"
+      }
+    }
+  },
+  "45": {
+    "100531": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-624/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-625/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-627/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-628/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-629/"
+      }
+    },
+    "100537": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-630/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-631/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-633/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-634/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-635/"
+      }
+    },
+    "100543": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-636/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-637/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-639/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-640/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-641/"
+      }
+    },
+    "100556": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-642/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-643/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-645/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-646/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-647/"
+      }
+    },
+    "105200": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-325/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-326/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-328/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-329/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-330/"
+      }
+    },
+    "106234": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-906/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-907/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-918/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-910/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-911/"
+      }
+    },
+    "106375": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-624/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-625/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-627/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-628/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-629/"
+      }
+    },
+    "106381": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-630/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-631/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-633/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-634/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-635/"
+      }
+    },
+    "106387": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-636/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-637/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-639/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-640/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-641/"
+      }
+    },
+    "106393": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-642/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-643/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-645/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-646/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-647/"
+      }
+    },
+    "106725": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-734/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-735/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-737/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-738/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-739/"
+      }
+    }
+  },
+  "46": {
+    "100350": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/original-2639/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/original-2640/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/original-2642/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/original-2643/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/original-2644/"
+      }
+    },
+    "100356": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/original-2645/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/original-2646/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/original-2648/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/original-2649/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/original-2650/"
+      }
+    },
+    "100362": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/original-2651/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/original-2652/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/original-2654/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/original-2655/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/original-2656/"
+      }
+    },
+    "100368": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/original-2657/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/original-2658/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/original-2660/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/original-2661/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/original-2662/"
+      }
+    },
+    "100792": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-813/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-814/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-816/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-817/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-818/"
+      }
+    },
+    "105350": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-264/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-265/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-267/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-268/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-269/"
+      }
+    },
+    "105356": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-270/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-271/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-273/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-274/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-275/"
+      }
+    },
+    "105362": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-276/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-277/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-279/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-280/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-281/"
+      }
+    },
+    "105368": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-282/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-283/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-285/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-286/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-287/"
+      }
+    },
+    "105585": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-454/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-455/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-457/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-458/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-459/"
+      }
+    },
+    "105901": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-91/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-92/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-94/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-95/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-ex-96/"
+      }
+    },
+    "120172": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1026/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1027/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1029/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1030/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1190/"
+      }
+    },
+    "120178": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1191/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1192/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1194/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1195/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1196/"
+      }
+    },
+    "109912": {
+      "staff": {
+        "native": 0
+      }
+    },
+    "100700": {
+      "axe": {
+        "native": 0
+      },
+      "bow": {
+        "native": 1
+      },
+      "unarmed": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100798": {
+      "axe": {
+        "native": 0
+      },
+      "bow": {
+        "native": 1
+      },
+      "unarmed": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "120428": {
+      "axe": {
+        "native": 0
+      },
+      "bow": {
+        "native": 1
+      },
+      "sword": {
+        "native": 2
+      },
+      "staff": {
+        "native": 3
+      },
+      "polearm": {
+        "native": 4
+      }
+    }
+  },
+  "47": {
+    "100924": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/v3-440/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/v3-461/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/v3-409/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/v3-405/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/v3-486/"
+      }
+    },
+    "100930": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/v3-406/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/v3-407/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/v3-449/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/v3-511/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/v3-550/"
+      }
+    },
+    "105688": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-433/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-434/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-436/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-437/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/puk3-438/"
+      }
+    },
+    "106000": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-336/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-337/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-339/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-340/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-341/"
+      }
+    },
+    "106006": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-342/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-343/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-345/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-346/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-347/"
+      }
+    },
+    "106012": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-348/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-349/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-351/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-352/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-353/"
+      }
+    },
+    "106018": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/ex-354/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/ex-355/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/ex-357/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/ex-358/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/ex-359/"
+      }
+    },
+    "106425": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/joy-662/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/joy-663/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/joy-665/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/joy-666/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/joy-667/"
+      }
+    },
+    "111619": {
+      "unarmed": {
+        "native": 0
+      }
+    },
+    "120370": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1001/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1002/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1004/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1005/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1006/"
+      }
+    },
+    "120376": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1007/"
+      },
+      "bow": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1008/"
+      },
+      "sword": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1010/"
+      },
+      "staff": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1011/"
+      },
+      "polearm": {
+        "root": "res://assets/characters/crossgate/weapons/v3-1012/"
+      }
+    },
+    "111617": {
+      "polearm": {
+        "native": 0
+      }
+    },
+    "111618": {
+      "polearm": {
+        "native": 0
+      }
+    },
+    "111683": {
+      "polearm": {
+        "native": 0
+      }
+    }
+  },
+  "48": {
+    "105125": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100125": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100131": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100137": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100143": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100224": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100600": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105131": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105137": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105143": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105591": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105818": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105850": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105856": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100218": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100481": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100487": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100493": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100506": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100937": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100949": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "109876": {
+      "unarmed": {
+        "native": 0
+      }
+    },
+    "120386": {
+      "sword": {
+        "native": 0
+      }
+    }
+  },
+  "49": {
+    "105275": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100275": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100281": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100287": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100293": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100475": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100984": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105281": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105287": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105293": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105640": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105646": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105652": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105658": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105664": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105725": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105731": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105784": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105843": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105955": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105961": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "120328": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "120334": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "120340": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100961": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100997": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "106708": {
+      "sword": {
+        "native": 0
+      }
+    },
+    "120110": {
+      "staff": {
+        "native": 0
+      }
+    }
+  },
+  "50": {
+    "105300": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100300": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100306": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100312": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100318": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100431": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100500": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "100990": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105306": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105312": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105318": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105442": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105967": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105973": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "106781": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "120448": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "120454": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "120460": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "105798": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "106793": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "115258": {
+      "sword": {
+        "native": 0
+      }
+    }
+  },
+  "51": {
+    "100800": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      }
+    },
+    "120443": {
+      "unarmed": {
+        "native": 0
+      }
+    }
+  }
+}

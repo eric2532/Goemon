@@ -1,0 +1,51 @@
+{
+  "skill": "亂射",
+  "protocol": 95,
+  "rank": 10,
+  "arrows": 12,
+  "snapshot": {
+    "file": "../Magic Power/research/newclient20261030/combat/bluecg-virtual-memory.bin",
+    "sha256": "8babbe4ad20e4e1e2a6992ecf086d47ef3527426879699f83fa2cebb1a476afe"
+  },
+  "charge": {
+    "resource": 110100,
+    "file": "res://assets/characters/crossgate/qigong/charge.png",
+    "frames": 9,
+    "frame_seconds": 0.05,
+    "sound": 251
+  },
+  "arrow_serials": [
+    22050,
+    22051,
+    22052,
+    22053,
+    22054,
+    22055,
+    22056,
+    22057,
+    22058,
+    22059,
+    22060,
+    22061,
+    22062,
+    22063,
+    22064,
+    22065
+  ],
+  "animation_clock_percent": 33,
+  "trace": {
+    "packet": "0x42f13b -> 0x42f32c: queue physical charge state 149",
+    "attack": "state 18 at 0x40667c; protocol 95 sets clock 33 at 0x406695",
+    "projectile": "0x406769 pushes first arrow graphic 22050"
+  },
+  "reference": "https://guide.bluecg.net/blue-cg/452292",
+  "local_rules": {
+    "cooldown_seconds": 5,
+    "damage_per_arrow": 250,
+    "aim": "Random local visible, unobstructed target at each draw; update aim at release."
+  },
+  "limits": [
+    "Real-time port uses existing Goemon damage, collision, range and cooldown contracts.",
+    "Server accuracy, repeated-target damage reduction and R11/EX packet behavior are not reproduced."
+  ]
+}
