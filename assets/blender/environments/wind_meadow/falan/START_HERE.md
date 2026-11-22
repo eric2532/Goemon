@@ -1,5 +1,55 @@
 # Falan painted architecture
 
+## Falan foundation-strip caps and feet — 2026-11-23
+
+The previous foundation-strip pass omitted the wider end cap and projecting
+foot. Both native facings now reuse closed stone lofts, adding 158 caps and
+158 grounded feet at 158 wall stations. Their top-face controls come from the
+original drawings; each top and two visible fascia faces have separate original
+crops. `SPUR_ENDS` in `tools/recover_falan_forts.py` owns the source measurements
+and generates `city_fort_spur_ends.png`. All twelve 64-by-64 crops have edge
+gutters and restrained palette chroma. The twenty-one preceding fort PNGs remain
+byte-identical. Keep original paint on its matching face rather than projecting
+an entire isometric drawing across the assembly.
+
+The cap top must stand clear of the green wall while retaining its native
+projection. Its height/depth are reconstructed at 3.10 / 0.40 metres, leaving
+an overlap with the existing 2.731-metre strip. The foot is 0.25 metres high and
+ends at the original ground plane. Tests require closed outward solids, an
+interior contact sample shared with the original strip, immediate backing and
+unobstructed painted triangle centroids. Source UV registration is within 0.05
+native pixels. Green foundation bounds are exactly unchanged; other twenty
+archetype bounds, stations and door contracts remain. Small stone foot overhangs
+now contribute to the complete wall bounds.
+
+This is a visual correction, not a measured performance fix. It reuses cached
+archetypes, closed lofts, shared paint materials and placement batches. The kit is
+88,846 triangles / 111 surfaces, an increase of 72 triangles / two surfaces.
+One shared material and one 272-by-204 RGBA atlas add 216.75 KiB uncompressed.
+The 314 masonry returns retain 11,280 triangles / two surfaces. No frame-loop
+preparation, additional targeting or simulation owner is introduced.
+
+Evidence is in `Falan Exterior Fidelity/Spur Caps and Feet/` under Asset Toolkit:
+source/before/current detail enlargements, four angles, all-variant sheets and
+twelve gate views. The two wall silhouettes improve from 95.417% / 95.690% to
+95.512% / 95.776% overlap. The assembled overview changes from 97.532% to 97.509%;
+that aggregate silhouette metric does not measure small face details or colour.
+Earlier crown samples, 202 tower-edge positions and 63 coping positions remain.
+Fresh checks pass 20 art tests, recovery of 22 graphics, a 319-asset audit with
+zero read errors, three preservation groups, 22 rendered variants, 7,697 desktop
+gate checks, 7,685 headless gate checks and 1,800 city checks. All 22 physical
+variants are closed, outward and consistently wound. Existing fixture shutdown
+resource/RID diagnostics remain; historical dark/buried candidates and a fixture
+parse attempt are preserved separately from the final selected logs.
+
+Verify through Play Goemon at the west, east and south approaches, then compare
+native and low side views: the cap should overhang, the foot should meet the
+ground, and neither end should float above the strip. The original isometric
+view constrains visible controls; hidden depth, exact microscopic bevels and
+renderer/raster colour remain reconstructed. This is not a complete exterior
+1:1 certificate. No app export, long-session soak or army frame-time benchmark
+was run. Earlier sections retain their historical results.
+
 ## Falan grounded foundation stone strips — 2026-11-23
 
 The two long curtain-wall facings used short, overly projecting plain posts at

@@ -146,6 +146,9 @@ func entrance_checks():
   var mouth:Vector2=mesh.get_meta("native_mouth_size")
   check(is_equal_approx(mouth.x,6.1875 if serial==12834 else 4.40625),"Entrance width follows its native rim anchors "+str(serial))
   check(mouth.y>6.5 and mouth.y<6.8 if serial==12834 else mouth.y>4.8 and mouth.y<5.1,"Snow and stone mouths retain their distinct native heights "+str(serial))
+  var profile:Array=mesh.get_meta("native_mouth_profile")
+  check(profile[4].x< -4.0 if serial==12834 else profile[4].x< -2.6,"Native rim flare is recovered from its own source contour "+str(serial))
+  check(is_equal_approx(mesh.get_meta("native_mouth_recess"),1.734375 if serial==12834 else 3.375),"Original upper-rim offset supplies the cave recession "+str(serial))
   var pose=Transform3D(Basis(Vector3.UP,PI if serial==12834 else PI*.5),Vector3(3,0,1.5) if serial==12834 else Vector3(-1.5,0,-3))
   for point in [Vector3(0,1,0),Vector3(0,4,0),Vector3(-1,2,0)]:
    var nearest=INF
