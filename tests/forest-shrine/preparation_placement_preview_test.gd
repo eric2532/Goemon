@@ -51,6 +51,7 @@ func run():
 	check(game.world.preview.visible and game.world.preview.position.distance_to(expected)<.01,"The production hover preview shows the resolved footprint")
 	check(game.forest_ui.hint.visible and game.forest_ui.hint.text.contains("Nearby clear spot"),"The selected build card keeps placement feedback visible")
 	await capture("nearby-preview")
+	game.model.workforce.recruit(true)
 	var worker=game.model.workers.values()[0];worker.pos=game.model.point(resolved.cell)
 	var worker_origin:Vector3=worker.pos
 	check(game.place_cell(raw),"An actor entering the preview steps aside while its displayed tower is placed")

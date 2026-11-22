@@ -23,7 +23,7 @@ func run():
   check((document.load_wind_meadow_large() if large else document.load_wind_meadow()).is_empty(),"Bundled map validates")
   var model=load("res://scripts/forest/forest_model.gd").new();model.reset(42,{},document.data,false)
   check(document.data.buildings.is_empty() and model.buildings.size()==1 and model.shrine().kind=="shrine","Both presets start with only the statue")
-  check(model.portals.size()==4 and model.workers.size()==6 and model.waves.active_cap()==240,"Enemy castles, opening workers and army cap are retained")
+  check(model.portals.size()==4 and model.workers.is_empty() and model.waves.active_cap()==240,"Enemy castles and army cap are retained with zero starting workers")
   document.data.buildings.append({"kind":"tower","x":3,"z":4,"rotation":2})
   var saved=Document.new(false)
   check(saved.decode(document.encode()).is_empty() and saved.data.buildings.size()==1,"Saved custom tower survives normalization")

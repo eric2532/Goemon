@@ -1,0 +1,17 @@
+{
+  "label": "A Blue direction pointer",
+  "pack": "original",
+  "row": 18969,
+  "serial": 22190,
+  "file": "pointer.png",
+  "size": [
+    20,
+    12
+  ],
+  "rgba_sha256": "f1863c37e03a7b06d9174426e8ca41efb24b1a870cb261f4b6d31ff2946ed415",
+  "runtime_color": "Owned equipment/tint.gdshader material, tint ff3434; original blue PNG preserved.",
+  "source_project": "/Users/eric/Desktop/Projects_Codex/Magic Power",
+  "source_index": "GraphicInfo_66.bin",
+  "decoder": "tools/cg_library.py:image_from_record",
+  "use": "Original direction graphic reused overhead for Goemon pet focus; red tint is user-requested, not an original red variant."
+}

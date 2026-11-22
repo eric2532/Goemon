@@ -1,0 +1,2923 @@
+{
+  "graphics": {
+    "10081": {
+      "pack": "original",
+      "row": 7761,
+      "rgba_sha256": "192a306659fa8c6ef56b3fa04ced5c10f7c284ea4a3d766ffaff64fa2752e522"
+    },
+    "10083": {
+      "pack": "original",
+      "row": 7763,
+      "rgba_sha256": "390831d34b6b73d84b222ef03a8f1ccf1fddd5287237bb941799e2551f138e1e"
+    },
+    "10308": {
+      "pack": "original",
+      "row": 7434,
+      "rgba_sha256": "bea9973a8ffdd8c2307ce87fa179c20648d3c7bbe8bebca1f4aeb9b20234cdb7"
+    },
+    "10311": {
+      "pack": "original",
+      "row": 7437,
+      "rgba_sha256": "33dd42ca26cba8c16dfb349790a1cc470c7194184b43a50e7b0452c2571b2225"
+    },
+    "10312": {
+      "pack": "original",
+      "row": 7438,
+      "rgba_sha256": "ffff6421f03bb68495f6ba0983fbc77550f309ceaa6680b1d6d642aadd46282e"
+    },
+    "10313": {
+      "pack": "original",
+      "row": 251117,
+      "rgba_sha256": "799cd0d862e462a0647eb8c091209d52a385be7e53db6c06db40d9cd715557df"
+    },
+    "10314": {
+      "pack": "original",
+      "row": 251118,
+      "rgba_sha256": "4aabd9cbcb80dfe54a508b6add675d7ffd732bcba63d23c04cf8692be2c325d6"
+    },
+    "10605": {
+      "pack": "original",
+      "row": 7521,
+      "rgba_sha256": "453590c66d1af8a14d54a012dde2ad4cbb0d3f054c36a613a20b37a67bb979a3"
+    },
+    "10606": {
+      "pack": "original",
+      "row": 7522,
+      "rgba_sha256": "dc77910951cfe05c24656c23fda4ae5025c244a44f4e6ecab548555e558611d8"
+    },
+    "10609": {
+      "pack": "original",
+      "row": 7525,
+      "rgba_sha256": "0c84dd9da01d3170c4bba532793720f684bf33f080397a03735053bf4b5372e7"
+    },
+    "10003": {
+      "pack": "original",
+      "row": 7743,
+      "rgba_sha256": "fb44bed89952c7ad1668af9e9cbcdcf3f53f96ca242cd928b81e841e622c2350"
+    },
+    "10006": {
+      "pack": "original",
+      "row": 7746,
+      "rgba_sha256": "23a2965585de252b91871fc84c6fd484fd31ef6ef8970380d84027b8addba1b4"
+    },
+    "10007": {
+      "pack": "original",
+      "row": 7747,
+      "rgba_sha256": "b182fa50fabc6dbce8aad5b865874ceff5fbed0eee919e2382a6859e3b40f534"
+    },
+    "10079": {
+      "pack": "original",
+      "row": 7759,
+      "rgba_sha256": "de9a2f3089433f91dedf0c05b4cb875d5b8eafeace6e3a15bb84adc95dbb5318"
+    },
+    "10075": {
+      "pack": "original",
+      "row": 7755,
+      "rgba_sha256": "f94559e7f7f8369aa2facef350a6dd2e2cc389ebff52959b3a57909604cb5ca4"
+    },
+    "10300": {
+      "pack": "original",
+      "row": 7426,
+      "rgba_sha256": "9eeeccbb0522ecb2aca3b8f5a855959de558f784c70856f1f91a2401b97bcbb9"
+    },
+    "10301": {
+      "pack": "original",
+      "row": 7427,
+      "rgba_sha256": "2f7f49d3ff1b97f7c40441432d00effb2e45e2dadcb03585e807e53a9352b20a"
+    }
+  },
+  "masks": {
+    "10300_emblem": "Native face ellipse plus native gold/purple ornament pixels; original colors retained",
+    "10300_scroll": "Pale source carving strokes with transparent background",
+    "10312_vines": "Native green foliage pixels with transparent masonry background"
+  },
+  "patches": {
+    "villa_stone": [
+      10312,
+      [
+        [
+          227,
+          324
+        ],
+        [
+          235,
+          324
+        ],
+        [
+          235,
+          332
+        ],
+        [
+          227,
+          332
+        ]
+      ],
+      false,
+      [
+        64,
+        64
+      ]
+    ],
+    "10300_roof": [
+      10300,
+      [
+        [
+          110,
+          118
+        ],
+        [
+          140,
+          136
+        ],
+        [
+          153,
+          125
+        ],
+        [
+          123,
+          107
+        ]
+      ],
+      false,
+      [
+        96,
+        64
+      ]
+    ],
+    "10300_emblem": [
+      10300,
+      [
+        [
+          55,
+          195
+        ],
+        [
+          143,
+          195
+        ],
+        [
+          143,
+          294
+        ],
+        [
+          55,
+          294
+        ]
+      ],
+      true,
+      [
+        95,
+        106
+      ]
+    ],
+    "10300_scroll": [
+      10300,
+      [
+        [
+          247,
+          176
+        ],
+        [
+          312,
+          214
+        ],
+        [
+          312,
+          292
+        ],
+        [
+          247,
+          254
+        ]
+      ],
+      true,
+      [
+        90,
+        108
+      ]
+    ],
+    "10300_window": [
+      10300,
+      [
+        [
+          157,
+          324
+        ],
+        [
+          178,
+          336
+        ],
+        [
+          178,
+          375
+        ],
+        [
+          157,
+          363
+        ]
+      ],
+      true,
+      [
+        45,
+        90
+      ]
+    ],
+    "special_brick": [
+      10300,
+      [
+        [
+          204,
+          410
+        ],
+        [
+          212,
+          410
+        ],
+        [
+          212,
+          418
+        ],
+        [
+          204,
+          418
+        ]
+      ],
+      false,
+      [
+        64,
+        64
+      ]
+    ],
+    "10606_window": [
+      10606,
+      [
+        [
+          66,
+          322
+        ],
+        [
+          91,
+          336
+        ],
+        [
+          91,
+          382
+        ],
+        [
+          66,
+          368
+        ]
+      ],
+      true,
+      [
+        50,
+        90
+      ]
+    ],
+    "10606_gate": [
+      10606,
+      [
+        [
+          297,
+          326
+        ],
+        [
+          342,
+          299
+        ],
+        [
+          342,
+          399
+        ],
+        [
+          297,
+          426
+        ]
+      ],
+      true,
+      [
+        50,
+        110
+      ]
+    ],
+    "10311_window": [
+      10311,
+      [
+        [
+          310,
+          239
+        ],
+        [
+          337,
+          223
+        ],
+        [
+          337,
+          261
+        ],
+        [
+          310,
+          277
+        ]
+      ],
+      true,
+      [
+        50,
+        90
+      ]
+    ],
+    "10311_cloth": [
+      10311,
+      [
+        [
+          231,
+          151
+        ],
+        [
+          285,
+          151
+        ],
+        [
+          285,
+          213
+        ],
+        [
+          231,
+          213
+        ]
+      ],
+      true,
+      [
+        85,
+        100
+      ]
+    ],
+    "10312_window": [
+      10312,
+      [
+        [
+          39,
+          190
+        ],
+        [
+          62,
+          204
+        ],
+        [
+          62,
+          254
+        ],
+        [
+          39,
+          240
+        ]
+      ],
+      true,
+      [
+        45,
+        90
+      ]
+    ],
+    "10312_vines": [
+      10312,
+      [
+        [
+          270,
+          393
+        ],
+        [
+          291,
+          405
+        ],
+        [
+          291,
+          465
+        ],
+        [
+          270,
+          453
+        ]
+      ],
+      true,
+      [
+        35,
+        100
+      ]
+    ],
+    "10313_window": [
+      10313,
+      [
+        [
+          97,
+          388
+        ],
+        [
+          123,
+          404
+        ],
+        [
+          123,
+          451
+        ],
+        [
+          97,
+          435
+        ]
+      ],
+      true,
+      [
+        45,
+        90
+      ]
+    ],
+    "10313_emblem": [
+      10313,
+      [
+        [
+          245,
+          413
+        ],
+        [
+          271,
+          397
+        ],
+        [
+          271,
+          431
+        ],
+        [
+          245,
+          447
+        ]
+      ],
+      true,
+      [
+        75,
+        85
+      ]
+    ],
+    "10314_window": [
+      10314,
+      [
+        [
+          235,
+          448
+        ],
+        [
+          257,
+          435
+        ],
+        [
+          257,
+          476
+        ],
+        [
+          235,
+          489
+        ]
+      ],
+      true,
+      [
+        50,
+        90
+      ]
+    ],
+    "magic_stone": [
+      10075,
+      [
+        [
+          52,
+          320
+        ],
+        [
+          60,
+          320
+        ],
+        [
+          60,
+          328
+        ],
+        [
+          52,
+          328
+        ]
+      ],
+      false,
+      [
+        64,
+        64
+      ]
+    ],
+    "magic_roof": [
+      10075,
+      [
+        [
+          200,
+          200
+        ],
+        [
+          216,
+          200
+        ],
+        [
+          216,
+          216
+        ],
+        [
+          200,
+          216
+        ]
+      ],
+      false,
+      [
+        96,
+        64
+      ]
+    ],
+    "magic_sign": [
+      10075,
+      [
+        [
+          101,
+          229
+        ],
+        [
+          150,
+          260
+        ],
+        [
+          150,
+          302
+        ],
+        [
+          101,
+          271
+        ]
+      ],
+      true,
+      [
+        90,
+        85
+      ]
+    ],
+    "magic_window": [
+      10075,
+      [
+        [
+          10,
+          355
+        ],
+        [
+          36,
+          371
+        ],
+        [
+          36,
+          390
+        ],
+        [
+          10,
+          374
+        ]
+      ],
+      true,
+      [
+        80,
+        60
+      ]
+    ],
+    "smith_sign": [
+      10301,
+      [
+        [
+          220,
+          270
+        ],
+        [
+          272,
+          239
+        ],
+        [
+          272,
+          275
+        ],
+        [
+          220,
+          306
+        ]
+      ],
+      true,
+      [
+        110,
+        65
+      ]
+    ],
+    "workshop_trade_sign": [
+      10301,
+      [
+        [
+          332,
+          184
+        ],
+        [
+          385,
+          152
+        ],
+        [
+          385,
+          186
+        ],
+        [
+          332,
+          218
+        ]
+      ],
+      true,
+      [
+        110,
+        65
+      ]
+    ],
+    "workshop_window": [
+      10301,
+      [
+        [
+          50,
+          284
+        ],
+        [
+          72,
+          298
+        ],
+        [
+          72,
+          328
+        ],
+        [
+          50,
+          314
+        ]
+      ],
+      true,
+      [
+        40,
+        95
+      ]
+    ],
+    "plaster": [
+      10605,
+      [
+        [
+          44,
+          245
+        ],
+        [
+          51,
+          245
+        ],
+        [
+          51,
+          255
+        ],
+        [
+          44,
+          255
+        ]
+      ],
+      false,
+      [
+        64,
+        64
+      ]
+    ],
+    "blue_roof": [
+      10605,
+      [
+        [
+          93,
+          105
+        ],
+        [
+          137,
+          135
+        ],
+        [
+          155,
+          112
+        ],
+        [
+          111,
+          82
+        ]
+      ],
+      false,
+      [
+        96,
+        64
+      ]
+    ],
+    "timber": [
+      10605,
+      [
+        [
+          224,
+          290
+        ],
+        [
+          230,
+          290
+        ],
+        [
+          230,
+          304
+        ],
+        [
+          224,
+          304
+        ]
+      ],
+      false,
+      [
+        64,
+        64
+      ]
+    ],
+    "trim": [
+      10605,
+      [
+        [
+          66,
+          108
+        ],
+        [
+          70,
+          108
+        ],
+        [
+          70,
+          118
+        ],
+        [
+          66,
+          118
+        ]
+      ],
+      false,
+      [
+        32,
+        64
+      ]
+    ],
+    "stone": [
+      10605,
+      [
+        [
+          165,
+          330
+        ],
+        [
+          173,
+          330
+        ],
+        [
+          173,
+          340
+        ],
+        [
+          165,
+          340
+        ]
+      ],
+      false,
+      [
+        64,
+        64
+      ]
+    ],
+    "window": [
+      10081,
+      [
+        [
+          84,
+          268
+        ],
+        [
+          102,
+          280
+        ],
+        [
+          102,
+          330
+        ],
+        [
+          84,
+          318
+        ]
+      ],
+      true,
+      [
+        64,
+        100
+      ]
+    ],
+    "door": [
+      10605,
+      [
+        [
+          204,
+          277
+        ],
+        [
+          250,
+          246
+        ],
+        [
+          250,
+          313
+        ],
+        [
+          204,
+          344
+        ]
+      ],
+      true,
+      [
+        70,
+        104
+      ]
+    ],
+    "dormer_window": [
+      10605,
+      [
+        [
+          27,
+          111
+        ],
+        [
+          49,
+          126
+        ],
+        [
+          49,
+          148
+        ],
+        [
+          27,
+          133
+        ]
+      ],
+      true,
+      [
+        64,
+        76
+      ]
+    ],
+    "10609_window": [
+      10609,
+      [
+        [
+          223,
+          218
+        ],
+        [
+          230,
+          214
+        ],
+        [
+          230,
+          252
+        ],
+        [
+          223,
+          256
+        ]
+      ],
+      true,
+      [
+        24,
+        108
+      ]
+    ],
+    "10605_window": [
+      10605,
+      [
+        [
+          42,
+          186
+        ],
+        [
+          50,
+          191
+        ],
+        [
+          50,
+          228
+        ],
+        [
+          42,
+          223
+        ]
+      ],
+      true,
+      [
+        24,
+        108
+      ]
+    ],
+    "10003_window": [
+      10003,
+      [
+        [
+          47,
+          216
+        ],
+        [
+          72,
+          231
+        ],
+        [
+          72,
+          278
+        ],
+        [
+          47,
+          263
+        ]
+      ],
+      true,
+      [
+        54,
+        96
+      ]
+    ],
+    "10003_door": [
+      10003,
+      [
+        [
+          100,
+          260
+        ],
+        [
+          120,
+          272
+        ],
+        [
+          120,
+          330
+        ],
+        [
+          100,
+          318
+        ]
+      ],
+      true,
+      [
+        40,
+        104
+      ]
+    ],
+    "10003_wood": [
+      10003,
+      [
+        [
+          300,
+          255
+        ],
+        [
+          306,
+          255
+        ],
+        [
+          306,
+          261
+        ],
+        [
+          300,
+          261
+        ]
+      ],
+      false,
+      [
+        64,
+        64
+      ]
+    ],
+    "10003_base": [
+      10003,
+      [
+        [
+          60,
+          285
+        ],
+        [
+          70,
+          285
+        ],
+        [
+          70,
+          295
+        ],
+        [
+          60,
+          295
+        ]
+      ],
+      false,
+      [
+        64,
+        64
+      ]
+    ],
+    "10003_bay_window": [
+      10003,
+      [
+        [
+          257,
+          293
+        ],
+        [
+          280,
+          279
+        ],
+        [
+          280,
+          329
+        ],
+        [
+          257,
+          343
+        ]
+      ],
+      true,
+      [
+        50,
+        100
+      ]
+    ],
+    "10006_roof": [
+      10006,
+      [
+        [
+          85,
+          125
+        ],
+        [
+          109,
+          125
+        ],
+        [
+          109,
+          149
+        ],
+        [
+          85,
+          149
+        ]
+      ],
+      false,
+      [
+        96,
+        64
+      ]
+    ],
+    "10007_roof": [
+      10007,
+      [
+        [
+          85,
+          125
+        ],
+        [
+          109,
+          125
+        ],
+        [
+          109,
+          149
+        ],
+        [
+          85,
+          149
+        ]
+      ],
+      false,
+      [
+        96,
+        64
+      ]
+    ],
+    "10081_grille": [
+      10081,
+      [
+        [
+          62,
+          251
+        ],
+        [
+          157,
+          306
+        ],
+        [
+          157,
+          368
+        ],
+        [
+          62,
+          313
+        ]
+      ],
+      true,
+      [
+        110,
+        72
+      ]
+    ],
+    "10081_bay": [
+      10081,
+      [
+        [
+          235,
+          272
+        ],
+        [
+          265,
+          255
+        ],
+        [
+          265,
+          323
+        ],
+        [
+          235,
+          340
+        ]
+      ],
+      true,
+      [
+        50,
+        100
+      ]
+    ],
+    "10308_flowers": [
+      10308,
+      [
+        [
+          80,
+          249
+        ],
+        [
+          132,
+          279
+        ],
+        [
+          132,
+          317
+        ],
+        [
+          80,
+          287
+        ]
+      ],
+      true,
+      [
+        110,
+        65
+      ]
+    ],
+    "architecture_blue_roof": [
+      10083,
+      [
+        [
+          244,
+          172
+        ],
+        [
+          304,
+          208
+        ],
+        [
+          334,
+          178
+        ],
+        [
+          274,
+          142
+        ]
+      ],
+      false,
+      [
+        96,
+        64
+      ]
+    ],
+    "architecture_green_roof": [
+      10006,
+      [
+        [
+          124,
+          230
+        ],
+        [
+          184,
+          266
+        ],
+        [
+          214,
+          236
+        ],
+        [
+          154,
+          200
+        ]
+      ],
+      false,
+      [
+        96,
+        64
+      ]
+    ],
+    "architecture_red_roof": [
+      10007,
+      [
+        [
+          124,
+          230
+        ],
+        [
+          184,
+          266
+        ],
+        [
+          214,
+          236
+        ],
+        [
+          154,
+          200
+        ]
+      ],
+      false,
+      [
+        96,
+        64
+      ]
+    ],
+    "shop_medallion": [
+      "shop_medallion",
+      [
+        [
+          73,
+          150
+        ],
+        [
+          114,
+          175
+        ],
+        [
+          114,
+          226
+        ],
+        [
+          73,
+          201
+        ]
+      ],
+      true,
+      [
+        64,
+        80
+      ]
+    ],
+    "shop_shield": [
+      "shop_shield",
+      [
+        [
+          235,
+          156
+        ],
+        [
+          280,
+          140
+        ],
+        [
+          280,
+          211
+        ],
+        [
+          235,
+          227
+        ]
+      ],
+      true,
+      [
+        64,
+        96
+      ]
+    ]
+  },
+  "bindings": [
+    {
+      "marker": {
+        "kind": "falan_shop",
+        "x": -15,
+        "z": -24,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10078,
+      "runtime_family": 4,
+      "source_center": [
+        -85.5,
+        -141.0
+      ],
+      "source_footprint": [
+        12,
+        21
+      ],
+      "distance": 5.408326913195984
+    },
+    {
+      "marker": {
+        "kind": "falan_shop",
+        "x": -18,
+        "z": 28,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10007,
+      "runtime_family": 4,
+      "source_center": [
+        -106.5,
+        169.5
+      ],
+      "source_footprint": [
+        18,
+        12
+      ],
+      "distance": 2.121320343559643
+    },
+    {
+      "marker": {
+        "kind": "falan_shop",
+        "x": -15,
+        "z": 26,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10079,
+      "runtime_family": 5,
+      "source_center": [
+        -85.5,
+        156.0
+      ],
+      "source_footprint": [
+        12,
+        21
+      ],
+      "distance": 4.5
+    },
+    {
+      "marker": {
+        "kind": "falan_shop",
+        "x": -18,
+        "z": -33,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10006,
+      "runtime_family": 5,
+      "source_center": [
+        -102.0,
+        -196.5
+      ],
+      "source_footprint": [
+        21,
+        12
+      ],
+      "distance": 6.18465843842649
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -17,
+        "z": 40,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10050,
+      "runtime_family": 15,
+      "source_center": [
+        -97.5,
+        247.5
+      ],
+      "source_footprint": [
+        12,
+        24
+      ],
+      "distance": 8.74642784226795
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -50,
+        "z": -19,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10077,
+      "runtime_family": 3,
+      "source_center": [
+        -298.5,
+        -112.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 2.121320343559643
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -50,
+        "z": -26,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10076,
+      "runtime_family": 3,
+      "source_center": [
+        -298.5,
+        -157.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 2.121320343559643
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -46,
+        "z": -33,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10003,
+      "runtime_family": 3,
+      "source_center": [
+        -271.5,
+        -196.5
+      ],
+      "source_footprint": [
+        18,
+        12
+      ],
+      "distance": 4.743416490252569
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 7,
+        "z": -33,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10009,
+      "runtime_family": 3,
+      "source_center": [
+        43.5,
+        -196.5
+      ],
+      "source_footprint": [
+        18,
+        12
+      ],
+      "distance": 2.121320343559643
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -51,
+        "z": 16,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10076,
+      "runtime_family": 3,
+      "source_center": [
+        -301.5,
+        94.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 4.743416490252569
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -50,
+        "z": -23,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10609,
+      "runtime_family": 12,
+      "source_center": [
+        -304.5,
+        -139.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 4.743416490252569
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -18,
+        "z": -39,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10077,
+      "runtime_family": 3,
+      "source_center": [
+        -103.5,
+        -232.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 4.743416490252569
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -42,
+        "z": 27,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10003,
+      "runtime_family": 3,
+      "source_center": [
+        -253.5,
+        166.5
+      ],
+      "source_footprint": [
+        18,
+        12
+      ],
+      "distance": 4.743416490252569
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -38,
+        "z": 16,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10003,
+      "runtime_family": 3,
+      "source_center": [
+        -229.5,
+        100.5
+      ],
+      "source_footprint": [
+        18,
+        12
+      ],
+      "distance": 4.743416490252569
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -3,
+        "z": 26,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10080,
+      "runtime_family": 14,
+      "source_center": [
+        -18.0,
+        156.0
+      ],
+      "source_footprint": [
+        15,
+        21
+      ],
+      "distance": 0.0
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 12,
+        "z": -33,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10003,
+      "runtime_family": 3,
+      "source_center": [
+        73.5,
+        -196.5
+      ],
+      "source_footprint": [
+        18,
+        12
+      ],
+      "distance": 2.121320343559643
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -3,
+        "z": -24,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10077,
+      "runtime_family": 3,
+      "source_center": [
+        -13.5,
+        -139.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 6.3639610306789285
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -3,
+        "z": 10,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10076,
+      "runtime_family": 3,
+      "source_center": [
+        -13.5,
+        64.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 6.3639610306789285
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -11,
+        "z": 16,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10005,
+      "runtime_family": 13,
+      "source_center": [
+        -64.5,
+        99.0
+      ],
+      "source_footprint": [
+        18,
+        15
+      ],
+      "distance": 3.3541019662496847
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -18,
+        "z": -23,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10003,
+      "runtime_family": 3,
+      "source_center": [
+        -109.5,
+        -133.5
+      ],
+      "source_footprint": [
+        18,
+        12
+      ],
+      "distance": 4.743416490252569
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -3,
+        "z": -14,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10309,
+      "runtime_family": 16,
+      "source_center": [
+        -15.0,
+        -84.0
+      ],
+      "source_footprint": [
+        15,
+        27
+      ],
+      "distance": 3.0
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 19,
+        "z": 10,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10304,
+      "runtime_family": 3,
+      "source_center": [
+        115.5,
+        64.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 4.743416490252569
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -2,
+        "z": -18,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10076,
+      "runtime_family": 3,
+      "source_center": [
+        -10.5,
+        -109.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 2.121320343559643
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -3,
+        "z": -9,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10304,
+      "runtime_family": 3,
+      "source_center": [
+        -13.5,
+        -52.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 4.743416490252569
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -42,
+        "z": 16,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10009,
+      "runtime_family": 3,
+      "source_center": [
+        -253.5,
+        100.5
+      ],
+      "source_footprint": [
+        18,
+        12
+      ],
+      "distance": 4.743416490252569
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 9,
+        "z": -24,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10304,
+      "runtime_family": 3,
+      "source_center": [
+        55.5,
+        -145.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 2.121320343559643
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -5,
+        "z": -33,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10003,
+      "runtime_family": 3,
+      "source_center": [
+        -28.5,
+        -196.5
+      ],
+      "source_footprint": [
+        18,
+        12
+      ],
+      "distance": 2.121320343559643
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 18,
+        "z": -21,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10306,
+      "runtime_family": 3,
+      "source_center": [
+        112.5,
+        -124.5
+      ],
+      "source_footprint": [
+        18,
+        12
+      ],
+      "distance": 4.743416490252569
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -41,
+        "z": -34,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10049,
+      "runtime_family": 15,
+      "source_center": [
+        -241.5,
+        -199.5
+      ],
+      "source_footprint": [
+        24,
+        12
+      ],
+      "distance": 6.3639610306789285
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 5,
+        "z": 21,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10080,
+      "runtime_family": 14,
+      "source_center": [
+        33.0,
+        129.0
+      ],
+      "source_footprint": [
+        15,
+        21
+      ],
+      "distance": 4.242640687119286
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -37,
+        "z": 46,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10605,
+      "runtime_family": 2,
+      "source_center": [
+        -222.0,
+        274.5
+      ],
+      "source_footprint": [
+        15,
+        12
+      ],
+      "distance": 1.5
+    },
+    {
+      "marker": {
+        "kind": "falan_shop",
+        "x": -54,
+        "z": -18,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10605,
+      "runtime_family": 2,
+      "source_center": [
+        -327.0,
+        -112.5
+      ],
+      "source_footprint": [
+        15,
+        12
+      ],
+      "distance": 5.408326913195984
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -50,
+        "z": -12,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10309,
+      "runtime_family": 16,
+      "source_center": [
+        -303.0,
+        -81.0
+      ],
+      "source_footprint": [
+        15,
+        27
+      ],
+      "distance": 9.486832980505138
+    },
+    {
+      "marker": {
+        "kind": "falan_shop",
+        "x": -49,
+        "z": -30,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10605,
+      "runtime_family": 2,
+      "source_center": [
+        -300.0,
+        -184.5
+      ],
+      "source_footprint": [
+        15,
+        12
+      ],
+      "distance": 7.5
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -42,
+        "z": 24,
+        "scale": 0.88,
+        "rotation": 180
+      },
+      "reference_graphic": 10082,
+      "runtime_family": 7,
+      "source_center": [
+        -255.0,
+        142.5
+      ],
+      "source_footprint": [
+        15,
+        12
+      ],
+      "distance": 3.3541019662496847
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -42,
+        "z": -26,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10081,
+      "runtime_family": 6,
+      "source_center": [
+        -255.0,
+        -157.5
+      ],
+      "source_footprint": [
+        15,
+        12
+      ],
+      "distance": 3.3541019662496847
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -40,
+        "z": 36,
+        "scale": 0.88,
+        "rotation": 180
+      },
+      "reference_graphic": 10082,
+      "runtime_family": 7,
+      "source_center": [
+        -246.0,
+        208.5
+      ],
+      "source_footprint": [
+        15,
+        12
+      ],
+      "distance": 9.604686356149273
+    },
+    {
+      "marker": {
+        "kind": "falan_shop",
+        "x": -38,
+        "z": -44,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10609,
+      "runtime_family": 12,
+      "source_center": [
+        -232.5,
+        -274.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 11.423659658795863
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -31,
+        "z": -22,
+        "scale": 0.88,
+        "rotation": 180
+      },
+      "reference_graphic": 10084,
+      "runtime_family": 9,
+      "source_center": [
+        -192.0,
+        -142.5
+      ],
+      "source_footprint": [
+        15,
+        18
+      ],
+      "distance": 12.093386622447824
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -29,
+        "z": 24,
+        "scale": 0.88,
+        "rotation": 180
+      },
+      "reference_graphic": 10082,
+      "runtime_family": 7,
+      "source_center": [
+        -180.0,
+        139.5
+      ],
+      "source_footprint": [
+        15,
+        12
+      ],
+      "distance": 7.5
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -28,
+        "z": 42,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10083,
+      "runtime_family": 8,
+      "source_center": [
+        -172.5,
+        244.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 8.74642784226795
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -14,
+        "z": 36,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10081,
+      "runtime_family": 6,
+      "source_center": [
+        -87.0,
+        208.5
+      ],
+      "source_footprint": [
+        15,
+        12
+      ],
+      "distance": 8.077747210701757
+    },
+    {
+      "marker": {
+        "kind": "falan_shop",
+        "x": -12,
+        "z": 48,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10605,
+      "runtime_family": 2,
+      "source_center": [
+        -75.0,
+        280.5
+      ],
+      "source_footprint": [
+        15,
+        12
+      ],
+      "distance": 8.077747210701757
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -7,
+        "z": 23,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10083,
+      "runtime_family": 8,
+      "source_center": [
+        -46.5,
+        130.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 8.74642784226795
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -6,
+        "z": 36,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10083,
+      "runtime_family": 8,
+      "source_center": [
+        -43.5,
+        211.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 8.74642784226795
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -6,
+        "z": -22,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10083,
+      "runtime_family": 8,
+      "source_center": [
+        -43.5,
+        -142.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 12.90348790056394
+    },
+    {
+      "marker": {
+        "kind": "falan_shop",
+        "x": -6,
+        "z": -44,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10609,
+      "runtime_family": 12,
+      "source_center": [
+        -37.5,
+        -268.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 4.743416490252569
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -5,
+        "z": -18,
+        "scale": 0.88,
+        "rotation": 180
+      },
+      "reference_graphic": 10084,
+      "runtime_family": 9,
+      "source_center": [
+        -36.0,
+        -112.5
+      ],
+      "source_footprint": [
+        15,
+        18
+      ],
+      "distance": 7.5
+    },
+    {
+      "marker": {
+        "kind": "falan_shop",
+        "x": -3,
+        "z": -44,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10609,
+      "runtime_family": 12,
+      "source_center": [
+        -22.5,
+        -268.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 6.3639610306789285
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -2,
+        "z": 36,
+        "scale": 0.88,
+        "rotation": 180
+      },
+      "reference_graphic": 10082,
+      "runtime_family": 7,
+      "source_center": [
+        -21.0,
+        214.5
+      ],
+      "source_footprint": [
+        15,
+        12
+      ],
+      "distance": 9.124143795447328
+    },
+    {
+      "marker": {
+        "kind": "falan_shop",
+        "x": 0,
+        "z": -44,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10609,
+      "runtime_family": 12,
+      "source_center": [
+        -7.5,
+        -268.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 8.74642784226795
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 2,
+        "z": 37,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10081,
+      "runtime_family": 6,
+      "source_center": [
+        9.0,
+        217.5
+      ],
+      "source_footprint": [
+        15,
+        12
+      ],
+      "distance": 5.408326913195984
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 6,
+        "z": -8,
+        "scale": 0.88,
+        "rotation": 180
+      },
+      "reference_graphic": 10084,
+      "runtime_family": 9,
+      "source_center": [
+        30.0,
+        -52.5
+      ],
+      "source_footprint": [
+        15,
+        18
+      ],
+      "distance": 7.5
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 6,
+        "z": -24,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10083,
+      "runtime_family": 8,
+      "source_center": [
+        31.5,
+        -151.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 8.74642784226795
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 9,
+        "z": 35,
+        "scale": 0.88,
+        "rotation": 180
+      },
+      "reference_graphic": 10308,
+      "runtime_family": 11,
+      "source_center": [
+        48.0,
+        205.5
+      ],
+      "source_footprint": [
+        15,
+        12
+      ],
+      "distance": 7.5
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 18,
+        "z": 24,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10305,
+      "runtime_family": 10,
+      "source_center": [
+        99.0,
+        142.5
+      ],
+      "source_footprint": [
+        15,
+        12
+      ],
+      "distance": 9.124143795447328
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 21,
+        "z": 7,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10081,
+      "runtime_family": 6,
+      "source_center": [
+        120.0,
+        37.5
+      ],
+      "source_footprint": [
+        15,
+        12
+      ],
+      "distance": 7.5
+    },
+    {
+      "marker": {
+        "kind": "falan_shop",
+        "x": 22,
+        "z": -20,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10609,
+      "runtime_family": 12,
+      "source_center": [
+        130.5,
+        -127.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 7.648529270389178
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 24,
+        "z": 22,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10305,
+      "runtime_family": 10,
+      "source_center": [
+        138.0,
+        124.5
+      ],
+      "source_footprint": [
+        15,
+        12
+      ],
+      "distance": 9.604686356149273
+    },
+    {
+      "marker": {
+        "kind": "falan_shop",
+        "x": 25,
+        "z": -20,
+        "scale": 0.88,
+        "rotation": 90
+      },
+      "reference_graphic": 10609,
+      "runtime_family": 12,
+      "source_center": [
+        145.5,
+        -127.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 8.74642784226795
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 28,
+        "z": -11,
+        "scale": 0.88,
+        "rotation": 180
+      },
+      "reference_graphic": 10308,
+      "runtime_family": 11,
+      "source_center": [
+        165.0,
+        -70.5
+      ],
+      "source_footprint": [
+        15,
+        12
+      ],
+      "distance": 5.408326913195984
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 29,
+        "z": -6,
+        "scale": 0.88,
+        "rotation": 180
+      },
+      "reference_graphic": 10084,
+      "runtime_family": 9,
+      "source_center": [
+        168.0,
+        -46.5
+      ],
+      "source_footprint": [
+        15,
+        18
+      ],
+      "distance": 12.093386622447824
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 30,
+        "z": 9,
+        "scale": 0.88,
+        "rotation": 180
+      },
+      "reference_graphic": 10084,
+      "runtime_family": 9,
+      "source_center": [
+        177.0,
+        46.5
+      ],
+      "source_footprint": [
+        15,
+        18
+      ],
+      "distance": 8.077747210701757
+    }
+  ],
+  "unresolved": [],
+  "composites": [
+    {
+      "marker": {
+        "kind": "falan_shop",
+        "x": -28,
+        "z": -23,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10300,
+      "source_center": [
+        -168.0,
+        -136.5
+      ],
+      "source_footprint": [
+        21,
+        12
+      ],
+      "distance": 1.5
+    },
+    {
+      "marker": {
+        "kind": "falan_shop",
+        "x": -28,
+        "z": 28,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10075,
+      "source_center": [
+        -168.0,
+        165.0
+      ],
+      "source_footprint": [
+        21,
+        21
+      ],
+      "distance": 3.0
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -38,
+        "z": 26,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10301,
+      "source_center": [
+        -229.5,
+        150.0
+      ],
+      "source_footprint": [
+        18,
+        21
+      ],
+      "distance": 6.18465843842649
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -35,
+        "z": 24,
+        "scale": 0.92,
+        "rotation": 270
+      },
+      "reference_graphic": 10301,
+      "source_center": [
+        -229.5,
+        150.0
+      ],
+      "source_footprint": [
+        18,
+        21
+      ],
+      "distance": 20.40220576310317
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -4,
+        "z": 18,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10606,
+      "source_center": [
+        -22.5,
+        103.5
+      ],
+      "source_footprint": [
+        18,
+        24
+      ],
+      "distance": 4.743416490252569
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -35,
+        "z": -44,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10312,
+      "source_center": [
+        -210.0,
+        -267.0
+      ],
+      "source_footprint": [
+        21,
+        15
+      ],
+      "distance": 3.0
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -50,
+        "z": 24,
+        "scale": 0.92,
+        "rotation": 90
+      },
+      "reference_graphic": 10311,
+      "source_center": [
+        -298.5,
+        141.0
+      ],
+      "source_footprint": [
+        18,
+        21
+      ],
+      "distance": 3.3541019662496847
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": 20,
+        "z": -8,
+        "scale": 0.92,
+        "rotation": 180
+      },
+      "reference_graphic": 10314,
+      "source_center": [
+        109.5,
+        -54.0
+      ],
+      "source_footprint": [
+        18,
+        27
+      ],
+      "distance": 12.093386622447824
+    },
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -49,
+        "z": 30,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10313,
+      "source_center": [
+        -303.0,
+        189.0
+      ],
+      "source_footprint": [
+        15,
+        21
+      ],
+      "distance": 12.727922061357857
+    }
+  ],
+  "retired": [
+    {
+      "marker": {
+        "kind": "falan_townhouse",
+        "x": -49,
+        "z": -16,
+        "scale": 0.92,
+        "rotation": 0
+      },
+      "reference_graphic": 10077,
+      "source_center": [
+        -298.5,
+        -112.5
+      ],
+      "source_footprint": [
+        12,
+        18
+      ],
+      "distance": 17.102631376487068,
+      "reason": "Native city has a garden/path gap here; no additional source house."
+    }
+  ],
+  "centered_markers": [
+    [
+      -46,
+      -33
+    ],
+    [
+      -42,
+      -26
+    ],
+    [
+      -28,
+      42
+    ],
+    [
+      -14,
+      36
+    ],
+    [
+      -7,
+      23
+    ],
+    [
+      -6,
+      -22
+    ],
+    [
+      6,
+      -24
+    ],
+    [
+      18,
+      -21
+    ],
+    [
+      24,
+      22
+    ]
+  ],
+  "feature_masks": {
+    "shop_medallion": [
+      10079,
+      [
+        [
+          83,
+          159
+        ],
+        [
+          93,
+          165
+        ],
+        [
+          103,
+          175
+        ],
+        [
+          109,
+          188
+        ],
+        [
+          112,
+          199
+        ],
+        [
+          110,
+          209
+        ],
+        [
+          104,
+          214
+        ],
+        [
+          96,
+          211
+        ],
+        [
+          87,
+          203
+        ],
+        [
+          80,
+          192
+        ],
+        [
+          76,
+          178
+        ],
+        [
+          77,
+          166
+        ]
+      ]
+    ],
+    "shop_shield": [
+      10079,
+      [
+        [
+          237,
+          164
+        ],
+        [
+          244,
+          168
+        ],
+        [
+          251,
+          169
+        ],
+        [
+          260,
+          166
+        ],
+        [
+          270,
+          159
+        ],
+        [
+          276,
+          150
+        ],
+        [
+          275,
+          186
+        ],
+        [
+          272,
+          201
+        ],
+        [
+          265,
+          208
+        ],
+        [
+          247,
+          205
+        ],
+        [
+          242,
+          194
+        ],
+        [
+          239,
+          181
+        ]
+      ]
+    ]
+  },
+  "method": "Shared rectified native paint and protected legacy bindings. city_architecture owns current source-contour ordinary houses; unseen surfaces remain reconstructed."
+}

@@ -91,11 +91,13 @@ func run():
  game.army_runtime.import_arrivals()
  var victim=game.army_runtime.enemy_target(row.id)
  p.attack_chain.reset();var plain=p.attack_chain.begin("pipe")
+ plain.critical_chance=0
  var before=game.army_runtime.unit_state(victim.handle).hp
  victim.take_hit(10,Vector3.FORWARD,false,plain)
  var normal=before-game.army_runtime.unit_state(victim.handle).hp
  p.attack_chain.reset();game.update_skill_balance("demon-hunter/immolation","damage",2.5)
  var tuned=p.attack_chain.begin("warcraft_immolation")
+ tuned.critical_chance=0
  before=game.army_runtime.unit_state(victim.handle).hp
  victim.take_hit(10,Vector3.FORWARD,false,tuned)
  var modified=before-game.army_runtime.unit_state(victim.handle).hp
@@ -132,7 +134,7 @@ func run():
  pool.launched.connect(func(projectile):
   projectile.set_physics_process(false)
   if not projectile.attack_ticket.is_empty():released.append(projectile.attack_ticket.duplicate());total_releases+=1)
- # Original shortcuts share the same IDs without going through the borrowed runtime.
+ # Original shortcuts share the same IDs, including spells owned by the loadout.
  for id in Catalog.all():
   var spec=Catalog.all()[id]
   p.select_character(spec.source);p.cancel_charge(false);clear_instances();pool.release_owner(p)
@@ -147,6 +149,10 @@ func run():
    "teleport":original.teleport.start()
    "beam":original.activate_shield();original.start_beam("equip")
    "charge":original.begin_cast("primary");original.Actions.begin_charge(original)
+   "start_cast","start_charge":
+    var action=Catalog.defaults(spec.source).find_key(id)
+    if action==null:p.spell_loadout._instance(id).cast()
+    else:input(action,true);input(action,false)
    "input":original.input(p.spell_loadout.Instance.event(spec.args[0],true))
    "action":original.action(spec.args[0])
    _:original.callv(spec.method,spec.args)

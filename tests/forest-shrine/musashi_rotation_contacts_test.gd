@@ -11,7 +11,7 @@ func check(ok:bool,label_:String):
 func run():
 	fixture=load("res://tests/forest-shrine/large_army_fixture.gd").new();root.add_child(fixture)
 	var game=await fixture.make_game("original")
-	game.crowd.set_process(false);game.crowd.low_fidelity=false
+	game.crowd.set_process(false)
 	runtime=load("res://scripts/forest/crowd/army_runtime.gd").new();game.add_child(runtime);runtime.configure(game)
 	runtime.configure_kits(load("res://scripts/forest/crowd/army_kit_data.gd").from_model(game.model))
 	game.tuning.critical_chance=0;game.character_tuning={}

@@ -1,22 +1,17 @@
-extends "res://scripts/level_progression.gd"
-## Run-only team XP and card choices. Saved balance and character stats stay separate.
+extends "res://scripts/forest/experience_progression.gd"
+## Main-character XP and upgrade choices for the current run.
+const Experience=preload("res://scripts/forest/experience_progression.gd")
+const Pets=preload("res://scripts/forest/pet_catalog.gd")
+const QI_SKILLS=["kazi/qigong","maze/qigong"]
 const CARDS={
-	"tower_defense":{"category":"Tower","title":"Reinforced stone","description":"All towers withstand %d%% more damage.","step":.30},
-	"tower_speed":{"category":"Tower","title":"Rapid volleys","description":"All towers shoot %d%% faster.","step":.25},
-	"tower_damage":{"category":"Tower","title":"Heavy ammunition","description":"All towers deal %d%% more damage.","step":.30},
-	"worker_repair":{"category":"Worker","title":"Expert repairs","description":"All workers repair %d%% faster. Same ryo cost per HP.","step":.50},
-	"worker_speed":{"category":"Worker","title":"Swift response","description":"All workers move %d%% faster and seek the nearest safe repair job.","step":.25},
-	"worker_revive":{"category":"Worker","title":"Back on our feet","description":"Wounded workers revive at the castle after %d seconds, even during battle.","step":1.0},
+	"pet_damage":{"category":"Pet","title":"Stronger strikes","description":"All your hounds and mantises gain %d%% of base damage.","step":.30},
+	"pet_speed":{"category":"Pet","title":"Fleet paws","description":"All your hounds and mantises move %d%% faster.","step":.20},
+	"pet_health":{"category":"Pet","title":"Stalwart companions","description":"All your hounds and mantises gain %d%% of base maximum health.","step":.30},
 	"character_damage":{"category":"Character","title":"United strength","description":"You and all friendly fighters deal %d%% more attack and spell damage.","step":.30},
 	"character_speed":{"category":"Character","title":"Battle rhythm","description":"You and all friendly fighters attack %d%% faster.","step":.20},
 	"player_range":{"category":"Character","title":"Far-reaching strikes","description":"Your controlled character gains %d%% more melee attack reach.","step":.25},
-	"legendary_tower":{"category":"Tower","title":"Heavenly artillery","description":"All your towers deal 5× total damage for the rest of this run. Includes current and future towers.","step":0.0},
-	"legendary_workers":{"category":"Worker","title":"Royal workforce","description":"Gain 10 workers at your castle immediately. Free, even when food is full.","step":0.0},
-	"legendary_dragoons":{"category":"Character","title":"Dragoon company","description":"Gain 5 Dragoons at your castle immediately. Free, even when food is full.","step":0.0,"mercenary":0},
-	"legendary_rangers":{"category":"Character","title":"Ranger company","description":"Gain 5 Rangers at your castle immediately. Free, even when food is full.","step":0.0,"mercenary":1},
-	"legendary_ninjas":{"category":"Character","title":"Ninja company","description":"Gain 5 Ninjas at your castle immediately. Free, even when food is full.","step":0.0,"mercenary":2},
-	"legendary_knights":{"category":"Character","title":"Knight company","description":"Gain 5 Knights at your castle immediately. Free, even when food is full.","step":0.0,"mercenary":3},
-	"legendary_explorers":{"category":"Character","title":"Explorer company","description":"Gain 5 Explorers at your castle immediately. Free, even when food is full.","step":0.0,"mercenary":4},
+	"qi_orbs":{"category":"Character","title":"氣功蛋 · More orbs","description":"Your Qi Orbs fire %d extra orbs per cast. Damage per orb stays the same.","step":2.0,"skills":QI_SKILLS,"stat":"count","max_rank":8},
+	"qi_area":{"category":"Character","title":"氣功蛋 · Wider hits","description":"Your Qi Orbs gain %d%% hit radius. Visual size and damage stay the same.","step":.20,"skills":QI_SKILLS,"stat":"hit_area","max_rank":8},
 	"legendary_goemon":{"category":"Character","title":"Goemon joins","description":"Summon Goemon to fight for you until defeated or this run ends.","step":0.0,"hero":1},
 	"legendary_musashi":{"category":"Character","title":"Musashi joins","description":"Summon Musashi to fight for you until defeated or this run ends.","step":0.0,"hero":13},
 	"legendary_kojiro":{"category":"Character","title":"Kojiro joins","description":"Summon Kojiro to fight for you until defeated or this run ends.","step":0.0,"hero":28},
@@ -24,64 +19,134 @@ const CARDS={
 	"legendary_illidan":{"category":"Character","title":"Illidan joins","description":"Summon Illidan to fight for you until defeated or this run ends.","step":0.0,"hero":32},
 	"legendary_mountain_king":{"category":"Character","title":"Mountain King joins","description":"Summon Mountain King to fight for you until defeated or this run ends.","step":0.0,"hero":33},
 }
-const RARITIES=["Normal","Silver","Gold","Diamond","Legendary"]
+const RARITIES=["Silver","Gold","Diamond"]
+const CARD_LEVELS=[1,3,5]
+const RARITY_MARBLES=[7,9,4]
 var ranks:Dictionary={}
+var skills:Array[String]=[]
 var offer:Array[String]=[]
 var offer_rarities:Array[int]=[]
 var choices=0
-var xp_remainder=0
+const STAT_NAMES={"vitality":"Vitality","attack":"Attack","magic_power":"Magic power","attack_speed":"Attack Speed","defense":"Defense","magic_defense":"Magic defense","critical_chance":"Critical Chance","dodge_chance":"Dodge","counter_chance":"Counter attack"}
+var stat_points=0
+const SKILL_FOOD_STEP=.05
+var skill_food_stacks=0
+var skill_levels:Dictionary={}
+var pet_skill_levels:Dictionary={}
+var pet_experience:Dictionary={}
+const PET_STATS={"vitality":"+30 maximum HP","mana":"+10 maximum MP","damage":"+10% base attack and skill damage","attack_speed":"+10% attack speed","speed":"+5% move speed","dodge_chance":"+1% dodge (max 100%)","counter_chance":"+1% counter (max 100%)"}
+var pet_stat_ranks:Dictionary={}
+var skill_modifiers:Dictionary={}
+var stat_ranks={"vitality":0,"attack":0,"magic_power":0,"attack_speed":0,"defense":0,"magic_defense":0,"critical_chance":0,"dodge_chance":0,"counter_chance":0}
+var cards_enabled=true:
+	set(enabled):
+		cards_enabled=enabled
+		if not enabled:skip_offers()
 var rng=RandomNumberGenerator.new()
-var rarity_cutoffs:Array[int]=[8475,9475,9875,9975]
+var rarity_bag:Array[int]=[]
 
 func reset(_direct_levels:bool=false):
 	super.reset(false)
-	ranks.clear();offer.clear();offer_rarities.clear();choices=0;xp_remainder=0
+	ranks.clear();skills.clear();offer.clear();offer_rarities.clear();rarity_bag.clear();choices=0
+	stat_points=0
+	skill_food_stacks=0
+	skill_levels.clear();pet_skill_levels.clear();pet_experience.clear();pet_stat_ranks.clear();skill_modifiers.clear()
+	for id in stat_ranks:stat_ranks[id]=0
 
-func kills_required()->int:return 0 if level>=MAX_LEVEL else 20+10*(level-1)
+func spend_stat(id:String)->bool:
+	if stat_points<=0 or not stat_ranks.has(id):return false
+	if id in ["critical_chance","dodge_chance","counter_chance"] and stat_chance_bonus(id)>=100:return false
+	stat_points-=1;stat_ranks[id]+=1
+	return true
+func stat_health_bonus()->float:return 20.0*(level-1)+100.0*stat_ranks.vitality
+func stat_regeneration()->float:return 1.0*stat_ranks.vitality
+func stat_damage_multiplier()->float:return 1.0+.03*(level-1)+.15*stat_ranks.attack
+func stat_magic_multiplier()->float:return 1.0+.03*(level-1)+.15*stat_ranks.magic_power
+func stat_attack_multiplier()->float:return 1.0+.10*stat_ranks.attack_speed
+func stat_defense()->float:return 2.0*(level-1)+10.0*stat_ranks.defense
+func stat_magic_defense()->float:return 2.0*(level-1)+10.0*stat_ranks.magic_defense
+func stat_critical_chance_bonus()->float:return stat_chance_bonus("critical_chance")
+func stat_chance_bonus(id:String)->float:return float(stat_ranks[id])
+func skill_food_multiplier()->float:return 1.0+SKILL_FOOD_STEP*skill_food_stacks
+func stat_incoming_multiplier(extra_defense:float=0.0,defense_factor:float=1.0,magical:bool=false)->float:
+	var defense=stat_magic_defense() if magical else stat_defense()
+	return 100.0/(100.0+(defense+extra_defense)*defense_factor)
+
 func pending()->int:return level-1-choices
 func choice_level()->int:return choices+2
 func multiplier(id:String,extra_ranks:int=0)->float:
-	var value=1.0+float(CARDS[id].step)*(int(ranks.get(id,0))+extra_ranks)
-	return value*pow(5.0,int(ranks.get("legendary_tower",0))) if id=="tower_damage" else value
-func revival_seconds()->float:return 12.0/maxi(1,int(ranks.get("worker_revive",0)))
-func description(id:String,rarity:int)->String:
-	if id.begins_with("legendary_"):return CARDS[id].description
-	return CARDS[id].description%(12/(rarity+1) if id=="worker_revive" else roundi(float(CARDS[id].step)*100*(rarity+1)))
-static func rarity_from_roll(roll:int,cutoffs:Array=[8475,9475,9875,9975])->int:
-	for rarity in cutoffs.size():
-		if roll<cutoffs[rarity]:return rarity
-	return 4
+	return 1.0+float(CARDS[id].step)*(int(ranks.get(id,0))+extra_ranks)
+func pet_growth(key:String,per_level:float)->float:
+	var xp=pet_experience.get(key)
+	if xp==null:return 0.0
+	var levels:float=xp.level-1
+	return per_level*levels/(1.0+levels/20.0)
+func pet_rank(key:String,id:String)->int:return pet_stat_ranks.get(key,{}).get(id,0)
+func pet_points(key:String)->int:
+	var xp=pet_experience.get(key)
+	var spent=0
+	for rank in pet_stat_ranks.get(key,{}).values():spent+=rank
+	return (xp.level-1 if xp!=null else 0)-spent
+func can_spend_pet_stat(key:String,id:String)->bool:
+	if id=="passive":
+		var passive=Pets.passive(Pets.skin(key))
+		return passive.get("upgrade",false) and pet_points(key)>0 and (passive.stat=="regeneration" or Pets.passive_value(Pets.skin(key),pet_passive_level(key))<100)
+	return PET_STATS.has(id) and pet_points(key)>0 and (id not in ["dodge_chance","counter_chance"] or pet_rank(key,id)<100)
+func spend_pet_stat(key:String,id:String)->bool:
+	if not can_spend_pet_stat(key,id):return false
+	var ranks_:Dictionary=pet_stat_ranks.get_or_add(key,{})
+	ranks_[id]=pet_rank(key,id)+1
+	return true
+func pet_passive_level(key:String)->int:return 1+pet_rank(key,"passive")
+func party_passive_bonus(selected:Array,stat:String)->float:
+	var bonus=0.0
+	for key in selected:
+		var skin=Pets.skin(key);var passive=Pets.passive(skin)
+		if passive.get("stat","")==stat:bonus+=Pets.passive_value(skin,pet_passive_level(key))
+	return bonus
+func pet_damage_multiplier(key:String)->float:return multiplier("pet_damage")+pet_growth(key,.10)+.10*pet_rank(key,"damage")
+func award_pet_enemy(key:String,reward_tenths:int)->int:
+	if reward_tenths<=0:return 0
+	if not pet_experience.has(key):pet_experience[key]=Experience.new()
+	return pet_experience[key].award_enemy(reward_tenths)
+func skill_bonus(skill:String,stat:String,extra_card:String="",extra_ranks:int=0)->float:
+	var bonus=0.0
+	for id in CARDS:
+		var card:Dictionary=CARDS[id]
+		if card.get("stat","")==stat and card.get("skills",[]).has(skill):
+			bonus+=float(card.step)*(int(ranks.get(id,0))+(extra_ranks if id==extra_card else 0))
+	return bonus
 func award_kills(amount:int=1)->int:
 	var gained=super.award_kills(amount)
-	if level>=MAX_LEVEL:xp_remainder=0
-	if pending()>0 and offer.is_empty():roll_offer()
+	stat_points+=gained
+	if not cards_enabled:skip_offers()
 	return gained
 
-func award_enemy(reward_tenths:int=10)->int:
-	if reward_tenths<=0 or level>=MAX_LEVEL:return 0
-	# Keep fractional rewards exact while reusing the whole-XP level accumulator.
-	var total=xp_remainder+reward_tenths
-	xp_remainder=total%10
-	return award_kills(total/10)
-
-func experience()->float:return kills_into_level+xp_remainder/10.0
-func progress()->float:return 1.0 if level>=MAX_LEVEL else experience()/kills_required()
-
-func roll_offer():
+func skip_offers():
+	choices=level-1
 	offer.clear();offer_rarities.clear()
-	for slot in 3:
-		var rarity=rarity_from_roll(rng.randi_range(0,9999),rarity_cutoffs);offer_rarities.append(rarity)
-		var available:Array[String]=[]
-		for id in CARDS:
-			if id.begins_with("legendary_")!=(rarity==4) or offer.has(id):continue
-			if id!="worker_revive" or not ranks.has(id):available.append(id)
-		offer.append(available[rng.randi_range(0,available.size()-1)])
+
+func draw_rarity()->int:
+	if rarity_bag.is_empty():
+		for rarity in RARITY_MARBLES.size():
+			for marble in RARITY_MARBLES[rarity]:rarity_bag.append(rarity)
+		for i in range(rarity_bag.size()-1,0,-1):
+			var j=rng.randi_range(0,i)
+			var marble=rarity_bag[i];rarity_bag[i]=rarity_bag[j];rarity_bag[j]=marble
+	return rarity_bag.pop_back()
+
+func roll_offer(targets:Array[String]):
+	offer.clear();offer_rarities.clear()
+	var available=targets.duplicate()
+	for slot in mini(3,available.size()):
+		var group=available if slot==2 else available.filter(func(id):return id.contains("|")==(slot==1))
+		if group.is_empty():group=available
+		var id:String=group[rng.randi_range(0,group.size()-1)]
+		offer.append(id);offer_rarities.append(draw_rarity());available.erase(id)
 
 func can_choose(id:String,offered_level:int)->bool:
-	return pending()>0 and offered_level==choice_level() and offer.has(id)
+	return cards_enabled and pending()>0 and offered_level==choice_level() and offer.has(id)
 func choose(id:String,offered_level:int)->bool:
 	if not can_choose(id,offered_level):return false
-	ranks[id]=int(ranks.get(id,0))+(1 if id.begins_with("legendary_") else offer_rarities[offer.find(id)]+1)
 	choices+=1;offer.clear();offer_rarities.clear()
-	if pending()>0:roll_offer()
 	return true

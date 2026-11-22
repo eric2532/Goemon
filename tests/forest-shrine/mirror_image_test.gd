@@ -2,10 +2,10 @@ extends "res://scripts/recovered_goemon_gameplay_tests.gd"
 const Mirrors=preload("res://scripts/warcraft_mirrors.gd")
 const OUT="res://build/Other Files/Asset Toolkit/Warcraft/Mirror Image/"
 var costs=[]
-func advance_army(count:int):
+func advance_army(count:int,follow:bool=false):
  for i in count:
   var start=Time.get_ticks_usec()
-  game.army_runtime.step(1.0/60,{"targets":[]})
+  game.army_runtime.step(1.0/60,{"targets":game.army_runtime.external_targets() if follow else []})
   costs.append((Time.get_ticks_usec()-start)/1000.0)
   await physics_frame
 func run():
@@ -46,29 +46,30 @@ func run():
  var spin_index=-1
  for i in copy.actions.size():
   if copy.actions[i][1]=="equip":spin_index=i
- check(spin_index>=0,"Equipped offensive skill participates in random choices")
+ check(spin_index>=0,"Equipped offensive skill is available to copies")
  copy.perform(spin_index,enemy.global_position)
  check(copy.spell_loadout.current!=null and copy.spell_loadout.current.spec.id=="blademaster/spin","Goemon image casts its equipped Bladestorm while retaining Goemon's body")
  borrowed.clear()
  p.spell_loadout.equip(1,"equip","");p.spell_loadout.equip(1,"sky_strike","")
- # No target: images wait independently of the caster instead of marching away.
+ # No target: images follow the caster using the live player position.
  army.despawn(enemy.handle);army.sync_compatibility()
  p.select_character(31);fresh();var mirrors=p.active_ability.mirrors
  check(mirrors.cast(),"Idle mirror cast succeeds")
  var start=mirrors.bodies.map(func(body):return body.global_position)
  p.global_position+=Vector3.RIGHT*50;p.facing=Vector3.BACK
- await advance_army(180)
- var stayed=true
+ await advance_army(180,true)
+ var followed=true
  for i in 5:
-  var offset=mirrors.bodies[i].global_position-start[i];offset.y=0
-  stayed=stayed and offset.length()<.5
- check(stayed,"All five wait for enemies while the caster moves away")
+  followed=followed and mirrors.bodies[i].global_position.distance_to(p.global_position)<start[i].distance_to(p.global_position)-4.0
+ check(followed,"All five follow the caster while searching for enemies")
  var separated=true
  for i in 5:
   for j in range(i+1,5):separated=separated and mirrors.bodies[i].global_position.distance_to(mirrors.bodies[j].global_position)>1.0
- check(separated,"Waiting images retain separate spawn positions")
+ check(separated,"Following images keep separate positions")
  var leases=mirrors.handles.duplicate();await advance_army(721)
- check(mirrors.handles.is_empty() and leases.all(func(h):return not army.valid(h)),"Native clock expires every image after fifteen seconds")
+ check(leases.size()==5 and leases.all(func(h):return army.valid(h)),"Native clock keeps all five images past fifteen seconds")
+ await advance_army(900)
+ check(mirrors.handles.is_empty() and leases.all(func(h):return not army.valid(h)),"Native clock expires every image after thirty seconds")
  fresh();check(mirrors.cast(),"Worker-backed mirror cast succeeds")
  mirrors._action({"source_id":-int(p.get_instance_id())*8-1,"ticket_id":leases[0],"action_index":400,"position":ORIGIN})
  check(mirrors.bodies[0].action_history.is_empty(),"Retired generation cannot command a reused copy")

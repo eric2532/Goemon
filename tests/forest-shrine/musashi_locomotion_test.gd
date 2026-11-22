@@ -5,6 +5,8 @@ var failures=0
 class Body extends CharacterBody3D:
 	var active_ability=null
 	var jumps_used=0
+	var run_speed=10.2
+	func combat_tuning(key:String)->float:return run_speed if key=="walk_speed" else 1.0
 func _initialize():run.call_deferred()
 func check(ok:bool,label_:String):
 	checks+=1
@@ -83,7 +85,8 @@ func physics_checks(script):
 	# change. Disable the engine's transitional step correction for that clock.
 	Engine.physics_jitter_fix=0
 	for hz in [30,60]:
-		Engine.physics_ticks_per_second=hz;await physics_frame
+		Engine.physics_ticks_per_second=hz;await physics_frame;await physics_frame
+		body.run_speed=10.2
 		body.position=Vector3(0,.01,0)
 		await driver.advance(3,func(_dt):body.velocity=Vector3.DOWN*3;body.move_and_slide())
 		check(body.is_on_floor(),"Collision fixture starts grounded at %d Hz"%hz)
@@ -92,6 +95,11 @@ func physics_checks(script):
 		await driver.advance(hz,func(dt):measured.append(dt);motion.physics_step(dt,Vector3.FORWARD,false,true,false,false))
 		if absf(-body.position.z-4.665375)>.00001:print("SOURCE_CLOCK_DEBUG hz=",hz," deltas=",measured)
 		near(-body.position.z,4.665375,"One-second real-body trajectory preserves the source entry and 29 integrations at %d Hz"%hz)
+		for speed in [5.1,20.4]:
+			motion.reset();body.run_speed=speed;body.position=Vector3(0,.01,0)
+			await driver.advance(3,func(_dt):body.velocity=Vector3.DOWN*3;body.move_and_slide())
+			await driver.advance(hz,func(dt):motion.physics_step(dt,Vector3.FORWARD,false,true,false,false))
+			near(-body.position.z,4.665375*speed/10.2,"Run setting scales actual travel without changing source acceleration at %d Hz / %.1f"%[hz,speed])
 		motion.reset();body.position=Vector3(0,.01,0)
 		await driver.advance(3,func(_dt):body.velocity=Vector3.DOWN*3;body.move_and_slide())
 		var start_y=body.position.y

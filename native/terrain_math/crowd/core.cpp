@@ -103,6 +103,35 @@ bool Crowd::set_enemy_scaling(Handle h,double health_scale,double damage_scale){
     // Spawn HP is already scaled; retain its multiplier for later form changes.
     u->enemy_health_scale=health_scale;u->enemy_damage_scale=damage_scale;return true;
 }
+bool Crowd::set_body_scale(Handle h,float scale){
+    auto u=unit(h);
+    if(!u||u->team!=0||u->kind!=SLIME_KIND||!std::isfinite(scale)||scale<=0||scale>2)return false;
+    u->radius*=scale/u->body_scale;u->body_scale=scale;
+    combat.include_body_bounds(*u);dirty_=true;++pose_revision_;
+    return true;
+}
+bool Crowd::set_enemy_escort(Handle h,Handle leader,int slot){
+    auto u=unit(h);auto owner=unit(leader);
+    if(!u||!owner||h==leader||u->team!=0||owner->team!=0||owner->body_scale!=2||owner->escort_leader||slot<0||slot>=5)return false;
+    u->escort_leader=leader;u->escort_slot=slot;u->escort_refresh=0;u->think_left=0;
+    return true;
+}
+bool Crowd::set_boss_reactions(Handle h,double dodge,double counter){
+    auto u=unit(h);
+    if(!u||(u->team!=0&&!escort_kind(u->kind))||!std::isfinite(dodge)||dodge<0||dodge>1||!std::isfinite(counter)||counter<0||counter>1)return false;
+    u->dodge_chance=dodge;u->counter_chance=counter;
+    u->patrol_counter=false;u->patrol_counter_bag=0;u->patrol_counter_cooldown=0;
+    if(dodge==0){u->dodge_left=u->dodge_cooldown=0;u->dodge_direction={};}
+    if(counter==0)u->counter_pending=u->counter_active=false;
+    return true;
+}
+bool Crowd::set_patrol_counter(Handle h){
+    auto u=unit(h);
+    if(!u||u->team!=0||u->guard_radius<=0)return false;
+    if(!set_boss_reactions(h,0,.20))return false;
+    u->patrol_counter=true;
+    return true;
+}
 bool Crowd::valid(Handle h) const{
     if(h<=0)return false;
     uint32_t slot=uint32_t(h);
@@ -182,24 +211,87 @@ void Crowd::rest_allies(){
     combat.clear();
     for(auto& u:units_)if(u.alive){
         if(u.team==0){despawn(u.handle);continue;}
+        if(u.pet_skill==PET_BEE_FLURRY)combat.finish_pet_flurry(*this,u);
         Unit old=std::move(u);u={};u.handle=old.handle;u.logical_id=old.logical_id;u.team=old.team;u.kind=old.kind;u.hp=old.hp;u.max_hp=old.max_hp;u.radius=old.radius;u.position=old.position;u.yaw=old.yaw;u.guard_post=old.guard_post;u.guard_radius=old.guard_radius;u.alive=true;if(old.shelter_mode==2){u.shelter_mode=2;u.shelter_id=old.shelter_id;u.shelter_exit=old.shelter_exit;}combat.spawned(u);
+        if(pet_skin_count(u.kind))u.pose_row=old.pose_row;
+        u.pet_mana=old.pet_mana;u.pet_mana_bonus=old.pet_mana_bonus;
+        u.pet_health_bonus=old.pet_health_bonus;u.pet_damage_bonus=old.pet_damage_bonus;
+        u.pet_move_multiplier=old.pet_move_multiplier;u.pet_attack_multiplier=old.pet_attack_multiplier;
+        if(escort_kind(u.kind)){u.dodge_chance=old.dodge_chance;u.counter_chance=old.counter_chance;}
+        u.bodyguard_level=old.bodyguard_level;u.bodyguard_bag=old.bodyguard_bag;
+        u.pet_skills=old.pet_skills;u.pet_cooldowns=old.pet_cooldowns;u.pet_ready_mask=7;
+        u.pet_cast_serial=old.pet_cast_serial;u.pet_combo_limit=old.pet_combo_limit;if(u.kind==HOUND_KIND)u.action_hits.reserve(std::max(32,u.pet_combo_limit));
         // Prepared hero bodies and their action leases survive between waves.
-        u.mirror_actions=old.mirror_actions;u.mirror_speed=old.mirror_speed;u.mirror_reach=old.mirror_reach;u.mirror_approach=old.mirror_approach;u.mirror_busy=old.mirror_busy;
+        u.mirror_actions=old.mirror_actions;u.mirror_speed=old.mirror_speed;u.mirror_reach=old.mirror_reach;u.mirror_spell_reach=old.mirror_spell_reach;u.mirror_approach=old.mirror_approach;u.mirror_busy=old.mirror_busy;
     }
+    combat.clear_events();
     dirty_=true;++pose_revision_;
 }
 void Crowd::set_guard(Handle h,Vec3 point,float radius){if(auto u=unit(h);u&&bounded(point)&&std::isfinite(radius)&&radius>=0){u->guard_post=point;u->guard_radius=radius;u->think_left=0;}}
+bool Crowd::set_pet_bodyguard_level(Handle h,int level){
+    auto u=unit(h);if(!u||u->team!=1||u->kind!=HOUND_KIND||level<1||level>30)return false;
+    if(u->bodyguard_level!=level){u->bodyguard_level=level;u->bodyguard_bag=0;}
+    return true;
+}
+bool Crowd::set_pet_skills(Handle h,const std::vector<int32_t>& skills,int combo_limit){
+    auto u=unit(h);if(!u||u->team!=1||u->kind!=HOUND_KIND||skills.size()!=3||combo_limit<1||combo_limit>128)return false;
+    std::array<int,3> next{};
+    for(size_t i=0;i<3;++i){
+        if(skills[i]<0||skills[i]>PET_SKILL_COUNT||(skills[i]>PET_BEE_FLURRY&&skills[i]!=PET_BODYGUARD))return false;
+        for(size_t j=0;j<i;++j)if(skills[i]&&skills[j]==skills[i])return false;
+        next[i]=skills[i];
+    }
+    u->pet_combo_limit=combo_limit;u->action_hits.reserve(std::max(32,combo_limit));
+    if(next==u->pet_skills)return true;
+    if(u->pet_skill){
+        if(u->pet_skill==PET_BEE_FLURRY)combat.finish_pet_flurry(*this,*u);
+        u->pet_skill=0;u->pet_combo_left=0;u->action_active=false;u->action_time=0;u->action=0;u->action_hits.clear();
+    }
+    u->pet_skills=next;u->pet_ready_mask=7;return true;
+}
+bool Crowd::set_pet_mana(Handle h,double mana){
+    auto u=unit(h);
+    if(!u||u->team!=1||!escort_kind(u->kind)||!std::isfinite(mana)||mana<0||mana>combat.pet_max_mana()+u->pet_mana_bonus)return false;
+    u->pet_mana=mana;return true;
+}
+bool Crowd::set_pet_growth(Handle h,double health_bonus,double damage_bonus){
+    auto u=unit(h);
+    const auto maximum=combat.hound_health()+health_bonus;
+    if(!u||u->team!=1||u->kind!=HOUND_KIND||!std::isfinite(maximum)||maximum<=0||
+       health_bonus<0||!std::isfinite(damage_bonus)||damage_bonus<0)return false;
+    u->pet_health_bonus=health_bonus;u->pet_damage_bonus=damage_bonus;
+    u->set_max_hp(maximum);
+    return true;
+}
+bool Crowd::set_pet_training(Handle h,double movement,double attack,double mana_bonus,bool heal){
+    auto u=unit(h);
+    if(!u||u->team!=1||u->kind!=HOUND_KIND||!std::isfinite(movement)||movement<1||movement>6||
+       !std::isfinite(attack)||attack<1||attack>11||!std::isfinite(mana_bonus)||mana_bonus<0||mana_bonus>980)return false;
+    u->pet_move_multiplier=movement;u->pet_attack_multiplier=attack;
+    u->pet_mana=std::clamp(u->pet_mana+mana_bonus-u->pet_mana_bonus,0.,combat.pet_max_mana()+mana_bonus);
+    u->pet_mana_bonus=mana_bonus;
+    if(heal)u->hp=u->max_hp;
+    return true;
+}
+bool Crowd::set_pet_skill_ready(Handle h,int mask){
+    auto u=unit(h);if(!u||u->team!=1||u->kind!=HOUND_KIND||mask<0||mask>7)return false;
+    u->pet_ready_mask=mask;return true;
+}
 bool Crowd::set_mirror(Handle h,int actions,float speed,float reach,Vec3 approach){
     auto u=unit(h);
-    if(!u||u->team!=1||u->kind<101||u->kind>134||actions<1||actions>7||!std::isfinite(speed)||speed<=0||speed>200||!std::isfinite(reach)||reach<=0||reach>200)return false;
+    // Recovered heroes reuse pooled bodies; character 41 remains retired.
+    if(!u||u->team!=1||u->kind<101||u->kind>151||u->kind==141||actions<1||actions>7||!std::isfinite(speed)||speed<0||speed>200||!std::isfinite(reach)||reach<=0||reach>200)return false;
     if(!bounded(approach))return false;
-    approach.y=0;if(length(approach)<.001f)return false;
+    // A zero approach opts into ranged attacks from the current position.
+    bool ranged=dot(approach,approach)==0;
+    approach.y=0;if(!ranged&&length(approach)<.001f)return false;
     u->mirror_approach=normalized(approach)*(reach*.8f);
     u->mirror_actions=actions;u->mirror_speed=speed;u->mirror_reach=reach;u->mirror_wait=.15+double(u->rng%500)/1000;u->mirror_busy=false;
     return true;
 }
 void Crowd::set_goal(Handle handle,Vec3 goal,float speed){
     auto u=unit(handle);if(!u||!bounded(goal)||!std::isfinite(speed)||speed<0)return;
+    if(u->team==1&&u->kind==HOUND_KIND)speed*=float(u->pet_move_multiplier);
     // Mercenary approach offsets are horizontal; routes need the destination's ground height.
     if(u->team==1&&u->guard_radius>0){goal.y=float(allied_terrain.height(goal.x,goal.z,std::max(0,u->support_layer)));if(!finite(goal))return;}
     if(length(goal-u->goal)>3){
@@ -220,7 +312,7 @@ void Crowd::step(double delta){
     for(int step=0;step<steps;++step){
         rebuild_grid();mark(timing.grid);
         for(auto& u:units_)u.live_delta=tick;
-        combat.before_move(*this,tick);mark(timing.decisions);
+        combat.before_move(*this,tick);rebuild_grid();mark(timing.decisions);
         // Units in one cell share the same ordered, deduplicated neighbourhood.
         // Publish immutable geometry before either movement thread starts.
         for(auto& entry:movement_cells_){entry.second.ready={};for(auto& rows:entry.second.neighbors)rows.clear();}
@@ -258,11 +350,15 @@ void Crowd::step(double delta){
                 if(length(impulse)>.001f)next[i]=ground.move(u.position,u.position+impulse*live,length(impulse),live,u.radius,u.support_layer,u.routing);
                 continue;
             }
+            // Peel around nearby attackers before planting for a swing.
+            const bool pet_approach=u.team==1&&(u.kind==HOUND_KIND||u.kind==BEAR_KIND)&&u.target_handle;
+            const bool assault=pet_approach||(u.team==0&&!u.base_marching&&(u.target_handle||u.external_kind>=0)&&u.kind!=4&&u.kind!=17&&u.kind!=18);
             Vec3 avoidance{};int considered=0;
             auto found=spatial.find(key(cell(u.position.x),cell(u.position.z)));
             if(found!=spatial.end())for(const auto& other:found->second.neighbors[u.team]){
                 if(other.slot==i||other.team!=u.team||std::abs(other.position.y-u.position.y)>2)continue;
                 Vec3 offset=u.position-other.position;offset.y=0;float distance=length(offset),reach=u.radius+other.radius;
+                if(assault)reach*=1.25f;
                 if(distance>=reach||reach<=0)continue;
                 if(distance<.001f){
                     float angle=float((std::min(u.logical_id,other.logical_id)*2654435761ull)&1023)*.006135923f;
@@ -272,16 +368,29 @@ void Crowd::step(double delta){
                 avoidance=avoidance+offset*((reach-std::min(distance,reach))/std::max(.01f,reach*distance));
                 if(++considered>=12)break;
             }
-            float strength=length(avoidance);if(strength>0)avoidance=avoidance*(std::min(strength,u.move_speed*.25f)/strength);
+            Vec3 sidestep{};
+            if(assault&&considered>0){
+                Vec3 forward=u.goal-u.position;forward.y=0;forward=normalized(forward);
+                Vec3 side{-forward.z,0,forward.x};
+                float blocked=std::max(0.f,-dot(avoidance,forward));
+                float passing_side=((uint64_t(u.logical_id)*11400714819323198485ull)>>63)?1.f:-1.f;
+                side=side*passing_side;
+                avoidance=(avoidance+side*blocked)*3;
+                float burst=pet_approach?0.f:std::clamp((blocked-.25f)*8,0.f,u.move_speed*u.slow_factor*1.15f);
+                sidestep=side*burst;
+            }
+            float avoidance_limit=u.move_speed*(assault?.75f*u.slow_factor:.25f);
+            float strength=length(avoidance);if(strength>0)avoidance=avoidance*(std::min(strength,avoidance_limit)/strength);
+            const Vec3 goal=u.confusion_left>0?u.position-(u.goal-u.position):u.goal;
             if(length(impulse)>.001f){
-                Vec3 toward=u.goal-u.position;toward.y=0;float gap=length(toward);Vec3 normal=normalized(toward)*std::min(u.move_speed*u.slow_factor,gap/std::max(.000001f,live));Vec3 combined=normal+impulse;
+                Vec3 toward=goal-u.position;toward.y=0;float gap=length(toward);Vec3 normal=normalized(toward)*std::min(u.move_speed*u.slow_factor,gap/std::max(.000001f,live));Vec3 combined=normal+impulse;
                 next[i]=ground.move(u.position,u.position+combined*live,length(combined),live,u.radius,u.support_layer,u.routing,avoidance);
             }else{
                 // Stable lanes share the original flow field; blocked shoulders
                 // squeeze back onto its safe route instead of building new flows.
                 uint64_t hash=uint64_t(u.logical_id)*11400714819323198485ull;hash^=hash>>32;
                 float lane=u.team==0&&u.external_kind==2?(float(hash%7)-3)*u.radius*.65f:0;
-                next[i]=ground.move(u.position,u.goal,u.move_speed*u.slow_factor,live,u.radius,u.support_layer,u.routing,avoidance,lane);
+                next[i]=ground.move(u.position,goal,u.move_speed*u.slow_factor,live,u.radius,u.support_layer,u.routing,avoidance,lane,sidestep);
             }
         }
         };

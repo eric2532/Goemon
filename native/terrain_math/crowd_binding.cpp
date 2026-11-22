@@ -136,24 +136,37 @@ void write_events(army::Combat& combat,void* result,bool compact=false){
     const char* texts[]={"serial","kind","source_id","target_id","ticket_id","projectile_id","position","direction","hp","amount","source_tick","projectile","heavy","critical","action_index","unit_kind","team","external_kind"};
     Variant keys[FIELDS];
     for(int i=0;i<FIELDS;++i){Blob text;string_new(&text,texts[i]);from_type(STR)(&keys[i],&text);destructor(STR)(&text);}
-    const char* names[]={"melee","muzzle","bullet","done","damage","death","external_damage","projectile_impact","status","landing_pulse","shield_counter","attack_started"};
-    Blob names_text[12];for(int i=0;i<12;++i)string_new(&names_text[i],names[i]);
+    const char* names[]={"melee","muzzle","bullet","done","damage","death","external_damage","projectile_impact","status","landing_pulse","shield_counter","attack_started","pet_skill_started","pet_skill_contact","pet_skill_move"};
+    Blob names_text[15];for(int i=0;i<15;++i)string_new(&names_text[i],names[i]);
     auto store=[&](void* dict,Field key,VT type,const void* value){auto slot=dictionary_index(dict,&keys[key]);variant_destroy(slot);from_type(type)(slot,const_cast<void*>(value));};
     auto integer=[&](void* dict,Field key,int64_t value){store(dict,key,INT,&value);};
     auto boolean=[&](void* dict,Field key,bool value){GDExtensionBool flag=value;store(dict,key,BOOL,&flag);};
     for(int64_t i=0;i<count;++i){
         const auto& event=events[i];Blob dict;constructor(DICT,0)(&dict,nullptr);
         integer(&dict,SERIAL,event.serial);store(&dict,KIND,STR,&names_text[event.kind]);
-        bool gameplay=event.kind==army::DAMAGE||event.kind==army::DEATH||event.kind==army::EXTERNAL_DAMAGE||(event.kind==army::STATUS_EVENT&&event.unit_kind>=101&&event.action_index>=400);
+        bool cave_special=event.unit_kind==army::SLIME_KIND&&((event.action_index>=army::ZOMBIE_DRAIN&&event.action_index<=army::RUBY_FROST_IMPACT)||(event.action_index>=army::RUBY_HEAL&&event.action_index<=army::FALKEN_SUMMON_EFFECT));
+        cave_special|=event.unit_kind==army::SLIME_KIND&&event.action_index>=army::GUARDIAN_CAST&&event.action_index<army::GUARDIAN_AFFLICTION;
+        cave_special|=event.action_index>=army::GUARDIAN_AFFLICTION&&event.action_index<army::GUARDIAN_AFFLICTION+6;
+        cave_special|=event.action_index==army::GUARDIAN_ARRIVAL;
+        cave_special|=event.unit_kind==army::HOUND_KIND&&event.action_index==army::HABARU_DOUBLE_EDGE;
+        cave_special|=event.unit_kind==army::HOUND_KIND&&event.amount>0&&(event.action_index==army::ZOMBIE_HEAL||event.action_index==army::RUBY_RECOVER_TICK||event.action_index==army::RUBY_HEAL_EFFECT);
+        bool gameplay=event.kind==army::PET_SKILL_STARTED||event.kind==army::PET_SKILL_CONTACT||event.kind==army::PET_SKILL_MOVE||event.kind==army::DAMAGE||event.kind==army::DEATH||event.kind==army::EXTERNAL_DAMAGE||(event.kind==army::STATUS_EVENT&&(event.action_index==6000||event.action_index==army::BODYGUARD_START||event.action_index==army::BODYGUARD_PUSH||event.action_index==army::ENEMY_GUARD_BREAK_WINDUP||cave_special||(event.unit_kind>=101&&event.action_index>=400)));
         if(!compact||gameplay){
             integer(&dict,SOURCE,event.source_id);integer(&dict,TARGET,event.target_id);integer(&dict,TICKET,event.ticket_id);integer(&dict,PROJECTILE_ID,event.projectile_id);
             store(&dict,POSITION,VEC3,&event.position);store(&dict,DIRECTION,VEC3,&event.direction);store(&dict,HP,FLOAT,&event.hp);store(&dict,AMOUNT,FLOAT,&event.amount);store(&dict,SOURCE_TICK,FLOAT,&event.source_tick);
             boolean(&dict,PROJECTILE,event.projectile);boolean(&dict,HEAVY,event.heavy);if(event.kind==army::DAMAGE)boolean(&dict,CRITICAL,event.critical);integer(&dict,ACTION_INDEX,event.action_index);integer(&dict,UNIT_KIND,event.unit_kind);integer(&dict,TEAM,event.team);integer(&dict,EXTERNAL_KIND,event.external_kind);
+            if(event.intercepted){put_bool(&dict,"intercepted",true);put_bool(&dict,"magical",event.magical);}
+            if(event.kind==army::DEATH&&event.body_scale!=1)put(&dict,"body_scale",FLOAT,&event.body_scale);
+            if(event.kind==army::DEATH&&army::length(event.death_launch)>0)put(&dict,"death_launch",VEC3,&event.death_launch);
+            if(event.kind==army::DAMAGE&&event.joint_count){put_int(&dict,"joint_count",event.joint_count);put(&dict,"joint_total",FLOAT,&event.joint_total);}
         }else{
             if(event.kind==army::ATTACK_STARTED)integer(&dict,SOURCE,event.source_id);
             if(event.kind==army::MUZZLE||event.kind==army::BULLET||event.kind==army::PROJECTILE_IMPACT||event.kind==army::STATUS_EVENT||event.kind==army::LANDING_PULSE)store(&dict,POSITION,VEC3,&event.position);
             if(event.kind==army::BULLET){integer(&dict,TEAM,event.team);integer(&dict,UNIT_KIND,event.unit_kind);}
             if(event.kind==army::STATUS_EVENT||event.kind==army::LANDING_PULSE)integer(&dict,ACTION_INDEX,event.action_index);
+            if(event.kind==army::STATUS_EVENT&&army::pet_skin_count(event.unit_kind))integer(&dict,UNIT_KIND,event.unit_kind);
+            if(event.kind==army::STATUS_EVENT&&event.action_index==army::ENEMY_GUARD_RAISED){integer(&dict,SOURCE,event.source_id);integer(&dict,TICKET,event.ticket_id);store(&dict,AMOUNT,FLOAT,&event.amount);}
+            else if(event.kind==army::STATUS_EVENT&&event.unit_kind==army::SLIME_KIND)integer(&dict,SOURCE,event.source_id);
             if((event.kind==army::STATUS_EVENT||event.kind==army::PROJECTILE_IMPACT)&&event.unit_kind==4){integer(&dict,SOURCE,event.source_id);integer(&dict,UNIT_KIND,4);store(&dict,AMOUNT,FLOAT,&event.amount);store(&dict,DIRECTION,VEC3,&event.direction);}
         }
         auto slot=array_index(result,i);variant_destroy(slot);from_type(DICT)(slot,&dict);destructor(DICT)(&dict);
@@ -204,12 +217,16 @@ void snapshot(army::Crowd& crowd,void* dict){
     PackedField<int32_t> rows_by_slot(I32,units.size());
     for(size_t i=0;i<units.size();++i)rows_by_slot.push_back(-1);
     PackedField<int64_t> handles(I64,count),ids(I64,count);PackedField<uint8_t> teams(BYTES,count);
-    PackedField<int32_t> kinds(I32,count),actions(I32,count),status(I32,count);PackedField<army::Vec3> positions(V3S,count),velocities(V3S,count),pose_velocities(V3S,count);
-    PackedField<float> yaw(F32,count),time(F32,count),pose(F32,count),phase(F32,count),buff(F32,count),render_time(F32,count),stun(F32,count),flash(F32,count);PackedField<int32_t> indices(I32,count),render_actions(I32,count),air_phase(I32,count),pose_rows(I32,count);PackedField<double> hp(F64,count),max_hp(F64,count),ages(F64,count);PackedField<int32_t> shelter_modes(I32,count);
+    PackedField<int32_t> kinds(I32,count),actions(I32,count),status(I32,count);PackedField<army::Vec3> positions(V3S,count),velocities(V3S,count),pose_velocities(V3S,count),dodge_offsets(V3S,count);
+    PackedField<float> yaw(F32,count),time(F32,count),pose(F32,count),phase(F32,count),buff(F32,count),render_time(F32,count),stun(F32,count),flash(F32,count),body_scales(F32,count),ice(F32,count),ice_time(F32,count);PackedField<int32_t> indices(I32,count),render_actions(I32,count),air_phase(I32,count),pose_rows(I32,count);PackedField<double> hp(F64,count),max_hp(F64,count),ages(F64,count);PackedField<int32_t> shelter_modes(I32,count);
     for(const auto& u:units){
         if(!u.alive)continue;
         rows_by_slot[uint32_t(u.handle)]=int32_t(ids.size());
         int render=u.blocking?13:u.action;double clock=u.action_time;
+        if(u.team==0&&army::enemy_charge_action(u.action)){
+            render=u.kind==4?(u.action==army::ENEMY_CHARGE_WINDUP?101:100):(u.action==army::ENEMY_CHARGE_WINDUP?1:0);
+            clock=u.phase_tick/30;
+        }
         if(u.team==1){
             if(u.air_phase){render=10;clock=u.action_time;}
             else if(render==0||render==12){
@@ -218,18 +235,18 @@ void snapshot(army::Crowd& crowd,void* dict){
                 else if(u.shot_left>0){render=12;clock=.2-u.shot_left;}
             }
         }
-        ages.push_back(u.age);shelter_modes.push_back(u.shelter_mode);
+        body_scales.push_back(u.body_scale);ages.push_back(u.age);shelter_modes.push_back(u.shelter_mode);ice.push_back(u.ice_visual());ice_time.push_back(float(u.ice_time));
         pose_rows.push_back(u.pose_row);render_actions.push_back(render);render_time.push_back(float(clock));stun.push_back(float(u.stun));flash.push_back(float(u.flash_left));air_phase.push_back(u.air_phase);
-        pose.push_back(float(u.pose_time));phase.push_back(float(u.walk_phase));buff.push_back(float(u.buff_left));indices.push_back(u.combo_serial%6);
+        pose.push_back(float(u.pose_time));phase.push_back(float(u.walk_phase));buff.push_back(float(u.buff_left));indices.push_back(army::pet_skin_count(u.kind)?u.hound_attack_direction+1:u.combo_serial%6);
         handles.push_back(u.handle);ids.push_back(u.logical_id);teams.push_back(uint8_t(u.team));
-        kinds.push_back(u.kind);positions.push_back(u.position);velocities.push_back(u.velocity);pose_velocities.push_back(u.pose_velocity);
+        kinds.push_back(u.kind);positions.push_back(u.position);velocities.push_back(u.velocity);pose_velocities.push_back(u.pose_velocity);dodge_offsets.push_back(u.dodge_offset());
         yaw.push_back(u.yaw);hp.push_back(u.hp);max_hp.push_back(u.max_hp);
         actions.push_back(u.action);time.push_back(u.action_time);status.push_back(u.status);
     }
     field(dict,"rows_by_slot",I32,rows_by_slot);field(dict,"handles",I64,handles);field(dict,"logical_ids",I64,ids);field(dict,"teams",BYTES,teams);
-    field(dict,"kinds",I32,kinds);field(dict,"positions",V3S,positions);field(dict,"velocities",V3S,velocities);field(dict,"pose_velocities",V3S,pose_velocities);
+    field(dict,"kinds",I32,kinds);field(dict,"positions",V3S,positions);field(dict,"velocities",V3S,velocities);field(dict,"pose_velocities",V3S,pose_velocities);field(dict,"dodge_offsets",V3S,dodge_offsets);
     field(dict,"yaw",F32,yaw);field(dict,"hp",F64,hp);field(dict,"max_hp",F64,max_hp);field(dict,"ages",F64,ages);field(dict,"shelter_modes",I32,shelter_modes);
-    field(dict,"actions",I32,actions);field(dict,"action_time",F32,time);field(dict,"status",I32,status);field(dict,"pose_time",F32,pose);field(dict,"walk_phase",F32,phase);field(dict,"buff_left",F32,buff);field(dict,"action_indices",I32,indices);field(dict,"render_actions",I32,render_actions);field(dict,"render_time",F32,render_time);field(dict,"stun_left",F32,stun);field(dict,"flash_left",F32,flash);field(dict,"air_phase",I32,air_phase);field(dict,"pose_rows",I32,pose_rows);
+    field(dict,"body_scales",F32,body_scales);field(dict,"ice_visual",F32,ice);field(dict,"ice_time",F32,ice_time);field(dict,"actions",I32,actions);field(dict,"action_time",F32,time);field(dict,"status",I32,status);field(dict,"pose_time",F32,pose);field(dict,"walk_phase",F32,phase);field(dict,"buff_left",F32,buff);field(dict,"action_indices",I32,indices);field(dict,"render_actions",I32,render_actions);field(dict,"render_time",F32,render_time);field(dict,"stun_left",F32,stun);field(dict,"flash_left",F32,flash);field(dict,"air_phase",I32,air_phase);field(dict,"pose_rows",I32,pose_rows);
     const auto projectile_count=crowd.combat.active_projectiles().size();
     PackedField<int64_t> projectile_ids(I64,projectile_count),projectile_sources(I64,projectile_count);PackedField<int32_t> projectile_kinds(I32,projectile_count),projectile_effects(I32,projectile_count);PackedField<uint8_t> projectile_teams(BYTES,projectile_count),projectile_power(BYTES,projectile_count);
     PackedField<army::Vec3> projectile_positions(V3S,projectile_count),projectile_directions(V3S,projectile_count);PackedField<float> projectile_scales(F32,projectile_count),projectile_yaw_offset(F32,projectile_count),projectile_age(F32,projectile_count);
@@ -260,7 +277,7 @@ struct RegisteredFacade {
 // State reads are frequent during hit dispatch; keep their dictionary keys
 // alive with the runtime instead of allocating every key for every hit.
 struct UnitStateKeys {
-    static constexpr const char* texts[]={"shelter_mode","age","logical_id","team","kind","position","velocity","pose_velocity","walk_phase","pose_time","stun","pose_row","yaw","hp","max_hp","frozen","slow_factor","buff_left","chain_count","action_index","action","action_time","status","blocking","riposte","target_id","external_target","external_kind"};
+    static constexpr const char* texts[]={"shelter_mode","age","logical_id","team","kind","position","velocity","pose_velocity","walk_phase","pose_time","stun","pose_row","yaw","hp","max_hp","frozen","slow_factor","buff_left","chain_count","action_index","action","action_time","status","blocking","riposte","target_id","external_target","external_kind","dodge_chance","counter_chance","counter_active","mana","max_mana","body_scale","escort_leader","escort_slot"};
     Variant values[sizeof(texts)/sizeof(texts[0])];
     UnitStateKeys(){for(size_t i=0;i<sizeof(texts)/sizeof(texts[0]);++i){Blob text;string_new(&text,texts[i]);from_type(STR)(&values[i],&text);destructor(STR)(&text);}}
     ~UnitStateKeys(){for(auto& value:values)variant_destroy(&value);}
@@ -588,7 +605,7 @@ void projectile_buffers(void* snapshot,double bullet_scale,const int32_t* limits
         for(int row=0;row<3;++row){for(int col=0;col<3;++col)buffer.push_back(basis.rows[row][col]);buffer.push_back(row==0?position.x:(row==1?position.y:position.z));}
         buffer.insert(buffer.end(),{age,alpha,0,0});return true;
     };
-    std::array<std::vector<float>,29> batches;std::vector<float> shield;
+    std::array<std::vector<float>,30> batches;std::vector<float> shield;
     for(int i=0;i<limits[0];++i){
         if(!army::finite(positions[i])||!army::finite(directions[i])||!std::isfinite(age[i])||!std::isfinite(scales[i])||(yaw_offset.size()&&!std::isfinite(yaw_offset[i]))){put_bool(result,"valid",false);return;}
         int key=kinds[i]==5?16:(power[i]?18:17);
@@ -597,6 +614,8 @@ void projectile_buffers(void* snapshot,double bullet_scale,const int32_t* limits
         if(teams[i]==0&&kinds[i]==17)key=21;
         if(teams[i]==0&&kinds[i]==18){if(effects.size()!=n||effects[i]<0||effects[i]>5){put_bool(result,"valid",false);return;}key=effects[i]==0&&power[i]?28:22+effects[i];}
         if(teams[i]==1&&kinds[i]==8)key=20;
+        bool undersea=teams[i]==0&&kinds[i]==army::SLIME_KIND&&effects.size()==n&&effects[i]==army::UNDERSEA_QIGONG;
+        if(undersea)key=29;
         Basis basis;constructor(GDEXTENSION_VARIANT_TYPE_BASIS,0)(&basis,nullptr);
         if(army::dot(directions[i],directions[i])>.00001f){
             army::Vec3 direction=directions[i];normalize_vector(&direction,nullptr,&direction,0);
@@ -608,7 +627,7 @@ void projectile_buffers(void* snapshot,double bullet_scale,const int32_t* limits
         }
         if(teams[i]==0&&kinds[i]==18&&effects[i]==5)basis=yaw_basis(std::atan2(-directions[i].x,-directions[i].z));
         if(kinds[i]==5){auto spin=yaw_basis(double(age[i])*30);Basis turned;multiply_basis(&basis,&spin,&turned);basis=turned;}
-        if(teams[i]==0&&kinds[i]!=4&&kinds[i]!=17&&kinds[i]!=18)basis=scaled(basis,float(bullet_scale));
+        if(teams[i]==0&&kinds[i]!=4&&kinds[i]!=17&&kinds[i]!=18&&!undersea)basis=scaled(basis,float(bullet_scale));
         if(!append(batches[key],scaled(basis,scales[i]),positions[i],age[i],1)){put_bool(result,"valid",false);return;}
         if(teams[i]==0&&kinds[i]==18&&effects[i]==1){
             Basis mirrored=basis;for(int row=0;row<3;++row)mirrored.rows[row][0]*=-1;
@@ -623,13 +642,13 @@ void projectile_buffers(void* snapshot,double bullet_scale,const int32_t* limits
         if(!append(shield,scaled(yaw_basis(shield_yaw[i]),shield_scales[i]),shield_positions[i],shield_age[i],alpha)){put_bool(result,"valid",false);return;}
     }
     Blob output;constructor(DICT,0)(&output,nullptr);
-    for(size_t i=0;i<batches.size();++i){auto key=i>=22?"finale-shot"+std::to_string(i-22):i<16?"bullet"+std::to_string(i):(i==16?std::string("star"):(i==17?std::string("ranger-arrow"):(i==18?std::string("ranger-power-arrow"):(i==19?std::string("skullpion-ball"):(i==20?std::string("dragon"):std::string("dark-lumina-ball"))))));field(&output,key.c_str(),F32,batches[i]);}
+    for(size_t i=0;i<batches.size();++i){auto key=i==29?std::string("undersea-qi"):i>=22?"finale-shot"+std::to_string(i-22):i<16?"bullet"+std::to_string(i):(i==16?std::string("star"):(i==17?std::string("ranger-arrow"):(i==18?std::string("ranger-power-arrow"):(i==19?std::string("skullpion-ball"):(i==20?std::string("dragon"):std::string("dark-lumina-ball"))))));field(&output,key.c_str(),F32,batches[i]);}
     put(result,"projectiles",DICT,&output);destructor(DICT)(&output);field(result,"shields",F32,shield);put_bool(result,"valid",true);
 }
-enum Method{CONFIGURE,SPAWN,DESPAWN,VALID,CLEAR,SNAPSHOT,QUERY,NAVIGATION,GOALS,STEP,KITS,HIT,EVENTS,TARGETS,STATE,POSE,RENDER,REST,GUARD,REST_TICK,FILTER_BOXES,INSTANCE_BUFFERS,NEARBY_POINTS,SYNC_FACADES,SYNC_HELPERS,QUERY_STATS,COLLECTORS,STEP_PROFILE,BEGIN_STEP,FINISH_STEP,CAPTURE_HELPERS,SNAPSHOT_HELPERS,PARALLEL_MOVEMENT,SCENE_EVENTS,REGISTER_FACADE,SYNC_REGISTERED,INDEX_ENEMIES,PROJECTILE_BUFFERS,SYNC_MODEL_ROWS,SYNC_MODEL_ROWS_FOR,QUERY_ACTORS,MIRROR,MIRROR_BUSY,ENEMY_SCALING,CAN_REACH,COUNT};
-const VT types[COUNT][6]={{INT,INT},{INT,INT,INT,VEC3,FLOAT,FLOAT},{INT},{INT},{},{},{AABB,INT},{DICT},{I64,V3S,F32},{FLOAT},{DICT},{INT,DICT},{},{DICT},{INT},{INT,VEC3,FLOAT},{},{},{INT,VEC3,FLOAT},{FLOAT},{V3S,V3S,VEC3,VEC3},{DICT,DICT},{V3S,VEC3,FLOAT},{DICT,DICT,DICT,DICT,GDEXTENSION_VARIANT_TYPE_OBJECT},{DICT,DICT},{BOOL},{DICT,DICT,DICT,FLOAT,FLOAT,FLOAT},{BOOL},{FLOAT},{},{},{DICT,DICT,DICT},{BOOL},{},{INT,DICT,GDEXTENSION_VARIANT_TYPE_OBJECT},{DICT},{ARRAY,DICT,DICT},{DICT,FLOAT,GDEXTENSION_VARIANT_TYPE_VECTOR2I},{},{I64},{AABB,DICT,ARRAY,ARRAY},{INT,INT,FLOAT,FLOAT,VEC3},{INT,BOOL},{INT,FLOAT,FLOAT},{VEC3,VEC3,FLOAT}};
-const VT outputs[COUNT]={NIL,INT,NIL,BOOL,NIL,DICT,I64,NIL,NIL,NIL,BOOL,DICT,ARRAY,NIL,DICT,NIL,DICT,NIL,NIL,NIL,I64,DICT,I64,INT,INT,DICT,DICT,DICT,BOOL,NIL,DICT,INT,NIL,ARRAY,BOOL,INT,DICT,DICT,INT,INT,ARRAY,BOOL,NIL,BOOL,BOOL};
-const int counts[COUNT]={2,6,1,1,0,0,2,1,3,1,1,2,0,1,1,3,0,0,3,1,4,2,3,5,2,1,6,1,1,0,0,3,1,0,3,1,3,3,0,1,4,5,2,3,3};
+enum Method{CONFIGURE,SPAWN,DESPAWN,VALID,CLEAR,SNAPSHOT,QUERY,NAVIGATION,GOALS,STEP,KITS,HIT,EVENTS,TARGETS,STATE,POSE,RENDER,REST,GUARD,REST_TICK,FILTER_BOXES,INSTANCE_BUFFERS,NEARBY_POINTS,SYNC_FACADES,SYNC_HELPERS,QUERY_STATS,COLLECTORS,STEP_PROFILE,BEGIN_STEP,FINISH_STEP,CAPTURE_HELPERS,SNAPSHOT_HELPERS,PARALLEL_MOVEMENT,SCENE_EVENTS,REGISTER_FACADE,SYNC_REGISTERED,INDEX_ENEMIES,PROJECTILE_BUFFERS,SYNC_MODEL_ROWS,SYNC_MODEL_ROWS_FOR,QUERY_ACTORS,MIRROR,MIRROR_BUSY,ENEMY_SCALING,CAN_REACH,HOUND_SKIN,ALLY_GROUND_CLEAR,CONFIRM_DRAIN,MIRROR_SPELL_REACH,PET_SKILLS,PET_READY,BOSS_DODGE,HERO_DODGE_THREAT,HOUND_FOCUS,PET_MANA,PET_GROWTH,PATROL_COUNTER,BODY_SCALE,ENEMY_ESCORT,PREPARE_ROUTES,ENEMY_ARRIVAL,PET_TRAINING,PET_BODYGUARD_LEVEL,COUNT};
+const VT types[COUNT][6]={{INT,INT},{INT,INT,INT,VEC3,FLOAT,FLOAT},{INT},{INT},{},{},{AABB,INT},{DICT},{I64,V3S,F32},{FLOAT},{DICT},{INT,DICT},{},{DICT},{INT},{INT,VEC3,FLOAT},{},{},{INT,VEC3,FLOAT},{FLOAT},{V3S,V3S,VEC3,VEC3},{DICT,DICT},{V3S,VEC3,FLOAT},{DICT,DICT,DICT,DICT,GDEXTENSION_VARIANT_TYPE_OBJECT},{DICT,DICT},{BOOL},{DICT,DICT,DICT,FLOAT,FLOAT,FLOAT},{BOOL},{FLOAT},{},{},{DICT,DICT,DICT},{BOOL},{},{INT,DICT,GDEXTENSION_VARIANT_TYPE_OBJECT},{DICT},{ARRAY,DICT,DICT},{DICT,FLOAT,GDEXTENSION_VARIANT_TYPE_VECTOR2I},{},{I64},{AABB,DICT,ARRAY,ARRAY},{INT,INT,FLOAT,FLOAT,VEC3},{INT,BOOL},{INT,FLOAT,FLOAT},{VEC3,VEC3,FLOAT},{INT,INT},{VEC3,FLOAT},{INT,FLOAT},{INT,FLOAT},{INT,I32,INT},{INT,INT},{INT,FLOAT,FLOAT},{},{},{INT,FLOAT},{INT,FLOAT,FLOAT},{INT},{INT,FLOAT},{INT,INT,INT},{F32,INT},{INT},{INT,FLOAT,FLOAT,FLOAT,BOOL},{INT,INT}};
+const VT outputs[COUNT]={NIL,INT,NIL,BOOL,NIL,DICT,I64,NIL,NIL,NIL,BOOL,DICT,ARRAY,NIL,DICT,NIL,DICT,NIL,NIL,NIL,I64,DICT,I64,INT,INT,DICT,DICT,DICT,BOOL,NIL,DICT,INT,NIL,ARRAY,BOOL,INT,DICT,DICT,INT,INT,ARRAY,BOOL,NIL,BOOL,BOOL,BOOL,BOOL,NIL,NIL,BOOL,BOOL,BOOL,DICT,INT,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL};
+const int counts[COUNT]={2,6,1,1,0,0,2,1,3,1,1,2,0,1,1,3,0,0,3,1,4,2,3,5,2,1,6,1,1,0,0,3,1,0,3,1,3,3,0,1,4,5,2,3,3,2,2,2,2,3,2,3,0,0,2,3,1,2,3,2,1,5,2};
 void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
     auto& owner=*static_cast<Instance*>(instance);auto& crowd=owner.crowd;
     const auto method=intptr_t(userdata);
@@ -637,9 +656,50 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
     // Every shared-state read/write joins first, including hits and retirement.
     if(method!=BEGIN_STEP&&method!=FINISH_STEP&&method!=COLLECTORS&&method!=NEARBY_POINTS&&method!=SNAPSHOT_HELPERS&&method!=INDEX_ENEMIES&&method!=PROJECTILE_BUFFERS)crowd.finish_step();
     switch(method){
+        case HOUND_FOCUS:*static_cast<int64_t*>(ret)=crowd.combat.hound_focus_target();break;
+        case HERO_DODGE_THREAT:{
+            const auto& threat=crowd.combat.hero_dodge_threat();
+            put(ret,"seconds",FLOAT,&threat.seconds);put_int(ret,"source_id",threat.source_id);put(ret,"origin",VEC3,&threat.origin);if(threat.charge)put_bool(ret,"charge",true);break;
+        }
+        case PET_BODYGUARD_LEVEL:*static_cast<GDExtensionBool*>(ret)=crowd.set_pet_bodyguard_level(*static_cast<const int64_t*>(args[0]),int(*static_cast<const int64_t*>(args[1])));break;
+        case PET_SKILLS:{
+            auto skills=unpack<int32_t>(args[1],I32);
+            *static_cast<GDExtensionBool*>(ret)=crowd.set_pet_skills(*static_cast<const int64_t*>(args[0]),skills,int(*static_cast<const int64_t*>(args[2])));break;
+        }
+        case PET_READY:*static_cast<GDExtensionBool*>(ret)=crowd.set_pet_skill_ready(*static_cast<const int64_t*>(args[0]),int(*static_cast<const int64_t*>(args[1])));break;
+        case PET_MANA:*static_cast<GDExtensionBool*>(ret)=crowd.set_pet_mana(*static_cast<const int64_t*>(args[0]),*static_cast<const double*>(args[1]));break;
+        case PET_TRAINING:*static_cast<GDExtensionBool*>(ret)=crowd.set_pet_training(*static_cast<const int64_t*>(args[0]),*static_cast<const double*>(args[1]),*static_cast<const double*>(args[2]),*static_cast<const double*>(args[3]),*static_cast<const GDExtensionBool*>(args[4]));break;
+        case PET_GROWTH:*static_cast<GDExtensionBool*>(ret)=crowd.set_pet_growth(*static_cast<const int64_t*>(args[0]),*static_cast<const double*>(args[1]),*static_cast<const double*>(args[2]));break;
+        case HOUND_SKIN:{
+            auto u=crowd.unit(*static_cast<const int64_t*>(args[0]));auto skin=*static_cast<const int64_t*>(args[1]);
+            bool accepted=u&&u->pose_time==0&&!u->action_active&&skin>=0&&skin<army::pet_skin_count(u->kind);
+            if(accepted)u->pose_row=int(skin);
+            *static_cast<GDExtensionBool*>(ret)=accepted;break;
+        }
+        case ALLY_GROUND_CLEAR:{
+            const auto point=*static_cast<const army::Vec3*>(args[0]);
+            const auto radius=float(*static_cast<const double*>(args[1]));
+            auto& ground=crowd.allied_terrain;
+            int layer=army::finite(point)?ground.choose_layer(point):-1;
+            *static_cast<GDExtensionBool*>(ret)=layer>=0&&std::isfinite(radius)&&radius>=0&&ground.clear(point,radius,layer);
+            break;
+        }
         case CAN_REACH:*static_cast<GDExtensionBool*>(ret)=crowd.terrain.reachable(*static_cast<const army::Vec3*>(args[0]),*static_cast<const army::Vec3*>(args[1]),float(*static_cast<const double*>(args[2])),-1);break;
+        case PREPARE_ROUTES:{
+            int64_t team=*static_cast<const int64_t*>(args[1]);
+            *static_cast<GDExtensionBool*>(ret)=team>=0&&team<=1&&(team?crowd.allied_terrain:crowd.terrain).prepare_routes(unpack<float>(args[0],F32));break;
+        }
+        case ENEMY_ESCORT:*static_cast<GDExtensionBool*>(ret)=crowd.set_enemy_escort(*static_cast<const int64_t*>(args[0]),*static_cast<const int64_t*>(args[1]),int(*static_cast<const int64_t*>(args[2])));break;
+        case BODY_SCALE:*static_cast<GDExtensionBool*>(ret)=crowd.set_body_scale(*static_cast<const int64_t*>(args[0]),float(*static_cast<const double*>(args[1])));break;
+        case ENEMY_ARRIVAL:*static_cast<GDExtensionBool*>(ret)=crowd.combat.begin_enemy_arrival(crowd,*static_cast<const int64_t*>(args[0]));break;
+        case PATROL_COUNTER:*static_cast<GDExtensionBool*>(ret)=crowd.set_patrol_counter(*static_cast<const int64_t*>(args[0]));break;
+        case BOSS_DODGE:*static_cast<GDExtensionBool*>(ret)=crowd.set_boss_reactions(*static_cast<const int64_t*>(args[0]),*static_cast<const double*>(args[1]),*static_cast<const double*>(args[2]));break;
         case ENEMY_SCALING:*static_cast<GDExtensionBool*>(ret)=crowd.set_enemy_scaling(*static_cast<const int64_t*>(args[0]),*static_cast<const double*>(args[1]),*static_cast<const double*>(args[2]));break;
+        case CONFIRM_DRAIN:crowd.combat.confirm_zombie_drain(crowd,*static_cast<const int64_t*>(args[0]),*static_cast<const double*>(args[1]));break;
         case MIRROR:*static_cast<GDExtensionBool*>(ret)=crowd.set_mirror(*static_cast<const int64_t*>(args[0]),*static_cast<const int64_t*>(args[1]),*static_cast<const double*>(args[2]),*static_cast<const double*>(args[3]),*static_cast<const army::Vec3*>(args[4]));break;
+        case MIRROR_SPELL_REACH:if(auto u=crowd.unit(*static_cast<const int64_t*>(args[0]));u&&u->mirror_actions>0){
+            auto reach=*static_cast<const double*>(args[1]);if(std::isfinite(reach)&&reach>=0&&reach<=200)u->mirror_spell_reach=float(reach);
+        }break;
         case MIRROR_BUSY:if(auto u=crowd.unit(*static_cast<const int64_t*>(args[0]));u&&u->mirror_actions>0){u->mirror_busy=*static_cast<const GDExtensionBool*>(args[1]);if(u->mirror_busy)u->has_goal=false;}break;
         case PROJECTILE_BUFFERS:projectile_buffers(const_cast<void*>(args[0]),*static_cast<const double*>(args[1]),static_cast<const int32_t*>(args[2]),ret);break;
         case INDEX_ENEMIES:index_enemy_rows(const_cast<void*>(args[0]),const_cast<void*>(args[1]),const_cast<void*>(args[2]),ret);break;
@@ -735,8 +795,13 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
             auto kinds=PackedRead<int32_t>(snapshot,"kinds",I32),actions=PackedRead<int32_t>(snapshot,"render_actions",I32),indices=PackedRead<int32_t>(snapshot,"action_indices",I32),phases=PackedRead<int32_t>(snapshot,"air_phase",I32),status=PackedRead<int32_t>(snapshot,"status",I32),poses=PackedRead<int32_t>(snapshot,"pose_rows",I32);
             auto teams=PackedRead<uint8_t>(snapshot,"teams",BYTES);auto positions=PackedRead<army::Vec3>(snapshot,"positions",V3S),velocities=PackedRead<army::Vec3>(snapshot,"pose_velocities",V3S);
             auto yaw=PackedRead<float>(snapshot,"yaw",F32),render_time=PackedRead<float>(snapshot,"render_time",F32),pose_time=PackedRead<float>(snapshot,"pose_time",F32),walk=PackedRead<float>(snapshot,"walk_phase",F32),flash=PackedRead<float>(snapshot,"flash_left",F32);
+            auto dodge=PackedRead<army::Vec3>(snapshot,"dodge_offsets",V3S);
+            auto body_scales=PackedRead<float>(snapshot,"body_scales",F32);
+            auto ice=PackedRead<float>(snapshot,"ice_visual",F32),ice_time=PackedRead<float>(snapshot,"ice_time",F32);
             auto hp=PackedRead<double>(snapshot,"hp",F64),max_hp=PackedRead<double>(snapshot,"max_hp",F64);size_t n=kinds.size();
             if(teams.size()!=n||actions.size()!=n||indices.size()!=n||phases.size()!=n||status.size()!=n||poses.size()!=n||positions.size()!=n||velocities.size()!=n||yaw.size()!=n||render_time.size()!=n||pose_time.size()!=n||walk.size()!=n||flash.size()!=n||hp.size()!=n||max_hp.size()!=n){put_bool(ret,"valid",false);break;}
+            if((body_scales.size()&&body_scales.size()!=n)||(ice.size()&&ice.size()!=n)||(ice_time.size()&&ice_time.size()!=n)){put_bool(ret,"valid",false);break;}
+            if(dodge.size()>0&&dodge.size()!=n){put_bool(ret,"valid",false);break;}
             auto profile_kinds=PackedRead<int32_t>(profiles,"kinds",I32);auto values=PackedRead<double>(profiles,"values",F64);
             constexpr size_t stride=2+army::CLIP_COUNT*5;
             if(values.size()!=profile_kinds.size()*stride){put_bool(ret,"valid",false);break;}
@@ -748,16 +813,16 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
             }
             std::vector<army::InstanceRow> rows;rows.reserve(n);
             for(size_t i=0;i<n;++i){
-                if(!army::finite(positions[i])||!army::finite(velocities[i])||!std::isfinite(yaw[i])||!std::isfinite(render_time[i])||!std::isfinite(pose_time[i])||!std::isfinite(walk[i])||!std::isfinite(flash[i])||!std::isfinite(hp[i])||!std::isfinite(max_hp[i])||max_hp[i]<=0||indices[i]<0||indices[i]>5){put_bool(ret,"valid",false);return;}
-                rows.push_back({kinds[i],teams[i],status[i],actions[i],indices[i],phases[i],poses[i],positions[i],velocities[i],yaw[i],render_time[i],pose_time[i],walk[i],flash[i],hp[i],max_hp[i]});
+                if((body_scales.size()&&(!std::isfinite(body_scales[i])||body_scales[i]<=0||body_scales[i]>2))||(ice.size()&&(!std::isfinite(ice[i])||std::abs(ice[i])>1))||(ice_time.size()&&(!std::isfinite(ice_time[i])||ice_time[i]<0))||(dodge.size()&&!army::finite(dodge[i]))||!army::finite(positions[i])||!army::finite(velocities[i])||!std::isfinite(yaw[i])||!std::isfinite(render_time[i])||!std::isfinite(pose_time[i])||!std::isfinite(walk[i])||!std::isfinite(flash[i])||!std::isfinite(hp[i])||!std::isfinite(max_hp[i])||max_hp[i]<=0||indices[i]<0||indices[i]>(army::pet_skin_count(kinds[i])?8:5)){put_bool(ret,"valid",false);return;}
+                rows.push_back({kinds[i],teams[i],status[i],actions[i],indices[i],phases[i],poses[i],positions[i]+(dodge.size()?dodge[i]:army::Vec3{}),velocities[i],yaw[i],render_time[i],pose_time[i],walk[i],flash[i],hp[i],max_hp[i],ice.size()?ice[i]:0.f,ice_time.size()?ice_time[i]:0.f,body_scales.size()?body_scales[i]:1.f});
             }
             auto packed=army::instance_buffers(rows,table);put_bool(ret,"valid",packed.valid);if(!packed.valid)break;
             put_int(ret,"submitted",packed.submitted);field(ret,"health",F32,packed.health);
             Blob batches;constructor(ARRAY,0)(&batches,nullptr);int64_t count=packed.batches.size(),error=0;const void* resize_args[]={&count};resize_method[ARRAY](&batches,resize_args,&error,1);
             for(int64_t i=0;i<count;++i){const auto& b=packed.batches[i];Blob dict;constructor(DICT,0)(&dict,nullptr);int32_t key[]={b.kind,b.x,b.z};
                 put(&dict,"key",GDEXTENSION_VARIANT_TYPE_VECTOR3I,key);field(&dict,"buffer",F32,b.buffer);
-                float extent=b.kind==17?36.f:12.f;
-                Bounds bounds{b.low-army::Vec3{extent,4,extent},b.high-b.low+army::Vec3{extent*2,b.kind==17?72.f:20.f,extent*2}};put(&dict,"bounds",AABB,&bounds);
+                float extent=(b.kind==17?36.f:12.f)*b.body_scale;
+                Bounds bounds{b.low-army::Vec3{extent,4*b.body_scale,extent},b.high-b.low+army::Vec3{extent*2,(b.kind==17?72.f:20.f)*b.body_scale,extent*2}};put(&dict,"bounds",AABB,&bounds);
                 auto slot=array_index(&batches,i);variant_destroy(slot);from_type(DICT)(slot,&dict);destructor(DICT)(&dict);
             }
             put(ret,"batches",ARRAY,&batches);destructor(ARRAY)(&batches);break;
@@ -777,6 +842,7 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
         case NAVIGATION:{
             auto dict=const_cast<void*>(args[0]);army::NavigationData data;
             data.width=int(scalar<int64_t>(dict,"width",INT,0));data.spacing=float(scalar<double>(dict,"spacing",FLOAT,3));
+            data.route_spacing=float(scalar<double>(dict,"route_spacing",FLOAT,6));
             data.origin=scalar<army::Vec3>(dict,"origin",VEC3,{-240,0,-240});
             data.bounds_min=scalar<army::Vec3>(dict,"bounds_min",VEC3,{-1e8f,0,-1e8f});data.bounds_max=scalar<army::Vec3>(dict,"bounds_max",VEC3,{1e8f,0,1e8f});
             data.heights=vector<float>(dict,"heights",F32);data.covered=vector<uint8_t>(dict,"covered",BYTES);data.pieces=vector<float>(dict,"pieces",F32);
@@ -797,9 +863,33 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
         case KITS:{
             void* dict=const_cast<void*>(args[0]);army::KitData data;
             data.enemy_size=float(scalar<double>(dict,"enemy_size",FLOAT,1));
+            data.map_enemy_scale=float(scalar<double>(dict,"map_enemy_scale",FLOAT,1));
             data.soldier_pose_meta=vector<int32_t>(dict,"soldier_pose_meta",I32);data.soldier_pose_rows=vector<int32_t>(dict,"soldier_pose_rows",I32);data.soldier_kinds=vector<int32_t>(dict,"soldier_kinds",I32);data.soldier_profiles=vector<float>(dict,"soldier_profiles",F32);
             data.enemy_kits=vector<float>(dict,"enemy_kits",F32);
+            data.pet_geometry=vector<float>(dict,"pet_geometry",F32);
             data.enemy_contact_ends=vector<float>(dict,"enemy_contact_ends",F32);
+            data.hound_attacks=vector<float>(dict,"hound_attacks",F32);
+            data.snow_patrol_skins=vector<int32_t>(dict,"snow_patrol_skins",I32);
+            data.bear_attacks=vector<float>(dict,"bear_attacks",F32);
+            data.hound_move_scale=float(scalar<double>(dict,"hound_move_scale",FLOAT,1));
+            data.hound_hp=float(scalar<double>(dict,"hound_hp",FLOAT,0));
+            data.hound_damage=float(scalar<double>(dict,"hound_damage",FLOAT,0));
+            data.bear_damage=float(scalar<double>(dict,"bear_damage",FLOAT,0));
+            data.pet_mana=float(scalar<double>(dict,"pet_mana",FLOAT,0));
+            data.pet_mana_regen=float(scalar<double>(dict,"pet_mana_regen",FLOAT,0));
+            data.pet_skill_costs=vector<float>(dict,"pet_skill_costs",F32);
+            data.pet_ranged_reach=float(scalar<double>(dict,"pet_ranged_reach",FLOAT,data.pet_ranged_reach));
+            data.slime_attacks=vector<float>(dict,"slime_attacks",F32);
+            data.cursed_guardian=int(scalar<int64_t>(dict,"cursed_guardian",INT,0));
+            data.zombie_boss=scalar<GDExtensionBool>(dict,"zombie_boss",BOOL,false);
+            data.grave_boss=scalar<GDExtensionBool>(dict,"grave_boss",BOOL,false);
+            data.ruby_boss=scalar<GDExtensionBool>(dict,"ruby_boss",BOOL,false);
+            data.falken_boss=scalar<GDExtensionBool>(dict,"falken_boss",BOOL,false);
+            data.habaru_bears=scalar<GDExtensionBool>(dict,"habaru_bears",BOOL,false);
+            data.undersea_boss=scalar<GDExtensionBool>(dict,"undersea_boss",BOOL,false);
+            data.slime_guard=scalar<GDExtensionBool>(dict,"slime_guard",BOOL,false);
+            data.enemy_charge=scalar<GDExtensionBool>(dict,"enemy_charge",BOOL,false);
+            data.slime_approach_boost=scalar<GDExtensionBool>(dict,"slime_approach_boost",BOOL,false);
             data.ninja=vector<double>(dict,"ninja",F64);data.bunker=vector<double>(dict,"bunker",F64);
             data.dragoon=vector<double>(dict,"dragoon",F64);
             data.blademaster=vector<double>(dict,"blademaster",F64);data.knight=vector<double>(dict,"knight",F64);data.skullpion=vector<double>(dict,"skullpion",F64);data.dark_lumina=vector<double>(dict,"dark_lumina",F64);
@@ -811,16 +901,18 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
             data.phase_ticks=vector<float>(dict,"phase_ticks",F32);data.contact_ticks=vector<float>(dict,"contact_ticks",F32);
             data.melee_from=scalar<army::Vec3>(dict,"melee_from",VEC3,{});data.melee_to=scalar<army::Vec3>(dict,"melee_to",VEC3,{});data.muzzle=scalar<army::Vec3>(dict,"muzzle",VEC3,{});
             data.bullet_speed=float(scalar<double>(dict,"bullet_speed",FLOAT,0));data.bullet_life=float(scalar<double>(dict,"bullet_life",FLOAT,0));data.bullet_tail=float(scalar<double>(dict,"bullet_tail",FLOAT,0));data.bullet_radius=float(scalar<double>(dict,"bullet_radius",FLOAT,0));data.damage_taken_multiplier=float(scalar<double>(dict,"damage_taken_multiplier",FLOAT,1));
-            *static_cast<GDExtensionBool*>(ret)=crowd.combat.configure(std::move(data));break;
+            *static_cast<GDExtensionBool*>(ret)=crowd.combat.configure(std::move(data),&crowd);break;
         }
         case HIT:{
             void* dict=const_cast<void*>(args[1]);army::Hit hit;
             hit.provoke=scalar<GDExtensionBool>(dict,"provoke",BOOL,1);hit.amount=scalar<double>(dict,"amount",FLOAT,0);hit.status_seconds=scalar<double>(dict,"status_seconds",FLOAT,0);
             hit.source_id=scalar<int64_t>(dict,"source_id",INT,0);hit.ticket_id=scalar<int64_t>(dict,"ticket_id",INT,0);
             hit.direction=scalar<army::Vec3>(dict,"direction",VEC3,{});hit.projectile=scalar<GDExtensionBool>(dict,"projectile",BOOL,0);hit.heavy=scalar<GDExtensionBool>(dict,"heavy",BOOL,0);hit.critical=scalar<GDExtensionBool>(dict,"critical",BOOL,0);
-            hit.responsive_recoil=scalar<GDExtensionBool>(dict,"responsive_recoil",BOOL,0);
+            hit.responsive_recoil=scalar<GDExtensionBool>(dict,"responsive_recoil",BOOL,0);hit.counter=scalar<GDExtensionBool>(dict,"counter",BOOL,0);
+            hit.joint_attack=scalar<GDExtensionBool>(dict,"joint_attack",BOOL,0);
+            hit.guard_break=scalar<GDExtensionBool>(dict,"guard_break",BOOL,0);
             hit.impulse=scalar<army::Vec3>(dict,"knockback",VEC3,{});hit.flinch=scalar<double>(dict,"flinch",FLOAT,0);hit.add_impulse=scalar<GDExtensionBool>(dict,"add_impulse",BOOL,0);
-            hit.effect=equals(dict,"element","ice")?1:(equals(dict,"element","slow")?2:(equals(dict,"element","avatar")?3:(equals(dict,"element","stun")?4:(equals(dict,"element","taunt")?5:0))));
+            hit.effect=equals(dict,"element","chill")?6:equals(dict,"element","ice")?1:(equals(dict,"element","slow")?2:(equals(dict,"element","avatar")?3:(equals(dict,"element","stun")?4:(equals(dict,"element","taunt")?5:0))));
             hit.attack_slow_factor=float(scalar<double>(dict,"attack_slow_factor",FLOAT,1));hit.magical=scalar<GDExtensionBool>(dict,"magical",BOOL,0);hit.slow_factor=float(scalar<double>(dict,"slow_factor",FLOAT,1));
             auto result=crowd.combat.hit(crowd,*static_cast<const int64_t*>(args[0]),hit);
             put_bool(ret,"accepted",result.accepted);put_bool(ret,"dead",result.dead);put(ret,"hp",FLOAT,&result.hp);break;
@@ -830,7 +922,11 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
             auto store=[&](size_t key,VT type,const void* value){auto slot=dictionary_index(ret,&owner.state_keys.values[key]);variant_destroy(slot);from_type(type)(slot,const_cast<void*>(value));};
             auto integer=[&](size_t key,int64_t value){store(key,INT,&value);};
             auto boolean=[&](size_t key,bool value){GDExtensionBool flag=value;store(key,BOOL,&flag);};
-            integer(0,u->shelter_mode);store(1,FLOAT,&u->age);integer(2,u->logical_id);integer(3,u->team);integer(4,u->kind);store(5,VEC3,&u->position);store(6,VEC3,&u->velocity);store(7,VEC3,&u->pose_velocity);store(8,FLOAT,&u->walk_phase);store(9,FLOAT,&u->pose_time);store(10,FLOAT,&u->stun);integer(11,u->pose_row);double yaw=u->yaw;store(12,FLOAT,&yaw);store(13,FLOAT,&u->hp);store(14,FLOAT,&u->max_hp);store(15,FLOAT,&u->frozen);double slow=u->slow_factor;store(16,FLOAT,&slow);store(17,FLOAT,&u->buff_left);integer(18,u->chain_count);integer(19,u->combo_serial%(u->kind==7?4:3));integer(20,u->action);store(21,FLOAT,&u->action_time);integer(22,u->status);boolean(23,u->blocking);boolean(24,u->riposte);auto target=crowd.unit(u->target_handle);integer(25,target?target->logical_id:0);integer(26,u->external_target);integer(27,u->external_kind);break;}
+            if(u->team==1&&army::escort_kind(u->kind)){
+                const double mana=u->pet_mana,maximum=crowd.combat.pet_max_mana()+u->pet_mana_bonus;
+                store(31,FLOAT,&mana);store(32,FLOAT,&maximum);
+            }
+            integer(0,u->shelter_mode);store(1,FLOAT,&u->age);integer(2,u->logical_id);integer(3,u->team);integer(4,u->kind);store(5,VEC3,&u->position);store(6,VEC3,&u->velocity);store(7,VEC3,&u->pose_velocity);store(8,FLOAT,&u->walk_phase);store(9,FLOAT,&u->pose_time);store(10,FLOAT,&u->stun);integer(11,u->pose_row);double yaw=u->yaw;store(12,FLOAT,&yaw);store(13,FLOAT,&u->hp);store(14,FLOAT,&u->max_hp);store(15,FLOAT,&u->frozen);double slow=u->slow_factor;store(16,FLOAT,&slow);store(17,FLOAT,&u->buff_left);integer(18,u->chain_count);integer(19,u->combo_serial%(u->kind==7?4:3));integer(20,u->action);store(21,FLOAT,&u->action_time);integer(22,u->status);boolean(23,u->blocking);boolean(24,u->riposte);auto target=crowd.unit(u->target_handle);integer(25,target?target->logical_id:0);integer(26,u->external_target);integer(27,u->external_kind);store(28,FLOAT,&u->dodge_chance);store(29,FLOAT,&u->counter_chance);boolean(30,u->counter_active);double body_scale=u->body_scale;store(33,FLOAT,&body_scale);integer(34,u->escort_leader);integer(35,u->escort_slot);if(u->kind==army::HOUND_KIND)put_bool(ret,"pet_sequence",u->pet_skill==2||u->pet_skill==army::PET_BEE_FLURRY);break;}
         case EVENTS:write_events(crowd.combat,ret);break;
         case SCENE_EVENTS:write_events(crowd.combat,ret,true);break;
         case TARGETS:{
@@ -840,9 +936,24 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
             auto priorities=vector<int32_t>(dict,"assault_priority",I32);
             std::vector<army::ExternalTarget> targets;
             if(ids.size()==kinds.size()&&ids.size()==positions.size()&&ids.size()==hp.size())for(size_t i=0;i<ids.size();++i){
-                army::ExternalTarget target;target.id=ids[i];target.kind=kinds[i];target.foot=positions[i];target.hp=hp[i];target.targetable=i>=valid.size()||valid[i];target.taunting=i<taunts.size()&&taunts[i];target.minimum=i<lows.size()?lows[i]:positions[i];target.maximum=i<highs.size()?highs[i]:positions[i];target.ignore_building=i<ignores.size()?ignores[i]:-1;target.assault_priority=i<priorities.size()?std::clamp(priorities[i],0,4):0;targets.push_back(target);
+                army::ExternalTarget target;target.id=ids[i];target.kind=kinds[i];target.foot=positions[i];target.hp=hp[i];target.targetable=i>=valid.size()||valid[i];target.taunting=i<taunts.size()&&taunts[i];target.minimum=i<lows.size()?lows[i]:positions[i];target.maximum=i<highs.size()?highs[i]:positions[i];target.ignore_building=i<ignores.size()?ignores[i]:-1;target.assault_priority=i<priorities.size()?std::clamp(priorities[i],0,4):0;if(target.kind==0){
+                    target.pet_formation_facing=scalar<army::Vec3>(dict,"pet_formation_facing",VEC3,{});
+                    target.pet_formation_ids=vector<int64_t>(dict,"pet_formation_ids",I64);
+                    if(target.pet_formation_ids.size()>5)target.pet_formation_ids.resize(5);
+                    target.attack_serial=scalar<int64_t>(dict,"player_attack_serial",INT,0);
+                    target.aggro_kills=int(std::clamp<int64_t>(scalar<int64_t>(dict,"player_aggro_kills",INT,0),0,42));
+                    target.bodyguard=scalar<GDExtensionBool>(dict,"player_bodyguard",BOOL,false);
+                    target.bodyguard_level=int(std::clamp(scalar<int64_t>(dict,"player_bodyguard_level",INT,1),int64_t(1),int64_t(30)));
+                    target.guarding=scalar<GDExtensionBool>(dict,"player_guarding",BOOL,false);
+                    target.evading=scalar<GDExtensionBool>(dict,"player_evading",BOOL,false);
+                    target.attack_facing=scalar<army::Vec3>(dict,"player_attack_facing",VEC3,{});
+                    double reach=scalar<double>(dict,"player_attack_reach",FLOAT,0);
+                    target.attack_reach=std::isfinite(reach)?float(std::clamp(reach,0.0,18.0)):0;
+                    if(!army::finite(target.attack_facing))target.attack_serial=0;
+                }
+                targets.push_back(target);
             }
-            crowd.combat.set_targets(std::move(targets));
+            crowd.combat.set_targets(std::move(targets),scalar<double>(dict,"hound_camera_yaw",FLOAT,3*M_PI/4),scalar<double>(dict,"hound_player_speed",FLOAT,0),scalar<int64_t>(dict,"hound_order",INT,army::HOUND_DEFEND),scalar<int64_t>(dict,"hound_order_serial",INT,0),scalar<int64_t>(dict,"hound_focus_target",INT,0));
             auto shelter_ids=vector<int64_t>(dict,"shelter_ids",I64);auto entrances=vector<army::Vec3>(dict,"shelter_entrances",V3S),centers=vector<army::Vec3>(dict,"shelter_centers",V3S);auto damage_serial=vector<int64_t>(dict,"shelter_damage",I64);std::vector<army::ShelterTarget> shelters;
             if(shelter_ids.size()==entrances.size()&&shelter_ids.size()==centers.size())for(size_t i=0;i<shelter_ids.size();++i)shelters.push_back({shelter_ids[i],entrances[i],centers[i],i<damage_serial.size()?damage_serial[i]:0});crowd.combat.set_shelters(std::move(shelters));break;
         }
@@ -945,6 +1056,8 @@ bool initialize(GDExtensionInterfaceGetProcAddress proc,GDExtensionClassLibraryP
     const char* spawn[]={"logical_id","team","kind","position","hp","radius"};bind(SPAWN,"spawn",spawn);
     const char* handle[]={"handle"};bind(DESPAWN,"despawn",handle);bind(VALID,"valid",handle);
     bind(CLEAR,"clear",nullptr);bind(SNAPSHOT,"snapshot",nullptr);bind(RENDER,"render_snapshot",nullptr);
+    bind(HERO_DODGE_THREAT,"hero_dodge_threat",nullptr);
+    bind(HOUND_FOCUS,"hound_focus_target",nullptr);
     const char* query[]={"bounds","team"};bind(QUERY,"query_aabb",query);
     const char* query_actors[]={"bounds","actors","source","extras"};bind(QUERY_ACTORS,"ordered_enemy_candidates",query_actors);
     const char* points[]={"points","origin","radius"};bind(NEARBY_POINTS,"nearby_points",points);
@@ -963,6 +1076,7 @@ bool initialize(GDExtensionInterfaceGetProcAddress proc,GDExtensionClassLibraryP
     const char* boxes[]={"minimums","maximums","minimum","maximum"};bind(FILTER_BOXES,"filter_boxes",boxes);
     const char* navigation[]={"data"};bind(NAVIGATION,"set_navigation",navigation);
     const char* reachable[]={"from","goal","radius"};bind(CAN_REACH,"can_reach",reachable);
+    const char* ally_ground[]={"point","radius"};bind(ALLY_GROUND_CLEAR,"ally_ground_clear",ally_ground);
     const char* goals[]={"handles","positions","speeds"};bind(GOALS,"set_goals",goals);
     const char* step[]={"delta"};bind(STEP,"step",step);
     const char* kits[]={"data"};bind(KITS,"configure_kits",kits);
@@ -973,8 +1087,23 @@ bool initialize(GDExtensionInterfaceGetProcAddress proc,GDExtensionClassLibraryP
     const char* targets[]={"targets"};bind(TARGETS,"set_targets",targets);bind(STATE,"unit_state",handle);
     const char* pose[]={"handle","position","yaw"};bind(POSE,"set_pose",pose);bind(REST,"rest_allies",nullptr);bind(GUARD,"set_guard",pose);bind(REST_TICK,"rest_tick",step);
     const char* mirror[]={"handle","actions","speed","reach","approach"};bind(MIRROR,"set_mirror",mirror);
+    const char* spell_reach[]={"handle","reach"};bind(MIRROR_SPELL_REACH,"set_mirror_spell_reach",spell_reach);
     const char* busy[]={"handle","busy"};bind(MIRROR_BUSY,"set_mirror_busy",busy);
-    const char* scaling[]={"handle","health_scale","damage_scale"};bind(ENEMY_SCALING,"set_enemy_scaling",scaling);return true;
+    const char* prepare_routes[]={"radii","team"};bind(PREPARE_ROUTES,"prepare_routes",prepare_routes);
+    const char* enemy_escort[]={"handle","leader","slot"};bind(ENEMY_ESCORT,"set_enemy_escort",enemy_escort);
+    const char* body_scale[]={"handle","scale"};bind(BODY_SCALE,"set_body_scale",body_scale);
+    bind(ENEMY_ARRIVAL,"begin_enemy_arrival",handle);
+    const char* patrol_counter[]={"handle"};bind(PATROL_COUNTER,"set_patrol_counter",patrol_counter);
+    const char* dodge[]={"handle","dodge","counter"};bind(BOSS_DODGE,"set_boss_reactions",dodge);
+    const char* scaling[]={"handle","health_scale","damage_scale"};bind(ENEMY_SCALING,"set_enemy_scaling",scaling);
+    const char* drain[]={"handle","damage"};bind(CONFIRM_DRAIN,"confirm_zombie_drain",drain);
+    const char* hound_skin[]={"handle","skin"};bind(HOUND_SKIN,"set_hound_skin",hound_skin);bind(HOUND_SKIN,"set_pet_skin",hound_skin);
+    const char* bodyguard_level[]={"handle","level"};bind(PET_BODYGUARD_LEVEL,"set_pet_bodyguard_level",bodyguard_level);
+    const char* pet_skills[]={"handle","skills","combo_limit"};bind(PET_SKILLS,"set_pet_skills",pet_skills);
+    const char* pet_ready[]={"handle","mask"};bind(PET_READY,"set_pet_skill_ready",pet_ready);
+    const char* pet_mana[]={"handle","mana"};bind(PET_MANA,"set_pet_mana",pet_mana);
+    const char* pet_growth[]={"handle","health_bonus","damage_bonus"};bind(PET_GROWTH,"set_pet_growth",pet_growth);
+    const char* pet_training[]={"handle","movement","attack","mana_bonus","heal"};bind(PET_TRAINING,"set_pet_training",pet_training);return true;
 }
 void deinitialize(){unregister_class(library,&class_name);release_name(class_name);release_name(parent_name);release_name(sync_snapshot_name);release_name(sync_native_snapshot_name);release_name(sync_native_metadata_name);release_name(shared_snapshot_name);release_name(plain_snapshot_name);release_name(lazy_snapshot_name);release_name(event_health_name);release_name(hp_name);release_name(max_hp_name);release_name(velocity_name);}
 }

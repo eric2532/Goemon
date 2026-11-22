@@ -1,0 +1,1 @@
+User-approved seven-weapon appearance previews, 2026-11-17. These approve the pictured appearance; they do not certify every animation frame. Runtime axe/staff cuts reuse the approved complete sword poses retimed to their original weapon contact clocks. Original item rows and current preparation commands are in assets/characters/crossgate/shin/README.md.

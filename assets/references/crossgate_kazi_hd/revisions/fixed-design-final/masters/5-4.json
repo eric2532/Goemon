@@ -1,0 +1,22 @@
+{
+  "source": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/iai-left-hip-v3/masters/5-4.png",
+  "source_sha256": "d7766b2efc5836d362fe815af9f76305ac32f00cf98b10b2ec69cce6c25d215f",
+  "approved_head_direction": 4,
+  "removed_marking_pixels": 2692,
+  "sha256": "d3a532d3251bcffa45ef0aabc7a09b7a2fe12c73eef238575f8627536a4c0efc",
+  "preparer_sha256": "328604905978b20eeb6a4ecc87df0e23dc9ae15727770b6916261f980fc52318",
+  "source_frame_order": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "method": "Fixed approved head layer, uniform clip scale, existing skin palette; no new image generation"
+}

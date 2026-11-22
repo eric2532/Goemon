@@ -1,5 +1,9 @@
 extends "res://scripts/forest/forest_map_document.gd"
 ## Retired layouts are fixtures for saved-map compatibility and combat regression tests.
+const VALLEY_PATH="res://tests/forest-shrine/reference/maps/forest_wind_meadow_valley.json"
+const VALLEY_LARGE_PATH="res://tests/forest-shrine/reference/maps/forest_wind_meadow_large_valley.json"
+func load_valley()->String:return read_file(VALLEY_PATH)
+func load_valley_large()->String:return read_file(VALLEY_LARGE_PATH)
 const ORIGINAL_PATH="res://tests/forest-shrine/reference/maps/forest_shrine_original.json"
 const RAMPARTS_PATH="res://tests/forest-shrine/reference/maps/forest_twin_ramparts.json"
 const FOUR_GATES_PATH="res://tests/forest-shrine/reference/maps/forest_four_gates.json"

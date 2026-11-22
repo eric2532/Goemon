@@ -1,0 +1,32 @@
+{
+  "109": {
+    "file": "sounds/cgply04a.wav",
+    "source": "NewClient.7z/bin/se/cgply04a.wav",
+    "sha256": "b9aaacb4dd15765eb6e9933eaddd7e97cb77d9aafb67b616c009e9b53c0258d9",
+    "pcmSha256": "ff0be9c0daf8763a5810f5b8471734b039fd40e699cbcec25d420f516a073873",
+    "channels": 1,
+    "sampleWidth": 2,
+    "sampleRate": 22050,
+    "frames": 7610
+  },
+  "111": {
+    "file": "sounds/cgply05a.wav",
+    "source": "NewClient.7z/bin/se/cgply05a.wav",
+    "sha256": "5cd17d6feb5d3c47e93370151f3d36a9e3203c05ddc2f4e7d6eac67c44dfbc2c",
+    "pcmSha256": "53eaf94d5df2e42b2671dff29bfe4e61c21746675548a2536655655df206b7a9",
+    "channels": 1,
+    "sampleWidth": 2,
+    "sampleRate": 22050,
+    "frames": 1926
+  },
+  "139": {
+    "file": "sounds/cgply14a.wav",
+    "source": "NewClient.7z/bin/se/cgply14a.wav",
+    "sha256": "57db49f71ba86d73f71fce54d87fb34fce2446ef67c50d13fd54461f23e07a4d",
+    "pcmSha256": "156e781603df4be9ec0e823356084823e35e06d3d7b6384b7ee7f6d04bae230b",
+    "channels": 1,
+    "sampleWidth": 2,
+    "sampleRate": 22050,
+    "frames": 5445
+  }
+}

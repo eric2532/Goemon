@@ -18,6 +18,8 @@ uniform bool compensate_filmic=false;
 uniform float scene_exposure=1.0;
 uniform float scene_white=1.0;
 varying float frozen_tint;
+varying vec3 ice_position;
+#include "enemy_ice_surface.gdshaderinc"
 varying float hit_flash;
 varying float surface_row;
 float filmic_white(float x){return (x*(0.88*x+0.06)+0.002)/(x*(0.88*x+0.60)+0.06)-1.0/30.0;}
@@ -45,7 +47,8 @@ void vertex(){
  vec4 z=texelFetch(pose_texture,ivec2(part*3+2,row),0);
  mat3 rigid=mat3(x.xyz,y.xyz,z.xyz);
  VERTEX=(rigid*VERTEX+vec3(x.w,y.w,z.w))*enemy_size*role_size;NORMAL=normalize(rigid*NORMAL);
- frozen_tint=effect_pose_start>=0?0.0:INSTANCE_CUSTOM.y;hit_flash=INSTANCE_CUSTOM.w;surface_row=UV2.y;
+ ice_position=VERTEX;
+ frozen_tint=effect_pose_start>=0?0.0:INSTANCE_CUSTOM.y;hit_flash=frozen_tint>=0.99?0.0:INSTANCE_CUSTOM.w;surface_row=UV2.y;
 }
 void fragment(){
  if(finale_discard>0.5)discard;
@@ -63,9 +66,9 @@ void fragment(){
   else if(mode==6)light=vec3(.125,.25,1);
   paint.rgb=pow(max(paint.rgb,vec3(0.0)),vec3(1.15))*(vec3(.12)+light*1.25);
  }
- paint.rgb=mix(paint.rgb,vec3(.35,.75,1.0),frozen_tint*.55);
+ paint.rgb=enemy_ice_surface(paint.rgb,ice_position,NORMAL,VIEW,frozen_tint);
  ALBEDO=compensate_filmic&&!finale?inverse_filmic(paint.rgb):paint.rgb;
- ROUGHNESS=0.65;SPECULAR=0.25;
+ ROUGHNESS=mix(0.65,0.23,abs(frozen_tint));SPECULAR=0.25;
  EMISSION=vec3(1.0,.17,.06)*min(1.0,hit_flash*24.0)*1.4;
  if(finale){
   float rim=pow(1.0-max(dot(normalize(NORMAL),normalize(VIEW)),0.0),3.0);

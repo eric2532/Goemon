@@ -27,7 +27,7 @@ var musashi_until_tick=0.0
 var musashi_vertical=0.0
 
 func _init(owner):hero=owner
-func active()->bool:return not selected.is_empty()
+func active()->bool:return not selected.is_empty() and (hero.ai_controlled or not hero.game.has_method("forest_enemy_visible"))
 
 static func valid_assignments(value:Variant)->Dictionary:
 	var result={}
@@ -82,7 +82,7 @@ func ben_flight()->bool:return selected=="ben" or (not active() and hero.charact
 func held()->bool:return not hero.ai_controlled and Input.is_action_pressed("jump")
 func boosted()->bool:return not hero.ai_controlled and Input.is_action_pressed("sprint")
 func flight_speed()->float:
-	return ((36.0 if boosted() else 21.0) if ben_flight() else (64.0 if boosted() else 36.0))*hero.progression.movement_multiplier()
+	return ((36.0 if boosted() else 21.0) if ben_flight() else (64.0 if boosted() else 36.0))*hero.progression.movement_multiplier()*hero.food_multiplier("movement_speed")*float(hero.accessory_bonuses.get("movement_speed",1.0))
 
 func update_flight():
 	hero.flying=hero.can_fly() and (held() or not hero.is_on_floor())

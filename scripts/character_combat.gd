@@ -27,3 +27,6 @@ func clear_cooldowns():pass
 
 func skill_factor(key:String,ticket:Dictionary={})->float:
 	return preload("res://scripts/spells/skill_balance.gd").factor(ticket if not ticket.is_empty() else hero.attack_ticket,key)
+
+func skill_count(original:int,ticket:Dictionary)->int:
+	return preload("res://scripts/spells/skill_balance.gd").count(ticket,original)

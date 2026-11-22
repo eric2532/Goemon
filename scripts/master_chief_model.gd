@@ -41,3 +41,10 @@ func set_cloak(_equipped:bool,_gold:bool):pass
 func combat_pose(_attack:float,_heavy:bool,_combo:int,_dodge:bool):pass
 func set_surge(_active:bool):pass
 func apply_skin(_id:String):pass
+
+func animate_qi_blast(_delta:float,progress:float):
+	if animations==null or skeleton==null:return
+	if animations.current_animation!="idle":animations.play("idle")
+	animations.seek(0,true)
+	animations.speed_scale=0
+	if progress>=0:pose_qi_fist(skeleton,progress,["bip01 r upperarm","bip01 r forearm","bip01 r hand"])

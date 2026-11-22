@@ -1,0 +1,82 @@
+{
+  "source_project": "/Users/eric/Desktop/Projects_Codex/Magic Power",
+  "source_pack": "joy",
+  "source_index": "GraphicInfo_Joy_54.bin",
+  "decoder": "tools/cg_library.py:image_from_record",
+  "changes": "None; full decoded RGBA pixels, original dimensions and transparency.",
+  "sprites": [
+    {
+      "file": "defend-normal.png",
+      "pack": "joy",
+      "row": 353,
+      "graphic_serial": 244176,
+      "size": [
+        64,
+        20
+      ],
+      "rgba_sha256": "25bcb4e9467ad7ca67e13893efe4557a1efbd392890b819b6df40c5a800769e6",
+      "png_sha256": "de38e5ba36c631452e7b2205a29dd2187428fec371f21b1ff63339b03550fcdf"
+    },
+    {
+      "file": "defend-selected.png",
+      "pack": "joy",
+      "row": 354,
+      "graphic_serial": 244177,
+      "size": [
+        64,
+        20
+      ],
+      "rgba_sha256": "1888cd01d18de2b5caaab3fceac06b350ac1dbdc4e3a226bdae76cfe265288d9",
+      "png_sha256": "e26af3b6dbf8152b271492d9ff43b3dd361dc1efe9139f5e14eb01f060af11bc"
+    },
+    {
+      "file": "attack-normal.png",
+      "pack": "joy",
+      "row": 341,
+      "graphic_serial": 244164,
+      "size": [
+        64,
+        20
+      ],
+      "rgba_sha256": "fbc6a7f71df95cb86cd0f2e47ab7f6e4ba17d7a3ce067c4b950b9c35d592cbe6",
+      "png_sha256": "1f6bd4f6c3e911ee030c59deae1939ddacd36563b325eb55444d38eaa87a9685"
+    },
+    {
+      "file": "attack-selected.png",
+      "pack": "joy",
+      "row": 342,
+      "graphic_serial": 244165,
+      "size": [
+        64,
+        20
+      ],
+      "rgba_sha256": "ef4c9cf704b96062cbf77a3379b4cd29d0c8f3f9060a7f513367741974187e12",
+      "png_sha256": "a902fe17bbeb839765ce491583ebeb22957c88727a231d88cb087a4a4e40655a"
+    },
+    {
+      "file": "return-normal.png",
+      "pack": "joy",
+      "row": 366,
+      "graphic_serial": 244342,
+      "size": [
+        52,
+        17
+      ],
+      "rgba_sha256": "472ac81176f4f62cce7d85e77c90cd8cc613ae6e5a95d70aa26ca98aa5619ce5",
+      "png_sha256": "6bc3e79c2decde59cb8454baece0b7652b2a24cadb63fb421d7adb9f1ff14fd3"
+    },
+    {
+      "file": "return-selected.png",
+      "pack": "joy",
+      "row": 368,
+      "graphic_serial": 244344,
+      "size": [
+        52,
+        17
+      ],
+      "rgba_sha256": "a78c4fc49291852a3f11badfb3c57cd9ad3292150921ff7311a70b92a5d0c6d9",
+      "png_sha256": "af9e68ed6755af6cf35feff72190a53788321968328b9640df0566925adf8d3d"
+    }
+  ],
+  "source_index_sha256": "90b8f490e1b028b0311473f33f977faed2972b7558eee2e59aa37036244d930b"
+}

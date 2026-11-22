@@ -5,6 +5,7 @@ const Effects=preload("res://scripts/warcraft_effects.gd")
 const Mirrors=preload("res://scripts/warcraft_mirrors.gd")
 const Pool=preload("res://scripts/character_projectile_pool.gd")
 const Shot=preload("res://scripts/warcraft_projectile.gd")
+const Crossgate=preload("res://scripts/crossgate_combat.gd")
 var wind_left=0.0
 var wind_cooldown=0.0
 var mirror_cooldown=0.0
@@ -13,6 +14,7 @@ var burn_clock=0.0
 var burn_ticket={}
 var effects:Node3D
 var mirrors:RefCounted
+var mirror_glow:Sprite3D
 var wind_geometry:Array=[]
 var mode=""
 var clip=""
@@ -100,8 +102,31 @@ func start_mirrors():
 	if hero.mirror_copy:return
 	if is_attacking() or mirror_cooldown>0 or hero.hp<=0:return
 	if other_kits().any(func(c):return c.mirrors!=null and c.mirrors.left>0):return
-	if not mirrors.cast():game.toast("Mirror Image needs clear ground for five allies");return
-	begin("mirrors","Stand Ready");duration=.5;mirror_cooldown=Kit.MIRROR_COOLDOWN;sound("wc_mirror")
+	if not hero.spend_skill_mana("blademaster/mirror-image"):return
+	if hero.RogueRoster.has_crossgate_throws(hero.character_id) and not hero.ai_controlled:
+		var facing=hero.facing
+		begin("mirrors","Stand Ready")
+		hero.facing=facing
+		duration=Crossgate.COMBO_CHARGE_FRAMES*Crossgate.COMBO_CHARGE_FRAME_TIME
+		hero.attack_duration=duration;hero.attack_left=duration
+		mirror_glow=hero.model.combo_glow
+		Crossgate.ShineTiers.physical_shine(mirror_glow,ticket if Crossgate.Skills.Levels.is_ex(ticket) else {})
+		mirror_glow.frame=0;mirror_glow.modulate.a=.35 if game.settings.get("reduced_flashes",false) else 1.0
+		mirror_glow.show()
+		hero.play_sound("cg_mirror_charge",.8,ticket)
+	elif spawn_mirrors():
+		begin("mirrors","Stand Ready");duration=.5
+		mirror_feedback()
+	else:hero.refund_skill_mana("blademaster/mirror-image")
+	if mode=="mirrors":
+		var speed=hero.spell_loadout.primary_combo_cast_speed()
+		if speed>1.0:ticket.shin_cast_speed=speed
+func spawn_mirrors()->bool:
+	if mirrors.cast():return true
+	game.toast("Mirror Image needs clear ground for five allies")
+	return false
+func mirror_feedback():
+	mirror_cooldown=Kit.MIRROR_COOLDOWN;sound("wc_mirror")
 	effects.mirror()
 func toggle_immolation():
 	if hero.hp<=0:return
@@ -148,7 +173,8 @@ func tick(delta:float,after_pose:bool=false):
 	if not is_attacking():
 		if spell_owner==null and (hero.auto_attack_running() or primary_held):start_attack()
 		return
-	elapsed+=delta*(hero.attack_speed_multiplier() if mode=="attack" else 1.0)
+	var rate=hero.attack_speed_multiplier() if mode=="attack" else float(ticket.get("shin_cast_speed",1.0))
+	elapsed+=delta*rate
 	hero.attack_left=maxf(0,duration-elapsed)
 	if mode=="attack" and not released and elapsed>=contact:
 		released=true
@@ -159,7 +185,11 @@ func tick(delta:float,after_pose:bool=false):
 	elif mode=="spin":
 		while next_pulse<=minf(elapsed,duration)+.00001:strike(true);next_pulse+=Kit.SPIN_INTERVAL
 		if elapsed>=next_sound and elapsed<duration:sound("wc_spin");next_sound+=.846
-	if elapsed>=duration:
+	var shining=is_instance_valid(mirror_glow)
+	if shining:
+		mirror_glow.frame=Crossgate.ShineTiers.charge_frame(ticket,elapsed/Crossgate.COMBO_CHARGE_FRAME_TIME,9,12)
+	if elapsed+(0.00001 if shining else 0.0)>=duration:
+		if shining and spawn_mirrors():mirror_feedback()
 		if mode=="morph":demon=not demon;primary_held=false
 		var again=queued;finish();combo_timer=.85
 		if again:start_attack()
@@ -220,6 +250,8 @@ func die():
 	cancel(true);stop_powers();mode="dead";clip="Death Alternate" if demon else "Death"
 	cast_model().pose(clip,0)
 func finish():
+	if is_instance_valid(mirror_glow):mirror_glow.hide()
+	mirror_glow=null
 	if is_instance_valid(effects):effects.spin(false)
 	mode="";clip="";elapsed=0;released=false;queued=false;ticket={};hero.attack_left=0
 func cancel(preserve_power:bool=false):
@@ -235,6 +267,7 @@ func stop_powers():
 	if mirrors!=null:mirrors.clear()
 	if is_instance_valid(effects):effects.immolation(false)
 func _exit_tree():
+	if is_instance_valid(mirror_glow):mirror_glow.hide()
 	if mirrors!=null:mirrors.dispose()
 	stop_powers()
 	if is_instance_valid(effects):effects.queue_free()

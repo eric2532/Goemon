@@ -1,6 +1,20 @@
 extends RefCounted
 ## Cached symbols and baked gameplay portraits; no runtime image generation or 3D portraits.
 var textures: Dictionary={}
+const STATS={
+	"vitality":preload("res://assets/ui/crossgate/stats/vitality.svg"),
+	"regeneration":preload("res://assets/ui/crossgate/stats/regeneration.svg"),
+	"attack":preload("res://assets/ui/crossgate/stats/attack.svg"),
+	"magic_power":preload("res://assets/ui/crossgate/stats/magic_power.svg"),
+	"attack_speed":preload("res://assets/ui/crossgate/stats/attack_speed.svg"),
+	"defense":preload("res://assets/ui/crossgate/stats/defense.svg"),
+	"reduction":preload("res://assets/ui/crossgate/stats/reduction.svg"),
+	"critical_chance":preload("res://assets/ui/crossgate/stats/critical_chance.svg"),
+	"dodge_chance":preload("res://assets/ui/crossgate/stats/dodge_chance.svg"),
+	"counter_chance":preload("res://assets/ui/crossgate/stats/counter_chance.svg"),
+	"mana":preload("res://assets/ui/crossgate/stats/mana.svg"),
+	"point":preload("res://assets/ui/crossgate/stats/point.svg"),
+}
 const PORTRAITS={
 	"cannon_tower":preload("res://assets/ui/forest/buildings/cannon_tower.png"),
 	"worker":preload("res://assets/ui/forest/worker_peasant.png"),

@@ -19,7 +19,7 @@ class StableMirrors extends "res://scripts/warcraft_mirrors.gd":
    body.retire();return false
   body.native_handle=handle
   # Permanent card recruits share mercenary pursuit and terrain-height goals.
-  runtime.native.set_guard(handle,point,18.0)
+  runtime.native.set_guard(handle,point,hero.game.explorer_helpers.guard_radius())
   handles.resize(bodies.size());handles[bodies.find(body)]=handle;left=INF
   if not runtime.mirror_action.is_connected(_action):runtime.mirror_action.connect(_action)
   if not runtime.mirrors_advanced.is_connected(tick):runtime.mirrors_advanced.connect(tick)
@@ -103,5 +103,6 @@ func finish():
  DirAccess.make_dir_recursive_absolute(out)
  FileAccess.open(out+"/mixed-effects.json",FileAccess.WRITE).store_string(JSON.stringify(summary,"  "))
  var compact=summary.duplicate();compact.erase("samples");print("CRESCENT_BATTLE_EFFECTS ",JSON.stringify(compact))
- if peak_attacking<8 or peak_crescents<4 or effect_heroes_seen.size()<12:printerr("FAIL: Mixed battle did not exercise enough simultaneous hero effects");stopped=true
+ if peak_attacking<8 or peak_crescents<4 or effect_heroes_seen.size()<12:
+  scenario_errors.append("Mixed battle did not exercise enough simultaneous hero effects")
  super.finish()

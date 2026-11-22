@@ -1,0 +1,1 @@
+NOT APPROVED / NOT ACTIVATED. Built-in image_gen removed the green marking but also changed linework, face shape/detail and added haze. This fails the fixed-design requirement. Do not use as an identity reference or live asset. Preserve original approved slashing reference; green-ink removal remains pending exact-preservation retouch.

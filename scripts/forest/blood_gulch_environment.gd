@@ -31,6 +31,10 @@ func apply():
  if world.model.terrain_source=="wind_meadow":
   env.tonemap_mode=Environment.TONE_MAPPER_FILMIC;env.tonemap_exposure=.85;env.ambient_light_energy=.35;env.ambient_light_color=Color("bdcfc6");env.fog_density=.0008/world.model.terrain_scale;env.fog_light_color=Color("b4ccd0");env.fog_sky_affect=.2
   sky_material.sky_top_color=Color("73adcf");sky_material.sky_horizon_color=Color("dce7d3");sky_material.ground_horizon_color=Color("dce7d3")
+ if world.model.terrain_detail==world.model.Arena.ID:
+  env.background_mode=Environment.BG_SKY;env.fog_enabled=false
+  sky_material.ground_bottom_color=Color("383129");sky_material.ground_horizon_color=Color("c7c2ac")
+  env.ambient_light_energy=.65;env.ambient_light_color=Color("d7d2c3")
  environment_node.environment=env
  if is_instance_valid(sun):
   sun_state=[sun.rotation,sun.light_color,sun.light_energy]

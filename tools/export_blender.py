@@ -34,6 +34,7 @@ def export_current():
     for o in bpy.context.scene.objects:
         if not o.get('export_exclude',False): o.select_set(True)
     bpy.ops.export_scene.gltf(use_selection=True,export_cameras=False,export_lights=False,filepath=str(output),export_format='GLB',export_yup=True,
+        export_vertex_color='ACTIVE' if bpy.context.scene.get('export_active_vertex_colors',False) else 'MATERIAL',
         export_animations=True,export_animation_mode='NLA_TRACKS',export_nla_strips=True,
         export_skins=True,export_apply=False)
     for track,muted in tracks:track.mute=muted

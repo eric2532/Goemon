@@ -22,6 +22,12 @@ func warm():
  var world=Node3D.new();viewport.add_child(world)
  var camera=Camera3D.new();world.add_child(camera)
  camera.position=Vector3(12,16,26);camera.look_at(Vector3(0,3,0))
+ var source=get_parent().get("world")
+ if source is Node3D:
+  # Directional lights and the environment select different rendering pipeline variants.
+  var environment_=WorldEnvironment.new();environment_.environment=source.get_world_3d().environment;world.add_child(environment_)
+  for child in source.get_children():
+   if child is DirectionalLight3D:world.add_child(child.duplicate())
  populate_samples(world)
  # StandardMaterial3D retires its generated shader when its last material is
  # freed. Keep these few materials across map restarts, without drawing them.
@@ -39,12 +45,21 @@ func _after_draw():
  var retired=viewport;viewport=null;retired.queue_free()
  retired.tree_exited.connect(_retired,CONNECT_DEFERRED|CONNECT_ONE_SHOT)
 func _retired():
+ # Let deferred render-resource retirement finish before callers start combat.
+ await get_tree().process_frame
+ await RenderingServer.frame_post_draw
+ if not is_inside_tree():return
  warmed_msaa=warmup_msaa;complete=true;finished.emit()
 func _exit_tree():
  if RenderingServer.frame_post_draw.is_connected(_after_draw):RenderingServer.frame_post_draw.disconnect(_after_draw)
 func populate_samples(world:Node3D):
  warm_soldiers(world)
  warm_boss_effects(world)
+ var wind=MultiMeshInstance3D.new();wind.name="WarmMeleeWind"
+ wind.multimesh=MultiMesh.new();wind.multimesh.transform_format=MultiMesh.TRANSFORM_3D;wind.multimesh.use_custom_data=true
+ wind.multimesh.mesh=preload("res://scripts/forest/crowd/army_presentation.gd").prepare_melee_wind();wind.multimesh.instance_count=1
+ wind.multimesh.set_instance_transform(0,Transform3D(Basis(Vector3.RIGHT,Vector3.FORWARD,Vector3.UP).scaled_local(Vector3(4,3,1)),Vector3(0,2,0)))
+ wind.multimesh.set_instance_custom_data(0,Color(.2,1,.1,PI/4));world.add_child(wind)
  var fx=Effects.new();fx.army_trails=true;fx.apply_quality(0);world.add_child(fx)
  for kind in ["ranger-arrow","ranger-power-arrow","star","bolt","wave","bullet","dragon"]:
   fx.add_child(fx.create_projectile(kind,Color("9bcfff")))
@@ -65,6 +80,33 @@ func populate_samples(world:Node3D):
  sparks.multimesh.set_instance_transform(0,Transform3D.IDENTITY);sparks.multimesh.set_instance_color(0,Color.WHITE);world.add_child(sparks)
  var label=Label3D.new();label.text="999";label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.no_depth_test=true
  label.font_size=86;label.outline_size=10;label.pixel_size=.0065;label.position=Vector3(0,5,0);world.add_child(label)
+ # Bitmap combat numbers and fixed-size labels use different pipelines from the default font.
+ var presentation=preload("res://scripts/forest/crowd/army_presentation.gd")
+ for font in [presentation.DAMAGE_FONT,presentation.HEAL_FONT,presentation.BATTLE_TEXT_FONT,ThemeDB.fallback_font]:
+  var text=Label3D.new();text.font=font;text.text="0123456789";text.font_size=36;text.outline_size=0
+  text.fixed_size=true;text.billboard=BaseMaterial3D.BILLBOARD_ENABLED;text.no_depth_test=true
+  text.pixel_size=.00065;text.position=Vector3(0,3,0);text.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;world.add_child(text)
+  if font==presentation.BATTLE_TEXT_FONT:
+   text.text="崩擊 · Release X";text.outline_size=5;text.pixel_size=.0012
+  elif font==ThemeDB.fallback_font:
+   text.text="!";text.font_size=58;text.outline_size=8;text.pixel_size=.001
+ var player=get_parent().get("player")
+ if is_instance_valid(player) and is_instance_valid(player.timed_dodge):
+  var mark=player.timed_dodge.mark.duplicate();mark.position=Vector3(0,4,0);mark.show();world.add_child(mark)
+ var crowd=get_parent().get("crowd")
+ if crowd!=null and is_instance_valid(crowd.army):
+  # Use the live mesh/material contracts, including the selected pet atlas and health vertices.
+  var meshes=crowd.army.meshes.values()+[crowd.army.health.multimesh.mesh]
+  for batch in crowd.army.presentation.batches.values():meshes.append(batch.multimesh.mesh)
+  for mesh in meshes:
+   var batch=MultiMeshInstance3D.new();batch.name="WarmCurrentArmy"
+   batch.multimesh=MultiMesh.new();batch.multimesh.transform_format=MultiMesh.TRANSFORM_3D;batch.multimesh.use_custom_data=true
+   batch.multimesh.mesh=mesh;batch.multimesh.instance_count=1
+   batch.multimesh.set_instance_transform(0,Transform3D(Basis.IDENTITY,Vector3(0,2,0)))
+   batch.multimesh.set_instance_custom_data(0,Color(0,0,0,0))
+   batch.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;world.add_child(batch)
+   preload("res://scripts/forest/crowd/hound_sprites.gd").apply_world_scale(batch,get_parent().model)
+   if mesh==crowd.army.meshes.get(preload("res://scripts/forest/forest_enemy_roles.gd").SLIME):batch.set_instance_shader_parameter("map_enemy_scale",preload("res://scripts/forest/forest_enemy_roles.gd").MAP_ENEMY_SCALE)
 
 func warm_boss_effects(world:Node3D):
  for kit in [preload("res://scripts/forest/dark_lumina_kit.gd"),preload("res://scripts/forest/dark_lumina_3_kit.gd")]:
@@ -81,12 +123,18 @@ func warm_boss_effects(world:Node3D):
 
 func warm_soldiers(world:Node3D):
  var soldier=preload("res://scripts/forest/forest_thirstquencher_visual.gd")
- for role in preload("res://scripts/forest/forest_enemy_roles.gd").RIGID_TYPES:
-  var source=soldier.data(role);var batch=MultiMeshInstance3D.new();batch.name="WarmSoldier_%d"%role
+ var roles=preload("res://scripts/forest/forest_enemy_roles.gd")
+ for role in roles.NATIVE_TYPES:
+  var batch=MultiMeshInstance3D.new();batch.name="WarmSoldier_%d"%role
   batch.multimesh=MultiMesh.new();batch.multimesh.transform_format=MultiMesh.TRANSFORM_3D;batch.multimesh.use_custom_data=true
-  batch.multimesh.mesh=soldier.make_mesh(role);batch.multimesh.instance_count=1;batch.multimesh.custom_aabb=source.get_meta("bounds")
-  var state=soldier.frame_state({"variant":role,"velocity":Vector3.ZERO,"soldier_pose_tick":12})
-  batch.multimesh.set_instance_custom_data(0,Color(state.row,0,0,0));batch.position.x=(preload("res://scripts/forest/forest_enemy_roles.gd").RIGID_TYPES.find(role)-2)*8
+  if role in [roles.GATEKEEPER_HOUND,roles.CAVE_BEAR]:
+   batch.multimesh.mesh=preload("res://scripts/forest/crowd/habaru_sprites.gd").make_mesh() if role==roles.CAVE_BEAR else preload("res://scripts/forest/crowd/hound_sprites.gd").make_mesh()
+   batch.multimesh.custom_aabb=preload("res://scripts/forest/crowd/habaru_sprites.gd").BODY if role==roles.CAVE_BEAR else AABB(Vector3(-3,-1,-3),Vector3(6,6,6));batch.multimesh.instance_count=1
+  else:
+   batch.multimesh.mesh=soldier.make_mesh(role);batch.multimesh.custom_aabb=soldier.data(role).get_meta("bounds");batch.multimesh.instance_count=1
+   var state=soldier.frame_state({"variant":role,"velocity":Vector3.ZERO,"soldier_pose_tick":12})
+   batch.multimesh.set_instance_custom_data(0,Color(state.row,0,0,0))
+  batch.position.x=(roles.NATIVE_TYPES.find(role)-2)*8
   batch.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;world.add_child(batch)
  var bullet=load(GameAssets.model_path("res://assets/characters/thirstquencher/projectiles/bullet.glb")).instantiate();bullet.name="WarmSoldierBullet";bullet.scale=Vector3.ONE*soldier.SCALE;bullet.position=Vector3(0,5,0);world.add_child(bullet)
  var casing=load(GameAssets.model_path("res://assets/characters/thirstquencher/projectiles/casing.glb")).instantiate();casing.name="WarmSoldierCasing";casing.scale=Vector3.ONE*soldier.SCALE;casing.position=Vector3(0,3,0);world.add_child(casing)

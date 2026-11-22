@@ -1,0 +1,29 @@
+{
+  "method": "Existing left-hip waist/arms and isolated blade; approved head/feet unchanged",
+  "sources": {
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/fixed-design-final/masters/3-2.png": "147462b644484bd32f9d0df50fdb086e3912dae5449bd87868affa9e68fc2375",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/fixed-design-final/masters/3-1.png": "6cd81fbe660e969641516472895b9fbc2b9a112561b1e921d93505eedf149e4f"
+  },
+  "frames": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "sha256": "dcd63156d25b8813eb3497fc38691b195ac9328e98810c658552aa070bb5ec67",
+  "preparer_sha256": "d2fab82a9c68f5129a14c534a967f1e74f63de0243c1e067c37aba4ac97b145f"
+}

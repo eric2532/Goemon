@@ -5,9 +5,14 @@ var cached_radius=0.0
 func radius(hero:Hero)->float:
  var ability=hero.active_ability
  var buff=ability.buff_time() if hero.is_rogue_character() else 0.0
- var key=[hero.character_id,hero.weapon_slot,hero.growth_multiplier(),hero.melee_reach_setting(),hero.pickup_multiplier("range"),hero.surge_left>0,hero.combat_tuning("pipe_range"),hero.combat_tuning("model_scale"),buff>0,hero.is_meta_shooter()]
+ var crossgate=hero.RogueRoster.is_crossgate_fighter(hero.character_id)
+ var stance=hero.model.maze_weapon if hero.RogueRoster.has_crossgate_throws(hero.character_id) else hero.model.shin_weapon_index if crossgate else 0
+ # Fixed-weapon skins can have a different reach at the same stance index.
+ if crossgate:stance=Vector2i(stance,int(hero.model.motions.get("source_id",0)))
+ var key=[hero.character_id,hero.weapon_slot,hero.growth_multiplier(),hero.melee_reach_setting(),hero.pickup_multiplier("range"),hero.surge_left>0,hero.combat_tuning("pipe_range"),hero.combat_tuning("model_scale"),buff>0,hero.is_meta_shooter(),stance,hero.model.current_weapon() if crossgate else "",hero.accessory_bonuses.get("range",1.0),hero.accessory_bonuses.get("primary","")]
  if key==signature:return cached_radius
  signature=key;cached_radius=0.0
+ if hero.accessory_bonuses.get("primary","")=="fire":return cached_radius
  if hero.character_id==1 and hero.weapon_slot==1:
   var model=hero.model
   if model.pipe_bounds.is_empty():model.cache_pipe_bounds(model.pipe)
@@ -28,7 +33,8 @@ func radius(hero:Hero)->float:
    ability.fit_primary_reach(a,true)
    cached_radius=maxf(cached_radius,float(a.reach))
   ability._ticket=saved
- elif hero.character_id in [13,15,16,17,34]:cached_radius=hero.melee_strike_reach()
+ elif hero.character_id==13:cached_radius=ability.blade_reach(true)+.25*hero.contact_size_multiplier()
+ elif crossgate or hero.character_id in [15,16,17]:cached_radius=hero.melee_strike_reach()
  elif hero.character_id==29:
   var pattern=ability.Roles.ATTACKS[ability.Dark.ROLE]
   var scale=ability.Dark.SCALE*ability.Dark.ATTACK_RANGE*hero.melee_range_multiplier()

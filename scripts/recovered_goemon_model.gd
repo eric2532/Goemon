@@ -192,3 +192,17 @@ func cancel_original_coin():
 func apply_skin(_id:String):
 	# Saved alternate-skin preferences cannot replace the requested original model.
 	skin_id=HeroSkins.DEFAULT_ID
+
+func animate_combo(_delta:float,spell:Node):
+	locomotion.dirty=false
+	var progress:float=spell.controller.combo_progress()
+	if progress<0:apply_native_pose(0,0);return
+	var action:int=Profile.COMBO_ACTIONS[0]
+	apply_native_pose(action,qi_attack_time(progress,Profile.cue_time(action,Profile.COMBO_CUE_FRAMES[0]),Profile.action_duration(action)))
+
+func animate_qi_blast(_delta:float,progress:float):
+	locomotion.dirty=false
+	if progress<0:apply_native_pose(0,0);return
+	var action=Profile.COIN_ACTION
+	var contact=Profile.cue_time(action,Profile.COIN_RELEASE_FRAME)
+	apply_native_pose(action,qi_attack_time(progress,contact,Profile.action_duration(action)))

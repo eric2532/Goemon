@@ -89,7 +89,13 @@ func update(state:Dictionary,delta:float,time:float):
 	var attack=state.get("attack")
 	var source:Dictionary={}
 	source_action=-1;source_time=0
-	if attack is Dictionary and attack.get("style","") in ["pipe","cutlass"]:
+	if state.has("qiPunch"):
+		var progress:float=state.qiPunch
+		source_action=0 if progress<0 else Profile.COIN_ACTION
+		if progress>=0:
+			var contact=Profile.cue_time(source_action,Profile.COIN_RELEASE_FRAME)
+			source_time=progress*contact if progress<=1 else lerpf(contact,Profile.action_duration(source_action),progress-1.0)
+	elif attack is Dictionary and attack.get("style","") in ["pipe","cutlass"]:
 		var slot=posmod(int(attack.get("index",0)),3)
 		source_action=104+slot
 		var contact=maxf(.001,float(attack.get("contact",.105)))

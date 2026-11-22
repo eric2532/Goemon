@@ -22,6 +22,7 @@ var duration=0.0
 var mode=""
 var state={}
 var hits={}
+var wind_contact=0
 var ticket={}
 var action=0
 var marker=0
@@ -189,30 +190,70 @@ func skull_drill_point()->Vector3:
   nearest=distance;result=ground.position
  return result
 
-func strike(from:Vector3,to:Vector3,radius:float,damage_scale:float=1.0,min_dot:float=-1.0,origin:Vector3=Vector3.INF):
- if role!=Dark.ROLE and hits.is_empty() and game.get("crowd")!=null and Presentation.MONSTER_SOUNDS.has(role):
+func strike(from:Vector3,to:Vector3,radius:float,damage_scale:float=1.0,min_dot:float=-1.0,origin:Vector3=Vector3.INF,impact_strength:int=1,sweep_angles:Array=[],impact_sample:AudioStream=null,detached:Dictionary={}):
+ var primary=detached.is_empty()
+ var hit_set:Dictionary=hits if primary else {}
+ var strike_ticket:Dictionary=detached.get("ticket",ticket)
+ var facing:Vector3=detached.get("facing",hero.facing)
+ if role!=Dark.ROLE and hit_set.is_empty() and game.get("crowd")!=null and Presentation.MONSTER_SOUNDS.has(role):
   var sound=Presentation.MONSTER_SOUNDS[role].get("melee")
   if sound!=null:game.crowd.army.presentation.play_sound(hero.global_position,sound)
- var reach=hero.melee_range_multiplier()*skill_factor("hit_area",ticket)
+ var reach=hero.melee_range_multiplier()*skill_factor("hit_area",strike_ticket)
  if role==Dark.ROLE:
   from*=Vector3(Dark.SCALE*Dark.ATTACK_RANGE,1,Dark.SCALE*Dark.ATTACK_RANGE);to*=Vector3(Dark.SCALE*Dark.ATTACK_RANGE,1,Dark.SCALE*Dark.ATTACK_RANGE);radius*=Dark.SCALE*Dark.ATTACK_RANGE
  var center=hero.global_position if not origin.is_finite() else origin
- var a=center+cast_model().basis*(from*reach);var b=center+cast_model().basis*(to*reach)
+ # Reach extends along the ground; it must not lift a sword over nearby enemies.
+ var scale=Vector3(reach,hero.growth_multiplier(),reach)
+ var basis:Basis=detached.get("basis",cast_model().basis)
+ var a=center+basis*(from*scale);var b=center+basis*(to*scale)
  if role==Dark.ROLE and action==Dark.CLAW:cast_model().pressure_trail.paint_arc(a,b,Vector3.UP,.55)
- for enemy in AttackChain.segment_enemy_candidates(game,a,b,radius*reach):
-  if not is_instance_valid(enemy) or enemy.dead or hits.has(enemy.get_instance_id()):continue
+ var padding=radius*reach
+ var sweep=PackedVector3Array()
+ var candidates:Array
+ if strike_ticket.has("guard_break_target"):
+  var target_ref:WeakRef=strike_ticket.guard_break_target
+  var enemy=target_ref.get_ref() if target_ref!=null else null
+  candidates=[enemy] if is_instance_valid(enemy) and enemy.get("runtime")==game.army_runtime else []
+ elif detached.get("target")!=null:candidates=[detached.target]
+ elif sweep_angles.is_empty():
+  candidates=AttackChain.segment_enemy_candidates(game,a,b,padding)
+ else:
+  var extent=a.distance_to(b)
+  for angle in sweep_angles:
+   var endpoint=center+basis*(to.rotated(Vector3.UP,deg_to_rad(angle))*scale)
+   sweep.append(endpoint);extent=maxf(extent,a.distance_to(endpoint))
+  candidates=AttackChain.enemy_candidates(game,a,extent+padding*1.732051)
+ if primary and hero.RogueRoster.is_crossgate_fighter(hero.character_id) and game.get("crowd")!=null:
+  var motion=hero.model.melee_wind_motion(wind_contact)
+  wind_contact+=1
+  var wind_range=reach/(hero.growth_multiplier()*hero.CROSSGATE_MELEE_REACH)
+  if hero.model.current_weapon()=="unarmed":wind_range/=hero.CROSSGATE_FIST_REACH
+  game.crowd.army.presentation.melee_wind(a,b,padding,sweep,hero.model.current_weapon(),motion,hero.model.standing_height(),wind_range)
+ for enemy in candidates:
+  if not is_instance_valid(enemy) or enemy.dead or hit_set.has(enemy.get_instance_id()):continue
   if game.has_method("forest_enemy_visible") and not game.forest_enemy_visible(enemy):continue
-  var contact=AttackChain.segment_contact(enemy,a,b,radius*reach)
+  var contact=AttackChain.segment_contact(enemy,a,b,padding)
+  if not sweep.is_empty() and contact.is_empty():
+   for endpoint in sweep:
+    contact=AttackChain.segment_contact(enemy,a,endpoint,padding)
+    if not contact.is_empty():break
   if role==Roles.BOSS and action==105 and absf(AttackChain.aim_point(enemy,a).y-a.y)>5:continue
   if min_dot> -1.0 and not contact.is_empty():
    var offset:Vector3=AttackChain.aim_point(enemy,a)-a
-   if absf(offset.y)>5 or hero.facing.dot(Vector3(offset.x,0,offset.z).normalized())<min_dot:continue
+   if absf(offset.y)>5 or facing.dot(Vector3(offset.x,0,offset.z).normalized())<min_dot:continue
   if contact.is_empty() or not AttackChain.clear_line(hero,a,AttackChain.aim_point(enemy,a)):continue
-  hits[enemy.get_instance_id()]=true
-  enemy.take_hit(Roles.stats(role).damage*hero.damage_multiplier()*damage_scale*(.25 if role==Dark.ROLE and action==Dark.CLAW else 1.0),hero.facing,role in [Roles.BOSS,Dark.ROLE],ticket)
+  hit_set[enemy.get_instance_id()]=true
+  var amount=float(strike_ticket.get("sure_strike_damage",strike_ticket.get("normal_attack_damage",Roles.stats(role).damage*damage_scale*(.25 if role==Dark.ROLE and action==Dark.CLAW else 1.0))))
+  if strike_ticket.has("sure_strike_size"):
+   strike_ticket.impact_point=strike_ticket.get("sure_strike_contact",contact.point)
+  var connected=enemy.take_hit(amount*hero.damage_multiplier(),facing,role in [Roles.BOSS,Dark.ROLE],strike_ticket)!=false
+  strike_ticket.erase("impact_point")
+  if not connected:continue
+  if strike_ticket.has("guard_break_target"):strike_ticket.guard_break_connected=true
   if role==Roles.BOSS and action==105 and enemy.has_method("apply_defense_slow"):enemy.apply_defense_slow(.55,4.0)
-  if hero.ai_controlled:game.confirm_ally_impact(enemy,contact.point,hero.facing,1,false,source_id())
-  else:game.confirm_impact(enemy,contact.point,hero.facing,1,false,source_id())
+  if hero.ai_controlled:game.confirm_ally_impact(enemy,contact.point,facing,impact_strength,false,source_id(),true,impact_sample)
+  else:game.confirm_impact(enemy,contact.point,facing,impact_strength,false,source_id(),true,impact_sample,primary)
+  if not primary:hero.play_sound("hit",.65,strike_ticket,impact_sample)
   if role==Dark.ROLE and action==Dark.CLAW:captured=weakref(enemy);break
 
 func shoot():

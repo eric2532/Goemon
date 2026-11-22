@@ -10,7 +10,7 @@ with tempfile.TemporaryDirectory(prefix="goemon-launcher-test-") as folder:
  launcher=root/"tools/launch_goemon.command";launcher.write_text(source)
  (root/"tools/goemon_import_cache.py").write_text((repo/"tools/goemon_import_cache.py").read_text())
  (root/"project.godot").write_text('config_version=5\n[application]\nconfig/name="GoemonLauncherTest"\n')
- (root/"scenes/forest_shrine.tscn").write_text('[gd_scene load_steps=2 format=3]\n[ext_resource type="Script" path="res://probe.gd" id="1"]\n[node name="Probe" type="Node"]\nscript = ExtResource("1")\n')
+ (root/"scenes/forest_title.tscn").write_text('[gd_scene load_steps=2 format=3]\n[ext_resource type="Script" path="res://probe.gd" id="1"]\n[node name="Probe" type="Node"]\nscript = ExtResource("1")\n')
  (root/"probe.gd").write_text('extends Node\nfunc _ready():\n FileAccess.open("res://logs/started-%d"%OS.get_process_id(),FileAccess.WRITE).store_string("started")\n')
  processes=[]
  try:
@@ -41,9 +41,20 @@ with tempfile.TemporaryDirectory(prefix="goemon-launcher-test-") as folder:
   subprocess.run(['/bin/zsh',str(launcher),'--headless','--quit-after','5'],stdout=out,stderr=subprocess.STDOUT,check=True,timeout=30)
  assert 'Refreshing changed Goemon assets...' in (root/'logs/changed.log').read_text(),'Changed sources must refresh imports'
  assert 'SCRIPT ERROR' not in (root/'logs/changed.log').read_text(),'New classes must be available to gameplay'
- (root/'study.gd').write_text('extends SceneTree\nfunc _initialize():\n call_deferred("finish")\nfunc finish():\n assert(current_scene==null,"An asset study must not also start gameplay")\n FileAccess.open("res://logs/study-started",FileAccess.WRITE).store_string("started")\n quit()\n')
+ (root/'study.gd').write_text('extends SceneTree\nfunc _initialize():\n call_deferred("mark_started")\nfunc mark_started():\n assert(current_scene==null,"An asset study must not also start gameplay")\n FileAccess.open("res://logs/study-started",FileAccess.WRITE).store_string("started")\n')
  with (root/'logs/study.log').open('w') as out:
-  subprocess.run(['/bin/zsh',str(launcher),'--headless','--script','res://study.gd'],stdout=out,stderr=subprocess.STDOUT,check=True,timeout=30)
- assert (root/'logs/study-started').exists(),'The launcher must support standalone asset studies'
- assert len(list((root/'logs').glob('started-*')))==3,'The study must not also start the normal game'
- print('GOEMON_LAUNCHER_TEST checks=8 failures=0')
+  study=subprocess.Popen(['/bin/zsh',str(launcher),'--headless','--max-fps','60','--quit-after','1800','--script','res://study.gd'],stdout=out,stderr=subprocess.STDOUT)
+  try:
+   deadline=time.monotonic()+12
+   while not (root/'logs/study-started').exists() and study.poll() is None and time.monotonic()<deadline:
+    time.sleep(.05)
+   assert (root/'logs/study-started').exists(),'The launcher must support standalone asset studies'
+   assert len(list((root/'logs').glob('started-*')))==3,'The study must not also start the normal game'
+   with (root/'logs/play-during-study.log').open('w') as game_out:
+    subprocess.run(['/bin/zsh',str(launcher),'--headless','--quit-after','5'],stdout=game_out,stderr=subprocess.STDOUT,check=True,timeout=20)
+   assert study.poll() is None,'The study should still be running'
+   assert len(list((root/'logs').glob('started-*')))==4,'A running study must not block the game'
+  finally:
+   if study.poll() is None:study.terminate()
+   study.wait(timeout=10)
+ print('GOEMON_LAUNCHER_TEST checks=10 failures=0')

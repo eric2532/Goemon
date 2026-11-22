@@ -1,7 +1,6 @@
 extends SceneTree
 const Progression=preload("res://scripts/forest/team_progression.gd")
 const Model=preload("res://tests/forest-shrine/reference/forest_model.gd")
-const Balance=preload("res://scripts/forest/core_balance.gd")
 class RewardUnit extends RefCounted:
 	var live=true
 	func park():live=false
@@ -12,8 +11,7 @@ func check(ok:bool,label_:String):
 	checks+=1
 	if not ok:failures+=1;printerr("FAIL: ",label_)
 func run():
-	rarity_checks()
-	configured_rarity_checks()
+	card_bag_checks()
 	var interrupted=load("res://tests/forest-shrine/legendary_reward_failure_fixture.gd").new();var prior=RewardUnit.new();interrupted.pool.append(prior)
 	interrupted.spares=[RewardUnit.new(),RewardUnit.new()]
 	var reward_rng=RandomNumberGenerator.new();reward_rng.seed=123;var reward_state=reward_rng.state
@@ -24,181 +22,67 @@ func run():
 	check(reward_rng.state==reward_state and interrupted.summon_serial==0,"Failed grants leave randomness unchanged and restore recruitment accounting")
 	interrupted.free()
 	var p=Progression.new();p.rng.seed=42
-	check(p.level==1 and p.kills_required()==20 and p.pending()==0,"New run starts at team level one")
+	check(p.level==1 and p.kills_required()==16 and p.pending()==0,"Main character starts at level one and needs 16 XP")
 	p.award_kills(-3);p.award_kills(0)
 	check(p.total_kills==0,"Nonpositive XP is ignored")
 	p.award_enemy(-12);p.award_enemy(0)
 	check(p.experience()==0,"Nonpositive scaled rewards are ignored")
 	for i in 5:p.award_enemy(12)
 	check(p.experience()==6 and p.xp_remainder==0,"Five second-group defeats give exactly six XP")
-	p.reset();p.award_kills(19);p.award_enemy(14)
+	p.reset();p.award_kills(15);p.award_enemy(14)
 	check(p.level==2 and is_equal_approx(p.experience(),.4) and p.pending()==1,"Fractional XP survives a level boundary and queues one choice")
-	p.award_enemy(12);check(is_equal_approx(p.experience(),1.6) and is_equal_approx(p.progress(),1.6/30),"Gold bar includes fractional rewards")
+	p.award_enemy(12);check(is_equal_approx(p.experience(),1.6) and is_equal_approx(p.progress(),1.6/32),"Level two needs 32 XP and displays fractional rewards")
 	p.reset();check(p.experience()==0 and p.xp_remainder==0,"New runs clear fractional XP")
-	p.award_kills(19);check(p.level==1 and is_equal_approx(p.progress(),.95),"Partial shared XP")
-	p.award_kills(32)
-	check(p.level==3 and p.kills_into_level==1 and p.pending()==2,"Batched kills preserve overflow and queue each choice")
-	var offer=p.offer.duplicate();var level_=p.choice_level();var power=1 if p.offer[0].begins_with("legendary_") else p.offer_rarities[0]+1
-	check(offer.size()==3 and {offer[0]:true,offer[1]:true,offer[2]:true}.size()==3,"Three distinct cards without category slots")
+	p.award_kills(15);check(p.level==1 and is_equal_approx(p.progress(),15.0/16),"15 XP leaves the main character at level one")
+	p.award_kills(34)
+	check(p.level==3 and p.kills_required()==48 and p.kills_into_level==1 and p.pending()==2,"Batched XP reaches level three at 48 total, preserving overflow and both choices")
+	var targets:Array[String]=["kazi/qigong","kazi/fire|original:2818","kazi/ice|puk2:703"]
+	p.roll_offer(targets)
+	var offer=p.offer.duplicate();var level_=p.choice_level()
+	check(offer.size()==3 and {offer[0]:true,offer[1]:true,offer[2]:true}.size()==3,"Draft contains three distinct targets")
 	check(not p.choose("invalid",level_) and p.pending()==2,"Unoffered card cannot be applied")
 	check(p.choose(offer[0],level_) and not p.choose(offer[0],level_),"A stale click cannot consume the next choice")
-	check(p.pending()==1 and p.ranks[offer[0]]==power,"One choice applies its rarity's ranks")
-	p.choose(p.offer[1],p.choice_level());check(p.offer.is_empty() and p.pending()==0,"All choices drain exactly once")
+	check(p.pending()==1 and p.stat_points==2,"One choice advances the queue and retains the two stat points")
+	p.roll_offer(targets);p.choose(p.offer[1],p.choice_level())
+	check(p.offer.is_empty() and p.pending()==0,"All choices drain exactly once")
 	p.award_kills(1000000)
 	check(p.level==99 and p.progress()==1 and p.kills_into_level==0 and p.pending()==96,"Maximum level preserves every earned choice")
 	p.award_enemy(14);check(p.xp_remainder==0 and p.progress()==1,"Max level ignores further fractional rewards")
 	while p.pending()>0:
-		check(p.offer.size()==3,"Three valid cards at every level")
-		if p.ranks.has("worker_revive"):check(not p.offer.has("worker_revive"),"Revival cannot be offered twice")
-		p.choose("worker_revive" if p.offer.has("worker_revive") else p.offer[1],p.choice_level())
-	check(p.ranks.get("worker_revive",0) in [1,2,3,4],"Revival retains its selected rarity")
+		p.roll_offer(targets)
+		check(p.offer.size()==3,"Three valid targets at every level")
+		p.choose(p.offer[1],p.choice_level())
 	p.reset();check(p.level==1 and p.total_kills==0 and p.ranks.is_empty() and p.offer.is_empty() and p.offer_rarities.is_empty() and p.pending()==0,"Reset clears all run state")
+	check(p.award_kills(719)==8 and p.level==9 and p.award_kills(1)==1 and p.level==10,"Level ten requires exactly 720 XP")
+	var patrols=preload("res://scripts/forest/crowd/falan_frontier_sprites.gd")
+	check(patrols.progression(0,0).xp_reward_tenths==10 and patrols.progression(0,4).xp_reward_tenths==50,"Outdoor XP uses the final monster level after area scaling")
 	for id in p.CARDS:check(p.multiplier(id)==1,"No starting bonus: "+id)
-	var m=Model.new();preload("res://tests/forest-shrine/empty_settlement.gd").reset(m);m.trees.clear();m.rebuild_navigation()
-	m.balance.tower_workers=1
-	var base_balance=m.balance.duplicate(true);var team=m.team_progression
-	var tower=m._make_building("tower",Vector2i(5,5),0);m.rebuild_navigation();m.phase="wave"
-	team.ranks.tower_defense=1;var hp=tower.hp;m.damage_building(tower.id,130)
-	check(is_equal_approx(tower.hp,hp-100),"Tower armor applies through authoritative incoming damage")
-	var future=m._make_building("tower",Vector2i(-8,8),0);hp=future.hp;m.damage_building(future.id,130)
-	check(is_equal_approx(future.hp,hp-100),"Future towers inherit the same armor")
-	var guard:Dictionary=m.workers.values()[0];guard.job=tower.id;guard.state="garrison";guard.pos=m.center(tower);guard.timer=0
-	var enemy=m.waves.spawn_enemy(0,m.center(tower)+Vector3(0,0,18));m.update_vision(guard.pos)
-	team.ranks.tower_speed=2;team.ranks.tower_damage=2
-	m.workforce.tick(.01,guard.pos)
-	check(is_equal_approx(tower.clock,1.0/(m.balance.tower_attack_speed*1.5)) and not m.workforce.arrows.is_empty(),"Real tower volley uses team attack cadence")
-	hp=enemy.hp;m.workforce.tick_arrows(1)
-	check(is_equal_approx(enemy.hp,maxf(0,hp-m.balance.tower_damage*1.6)),"Real tower arrow delivers upgraded damage once")
-	team.ranks.legendary_tower=1;enemy.hp=100000;tower.clock=0
-	m.workforce.tick(.01,guard.pos);hp=enemy.hp;m.workforce.tick_arrows(1)
-	check(is_equal_approx(enemy.hp,hp-m.balance.tower_damage*1.6*5),"Legendary towers multiply the complete upgraded arrow damage by five")
-	m.enemies.clear()
-	var w:Dictionary=m.workers.values()[0];w.state="idle";w.job=-1;w.pos=m.point(Vector2i(0,5));w.path=[]
-	var start:Vector3=w.pos;m.workforce.move(w,Vector2i(0,7),.1);var base_distance=w.pos.distance_to(start)
-	w.pos=start;w.destination=Vector2i(-999,-999);team.ranks.worker_speed=2;m.workforce.move(w,Vector2i(0,7),.1)
-	check(is_equal_approx(w.pos.distance_to(start),base_distance*1.5),"Worker speed stacks additively in real movement")
-	m.phase="preparing";var shrine=m.shrine();shrine.hp-=200;w.state="repair";w.job=shrine.id;w.timer=0;m.gold=100
-	team.ranks.worker_repair=1;hp=shrine.hp;m.workforce.repairs.tick(w,shrine,1)
-	check(shrine.hp==hp+75 and m.gold==94,"Repair upgrade adds 50% cadence while retaining 12.5 HP per ryo")
-	m.phase="wave";w.state="idle";w.job=-1;m.workforce.damage(w.id,1000);m.workforce.tick(20,Vector3.ZERO)
-	check(w.state=="wounded","Without the card wounds persist during battle")
-	team.ranks.worker_revive=1;m.workforce.tick(11.9,Vector3.ZERO)
-	check(w.state=="wounded","Revival waits the full duration")
-	m.workforce.tick(.11,Vector3.ZERO)
-	check(w.state=="idle" and w.hp==w.max_hp and w.job==-1 and w.path.is_empty() and w.timer==0,"Revival restores and clears worker state at the castle")
-	m.workforce.damage(w.id,1000);m.workforce.tick(12,Vector3.ZERO)
-	check(w.hp==w.max_hp and w.state=="idle","Repeated wounds can revive without stale state")
-	for power_ in [2,3,4]:
-		team.ranks.worker_revive=power_;m.workforce.damage(w.id,1000)
-		m.workforce.tick(12.0/power_-.1,Vector3.ZERO)
-		check(w.state=="wounded","Rare revival still waits its full duration")
-		m.workforce.tick(.11,Vector3.ZERO)
-		check(w.state=="idle" and w.hp==w.max_hp,"Rare revival uses 6 / 4 / 3 seconds")
-	check(m.balance==base_balance,"Cards never mutate saved/base balance")
-	var worker_count=m.workers.size();m.gold=0;m.starting_food=0
-	check(not m.workforce.recruit(),"Paid worker recruitment remains blocked during battle")
-	for i in 10:check(m.workforce.recruit(true),"A free worker reward can arrive during battle at full food")
-	check(m.workers.size()==worker_count+10 and m.gold==0,"Ten workers arrive without currency or capacity charges")
-	m.phase="defeat";check(not m.workforce.recruit(true),"Rewards cannot add workers after the battle ends")
 	# The near damaged gate was inserted after the far one.
-	m=Model.new();preload("res://tests/forest-shrine/empty_settlement.gd").reset(m);m.trees.clear()
+	var m=Model.new();preload("res://tests/forest-shrine/empty_settlement.gd").reset(m);m.trees.clear()
 	while m.workers.size()>1:m.workers.erase(m.workers.keys().back())
 	var far=m._make_building("gate",Vector2i(15,15),0);var near=m._make_building("gate",Vector2i(0,7),0);far.hp-=100;near.hp-=100;m.rebuild_navigation()
-	w=m.workers.values()[0];w.pos=m.point(Vector2i(0,5));w.state="idle";w.job=-1;m.workforce.auto_assign()
+	var w=m.workers.values()[0];w.pos=m.point(Vector2i(0,5));w.state="idle";w.job=-1;m.workforce.auto_assign()
 	check(w.job==near.id,"Workers choose the closest reachable damaged structure, independent of insertion order")
 	m.team_progression.ranks.character_damage=3;m.team_progression.award_kills(80);m.reset(123)
 	check(m.team_progression.ranks.is_empty() and m.team_progression.level==1 and m.team_progression.pending()==0,"Model reset owns fresh progression")
 	native_combat()
 	print("TEAM_PROGRESSION_RESULT checks=%d failures=%d"%[checks,failures]);quit(1 if failures else 0)
 
-func rarity_checks():
-	var weights=[0,0,0,0,0]
-	for roll in 10000:weights[Progression.rarity_from_roll(roll)]+=1
-	check(weights==[8475,1000,400,100,25],"Exact independent rarity odds: 84.75 / 10 / 4 / 1 / 0.25 percent")
-	var p=Progression.new();var twin=Progression.new();p.rng.seed=42;twin.rng.seed=42
-	var seen=[[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];var rare_pairs=0;var same_seed=true;var matching_legends=true;var unique=true;var all_characters=false;var all_towers=false;var all_workers=false;var catalog={}
-	for sample in 10000:
-		p.roll_offer();twin.roll_offer()
-		same_seed=same_seed and p.offer==twin.offer and p.offer_rarities==twin.offer_rarities
-		unique=unique and {p.offer[0]:true,p.offer[1]:true,p.offer[2]:true}.size()==3
-		var categories=p.offer.map(func(id):return p.CARDS[id].category)
-		all_characters=all_characters or categories==["Character","Character","Character"]
-		all_towers=all_towers or categories==["Tower","Tower","Tower"]
-		all_workers=all_workers or categories==["Worker","Worker","Worker"]
-		for id in p.offer:catalog[id]=true
-		for slot in 3:
-			seen[slot][p.offer_rarities[slot]]+=1
-			matching_legends=matching_legends and (p.offer[slot].begins_with("legendary_")==(p.offer_rarities[slot]==4))
-		if p.offer_rarities[0]>0 and p.offer_rarities[1]>0:rare_pairs+=1
-	check(same_seed,"Card and rarity rolls reproduce from the run seed")
-	check(unique,"All ten thousand offers contain three different cards")
-	check(all_characters and all_towers and all_workers,"Offers can contain only Character, only Tower or only Worker cards")
-	# Default legendary odds are too low to establish complete catalog coverage.
-	twin.rarity_cutoffs.assign([0,0,0,0])
-	for sample in 100:
-		twin.roll_offer()
-		for id in twin.offer:catalog[id]=true
-	check(catalog.size()==p.CARDS.size(),"Every ordinary and named legendary card can be offered")
-	check(p.CARDS.size()==22,"Catalog contains nine ordinary and thirteen legendary cards")
-	check(not p.CARDS.has("legendary_hero") and not p.CARDS.has("legendary_mercenaries"),"Random hero and mixed-company cards are retired")
-	check(matching_legends,"Only named special rewards roll at legendary rarity")
-	for slot in 3:
-		for rarity in 5:check(seen[slot][rarity]>0 and abs(seen[slot][rarity]-weights[rarity])<180,"Every slot independently draws each rarity at its expected rate")
-	check(rare_pairs>150 and rare_pairs<300,"Multiple rare cards coexist without a shared rarity roll")
-	print("TEAM_RARITY_DRAWS ",seen," first_two_rare=",rare_pairs)
-	for id in p.CARDS:
-		if id.begins_with("legendary_"):continue
-		for rarity in 4:
-			p.reset();p.award_kills(20);p.offer[0]=id;p.offer_rarities[0]=rarity
-			var power=rarity+1
-			check(p.choose(id,2) and p.ranks[id]==power and p.pending()==0,"Rarity adds exactly its weighted ranks: "+id)
-			check(p.offer.is_empty() and p.offer_rarities.is_empty(),"Spent offer clears both IDs and rarities")
-			if id=="worker_revive":
-				check(p.revival_seconds()==12.0/power and p.description(id,rarity).contains("%d seconds"%(12/power)),"Revival description matches actual rarity timing")
-			else:
-				check(is_equal_approx(p.multiplier(id),1+float(p.CARDS[id].step)*power),"Rarity scales the added bonus, not total base stats: "+id)
-				check(p.description(id,rarity).contains("%d%%"%roundi(float(p.CARDS[id].step)*100*power)),"Card states the exact enhanced bonus: "+id)
-				p.award_kills(30);p.offer[0]=id;p.offer_rarities[0]=0;p.choose(id,3)
-				check(p.ranks[id]==power+1,"Mixed rarities stack additively: "+id)
-	for id in p.CARDS:
-		if not id.begins_with("legendary_"):continue
-		p.reset();p.award_kills(20);p.offer[0]=id;p.offer_rarities[0]=4
-		check(p.choose(id,2) and p.ranks[id]==1 and not p.choose(id,2),"Each legendary reward is consumed exactly once")
-		check(p.description(id,4)==p.CARDS[id].description,"Legendary descriptions state their fixed reward")
-	p.reset();p.ranks.tower_damage=2;p.ranks.legendary_tower=1
-	check(is_equal_approx(p.multiplier("tower_damage"),8.0) and p.multiplier("character_damage")==1,"Fivefold damage includes ordinary tower bonuses and affects no fighters")
-	p.ranks.tower_damage=3;p.ranks.legendary_tower=2
-	check(is_equal_approx(p.multiplier("tower_damage"),47.5),"Later ordinary upgrades and repeated legendary towers stack correctly")
-	check(is_equal_approx(p.multiplier("tower_damage",4),77.5) and p.ranks.tower_damage==3,"Preview includes legendary stacks without spending ranks")
-	p.reset();check(p.multiplier("tower_damage")==1,"Fresh run clears legendary tower damage")
-
-func configured_rarity_checks():
-	var config=Balance.sanitized({"card_silver_chance":12.34,"card_gold_chance":5.67,"card_diamond_chance":2.89,"card_legendary_chance":.12})
-	var p=Progression.new();p.rarity_cutoffs=Balance.rarity_cutoffs(config)
-	var counts=[0,0,0,0,0]
-	for roll in 10000:counts[p.rarity_from_roll(roll,p.rarity_cutoffs)]+=1
-	check(counts==[7898,1234,567,289,12],"Saved percentages map exactly to all 10,000 roll outcomes")
-	var invalid=Balance.sanitized({"card_silver_chance":-1,"card_gold_chance":NAN,"card_diamond_chance":"bad","card_legendary_chance":INF})
-	check(invalid.card_silver_chance==0 and invalid.card_gold_chance==4 and invalid.card_diamond_chance==1 and invalid.card_legendary_chance==.25,"Invalid chances clamp or fall back to safe defaults")
-	invalid=Balance.sanitized({"card_silver_chance":150,"card_gold_chance":50,"card_diamond_chance":50,"card_legendary_chance":50})
-	check(invalid.card_silver_chance==100 and invalid.card_gold_chance==0 and invalid.card_diamond_chance==0 and invalid.card_legendary_chance==0,"Overfull saved chances never exceed 100 percent")
-	for rarity in 5:
-		var raw={}
-		for i in Balance.CARD_RARITIES.size():raw[Balance.CARD_RARITIES[i][0]]=100 if rarity==i+1 else 0
-		p.rarity_cutoffs=Balance.rarity_cutoffs(Balance.sanitized(raw))
-		for sample in 20:
-			p.roll_offer()
-			check(p.offer_rarities==[rarity,rarity,rarity],"Zero disables every other rarity, including normal")
-	var model=Model.new();model.reset(42,config)
-	check(model.team_progression.rarity_cutoffs==[7898,9132,9699,9988],"New models use saved card chances")
-	model.team_progression.award_kills(20);var offer=model.team_progression.offer.duplicate();var rarities=model.team_progression.offer_rarities.duplicate()
-	model.team_progression.rarity_cutoffs=Balance.rarity_cutoffs(Balance.defaults())
-	check(model.team_progression.offer==offer and model.team_progression.offer_rarities==rarities,"Updating odds never rerolls an existing offer")
-	model.reset(42)
-	check(model.team_progression.rarity_cutoffs==[8475,9475,9875,9975],"Old saves and default new runs retain original rarity chances")
+func card_bag_checks():
+	var p=Progression.new();p.rng.seed=42
+	var twin=Progression.new();twin.rng.seed=42
+	var identical=true
+	for refill in 20:
+		var counts=[0,0,0]
+		for i in 20:
+			var rarity=p.draw_rarity()
+			counts[rarity]+=1
+			identical=identical and rarity==twin.draw_rarity()
+		check(counts==[7,9,4],"Every batch matches 35% Silver, 45% Gold, 20% Diamond")
+	check(identical,"The run seed reproduces the draw order")
 
 func native_sample(damage_rank:int,speed_rank:int)->Vector2:
-	var m=Model.new();m.reset(42);m.team_progression.ranks.character_damage=damage_rank;m.team_progression.ranks.character_speed=speed_rank
+	var m=load("res://scripts/forest/forest_model.gd").new();m.reset(42);m.team_progression.ranks.character_damage=damage_rank;m.team_progression.ranks.character_speed=speed_rank
 	var runtime=load("res://scripts/forest/crowd/army_runtime.gd").new();runtime.configure(null)
 	runtime.configure_kits(preload("res://scripts/forest/crowd/army_kit_data.gd").from_model(m))
 	runtime.set_navigation(1,{"width":0})

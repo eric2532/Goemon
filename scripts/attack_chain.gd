@@ -18,6 +18,8 @@ var active_ticket: Dictionary={}
 const SkillBalance=preload("res://scripts/spells/skill_balance.gd")
 var generation=0
 var sequence=0
+var kazi_combo_streak=0
+var maze_assassination_rate=1.0
 var hero_owner: WeakRef
 
 # Goemon's three-hit pipe sequence is self-contained. Other fighters retain
@@ -30,6 +32,7 @@ func make_ticket(action: String)->Dictionary:
 	var hero=hero_owner.get_ref() if hero_owner!=null else null
 	var chance: float=hero.combat_tuning("critical_chance") if is_instance_valid(hero) else 0.0
 	var ticket={"allied":is_instance_valid(hero) and hero.ai_controlled,"source_hero":hero_owner,"action":action,"chain_enabled":enabled(),"generation":generation,"sequence":-1,"combo":enabled() and count>0,"bonus":false,"damage_multiplier":damage_multiplier(),"critical_chance":chance}
+	if is_instance_valid(hero):ticket.impact_scale=hero.hit_effect_scale()
 	if is_instance_valid(hero) and hero.spell_loadout!=null:hero.spell_loadout.decorate_ticket(ticket,action)
 	if is_instance_valid(hero):SkillBalance.decorate(hero,ticket,action)
 	return ticket
@@ -44,13 +47,17 @@ func begin(action: String,move_key: String="")->Dictionary:
 
 func bonus_ticket(source: Dictionary)->Dictionary:
 	var ticket={"allied":source.get("allied",false),"source_hero":source.get("source_hero"),"action":"red_slash","chain_enabled":source.get("chain_enabled",enabled()),"generation":source.get("generation",-1),"sequence":-1,"combo":false,"bonus":true,"damage_multiplier":source.get("damage_multiplier",1.0),"critical_chance":source.get("critical_chance",0.0)}
-	for key in ["skill_id","skill_size","skill_hit_area","skill_travel_speed","skill_damage"]:
+	for key in ["skill_id","skill_size","skill_hit_area","skill_travel_speed","skill_damage","impact_scale"]:
 		if source.has(key):ticket[key]=source[key]
 	return ticket
 
 func confirm(ticket: Dictionary):
 	if not enabled() or not ticket.get("chain_enabled",true):return
 	if ticket.is_empty() or ticket.get("generation",-1)!=generation:return
+	if ticket.has("primary_combo_credit"):
+		var hero=hero_owner.get_ref() if hero_owner!=null else null
+		if is_instance_valid(hero) and hero.hp>0 and hero.RogueRoster.is_crossgate_fighter(hero.character_id):
+			hero.active_ability.confirm_primary_combo(ticket.primary_combo_credit)
 	# An attack/cast earns one link; its separate red follow-up earns another.
 	# Repeated beam/shield contacts refresh grace without farming links per tick.
 	if ticket.sequence!=sequence:
@@ -93,6 +100,8 @@ func unleashed()->bool:return enabled() and count>=UNLEASHED_LINKS
 func energized()->bool:return enabled() and count>0 and active_ticket.get("combo",false)
 
 func reset():
+	kazi_combo_streak=0
+	maze_assassination_rate=1.0
 	count=0;milestone=0;announced_milestone=0;remaining=0;previous="";current="";last_hit_action="";active_ticket={};generation+=1;sequence+=1
 
 static func enemy_candidates(game:Node,center:Vector3,radius:float)->Array:
@@ -142,6 +151,18 @@ static func aim_point(enemy: Ninja,from: Vector3=Vector3.INF)->Vector3:
 		return enemy.combat_aim_point(from)
 	return enemy.global_position+Vector3.UP*(5.0 if enemy.ground_giant else (1.65 if enemy.boss else (1.1*Ninja.ELITE_SIZE if enemy.island_elite else 1.1)))
 
+static func effect_anchor(enemy:Ninja)->Dictionary:
+	if enemy.has_method("combat_bounds"):
+		var bounds:AABB=enemy.combat_bounds()
+		return {"position":bounds.get_center(),"depth":bounds.size.length()*.5}
+	return {"position":aim_point(enemy),"depth":enemy.body_radius}
+
+static func centered_effect_pose(camera:Camera3D,center:Vector3,scale_:Vector3,depth:float)->Transform3D:
+	var toward=camera.global_position-center
+	depth=minf(depth,toward.length()*.5)
+	# The viewing ray preserves screen centre; the scale correction preserves size.
+	return Transform3D(camera.global_basis.orthonormalized().scaled(scale_*(1.0-depth/maxf(.001,toward.length()))),center+toward.normalized()*depth)
+
 static func screen_target(hero: Hero,origin: Vector3,max_distance: float,camera_sight: bool=false)->Ninja:
 	var camera=hero.game.camera_rig.camera
 	var best: Ninja=null
@@ -160,6 +181,19 @@ static func screen_target(hero: Hero,origin: Vector3,max_distance: float,camera_
 		closest=distance;best=enemy
 	return best
 
+static func nearest_visible_target(hero:Hero,origin:Vector3,max_distance:float)->Ninja:
+	if hero.mirror_copy:
+		return hero.ai_target if is_instance_valid(hero.ai_target) and not hero.ai_target.dead else null
+	var target:Ninja
+	for enemy in enemy_candidates(hero.game,origin,max_distance):
+		if not is_instance_valid(enemy) or enemy.dead:continue
+		if hero.game.has_method("forest_enemy_visible") and not hero.game.forest_enemy_visible(enemy):continue
+		var point=aim_point(enemy,origin)
+		var distance=origin.distance_to(point)
+		if distance>max_distance or not clear_line(hero,origin,point):continue
+		max_distance=distance;target=enemy
+	return target
+
 static func beam_pulse(context:Node3D,caster:Hero,origin:Vector3,end:Vector3,radius:float,query_radius:float,amount:float,ticket:Dictionary,source:int):
 	var direction=(end-origin).normalized()
 	var reach=origin.distance_to(end)
@@ -177,3 +211,18 @@ static func beam_pulse(context:Node3D,caster:Hero,origin:Vector3,end:Vector3,rad
 		enemy.take_hit(amount,direction,false,ticket)
 		if caster.ai_controlled:caster.game.confirm_ally_impact(enemy,contact.point,direction,1,true,source,false)
 		else:caster.game.confirm_impact(enemy,contact.point,direction,1,true,source,false)
+
+static func damage_splash(hero:Hero,primary:Ninja,center:Vector3,radius:float,damage:float,ticket:Dictionary):
+	var game=hero.game
+	for enemy in enemy_candidates(game,center,radius):
+		if not is_instance_valid(enemy) or enemy==primary or enemy.dead:continue
+		var offset=enemy.global_position-center
+		if Vector2(offset.x,offset.z).length_squared()>radius*radius:continue
+		var point=aim_point(enemy,center)
+		if absf(point.y-center.y)>6.0*hero.growth_multiplier():continue
+		if game.has_method("forest_enemy_visible") and not game.forest_enemy_visible(enemy):continue
+		if not clear_line(hero,center,point):continue
+		var direction=Vector3(offset.x,0,offset.z).normalized()
+		enemy.take_hit(damage,direction,false,ticket)
+		if hero.ai_controlled:game.confirm_ally_impact(enemy,point,direction,0,false,hero.character_id,false)
+		else:game.confirm_impact(enemy,point,direction,0,false,hero.character_id,false,null,false)

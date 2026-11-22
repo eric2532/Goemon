@@ -15,7 +15,7 @@ struct ProfileScope {
     ~ProfileScope(){if(total)*total+=std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-start).count();}
 };
 uint64_t key(int x,int z){return (uint64_t(uint32_t(x))<<32)|uint32_t(z);}
-constexpr float OBSTACLE_CELL=12,STEP=6;
+constexpr float OBSTACLE_CELL=12;
 const Vec3 axes[]={{1,0,0},{-1,0,0},{0,0,1},{0,0,-1},{.707f,0,.707f},{-.707f,0,.707f},{.707f,0,-.707f},{-.707f,0,-.707f}};
 constexpr int dx[]={1,-1,0,0},dz[]={0,0,1,-1};
 float segment_rectangle_distance(Vec3 from,Vec3 to,Vec3 a,Vec3 b){
@@ -39,7 +39,7 @@ float segment_rectangle_distance(Vec3 from,Vec3 to,Vec3 a,Vec3 b){
 }
 void Terrain::configure(NavigationData data,const Terrain* shared_air){
     auto same=[](const auto& a,const auto& b){return a.size()==b.size()&&(a.empty()||!std::memcmp(a.data(),b.data(),a.size()*sizeof(a[0])));};
-    bool same_surface=ready_&&data.width==data_.width&&data.spacing==data_.spacing&&
+    bool same_surface=ready_&&data.width==data_.width&&data.spacing==data_.spacing&&data.route_spacing==data_.route_spacing&&
         !std::memcmp(&data.origin,&data_.origin,sizeof(Vec3))&&!std::memcmp(&data.bounds_min,&data_.bounds_min,sizeof(Vec3))&&!std::memcmp(&data.bounds_max,&data_.bounds_max,sizeof(Vec3))&&
         same(data.heights,data_.heights)&&same(data.covered,data_.covered)&&same(data.pieces,data_.pieces)&&same(data.layer_min,data_.layer_min)&&same(data.layer_max,data_.layer_max);
     auto air_prefix=[](const NavigationData& d){size_t n=0;while(n+2<d.air_faces.size()&&(n/3>=d.air_owner.size()||d.air_owner[n/3]<0))n+=3;return n;};
@@ -50,7 +50,7 @@ void Terrain::configure(NavigationData data,const Terrain* shared_air){
     data_=std::move(data);route_certificates_.clear();flows_.clear();obstacle_grid_.clear();
     if(!same_surface){field_spans_.clear();topologies_.clear();}
     obstacle_visited_.assign(data_.obstacle_min.size(),0);obstacle_visit_=0;
-    ready_=std::isfinite(data_.spacing)&&data_.spacing>0&&finite(data_.origin);
+    ready_=std::isfinite(data_.spacing)&&data_.spacing>0&&std::isfinite(data_.route_spacing)&&data_.route_spacing>=1&&data_.route_spacing<=64&&finite(data_.origin);
     if(data_.width>0&&(data_.width<2||int64_t(data_.width)*data_.width>int64_t(data_.heights.size())||data_.covered.size()!=data_.heights.size()))ready_=false;
     minimum_=data_.origin;
     float extent=data_.width>0?(data_.width-1)*data_.spacing:480;
@@ -99,9 +99,9 @@ void Terrain::configure(NavigationData data,const Terrain* shared_air){
         // Re-certify only edges that can touch a changed obstacle. Heights,
         // holes, bridges or domain edits still take the complete rebuild above.
         for(auto& entry:topologies_)for(const auto& box:changed){
-            auto& grid=entry.second;float pad=grid.radius+.05f+STEP+.001f;
-            int x0=std::max(0,int(std::floor((box[0]-pad-minimum_.x)/STEP))),z0=std::max(0,int(std::floor((box[2]-pad-minimum_.z)/STEP)));
-            int x1=std::min(grid.nx-1,int(std::ceil((box[3]+pad-minimum_.x)/STEP))),z1=std::min(grid.nz-1,int(std::ceil((box[5]+pad-minimum_.z)/STEP)));
+            auto& grid=entry.second;float pad=grid.radius+.05f+data_.route_spacing+.001f;
+            int x0=std::max(0,int(std::floor((box[0]-pad-minimum_.x)/data_.route_spacing))),z0=std::max(0,int(std::floor((box[2]-pad-minimum_.z)/data_.route_spacing)));
+            int x1=std::min(grid.nx-1,int(std::ceil((box[3]+pad-minimum_.x)/data_.route_spacing))),z1=std::min(grid.nz-1,int(std::ceil((box[5]+pad-minimum_.z)/data_.route_spacing)));
             if(x0<=x1&&z0<=z1)refresh_topology(grid,x0,z0,x1,z1);
         }
     }
@@ -228,14 +228,20 @@ bool Terrain::segment(Vec3 from,Vec3 to,float radius,int layer) const{
     }
     return true;
 }
+bool Terrain::prepare_routes(const std::vector<float>& radii){
+    if(!ready_)return false;
+    for(float radius:radii)if(!std::isfinite(radius)||radius<=0||radius>=1e7f)return false;
+    for(float radius:radii)topology(radius,0);
+    return true;
+}
 Terrain::Topology& Terrain::topology(float radius,int layer){
     uint32_t bits;std::memcpy(&bits,&radius,sizeof(bits));int64_t id=int64_t((uint64_t(layer)<<32)|bits);
     auto found=topologies_.find(id);if(found!=topologies_.end())return found->second;
     ProfileScope scope(navigation_profile.enabled?&navigation_profile.topology_ms:nullptr);
     if(navigation_profile.enabled)++navigation_profile.topology_builds;
     auto& result=topologies_[id];result.layer=layer;result.radius=radius;
-    result.nx=int(std::floor((maximum_.x-minimum_.x)/STEP))+1;
-    result.nz=int(std::floor((maximum_.z-minimum_.z)/STEP))+1;
+    result.nx=int(std::floor((maximum_.x-minimum_.x)/data_.route_spacing))+1;
+    result.nz=int(std::floor((maximum_.z-minimum_.z)/data_.route_spacing))+1;
     int count=result.nx*result.nz;result.heights.resize(count);result.open.resize(count);result.edges.resize(count);
     refresh_topology(result,0,0,result.nx-1,result.nz-1);
     return result;
@@ -243,7 +249,7 @@ Terrain::Topology& Terrain::topology(float radius,int layer){
 void Terrain::refresh_topology(Topology& result,int x0,int z0,int x1,int z1){
     result.components.clear();
     for(int z=z0;z<=z1;++z)for(int x=x0;x<=x1;++x){
-        int i=z*result.nx+x;Vec3 p{minimum_.x+x*STEP,0,minimum_.z+z*STEP};
+        int i=z*result.nx+x;Vec3 p{minimum_.x+x*data_.route_spacing,0,minimum_.z+z*data_.route_spacing};
         p.y=float(height(p.x,p.z,result.layer));result.heights[i]=p.y;
         result.open[i]=std::isfinite(p.y)&&clear(p,result.radius,result.layer);result.edges[i]=0;
         for(int direction=0;direction<4;++direction){int xx=x+dx[direction],zz=z+dz[direction];if(xx>=0&&zz>=0&&xx<result.nx&&zz<result.nz)result.edges[zz*result.nx+xx]&=~(1<<(direction^1));}
@@ -254,8 +260,8 @@ void Terrain::refresh_topology(Topology& result,int x0,int z0,int x1,int z1){
             int xx=x+dx[direction],zz=z+dz[direction];if(xx<0||zz<0||xx>=result.nx||zz>=result.nz)continue;
             if((direction&1)&&xx>=x0&&xx<=x1&&zz>=z0&&zz<=z1)continue;
             int next=zz*result.nx+xx;if(!result.open[next])continue;
-            Vec3 a{minimum_.x+x*STEP,result.heights[i],minimum_.z+z*STEP};
-            Vec3 b{minimum_.x+xx*STEP,result.heights[next],minimum_.z+zz*STEP};
+            Vec3 a{minimum_.x+x*data_.route_spacing,result.heights[i],minimum_.z+z*data_.route_spacing};
+            Vec3 b{minimum_.x+xx*data_.route_spacing,result.heights[next],minimum_.z+zz*data_.route_spacing};
             if((direction&1)?segment(b,a,result.radius,result.layer):segment(a,b,result.radius,result.layer)){result.edges[i]|=1<<direction;result.edges[next]|=1<<(direction^1);}
         }
     }
@@ -275,19 +281,19 @@ Vec3 Terrain::waypoint(Vec3 from,Vec3 goal,float radius,int layer){
     auto& certificate=route_certificates_[hash%route_certificates_.size()];
     if(certificate.valid&&certificate.key==route_key){if(navigation_profile.enabled)++navigation_profile.route_hits;return certificate.point;}
     auto& grid=topology(radius,layer);
-    int gx=std::clamp(int(std::round((goal.x-minimum_.x)/STEP)),0,grid.nx-1);
-    int gz=std::clamp(int(std::round((goal.z-minimum_.z)/STEP)),0,grid.nz-1);
+    int gx=std::clamp(int(std::round((goal.x-minimum_.x)/data_.route_spacing)),0,grid.nx-1);
+    int gz=std::clamp(int(std::round((goal.z-minimum_.z)/data_.route_spacing)),0,grid.nz-1);
     // Test the nearest goal connector first, preserving the original row-order ties.
     struct GoalCandidate {Vec3 point;float distance;int index;};
     std::array<GoalCandidate,25> goals;int goal_count=0;
     for(int z=std::max(0,gz-2);z<=std::min(grid.nz-1,gz+2);++z)for(int x=std::max(0,gx-2);x<=std::min(grid.nx-1,gx+2);++x){
         int i=z*grid.nx+x;if(!grid.open[i])continue;
-        Vec3 p{minimum_.x+x*STEP,grid.heights[i],minimum_.z+z*STEP};float distance=length(p-goal);
-        if(distance*distance<STEP*STEP*2)goals[goal_count++]={p,distance*distance,i};
+        Vec3 p{minimum_.x+x*data_.route_spacing,grid.heights[i],minimum_.z+z*data_.route_spacing};float distance=length(p-goal);
+        if(distance*distance<data_.route_spacing*data_.route_spacing*2)goals[goal_count++]={p,distance*distance,i};
     }
     std::sort(goals.begin(),goals.begin()+goal_count,[](const GoalCandidate& a,const GoalCandidate& b){return a.distance<b.distance||(a.distance==b.distance&&a.index<b.index);});
     int target=-1;
-    for(int i=0;i<goal_count;++i)if(segment(goals[i].point,goal,radius,layer)&&reachable(from,goals[i].point,radius,layer)){target=goals[i].index;break;}
+    for(int i=0;i<goal_count;++i)if(segment(goals[i].point,goal,radius,layer)&&reachable(from,goals[i].point,radius,layer,true)){target=goals[i].index;break;}
     if(target<0){certificate={route_key,{NAN,0,0},true};return certificate.point;}
     int64_t topology_id=int64_t((uint64_t(layer)<<32)|bits);
     auto found=std::find_if(flows_.begin(),flows_.end(),[&](const Flow& f){return f.topology==topology_id&&f.goal==target;});
@@ -302,15 +308,15 @@ Vec3 Terrain::waypoint(Vec3 from,Vec3 goal,float radius,int layer){
             for(int direction=0;direction<4;++direction){
                 if(!(grid.edges[i]&(1<<direction)))continue;
                 int next=i+dx[direction]+dz[direction]*grid.nx;
-                if(flow.cost[next]<=flow.cost[i]+STEP)continue;
-                flow.cost[next]=flow.cost[i]+STEP;queue.push(next);
+                if(flow.cost[next]<=flow.cost[i]+data_.route_spacing)continue;
+                flow.cost[next]=flow.cost[i]+data_.route_spacing;queue.push(next);
             }
         }
         flows_.push_back(std::move(flow));found=flows_.end()-1;
     }
     found->used=++clock_;
-    int fx=std::clamp(int(std::round((from.x-minimum_.x)/STEP)),0,grid.nx-1);
-    int fz=std::clamp(int(std::round((from.z-minimum_.z)/STEP)),0,grid.nz-1);
+    int fx=std::clamp(int(std::round((from.x-minimum_.x)/data_.route_spacing)),0,grid.nx-1);
+    int fz=std::clamp(int(std::round((from.z-minimum_.z)/data_.route_spacing)),0,grid.nz-1);
     // The old traversal repeatedly certified improving candidates. Order the
     // same nine scores first, then certify only until the first clear route.
     // Equal scores retain row order, exactly matching the original strict <.
@@ -319,7 +325,7 @@ Vec3 Terrain::waypoint(Vec3 from,Vec3 goal,float radius,int layer){
     for(int z=std::max(0,fz-1);z<=std::min(grid.nz-1,fz+1);++z)for(int x=std::max(0,fx-1);x<=std::min(grid.nx-1,fx+1);++x){
         int i=z*grid.nx+x;if(!std::isfinite(found->cost[i]))continue;
         // Flow costs count horizontal steps; mixing in height makes uphill troops turn back.
-        Vec3 point{minimum_.x+x*STEP,grid.heights[i],minimum_.z+z*STEP};float distance=std::hypot(point.x-from.x,point.z-from.z),score=found->cost[i]+distance;
+        Vec3 point{minimum_.x+x*data_.route_spacing,grid.heights[i],minimum_.z+z*data_.route_spacing};float distance=std::hypot(point.x-from.x,point.z-from.z),score=found->cost[i]+distance;
         if(distance<.1f||!std::isfinite(score))continue;
         candidates[count]={point,score,count};++count;
     }
@@ -330,10 +336,16 @@ Vec3 Terrain::waypoint(Vec3 from,Vec3 goal,float radius,int layer){
     return best;
 }
 bool Terrain::reachable(Vec3 from,Vec3 goal,float radius,int layer){
+    // Target selection shares the waypoint connectivity proof before resampling long corridors.
+    return reachable(from,goal,radius,layer,true);
+}
+bool Terrain::reachable(Vec3 from,Vec3 goal,float radius,int layer,bool components_first){
     if(!ready_||!finite(from)||!finite(goal)||!std::isfinite(radius)||radius<0)return false;
     if(layer<0)layer=choose_layer(from);
     if(layer<0||!clear(goal,radius,layer))return false;
-    if(segment(from,goal,radius,layer))return true;
+    // A waypoint can use short, exact connections to its existing route grid.
+    components_first=components_first&&(std::abs(from.x-goal.x)>data_.route_spacing*3||std::abs(from.z-goal.z)>data_.route_spacing*3);
+    if(!components_first&&segment(from,goal,radius,layer))return true;
     auto& grid=topology(radius,layer);
     // Reachability shares geometry components; it never builds a flow per candidate.
     if(grid.components.empty()){
@@ -350,27 +362,34 @@ bool Terrain::reachable(Vec3 from,Vec3 goal,float radius,int layer){
             }
         }
     }
-    int fx=int(std::round((from.x-minimum_.x)/STEP)),fz=int(std::round((from.z-minimum_.z)/STEP));
+    int fx=int(std::round((from.x-minimum_.x)/data_.route_spacing)),fz=int(std::round((from.z-minimum_.z)/data_.route_spacing));
+    int gx=int(std::round((goal.x-minimum_.x)/data_.route_spacing)),gz=int(std::round((goal.z-minimum_.z)/data_.route_spacing));
+    if(components_first&&fx>=0&&fx<grid.nx&&fz>=0&&fz<grid.nz&&gx>=0&&gx<grid.nx&&gz>=0&&gz<grid.nz){
+        int root=fz*grid.nx+fx,target=gz*grid.nx+gx;
+        Vec3 entry{minimum_.x+fx*data_.route_spacing,grid.heights[root],minimum_.z+fz*data_.route_spacing};
+        Vec3 exit{minimum_.x+gx*data_.route_spacing,grid.heights[target],minimum_.z+gz*data_.route_spacing};
+        if(grid.open[root]&&grid.open[target]&&grid.components[root]==grid.components[target]&&
+           length(exit-goal)<data_.route_spacing*1.414214f&&segment(from,entry,radius,layer)&&segment(exit,goal,radius,layer))return true;
+    }
     std::array<int,9> components{};int count=0;
     for(int z=std::max(0,fz-1);z<=std::min(grid.nz-1,fz+1);++z)for(int x=std::max(0,fx-1);x<=std::min(grid.nx-1,fx+1);++x){
         int i=z*grid.nx+x;if(!grid.open[i])continue;
-        Vec3 point{minimum_.x+x*STEP,grid.heights[i],minimum_.z+z*STEP};
+        Vec3 point{minimum_.x+x*data_.route_spacing,grid.heights[i],minimum_.z+z*data_.route_spacing};
         if(segment(from,point,radius,layer))components[count++]=grid.components[i];
     }
-    int gx=int(std::round((goal.x-minimum_.x)/STEP)),gz=int(std::round((goal.z-minimum_.z)/STEP));
     for(int z=std::max(0,gz-2);z<=std::min(grid.nz-1,gz+2);++z)for(int x=std::max(0,gx-2);x<=std::min(grid.nx-1,gx+2);++x){
         int i=z*grid.nx+x;if(!grid.open[i]||std::find(components.begin(),components.begin()+count,grid.components[i])==components.begin()+count)continue;
-        Vec3 point{minimum_.x+x*STEP,grid.heights[i],minimum_.z+z*STEP};
-        if(length(point-goal)<STEP*1.414214f&&segment(point,goal,radius,layer))return true;
+        Vec3 point{minimum_.x+x*data_.route_spacing,grid.heights[i],minimum_.z+z*data_.route_spacing};
+        if(length(point-goal)<data_.route_spacing*1.414214f&&segment(point,goal,radius,layer))return true;
     }
-    return false;
+    return components_first&&segment(from,goal,radius,layer);
 }
-Vec3 Terrain::move(Vec3 from,Vec3 goal,float speed,float delta,float radius,int& layer,bool& routing,Vec3 avoidance,float lane){
+Vec3 Terrain::move(Vec3 from,Vec3 goal,float speed,float delta,float radius,int& layer,bool& routing,Vec3 avoidance,float lane,Vec3 sidestep){
     if(!ready_||!finite(from)||!finite(goal)||speed<=0||delta<=0)return from;
     if(layer<0)layer=choose_layer(from);if(layer<0)return from;
     Vec3 aim=goal;
     if(routing){
-        if(length(goal-from)<STEP*1.5f&&segment(from,goal,radius,layer))routing=false;
+        if(length(goal-from)<data_.route_spacing*1.5f&&segment(from,goal,radius,layer))routing=false;
         else{aim=waypoint(from,goal,radius,layer);if(!finite(aim))return from;}
     }
     auto candidate=[&](Vec3 target){
@@ -379,6 +398,11 @@ Vec3 Terrain::move(Vec3 from,Vec3 goal,float speed,float delta,float radius,int&
         Vec3 motion=direction*(std::min(speed*delta,distance)/distance)+avoidance*delta;
         float magnitude=length(motion);if(magnitude>speed*delta)motion=motion*(speed*delta/magnitude);
         Vec3 p=from+motion;
+        // Keep the ordinary step when a wall or ledge blocks the sidestep.
+        if(dot(sidestep,sidestep)>0){
+            Vec3 shifted=p+sidestep*delta;
+            if(segment(from,shifted,radius,layer)){shifted.y=float(height(shifted.x,shifted.z,layer));return shifted;}
+        }
         if(!segment(from,p,radius,layer))return Vec3{NAN,0,0};
         p.y=float(height(p.x,p.z,layer));return p;
     };

@@ -205,7 +205,7 @@ func leave_tower(w: Dictionary):
 	w.exit_point=m.point(m.entry(m.buildings[w.job]));w.exit_start=w.pos;w.deck_height=Profile.TOWER_DECK_HEIGHT
 	w.path=[];w.destination=Vector2i(-999,-999)
 func tick_exit(w: Dictionary,delta: float):
-	w.pos=w.pos.move_toward(w.exit_point,delta*8.0*m.team_progression.multiplier("worker_speed"))
+	w.pos=w.pos.move_toward(w.exit_point,delta*8.0)
 	var remaining=w.pos.distance_to(w.exit_point)
 	w.deck_height=Profile.TOWER_DECK_HEIGHT*remaining/maxf(.01,w.exit_start.distance_to(w.exit_point))
 	if remaining<.01:
@@ -217,7 +217,7 @@ func move(w: Dictionary,destination: Vector2i,delta: float,speed: float=8.0)->bo
 		w.path=m.route(m.nearest_open(m.cell_of(w.pos)),destination)
 		if not w.path.is_empty():w.path.pop_front()
 	if w.path.is_empty():return w.pos.distance_to(m.point(destination))<4.5
-	var remaining=delta*speed*m.team_progression.multiplier("worker_speed")
+	var remaining=delta*speed
 	while remaining>0 and not w.path.is_empty():
 		var target=m.point(w.path[0]);var distance=w.pos.distance_to(target)
 		if distance<=remaining:w.pos=target;remaining-=distance;w.path.pop_front()
@@ -294,11 +294,7 @@ func tick(delta: float,hero: Vector3):
 	if assignment_clock<=0:auto_assign();assignment_clock=.5
 	if held:rally(true,hero)
 	for w in m.workers.values():
-		if w.state=="wounded":
-			if m.team_progression.ranks.has("worker_revive"):
-				w.timer+=delta
-				if w.timer>=m.team_progression.revival_seconds():revive(w)
-			continue
+		if w.state=="wounded":continue
 		var threat=false
 		if m.phase=="wave" and w.state!="garrison" and not w.has("sheltered_building"):
 			threat=threatened(w.pos)
@@ -381,7 +377,7 @@ func tick_towers(delta:float):
 			if b.kind=="cannon_tower":
 				from=point+Vector3.UP*18.0+Basis(Vector3.UP,facing)*Vector3(0,0,6.5)
 				to=Roles.hurt_point(target,from)
-				shot.merge({"cannon":true,"from":from,"pos":from,"to":to,"duration":maxf(.1,from.distance_to(to)/CANNON_SPEED),"damage":m.balance.tower_damage*CANNON_DAMAGE*m.team_progression.multiplier("tower_damage")},true)
+				shot.merge({"cannon":true,"from":from,"pos":from,"to":to,"duration":maxf(.1,from.distance_to(to)/CANNON_SPEED),"damage":m.balance.tower_damage*CANNON_DAMAGE},true)
 			arrows[id]=shot
 			m.events.append({"kind":"arrow","id":id,"from":from,"to":to,"cannon":b.kind=="cannon_tower"})
 
@@ -398,14 +394,14 @@ func tick_arrows(delta: float):
 		var to: Vector3=Roles.hurt_point(target,arrow.pos)
 		var direction: Vector3=(to-arrow.pos).normalized()
 		if arrow.pos.distance_to(to)<=ARROW_SPEED*delta:
-			m.damage_enemy(target.id,m.balance.tower_damage*m.team_progression.multiplier("tower_damage"))
+			m.damage_enemy(target.id,m.balance.tower_damage)
 			target.tower_direction=direction
 			m.events.append({"kind":"arrow_impact","id":id,"to":to,"direction":direction})
 			arrows.erase(id)
 		else:arrow.pos=arrow.pos.move_toward(to,ARROW_SPEED*delta)
 
 func attack_interval(building:Dictionary)->float:
-	return (CANNON_INTERVAL if building.kind=="cannon_tower" else 1.0)/(m.balance.tower_attack_speed*m.team_progression.multiplier("tower_speed"))
+	return (CANNON_INTERVAL if building.kind=="cannon_tower" else 1.0)/m.balance.tower_attack_speed
 
 func tick_cannon(shot:Dictionary):
 	var t=clampf(shot.age/shot.duration,0,1)

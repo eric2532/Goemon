@@ -1,12 +1,55 @@
 class_name SoundLibrary
 extends Node
+const KAZ_SWORD_IMPACTS={
+ "hit":preload("res://assets/audio/crossgate/kazi/cgply11a.wav"),
+ "heavy_hit":preload("res://assets/audio/crossgate/kazi/cgply11b.wav")}
+const KAZ_KAGEROU_DODGE=preload("res://assets/audio/crossgate/kazi/cgbtl09.wav")
+const SHIN_TWO_BIRDS_IMPACT=preload("res://assets/audio/crossgate/shin/cgefc04.wav")
+const QIGONG_IMPACT=preload("res://assets/audio/crossgate/kazi/cgefc04.wav")
+const KUNAI_IMPACT=preload("res://assets/audio/crossgate/maze/cgply15.wav")
+const CROSSGATE_BOW_SOUNDS={
+ "swing":preload("res://assets/audio/crossgate/lancelot/cgply06b1.wav"),
+ "throw":preload("res://assets/audio/crossgate/lancelot/cgply06b2.wav"),
+ "coin_hit":preload("res://assets/audio/crossgate/lancelot/cgply16.wav")}
+const CROSSGATE_AXE_SOUNDS={
+ 106:preload("res://assets/audio/crossgate/bog/cgply02b.wav"),
+ 136:preload("res://assets/audio/crossgate/bog/cgply12b.wav"),
+ 138:preload("res://assets/audio/crossgate/shin/cgply13b.wav")}
+const CROSSGATE_FLASH=preload("res://assets/audio/crossgate/kazi/cgefc00.wav")
+const CROSSGATE_MAGIC_CAST=preload("res://assets/audio/crossgate/kazi/cgefc08.wav")
+const CROSSGATE_SPELL_CHARGES={
+ "cg_magic_cast":"Fire · charge", "cg_ice_charge":"Ice · charge",
+ "cg_wind_charge":"Wind · charge", "cg_meteor_charge":"Meteor · charge",
+ "cg_spirit_charge":"Spirit Shockwave · charge"}
+const CROSSGATE_FLASH_CHARGES={
+ "cg_random_shot_charge":"亂射 · original shine",
+ "cg_moon_charge":"Moon Slash · charge", "cg_combo_charge":"連擊 / Bee Flurry · charge",
+ "cg_blade_dance_charge":"Blade Dance · charge", "cg_assassination_charge":"Assassination · charge",
+ "cg_mirror_charge":"Mirror Image · charge", "cg_shin_sure_strike_charge":"乾坤 · Sure Strike · charge",
+ "cg_guard_break_charge":"崩擊 · Guard Break · charge",
+ "cg_shin_double_edge_charge":"諸刃 · Double Edge · charge",
+ "cg_shin_counter_charge":"反擊 · Counter · charge", "cg_shin_two_birds_charge":"一石二鳥 · Two Birds · charge"}
+const URU_RECOVERY_SOUNDS={
+ "cg_recovery_cast":preload("res://assets/audio/crossgate/ruby/cgefc10.wav"),
+ "cg_recovery_body":preload("res://assets/audio/crossgate/ruby/cgefc38.wav"),
+ "cg_recovery_pulse":preload("res://assets/audio/crossgate/ruby/cgefc28.wav")}
+const CROSSGATE_ELEMENT_SOUNDS={
+ "cg_fire_rise":preload("res://assets/audio/crossgate/kazi/cgefc31.wav"),
+ "cg_fire_hit":preload("res://assets/audio/crossgate/kazi/cgefc15.wav"),
+ "cg_ice_rise":preload("res://assets/audio/crossgate/kazi/cgefc13.wav"),
+ "cg_ice_a":preload("res://assets/audio/crossgate/kazi/cgply10a.wav"),
+ "cg_ice_b":preload("res://assets/audio/crossgate/kazi/cgply10b.wav"),
+ "cg_wind_fly":preload("res://assets/audio/crossgate/kazi/cgefc18.wav"),
+ "cg_wind_hit":preload("res://assets/audio/crossgate/kazi/cgefc18.wav"),
+ "cg_meteor_fall":preload("res://assets/audio/crossgate/kazi/cgefc11.wav"),
+ "cg_meteor_hit":preload("res://assets/audio/crossgate/kazi/cgply10a.wav")}
 signal changed
 const SLOTS={"orb_ice":"Orb · ice burst", "orb_fire":"Orb · fire burst", "orb_magnet":"Orb · magnet", "enemy_reaction":"Enemy · reaction", "environment_hit":"Environment · impact", "swing":"Pipe · light swing", "heavy_swing":"Pipe · heavy swing", "hit":"Enemy · light impact", "heavy_hit":"Enemy · heavy impact", "throw":"Coin · throw", "coin_hit":"Coin · impact", "coin_heavy_hit":"Coin · heavy impact", "hurt":"Player · hurt", "jump":"Jump", "land":"Landing", "dash":"Evade", "step":"Footstep", "spark":"Pickup / energy", "goemon_dash":"Goemon · E dash", "goemon_dash_hit":"Goemon · E shove", "spin_swing":"Goemon · wind spin", "giant_toss":"Goemon · giant coin toss", "sky_leap":"Goemon · T leap", "sky_stomp":"Goemon · T impact", "chain_throw":"Chain pipe · piercing throw", "chain_sweep":"Chain pipe · fan swing", "chain_hit":"Chain pipe · impact", "chain_explosion":"Chain pipe · R explosion", "chain_fire_sweep":"Chain pipe · R fire swing", "edo_volley":"Edo · triple fireball", "edo_giant":"Edo · giant fireball", "fire_impact":"Edo · fireball impact", "edo_shield":"Edo · R shield activation", "edo_beam_start":"Edo · beam start", "edo_beam_loop":"Edo · sustained beam", "edo_meteor_cast":"Edo · T meteor summon", "edo_meteor_strike":"Edo · T ground strike", "edo_meteor_impact":"Edo · meteor explosion", "edo_dodge":"Edo · fire dodge", "edo_dodge_impact":"Edo · dodge explosion"}
 const Roster=preload("res://scripts/rogue_roster.gd")
 const COMMON_SLOTS=["jump","land","dash","step","hurt","hit","heavy_hit","enemy_reaction","environment_hit","spark","orb_ice","orb_fire","orb_magnet"]
-const GOEMON_FOOTSTEP_IDS=[1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,17,31,32,33,34]
+const GOEMON_FOOTSTEP_IDS=[1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,17,31,32,33,34,35,36,37,38,Roster.SAIZO_ID]
 const GOEMON_FOOTSTEP=preload("res://assets/audio/recovered_yae/event_217.wav")
-const HUMANOID_LANDING_IDS=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,22,23,25,26,28,31,32,33,34]
+const HUMANOID_LANDING_IDS=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,22,23,25,26,28,31,32,33,34,35,36,37,38,Roster.SAIZO_ID]
 # Goemon and Yae share ROM event 21E; reuse the existing prepared sample.
 const HUMANOID_LANDING=preload("res://assets/audio/recovered_yae/event_21e.wav")
 const LANDING_FILE="res://assets/characters/recovered_skullpion/audio/ground_impact.wav"
@@ -88,9 +131,60 @@ static func slots_for(id: int)->Dictionary:
 	elif CLASS_EVENTS.has(id):
 		for event in CLASS_EVENTS[id]+["fire"]:result["native_"+event]=NATIVE_SLOTS["native_"+event]
 	for key in COMMON_SLOTS:result[key]=SLOTS[key]
-	if id==34:
-		result.swing="Kazi · original sword swing"
-		result.hit="Kazi · Cross Gate impact";result.heavy_hit=result.hit
+	var crossgate=Roster.crossgate_profile(id)
+	if Roster.is_crossgate_fighter(id):
+		result.shin_target_select="Basic attack · target selected"
+		result.cg_dodge_warning="Space dodge · 護衛 warning"
+	var uru=crossgate.get("magic","")=="ruby"
+	if crossgate_spell_profile(id)==id:
+		result.qigong_charge="Qi Blast · charge"
+		result.cg_moon_charge=CROSSGATE_FLASH_CHARGES.cg_moon_charge
+		result.cg_moon_hit="Moon Slash · impact"
+		result.merge(CROSSGATE_SPELL_CHARGES)
+	if Roster.uses_crossgate_spells(id):
+		result.swing="Original staff swing" if uru else "Original sword swing"
+		result.hit="Original staff contact" if uru else "Original sword cut impact"
+		if not uru:
+			result.heavy_hit="Kaz · sword blast impact"
+			result.cg_moon_release="追月 · release"
+		result.qigong_launch="氣功蛋 · release";result.coin_hit="氣功蛋 · impact"
+		for cue in CROSSGATE_ELEMENT_SOUNDS:result[cue]="Cross Gate · "+cue.trim_prefix("cg_").replace("_"," ")
+		if uru:
+			result.cg_recovery_cast="恢復魔法 · opening cast"
+			result.cg_recovery_body="恢復魔法 · body effect"
+			result.cg_recovery_pulse="恢復魔法 · heal pulse"
+			result.cg_spirit_hit="精神衝擊波 · impact"
+	if crossgate.get("strike","")=="timed":result.swing="Original attack swing";result.hit="Original attack contact"
+	if Roster.is_crossgate_archer(id):
+		result.swing="Bow · original draw";result.throw="Bow · original release";result.coin_hit="Arrow · original impact"
+		result.cg_random_shot_charge=CROSSGATE_FLASH_CHARGES.cg_random_shot_charge
+	if not crossgate.is_empty():
+		result.cg_combo_charge=CROSSGATE_FLASH_CHARGES.cg_combo_charge
+		result.cg_guard_break_charge=CROSSGATE_FLASH_CHARGES.cg_guard_break_charge
+		result.cg_shin_meditation="明鏡止水 · original cast"
+		result.cg_shin_meditation_heal="明鏡止水 · health restored"
+	if crossgate.get("weapon_skills",false):
+		result.qigong_charge=CROSSGATE_FLASH_CHARGES.cg_shin_sure_strike_charge
+		if crossgate.get("weapon","")!="axe":
+			for cue in ["cg_shin_double_edge_charge","cg_shin_counter_charge","cg_shin_two_birds_charge"]:
+				result[cue]=CROSSGATE_FLASH_CHARGES[cue]
+			result.cg_shin_counter="反擊 · counter release"
+		result.cg_kagerou_dodge="連擊 · blink"
+	if Roster.has_crossgate_throws(id):
+		var name=Roster.name_for(id)+" · "
+		result.swing=name+"katana swing";result.hit=name+"katana cut impact"
+		result.heavy_hit=name+"katana blast impact";result.coin_hit=name+"dagger impact"
+		result.cg_dagger_throw=name+"original dagger release"
+		result.qigong_launch=name+"Qi Blast release"
+		for cue in ["cg_blade_dance_charge","cg_assassination_charge","cg_mirror_charge"]:
+			result[cue]=CROSSGATE_FLASH_CHARGES[cue]
+		result.qigong_hit="Qi Blast · impact"
+		result.maze_assassination_vanish="暗殺 · vanish"
+		result.maze_assassination_arrive="暗殺 · lunge"
+		result.maze_assassination_strike="暗殺 · strike"
+	if not crossgate.is_empty():
+		result.cg_kagerou_dodge="陽炎 · dodge / 連擊 · blink"
+		result.maze_assassination_vanish="暗殺 · teleport / Bee Blink Flurry"
 	if id==13:
 		result.swing="Fusion · swing";result.heavy_swing="Lumina · swing"
 		result.hit="Swords · normal enemy hit";result.heavy_hit="Lumina · enemy hit"
@@ -295,9 +389,61 @@ func set_muted(slot: String,value: bool):
 func stream_for(id: int,slot: String,fallback: AudioStream)->AudioStream:
 	return playback_for(id,slot,fallback).stream
 
+static func shin_weapon_sound(weapon:String,source_id:int,contact:bool)->AudioStream:
+	if weapon=="axe":return CROSSGATE_AXE_SOUNDS[136 if contact else 106]
+	# Fixed special skins keep their source weapon's cues.
+	if weapon=="polearm" or source_id==100055 or source_id==108313:
+		if source_id==120441:
+			return preload("res://assets/audio/crossgate/shin/cgply14b.wav") if contact else preload("res://assets/audio/crossgate/shin/cgply04b.wav")
+		return preload("res://assets/audio/crossgate/shin/cgply13b.wav") if contact else preload("res://assets/audio/crossgate/shin/cgply03b.wav")
+	if weapon=="unarmed" or source_id==118986:
+		return preload("res://assets/audio/crossgate/kazi/cgply10b.wav") if contact else preload("res://assets/audio/crossgate/shin/cgply00b.wav")
+	return preload("res://assets/audio/crossgate/kazi/cgply11b.wav") if contact else preload("res://assets/audio/crossgate/shin/cgply01b.wav")
+
+static func crossgate_spell_profile(id:int)->int:
+	return id if Roster.uses_crossgate_spells(id) or Roster.has_crossgate_throws(id) else Roster.KAZI_ID
+
 static func original_for(id: int,slot: String)->AudioStream:
-	if id==34 and slot=="swing":return preload("res://assets/audio/crossgate/kazi/cgply01a.wav")
-	if id==34 and slot in ["hit","heavy_hit"]:return preload("res://assets/audio/crossgate/kazi/cgefc04.wav")
+	if Roster.is_crossgate_fighter(id) and slot=="shin_target_select":return preload("res://assets/audio/crossgate/cgsys00.wav")
+	if Roster.is_crossgate_fighter(id) and slot=="cg_dodge_warning":return preload("res://assets/audio/crossgate/cgefc01.wav")
+	if slot in ["qigong_hit","cg_moon_hit"]:return QIGONG_IMPACT
+	if slot=="cg_dagger_hit":return KUNAI_IMPACT
+	if slot=="qigong_charge" or CROSSGATE_FLASH_CHARGES.has(slot):return CROSSGATE_FLASH
+	if slot=="cg_fire_charge" or CROSSGATE_SPELL_CHARGES.has(slot):return CROSSGATE_MAGIC_CAST
+	if id==Roster.SAIZO_ID and slot=="swing":return preload("res://assets/audio/crossgate/special_skins/cgply02a.wav")
+	var crossgate=Roster.crossgate_profile(id)
+	if not crossgate.is_empty():
+		if slot=="maze_assassination_vanish":return preload("res://assets/audio/crossgate/maze/cgsys10b.wav")
+		if slot in ["step","land"]:return shared_default_for(id,slot)
+		if Roster.is_crossgate_archer(id) and CROSSGATE_BOW_SOUNDS.has(slot):return CROSSGATE_BOW_SOUNDS[slot]
+		if crossgate.get("weapon","")=="axe" and slot in ["swing","hit"]:return shin_weapon_sound("axe",0,slot=="hit")
+		if URU_RECOVERY_SOUNDS.has(slot):return URU_RECOVERY_SOUNDS[slot]
+		if slot=="cg_kagerou_dodge":return KAZ_KAGEROU_DODGE
+		if slot in ["cg_shin_meditation","cg_shin_meditation_heal"] or (crossgate.get("weapon_skills",false) and slot=="cg_shin_counter"):
+			id=Roster.SHIN_ID
+		elif crossgate.get("throwing",false) and slot in ["maze_assassination_vanish","maze_assassination_arrive","maze_assassination_strike","cg_dagger_throw","coin_hit"]:
+			id=Roster.MAZE_ID
+		else:id=int(crossgate.get("audio",id))
+	if id==34 and slot=="cg_moon_release":return preload("res://assets/audio/crossgate/kazi/cgefc17.wav")
+	if id==35 and slot=="cg_spirit_hit":return preload("res://assets/audio/crossgate/kazi/cgefc04.wav")
+	if id in [34,35] and CROSSGATE_ELEMENT_SOUNDS.has(slot):return CROSSGATE_ELEMENT_SOUNDS[slot]
+	if Roster.is_shin(id):
+		if slot=="swing":return preload("res://assets/audio/crossgate/shin/cgply00b.wav") if id==Roster.SHIN_ID else preload("res://assets/audio/crossgate/shin/cgply01b.wav")
+		if slot=="hit":return preload("res://assets/audio/crossgate/kazi/cgply10b.wav") if id==Roster.SHIN_ID else preload("res://assets/audio/crossgate/kazi/cgply11b.wav")
+	if id in [34,36] and slot=="swing":return preload("res://assets/audio/crossgate/kazi/cgply01a.wav")
+	if id==36 and slot=="maze_assassination_vanish":return preload("res://assets/audio/crossgate/maze/cgsys10b.wav")
+	if id==36 and slot=="maze_assassination_arrive":return KAZ_KAGEROU_DODGE
+	if id==36 and slot=="maze_assassination_strike":return preload("res://assets/audio/crossgate/maze/assassination-strike.wav")
+	if id==36 and slot=="cg_dagger_throw":return preload("res://assets/audio/crossgate/ruby/cgply05a.wav")
+	if id==36 and slot=="coin_hit":return KUNAI_IMPACT
+	if id==36 and KAZ_SWORD_IMPACTS.has(slot):return KAZ_SWORD_IMPACTS[slot]
+	if id==Roster.SHIN_ID and slot=="cg_shin_counter":return preload("res://assets/audio/crossgate/shin/cgefc02.wav")
+	if id==Roster.SHIN_ID and slot=="cg_shin_meditation":return URU_RECOVERY_SOUNDS.cg_recovery_cast
+	if id==Roster.SHIN_ID and slot=="cg_shin_meditation_heal":return preload("res://assets/audio/crossgate/shin/cgefc05.wav")
+	if id in [34,35,36] and slot=="qigong_launch":return preload("res://assets/audio/crossgate/kazi/cgefc03.wav")
+	if id==35 and slot=="swing":return preload("res://assets/audio/crossgate/ruby/cgply04a.wav")
+	if id==35 and slot in ["hit","heavy_hit"]:return preload("res://assets/audio/crossgate/ruby/cgply14a.wav")
+	if id in [34,35,36] and slot in ["hit","heavy_hit","coin_hit"]:return QIGONG_IMPACT
 	if id==8 and slot=="move_secondary_voice":return preload("res://assets/audio/recovered_frost_dragon/roar.wav")
 	if id==8 and slot=="dragoon_hunt":return preload("res://assets/audio/recovered_frost_dragon/ground_attack.wav")
 	if slot=="step" and id in GOEMON_FOOTSTEP_IDS:return GOEMON_FOOTSTEP
@@ -333,7 +479,7 @@ static func original_for(id: int,slot: String)->AudioStream:
 
 static func shared_default_for(id:int,slot:String)->AudioStream:
 	if slot=="step":return GOEMON_FOOTSTEP
-	if slot=="team_level_up":return preload("res://assets/audio/recovered_musashi/level_up.wav")
+	if slot=="team_level_up":return preload("res://assets/audio/crossgate/cgsys12.wav")
 	if slot=="jump":return preload("res://assets/audio/recovered_yae/event_21d.wav")
 	if slot=="spark":return preload("res://assets/characters/recovered_skullpion/audio/core_recover.wav")
 	if slot=="land":return HUMANOID_LANDING
@@ -351,9 +497,15 @@ static func source_slot_is_silent(id:int,slot:String)->bool:
 	return files.has(slot) and files[slot].is_empty()
 
 func playback_for(id: int,slot: String,fallback: AudioStream,legacy_override: String="",use_original: bool=true)->Dictionary:
-	var recorded: AudioStream=custom_for(id,slot)
-	var gain=gain_for(id,slot)
-	var muted=is_muted_for(id,slot)
+	# Preserve the Studio controls that previously owned each of these sounds.
+	var settings_slot=slot
+	if (slot=="qigong_hit" and Roster.uses_crossgate_spells(id)) or (slot=="cg_dagger_hit" and Roster.has_crossgate_throws(id)):
+		settings_slot="coin_hit"
+	elif slot=="cg_fire_charge":settings_slot="cg_magic_cast"
+	elif slot=="cg_shin_sure_strike_charge":settings_slot="qigong_charge"
+	var recorded: AudioStream=custom_for(id,settings_slot)
+	var gain=gain_for(id,settings_slot)
+	var muted=is_muted_for(id,settings_slot)
 	var restored=_restored_profiles.has(id) and _restored_profiles[id].has(slot)
 	if not restored and id==7 and slot=="knight_finisher_hit":
 		gain*=gain_for(id,"heavy_hit");muted=muted or is_muted_for(id,"heavy_hit")

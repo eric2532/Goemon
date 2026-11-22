@@ -1,0 +1,101 @@
+{
+  "repository": "https://github.com/awafer/crossgate",
+  "revision": "6e5794f591ae40838e86d3229e4d930c7ce297b4",
+  "files": [
+    {
+      "name": "03220_room",
+      "sha": "36f95be0eca3eaa378c6e7d5256aaa71f17b978d",
+      "path": "gmsv/data/map/03220_room",
+      "sha256": "8d52bea1474141a2b2ae34464b3acd43beec3c86c4b3e5e09566225f6aa30247"
+    },
+    {
+      "name": "03221_room",
+      "sha": "77620bb0db1d8693bd31d0a7e10fbaa889cf300e",
+      "path": "gmsv/data/map/03221_room",
+      "sha256": "398b23c9dcb6ca498fcff686ff1506b040acbe55b5d0cbb383c52d5059914935"
+    },
+    {
+      "name": "03801_room",
+      "sha": "b2d53c1ea686e3d87f887c18094d43ff32c8980a",
+      "path": "gmsv/data/map/03801_room",
+      "sha256": "a2b4a4b36ba05fa86c42e6f1bcde51b5f71d19d8623f23c3e79810222d817424"
+    },
+    {
+      "name": "03802_room",
+      "sha": "132ae52ae8fb336f3648c970350ab845638326b2",
+      "path": "gmsv/data/map/03802_room",
+      "sha256": "96d1889cc9ba4e68e33d7a253de0c4c7a8d54471c48b98df002c4f33ae2992e5"
+    },
+    {
+      "name": "03803_room",
+      "sha": "62cf51a679ccf6997c689a3bbd2d3cbcea4c5afe",
+      "path": "gmsv/data/map/03803_room",
+      "sha256": "be7b04412e8c890f08273df7f90bcc3a86b6b380197edbdb05a01d86c533b44a"
+    },
+    {
+      "name": "03807_room",
+      "sha": "aabf6c04715494c012433f3607e8c6f42453a8ad",
+      "path": "gmsv/data/map/03807_room",
+      "sha256": "21eea22c293eec94ab5b17c58d2ec2d9dd35930f9224a0392810095cdf6c9364"
+    }
+  ],
+  "provenance": "Classic Cross Gate server archive; local Blue CG maps 3220 and 3221 match all 800 ground/object entries each. Live Blue CG versions of the four missing IDs are not independently captured.",
+  "source_doors": {
+    "3801": {
+      "entrance": [
+        56,
+        86
+      ],
+      "return": [
+        56,
+        86
+      ],
+      "threshold": [
+        12,
+        16
+      ]
+    },
+    "3802": {
+      "entrance": [
+        69,
+        89
+      ],
+      "return": [
+        69,
+        89
+      ],
+      "threshold": [
+        3,
+        9
+      ]
+    },
+    "3803": {
+      "entrance": [
+        38,
+        59
+      ],
+      "return": [
+        38,
+        58
+      ],
+      "threshold": [
+        10,
+        16
+      ]
+    },
+    "3807": {
+      "entrance": [
+        37,
+        70
+      ],
+      "return": [
+        37,
+        70
+      ],
+      "threshold": [
+        2,
+        11
+      ]
+    }
+  }
+}

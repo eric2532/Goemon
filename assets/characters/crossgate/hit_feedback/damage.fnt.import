@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://dkae0j5oot6an"
+path="res://.godot/imported/damage.fnt-c258bd6b9b6503f50371a567ba2b0314.fontdata"
+
+[deps]
+
+source_file="res://assets/characters/crossgate/hit_feedback/damage.fnt"
+dest_files=["res://.godot/imported/damage.fnt-c258bd6b9b6503f50371a567ba2b0314.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2

@@ -1,0 +1,452 @@
+[
+  {
+    "character": 34,
+    "label": "Blond / Rose",
+    "name": "Kaz",
+    "skin": 109890,
+    "source": "res://assets/characters/crossgate/kazi/skins/109890/portrait.png",
+    "file": "skins/kaz-blond-rose.png",
+    "style": "kaz.png",
+    "detail": "This is the blond Kaz / Rose model: golden blond swept side-parted hair with the hairstyle actually seen in the sprite, warm fair skin, determined young male face. Preserve the original mask or mouth covering ONLY if visible in this sprite. No scarf or clothing. Aura version has the same physical head, so omit aura."
+  },
+  {
+    "character": 34,
+    "label": "Yellow / Red Sparks",
+    "name": "Kaz",
+    "skin": 109146,
+    "source": "res://assets/characters/crossgate/kazi/skins/109146/portrait.png",
+    "file": "skins/kaz-yellow-mask.png",
+    "style": "kaz.png",
+    "detail": "Kaz Yellow / Red Sparks: very dark navy-black hair, yellow/gold face covering around the lower face as in the actual model, visible intense eyes. Preserve the model's hair silhouette and gold mask, not the unmasked default face. No sparks or clothing."
+  },
+  {
+    "character": 37,
+    "label": "Blond / Green",
+    "name": "Shin",
+    "skin": 100056,
+    "source": "res://assets/characters/crossgate/shin/100056/portrait.png",
+    "file": "skins/shin-blond.png",
+    "style": "shin.png",
+    "detail": "Preserve Shin's youthful male face and spiky hairstyle, but match this model's bright golden yellow hair. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset."
+  },
+  {
+    "character": 37,
+    "label": "Brown Hair / Red",
+    "name": "Shin",
+    "skin": 100062,
+    "source": "res://assets/characters/crossgate/shin/100062/portrait.png",
+    "file": "skins/shin-brown.png",
+    "style": "shin.png",
+    "detail": "Preserve Shin's youthful male face and spiky hairstyle, but match this model's warm brown hair. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset."
+  },
+  {
+    "character": 37,
+    "label": "Blue Hair / Charcoal",
+    "name": "Shin",
+    "skin": 100068,
+    "source": "res://assets/characters/crossgate/shin/100068/portrait.png",
+    "file": "skins/shin-blue.png",
+    "style": "shin.png",
+    "detail": "Preserve Shin's youthful male face and spiky hairstyle, but match this model's deep blue hair. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset."
+  },
+  {
+    "character": 37,
+    "label": "White Hair / Black and Red",
+    "name": "Shin",
+    "skin": 100181,
+    "source": "res://assets/characters/crossgate/shin/100181/portrait.png",
+    "file": "skins/shin-white.png",
+    "style": "shin.png",
+    "detail": "Preserve Shin's youthful male face and spiky hairstyle, but match this model's bright white hair, normal warm tan skin. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset."
+  },
+  {
+    "character": 37,
+    "label": "Monochrome",
+    "name": "Shin",
+    "skin": 100200,
+    "source": "res://assets/characters/crossgate/shin/100200/portrait.png",
+    "file": "skins/shin-monochrome.png",
+    "style": "shin.png",
+    "detail": "Preserve Shin's youthful male face and spiky hairstyle, but match this model's entire head in grayscale: white hair, grey skin and charcoal shadows, no warm skin hues. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset."
+  },
+  {
+    "character": 37,
+    "label": "All White",
+    "name": "Shin",
+    "skin": 100978,
+    "source": "res://assets/characters/crossgate/shin/100978/portrait.png",
+    "file": "skins/shin-all-white.png",
+    "style": "shin.png",
+    "detail": "Preserve Shin's youthful male face and spiky hairstyle, but match this model's snow-white hair and unusually pale almost ivory-white skin, match the all-white model. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset."
+  },
+  {
+    "character": 37,
+    "label": "Red Hair / Charcoal",
+    "name": "Shin",
+    "skin": 105573,
+    "source": "res://assets/characters/crossgate/shin/105573/portrait.png",
+    "file": "skins/shin-red.png",
+    "style": "shin.png",
+    "detail": "Preserve Shin's youthful male face and spiky hairstyle, but match this model's bright red hair. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset."
+  },
+  {
+    "character": 37,
+    "label": "Dark Hair / Teal",
+    "name": "Shin",
+    "skin": 105737,
+    "source": "res://assets/characters/crossgate/shin/105737/portrait.png",
+    "file": "skins/shin-dark.png",
+    "style": "shin.png",
+    "detail": "Preserve Shin's youthful male face and spiky hairstyle, but match this model's very dark charcoal-brown hair. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset."
+  },
+  {
+    "character": 37,
+    "label": "Pink Hair / Navy",
+    "name": "Shin",
+    "skin": 105748,
+    "source": "res://assets/characters/crossgate/shin/105748/portrait.png",
+    "file": "skins/shin-pink.png",
+    "style": "shin.png",
+    "detail": "Preserve Shin's youthful male face and spiky hairstyle, but match this model's vivid magenta-pink hair. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset."
+  },
+  {
+    "character": 39,
+    "label": "Original Blue-Black",
+    "name": "Saizo",
+    "skin": 106052,
+    "source": "res://assets/characters/crossgate/fighters/saizo/106052/portrait.png",
+    "file": "skins/saizo-106052.png",
+    "style": "saizo.png",
+    "detail": "Use the actual Saizo skin Original Blue-Black as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared."
+  },
+  {
+    "character": 39,
+    "label": "Yellow & Green",
+    "name": "Saizo",
+    "skin": 106058,
+    "source": "res://assets/characters/crossgate/fighters/saizo/106058/portrait.png",
+    "file": "skins/saizo-gold.png",
+    "style": "saizo.png",
+    "detail": "Use the actual Saizo skin Yellow & Green as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared."
+  },
+  {
+    "character": 39,
+    "label": "Blue & Tan",
+    "name": "Saizo",
+    "skin": 106064,
+    "source": "res://assets/characters/crossgate/fighters/saizo/106064/portrait.png",
+    "file": "skins/saizo-106064.png",
+    "style": "saizo.png",
+    "detail": "Use the actual Saizo skin Blue & Tan as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared."
+  },
+  {
+    "character": 39,
+    "label": "Red & Brown",
+    "name": "Saizo",
+    "skin": 106070,
+    "source": "res://assets/characters/crossgate/fighters/saizo/106070/portrait.png",
+    "file": "skins/saizo-106070.png",
+    "style": "saizo.png",
+    "detail": "Use the actual Saizo skin Red & Brown as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared."
+  },
+  {
+    "character": 39,
+    "label": "Blond",
+    "name": "Saizo",
+    "skin": 105696,
+    "source": "res://assets/characters/crossgate/fighters/saizo/105696/portrait.png",
+    "file": "skins/saizo-105696.png",
+    "style": "saizo.png",
+    "detail": "Use the actual Saizo skin Blond as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared."
+  },
+  {
+    "character": 39,
+    "label": "Purple Hair",
+    "name": "Saizo",
+    "skin": 105492,
+    "source": "res://assets/characters/crossgate/fighters/saizo/105492/portrait.png",
+    "file": "skins/saizo-105492.png",
+    "style": "saizo.png",
+    "detail": "Use the actual Saizo skin Purple Hair as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared."
+  },
+  {
+    "character": 39,
+    "label": "Akamaru",
+    "name": "Saizo",
+    "skin": 106188,
+    "source": "res://assets/characters/crossgate/fighters/saizo/106188/portrait.png",
+    "file": "skins/saizo-106188.png",
+    "style": "saizo.png",
+    "detail": "Use the actual Saizo skin Akamaru as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared."
+  },
+  {
+    "character": 39,
+    "label": "Winter Lion",
+    "name": "Saizo",
+    "skin": 120234,
+    "source": "res://assets/characters/crossgate/fighters/saizo/120234/portrait.png",
+    "file": "skins/saizo-white.png",
+    "style": "saizo.png",
+    "detail": "Use the actual Saizo skin Winter Lion as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared."
+  },
+  {
+    "character": 39,
+    "label": "Brown Hair",
+    "name": "Saizo",
+    "skin": 105178,
+    "source": "res://assets/characters/crossgate/fighters/saizo/105178/portrait.png",
+    "file": "skins/saizo-105178.png",
+    "style": "saizo.png",
+    "detail": "Use the actual Saizo skin Brown Hair as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared."
+  },
+  {
+    "character": 39,
+    "label": "Pink Hair",
+    "name": "Saizo",
+    "skin": 106182,
+    "source": "res://assets/characters/crossgate/fighters/saizo/106182/portrait.png",
+    "file": "skins/saizo-106182.png",
+    "style": "saizo.png",
+    "detail": "Use the actual Saizo skin Pink Hair as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared."
+  },
+  {
+    "character": 40,
+    "label": "Dark hair / black",
+    "name": "Bog",
+    "skin": 100942,
+    "source": "res://assets/characters/crossgate/fighters/bog/100942/portrait.png",
+    "file": "skins/bog-dark.png",
+    "style": "bog.png",
+    "detail": "Same approved Bog face, crossed cheek scar, tall rectangular FLAT-TOP HAIR and confident grin as style image, but charcoal/black flat-top hair with clipped dark sides, matching this darker-haired sprite. Flat-top is hair, NOT a cap. Preserve tan skin. No shoulders or clothing."
+  },
+  {
+    "character": 42,
+    "label": "Original Brown / Purple",
+    "name": "Emilia",
+    "skin": 106275,
+    "source": "res://assets/characters/crossgate/fighters/emilia/106275/portrait.png",
+    "file": "skins/ayame-106275.png",
+    "style": "emilia.png",
+    "detail": "The actual model is AYAME skin Original Brown / Purple, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet."
+  },
+  {
+    "character": 42,
+    "label": "Original Black / Red",
+    "name": "Emilia",
+    "skin": 106281,
+    "source": "res://assets/characters/crossgate/fighters/emilia/106281/portrait.png",
+    "file": "skins/ayame-106281.png",
+    "style": "emilia.png",
+    "detail": "The actual model is AYAME skin Original Black / Red, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet."
+  },
+  {
+    "character": 42,
+    "label": "Original Red / Green",
+    "name": "Emilia",
+    "skin": 106287,
+    "source": "res://assets/characters/crossgate/fighters/emilia/106287/portrait.png",
+    "file": "skins/ayame-106287.png",
+    "style": "emilia.png",
+    "detail": "The actual model is AYAME skin Original Red / Green, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet."
+  },
+  {
+    "character": 42,
+    "label": "Original Gold / Pink",
+    "name": "Emilia",
+    "skin": 106293,
+    "source": "res://assets/characters/crossgate/fighters/emilia/106293/portrait.png",
+    "file": "skins/ayame-106293.png",
+    "style": "emilia.png",
+    "detail": "The actual model is AYAME skin Original Gold / Pink, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet."
+  },
+  {
+    "character": 42,
+    "label": "Dark Ayame",
+    "name": "Emilia",
+    "skin": 100774,
+    "source": "res://assets/characters/crossgate/fighters/emilia/100774/portrait.png",
+    "file": "skins/ayame-100774.png",
+    "style": "emilia.png",
+    "detail": "The actual model is AYAME skin Dark Ayame, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet."
+  },
+  {
+    "character": 42,
+    "label": "Snow Ayame",
+    "name": "Emilia",
+    "skin": 105430,
+    "source": "res://assets/characters/crossgate/fighters/emilia/105430/portrait.png",
+    "file": "skins/ayame-105430.png",
+    "style": "emilia.png",
+    "detail": "The actual model is AYAME skin Snow Ayame, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet."
+  },
+  {
+    "character": 42,
+    "label": "Pink-haired Ayame",
+    "name": "Emilia",
+    "skin": 105824,
+    "source": "res://assets/characters/crossgate/fighters/emilia/105824/portrait.png",
+    "file": "skins/ayame-105824.png",
+    "style": "emilia.png",
+    "detail": "The actual model is AYAME skin Pink-haired Ayame, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet."
+  },
+  {
+    "character": 42,
+    "label": "Blonde Ayame",
+    "name": "Emilia",
+    "skin": 105830,
+    "source": "res://assets/characters/crossgate/fighters/emilia/105830/portrait.png",
+    "file": "skins/ayame-105830.png",
+    "style": "emilia.png",
+    "detail": "The actual model is AYAME skin Blonde Ayame, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet."
+  },
+  {
+    "character": 42,
+    "label": "Magenta Hair / Black",
+    "name": "Emilia",
+    "skin": 105837,
+    "source": "res://assets/characters/crossgate/fighters/emilia/105837/portrait.png",
+    "file": "skins/ayame-105837.png",
+    "style": "emilia.png",
+    "detail": "The actual model is AYAME skin Magenta Hair / Black, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet."
+  },
+  {
+    "character": 42,
+    "label": "Blonde / Dark Green",
+    "name": "Emilia",
+    "skin": 106625,
+    "source": "res://assets/characters/crossgate/fighters/emilia/106625/portrait.png",
+    "file": "skins/ayame-106625.png",
+    "style": "emilia.png",
+    "detail": "The actual model is AYAME skin Blonde / Dark Green, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet."
+  },
+  {
+    "character": 42,
+    "label": "Brown Hair / White",
+    "name": "Emilia",
+    "skin": 111669,
+    "source": "res://assets/characters/crossgate/fighters/emilia/111669/portrait.png",
+    "file": "skins/ayame-111669.png",
+    "style": "emilia.png",
+    "detail": "The actual model is AYAME skin Brown Hair / White, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet."
+  },
+  {
+    "character": 42,
+    "label": "Sakura Ayame",
+    "name": "Emilia",
+    "skin": 120322,
+    "source": "res://assets/characters/crossgate/fighters/emilia/120322/portrait.png",
+    "file": "skins/ayame-120322.png",
+    "style": "emilia.png",
+    "detail": "The actual model is AYAME skin Sakura Ayame, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet."
+  },
+  {
+    "character": 42,
+    "label": "Fragrant Ayame",
+    "name": "Emilia",
+    "skin": 120484,
+    "source": "res://assets/characters/crossgate/fighters/emilia/120484/portrait.png",
+    "file": "skins/ayame-120484.png",
+    "style": "emilia.png",
+    "detail": "The actual model is AYAME skin Fragrant Ayame, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet."
+  },
+  {
+    "character": 42,
+    "label": "Green Hair / White",
+    "name": "Emilia",
+    "skin": 120490,
+    "source": "res://assets/characters/crossgate/fighters/emilia/120490/portrait.png",
+    "file": "skins/ayame-120490.png",
+    "style": "emilia.png",
+    "detail": "The actual model is AYAME skin Green Hair / White, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet."
+  },
+  {
+    "character": 42,
+    "label": "Blue-haired Ayame",
+    "name": "Emilia",
+    "skin": 100224,
+    "source": "res://assets/characters/crossgate/fighters/emilia/100224/portrait.png",
+    "file": "skins/ayame-100224.png",
+    "style": "emilia.png",
+    "detail": "The actual model is AYAME skin Blue-haired Ayame, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet."
+  },
+  {
+    "character": 42,
+    "label": "Silver-haired Ayame",
+    "name": "Emilia",
+    "skin": 100230,
+    "source": "res://assets/characters/crossgate/fighters/emilia/100230/portrait.png",
+    "file": "skins/ayame-100230.png",
+    "style": "emilia.png",
+    "detail": "The actual model is AYAME skin Silver-haired Ayame, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet."
+  },
+  {
+    "character": 43,
+    "label": "Gold / Purple",
+    "name": "Lancelot",
+    "skin": 106131,
+    "source": "res://assets/characters/crossgate/fighters/lancelot/106131/portrait.png",
+    "file": "skins/lancelot-106131.png",
+    "style": "lancelot.png",
+    "detail": "Use actual Lancelot skin Gold / Purple as palette authority. Preserve his elegant adult male face and long swept-back hair, but match this model's exact hair hue, skin tone, eye colour and any actual face/head accessory. Do not retain default blond/ivory colours when this skin differs. Head and tiny bare neck only, no armour, shoulders, bow or cloak."
+  },
+  {
+    "character": 43,
+    "label": "Black / Red",
+    "name": "Lancelot",
+    "skin": 106137,
+    "source": "res://assets/characters/crossgate/fighters/lancelot/106137/portrait.png",
+    "file": "skins/lancelot-106137.png",
+    "style": "lancelot.png",
+    "detail": "Use actual Lancelot skin Black / Red as palette authority. Preserve his elegant adult male face and long swept-back hair, but match this model's exact hair hue, skin tone, eye colour and any actual face/head accessory. Do not retain default blond/ivory colours when this skin differs. Head and tiny bare neck only, no armour, shoulders, bow or cloak."
+  },
+  {
+    "character": 43,
+    "label": "Blue / Brown",
+    "name": "Lancelot",
+    "skin": 106143,
+    "source": "res://assets/characters/crossgate/fighters/lancelot/106143/portrait.png",
+    "file": "skins/lancelot-106143.png",
+    "style": "lancelot.png",
+    "detail": "Use actual Lancelot skin Blue / Brown as palette authority. Preserve his elegant adult male face and long swept-back hair, but match this model's exact hair hue, skin tone, eye colour and any actual face/head accessory. Do not retain default blond/ivory colours when this skin differs. Head and tiny bare neck only, no armour, shoulders, bow or cloak."
+  },
+  {
+    "character": 43,
+    "label": "Silver / Green",
+    "name": "Lancelot",
+    "skin": 106550,
+    "source": "res://assets/characters/crossgate/fighters/lancelot/106550/portrait.png",
+    "file": "skins/lancelot-106550.png",
+    "style": "lancelot.png",
+    "detail": "Use actual Lancelot skin Silver / Green as palette authority. Preserve his elegant adult male face and long swept-back hair, but match this model's exact hair hue, skin tone, eye colour and any actual face/head accessory. Do not retain default blond/ivory colours when this skin differs. Head and tiny bare neck only, no armour, shoulders, bow or cloak."
+  },
+  {
+    "character": 43,
+    "label": "Black Lancelot",
+    "name": "Lancelot",
+    "skin": 105206,
+    "source": "res://assets/characters/crossgate/fighters/lancelot/105206/portrait.png",
+    "file": "skins/lancelot-105206-v2.png",
+    "style": "lancelot.png",
+    "detail": "Use actual Lancelot skin Black Lancelot as palette authority. Preserve his elegant adult male face and long swept-back hair, but match this model's exact hair hue, skin tone, eye colour and any actual face/head accessory. Do not retain default blond/ivory colours when this skin differs. Head and tiny bare neck only, no armour, shoulders, bow or cloak."
+  },
+  {
+    "character": 43,
+    "label": "Emerald / Black",
+    "name": "Lancelot",
+    "skin": 105212,
+    "source": "res://assets/characters/crossgate/fighters/lancelot/105212/portrait.png",
+    "file": "skins/lancelot-105212.png",
+    "style": "lancelot.png",
+    "detail": "Use actual Lancelot skin Emerald / Black as palette authority. Preserve his elegant adult male face and long swept-back hair, but match this model's exact hair hue, skin tone, eye colour and any actual face/head accessory. Do not retain default blond/ivory colours when this skin differs. Head and tiny bare neck only, no armour, shoulders, bow or cloak."
+  },
+  {
+    "character": 43,
+    "label": "Mint / Blue",
+    "name": "Lancelot",
+    "skin": 105907,
+    "source": "res://assets/characters/crossgate/fighters/lancelot/105907/portrait.png",
+    "file": "skins/lancelot-105907-v2.png",
+    "style": "lancelot.png",
+    "detail": "Use actual Lancelot skin Mint / Blue as palette authority. Preserve his elegant adult male face and long swept-back hair, but match this model's exact hair hue, skin tone, eye colour and any actual face/head accessory. Do not retain default blond/ivory colours when this skin differs. Head and tiny bare neck only, no armour, shoulders, bow or cloak."
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "source": "/Users/eric/Desktop/Projects_Codex/Magic Power",
+  "note": "熊哥 / 雄哥: original undersea actor 100802. Source family 100800 has six supplied weapon poses; 120443 is its dark unarmed recolor. Preserve pack-qualified identities and original pixels.",
+  "skins": [
+    {
+      "character": 51,
+      "root": "fighters/kumago",
+      "skin": 100800,
+      "label": "Original · Red / Blue",
+      "body_pixels": 91,
+      "weapons": {
+        "unarmed": "original:2797",
+        "axe": "original:2795",
+        "bow": "original:2796",
+        "sword": "original:2798",
+        "staff": "original:2799",
+        "polearm": "original:2800"
+      }
+    },
+    {
+      "character": 51,
+      "root": "fighters/kumago",
+      "skin": 120443,
+      "label": "Special · Dark Red / Black",
+      "body_pixels": 91,
+      "weapons": {
+        "unarmed": "puk3:665"
+      }
+    }
+  ]
+}

@@ -19,7 +19,7 @@ func run():
  check(runtime.unit_state(handle).max_hp==30000,"Native boss spawns with exactly 30000 HP despite the general enemy health multiplier")
  var actor=game.actors[row.id]
  check(actor.variant==4 and not actor is Hero,"Boss is an enemy facade and never a playable character")
- check(actor.combat_bounds().size.is_equal_approx(Vector3(30,25,40)),"All hero/tower queries use the fitted boss dimensions")
+ check(actor.combat_bounds().size.is_equal_approx(Vector3(30,25,40)*game.model.waves.Roles.MAP_ENEMY_SCALE),"Hero and tower queries use the larger fitted boss dimensions")
  # Use open ground for the cue check; this manually placed boss overlaps the fort.
  runtime.set_navigation(100001,{"width":0})
  runtime.native.set_targets({"ids":PackedInt64Array([0]),"kinds":PackedInt32Array([0]),"positions":PackedVector3Array([point+Vector3(0,0,5)]),"hp":PackedFloat32Array([1000])})
@@ -30,7 +30,7 @@ func run():
  var snapshot=runtime.render_snapshot();game.crowd.army.present(snapshot,[])
  var view=game.crowd.army.skullpions.get(row.id)
  check(is_instance_valid(view) and view.animations.get_animation_list().size()>=22,"Godot imports the complete recovered motion library")
- check(is_equal_approx(view.body.scale.x,12.0) and is_equal_approx(view.title.position.y,32.5),"Boss model and nameplate use the fivefold size")
+ check(is_equal_approx(view.body.scale.x,12.0*game.model.waves.Roles.MAP_ENEMY_SCALE) and is_equal_approx(view.title.position.y,32.5*game.model.waves.Roles.MAP_ENEMY_SCALE),"Boss model and nameplate match the enlarged body")
  var index:int=snapshot.logical_ids.find(row.id)
  var first=view.body.find_child("Part_00",true,false)
  var rest=first.transform

@@ -51,6 +51,8 @@ func setup_fixture(layout:Dictionary={}):
  game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
  await physics_frame;await physics_frame
  var p=game.player;p.select_character(1);p.set_auto_attack(false);game.tuning.critical_chance=0;game.character_tuning={}
+ # Contact fixtures opt into random defensive reactions only when testing them.
+ for id in p.RogueRoster.CROSSGATE:game.character_tuning[preload("res://scripts/character_balance.gd").key_for(id)]={"dodge_chance":0.0,"counter_chance":0.0}
  preload("res://tests/forest-shrine/training_dummy_fixture.gd").install(game)
  var dummy=game.training_dummy;dummy.home=ORIGIN+Vector3(0,0,-2);dummy.position=dummy.home;dummy.set_physics_process(false)
  game.model.update_vision(ORIGIN)

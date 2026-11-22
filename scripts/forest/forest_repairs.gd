@@ -78,7 +78,7 @@ func dispatch():
 func tick(w: Dictionary,b: Dictionary,delta: float):
 	if not repairable(b) or (b.hp<=0 and not b.get("breached",false)) or b.hp>=b.max_hp or m.gold<1:
 		m.workforce.release_job(w);return
-	w.timer+=delta*m.team_progression.multiplier("worker_repair")
+	w.timer+=delta
 	var pulses=mini(int(floor((w.timer+.000001)/INTERVAL)),mini(int(m.gold),ceili((b.max_hp-b.hp)/HEALTH_PER_RYO)))
 	if pulses>0:
 		var restored=minf(pulses*HEALTH_PER_RYO,b.max_hp-b.hp)

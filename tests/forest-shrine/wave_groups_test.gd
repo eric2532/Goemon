@@ -217,7 +217,7 @@ func native_checks():
 		actor.take_hit(1000000,Vector3.FORWARD,false,{"tower":true});runtime.dispatch_events()
 	check(is_equal_approx(xp.experience(),2.6),"Real native deaths award each spawn's 1.2 or 1.4 XP exactly once")
 	game.forest_ui.sync()
-	check(game.forest_ui.team_level_label.text.contains("2.6 / 20 XP") and is_equal_approx(game.forest_ui.team_xp_bar.value,.13),"Rendered HUD includes fractional XP in its label and gold meter")
+	check(game.forest_ui.team_level_label.text=="1" and is_equal_approx(game.forest_ui.team_xp_bar.value,2.6/16),"Rendered HUD preserves fractional XP in its purple meter without numeric XP text")
 	if DisplayServer.get_name()!="headless":
 		game.camera_rig.camera.global_position=game.player.position+Vector3(15,14,20)
 		game.camera_rig.camera.look_at(game.player.position+Vector3.UP*2)

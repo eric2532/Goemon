@@ -54,13 +54,15 @@ func run():
    check(material(collider)=="stone","Actual %s collider uses its stone geometry"%kind)
   structure.free()
  var world=World.new();world.model=Model.new();world.model.reset(42,{})
- world.model.trees={Vector2i(12,12):1.0};world.make_forest()
+ world.model.trees={Vector2i(12,12):1.0};world.model.rebuild_scenery();world.make_forest()
  check(material(world.forest_root.get_children().filter(func(n):return n is StaticBody3D)[0])=="wood","Actual forest tree collider has wood metadata")
  var ground=Art.solid(parent,Vector3.ZERO,Vector3.ONE)
  ground.set_meta("halo_ground_model",world.model);ground.set_meta("halo_material","leaves")
- world.model.roads={Vector2i(0,0):true}
+ world.model.roads={Vector2i(0,0):true,Vector2i(10,0):true}
  check(material(ground,Vector3.ZERO)=="dirt","Road hash lookup selects dirt over grass ground")
  check(material(ground,Vector3(72,0,72))=="leaves","Grass outside a road uses native grass effects")
+ world.model.falan_scale=1.3
+ check(material(ground,Vector3(78,0,0))=="dirt","Scaled roads keep their authored material")
  # Native face indices are triangle indices spanning mesh surfaces.
  ground.remove_meta("halo_ground_model");ground.set_meta("halo_face_materials",[{"end":2,"material":"wood"},{"end":5,"material":"dirt"}])
  check(material(ground,Vector3.ZERO,{"face_index":1})=="wood","Last triangle of a wood surface retains wood")

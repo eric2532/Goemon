@@ -38,8 +38,8 @@ func run():
 	check(clouds,"All scattered cloud platforms have matching collision")
 	var cape=p.model.ronin_scarf
 	var mesh=cape.find_children("*","MeshInstance3D",true,false)[0].mesh
-	await key(KEY_5)
-	check(p.gold_cloak and p.scarf_equipped and cape.visible and cape.cloth.get_shader_parameter("gold_cloak"),"5 equips the gold flying cape")
+	p.set_gold_cloak(true);await frames(1)
+	check(p.gold_cloak and p.scarf_equipped and cape.visible and cape.cloth.get_shader_parameter("gold_cloak"),"The flight fixture equips the gold cape")
 	check(cape.find_children("*","MeshInstance3D",true,false)[0].mesh==mesh,"Gold cape reuses the exact original mesh and cloth animation")
 	var start_y=p.position.y
 	await hold(KEY_SPACE,true);await frames(70)
@@ -60,9 +60,9 @@ func run():
 	check(p.flying and p.velocity.y< -9,"Releasing Space smoothly descends instead of hovering forever")
 	game.show_pause();var paused_at=p.position;await frames(15)
 	check(p.position==paused_at,"Pause freezes flight")
-	game.resume();await key(KEY_4)
-	check(not p.gold_cloak and p.scarf_equipped and not cape.cloth.get_shader_parameter("gold_cloak"),"4 switches back to the original red cape")
-	await key(KEY_5);await key(KEY_Q);await frames(3)
+	game.resume();p.set_scarf_equipped(true);await frames(1)
+	check(not p.gold_cloak and p.scarf_equipped and not cape.cloth.get_shader_parameter("gold_cloak"),"The flight fixture can restore the red cloth")
+	p.set_gold_cloak(true);await frames(1);await key(KEY_Q);await frames(3)
 	check(p.can_fly() and not cape.is_visible_in_tree() and p.model.ronin_scarf.visible,"Switching character retains gold-cape flight on the selected character's rig")
 	await key(KEY_Q);await frames(3)
 	check(p.can_fly() and cape.is_visible_in_tree(),"Returning to Goemon restores the selected gold cape")
@@ -89,7 +89,7 @@ func run():
 	game.reset_player_at(Vector3(edge.x,game.world.height_at(edge.x,edge.y)+.2,edge.y))
 	p.set_gold_cloak(false);await frames(20)
 	check(run.completed and run.ground_spawned,"Ground arrival still starts giant encounters")
-	await key(KEY_5);await hold(KEY_SPACE,true);await hold(KEY_SHIFT,true);await frames(150)
+	p.set_gold_cloak(true);await frames(1);await hold(KEY_SPACE,true);await hold(KEY_SHIFT,true);await frames(150)
 	check(not run.completed and not run.spawned.is_empty() and p.position.y>sky.ground_point.y+sky.DROP,"Flying back up reactivates sky encounters after reaching ground")
 	await hold(KEY_SPACE,false);await hold(KEY_SHIFT,false)
 	var rooms=game.world.furnished_town.rooms

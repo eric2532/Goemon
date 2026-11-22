@@ -50,7 +50,6 @@ func run():
 	check(p.jumps_used==2 and not p.flying,"Normal form still has a real double jump")
 	await park(32);tap("equip");await flight_steps(100)
 	check(p.active_ability.demon and p.can_fly(),"Completing Metamorphosis enables shared flight")
-	game.forest_ui.sync();check("Hold Space Fly" in game.forest_ui.spell_summary.text,"Transformed HUD explains flight controls")
 	var donor=[]
 	for id in [30,32]:
 		await park(id)

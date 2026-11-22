@@ -14,6 +14,7 @@ func run():
 	game=load("res://scenes/forest_shrine.tscn").instantiate();root.add_child(game);current_scene=game
 	await process_frame;await process_frame
 	wall=game.model.build("wall",Vector2i(-3,5),0);game.world.sync(0)
+	game.model.workforce.recruit(true)
 	game.model.wave=2;game.start_wave();game.set_physics_process(false);game.model.waves.pending=0;game.model.waves.giant_pending=false
 	AudioServer.set_bus_mute(0,true);game.forest_ui.message_left=0
 	game.player.position=Vector3(-12,.15,40)

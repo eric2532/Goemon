@@ -3,7 +3,7 @@ extends SceneTree
 class Battle extends "res://scripts/forest/forest_game.gd":
  var cold_collision=false
  # Keep the measured battle at its initial stats without paused upgrade cards.
- func award_team_kill(_reward_tenths:int=10):pass
+ func award_team_kill(_reward_tenths:int=10,_source_id:int=0,_enemy_id:int=0):pass
  func _physics_process(delta:float):
   if cold_collision and is_instance_valid(army_runtime) and army_runtime.navigation_revision!=model.navigation_revision:army_runtime.static_collision_cache.clear()
   super._physics_process(delta)
@@ -67,6 +67,7 @@ var fingerprints={}
 var source_revision=""
 var collapse_done=false
 var topology_events=[]
+var scenario_errors:Array[String]=[]
 var engine_physics=[]
 var engine_process=[]
 var collision_pairs=[]
@@ -314,6 +315,7 @@ func finish():
   if fingerprints[path]!=FileAccess.get_sha256("res://"+path):report.changed_inputs.append(path)
  for path in ["scripts/forest/forest_enemy_roles.gd","scripts/forest/crowd/army_kit_data.gd","scripts/recovered_goemon_pipe_combat.gd","tests/forest-shrine/large_army_benchmark.gd"]:report.source_hashes[path]=FileAccess.get_sha256("res://"+path)
  report.errors=Metrics.violations(report)
+ report.errors.append_array(scenario_errors)
  if elapsed<duration-.2:report.errors.append("Battle stopped before requested duration")
  DirAccess.make_dir_recursive_absolute(out)
  var stem="%s-%d-%d-%d"%[scenario,enemy_count,ally_count,int(Time.get_unix_time_from_system())]

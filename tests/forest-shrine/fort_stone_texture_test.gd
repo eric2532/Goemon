@@ -15,7 +15,9 @@ func run():
  set_meta("forest_painterly_preview",true)
  var wall_texture:Texture2D=Meadow.source("buildings/wall_section")[0].mesh.surface_get_material(0).albedo_texture
  for size_ in ["standard","large"]:
-  set_meta("forest_custom_layout",JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_wind_meadow_large.json" if size_=="large" else "res://assets/maps/forest_wind_meadow.json")))
+  var layout=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_wind_meadow_large.json" if size_=="large" else "res://assets/maps/forest_wind_meadow.json"))
+  layout.raised_castle=true
+  set_meta("forest_custom_layout",layout)
   var game=load("res://scenes/forest_shrine.tscn").instantiate()
   var cfg="user://fort-stone-%d.cfg"%OS.get_process_id();game.settings_path=cfg
   root.add_child(game);current_scene=game

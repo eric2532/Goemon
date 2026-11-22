@@ -12,6 +12,7 @@ func check(ok:bool,label_:String):
 func settle():
  for i in 4:await process_frame
 func run():
+ check(is_equal_approx(Roles.MAP_ENEMY_SCALE,1.15*1.20),"All map enemies gain 20% over the previous 15% fit")
  check(Balance.sanitized({}).enemy_size_mult==1.0,"Old saves retain the current enemy size")
  check(Balance.sanitized({"enemy_size_mult":NAN}).enemy_size_mult==1.0,"Nonfinite size settings use the default")
  check(Balance.sanitized({"enemy_size_mult":-2}).enemy_size_mult==.25 and Balance.sanitized({"enemy_size_mult":999}).enemy_size_mult==3,"Size stays within supported limits")
@@ -20,16 +21,16 @@ func run():
  var control=game.menu.find_child("Core_enemy_size_mult",true,false)
  check(control is SpinBox,"Core Game Balance exposes the enemy size control")
  control.value=2.5;game.load_settings()
- check(game.core_balance.enemy_size_mult==2.5 and game.model.balance.enemy_size_mult==1.0,"Size saves to disk without changing the current run")
- game.show_title();game.begin_forest();game.choose_rogue_character(1)
- check(game.model.balance.enemy_size_mult==2.5 and game.army_runtime.enemy_size==2.5,"A new run applies the saved size")
- check(is_equal_approx(game.crowd.army.meshes[0].surface_get_material(0).get_shader_parameter("enemy_size"),2.5),"Renderer starts with the saved size")
+ check(game.core_balance.enemy_size_mult==2.5 and is_equal_approx(game.model.balance.enemy_size_mult,Roles.MAP_ENEMY_SCALE),"Size saves to disk without changing the current run")
+ game.show_title();game.begin_forest();game.choose_rogue_character(game.player.RogueRoster.KAZI_ID);game.equipment_hub.enter_button.pressed.emit()
+ check(is_equal_approx(game.model.balance.enemy_size_mult,2.5*Roles.MAP_ENEMY_SCALE) and is_equal_approx(game.army_runtime.enemy_size,2.5*Roles.MAP_ENEMY_SCALE),"A new run applies the saved size")
+ check(is_equal_approx(game.crowd.army.meshes[0].surface_get_material(0).get_shader_parameter("enemy_size"),2.5*Roles.MAP_ENEMY_SCALE),"Renderer starts with the saved size")
  game.update_core_balance("enemy_size_mult",.5)
  var revision=game.model.navigation_revision
- game.start_wave();game.army_runtime.refresh_kits()
- check(game.model.balance.enemy_size_mult==.5 and game.model.navigation_revision>revision,"The next wave applies the edited size and invalidates old routes")
+ game.model.waves.tick(game.model.waves.WAVE_SECONDS,game.player.position);game.army_runtime.refresh_kits()
+ check(is_equal_approx(game.model.balance.enemy_size_mult,.5*Roles.MAP_ENEMY_SCALE) and game.model.navigation_revision>revision,"The next wave applies the edited size and invalidates old routes")
  game.update_core_balance("enemy_size_mult",1.0)
- check(game.model.balance.enemy_size_mult==.5,"Editing during a wave preserves all live enemy sizes")
+ check(is_equal_approx(game.model.balance.enemy_size_mult,.5*Roles.MAP_ENEMY_SCALE),"Editing during a wave preserves all live enemy sizes")
  game.set_physics_process(false);game.army_runtime.set_process(false)
  var runtime=load("res://scripts/forest/crowd/army_runtime.gd").new();runtime.configure(null)
  for size in [.25,1.0,3.0]:
@@ -52,7 +53,7 @@ func run():
    check(actor.combat_segment_hit(actor.global_position+Vector3(0,size,-10),actor.global_position+Vector3(0,size,10),0),"Kind%d scaled body accepts an intersecting attack"%kind)
    check(not actor.combat_segment_hit(top+Vector3(0,.01,-10),top+Vector3(0,.01,10),0),"Kind%d scaled body rejects attacks above its head"%kind)
    actor.free()
-  check(Roles.height(2,size)==23.1 and Roles.height(4,size)==25,"Special enemies retain their own size")
+  check(Roles.height(2,size)==23.1 and is_equal_approx(Roles.height(4,size),25*Roles.MAP_ENEMY_SCALE),"Special enemies retain their own size")
   runtime.clear();var gun:int=runtime.spawn(1,0,1,Vector3.ZERO,100,1.3*size)
   var targets={"ids":PackedInt64Array([0]),"kinds":PackedInt32Array([0]),"positions":PackedVector3Array([Vector3(0,0,-10)]),"hp":PackedFloat32Array([500])}
   runtime.step(.8,{"targets":targets})

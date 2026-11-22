@@ -6,3 +6,4 @@ reloadable = false
 [libraries]
 macos.debug.single = "res://native/ed_psx_renderer/bin/libed_psx_renderer.macos.universal.dylib"
 macos.release.single = "res://native/ed_psx_renderer/bin/libed_psx_renderer.macos.universal.dylib"
+web.wasm32.threads = "res://native/ed_psx_renderer/bin/ed_psx_renderer.wasm"

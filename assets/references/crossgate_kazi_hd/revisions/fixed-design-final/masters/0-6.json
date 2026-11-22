@@ -1,0 +1,29 @@
+{
+  "source": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/long-blade/masters/0-6.png",
+  "source_sha256": "8b62472f2de73b7c08e2513cd5d0c12e070f9897b238531d5395c536df2bd7c6",
+  "approved_head_direction": 6,
+  "removed_marking_pixels": 9498,
+  "sha256": "5fa660155f7976a39b58bfcf78eb1ff20f419f63165b04063bb8a1e8d83e5003",
+  "preparer_sha256": "328604905978b20eeb6a4ecc87df0e23dc9ae15727770b6916261f980fc52318",
+  "source_frame_order": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "method": "Fixed approved head layer, uniform clip scale, existing skin palette; no new image generation"
+}

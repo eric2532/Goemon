@@ -101,6 +101,8 @@ func animate(delta:float,speed:float,grounded:bool,vertical:float,_attack:float,
  pose(clip if speed>.1 else semantic.idle,pose_clock*30*(maxf(.3,speed/(Roles.stats(role).speed*(Roles.Dark.SCALE if role==Roles.DARK_LUMINA_2 else 1.0))) if speed>.1 else 1),true)
 
 func animate_spell(delta:float,spell:Node):
+ if spell.spec.id==spell.Catalog.COMBO:
+  animate_qi_blast(delta,spell.controller.combo_progress());return
  body.rotation.y=0
  if spell.controller!=null and spell.controller.get("role")==role and spell.controller.get("clip")!="":
   cast_owner=spell;pose(spell.controller.clip,spell.controller.pose_tick,false)
@@ -125,3 +127,19 @@ func _process(delta:float):
    if before<63 and combat.pose_tick>=63:combat.dark_sound("death_final")
    if before<140 and combat.pose_tick>=140:combat.dark_sound("breakup")
   pose(combat.clip,combat.pose_tick,false)
+
+func qi_blast_height()->float:
+ return bounds().size.y*global_basis.y.length()
+
+func animate_qi_blast(_delta:float,progress:float):
+ body.rotation.y=0
+ if role==Roles.BOSS:
+  pose("Castle_Idle" if progress<0 else "801ade54",0 if progress<0 else qi_attack_time(progress,15,24),false)
+  return
+ var semantic:Dictionary=resource.get_meta("semantics")
+ if progress<0:pose(semantic.idle,0,false);return
+ var pattern:Dictionary=Roles.ATTACKS.get(role,{})
+ var clip=semantic.get(pattern.get("clip","attack"),semantic.attack)
+ var name_:String=clip[0] if clip is Array else clip
+ var contact:float=float(pattern.get("contact",13))
+ pose(name_,qi_attack_time(progress,contact,contact+5),false)

@@ -1,0 +1,14 @@
+{
+  "method": "Existing left-hip waist/arms and isolated blade; head/feet asserted unchanged; original diagonal coat and legs retained",
+  "sources": {
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/fixed-design-final/masters/5-2.png": "67e01a4f006684bba39e1c84645111b6179f5349113d79072f3a25865d4e6080",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/fixed-design-final/masters/5-1.png": "b9d0e950ac3721f4f4020f45d6c540a0a9c4723ad4947063ee7b3c87fe337410"
+  },
+  "frames": [
+    0,
+    1,
+    10
+  ],
+  "sha256": "90f16e2bf171a6a20e0db0b510328ebe041ed04897ce7d555176e91aed2a6241",
+  "preparer_sha256": "32e168364313f4e1e9b4da6080e13d6bd8c921331233102daabb3f9ff577a8a4"
+}

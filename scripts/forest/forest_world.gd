@@ -1,7 +1,9 @@
 extends Sanctuary
 signal worker_hammered(point:Vector3)
 const Profile=preload("res://scripts/forest/forest_structure_profile.gd")
+const Winter=preload("res://scripts/forest/forest_frostpass.gd")
 const Art=preload("res://scripts/forest/forest_art.gd")
+const HabaruLadder=preload("res://scripts/forest/forest_habaru_ladder.gd")
 var model
 var structure_nodes: Dictionary={}
 var worker_nodes: Dictionary={}
@@ -12,6 +14,7 @@ var ground_material: ShaderMaterial
 var revision=-1
 var vision_clock=0.0
 var rally_ring: MeshInstance3D
+var preview_space:Node3D
 var preview: Node3D
 var preview_mesh: MeshInstance3D
 var ghost_art: Node3D
@@ -24,9 +27,11 @@ var age=0.0
 var attack_materials:Array=[]
 var attack_range=preload("res://scripts/forest/player_attack_range.gd").new()
 var scenery_chunks:Dictionary={}
+var freyja_foliage:Node3D
 var forest_root: Node3D
 var deposit_root: Node3D
 var map_features: Node3D
+var habaru_ladder
 var portal_nodes: Array=[]
 var painterly_preview_enabled=false
 var painterly_pilot
@@ -34,9 +39,11 @@ var road_preview: MultiMeshInstance3D
 var portal_ghost: Node3D
 var base_ground:MeshInstance3D
 var base_ground_collision:StaticBody3D
+var terrain_rids:Array[RID]=[]
 var kai_materials:Array=[]
 var blood_gulch_materials:Array=[]
 var blood_gulch_environment
+var chamber_lighting:Array=[]
 func _ready():
 	descent_mode=false;playable_bounds=Rect2(-168,-168,336,336);spawn_point=Vector3(0,.1,18)
 	landmarks={"THE FOREST SHRINE":Vector3.ZERO}
@@ -46,7 +53,7 @@ func _ready():
 	env.background_mode=Environment.BG_COLOR;env.background_color=Color("435e4e")
 	env.ambient_light_source=Environment.AMBIENT_SOURCE_COLOR;env.ambient_light_color=Color("c3d9c7");env.ambient_light_energy=.65
 	env.tonemap_mode=Environment.TONE_MAPPER_FILMIC;environment_.environment=env;add_child(environment_)
-	var sun=DirectionalLight3D.new();sun.rotation_degrees=Vector3(-52,-35,0);sun.light_color=Color("ffe2b5");sun.light_energy=1.5;sun.shadow_enabled=true;sun.directional_shadow_max_distance=190;add_child(sun)
+	var sun=DirectionalLight3D.new();sun.rotation_degrees=Vector3(-52,-35,0);sun.light_color=Color("ffe2b5");sun.light_energy=.9 if OS.has_feature("web") else 1.5;sun.shadow_enabled=true;sun.directional_shadow_max_distance=190;add_child(sun)
 	ground_material=fog_material(Color("839956"),true)
 	base_ground=Geo.box(self,Vector3(-3,-.3,-3),Vector3(480,.6,480),ground_material)
 	base_ground_collision=Art.solid(self,Vector3(0,-1,0),Vector3(500,2,500),1,"leaves")
@@ -55,7 +62,8 @@ func _ready():
 	make_deposits()
 	make_map_features()
 	rally_ring=Geo.torus(self,Vector3.ZERO,29.8,30.05,Geo.mat("f4cf78",0,.6));rally_ring.hide()
-	preview=Node3D.new();add_child(preview)
+	preview_space=Node3D.new();preview_space.scale=Vector3.ONE*model.falan_scale;add_child(preview_space)
+	preview=Node3D.new();preview_space.add_child(preview)
 	var material=StandardMaterial3D.new();material.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA;material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;material.albedo_color=Color(.4,.9,.65,.28)
 	preview_mesh=Geo.box(preview,Vector3(0,.16,0),Vector3(6,.2,6),material)
 	ghost_material=material.duplicate();ghost_material.albedo_color.a=.35
@@ -65,17 +73,83 @@ func _ready():
 	painterly_pilot.set_enabled(painterly_preview_enabled and model.terrain_source!="wind_meadow")
 	apply_map_environment()
 func apply_map_environment():
+	get_parent().explorer_clock.restore()
+	restore_chamber_lighting()
 	if blood_gulch_environment==null:blood_gulch_environment=preload("res://scripts/forest/blood_gulch_environment.gd").new(self)
 	blood_gulch_environment.apply()
+	if model.terrain_source in ["wind_meadow","blood_gulch"]:
+		get_parent().explorer_clock.apply(self)
+		return
+	var environment_=get_world_3d().environment
+	if environment_==null:return
+	var freyja_room:bool=preload("res://assets/maps/falan/freyja_destinations_data.gd").TITLES.has(model.falan_floor)
+	var cave:bool=model.Dungeons.roofed(model.falan_floor)
+	var falken=preload("res://scripts/forest/forest_falken_route.gd")
+	var winter_room=Winter.INTERIORS.has(model.falan_floor) and model.falan_floor!=Winter.ROOF_GARDEN
+	var snow_cave=model.falan_floor in [Winter.SNOW_CAVE,Winter.ICE_VAULT]
+	var decree_room=Winter.Decree.owns(model.falan_floor) and model.falan_floor!=Winter.Decree.WEST_ROAD
+	var maze_depth=Winter.Decree.section_index(model.falan_floor)
+	var recovered=preload("res://scripts/forest/forest_original_maps.gd")
+	if recovered.owns(model.falan_floor) and recovered.outdoor(model.falan_floor):
+		environment_.background_color=Color("b0c8d7") if recovered.source_id(model.falan_floor) in [402,4300,4400,15522] or snow_cave else Color("435e4e")
+	elif model.falan_floor in falken.FLOORS or model.falan_floor==falken.ROOM:
+		environment_.background_color=Color("141414")
+	elif winter_room:
+		environment_.background_color=Color("292c32")
+	elif Winter.Decree.owns(model.falan_floor):
+		environment_.background_color=Color("111518") if maze_depth>=0 else Color("202029") if decree_room else Color("9cb3c3")
+	elif Winter.TITLES.has(model.falan_floor):
+		environment_.background_color=Color("b0c8d7") if Winter.HOUSES.has(model.falan_floor) or model.falan_floor in [Winter.TRAIL,Winter.COAST_ROAD,Winter.ROOF_GARDEN] else Color("202c3c")
+	elif model.falan_floor in [47014,47017]:
+		environment_.background_color=Color("172338")
+	else:
+		environment_.background_color=Color("211e18") if cave else Color("383129") if freyja_room else Color("435e4e")
+	if model.falan_floor==falken.ROOM or winter_room or snow_cave or decree_room:
+		for child in get_children():
+			if not child is DirectionalLight3D:continue
+			chamber_lighting=[environment_,environment_.ambient_light_energy,child,child.light_energy,environment_.ambient_light_color]
+			environment_.ambient_light_energy=.57 if winter_room else .48
+			child.light_energy=.59 if winter_room else .70
+			if snow_cave:
+				environment_.ambient_light_color=Color("bccbed")
+				child.light_energy=.34 if model.falan_floor==Winter.ICE_VAULT else .48
+			if decree_room:
+				environment_.ambient_light_color=Color("c0b4c8")
+				child.light_energy=.40
+			if maze_depth>=0:
+				var lower_maze=maze_depth>=4
+				environment_.ambient_light_color=Color("bbbfb6") if lower_maze else Color("c4c8c0")
+				environment_.ambient_light_energy=.24 if lower_maze else .29
+				child.light_energy=.20 if lower_maze else .24
+				if model.falan_floor not in Winter.Decree.GUARDIAN_FLOORS:
+					environment_.ambient_light_energy+=.035
+					child.light_energy+=.065
+			break
+	for node in map_features.find_children("*","GeometryInstance3D",true,false):
+		var material=node.material_override
+		if material is ShaderMaterial and material.get_shader_parameter("original_palette")==true:
+			material.set_shader_parameter("compensate_filmic",environment_.tonemap_mode==Environment.TONE_MAPPER_FILMIC)
+			material.set_shader_parameter("scene_exposure",environment_.tonemap_exposure)
+			material.set_shader_parameter("scene_white",environment_.tonemap_white)
+	get_parent().explorer_clock.apply(self)
+
 func restore_map_environment():
+	get_parent().explorer_clock.restore()
+	restore_chamber_lighting()
 	if blood_gulch_environment!=null:blood_gulch_environment.restore()
+func restore_chamber_lighting():
+	if chamber_lighting.is_empty():return
+	chamber_lighting[0].ambient_light_energy=chamber_lighting[1]
+	chamber_lighting[2].light_energy=chamber_lighting[3]
+	chamber_lighting[0].ambient_light_color=chamber_lighting[4]
+	chamber_lighting.clear()
 func set_painterly_preview(value: bool):
 	painterly_preview_enabled=value
 	restore_map_environment()
 	if painterly_pilot!=null:painterly_pilot.set_enabled(value and model.terrain_source!="wind_meadow")
 	apply_map_environment()
 func make_deposits():
-	deposit_root=Node3D.new();deposit_root.name="MapDeposits";add_child(deposit_root)
+	deposit_root=Node3D.new();deposit_root.name="MapDeposits";deposit_root.scale=Vector3.ONE*model.falan_scale;add_child(deposit_root)
 	for cell in model.deposits:
 		var node=Node3D.new();deposit_root.add_child(node);node.position=model.point(cell)+Vector3(6,0,3)
 		for i in range(5):
@@ -95,14 +169,17 @@ func reload_map():
 		for node in nodes.values():
 			remove_child(node);node.queue_free()
 		nodes.clear()
+	if is_instance_valid(freyja_foliage) and freyja_foliage.get_parent()!=self:
+		freyja_foliage.hide();freyja_foliage.reparent(self,false)
 	for node in [forest_root,deposit_root,map_features]:
 		if is_instance_valid(node):remove_child(node);node.queue_free()
 	deposit_nodes.clear();fog_materials=[ground_material]
+	preview_space.scale=Vector3.ONE*model.falan_scale
 	make_forest();make_deposits();make_map_features();revision=-1;preview.hide();sync(0);update_fog()
 	if painterly_pilot!=null:painterly_pilot.set_enabled(painterly_preview_enabled and model.terrain_source!="wind_meadow")
 	apply_map_environment()
 func can_reuse_map(next_model)->bool:
-	for key in ["terrain_source","terrain_scale","map_expansion","raised_castle","roads","portals","deposits"]:
+	for key in ["terrain_source","terrain_detail","falan_area","falan_floor","terrain_scale","map_expansion","raised_castle","roads","portals","deposits"]:
 		if model.get(key)!=next_model.get(key):return false
 	if model.terrain_source!="wind_meadow" and model.ramparts!=next_model.ramparts:return false
 	return true
@@ -113,6 +190,7 @@ func reload_terrain_routes():
 		map_features.remove_child(old);old.queue_free()
 	preload("res://scripts/forest/forest_rampart_art.gd").build(self,map_features)
 func reload_preview(previous):
+	if previous.has_meta("cave_combat_walls"):model.set_meta("cave_combat_walls",previous.get_meta("cave_combat_walls"))
 	for id in structure_nodes.keys():
 		if previous.buildings.get(id)!=model.buildings.get(id):
 			var node=structure_nodes[id];remove_child(node);node.queue_free();structure_nodes.erase(id)
@@ -133,18 +211,56 @@ func make_portal(portal: Dictionary)->Node3D:
 	root.add_child(preload("res://scripts/forest/halo_teleporter.gd").build())
 	return root
 func make_map_features():
+	habaru_ladder=null
 	playable_bounds=Rect2(-234,-234,468,468) if model.has_elevation() else Rect2(-168,-168,336,336)
 	if model.terrain_source=="blood_gulch":playable_bounds=Rect2(Vector2(-234,-234)*model.terrain_scale,Vector2(468,468)*model.terrain_scale)
-	map_features=Node3D.new();map_features.name="AuthoredMapFeatures";add_child(map_features);portal_nodes.clear()
+	map_features=Node3D.new();map_features.name="AuthoredMapFeatures";map_features.scale=Vector3.ONE*model.falan_scale;add_child(map_features);portal_nodes.clear()
 	kai_materials.clear();blood_gulch_materials.clear();attack_materials.clear()
 	var meadow=model.terrain_source=="wind_meadow"
 	var kai=model.terrain_source=="kai_highway"
 	var blood_gulch=model.terrain_source=="blood_gulch"
+	base_ground_collision.scale=Vector3.ONE*model.falan_scale
 	base_ground.visible=not (kai or blood_gulch or meadow);base_ground_collision.collision_layer=0 if kai or blood_gulch or meadow else 1
+	model.remove_meta("cave_combat_walls")
+	if model.falan_area=="interior":
+		base_ground.hide()
+		playable_bounds=model.world_bounds().grow(-3)
+		var indoor=preload("res://scripts/forest/forest_falan_interior.gd")
+		var cave_walls=indoor.build(map_features,model.falan_floor,model.seed_value)
+		if indoor.Original.owns(model.falan_floor):base_ground_collision.collision_layer=0
+		if indoor.Dungeons.roofed(model.falan_floor):
+			indoor.build_ceiling(map_features,model.falan_floor)
+		var stair_cells:Array=[indoor.Prayer.stairs(model.falan_floor,model.seed_value)[1]] if model.falan_floor in indoor.Prayer.FLOORS else indoor.RoomArt.HabaruStairs.DOWN_CELLS.get(model.falan_floor,[])
+		if not stair_cells.is_empty() or model.falan_floor==HabaruLadder.CHAMBER:
+			base_ground_collision.collision_layer=0
+			var openings:Array[Vector2]=[]
+			for cell:Vector2i in stair_cells:openings.append(indoor.floor_info(model.falan_floor)[1]+Vector2(cell)*3.0)
+			if model.falan_floor==HabaruLadder.CHAMBER:openings.append(HabaruLadder.HATCH)
+			for body in HabaruLadder.split_slab(map_features,Rect2(-250,-250,500,500),openings,-1.0,2.0):
+				body.set_meta("halo_ground_model",model)
+		if model.falan_floor==HabaruLadder.CHAMBER:
+			var basement=Node3D.new()
+			basement.name="HabaruBasement"
+			var offset=HabaruLadder.HATCH-HabaruLadder.LOWER_HATCH
+			basement.position=Vector3(offset.x,-HabaruLadder.DEPTH,offset.y)
+			map_features.add_child(basement)
+			indoor.build(basement,HabaruLadder.BASEMENT,model.seed_value)
+			indoor.build_ceiling(basement,HabaruLadder.BASEMENT,HabaruLadder.BASEMENT_CELL)
+			habaru_ladder=HabaruLadder.new()
+			habaru_ladder.name="HabaruLadder"
+			habaru_ladder.position=Vector3(HabaruLadder.HATCH.x,0,HabaruLadder.HATCH.y)
+			map_features.add_child(habaru_ladder)
+			habaru_ladder.build()
+		if not cave_walls.is_empty():model.set_meta("cave_combat_walls",cave_walls)
+		preload("res://scripts/forest/forest_falan_tour.gd").build_markers(map_features,model)
 	if meadow:preload("res://scripts/forest/forest_wind_meadow_art.gd").build(self,map_features)
 	if kai:preload("res://scripts/forest/forest_kai_highway_art.gd").build(self,map_features)
 	if blood_gulch:preload("res://scripts/forest/forest_blood_gulch_art.gd").build(self,map_features)
-	preload("res://scripts/forest/forest_rampart_art.gd").build(self,map_features)
+	terrain_rids=[base_ground_collision.get_rid()]
+	for body:StaticBody3D in map_features.find_children("*","StaticBody3D",true,false):
+		if body.get_meta("original_map_ground",false):body.set_meta("halo_ground_model",model)
+		if body.has_meta("halo_ground_model") or body.get_meta("snow_mountain_ground",false):terrain_rids.append(body.get_rid())
+	if model.falan_floor!=Winter.TRAIL:preload("res://scripts/forest/forest_rampart_art.gd").build(self,map_features)
 	if not model.roads.is_empty() and not meadow:
 		var batch=MultiMeshInstance3D.new();batch.name="RoadTiles";batch.multimesh=MultiMesh.new();batch.multimesh.transform_format=MultiMesh.TRANSFORM_3D
 		var tile=BoxMesh.new();tile.size=Vector3(6,.05,6);batch.multimesh.mesh=tile;batch.multimesh.use_colors=kai;batch.multimesh.instance_count=model.roads.size();batch.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
@@ -161,13 +277,28 @@ func make_map_features():
 			index+=1
 	if model.has_enemy_camps():
 		playable_bounds=Rect2(Vector2(-234,-234)*model.terrain_scale*model.map_expansion,Vector2(468,468)*model.terrain_scale*model.map_expansion)
-		preload("res://scripts/forest/forest_camp_prototype.gd").build(self)
+		if model.falan_road.is_empty():preload("res://scripts/forest/forest_camp_prototype.gd").build(self)
+	if model.falan_road=="east_gate":playable_bounds=model.terrain.mask_bounds()
+	playable_bounds=Rect2(playable_bounds.position*model.falan_scale,playable_bounds.size*model.falan_scale)
+	if model.terrain_detail==model.Arena.ID:
+		playable_bounds=model.terrain.arena_bounds()
 		return
+	if model.has_enemy_camps():return
 	for portal in model.portals:
 		var node=make_portal(portal);node.position=model.point(Vector2i(portal.x,portal.z));map_features.add_child(node);portal_nodes.append(node)
-func height_at(x: float,z: float)->float:return model.surface_height(x,z)
-func raw_height(x: float,z: float)->float:return model.surface_height(x,z)
-func surface_height_at(p: Vector3)->float:return model.surface_height(p.x,p.z)
+func height_at(x: float,z: float)->float:return model.world_height(x,z)
+func raw_height(x: float,z: float)->float:return model.world_height(x,z)
+func surface_height_at(p: Vector3)->float:return model.world_height(p.x,p.z)
+func submerged(point:Vector3)->bool:
+	if model.terrain.has_method("water_walkable") and model.terrain.water_walkable():return false
+	return model.terrain.has_method("submerged") and model.terrain.submerged(point/model.falan_scale)
+func water_support_height(point:Vector3)->float:
+	var terrain=model.terrain
+	if not terrain.has_method("water_walkable") or not terrain.water_walkable():return NAN
+	var at=Vector2(point.x,point.z)/model.falan_scale
+	if not terrain.mask_bounds().has_point(at):return NAN
+	var pond=terrain.variant=="city" and terrain.CITY_POND.has_point(at)
+	return (terrain.CITY_POND_WATER if pond else terrain.WATER_HEIGHT)*model.falan_scale
 func _process(_delta):pass
 func fog_material(color: Color,ground_: bool=false)->ShaderMaterial:
 	var mat=ShaderMaterial.new();mat.shader=preload("res://scripts/forest/forest_fog.gdshader")
@@ -175,7 +306,7 @@ func fog_material(color: Color,ground_: bool=false)->ShaderMaterial:
 	mat.set_shader_parameter("ground_surface",ground_)
 	fog_materials.append(mat);return mat
 func make_forest():
-	forest_root=Node3D.new();forest_root.name="MapForest";add_child(forest_root);scenery_chunks.clear()
+	forest_root=Node3D.new();forest_root.name="MapForest";forest_root.scale=Vector3.ONE*model.falan_scale;add_child(forest_root);scenery_chunks.clear()
 	if model.terrain_source=="wind_meadow":
 		preload("res://scripts/forest/forest_wind_meadow_art.gd").trees(self,forest_root);return
 	make_rocks()
@@ -332,7 +463,7 @@ func sync(delta: float):
 				structure_nodes[b.id].queue_free();structure_nodes.erase(b.id)
 			if not structure_nodes.has(b.id):
 				var visual=building_visual(b);visual.wall_extensions=extensions
-				var node=Art.building(visual);add_child(node);node.position=model.center(b);structure_nodes[b.id]=node
+				var node=Art.building(visual);add_child(node);node.position=model.center(b)*model.falan_scale;node.scale=Vector3.ONE*model.falan_scale;structure_nodes[b.id]=node
 				node.set_meta("wall_extensions",extensions);node.set_meta("wall_rotation",b.rotation)
 				if b.kind=="gate":node.set_meta("gate_outward",model.waves.navigation.gate_outward(b))
 				if b.kind in ["mine","barracks"]:
@@ -344,8 +475,9 @@ func sync(delta: float):
 	for b in model.buildings.values():
 		if b.kind in ["mine","barracks"]:
 			var health=structure_nodes[b.id].get_node("Health");health.visible=b.hp<b.max_hp;health.scale.x=maxf(.01,b.hp/b.max_hp)
+		if b.kind=="gate" and b.get("freyja_arch",false):continue
 		if b.kind=="gate":
-			var center_:Vector3=model.center(b)
+			var center_:Vector3=model.center(b)*model.falan_scale
 			var open_=model.hero_position.distance_to(center_)<10
 			if not open_:
 				for w in model.workers.values():
@@ -393,13 +525,16 @@ func sync(delta: float):
 			material.set_shader_parameter("compensate_filmic",environment_.tonemap_mode==Environment.TONE_MAPPER_FILMIC)
 			material.set_shader_parameter("scene_exposure",environment_.tonemap_exposure);material.set_shader_parameter("scene_white",environment_.tonemap_white)
 	var game=get_parent()
-	var radius=attack_range.radius(game.player) if game.get("player")!=null and game.playing and model.phase=="wave" and game.player.hp>0 and not game.transitioning else 0.0
+	var show_range=game.get("player")!=null and game.playing and model.phase=="wave" and game.player.hp>0 and not game.transitioning and not Hero.RogueRoster.is_crossgate_fighter(game.player.character_id)
+	var radius=attack_range.radius(game.player) if show_range else 0.0
+	# The battle model samples the hero less often than the camera presents movement.
+	var center:Vector3=game.player.global_position if radius>0.0 else Vector3.ZERO
 	for material in attack_materials:
-		material.set_shader_parameter("attack_center",Vector2(model.hero_position.x,model.hero_position.z))
+		material.set_shader_parameter("attack_center",Vector2(center.x,center.z))
 		material.set_shader_parameter("attack_radius",radius)
 	if vision_clock<=0:update_fog();vision_clock=.2
 	rally_ring.visible=model.workforce!=null and model.workforce.held and model.phase=="wave"
-	rally_ring.position=Vector3(model.hero_position.x,model.surface_height(model.hero_position.x,model.hero_position.z)+.15,model.hero_position.z)
+	rally_ring.position=Vector3(model.hero_position.x,model.world_height(model.hero_position.x,model.hero_position.z)+.15,model.hero_position.z)
 
 func show_wall_preview(cells: Array,rotation_: int,valid: bool):
 	if cells.is_empty():return

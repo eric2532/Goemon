@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <g id="bear" stroke="#172329" stroke-width="3" stroke-linejoin="round">
+      <path d="M-18-29C-29-39-37-25-29-18C-34-10-32-1-29 5C-39 12-43 29-39 38C-36 44-30 42-26 35L-24 29L-25 52Q-25 59-15 58L-5 57L0 38L5 57L15 58Q25 59 25 52L24 29L26 35C30 42 36 44 39 38C43 29 39 12 29 5C32-1 34-10 29-18C37-25 29-39 18-29Q0-37-18-29Z"/>
+      <path d="M-15-7Q0-17 15-7Q18 7 0 12Q-18 7-15-7Z" fill="#172329" stroke="none" opacity=".65"/>
+      <path d="M-6-6Q0-10 6-6L0 0Z" fill="#172329" stroke="none"/>
+    </g>
+  </defs>
+  <use href="#bear" transform="translate(33 32) scale(.72)" fill="#78918c"/>
+  <use href="#bear" transform="translate(95 32) scale(.72)" fill="#a5b8a5"/>
+  <use href="#bear" transform="translate(64 66) scale(.95)" fill="#efdab0"/>
+</svg>

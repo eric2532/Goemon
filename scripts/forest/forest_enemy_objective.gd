@@ -144,7 +144,7 @@ func take_hit(amount:float,_direction:Vector3,heavy:bool,ticket:Dictionary={}):
 	var point=combat_contact_point(origin+Vector3.UP*2)
 	if is_instance_valid(castle_impact):game.wall_audio.impact({"id":-1000-objective_index*100-section_index,"point":point,"damage":minf(amount,hp),"max_hp":max_hp,"destroyed":amount>=hp})
 	game.model.damage_enemy_objective(objective_index,amount,section_index);sync()
-	game.damage_number(point,ceili(amount),heavy)
+	if not ticket.get("quiet_contact",false):game.damage_number(point,ceili(amount),heavy)
 	if is_instance_valid(castle_impact):
 		castle_impact.play(to_local(point),dead,section_index<0)
 		if not dead:

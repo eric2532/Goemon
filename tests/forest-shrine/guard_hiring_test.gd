@@ -66,11 +66,12 @@ func run():
  var units=h.active_units()
  check(units.size()==15 and units.all(func(u):return army.valid(u.handle) and u.hp==h.HEALTH[u.slot]),"All fifteen recruits own living native units with their original HP")
  check(units.all(func(u):return Vector2(u.guard_post.x-shrine.x,u.guard_post.z-shrine.z).length()<43),"All recruits spawn near the castle despite the distant player and pointer")
- var separated=true
+ var nearest_post_gap=INF
  for i in units.size():
   for j in i:
-   if units[i].position.distance_to(units[j].position)<1.4:separated=false
- check(separated,"Automatic spawn positions keep allies separated")
+   var offset:Vector3=units[i].guard_post-units[j].guard_post
+   nearest_post_gap=minf(nearest_post_gap,Vector2(offset.x,offset.z).length())
+ check(nearest_post_gap>=7.9,"Automatic rest posts visibly spread out the recruits (closest pair %.2f m apart)"%nearest_post_gap)
  await capture("all-five-recruited")
  gold=game.model.gold;var count=units.size()
  game.model.gold=0;tap(KEY_5);await settle()
@@ -125,7 +126,7 @@ func run():
   check(runtime.unit_state(guard).position.distance_to(Vector3.ZERO)<1,h.NAMES[slot]+" returns home when no enemies remain")
  runtime.free()
  game.model.phase="preparing";h.rest()
- check(units.map(func(u):return u.guard_post)==posts,"Surviving defenders retain their posts next preparation")
+ check(units.map(func(u):return u.guard_post)==posts and units.all(func(u):return u.position==u.guard_post),"Surviving defenders return to their scattered posts next preparation")
  await finish()
 func finish():
  if is_instance_valid(game):game.sound_library.cancel();game.music.stop();game.queue_free()

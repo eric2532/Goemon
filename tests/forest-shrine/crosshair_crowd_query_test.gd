@@ -25,6 +25,15 @@ func verify(expected:Vector3,label_:String,max_queries:int):
  var actual:Vector3=game.crosshair_target()
  check(actual.distance_to(expected)<.01,label_+" retains the exact ray contact (actual %s, expected %s)"%[actual,expected])
  check(game.visibility_queries<=max_queries,label_+" inspects only ray contacts (%d queries)"%game.visibility_queries)
+func verify_pointer_tip(camera:Camera3D,label_:String):
+ var screen:Vector2=game.crosshair_screen_position()
+ var hit:Dictionary=game.crosshair_ray_hit()
+ check(camera.unproject_position(hit.position).distance_to(screen)<.05,label_+" uses the exact ray point on screen")
+ if DisplayServer.get_name()=="headless":return
+ await RenderingServer.frame_post_draw
+ var frame=root.get_texture().get_image()
+ var pixel=frame.get_pixelv(frame.get_size()/2)
+ check(minf(pixel.r,minf(pixel.g,pixel.b))>.95,label_+" renders its bright tip over the aim point (%s)"%pixel)
 func run():
  root.size=Vector2i(1280,800)
  var doc=load("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_original()
@@ -33,6 +42,7 @@ func run():
  await frames()
  game.start_wave();game.model.waves.spawn_clock=100000
  game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
+ game.camera_rig.set_process_unhandled_input(false)
  game.player.set_auto_attack(false);game.player.position=Vector3(0,300,0)
  var camera:Camera3D=game.camera_rig.camera
  camera.global_position=Vector3(0,301.1,10);camera.look_at(Vector3(0,301.1,-100))
@@ -56,6 +66,46 @@ func run():
  wall.queue_free();middle.queue_free();game.enemies.erase(middle);near.queue_free();game.enemies.erase(near)
  await frames()
  verify(Vector3(0,height,-35),"Deleted front enemies",1)
+ check(game.forest_ui.attack_pointer_active and not game.aimed_enemy_in_melee_range(game.crosshair_ray_hit()),"The pointer shows a selectable enemy beyond melee reach")
+ var row:Dictionary=game.model.waves.spawn_enemy(0,Vector3(0,300,-3))
+ game.army_runtime.import_arrivals()
+ var soldier:Ninja=game.actors[row.id]
+ var cell:Vector2i=game.model.cell_of(soldier.position)
+ game.model.visible_cells[cell]=true
+ await frames()
+ check(game.forest_ui.attack_pointer_active,"A visible native soldier under the aim point shows the sword")
+ camera.look_at(Vector3(10,height,-3));await frames()
+ check(not game.forest_ui.attack_pointer_active,"A nearby enemy off the aim point keeps the arrow")
+ camera.look_at(Vector3(0,height,-100))
+ var cover=StaticBody3D.new();cover.collision_layer=1;cover.position=Vector3(0,height,-1.5)
+ var blocker=CollisionShape3D.new();blocker.shape=BoxShape3D.new();blocker.shape.size=Vector3(2,2,.2)
+ cover.add_child(blocker);game.add_child(cover);await frames()
+ check(not game.forest_ui.attack_pointer_active,"Cover between the fighter and enemy keeps the arrow")
+ cover.queue_free();game.model.visible_cells.clear();await frames()
+ check(not game.forest_ui.attack_pointer_active,"When all enemies on the ray are hidden, the pointer shows the arrow")
+ game.model.visible_cells[cell]=true;await frames()
+ check(game.forest_ui.attack_pointer_active,"Revealing the same enemy restores the sword")
+ game.player.position.z=8;await frames()
+ check(game.forest_ui.attack_pointer_active and not game.aimed_enemy_in_melee_range(game.crosshair_ray_hit()),"Backing out of melee reach keeps the sword on the same selectable enemy")
+ game.character_tuning={"kazi":{"melee_reach":3.0}};await frames()
+ check(game.forest_ui.attack_pointer_active and game.aimed_enemy_in_melee_range(game.crosshair_ray_hit()),"Increasing the equipped fighter's reach brings the soldier into range")
+ game.character_tuning={};game.player.position.z=0
+ game.player.select_character(game.player.RogueRoster.LANCELOT_ID);await frames()
+ check(game.player.active_ability.primary_is_ranged() and game.forest_ui.attack_pointer_active,"A ranged fighter sees the same cue for a selectable enemy")
+ game.player.select_character(34);await frames()
+ check(game.forest_ui.attack_pointer_active and game.aimed_enemy_in_melee_range(game.crosshair_ray_hit()),"Returning to Kaz keeps the cue over an enemy in melee reach")
+ game.player.position.z=8
+ game.player.select_character(game.player.RogueRoster.SHIN_ID);await frames()
+ check(game.forest_ui.attack_pointer_active and not game.aimed_enemy_in_melee_range(game.crosshair_ray_hit()),"Shin shows the sword over an enemy he can chase beyond melee reach")
+ await verify_pointer_tip(camera,"The sword")
+ camera.look_at(Vector3(10,height,-3));await frames()
+ check(not game.forest_ui.attack_pointer_active,"Shin shows the arrow when its tip moves off the target")
+ root.size=Vector2i(960,640);camera.h_offset=.20;camera.v_offset=-.12;await frames()
+ await verify_pointer_tip(camera,"The arrow in a resized view with camera offsets")
+ camera.h_offset=0;camera.v_offset=0;camera.look_at(Vector3(0,height,-100))
+ game.enemies.erase(far);far.queue_free();await frames()
+ soldier.mark_dead();await frames()
+ check(not game.forest_ui.attack_pointer_active,"A defeated enemy stops showing the sword")
  var cfg:String=game.settings_path
  game.sound_library.cancel();game.music.stop();game.queue_free();paused=false;await frames()
  if FileAccess.file_exists(cfg):DirAccess.remove_absolute(ProjectSettings.globalize_path(cfg))

@@ -9,6 +9,7 @@ namespace army {
 struct NavigationData {
     int width=0;
     float spacing=3;
+    float route_spacing=6;
     Vec3 origin{-240,0,-240};
     Vec3 bounds_min{-1e8f,0,-1e8f},bounds_max{1e8f,0,1e8f};
     std::vector<float> heights,pieces;
@@ -35,10 +36,11 @@ public:
     void configure(NavigationData data,const Terrain* shared_air=nullptr);
     mutable AirQueryWork air_profile;
     mutable NavigationWork navigation_profile;
-    Vec3 move(Vec3 from,Vec3 goal,float speed,float delta,float radius,int& layer,bool& routing,Vec3 avoidance={},float lane=0);
+    Vec3 move(Vec3 from,Vec3 goal,float speed,float delta,float radius,int& layer,bool& routing,Vec3 avoidance={},float lane=0,Vec3 sidestep={});
     double height(float x,float z,int layer=0) const;
     bool clear(Vec3 point,float radius,int layer) const;
     bool reachable(Vec3 from,Vec3 goal,float radius,int layer);
+    bool prepare_routes(const std::vector<float>& radii);
     bool segment(Vec3 from,Vec3 to,float radius,int layer) const;
     int choose_layer(Vec3 point) const;
     bool ray_clear(Vec3 from,Vec3 to,int64_t ignore=-1) const;
@@ -88,6 +90,7 @@ private:
     bool swept_obstacles_clear(Vec3 from,Vec3 to,float radius) const;
     Topology& topology(float radius,int layer);
     void refresh_topology(Topology& grid,int x0,int z0,int x1,int z1);
+    bool reachable(Vec3 from,Vec3 goal,float radius,int layer,bool components_first);
     Vec3 waypoint(Vec3 from,Vec3 goal,float radius,int layer);
 };
 }

@@ -5,6 +5,7 @@ const Scenery=preload("res://scripts/forest/forest_scenery.gd")
 const Kit=preload("res://scripts/forest/forest_environment_kit.gd")
 const WIND_MEADOW_LARGE_PATH="res://assets/maps/forest_wind_meadow_large.json"
 const WIND_MEADOW_PATH="res://assets/maps/forest_wind_meadow.json"
+const WEB_FALAN_PATH="res://assets/maps/falan/web_adventure.json"
 const MAP_FOLDER="user://forest_maps"
 const MAX_BYTES=524288
 const KINDS=["tower","cannon_tower","wall","gate","mine","barracks","tree","rock","deposit","portal","road"]
@@ -24,6 +25,10 @@ func encode()->String:return JSON.stringify(data)
 func capture(model):
 	data={"format":"forest_shrine_map","schema":1,"title":"My Forest Map","buildings":[],"trees":[],"deposits":[],"portals":model.portals.map(func(p):return {"x":p.x,"z":p.z,"rotation":p.rotation}),"ramparts":model.ramparts.duplicate(true),"roads":[]}
 	if not model.terrain_source.is_empty():data.terrain_source=model.terrain_source
+	if not model.terrain_detail.is_empty():data.terrain_detail=model.terrain_detail
+	if not model.falan_area.is_empty():data.falan_area=model.falan_area
+	if model.falan_area=="interior":data.falan_floor=model.falan_floor
+	if not model.falan_areas.is_empty():data.falan_areas=model.falan_areas.duplicate(true)
 	if model.terrain_source in ["blood_gulch","wind_meadow"] and not is_equal_approx(model.terrain_scale,1.0):data.terrain_scale=model.terrain_scale
 	if model.map_expansion!=1.0:data.map_expansion=model.map_expansion
 	if model.raised_castle:data.raised_castle=true
@@ -84,6 +89,28 @@ static func validate(value)->String:
 	var expansion=value.get("map_expansion",1.0)
 	if not (expansion is float or expansion is int) or expansion not in Model.WindMeadowTerrain.EXPANSIONS:return "Unsupported map expansion."
 	if expansion!=1.0 and value.get("terrain_source","")!="wind_meadow":return "Map expansion requires Wind Meadow Valley."
+	var area=value.get("falan_area","")
+	if not area is String:return "Unsupported Falan area."
+	var detail=value.get("terrain_detail","")
+	if not detail is String or detail not in ["",Model.FreyjaTerrain.ID,Model.Arena.ID]:return "Unsupported terrain detail."
+	if detail==Model.Arena.ID and (value.get("terrain_source","")!="wind_meadow" or scale_ not in [2.0,3.0] or raised or not area.is_empty()):return "The arena requires Standard or Large Wind Meadow terrain."
+	if detail==Model.Arena.ID and (not value.get("portals",[]) is Array or value.portals.size()!=4):return "Keep four arena entrances."
+	if detail==Model.FreyjaTerrain.ID and (value.get("terrain_source","")!="wind_meadow" or scale_!=2.0 or expansion!=1.0 or raised):return "Freyja's shoreline uses Standard Wind Meadow terrain."
+	var freyja=Model.FreyjaTerrain.Regions
+	if not area is String or (area not in ["","city","castle","east_gate","south_gate","interior"] and not freyja.has_land(area)):return "Unsupported Falan area."
+	if area=="interior":
+		var floor_=value.get("falan_floor",0)
+		if not integer(floor_,0,999999) or (floor_!=0 and not preload("res://assets/maps/falan/interior_data.gd").FLOORS.has(int(floor_)) and not freyja.Sites.ROOMS.has(int(floor_)) and not preload("res://scripts/forest/forest_black_prayer.gd").owns(int(floor_)) and not preload("res://scripts/forest/forest_original_maps.gd").owns(int(floor_))):return "Unsupported Falan interior."
+		if value.get("terrain_source","")!="" or not detail.is_empty():return "Falan interiors use a flat foundation."
+	elif not area.is_empty() and (value.get("terrain_source","")!="wind_meadow" or not detail.is_empty() or scale_!=2.0 or expansion!=1.0 or raised):return "Falan uses its own fixed terrain."
+	if value.has("falan_areas"):
+		var linked=value.falan_areas
+		if detail!=Model.FreyjaTerrain.ID or not linked is Dictionary or linked.size()!=4:return "Invalid Freyja and Falan adventure."
+		for key in ["city","castle","east_gate","south_gate"]:
+			var child=linked.get(key)
+			if not child is Dictionary or child.get("falan_area")!=key or child.has("falan_areas"):return "Invalid linked Falan area."
+			var linked_error=validate(child)
+			if not linked_error.is_empty():return linked_error
 	var region=Model.region_for(value.get("terrain_source",""),float(scale_)*expansion);var low=region.position.x+1;var high=region.end.x-1
 	var build_region=Model.building_region_for(value.get("terrain_source",""),float(scale_)*expansion)
 	for key in ["buildings","trees","deposits"]:
@@ -93,14 +120,18 @@ static func validate(value)->String:
 		if value.has(key) and not value[key] is Array:return "Invalid portal or road list."
 	if value.get("portals",[]).size()>16 or value.get("roads",[]).size()>8192:return "Use at most 16 portals and 8192 road tiles."
 	if value.get("rocks",[]).size()+value.get("props",[]).size()>4096:return "Use at most 4096 rocks."
-	if value.get("terrain_source","")=="wind_meadow" and value.get("portals",[]).size()<4:return "The valley needs at least four enemy strongholds."
+	if value.get("terrain_source","")=="wind_meadow" and area.is_empty() and value.get("portals",[]).size()<4:return "The valley needs at least four enemy strongholds."
 	var terrain_error=Model.Ramparts.validation_error(value.get("ramparts",[]),region)
 	if not terrain_error.is_empty():return terrain_error
 	terrain_error=Kit.validation_error(value.get("ramparts",[]))
 	if not terrain_error.is_empty():return terrain_error
-	var terrain=Model.create_terrain(value.get("terrain_source",""),float(scale_),expansion,raised);terrain.configure(value.get("ramparts",[]))
-	for cell in [Vector2i(-1,-1),Vector2i(0,-1),Vector2i(1,-1),Vector2i(-1,0),Vector2i(0,0),Vector2i(1,0),Vector2i(-1,1),Vector2i(0,1),Vector2i(1,1),Vector2i(0,2),Vector2i(0,3)]:
-		if terrain.overlaps_tile(cell):return "Keep the base and hero start at ground level."
+	var terrain=Model.create_terrain(value.get("terrain_source",""),float(scale_),expansion,raised,detail,area);terrain.configure(value.get("ramparts",[]))
+	if freyja.has_land(area):
+		var start=freyja.entry_point(area)
+		if not terrain.disk_clear(Vector3(start.x,terrain.height(start.x,start.y),start.y),.7):return "Keep the trail entrance on dry ground."
+	else:
+		for cell in [Vector2i(-1,-1),Vector2i(0,-1),Vector2i(1,-1),Vector2i(-1,0),Vector2i(0,0),Vector2i(1,0),Vector2i(-1,1),Vector2i(0,1),Vector2i(1,1),Vector2i(0,2),Vector2i(0,3)]:
+			if terrain.overlaps_tile(cell):return "Keep the base and hero start at ground level."
 	var road_cells={}
 	for item in value.get("roads",[]):
 		if not item is Dictionary or not integer(item.get("x"),low,high) or not integer(item.get("z"),low,high):return "A road tile is outside the map."
@@ -108,7 +139,8 @@ static func validate(value)->String:
 		if road_cells.has(cell):return "Duplicate road tile."
 		road_cells[cell]=true
 	var model=Model.new();var occupied={};var deposits={};var structure_tops={};var scenery_boxes={};var scenery_tiles={}
-	for c in model.footprint("shrine",Vector2i(-1,-1),0):occupied[c]="shrine"
+	if not Model.uses_survival_rules(area,detail):
+		for c in model.footprint("shrine",Vector2i(-1,-1),0):occupied[c]="shrine"
 	for group in ["deposits","buildings","portals","trees","rocks","props"]:
 		for item in value.get(group,[]):
 			if not item is Dictionary or not integer(item.get("x"),low,high) or not integer(item.get("z"),low,high):return "An object is outside the map."
@@ -134,7 +166,7 @@ static func validate(value)->String:
 					structure_tops[tile]=top
 			elif group=="portals":
 				if not integer(item.get("rotation"),0,3):return "Invalid portal rotation."
-				var portal=item.duplicate();portal.castle=value.get("terrain_source","")=="wind_meadow" and scale_ in [2.0,3.0]
+				var portal=item.duplicate();portal.castle=value.get("terrain_source","")=="wind_meadow" and detail!=Model.Arena.ID and scale_ in [2.0,3.0]
 				for tile in Model.portal_cells(portal):
 					if tile.x<low or tile.x>high or tile.y<low or tile.y>high or occupied.has(tile):return "Keep the portal arch and exit clear of objects and protected ground."
 					occupied[tile]="portal"
@@ -146,7 +178,13 @@ static func validate(value)->String:
 				if (group in ["rocks","props"] or item.has("rotation")) and (not (rotation is float or rotation is int) or not is_finite(float(rotation)) or rotation<0 or rotation>=360):return "Scenery rotation must be between 0° and 359°."
 				var height=item.get("height",0)
 				if not (height is int or height is float) or not is_finite(float(height)) or height<0 or height>Scenery.MAX_HEIGHT:return "Scenery height must be between 0 and 256 metres."
-				var box=Scenery.bounds(item.kind if group=="props" else ("tree" if group=="trees" else "rock"),float(scale_value),float(rotation))
+				var kind:String=item.kind if group=="props" else ("tree" if group=="trees" else "rock")
+				if terrain is Model.FreyjaTerrain:
+					# These exact retired markers are already replaced by the source garden plan.
+					if terrain.variant=="city" and kind=="tree" and Model.CityGardens.is_legacy(item,Model.CityGardens.Data.LEGACY_TREES):continue
+					if Model.FalanFrontier.replaces_saved_scenery(terrain.variant,c,kind,float(scale_value),float(rotation),float(height)):continue
+					if not terrain.contains(c.x*6,c.y*6):return "Place scenery on dry ground."
+				var box=Scenery.bounds(kind,float(scale_value),float(rotation))
 				var cells=Scenery.footprint(c,box)
 				box.position+=Vector3(c.x*6,terrain.height(c.x*6,c.y*6)+height,c.y*6)
 				for tile in cells:
@@ -223,6 +261,7 @@ func scenery_error(kind:String,cell:Vector2i,rotation:float,scale_:float,ignore=
 	if not is_finite(rotation) or rotation<0 or rotation>=360:return "Scenery rotation must be between 0° and 359°."
 	if not is_finite(height) or height<0 or height>Scenery.MAX_HEIGHT:return "Scenery height must be between 0 and 256 metres."
 	var model=validation_model();var region:Rect2i=model.navigation_region
+	if model.terrain is Model.FreyjaTerrain and not model.terrain.contains(cell.x*6,cell.y*6):return "Place scenery on dry ground."
 	var box=Scenery.bounds(kind,scale_,rotation);var cells=Scenery.footprint(cell,box)
 	box.position+=model.point(cell)+Vector3.UP*height
 	for tile in cells:
@@ -323,7 +362,7 @@ func paint_road(points: Array,width: int)->String:
 	var next=road_candidate(points,width)
 	if JSON.stringify(next)==encode():return ""
 	return _commit(next)
-func object_at(cell: Vector2i,anchor=null,terrain_index:int=-1)->Dictionary:
+func object_at(cell: Vector2i,anchor=null,terrain_index:int=-1,include_shrine:bool=true)->Dictionary:
 	if anchor!=null:
 		for group in Scenery.GROUPS:
 			for index in data.get(group,[]).size():
@@ -335,7 +374,7 @@ func object_at(cell: Vector2i,anchor=null,terrain_index:int=-1)->Dictionary:
 				if terrain_index<index+Kit.segments(item.kit.kind,Vector2(item.kit.x,item.kit.z),int(item.kit.rotation),float(item.kit.height)).size():return {"group":"ramparts","index":index}
 				break
 	var model=Model.new()
-	if cell in model.footprint("shrine",Vector2i(-1,-1),0):return {"group":"shrine","index":-1}
+	if include_shrine and cell in model.footprint("shrine",Vector2i(-1,-1),0):return {"group":"shrine","index":-1}
 	for i in range(data.portals.size()):
 		var portal=data.portals[i]
 		if cell in Model.portal_cells(portal):return {"group":"portals","index":i}
@@ -415,10 +454,7 @@ func save(folder: String=MAP_FOLDER)->String:
 	if not error.is_empty():return error
 	var encoded=encode()
 	if encoded.to_utf8_buffer().size()>MAX_BYTES:return "Map file is too large."
-	var stem=""
-	for letter in data.title.to_lower():stem+=letter if letter in "abcdefghijklmnopqrstuvwxyz0123456789-_" else "_"
-	stem=stem.left(32)+"-"+data.title.sha256_text().left(8)
-	var destination=folder.path_join(stem+".json")
+	var destination=folder.path_join(saved_filename(data.title))
 	if destination.begins_with("res://"):return "The bundled original is read-only."
 	if DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(folder))!=OK:return "Could not create the map folder."
 	var file=FileAccess.open(destination+".tmp",FileAccess.WRITE)
@@ -427,6 +463,10 @@ func save(folder: String=MAP_FOLDER)->String:
 	if result!=OK:return "Could not finish writing the map."
 	if DirAccess.rename_absolute(ProjectSettings.globalize_path(destination+".tmp"),ProjectSettings.globalize_path(destination))!=OK:return "Could not replace the saved map."
 	path=destination;saved_text=encode();return ""
+static func saved_filename(title:String)->String:
+	var stem=""
+	for letter in title.to_lower():stem+=letter if letter in "abcdefghijklmnopqrstuvwxyz0123456789-_" else "_"
+	return stem.left(32)+"-"+title.sha256_text().left(8)+".json"
 static func list_maps(folder: String=MAP_FOLDER)->Array:
 	var result=[]
 	if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(folder)):return result

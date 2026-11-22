@@ -1,0 +1,308 @@
+[
+  [
+    100050,
+    "Red Hair / Blue",
+    [
+      -18,
+      -80
+    ],
+    false
+  ],
+  [
+    100056,
+    "Blond / Green",
+    [
+      -18,
+      -80
+    ],
+    false
+  ],
+  [
+    100062,
+    "Brown Hair / Red",
+    [
+      -18,
+      -80
+    ],
+    false
+  ],
+  [
+    100068,
+    "Blue Hair / Charcoal",
+    [
+      -18,
+      -80
+    ],
+    false
+  ],
+  [
+    100175,
+    "Blond / Black and Red",
+    [
+      -18,
+      -80
+    ],
+    false
+  ],
+  [
+    100181,
+    "White Hair / Black and Red",
+    [
+      -18,
+      -80
+    ],
+    false
+  ],
+  [
+    100187,
+    "Blond / Silver and Red",
+    [
+      -18,
+      -80
+    ],
+    false
+  ],
+  [
+    100193,
+    "White Hair / Silver and Red",
+    [
+      -18,
+      -80
+    ],
+    false
+  ],
+  [
+    100200,
+    "Monochrome",
+    [
+      -18,
+      -80
+    ],
+    false
+  ],
+  [
+    100206,
+    "White Hair / Red",
+    [
+      -18,
+      -80
+    ],
+    false
+  ],
+  [
+    100212,
+    "White Hair / Charcoal and Red",
+    [
+      -18,
+      -80
+    ],
+    false
+  ],
+  [
+    100450,
+    "White Hair / Orange",
+    [
+      -18,
+      -79
+    ],
+    false
+  ],
+  [
+    100978,
+    "All White",
+    [
+      -18,
+      -79
+    ],
+    false
+  ],
+  [
+    105573,
+    "Red Hair / Charcoal",
+    [
+      -18,
+      -80
+    ],
+    false
+  ],
+  [
+    105610,
+    "White Hair / Violet",
+    [
+      -18,
+      -79
+    ],
+    false
+  ],
+  [
+    105616,
+    "White Hair / Yellow",
+    [
+      -18,
+      -79
+    ],
+    false
+  ],
+  [
+    105622,
+    "White Hair / Pink",
+    [
+      -18,
+      -79
+    ],
+    false
+  ],
+  [
+    105628,
+    "White Hair / Cyan",
+    [
+      -18,
+      -79
+    ],
+    false
+  ],
+  [
+    105634,
+    "White Hair / Black",
+    [
+      -18,
+      -79
+    ],
+    false
+  ],
+  [
+    105737,
+    "Dark Hair / Teal",
+    [
+      -18,
+      -80
+    ],
+    false
+  ],
+  [
+    105742,
+    "Blond / Violet",
+    [
+      -18,
+      -80
+    ],
+    false
+  ],
+  [
+    105748,
+    "Pink Hair / Navy",
+    [
+      -18,
+      -80
+    ],
+    false
+  ],
+  [
+    106707,
+    "Glowing Sword",
+    [
+      -28,
+      -78
+    ],
+    true
+  ],
+  [
+    109140,
+    "Ember Shields",
+    [
+      -59,
+      -78
+    ],
+    true
+  ],
+  [
+    111624,
+    "Gold Runes",
+    [
+      -60,
+      -78
+    ],
+    true
+  ],
+  [
+    111625,
+    "Gold Lightning",
+    [
+      -54,
+      -109
+    ],
+    true
+  ],
+  [
+    118986,
+    "Gold Crescents",
+    [
+      -86,
+      -114
+    ],
+    true
+  ],
+  [
+    118987,
+    "Yellow Flame",
+    [
+      -67,
+      -109
+    ],
+    true
+  ],
+  [
+    118993,
+    "Red Lightning",
+    [
+      -53,
+      -89
+    ],
+    true
+  ],
+  [
+    108313,
+    "Gold Polearm",
+    [
+      -39,
+      -79
+    ],
+    true
+  ],
+  [
+    120440,
+    "All White / Red Weapons",
+    [
+      -24,
+      -79
+    ],
+    true
+  ],
+  [
+    100055,
+    "Classic Spear",
+    [
+      -38,
+      -80
+    ],
+    true
+  ],
+  [
+    100053,
+    "Classic Sword",
+    [
+      -23,
+      -80
+    ],
+    true
+  ],
+  [
+    900050,
+    "水龍shin",
+    [
+      -25,
+      -80
+    ],
+    false
+  ]
+]

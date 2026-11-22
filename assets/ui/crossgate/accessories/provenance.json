@@ -1,0 +1,214 @@
+{
+  "source_library": "Preserved Cross Gate library, palette 0",
+  "selection_numbers": "Original accessory gallery numbering; footwear uses its original graphic serial",
+  "choices": [
+    {
+      "number": 22,
+      "pack": "original",
+      "row": 15739,
+      "serial": 27606,
+      "category": "accessories",
+      "palette": 0,
+      "size": [
+        24,
+        15
+      ],
+      "file": "original-icons/22-original-27606.png",
+      "rgba_sha256": "61d84913e6a1ec1a163c7950917c7aa8d25a5f28e7ba12b5244727e023e9ca9c",
+      "png_sha256": "fc8da1863803003f8162f794dcb00f0271aa01333916a0f644142f36d2f54ac9",
+      "source_sha256": "86f6e490524db7fed731b96faf486d4f1df6b197958b92cce83eb37ff9c2218a"
+    },
+    {
+      "number": 23,
+      "pack": "original",
+      "row": 15740,
+      "serial": 27607,
+      "category": "accessories",
+      "palette": 0,
+      "size": [
+        24,
+        15
+      ],
+      "file": "original-icons/23-original-27607.png",
+      "rgba_sha256": "77a6cd4410967458015266e36cc6bdf939851f89db12e98fdb976d81a948553c",
+      "png_sha256": "bba1ae88e378f2f647964180bbd8b2c474cc71c46400a1a1fb0a12ebe0c944cc",
+      "source_sha256": "6c0af80fc26c96e5fa0e07aad8a0c9c23c19c6d1fa4e0d8c4ddff9407fb8d760"
+    },
+    {
+      "number": 72,
+      "pack": "original",
+      "row": 14403,
+      "serial": 25047,
+      "category": "accessories",
+      "palette": 0,
+      "size": [
+        36,
+        33
+      ],
+      "file": "original-icons/72-original-25047.png",
+      "rgba_sha256": "906708a6935a5a81a74fa92cac818ffc8bd089c8fbf99ba7ff3b641b1d44325b",
+      "png_sha256": "0db552ee9dac88e8bd70ec7b86ae07d4b71004fb6c929451b167cf892de584b1",
+      "source_sha256": "2e5dd4c31ddd4d9b0ddab8fb235ec4896b90e15464265b9732c69ec81b3d3f8b"
+    },
+    {
+      "number": 78,
+      "pack": "original",
+      "row": 14409,
+      "serial": 25053,
+      "category": "accessories",
+      "palette": 0,
+      "size": [
+        32,
+        27
+      ],
+      "file": "original-icons/78-original-25053.png",
+      "rgba_sha256": "7578db93da3ee0d10b1877b3dff64a981a842dc7945e9c3e8a41b70820240fed",
+      "png_sha256": "1ab8bf2ea43b9254d77b4eda4352f5e8198ca6d2b81f9ba013b7af591389be6c",
+      "source_sha256": "e01e2bc916acad63b052241706899ed0323fd00ccdacd8d0ce9b3ebca6049f72"
+    },
+    {
+      "number": 207,
+      "pack": "original",
+      "row": 14591,
+      "serial": 25435,
+      "category": "accessories",
+      "palette": 0,
+      "size": [
+        28,
+        29
+      ],
+      "file": "original-icons/207-original-25435.png",
+      "rgba_sha256": "61d83a6ded4fc75cab4251444b2a8e9eb9b716ccdce51495a2d98d0fbbb60a44",
+      "png_sha256": "cf874b3962786a43223dfaee29d4d00b9e9baca9047d894d71887abc0227c0e2",
+      "source_sha256": "d2270d7b5f569fca5241949d363a5c6cacb18409e75749708e951928a91a6193"
+    },
+    {
+      "number": 217,
+      "pack": "original",
+      "row": 14601,
+      "serial": 25445,
+      "category": "accessories",
+      "palette": 0,
+      "size": [
+        32,
+        25
+      ],
+      "file": "original-icons/217-original-25445.png",
+      "rgba_sha256": "217e7aa0778ee42488cc7a5c458277961f06edaa30346e7d2f14e858b78d458a",
+      "png_sha256": "5ec984cfdf5bcc78bf7d37fba29167c0b5d7365a0a45be08dea37c8e199aaf69",
+      "source_sha256": "e31385dd781a94b18db9a24dd266fa3338eff694d1d51eabc2b41804f924cfdd"
+    },
+    {
+      "number": 231,
+      "pack": "original",
+      "row": 14615,
+      "serial": 25459,
+      "category": "accessories",
+      "palette": 0,
+      "size": [
+        28,
+        29
+      ],
+      "file": "original-icons/231-original-25459.png",
+      "rgba_sha256": "268f54c55e10ff00ba8d6b4bdefd50c9d58a6b01995efe01c69bea5cc1654d6f",
+      "png_sha256": "c5f174821df187301a69e7ccaefa8398096d06e202d10ad03d79fdcdf92cf00b",
+      "source_sha256": "9bc77ffe330caa196d118e48e5052b1577134faa587f8750d56c5a0728355ec2"
+    },
+    {
+      "number": 241,
+      "pack": "original",
+      "row": 14625,
+      "serial": 25469,
+      "category": "accessories",
+      "palette": 0,
+      "size": [
+        24,
+        26
+      ],
+      "file": "original-icons/241-original-25469.png",
+      "rgba_sha256": "bbe6ed17c80e3f16acb4b83845817185b678565f5197e65fd307746ff63d12b9",
+      "png_sha256": "232bc919302cd52543c42fb24d05f35c2c9caf906d6f5db1054c14cd14aa7a84",
+      "source_sha256": "c3a835f83df5f51b3650ddc915cbcca9138d35fd6340d7e18ea8e4459c389bac"
+    },
+    {
+      "number": 262,
+      "pack": "original",
+      "row": 14646,
+      "serial": 25490,
+      "category": "accessories",
+      "palette": 0,
+      "size": [
+        32,
+        30
+      ],
+      "file": "original-icons/262-original-25490.png",
+      "rgba_sha256": "969f4396b245dbda5d005610b1beac24e6aa2f00765478090e8c88e1958a0176",
+      "png_sha256": "c8b0c41a00b1e6ed473e0cd171e2209346ae6d03b99d625d1d1eac5c79976509",
+      "source_sha256": "839f1550216dfeedf036303288812c8983e6e37d799f30204a17a0ea7a77d356"
+    },
+    {
+      "number": 263,
+      "pack": "original",
+      "row": 14647,
+      "serial": 25491,
+      "category": "accessories",
+      "palette": 0,
+      "size": [
+        32,
+        30
+      ],
+      "file": "original-icons/263-original-25491.png",
+      "rgba_sha256": "9f5c0eb32e04702dba68091e72c1c99f3398448422b37a5959a378780b16c387",
+      "png_sha256": "33a2abe833cd8912a7fd3b433ae4212a948ca7c7e05b47f041134cd4845e4e4e",
+      "source_sha256": "2a1b9da19975dda42e00866aebcc435b61ad53e9f8602b2821bf30b67db2b4ca"
+    },
+    {
+      "number": 21817,
+      "pack": "original",
+      "row": 14169,
+      "serial": 21817,
+      "category": "footwear",
+      "palette": 0,
+      "size": [
+        28,
+        29
+      ],
+      "file": "21817.png",
+      "rgba_sha256": "48c0d703deec9f8a351f62b3078d48d5e12cc857052fbff21e7d3dca310cb2a7",
+      "png_sha256": "e2411e86529c3a1cc2b61c2c0fe40d527f0bdce2b547e36750c0b091ca7570e0",
+      "source_sha256": "464d7bd7bbe6c503d536cbd9440907d08e7d5d25a6dc0d6463ed18aecf4ed092"
+    },
+    {
+      "number": 21884,
+      "pack": "original",
+      "row": 14236,
+      "serial": 21884,
+      "category": "footwear",
+      "palette": 0,
+      "size": [
+        32,
+        47
+      ],
+      "file": "21884.png",
+      "rgba_sha256": "e0a3645feb9e2353ec7db8e139343c17976d63990f7dae9f8bc466321c8a88aa",
+      "png_sha256": "4e4e606b1235fbd368fbe2219bab2deee8a27773ffd3f921b32a91c56a5e3cd9",
+      "source_sha256": "a8178b1391d090f5a362ea792a1c59707b564b36e8603675c039955d74db127d"
+    },
+    {
+      "serial": 21818,
+      "pack": "original",
+      "row": 14170,
+      "size": [
+        28,
+        29
+      ],
+      "file": "21818.png",
+      "rgba_sha256": "d15840a40507edc7af20a343c5d3b35666ac6980a4ffa13374c1cea238985618",
+      "png_sha256": "28db7aa3acb53ed96a06d6d5011b3d07471b5b7ba94d02aeff6fb41d47a8ebf5",
+      "number": 21818,
+      "category": "footwear",
+      "palette": 0,
+      "item": "accessory:dash-boots"
+    }
+  ]
+}

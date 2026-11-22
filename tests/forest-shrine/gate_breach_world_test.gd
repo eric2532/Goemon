@@ -28,7 +28,7 @@ func run():
  var repairing=gates[0];var gate_center=game.model.center(repairing)
  var normal=game.model.waves.navigation.gate_outward(repairing)
  game.model.hero_position=Vector3(0,0,200);game.model.defenders.clear()
- for w in game.model.workers.values():w.pos=Vector3(0,0,200)
+ game.model.workforce.recruit(true)
  var repairer=game.model.workers.values()[0]
  repairer.pos=gate_center-normal*6;repairer.state="repair";repairer.job=repairing.id
  repairing.hp=1500;game.world.sync(1)

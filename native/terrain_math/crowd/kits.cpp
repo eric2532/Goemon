@@ -2,7 +2,25 @@
 #include <algorithm>
 namespace army {
 bool valid_kit_data(const KitData& d){
-    if(!std::isfinite(d.enemy_size)||d.enemy_size<.25f||d.enemy_size>3)return false;
+    if(d.cursed_guardian<0||d.cursed_guardian>6)return false;
+    if(!d.snow_patrol_skins.empty()&&(d.snow_patrol_skins.size()!=2||d.snow_patrol_skins[0]==d.snow_patrol_skins[1]||
+        std::any_of(d.snow_patrol_skins.begin(),d.snow_patrol_skins.end(),[](int skin){return skin<0||skin>=HOUND_SKINS;})||
+        std::find(d.soldier_kinds.begin(),d.soldier_kinds.end(),HOUND_KIND)==d.soldier_kinds.end()))return false;
+    if(!d.pet_geometry.empty()){
+        if(d.pet_geometry.size()!=(HOUND_SKINS+SLIME_SKINS+5)*7)return false;
+        for(float v:d.pet_geometry)if(!std::isfinite(v))return false;
+        for(size_t i=0;i<d.pet_geometry.size();i+=7){
+            for(int axis=0;axis<3;++axis)if(d.pet_geometry[i+axis]>=d.pet_geometry[i+3+axis])return false;
+            if(d.pet_geometry[i+6]<=0||d.pet_geometry[i+6]>4)return false;
+        }
+    }
+    if(!std::isfinite(d.map_enemy_scale)||d.map_enemy_scale<=0)return false;
+    if(!std::isfinite(d.enemy_size)||d.enemy_size<.25f||d.enemy_size>3*d.map_enemy_scale+.0001f)return false;
+    if(!std::isfinite(d.hound_move_scale)||d.hound_move_scale<=0)return false;
+    for(float value:{d.hound_hp,d.hound_damage,d.bear_damage,d.pet_mana,d.pet_mana_regen})if(!std::isfinite(value)||value<0)return false;
+    if(!d.pet_skill_costs.empty()&&d.pet_skill_costs.size()!=PET_SKILL_COUNT)return false;
+    if(!std::isfinite(d.pet_ranged_reach)||d.pet_ranged_reach<=0)return false;
+    for(float cost:d.pet_skill_costs)if(!std::isfinite(cost)||cost<0||cost>1000000)return false;
     if(d.soldier_profiles.size()!=d.soldier_kinds.size()*6||d.actions.size()!=17||d.status_bits.size()!=7||d.phase_ticks.size()!=5||d.contact_ticks.size()!=4)return false;
     if(!d.enemy_kits.empty()){
         if(d.enemy_kits.size()!=d.soldier_kinds.size()*26)return false;
@@ -14,8 +32,29 @@ bool valid_kit_data(const KitData& d){
             if(k[15]<=0||k[16]<0||(k[17]!=0&&k[17]!=3)||(k[18]!=0&&k[18]!=1))return false;
             if(k[5]>k[0]||k[6]>k[2]||k[7]>k[3]||k[8]>k[3])return false;
             for(int axis=0;axis<3;++axis)if(k[19+axis]>=k[22+axis])return false;
-            if(k[25]!=-1&&(k[25]<0||k[25]>=19||k[25]!=int(k[25])||std::find(d.soldier_kinds.begin(),d.soldier_kinds.end(),int(k[25]))==d.soldier_kinds.end()||k[25]==d.soldier_kinds[i/26]))return false;
+            if(k[25]!=-1&&(k[25]<0||k[25]>=ENEMY_KIND_COUNT||pet_skin_count(int(k[25]))!=0||k[25]!=int(k[25])||std::find(d.soldier_kinds.begin(),d.soldier_kinds.end(),int(k[25]))==d.soldier_kinds.end()||k[25]==d.soldier_kinds[i/26]))return false;
         }
+    }
+    for(int kind:{HOUND_KIND,SLIME_KIND,BEAR_KIND}){
+      const auto& attacks=kind==HOUND_KIND?d.hound_attacks:kind==BEAR_KIND?d.bear_attacks:d.slime_attacks;
+      const bool enabled=std::find(d.soldier_kinds.begin(),d.soldier_kinds.end(),kind)!=d.soldier_kinds.end();
+      if(attacks.size()!=(enabled?pet_skin_count(kind)*8*HOUND_TIMELINE_STRIDE:0))return false;
+      for(size_t row=0;row<attacks.size();row+=HOUND_TIMELINE_STRIDE){
+        const auto* attack=attacks.data()+row;
+        if(!std::isfinite(attack[0])||attack[0]<=0||!std::isfinite(attack[1])||attack[1]<1||attack[1]>(HOUND_TIMELINE_STRIDE-2)/2||attack[1]!=int(attack[1]))return false;
+        float previous=-1;
+        for(int i=0;i<int(attack[1]);++i){
+            float tick=attack[2+i*2],cue=attack[3+i*2];
+            if(!std::isfinite(cue)||cue<0||cue>=30000||cue!=std::floor(cue))return false;
+            int code=int(cue),sound=code%10000;
+            bool tagged=(code/10000==1||code/10000==2)&&
+                (sound==0||sound==162||sound==173||sound==282||sound==288||sound==290||sound==301||sound==316||sound==318||sound==319||sound==321||sound==332||sound==114||sound==116||sound==159||sound==164||sound==165||sound==171||sound==175||sound==182||sound==190||sound==214||sound==254||sound==255||sound==296||sound==314||sound==429||sound==101||sound==102||sound==103||sound==104||sound==105||sound==106||sound==107||sound==108||sound==109||sound==110||sound==112||sound==115||sound==117||sound==131||sound==132||sound==133||sound==134||sound==135||sound==136||sound==137||sound==138||sound==139||sound==140||sound==152||sound==153||sound==157||sound==166||sound==168||sound==172||sound==174||sound==176||sound==180||sound==181||sound==183||sound==184||sound==185||sound==186||sound==187||sound==191||sound==192||sound==262||sound==263||sound==264||sound==265||sound==266||sound==267||sound==268||sound==269||sound==303||sound==304||sound==463||sound==207);
+            bool known=tagged||(kind!=HOUND_KIND?(cue==106||cue==112||cue==131||cue==135||cue==138||cue==157||cue==164||cue==165):
+                (cue==117||cue==143||cue==161||cue==103||cue==105||cue==107||cue==110||cue==138||cue==191||cue==133||cue==135||cue==137||cue==101||cue==131||cue==132||cue==176||cue==264||cue==267||cue==288||cue==289||cue==290));
+            if(!std::isfinite(tick)||tick<0||tick>=attack[0]||tick<=previous||!std::isfinite(cue)||cue!=code||!known)return false;
+            previous=tick;
+        }
+      }
     }
     if(!d.soldier_pose_meta.empty()&&d.soldier_pose_meta.size()!=d.soldier_kinds.size()*16)return false;
     if(!d.enemy_contact_ends.empty()){
@@ -92,7 +131,7 @@ bool valid_kit_data(const KitData& d){
     for(auto value:d.phase_ticks)if(!std::isfinite(value)||value<=0)return false;
     for(auto value:d.contact_ticks)if(!std::isfinite(value)||value<=0)return false;
     for(float v:{d.bullet_speed,d.bullet_life,d.bullet_tail,d.bullet_radius,d.damage_taken_multiplier})if(!std::isfinite(v)||v<0)return false;
-    for(auto kind:d.soldier_kinds)if(kind<0||kind>=19||kind==4)return false;
+    for(auto kind:d.soldier_kinds)if(kind<0||kind>=ENEMY_KIND_COUNT||kind==4)return false;
     return finite(d.melee_from)&&finite(d.melee_to)&&finite(d.muzzle)&&d.bullet_speed>0&&d.bullet_life>0&&d.bullet_radius>0&&d.damage_taken_multiplier>=0;
 }
 }

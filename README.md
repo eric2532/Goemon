@@ -1,6 +1,6 @@
-# Goemon
+# Cross Gate
 
-Goemon is a Godot action and defense game. Forest Shrine is the current player experience: prepare the fort, build defenses, and destroy the four enemy Skullpion statues in Wind Meadow Valley. Workers staff buildings automatically. The central castle has a raised square courtyard with four side stairs and two defending towers on each side. Four roads connect it to the valley routes and enemy forts. Wind Meadow Valley is the only bundled playable map, in standard and large sizes. User-saved maps remain available in the map editor; retired layouts are excluded regression fixtures.
+Cross Gate is a Godot action game. The current desktop Play opens Falan Arena: the recovered Cross Gate city arena, with its five colored stone platforms and red carpets, adapted for pure survival against slimes entering from four sides. There are no castle objectives. Standard and Large sizes are available in Map Editor. Saved maps remain available; previous valley layouts are excluded regression fixtures. See `docs/wind-meadow/falan-arena.md` for the reusable artwork and terrain contracts.
 
 ## Play and edit
 
@@ -10,13 +10,43 @@ The launchers target the complete source on `main` at `/Users/eric/Desktop/Proje
 
 Godot 4.6 is used by the project. Runtime GLBs and animation data are supplied; Blender is needed for art editing, not ordinary play.
 
-During preparation, open **Mercenaries** with **M**, then click a card or press
-**1 Ninja, 2 Dragoon, 3 Ranger, 4 Explorer, 5 Knight**. Each press hires one ally
-at clear ground near your castle for the displayed ryo price and two food.
-They seek enemies across the valley and return home when the area is clear.
+Choose your fighter, then use **Equipment** before entering the map. During play,
+press **Q** to open the same combined window. Gear stays on the left, the item or
+pet collection is in the middle, and character stats are always visible on the
+right. There are no separate **I** or **Shift+P** windows. **Q / Esc** returns to
+the previous game or preparation state; plain **P** still summons/recalls pets.
 
-**Smaller ÷1.5** and **Bigger ×1.5** are directly on the preparation map beside
-Build and Tools. Each click divides or multiplies the map's width and length;
+Click **Main Character** to return to character selection; picking a fighter
+or backing out returns to Equipment. The large model preview still opens the
+skin picker. Select a pet slot to edit its gear and skills. The collection tabs show matching
+items and skills. Use the **+** beneath an equipped skill to buy its next level;
+character stats, character skills and pet skills spend the same run-only points.
+Pet skill levels belong to the selected pet. Hover upgrade buttons for the
+current and next effects. Gear, cosmetic, skin and skill choices save immediately;
+**Back** keeps them. **Enter Map** starts play with the current selection.
+
+Select a top-row pet to inspect its gear and skills; a gold outline marks the
+selected slot. **Change pet** opens the inline collection for that slot, and
+choosing a replacement changes only that slot. Equipped pets show a checkmark
+and slot number, with full details on hover; their catalog cards cannot remove
+or duplicate them. Use **× Remove** explicitly to remove the selected pet.
+**Add pet** appears at the next free slot. Existing saved pack order stays
+compact, and removed pets retain their keyed gear, skills and learned levels.
+Changes save immediately, with rollback on save failure.
+
+The right panel follows the selected pet: live current/maximum health when
+summoned, maximum health before summoning, normal damage per contact, recovered
+attack contacts/duration, base movement speed and its three equipped skill
+levels. Facing can vary the recovered sequence, and escort/catch-up movement
+can exceed base speed. These are read-only pet stats; the existing skill plus
+buttons still spend shared points. Selecting a character restores its stat
+allocation controls. Original portraits, cosmetics and native pet combat keep
+their existing owners. Equipment retains its item double-click/Enter controls;
+Build and Mercenaries stay absent from the map HUD, and **M** retains its combat
+minimap function.
+
+In editor/preparation sessions on saved valley maps, **Smaller ÷1.5** and **Bigger ×1.5** sit beside
+Tools. Each click divides or multiplies the map's width and length;
 the label shows 1×, 1.5× or 2.25× (up to 5.06× the original area). Resizing keeps
 the current run and placements, and refuses a change that would crop objects or
 move the cliff under a structure or character. The first resize prepares terrain
@@ -48,7 +78,7 @@ the complete map and can pause briefly.
 ## Team leveling
 
 Every enemy defeated by you, allies, or towers contributes to one team level.
-The first level needs 20 kills. Each level pauses play for three maroon/silver
+The first level needs 20 kills. Each level pauses play for three Cross Gate ivory/slate
 cards: **Tower**, **Worker**, and **Character**. Click one or press **1 / 2 / 3**
 to upgrade every matching friendly unit, including future recruits and towers.
 Team level and XP appear beside castle health. Restarting clears all run bonuses.
@@ -92,6 +122,19 @@ Retired forest enemy GLBs/textures and Daruma's optimized copy have been removed
 from runtime assets. Editable Blender masters remain under `assets/blender/`;
 assets referenced by other game modes remain available.
 
+## Level-up stats
+
+Press **Q** for Equipment. Each level gives +20 maximum HP, +3% baseline
+physical/magic damage, +2 defense and one shared upgrade point. The icon cards
+show current values and spent stat ranks. Point effects remain Vitality
+(+100 HP and +1 HP/sec), Attack (+15% physical damage), Magic power (+15% magic
+damage), Attack Speed (+10%), Defense (+10), and Critical/Dodge/Counter chance
+(+1 percentage point each, capped at 100%). Hover a symbol or plus button for
+its name and effect. Upgrades follow the controlled fighter for this run and
+reset on a new run; saved character/skill baselines stay intact. Cards remain
+off by default. The blue mana meter stays below health; skills do not consume
+mana in this presentation pass.
+
 ## Spell equipment
 
 Open the fighter gallery with Q, then **Skills & Jump**. Any fighter can assign a
@@ -113,7 +156,14 @@ equip Grenade, 3-Way, D-Kick, Fence, Homing, Guard, Charged Rotation or
 Leaping Strike in any slot when preferred. His
 existing E charge and R guard remain available. Chief keeps his five weapons
 unless a slot is explicitly equipped with a skill. Mouse attacks, movement,
-Space, C, Z/X capes and preparation menu shortcuts retain their roles.
+Shift + Space jumps (press again in the air for the existing second jump).
+Plain Space dodges when ! appears. C and preparation menu shortcuts retain their roles.
+Press **Q** to open Equipment, then choose your weapon under **Weapons**.
+
+In Cross Gate combat, **left-click** attacks. **Right-click** sends summoned
+pets to the enemy under your aim or locked with **Tab**. With neither target,
+right-click clears the mark and sends pets hunting for separate enemies.
+**F** holds them in place, and **Z** calls them back.
 
 `scripts/spells/spell_catalog.gd` defines stable spell IDs. `spell_loadout.gd` owns
 assignments and input; each `spell_instance.gd` owns its own casting state and
@@ -132,15 +182,15 @@ Read [the Blender workflow](docs/BLENDER_PIPELINE.md) and the [character art sta
 
 [Sound Studio](docs/SOUND_STUDIO.md) documents recording and replacing attack sounds. The selected visual inspiration reference is [Game Art Style](https://gameartstyle.loopyhop.com/).
 
-The game icon renders the existing playable Goemon head into `icon.png` and
+The game icon reuses the preserved painted Shin portrait in `assets/ui/portraits/crossgate/shin.png` to prepare `icon.png` and
 `icon.icns`. To regenerate both on macOS, close the game and run
 `"/Users/eric/Desktop/Play Goemon.command" --script res://tools/render_game_icon.gd`.
 This changes no model or animation and stages icon sizes under `build/Other Files/Game Icon/`.
-Add `-- --launcher` to render the Play command's three-quarter face icon in that
-staging folder without replacing the game's front-facing icon.
+Add `-- --launcher` to prepare the same Shin icon for the existing Play command in that
+staging folder without replacing the game icon.
 
 ## App delivery
 
-Export only when an app build or distribution is requested. Follow [AGENTS.md](AGENTS.md): stage and verify outside `build/`, then atomically replace the single `build/Goemon.app`. The complete painterly source currently uses the **Painterly Preview macOS** preset. Keep development artifacts in `build/Other Files/`; move superseded apps and app-only ZIPs to Trash.
+Export only when an app build or distribution is requested. Follow [AGENTS.md](AGENTS.md): stage and verify outside `build/`, then publish the single `build/Cross Gate.app` and move the superseded `Goemon.app` to Trash. The complete painterly source currently uses the **Painterly Preview macOS** preset. Keep development artifacts in `build/Other Files/`; move superseded apps and app-only ZIPs to Trash.
 
 Keep this README focused on current entry points. Git contains the release history, completed implementation plans, and retired reports.

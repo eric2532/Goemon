@@ -1,0 +1,11 @@
+{
+  "token": "ready-7",
+  "prompt": "Precise-object-edit. Fix extra visible hand in IMAGE1. Make a TWO-POSE sheet, exactly2columns x1row on a wide2:1 transparentcanvas, eachsquarecellcontainsONEfullbodyKazi facingLEFT in strictSIDEPROFILE. BOTH poses must show exactlyONE visible RIGHT hand andONEvisibleRIGHT arm. Remove/hide the extra LEFT hand that is currently next to his right hand at waist inimage1. Remove/hide its leftforearmtoo: farLEFTarm/hand completely OCCLUDED BEHIND torso/coat. There must beNO secondskincoloredhand beside hilt. Image2 correctrun showsONE visiblehand; copythat handvisibility andplace. RIGHT hand grippinghiltatLEFThip; RIGHT forearm crossesabdomen. Hiddenleft hand supports sheath outofsight. Keeplongthin curveddark blade extending behindtowardIMAGERIGHT,55-60%bodyheight, goldhilt, characteridentity/style/anatomy/coat/hair exactlyimage1. Pose1 dynamic groundedREADY, kneeslightflex, strongshoulderhipcoil, fullbladebehindhip. Pose2 samefeetplanted/height but shoulders/pelviscoil8degreesfurtherintodraw, rightelbowpulltight, onlysameONEvisible hand; weaponstillatlefthip. Bootsgrounded, no air/run step. Keepbothsamedraw-readyphysicalsize, 60%cellheight, generous25pxtransparentclearanceeveryside. No attackeffects exceptsmallsparks; nofloor/shadow/text/labels/grid. TRUEalpha0transparent. MOSTIMPORTANT: visiblyonlyONEhandatwaist inBOTHposes. Do not drawsecondleftarm, secondlefthand, skincoloredfingerblob or whitecuffbesidetherighthand. Fillcoveredleftarmarea withnaturalcharcoalcoat.",
+  "references": [
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/iai-left-hip-v5/references/left-ready-edit.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/iai-left-hip-v5/references/left-run-hand-reference.png"
+  ],
+  "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-67e71910-18ec-457a-84ba-fe896c7f707d.png",
+  "tool": "built-in image_gen",
+  "sha256": "389647f46be9af5af13592567f385c4d7fdd246da5889e7f63a8eba0be295577"
+}

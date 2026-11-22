@@ -47,10 +47,12 @@ func run():
 			check(is_equal_approx(before-victim.hp,10 if chance==0 else 20),"%s %d%% critical chance applies exactly the intended enemy damage"%[game.CharacterBalance.name_for(id),chance])
 	game.player.select_character(9);game.player.set_physics_process(false)
 	game.update_character_tuning(9,"critical_chance",100);game.player.attack_chain.reset()
+	game.update_character_tuning(9,"model_scale",1.6)
 	var committed=game.player.attack_chain.begin("wave")
 	game.update_character_tuning(9,"critical_chance",0);game.player.select_character(4)
 	var before=victim.hp;victim.take_hit(10,Vector3.FORWARD,false,committed)
 	check(is_equal_approx(before-victim.hp,20),"An in-flight attack retains its caster's chance after edits or fighter switching")
+	check(is_equal_approx(committed.impact_scale,1.6) and is_equal_approx(game.player.hit_effect_scale(),1.0),"An in-flight attack retains the caster's size after switching fighters")
 	before=victim.hp;victim.take_hit(18,Vector3.FORWARD,false,{"tower":true})
 	check(is_equal_approx(before-victim.hp,18),"Tower arrows retain their own damage instead of inheriting hero critical chance")
 	game.update_character_tuning(4,"critical_chance",5);game.player.attack_chain.reset();seed(20261014)
@@ -61,7 +63,9 @@ func run():
 		if before-victim.hp>1.5:criticals+=1
 	check(criticals>=12 and criticals<=50,"Five-percent critical chance produces occasional criticals, not guaranteed or absent hits")
 	var labels=game.find_children("*","Label3D",true,false)
-	check(labels.any(func(l):return "CRIT" in l.text),"Critical enemy damage gets an explicit CRIT indicator")
+	var font=preload("res://assets/characters/crossgate/hit_feedback/damage.fnt")
+	check(labels.any(func(l):return l.font==font and l.font_size==52 and l.text=="20"),"Critical enemy damage gets larger Blue Cross Gate digits")
+	check(game.crowd.army.presentation.effects.any(func(fx):return fx.kind=="critical"),"Critical enemy damage triggers the Blue Cross Gate burst")
 	game.queue_free();paused=false;await settle();await create_timer(.4).timeout
 	DirAccess.remove_absolute(config_path)
 	print("CRITICAL_CHANCE_RESULT checks=%d failures=%d"%[checks,failures]);quit(1 if failures else 0)

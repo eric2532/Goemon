@@ -115,10 +115,13 @@ func movement_path(enemy: Dictionary)->Array:
 		enemy.road_join=connector;enemy.road_join_nav=m.navigation_revision;return connector
 	return path
 static func validate_portals(model)->String:
-	if model.portals.is_empty():return ""
+	# Freyja's road encounters use their own outdoor points and never march on a base.
+	if model.portals.is_empty() or not model.falan_road.is_empty():return ""
 	var variant=Roles.HAYA_WOLF
 	var radius=Roles.footprint_radius(variant,model.balance.enemy_size_mult)
-	var nav=model.waves.navigation;var contacts=nav.approach_points(variant,model.shrine());var routes=load("res://scripts/forest/forest_routes.gd").new(model)
+	var nav=model.waves.navigation;var routes=load("res://scripts/forest/forest_routes.gd").new(model)
+	var shrine:Dictionary=model.shrine()
+	var contacts=[model.point(model.shrine_entry())] if shrine.is_empty() else nav.approach_points(variant,shrine)
 	for portal in model.portals:
 		var point=exit_point(portal,variant);point.y=model.surface_height(point.x,point.z);var forward=direction(portal);var probe={"pos":point,"variant":variant,"facing":atan2(-forward.x,-forward.z)}
 		if not nav.move_clear(point,radius) or nav.fitted_blocker(probe,point)>=0:return "Clear an exit in front of each portal for ordinary enemies."

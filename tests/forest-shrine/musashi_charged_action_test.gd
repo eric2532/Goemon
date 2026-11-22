@@ -42,6 +42,16 @@ func run():
  c.tick(1.0/30.0);m.animate(0,0,true,0,1,true,1,false)
  check(c.action_key=='rotation_end' and c.clip=='Recovered__800d53a4' and m.body.rotation.y==0,'following source update restores facing and resumes original tail')
  c.tick(4.0/30.0);check(not c.is_attacking(),'four tail ticks end spin')
+ c.cancel();fixture.clear_targets()
+ for skill in ['counter','rotation']:
+  game.settings.spell_loadouts={'13':{'equip':'musashi/'+skill}}
+  p.spell_loadout.prepare()
+  p.spell_loadout._cast('musashi/'+skill,'equip')
+  check(c.mode==skill and p.spell_loadout.current==null,'reassigned '+skill+' uses the visible native Musashi owner')
+  p.impact_pause=0;p._physics_process(1.0/30.0)
+  check(m.current_clip==c.clip and m.sword_segment(true).size()==2,'reassigned '+skill+' really draws Lumina on the player')
+  check(m.skeleton.get_bone_pose_scale(m.skeleton.find_bone('Part_24_lumina_guard')).length()<.001,'reassigned '+skill+' hides sheathed Lumina')
+  p.spell_loadout.cancel();c.cancel()
  c.select_number(2)
  c.tick(1.0/30.0);m.animate(0,0,true,0,1,true,1,false)
  check(m.skeleton.get_bone_pose_scale(bone).is_equal_approx(Vector3.ONE*(0x19EB/4096.0)*SIZE),'Mighty Strike uses original1.62x Lumina ratio times shared skill size')

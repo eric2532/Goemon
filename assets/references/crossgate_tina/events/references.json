@@ -1,0 +1,401 @@
+[
+  {
+    "file": "npc.txt",
+    "path": "gmsv/data/npc.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc.txt",
+    "git_blob": "9c6aff17bf347167085b5d15fd2ad83ef42787a6",
+    "sha256": "729e18e044d5383460b74ba76ed648b7a036464b7b768a38b73f556d4c2f2fa9"
+  },
+  {
+    "file": "WM_aoki_2058.txt",
+    "path": "gmsv/data/npc/WM_aoki_2058.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/WM_aoki_2058.txt",
+    "git_blob": "c81a50fadf41743138943ea112b7c6ad20e392f8",
+    "sha256": "a3bd14002e111a297195e50f23fb27894cd8c10fc061f7078dd2e41848646123"
+  },
+  {
+    "file": "EV_mag_6347.txt",
+    "path": "gmsv/data/npc/EV_mag_6347.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6347.txt",
+    "git_blob": "a4d37e4324151ec5a19ce7063f9a06ce829ef8bf",
+    "sha256": "ba8225e479694cfeef94ded8c949f478d4ae21d22e451c7708c522325cf3f4b3"
+  },
+  {
+    "file": "EV_mag_6377.txt",
+    "path": "gmsv/data/npc/EV_mag_6377.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6377.txt",
+    "git_blob": "b366441a16ce4d10339de7f174b89d2559f22622",
+    "sha256": "5b70d3d6e8d74ee7188c844560f105454d0188d761a5bf4cd12ce159ff415597"
+  },
+  {
+    "file": "mayko_gm_1102658.txt",
+    "path": "gmsv/data/npc/mayko_gm_1102658.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/mayko_gm_1102658.txt",
+    "git_blob": "58c1bf0fd4a76d96b3bc37e072daf066e6fce558",
+    "sha256": "c8e9ff7fa07fcae3337fd99f58bbf0794d9673b5e756623deeeacbcb7a86e936"
+  },
+  {
+    "file": "mayko_gm_1102659.txt",
+    "path": "gmsv/data/npc/mayko_gm_1102659.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/mayko_gm_1102659.txt",
+    "git_blob": "0aaf791f2577617844a952762ece1b241d27b18c",
+    "sha256": "fcc2acb11389d7628cddaab6462e66ce7566435b115e07c7984b1c80a5335134"
+  },
+  {
+    "file": "mayko_gm_1102730.txt",
+    "path": "gmsv/data/npc/mayko_gm_1102730.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/mayko_gm_1102730.txt",
+    "git_blob": "f4b5f0a738440693cebdeeea8439d4c564a0f7b9",
+    "sha256": "b35673dddcaf7d52e6cb1cfa15a9d3eb566bb8882acd32b03e95c346f8535a48"
+  },
+  {
+    "file": "msg.txt",
+    "path": "gmsv/data/msg.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/msg.txt",
+    "git_blob": "97dfb06fbf371ec3d6d142de897f7b68a15cd059",
+    "sha256": "937a108a9e0015466dba64be6e2b45e7e28e8ca2a62c10cc9b4585bba4a8ffde"
+  },
+  {
+    "file": "mayko_gm_1102731.txt",
+    "path": "gmsv/data/npc/mayko_gm_1102731.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/mayko_gm_1102731.txt",
+    "git_blob": "23e216894f15f1efd1b775831d64e74d8bc08845",
+    "sha256": "a38533ff10815cc759fac979d0fec9628920ad029fd1088ef161b3a033aa7ab1"
+  },
+  {
+    "file": "mayko_gm_1102732.txt",
+    "path": "gmsv/data/npc/mayko_gm_1102732.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/mayko_gm_1102732.txt",
+    "git_blob": "a0b3665ad8b5900c2f30df848f1b8e124806bd25",
+    "sha256": "ca55c515b0655f50403e37642de4cce96bd9331fd01d2709c2d946295d3472b2"
+  },
+  {
+    "file": "mayko_gm_1102733.txt",
+    "path": "gmsv/data/npc/mayko_gm_1102733.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/mayko_gm_1102733.txt",
+    "git_blob": "c74b70f1a7738a6a79e4e69dafca245346fd56ec",
+    "sha256": "e002677467abc91885b5949bf79297f8b1a8064ee80dd22d2c1d7e66192524f7"
+  },
+  {
+    "file": "WM_mag_2059.txt",
+    "path": "gmsv/data/npc/WM_mag_2059.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/WM_mag_2059.txt",
+    "git_blob": "8aa3d3398a446383d79e9507441624f52ac5503d",
+    "sha256": "703e6fcb5148c94f098365b10478a575cc985796441adb17fe8638a13dbceb74"
+  },
+  {
+    "file": "EV_mag_6348.txt",
+    "path": "gmsv/data/npc/EV_mag_6348.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6348.txt",
+    "git_blob": "5fb8f56854c23cfe2b09f371350c89189ca5fce0",
+    "sha256": "5d2ed236e0c63eb646a87f4dd88363076170450c7ba1097aa6fed631e9f46860"
+  },
+  {
+    "file": "EV_mag_6349.txt",
+    "path": "gmsv/data/npc/EV_mag_6349.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6349.txt",
+    "git_blob": "9769dc161d15ae8f0700fa3c6fbab5a4c3985bfa",
+    "sha256": "154afe0c2a16075f5f37bc05514d537dcef4462c312a6b35584ee529b97a4ef9"
+  },
+  {
+    "file": "EV_mag_6350.txt",
+    "path": "gmsv/data/npc/EV_mag_6350.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6350.txt",
+    "git_blob": "2456009799ae65ca6939230d739015bc3025fcc8",
+    "sha256": "e898ddf5ac20b6bcc9df6fa94a08f006bc9896127dc88f47d6297f580b192bd2"
+  },
+  {
+    "file": "EV_mag_6351.txt",
+    "path": "gmsv/data/npc/EV_mag_6351.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6351.txt",
+    "git_blob": "02c2569178cb284861fb648f1f432ac05c77d077",
+    "sha256": "e02c5676876546ad0a627491fcd7d1be56ed8cce3ad54777ec5f2fdb39ee245c"
+  },
+  {
+    "file": "EV_mag_6352.txt",
+    "path": "gmsv/data/npc/EV_mag_6352.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6352.txt",
+    "git_blob": "a53f2908b6b44ebbafe0d7a5bd44be89c047ff8a",
+    "sha256": "e9ff79d85845c6659b0113b93e017898ef24d027de2fc8a2f53f35f514b9e6a5"
+  },
+  {
+    "file": "EV_mag_6353.txt",
+    "path": "gmsv/data/npc/EV_mag_6353.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6353.txt",
+    "git_blob": "a53f2908b6b44ebbafe0d7a5bd44be89c047ff8a",
+    "sha256": "e9ff79d85845c6659b0113b93e017898ef24d027de2fc8a2f53f35f514b9e6a5"
+  },
+  {
+    "file": "EV_mag_6354.txt",
+    "path": "gmsv/data/npc/EV_mag_6354.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6354.txt",
+    "git_blob": "a53f2908b6b44ebbafe0d7a5bd44be89c047ff8a",
+    "sha256": "e9ff79d85845c6659b0113b93e017898ef24d027de2fc8a2f53f35f514b9e6a5"
+  },
+  {
+    "file": "EV_mag_6355.txt",
+    "path": "gmsv/data/npc/EV_mag_6355.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6355.txt",
+    "git_blob": "a53f2908b6b44ebbafe0d7a5bd44be89c047ff8a",
+    "sha256": "e9ff79d85845c6659b0113b93e017898ef24d027de2fc8a2f53f35f514b9e6a5"
+  },
+  {
+    "file": "EV_mag_6356.txt",
+    "path": "gmsv/data/npc/EV_mag_6356.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6356.txt",
+    "git_blob": "99a177ccdfedd0dd4c600ca29885afe77bcb4fde",
+    "sha256": "a9544627f7422bf3835f96243b0fc9372323c67af8a265562ca600b65a797e3e"
+  },
+  {
+    "file": "EV_mag_6357.txt",
+    "path": "gmsv/data/npc/EV_mag_6357.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6357.txt",
+    "git_blob": "99a177ccdfedd0dd4c600ca29885afe77bcb4fde",
+    "sha256": "a9544627f7422bf3835f96243b0fc9372323c67af8a265562ca600b65a797e3e"
+  },
+  {
+    "file": "EV_mag_6358.txt",
+    "path": "gmsv/data/npc/EV_mag_6358.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6358.txt",
+    "git_blob": "99a177ccdfedd0dd4c600ca29885afe77bcb4fde",
+    "sha256": "a9544627f7422bf3835f96243b0fc9372323c67af8a265562ca600b65a797e3e"
+  },
+  {
+    "file": "EV_mag_6359.txt",
+    "path": "gmsv/data/npc/EV_mag_6359.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6359.txt",
+    "git_blob": "99a177ccdfedd0dd4c600ca29885afe77bcb4fde",
+    "sha256": "a9544627f7422bf3835f96243b0fc9372323c67af8a265562ca600b65a797e3e"
+  },
+  {
+    "file": "EV_mag_6360.txt",
+    "path": "gmsv/data/npc/EV_mag_6360.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6360.txt",
+    "git_blob": "c42df9079c8cf83c1c8f24d369a4e7bccc5c68ed",
+    "sha256": "5fb81b123e19cd892bc3c7afc51491eb81edb46ca76012e2157a1ddccd0b0261"
+  },
+  {
+    "file": "EV_mag_6361.txt",
+    "path": "gmsv/data/npc/EV_mag_6361.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6361.txt",
+    "git_blob": "97210148178d17c00708deb4e053c84f3946638f",
+    "sha256": "39b53d47b2ffc3139069512b53ba9a0c5b17be6e839d8660501e08086d776b05"
+  },
+  {
+    "file": "EV_mag_6362.txt",
+    "path": "gmsv/data/npc/EV_mag_6362.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6362.txt",
+    "git_blob": "f625d1da5b19f42b34ce612f4274e7c89f70d9a8",
+    "sha256": "ff29c9b9916571f58b0adf6a2c03eba2612490c724b7bfa2822e40106698b688"
+  },
+  {
+    "file": "EV_mag_6363.txt",
+    "path": "gmsv/data/npc/EV_mag_6363.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6363.txt",
+    "git_blob": "c08d7b9d0565e005b396b6fc609192d88923b7c8",
+    "sha256": "39affca51ff1f3624d1dad96e745cf737787e56f2be698e866ecd2715686693c"
+  },
+  {
+    "file": "EV_mag_6364.txt",
+    "path": "gmsv/data/npc/EV_mag_6364.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6364.txt",
+    "git_blob": "56f32b892de61cf71474f4735d6d24bd85b1f882",
+    "sha256": "6d4f60ddd88baacd78c810cd3843b2cb390c1a6f2a85529b006e265754a937de"
+  },
+  {
+    "file": "EV_mag_6365.txt",
+    "path": "gmsv/data/npc/EV_mag_6365.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6365.txt",
+    "git_blob": "56f32b892de61cf71474f4735d6d24bd85b1f882",
+    "sha256": "6d4f60ddd88baacd78c810cd3843b2cb390c1a6f2a85529b006e265754a937de"
+  },
+  {
+    "file": "EV_mag_6366.txt",
+    "path": "gmsv/data/npc/EV_mag_6366.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6366.txt",
+    "git_blob": "993cc710dabdda2a5b8ceebfc217f6c4bfbc31d0",
+    "sha256": "7d9a891f47c9dc96740d5119c4c207a56d2847e6a24fc97a3a76a2e458adb717"
+  },
+  {
+    "file": "EV_mag_6367.txt",
+    "path": "gmsv/data/npc/EV_mag_6367.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6367.txt",
+    "git_blob": "410ad4ea902a6c43e958700dd276d32ab39f10c6",
+    "sha256": "b7c55d2f665554f4488a405983dcc718acf501f215076abf7a3069c814694318"
+  },
+  {
+    "file": "EV_mag_6368.txt",
+    "path": "gmsv/data/npc/EV_mag_6368.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6368.txt",
+    "git_blob": "621e6549e5ebda2443d6763ff20484cfaa3192e3",
+    "sha256": "ddd6a4b09dc1281645116c5f5ad205ed86f177a5afdf129bb64cf0109afe8b90"
+  },
+  {
+    "file": "EV_mag_6369.txt",
+    "path": "gmsv/data/npc/EV_mag_6369.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6369.txt",
+    "git_blob": "3dbfab2acdcf902f63c5f36e6e41b86d5a3ca3de",
+    "sha256": "ce881ca6e314f93855ab09159c5756fd5069f3ed98ae11aa73cd8c73f6396995"
+  },
+  {
+    "file": "EV_mag_6370.txt",
+    "path": "gmsv/data/npc/EV_mag_6370.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6370.txt",
+    "git_blob": "9e48f9ed362827c810fae5c49facb379154700d0",
+    "sha256": "5ec0a65f996245a016e8bb3f34b2af04e241bc470cfa76f6727ab783ec3f1d8b"
+  },
+  {
+    "file": "EV_mag_6371.txt",
+    "path": "gmsv/data/npc/EV_mag_6371.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6371.txt",
+    "git_blob": "bedbb8fc23c0b6d41f9b954bf9380f66d394029e",
+    "sha256": "2e329d5f946ba8d0081e15c9f5b25989421e4f3aae4708904204d6c4eb323519"
+  },
+  {
+    "file": "EV_mag_6372.txt",
+    "path": "gmsv/data/npc/EV_mag_6372.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6372.txt",
+    "git_blob": "79734346bf7e68eeddbd73876e37076793a9c85d",
+    "sha256": "60e1aab2968d6fe1fe94c68f324408e8e64a1bf0c19c7cfbecea8bb9f4682dca"
+  },
+  {
+    "file": "EV_mag_6373.txt",
+    "path": "gmsv/data/npc/EV_mag_6373.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6373.txt",
+    "git_blob": "e2129ab24eef952740fb14ed290d6fdb44344f0d",
+    "sha256": "6d1f36def46819364856306d36e2924d0dd9774fdb97735e21fe3eb8fd27131c"
+  },
+  {
+    "file": "EV_mag_6374.txt",
+    "path": "gmsv/data/npc/EV_mag_6374.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6374.txt",
+    "git_blob": "36e8508c91daf66d6e8af1b335dfb7613d266c9d",
+    "sha256": "c16b6bd084b5dcda369ac32d554822c965b31486a323e542f80a08c2ce95d566"
+  },
+  {
+    "file": "EV_mag_6375.txt",
+    "path": "gmsv/data/npc/EV_mag_6375.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6375.txt",
+    "git_blob": "c83c3466f49d7253728f86e018aa1fbdf89c5774",
+    "sha256": "06a0d09854f77869fbc53f3ed3b28c34352ad8526cd748fa33460adb36582599"
+  },
+  {
+    "file": "EV_mag_6376.txt",
+    "path": "gmsv/data/npc/EV_mag_6376.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6376.txt",
+    "git_blob": "6206395152873de4c3d0d44d777349ab0d557f27",
+    "sha256": "d7f1287e835a061f51df1fe02aaeb0b66aa21b5280e187f509c6296869a4e4a5"
+  },
+  {
+    "file": "encount.txt",
+    "path": "gmsv/data/encount.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/encount.txt",
+    "git_blob": "2223b333d50d586a8bb484eba7405f8b01cab85e",
+    "sha256": "05fbadb3cac31f975c3f21d3e47f4ee95d05c7e9d16374eb27fa00865d318b81"
+  },
+  {
+    "file": "enemy.txt",
+    "path": "gmsv/data/enemy.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/enemy.txt",
+    "git_blob": "dcd0e99794784cf84ac09ede61ad6bf2e97e9bc0",
+    "sha256": "b3dc7d207cae7f6a63ccba6562b6af9a10b94acffff84b314e689bb874b5ff10"
+  },
+  {
+    "file": "enemybase.txt",
+    "path": "gmsv/data/enemybase.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/enemybase.txt",
+    "git_blob": "9be2d667c76a9f6102c366967475efc77cacff31",
+    "sha256": "a28025d168828815adb884b073ca5cfa5100518bb19c060ce321c17368bba165"
+  },
+  {
+    "file": "group.txt",
+    "path": "gmsv/data/group.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/group.txt",
+    "git_blob": "6fef2c3a372c900009283c1fcea6e12935f730df",
+    "sha256": "7b1f371d7a4d746ea9c69f5f42dc5a58df432486ec39f8f13027d3734380c0a0"
+  },
+  {
+    "file": "itemset.txt",
+    "path": "gmsv/data/itemset.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/itemset.txt",
+    "git_blob": "0156869ac69be038bc46f0615b35a7de9b7e9d68",
+    "sha256": "fb9563b76672664bf0d45a38d1e155b6757305d8972b625e6b4be273088479b0"
+  },
+  {
+    "file": "mayko_gm_1102660.txt",
+    "path": "gmsv/data/npc/mayko_gm_1102660.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/mayko_gm_1102660.txt",
+    "git_blob": "b6efd40ff10fe75b9381fab2e7651cfffd1f2682",
+    "sha256": "20557e2ea2ddb8a3239755102cb8797718f0981dfe07085dfe7336566d6483fc"
+  },
+  {
+    "file": "mayko_gm_1102661.txt",
+    "path": "gmsv/data/npc/mayko_gm_1102661.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/mayko_gm_1102661.txt",
+    "git_blob": "a03027f53f4f8ef1c33c68b5dc5e3fb7e1e89b95",
+    "sha256": "3dc808340807ea8e1002191886e5848206b9766276645d52a7ff463a4104a1ce"
+  },
+  {
+    "file": "mayko_gm_1102680.txt",
+    "path": "gmsv/data/npc/mayko_gm_1102680.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/mayko_gm_1102680.txt",
+    "git_blob": "d0d420c624c191efeb010ac8b19faf98265cacbf",
+    "sha256": "f3df8f27f855bde0b29b7c7b95dc6c28b7a6bf0e678eb286cf790ffa010af36b"
+  },
+  {
+    "file": "mayko_gm_1102734.txt",
+    "path": "gmsv/data/npc/mayko_gm_1102734.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/mayko_gm_1102734.txt",
+    "git_blob": "f1a8a0746e5346f4023c46fad3937d729367d2fd",
+    "sha256": "e54a3405a911913298558f51e410f2cf5e33024d2d88a65379d0377a11e87398"
+  },
+  {
+    "file": "npcnote.txt",
+    "path": "gmsv/data/npcnote.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npcnote.txt",
+    "git_blob": "25e6c96a3eaac372a6c811a80f71bb6b11ad055f",
+    "sha256": "20f8d25daeb380e4cc7ff33dc8b4e4dec38dd6ab769fe611bc2f606f636669da"
+  },
+  {
+    "file": "skill.txt",
+    "path": "gmsv/data/skill.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/skill.txt",
+    "git_blob": "191a358b48697bd1928f492eb8e6f7ebaa3f22ae",
+    "sha256": "5cdf5da2a8492accc78ec79ce148d2f584b836da65d1a12c256f16394d5e6ae8"
+  },
+  {
+    "file": "houseroom.txt",
+    "path": "gmsv/data/houseroom.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/houseroom.txt",
+    "git_blob": "5a333361422da4200b5c6c56c6b7d8ef60928096",
+    "sha256": "7753e8c56c759e7f443df03d7b247f9cbf16fe3c7e9d11e21584e04d8ffa8ea3"
+  },
+  {
+    "file": "skilllv.txt",
+    "path": "gmsv/data/skilllv.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/skilllv.txt",
+    "git_blob": "a42d17d1b8bb7304a90505fb9bf33c0a7f0361d4",
+    "sha256": "d7fff948f6ab2557bae83ea7b1e8a20f82f95db2a5dda45d4c617d22afb5a953"
+  },
+  {
+    "file": "itemmaterial.txt",
+    "path": "gmsv/data/itemmaterial.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/itemmaterial.txt",
+    "git_blob": "6b58b61e20482d541d51f664ffc83e225a8f7953",
+    "sha256": "6df4954c4048c50448090aa3fed90182504ac4f39570a50378a73b9e88815d54"
+  },
+  {
+    "file": "itemfunc.txt",
+    "path": "gmsv/data/itemfunc.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/itemfunc.txt",
+    "git_blob": "5a65b5c053ea4c97bc64c4ba409e5d05e51d509a",
+    "sha256": "16593972869ca58a1b975d3189176173aab7f00c26de641fcc1ff9c8c8480b29"
+  },
+  {
+    "file": "tech.txt",
+    "path": "gmsv/data/tech.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/tech.txt",
+    "git_blob": "f59699983f08a995c27450bf734723769ef1260b",
+    "sha256": "d7da087e26621dc6e70725d58f971c82f1ec6c66687e92973a2f9f77c0addbd9"
+  }
+]

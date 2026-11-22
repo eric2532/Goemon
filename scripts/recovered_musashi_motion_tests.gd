@@ -16,7 +16,7 @@ func run():
 	game.settings_path="user://musashi-motion-test-%s.cfg"%OS.get_process_id()
 	root.add_child(game);current_scene=game
 	await frames(5)
-	game.begin_forest();game.choose_rogue_character(13);game.start_wave()
+	game.begin_forest();game.choose_rogue_character(game.player.RogueRoster.KAZI_ID);game.player.select_character(13);game.start_wave()
 	game.tuning.freeze_ai=true;game.tuning.invincible=true
 	await frames(10)
 	var p=game.player

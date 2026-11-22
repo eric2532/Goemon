@@ -17,6 +17,7 @@ var follow=Vector3.ZERO
 var impulse=0.0
 var sens=1.0
 var crosshair_focus_rise=CROSSHAIR_FOCUS_RISE
+var combat_camera_angle=0.0
 var character_screen_offset=0.0
 var kick_direction=Vector2.ZERO
 var kick_strength=0.0
@@ -31,6 +32,16 @@ var meta_viewmodel: Node3D
 var third_person_pitch=0.36
 var third_person_fov=63.0
 var first_person_recoil=0.0
+var viewed_character_id=-1
+
+func framing_scale()->float:
+	return (6.0 if player.character_id==27 else 2.3*preload("res://scripts/forest/dark_lumina_kit.gd").SCALE if player.character_id==29 else 1.0)*sqrt(player.growth_multiplier())
+
+func centered_combat_frame()->bool:
+	return player.RogueRoster.is_crossgate_fighter(player.character_id) and game.has_method("forest_enemy_visible")
+
+func combat_distance()->float:
+	return distance*framing_scale()*(1.35 if centered_combat_frame() else 1.0)
 
 func first_person_active()->bool:
 	return first_person_mode and game.playing and not game.paused and not game.transitioning and player.hp>0
@@ -57,8 +68,10 @@ func sync_character_view():
 				first_person_viewmodel.name="MasterChiefViewmodel";camera.add_child(first_person_viewmodel)
 		else:
 			pitch=third_person_pitch;camera.fov=third_person_fov;camera.near=.12
-			follow=player.global_position+Vector3.UP*1.4*player.contact_size_multiplier()
-			travel_follow.reset(follow);current_distance=distance
+			reset_follow();current_distance=combat_distance()
+	if viewed_character_id!=player.character_id:
+		viewed_character_id=player.character_id
+		reset_follow();current_distance=combat_distance()
 	if is_instance_valid(first_person_viewmodel):
 		var visible_now=first_person_active() and not meta_requested
 		if first_person_viewmodel.visible and not visible_now:first_person_viewmodel.stop()
@@ -113,7 +126,7 @@ func _ready():
 func reset_follow():
 	if game.rogue_battle_mode and is_instance_valid(game.rogue_view) and game.rogue_view.enabled:
 		game.rogue_view.reset();return
-	follow=player.global_position+Vector3.UP*1.4*player.contact_size_multiplier()
+	follow=player.global_position+Vector3.UP*1.4*framing_scale()
 	travel_follow.reset(follow)
 
 func _unhandled_input(event):
@@ -149,29 +162,45 @@ func update_camera(delta: float,preview: bool=false):
 	var town=game.world.get("furnished_town")
 	if is_instance_valid(town):town.update_cutaway(player.global_position,yaw)
 	var indoors=is_instance_valid(town) and town.indoor
+	var cave_limit:float=game.cave_camera_limit() if game.has_method("cave_camera_limit") else 0.0
 	var speed=Vector2(player.velocity.x,player.velocity.z).length()
 	var input=player.smoke_move if player.smoke_mode else Input.get_vector("move_left","move_right","move_forward","move_back")
-	var target=player.global_position+Vector3.UP*1.4*player.contact_size_multiplier()
-	if player.RogueRoster.is_enemy(player.character_id):target=player.global_position+Vector3.UP*player.model.bounds().size.y*.65*player.growth_multiplier()
+	# Scale the whole rig together so the global settings frame every fighter alike.
+	var framing=framing_scale()
+	var target=player.global_position+Vector3.UP*1.4*framing
 	var horizontal=travel_follow.update(target,input,yaw,delta)
 	var fast=0.0 if travel_follow.buffering else clampf((speed-8)/10,0,1)
 	if game.descent_mode:target.y-=clampf(-player.velocity.y*.1,0,3.5)
 	if player.sky_strike.active:
 		target=player.sky_strike.origin.lerp(player.sky_strike.landing,.5)+Vector3.UP*(1.4+player.sky_strike.arc_height*.3)
 		horizontal=follow.lerp(target,1-exp(-delta*22))
-		travel_follow.reset(player.global_position+Vector3.UP*1.4*player.contact_size_multiplier())
+		travel_follow.reset(player.global_position+Vector3.UP*1.4*framing)
 		travel_follow.focus=horizontal
 	follow.x=horizontal.x
 	follow.z=horizontal.z
 	follow.y=lerpf(follow.y,target.y,1-exp(-delta*12))
-	var desired=distance*(6.0 if player.character_id==27 else 2.3*preload("res://scripts/forest/dark_lumina_kit.gd").SCALE if player.character_id==29 else 1.0)*sqrt(player.growth_multiplier())+fast*1.2+(1.6 if game.boss_active else 0)
+	if cave_limit>0.0:follow.y=minf(follow.y,cave_limit-1.1)
+	var dungeon_boss:bool=game.has_method("dungeon_boss_nearby") and game.dungeon_boss_nearby()
+	var centered=centered_combat_frame()
+	var desired=combat_distance()+fast*1.2+(1.6 if game.boss_active or dungeon_boss else 0)
 	if travel_follow.buffering:desired=current_distance
 	if player.sky_strike.active:desired=maxf(desired,player.sky_strike.origin.distance_to(player.sky_strike.landing)*.85+10)
 	if indoors:desired=8.0
 	var aiming: bool=game.crosshair_aim_enabled()
+	var aim_pitch=pitch
 	var view_pitch=maxf(pitch,.74) if indoors else (maxf(pitch,.14) if aiming else pitch)
-	var shoulder=Vector3(cos(yaw),0,-sin(yaw))*CROSSHAIR_SHOULDER*sqrt(player.growth_multiplier()) if aiming else Vector3.ZERO
-	var anchor=follow+shoulder+(Vector3.UP*crosshair_focus_rise*player.contact_size_multiplier() if aiming else Vector3.ZERO)
+	if cave_limit>0.0:
+		desired=minf(desired,cave_limit*.85+(1.6 if dungeon_boss else 0.0))
+		aim_pitch=clampf(pitch,-.48,.9)
+		view_pitch=aim_pitch
+	var orbit_angle=combat_camera_angle+(.13 if centered and not indoors and cave_limit<=0.0 else 0.0)
+	if aiming and not is_zero_approx(orbit_angle):
+		var orbit_min=-.48 if cave_limit>0.0 else (.74 if indoors else .02)
+		var orbit_max=.9 if cave_limit>0.0 else 1.15
+		view_pitch=clampf(view_pitch+orbit_angle,orbit_min,orbit_max)
+	var shoulder=Vector3(cos(yaw),0,-sin(yaw))*CROSSHAIR_SHOULDER*framing if aiming and not centered else Vector3.ZERO
+	if cave_limit>0.0:shoulder*=.65
+	var anchor=follow+shoulder+(Vector3.UP*crosshair_focus_rise*framing if aiming else Vector3.ZERO)
 	if aiming and (anchor-follow).length_squared()>.01:
 		var lateral=PhysicsRayQueryParameters3D.create(follow,anchor,1)
 		if indoors:lateral.exclude=town.camera_exclusions
@@ -188,15 +217,16 @@ func update_camera(delta: float,preview: bool=false):
 	current_distance=lerpf(current_distance,safe,1-exp(-delta*(32 if safe<current_distance else 6)))
 	current_distance=minf(current_distance,safe+0.08)
 	camera.global_position=anchor+offset*current_distance
+	if cave_limit>0.0:camera.global_position.y=minf(camera.global_position.y,cave_limit)
 	if aiming:
-		var aim_direction=-Vector3(sin(yaw)*cos(pitch),sin(pitch),cos(yaw)*cos(pitch))
+		var aim_direction=-Vector3(sin(yaw)*cos(aim_pitch),sin(aim_pitch),cos(yaw)*cos(aim_pitch))
 		camera.look_at(camera.global_position+aim_direction*30,Vector3.UP)
 	else:camera.look_at(follow,Vector3.UP)
-	if not travel_follow.buffering:camera.fov=lerpf(camera.fov,63+fast*6,delta*5)
+	if not travel_follow.buffering:camera.fov=lerpf(camera.fov,63+fast*6+(4.0 if dungeon_boss else 0.0),delta*5)
 	if aiming and not is_zero_approx(character_screen_offset):
 		# Reframe by a fraction of screen height without moving the collision-tested
 		# camera. Use the smoothed follow point so jumps keep their normal motion.
-		var feet=camera.to_local(follow-Vector3.UP*1.4*player.contact_size_multiplier())
+		var feet=camera.to_local(follow-Vector3.UP*1.4*framing)
 		if feet.z < -camera.near:
 			var tangent=tan(deg_to_rad(camera.fov)*.5)
 			var below_center=atan2(-feet.y,-feet.z)

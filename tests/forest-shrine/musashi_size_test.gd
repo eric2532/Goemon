@@ -31,7 +31,7 @@ func run():
 	check(absf(shape.shape.height-5.55*REDUCTION)<.001 and absf(shape.shape.radius-1.14*REDUCTION)<.001 and absf(shape.position.y-2.85*REDUCTION)<.001,"Playable capsule shrinks with the body above its feet")
 	check(p.scale.is_equal_approx(Vector3.ONE),"Intrinsic size leaves growth and reset root transforms available")
 	game.camera_rig.distance=14;game.camera_rig.reset_follow()
-	check(absf(game.camera_rig.follow.y-p.global_position.y-4.2*REDUCTION)<.001,"Camera follows the resized torso")
+	check(absf(game.camera_rig.follow.y-p.global_position.y-1.4)<.001,"Musashi uses the shared character camera anchor")
 	check(game.camera_rig.distance==14,"The requested camera distance is retained so the fighter reads larger")
 	p.attack_heavy=false;check(absf(p.melee_strike_reach()-5.4*REDUCTION)<.001,"Fusion contact reaches the resized blade")
 	p.attack_heavy=true;check(absf(p.melee_strike_reach()-6.3*REDUCTION)<.001,"Lumina contact reaches the resized blade")

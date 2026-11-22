@@ -163,7 +163,7 @@ void Combat::boss_area(Crowd& crowd,Unit& u,Vec3 center,float reach,double damag
         if(target.hp<=0||!target.targetable)continue;
         Vec3 point=(target.kind==2||target.body_bounds())?Vec3{std::clamp(center.x,target.minimum.x,target.maximum.x),std::clamp(center.y,target.minimum.y,target.maximum.y),std::clamp(center.z,target.minimum.z,target.maximum.z)}:target.foot;
         if(!contacts(point)||!crowd.terrain.ray_clear(center+Vec3{0,1,0},point+Vec3{0,1,0},target.kind==2?target.id:-1))continue;
-        Event event;event.kind=EXTERNAL_DAMAGE;event.source_id=u.logical_id;event.target_id=target.id;event.external_kind=target.kind;event.unit_kind=u.kind;event.action_index=poison?105:u.action;event.position=center;event.amount=damage;event.direction=normalized(point-(wind?u.position:center));event.heavy=true;emit(event);if(wind&&target.kind==0&&target.id>=0)track_wind(~target.id,point);
+        Event event;event.kind=EXTERNAL_DAMAGE;event.source_id=u.logical_id;event.target_id=target.id;event.external_kind=target.kind;event.unit_kind=u.kind;event.action_index=poison?105:u.action;event.position=center;event.amount=damage;event.direction=normalized(point-(wind?u.position:center));event.heavy=true;external_hit(crowd,event);if(wind&&target.kind==0&&target.id>=0)track_wind(~target.id,point);
     }
 }
 void Combat::boss_advance(Crowd& crowd,Unit& u){

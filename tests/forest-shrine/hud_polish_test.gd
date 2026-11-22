@@ -1,5 +1,5 @@
 extends SceneTree
-# Catches lost health feedback, stale cooldowns and currency formatting at boundaries.
+# Catches lost health feedback and stale cooldowns.
 var game
 var checks=0
 var failures=0
@@ -14,12 +14,9 @@ func run():
 	await process_frame;await process_frame
 	var ui=game.forest_ui
 	game.set_process(false);game.set_physics_process(false)
-	check(ui.gold_count.text=="1,000,000","Large treasury groups digits for readability")
 	check(ui.get("health_trail") is ProgressBar,"Damage feedback has a trailing health bar")
 	if failures:await finish();return
 	ui.set_process(false)
-	for entry in [[0,"0"],[999,"999"],[1000,"1,000"],[1000001,"1,000,001"]]:
-		game.model.gold=entry[0];ui.sync();check(ui.gold_count.text==entry[1],"Currency updates correctly at %d"%entry[0])
 	game.player.hp=100;ui.sync();ui._process(0)
 	var healthy=ui.player_health_bar.get_theme_stylebox("fill").bg_color
 	game.player.hp=20;ui.sync();ui._process(0)
@@ -32,7 +29,8 @@ func run():
 	game.resume()
 	ui._process(1.1);check(is_equal_approx(ui.health_trail.value,20),"Old damage trail clears after its short animation")
 	game.player.hp=80;ui.sync();check(ui.health_trail.value==80,"Healing snaps the damage trail up without a ghost deficit")
-	game.show_rogue_roster();game.choose_rogue_character(3);ui.sync()
+	game.show_rogue_roster();game.choose_rogue_character(5);ui.sync()
+	check(game.player.character_id==5,"The gallery switches to Ninja for the cooldown check")
 	var portrait=ui.hero_portrait.texture
 	game.player.active_ability.player.cooldowns.flintlock=1.0;ui.sync()
 	check(ui.cooldown_masks[1].visible and ui.secondary_icon.modulate.a<1,"Spent secondary attack is visibly unavailable")

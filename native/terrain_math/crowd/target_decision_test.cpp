@@ -3,10 +3,12 @@
 #include <cassert>
 #include <iostream>
 #include <random>
+#include <set>
 namespace army {
 static float horizontal(Vec3 a,Vec3 b){return std::hypot(a.x-b.x,a.z-b.z);}
 struct TargetDecisionTest {
 static void choose(Crowd& c,Unit& u){c.combat.choose_target(c,u);}
+static void empty_claims(Crowd& c){std::fill(c.combat.enemy_unit_claims_.begin(),c.combat.enemy_unit_claims_.end(),0);c.combat.enemy_external_claims_.assign(c.combat.targets_.size(),0);}
 static bool foot(Crowd& c,const Unit& u,Vec3& p){return c.combat.target(c,u,p);}
 static void large_body(){
  Crowd c;c.configure(10,10);c.set_navigation(NavigationData{});auto h=c.spawn(1,0,0,{16,0,0},100,1);auto& u=*c.unit(h);u.external_kind=0;
@@ -127,5 +129,100 @@ int main(){
  hero.targetable=false;c.combat.set_targets({shrine,hero});choose();assert(u.external_kind==2&&u.external_target==20);
  hero.targetable=true;hero.hp=0;c.combat.set_targets({shrine,hero});choose();assert(u.external_target==20);
  c.combat.set_targets({});choose();assert(!u.has_goal&&u.external_kind<0);
+ // New world-enemy pursuits spread across equal-priority nearby combat targets.
+ for(bool native:{false,true}){
+  Crowd pack;pack.configure(128,128);pack.set_navigation(ground());std::vector<Handle> enemies,victims;
+  for(int i=0;i<5;++i)enemies.push_back(pack.spawn(100+i,0,SLIME_KIND,{0,0,2},1000,1));
+  for(int cycle=0;cycle<4;++cycle){
+   for(auto victim:victims)pack.despawn(victim);victims.clear();std::vector<ExternalTarget> rows;
+   rows.push_back(building(500,{40,0,40},{44,10,44},2));
+   for(int i=0;i<5;++i){
+    Vec3 point{float(i-2)*.5f,0,-6};int id=200+cycle*5+i;
+    if(native)victims.push_back(pack.spawn(-id,1,12,point,10000,.5));
+    else rows.push_back(::point(id,point,3));
+   }
+   pack.combat.set_targets(rows);TargetDecisionTest::empty_claims(pack);std::set<int64_t> chosen;
+   for(auto enemy:enemies){auto& u=*pack.unit(enemy);TargetDecisionTest::choose(pack,u);chosen.insert(native?pack.unit(u.target_handle)->logical_id:u.external_target);}
+   assert(chosen.size()==5);++checks;
+   // Reordered snapshots and closer alternatives must not shuffle a living pursuit.
+   std::reverse(rows.begin(),rows.end());pack.combat.set_targets(rows);
+   for(auto enemy:enemies){auto& u=*pack.unit(enemy);auto handle=u.target_handle;auto id=u.external_target;
+    TargetDecisionTest::choose(pack,u);assert(u.target_handle==handle&&(native||u.external_target==id));++checks;
+   }
+  }
+  // Explicit taunts and retaliation override the spreading preference.
+  auto taunter=::point(999,{0,0,-8},0);taunter.taunting=true;pack.combat.set_targets({taunter});
+  for(auto enemy:enemies){auto& u=*pack.unit(enemy);TargetDecisionTest::choose(pack,u);assert(!u.target_handle&&u.external_target==999);++checks;}
+  taunter.taunting=false;pack.combat.set_targets({taunter});
+  auto attacker=pack.spawn(-999,1,12,{0,0,-5},10000,.5);
+  for(auto enemy:enemies){auto& u=*pack.unit(enemy);u.retaliation=4;u.retaliation_source=-999;TargetDecisionTest::choose(pack,u);assert(u.target_handle==attacker);++checks;}
+  for(auto victim:victims)pack.despawn(victim);pack.despawn(attacker);
+  pack.combat.set_targets({::point(1000,{0,0,-6},3)});
+  for(auto enemy:enemies){auto& u=*pack.unit(enemy);u.retaliation=0;TargetDecisionTest::choose(pack,u);assert(!u.target_handle&&u.external_target==1000);++checks;}
+ }
+ // Variation is per enemy, while crowd penalties cannot divert troops arbitrarily far.
+ std::set<int64_t> varied;
+ for(int seed=1;seed<=32;++seed){
+  Crowd pack;pack.configure(128,128);pack.set_navigation(ground());
+  auto enemy=pack.spawn(seed,0,SLIME_KIND,{0,0,0},100,1);
+  pack.combat.set_targets({point(1,{-4,0,0},3),point(2,{4,0,0},3)});
+  TargetDecisionTest::choose(pack,*pack.unit(enemy));varied.insert(pack.unit(enemy)->external_target);
+ }
+ assert(varied.size()==2);++checks;
+ {
+  Crowd pack;pack.configure(128,128);pack.set_navigation(ground());
+  auto enemy=pack.spawn(1,0,SLIME_KIND,{0,0,0},100,1);
+  auto far=pack.spawn(-1,1,12,{0,0,-50},10000,.5);
+  TargetDecisionTest::choose(pack,*pack.unit(enemy));assert(pack.unit(enemy)->target_handle==far);++checks;
+  auto near=pack.spawn(-2,1,12,{0,0,-2},10000,.5);
+  TargetDecisionTest::choose(pack,*pack.unit(enemy));assert(pack.unit(enemy)->target_handle==near);++checks;
+  pack.set_pose(near,{0,0,-28},0);pack.set_pose(far,{0,0,-1},0);
+  TargetDecisionTest::choose(pack,*pack.unit(enemy));assert(pack.unit(enemy)->target_handle==near);++checks;
+  pack.set_pose(near,{0,0,-28.1f},0);
+  TargetDecisionTest::choose(pack,*pack.unit(enemy));assert(pack.unit(enemy)->target_handle==far);++checks;
+ }
+ {
+  Crowd pack;pack.configure(128,128);pack.set_navigation(ground());
+  auto near=pack.spawn(-1,1,12,{0,0,-2},10000,.5),far=pack.spawn(-2,1,12,{0,0,-50},10000,.5);
+  for(int i=0;i<40;++i){auto h=pack.spawn(i+1,0,SLIME_KIND,{0,0,0},100,1);TargetDecisionTest::choose(pack,*pack.unit(h));assert(pack.unit(h)->target_handle==near&&pack.unit(h)->target_handle!=far);++checks;}
+ }
+ // Kills expand player awareness, with an exact cap and no global pull.
+ for(int kills:{-1,0,1,12,42,1000000})for(float offset:{0.f,.01f}){
+  Crowd pack;pack.configure(32,32);pack.set_navigation(ground());
+  auto enemy=pack.spawn(1,0,SLIME_KIND,{0,0,0},100,1);auto& unit=*pack.unit(enemy);
+  auto player=point(0,{28.f+std::clamp(kills,0,42)+offset,0,0},0);player.aggro_kills=kills;
+  auto base=building(500,{-44,0,-4},{-40,10,4},2);
+  pack.combat.set_targets({player,base});TargetDecisionTest::choose(pack,unit);
+  assert(unit.external_kind==(offset==0?0:2));++checks;
+  player.targetable=false;pack.combat.set_targets({player,base});TargetDecisionTest::choose(pack,unit);
+  assert(unit.external_kind==2);++checks;
+  player.targetable=true;player.hp=0;pack.combat.set_targets({player,base});TargetDecisionTest::choose(pack,unit);
+  assert(unit.external_kind==2);++checks;
+ }
+ {
+  Crowd pack;pack.configure(32,32);pack.set_navigation(ground());
+  auto enemy=pack.spawn(1,0,SLIME_KIND,{0,0,0},100,1);auto& unit=*pack.unit(enemy);
+  auto player=point(0,{40,0,0},0);player.aggro_kills=42;
+  auto pet=pack.spawn(-1,1,12,{0,0,-6},10000,.5);
+  unit.target_handle=pet;
+  pack.combat.set_targets({player});TargetDecisionTest::choose(pack,unit);
+  assert(unit.target_handle==pet);++checks;
+  auto base=building(500,{-44,0,-4},{-40,10,4},2);
+  pack.combat.set_targets({player,base});TargetDecisionTest::choose(pack,unit);
+  assert(unit.target_handle==pet);++checks;
+  pack.set_pose(pet,{0,0,-35},0);unit.target_handle=0;unit.external_kind=-1;TargetDecisionTest::choose(pack,unit);
+  assert(unit.external_kind==0);++checks;
+  pack.set_pose(pet,{0,0,-6},0);
+  TargetDecisionTest::choose(pack,unit);assert(unit.external_kind==0);++checks;
+  unit.retaliation=4;unit.retaliation_source=-1;TargetDecisionTest::choose(pack,unit);
+  assert(unit.target_handle==pet);++checks;
+  unit.retaliation=0;auto taunter=point(88,{0,0,-10},3);taunter.taunting=true;
+  pack.combat.set_targets({player,base,taunter});TargetDecisionTest::choose(pack,unit);
+  assert(unit.external_kind==3&&unit.external_target==88);++checks;
+  pack.despawn(pet);auto blocked=ground();enclose(blocked);pack.set_navigation(blocked);
+  player.foot={0,0,0};pack.set_pose(enemy,{-40,0,0},0);
+  pack.combat.set_targets({player,base});TargetDecisionTest::choose(pack,unit);
+  assert(unit.external_kind==2);++checks;
+ }
  std::cout<<"ARMY_TARGET_DECISION_RESULT checks="<<checks<<" failures=0\n";
 }

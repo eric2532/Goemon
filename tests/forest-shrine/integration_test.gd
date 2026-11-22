@@ -8,9 +8,9 @@ func _initialize():
 func run():
 	check(ResourceLoader.exists("res://scenes/forest_shrine.tscn"),"Forest Shrine has a playable scene")
 	if failures:finish();return
+	set_meta("forest_fighter",1)
 	var game=load("res://scenes/forest_shrine.tscn").instantiate();root.add_child(game);current_scene=game
 	await process_frame;await process_frame
-	check(game.forest_ui.gold_count.get_global_rect().position.x>=0 and game.forest_ui.gold_count.get_global_rect().end.x<=root.get_visible_rect().size.x+1,"Treasury text stays inside the visible window")
 	check(game.model.phase=="preparing" and paused,"Preparation stops simulation while keeping the build UI usable")
 	check(game.forest_ui.get_node("BuildBar/Mine").visible,"Preparation exposes a mine building card")
 	game.model.demolish(game.model.occupancy[Vector2i(-5,1)]);game.world.sync(0)

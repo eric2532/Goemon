@@ -539,6 +539,55 @@
     "bytes": 587784
   },
   {
+    "asset": "environments/wind_meadow/crossgate_flora/cg_evergreen",
+    "triangles": 6396,
+    "meshes": 2,
+    "surfaces": 2,
+    "bytes": 549944
+  },
+  {
+    "asset": "environments/wind_meadow/crossgate_flora/cg_silverleaf",
+    "triangles": 6396,
+    "meshes": 2,
+    "surfaces": 2,
+    "bytes": 550832
+  },
+  {
+    "asset": "environments/wind_meadow/crossgate_flora/cg_woodland",
+    "triangles": 6396,
+    "meshes": 2,
+    "surfaces": 2,
+    "bytes": 550776
+  },
+  {
+    "asset": "environments/wind_meadow/falan/falan_chapel",
+    "triangles": 1240,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 119108
+  },
+  {
+    "asset": "environments/wind_meadow/falan/falan_royal_keep",
+    "triangles": 3734,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 350656
+  },
+  {
+    "asset": "environments/wind_meadow/falan/falan_shop",
+    "triangles": 3096,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 293120
+  },
+  {
+    "asset": "environments/wind_meadow/falan/falan_townhouse",
+    "triangles": 3030,
+    "meshes": 1,
+    "surfaces": 1,
+    "bytes": 286928
+  },
+  {
     "asset": "environments/wind_meadow/flowers_blue",
     "triangles": 95,
     "meshes": 1,
@@ -607,6 +656,13 @@
     "meshes": 1,
     "surfaces": 1,
     "bytes": 363376
+  },
+  {
+    "asset": "environments/wind_meadow/travel_stones/travel_stone_kit",
+    "triangles": 16304,
+    "meshes": 4,
+    "surfaces": 5,
+    "bytes": 911828
   },
   {
     "asset": "props/paper_lantern",

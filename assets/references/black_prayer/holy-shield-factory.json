@@ -1,0 +1,119 @@
+{
+  "snapshot_sha256": "8babbe4ad20e4e1e2a6992ecf086d47ef3527426879699f83fa2cebb1a476afe",
+  "branch": [
+    "0x40b0ec",
+    "0x40b16f"
+  ],
+  "cases": [
+    {
+      "flags": 4,
+      "upper_sound_fixture": false,
+      "protocol_queries": [],
+      "resources": [
+        110000
+      ],
+      "sounds": [
+        131
+      ],
+      "random_ranges": [
+        [
+          131,
+          132
+        ]
+      ]
+    },
+    {
+      "flags": 4,
+      "upper_sound_fixture": true,
+      "protocol_queries": [],
+      "resources": [
+        110000
+      ],
+      "sounds": [
+        132
+      ],
+      "random_ranges": [
+        [
+          131,
+          132
+        ]
+      ]
+    },
+    {
+      "flags": 1024,
+      "upper_sound_fixture": false,
+      "protocol_queries": [
+        8
+      ],
+      "resources": [
+        110098
+      ],
+      "sounds": [
+        131
+      ],
+      "random_ranges": [
+        [
+          131,
+          132
+        ]
+      ]
+    },
+    {
+      "flags": 1024,
+      "upper_sound_fixture": true,
+      "protocol_queries": [
+        8
+      ],
+      "resources": [
+        110098
+      ],
+      "sounds": [
+        132
+      ],
+      "random_ranges": [
+        [
+          131,
+          132
+        ]
+      ]
+    },
+    {
+      "flags": 0,
+      "upper_sound_fixture": false,
+      "protocol_queries": [],
+      "resources": [
+        110133
+      ],
+      "sounds": [
+        131
+      ],
+      "random_ranges": [
+        [
+          131,
+          132
+        ]
+      ]
+    },
+    {
+      "flags": 0,
+      "upper_sound_fixture": true,
+      "protocol_queries": [],
+      "resources": [
+        110133
+      ],
+      "sounds": [
+        132
+      ],
+      "random_ranges": [
+        [
+          131,
+          132
+        ]
+      ]
+    }
+  ],
+  "limits": [
+    "Synthetic actor/result fields and inert impact factory/RNG/audio submission; native resource selection and skill lookup execute archived bytes.",
+    "Skill lookup uses a zero-level fixture; levels below twelve select 110098. Live server scheduling and 3D placement remain unverified."
+  ]
+}

@@ -4,6 +4,12 @@ var wave_step_delta=0.0
 func reset(value:int,config:Dictionary={},layout:Dictionary={},include_mines:bool=true):
  cancel_wave_step()
  super.reset(value,config,layout,include_mines)
+ # Historical workforce fixtures rely on the original free miners and reserves.
+ for i in 6:workforce.recruit(true)
+ workforce.auto_assign()
+ for building in buildings.values():
+  if building.kind in ["tower","cannon_tower"]:workforce.recruit(true)
+ starting_food=maxi(10,workers.size())
  # Keep the historical four-slot oracle independent of the current wave editor.
  var saved=config.get("waves",[]);var old_waves=[]
  for index in balance.waves.size():

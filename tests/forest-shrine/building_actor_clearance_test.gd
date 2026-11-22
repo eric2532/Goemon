@@ -55,6 +55,7 @@ func run():
   if cell.x==-999:game.queue_free();paused=false;await frames();continue
   var point:Vector3=m.point(cell)
   game.player.position=point+Vector3.UP*.15;m.hero_position=game.player.position
+  m.workforce.recruit(true)
   worker=m.workers.values()[0];worker.pos=point+Vector3(1,0,1);worker.state="idle";worker.job=-1
   var unit=game.explorer_helpers.pool[0];unit.summon(null,point+Vector3(2,.12,2),0)
   game.explorer_helpers.sync_targets()

@@ -14,7 +14,9 @@ func run():
   var m=Model.new();m.reset(42,{},doc.data,false)
   var guard=m._make_building("tower",Vector2i(0,8),0)
   var towers=m.buildings.values().filter(func(b):return b.kind in ["tower","cannon_tower"])
-  check(not towers.is_empty() and m.workers.values().all(func(w):return m.buildings.get(w.job,{}).get("kind","") not in ["tower","cannon_tower"]),"Map towers leave the starting workers free")
+  check(not towers.is_empty() and m.workers.is_empty() and m.food_used()==0,"Both map sizes start with working towers and zero workers")
+  var gold=m.gold
+  check(m.workforce.recruit() and m.workers.size()==1 and m.gold==gold-50,"Workers can still be hired during preparation")
   var workforce=m.workforce
   var cannon=m._make_building("cannon_tower",Vector2i(4,8),0);towers.append(cannon)
   for tower in towers:
@@ -36,13 +38,12 @@ func run():
     var serial=m.next_id
     workforce.tick(.1,center)
     check(m.next_id==serial,"Tower cannot fire again during reload")
-   m.team_progression.ranks.tower_speed=2;m.team_progression.ranks.tower_damage=2
    var config=m.balance.duplicate(true);config.tower_workers=1;config.tower_attack_speed=2
    tower.clock=100;m.apply_tower_balance(config)
    check(is_equal_approx(tower.clock,workforce.attack_interval(tower)),"Live speed tuning clamps the building cooldown")
    workforce.arrows.clear();tower.clock=0;workforce.tick(0,center)
-   check(workforce.arrows.size()==1 and is_equal_approx(tower.clock,(workforce.CANNON_INTERVAL if tower.kind=="cannon_tower" else 1.0)/3.0),"Saved volley count and team speed upgrades work without workers")
-   if tower.kind=="cannon_tower":check(is_equal_approx(workforce.arrows.values()[0].damage,100.5*1.6),"Cannon retains upgraded damage")
+   check(workforce.arrows.size()==1 and is_equal_approx(tower.clock,(workforce.CANNON_INTERVAL if tower.kind=="cannon_tower" else 1.0)/2.0),"Saved volley count and speed settings work without workers")
+   if tower.kind=="cannon_tower":check(is_equal_approx(workforce.arrows.values()[0].damage,100.5),"Cannon retains its base damage")
    m.phase="preparing";workforce.arrows.clear();tower.clock=0;workforce.tick(5,center)
    check(workforce.arrows.is_empty() and tower.clock==0,"Preparation never fires a tower")
    m.phase="wave";m.visible_cells.clear();workforce.tick(0,center)

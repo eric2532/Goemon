@@ -1,0 +1,47 @@
+{
+  "protected": {
+    "assets/blender/environments/wind_meadow/broadleaf_tree.blend": "3746b083c333429bae846f815b7803477622c7c782445e0aa7467bd4ca51558a",
+    "assets/models/environments/wind_meadow/broadleaf_tree.glb": "7e1bc9b26ff3423ab7ff5bd476e9d1c3600eb60d05def85bb80c2be98dd08896"
+  },
+  "variants": {
+    "cg_evergreen": {
+      "source_graphic": 10058,
+      "vertices_faces": [
+        [
+          234,
+          143
+        ],
+        [
+          11960,
+          5980
+        ]
+      ]
+    },
+    "cg_woodland": {
+      "source_graphic": 10085,
+      "vertices_faces": [
+        [
+          234,
+          143
+        ],
+        [
+          11960,
+          5980
+        ]
+      ]
+    },
+    "cg_silverleaf": {
+      "source_graphic": 10088,
+      "vertices_faces": [
+        [
+          234,
+          143
+        ],
+        [
+          11960,
+          5980
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,2915 @@
+{
+  "snapshot_sha256": "8babbe4ad20e4e1e2a6992ecf086d47ef3527426879699f83fa2cebb1a476afe",
+  "clips": {
+    "110026": {
+      "frames": 15,
+      "columns": 8,
+      "width": 96,
+      "height": 162,
+      "duration": 510,
+      "bounds": [
+        -48,
+        -116,
+        48,
+        46
+      ],
+      "sha256": "fe4c91f0fd420dac8569f6fa827bf5063209ac4e22b8f0ab329f0a6fe2b4a93f",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110026.png",
+      "hit_ms": [
+        340.0
+      ],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 264
+        },
+        {
+          "at_ms": 204.0,
+          "id": 115
+        },
+        {
+          "at_ms": 340.0,
+          "id": 116
+        }
+      ]
+    },
+    "110029": {
+      "frames": 15,
+      "columns": 8,
+      "width": 64,
+      "height": 117,
+      "duration": 510,
+      "bounds": [
+        -35,
+        -83,
+        29,
+        34
+      ],
+      "sha256": "c896a43133c64031126a0e27f7c1c46ecaebe95a700f558302f6ea4a1a427bd8",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110029.png",
+      "hit_ms": [
+        340.0
+      ],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 264
+        },
+        {
+          "at_ms": 340.0,
+          "id": 115
+        }
+      ]
+    },
+    "110038": {
+      "frames": 11,
+      "columns": 8,
+      "width": 69,
+      "height": 68,
+      "duration": 374,
+      "bounds": [
+        -31,
+        -39,
+        38,
+        29
+      ],
+      "sha256": "3e327bcb1e3c2b339df84a0e9af66afd0e48dc1b022a717183c31a2b0f417f41",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110038.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110039": {
+      "frames": 11,
+      "columns": 8,
+      "width": 52,
+      "height": 56,
+      "duration": 374,
+      "bounds": [
+        -24,
+        -26,
+        28,
+        30
+      ],
+      "sha256": "37e4e932fcd52939583f6fa3340b9af0426b6c89e194ea9ad1315e07ddbbfbcd",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110039.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110040": {
+      "frames": 11,
+      "columns": 8,
+      "width": 62,
+      "height": 59,
+      "duration": 374,
+      "bounds": [
+        -31,
+        -29,
+        31,
+        30
+      ],
+      "sha256": "7a52dc6758149c0d596549059bc3086e4fa1b4ee5359dcbf8979ff930231f33b",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110040.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110041": {
+      "frames": 11,
+      "columns": 8,
+      "width": 35,
+      "height": 36,
+      "duration": 374,
+      "bounds": [
+        -16,
+        -18,
+        19,
+        18
+      ],
+      "sha256": "1fbe705a01c33ef786a61d4b8cf382ac541321ef22538dfdc7a8da078f0cc876",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110041.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110042": {
+      "frames": 11,
+      "columns": 8,
+      "width": 41,
+      "height": 41,
+      "duration": 374,
+      "bounds": [
+        -20,
+        -23,
+        21,
+        18
+      ],
+      "sha256": "82f8d6b7725e1e6ab0d1bda85f0ab0a909eed8721a1481bc1010bb01a1dff1e0",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110042.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110043": {
+      "frames": 11,
+      "columns": 8,
+      "width": 34,
+      "height": 33,
+      "duration": 374,
+      "bounds": [
+        -16,
+        -19,
+        18,
+        14
+      ],
+      "sha256": "2a25c6ce8951592bf0d02557c6684efd745bd2ebd0b9414784385ac86a3d7b09",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110043.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110046": {
+      "frames": 4,
+      "columns": 4,
+      "width": 112,
+      "height": 132,
+      "duration": 120,
+      "bounds": [
+        -57,
+        -128,
+        55,
+        4
+      ],
+      "sha256": "3207def6ae73d92b72609beecd0bb1025218a83384bcbc11fd1b64f15716c817",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110046.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110047": {
+      "frames": 4,
+      "columns": 4,
+      "width": 71,
+      "height": 80,
+      "duration": 120,
+      "bounds": [
+        -33,
+        -76,
+        38,
+        4
+      ],
+      "sha256": "7532ec77efccef970888546adf53d612037c0af78b1db8176aea83a34b41e51f",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110047.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110054": {
+      "frames": 11,
+      "columns": 8,
+      "width": 120,
+      "height": 214,
+      "duration": 650,
+      "bounds": [
+        -57,
+        -102,
+        63,
+        112
+      ],
+      "sha256": "319372e16e348479c4fead7ed75e7d9b96c967b9d0e6b648fed83089f78a5c04",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110054.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110055": {
+      "frames": 11,
+      "columns": 8,
+      "width": 88,
+      "height": 157,
+      "duration": 650,
+      "bounds": [
+        -42,
+        -75,
+        46,
+        82
+      ],
+      "sha256": "91e9c54be64b93d4eaaf9b2e9e8d2f6225d85ad9eb66b4cbde1ee8fdfe01d399",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110055.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110065": {
+      "frames": 27,
+      "columns": 8,
+      "width": 44,
+      "height": 74,
+      "duration": 1000,
+      "bounds": [
+        -20,
+        -66,
+        24,
+        8
+      ],
+      "sha256": "ed4e9000dad961704a05ffa0862a2004b694d02e413684b9582f392f837ad6bc",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110065.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 270
+        }
+      ]
+    },
+    "110066": {
+      "frames": 27,
+      "columns": 8,
+      "width": 28,
+      "height": 47,
+      "duration": 1000,
+      "bounds": [
+        -12,
+        -42,
+        16,
+        5
+      ],
+      "sha256": "6c0dcb6291f7f271a9ec4baffec467c285cc53e11f92bf17799ae9bbc513c5ab",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110066.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 270
+        }
+      ]
+    },
+    "110075": {
+      "frames": 4,
+      "columns": 4,
+      "width": 40,
+      "height": 42,
+      "duration": 800,
+      "bounds": [
+        -17,
+        -131,
+        23,
+        -89
+      ],
+      "sha256": "3dbff03a6bcc684454cfa3a78801db5ba9b9e3cf5ea62324f93ef35eaf769df1",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110075.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110076": {
+      "frames": 6,
+      "columns": 6,
+      "width": 40,
+      "height": 42,
+      "duration": 2500,
+      "bounds": [
+        -17,
+        -131,
+        23,
+        -89
+      ],
+      "sha256": "332469757cdd770a202aa7ca242886b7248574dc43e721d3142829845b0a9e61",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110076.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110077": {
+      "frames": 3,
+      "columns": 3,
+      "width": 40,
+      "height": 42,
+      "duration": 1275,
+      "bounds": [
+        -17,
+        -131,
+        23,
+        -89
+      ],
+      "sha256": "87f05db4f5ad75d7c4e283b6e30e995e9a30577b8a579b273591f8813cde619c",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110077.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110078": {
+      "frames": 7,
+      "columns": 7,
+      "width": 40,
+      "height": 43,
+      "duration": 1800,
+      "bounds": [
+        -17,
+        -132,
+        23,
+        -89
+      ],
+      "sha256": "8577d549719548bfef96803df4bd52bc79f89865c6a89464b0ae2dcaaba7ed88",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110078.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110079": {
+      "frames": 8,
+      "columns": 8,
+      "width": 40,
+      "height": 42,
+      "duration": 1000,
+      "bounds": [
+        -17,
+        -131,
+        23,
+        -89
+      ],
+      "sha256": "b48892545b324572b67f49a837e75d12c3971fc52658e370a1f4c12e97d5feea",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110079.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110080": {
+      "frames": 4,
+      "columns": 4,
+      "width": 40,
+      "height": 42,
+      "duration": 1000,
+      "bounds": [
+        -17,
+        -131,
+        23,
+        -89
+      ],
+      "sha256": "86f22a2850e3e01349e6383fa09c84cfcf4511870f2499acfc3c609838c74d56",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110080.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110083": {
+      "frames": 7,
+      "columns": 7,
+      "width": 44,
+      "height": 167,
+      "duration": 357,
+      "bounds": [
+        -19,
+        -154,
+        25,
+        13
+      ],
+      "sha256": "0634c7fa047ae9347c12ce786823fc71c6f6e33f7837d94ff992e9cd719670e8",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110083.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110084": {
+      "frames": 7,
+      "columns": 7,
+      "width": 28,
+      "height": 132,
+      "duration": 357,
+      "bounds": [
+        -12,
+        -119,
+        16,
+        13
+      ],
+      "sha256": "9fa481d1114bf9dbaf1348156f2d1ba1d2f915b53d546bc7f2199579c87aea0e",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110084.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110087": {
+      "frames": 46,
+      "columns": 8,
+      "width": 69,
+      "height": 155,
+      "duration": 1598,
+      "bounds": [
+        -33,
+        -139,
+        36,
+        16
+      ],
+      "sha256": "d35267baa60dbd1b02018f25b4ded4b19fc272a9475157d4fdad3739e3ae17e4",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110087.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 278
+        }
+      ]
+    },
+    "110088": {
+      "frames": 46,
+      "columns": 8,
+      "width": 38,
+      "height": 85,
+      "duration": 1598,
+      "bounds": [
+        -18,
+        -76,
+        20,
+        9
+      ],
+      "sha256": "a093ffb5fee3d1b0744409af09c39721db6e1b7e038c2b3c939f33c6db21ba54",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110088.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 278
+        }
+      ]
+    },
+    "110096": {
+      "frames": 7,
+      "columns": 7,
+      "width": 223,
+      "height": 302,
+      "duration": 400,
+      "bounds": [
+        -111,
+        -291,
+        112,
+        11
+      ],
+      "sha256": "fdd66027a0d93dd5a2dd3af16c8e52482997397cd0070f972fd1f9ff5ad20bf0",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110096.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110098": {
+      "frames": 4,
+      "columns": 4,
+      "width": 104,
+      "height": 114,
+      "duration": 400,
+      "bounds": [
+        -52,
+        -57,
+        52,
+        57
+      ],
+      "sha256": "3caaa755f490e5335f66caf3eb1b07bb6f31b65085dce2df76216a0a5acbe668",
+      "reference_body_pixels": 85,
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110098.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110109": {
+      "frames": 7,
+      "columns": 7,
+      "width": 89,
+      "height": 110,
+      "duration": 833,
+      "bounds": [
+        -44,
+        -60,
+        45,
+        50
+      ],
+      "sha256": "0c5b5e14b29285618d0a8cfb690badc3196997db85168bda659c01dfce85d9a4",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110109.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 285
+        }
+      ]
+    },
+    "110113": {
+      "frames": 7,
+      "columns": 7,
+      "width": 89,
+      "height": 110,
+      "duration": 833,
+      "bounds": [
+        -44,
+        -60,
+        45,
+        50
+      ],
+      "sha256": "3788f547b8e3691b81d3a5c7095ac243cb7575dc0c18a1c5551f275d998469be",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110113.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 285
+        }
+      ]
+    },
+    "110117": {
+      "frames": 14,
+      "columns": 8,
+      "width": 144,
+      "height": 148,
+      "duration": 476,
+      "bounds": [
+        -73,
+        -76,
+        71,
+        72
+      ],
+      "sha256": "1f145c5fc2619e0b44d8342d719e3d16c0d91daca83d004f0a8dc4cc141f29f0",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110117.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 271
+        }
+      ]
+    },
+    "110121": {
+      "frames": 14,
+      "columns": 8,
+      "width": 144,
+      "height": 148,
+      "duration": 476,
+      "bounds": [
+        -73,
+        -76,
+        71,
+        72
+      ],
+      "sha256": "1313f87fc1a74e3ae6c912e6977b102aecf214125a866e3034143b5673d9775c",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110121.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 271
+        }
+      ]
+    },
+    "110125": {
+      "frames": 10,
+      "columns": 8,
+      "width": 80,
+      "height": 113,
+      "duration": 510,
+      "bounds": [
+        -39,
+        -58,
+        41,
+        55
+      ],
+      "sha256": "1fd0a6e9182a8f63197fe9fff3063eedd220a6fc270e63c3abea9324bb122f59",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110125.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 286
+        }
+      ]
+    },
+    "110129": {
+      "frames": 10,
+      "columns": 8,
+      "width": 80,
+      "height": 113,
+      "duration": 510,
+      "bounds": [
+        -39,
+        -58,
+        41,
+        55
+      ],
+      "sha256": "d5e3e933cb4aceb1525ae714a3758ccce29e59d2b9b42f55ee13dbf3233d0de1",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110129.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 286
+        }
+      ]
+    },
+    "110146": {
+      "frames": 18,
+      "columns": 8,
+      "width": 93,
+      "height": 99,
+      "duration": 612,
+      "bounds": [
+        -48,
+        -45,
+        45,
+        54
+      ],
+      "sha256": "97728cbe0557c95ed3313e9a03d615d257fbeb64b18a05099f6848193ab72918",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110146.png",
+      "hit_ms": [
+        306.0
+      ],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 267
+        },
+        {
+          "at_ms": 170.0,
+          "id": 267
+        },
+        {
+          "at_ms": 306.0,
+          "id": 266
+        }
+      ]
+    },
+    "110147": {
+      "frames": 18,
+      "columns": 8,
+      "width": 93,
+      "height": 99,
+      "duration": 612,
+      "bounds": [
+        -48,
+        -45,
+        45,
+        54
+      ],
+      "sha256": "97728cbe0557c95ed3313e9a03d615d257fbeb64b18a05099f6848193ab72918",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110146.png",
+      "hit_ms": [
+        306.0
+      ],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 267
+        },
+        {
+          "at_ms": 170.0,
+          "id": 267
+        },
+        {
+          "at_ms": 306.0,
+          "id": 266
+        }
+      ]
+    },
+    "110148": {
+      "frames": 18,
+      "columns": 8,
+      "width": 93,
+      "height": 99,
+      "duration": 612,
+      "bounds": [
+        -48,
+        -45,
+        45,
+        54
+      ],
+      "sha256": "97728cbe0557c95ed3313e9a03d615d257fbeb64b18a05099f6848193ab72918",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110146.png",
+      "hit_ms": [
+        306.0
+      ],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 267
+        },
+        {
+          "at_ms": 170.0,
+          "id": 267
+        },
+        {
+          "at_ms": 306.0,
+          "id": 266
+        }
+      ]
+    },
+    "110149": {
+      "frames": 13,
+      "columns": 8,
+      "width": 60,
+      "height": 57,
+      "duration": 663,
+      "bounds": [
+        -29,
+        -25,
+        31,
+        32
+      ],
+      "sha256": "9039773e1a95fb5abb97f22a9b0d24519672de7e94acd148663227f6775edae4",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110149.png",
+      "hit_ms": [
+        306.0
+      ],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 267
+        },
+        {
+          "at_ms": 306.0,
+          "id": 266
+        }
+      ]
+    },
+    "110150": {
+      "frames": 13,
+      "columns": 8,
+      "width": 60,
+      "height": 57,
+      "duration": 663,
+      "bounds": [
+        -29,
+        -25,
+        31,
+        32
+      ],
+      "sha256": "9039773e1a95fb5abb97f22a9b0d24519672de7e94acd148663227f6775edae4",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110149.png",
+      "hit_ms": [
+        306.0
+      ],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 267
+        },
+        {
+          "at_ms": 306.0,
+          "id": 266
+        }
+      ]
+    },
+    "110151": {
+      "frames": 13,
+      "columns": 8,
+      "width": 60,
+      "height": 57,
+      "duration": 663,
+      "bounds": [
+        -29,
+        -25,
+        31,
+        32
+      ],
+      "sha256": "9039773e1a95fb5abb97f22a9b0d24519672de7e94acd148663227f6775edae4",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110149.png",
+      "hit_ms": [
+        306.0
+      ],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 267
+        },
+        {
+          "at_ms": 306.0,
+          "id": 266
+        }
+      ]
+    },
+    "110155": {
+      "frames": 20,
+      "columns": 8,
+      "width": 292,
+      "height": 217,
+      "duration": 2000,
+      "bounds": [
+        -148,
+        -109,
+        144,
+        108
+      ],
+      "sha256": "b91d00e06e17b01423b485ea826c572a86cf10dd83e447100e574ba58185588d",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110155.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110156": {
+      "frames": 18,
+      "columns": 8,
+      "width": 123,
+      "height": 136,
+      "duration": 1530,
+      "bounds": [
+        -55,
+        -57,
+        68,
+        79
+      ],
+      "sha256": "a05937cac581d34657c4e698a53bef35ef5a7757a147bddce4dc864f94d1cf98",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110156.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 284
+        }
+      ]
+    },
+    "110163": {
+      "frames": 6,
+      "columns": 6,
+      "width": 76,
+      "height": 71,
+      "duration": 918,
+      "bounds": [
+        -36,
+        -78,
+        40,
+        -7
+      ],
+      "sha256": "6082051ba87cbf928c10aae7cf94c7812a3c305b625642906a6e765d7e0ac227",
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/110163.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 276
+        }
+      ]
+    },
+    "110178": {
+      "frames": 20,
+      "columns": 8,
+      "width": 75,
+      "height": 71,
+      "duration": 680,
+      "bounds": [
+        -36,
+        -37,
+        39,
+        34
+      ],
+      "sha256": "975e500e4c9eacf1db7118139d147af53a11d49985f8fffd4783de4bab565e9d",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110178.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 291
+        }
+      ]
+    },
+    "110179": {
+      "frames": 20,
+      "columns": 8,
+      "width": 49,
+      "height": 46,
+      "duration": 680,
+      "bounds": [
+        -23,
+        -23,
+        26,
+        23
+      ],
+      "sha256": "d3db17851fe67f123dfe0302896e05905c68efa6ae9d51838dad367e011842dc",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110179.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 291
+        }
+      ]
+    }
+  },
+  "sounds": {
+    "264": {
+      "runtime_path": "res://assets/audio/crossgate/kazi/cgefc13.wav",
+      "sha256": "dc1c5f234d300ab24867a7eb835b70ca7dea589bbd00750bb0bf07c291e18bb4"
+    },
+    "115": {
+      "runtime_path": "res://assets/audio/crossgate/special_skins/cgply06a2.wav",
+      "sha256": "b2cca14878e0be8ee336366ae3b4594ece49af23d332b315e4a94691c36c766a"
+    },
+    "116": {
+      "runtime_path": "res://assets/audio/crossgate/lancelot/cgply06b2.wav",
+      "sha256": "8ca384351e5b2ff0542d9f294a089ba0f99ff49223d41e167a19ecbfc68427dc"
+    },
+    "270": {
+      "runtime_path": "res://assets/characters/crossgate/falken/spells/cgefc19.wav",
+      "sha256": "ee7b4c6de21df047f71dbfc9c2effbd7efc5d0e989e930b0734a617842f4c1d0"
+    },
+    "278": {
+      "runtime_path": "res://assets/audio/crossgate/ruby/cgefc27.wav",
+      "sha256": "633459b895c4ca6594fd520ea0861888d431fbc9276af97066ac1d7e45276d5f"
+    },
+    "285": {
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/cgefc34.wav",
+      "sha256": "56bb231e900d7e20fe61bf50dc0bfde8b0e061c69d1d6b2b5d83a3a84b688074"
+    },
+    "271": {
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/cgefc20.wav",
+      "sha256": "bfac39cf274c495d7b9e574056649afac4f994e528e3bfbb5470f0baaf95a806"
+    },
+    "286": {
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/cgefc35.wav",
+      "sha256": "3fdb1af333ff88021c23008da9273ef6cbd1336d119c1b23d62360054ce6d5a4"
+    },
+    "267": {
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/cgefc16.wav",
+      "sha256": "0d070815b78841d1ec37b2dea7252cd7e155d732597e257ea009950542d4ceff"
+    },
+    "266": {
+      "runtime_path": "res://assets/audio/crossgate/kazi/cgefc15.wav",
+      "sha256": "50e492d4319bd404fdedcffdc8dbc47416f4e7b6b20b9f6270d191fbc57b7e88"
+    },
+    "284": {
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/cgefc33.wav",
+      "sha256": "497a91a8f98a22846cce0bb980d56565c3e08977b1c5823b9b4a66fce7a91b7e"
+    },
+    "276": {
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/cgefc25.wav",
+      "sha256": "e4f7c30f422b032e282eae130054d38b749201a5f661ac438b07927690346365"
+    },
+    "291": {
+      "runtime_path": "res://assets/audio/crossgate/ruby/cgefc38.wav",
+      "sha256": "55eec01b79911be07214fddd97367cd9bd850c7756372e983dc98578d501831a"
+    },
+    "131": {
+      "runtime_path": "res://assets/audio/crossgate/kazi/cgply10a.wav",
+      "sha256": "732704efc243e1719059d2690958dda57218831799407f2b3d0407f1806d11f6"
+    },
+    "132": {
+      "runtime_path": "res://assets/audio/crossgate/kazi/cgply10b.wav",
+      "sha256": "50d6db3e270e7c737ee37ea827580b965c9e46c790a03d942808c1ff9027a09e"
+    },
+    "261": {
+      "runtime_path": "res://assets/audio/crossgate/ruby/cgefc10.wav",
+      "sha256": "b534a6c9d73fbf1f884f5c19a4ca9980a30e94b53c31ccaca63733c6ffda5cd9"
+    },
+    "262": {
+      "runtime_path": "res://assets/audio/crossgate/kazi/cgefc11.wav",
+      "sha256": "b2602f997a97680e8bb9edd54bff34a2e11e1355f5c5799d25c63d127e8e16d0"
+    },
+    "275": {
+      "runtime_path": "res://assets/characters/crossgate/cursed_maze/spells/cgefc24.wav",
+      "sha256": "79bef4982edf2786f28204e758980a52e53a4ce4b1a05863d8d0cc64be3ccc0a"
+    },
+    "268": {
+      "runtime_path": "res://assets/audio/crossgate/kazi/cgefc17.wav",
+      "sha256": "90ac49ab1197d2ca3674526aab1d01be8cd7b35d4816b3c42720a7f25c560ec3"
+    }
+  },
+  "tech_rows": {
+    "50": "连击E1\tTECH_ContinuationAttack\tAS:0,AN:2,AM:4,DD:-20,\t50\t130000\t0\t50\t1\t1141\t\t\t0\t0\t\t",
+    "104": "诸刃LV5\tTECH_Parameter\tAS:0,TR:35,DR:-25,MR:-25,\t104\t130001\t1\t5\t1\t1141\t\t\t42\t1\t\t",
+    "105": "诸刃LV6\tTECH_Parameter\tAS:0,TR:42,DR:-30,MR:-30,\t105\t130001\t1\t6\t1\t1141\t\t\t50\t1\t\t",
+    "304": "乾坤一掷LV5\tTECH_Parameter\tAS:0,HR:-12,DD:50,\t304\t130003\t3\t5\t1\t1141\t\t\t42\t1\t\t",
+    "305": "乾坤一掷LV6\tTECH_Parameter\tAS:0,HR:-14,DD:60,\t305\t130003\t3\t6\t1\t1141\t\t\t50\t1\t\t",
+    "505": "崩击LV6\tTECH_GuardBreak\tAS:0,DD:60,\t505\t130005\t5\t6\t1\t1141\t\t\t25\t1\t\t",
+    "850": "圣盾E1\tTECH_SpecialGuard\tAS:0,RS:50,RE:100,\t850\t100830\t8\t50\t1\t72\t\t\t0\t0\t\t",
+    "1000": "攻击魔法防御LV1\tTECH_MagicGuard\tAS:0,RS:-50,RE:-100,\t1000\t130010\t10\t1\t1\t72\t100\t\t0\t1\t\t",
+    "1104": "反击LV5\tTECH_CrossCounter\tAS:0,CO:25,CM:50,DD:20,\t1104\t130011\t11\t5\t1\t64\t\t\t21\t1\t\t",
+    "1105": "反击LV6\tTECH_CrossCounter\tAS:0,CO:30,CM:60,DD:30,\t1105\t130011\t11\t6\t1\t64\t\t\t25\t1\t\t",
+    "2702": "超强陨石魔法LV3\tTECH_Attack_Magic\tAR:96,\t2702\t130027\t27\t3\t1\t317\t\t\t120\t1\t\t",
+    "2705": "超强陨石魔法LV6\tTECH_Attack_Magic\tAR:173,\t2705\t130027\t27\t6\t1\t317\t\t\t240\t1\t\t",
+    "2802": "超强冰冻魔法LV3\tTECH_Attack_Magic\tAR:96,\t2802\t130028\t28\t3\t1\t317\t\t\t120\t1\t\t",
+    "2805": "超强冰冻魔法LV6\tTECH_Attack_Magic\tAR:173,\t2805\t130028\t28\t6\t1\t317\t\t\t240\t1\t\t",
+    "2902": "超强火焰魔法LV3\tTECH_Attack_Magic\tAR:96,\t2902\t130029\t29\t3\t1\t317\t\t\t120\t1\t\t",
+    "2905": "超强火焰魔法LV6\tTECH_Attack_Magic\tAR:173,\t2905\t130029\t29\t6\t1\t317\t\t\t240\t1\t\t",
+    "3002": "超强风刃魔法LV3\tTECH_Attack_Magic\tAR:96,\t3002\t130030\t30\t3\t1\t317\t\t\t120\t1\t\t",
+    "3005": "超强风刃魔法LV6\tTECH_Attack_Magic\tAR:173,\t3005\t130030\t30\t6\t1\t317\t\t\t240\t1\t\t",
+    "3105": "吸血魔法LV6\tTECH_Dorain\tD1:288,D2:288,\t3105\t130031\t31\t6\t1\t125\t\t\t120\t1\t\t",
+    "4453": "超强中毒魔法E1\tTECH_StatusChange\tSR:25,CH:4,\t4453\t130044\t44\t50\t1\t317\t\t\t0\t0\t\t",
+    "4553": "超强昏睡魔法E1\tTECH_StatusChange\tSR:25,CH:4,\t4553\t130045\t45\t50\t1\t317\t\t\t0\t0\t\t",
+    "4653": "超强石化魔法E1\tTECH_StatusChange\tSR:25,CH:4,\t4653\t130046\t46\t50\t1\t317\t\t\t0\t0\t\t",
+    "4753": "超强酒醉魔法E1\tTECH_StatusChange\tSR:25,CH:4,\t4753\t130047\t47\t50\t1\t317\t\t\t0\t0\t\t",
+    "4853": "超强混乱魔法E1\tTECH_StatusChange\tSR:25,CH:4,\t4853\t130048\t48\t50\t1\t317\t\t\t0\t0\t\t",
+    "4953": "超强遗忘魔法E1\tTECH_StatusChange\tSR:25,CH:4,\t4953\t130049\t49\t50\t1\t317\t\t\t0\t0\t\t",
+    "5503": "攻击反弹LV4\tTECH_Reflection_Physics\tD1:3,D2:4,RS:0,RE:0,\t5503\t130055\t55\t4\t1\t93\t\t\t100\t1\t\t",
+    "5603": "魔法反弹LV4\tTECH_Reflection_Magic\tD1:3,D2:4,RS:0,RE:0,\t5603\t130056\t56\t4\t1\t93\t\t\t100\t1\t\t",
+    "5703": "攻击吸收LV4\tTECH_Absorb_Physics\tD1:3,D2:4,RS:0,RE:0,\t5703\t130057\t57\t4\t1\t93\t\t\t100\t1\t\t",
+    "5803": "魔法吸收LV4\tTECH_Absorb_Magic\tD1:3,D2:4,RS:0,RE:0,\t5803\t130058\t58\t4\t1\t93\t\t\t100\t1\t\t",
+    "5903": "攻击无效LV4\tTECH_Ineffective_Physics\tD1:3,D2:4,CH:2,\t5903\t130059\t59\t4\t1\t93\t\t\t100\t1\t\t",
+    "5950": "攻击无效E1\tTECH_Ineffective_Physics\tD1:10,D2:10,CH:2,\t5950\t130059\t59\t50\t1\t93\t\t\t0\t0\t\t",
+    "6003": "魔法无效LV4\tTECH_Ineffective_Magic\tD1:3,D2:4,CH:2,\t6003\t130060\t60\t4\t1\t93\t\t\t100\t1\t\t",
+    "6050": "魔法无效E1\tTECH_Ineffective_Magic\tD1:10,D2:10,CH:2,\t6050\t130060\t60\t50\t1\t93\t\t\t0\t0\t\t",
+    "6104": "补血魔法LV5\tTECH_Heal_Magic\tAR:300,\t6104\t130061\t61\t5\t1\t93\t\t\t150\t1\t\t",
+    "6350": "超强补血魔法E1\tTECH_Heal_Magic\tAR:50,\t6350\t130063\t63\t50\t1\t285\t\t\t48\t0\t\t",
+    "6602": "超强恢复魔法LV3\tTECH_LpRecovery\tRR:24,CH:6,\t6602\t130066\t66\t3\t1\t285\t\t\t144\t1\t\t",
+    "7300": "攻击\tTECH_NormalAttack\tAN:1,\t7300\t107300\t73\t30\t1\t1141\t100\t\t0\t0\t\t",
+    "7400": "防御\tTECH_NormalGuard\t\t7400\t107400\t74\t30\t1\t72\t100\t\t0\t0\t\t",
+    "8150": "吸血攻击E1\tTECH_BloodAttack\tAR:100,CH:300,\t8150\t108130\t81\t50\t1\t1141\t\t\t0\t0\t\t",
+    "8652": "超强即死E3\tTECH_Death\tSR:10,\t8652\t\t86\t50\t1\t317\t\t\t0\t0\t\t",
+    "8850": "魔封攻击E1\tTECH_Treat_Type\tAN:1,\t8850\t\t88\t50\t1\t120\t\t\t0\t0\t\t",
+    "9301": "召唤LV2\tTECH_Summon\tAR:2,\t9301\t\t93\t50\t1\t112\t\t\t0\t0\t\t"
+  },
+  "ward_contacts": {
+    "754": "110117",
+    "755": "110121",
+    "756": "110109",
+    "757": "110113",
+    "758": "110125",
+    "759": "110129"
+  },
+  "confusion": "110163",
+  "holy_shield": "110098",
+  "holy_factory_sha256": "20de1d7360b42cff18361603a8083590a8d67819c4552374c667ce5c1c774fbe",
+  "effect_factory_sha256": "b62f1913aea871551583aa1d7550d84e8644ecccd0d9805865e58e2a9e849864",
+  "native_clips": {
+    "110075": {
+      "key": "original:3057",
+      "frames": [
+        [
+          17067,
+          0,
+          0,
+          0
+        ],
+        [
+          17068,
+          0,
+          0,
+          0
+        ],
+        [
+          17069,
+          0,
+          0,
+          0
+        ],
+        [
+          17068,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110076": {
+      "key": "original:3058",
+      "frames": [
+        [
+          17081,
+          0,
+          0,
+          0
+        ],
+        [
+          17082,
+          0,
+          0,
+          0
+        ],
+        [
+          17083,
+          0,
+          0,
+          0
+        ],
+        [
+          17084,
+          0,
+          0,
+          0
+        ],
+        [
+          17085,
+          0,
+          0,
+          0
+        ],
+        [
+          17086,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110077": {
+      "key": "original:3059",
+      "frames": [
+        [
+          17078,
+          0,
+          0,
+          0
+        ],
+        [
+          17079,
+          0,
+          0,
+          0
+        ],
+        [
+          17080,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110078": {
+      "key": "original:3060",
+      "frames": [
+        [
+          17087,
+          0,
+          0,
+          0
+        ],
+        [
+          17088,
+          0,
+          0,
+          0
+        ],
+        [
+          17089,
+          0,
+          0,
+          0
+        ],
+        [
+          17090,
+          0,
+          0,
+          0
+        ],
+        [
+          17091,
+          0,
+          0,
+          0
+        ],
+        [
+          17092,
+          0,
+          0,
+          0
+        ],
+        [
+          17093,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110079": {
+      "key": "original:3061",
+      "frames": [
+        [
+          17070,
+          0,
+          0,
+          0
+        ],
+        [
+          17071,
+          0,
+          0,
+          0
+        ],
+        [
+          17072,
+          0,
+          0,
+          0
+        ],
+        [
+          17073,
+          0,
+          0,
+          0
+        ],
+        [
+          17074,
+          0,
+          0,
+          0
+        ],
+        [
+          17075,
+          0,
+          0,
+          0
+        ],
+        [
+          17076,
+          0,
+          0,
+          0
+        ],
+        [
+          17077,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110080": {
+      "key": "original:3062",
+      "frames": [
+        [
+          17094,
+          0,
+          0,
+          0
+        ],
+        [
+          17095,
+          0,
+          0,
+          0
+        ],
+        [
+          17096,
+          0,
+          0,
+          0
+        ],
+        [
+          17095,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110096": {
+      "key": "original:3076",
+      "frames": [
+        [
+          17197,
+          0,
+          0,
+          0
+        ],
+        [
+          17196,
+          0,
+          0,
+          0
+        ],
+        [
+          17195,
+          0,
+          0,
+          0
+        ],
+        [
+          17194,
+          0,
+          0,
+          0
+        ],
+        [
+          17193,
+          0,
+          0,
+          0
+        ],
+        [
+          17192,
+          0,
+          0,
+          0
+        ],
+        [
+          17191,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110098": {
+      "key": "original:3078",
+      "frames": [
+        [
+          17202,
+          0,
+          0,
+          0
+        ],
+        [
+          17203,
+          0,
+          0,
+          0
+        ],
+        [
+          17204,
+          0,
+          0,
+          0
+        ],
+        [
+          17205,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110109": {
+      "key": "original:3089",
+      "frames": [
+        [
+          17165,
+          0,
+          0,
+          285
+        ],
+        [
+          17166,
+          0,
+          0,
+          0
+        ],
+        [
+          17167,
+          0,
+          0,
+          0
+        ],
+        [
+          17168,
+          0,
+          0,
+          0
+        ],
+        [
+          17169,
+          0,
+          0,
+          0
+        ],
+        [
+          17170,
+          0,
+          0,
+          0
+        ],
+        [
+          17171,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110113": {
+      "key": "original:3093",
+      "frames": [
+        [
+          15867,
+          0,
+          0,
+          285
+        ],
+        [
+          15868,
+          0,
+          0,
+          0
+        ],
+        [
+          15869,
+          0,
+          0,
+          0
+        ],
+        [
+          15870,
+          0,
+          0,
+          0
+        ],
+        [
+          15872,
+          0,
+          0,
+          0
+        ],
+        [
+          15871,
+          0,
+          0,
+          0
+        ],
+        [
+          15873,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110117": {
+      "key": "original:3097",
+      "frames": [
+        [
+          17462,
+          0,
+          0,
+          271
+        ],
+        [
+          17462,
+          0,
+          0,
+          0
+        ],
+        [
+          17463,
+          0,
+          0,
+          0
+        ],
+        [
+          17463,
+          0,
+          0,
+          0
+        ],
+        [
+          17464,
+          0,
+          0,
+          0
+        ],
+        [
+          17464,
+          0,
+          0,
+          0
+        ],
+        [
+          17465,
+          0,
+          0,
+          0
+        ],
+        [
+          17465,
+          0,
+          0,
+          0
+        ],
+        [
+          17466,
+          0,
+          0,
+          0
+        ],
+        [
+          17466,
+          0,
+          0,
+          0
+        ],
+        [
+          17467,
+          0,
+          0,
+          0
+        ],
+        [
+          17467,
+          0,
+          0,
+          0
+        ],
+        [
+          17468,
+          0,
+          0,
+          0
+        ],
+        [
+          17468,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110121": {
+      "key": "original:3101",
+      "frames": [
+        [
+          17469,
+          0,
+          0,
+          271
+        ],
+        [
+          17469,
+          0,
+          0,
+          0
+        ],
+        [
+          17470,
+          0,
+          0,
+          0
+        ],
+        [
+          17470,
+          0,
+          0,
+          0
+        ],
+        [
+          17471,
+          0,
+          0,
+          0
+        ],
+        [
+          17471,
+          0,
+          0,
+          0
+        ],
+        [
+          17472,
+          0,
+          0,
+          0
+        ],
+        [
+          17472,
+          0,
+          0,
+          0
+        ],
+        [
+          17473,
+          0,
+          0,
+          0
+        ],
+        [
+          17473,
+          0,
+          0,
+          0
+        ],
+        [
+          17474,
+          0,
+          0,
+          0
+        ],
+        [
+          17474,
+          0,
+          0,
+          0
+        ],
+        [
+          17475,
+          0,
+          0,
+          0
+        ],
+        [
+          17475,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110125": {
+      "key": "original:3105",
+      "frames": [
+        [
+          17294,
+          0,
+          0,
+          286
+        ],
+        [
+          17295,
+          0,
+          0,
+          0
+        ],
+        [
+          17296,
+          0,
+          0,
+          0
+        ],
+        [
+          17297,
+          0,
+          0,
+          0
+        ],
+        [
+          17298,
+          0,
+          0,
+          0
+        ],
+        [
+          17299,
+          0,
+          0,
+          0
+        ],
+        [
+          17300,
+          0,
+          0,
+          0
+        ],
+        [
+          17301,
+          0,
+          0,
+          0
+        ],
+        [
+          17302,
+          0,
+          0,
+          0
+        ],
+        [
+          17303,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110129": {
+      "key": "original:3109",
+      "frames": [
+        [
+          17304,
+          0,
+          0,
+          286
+        ],
+        [
+          17305,
+          0,
+          0,
+          0
+        ],
+        [
+          17306,
+          0,
+          0,
+          0
+        ],
+        [
+          17307,
+          0,
+          0,
+          0
+        ],
+        [
+          17308,
+          0,
+          0,
+          0
+        ],
+        [
+          17309,
+          0,
+          0,
+          0
+        ],
+        [
+          17300,
+          0,
+          0,
+          0
+        ],
+        [
+          17301,
+          0,
+          0,
+          0
+        ],
+        [
+          17302,
+          0,
+          0,
+          0
+        ],
+        [
+          17303,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110155": {
+      "key": "original:3135",
+      "frames": [
+        [
+          15815,
+          0,
+          0,
+          0
+        ],
+        [
+          15816,
+          0,
+          0,
+          0
+        ],
+        [
+          15817,
+          0,
+          0,
+          0
+        ],
+        [
+          15818,
+          0,
+          0,
+          0
+        ],
+        [
+          15819,
+          0,
+          0,
+          0
+        ],
+        [
+          15820,
+          0,
+          0,
+          0
+        ],
+        [
+          15821,
+          0,
+          0,
+          0
+        ],
+        [
+          15822,
+          0,
+          0,
+          0
+        ],
+        [
+          15823,
+          0,
+          0,
+          0
+        ],
+        [
+          15824,
+          0,
+          0,
+          0
+        ],
+        [
+          15825,
+          0,
+          0,
+          0
+        ],
+        [
+          15824,
+          0,
+          0,
+          0
+        ],
+        [
+          15823,
+          0,
+          0,
+          0
+        ],
+        [
+          15822,
+          0,
+          0,
+          0
+        ],
+        [
+          15821,
+          0,
+          0,
+          0
+        ],
+        [
+          15820,
+          0,
+          0,
+          0
+        ],
+        [
+          15819,
+          0,
+          0,
+          0
+        ],
+        [
+          15818,
+          0,
+          0,
+          0
+        ],
+        [
+          15817,
+          0,
+          0,
+          0
+        ],
+        [
+          15816,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110156": {
+      "key": "original:3136",
+      "frames": [
+        [
+          15826,
+          0,
+          0,
+          284
+        ],
+        [
+          15827,
+          0,
+          0,
+          0
+        ],
+        [
+          15828,
+          0,
+          0,
+          0
+        ],
+        [
+          15829,
+          0,
+          0,
+          0
+        ],
+        [
+          15830,
+          0,
+          0,
+          0
+        ],
+        [
+          15830,
+          0,
+          0,
+          0
+        ],
+        [
+          15830,
+          0,
+          0,
+          0
+        ],
+        [
+          15830,
+          0,
+          0,
+          0
+        ],
+        [
+          15831,
+          0,
+          0,
+          0
+        ],
+        [
+          15832,
+          0,
+          0,
+          0
+        ],
+        [
+          15833,
+          0,
+          0,
+          0
+        ],
+        [
+          15834,
+          0,
+          0,
+          0
+        ],
+        [
+          15835,
+          0,
+          0,
+          0
+        ],
+        [
+          15836,
+          0,
+          0,
+          0
+        ],
+        [
+          15837,
+          0,
+          0,
+          0
+        ],
+        [
+          15838,
+          0,
+          0,
+          0
+        ],
+        [
+          15839,
+          0,
+          0,
+          0
+        ],
+        [
+          15840,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110163": {
+      "key": "original:3143",
+      "frames": [
+        [
+          15874,
+          0,
+          0,
+          276
+        ],
+        [
+          15875,
+          0,
+          0,
+          0
+        ],
+        [
+          15876,
+          0,
+          0,
+          0
+        ],
+        [
+          15877,
+          0,
+          0,
+          0
+        ],
+        [
+          15878,
+          0,
+          0,
+          0
+        ],
+        [
+          15879,
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "status_icons": [
+    "110075",
+    "110076",
+    "110077",
+    "110078",
+    "110079",
+    "110080"
+  ],
+  "magic_seal": {
+    "resource": "110155",
+    "sound": 275
+  },
+  "death": "110156",
+  "summon_factory_sha256": "de095e3cc377fe41f86cdca408c7cb5a514f94dfd38547a79f077481b7e373ba",
+  "summon": {
+    "resource": "110096",
+    "updates": 51,
+    "scales": [
+      0.0,
+      0.019999999552965164,
+      0.03999999910593033,
+      0.05999999865889549,
+      0.07999999821186066,
+      0.09999999403953552,
+      0.11999998986721039,
+      0.13999998569488525,
+      0.15999998152256012,
+      0.17999997735023499,
+      0.19999997317790985,
+      0.21999996900558472,
+      0.23999996483325958,
+      0.25999996066093445,
+      0.2799999713897705,
+      0.29999998211860657,
+      0.3199999928474426,
+      0.3400000035762787,
+      0.36000001430511475,
+      0.3800000250339508,
+      0.40000003576278687,
+      0.4200000464916229,
+      0.440000057220459,
+      0.46000006794929504,
+      0.4800000786781311,
+      0.5000000596046448,
+      0.5200000405311584,
+      0.5400000214576721,
+      0.5600000023841858,
+      0.5799999833106995,
+      0.5999999642372131,
+      0.6199999451637268,
+      0.6399999260902405,
+      0.6599999070167542,
+      0.6799998879432678,
+      0.6999998688697815,
+      0.7199998497962952,
+      0.7399998307228088,
+      0.7599998116493225,
+      0.7799997925758362,
+      0.7999997735023499,
+      0.8199997544288635,
+      0.8399997353553772,
+      0.8599997162818909,
+      0.8799996972084045,
+      0.8999996781349182,
+      0.9199996590614319,
+      0.9399996399879456,
+      0.9599996209144592,
+      0.9799996018409729,
+      0.9999995827674866,
+      1.0
+    ],
+    "opacity": 0.5019607843137255
+  },
+  "reference_body_pixels": 83,
+  "reference_body": {
+    "key": "original:2402",
+    "action": 0,
+    "direction": 4,
+    "frame": 0
+  },
+  "profiles": [
+    {
+      "name": "納帕",
+      "ai": 12029,
+      "raw": "12029\t78\t79\t80\t81\t0\t\t\t\t\t0\t0\t0\t0\t0\t2\t\t\t\t\t0\t9301\t9301\t9301\t9301\t7300\t\t\t\t\t850\t30\t30\t30\t30\t60\t\t\t\t\t100",
+      "rules": [
+        {
+          "condition": 78,
+          "target": 0,
+          "tech": 9301,
+          "chance": 30
+        },
+        {
+          "condition": 79,
+          "target": 0,
+          "tech": 9301,
+          "chance": 30
+        },
+        {
+          "condition": 80,
+          "target": 0,
+          "tech": 9301,
+          "chance": 30
+        },
+        {
+          "condition": 81,
+          "target": 0,
+          "tech": 9301,
+          "chance": 30
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 7300,
+          "chance": 60
+        },
+        {
+          "condition": 0,
+          "target": 0,
+          "tech": 850,
+          "chance": 100
+        }
+      ]
+    },
+    {
+      "name": "德爾麥",
+      "ai": 12030,
+      "raw": "12030\t57\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t43\t43\t43\t2\t2\t2\t2\t2\t0\t5903\t5703\t5503\t5903\t2702\t2802\t3002\t2902\t7300\t7400\t50\t50\t50\t50\t30\t30\t30\t30\t30\t100",
+      "rules": [
+        {
+          "condition": 57,
+          "target": 0,
+          "tech": 5903,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 43,
+          "tech": 5703,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 43,
+          "tech": 5503,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 43,
+          "tech": 5903,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 2702,
+          "chance": 30
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 2802,
+          "chance": 30
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 3002,
+          "chance": 30
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 2902,
+          "chance": 30
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 7300,
+          "chance": 30
+        },
+        {
+          "condition": 0,
+          "target": 0,
+          "tech": 7400,
+          "chance": 100
+        }
+      ]
+    },
+    {
+      "name": "瑟貝塔",
+      "ai": 12031,
+      "raw": "12031\t57\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t42\t42\t42\t2\t2\t2\t2\t0\t0\t6003\t5803\t5603\t6003\t7300\t50\t104\t304\t1000\t1104\t50\t50\t50\t50\t50\t50\t50\t50\t50\t100",
+      "rules": [
+        {
+          "condition": 57,
+          "target": 0,
+          "tech": 6003,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 42,
+          "tech": 5803,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 42,
+          "tech": 5603,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 42,
+          "tech": 6003,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 7300,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 50,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 104,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 304,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 0,
+          "tech": 1000,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 0,
+          "tech": 1104,
+          "chance": 100
+        }
+      ]
+    },
+    {
+      "name": "亞爾法",
+      "ai": 12032,
+      "raw": "12032\t8\t11\t11\t0\t\t\t\t\t\t0\t0\t5\t41\t2\t\t\t\t\t\t0\t6104\t6350\t6602\t7300\t\t\t\t\t\t850\t30\t50\t50\t50\t\t\t\t\t\t100",
+      "rules": [
+        {
+          "condition": 8,
+          "target": 0,
+          "tech": 6104,
+          "chance": 30
+        },
+        {
+          "condition": 11,
+          "target": 5,
+          "tech": 6350,
+          "chance": 50
+        },
+        {
+          "condition": 11,
+          "target": 41,
+          "tech": 6602,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 7300,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 0,
+          "tech": 850,
+          "chance": 100
+        }
+      ]
+    },
+    {
+      "name": "馬帝亞",
+      "ai": 12033,
+      "raw": "12033\t0\t0\t0\t0\t0\t0\t0\t\t\t0\t36\t35\t39\t37\t40\t38\t2\t\t\t0\t4853\t4453\t4753\t4653\t4953\t4553\t7300\t\t\t850\t40\t45\t50\t55\t60\t65\t70\t\t\t100",
+      "rules": [
+        {
+          "condition": 0,
+          "target": 36,
+          "tech": 4853,
+          "chance": 40
+        },
+        {
+          "condition": 0,
+          "target": 35,
+          "tech": 4453,
+          "chance": 45
+        },
+        {
+          "condition": 0,
+          "target": 39,
+          "tech": 4753,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 37,
+          "tech": 4653,
+          "chance": 55
+        },
+        {
+          "condition": 0,
+          "target": 40,
+          "tech": 4953,
+          "chance": 60
+        },
+        {
+          "condition": 0,
+          "target": 38,
+          "tech": 4553,
+          "chance": 65
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 7300,
+          "chance": 70
+        },
+        {
+          "condition": 0,
+          "target": 0,
+          "tech": 850,
+          "chance": 100
+        }
+      ]
+    },
+    {
+      "name": "凱法",
+      "ai": 12079,
+      "raw": "12079\t27\t57\t0\t0\t0\t0\t0\t0\t\t0\t2\t0\t2\t2\t2\t2\t2\t0\t\t0\t8850\t6050\t8150\t105\t50\t305\t505\t1105\t\t7400\t30\t50\t50\t55\t60\t65\t70\t75\t\t100",
+      "rules": [
+        {
+          "condition": 27,
+          "target": 2,
+          "tech": 8850,
+          "chance": 30
+        },
+        {
+          "condition": 57,
+          "target": 0,
+          "tech": 6050,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 8150,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 105,
+          "chance": 55
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 50,
+          "chance": 60
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 305,
+          "chance": 65
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 505,
+          "chance": 70
+        },
+        {
+          "condition": 0,
+          "target": 0,
+          "tech": 1105,
+          "chance": 75
+        },
+        {
+          "condition": 0,
+          "target": 0,
+          "tech": 7400,
+          "chance": 100
+        }
+      ]
+    },
+    {
+      "name": "帕布提斯馬",
+      "ai": 12080,
+      "raw": "12080\t27\t57\t0\t0\t0\t0\t0\t\t\t0\t2\t0\t2\t2\t2\t2\t2\t\t\t0\t8652\t5950\t3105\t2705\t2805\t2905\t3005\t\t\t1000\t30\t50\t50\t50\t55\t60\t65\t\t\t100",
+      "rules": [
+        {
+          "condition": 27,
+          "target": 2,
+          "tech": 8652,
+          "chance": 30
+        },
+        {
+          "condition": 57,
+          "target": 0,
+          "tech": 5950,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 3105,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 2705,
+          "chance": 50
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 2805,
+          "chance": 55
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 2905,
+          "chance": 60
+        },
+        {
+          "condition": 0,
+          "target": 2,
+          "tech": 3005,
+          "chance": 65
+        },
+        {
+          "condition": 0,
+          "target": 0,
+          "tech": 1000,
+          "chance": 100
+        }
+      ]
+    }
+  ],
+  "skills": {
+    "h_super_earth:3": {
+      "protocolType": 27,
+      "sublevel": 2,
+      "cast": "110055",
+      "targets": [
+        "110041",
+        "110042",
+        "110043"
+      ],
+      "targetResource": 110041,
+      "mode": "earth",
+      "glowFamily": 0,
+      "tier": 3,
+      "targetSound": {
+        "id": 262,
+        "file": "humanoid-spells/cgefc11.wav",
+        "sha256": "b2602f997a97680e8bb9edd54bff34a2e11e1355f5c5799d25c63d127e8e16d0"
+      },
+      "impactSound": {
+        "id": 131,
+        "file": "humanoid-spells/cgply10a.wav",
+        "sha256": "732704efc243e1719059d2690958dda57218831799407f2b3d0407f1806d11f6"
+      }
+    },
+    "h_super_earth:5": {
+      "protocolType": 27,
+      "sublevel": 4,
+      "cast": "110054",
+      "targets": [
+        "110038",
+        "110039",
+        "110040"
+      ],
+      "targetResource": 110038,
+      "mode": "earth",
+      "glowFamily": 0,
+      "tier": 2,
+      "targetSound": {
+        "id": 262,
+        "file": "humanoid-spells/cgefc11.wav",
+        "sha256": "b2602f997a97680e8bb9edd54bff34a2e11e1355f5c5799d25c63d127e8e16d0"
+      },
+      "impactSound": {
+        "id": 131,
+        "file": "humanoid-spells/cgply10a.wav",
+        "sha256": "732704efc243e1719059d2690958dda57218831799407f2b3d0407f1806d11f6"
+      }
+    },
+    "h_super_earth:6": {
+      "protocolType": 27,
+      "sublevel": 5,
+      "cast": "110054",
+      "targets": [
+        "110038",
+        "110039",
+        "110040"
+      ],
+      "targetResource": 110038,
+      "mode": "earth",
+      "glowFamily": 0,
+      "tier": 2,
+      "targetSound": {
+        "id": 262,
+        "file": "humanoid-spells/cgefc11.wav",
+        "sha256": "b2602f997a97680e8bb9edd54bff34a2e11e1355f5c5799d25c63d127e8e16d0"
+      },
+      "impactSound": {
+        "id": 131,
+        "file": "humanoid-spells/cgply10a.wav",
+        "sha256": "732704efc243e1719059d2690958dda57218831799407f2b3d0407f1806d11f6"
+      }
+    },
+    "h_super_ice:3": {
+      "protocolType": 28,
+      "sublevel": 2,
+      "cast": "110055",
+      "targets": [
+        "110029"
+      ],
+      "targetResource": 110029,
+      "mode": "ice",
+      "glowFamily": 1,
+      "tail": {
+        "ticks": 19,
+        "alpha": 128
+      }
+    },
+    "h_super_ice:5": {
+      "protocolType": 28,
+      "sublevel": 4,
+      "cast": "110054",
+      "targets": [
+        "110026"
+      ],
+      "targetResource": 110026,
+      "mode": "ice",
+      "glowFamily": 1,
+      "tail": {
+        "ticks": 19,
+        "alpha": 128
+      }
+    },
+    "h_super_ice:6": {
+      "protocolType": 28,
+      "sublevel": 5,
+      "cast": "110054",
+      "targets": [
+        "110026"
+      ],
+      "targetResource": 110026,
+      "mode": "ice",
+      "glowFamily": 1,
+      "tail": {
+        "ticks": 19,
+        "alpha": 128
+      }
+    },
+    "h_super_fire:3": {
+      "protocolType": 29,
+      "sublevel": 2,
+      "cast": "110055",
+      "targets": [
+        "110149",
+        "110150",
+        "110151"
+      ],
+      "targetResource": 110149,
+      "mode": "fire",
+      "glowFamily": 2,
+      "targetAlpha": 128
+    },
+    "h_super_fire:5": {
+      "protocolType": 29,
+      "sublevel": 4,
+      "cast": "110054",
+      "targets": [
+        "110146",
+        "110147",
+        "110148"
+      ],
+      "targetResource": 110146,
+      "mode": "fire",
+      "glowFamily": 2,
+      "targetAlpha": 128
+    },
+    "h_super_fire:6": {
+      "protocolType": 29,
+      "sublevel": 5,
+      "cast": "110054",
+      "targets": [
+        "110146",
+        "110147",
+        "110148"
+      ],
+      "targetResource": 110146,
+      "mode": "fire",
+      "glowFamily": 2,
+      "targetAlpha": 128
+    },
+    "h_super_wind:3": {
+      "protocolType": 30,
+      "sublevel": 2,
+      "cast": "110055",
+      "targets": [
+        "110047"
+      ],
+      "targetResource": 110047,
+      "mode": "wind",
+      "glowFamily": 3,
+      "tier": 3,
+      "targetSound": {
+        "id": 268,
+        "file": "humanoid-spells/cgefc17.wav",
+        "sha256": "90ac49ab1197d2ca3674526aab1d01be8cd7b35d4816b3c42720a7f25c560ec3"
+      },
+      "impactSound": {
+        "id": 268,
+        "file": "humanoid-spells/cgefc17.wav",
+        "sha256": "90ac49ab1197d2ca3674526aab1d01be8cd7b35d4816b3c42720a7f25c560ec3"
+      }
+    },
+    "h_super_wind:5": {
+      "protocolType": 30,
+      "sublevel": 4,
+      "cast": "110054",
+      "targets": [
+        "110046"
+      ],
+      "targetResource": 110046,
+      "mode": "wind",
+      "glowFamily": 3,
+      "tier": 2,
+      "targetSound": {
+        "id": 268,
+        "file": "humanoid-spells/cgefc17.wav",
+        "sha256": "90ac49ab1197d2ca3674526aab1d01be8cd7b35d4816b3c42720a7f25c560ec3"
+      },
+      "impactSound": {
+        "id": 268,
+        "file": "humanoid-spells/cgefc17.wav",
+        "sha256": "90ac49ab1197d2ca3674526aab1d01be8cd7b35d4816b3c42720a7f25c560ec3"
+      }
+    },
+    "h_super_wind:6": {
+      "protocolType": 30,
+      "sublevel": 5,
+      "cast": "110054",
+      "targets": [
+        "110046"
+      ],
+      "targetResource": 110046,
+      "mode": "wind",
+      "glowFamily": 3,
+      "tier": 2,
+      "targetSound": {
+        "id": 268,
+        "file": "humanoid-spells/cgefc17.wav",
+        "sha256": "90ac49ab1197d2ca3674526aab1d01be8cd7b35d4816b3c42720a7f25c560ec3"
+      },
+      "impactSound": {
+        "id": 268,
+        "file": "humanoid-spells/cgefc17.wav",
+        "sha256": "90ac49ab1197d2ca3674526aab1d01be8cd7b35d4816b3c42720a7f25c560ec3"
+      }
+    },
+    "heal:3": {
+      "protocolType": 61,
+      "sublevel": 2,
+      "cast": "110084",
+      "targets": [
+        "110088"
+      ],
+      "mode": "support",
+      "castSound": {
+        "id": 261,
+        "file": "humanoid-spells/cgefc10.wav",
+        "sha256": "b534a6c9d73fbf1f884f5c19a4ca9980a30e94b53c31ccaca63733c6ffda5cd9"
+      },
+      "targetAtHalfHeight": false,
+      "targetAlpha": 128,
+      "tierInitializerRepair": true
+    },
+    "heal:5": {
+      "protocolType": 61,
+      "sublevel": 4,
+      "cast": "110083",
+      "targets": [
+        "110087"
+      ],
+      "mode": "support",
+      "castSound": {
+        "id": 261,
+        "file": "humanoid-spells/cgefc10.wav",
+        "sha256": "b534a6c9d73fbf1f884f5c19a4ca9980a30e94b53c31ccaca63733c6ffda5cd9"
+      },
+      "targetAtHalfHeight": false,
+      "targetAlpha": 128,
+      "tierInitializerRepair": true
+    },
+    "heal:6": {
+      "protocolType": 61,
+      "sublevel": 5,
+      "cast": "110083",
+      "targets": [
+        "110087"
+      ],
+      "mode": "support",
+      "castSound": {
+        "id": 261,
+        "file": "humanoid-spells/cgefc10.wav",
+        "sha256": "b534a6c9d73fbf1f884f5c19a4ca9980a30e94b53c31ccaca63733c6ffda5cd9"
+      },
+      "targetAtHalfHeight": false,
+      "targetAlpha": 128,
+      "tierInitializerRepair": true
+    },
+    "h_super_heal:3": {
+      "protocolType": 63,
+      "sublevel": 2,
+      "cast": "110084",
+      "targets": [
+        "110088"
+      ],
+      "mode": "support",
+      "castSound": {
+        "id": 261,
+        "file": "humanoid-spells/cgefc10.wav",
+        "sha256": "b534a6c9d73fbf1f884f5c19a4ca9980a30e94b53c31ccaca63733c6ffda5cd9"
+      },
+      "targetAtHalfHeight": false,
+      "targetAlpha": 128,
+      "tierInitializerRepair": true
+    },
+    "h_super_heal:5": {
+      "protocolType": 63,
+      "sublevel": 4,
+      "cast": "110083",
+      "targets": [
+        "110087"
+      ],
+      "mode": "support",
+      "castSound": {
+        "id": 261,
+        "file": "humanoid-spells/cgefc10.wav",
+        "sha256": "b534a6c9d73fbf1f884f5c19a4ca9980a30e94b53c31ccaca63733c6ffda5cd9"
+      },
+      "targetAtHalfHeight": false,
+      "targetAlpha": 128,
+      "tierInitializerRepair": true
+    },
+    "h_super_heal:6": {
+      "protocolType": 63,
+      "sublevel": 5,
+      "cast": "110083",
+      "targets": [
+        "110087"
+      ],
+      "mode": "support",
+      "castSound": {
+        "id": 261,
+        "file": "humanoid-spells/cgefc10.wav",
+        "sha256": "b534a6c9d73fbf1f884f5c19a4ca9980a30e94b53c31ccaca63733c6ffda5cd9"
+      },
+      "targetAtHalfHeight": false,
+      "targetAlpha": 128,
+      "tierInitializerRepair": true
+    },
+    "h_super_recover:3": {
+      "protocolType": 66,
+      "sublevel": 2,
+      "cast": "110084",
+      "targets": [
+        "110179"
+      ],
+      "mode": "support",
+      "castSound": {
+        "id": 261,
+        "file": "humanoid-spells/cgefc10.wav",
+        "sha256": "b534a6c9d73fbf1f884f5c19a4ca9980a30e94b53c31ccaca63733c6ffda5cd9"
+      },
+      "targetAtHalfHeight": true,
+      "targetAlpha": 128,
+      "tierInitializerRepair": true
+    },
+    "h_super_recover:5": {
+      "protocolType": 66,
+      "sublevel": 4,
+      "cast": "110083",
+      "targets": [
+        "110178"
+      ],
+      "mode": "support",
+      "castSound": {
+        "id": 261,
+        "file": "humanoid-spells/cgefc10.wav",
+        "sha256": "b534a6c9d73fbf1f884f5c19a4ca9980a30e94b53c31ccaca63733c6ffda5cd9"
+      },
+      "targetAtHalfHeight": true,
+      "targetAlpha": 128,
+      "tierInitializerRepair": true
+    },
+    "h_super_recover:6": {
+      "protocolType": 66,
+      "sublevel": 5,
+      "cast": "110083",
+      "targets": [
+        "110178"
+      ],
+      "mode": "support",
+      "castSound": {
+        "id": 261,
+        "file": "humanoid-spells/cgefc10.wav",
+        "sha256": "b534a6c9d73fbf1f884f5c19a4ca9980a30e94b53c31ccaca63733c6ffda5cd9"
+      },
+      "targetAtHalfHeight": true,
+      "targetAlpha": 128,
+      "tierInitializerRepair": true
+    },
+    "h_drain:3": {
+      "protocolType": 31,
+      "sublevel": 2,
+      "cast": "110055",
+      "targets": [
+        "110066"
+      ],
+      "targetResource": 110066,
+      "mode": "drain",
+      "glowFamily": 4,
+      "targetAlpha": 128
+    },
+    "h_drain:5": {
+      "protocolType": 31,
+      "sublevel": 4,
+      "cast": "110054",
+      "targets": [
+        "110065"
+      ],
+      "targetResource": 110065,
+      "mode": "drain",
+      "glowFamily": 4,
+      "targetAlpha": 128
+    },
+    "h_drain:6": {
+      "protocolType": 31,
+      "sublevel": 5,
+      "cast": "110054",
+      "targets": [
+        "110065"
+      ],
+      "targetResource": 110065,
+      "mode": "drain",
+      "glowFamily": 4,
+      "targetAlpha": 128
+    }
+  },
+  "reference": "https://github.com/linv2/Crossgate_Docker/tree/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data",
+  "source_hashes": {
+    "enemyai.txt": "8777e483001ad0591770a638ea88d44f66a7e95ce3bcdf6d2b52ce650b6545e8",
+    "tech.txt": "d7da087e26621dc6e70725d58f971c82f1ec6c66687e92973a2f9f77c0addbd9"
+  },
+  "limits": "Client pixels, spell tiers, clocks and audio are preserved. These skill lists are the pinned CGMSV reference, not recovered BlueCG server AI. Turn conditions and balance are fitted to real-time combat; enemy E ranks do not prove a unique client sublevel. Unique death/summon/status artwork is used only where verified."
+}

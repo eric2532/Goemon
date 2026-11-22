@@ -1,0 +1,229 @@
+{
+  "ornament_pixel_hashes": {
+    "17235": "8a7345c8bc16b3ec51202e3939439001347cad622d3842424b4a63ae45d619ed",
+    "17236": "77396ef83433e4ffc3393c4f3f0d829a4b3508eebf55581ec0189004a4ab8633",
+    "17237": "20f08fea74ac50ae0a82af3e44185bb16f37616ca59d1940342312d048a8e493",
+    "17238": "0089ac8ae11e4da90061207fa42da7dd7da166d6860f5115672f991e6e4743f1",
+    "17239": "619d1202fcb42c7625aab32f49996d5e67220131192faf5955ee518dcd3b78fa",
+    "17240": "337fab228ead5ac1ce6881471ffc27b7817f01561e127b0e2a7ebdb0d27ab450",
+    "17241": "e23624abcf296d652de0931b8a3a28b1e9fd2a0a6839c13e4c2fe72a2be9bf9a"
+  },
+  "source": "BlueCrossgate original:3171, action 0; preserved Magic Power exploration recovery",
+  "atlas_sha256": "b7ee01f41d69b68789d74bef70284220e90d64db9ce895bb25eca0709552b38e",
+  "clip": {
+    "file": "portal-blue.png",
+    "frames": 8,
+    "columns": 8,
+    "width": 56,
+    "height": 115,
+    "bounds": [
+      -27,
+      -101,
+      29,
+      14
+    ],
+    "duration": 800,
+    "key": "original:3171",
+    "index": 0
+  },
+  "stones": [
+    {
+      "id": "stone-south-west",
+      "name": "南橋傳送石",
+      "mapId": 1000,
+      "mapCell": [
+        141,
+        146
+      ],
+      "position": [
+        6871,
+        5616
+      ],
+      "clip": {
+        "file": "portal-blue.png",
+        "frames": 8,
+        "columns": 8,
+        "width": 56,
+        "height": 115,
+        "bounds": [
+          -27,
+          -101,
+          29,
+          14
+        ],
+        "duration": 800,
+        "key": "original:3171",
+        "index": 0
+      },
+      "collisionRadius": 18,
+      "action": "travel",
+      "placementStatus": "community-reference",
+      "placementSource": "https://github.com/awafer/crossgate/blob/master/gmsv/data/npc.txt#L38"
+    },
+    {
+      "id": "stone-west-north",
+      "name": "西北傳送石",
+      "mapId": 1000,
+      "mapCell": [
+        63,
+        77
+      ],
+      "position": [
+        2167,
+        5832
+      ],
+      "clip": {
+        "file": "portal-blue.png",
+        "frames": 8,
+        "columns": 8,
+        "width": 56,
+        "height": 115,
+        "bounds": [
+          -27,
+          -101,
+          29,
+          14
+        ],
+        "duration": 800,
+        "key": "original:3171",
+        "index": 0
+      },
+      "collisionRadius": 18,
+      "action": "travel",
+      "placementStatus": "community-reference",
+      "placementSource": "https://github.com/awafer/crossgate/blob/master/gmsv/data/npc.txt#L39"
+    },
+    {
+      "id": "stone-east-south",
+      "name": "東南傳送石",
+      "mapId": 1000,
+      "mapCell": [
+        244,
+        100
+      ],
+      "position": [
+        8695,
+        2040
+      ],
+      "clip": {
+        "file": "portal-blue.png",
+        "frames": 8,
+        "columns": 8,
+        "width": 56,
+        "height": 115,
+        "bounds": [
+          -27,
+          -101,
+          29,
+          14
+        ],
+        "duration": 800,
+        "key": "original:3171",
+        "index": 0
+      },
+      "collisionRadius": 18,
+      "action": "travel",
+      "placementStatus": "community-reference",
+      "placementSource": "https://github.com/awafer/crossgate/blob/master/gmsv/data/npc.txt#L40"
+    },
+    {
+      "id": "stone-east-north",
+      "name": "東北傳送石",
+      "mapId": 1000,
+      "mapCell": [
+        233,
+        76
+      ],
+      "position": [
+        7575,
+        1728
+      ],
+      "clip": {
+        "file": "portal-blue.png",
+        "frames": 8,
+        "columns": 8,
+        "width": 56,
+        "height": 115,
+        "bounds": [
+          -27,
+          -101,
+          29,
+          14
+        ],
+        "duration": 800,
+        "key": "original:3171",
+        "index": 0
+      },
+      "collisionRadius": 18,
+      "action": "travel",
+      "placementStatus": "community-reference",
+      "placementSource": "https://github.com/awafer/crossgate/blob/master/gmsv/data/npc.txt#L220"
+    },
+    {
+      "id": "stone-west-south",
+      "name": "西南傳送石",
+      "mapId": 1000,
+      "mapCell": [
+        74,
+        123
+      ],
+      "position": [
+        3991,
+        6672
+      ],
+      "clip": {
+        "file": "portal-blue.png",
+        "frames": 8,
+        "columns": 8,
+        "width": 56,
+        "height": 115,
+        "bounds": [
+          -27,
+          -101,
+          29,
+          14
+        ],
+        "duration": 800,
+        "key": "original:3171",
+        "index": 0
+      },
+      "collisionRadius": 18,
+      "action": "travel",
+      "placementStatus": "community-reference",
+      "placementSource": "https://github.com/awafer/crossgate/blob/master/gmsv/data/npc.txt#L225"
+    },
+    {
+      "id": "stone-south-east",
+      "name": "中央南橋傳送石",
+      "mapId": 1000,
+      "mapCell": [
+        164,
+        130
+      ],
+      "position": [
+        7095,
+        4680
+      ],
+      "clip": {
+        "file": "portal-blue.png",
+        "frames": 8,
+        "columns": 8,
+        "width": 56,
+        "height": 115,
+        "bounds": [
+          -27,
+          -101,
+          29,
+          14
+        ],
+        "duration": 800,
+        "key": "original:3171",
+        "index": 0
+      },
+      "collisionRadius": 18,
+      "action": "travel",
+      "placementStatus": "community-reference",
+      "placementSource": "https://github.com/awafer/crossgate/blob/master/gmsv/data/npc.txt#L226"
+    }
+  ]
+}

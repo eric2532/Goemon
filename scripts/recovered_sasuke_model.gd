@@ -131,3 +131,9 @@ func sync_skeleton():
   if i<segments.size():pair=PackedVector3Array([global_transform*segments[i].base,global_transform*segments[i].tip])
   reach_trails[i].advance(reach_delta,pair,active,false)
  reach_delta=0.0
+
+func animate_qi_blast(_delta:float,progress:float):
+ locomotion.dirty=false
+ if progress<0:apply_native_pose(0,0);return
+ var action=0x68
+ apply_native_pose(action,qi_attack_time(progress,4.0/30.0,sampler.duration(action)))

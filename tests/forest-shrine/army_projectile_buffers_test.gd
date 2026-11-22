@@ -1,4 +1,7 @@
 extends SceneTree
+class Owner extends Node:
+ var model=preload("res://scripts/forest/forest_model.gd").new()
+ var settings={"forest_pet_loadout":[]}
 var checks=0
 var failures=0
 func check(ok:bool,label_:String):
@@ -74,9 +77,36 @@ func run():
  finale.projectile_yaw_offset.resize(1);check(not r.projectile_buffers(finale,1.0/3,Vector2i(1,0)).valid,"Mismatched projectile yaw data is rejected")
  finale.erase("projectile_yaw_offset")
  finale.projectile_effects[0]=6;check(not r.projectile_buffers(finale,1.0/3,Vector2i(1,0)).valid,"Invalid finale effect is rejected")
- var renderer=load("res://scripts/forest/crowd/army_renderer.gd").new();root.add_child(renderer);renderer.configure(null);renderer.presentation.present_snapshot(s)
+ var qi=finale.duplicate(true)
+ qi.projectile_kinds[0]=preload("res://scripts/forest/forest_enemy_roles.gd").SLIME
+ qi.projectile_effects[0]=preload("res://scripts/forest/crowd/undersea_sprites.gd").QIGONG
+ qi.projectile_power[0]=0
+ qi.projectile_yaw_offset=PackedFloat32Array()
+ var qi_rows=r.projectile_buffers(qi,1.0/3,Vector2i(1,0))
+ var qi_basis=Basis(Quaternion(Vector3.BACK,qi.projectile_directions[0].normalized())).scaled(Vector3.ONE*qi.projectile_scales[0])
+ check(qi_rows.valid and matches(qi_rows.projectiles["undersea-qi"],0,Transform3D(qi_basis,qi.projectile_positions[0]),Color(qi.projectile_age[0],1,0,0)),"熊哥's 氣功彈 keeps its prepared size, direction and source frame clock in one pooled batch")
+ var owner=Owner.new();owner.model.reset(42,{}, {},false);root.add_child(owner)
+ var renderer=load("res://scripts/forest/crowd/army_renderer.gd").new();root.add_child(renderer);renderer.configure(owner);renderer.presentation.present_snapshot(s)
  check(renderer.presentation.projectile_count==2400 and renderer.presentation.shield_count==128,"Production presenter uses the packed path with unchanged capacities")
- renderer.queue_free();r=null;await process_frame
+ var presentation=renderer.presentation
+ var bullet:MultiMeshInstance3D=presentation.projectile_batches.bullet0
+ var shield:MultiMeshInstance3D=presentation.batches.shield
+ var empty={}
+ for key in s:
+  empty[key]=s[key].slice(0,0)
+ presentation.present_snapshot(empty)
+ check(not bullet.visible and not shield.visible and presentation.projectile_count==0 and presentation.shield_count==0,"An empty snapshot retires both live layers")
+ presentation.present_snapshot(empty)
+ check(not bullet.visible and not shield.visible,"A second idle frame leaves the recycled batches parked")
+ presentation.present_snapshot(s)
+ check(bullet.visible and shield.visible,"A new volley reuses both original batches")
+ var shield_only=empty.duplicate()
+ for key in ["shield_positions","shield_yaw","shield_age","shield_scales"]:shield_only[key]=s[key]
+ presentation.present_snapshot(shield_only)
+ check(not bullet.visible and shield.visible,"Retiring projectiles leaves an active shield visible")
+ presentation.clear()
+ check(not shield.visible and presentation.shield_count==0,"Clearing resets the shield before idle frames can skip it")
+ renderer.queue_free();owner.queue_free();r=null;await process_frame
  print("ARMY_PROJECTILE_BUFFERS_RESULT checks=",checks," failures=",failures);quit(1 if failures else 0)
 func matches(buffer:PackedFloat32Array,at:int,pose:Transform3D,color:Color)->bool:
  if buffer.size()<at+16:return false

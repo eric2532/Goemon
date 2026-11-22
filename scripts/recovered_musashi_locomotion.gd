@@ -124,6 +124,8 @@ func physics_step(delta:float,direction:Vector3,jump_pressed:bool,jump_held:bool
 					_combat_owned=false;airborne=not hero.is_on_floor();jumps_used=2 if airborne else 0
 					source_vertical=int(-hero.velocity.y/vertical_velocity_scale());source_speed=0
 				_held_velocity=source_tick(direction,hero.is_on_floor(),_jump_pending,jump_held,cautious,guarding)
+				var run_scale=hero.combat_tuning("walk_speed")/PrototypeTuning.DEFAULTS.walk_speed if hero.has_method("combat_tuning") else 1.0
+				_held_velocity.x*=run_scale;_held_velocity.z*=run_scale
 				_jump_pending=false
 			_until_tick=TICK
 		var part=minf(remaining,_until_tick)
@@ -138,7 +140,8 @@ func physics_step(delta:float,direction:Vector3,jump_pressed:bool,jump_held:bool
 		airborne=not hero.is_on_floor() or hero.velocity.y>0
 		if airborne:state="double_jump" if jumps_used>=2 else "jump" if hero.velocity.y>0 else "fall"
 	else:hero.jumps_used=jumps_used
-	hero.move_and_slide()
+	if combat_override!=null or _combat_owned or (borrowed and hero.flying):hero.move_and_slide()
+	else:hero.move_with_jump_drop()
 	if combat!=null and combat.has_method("after_source_motion") and _combat_owned:
 		combat.after_source_motion(hero.is_on_floor(),hero.is_on_ceiling())
 	if hero.is_on_ceiling() and source_vertical<0:

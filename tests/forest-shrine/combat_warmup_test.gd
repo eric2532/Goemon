@@ -19,6 +19,10 @@ func run():
  seed(90824);var expected=randf();seed(90824)
  warmup.populate_samples(world)
  check(randf()==expected,"Preparing combat graphics preserves the gameplay random stream")
+ var labels=world.find_children("*","Label3D",true,false)
+ for font in [preload("res://scripts/forest/crowd/army_presentation.gd").DAMAGE_FONT,preload("res://scripts/forest/crowd/army_presentation.gd").HEAL_FONT,preload("res://scripts/forest/crowd/army_presentation.gd").BATTLE_TEXT_FONT,ThemeDB.fallback_font]:
+  var outline=8 if font==ThemeDB.fallback_font else 5 if font==preload("res://scripts/forest/crowd/army_presentation.gd").BATTLE_TEXT_FONT else 0
+  check(labels.any(func(label):return label.font==font and label.fixed_size and label.no_depth_test and label.outline_size==outline),"The actual combat font and fixed-size material variant are warmed")
  var meshes=world.find_children("*","MeshInstance3D",true,false);var shaders={};var additive=false;var mixed=false;var ranger_ribbon=false
  for mesh in meshes:
   var material=mesh.material_override

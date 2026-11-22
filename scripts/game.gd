@@ -64,10 +64,11 @@ var voices: Array[AudioStreamPlayer]=[]
 var voice_idx=0
 var last_sound_voice: AudioStreamPlayer
 # Attack voices are reserved: crowd impacts can never replace a swing or cast.
-const ATTACK_SOUNDS=["orb_ice","orb_fire","swing","heavy_swing","throw","fire_cast","spin_swing","giant_toss","sky_leap","sky_stomp","chain_throw","chain_sweep","chain_fire_sweep","edo_volley","edo_giant","edo_shield","edo_beam_start","edo_beam_loop","edo_meteor_cast","edo_meteor_strike","edo_dodge","goemon_dash"]
-const IMPACT_SOUNDS=["goemon_coin_charged_burst","hit","heavy_hit","enemy_reaction","environment_hit","coin_hit","coin_heavy_hit","fire_impact","chain_hit","chain_explosion","edo_meteor_impact","edo_dodge_impact","goemon_dash_hit"]
+const ATTACK_SOUNDS=["orb_ice","orb_fire","swing","heavy_swing","throw","fire_cast","spin_swing","giant_toss","sky_leap","sky_stomp","chain_throw","chain_sweep","chain_fire_sweep","edo_volley","edo_giant","edo_shield","edo_beam_start","edo_beam_loop","edo_meteor_cast","edo_meteor_strike","edo_dodge","goemon_dash","qigong_charge"]
+const IMPACT_SOUNDS=["goemon_coin_charged_burst","hit","heavy_hit","enemy_reaction","environment_hit","coin_hit","coin_heavy_hit","fire_impact","chain_hit","chain_explosion","edo_meteor_impact","edo_dodge_impact","goemon_dash_hit","qigong_launch","qigong_hit","cg_dagger_hit","cg_moon_hit"]
 const ViewPreferences=preload("res://scripts/forest/forest_view_preferences.gd")
-const DEFAULT_SETTINGS={"disable_character_cooldowns":false,"jump_styles":{},"spell_loadouts":{},"skill_balance":{},"volume":0.65,"music_enabled":false,"sensitivity":1.0,"fullscreen":false,"quality":1,"goemon_skin":HeroSkins.DEFAULT_ID,"forest_camera_distance":ViewPreferences.CAMERA_DEFAULT,"forest_hud_scale":ViewPreferences.HUD_DEFAULT,"forest_character_screen_offset":ViewPreferences.CHARACTER_OFFSET_DEFAULT,"forest_show_crosshair":true}
+const KazSkins=preload("res://scripts/kaz_skins.gd")
+const DEFAULT_SETTINGS={"sword_upgrades":{},"chest_swords":[],"explorer_quests":{},"explorer_hour":9.0,"disable_character_cooldowns":false,"jump_styles":{},"spell_loadouts":{},"skin_equipment":{},"gear_loadouts":{},"weapon_slot_unlocks":{},"skill_item_loadouts":{},"cosmetic_loadouts":{},"skill_balance":{},"volume":0.65,"music_enabled":false,"sensitivity":1.0,"fullscreen":false,"quality":1,"goemon_skin":HeroSkins.DEFAULT_ID,"kaz_skin":KazSkins.DEFAULT,"shin_skin":Hero.RogueRoster.ShinSkins.DEFAULT,"shin_special_skin":Hero.RogueRoster.ShinSkins.SPECIAL_DEFAULT,"saizo_skin":Hero.RogueRoster.SaizoSkins.DEFAULT,"bog_skin":Hero.RogueRoster.BOG.skin_default,"emilia_skin":Hero.RogueRoster.EMILIA.skin_default,"lancelot_skin":Hero.RogueRoster.LANCELOT.skin_default,"pete_skin":Hero.RogueRoster.PETE.skin_default,"grace_skin":Hero.RogueRoster.GRACE.skin_default,"rei_skin":Hero.RogueRoster.REI.skin_default,"ruby_skin":0,"cedi_skin":Hero.RogueRoster.CEDI.skin_default,"bei_skin":Hero.RogueRoster.BEI.skin_default,"moe_skin":Hero.RogueRoster.MOE.skin_default,"ami_skin":Hero.RogueRoster.AMI.skin_default,"kumago_skin":Hero.RogueRoster.KUMAGO.skin_default,"maze_primary_kunai":false,"saizo_primary_kunai":false,"forest_camera_distance":ViewPreferences.CAMERA_DEFAULT,"forest_camera_angle":ViewPreferences.CAMERA_ANGLE_DEFAULT,"forest_hud_scale":ViewPreferences.HUD_DEFAULT,"forest_character_screen_offset":ViewPreferences.CHARACTER_OFFSET_DEFAULT,"forest_show_crosshair":true,"forest_level_up_cards":true,"forest_pet_loadout":preload("res://scripts/forest/pet_catalog.gd").DEFAULT,"forest_pet_skills":{},"forest_pet_names":{}}
 var settings=DEFAULT_SETTINGS.duplicate()
 var settings_path="user://settings.cfg"
 const SkillBalance=preload("res://scripts/spells/skill_balance.gd")
@@ -472,17 +473,15 @@ func _ready():
 	if OS.has_feature("fire_siege") and not smoke_test:show_defense_setup.call_deferred()
 
 func setup_inputs():
-	for action in ["special_4","special_5"]:
+	for action in ["special_4","special_5","special_6"]:
 		if not InputMap.has_action(action):InputMap.add_action(action)
-	var keys={"walk_modifier":KEY_CTRL,"move_forward":KEY_W,"move_back":KEY_S,"move_left":KEY_A,"move_right":KEY_D,"jump":KEY_SPACE,"sprint":KEY_SHIFT,"dodge":KEY_C,"equip":KEY_E,"assist":KEY_TAB,"pause":KEY_ESCAPE,"character_toggle":KEY_Q,"weapon_pipe":KEY_1,"weapon_coin":KEY_2,"weapon_chain":KEY_3,"scarf_toggle":KEY_4,"gold_cloak":KEY_5,"interact":KEY_F,"surge":KEY_R,"sky_strike":KEY_T,"prototype_lab":KEY_F1,"shuffle_map":KEY_Y,"summon_dogs":KEY_G,"summon_heroes":KEY_H,"siege_build":KEY_B,"siege_start":KEY_Y,"siege_revive":KEY_V,"auto_attack_toggle":KEY_J}
+	var keys={"walk_modifier":KEY_CTRL,"move_forward":KEY_W,"move_back":KEY_S,"move_left":KEY_A,"move_right":KEY_D,"timed_dodge":KEY_SPACE,"jump":KEY_SPACE,"sprint":KEY_SHIFT,"dodge":KEY_C,"defend":KEY_X,"equip":KEY_E,"assist":KEY_TAB,"pause":KEY_ESCAPE,"character_toggle":KEY_Q,"weapon_pipe":KEY_1,"weapon_coin":KEY_2,"weapon_chain":KEY_3,"weapon_slot_4":KEY_4,"weapon_slot_5":KEY_5,"interact":KEY_F,"surge":KEY_R,"sky_strike":KEY_T,"prototype_lab":KEY_F1,"shuffle_map":KEY_Y,"summon_dogs":KEY_G,"summon_heroes":KEY_H,"siege_build":KEY_B,"siege_start":KEY_Y,"siege_revive":KEY_V,"auto_attack_toggle":KEY_J}
 	for action in keys:
 		if not InputMap.has_action(action): InputMap.add_action(action)
 		var event=InputEventKey.new()
 		event.physical_keycode=keys[action]
+		event.shift_pressed=action=="jump"
 		InputMap.action_add_event(action,event)
-	for pair in [["cape_red",KEY_Z],["cape_gold",KEY_X]]:
-		if not InputMap.has_action(pair[0]):InputMap.add_action(pair[0])
-		var event=InputEventKey.new();event.physical_keycode=pair[1];InputMap.action_add_event(pair[0],event)
 	for pair in [["light_attack",MOUSE_BUTTON_LEFT],["heavy_attack",MOUSE_BUTTON_RIGHT]]:
 		if not InputMap.has_action(pair[0]):InputMap.add_action(pair[0])
 		var event=InputEventMouseButton.new()
@@ -528,7 +527,7 @@ func setup_audio():
 		add_child(a)
 		voices.append(a)
 	music=AudioStreamPlayer.new()
-	music.stream=load("res://audio/talesweaver_reminiscence.mp3")
+	music.stream=preload("res://assets/audio/crossgate/music/cgbgm_m1.mp3")
 	music.stream.loop=true
 	music.volume_db=-9
 	add_child(music)
@@ -545,7 +544,12 @@ func sound_character_id()->int:
 	return player.character_id if is_instance_valid(player) else selected_rogue_id
 
 func sound_preview(id: int,slot: String)->AudioStream:
-	return sound_library.playback_for(id,slot,sound_default(id,slot)).stream
+	var playback=sound_library.playback_for(id,slot,sound_default(id,slot))
+	if not playback.recorded and is_instance_valid(player) and is_instance_valid(player.model) and player.character_id==id and Hero.RogueRoster.is_crossgate_fighter(id) and slot in ["swing","hit","heavy_hit","throw"]:
+		var sample:AudioStream=player.model.attack_sound(slot!="swing")
+		if sample!=null:return sample
+	if id==34 and playback.original and SoundLibrary.KAZ_SWORD_IMPACTS.has(slot):return SoundLibrary.KAZ_SWORD_IMPACTS[slot]
+	return playback.stream
 
 func sound_default(id: int,slot: String)->AudioStream:
 	if SoundLibrary.source_slot_is_silent(id,slot):return null
@@ -578,16 +582,17 @@ func sound_default(id: int,slot: String)->AudioStream:
 		if ResourceLoader.exists(path):return load(path)
 	return sounds.get(slot)
 
-func sound(kind: String,volume: float=1.0,enemy_source: bool=false,ticket: Dictionary={},source_id: int=0):
+func sound(kind: String,volume: float=1.0,enemy_source: bool=false,ticket: Dictionary={},source_id: int=0,original_override: AudioStream=null):
 	if sound_library.recording:return
 	var id=source_id if source_id>0 else sound_character_id()
 	var fallback: AudioStream=sounds.get(kind)
 	if fallback==null and not enemy_source:fallback=sound_library.original_for(id,kind)
 	if ticket.is_empty() and is_instance_valid(player):ticket=player.attack_chain.active_ticket
 	var playback: Dictionary=move_audio.weapon(self,id,kind,fallback,ticket,not enemy_source)
+	if original_override!=null and not playback.recorded:playback.stream=original_override;playback.original=true
 	if playback.muted or playback.stream==null:return
-	var attack=(kind in ATTACK_SOUNDS or kind.begins_with("finale_") or (kind.begins_with("dark_lumina_2_") and kind!="dark_lumina_2_step")) and not enemy_source
-	var impact=kind in IMPACT_SOUNDS or kind in ["fusion_finisher_hit","fusion_fourth_hit"] or enemy_source
+	var impact=kind in IMPACT_SOUNDS or kind in ["fusion_finisher_hit","fusion_fourth_hit","cg_wind_hit","cg_fire_hit","cg_meteor_hit","cg_ice_a","cg_wind_fly","cg_spirit_hit"] or enemy_source
+	var attack=(kind in ATTACK_SOUNDS or (kind.begins_with("cg_") and not impact) or kind.begins_with("finale_") or (kind.begins_with("dark_lumina_2_") and kind!="dark_lumina_2_step")) and not enemy_source
 	var first=0 if attack else (16 if impact else 24)
 	var limit=16 if attack else (24 if impact else 28)
 	var a: AudioStreamPlayer
@@ -801,7 +806,7 @@ func show_main_menu():
 		camera_rig.camera.look_at(Vector3(0,0,-80))
 	var root=menu_base()
 	label_at(root,"S K Y   A B O V E .   S T A N D   Y O U R   G R O U N D .",Vector2(74,108),15,Color("f4d38b"))
-	label_at(root,"GOEMON",Vector2(68,150),76)
+	label_at(root,"Cross Gate",Vector2(68,150),76)
 	label_at(root,"C H O O S E   Y O U R   A D V E N T U R E",Vector2(76,345),20,Color("f4d38b"))
 	label_at(root,"Your heroes. Your world. Choose how you battle.",Vector2(76,393),20)
 	var primary_mode="survival" if "--legacy-survival" in OS.get_cmdline_user_args() else "descent"
@@ -866,6 +871,7 @@ func show_rogue_roster(starting: bool=false):
 
 func choose_rogue_character(id: int):
 	if not rogue_roster_open or id not in player.RogueRoster.selection_ids():return
+	id=Hero.RogueRoster.skin_character(id,settings)
 	selected_rogue_id=id
 	var starting=rogue_pick_start
 	rogue_roster_open=false;rogue_pick_start=false
@@ -873,6 +879,115 @@ func choose_rogue_character(id: int):
 	else:
 		player.select_character(id)
 		resume()
+
+func select_kaz_skin(id:int):
+	id=KazSkins.valid_id(id)
+	if settings.kaz_skin==id:return
+	cancel_skin_loadout(Hero.RogueRoster.KAZI_ID)
+	if player.character_models.has(34) and player.character_models[34].kaz_skin!=id:
+		player.character_models[34].set_kaz_skin(id)
+	settings.kaz_skin=id
+	apply_skin_loadout(Hero.RogueRoster.KAZI_ID)
+	if Hero.RogueRoster.gallery_id(player.character_id)==Hero.RogueRoster.KAZI_ID:
+		player.select_character(Hero.RogueRoster.skin_character(player.character_id,settings))
+		if has_method("begin_forest"):get_tree().set_meta("forest_fighter",player.character_id)
+	save_settings()
+
+func select_shin_skin(character:int,id:int):
+	var weapon=character==Hero.RogueRoster.SHIN_SPECIAL_ID
+	var skins=Hero.RogueRoster.ShinSkins
+	id=skins.valid_id(weapon,id)
+	var setting=skins.setting(weapon)
+	if settings[setting]==id:return
+	cancel_skin_loadout(character)
+	settings[setting]=id
+	if player.character_models.has(character):
+		player.character_models[character].set_shin_skin(id)
+	apply_skin_loadout(character)
+	save_settings()
+
+func select_saizo_skin(id:int):
+	select_crossgate_skin(Hero.RogueRoster.SAIZO_ID,id)
+
+func select_crossgate_skin(character:int,id:int):
+	var roster=Hero.RogueRoster
+	if not roster.has_variant_skins(character):return
+	id=roster.valid_skin(character,id)
+	var setting:String=roster.CROSSGATE[character].skin_setting
+	if settings[setting]==id:return
+	cancel_skin_loadout(character)
+	settings[setting]=id
+	if player.character_models.has(character):
+		player.character_models[character].set_variant_skin(id)
+	apply_skin_loadout(character)
+	save_settings()
+
+func skin_equipment(character:int)->Dictionary:
+	var saved:Variant=settings.get("skin_equipment",{})
+	if not saved is Dictionary:return {}
+	var entry:Variant=saved.get(Hero.RogueRoster.loadout_key(character,settings),{})
+	return entry if entry is Dictionary else {}
+
+func skin_primary_kunai(character:int)->bool:
+	var setting:String=Hero.RogueRoster.crossgate_profile(character).get("primary_setting","")
+	var value:Variant=skin_equipment(character).get("primary_kunai",settings.get(setting,false))
+	return value is bool and value
+
+func skin_weapon(character:int,fallback:int,maximum:int)->int:
+	var value:Variant=skin_equipment(character).get("weapon",fallback)
+	return int(value) if value is int and value>=0 and value<=maximum else fallback
+
+func save_skin_equipment(character:int,values:Dictionary):
+	var saved:Variant=settings.get("skin_equipment",{})
+	var entries:Dictionary=saved.duplicate() if saved is Dictionary else {}
+	var equipment=skin_equipment(character).duplicate()
+	equipment.merge(values,true)
+	entries[Hero.RogueRoster.loadout_key(character,settings)]=equipment
+	settings.skin_equipment=entries
+	save_settings()
+
+func cancel_skin_loadout(character:int):
+	if player.character_id!=character:return
+	player.interrupt_attack_for_movement()
+	player.spell_loadout.cancel()
+	if player.active_ability!=null:player.active_ability.cancel()
+
+func apply_skin_loadout(character:int):
+	if not player.character_models.has(character):return
+	var visual=player.character_models[character]
+	visual.restore_gear_weapon()
+	if Hero.RogueRoster.has_crossgate_throws(character):
+		visual.set_maze_weapon(skin_weapon(character,int(skin_primary_kunai(character)),Hero.RogueRoster.MazeWeapon.FIST))
+	elif Hero.RogueRoster.is_shin(character):
+		visual.set_stance(skin_weapon(character,int(visual.fighter.get("start_weapon",0)),visual.appearance.get("weapons",[]).size()))
+	preload("res://scripts/forest/equipment.gd").apply_model(visual)
+	if player.character_id==character:
+		player.active_ability.prepare_projectiles();player.spell_loadout.prepare()
+
+func skin_weapon_choices(character:int)->Array:
+	if not Hero.RogueRoster.is_crossgate_fighter(character):return []
+	player.ensure_character(character)
+	if Hero.RogueRoster.has_crossgate_throws(character):return ["Katana","Dagger","Fist"]
+	var visual=player.character_models[character]
+	var names=[str(visual.appearance.get("weapon",visual.fighter.get("strike","Original weapon"))).capitalize()]
+	for weapon in visual.appearance.get("weapons",[]):names.append(str(weapon.weapon).capitalize())
+	if names[0]=="Fixed":names[0]="Original weapon"
+	if names[0]=="Cuts":names[0]="Sword"
+	return names
+
+func select_skin_weapon(character:int,weapon:int):
+	var available=skin_weapon_choices(character)
+	if weapon<0 or weapon>=available.size():return
+	cancel_skin_loadout(character)
+	save_skin_equipment(character,{"weapon":weapon})
+	apply_skin_loadout(character)
+
+func select_maze_primary(kunai:bool,character:int=Hero.RogueRoster.MAZE_ID):
+	var setting:String=Hero.RogueRoster.crossgate_profile(character).get("primary_setting","")
+	if setting.is_empty():return
+	cancel_skin_loadout(character)
+	save_skin_equipment(character,{"primary_kunai":kunai,"weapon":int(kunai)})
+	apply_skin_loadout(character)
 
 func close_rogue_roster():
 	var starting=rogue_pick_start
@@ -1269,9 +1384,20 @@ func update_skill_balance(id:String,key:String,value):
 	if not profiles.has(id):profiles[id]={}
 	profiles[id][key]=value
 	settings.skill_balance=SkillBalance.sanitized(profiles);save_settings()
+	if key=="count":prepare_skill_count(id)
 
 func reset_skill_balance(id:String):
 	settings.skill_balance.erase(id);save_settings()
+	if SkillBalance.supports(id,"count"):prepare_skill_count(id)
+
+func prepare_skill_count(id:String):
+	var pool=get_node_or_null("CharacterProjectiles")
+	if pool==null:return
+	for owner_ref in pool.owners.values():
+		var caster=owner_ref.get_ref()
+		if not is_instance_valid(caster):continue
+		if caster.has_method("prepare_skill_count"):caster.prepare_skill_count(id)
+		elif caster.spell_loadout!=null:caster.spell_loadout.prepare_skill_count(id)
 
 func show_enemy_balance(from_pause: bool,type: int=0):
 	var root=menu_base()
@@ -1279,7 +1405,7 @@ func show_enemy_balance(from_pause: bool,type: int=0):
 	editor.name="EnemyBalance";editor.game=self;editor.from_pause=from_pause;editor.enemy_type=type;root.add_child(editor)
 
 func update_enemy_tuning(type: int,key: String,value):
-	var accepted=CoreBalance.EnemyBalance.sanitized({str(type):{key:value}},CoreBalance.TYPES)
+	var accepted=CoreBalance.EnemyBalance.sanitized({str(type):{key:value}},CoreBalance.profile_types())
 	if accepted.is_empty():return
 	if not core_balance.enemy_profiles.has(str(type)):core_balance.enemy_profiles[str(type)]={}
 	core_balance.enemy_profiles[str(type)].merge(accepted[str(type)],true)
@@ -1338,12 +1464,15 @@ func reset_character_tuning(id: int):
 	save_settings()
 
 func load_settings():
+	if is_instance_valid(player) and Hero.RogueRoster.is_crossgate_fighter(player.character_id):cancel_skin_loadout(player.character_id)
 	var c=ConfigFile.new()
 	settings=DEFAULT_SETTINGS.duplicate()
 	character_tuning={}
 	core_balance=CoreBalance.defaults()
 	if c.load(settings_path)==OK:
-		for k in settings: settings[k]=c.get_value("settings",k,DEFAULT_SETTINGS[k])
+		for k in settings:
+			var stored_key="forest_skill_level_up_cards" if k=="forest_level_up_cards" else k
+			settings[k]=c.get_value("settings",stored_key,DEFAULT_SETTINGS[k])
 		for k in tuning: tuning[k]=c.get_value("prototype",k,tuning[k])
 		tuning=PrototypeTuning.sanitized(tuning)
 		var profiles=c.get_value("character_balance","profiles",{})
@@ -1352,26 +1481,89 @@ func load_settings():
 	# Debug freeze belongs to this session, never the next playable launch.
 	tuning.freeze_ai=false
 	settings.skill_balance=SkillBalance.sanitized(settings.skill_balance)
+	settings.chest_swords=preload("res://scripts/forest/equipment.gd").sanitized_swords(settings.chest_swords)
+	settings.sword_upgrades=preload("res://scripts/forest/equipment.gd").sanitized_sword_upgrades(settings.sword_upgrades,settings.chest_swords)
+	settings.cosmetic_loadouts=preload("res://scripts/forest/equipment.gd").migrated_cosmetics(settings.cosmetic_loadouts,settings.gear_loadouts)
+	settings.weapon_slot_unlocks=preload("res://scripts/forest/equipment.gd").sanitized_unlocks(settings.weapon_slot_unlocks)
+	settings.gear_loadouts=preload("res://scripts/forest/equipment.gd").migrated_gear(settings.gear_loadouts,settings)
+	settings.skill_item_loadouts=preload("res://scripts/forest/equipment.gd").sanitized(settings.skill_item_loadouts,"skill")
 	settings.goemon_skin=HeroSkins.valid_id(settings.goemon_skin)
+	settings.kaz_skin=KazSkins.valid_id(settings.kaz_skin)
+	var roster=Hero.RogueRoster
+	var equipment={}
+	if settings.skin_equipment is Dictionary:
+		for key in settings.skin_equipment:
+			var entry:Variant=settings.skin_equipment[key]
+			if not roster.valid_loadout_key(key) or not entry is Dictionary:continue
+			var clean={}
+			if entry.get("weapon") is int and entry.weapon>=0 and entry.weapon<=2:clean.weapon=entry.weapon
+			if entry.get("primary_kunai") is bool:clean.primary_kunai=entry.primary_kunai
+			if not clean.is_empty():equipment[str(key)]=clean
+	settings.skin_equipment=equipment
+	for character in roster.CROSSGATE:
+		if not roster.has_variant_skins(character):continue
+		var setting:String=roster.CROSSGATE[character].skin_setting
+		settings[setting]=roster.valid_skin(character,settings.get(setting))
+		if is_instance_valid(player) and player.character_models.has(character):
+			player.character_models[character].set_variant_skin(settings[setting])
+	for weapon in [false,true]:
+		var skins=Hero.RogueRoster.ShinSkins
+		var setting=skins.setting(weapon)
+		settings[setting]=skins.valid_id(weapon,settings[setting])
+		var character=Hero.RogueRoster.SHIN_SPECIAL_ID if weapon else Hero.RogueRoster.SHIN_ID
+		if is_instance_valid(player) and player.character_models.has(character):player.character_models[character].set_shin_skin(settings[setting])
+	for character in [roster.MAZE_ID,roster.SAIZO_ID]:
+		var setting:String=roster.CROSSGATE[character].primary_setting
+		settings[setting]=settings[setting] is bool and settings[setting]
 	settings.forest_camera_distance=ViewPreferences.bounded(settings.forest_camera_distance,ViewPreferences.CAMERA_DEFAULT,ViewPreferences.CAMERA_MIN,ViewPreferences.CAMERA_MAX)
+	settings.forest_camera_angle=ViewPreferences.bounded(settings.forest_camera_angle,ViewPreferences.CAMERA_ANGLE_DEFAULT,ViewPreferences.CAMERA_ANGLE_MIN,ViewPreferences.CAMERA_ANGLE_MAX)
 	settings.forest_hud_scale=ViewPreferences.bounded(settings.forest_hud_scale,ViewPreferences.HUD_DEFAULT,ViewPreferences.HUD_MIN,ViewPreferences.HUD_MAX)
 	settings.forest_character_screen_offset=ViewPreferences.bounded(settings.forest_character_screen_offset,ViewPreferences.CHARACTER_OFFSET_DEFAULT,ViewPreferences.CHARACTER_OFFSET_MIN,ViewPreferences.CHARACTER_OFFSET_MAX)
 	settings.forest_show_crosshair=settings.forest_show_crosshair if settings.forest_show_crosshair is bool else true
+	settings.forest_level_up_cards=settings.forest_level_up_cards if settings.forest_level_up_cards is bool else true
+	settings.forest_pet_loadout=preload("res://scripts/forest/pet_catalog.gd").sanitized(settings.forest_pet_loadout)
+	if settings.forest_pet_skills is Dictionary:
+		for key in settings.forest_pet_skills:
+			var slots=settings.forest_pet_skills[key]
+			if slots is Array and slots.any(func(id):return id is String and id.begins_with("pet/")):
+				if not settings.explorer_quests is Dictionary:settings.explorer_quests={}
+				else:settings.explorer_quests=settings.explorer_quests.duplicate(true)
+				var retired=settings.explorer_quests.get("retired_pet_skills",{})
+				if not retired is Dictionary:retired={}
+				retired[key]=slots.duplicate();settings.explorer_quests["retired_pet_skills"]=retired
+	settings.forest_pet_skills=preload("res://scripts/forest/pet_catalog.gd").sanitized_skills(settings.forest_pet_skills)
+	settings.forest_pet_names=preload("res://scripts/forest/pet_catalog.gd").sanitized_names(settings.forest_pet_names)
 	settings.disable_character_cooldowns=settings.disable_character_cooldowns if settings.disable_character_cooldowns is bool else false
 	if is_instance_valid(player):player.character_models[1].apply_skin(settings.goemon_skin)
+	if is_instance_valid(player) and player.character_models.has(34):player.character_models[34].set_kaz_skin(settings.kaz_skin)
+	if is_instance_valid(player):
+		for character in roster.CROSSGATE:apply_skin_loadout(character)
+		var selected=roster.skin_character(player.character_id,settings)
+		if selected!=player.character_id:
+			player.select_character(selected)
+			if has_method("begin_forest"):get_tree().set_meta("forest_fighter",selected)
 	AudioServer.set_bus_volume_db(0,linear_to_db(settings.volume))
 	apply_music_setting()
 	if settings.fullscreen: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	apply_quality.call_deferred()
 
-func save_settings():
+func save_settings()->Error:
 	var c=ConfigFile.new()
-	c.load(settings_path)
-	for k in settings: c.set_value("settings",k,settings[k])
+	if FileAccess.file_exists(settings_path):
+		var loaded=c.load(settings_path)
+		if loaded!=OK:return loaded
+	for k in settings:
+		var stored_key="forest_skill_level_up_cards" if k=="forest_level_up_cards" else k
+		c.set_value("settings",stored_key,settings[k])
 	for k in tuning: c.set_value("prototype",k,false if k=="freeze_ai" else tuning[k])
 	c.set_value("character_balance","profiles",character_tuning)
 	c.set_value("core_balance","values",core_balance)
-	c.save(settings_path)
+	var temporary=settings_path+".tmp"
+	var result=c.save(temporary)
+	if result!=OK:return result
+	result=DirAccess.rename_absolute(ProjectSettings.globalize_path(temporary),ProjectSettings.globalize_path(settings_path))
+	if result!=OK:DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
+	return result
 
 func apply_quality():
 	var combat_fx=get_node_or_null("RogueSharedClassEffects")
@@ -1558,12 +1750,13 @@ func damage_number(p: Vector3,amount: int,heavy: bool,critical: bool=false):
 	var label=Label3D.new()
 	label.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	label.tree_exited.connect(func():damage_numbers_live-=1,CONNECT_ONE_SHOT)
-	label.text=("CRIT " if critical else "")+str(amount)
+	label.font=preload("res://assets/characters/crossgate/hit_feedback/damage.fnt")
+	label.outline_size=0
+	label.text=str(amount)
 	label.font_size=52 if critical else (48 if heavy else 36)
 	label.pixel_size=0.013
 	label.billboard=BaseMaterial3D.BILLBOARD_ENABLED
 	label.no_depth_test=true
-	label.modulate=Color("ffad62") if critical else (Color("ffe49a") if heavy else Color("ffffff"))
 	label.position=p
 	add_child(label)
 	var t=create_tween().set_parallel(true)
@@ -1730,15 +1923,13 @@ func crosshair_screen_position()->Vector2:
 func crosshair_target(max_distance: float=120.0)->Vector3:
 	var locked=player.auto_aim_target()
 	if locked:return AttackChain.aim_point(locked)
+	return crosshair_ray_hit(max_distance).position
+
+func crosshair_ray_hit(max_distance: float=120.0)->Dictionary:
 	var camera: Camera3D=camera_rig.camera
 	var center: Vector2=crosshair_screen_position()
-	var origin: Vector3=camera.project_ray_origin(center)
 	var direction: Vector3=camera.project_ray_normal(center)
-	if has_method("forest_enemy_visible"):
-		# Ignore the camera-to-hero section of the ray. A pillar behind the
-		# character must not become a target that reverses a forward attack.
-		var focus=player.global_position+Vector3.UP*1.1*player.growth_multiplier()
-		origin+=direction*maxf(0,(focus-origin).dot(direction))
+	var origin=crosshair_ray_start(camera.project_ray_origin(center),direction)
 	var query=PhysicsRayQueryParameters3D.create(origin,origin+direction*max_distance,1|4)
 	var excluded: Array[RID]=[player.get_rid()]
 	query.exclude=excluded
@@ -1750,7 +1941,14 @@ func crosshair_target(max_distance: float=120.0)->Vector3:
 		while not hit.is_empty() and hit.collider is Ninja and enemies.has(hit.collider) and not call("forest_enemy_visible",hit.collider):
 			excluded.append(hit.rid);query.exclude=excluded
 			hit=space.intersect_ray(query)
-	return hit.position if not hit.is_empty() else origin+direction*max_distance
+	if hit.is_empty():hit.position=origin+direction*max_distance
+	return hit
+
+func crosshair_ray_start(origin:Vector3,direction:Vector3)->Vector3:
+	if not has_method("forest_enemy_visible"):return origin
+	# A pillar behind the hero must never reverse a forward attack.
+	var focus=player.global_position+Vector3.UP*1.1*player.growth_multiplier()
+	return origin+direction*maxf(0,(focus-origin).dot(direction))
 
 func projectile_direction(origin: Vector3)->Vector3:
 	var locked=player.auto_aim_target(origin)
@@ -1936,6 +2134,7 @@ func rebuild_area(index: int):
 	apply_quality()
 
 func reset_player_at(p: Vector3):
+	player.timed_dodge.reset()
 	if is_instance_valid(native_ink_feedback):native_ink_feedback.clear()
 	player.attack_chain.reset()
 	player.cancel_charge()
@@ -2130,47 +2329,78 @@ func combat_visual():
 	quit_clean()
 
 # Called only after confirmed damage, never on an animation timer or a miss.
-func confirm_ally_impact(victim: Ninja,point: Vector3,direction: Vector3,strength: int,projectile: bool,source_character: int=0,spawn_visuals: bool=true):
+func confirm_ally_impact(victim: Ninja,point: Vector3,direction: Vector3,strength: int,projectile: bool,source_character: int=0,spawn_visuals: bool=true,impact_sample: AudioStream=null,impact_cue:String=""):
 	var duration=[.035,.060,.095][clampi(strength,0,2)]
 	victim.impact_pause=maxf(victim.impact_pause,duration)
 	impact_confirmed.emit(victim,strength,duration)
 	# The held Ed beam owns its continuous source audio and native contact
 	# visuals. Keep each victim's reaction without replaying a coin-hit voice.
-	if source_character==14 and projectile and not spawn_visuals:return
-	if spawn_visuals:
+	if impact_cue.is_empty() and source_character==14 and projectile and not spawn_visuals:return
+	var kazi_melee=Hero.RogueRoster.crossgate_profile(source_character).get("strike","")=="cuts" and not projectile
+	if spawn_visuals and (projectile or not _has_pooled_hit_feedback(victim)):
 		if source_character==1:
 			if not has_method("forest_point_visible") or call("forest_point_visible",point):
 				preload("res://scripts/recovered_goemon_vfx.gd").hit(self,point,strength==2)
+		elif kazi_melee and crowd!=null:crowd.army.presentation.hit_feedback(victim,point,1.0)
 		else:impact_effect(point,direction,strength)
-	if source_character not in [16,17] and not (projectile and source_character in [13,15]) and move_audio.ally_nearby(self,point):sound("coin_hit" if projectile else "hit",.35,source_character<=0,{},source_character)
+	var has_contact_sound=not impact_cue.is_empty() or (source_character not in [16,17] and not (projectile and source_character in [13,15]))
+	if has_contact_sound and move_audio.ally_nearby(self,point):
+		if kazi_melee:
+			var slot="heavy_hit" if strength==2 else "hit"
+			sound(slot,.65 if strength==2 else .55,false,{},source_character,impact_sample if impact_sample!=null else SoundLibrary.KAZ_SWORD_IMPACTS[slot])
+		else:
+			var slot=impact_cue if not impact_cue.is_empty() else ("coin_hit" if projectile else "hit")
+			sound(slot,.35,source_character<=0,{},source_character,impact_sample)
 
-func confirm_impact(victim: Ninja, point: Vector3, direction: Vector3, strength: int, projectile: bool, source_character:int=0,spawn_visuals: bool=true):
+# An explicit cue supplies the complete contact sound for a skill.
+func confirm_impact(victim: Ninja, point: Vector3, direction: Vector3, strength: int, projectile: bool, source_character:int=0,spawn_visuals: bool=true,impact_sample: AudioStream=null,primary_feedback:bool=true,impact_cue:String=""):
 	var duration=[0.035,0.060,0.095][clampi(strength,0,2)]
 	impact_confirmed.emit(victim,strength,duration)
 	victim.impact_pause=maxf(victim.impact_pause,duration)
+	if not primary_feedback:return
 	# A held beam pulses five times a second, potentially through a crowd.
 	# Restarting camera kick on every victim makes sustained contact stutter;
 	# its recovered audio already accompanies the unchanged damage/recoil.
-	if source_character==14 and projectile and not spawn_visuals:return
+	if impact_cue.is_empty() and source_character==14 and projectile and not spawn_visuals:return
 	# Red pipe chains keep moving through impact; enemy recoil still sells the hit.
 	if not projectile and (rogue_battle_mode or not (player.character_id==1 and player.weapon_slot==1 and player.attack_chain.energized())):
 		var self_pause=duration
-		if has_method("forest_enemy_visible") and player.character_id==1 and (player.pipe_contact_phase>=0 or player.uses_original_goemon_attack()):self_pause=minf(duration,.045 if player.attack_heavy or player.combo==3 else .025)
-		player.impact_pause=maxf(player.impact_pause,self_pause)
+		# Kazi's heavier blast stays within the previous recovery pause.
+		if Hero.RogueRoster.crossgate_profile(source_character).get("strike","")=="cuts":self_pause=minf(self_pause,.060)
+		var responsive_pipe=has_method("forest_enemy_visible") and player.character_id==1 and (player.pipe_contact_phase>=0 or player.uses_original_goemon_attack())
+		if responsive_pipe:self_pause=minf(duration,.045 if player.attack_heavy or player.combo==3 else .025)
+		# Later victims in the same sweep must not restart the player's impact beat.
+		var pipe_swing=responsive_pipe and player.attack_ticket.has("pipe_impact_paused")
+		if not pipe_swing or not player.attack_ticket.get("pipe_impact_paused",false):
+			player.impact_pause=maxf(player.impact_pause,self_pause)
+			if pipe_swing:player.attack_ticket.pipe_impact_paused=true
 	hit_stop=maxf(hit_stop,duration)
 	camera_rig.kick(direction,[0.035,0.065,0.12][clampi(strength,0,2)])
 	var impact_sound=("coin_heavy_hit" if strength==2 else "coin_hit") if projectile else ("heavy_hit" if strength==2 else "hit")
 	if player.character_id==13 and not projectile:
 		impact_sound="heavy_hit" if player.attack_heavy else ("fusion_fourth_hit" if player.combo==4 else ("fusion_finisher_hit" if player.combo==3 else "hit"))
+	if not impact_cue.is_empty():impact_sound=impact_cue
 	# Goemon coins carry their launch owner; another fighter's in-flight shot
 	# must not acquire his recovered defaults when the player switches to him.
-	var foreign_projectile=projectile and source_character==0 and player.character_id==1
-	if source_character not in [16,17] and not (projectile and source_character in [13,15]):sound(impact_sound,0.7,foreign_projectile,{},source_character)
-	if source_character not in [16,17]:sound("enemy_reaction",0.22 if strength<2 else 0.38,foreign_projectile,{},source_character)
-	if spawn_visuals:
+	var foreign_projectile=impact_cue.is_empty() and projectile and source_character==0 and player.character_id==1
+	var kazi_melee=Hero.RogueRoster.crossgate_profile(source_character).get("strike","")=="cuts" and not projectile
+	var impact_volume=(1.4 if strength==2 else 1.2) if kazi_melee and impact_sample==null else .7
+	if not impact_cue.is_empty() or (source_character not in [16,17] and not (projectile and source_character in [13,15])):
+		var sample=impact_sample
+		if sample==null and kazi_melee:sample=SoundLibrary.KAZ_SWORD_IMPACTS.get(impact_sound)
+		if sample==null and source_character==player.character_id and Hero.RogueRoster.crossgate_profile(source_character).get("strike","")=="timed" and not projectile:
+			sample=SoundLibrary.shin_weapon_sound(player.model.motions.weapon,int(player.model.motions.source_id),true)
+		sound(impact_sound,impact_volume,foreign_projectile,{},source_character,sample)
+	if impact_cue.is_empty() and source_character not in [16,17] and not (projectile and Hero.RogueRoster.has_crossgate_throws(source_character)):
+		sound("enemy_reaction",0.22 if strength<2 else 0.38,foreign_projectile,{},source_character)
+	if spawn_visuals and (projectile or not _has_pooled_hit_feedback(victim)):
 		if source_character==1 or (player.character_id==1 and not projectile):preload("res://scripts/recovered_goemon_vfx.gd").hit(self,point,strength==2)
+		elif kazi_melee and crowd!=null:crowd.army.presentation.hit_feedback(victim,point,player.hit_effect_scale())
 		elif rogue_battle_mode:rogue_feedback.impact(victim,point,direction,strength,projectile)
 		else:impact_effect(point,direction,strength)
+
+func _has_pooled_hit_feedback(victim:Ninja)->bool:
+	return crowd!=null and (victim.training_dummy or victim.has_method("uses_shared_snapshot"))
 
 func _native_feedback() -> Node:
 	if not is_instance_valid(native_ink_feedback):

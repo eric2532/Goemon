@@ -10,6 +10,26 @@
       "sampleRate": 22050,
       "frames": 2881
     },
+    "133": {
+      "file": "sounds/cgply11a.wav",
+      "source": "NewClient.7z/bin/se/cgply11a.wav",
+      "sha256": "395f29254474df1b967281b73d8494fc623a1afad5df1a6131a23bcc515cb520",
+      "pcmSha256": "17e5cca50f606ba051521b4e40537cc5da2188ee5558bc6ad41fb46295b37ac8",
+      "channels": 1,
+      "sampleWidth": 2,
+      "sampleRate": 22050,
+      "frames": 5392
+    },
+    "134": {
+      "file": "sounds/cgply11b.wav",
+      "source": "NewClient.7z/bin/se/cgply11b.wav",
+      "sha256": "388b3cdd3eea279d46b552427b37deb3956ce4dda8c3ade92aa7f08f252580c1",
+      "pcmSha256": "c16944486ab4a03c24bfd987501a9b8adfde9aa9da610411abd619ad1210c2cf",
+      "channels": 1,
+      "sampleWidth": 2,
+      "sampleRate": 22050,
+      "frames": 6675
+    },
     "255": {
       "file": "sounds/cgefc04.wav",
       "source": "NewClient.7z/bin/se/cgefc04.wav",
@@ -19,8 +39,19 @@
       "sampleWidth": 2,
       "sampleRate": 22050,
       "frames": 16448
+    },
+    "210": {
+      "file": "sounds/cgbtl09.wav",
+      "source": "NewClient.7z/bin/se/cgbtl09.wav",
+      "sha256": "e4a5e0ac15e71de79e9d36d407d53c4a7750afd5784c19ab306aab1e4d8d8ee9",
+      "pcmSha256": "742515096997aece2f6476849476fa2023190cb5e259f0f278257c3cac2a21c8",
+      "channels": 1,
+      "sampleWidth": 2,
+      "sampleRate": 22050,
+      "frames": 5397
     }
   },
   "swing": "Original ex:1727 attack-frame markers, zero-based frames 3/7; direction 0 has only frame 3.",
-  "hit": "Recovered Cross Gate generic physical impact 255; Kazi-specific contact selection is unverified."
+  "hit": "Sword cues 133/134 from 100028 and 100891 are adapted to the ex:1727 cut/blast. Sound 255 is the shared physical impact.",
+  "kagerou": "Blue Cross Gate client dodge-result 0x100 invokes audio ID 210 at 0x405f48. Original file and PCM hashes verified."
 }

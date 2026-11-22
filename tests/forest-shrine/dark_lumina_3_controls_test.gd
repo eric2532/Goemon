@@ -64,7 +64,7 @@ func run():
   check(primary==[0,22*Finale.WIND_FAN+1,6,32,0,5][number],"Fast spell %d preserves its projectile releases"%number)
  check(pool.created==prepared and pool.misses==misses,"Faster spells stay within prepared projectile leases")
  fresh();p.position=ORIGIN;p.facing=Vector3.FORWARD
- check(game.forest_ui.primary_icon.tooltip_text.contains("LMB · Kojiro’s Wind wave") and not game.forest_ui.spell_summary.text.contains("RMB"),"HUD shows the energy sequence as the only default attack")
+ check(game.forest_ui.primary_icon.tooltip_text.contains("LMB · Kojiro’s Wind wave") and game.forest_ui.secondary_icon.tooltip_text.is_empty(),"HUD shows the energy sequence as the only default attack")
  click(MOUSE_BUTTON_RIGHT);check(not c.is_attacking() and not c.queued_cut,"RMB while idle does not attack")
  launches.clear()
  var dummy=game.training_dummy;dummy.home=ORIGIN+Vector3(0,0,-5);dummy.position=dummy.home
@@ -118,7 +118,7 @@ func run():
  # Allow the full falling lifetime plus lingering ground fire after the final cast.
  await advance(480)
  check(not pool.all.values().any(func(nodes):return nodes.any(func(s):return s.pool_live and s.get_script()==preload("res://scripts/dark_lumina_3_projectile.gd"))),"Repeated fast hazards fully retire")
- p.select_character(1);game.forest_ui.sync();check(game.forest_ui.loadout_buttons[0].text=="1","Switching fighters restores ordinary slot labels")
+ p.select_character(1);game.forest_ui.sync();check(game.forest_ui.loadout_buttons[0].text.is_empty(),"Switching fighters keeps skill key numbers hidden")
  step_times.sort();frame_times.sort()
  var report={"checks":checks,"failures":failures,"prepared":prepared,"pool_after":pool.created,"misses":pool.misses-misses,"manual_step_ms_p95":step_times[floori(step_times.size()*.95)]}
  if visual:report.frame_median_ms=frame_times[frame_times.size()/2];report.frame_p95_ms=frame_times[floori(frame_times.size()*.95)];report.frame_max_ms=frame_times[-1]

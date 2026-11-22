@@ -175,6 +175,7 @@ func physics_step(delta:float):
 		homing_used=false
 		if mode=="jump":mode="idle"
 	elif mode=="charge":mode="jump";charge_voice.stop();jump_held=false
+	var homing=mode=="homing"
 	if mode=="charge":
 		if charge<10:charge=minf(10,charge+.4*ticks)
 		horizontal=horizontal.move_toward(Vector3.ZERO,-parameters.run_break*SPEED_UNIT*ticks)
@@ -212,7 +213,8 @@ func physics_step(delta:float):
 			velocity.y=parameters.jmp_y_spd*SPEED_UNIT*hero.combat_tuning("jump_height");mode="jump";grounded=false;jump_ticks=0
 			charge_voice.stop()
 			begin_attack("jump");sound("jump");hero.jumps_used=1
-	if spell_owner==null and hero.jump_style.active() and mode in ["idle","fall"]:
+	var equipped_jump=spell_owner==null and hero.jump_style.active() and mode in ["idle","fall"]
+	if equipped_jump:
 		hero.velocity=Vector3(horizontal.x,velocity.y,horizontal.z)
 		hero.jump_style.step(delta)
 		if hero.flying:hero.jump_style.steer_flight(delta,input_dir)
@@ -226,7 +228,8 @@ func physics_step(delta:float):
 	velocity.x=horizontal.x;velocity.z=horizontal.z;hero.velocity=velocity
 	var before=hero.global_position
 	# Use the shared CharacterBody so bridges, hills, walls and portals retain ownership.
-	hero.move_and_slide()
+	if spell_owner!=null or homing or (equipped_jump and hero.flying):hero.move_and_slide()
+	else:hero.move_with_jump_drop()
 	if mode in ["roll","homing","jump"]:contact(before+Vector3.UP,hero.global_position+Vector3.UP)
 	if hero.is_on_wall():
 		if hero.character_id==19 and (mode in ["roll","homing"] or -velocity.dot(hero.get_wall_normal())>parameters.crash_speed*SPEED_UNIT):sound("sonic_wall_hit")
@@ -242,7 +245,7 @@ func physics_step(delta:float):
 		if hero.model.locomotion.step_events!=hero.last_foot_events:
 			hero.last_foot_events=hero.model.locomotion.step_events
 			if not spinning():hero.play_sound("step",.22)
-		hero.model.visible=not(hero.invuln>0 and int(hero.invuln*20)%2==0)
+		hero.model.visible=true
 		hero.was_floor=hero.is_on_floor();hero._finish_movement_bounds()
 
 func contact(from:Vector3,to:Vector3):

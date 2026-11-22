@@ -1,0 +1,212 @@
+{
+  "snapshot_sha256": "8babbe4ad20e4e1e2a6992ecf086d47ef3527426879699f83fa2cebb1a476afe",
+  "code_sha256": {
+    "0x40e888": "249ad4d88b3e3cea26a08cf2e1b6c8ff8504b9c1220d27663d6c31248ebfa4e1",
+    "0x41ce10": "e0737f804f54bd28d02dc1984e3f947c8ef5aec860f5949e76c9208ea58474f1",
+    "0x40db91": "c63bfb8f0f491922d82fcd3bb73d1b7e6addef7922e0cddd0a5cb0db0a7b5787",
+    "0x41d740": "9ab281d8f76541f6ebbfe6575e944741bc8f9b2d988b19005f0b9ed959247b5d",
+    "0x431911": "e42ece133a95951e3246406c770bad399bff0660594a7719716cf2bbbcedd78b",
+    "0x40d861": "58b9464aa5b09c777d640434228eea55eecbe5eff0871817c635a9b05b30b9e4"
+  },
+  "cases": [
+    {
+      "protocol": 44,
+      "resource": 110075,
+      "callback": "0x41ce10",
+      "position": [
+        457.5,
+        331.0
+      ],
+      "flags": "0x60000",
+      "field_2a4": 100,
+      "clocks": [
+        1
+      ],
+      "sounds": [],
+      "status_bits": 16,
+      "status_index": 1,
+      "one_owner_slot": true,
+      "after_owner_move": [
+        500.0,
+        361.0
+      ],
+      "update_clocks": [
+        0
+      ]
+    },
+    {
+      "protocol": 45,
+      "resource": 110076,
+      "callback": "0x41ce10",
+      "position": [
+        457.5,
+        331.0
+      ],
+      "flags": "0x60000",
+      "field_2a4": 100,
+      "clocks": [
+        1
+      ],
+      "sounds": [],
+      "status_bits": 32,
+      "status_index": 2,
+      "one_owner_slot": true,
+      "after_owner_move": [
+        500.0,
+        361.0
+      ],
+      "update_clocks": [
+        0
+      ]
+    },
+    {
+      "protocol": 46,
+      "resource": 110077,
+      "callback": "0x41ce10",
+      "position": [
+        457.5,
+        331.0
+      ],
+      "flags": "0x60000",
+      "field_2a4": 100,
+      "clocks": [
+        1
+      ],
+      "sounds": [],
+      "status_bits": 64,
+      "status_index": 3,
+      "one_owner_slot": true,
+      "after_owner_move": [
+        500.0,
+        361.0
+      ],
+      "update_clocks": [
+        0
+      ]
+    },
+    {
+      "protocol": 47,
+      "resource": 110078,
+      "callback": "0x41ce10",
+      "position": [
+        457.5,
+        331.0
+      ],
+      "flags": "0x60000",
+      "field_2a4": 100,
+      "clocks": [
+        1
+      ],
+      "sounds": [],
+      "status_bits": 128,
+      "status_index": 4,
+      "one_owner_slot": true,
+      "after_owner_move": [
+        500.0,
+        361.0
+      ],
+      "update_clocks": [
+        0
+      ]
+    },
+    {
+      "protocol": 48,
+      "resource": 110079,
+      "callback": "0x41ce10",
+      "position": [
+        457.5,
+        331.0
+      ],
+      "flags": "0x60000",
+      "field_2a4": 100,
+      "clocks": [
+        1
+      ],
+      "sounds": [],
+      "status_bits": 256,
+      "status_index": 5,
+      "one_owner_slot": true,
+      "after_owner_move": [
+        500.0,
+        361.0
+      ],
+      "update_clocks": [
+        0
+      ]
+    },
+    {
+      "protocol": 49,
+      "resource": 110080,
+      "callback": "0x41ce10",
+      "position": [
+        457.5,
+        331.0
+      ],
+      "flags": "0x60000",
+      "field_2a4": 100,
+      "clocks": [
+        1
+      ],
+      "sounds": [],
+      "status_bits": 512,
+      "status_index": 6,
+      "one_owner_slot": true,
+      "after_owner_move": [
+        500.0,
+        361.0
+      ],
+      "update_clocks": [
+        0
+      ]
+    },
+    {
+      "protocol": 88,
+      "resource": 110155,
+      "callback": "0x41d740",
+      "position": [
+        300.0,
+        300.0
+      ],
+      "flags": "0x40000",
+      "field_2a4": 100,
+      "clocks": [
+        1
+      ],
+      "sounds": [
+        275
+      ],
+      "status_bits": 0,
+      "status_index": 0,
+      "one_owner_slot": true,
+      "after_owner_move": [
+        300.0,
+        300.0
+      ],
+      "update_clocks": [
+        0
+      ]
+    }
+  ],
+  "death": {
+    "protocolType": 86,
+    "sublevel": 0,
+    "kind": 25,
+    "objects": [
+      {
+        "resource": 110156,
+        "callback": "0x417a60",
+        "position": [
+          457.5,
+          290.0
+        ],
+        "parent": "actor",
+        "flags": "0x40000"
+      }
+    ],
+    "sounds": [],
+    "tierInitializerRepair": true,
+    "tech": 8652,
+    "queued_state": 132
+  },
+  "limits": "Native resource selection, setup and following callback bytes. Synthetic actors, arena corners and allocation; sprite clock, float-to-screen conversion and audio submission are inert fixtures. Death general factory uses the existing documented EAX=2 tier-initializer repair; status and seal execute without it. No server or Windows executable is run. Real-time duration and 3D floor projection remain adaptations."
+}

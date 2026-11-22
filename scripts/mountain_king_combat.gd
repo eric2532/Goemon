@@ -17,6 +17,7 @@ var clap_fx:MeshInstance3D
 var avatar_fx:MeshInstance3D
 var clap_age=100.0
 var avatar_age=100.0
+var avatar_ticket:Dictionary={}
 func prepare_projectiles():
  if body_fx==null:
   body_fx=Visual.new();cast_model().rig_visual.add_child(body_fx);body_fx.setup("body");body_fx.hide()
@@ -84,6 +85,7 @@ func start_taunt():
 func start_avatar():
  if is_attacking() or avatar_cooldown>0 or demon or hero.hp<=0:return
  begin("avatar","Morph Alternate");contact=0;avatar_cooldown=180
+ avatar_ticket=ticket
  demon=true;avatar_left=60;avatar_age=0
  hero.refresh_max_health(true);sound("wc_avatar")
  if hero.ai_controlled and hero.get("native_handle")!=null and hero.native_handle!=0:
@@ -106,7 +108,7 @@ func tick(delta:float,after_pose:bool=false):
  if after_pose or not active or game.paused or game.transitioning or not game.playing:return
  clap_age+=delta;avatar_age+=delta
  clap_fx.pose("stand",clap_age)
- avatar_fx.scale=Vector3.ONE*.03*hero.model.scale.x;avatar_fx.pose("Spell",avatar_age)
+ avatar_fx.scale=Vector3.ONE*.03*hero.model.scale.x*skill_factor("size",avatar_ticket);avatar_fx.pose("Spell",avatar_age)
  if mode=="dead":return
  if not is_attacking():
   body_fx.hide()

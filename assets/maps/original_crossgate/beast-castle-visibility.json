@@ -1,0 +1,9 @@
+{
+  "ready": true,
+  "mesh_sha256": "0990d90c8fe6475bef4a8412b5298c8fe5165db9eac5526b45c721e20bcd1b71",
+  "source_rgba_sha256": "8c5c36c83230e90bdda999a0a0dceb550830f9f522e9f9121071997a5e408d1c",
+  "depth_min": -17.823960909248548,
+  "depth_span": 51.42127387990054,
+  "covered_pixels": 238751,
+  "bias_metres": 0.2
+}

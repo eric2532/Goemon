@@ -1,0 +1,11 @@
+{
+  "sound_id": 207,
+  "file": "cgbtl06.wav",
+  "source": "../Magic Power/data/crossgate/source/BlueCrossgate/bin/se/cgbtl06.wav",
+  "sha256": "814806d96ad3e119d2e1b9555bf4dd59da857691ffe0d7af21bec2af5cc3f355",
+  "client": "research/newclient20261030/combat/bluecg-virtual-memory.bin",
+  "launch_dispatch": "0x40969a..0x409711",
+  "sound_call": "0x4096a4 -> 0x521d00",
+  "note": "Original launch sample; flight distance and lethal trigger are Goemon adaptations. Original wall-bounce sound 208 is not used.",
+  "client_sha256": "8babbe4ad20e4e1e2a6992ecf086d47ef3527426879699f83fa2cebb1a476afe"
+}

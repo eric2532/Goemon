@@ -19,6 +19,7 @@ func run():
 	create_timer(240).timeout.connect(func():printerr("TEAM_CATALOG_TIMEOUT");quit(1))
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=cfg
 	root.add_child(game);current_scene=game;await frames(8)
+	game.settings.forest_level_up_cards=true;game.model.team_progression.cards_enabled=true
 	game.start_wave();game.model.waves.spawn_clock=100000
 	for node in [game,game.player,game.camera_rig,game.army_runtime,game.explorer_helpers]:node.set_process(false);node.set_physics_process(false)
 	root.gui_disable_input=true;game.set_process_input(false);game.set_process_unhandled_input(false)
@@ -33,7 +34,7 @@ func run():
 	check(game.team_upgrade_picker.buttons[1].find_child("Rank",true,false).text=="RANK 0 → 1\nPLAYER TOTAL ×1.00 → ×1.25","Reach preview states player-only bonus")
 	choose("player_range")
 	check(is_equal_approx(hero.melee_reach_setting(),base*1.25) and indicator.radius(hero)>old_circle,"Normal range card expands actual melee setting and cached ground outline")
-	present(["player_range","tower_speed","worker_repair"],[3,0,0]);choose("player_range",3)
+	present(["player_range","pet_speed","pet_health"],[3,0,0]);choose("player_range",3)
 	check(is_equal_approx(hero.melee_reach_setting(),base*2.25),"Diamond reach adds four ranks to the normal rank")
 	for character in [1,5,7,8,11,13,15,16,17,28,29,31,32,33]:
 		hero.select_character(character);hero.attack_chain.reset()
@@ -63,41 +64,15 @@ func run():
 		var body=helpers.legendary_heroes.bodies.back()
 		check(body.character_id==card.hero and body.leased,"Card summons exactly "+card.title)
 		check(is_equal_approx(body.melee_reach_setting(),body.combat_tuning("melee_reach")),"Named hero keeps its own reach")
-	for id in p.CARDS:
-		var card=p.CARDS[id]
-		if not card.has("mercenary"):continue
-		present(["legendary_dragoons","legendary_rangers","legendary_ninjas"],[4,4,4])
-		var previous=helpers.active_units(card.mercenary).size();var count=helpers.active_units().size()
-		choose(id,4)
-		check(helpers.active_units(card.mercenary).size()==previous+5 and helpers.active_units().size()==count+5,"Company grants exactly five of "+card.title)
-		check(game.model.gold==0,"Named company remains free at full food")
+	check(p.CARDS.values().all(func(card):return not card.has("mercenary")),"The popup catalog excludes mercenary companies")
 	present(["legendary_goemon","legendary_musashi","legendary_illidan"],[4,4,4])
 	await frames(5);layout_check();await capture("named-heroes")
 	for i in 3:
 		var id=p.offer[i];check(game.team_upgrade_picker.buttons[i].find_child("Icon",true,false).texture==Roster.selection_portrait(p.CARDS[id].hero),"Hero card shows its named portrait in slot %d"%i)
 	root.size=Vector2i(960,640);await frames(5);layout_check();await capture("named-heroes-small")
 	root.size=Vector2i(1280,800);choose("legendary_goemon",4)
-	present(["legendary_knights","legendary_explorers","legendary_dragoons"],[4,4,4])
-	await frames(5);layout_check();await capture("named-companies")
-	for i in 3:
-		var id=p.offer[i];check(game.team_upgrade_picker.buttons[i].find_child("Icon",true,false).texture==Roster.selection_portrait(helpers.KITS[p.CARDS[id].mercenary]),"Company shows the selected troop portrait")
-	var explored=game.model.explored.duplicate();game.model.explored.clear();var count=helpers.active_units().size();var state=p.rng.state
-	check(not game.choose_team_upgrade("legendary_knights",p.choice_level()) and helpers.active_units().size()==count and p.pending()==1 and p.rng.state==state,"Blocked named company leaves units, RNG and card unchanged")
-	game.model.explored=explored;choose("legendary_knights",4)
-	for unit in helpers.active_units():unit.park()
-	# Warm the same five pooled bodies before measuring repeated reward reuse.
-	for cycle in 2:
-		present(["legendary_knights","legendary_tower","legendary_workers"],[4,4,4]);choose("legendary_knights",4)
-		for unit in helpers.active_units():unit.park()
-		await frames(5)
-	var nodes=get_node_count();var resources=Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT);var pool_size=helpers.pool.size()
-	for cycle in 5:
-		present(["legendary_knights","legendary_tower","legendary_workers"],[4,4,4]);choose("legendary_knights",4)
-		check(helpers.active_units().all(func(unit):return unit.slot==3),"Repeated Knight company keeps the requested identity")
-		for unit in helpers.active_units():unit.park()
-		await frames(5)
-	check(helpers.pool.size()==pool_size and get_node_count()<=nodes,"Repeated named companies reuse pooled units and release card nodes")
-	check(Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)<=resources,"Repeated company choices retain no additional resources after warmup")
+	await frames(5)
+	var nodes=get_node_count()
 	for rank in [0,5]:
 		p.ranks.player_range=rank;indicator.radius(hero)
 		var samples=[]

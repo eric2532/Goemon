@@ -1,0 +1,193 @@
+{
+  "sources": {
+    "10436": {
+      "pack": "original",
+      "row": 7637,
+      "rgba_sha256": "9deea20ca91e2fd10b8d8062eb70ae3417dbf845ed8186c4190557c1a42fe2cf"
+    },
+    "17607": {
+      "pack": "original",
+      "row": 13027,
+      "rgba_sha256": "b8f453e93e01bc4bc5587e26c2a931462a6d62538e7700864be1422e80fe53bf"
+    },
+    "17608": {
+      "pack": "original",
+      "row": 13028,
+      "rgba_sha256": "2afde02260d66d6592742f89686549c4dc2c42463d51c5f87d6c668e88e6594a"
+    },
+    "17559": {
+      "pack": "original",
+      "row": 12955,
+      "rgba_sha256": "a3026efff2ec6a6539f5b84dbc32c2fd5fe969d9fb3d7e02827428ae95f9f909"
+    },
+    "17564": {
+      "pack": "original",
+      "row": 13021,
+      "rgba_sha256": "aaf5ca9afb160a5cde637665d6b7616036bea2824e3396a44bc49dfa3a05cb4b"
+    },
+    "10495": {
+      "pack": "original",
+      "row": 7696,
+      "rgba_sha256": "ffa51d8b6e3ebe35ab787cba149b6391185301ceaaeac9ee415ae589a923c269"
+    }
+  },
+  "patches": {
+    "clock_10436": [
+      10436,
+      [
+        [
+          26,
+          29
+        ],
+        [
+          44,
+          17
+        ],
+        [
+          44,
+          47
+        ],
+        [
+          26,
+          59
+        ]
+      ],
+      true,
+      [
+        64,
+        96
+      ]
+    ],
+    "clock_10495": [
+      10495,
+      [
+        [
+          8,
+          18
+        ],
+        [
+          29,
+          32
+        ],
+        [
+          29,
+          62
+        ],
+        [
+          8,
+          48
+        ]
+      ],
+      true,
+      [
+        64,
+        96
+      ]
+    ],
+    "inn_notice": [
+      17607,
+      [
+        [
+          9,
+          57
+        ],
+        [
+          62,
+          21
+        ],
+        [
+          62,
+          64
+        ],
+        [
+          9,
+          101
+        ]
+      ],
+      true,
+      [
+        112,
+        48
+      ]
+    ],
+    "office_notice": [
+      17564,
+      [
+        [
+          2,
+          6
+        ],
+        [
+          35,
+          28
+        ],
+        [
+          35,
+          64
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      true,
+      [
+        64,
+        72
+      ]
+    ],
+    "guild_notice": [
+      17608,
+      [
+        [
+          8,
+          57
+        ],
+        [
+          61,
+          22
+        ],
+        [
+          61,
+          72
+        ],
+        [
+          8,
+          106
+        ]
+      ],
+      true,
+      [
+        112,
+        96
+      ]
+    ],
+    "office_door_crown": [
+      17559,
+      [
+        [
+          5,
+          24
+        ],
+        [
+          62,
+          63
+        ],
+        [
+          62,
+          85
+        ],
+        [
+          5,
+          46
+        ]
+      ],
+      true,
+      [
+        112,
+        40
+      ]
+    ]
+  },
+  "method": "Rectified original dials and notice; arched alpha stencil fits the existing solid clock hood. Cases, boards and door retain their original stations."
+}

@@ -8,9 +8,16 @@ func add(point:Vector3,size_:Vector3,material:Material,shadow:int=GeometryInstan
  if not groups.has(key):groups[key]={"origin":Vector3(chunk.x*CHUNK_SIZE,0,chunk.y*CHUNK_SIZE),"material":material,"shadow":shadow,"transforms":[]}
  var group:Dictionary=groups[key]
  group.transforms.append(Transform3D(Basis.IDENTITY.scaled(size_),point-group.origin))
-func build(parent:Node3D):
+func build(parent:Node3D,bake_meshes:bool=false):
  var mesh=BoxMesh.new();mesh.size=Vector3.ONE
  for group in groups.values():
+  if bake_meshes:
+   # Transient authored models are merged on the CPU before being cached.
+   var tool=SurfaceTool.new();tool.begin(Mesh.PRIMITIVE_TRIANGLES)
+   for pose:Transform3D in group.transforms:tool.append_from(mesh,0,pose)
+   var node=Geo.mesh(parent,tool.commit(),group.origin,group.material)
+   node.cast_shadow=group.shadow
+   continue
   var batch=MultiMeshInstance3D.new();batch.name="StaticStoneBoxes"
   batch.position=group.origin;batch.material_override=group.material;batch.cast_shadow=group.shadow
   var instances=MultiMesh.new();instances.transform_format=MultiMesh.TRANSFORM_3D;instances.mesh=mesh;instances.instance_count=group.transforms.size()

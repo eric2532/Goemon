@@ -166,16 +166,19 @@ func run():
 	hero.set_gold_cloak(true);check(hero.can_fly(),"Existing gold-cape flight remains available")
 	hero.set_scarf_equipped(false);hero.gold_cloak=false
 	# Saved selection remains separate from the three attack slots.
-	hero.spell_loadout.equip(1,"surge","sonic/homing")
-	hero.jump_style.equip(1,"sonic");hero.jump_style.equip(5,"ben")
+	var saved_fighter:int=hero.RogueRoster.KAZI_ID
+	var other_fighter:int=hero.RogueRoster.RUBY_ID
+	hero.select_character(saved_fighter)
+	hero.spell_loadout.equip(saved_fighter,"surge","kazi/fire")
+	hero.jump_style.equip(saved_fighter,"sonic");hero.jump_style.equip(other_fighter,"ben")
 	var saved=ConfigFile.new();check(saved.load(cfg)==OK,"Assignments are written to the normal settings file")
-	check(saved.get_value("settings","jump_styles",{}).get("1")=="sonic" and saved.get_value("settings","jump_styles",{}).get("5")=="ben","Jump choices save independently per fighter")
-	check(hero.spell_loadout.spell_for(1,"surge")=="sonic/homing","Jump equipment preserves the attack loadout")
-	game.load_settings();hero.select_character(1)
+	check(saved.get_value("settings","jump_styles",{}).get(str(saved_fighter))=="sonic" and saved.get_value("settings","jump_styles",{}).get(str(other_fighter))=="ben","Jump choices save independently per fighter")
+	check(hero.spell_loadout.spell_for(saved_fighter,"surge")=="kazi/fire","Jump equipment preserves the attack loadout")
+	game.load_settings();hero.select_character(saved_fighter)
 	check(hero.jump_style.selected=="sonic","Jump assignment survives settings reload")
-	hero.jump_style.equip(1,"")
-	check(not hero.jump_style.active() and hero.jump_style.assignment(5)=="ben","Original clears only the selected fighter's override")
-	hero.spell_loadout.equip(1,"surge","")
+	hero.jump_style.equip(saved_fighter,"")
+	check(not hero.jump_style.active() and hero.jump_style.assignment(other_fighter)=="ben","Original clears only the selected fighter's override")
+	hero.spell_loadout.equip(saved_fighter,"surge","")
 	# Reuse does not construct another controller, model, material or effect.
 	await fresh(1,"sonic")
 	for i in 20:
@@ -189,6 +192,7 @@ func run():
 	measurements.reuse={"nodes_before":nodes,"nodes_after":Performance.get_monitor(Performance.OBJECT_NODE_COUNT),"resources_before":resources,"resources_after":Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)}
 	check(Performance.get_monitor(Performance.OBJECT_NODE_COUNT)==nodes,"Repeated jumps do not grow node count")
 	check(Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)==resources,"Repeated jumps do not grow resources")
+	hero.select_character(saved_fighter)
 	var picker=load("res://scripts/spells/spell_picker.gd").new();picker.game=game;game.ui.add_child(picker)
 	check(picker.choices.size()==picker.Catalog.SLOTS.size() and picker.jump_choice.item_count==Jumps.STYLES.size()+1,"Equipment exposes one Jump Style slot alongside the configured attack slots")
 	picker.jump_choice.item_selected.emit(7)

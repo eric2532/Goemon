@@ -1,0 +1,42 @@
+{
+  "0": {
+    "path": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/long-blade/masters/0-0.png",
+    "sha256": "2360ceba1a6a7aadb5d0c46be68bce0d549f38431c7b18c0d8ae1c8777bf032f",
+    "mirror": false
+  },
+  "1": {
+    "path": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/long-blade/masters/0-1.png",
+    "sha256": "315cff394a16f4f96110c86c87a460efb804f06e9373cd81eecb2ed147464d77",
+    "mirror": false
+  },
+  "2": {
+    "path": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/long-blade/masters/0-2.png",
+    "sha256": "99a070ab095976d2a0b19ab2c3441bc2ea38a52d79dba42ceb919adced3f3985",
+    "mirror": false
+  },
+  "3": {
+    "path": "assets/references/crossgate_kazi_hd/revisions/iai-left-hip/references/preferred-slash-proportions.png",
+    "sha256": "97eda4e5f3981c63394035ed59c6c75e74399a1940c1a332d5ae75c6ca69dfd7",
+    "mirror": false
+  },
+  "4": {
+    "path": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/long-blade/masters/0-4.png",
+    "sha256": "e096550a0600f4d5b2c4ed26a62d56184d971dc1bd9bfc2bc3c78625cb587267",
+    "mirror": false
+  },
+  "5": {
+    "path": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/long-blade/masters/0-5.png",
+    "sha256": "3ff7f7294ecffdd3681f61461d374ac285928ff774e1eb2e4f1480d0e2ed8d5e",
+    "mirror": false
+  },
+  "6": {
+    "path": "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/long-blade/masters/0-6.png",
+    "sha256": "8b62472f2de73b7c08e2513cd5d0c12e070f9897b238531d5395c536df2bd7c6",
+    "mirror": false
+  },
+  "7": {
+    "path": "assets/references/crossgate_kazi_hd/revisions/iai-left-hip/references/preferred-slash-proportions.png",
+    "sha256": "97eda4e5f3981c63394035ed59c6c75e74399a1940c1a332d5ae75c6ca69dfd7",
+    "mirror": true
+  }
+}

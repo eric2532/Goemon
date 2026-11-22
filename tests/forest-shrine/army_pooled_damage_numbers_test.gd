@@ -4,8 +4,11 @@ class Visibility extends RefCounted:
  func visible_at(point:Vector3)->bool:return point.x>=-10
 class Arena extends Node3D:
  var model=Visibility.new()
+ var actors={}
+ var settings={}
  var paused=false
  var transitioning=false
+ func forest_point_visible(point:Vector3)->bool:return model.visible_at(point)
 var checks=0
 var failures=0
 func _initialize():run.call_deferred()
@@ -22,23 +25,36 @@ func run():
   {"kind":"damage","position":Vector3(0,1,0),"amount":80,"heavy":true},
   {"kind":"damage","position":Vector3(3,1,0),"amount":160,"heavy":true,"critical":true}])
  check(fx.counts().labels==3,"Normal, heavy and critical events reach the reusable pool")
- check(fx.labels[0].text=="37" and fx.labels[0].font_size==36 and fx.labels[0].modulate==Color.WHITE,"Normal hits restore white readable text")
- check(fx.labels[1].text=="80" and fx.labels[1].font_size==48 and fx.labels[1].modulate==Color("ffe49a"),"Heavy hits restore larger gold text")
- check(fx.labels[2].text=="CRIT 160" and fx.labels[2].font_size==52 and fx.labels[2].modulate==Color("ffad62"),"Critical styling takes precedence over heavy styling")
- check(fx.labels.all(func(label):return label.no_depth_test and label.fixed_size and label.outline_size==10 and is_equal_approx(label.pixel_size,.00065) and label.billboard==BaseMaterial3D.BILLBOARD_ENABLED),"All pooled labels stay readable across camera zoom, outlined and above scene geometry")
+ check(fx.labels[0].text=="37" and fx.labels[0].font_size==36,"Normal hits show the recovered digits")
+ check(fx.labels[1].text=="80" and fx.labels[1].font_size==48,"Heavy hits show larger digits")
+ check(fx.labels[2].text=="160" and fx.labels[2].font_size==52,"Critical digits take precedence over heavy sizing")
+ check(fx.labels.all(func(label):return label.font==fx.DAMAGE_FONT and label.no_depth_test and label.fixed_size and label.outline_size==0 and is_equal_approx(label.pixel_size,.00065) and label.billboard==BaseMaterial3D.BILLBOARD_ENABLED),"The shared bitmap font supplies its own outline and stays readable across camera zoom")
+ check(fx.DAMAGE_FONT.get_supported_chars()=="0123456789","The imported bitmap font contains all ten source digits")
+ check(fx.effects.filter(func(effect):return effect.kind=="critical").size()==1,"Only the critical hit adds a burst over the ordinary contacts")
  check(fx.labels[0].position.is_equal_approx(Vector3(-3,2.6,0)),"Native hit feedback floats above the target instead of inside its body")
+ fx.tick(0)
+ var burst:MultiMesh=fx.batches.critical.multimesh
+ check(burst.visible_instance_count==1,"The batch submits one critical burst")
+ var rendered=DisplayServer.get_name()!="headless"
+ if rendered:check(is_equal_approx(burst.get_instance_transform(0).basis.x.length(),2.8),"The submitted critical quad uses the enlarged shared size")
+ if rendered:check(burst.get_instance_custom_data(0).r==0,"The batch starts on the first recovered frame")
  fx.tick(.1)
+ if rendered:check(burst.get_instance_custom_data(0).r==1 and is_equal_approx(burst.get_instance_custom_data(0).g,.85),"The burst keeps source cadence with stronger critical opacity")
  check(is_equal_approx(fx.labels[0].position.y,2.6+.1*1.4/.65),"Pooled labels regain the original upward travel speed")
  arena.paused=true;var held:Vector3=fx.labels[0].position;fx.tick(.5)
  check(fx.labels[0].position==held and fx.counts().labels==3,"Pause preserves live labels and their lifetime")
  arena.paused=false;fx.tick(.6)
+ check(burst.visible_instance_count==0,"Expired critical bursts release their batch slots")
  check(fx.counts().labels==0 and fx.labels.all(func(label):return not label.visible),"Expired labels hide without freeing their nodes")
  fx.clear()
  for i in 1000:
   fx.label_damage(Vector3(-20,1,0),10)
   fx.label_damage(Vector3(0,1,40),10)
   fx.label_damage(Vector3(100,1,0),10)
+  fx.critical_burst(Vector3(-20,1,0))
+  fx.critical_burst(Vector3(0,1,40))
  check(fx.counts().labels==0,"Fog-hidden, behind-camera and offscreen hits consume no popup slots")
+ check(fx.effects.is_empty(),"Fog-hidden and behind-camera criticals consume no burst slots")
  var allocations={"labels":0}
  fx.child_entered_tree.connect(func(node):
   if node is Label3D:allocations.labels+=1)
@@ -46,9 +62,16 @@ func run():
  for i in 4000:fx.label_damage(Vector3(0,1,0),i,i%2==0,i%3==0)
  check(randf()==expected,"Popup admission and styling never advance combat RNG")
  check(fx.counts().labels==32 and fx.labels.size()==32 and fx.get_child_count()==baseline and allocations.labels==0,"A 4000-hit burst keeps exactly 32 preallocated labels and allocates no nodes")
+ arena.settings.reduced_flashes=true
+ for i in 4000:fx.critical_burst(Vector3(0,1,0))
+ fx.tick(.21)
+ check(burst.visible_instance_count==fx.MAX_EFFECTS and burst.instance_count==fx.MAX_EFFECTS and fx.get_child_count()==baseline,"Repeated simultaneous criticals stay within the preallocated batch")
+ if rendered:check(burst.get_instance_custom_data(0).r==3 and is_equal_approx(burst.get_instance_custom_data(0).g,.35*.85),"Reduced Flashes dims the stronger burst and preserves the last frame")
  var retained=fx.labels.duplicate();fx.tick(.7);fx.label_damage(Vector3(0,1,0),8)
  check(fx.labels==retained and fx.labels[0].text=="8" and fx.labels[0].font_size==36 and fx.labels[0].modulate==Color.WHITE,"Reused critical slots reset to ordinary styling and full opacity")
  fx.clear();check(fx.counts().labels==0,"World reset clears every active popup")
+ fx.add_effect("kazi_combo",Vector3.ZERO,.5,1.0);fx.tick(.1)
+ if rendered:check(is_equal_approx(fx.batches.kazi_combo.multimesh.get_instance_custom_data(0).g,.35*128.0/255),"Critical emphasis leaves combo opacity unchanged under Reduced Flashes")
  arena.free()
  verify_native_criticals()
  print("ARMY_POOLED_DAMAGE_NUMBERS_RESULT checks=",checks," failures=",failures);quit(1 if failures else 0)

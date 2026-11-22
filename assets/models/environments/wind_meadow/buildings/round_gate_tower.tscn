@@ -1,0 +1,139 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Shader" path="res://assets/materials/forest_stone.gdshader" id="1"]
+[ext_resource type="Texture2D" path="res://assets/textures/edo/rock.png" id="2"]
+
+[sub_resource type="ShaderMaterial" id="Stone"]
+shader = ExtResource("1")
+shader_parameter/rock_texture = ExtResource("2")
+shader_parameter/stone_color = Color(0.59, 0.61, 0.55, 1)
+shader_parameter/masonry = true
+
+[sub_resource type="ShaderMaterial" id="Coping"]
+shader = ExtResource("1")
+shader_parameter/rock_texture = ExtResource("2")
+shader_parameter/stone_color = Color(0.68, 0.70, 0.61, 1)
+
+[sub_resource type="CylinderMesh" id="Shaft"]
+top_radius = 2.55
+bottom_radius = 2.9
+height = 17.6
+radial_segments = 20
+
+[sub_resource type="CylinderMesh" id="Ring"]
+top_radius = 2.95
+bottom_radius = 2.9
+height = 0.62
+radial_segments = 20
+
+[sub_resource type="BoxMesh" id="Merlon"]
+size = Vector3(0.91, 1.25, 0.59)
+
+[sub_resource type="StandardMaterial3D" id="Shadow"]
+albedo_color = Color(0.12, 0.15, 0.12, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="Slit"]
+size = Vector3(0.28, 1.25, 0.05)
+
+[node name="RoundGateTower" type="Node3D"]
+metadata/scenery_bounds = AABB(-3, 0, -3, 6, 20, 6)
+
+[node name="Shaft" type="MeshInstance3D" parent="."]
+position = Vector3(0, 8.8, 0)
+mesh = SubResource("Shaft")
+material_override = SubResource("Stone")
+
+[node name="Footing" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.31, 0)
+mesh = SubResource("Ring")
+material_override = SubResource("Stone")
+
+[node name="Coping" type="MeshInstance3D" parent="."]
+position = Vector3(0, 17.55, 0)
+mesh = SubResource("Ring")
+material_override = SubResource("Coping")
+
+[node name="Merlon1" type="MeshInstance3D" parent="."]
+position = Vector3(0.0000, 18.45, 2.6300)
+rotation = Vector3(0, 0.000000, 0)
+mesh = SubResource("Merlon")
+material_override = SubResource("Coping")
+
+[node name="Merlon2" type="MeshInstance3D" parent="."]
+position = Vector3(1.5459, 18.45, 2.1277)
+rotation = Vector3(0, 0.628319, 0)
+mesh = SubResource("Merlon")
+material_override = SubResource("Coping")
+
+[node name="Merlon3" type="MeshInstance3D" parent="."]
+position = Vector3(2.5013, 18.45, 0.8127)
+rotation = Vector3(0, 1.256637, 0)
+mesh = SubResource("Merlon")
+material_override = SubResource("Coping")
+
+[node name="Merlon4" type="MeshInstance3D" parent="."]
+position = Vector3(2.5013, 18.45, -0.8127)
+rotation = Vector3(0, 1.884956, 0)
+mesh = SubResource("Merlon")
+material_override = SubResource("Coping")
+
+[node name="Merlon5" type="MeshInstance3D" parent="."]
+position = Vector3(1.5459, 18.45, -2.1277)
+rotation = Vector3(0, 2.513274, 0)
+mesh = SubResource("Merlon")
+material_override = SubResource("Coping")
+
+[node name="Merlon6" type="MeshInstance3D" parent="."]
+position = Vector3(0.0000, 18.45, -2.6300)
+rotation = Vector3(0, 3.141593, 0)
+mesh = SubResource("Merlon")
+material_override = SubResource("Coping")
+
+[node name="Merlon7" type="MeshInstance3D" parent="."]
+position = Vector3(-1.5459, 18.45, -2.1277)
+rotation = Vector3(0, 3.769911, 0)
+mesh = SubResource("Merlon")
+material_override = SubResource("Coping")
+
+[node name="Merlon8" type="MeshInstance3D" parent="."]
+position = Vector3(-2.5013, 18.45, -0.8127)
+rotation = Vector3(0, 4.398230, 0)
+mesh = SubResource("Merlon")
+material_override = SubResource("Coping")
+
+[node name="Merlon9" type="MeshInstance3D" parent="."]
+position = Vector3(-2.5013, 18.45, 0.8127)
+rotation = Vector3(0, 5.026548, 0)
+mesh = SubResource("Merlon")
+material_override = SubResource("Coping")
+
+[node name="Merlon10" type="MeshInstance3D" parent="."]
+position = Vector3(-1.5459, 18.45, 2.1277)
+rotation = Vector3(0, 5.654867, 0)
+mesh = SubResource("Merlon")
+material_override = SubResource("Coping")
+
+[node name="Slit1" type="MeshInstance3D" parent="."]
+position = Vector3(0.0000, 12.8, 2.6800)
+rotation = Vector3(0, 0.000000, 0)
+mesh = SubResource("Slit")
+material_override = SubResource("Shadow")
+
+[node name="Slit2" type="MeshInstance3D" parent="."]
+position = Vector3(2.6800, 12.8, 0.0000)
+rotation = Vector3(0, 1.570796, 0)
+mesh = SubResource("Slit")
+material_override = SubResource("Shadow")
+
+[node name="Slit3" type="MeshInstance3D" parent="."]
+position = Vector3(0.0000, 12.8, -2.6800)
+rotation = Vector3(0, 3.141593, 0)
+mesh = SubResource("Slit")
+material_override = SubResource("Shadow")
+
+[node name="Slit4" type="MeshInstance3D" parent="."]
+position = Vector3(-2.6800, 12.8, -0.0000)
+rotation = Vector3(0, 4.712389, 0)
+mesh = SubResource("Slit")
+material_override = SubResource("Shadow")

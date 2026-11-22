@@ -1,0 +1,11 @@
+{
+  "token": "5-1",
+  "prompt": "Precise correction to IMAGE1 BACK-VIEW IAI ATTACK 11frames4x3transparent4:3 grid, lastcellblank. Keep camera straight BACK for ALL11frames: noface. Keep existing RIGHTWARDdraw frames3-5, returncut6-7, finalexplosion8-9, settle10. ONLY correct initial LEFT-HIP READY placement in frames0,1,2 and restore10: use image2 BACK RUN's correct hip placement as reference. In image1frame0 sword is wrongly at IMAGE RIGHT; it MUST be at IMAGE LEFT, Kazi's anatomical LEFT hip. Right hand reaches across FRONT of abdomen to left-hip hilt, completely occluded by torso from back camera, do NOT draw an arm crossing back. Left hand at imageLEFT supports sheath; no hanging left hand disconnectedfromweapon. Weapon long slender curveddark/goldhilt55-60%bodyheight; rearward foreshortening toward camera. Frame0dynamic kneesflex, shoulderscoiled; frame1 deepercoil at SAME LEFTHIP, frame2rightarmbeginsdrawingfromleftacrossfronttowardownright/imageRIGHT. NoinitialhiltatimageRIGHT, no left-handed sword grip. Matchsameanatomy/scale/outfit/groundedfeet, originaleffects and strokephases. Final10returntoimageLEFT hip. Giveallart20pxtransparentcellclearance; nooverlap, missingblade/shadow/grid/text. Realalpha0.",
+  "references": [
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/iai-left-hip-v3/masters/5-1.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/iai-left-hip-v3/masters/3-1.png"
+  ],
+  "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-0028487d-2dc1-4996-aa08-4137d6764686.png",
+  "tool": "built-in image_gen",
+  "sha256": "f690a40f3885e4f3bcea515eebe7f363d9c4c6aa8a7a9a86c0a8fad17cc26676"
+}

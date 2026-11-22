@@ -56,6 +56,7 @@ func run():
 	root.add_child(game);current_scene=game;await frames()
 	game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false)
 	m=game.model;m.gold=1000
+	m.workforce.recruit(true)
 	check(m.buildings.values().all(func(b):return b.kind!="mine") and m.deposits.is_empty(),"The playable original map has no passive gold mines")
 	game.player.select_character(2)
 	check(GuardFixture.deploy(game.explorer_helpers,4),"A real helper request creates living Explorer allies")
@@ -64,18 +65,18 @@ func run():
 	helper=helpers[0]
 	for unit in helpers:
 		if unit!=helper:unit.park()
-	game.start_wave();m.waves.spawn_clock=10000;m.waves.pending=1
+	game.start_wave();m.waves.spawn_clock=10000
 	game.set_physics_process(false);game.player.set_physics_process(false)
 	game.player.position=Vector3(0,.15,120);park_workers()
-	helper.global_position=Vector3(0,.12,70);helper.set_physics_process(false)
+	helper.assign_guard_post(Vector3(0,.12,70))
 	sync_collectors()
 	var victim=spawn(Vector3(8,0,70))
-	var ticket:Dictionary=helper.attack_chain.begin("ryo_test")
-	game.actors[victim.id].take_hit(float(victim.hp)+1,Vector3.RIGHT,false,ticket)
-	check(game.actors[victim.id].dead and victim.hp<=0 and m.gold==1012 and m.ryo.drops.is_empty(),"An actual ally-attributed actor kill immediately credits twelve ryo")
+	var target=game.actors[victim.id]
+	game.army_runtime.hit_target(target.handle,{"amount":float(victim.hp)+1,"source_id":helper.gate_id,"direction":Vector3.RIGHT},{"allied":true})
+	check(target.dead and victim.hp<=0 and m.gold==1012 and m.ryo.drops.is_empty(),"A native ally-attributed kill immediately credits twelve ryo")
 	m.damage_enemy(victim.id,100000);tick(.2)
 	check(m.gold==1012,"Model cleanup after an ally kill cannot duplicate its reward")
-	helper.global_position=Vector3(0,.12,70);sync_collectors()
+	sync_collectors()
 	model_kill(Vector3(100,0,100))
 	check(m.gold==1024,"Model and defense damage pays even far from all collectors")
 	helper.take_hit(100000,Vector3.RIGHT)
@@ -94,25 +95,25 @@ func run():
 	if wall.is_empty():await finish();return
 	var center:Vector3=m.center(wall)
 	worker.pos=center+Vector3(0,0,-3.5)
-	var blocked=spawn(center+Vector3(0,0,3.5));blocked.hp=0
-	m.waves.tick(.02,game.player.position)
-	check(not m.enemies.has(blocked.id) and m.gold==1072,"Wave cleanup catches an authoritative zero-HP death exactly once")
-	collect();m.waves.tick(.02,game.player.position)
+	var blocked=model_kill(center+Vector3(0,0,3.5))
+	game.army_runtime.sync_compatibility()
+	check(not m.enemies.has(blocked.id) and m.gold==1072,"Native retirement removes the dead enemy and keeps its reward")
+	collect();game.army_runtime.sync_compatibility()
 	check(m.gold==1072 and m.ryo.drops.is_empty(),"Repeated cleanup and a wall between units cannot duplicate or block money")
 	model_kill(Vector3(0,0,76));game.show_pause();tick(3)
 	check(m.gold==1084,"Pausing after a kill retains its immediate reward")
 	game.resume();game.settings_open=true;tick(3);game.settings_open=false;collect()
 	check(m.gold==1084 and m.ryo.pending_bounty_total==0,"Overlays retain money and feedback drains once after resuming")
 	check(not is_instance_valid(game.ryo_visuals),"No physical coin renderer is allocated")
-	if visual:
-		worker.pos=m.point(wall.cell+Vector2i(2,-1));worker.state="idle";worker.job=-1
-		for w in m.workers.values():w.follow=w.id!=worker.id
-		m.damage_building(wall.id,400)
-		var before=wall.hp;var gold_before=m.gold
-		m.workforce.assignment_clock=0
-		for i in range(20):m.workforce.tick(.05,game.player.position)
-		check(wall.hp>before and m.gold<gold_before and is_equal_approx(wall.hp-before,(gold_before-m.gold)*10.0),"The captured worker repair visibly spends the earned shared ryo")
-		await capture("worker-repair-earned-ryo",m.point(wall.cell+Vector2i(2,-1)),Vector3(7,6,-12))
+	var shrine:Dictionary=m.shrine()
+	worker.pos=m.point(m.shrine_entry());worker.state="idle";worker.job=-1
+	for w in m.workers.values():w.follow=w.id!=worker.id
+	m.damage_building(shrine.id,400)
+	var before=shrine.hp;var gold_before=m.gold
+	m.workforce.assignment_clock=0
+	for i in range(80):m.workforce.tick(.05,game.player.position)
+	check(shrine.hp>before and m.gold<gold_before and is_equal_approx(shrine.hp-before,(gold_before-m.gold)*m.workforce.Repairs.HEALTH_PER_RYO),"Worker repairs spend earned ryo at the configured rate")
+	await capture("worker-repair-earned-ryo",m.center(shrine),Vector3(7,6,-12))
 	await finish()
 func finish():
 	print("RYO_COLLECTORS_GAMEPLAY_RESULT checks=%d failures=%d"%[checks,failures])

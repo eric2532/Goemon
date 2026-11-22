@@ -1,0 +1,10 @@
+{
+  "token": "approved-slash-no-marking",
+  "prompt": "Edit the supplied approved character sprite. Remove ONLY the green ink/paint marking on his face, replacing that green paint with his existing natural warm skin tone. Preserve his face shape, tiny nose, eyes and eyebrow shape, expression, hair silhouette, head/body proportions, outfit, pose, sword, violet sparks, framing and hand-painted sprite style EXACTLY as the input. No beautification, restyling, additional detail or redesign. Do not alter arms or weapon pose in this edit. Keep the full original sprite and true transparent background, same portrait aspect ratio. The sole visible difference must be clean skin where the green face marking was.",
+  "references": [
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/iai-left-hip/references/preferred-slash-proportions.png"
+  ],
+  "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-4341ccd4-2458-4243-933a-ee642cf73755.png",
+  "tool": "built-in image_gen",
+  "sha256": "80367f9608b48ec74602589a5728a36b239f4ff9926afa736f6ceb20c3fbab0b"
+}

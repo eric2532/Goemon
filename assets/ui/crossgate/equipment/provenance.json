@@ -1,0 +1,24 @@
+{
+  "source_archive": "NewClient.7z",
+  "art": [
+    {
+      "file": "equipment.png",
+      "source": "/Users/eric/Desktop/Projects_Codex/Magic Power/godot/assets/menus/s244307.png",
+      "sha256": "54e6c3f90c9291d0f9f5f44f28867214f300b1d426ef03c9d9e0b6eaa4bae0d2",
+      "note": "Original equipment board, native serial 244307; joy:322."
+    },
+    {
+      "file": "inventory.png",
+      "source": "/Users/eric/Desktop/Projects_Codex/Magic Power/research/menu-recovery-20261030/recovered/windows/552ab8.png",
+      "sha256": "6901a053f7fa088b5447117ca455e34afab13ac1dd76c8828e754c31dcdc9be3",
+      "note": "Recovered native item window 0x552ab8."
+    },
+    {
+      "file": "crystal.png",
+      "source": "/Users/eric/Desktop/Projects_Codex/Magic Power/godot/assets/items/practice-crystal.png",
+      "sha256": "4413dd348bde08fddd71799e2cf1f79b4e57a3b39fac41a1bfc0650fb0e571c5",
+      "note": "Recovered original pack crystal artwork, serial 27500; preserved as reference."
+    }
+  ],
+  "adaptation": "Unmodified PNGs. The hub repeats the first native empty inventory cell into ten generic equipped slots (two rows of five) and a 40-cell selection area. Character Gear and Skill Items have independent ten-slot loadouts and category-filtered selection; their item catalogs are currently empty. The original eight-position board and crystal icon remain references. Full-body portraits use shared character-gallery framing. Cosmetics uses existing Qi orb artwork with a shared UI tint shader for regular blue and four local colors, independently of gear slots. All three pages save per fighter or stable pet identity. Old crystal/numbered-slot colors migrate into cosmetics without replacing existing choices."
+}

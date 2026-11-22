@@ -13,7 +13,7 @@ func run():
 	await process_frame;await process_frame
 	check(game.crowd.get_script().resource_path=="res://tests/forest-shrine/reference/forest_enemy_crowd.gd","The playable scene uses the approved models")
 	check(game.model.gold==1000000 and game.model.SIZES.wall==Vector2i(6,1),"Testing treasury and doubled walls remain intact")
-	check(game.model.workers.size()==8,"The automatic miners and ready tower guards remain intact")
+	check(game.model.workers.is_empty(),"The playable map starts without workers")
 	var broad_approaches=true
 	for along in range(-39,40):
 		for across in range(-2,3):

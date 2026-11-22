@@ -24,6 +24,7 @@ const ENEMIES=["Thirstquencher Sword","Thirstquencher Gun","Thirstquencher Spear
 const MAX_WAVES=50
 const MAX_ENEMIES=10000
 const POPULATION_VERSION=1
+static func profile_types()->Array:return TYPES+[EnemyBalance.Roles.SLIME]
 static func split_legacy_wave(values:Array,bosses:int)->Array:
 	var counts=[0,0,0,0,0,0,0,bosses,0,0]
 	for slot in [0,1,3]:
@@ -57,7 +58,7 @@ static func sanitized(raw)->Dictionary:
 		if not (value is int or value is float) or not is_finite(float(value)):value=row[2]
 		var chance=mini(remaining,roundi(clampf(float(value),0,100)*100))
 		out[row[0]]=chance/100.0;remaining-=chance
-	out.enemy_profiles=EnemyBalance.sanitized(raw.get("enemy_profiles",{}),TYPES)
+	out.enemy_profiles=EnemyBalance.sanitized(raw.get("enemy_profiles",{}),profile_types())
 	for row in ROWS:
 		var value=raw.get(row[0],out[row[0]])
 		if (value is int or value is float) and is_finite(float(value)):

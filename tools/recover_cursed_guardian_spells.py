@@ -1,0 +1,87 @@
+"""Prepare original guardian skill records and client spell sheets without changing the archive."""
+import argparse,json,sys,hashlib
+from pathlib import Path
+import recover_ruby_spells as shared
+ROOT=shared.ROOT
+OUT=ROOT/'assets/characters/crossgate/cursed_maze/spells'
+AI=(12029,12030,12031,12032,12033,12079,12080)
+NAMES=('納帕','德爾麥','瑟貝塔','亞爾法','馬帝亞','凱法','帕布提斯馬')
+
+def prepare(source):
+ data=source/'research/cgmsv-20261031/source/gmsv/data'
+ rows={int(r[0]):r for l in (data/'enemyai.txt').read_text(encoding='gb18030').splitlines() if (r:=l.split('\t'))[0].isdigit()}
+ profiles=[];techs=set()
+ for name,ident in zip(NAMES,AI):
+  r=rows[ident];rules=[dict(condition=int(r[1+i] or 0),target=int(r[11+i] or 0),tech=int(r[21+i]),chance=int(r[31+i])) for i in range(10) if r[21+i]]
+  techs.update(str(v['tech']) for v in rules);profiles.append(dict(name=name,ai=ident,raw='\t'.join(r),rules=rules))
+ original=json.loads((source/'godot/assets/humanoid-spells/manifest.json').read_text())
+ specs={}
+ for family in ['h_super_earth','h_super_ice','h_super_fire','h_super_wind','heal','h_super_heal','h_super_recover','h_drain']:
+  for level in [3,5,6]:
+   row=original['skills'][family][str(level)];specs[f'{family}:{level}']=row
+ factory_raw=(ROOT/'assets/references/cursed_maze/effect-factories.json').read_bytes()
+ factory=json.loads(factory_raw)
+ summon_raw=(ROOT/'assets/references/cursed_maze/napa-summon.json').read_bytes();summon=json.loads(summon_raw)
+ assert factory['snapshot_sha256']==original['snapshotSha256']
+ assert summon['snapshot_sha256']==original['snapshotSha256']
+ refs=set(shared.REFS)|{str(r['resource']) for r in factory['cases']}|{str(factory['death']['objects'][0]['resource']),summon['resource']}
+ for row in specs.values():refs.update([row['cast'],*row['targets']])
+ shared.OUT=OUT;shared.REFS=tuple(sorted(refs));shared.TECHS=techs
+ outputs,manifest=shared.prepare(source)
+ manifest['effect_factory_sha256']=hashlib.sha256(factory_raw).hexdigest()
+ manifest['status_icons']=[str(r['resource']) for r in factory['cases'][:6]]
+ manifest['magic_seal']={'resource':str(factory['cases'][6]['resource']),'sound':factory['cases'][6]['sounds'][0]}
+ manifest['death']=str(factory['death']['objects'][0]['resource'])
+ manifest['summon_factory_sha256']=hashlib.sha256(summon_raw).hexdigest()
+ manifest['summon']={'resource':summon['resource'],'updates':summon['source_updates'],'scales':summon['cases'][0]['scales'],'opacity':summon['cases'][1]['rgba_alpha']/255}
+ import cg_assets as cg
+ import cg_sounds
+ from pathlib import PureWindowsPath
+ cue=manifest['magic_seal']['sound']
+ name=PureWindowsPath(cg_sounds.sound_table()[str(cue)]['file']).name
+ raw=(cg.SOURCE/'se'/name).read_bytes();digest=hashlib.sha256(raw).hexdigest()
+ match=next((p for p in sorted((ROOT/'assets').glob('**/'+name.lower())) if hashlib.sha256(p.read_bytes()).hexdigest()==digest),None)
+ if match is None:outputs[name.lower()]=raw
+ manifest['sounds'][str(cue)]={'runtime_path':'res://'+str((match or OUT/name.lower()).relative_to(ROOT)),'sha256':digest}
+ for row in specs.values():
+  for field in ['castSound','targetSound','impactSound']:
+   cue=row.get(field)
+   if not cue or str(cue['id']) in manifest['sounds']:continue
+   raw=(source/'godot/assets'/cue['file']).read_bytes()
+   digest=hashlib.sha256(raw).hexdigest();assert digest==cue['sha256']
+   name=Path(cue['file']).name
+   match=next((p for p in sorted((ROOT/'assets').glob('**/'+name)) if hashlib.sha256(p.read_bytes()).hexdigest()==digest),None)
+   path='res://'+str((match or OUT/name).relative_to(ROOT))
+   if match is None:outputs[name]=raw
+   manifest['sounds'][str(cue['id'])]={'runtime_path':path,'sha256':digest}
+ manifest.pop('enemy_rows');manifest.pop('level')
+ from recover_habaru_encounter import body_rows
+ key='original:2402'
+ clip=next(c for c in cg.actor(key)[2] if c['action']==0 and c['direction']==4)
+ first,last=body_rows(cg.frame_parts(key,clip['index'],0)[0])
+ manifest['reference_body_pixels']=last-first
+ manifest['reference_body']={'key':key,'action':0,'direction':4,'frame':0}
+ manifest['profiles']=profiles;manifest['skills']=specs
+ manifest['reference']='https://github.com/linv2/Crossgate_Docker/tree/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data'
+ manifest['source_hashes']={n:hashlib.sha256((data/n).read_bytes()).hexdigest() for n in ['enemyai.txt','tech.txt']}
+ manifest['limits']='Client pixels, spell tiers, clocks and audio are preserved. These skill lists are the pinned CGMSV reference, not recovered BlueCG server AI. Turn conditions and balance are fitted to real-time combat; enemy E ranks do not prove a unique client sublevel. Unique death/summon/status artwork is used only where verified.'
+ return outputs,manifest
+
+def main():
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--source',type=Path,default=ROOT.parent/'Magic Power');p.add_argument('--check',action='store_true');a=p.parse_args()
+ files,manifest=prepare(a.source.resolve())
+ header='#pragma once\n// Generated by tools/recover_cursed_guardian_spells.py; pinned reference skill lists.\nnamespace army {\nstruct GuardianRule {int tech,condition,target,chance;};\ninline constexpr GuardianRule GUARDIAN_RULES[7][10]={\n'
+ for profile in manifest['profiles']:
+  header+=' {'+','.join('{%d,%d,%d,%d}'%(r['tech'],r['condition'],r['target'],r['chance']) for r in profile['rules'])+'},\n'
+ header+='};\ninline constexpr double GUARDIAN_ARRIVAL_DURATION=%d.0/60;\n}\n'%manifest['summon']['updates']
+ target=ROOT/'native/terrain_math/crowd/guardian_rules.h'
+ if a.check:
+  assert target.read_text()==header
+  assert json.loads((OUT/'manifest.json').read_text())==manifest
+  for name,raw in files.items():assert (OUT/name).read_bytes()==raw,name
+ else:
+  OUT.mkdir(parents=True,exist_ok=True)
+  for name,raw in files.items():(OUT/name).write_bytes(raw)
+  (OUT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n');target.write_text(header)
+ print('CURSED_GUARDIAN_SOURCE profiles=7 unique_skills=%d original_sheets=%d verified'%(len(manifest['tech_rows']),len(manifest['clips'])))
+if __name__=='__main__':main()

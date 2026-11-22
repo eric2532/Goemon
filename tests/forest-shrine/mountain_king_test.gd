@@ -118,7 +118,7 @@ func run():
  var victim=game.actors[row.id];var hp=victim.hp
  aim_at(AttackChain.aim_point(victim,p.global_position+Vector3.UP*1.6))
  kit.start_bolt();check(kit.mode=="bolt" and kit.bolt_cooldown==9,"Storm Bolt starts with source cooldown")
- game.forest_ui.sync();check("9.0s" in game.forest_ui.spell_summary.text,"Native spell cooldown appears in HUD")
+ game.forest_ui.sync();check(game.forest_ui.loadout_cooldowns[0].text=="9.0s","Native spell cooldown appears on its numbered slot")
  await advance(20);check(victim.hp==hp,"Storm Bolt waits for source cast point")
  await advance(32);check(victim.hp<hp,"Homing Storm Bolt damages native target")
  check(owner.unit_state(victim.handle).stun>4.5,"Storm Bolt applies native five-second stun")

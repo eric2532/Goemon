@@ -1,0 +1,817 @@
+{
+  "sources": {
+    "10607": {
+      "pack": "original",
+      "row": 7523,
+      "rgba_sha256": "02a16b156027d55b61ad7df4dc71bbb925c93d99bb577d57550114ac50c06710"
+    },
+    "10604": {
+      "pack": "original",
+      "row": 7520,
+      "rgba_sha256": "559e671a1776fe7f9a95ea6131425d399cedeecf4b3f7e68b601974fa700fef6"
+    },
+    "10010": {
+      "pack": "original",
+      "row": 7749,
+      "rgba_sha256": "397b1f4aa7aebaa5b2fedf7a53954cb61a47a4f4026858b2f85086f2cd1f5506"
+    },
+    "mansion": {
+      "map": 1000,
+      "viewport": [
+        10331,
+        -1249,
+        10867,
+        -683
+      ],
+      "graphics": {
+        "1007": {
+          "pack": "original",
+          "row": 6588,
+          "rgba_sha256": "ff578c32be06bfd00d61b3dc8b3f8c2d061c152c1883e18da5afd6c09fdb99e5"
+        },
+        "1003": {
+          "pack": "original",
+          "row": 6584,
+          "rgba_sha256": "7b49735a62f295f2995668f66c2d0fb6d312222da7178461b5cbcdde01cd5efc"
+        },
+        "1002": {
+          "pack": "original",
+          "row": 6583,
+          "rgba_sha256": "7bc340ec34088ad635caeb228efb254ac5fab151e19b283884c169ff3ab26397"
+        },
+        "1011": {
+          "pack": "original",
+          "row": 6592,
+          "rgba_sha256": "38ca4cb61e234d463dd7440641a7741affe3b8e64775f79201c3471007fd7889"
+        },
+        "5851": {
+          "pack": "original",
+          "row": 3992,
+          "rgba_sha256": "953cbce24034cbb203352e00f0498ee1f32a1e4fbbf569504a7a6f2097c27811"
+        },
+        "5020": {
+          "pack": "original",
+          "row": 2923,
+          "rgba_sha256": "3ee2066ee097d20fa73f7589a6204fa4854bae3ace93e580508f99b17933e238"
+        },
+        "5019": {
+          "pack": "original",
+          "row": 2922,
+          "rgba_sha256": "de551de266150ad2c46b39a21044650df0c5a2c0125f8ca289cf70e1c04e3075"
+        },
+        "5018": {
+          "pack": "original",
+          "row": 2921,
+          "rgba_sha256": "0d785c5847433cf47d6125fc8fd4f64d4a89c8bb2c337399df524410cfa3b407"
+        },
+        "5863": {
+          "pack": "original",
+          "row": 4004,
+          "rgba_sha256": "a296463fc08e5022fcc30240b0a4ab9b9a67e166bc8718bcb4c6de6650dd9370"
+        },
+        "1001": {
+          "pack": "original",
+          "row": 6582,
+          "rgba_sha256": "585eab9d58fbe46b311459c914ef53722b8be510ab32ba22afc81feaf58704bb"
+        },
+        "5022": {
+          "pack": "original",
+          "row": 2925,
+          "rgba_sha256": "54a46395791f0188c8c416d5110e6aef790fd4bf012fed7b44680122e4ef73df"
+        },
+        "5026": {
+          "pack": "original",
+          "row": 2929,
+          "rgba_sha256": "16951bf0c7c1ad2c0519f20a9c83ab2406432854659a49297a3d37870bd4e2dc"
+        },
+        "5023": {
+          "pack": "original",
+          "row": 2926,
+          "rgba_sha256": "84b55db046bcc756cb13fa632f2e067f39af75c472c26df787a7484298150049"
+        },
+        "5021": {
+          "pack": "original",
+          "row": 2924,
+          "rgba_sha256": "ad9f99f18caa79465839814895aad4f9d853e3210ec5aa7fc87ad74169a300d1"
+        },
+        "1023": {
+          "pack": "original",
+          "row": 6604,
+          "rgba_sha256": "38ca4cb61e234d463dd7440641a7741affe3b8e64775f79201c3471007fd7889"
+        },
+        "5491": {
+          "pack": "original",
+          "row": 3632,
+          "rgba_sha256": "3462d53954a9d60d5988b51797d35c2e65eea8ee393d49bf69017f18169a7aed"
+        },
+        "5024": {
+          "pack": "original",
+          "row": 2927,
+          "rgba_sha256": "71054298b4c1a88659e1f7696389b73d8e0cbd30e5e7fab1067fbfb71bf2cd8a"
+        },
+        "5875": {
+          "pack": "original",
+          "row": 4016,
+          "rgba_sha256": "7736b44a4104b190b3463fa0b13e346ba65bd4a2e0fd71354a2886fa58e1b171"
+        },
+        "5515": {
+          "pack": "original",
+          "row": 3656,
+          "rgba_sha256": "81f2e1c6ab4777d63a25e210ec7f5ac4c225c157623b5d8e8d1c295a35b40552"
+        },
+        "5492": {
+          "pack": "original",
+          "row": 3633,
+          "rgba_sha256": "16ae9c5a52b8051e5d1e7a17b787c48e577d1e86ae934640a34588c04f9cddc4"
+        },
+        "5487": {
+          "pack": "original",
+          "row": 3628,
+          "rgba_sha256": "3047610b93a11af72ca1d40e579582f6fec996e993bf88c2ad14f08810605a64"
+        },
+        "5514": {
+          "pack": "original",
+          "row": 3655,
+          "rgba_sha256": "df2df68bb3b936c5081fbae596d53d6e66802590e87c8a622dc7bc1bbf377206"
+        },
+        "5498": {
+          "pack": "original",
+          "row": 3639,
+          "rgba_sha256": "b13b8b430a19629ee5d6f13f7597a6f643aeccb8d02e60c31d23d590d0cc9c73"
+        },
+        "5025": {
+          "pack": "original",
+          "row": 2928,
+          "rgba_sha256": "a63ea9408d2e8ae94a4d7ec62daa3b4ace891af5f92b88fea63535e4088b503b"
+        },
+        "5513": {
+          "pack": "original",
+          "row": 3654,
+          "rgba_sha256": "ca65523a60aa9b82313fca28b96e8d7772f7fb7a4a34bf54d29e040151fdb306"
+        },
+        "5504": {
+          "pack": "original",
+          "row": 3645,
+          "rgba_sha256": "6466ff95f40b02f03fde24b59124bdd080ddb8aa5b1151172b2d47eb50918fb8"
+        },
+        "5051": {
+          "pack": "original",
+          "row": 2954,
+          "rgba_sha256": "dc2fd23d1049c2674393e0c973681f125d1c4b427f55c03afabed5e563e71ab3"
+        },
+        "5520": {
+          "pack": "original",
+          "row": 3661,
+          "rgba_sha256": "a4bf26fd7088a5ee77cbd937f0ebc5730ff8ea50dbb7a96430233e4702bc4672"
+        },
+        "5505": {
+          "pack": "original",
+          "row": 3646,
+          "rgba_sha256": "c6e6f3992eb00e87ce081ed9a1c3e4e84ea8f928faffa558e0f8d62ec7f6dd92"
+        },
+        "5045": {
+          "pack": "original",
+          "row": 2948,
+          "rgba_sha256": "bfafee50a13f3607287cf8c31ffafe3fe61a8ae2c48bab704ce1423d4169a468"
+        },
+        "6768": {
+          "pack": "original",
+          "row": 1233,
+          "rgba_sha256": "1c458047f752832d5ef4bbbadb29e2973d0dccdfaab01dcf02d9e8d130cb6ac1"
+        },
+        "5506": {
+          "pack": "original",
+          "row": 3647,
+          "rgba_sha256": "e35b516bdb1bddc3429b54a70cd94e887be2dbb662fa113ca8c6e3332003ff2c"
+        },
+        "6723": {
+          "pack": "original",
+          "row": 1241,
+          "rgba_sha256": "f3b4a4d5598c9769d0899063cf9e7bdaf26ab54ed9e14efc2127c0283605281c"
+        },
+        "5493": {
+          "pack": "original",
+          "row": 3634,
+          "rgba_sha256": "86a908b56b5357f01076f951b4a9432832f7a0e3ddd91bb451685a0378de4338"
+        },
+        "6759": {
+          "pack": "original",
+          "row": 1225,
+          "rgba_sha256": "67504b3f2f2f5a84b6a64070d0cc243b26fb04263378525fa38c5d20f16006be"
+        },
+        "5507": {
+          "pack": "original",
+          "row": 3648,
+          "rgba_sha256": "f056cbfcb88f1d950fb65eaa5cab0956d69d10cb21879e8aee954729eaa689e5"
+        },
+        "6769": {
+          "pack": "original",
+          "row": 1234,
+          "rgba_sha256": "bedc96ada35679b082dcb45854a255b7f371c40e38d88004120f7d04d00cb2e7"
+        },
+        "6750": {
+          "pack": "original",
+          "row": 1217,
+          "rgba_sha256": "6ae04baafcd0cc70b93fe3717104c439b4912b9b023404601b0bd2ea6fc32735"
+        },
+        "5509": {
+          "pack": "original",
+          "row": 3650,
+          "rgba_sha256": "6b8bcc7d2bfc7dbe429a0b490c9d9156c92f2da5805c5304711ce88de62a72b7"
+        },
+        "6760": {
+          "pack": "original",
+          "row": 1226,
+          "rgba_sha256": "72a0480355d61a68163218d6d3b13eb42404a22489bdbf56e6924c27653fff6e"
+        },
+        "5496": {
+          "pack": "original",
+          "row": 3637,
+          "rgba_sha256": "686fac8914817a295598ff7b5554acfaf039931ad57ed1fb668b1133a3d1f415"
+        },
+        "6770": {
+          "pack": "original",
+          "row": 1235,
+          "rgba_sha256": "6ff04be0c2246a14d4dbb0964f162bcef03f0279795a6dc6c94a8ea8c0d055bf"
+        },
+        "6741": {
+          "pack": "original",
+          "row": 1209,
+          "rgba_sha256": "0760c8168b26f8b8eb3ae7d0873da23f04e5fdc9c432dde72cd8cf11faf47a34"
+        },
+        "5516": {
+          "pack": "original",
+          "row": 3657,
+          "rgba_sha256": "055bacf3f579bf9c45ac2eb07048c30c0ec303188f3156e2ecd1a90e94b5a615"
+        },
+        "6751": {
+          "pack": "original",
+          "row": 1218,
+          "rgba_sha256": "5188a65d7a0305ab10a009010c6cdbef0efbd82b18ec14b1b23d2b8b8655f971"
+        },
+        "5053": {
+          "pack": "original",
+          "row": 2956,
+          "rgba_sha256": "8fc5ee5ae8d1ebd7dcb4848395d0af8a75e1709e80f0256b44f4f7836846272c"
+        },
+        "6761": {
+          "pack": "original",
+          "row": 1227,
+          "rgba_sha256": "2deff0b902ed4d77fabd4e3aefae02ae0c00003d808b3ab2a9e87d26a40b7ebf"
+        },
+        "6771": {
+          "pack": "original",
+          "row": 1236,
+          "rgba_sha256": "dca5db844eff89979ddcfdc0f87c260790197b5424899129dbfe086d97053aee"
+        },
+        "6732": {
+          "pack": "original",
+          "row": 1202,
+          "rgba_sha256": "4495e2366ba6782cc4eca136704028449a4397da87127067cb287cf7b8a2344a"
+        },
+        "6742": {
+          "pack": "original",
+          "row": 1210,
+          "rgba_sha256": "c52c4df9a549c39a15a46e49f903a9aa5adb47f35218f1ded05977c1c795e72a"
+        },
+        "6752": {
+          "pack": "original",
+          "row": 1219,
+          "rgba_sha256": "b25101e6401a29e6e1c4f0eb805a05d2fb85ce9bb94347e2c631d7e6327bb6da"
+        },
+        "6762": {
+          "pack": "original",
+          "row": 1228,
+          "rgba_sha256": "b42b78b427899009c337691477ac368d814fadec03b954d99037cbc2f627fb4e"
+        },
+        "6772": {
+          "pack": "original",
+          "row": 1237,
+          "rgba_sha256": "c8feb319ea8a4d9b7939e4ae9fc9b2456fcd4900c98e5dba054d445697d5af83"
+        },
+        "6733": {
+          "pack": "original",
+          "row": 1203,
+          "rgba_sha256": "c6484815b3fb0a042bbd3ce0715ee71374a07cd39f96d382c087c0f78fd75615"
+        },
+        "6743": {
+          "pack": "original",
+          "row": 1211,
+          "rgba_sha256": "06c84e99f44b81069f142446585fe219a150b731fd8b5870348ab557a5858172"
+        },
+        "6753": {
+          "pack": "original",
+          "row": 1220,
+          "rgba_sha256": "a0bff498ee343110a777ba491f9f7fe189fac9601af8245b4e4ad1b1691c7ff5"
+        },
+        "6763": {
+          "pack": "original",
+          "row": 1229,
+          "rgba_sha256": "706121624308c20fcaa3a7f30940bd2026062103711357754aab00798d32e2aa"
+        },
+        "6773": {
+          "pack": "original",
+          "row": 1238,
+          "rgba_sha256": "401d463c795c3f71a83d40f8856d3bcff284f350712682568ab0737e7dca7f99"
+        },
+        "6724": {
+          "pack": "original",
+          "row": 1197,
+          "rgba_sha256": "1066464867fa62d8824cd7503d61acab6a279e2dc60c63af6a76ae6cc30b293a"
+        },
+        "6734": {
+          "pack": "original",
+          "row": 1204,
+          "rgba_sha256": "8573dde210bef1d66fdaa0433b37aa6e8434d9aff3a8f038fd983d9b5a6102e6"
+        },
+        "6744": {
+          "pack": "original",
+          "row": 1212,
+          "rgba_sha256": "5809bb9e819027ca239484facfa2f9b4161c3db57b790957b9ea17ca55e33625"
+        },
+        "6754": {
+          "pack": "original",
+          "row": 1221,
+          "rgba_sha256": "ebab1b7bba08967a4d26d172aa9221c5581ca145493cad1da79037ccefb29a22"
+        },
+        "6764": {
+          "pack": "original",
+          "row": 1230,
+          "rgba_sha256": "e34c57de11a03b69b7d94c591a5829f29b4d6f32d91d8272d5d8763f0865b32b"
+        },
+        "6774": {
+          "pack": "original",
+          "row": 1239,
+          "rgba_sha256": "392194f9104115dfe5500b1028b660a12ee9c6ddc0aac28598de60bb8ada2943"
+        },
+        "6725": {
+          "pack": "original",
+          "row": 1198,
+          "rgba_sha256": "42ad07e0c9d87f77a410e87faa487b6a97bd7477211f607c59b0057c3a2c176f"
+        },
+        "6735": {
+          "pack": "original",
+          "row": 1205,
+          "rgba_sha256": "780417d1efc48046cd2677117533ba586edb39be2ee4d34659f23b870d2459b2"
+        },
+        "6745": {
+          "pack": "original",
+          "row": 1213,
+          "rgba_sha256": "ba3ee904821997b1af8a9e7ebc57c76ec679f2a243f07f0d387e44d6c972bcaa"
+        },
+        "6755": {
+          "pack": "original",
+          "row": 1222,
+          "rgba_sha256": "aca2f15c05ef0a0b7459ddd403d0d3396e95a040308f3742c974d62d5d8427cb"
+        },
+        "5488": {
+          "pack": "original",
+          "row": 3629,
+          "rgba_sha256": "458c2962e0941245711a3b4fb94249e2264ed83fa665ee85fef14b2f72fd1226"
+        },
+        "6765": {
+          "pack": "original",
+          "row": 1231,
+          "rgba_sha256": "8b2f28ac10bf6eed3a8b8c16b5106a4c10d5713b824f6228ffeb85bd7e6e9f81"
+        },
+        "6775": {
+          "pack": "original",
+          "row": 1240,
+          "rgba_sha256": "bd1e698b3b6dc03fcf3ac124ba6a4ac705c76cefb1dea8915cf23616054e0bbc"
+        },
+        "6726": {
+          "pack": "original",
+          "row": 1199,
+          "rgba_sha256": "75cb6562d93fc8acaf3ef756070d38ff3ef9752a01b705d7352b9b2b66c38377"
+        },
+        "6736": {
+          "pack": "original",
+          "row": 1206,
+          "rgba_sha256": "e3916288e4e32441d657545aa36cd89ff350cdca4152aeb58db0da44df7c347b"
+        },
+        "6707": {
+          "pack": "original",
+          "row": 1251,
+          "rgba_sha256": "c5133794d2a3fa7f1f53096a664a7f3d5e11351d459285ac449d4046f1399f73"
+        },
+        "6746": {
+          "pack": "original",
+          "row": 1214,
+          "rgba_sha256": "8b2d2bc0a882f34e14af8ec4a5d7ae027be1af688c39bc649e337b10b7c4b394"
+        },
+        "5495": {
+          "pack": "original",
+          "row": 3636,
+          "rgba_sha256": "e2ecb7c1f1333f4b43395535ca23583df902b6d1d3ae6ac110b3d8dc4f0f503b"
+        },
+        "6756": {
+          "pack": "original",
+          "row": 1223,
+          "rgba_sha256": "460b99a38d50fcad5e5a1ed3204785fef42e7ad86d0bc615ebf54fabc4825901"
+        },
+        "6766": {
+          "pack": "original",
+          "row": 1232,
+          "rgba_sha256": "a5c38bae229e53fa4c9f6553e8a0ed7f1a37bb9cf120e298e84207e0021db8c2"
+        },
+        "6776": {
+          "pack": "original",
+          "row": 1250,
+          "rgba_sha256": "162eab021c6ed2c760c72f44616c625176d24c05871dfa74c03bbfa5ac9422b1"
+        },
+        "6727": {
+          "pack": "original",
+          "row": 1200,
+          "rgba_sha256": "a0748397d89a66089b30e5d6c0b865f559881fb573fc1063f8b241e0e078a85e"
+        },
+        "6737": {
+          "pack": "original",
+          "row": 1207,
+          "rgba_sha256": "e2997694be04720abd8336ac6f857847cba71b6feb3d0015d7077f16a0a3cb90"
+        },
+        "6747": {
+          "pack": "original",
+          "row": 1215,
+          "rgba_sha256": "957d7561107f0287e754742abfe2a919b3b11a0c05dfa7478c4254762a7bcba1"
+        },
+        "5512": {
+          "pack": "original",
+          "row": 3653,
+          "rgba_sha256": "ba3ace09c62ae00f6b8f3019a1dae2325b3dde4c70f23b0fb9ff4f8702f0f873"
+        },
+        "6757": {
+          "pack": "original",
+          "row": 1224,
+          "rgba_sha256": "fbad7bae03938321a1357065fdbdde904df3ddbe2c30798d80116f8a1ae11673"
+        },
+        "6767": {
+          "pack": "original",
+          "row": 1249,
+          "rgba_sha256": "4538789d8e9b78bb2bb355270cd9c2ca4b4df72814eaac9a49fb08ba4e39417e"
+        },
+        "6728": {
+          "pack": "original",
+          "row": 1201,
+          "rgba_sha256": "937e95e1be6745f5c63f5596e1903922375e34d600978bf5fea01b87d96493dc"
+        },
+        "6738": {
+          "pack": "original",
+          "row": 1208,
+          "rgba_sha256": "9cfb60635d6f1b148c2e16cc54e66ae7d22b97d7e4b94c94c85f24250dc21e89"
+        },
+        "6748": {
+          "pack": "original",
+          "row": 1216,
+          "rgba_sha256": "24ed509b70ada7f2aa1e4fba7b236c6fddb2fddcb5bdb6172d1de529511fca7c"
+        },
+        "6758": {
+          "pack": "original",
+          "row": 1248,
+          "rgba_sha256": "e47245c61b78f2f3c0ee6cb3ffb426cd5020621cc1d7eca02521a715b2259a15"
+        },
+        "6729": {
+          "pack": "original",
+          "row": 1242,
+          "rgba_sha256": "8b20bdca4603044e01b9afe6fe9325e014e7e3783b6c23924a69902431bd9bd3"
+        },
+        "6739": {
+          "pack": "original",
+          "row": 1245,
+          "rgba_sha256": "2eecebdf23630dbf7b4d1e1348d376e7869c4ed4069b3c51d244a5a7ffb9ebe9"
+        },
+        "6749": {
+          "pack": "original",
+          "row": 1247,
+          "rgba_sha256": "5197544793f4226a5f75aa23cf35b8c1ab7bac7e7bac7d4cf5620ed5240b7678"
+        },
+        "5878": {
+          "pack": "original",
+          "row": 4019,
+          "rgba_sha256": "d3782fbde9f1b9cb8c27203a835134ea15991d4c993f4a61326a4ea666fa4346"
+        },
+        "6730": {
+          "pack": "original",
+          "row": 1243,
+          "rgba_sha256": "a7d43ac0b5267c44af5aa8d5c115be3bc6c602c12819313e3a09c36a63cac028"
+        },
+        "6740": {
+          "pack": "original",
+          "row": 1246,
+          "rgba_sha256": "02255793b2fb2e91580daaf2f546dde16e127c37a44ea4368c5f25cbd2f4681c"
+        },
+        "5070": {
+          "pack": "original",
+          "row": 3211,
+          "rgba_sha256": "126a3cb45a6e2d90b884e7e152fc0465d1e8caf582f6b138cb87fcdbc654cc54"
+        },
+        "5847": {
+          "pack": "original",
+          "row": 3988,
+          "rgba_sha256": "49c4cda71cc553c6281b3dd2d4435d5328d963e4b34fd6eca286ee463992b796"
+        },
+        "6731": {
+          "pack": "original",
+          "row": 1244,
+          "rgba_sha256": "5568e1727f374d98093c8cc730f7a8eabc0642c09e9c84464d16208ec1f88928"
+        },
+        "5060": {
+          "pack": "original",
+          "row": 3201,
+          "rgba_sha256": "a41b6a630946ce596f2f00434a3821ce547b37ccd2a8239cf5dee97a4e840ea0"
+        },
+        "5068": {
+          "pack": "original",
+          "row": 3209,
+          "rgba_sha256": "38147b1e7a547f1f69b2802af6632e4491cc794332a4c61e5d41f7ff0c9e2181"
+        },
+        "5084": {
+          "pack": "original",
+          "row": 3225,
+          "rgba_sha256": "d4e30e3e086b3066e392622ce0eadf6569dd4db59c94640b10c58472b6305d43"
+        },
+        "5859": {
+          "pack": "original",
+          "row": 4000,
+          "rgba_sha256": "53c83ad7d330947468b1735d3a206e80770cbd6604cf3bdea4ef25b67d84dcf2"
+        },
+        "5064": {
+          "pack": "original",
+          "row": 3205,
+          "rgba_sha256": "ea256340a3db8bd1d2abaa07c2a170d3693cfe02915274b7d2fe03ae4e43836f"
+        },
+        "1004": {
+          "pack": "original",
+          "row": 6585,
+          "rgba_sha256": "078ccf26755ec5012c510b322112089add4cff02261a48761a160d76fa96711c"
+        },
+        "5056": {
+          "pack": "original",
+          "row": 3197,
+          "rgba_sha256": "757ec5b9a0fe15f49bac1125dfa532a3803a77484627c8743941a0bf5e982dc9"
+        },
+        "5066": {
+          "pack": "original",
+          "row": 3207,
+          "rgba_sha256": "05ab9627387e79be61a9320fbdda60b5f3e5189ff2f7d0e372464fad8ff4cbf2"
+        },
+        "5855": {
+          "pack": "original",
+          "row": 3996,
+          "rgba_sha256": "d200e61b182c93795c5c249aa8a37bec37fc4c69755e7f7724b01d7a1dff62b2"
+        },
+        "5073": {
+          "pack": "original",
+          "row": 3214,
+          "rgba_sha256": "f0977438e7d4c1582a4370161e19e5a4ed454b8e281b3456e70ee34c024d837a"
+        },
+        "1000": {
+          "pack": "original",
+          "row": 6581,
+          "rgba_sha256": "e165df27d155b84cc98e2f0901d396d15b5cf0d0c74d10e0496ede6013b4f951"
+        },
+        "5055": {
+          "pack": "original",
+          "row": 3196,
+          "rgba_sha256": "be59a3589f20fe16f1e9515434e3440843b712b95f84a808105d34d7137110de"
+        },
+        "6719": {
+          "pack": "original",
+          "row": 1263,
+          "rgba_sha256": "8b624afb696940fe3ceeae3f246d3c26c71f10b1eada45367c4f525ac29bb6bf"
+        },
+        "5848": {
+          "pack": "original",
+          "row": 3989,
+          "rgba_sha256": "244ab86ac80d781c1f39952fa4ae4a50fcefbe5bccedccfbd1029546fe83c3e7"
+        },
+        "2": {
+          "pack": "joy-ex",
+          "row": 447097,
+          "rgba_sha256": "db165fd42cec8de480186bf19a8f56ae49321952c274a6d6883650d81083e0c6"
+        },
+        "10085": {
+          "pack": "original",
+          "row": 7823,
+          "rgba_sha256": "4db8dc1917286f63f423993cecf402df39c91014f5e293d267073f5db64202a8"
+        },
+        "10000": {
+          "pack": "original",
+          "row": 7805,
+          "rgba_sha256": "700a8a124b31bc8e59b9ff0c0e5637a9c40e34845e858681c162af2094510346"
+        },
+        "10086": {
+          "pack": "original",
+          "row": 7824,
+          "rgba_sha256": "a15ffc080faad5f563d0add433cca9050dc3b018f83a796e81b6afd8afe3062d"
+        },
+        "12167": {
+          "pack": "original",
+          "row": 8621,
+          "rgba_sha256": "2933d8f0383fbf76cb1cb901708da20307c6d15d003fc9a37017c15c1c7538cf"
+        },
+        "12169": {
+          "pack": "original",
+          "row": 8623,
+          "rgba_sha256": "1db30fd29082fe9c28e6653c2d11ef0dd9725c271221b2ed9d8d4fa191edd526"
+        },
+        "10600": {
+          "pack": "original",
+          "row": 7516,
+          "rgba_sha256": "40f1789752e185c67352de28f9f9bfce4318f7666d3272a62222c611598592ba"
+        },
+        "10087": {
+          "pack": "original",
+          "row": 7825,
+          "rgba_sha256": "7b3cdef814b701b99fbfd33b3070081d1ce5c74a22875b63c98cff85b7614a6c"
+        },
+        "10423": {
+          "pack": "original",
+          "row": 7566,
+          "rgba_sha256": "1e62c035c036ce04299fd3fa8dabf27d55b16b9e8687a29d6adbf30a97c023b9"
+        },
+        "10088": {
+          "pack": "original",
+          "row": 7826,
+          "rgba_sha256": "d2a2f1fb910beff6e0c02d6c6c40f9594f96938347f1130990e2750d4fe3b978"
+        },
+        "10601": {
+          "pack": "original",
+          "row": 7517,
+          "rgba_sha256": "e53757888184a90954b2e0ceee53fe35b7415733406b2612cfce038d59be5bcd"
+        }
+      },
+      "rgba_sha256": "c346df4c6891804798e93582c10987b8fbd6fdffeccc917a8ea13fae9935cc15"
+    }
+  },
+  "patches": {
+    "office_mask": [
+      10607,
+      [
+        [
+          200,
+          255
+        ],
+        [
+          220,
+          268
+        ],
+        [
+          220,
+          306
+        ],
+        [
+          200,
+          293
+        ]
+      ],
+      true,
+      [
+        48,
+        96
+      ]
+    ],
+    "guild_relief": [
+      10604,
+      [
+        [
+          123,
+          246
+        ],
+        [
+          143,
+          259
+        ],
+        [
+          143,
+          323
+        ],
+        [
+          123,
+          310
+        ]
+      ],
+      true,
+      [
+        40,
+        112
+      ]
+    ],
+    "bank_frieze": [
+      10010,
+      [
+        [
+          290,
+          249
+        ],
+        [
+          343,
+          215
+        ],
+        [
+          343,
+          234
+        ],
+        [
+          290,
+          268
+        ]
+      ],
+      true,
+      [
+        112,
+        32
+      ]
+    ],
+    "mansion_window": [
+      "mansion",
+      [
+        [
+          220,
+          343
+        ],
+        [
+          240,
+          344
+        ],
+        [
+          240,
+          385
+        ],
+        [
+          220,
+          383
+        ]
+      ],
+      true,
+      [
+        40,
+        96
+      ]
+    ],
+    "mansion_frieze": [
+      "mansion",
+      [
+        [
+          167,
+          267
+        ],
+        [
+          213,
+          273
+        ],
+        [
+          213,
+          292
+        ],
+        [
+          167,
+          286
+        ]
+      ],
+      true,
+      [
+        112,
+        40
+      ]
+    ],
+    "mansion_portal": [
+      "mansion",
+      [
+        [
+          277,
+          324
+        ],
+        [
+          307,
+          340
+        ],
+        [
+          307,
+          384
+        ],
+        [
+          277,
+          368
+        ]
+      ],
+      true,
+      [
+        64,
+        96
+      ]
+    ]
+  },
+  "maximum_relief_metres": {
+    "office_mask": 0.18,
+    "guild_relief": 0.16,
+    "bank_frieze": 0.18,
+    "mansion_frieze": 0.1,
+    "mansion_window": 0.0,
+    "mansion_portal": 0.15
+  },
+  "source_pixel_sampling": {
+    "bank_frieze": 1
+  },
+  "stone_finish": "Original pale-stroke mask on fitted limestone; native color crops remain preserved separately.",
+  "method": "Original rectified facade paint with shallow pale-stroke relief, reusing the arena depth recipe. Depth is an interpretation of 2D shading, not original recovered sculpture."
+}

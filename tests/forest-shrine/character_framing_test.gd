@@ -82,7 +82,44 @@ func run():
 	check(game.settings.forest_character_screen_offset==.08,"Relaunch restores the saved character position")
 	game.player.set_physics_process(false);game.start_wave();game.camera_rig.set_process(false);game.camera_rig.yaw=0;game.camera_rig.pitch=.22;game.camera_rig.reset_follow();game.camera_rig.update_camera(0)
 	check(absf(feet().y-.73259)<.003,"Saved framing is actually applied when combat starts after relaunch")
+	await shared_character_framing()
 	await finish()
+func shared_character_framing():
+	var rig=game.camera_rig
+	game.show_view_settings(true)
+	for zoom in [7.0,17.0,22.0]:
+		game.set_forest_camera_distance(zoom)
+		var baseline=Vector2.ZERO
+		for id in game.player.RogueRoster.selection_ids():
+			if id==18:continue
+			game.player.select_character(id)
+			game.player.position=Vector3(0,300,100);game.player.velocity=Vector3.ZERO
+			rig.yaw=.4;rig.pitch=.22;rig.reset_follow()
+			for i in 120:rig.update_camera(1.0/60.0,true)
+			if id==1:baseline=feet()
+			check(feet().distance_to(baseline)<.002,"Character %d shares Goemon's screen position at zoom %s"%[id,zoom])
+			check(is_equal_approx(rig.pitch,.22) and is_equal_approx(rig.yaw,.4) and rig.distance==zoom,"Character %d retains the shared zoom and orbit"%id)
+			if zoom==17.0 and id in [1,13,27,28,29,30,34] and "--visual" in OS.get_cmdline_user_args():
+				game.player.position.y=game.world.height_at(0,100)+.15;rig.reset_follow()
+				for i in 120:rig.update_camera(1.0/60.0,true)
+				await shot("shared-%d"%id)
+	game.player.select_character(29);game.player.position=Vector3(0,300,100);rig.reset_follow()
+	game.set_forest_camera_distance(17)
+	check(absf(feet().y-.73259)<.003,"Changing a boss's shared zoom applies the same framing immediately")
+	game.set_phase_view();rig.update_camera(0,true)
+	check(absf(feet().y-.73259)<.003,"Starting combat as a boss immediately applies the common framing")
+	game.set_forest_camera_distance(22)
+	# Switching from a boss must clear its follow height and zoom immediately.
+	game.player.select_character(27);rig.update_camera(1,true)
+	game.player.select_character(13);rig.update_camera(0,true)
+	check(absf(rig.follow.y-game.player.position.y-1.4)<.001 and is_equal_approx(rig.current_distance,22),"Switching from a boss resets to the common camera without residual lag")
+	game.player.select_character(18);rig.update_camera(0,true)
+	check(rig.first_person_mode and is_equal_approx(rig.camera.fov,78),"Master Chief retains his first-person camera")
+	game.player.select_character(32)
+	game.player.active_ability.demon=true;rig.update_camera(0,true)
+	check(rig.first_person_mode and rig.meta_shooter_mode,"Illidan's transformation retains its first-person camera")
+	game.player.active_ability.demon=false;rig.update_camera(0,true)
+	check(not rig.first_person_mode and is_equal_approx(rig.pitch,.22),"Leaving first person restores the common third-person angle")
 func shot(label: String):
 	await RenderingServer.frame_post_draw
 	var folder=OS.get_environment("SONIC_FRAMING_CAPTURE_DIR")

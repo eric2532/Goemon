@@ -1,5 +1,5 @@
 extends SceneTree
-const Document=preload("res://scripts/forest/forest_map_document.gd")
+const Document=preload("res://tests/forest-shrine/reference/map_document.gd")
 const Model=preload("res://scripts/forest/forest_model.gd")
 const Runtime=preload("res://scripts/forest/crowd/army_runtime.gd")
 const Profile=preload("res://scripts/forest/forest_structure_profile.gd")
@@ -21,8 +21,8 @@ func run():
 	quit(1 if failures else 0)
 func map_check(size_:String):
 	var doc=Document.new(false)
-	check(doc.read_file(Document.WIND_MEADOW_LARGE_PATH if size_=="large" else Document.WIND_MEADOW_PATH).is_empty(),size_+" layout validates")
-	check(doc.data.get("raised_castle",false),size_+" bundled map enables the raised courtyard")
+	check(doc.read_file(Document.VALLEY_LARGE_PATH if size_=="large" else Document.VALLEY_PATH).is_empty(),size_+" layout validates")
+	doc.data.raised_castle=true
 	check(doc.play_error().is_empty(),size_+" editor proves arrivals can reach the shrine through the stairs")
 	var old=doc.data.duplicate(true);old.erase("raised_castle")
 	var legacy=Model.new();legacy.reset(42,{},old,false)

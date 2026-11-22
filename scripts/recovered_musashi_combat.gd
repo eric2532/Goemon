@@ -36,6 +36,53 @@ var technique_ticks=0
 var technique_vertical=0
 var crosswise_impact_done=false
 var combo_skill=""
+var contact_segments:Array[PackedVector3Array]=[]
+var contact_until=-1.0
+const INPUT_BUFFER_SECONDS=0.4
+var buffered_action=""
+var buffered_args:Array=[]
+var buffer_left=0.0
+
+func responsive_controls()->bool:
+	return spell_owner==null and hero.character_id==13 and not hero.ai_controlled
+
+func buffer_action(method:String,args:Array=[])->bool:
+	if not responsive_controls() or not is_attacking():return false
+	if not active or not game.playing or game.paused or game.transitioning or hero.hp<=0 or hero.dodge_time>0:return false
+	buffered_action=method;buffered_args=args;buffer_left=INPUT_BUFFER_SECONDS
+	_recovery_exit()
+	return true
+
+func recovery_open()->bool:
+	if not hero.is_on_floor():return false
+	if not is_attacking():return true
+	if mode=="finisher":return finisher_phase=="land" and finisher_ticks>=1
+	if mode=="rotation":return rotation_ticks>=19
+	if mode=="desperado_end":return elapsed>=1.0/Profile.HZ
+	if mode not in ["fusion","lumina","counter","crosswise","desperado","tenderize_end"]:return false
+	return elapsed+0.000001>=contact_end
+
+func _recovery_exit()->bool:
+	if not responsive_controls() or not recovery_open():return false
+	var moving=hero.smoke_move if hero.smoke_mode else Input.get_vector("move_left","move_right","move_forward","move_back")
+	if buffered_action.is_empty() and (not is_attacking() or moving.length_squared()<=.01):return false
+	var method=buffered_action;var args=buffered_args
+	var previous_mode=mode;var previous_combo=combo;var timer=combo_timer
+	var connected=not hero.struck_targets.is_empty()
+	# End only after the last contact sample; cancellation clears all pending cuts.
+	cancel()
+	if method=="attack":
+		var heavy:bool=args[0]
+		if heavy and previous_mode=="fusion" and previous_combo==0 and connected:start_technique("crosswise")
+		elif heavy and previous_mode=="fusion" and previous_combo==1:start_technique("tenderize")
+		elif not heavy and previous_mode=="crosswise":start_technique("desperado")
+		elif heavy and previous_mode=="desperado":start_technique("desperado_dual")
+		else:
+			combo=previous_combo;combo_timer=timer;start_attack(heavy)
+	elif method=="cast":hero.spell_loadout._cast.callv(args)
+	elif not method.is_empty():callv(method,args)
+	return true
+
 func _ready():
 	locomotion=preload("res://scripts/recovered_musashi_locomotion.gd").new(hero)
 	assimilation=preload("res://scripts/recovered_musashi_assimilation.gd").new()
@@ -45,6 +92,8 @@ func _ready():
 func input(event: InputEvent):
 	release_input(event)
 	if not active or event.is_echo() or hero.dodge_time>0:return
+	if responsive_controls() and (event.is_action_pressed("light_attack") or event.is_action_pressed("heavy_attack")):
+		if buffer_action("attack",[event.is_action_pressed("heavy_attack")]):return
 	if not combo_skill.is_empty() and (event.is_action("light_attack") or event.is_action("heavy_attack")):return
 	if event is InputEventKey and event.pressed and not (event.ctrl_pressed or event.shift_pressed or event.alt_pressed or event.meta_pressed):
 		var number=(event.physical_keycode if event.physical_keycode!=0 else event.keycode)-KEY_1+1
@@ -73,6 +122,7 @@ func input(event: InputEvent):
 		if not is_attacking():special_held=true;guard_elapsed=0.0
 
 func select_number(number:int):
+	if number!=7 and buffer_action("select_number",[number]):return
 	if not active or not game.playing or game.paused or game.transitioning or hero.hp<=0 or hero.dodge_time>0 or is_attacking():return
 	if number==1:start_rotation()
 	elif number==2:start_counter()
@@ -132,6 +182,7 @@ func _try_crosswise()->bool:
 	return true
 
 func start_combo(key:String):
+	if key in ["crosswise","tenderize","desperado"] and buffer_action("start_combo",[key]):return
 	if key not in ["crosswise","tenderize","desperado"] or not active or not game.playing or game.paused or game.transitioning or hero.hp<=0 or hero.dodge_time>0 or not hero.is_on_floor() or is_attacking():return
 	if spell_owner==null:hero.spell_loadout.interrupt()
 	combo_skill=key;combo_timer=0;queued_primary=false;queued_heavy=false
@@ -202,6 +253,7 @@ func _technique_tick()->Vector3:
 		if mode=="desperado_dual":travel+=hero.facing*12*locomotion.source_world_scale()*Profile.HZ
 	if elapsed>=contact_time and elapsed<contact_end:
 		contact_done=true;strike()
+	if _recovery_exit():return Vector3.ZERO
 	if mode=="tenderize" and technique_ticks>=18:start_technique("tenderize_end")
 	elif mode=="tenderize_end" and technique_ticks>=17:
 		clip="";mode="";combo_skill="";hero.attack_left=0
@@ -214,10 +266,12 @@ func start_rotation():
 func start_counter():
 	_start_lumina_special("counter")
 func _start_lumina_special(key:String):
+	if buffer_action("start_rotation" if key=="rotation" else "start_counter"):return
 	var charged_cast=charge>=Profile.CHARGE_LIMIT
 	if not active or is_attacking() or not hero.is_on_floor():
 		charge=0;charge_clock=0
 		return
+	if spell_owner==null:hero.spell_loadout.interrupt()
 	guard_held=false;special_held=false;charge=0;charge_clock=0
 	hero.facing=hero.combat_attack_direction();cast_model().rotation.y=atan2(-hero.facing.x,-hero.facing.z)
 	mode=key;action_key=key;clip=Profile.action(action_key).clip
@@ -252,6 +306,7 @@ func _rotation_tick(delta:float):
 				clip="";mode="";rotation_phase="";hero.attack_left=0
 				if queued_heavy:queued_heavy=false;start_attack(true)
 				elif queued_primary or (spell_owner==null and hero.auto_attack_running()):queued_primary=false;primary_attack()
+		if _recovery_exit():return
 
 func guarding()->bool:return active and (guard_held or special_held) and not is_attacking() and hero.is_on_floor()
 func charge_fraction()->float:return float(charge)/Profile.CHARGE_LIMIT
@@ -267,8 +322,12 @@ func tick(delta: float,_after_pose: bool=false):
 	if not active:return
 	if game.paused or game.transitioning or not game.playing:
 		cancel();return
+	buffer_left=maxf(0,buffer_left-delta)
+	if buffer_left<=0 and not buffered_action.is_empty():buffered_action="";buffered_args=[]
+	if not is_attacking() and _recovery_exit():return
 	if controls_motion():return # The locomotion source clock advances these states.
-	if mode=="assimilation":assimilation.tick(delta);return
+	if mode=="assimilation":
+		assimilation.tick(delta);_recovery_exit();return
 	if mode=="rotation":_rotation_tick(delta);return
 	if guarding():
 		guard_elapsed+=delta;charge_clock+=delta*Profile.HZ
@@ -285,9 +344,12 @@ func tick(delta: float,_after_pose: bool=false):
 			contact_done=true
 			var after=elapsed
 			elapsed=clampf(maxf(before,contact_time),contact_time,contact_end-.00001)
+			contact_until=minf(after,contact_end-.00001)
 			strike()
+			contact_until=-1.0
 			elapsed=after
 			if _try_crosswise():return
+		if _recovery_exit():return
 		if _advance_combo():return
 		if hero.attack_left<=0:
 			clip="";mode="";combo_skill=""
@@ -326,6 +388,7 @@ func source_motion_tick()->Vector3:
 			contact_done=true;strike()
 			return Vector3.UP*(-finisher_vertical*locomotion.source_world_scale()*Profile.HZ)
 		"land":
+			if _recovery_exit():return Vector3.ZERO
 			if finisher_ticks>=5:
 				clip="";mode="";finisher_phase="";combo_skill="";hero.attack_left=0;combo_timer=0
 				if queued_heavy:queued_heavy=false;start_attack(true)
@@ -358,11 +421,6 @@ func lumina_scale_factor()->float:
 	if mode=="rotation":return (4096+int(mini(rotation_ticks,7)*1024.0/7.0))/4096.0*SKILL_SCALE*skill_factor("size")
 	return 1.0
 func can_hit_target(enemy: Ninja)->bool:
-	if mode in ["tenderize","tenderize_end","desperado","desperado_dual"]:
-		for key in ([action_key,"desperado_fusion"] if mode=="desperado_dual" else [action_key]):
-			var segment=cast_model().sword_trail.pose_segment(key,elapsed,cast_model().rig_visual.global_transform)
-			if segment.size()==2 and not AttackChain.segment_contact(enemy,segment[0],segment[1],.25*hero.contact_size_multiplier()).is_empty():return true
-		return false
 	if mode=="counter":return true
 	if mode=="rotation":
 		if rotation_phase!="spin":return false
@@ -378,15 +436,32 @@ func can_hit_target(enemy: Ninja)->bool:
 			var tip=center+hero.facing.rotated(Vector3.UP,-angle*TAU/4096.0)*reach
 			if not AttackChain.segment_contact(enemy,center,tip,radius).is_empty():return true
 		return false
-	if not hero.attack_heavy:return true
-	# Fitted enemies can return the query point when it is already inside their
-	# body. Test the actual hurt volume against the downstroke's narrow forward
-	# corridor instead of treating that zero offset as a target behind Musashi.
-	var origin=hero.global_position+Vector3.UP*1.1*hero.contact_size_multiplier()
-	return not AttackChain.segment_contact(enemy,origin,origin+hero.facing*hero.melee_strike_reach(),.25*hero.contact_size_multiplier()).is_empty()
+	for segment in contact_segments:
+		if not AttackChain.segment_contact(enemy,segment[0],segment[1],.25*hero.contact_size_multiplier()*skill_factor("hit_area")).is_empty():return true
+	return false
+
+func blade_reach(heavy:bool)->float:
+	return (2.1 if heavy else 1.8)*hero.contact_size_multiplier()*hero.pickup_multiplier("range")*hero.melee_reach_setting()
+
+func blade_segment(key:String,at:float)->PackedVector3Array:
+	var pair=cast_model().sword_trail.pose_segment(key,at,cast_model().rig_visual.global_transform)
+	return cast_model().sword_trail.wave_segment(pair,hero.global_position,blade_reach(hero.attack_heavy)*skill_factor("hit_area"))
+
+func trace_blade(key:String,from:float,until:float):
+	var previous=blade_segment(key,from)
+	if previous.size()!=2:return
+	contact_segments.append(previous)
+	for tick in range(floori(from*Profile.HZ)+1,ceili(until*Profile.HZ)+1):
+		var current=blade_segment(key,minf(float(tick)/Profile.HZ,until))
+		var travel=maxf(previous[0].distance_to(current[0]),previous[1].distance_to(current[1]))
+		var count=maxi(1,ceili(travel/(.25*hero.contact_size_multiplier())))
+		for step in range(1,count+1):
+			contact_segments.append(PackedVector3Array([previous[0].lerp(current[0],float(step)/count),previous[1].lerp(current[1],float(step)/count)]))
+		previous=current
 func blocks_movement()->bool:return false
 func protects_player()->bool:return false
 func cancel(_preserve_power: bool=false):
+	buffered_action="";buffered_args=[];buffer_left=0
 	if assimilation!=null:assimilation.cancel()
 	primary_held=false;queued_heavy=false;queued_primary=false;clip="";mode="";elapsed=0;combo_timer=0
 	guard_held=false;special_held=false;charge=0;charge_clock=0;guard_elapsed=0
@@ -395,6 +470,7 @@ func cancel(_preserve_power: bool=false):
 	combo_skill=""
 	rotation_clock=0;rotation_ticks=0;rotation_angle=0;rotation_previous_angle=0;rotation_speed=256;rotation_phase=""
 	if locomotion!=null:locomotion.discard_jump_input()
+	contact_segments.clear();contact_until=-1.0
 	if is_instance_valid(hero):hero.attack_left=0
 	if is_instance_valid(hero):
 		var model=spell_owner.source_model if spell_owner!=null else hero.character_models.get(13)
@@ -406,13 +482,18 @@ func hit():cancel()
 func interrupt_for_dodge():cancel()
 
 func strike():
+	contact_segments.clear()
+	if mode not in ["rotation","counter"]:
+		for key in ([action_key,"desperado_fusion"] if mode=="desperado_dual" else [action_key]):
+			trace_blade(key,maxf(contact_time,elapsed-1.0/Profile.HZ) if contact_until<0 else elapsed,maxf(elapsed,contact_until))
+	var impact_targets=AttackChain.enemy_candidates(game,hero.global_position,hero.melee_strike_reach()+3.5*hero.contact_size_multiplier()) if mode=="crosswise" and not crosswise_impact_done else []
 	if spell_owner!=null:spell_owner.strike(self)
 	else:hero.strike()
 	if mode=="crosswise" and not crosswise_impact_done and not hero.struck_targets.is_empty():
 		crosswise_impact_done=true
 		# Use the existing local query; never traverse the whole army for an effect.
-		for enemy in AttackChain.enemy_candidates(game,hero.global_position,hero.melee_strike_reach()+3.5*hero.contact_size_multiplier()):
+		for enemy in impact_targets:
 			if is_instance_valid(enemy) and hero.struck_targets.has(enemy.get_instance_id()):
 				var model=cast_model()
-				model.crosswise_effect.spawn(AttackChain.aim_point(enemy,hero.global_position+Vector3.UP*hero.contact_size_multiplier()),model.rig_visual.global_basis.get_scale().x)
+				model.crosswise_effect.spawn(AttackChain.aim_point(enemy,hero.global_position+Vector3.UP*hero.contact_size_multiplier()),model.rig_visual.global_basis.get_scale().x*skill_factor("size"))
 				break

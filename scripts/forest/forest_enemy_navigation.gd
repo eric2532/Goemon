@@ -225,7 +225,7 @@ func route(e: Dictionary,destination: Vector3)->Array:
 	return []
 func gate_outward(b: Dictionary)->Vector3:
 	var normal: Vector3=[Vector3.BACK,Vector3.RIGHT,Vector3.FORWARD,Vector3.LEFT][int(b.rotation)%4]
-	if normal.dot(m.center(b)-m.center(m.shrine()))<0:normal=-normal
+	if normal.dot(m.center(b)-m.fort_center())<0:normal=-normal
 	return normal
 func gate_crossing_depth(e:Dictionary)->float:
 	return Roles.footprint_radius(e.variant,m.balance.enemy_size_mult)+Profile.GATE_FRAME_DEPTH*.5+.25

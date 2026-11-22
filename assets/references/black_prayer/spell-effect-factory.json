@@ -1,0 +1,171 @@
+{
+  "snapshot_sha256": "8babbe4ad20e4e1e2a6992ecf086d47ef3527426879699f83fa2cebb1a476afe",
+  "factory": "0x41a600",
+  "skill_level_query": "0x437c10",
+  "cases": [
+    {
+      "action": 754,
+      "skill_queries": [
+        57
+      ],
+      "protocolType": 57,
+      "sublevel": 4,
+      "kind": 8,
+      "objects": [
+        {
+          "resource": 110117,
+          "callback": "0x417a60",
+          "position": [
+            457.5,
+            290.0
+          ],
+          "parent": "actor",
+          "flags": "0x48000"
+        }
+      ],
+      "sounds": [],
+      "tierInitializerRepair": true
+    },
+    {
+      "action": 755,
+      "skill_queries": [
+        58
+      ],
+      "protocolType": 58,
+      "sublevel": 4,
+      "kind": 11,
+      "objects": [
+        {
+          "resource": 110121,
+          "callback": "0x417a60",
+          "position": [
+            457.5,
+            290.0
+          ],
+          "parent": "actor",
+          "flags": "0x48000"
+        }
+      ],
+      "sounds": [],
+      "tierInitializerRepair": true
+    },
+    {
+      "action": 756,
+      "skill_queries": [
+        55
+      ],
+      "protocolType": 55,
+      "sublevel": 4,
+      "kind": 7,
+      "objects": [
+        {
+          "resource": 110109,
+          "callback": "0x417a60",
+          "position": [
+            457.5,
+            290.0
+          ],
+          "parent": "actor",
+          "flags": "0x48000"
+        }
+      ],
+      "sounds": [],
+      "tierInitializerRepair": true
+    },
+    {
+      "action": 757,
+      "skill_queries": [
+        56
+      ],
+      "protocolType": 56,
+      "sublevel": 4,
+      "kind": 10,
+      "objects": [
+        {
+          "resource": 110113,
+          "callback": "0x417a60",
+          "position": [
+            457.5,
+            290.0
+          ],
+          "parent": "actor",
+          "flags": "0x48000"
+        }
+      ],
+      "sounds": [],
+      "tierInitializerRepair": true
+    },
+    {
+      "action": 758,
+      "skill_queries": [
+        59
+      ],
+      "protocolType": 59,
+      "sublevel": 4,
+      "kind": 9,
+      "objects": [
+        {
+          "resource": 110125,
+          "callback": "0x417a60",
+          "position": [
+            457.5,
+            290.0
+          ],
+          "parent": "actor",
+          "flags": "0x48000"
+        }
+      ],
+      "sounds": [],
+      "tierInitializerRepair": true
+    },
+    {
+      "action": 759,
+      "skill_queries": [
+        60
+      ],
+      "protocolType": 60,
+      "sublevel": 4,
+      "kind": 12,
+      "objects": [
+        {
+          "resource": 110129,
+          "callback": "0x417a60",
+          "position": [
+            457.5,
+            290.0
+          ],
+          "parent": "actor",
+          "flags": "0x48000"
+        }
+      ],
+      "sounds": [],
+      "tierInitializerRepair": true
+    },
+    {
+      "action": 763,
+      "skill_queries": [],
+      "protocolType": 48,
+      "sublevel": 4,
+      "kind": 6,
+      "objects": [
+        {
+          "resource": 110163,
+          "callback": "0x417a60",
+          "position": [
+            457.5,
+            330.0
+          ],
+          "parent": "actor",
+          "flags": "0x48000"
+        }
+      ],
+      "sounds": [],
+      "tierInitializerRepair": true
+    }
+  ],
+  "limits": [
+    "Synthetic actor geometry, allocator/video/audio stubs; native dispatch and resource assignment execute archived bytes.",
+    "Existing tier-initializer repair restores EAX=2 after the archived hook; not unmodified client execution.",
+    "Confusion 48 uses effect kind 6; original status scheduling and live server playback remain unverified."
+  ]
+}

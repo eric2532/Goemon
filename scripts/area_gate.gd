@@ -62,9 +62,9 @@ void fragment(){
 	refresh()
 func refresh():
 	unlocked=true
-	title.text=("ENERGY PORTAL" if forward_gate else "RETURN PORTAL")+"\n"+game.AREA_NAMES[destination]+"\n[F] ENTER · ALWAYS OPEN"
+	title.text=("ENERGY PORTAL" if forward_gate else "RETURN PORTAL")+"\n"+game.AREA_NAMES[destination]+"\nALWAYS OPEN"
 	title.modulate=Color("acf8de")
-func prompt()->String:return "F · Enter "+game.AREA_NAMES[destination]+" · Always open"
+func prompt()->String:return game.AREA_NAMES[destination]+" · Always open"
 func _process(delta):
 	clock+=delta
 	rim.scale=Vector3.ONE*(1+sin(clock*2)*.035)

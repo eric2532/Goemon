@@ -120,12 +120,11 @@ func run():
  if DisplayServer.get_name()!="headless":
   root.title="Goemon · Whole roster impact review";root.set_flag(Window.FLAG_ALWAYS_ON_TOP,true)
   DisplayServer.window_move_to_foreground();root.grab_focus()
- var selected=Catalog.Roster.PLAYABLE_IDS
+ var selected=Catalog.Roster.selection_ids()
  for arg in OS.get_cmdline_user_args():
   if arg.begins_with("--fighters="):selected=Array(arg.trim_prefix("--fighters=").split(",")).map(func(id):return int(id))
   if arg.begins_with("--label="):label=arg.trim_prefix("--label=")
  for id in selected:
-  if id in Catalog.Roster.HIDDEN_SELECTION_IDS:continue
   await review_case(id,0)
   for number in range(1,6):
    if not Catalog.hotbar(id)[number-1].is_empty():await review_case(id,number)

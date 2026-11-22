@@ -30,7 +30,7 @@ func select_number(number:int,hold_action:String="")->bool:
 func input(event:InputEvent)->bool:
  if hero.character_id!=1:return false
  if event is InputEventKey and (event.shift_pressed or event.ctrl_pressed or event.alt_pressed or event.meta_pressed):return false
- for pair in [["weapon_pipe",1],["weapon_coin",2],["weapon_chain",3],["scarf_toggle",4],["gold_cloak",5]]:
+ for pair in [["weapon_pipe",1],["weapon_coin",2],["weapon_chain",3]]:
   if event.is_action(pair[0]):
    if event.is_pressed() and not event.is_echo():select_number(pair[1],pair[0])
    return true

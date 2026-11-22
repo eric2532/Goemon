@@ -1,0 +1,7 @@
+{
+  "source_graphic": 11404,
+  "source_rgba_sha256": "0cc607dd23e5a496b7f4b14a7494c4aa7eb136873bf006bdd27cd5d14c2c43f1",
+  "borrowed_paint": "Same roof plane, upper 32 percent of its radius; subtle mirrored grain from [200, 58, 248, 90]",
+  "mask": "Foreground bay roof and its finial only; original file is preserved. The same visible roof plane continues behind the bay with subtle same-roof grain. Unseen main-roof paint is an explicit reconstruction.",
+  "output_rgba_sha256": "9d8067ab06dcd24dcc37767298d9d50364742faba900a465fd96b72e21b942a5"
+}

@@ -1,0 +1,351 @@
+{
+  "source": "Reviewed Uru classic/remodeled families. Rei 100700, 100798, 120428 and 109912 are excluded; original 105712 remains skin 0. Exact source keys are authoritative.",
+  "skins": [
+    {
+      "skin": 100250,
+      "label": "Classic · Red / Green",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "original:2543",
+        "bow": "original:2544",
+        "unarmed": "original:2545",
+        "sword": "original:2546",
+        "staff": "original:2547",
+        "polearm": "original:2548"
+      }
+    },
+    {
+      "skin": 100256,
+      "label": "Classic · Blue / White",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "original:2549",
+        "bow": "original:2550",
+        "unarmed": "original:2551",
+        "sword": "original:2552",
+        "staff": "original:2553",
+        "polearm": "original:2554"
+      }
+    },
+    {
+      "skin": 100262,
+      "label": "Classic · Green / White",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "original:2555",
+        "bow": "original:2556",
+        "unarmed": "original:2557",
+        "sword": "original:2558",
+        "staff": "original:2559",
+        "polearm": "original:2560"
+      }
+    },
+    {
+      "skin": 100268,
+      "label": "Classic · Gold / Black",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "original:2561",
+        "bow": "original:2562",
+        "unarmed": "original:2563",
+        "sword": "original:2564",
+        "staff": "original:2565",
+        "polearm": "original:2566"
+      }
+    },
+    {
+      "skin": 105700,
+      "label": "Classic · Silver / Violet",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "joy:889",
+        "bow": "joy:929",
+        "unarmed": "joy:811",
+        "sword": "joy:907",
+        "staff": "joy:952",
+        "polearm": "joy:927"
+      }
+    },
+    {
+      "skin": 105706,
+      "label": "Classic · Black / Red",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "joy:949",
+        "bow": "joy:942",
+        "unarmed": "joy:894",
+        "sword": "joy:926",
+        "staff": "joy:809",
+        "polearm": "joy:869"
+      }
+    },
+    {
+      "skin": 105943,
+      "label": "Classic · Purple / White",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "joy-ex:478",
+        "bow": "joy-ex:479",
+        "unarmed": "joy-ex:480",
+        "sword": "joy-ex:481",
+        "staff": "joy-ex:482",
+        "polearm": "joy-ex:483"
+      }
+    },
+    {
+      "skin": 105949,
+      "label": "Classic · Slate / Brown",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "joy-ex:484",
+        "bow": "joy-ex:485",
+        "unarmed": "joy-ex:486",
+        "sword": "joy-ex:487",
+        "staff": "joy-ex:488",
+        "polearm": "joy-ex:489"
+      }
+    },
+    {
+      "skin": 119255,
+      "label": "Classic · Gray / Gold",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "ch1:98",
+        "bow": "ch1:99",
+        "unarmed": "ch1:100",
+        "sword": "ch1:101",
+        "staff": "ch1:102",
+        "polearm": "ch1:103"
+      }
+    },
+    {
+      "skin": 120274,
+      "label": "Classic · Silver / Charcoal",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "v3:1131",
+        "bow": "v3:1132",
+        "unarmed": "v3:1133",
+        "sword": "v3:1134",
+        "staff": "v3:1135",
+        "polearm": "v3:1136"
+      }
+    },
+    {
+      "skin": 100656,
+      "label": "Remodel · Black / White",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "ex:1539",
+        "bow": "ex:1540",
+        "unarmed": "ex:1541",
+        "sword": "ex:1542",
+        "staff": "ex:1543",
+        "polearm": "ex:1544"
+      }
+    },
+    {
+      "skin": 100737,
+      "label": "Remodel · Silver / Blue",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "ex:1766",
+        "bow": "ex:1767",
+        "unarmed": "ex:1768",
+        "sword": "ex:1769",
+        "staff": "ex:1770",
+        "polearm": "ex:1771"
+      }
+    },
+    {
+      "skin": 100743,
+      "label": "Remodel · Silver / Red",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "ex:1772",
+        "bow": "ex:1773",
+        "unarmed": "ex:1774",
+        "sword": "ex:1775",
+        "staff": "ex:1776",
+        "polearm": "ex:1777"
+      }
+    },
+    {
+      "skin": 105250,
+      "label": "Remodel · Red / White",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "ex:168",
+        "bow": "ex:169",
+        "unarmed": "ex:170",
+        "sword": "ex:171",
+        "staff": "ex:172",
+        "polearm": "ex:173"
+      }
+    },
+    {
+      "skin": 105256,
+      "label": "Remodel · Blue / White",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "ex:174",
+        "bow": "ex:175",
+        "unarmed": "ex:176",
+        "sword": "ex:177",
+        "staff": "ex:178",
+        "polearm": "ex:179"
+      }
+    },
+    {
+      "skin": 105262,
+      "label": "Remodel · Green / White",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "ex:180",
+        "bow": "ex:181",
+        "unarmed": "ex:182",
+        "sword": "ex:183",
+        "staff": "ex:184",
+        "polearm": "ex:185"
+      }
+    },
+    {
+      "skin": 105268,
+      "label": "Remodel · Gold / White",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "ex:186",
+        "bow": "ex:187",
+        "unarmed": "ex:188",
+        "sword": "ex:189",
+        "staff": "ex:190",
+        "polearm": "ex:191"
+      }
+    },
+    {
+      "skin": 105718,
+      "label": "Remodel · Gray / White",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "joy:914",
+        "bow": "joy:823",
+        "unarmed": "joy:920",
+        "sword": "joy:876",
+        "staff": "joy:957",
+        "polearm": "joy:885"
+      }
+    },
+    {
+      "skin": 105754,
+      "label": "Remodel · Pink / White",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "puk3:499",
+        "bow": "puk3:500",
+        "unarmed": "puk3:501",
+        "sword": "puk3:502",
+        "staff": "puk3:503",
+        "polearm": "puk3:504"
+      }
+    },
+    {
+      "skin": 105766,
+      "label": "Special · Ruby 2.0 / Purple",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "puk3:511",
+        "bow": "puk3:512",
+        "unarmed": "puk3:513",
+        "sword": "puk3:514",
+        "staff": "puk3:515",
+        "polearm": "puk3:516"
+      }
+    },
+    {
+      "skin": 120256,
+      "label": "Remodel · Cyan / White",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "v3:1113",
+        "bow": "v3:1114",
+        "unarmed": "v3:1115",
+        "sword": "v3:1116",
+        "staff": "v3:1117",
+        "polearm": "v3:1118"
+      }
+    },
+    {
+      "skin": 120262,
+      "label": "Remodel · Silver / Blue Trim",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "v3:1119",
+        "bow": "v3:1120",
+        "unarmed": "v3:1121",
+        "sword": "v3:1122",
+        "staff": "v3:1123",
+        "polearm": "v3:1124"
+      }
+    },
+    {
+      "skin": 120268,
+      "label": "Remodel · Orange / White",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "v3:1125",
+        "bow": "v3:1126",
+        "unarmed": "v3:1127",
+        "sword": "v3:1128",
+        "staff": "v3:1129",
+        "polearm": "v3:1130"
+      }
+    },
+    {
+      "skin": 100650,
+      "label": "Special · Classic Ruby / Black",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "joy:626",
+        "bow": "joy:627",
+        "unarmed": "joy:628",
+        "sword": "joy:629",
+        "staff": "joy:630",
+        "polearm": "joy:631"
+      }
+    },
+    {
+      "skin": 105760,
+      "label": "Remodel · Sage / Cream",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "puk3:505",
+        "bow": "puk3:506",
+        "unarmed": "puk3:507",
+        "sword": "puk3:508",
+        "staff": "puk3:509",
+        "polearm": "puk3:510"
+      }
+    },
+    {
+      "skin": 105603,
+      "label": "Special · Pink / Green Classic",
+      "body_pixels": 81,
+      "weapons": {
+        "axe": "joy-ex:472",
+        "bow": "joy-ex:473",
+        "unarmed": "joy-ex:474",
+        "sword": "joy-ex:475",
+        "staff": "joy-ex:476",
+        "polearm": "joy-ex:477"
+      }
+    },
+    {
+      "skin": 111691,
+      "label": "Special · Pink Pet / Unarmed",
+      "body_pixels": 81,
+      "weapons": {
+        "unarmed": "puk2:1174"
+      }
+    }
+  ]
+}

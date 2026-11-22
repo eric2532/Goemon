@@ -1,0 +1,1 @@
+This isolated hip-ready draft was generated before the user froze further redraws. It has not been selected or activated. The approved slashing reference remains the identity source; do not use this draft as an identity reference. Latest sole design change: remove green facial ink.

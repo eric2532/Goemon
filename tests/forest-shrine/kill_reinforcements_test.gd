@@ -42,7 +42,7 @@ func run():
 
 func gameplay_checks():
 	var large="--large" in OS.get_cmdline_user_args()
-	set_meta("forest_custom_layout",JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_wind_meadow_large.json" if large else "res://assets/maps/forest_wind_meadow.json")))
+	set_meta("forest_custom_layout",JSON.parse_string(FileAccess.get_file_as_string("res://tests/forest-shrine/reference/maps/forest_wind_meadow_large_valley.json" if large else "res://tests/forest-shrine/reference/maps/forest_wind_meadow_valley.json")))
 	game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path="user://kill-reinforcements-%d.cfg"%OS.get_process_id()
 	root.add_child(game);current_scene=game;await frames(3)
 	game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false);game.camera_rig.set_process(false)
@@ -78,6 +78,9 @@ func gameplay_checks():
 			check(waves.horizontal_distance(row.pos,game.player.position)>=20,"Extra arrivals keep the existing player safety distance")
 		if cycle==0:
 			var child=model.enemies[first];model.damage_enemy(child.id,1000000)
+			if army.valid(army.handles.get(child.id,0)):
+				check(child.variant==Roles.VAMBEE_TORSO and waves.kill_spawn_pending==0,"Vambee's form change does not count as a death")
+				model.damage_enemy(child.id,1000000)
 			check(waves.kill_spawn_pending==2,"Killing a spawned child produces another pair")
 			army.sync_compatibility();waves.tick(0,game.player.position);army.import_arrivals();army.sync_compatibility()
 			check(waves.kill_spawn_pending==0,"The next generation also uses normal placement and ownership")

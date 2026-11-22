@@ -23,7 +23,12 @@ const CATALOG={
  "fence":{"label":"Timber Fence","short":"Fence","asset":CEDAR+"fence.glb","box":AABB(Vector3(-1.6,0,-.09),Vector3(3.2,1.6,.18)),"size":1.875,"material":"wood"},
  "boulder_pair":{"label":"Meadow Boulder Pair","short":"Pair","asset":MEADOW+"modular/boulder_pair.tscn","box":AABB(Vector3(-2.507321,0,-1.727563),Vector3(4.762747,1.32,3.252003)),"size":1.0,"material":"stone"},
  "river_cluster":{"label":"River Stone Cluster","short":"Stones","asset":MEADOW+"modular/river_cluster.tscn","box":AABB(Vector3(-2.240346,0,-.930839),Vector3(4.137549,1.3,2.232235)),"size":1.0,"material":"stone"},
- "fence_corner":{"label":"Timber Fence Corner","short":"Fence L","asset":MEADOW+"modular/fence_corner.tscn","box":AABB(Vector3(-3,0,-3),Vector3(6,3,6)),"size":1.0,"material":"wood"}
+ "fence_corner":{"label":"Timber Fence Corner","short":"Fence L","asset":MEADOW+"modular/fence_corner.tscn","box":AABB(Vector3(-3,0,-3),Vector3(6,3,6)),"size":1.0,"material":"wood"},
+ "round_gate_tower":{"label":"Round Gate Tower","short":"Round","asset":MEADOW+"buildings/round_gate_tower.tscn","box":AABB(Vector3(-3,0,-3),Vector3(6,20,6)),"size":1.0,"material":"stone"},
+ "falan_townhouse":{"label":"Falan Townhouse","short":"House","asset":MEADOW+"falan/falan_townhouse.glb","box":AABB(Vector3(-7,0,-7),Vector3(14,15,14)),"size":1.0,"material":"stone"},
+ "falan_shop":{"label":"Falan Shop","short":"Shop","asset":MEADOW+"falan/falan_shop.glb","box":AABB(Vector3(-7.5,0,-7),Vector3(15,14,15)),"size":1.0,"material":"stone"},
+ "falan_chapel":{"label":"Falan Chapel","short":"Chapel","asset":MEADOW+"falan/falan_chapel.glb","box":AABB(Vector3(-8,0,-9),Vector3(16,34,18)),"size":1.0,"material":"stone"},
+ "falan_royal_keep":{"label":"Falan Royal Keep","short":"Keep","asset":MEADOW+"falan/falan_royal_keep.glb","box":AABB(Vector3(-17,0,-12),Vector3(34,41,24)),"size":1.0,"material":"stone"}
 }
 static func is_piece(kind:String)->bool:return kind in ["tree","rock"] or CATALOG.has(kind)
 static func anchor(item:Dictionary):

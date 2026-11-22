@@ -61,7 +61,7 @@ func run():
  var kit=p.active_ability;var pool=Pool.service(game)
  game.forest_ui.sync()
  check(p.spell_loadout.numbered_slots[3]==["Taunt · War Cry","special_4"],"Fourth slot exposes the native taunt")
- check("4  Taunt · War Cry" in game.forest_ui.spell_summary.text,"HUD teaches the fourth key")
+ check(game.forest_ui.loadout_buttons[3].text.is_empty() and game.forest_ui.loadout_buttons[3].tooltip_text.begins_with("4 · Taunt · War Cry"),"Fourth slot hides its key number and keeps its taunt tooltip")
  check(game.forest_ui.helper_portraits[3].visible and game.forest_ui.helper_portraits[3].texture==game.forest_ui.helper_portraits[2].texture,"Taunt reuses the exact Avatar icon artwork")
  check(game.forest_ui.helper_portraits[3].material==game.forest_ui.TAUNT_ICON_MATERIAL and game.forest_ui.helper_portraits[2].material==null,"Only the taunt icon receives the red material")
  var hp=game.training_dummy.hp;var created=pool.created;var misses=pool.misses

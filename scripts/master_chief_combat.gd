@@ -54,7 +54,7 @@ func input(event:InputEvent):
 	if event.is_echo():return
 	if event is InputEventKey and (event.shift_pressed or event.ctrl_pressed or event.alt_pressed or event.meta_pressed):return
 	for slot in Weapons.SLOTS:
-		if event.is_action_pressed(["weapon_pipe","weapon_coin","weapon_chain","scarf_toggle","gold_cloak"][slot-1]):select_slot(slot);return
+		if event.is_action_pressed(["weapon_pipe","weapon_coin","weapon_chain","weapon_slot_4","weapon_slot_5"][slot-1]):select_slot(slot);return
 	if available() and event.is_action_pressed("light_attack"):primary_held=true
 func release_input(event:InputEvent):
 	if event.is_action_released("light_attack"):primary_held=false;is_firing=false

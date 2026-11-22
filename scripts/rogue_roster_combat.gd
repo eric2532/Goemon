@@ -940,7 +940,8 @@ func _move_body(delta: float) -> void:
 		if not hero.test_move(raised, horizontal):
 			hero.global_position.y += 0.32
 	var was_airborne: bool = not hero.is_on_floor()
-	hero.move_and_slide()
+	if hero.flying:hero.move_and_slide()
+	else:hero.move_with_jump_drop()
 	if was_airborne and hero.is_on_floor():
 		p.rangerGliding = false
 		p.dragoonHovering = false
@@ -1333,7 +1334,8 @@ func hit(e: Dictionary = {}, amount: float = 0, weapon: String = "cutlass", heav
 		attack.hitDriftPending=true
 	if not element.is_empty():
 		return
-	fx.weapon_impact(e.pos, atan2(dir.x, dir.z), presentation if not presentation.is_empty() else "sword", tint(), heavy)
+	var pooled_primary=attack!=null and attack.get("primary",false) and attack.ticket==ticket and game._has_pooled_hit_feedback(enemy)
+	if not pooled_primary:fx.weapon_impact(e.pos, atan2(dir.x, dir.z), presentation if not presentation.is_empty() else "sword", tint(), heavy)
 	if class_id == "magic-swordsman" and presentation in ["claymore", "wave"]:
 		sound.play("claymore-impact", {"heavy": heavy, "volume": 0.52, "pitch": 0.92 if e.type == "warden" else 1.0})
 	else:

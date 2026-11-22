@@ -1,5 +1,5 @@
 extends SceneTree
-const Document=preload("res://scripts/forest/forest_map_document.gd")
+const Document=preload("res://tests/forest-shrine/reference/map_document.gd")
 const OUT="res://build/Other Files/Enemy Castle Testing/"
 var game
 var checks=0
@@ -14,6 +14,7 @@ func check(ok:bool,message:String):
 func settle():
  for i in 5:await process_frame
 func run():
+ var initial=Document.new(false);initial.load_valley();set_meta("forest_custom_layout",initial.data)
  game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path=config_path;root.add_child(game);current_scene=game;await settle()
  var model=game.model;var count=model.portals.size();var trees=model.trees.size()
  game.model.gold=0;game.forest_ui.open_build_menu();await settle()
@@ -65,7 +66,7 @@ func run():
  model.damage_enemy_objective(count,999999);castle.sync()
  check(castle.dead and model.active_enemy_camps()==count and model.phase=="wave","Destroying the added keep stops its reinforcements without winning early")
  model.phase="preparing";game.set_phase_view();await settle()
- game.open_map_editor();game.map_editor.load_wind_meadow_large();await settle()
+ game.open_map_editor();Document.load_editor(game.map_editor,Document.VALLEY_LARGE_PATH);await settle()
  check(game.map_editor.active and game.model.terrain_scale==3.0 and game.model.navigation_region.size==Vector2i(240,240),"Bigger map previews a valley with 2.25 times the existing area")
  check(game.map_editor.previous_model==model,"The size preview preserves the current run until Play map")
  check(game.model.terrain.width==481 and game.model.has_enemy_castles(),"Larger terrain keeps the production castle and native heightfield contracts")
@@ -75,7 +76,7 @@ func run():
  if "--visual" in OS.get_cmdline_user_args():await shot("02-bigger-map-preview")
  game.map_editor.close_discard();await settle()
  check(game.model==model and model.gold==0 and model.portals.size()==count+1,"Back restores the exact previous run including its placed castle and money")
- game.open_map_editor();game.map_editor.load_wind_meadow_large();await settle();game.map_editor.play_map();await settle()
+ game.open_map_editor();Document.load_editor(game.map_editor,Document.VALLEY_LARGE_PATH);await settle();game.map_editor.play_map();await settle()
  check(not game.map_editor.active and game.model.terrain_scale==3.0 and game.model.phase=="preparing","Play map commits the selected size as a fresh preparation run")
  var outer=Vector2i(85,25)
  check(game.model.enemy_castle_placement_error(outer,0).is_empty(),"Land beyond the old map boundary accepts a complete castle")

@@ -21,6 +21,10 @@ func check(ok:bool,label_:String):
 func tap(action:String):
  var e=InputEventAction.new();e.action=action;e.pressed=true;p._unhandled_input(e)
  e.pressed=false;p._input(e)
+func wait_mode(expected:String):
+ for i in 60:
+  if c.mode==expected:return
+  await advance(1)
 func advance(count:int):
  await driver.advance(count,func(delta):
   var start=Time.get_ticks_usec()
@@ -71,22 +75,24 @@ func run():
   check(p.model.animation_player.has_animation(Profile.action(key).clip),"Recovered body entry: "+key)
  check(Profile.action("tenderize_end").clip=="Recovered__800d524c","Continuation uses prepared drawn-Lumina context")
  # Input buffering must not create a Crosswise hit on a missed/blocked Fusion.
- plant();tap("light_attack");p.facing=Vector3.BACK;tap("heavy_attack");await advance(65)
+ plant();tap("light_attack");p.facing=Vector3.BACK;await advance(8);tap("heavy_attack");await advance(65)
  check(c.mode!="crosswise" and p.model.crosswise_effect.cursor==0,"A missed opener cannot invent X Slash contact")
  plant();var hp=enemy.hp
- tap("light_attack");tap("heavy_attack")
- check(c.mode=="fusion" and enemy.hp==hp,"Buffered heavy preserves Fusion windup and cannot hit on press")
- await advance(8)
- check(c.mode=="crosswise" and enemy.hp<hp,"Fusion contact consumes buffered heavy into Crosswise")
- var after=enemy.hp;await advance(18)
+ tap("light_attack");await advance(8);var before_press=enemy.hp;tap("heavy_attack")
+ check(c.mode=="fusion" and enemy.hp==before_press,"Buffered heavy cannot add a hit on press")
+ await wait_mode("crosswise")
+ check(c.mode=="crosswise" and enemy.hp<hp,"Fusion recovery consumes buffered heavy into Crosswise after contact: %s %.3f %s %.3f"%[c.mode,c.elapsed,c.buffered_action,c.buffer_left])
+ # Contact follows the falling blade at ticks 10–11, after its raised tick-8 pose.
+ var after=enemy.hp;await advance(24)
  check(enemy.hp<after and c.crosswise_impact_done,"Crosswise has its own native damage and original hit sprite")
  check(p.model.crosswise_effect.cursor==1,"One Crosswise action emits exactly one impact")
  after=enemy.hp;await advance(8);check(enemy.hp==after,"Repeated active samples cannot hit the same victim twice")
  await capture("crosswise-contact")
  # Extend the same chain into its original two-sword sequence.
  var before_desperado=enemy.hp
- tap("light_attack");check(c.mode=="desperado","Crosswise then light enters Desperado's Fusion entry")
- await advance(2);tap("heavy_attack")
+ tap("light_attack");await wait_mode("desperado")
+ check(c.mode=="desperado","Crosswise then light enters Desperado's Fusion entry")
+ await advance(12);tap("heavy_attack");await wait_mode("desperado_dual")
  check(c.mode=="desperado_dual" and c.controls_motion(),"Next heavy enters the original dual-sword motion")
  for i in 40:
   if c.technique_ticks>=9:break
@@ -97,12 +103,13 @@ func run():
  check(not c.is_attacking() and p.is_on_floor(),"Desperado lands, recovers and returns control")
  check(enemy.hp<before_desperado,"Desperado's recovered blade contacts damage the native target")
  # Two Fusion clicks followed by heavy must select the distinct two-hit lift.
- plant();tap("light_attack");tap("light_attack")
+ plant();tap("light_attack");await advance(8);tap("light_attack")
  for i in 50:
   if c.mode=="fusion" and c.combo==1:break
   await advance(1)
  check(c.mode=="fusion" and c.combo==1,"Second light click enters Fusion2")
- tap("heavy_attack");check(c.mode=="tenderize","Fusion2 then heavy selects Tenderize")
+ await advance(14);tap("heavy_attack");await wait_mode("tenderize")
+ check(c.mode=="tenderize","Fusion2 then heavy selects Tenderize after its final contact")
  var before_tenderize=enemy.hp
  var start_y=p.position.y;var peak=start_y
  for i in 120:
@@ -112,13 +119,12 @@ func run():
  check(not c.is_attacking() and p.is_on_floor(),"Both Tenderize phases finish on physical ground")
  check(enemy.hp<before_tenderize,"Tenderize's recovered blade contacts damage the native target")
  plant();c.start_technique("tenderize");tap("heavy_attack");await advance(135)
- check(not c.queued_heavy and not c.is_attacking(),"A buffered follow-up is consumed once across both Tenderize phases")
+ check(not c.queued_heavy and c.buffered_action.is_empty() and not c.is_attacking(),"An early follow-up expires across both Tenderize phases")
  # Native hotbar skills play the whole sequence, including their Fusion openers.
  for number in [1,2,3]:
   plant();var before_skill=enemy.hp;var seen=[];var tuning_matches=true;var posed=true
   p.spell_loadout.number_input(number,true);p.spell_loadout.number_input(number,false)
   check(c.mode=="fusion" and enemy.hp==before_skill,"One-press skill starts with Fusion windup: %d"%number)
-  tap("light_attack");tap("heavy_attack")
   for i in 240:
    if not c.is_attacking():break
    var phase=c.mode+str(c.combo) if c.mode=="fusion" else c.mode

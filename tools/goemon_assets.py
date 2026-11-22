@@ -120,10 +120,16 @@ def main(argv=None):
     if args.command=='check':
         if not MANIFEST.exists():raise ValueError('No optimized manifest; run optimize first')
         manifest={'assets':selected_candidates()} if args.staged else load_manifest(MANIFEST);errors=check_manifest(manifest)
+        from prepare_crossgate_player_audio import check_local
+        errors.extend(check_local())
+        from prepare_crossgate_cosmetics import check_local as check_cosmetics
+        errors.extend(check_cosmetics())
         for item in manifest['assets']:
             if not errors and not validate_preservation(ROOT/item['source'],ROOT/item['output'])['passed']:errors.append('Preservation failed: '+item['asset'])
         if errors:print('\n'.join(errors),file=sys.stderr);return 1
         print('PASS: optimized source/output hashes, geometry, animation samples, skin binds, nodes and texture bytes')
+        print('PASS: Cross Gate player attack audio coverage, source hashes and original PCM')
+        print('PASS: recovered cosmetics and prepared character attachments')
         return 0
     candidate=next((e for e in (load_manifest(MANIFEST)['assets'] if args.imported else selected_candidates()) if e['asset']==args.asset),{})
     before=(args.before or ROOT/ASSETS[args.asset]).resolve();after=(args.after or ROOT/candidate.get('output','assets/optimized/'+args.asset+'.glb')).resolve()

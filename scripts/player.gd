@@ -19,26 +19,39 @@ var character_abilities: Dictionary={}
 var musashi: MusashiCombat
 var body_shape: CollisionShape3D
 var spell_loadout: Node
+var accessory_bonuses:Dictionary={}
 var jump_style=preload("res://scripts/jump_style.gd").new(self)
 var active_ability: Node
 var master_chief_combat: Node
 const BASIC_ATTACK_RANGE_MULTIPLIER = 1.0
 const MELEE_CONTACT_MULTIPLIER = 1.12
+const CROSSGATE_MELEE_REACH = 1.25
+const CROSSGATE_MELEE_SPEED = 1.2
+const ATTACK_SPEED_CAP = 3.0
+const BASE_MAGIC_DAMAGE = 50.0
+const GUARD_REPLY_WINDOW = .9
+const CROSSGATE_FIST_REACH = 1.25
+const CROSSGATE_FIST_SPEED = 1.25
 const BEN_DESCENT_SPEED=12.0
 const BEN_FLIGHT_ASCENT_SPEED=15.0
 const BEN_FLIGHT_BOOST_ASCENT_SPEED=24.0
 var melee_assist=preload("res://scripts/melee_assist.gd").new()
 const Proportions=preload("res://scripts/character_proportions.gd")
 const OriginalGoemon=preload("res://scripts/recovered_goemon_combat_profile.gd")
-const ROSTER={34:{"name":"Kazi","model":preload("res://scripts/crossgate_model.gd"),"combat":preload("res://scripts/crossgate_combat.gd")},33:{"name":"Mountain King","character":33,"model":preload("res://scripts/warcraft_model.gd"),"combat":preload("res://scripts/mountain_king_combat.gd")},31:{"name":"Blademaster","character":31,"model":preload("res://scripts/warcraft_model.gd"),"combat":preload("res://scripts/warcraft_combat.gd")},32:{"name":"Illidan","character":32,"model":preload("res://scripts/warcraft_model.gd"),"combat":preload("res://scripts/warcraft_combat.gd")},30:{"name":"Dark Lumina 3","role":18,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/dark_lumina_3_combat.gd")},29:{"name":"Dark Lumina 2","role":17,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},28:{"name":"Kojiro","model":preload("res://scripts/kojiro_model.gd"),"combat":preload("res://scripts/kojiro_combat.gd")},1: {"name":"Goemon", "model":preload("res://scripts/recovered_goemon_model.gd")},2: {"name":"Edo", "model":preload("res://assets/characters/musashi/model/musashi_model.gd"),"combat":preload("res://assets/characters/musashi/combat/musashi_combat.gd")},13: {"name":"Musashi","model":preload("res://scripts/recovered_musashi_model.gd"),"combat":preload("res://scripts/recovered_musashi_combat.gd")},14:{"name":"Ed","model":preload("res://scripts/recovered_ed_model.gd"),"combat":preload("res://scripts/recovered_leader_combat.gd")},15:{"name":"Ben","model":preload("res://scripts/recovered_ben_model.gd"),"combat":preload("res://scripts/recovered_leader_combat.gd")},16:{"name":"Sasuke","model":preload("res://scripts/recovered_sasuke_model.gd"),"combat":preload("res://scripts/recovered_sasuke_combat.gd")},17:{"name":"Yae","model":preload("res://scripts/recovered_yae_model.gd"),"combat":preload("res://scripts/recovered_yae_combat.gd")},18:{"name":"Master Chief","model":preload("res://scripts/master_chief_model.gd"),"combat":preload("res://scripts/master_chief_combat.gd")},19:{"name":"Sonic","model":preload("res://scripts/sonic_model.gd"),"combat":preload("res://scripts/sonic_combat.gd")},20:{"name":"Red Soldier","role":0,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},21:{"name":"Blue Gunner","role":1,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},22:{"name":"Green Spearman","role":3,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},23:{"name":"Vambee","role":6,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},24:{"name":"Haya Wolf","role":9,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},25:{"name":"Vambee Torso","role":14,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},26:{"name":"Slow Guy","role":16,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},27:{"name":"Skullpion","role":4,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")}}
+static var ROSTER=with_crossgate_fighters({33:{"name":"Mountain King","character":33,"model":preload("res://scripts/warcraft_model.gd"),"combat":preload("res://scripts/mountain_king_combat.gd")},31:{"name":"Blademaster","character":31,"model":preload("res://scripts/warcraft_model.gd"),"combat":preload("res://scripts/warcraft_combat.gd")},32:{"name":"Illidan","character":32,"model":preload("res://scripts/warcraft_model.gd"),"combat":preload("res://scripts/warcraft_combat.gd")},30:{"name":"Dark Lumina 3","role":18,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/dark_lumina_3_combat.gd")},29:{"name":"Dark Lumina 2","role":17,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},28:{"name":"Kojiro","model":preload("res://scripts/kojiro_model.gd"),"combat":preload("res://scripts/kojiro_combat.gd")},1: {"name":"Goemon", "model":preload("res://scripts/recovered_goemon_model.gd")},2: {"name":"Edo", "model":preload("res://assets/characters/musashi/model/musashi_model.gd"),"combat":preload("res://assets/characters/musashi/combat/musashi_combat.gd")},13: {"name":"Musashi","model":preload("res://scripts/recovered_musashi_model.gd"),"combat":preload("res://scripts/recovered_musashi_combat.gd")},14:{"name":"Ed","model":preload("res://scripts/recovered_ed_model.gd"),"combat":preload("res://scripts/recovered_leader_combat.gd")},15:{"name":"Ben","model":preload("res://scripts/recovered_ben_model.gd"),"combat":preload("res://scripts/recovered_leader_combat.gd")},16:{"name":"Sasuke","model":preload("res://scripts/recovered_sasuke_model.gd"),"combat":preload("res://scripts/recovered_sasuke_combat.gd")},17:{"name":"Yae","model":preload("res://scripts/recovered_yae_model.gd"),"combat":preload("res://scripts/recovered_yae_combat.gd")},18:{"name":"Master Chief","model":preload("res://scripts/master_chief_model.gd"),"combat":preload("res://scripts/master_chief_combat.gd")},19:{"name":"Sonic","model":preload("res://scripts/sonic_model.gd"),"combat":preload("res://scripts/sonic_combat.gd")},20:{"name":"Red Soldier","role":0,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},21:{"name":"Blue Gunner","role":1,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},22:{"name":"Green Spearman","role":3,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},23:{"name":"Vambee","role":6,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},24:{"name":"Haya Wolf","role":9,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},25:{"name":"Vambee Torso","role":14,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},26:{"name":"Slow Guy","role":16,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")},27:{"name":"Skullpion","role":4,"model":preload("res://scripts/recovered_enemy_model.gd"),"combat":preload("res://scripts/recovered_enemy_combat.gd")}})
 const RogueRoster=preload("res://scripts/rogue_roster.gd")
 const GroundResponse=preload("res://scripts/ground_movement_response.gd")
 var model: HeroModel
 var hp=100.0
 var max_hp=100.0
+const BASE_MANA=50.0
+const MANA_REGEN=2.0
+var mana=BASE_MANA
+var max_mana=BASE_MANA
 var progression=preload("res://scripts/level_progression.gd").new()
 var team_progression
 var facing=Vector3.FORWARD
+var room_ladder
 const COMBAT_AIM_HOLD=.28
 var combat_aim_left=0.0
 
@@ -57,6 +70,11 @@ var combo_window=0.0
 var queued=false
 var invuln=0.0
 var skullpion_poison_left=0.0
+var confusion_left=0.0
+var cursed_afflictions=PackedFloat32Array([0,0,0,0,0,0])
+var cursed_poison_tick=0.0
+var cursed_status_source=0
+var cursed_status_active=false
 var combat_hold_left=0.0
 var combat_hold_source=-1
 var dodge_time=0.0
@@ -114,8 +132,19 @@ const MAX_ATTACK_SPEED_STACKS=4
 var attack_speed_stacks=0
 var elemental_orbs={"ice":0,"fire":0}
 var powerups={"damage":0.0,"range":0.0,"attack_speed":0.0}
+const FOOD_BUFF_SECONDS=600.0
+const FOOD_MULTIPLIERS={"damage_mult":1.3,"max_hp":1.3,"attack_speed":1.2,"movement_speed":1.2}
+const FOOD_DEFENSE_PER_STACK=20.0
+var food_buffs={"damage_mult":0.0,"max_hp":0.0,"attack_speed":0.0,"movement_speed":0.0,"defense":0.0}
+var double_edge_left=0.0
+var double_edge_penalty=0.0
+var food_buff_stacks={"damage_mult":0,"max_hp":0,"attack_speed":0,"movement_speed":0,"defense":0}
 var smoke_mode=false
+var defend_held=false
+var guard_reply_left=0.0
+var crossgate_attack_serial=0
 var smoke_move=Vector2.ZERO
+var timed_dodge
 
 func hold_combat_aim():
 	if game.has_method("forest_enemy_visible"):combat_aim_left=COMBAT_AIM_HOLD
@@ -134,6 +163,7 @@ func combat_aiming()->bool:
 	return true
 
 func _ready():
+	timed_dodge=preload("res://scripts/forest/timed_dodge.gd").new();timed_dodge.hero=self;add_child(timed_dodge)
 	spell_loadout=preload("res://scripts/spells/spell_loadout.gd").new();spell_loadout.hero=self;add_child(spell_loadout)
 	original_pipe_combat=preload("res://scripts/recovered_goemon_pipe_combat.gd").new(self)
 	weapon_controls=preload("res://scripts/goemon_weapon_controls.gd").new(self)
@@ -177,12 +207,22 @@ func _setup_initial_model():
 	add_child(model)
 	character_models[1]=model
 
+static func with_crossgate_fighters(entries:Dictionary)->Dictionary:
+	var visual=preload("res://scripts/crossgate_model.gd")
+	var melee=preload("res://scripts/crossgate_combat.gd")
+	var throwing=preload("res://scripts/maze_combat.gd")
+	for id in RogueRoster.CROSSGATE:
+		entries[id]={"name":RogueRoster.name_for(id),"character":id,"model":visual,
+			"combat":throwing if RogueRoster.has_crossgate_throws(id) else melee}
+	return entries
+
 func _notification(what:int):
 	if what==NOTIFICATION_APPLICATION_FOCUS_OUT and is_instance_valid(game) and is_instance_valid(model):
 		cancel_charge(true);reset_auto_attack()
 
 func _input(event):
 	if ai_controlled:return
+	if event.is_action_released("defend"):defend_held=false
 	if spell_loadout!=null:
 		if event is InputEventKey and not event.pressed and spell_loadout.number_event(event):return
 		spell_loadout.release_input(event)
@@ -192,9 +232,33 @@ func _input(event):
 	if active_ability!=null and active_ability.has_method("release_input"):active_ability.release_input(event)
 
 func _unhandled_input(event):
-	if ai_controlled or combat_hold_left>0:return
+	if ai_controlled:return
 	if not game.playing or game.paused or game.transitioning or hp<=0: return
+	if event.is_action_pressed("heavy_attack") and RogueRoster.is_crossgate_fighter(character_id) and game.has_method("issue_hound_order") and game.model.phase=="wave":
+		game.issue_hound_order(game.army_runtime.HoundOrder.ATTACK)
+		get_viewport().set_input_as_handled();return
+	if combat_hold_left>0 or timed_dodge.rescue_left>0:return
 	clear_character_cooldowns()
+	if event.is_action("timed_dodge",true):
+		if event.is_action_pressed("timed_dodge",false,true) and not event.is_echo():
+			if timed_dodge.press() and RogueRoster.is_crossgate_fighter(character_id):active_ability.primary_hold_target=null
+		get_viewport().set_input_as_handled();return
+	if RogueRoster.is_crossgate_fighter(character_id):
+		if event.is_action("dodge"):
+			get_viewport().set_input_as_handled();return
+		if event.is_action_pressed("defend"):
+			if not event.is_echo():
+				defend_held=true
+				active_ability.primary_hold_target=null
+				active_ability.state.erase("next_primary_target")
+				active_ability.state.erase("next_area_skill")
+			get_viewport().set_input_as_handled();return
+		if defend_held and not (event.is_action("jump") or event.is_action("character_toggle")):
+			if spell_loadout.number_event(event):get_viewport().set_input_as_handled()
+			return
+	if shin_cast_planted() and event.is_action_pressed("jump"):
+		get_viewport().set_input_as_handled();return
+	if RogueRoster.has_crossgate_throws(character_id) and active_ability.assassinating():return
 	if event.is_action_pressed("auto_attack_toggle") and not event.is_echo():
 		if game.camera_combat() and not is_master_chief():set_auto_attack(not auto_attack_enabled)
 		get_viewport().set_input_as_handled();return
@@ -234,14 +298,12 @@ func _unhandled_input(event):
 		else:active_ability.input(event)
 		return
 	if event.is_action_pressed("jump") and not event.is_echo():
+		defend_held=false
 		if movement_jump_available():
 			jump_buffer=.15
 		return
 	if event.is_action_pressed("dodge") and not event.is_echo() and dodge_cooldown<=0:
-		interrupt_attack_for_movement()
-		if game.camera_combat() or game.rogue_battle_mode:facing=rogue_dodge_direction()
-		attack_chain.active_ticket["move_audio"]=game.move_audio.begin(self,"evade")
-		dodge_time=.28;dodge_cooldown=.75;invuln=.32;play_sound("dash",1.0,attack_chain.active_ticket)
+		start_evade()
 		return
 	if character_id==1 and event.is_action_pressed("weapon_coin") and not event.is_echo():
 		quick_attacks.request(2);return
@@ -260,8 +322,6 @@ func _unhandled_input(event):
 	for number in [1,3]:
 		if event.is_action_pressed({1:"weapon_pipe",2:"weapon_coin",3:"weapon_chain"}[number]) and not event.is_echo():
 			quick_attacks.request(number);return
-	if event.is_action_pressed("scarf_toggle") and not event.is_echo():set_scarf_equipped(not scarf_equipped or gold_cloak)
-	if event.is_action_pressed("gold_cloak") and not event.is_echo():set_gold_cloak(not gold_cloak)
 	if event.is_action_pressed("surge") and not event.is_echo(): activate_surge()
 	if (event.is_action_pressed("light_attack") or event.is_action_pressed("heavy_attack")) and not event.is_echo():
 		if game.rogue_battle_mode:rogue_controls.input(event)
@@ -271,9 +331,18 @@ func _unhandled_input(event):
 		soft_target=not soft_target
 		game.toast("Soft targeting ON" if soft_target else "Soft targeting OFF")
 
+func start_evade():
+	if dodge_cooldown>0:return
+	defend_held=false
+	interrupt_attack_for_movement()
+	if game.camera_combat() or game.rogue_battle_mode:facing=rogue_dodge_direction()
+	attack_chain.active_ticket["move_audio"]=game.move_audio.begin(self,"evade")
+	dodge_time=.28;dodge_cooldown=.75;invuln=.32;play_sound("dash",1.0,attack_chain.active_ticket)
+
 func rogue_dodge_direction()->Vector3:
 	var move=Input.get_vector("move_left","move_right","move_forward","move_back")
-	return Vector3(move.x,0,move.y).rotated(Vector3.UP,game.camera_rig.yaw).normalized() if move.length_squared()>.01 else combat_attack_direction()
+	if move.length_squared()>.01:return Vector3(move.x,0,move.y).rotated(Vector3.UP,game.camera_rig.yaw).normalized()
+	return combat_attack_direction()
 
 func start_attack(heavy: bool, stage: int=1, charged: bool=false, power: float=1.0,action: String=""):
 	if character_id==1 and weapon_slot!=2:combat_aim_left=0
@@ -355,7 +424,7 @@ func uses_rogue_pipe_profile()->bool:
 	return game.rogue_roster_mode and game.rogue_battle_mode and character_id==1 and weapon_slot==1 and not attack_heavy and not attack_charged and not wide_swing and attack_ticket.get("action","")=="pipe"
 
 # Hero-owned audio carries its source even when this Hero is an allied defender.
-func play_sound(kind: String,volume: float=1.0,ticket: Dictionary={}):
+func play_sound(kind: String,volume: float=1.0,ticket: Dictionary={},original_override:AudioStream=null):
 	if ai_controlled and not game.move_audio.ally_nearby(game,global_position):return
 	if kind in ["step","musashi_step_0","musashi_step_1","dark_lumina_2_step"]:
 		# Movement upgrades must not turn ground contacts into a burst of audio.
@@ -364,7 +433,7 @@ func play_sound(kind: String,volume: float=1.0,ticket: Dictionary={}):
 	if kind=="land" and character_id==29:
 		kind="dark_lumina_2_slam"
 		if active_ability!=null and active_ability.is_attacking() and active_ability.action==active_ability.Dark.SLAM:active_ability.state.landing_sound=true
-	game.sound(kind,volume,false,attack_ticket if ticket.is_empty() else ticket,character_id)
+	game.sound(kind,volume,false,attack_ticket if ticket.is_empty() else ticket,character_id,original_override)
 
 func play_swing_sound():
 	swing_played=true
@@ -425,7 +494,8 @@ func strike(spell_combat:Node=null):
 		if musashi_attack and not sword_combat.can_hit_target(e):continue
 		var dif=hurt-global_position
 		var radial=musashi_attack and sword_combat.mode in ["rotation","counter"]
-		if dif.length()<reach+e.body_radius and absf(dif.y)<3.5*contact_size and (radial or attack_charged or facing.dot(dif.normalized())>-0.12):
+		var blade_contact=musashi_attack and not radial
+		if blade_contact or (dif.length()<reach+e.body_radius and absf(dif.y)<3.5*contact_size and (radial or attack_charged or facing.dot(dif.normalized())>-0.12)):
 			var ray=PhysicsRayQueryParameters3D.create(global_position+Vector3.UP*probe_size,AttackChain.contact_point(e,global_position+Vector3.UP*probe_size,e.global_position+Vector3.UP),1)
 			if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty(): continue
 			var damage=combat_tuning("charged_damage")*charge_power if attack_charged else (48 if attack_heavy else (30 if combo==3 else 22))
@@ -450,34 +520,111 @@ func strike(spell_combat:Node=null):
 		game.chain_timer=3.0
 	if bonus:ComboEnergy.melee_attack(self,attack_ticket,5.0*melee_range_multiplier(),cross)
 
+func try_kagerou_dodge(direction:Vector3)->bool:
+	if hp<=0 or not RogueRoster.is_crossgate_fighter(character_id) or not active_ability.kagerou_enabled or active_ability.blocks_movement():return false
+	var skill=preload("res://scripts/spells/skill_balance.gd")
+	var chance=clampf(float(skill.rules_for(self,"kazi/kagerou").get("chance",1.0))+skill.modifier(self,"kazi/kagerou","chance"),0,1)
+	if randf()>=chance:return false
+	if model.show_kagerou_dodge(direction):play_sound("cg_kagerou_dodge")
+	return true
+
+func try_stat_dodge(direction:Vector3)->bool:
+	if not RogueRoster.is_crossgate_fighter(character_id) or ai_controlled:return false
+	if model.kagerou_tick>=0 and not model.kagerou_afterimages and not timed_dodge.reacting:return true
+	if randf()*100>=effective_dodge_chance():return false
+	model.show_kagerou_dodge(direction,false)
+	return true
+
 func take_hit(amount: float, direction: Vector3, projectile: bool=false):
-	if spell_loadout!=null:
+	take_hit_from(amount,direction,projectile,0)
+
+func crossgate_combo_protected()->bool:
+	return RogueRoster.is_crossgate_fighter(character_id) and active_ability.combo_protected()
+
+func shin_cast_planted()->bool:
+	return RogueRoster.is_crossgate_fighter(character_id) and active_ability.shin_cast_planted()
+
+func crossgate_guarding()->bool:
+	return defend_held and not ai_controlled and RogueRoster.is_crossgate_fighter(character_id) and game.playing and not game.paused and not game.transitioning and hp>0 and is_on_floor() and dodge_time<=0 and jump_buffer<=0 and jump_windup<=0 and combat_hold_left<=0 and attack_left<=0 and active_ability.mode.is_empty() and spell_loadout.current==null
+
+func take_hit_from(amount:float,direction:Vector3,projectile:bool,source_id:int,counter:bool=false,guard_break:bool=false,magical:bool=false,fatal:bool=false,intercepted:bool=false):
+	if not intercepted and crossgate_combo_protected():return
+	var blocked=not intercepted and crossgate_guarding()
+	if guard_break and not blocked:return
+	if not intercepted and RogueRoster.is_crossgate_fighter(character_id) and not blocked and amount>0 and hp>0 and not game.tuning.invincible:
+		if dodge_time>0 or (invuln<=0 and not sky_strike.active and forward_dash.immunity_left<=0 and not melee_contact_guarded() and not active_ability.protects_player()):
+			if dodge_time>0 or try_kagerou_dodge(direction) or try_stat_dodge(direction):
+				if not counter:active_ability.counter_after_hit(direction,source_id,true)
+				return
+	if not intercepted and spell_loadout!=null:
 		amount=spell_loadout.filter_damage(amount,direction,projectile)
 		if amount<=0:return
 	if character_id==17 and projectile and active_ability!=null and active_ability.blocks_projectile(direction):return
-	if sky_strike.active or forward_dash.immunity_left>0 or invuln>0 or melee_contact_guarded() or hp<=0 or game.tuning.invincible or (active_ability!=null and active_ability.protects_player()): return
+	if hp<=0 or game.tuning.invincible:return
+	if not intercepted and (sky_strike.active or forward_dash.immunity_left>0 or invuln>0 or melee_contact_guarded() or (active_ability!=null and active_ability.protects_player())):return
 	if character_id in [13,33]:
 		amount=active_ability.filter_damage(amount,direction,projectile)
 		if amount<=0:return
-	if is_rogue_character():
+	if not intercepted and is_rogue_character():
 		amount=active_ability.filter_damage(amount,direction,projectile)
 		if amount<=0:return
-	if spell_loadout!=null:spell_loadout.interrupt()
-	if active_ability!=null:active_ability.hit()
-	hp=maxf(0,hp-amount*game.tuning.enemy_damage)
-	invuln=0.85
-	velocity+=direction*7+Vector3.UP*3
+	var previous_hp=hp
+	if blocked:
+		var travel=Vector3(direction.x,0,direction.z)
+		if not travel.is_zero_approx():facing=-travel.normalized()
+		if not guard_break:amount*=.25
+	var defense_factor=1.0-double_edge_penalty if double_edge_left>0 else 1.0
+	amount*=team_progression.stat_incoming_multiplier(food_defense(),defense_factor,magical) if uses_level_stats() else 100.0/(100.0+food_defense()*defense_factor)
+	var remaining_hp=0.0 if fatal else maxf(0,hp-amount*game.tuning.enemy_damage)
+	var retaliating=not counter and not guard_break and RogueRoster.is_crossgate_fighter(character_id) and remaining_hp>0 and remaining_hp<previous_hp and active_ability.counter_after_hit(direction,source_id)
+	if not retaliating and not blocked:
+		if spell_loadout!=null:spell_loadout.interrupt()
+		if active_ability!=null:active_ability.hit()
+	hp=remaining_hp
+	if hp<previous_hp:
+		if cursed_afflictions[1]>0:
+			cursed_afflictions[1]=0
+			if combat_hold_source==-3:
+				combat_hold_left=cursed_afflictions[2]
+				if combat_hold_left<=0:combat_hold_source=-1
+		guard_reply_left=GUARD_REPLY_WINDOW if blocked and not guard_break and hp>0 else 0.0
+		if guard_break:
+			defend_held=false
+			if hp>0:combat_hold_source=source_id;combat_hold_left=.3
+	if not counter and not guard_break and hp>0 and hp<previous_hp and RogueRoster.is_crossgate_fighter(character_id) and not retaliating:active_ability.counter_after_hit(direction,source_id,true)
+	invuln=0.0 if retaliating else 0.85
+	if not retaliating and not blocked:velocity+=direction*7+Vector3.UP*3
 	if is_rogue_character():active_ability.receive_knockback(direction)
 	game.camera_rig.impulse=0.18
-	game.burst(global_position+Vector3.UP,Color("ff6a55"),12)
-	play_sound("wc_demon_death" if character_id==32 and hp<=0 and active_ability.demon else "death" if character_id in [16,17,28,29,30,31,32,33] and hp<=0 else "hurt")
+	if hp<previous_hp and is_instance_valid(game.get("crowd")) and is_instance_valid(game.crowd.army):
+		game.crowd.army.presentation.player_hit_feedback(self,previous_hp-hp)
+	else:game.burst(global_position+Vector3.UP,Color("ff6a55"),12)
+	if blocked and not guard_break and hp>0:
+		game.crowd.army.presentation.block_feedback(global_position+Vector3.UP*model.standing_height()*.55)
+	elif not guard_break or hp<=0:play_sound("wc_demon_death" if character_id==32 and hp<=0 and active_ability.demon else "death" if character_id in [16,17,28,29,30,31,32,33] and hp<=0 else "hurt",1.8)
 	if hp<=0:
-		if character_id in [16,17,28,29,31,32,33,34] and active_ability!=null:active_ability.die()
+		if (character_id in [16,17,28,29,31,32,33] or RogueRoster.is_crossgate_fighter(character_id)) and active_ability!=null:active_ability.die()
 		game.defeat()
 
 func _physics_process(delta):
 	var original_pipe_tick:Dictionary={}
 	if not game.playing or game.paused or game.transitioning or hp<=0: return
+	guard_reply_left=maxf(0.0,guard_reply_left-delta)
+	confusion_left=maxf(0.0,confusion_left-delta)
+	if cursed_status_active:tick_cursed_afflictions(delta)
+	timed_dodge.tick(delta)
+	if timed_dodge.rescue_left>0:
+		timed_dodge.tick_rescue(delta)
+		return
+	double_edge_left=maxf(0.0,double_edge_left-delta)
+	tick_food_buffs(delta)
+	if uses_level_stats():hp=minf(max_hp,hp+health_regeneration()*delta)
+	if uses_mana():tick_mana(delta)
+	if is_instance_valid(room_ladder) and room_ladder.step(self,delta):return
+	if RogueRoster.is_crossgate_fighter(character_id):
+		model.tick_kagerou_dodge(delta)
+		active_ability.tick_shin_counter(delta)
+		active_ability.tick_primary_combo(delta)
 	foot_time=maxf(0,foot_time-delta)
 	clear_character_cooldowns()
 	if jump_style.active():
@@ -540,6 +687,16 @@ func _physics_process(delta):
 	if active_ability!=null:
 		active_ability.tick(delta,false)
 		if active_ability.blocks_movement():return
+	if shin_cast_planted():
+		jump_buffer=0;jump_windup=0
+		invuln=maxf(0,invuln-delta)
+		velocity=Vector3.ZERO if is_on_floor() else Vector3(0,minf(0,velocity.y)-30*delta,0)
+		move_and_slide()
+		model.locomotion_velocity=Vector3.ZERO
+		model.visible=true
+		model.animate(delta,0,is_on_floor(),velocity.y,0,false,0,false)
+		_finish_movement_bounds()
+		return
 	if character_id==13:
 		_physics_musashi(delta)
 		return
@@ -560,6 +717,8 @@ func _physics_process(delta):
 		air_turn=0
 	else: coyote-=delta
 	var input=Vector2(ai_move.x,ai_move.z) if ai_controlled else (smoke_move if smoke_mode else Input.get_vector("move_left","move_right","move_forward","move_back"))
+	if confusion_left>0:input=-input
+	if cursed_afflictions[3]>0:input=input.rotated(sin(cursed_afflictions[3]*5.0)*.65)*.65
 	if character_id==2 and musashi.is_casting_meteors():input=Vector2.ZERO
 	var yaw=0.0 if ai_controlled else game.camera_rig.yaw
 	var dir=Vector3(input.x,0,input.y).rotated(Vector3.UP,yaw)
@@ -571,23 +730,25 @@ func _physics_process(delta):
 	var speed=combat_tuning("sprint_speed") if boosting else combat_tuning("walk_speed")
 	var response_speed=speed*movement_multiplier()
 	if walking: speed=minf(speed,2.2)
+	if crossgate_guarding():speed=minf(speed,2.2)
 	if character_id==13:
 		if active_ability.guarding():speed=minf(speed,2.16)
 		elif active_ability.mode in ["rotation","counter"]:speed=0
 	speed*=movement_multiplier()
 	if flying:speed=jump_style.flight_speed()
 	var forest_melee=game.has_method("forest_enemy_visible") and character_id==1 and weapon_slot==1
+	var attack_slows_movement=attack_left>0 and not (RogueRoster.is_crossgate_archer(character_id) or (RogueRoster.has_crossgate_throws(character_id) and active_ability.is_throwing_kunai()))
 	if forest_melee and attack_left>0 and not hit_done:
 		var angle=melee_assist.steer(self,atan2(facing.x,facing.z),delta)
 		facing=Vector3(sin(angle),0,cos(angle))
-	if attack_left>0 and not forest_melee:
+	if attack_slows_movement and not forest_melee:
 		if uses_rogue_pipe_profile():
 			# Rogue slows only the windup, leaving recovery free to reposition.
 			if attack_duration-attack_left<rogue_pipe_combo.CONTACT_TIME:speed*=0.5
 		else:speed*=0.42
 	var accel=GroundResponse.acceleration(Vector3(velocity.x,0,velocity.z),dir,response_speed) if is_on_floor() else (40.0 if jumps_used>=2 else 24.0)*movement_multiplier()
 	var strike_planted=_grounded_pipe_plant(attack_delta)
-	if is_on_floor() and (attack_left>0 or attack_motion_pending or velocity.y>0) and (not forest_melee or velocity.y>0):
+	if is_on_floor() and (attack_slows_movement or attack_motion_pending or velocity.y>0) and (not forest_melee or velocity.y>0):
 		# Pipe lunges and the takeoff tick of a hit reaction share this velocity.
 		# Preserve their authored travel while ordinary grounded control is quicker.
 		var reversing=dir.length()>.1 and Vector3(velocity.x,0,velocity.z).normalized().dot(dir.normalized())<-.45
@@ -616,7 +777,7 @@ func _physics_process(delta):
 			if not assist_motion.is_zero_approx():move_and_collide(assist_motion*delta)
 		if attack_left<=0 and horizontal_velocity.distance_to(Vector2(dir.x,dir.z)*speed)<.001:
 			attack_motion_pending=false
-	if character_id==13 and active_ability.guarding():pass
+	if crossgate_guarding() or (character_id==13 and active_ability.guarding()) or (RogueRoster.is_crossgate_fighter(character_id) and active_ability.controls_primary_facing()):pass
 	elif (is_master_chief() or is_meta_shooter()) and dodge_time<=0:
 		facing=Vector3.FORWARD.rotated(Vector3.UP,yaw)
 	elif combat_aiming() and (character_id==2 or weapon_slot==2 or attack_left<=0):
@@ -657,9 +818,12 @@ func _physics_process(delta):
 			coyote=0
 			game.burst(global_position,Color("e8dab0"),7)
 			play_sound("jump")
+	var ordinary_drop=not flying
 	if character_id==16 and active_ability!=null and active_ability.controls_vertical_motion():
+		ordinary_drop=false
 		velocity.y=active_ability.vertical_velocity(delta)
 	elif character_id==15 and active_ability!=null and active_ability.bomb_controls_flight():
+		ordinary_drop=false
 		velocity.y=active_ability.bomb_vertical_velocity(delta,lifting,boosting)
 	elif jump_style.active():
 		jump_style.step(delta,dodge_time<=0 and not forward_dash.active)
@@ -667,7 +831,9 @@ func _physics_process(delta):
 		velocity.y=-BEN_DESCENT_SPEED
 	elif flying:
 		velocity.y=move_toward(velocity.y,(BEN_FLIGHT_BOOST_ASCENT_SPEED if boosting else BEN_FLIGHT_ASCENT_SPEED) if character_id==15 else ((32.0 if boosting else 18.0) if lifting else -10.0),120.0*delta if character_id==15 else 60.0*delta)
-	elif character_id in [27,29]:active_ability.step_leap(delta,dir)
+	elif character_id in [27,29]:
+		ordinary_drop=not active_ability.is_attacking()
+		active_ability.step_leap(delta,dir)
 	elif not is_on_floor(): velocity.y=maxf(velocity.y-30*delta,-55.0) if game.descent_mode else velocity.y-30*delta
 	if character_id==1 and weapon_slot!=3 and attack_left>0:
 		var original_from=attack_duration-attack_left
@@ -706,13 +872,16 @@ func _physics_process(delta):
 			var raised=global_transform
 			raised.origin.y+=0.32
 			if not test_move(raised,motion): position.y+=0.32
-	if (character_id in [14,15,16,17,28,31,32,33,34] or RogueRoster.is_enemy(character_id)) and active_ability!=null:
+	if (character_id in [14,15,16,17,28,31,32,33] or RogueRoster.is_crossgate_fighter(character_id) or RogueRoster.is_enemy(character_id)) and active_ability!=null:
 		var authored_motion: Vector3=active_ability.ground_attack_velocity()
 		if authored_motion!=Vector3.INF:
 			velocity.x=authored_motion.x;velocity.z=authored_motion.z
-			if active_ability.mode=="smoke_assault":velocity.y=authored_motion.y
+			if active_ability.mode=="smoke_assault":
+				ordinary_drop=false
+				velocity.y=authored_motion.y
 	var before_move=global_position
-	move_and_slide()
+	if ordinary_drop:move_with_jump_drop()
+	else:move_and_slide()
 	remember_wall_contact()
 	forward_dash.after_move(before_move,delta)
 	model.locomotion_velocity=(global_position-before_move)/maxf(delta,0.0001)
@@ -739,7 +908,7 @@ func _physics_process(delta):
 	flight_lean=lerpf(flight_lean,(-.28 if boosting else -.18) if flying else 0.0,1-exp(-delta*9))
 	if character_id==1:model.body.rotation.x+=flight_lean
 	air_turn=maxf(0,air_turn-delta)
-	if air_turn>0 and character_id not in [13,14,15,16,17,18,19,28,31,32,33,34] and not RogueRoster.is_enemy(character_id):
+	if air_turn>0 and character_id not in [13,14,15,16,17,18,19,28,31,32,33] and not RogueRoster.is_crossgate_fighter(character_id) and not RogueRoster.is_enemy(character_id):
 		if scarf_equipped and character_id==1:
 			var progress=clampf(1-air_turn/.42,0,1)
 			var tuck=sin(PI*progress)
@@ -778,7 +947,7 @@ func _physics_process(delta):
 			if heavy_buffer>0:
 				heavy_buffer=0;start_attack(true)
 			elif not attack_heavy and combo<3 and (not game.rogue_battle_mode or (quick_attacks.active and quick_attacks.action==1)):start_attack(false,combo+1)
-	model.visible=not (invuln>0 and int(invuln*20)%2==0) and not ((is_master_chief() or is_meta_shooter()) and is_instance_valid(game.camera_rig) and game.camera_rig.first_person_mode)
+	model.visible=not ((is_master_chief() or is_meta_shooter()) and is_instance_valid(game.camera_rig) and game.camera_rig.first_person_mode)
 	_update_footsteps(horizontal)
 	trail_time-=delta
 	if horizontal>14 and trail_time<=0:
@@ -786,6 +955,19 @@ func _physics_process(delta):
 		game.wind(global_position+Vector3(0,0.8,0),-facing)
 	_finish_movement_bounds()
 	if character_id==2:musashi.after_pose()
+
+func move_with_jump_drop():
+	if ai_controlled or velocity.y>=0 or is_on_floor():
+		move_and_slide()
+		return
+	var scale_y=combat_tuning("jump_drop_speed")
+	if scale_y==1.0:
+		move_and_slide()
+		return
+	# Scale this tick's descent once. Keep the controller's momentum for the next tick.
+	velocity.y*=scale_y
+	move_and_slide()
+	if velocity.y<0:velocity.y/=scale_y
 
 func _update_footsteps(horizontal:float):
 	if model.locomotion.step_events==last_foot_events:return
@@ -796,8 +978,8 @@ func _update_footsteps(horizontal:float):
 	if character_id!=29:play_sound("step",.65 if character_id in SoundLibrary.GOEMON_FOOTSTEP_IDS else .22)
 
 func _physics_musashi(delta:float):
-	# Keep source speed, acceleration, jump cut and L-Belt double jump isolated
-	# from the shared cape, coyote, wall-hop, sprint and progression modifiers.
+	# Run tuning scales horizontal source travel; jump, combat and source clocks
+	# stay isolated from cape, coyote, wall-hop, sprint and progression modifiers.
 	invuln=maxf(0,invuln-delta)
 	dodge_time=maxf(0,dodge_time-delta);dodge_cooldown=maxf(0,dodge_cooldown-delta)
 	var input=Vector2(ai_move.x,ai_move.z) if ai_controlled else (smoke_move if smoke_mode else Input.get_vector("move_left","move_right","move_forward","move_back"))
@@ -819,7 +1001,7 @@ func _physics_musashi(delta:float):
 	model.locomotion_velocity=(global_position-before)/maxf(delta,.000001)
 	if is_on_floor() and not grounded and vertical_before<0:play_sound("land")
 	model.animate(delta,Vector2(velocity.x,velocity.z).length(),is_on_floor(),velocity.y,attack_left/attack_duration,attack_heavy,combo,false)
-	model.visible=not (invuln>0 and int(invuln*20)%2==0)
+	model.visible=true
 	was_floor=is_on_floor()
 	_finish_movement_bounds()
 
@@ -842,13 +1024,21 @@ func _finish_movement_bounds():
 
 func constrain_forest_bounds()->bool:
 	if not game.has_method("forest_point_visible"):return false
+	var water_floor:float=game.world.water_support_height(global_position)
+	if is_finite(water_floor) and global_position.y<water_floor-.10:
+		global_position.y=water_floor+.02
+		velocity.y=maxf(velocity.y,0.0)
+	if game.world.model.falan_area!="interior" and (not game.world.model.terrain_detail.is_empty() or not game.world.model.falan_area.is_empty()) and game.world.submerged(global_position):
+		global_position=game.checkpoint;velocity=Vector3.ZERO;jumps_used=0;reset_wall_jump();reset_physics_interpolation();game.camera_rig.reset_follow()
+		return true
 	var bounds=game.world.playable_bounds.grow(-(25.0 if character_id==27 else 4.032*preload("res://scripts/forest/dark_lumina_kit.gd").SCALE if character_id==29 else 2.0)*growth_multiplier())
 	var edge_x=clampf(global_position.x,bounds.position.x,bounds.end.x)
 	var edge_z=clampf(global_position.z,bounds.position.y,bounds.end.y)
 	if edge_x!=global_position.x:global_position.x=edge_x;velocity.x=0
 	if edge_z!=global_position.z:global_position.z=edge_z;velocity.z=0
-	if global_position.y< -5:
-		global_position.y=.15;velocity=Vector3.ZERO;jumps_used=0;reset_wall_jump();game.camera_rig.reset_follow()
+	var floor_y:float=room_ladder.to_global(room_ladder.BOTTOM_EXIT).y if is_instance_valid(room_ladder) else 0.0
+	if global_position.y<floor_y-5.0:
+		global_position.y=floor_y+.15;velocity=Vector3.ZERO;jumps_used=0;reset_wall_jump();game.camera_rig.reset_follow()
 		if character_id==13:model.locomotion.reset()
 	return true
 
@@ -888,6 +1078,14 @@ func perform_wall_jump():
 	game.burst(global_position-wall_jump_normal*0.38+Vector3.UP*0.7,Color("e7d3a3"),7)
 	play_sound("land")
 
+func swap_weapon():
+	if hp<=0:return
+	if RogueRoster.is_crossgate_fighter(character_id) and preload("res://scripts/forest/equipment.gd").cycle(self):return
+	if character_id==1:
+		if weapon_controls.available():select_weapon(1+weapon_slot%3)
+	elif is_master_chief():master_chief_combat.select_slot(1+master_chief_combat.weapon_slot%5)
+	elif active_ability!=null and active_ability.has_method("swap_weapon"):active_ability.swap_weapon()
+
 func select_weapon(slot: int):
 	if is_master_chief():master_chief_combat.select_slot(slot);return
 	if slot not in [1,2,3]:return
@@ -913,6 +1111,8 @@ func set_weapon_visual(slot: int):
 
 
 func cancel_charge(preserve_power: bool=false,preserve_battle_hold: bool=false):
+	defend_held=false
+	guard_reply_left=0.0
 	if jump_style.active():jump_buffer=0;jump_windup=0
 	if spell_loadout!=null:spell_loadout.cancel(preserve_power)
 	if weapon_controls!=null:weapon_controls.cancel()
@@ -937,6 +1137,12 @@ func skill_factor(ticket:Dictionary,key:String)->float:
 
 func contact_size_multiplier()->float:
 	return character_size_multiplier()*growth_multiplier()
+
+func hit_effect_scale()->float:
+	var body_size=character_size_multiplier()
+	if character_id==15:body_size=Proportions.BEN_HEIGHT/Proportions.GOEMON_HEIGHT
+	elif character_id==2:body_size=Proportions.EDO_HEIGHT/Proportions.GOEMON_HEIGHT
+	return body_size*(model.global_basis.y.length() if is_instance_valid(model) else growth_multiplier())
 
 func _fit_character_capsule():
 	if not is_instance_valid(body_shape):return
@@ -967,7 +1173,7 @@ func _clear_large_character_spawn():
 		for sector in (1 if ring==0 else 12):
 			var point=origin+Vector3(sin(sector*TAU/12),0,cos(sector*TAU/12))*ring*20
 			if not bounds.has_point(Vector2(point.x,point.z)):continue
-			point.y=game.model.surface_height(point.x,point.z)+.08
+			point.y=game.world.height_at(point.x,point.z)+.08
 			query.transform=global_transform*body_shape.transform;query.transform.origin=point+body_shape.position*growth_multiplier()
 			if get_world_3d().direct_space_state.intersect_shape(query,1).is_empty():
 				global_position=point;velocity=Vector3.ZERO;return
@@ -980,10 +1186,11 @@ func grow_from_building():
 	game.toast("BUILDING BROKEN · Size and reach ×%.2f" % growth_multiplier())
 
 func range_multiplier()->float:
-	return growth_multiplier()*(combat_tuning("surge_range") if surge_left>0 else 1.0)*pickup_multiplier("range")
+	return growth_multiplier()*(combat_tuning("surge_range") if surge_left>0 else 1.0)*pickup_multiplier("range")*float(accessory_bonuses.get("range",1.0))
 
 func melee_range_multiplier()->float:
-	return range_multiplier()*melee_reach_setting()*(combat_tuning("surge_range") if attack_charged and surge_left<=0 else 1.0)
+	var fist_reach=CROSSGATE_FIST_REACH if RogueRoster.is_crossgate_fighter(character_id) and model!=null and model.current_weapon()=="unarmed" else 1.0
+	return fist_reach*range_multiplier()*melee_reach_setting()*(CROSSGATE_MELEE_REACH if RogueRoster.is_crossgate_fighter(character_id) else 1.0)*(combat_tuning("surge_range") if attack_charged and surge_left<=0 else 1.0)
 
 func melee_reach_setting()->float:
 	return combat_tuning("melee_reach")*(spell_loadout.melee_multiplier() if spell_loadout!=null and not spell_loadout.dispatching else 1.0)*(team_progression.multiplier("player_range") if team_progression!=null and game.player==self else 1.0)
@@ -1012,7 +1219,7 @@ func _grounded_pipe_plant(step: float)->bool:
 	return GroundResponse.strike_planted(attack_duration-attack_left,contact,attack_duration,step)
 
 func melee_strike_reach()->float:
-	if character_id==34:return (active_ability.REACH+active_ability.RADIUS)*melee_range_multiplier()
+	if RogueRoster.is_crossgate_fighter(character_id):return active_ability.melee_visual_reach()
 	if character_id in [16,17] and active_ability!=null:return active_ability.melee_reach()
 	if character_id==15:return 2.9*preload("res://scripts/character_proportions.gd").BEN_MODEL_SCALE*growth_multiplier()*pickup_multiplier("range")*melee_reach_setting()
 	if character_id==13:return (2.1 if attack_heavy else 1.8)*contact_size_multiplier()*pickup_multiplier("range")*melee_reach_setting()
@@ -1027,6 +1234,7 @@ func emit_robe_coins(radial: bool=false):
 
 func movement_multiplier()->float:
 	var spell_speed=spell_loadout.movement_multiplier() if spell_loadout!=null else 1.0
+	spell_speed*=food_multiplier("movement_speed")*float(accessory_bonuses.get("movement_speed",1.0))
 	if is_master_chief():return progression.movement_multiplier()*spell_speed*(.55 if skullpion_poison_left>0 else 1.0)
 	return (preload("res://scripts/forest/forest_enemy_roles.gd").BOSS_MOVE_SPEED if character_id==27 else preload("res://scripts/forest/dark_lumina_kit.gd").MOVE_SPEED if character_id==29 else preload("res://scripts/forest/dark_lumina_3_kit.gd").MOVE_SPEED if character_id==30 else 1.0)*progression.movement_multiplier()*spell_speed*(3.0 if scarf_equipped else 1.0)*(.55 if skullpion_poison_left>0 else 1.0)
 
@@ -1039,6 +1247,7 @@ func maximum_jumps()->int:
 	return 2
 
 func can_fly()->bool:
+	if not ai_controlled and game.has_method("forest_enemy_visible"):return false
 	return (spell_loadout!=null and spell_loadout.flight_enabled) or (jump_style.selected=="ben" if jump_style.active() else character_id==15 or (character_id==32 and active_ability!=null and active_ability.demon) or (character_id==30 and not (active_ability!=null and active_ability.is_attacking() and active_ability.move==4))) or (not is_master_chief() and gold_cloak and scarf_equipped)
 
 func set_gold_cloak(value: bool):
@@ -1087,9 +1296,11 @@ func clear_character_cooldowns():
 	if spell_loadout!=null:spell_loadout.clear_cooldowns()
 
 func select_character(id: int):
+	if timed_dodge!=null:timed_dodge.reset()
 	combat_hold_left=0;combat_hold_source=-1
 	if ai_controlled and (id in [18,19,28] or RogueRoster.is_enemy(id)):return
 	if id==character_id:
+		if RogueRoster.is_crossgate_fighter(id):preload("res://scripts/forest/equipment.gd").apply(self)
 		spell_loadout.prepare()
 		clear_character_cooldowns()
 		if not ai_controlled and game.rogue_roster_mode and id in RogueRoster.PLAYABLE_IDS:game.selected_rogue_id=id
@@ -1104,10 +1315,12 @@ func select_character(id: int):
 	if surge_left>0:end_surge()
 	if character_abilities.has(character_id):character_abilities[character_id].active=false
 	var rotation_before=model.rotation
+	if RogueRoster.is_crossgate_fighter(character_id):model.reset_jump_pose()
 	model.hide();model.set_process(false)
 	attack_left=0;attack_motion_pending=false;attack_charged=false;heavy_buffer=0;combo=0;queued=false;impact_pause=0;air_turn=0
 	ensure_character(id)
 	character_id=id;model=character_models[id];model.rotation=rotation_before;model.show();model.set_process(true)
+	accessory_bonuses=preload("res://scripts/forest/equipment.gd").bonuses(game.settings.get("gear_loadouts",{}),preload("res://scripts/forest/equipment.gd").character_key(id),game.settings) if RogueRoster.is_crossgate_fighter(id) else {}
 	model.scale=Vector3.ONE*combat_tuning("model_scale")
 	_fit_character_capsule()
 	if id in [27,29]:_clear_large_character_spawn()
@@ -1116,6 +1329,7 @@ func select_character(id: int):
 		var horizontal=Vector2(velocity.x,velocity.z).limit_length(combat_tuning("sprint_speed")*movement_multiplier())
 		velocity.x=horizontal.x;velocity.z=horizontal.y
 	active_ability=character_abilities.get(id)
+	if RogueRoster.is_crossgate_fighter(id):preload("res://scripts/forest/equipment.gd").apply_model(model)
 	if active_ability!=null:
 		active_ability.active=true;active_ability.cancel()
 		if id==13:active_ability.locomotion.reset();active_ability.locomotion.facing=facing
@@ -1136,7 +1350,7 @@ func select_character(id: int):
 		for i in spell_loadout.numbered_slots.size():
 			var slot:Array=spell_loadout.numbered_slots[i]
 			if not slot.is_empty():labels.append("%d %s"%[i+1,slot[0]])
-		game.toast((RogueRoster.name_for(id) if is_rogue_character() else ROSTER[id].name)+" · "+" · ".join(labels)+" · Q Skills & Jump")
+		game.toast((RogueRoster.name_for(id) if is_rogue_character() else ROSTER[id].name)+" · "+" · ".join(labels)+" · Q Fighters")
 
 func is_master_chief()->bool:
 	return character_id==18 and not ai_controlled
@@ -1165,6 +1379,9 @@ func ensure_character(id: int):
 	var visual=entry.model.new()
 	if entry.has("role"):visual.role=entry.role
 	if entry.has("character"):visual.character=entry.character
+	if id==RogueRoster.KAZI_ID:visual.kaz_skin=preload("res://scripts/kaz_skins.gd").model_skin(game.settings.kaz_skin)
+	if RogueRoster.has_variant_skins(id):visual.variant_skin=game.settings[RogueRoster.CROSSGATE[id].skin_setting]
+	if RogueRoster.is_shin(id):visual.shin_skin=game.settings[RogueRoster.ShinSkins.setting(RogueRoster.CROSSGATE[id].skin_set=="special")]
 	add_child(visual);character_models[id]=visual
 	if entry.has("combat"):
 		var ability=entry.combat.new();ability.hero=self;ability.game=game
@@ -1179,19 +1396,56 @@ func pickup_multiplier(kind: String)->float:
 	if powerups.get(kind,0.0)<=0:return 1.0
 	if kind=="attack_speed":return 1.0+.5*maxi(1,attack_speed_stacks)
 	return {"damage":1.5,"range":1.5,"attack_speed":1.5}.get(kind,1.0)
-func damage_multiplier()->float:
+func base_damage_multiplier()->float:
 	var form_damage=10.0 if character_id==32 and active_ability!=null and active_ability.demon else 1.0
 	return form_damage*(6.0 if character_id==15 else (3.0 if character_id in [1,14,16,17] else 1.0))*combat_tuning("damage_mult")*pickup_multiplier("damage")*(1.0+.1*run_upgrades.damage)*(team_progression.multiplier("character_damage") if team_progression!=null else 1.0)*(spell_loadout.damage_multiplier() if spell_loadout!=null else 1.0)
+func damage_multiplier()->float:
+	return base_damage_multiplier()*(team_progression.stat_damage_multiplier() if uses_level_stats() else 1.0)
+func magic_damage_multiplier()->float:
+	return base_damage_multiplier()*(team_progression.stat_magic_multiplier() if uses_level_stats() else 1.0)
+func base_magic_damage()->float:
+	return BASE_MAGIC_DAMAGE*magic_damage_multiplier()
+func magic_spell_damage(spell_base:float)->float:
+	var amount=spell_base*base_damage_multiplier()+base_magic_damage()
+	return amount
 func base_attack_speed_multiplier()->float:
-	return combat_tuning("attack_speed")*progression.attack_multiplier()*pickup_multiplier("attack_speed")*(1.0+.05*run_upgrades.tempo)*(team_progression.multiplier("character_speed") if team_progression!=null else 1.0)
+	var melee_speed=CROSSGATE_MELEE_SPEED if RogueRoster.is_crossgate_fighter(character_id) and model!=null and model.current_weapon() not in ["bow","kunai","boomerang"] else 1.0
+	if RogueRoster.is_crossgate_fighter(character_id) and model!=null and model.current_weapon()=="unarmed":melee_speed*=CROSSGATE_FIST_SPEED
+	return melee_speed*combat_tuning("attack_speed")*progression.attack_multiplier()*pickup_multiplier("attack_speed")*(1.0+.05*run_upgrades.tempo)*(team_progression.multiplier("character_speed") if team_progression!=null else 1.0)*(team_progression.stat_attack_multiplier() if uses_level_stats() else 1.0)
 func attack_speed_multiplier()->float:
 	var chain_rate=active_ability.ranger_fire_rate_multiplier() if is_rogue_character() and active_ability!=null and active_ability.class_id=="ranger" else attack_chain.multiplier()
-	return base_attack_speed_multiplier()*chain_rate*(spell_loadout.attack_multiplier() if spell_loadout!=null and not spell_loadout.dispatching else 1.0)
+	return minf(ATTACK_SPEED_CAP,base_attack_speed_multiplier()*chain_rate*(spell_loadout.attack_multiplier() if spell_loadout!=null and not spell_loadout.dispatching else 1.0))
+
+func uses_level_stats()->bool:return team_progression!=null and game.player==self
+func uses_mana()->bool:return not ai_controlled and uses_level_stats() and RogueRoster.is_crossgate_fighter(character_id)
+
+func can_pay_skill(id:String,notify:bool=false)->bool:
+	if not uses_mana() or mana+0.0001>=spell_loadout.Catalog.mana_cost(id):return true
+	if notify:game.toast("Not enough mana")
+	return false
+
+func spend_skill_mana(id:String,notify:bool=true)->bool:
+	if not can_pay_skill(id,notify):return false
+	if uses_mana():mana=maxf(0.0,mana-spell_loadout.Catalog.mana_cost(id))
+	return true
+
+func refund_skill_mana(id:String):
+	if uses_mana():mana=minf(max_mana,mana+spell_loadout.Catalog.mana_cost(id))
+
+func tick_mana(delta:float):
+	var drain:float=spell_loadout.Catalog.KAGEROU_MANA_PER_SECOND if active_ability.kagerou_enabled else 0.0
+	mana=clampf(mana+(MANA_REGEN-drain)*delta,0.0,max_mana)
+	if drain>0 and mana<=0:active_ability.disable_kagerou()
+
+func level_health_bonus()->float:return team_progression.stat_health_bonus() if uses_level_stats() else 0.0
 
 func refresh_max_health(heal_growth: bool=false):
 	var previous=max_hp
 	max_hp=combat_tuning("max_hp")*progression.health_multiplier()*(1.0+.1*run_upgrades.vitality)
+	max_hp+=level_health_bonus()
 	if character_id==33 and active_ability!=null and active_ability.demon:max_hp+=500
+	max_hp*=food_multiplier("max_hp")
+	max_hp+=float(accessory_bonuses.get("health",0.0))
 	hp=minf(max_hp,hp+(maxf(0,max_hp-previous) if heal_growth else 0.0))
 
 func award_kill():
@@ -1225,15 +1479,46 @@ func clear_powerups():
 	if is_instance_valid(game.orb_system):game.orb_system.pending.clear()
 	attack_speed_stacks=0
 	for kind in powerups:powerups[kind]=0.0
+	clear_food_buffs()
+
+func food_multiplier(kind:String)->float:
+	return 1.0+(FOOD_MULTIPLIERS.get(kind,1.0)-1.0)*food_buff_stacks[kind] if food_buffs.get(kind,0.0)>0 else 1.0
+
+func food_defense()->float:return FOOD_DEFENSE_PER_STACK*food_buff_stacks.defense
+
+func apply_food_buff(kind:String)->bool:
+	if not food_buffs.has(kind) or hp<=0:return false
+	food_buff_stacks[kind]+=1
+	food_buffs[kind]=FOOD_BUFF_SECONDS
+	if kind=="max_hp":refresh_max_health(true)
+	return true
+
+func tick_food_buffs(delta:float):
+	var health_was_active=food_buffs.max_hp>0
+	for kind in food_buffs:
+		food_buffs[kind]=maxf(0,food_buffs[kind]-maxf(0,delta))
+		if food_buffs[kind]<=0:food_buff_stacks[kind]=0
+	if health_was_active and food_buffs.max_hp<=0:refresh_max_health()
+
+func clear_food_buffs():
+	var health_was_active=food_buffs.max_hp>0
+	for kind in food_buffs:food_buffs[kind]=0.0;food_buff_stacks[kind]=0
+	if health_was_active:refresh_max_health()
 
 # Auto intent stays separate from real mouse state and all native attack timing.
 func auto_attack_running()->bool:
+	if (defend_held or guard_reply_left>0) and RogueRoster.is_crossgate_fighter(character_id):return false
 	if is_master_chief():return false
 	if ai_controlled:return auto_attack_enabled and is_instance_valid(ai_target) and not ai_target.dead and hp>0 and game.model.phase=="wave"
 	if not auto_attack_enabled or not game.camera_combat() or not game.playing or game.paused or game.transitioning or hp<=0:return false
-	if game.siege_building() or Input.is_action_pressed("heavy_attack") or Input.is_action_pressed("weapon_chain"):return false
+	if game.siege_building() or Input.is_action_pressed("weapon_chain"):return false
+	if Input.is_action_pressed("heavy_attack") and not (RogueRoster.is_crossgate_fighter(character_id) and game.has_method("issue_hound_order")):return false
 	if dodge_time>0 or impact_pause>0 or forward_dash.active or sky_strike.active:return false
 	if active_ability!=null and active_ability.blocks_movement():return false
+	if RogueRoster.is_crossgate_fighter(character_id) and active_ability.uses_primary_targeting():return active_ability.locked_primary_enemy()!=null
+	if RogueRoster.is_crossgate_fighter(character_id) and model.current_weapon() not in ["bow","kunai","boomerang"] and accessory_bonuses.get("primary","")!="fire":
+		var target=auto_aim_target()
+		return target!=null and game.aimed_enemy_in_melee_range({"collider":target,"position":AttackChain.aim_point(target)})
 	return true
 
 func auto_aim_origin()->Vector3:
@@ -1243,6 +1528,7 @@ func auto_aim_origin()->Vector3:
 func auto_aim_target(muzzle: Vector3=Vector3.INF)->Ninja:
 	if ai_controlled:return ai_target if is_instance_valid(ai_target) and not ai_target.dead else null
 	if not auto_attack_enabled or not game.camera_combat() or not game.playing or game.paused or game.transitioning or hp<=0:return null
+	if RogueRoster.is_crossgate_fighter(character_id) and active_ability.uses_primary_targeting():return active_ability.locked_primary_enemy()
 	var lost=auto_lock_had_target and (not is_instance_valid(auto_lock_target) or auto_lock_target.dead or not game.camera_rig.camera.is_position_in_frustum(AttackChain.aim_point(auto_lock_target)) or (game.has_method("forest_enemy_visible") and not game.forest_enemy_visible(auto_lock_target)))
 	if auto_lock_refresh<=0 or lost:
 		auto_lock_target=AttackChain.screen_target(self,auto_aim_origin(),120.0,true)
@@ -1263,7 +1549,8 @@ func set_auto_attack(enabled: bool):
 	if enabled:auto_aim_target()
 	if not enabled and character_id==2 and is_instance_valid(musashi) and not Input.is_action_pressed("light_attack"):
 		musashi.release_primary()
-	game.toast("AUTO LOCK ON · Closest visible enemy · J to stop" if enabled else "AUTO ATTACK OFF · J to enable")
+	var manual_lock=RogueRoster.is_crossgate_fighter(character_id) and active_ability.uses_primary_targeting()
+	game.toast(("AUTO ATTACK ON · Tab to select an enemy" if manual_lock else "AUTO LOCK ON · Closest visible enemy · J to stop") if enabled else "AUTO ATTACK OFF · J to enable")
 
 func reset_auto_attack():
 	auto_lock_target=null;auto_lock_refresh=0;auto_lock_had_target=false
@@ -1278,7 +1565,21 @@ func combat_attack_direction()->Vector3:
 
 func combat_tuning(key: String)->float:
 	var value=game.balance_value(character_id,key) if ai_controlled else game.hero_tuning(key)
+	if key in ["counter_chance","critical_chance","dodge_chance"]:value=clampf(value+float(accessory_bonuses.get(key,0.0)),0,100)
+	if key in ["critical_chance","dodge_chance","counter_chance"] and uses_level_stats():value=clampf(value+team_progression.stat_chance_bonus(key),0,100)
+	if key=="critical_chance":value=minf(100.0,value+pet_passive_bonus(key))
+	if key in ["damage_mult","attack_speed"]:value*=food_multiplier(key)
 	return value*sqrt(game.balance_value(character_id,"jump_height")) if key in ["jump_speed","second_jump_speed"] else value
+
+func effective_dodge_chance()->float:
+	return minf(combat_tuning("dodge_chance")+pet_passive_bonus("dodge_chance"),100.0)
+
+func pet_passive_bonus(stat:String)->float:
+	if ai_controlled or not uses_level_stats() or not RogueRoster.is_crossgate_fighter(character_id):return 0.0
+	return team_progression.party_passive_bonus(game.settings.forest_pet_loadout,stat)
+
+func health_regeneration()->float:
+	return team_progression.stat_regeneration()+pet_passive_bonus("regeneration") if uses_level_stats() else 0.0
 
 func movement_jump_available()->bool:
 	return is_on_floor() or coyote>0 or jumps_used<maximum_jumps() or wall_jump_grace>0
@@ -1287,11 +1588,13 @@ func has_offensive_action()->bool:
 	if spell_loadout!=null and spell_loadout.current!=null:return true
 	if attack_left>0 or attack_motion_pending or impact_pause>0 or primary_down or charge_elapsed>0 or heavy_buffer>0:return true
 	if sky_strike.active or forward_dash.active or chain_pipe_combat.active or quick_attacks.active or not quick_attacks.pending.is_empty():return true
-	return active_ability!=null and (active_ability.has_offensive_action() if is_rogue_character() else ((character_id in [13,14,15,16,17,18,19,28,31,32,33,34] or RogueRoster.is_enemy(character_id)) and active_ability.is_attacking()))
+	return active_ability!=null and (active_ability.has_offensive_action() if is_rogue_character() else ((character_id in [13,14,15,16,17,18,19,28,31,32,33] or RogueRoster.is_crossgate_fighter(character_id) or RogueRoster.is_enemy(character_id)) and active_ability.is_attacking()))
 
 func interrupt_attack_for_movement(preserve_motion: bool=false):
+	guard_reply_left=0.0
 	if spell_loadout!=null:spell_loadout.interrupt()
 	if weapon_controls!=null:weapon_controls.cancel()
+	if RogueRoster.is_crossgate_fighter(character_id):active_ability.stop_primary_approach()
 	# A normal running jump retains its momentum. Cancels strip attack impulses.
 	if character_id==19 and active_ability.mode=="jump":active_ability.cancel()
 	if not has_offensive_action():return
@@ -1317,3 +1620,32 @@ func interrupt_attack_for_movement(preserve_motion: bool=false):
 	if preserve_motion and not locked_motion:
 		velocity.x=movement_velocity.x;velocity.z=movement_velocity.z
 		if is_rogue_character():active_ability.locomotion_velocity=movement_velocity
+
+func apply_cursed_affliction(index:int,seconds:float,source_id:int):
+	if index<0 or index>=6 or seconds<=0 or not is_finite(seconds):return
+	if hp<=0 or invuln>0 or game.tuning.invincible or crossgate_combo_protected():return
+	if character_id==33 and active_ability.spell_immune():return
+	cursed_afflictions[index]=maxf(cursed_afflictions[index],seconds);cursed_status_active=true;cursed_status_source=source_id
+	if index==4:confusion_left=maxf(confusion_left,seconds)
+	if index in [1,2,5]:
+		cancel_charge();spell_loadout.interrupt()
+	if index in [1,2]:combat_hold_source=-3;combat_hold_left=maxf(combat_hold_left,seconds)
+
+func tick_cursed_afflictions(delta:float):
+	var poison=minf(delta,cursed_afflictions[0]);cursed_status_active=false
+	for i in 6:
+		cursed_afflictions[i]=maxf(0,cursed_afflictions[i]-delta)
+		cursed_status_active=cursed_status_active or cursed_afflictions[i]>0
+	if poison>0:
+		cursed_poison_tick+=poison
+		if cursed_poison_tick>=1:
+			cursed_poison_tick-=1
+			take_hit_from(max_hp*.025,Vector3.ZERO,false,cursed_status_source,false,false,true)
+	else:cursed_poison_tick=0
+	if cursed_afflictions[5]>0:spell_loadout.seal_for(cursed_afflictions[5])
+	if maxf(cursed_afflictions[1],cursed_afflictions[2])>0:
+		combat_hold_source=-3;combat_hold_left=maxf(combat_hold_left,maxf(cursed_afflictions[1],cursed_afflictions[2]))
+
+func clear_cursed_afflictions():
+	cursed_afflictions.fill(0);cursed_poison_tick=0;cursed_status_active=false
+	if combat_hold_source==-3:combat_hold_source=-1;combat_hold_left=0

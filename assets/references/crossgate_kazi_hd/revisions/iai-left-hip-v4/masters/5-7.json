@@ -1,0 +1,11 @@
+{
+  "token": "5-7",
+  "prompt": "Precise-object-edit: IMAGE1 LEFT-FACING PROFILE 11frame4x3 transparent IAIattackgrid, lastcellblank. KEEP LEFT-FACING direction, character identity/bodyanatomy, slimlongcurvedblade, exact11poses/rowgrid, two horizontalcuts and finalexplosion. ONLY fix READY hand/arm anatomy in frames0,1 and10 (firsttwo andlastoccupiedcell): LEFT ARM IS HIDDEN BEHIND TORSO/COAT. Show ONLY his RIGHT shoulder/arm/forearm reaching across abdomen to hiltat ANATOMICAL LEFT hip. Remove the second exposed elbow/forearm/hand from these ready poses; left hand supports sheath out of sight behind coat, no secondvisiblehand. Image2 correctright-facingready shows onlyONEhand/forearm; use that occlusion principle butKEEPIMAGE1LEFTFACING. Dynamic left-hip ready twist, kneesflex, rightshoulderacrosswaist, longer slimcurvedblade55-60%bodyheight extendingrearward IMAGE RIGHT. Do not hide sword or shortenit. Attackframes2-9 retain right-handed drawtoownright, right-to-leftreturn, violetwhiteexplosion8-9; nooverheadchop, no extra sword. Keepallart25pxclearofeverycelledge, truealpha0transparent, nofloor/shadow/text/grid. Finalcheckready0,1,10eachhas ONE visible RIGHT forearm/hand; LEFT arm/hand fullyoccluded behind torso/coat.",
+  "references": [
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/iai-left-hip-v3/masters/5-7.png",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/iai-left-hip-v2/masters/5-3.png"
+  ],
+  "generated_path": "/Users/eric/.codex/generated_images/01a1acc3-2d86-7920-87f1-362f0c200956/exec-e2446ee8-e2d0-4218-8200-96e466b9d0e6.png",
+  "tool": "built-in image_gen",
+  "sha256": "e7d4fea443ed74bea1eaf21c245aba473c8fbd5cca1c239cfd11e083d1c6d045"
+}

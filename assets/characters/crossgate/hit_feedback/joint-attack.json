@@ -1,0 +1,260 @@
+{
+  "glyphs": [
+    {
+      "serial": 23140,
+      "row": 251716,
+      "origin": [
+        -12,
+        -16
+      ],
+      "size": [
+        24,
+        29
+      ],
+      "sha256": "c7f79920c2f0675c38cc67c11c828360e6d572a6b4618ea5ddb5fdd03a1e9ad0"
+    },
+    {
+      "serial": 23141,
+      "row": 251717,
+      "origin": [
+        -10,
+        -16
+      ],
+      "size": [
+        20,
+        29
+      ],
+      "sha256": "ce7ef0c6a9451f3b8bed87ddd17a4e21e53eaea7e467e5ea2fed54847399ee53"
+    },
+    {
+      "serial": 23142,
+      "row": 251718,
+      "origin": [
+        -12,
+        -16
+      ],
+      "size": [
+        24,
+        29
+      ],
+      "sha256": "c4820674e1523ddc7a55f8c13474b713774b0e667b71c4e47fbf409daef8c7a0"
+    },
+    {
+      "serial": 23143,
+      "row": 251719,
+      "origin": [
+        -12,
+        -16
+      ],
+      "size": [
+        24,
+        29
+      ],
+      "sha256": "acfa1cd89138580eee6a8208308486de81fab5fba194cad4bd58440c4d42535a"
+    },
+    {
+      "serial": 23144,
+      "row": 251720,
+      "origin": [
+        -12,
+        -16
+      ],
+      "size": [
+        24,
+        29
+      ],
+      "sha256": "d23daabf996cfe571d10985f945f797c423ed36d420f578cb45fa933a6b78c2c"
+    },
+    {
+      "serial": 23145,
+      "row": 251721,
+      "origin": [
+        -10,
+        -16
+      ],
+      "size": [
+        24,
+        29
+      ],
+      "sha256": "731c6b40a06ba808cf79628f6e16dd534b31c3c9bba71601165350d70137a4f0"
+    },
+    {
+      "serial": 23146,
+      "row": 251722,
+      "origin": [
+        -12,
+        -16
+      ],
+      "size": [
+        24,
+        29
+      ],
+      "sha256": "b41d81b9f6a11ec61feacf13eb61065c9facb9d3daa1cc5e3555fd9130cdaec4"
+    },
+    {
+      "serial": 23147,
+      "row": 251723,
+      "origin": [
+        -12,
+        -16
+      ],
+      "size": [
+        24,
+        29
+      ],
+      "sha256": "b4188a56e3c15a16ac4365c57c5c91bde12fc5ff1f94c1c50184990dfe5a6e7f"
+    },
+    {
+      "serial": 23148,
+      "row": 251724,
+      "origin": [
+        -17,
+        -16
+      ],
+      "size": [
+        36,
+        29
+      ],
+      "sha256": "aad327253b66d23554aa3e009a4c16a4d74ca7605a97f30ca6c0232b374b6ed3"
+    },
+    {
+      "serial": 23158,
+      "row": 251733,
+      "origin": [
+        -14,
+        -12
+      ],
+      "size": [
+        28,
+        25
+      ],
+      "sha256": "aace4766fa07de383518072c7aea8846e3d1a424c963203deb52de145c3a7683"
+    },
+    {
+      "serial": 23159,
+      "row": 251734,
+      "origin": [
+        -5,
+        -12
+      ],
+      "size": [
+        12,
+        25
+      ],
+      "sha256": "37638a5c6bfbba1107e4decb4745052bad18e7ae6f8387ec4a351c27c01c8a26"
+    },
+    {
+      "serial": 23160,
+      "row": 251735,
+      "origin": [
+        -6,
+        -11
+      ],
+      "size": [
+        16,
+        24
+      ],
+      "sha256": "14b06ae8e2312811aaa1763a5bdaebcedbaa20b9bec89416d9db261e235c4f5e"
+    },
+    {
+      "serial": 23161,
+      "row": 251736,
+      "origin": [
+        -12,
+        -12
+      ],
+      "size": [
+        24,
+        25
+      ],
+      "sha256": "7ac857dbdc198ccc732071d15e7459702a4e70271d454d4071f7f8cfb96ea1c3"
+    },
+    {
+      "serial": 23162,
+      "row": 251737,
+      "origin": [
+        -8,
+        -6
+      ],
+      "size": [
+        20,
+        19
+      ],
+      "sha256": "77708c097a55e6b0ba39e0f0da36d1874987c4af469f9772226c6d3dfba3d785"
+    },
+    {
+      "serial": 23163,
+      "row": 251738,
+      "origin": [
+        -13,
+        -6
+      ],
+      "size": [
+        28,
+        19
+      ],
+      "sha256": "1107d120800b6c698e11310ccfb2a9431b111ada2769c6300ceafcbbcb27d6d0"
+    },
+    {
+      "serial": 23164,
+      "row": 251739,
+      "origin": [
+        -8,
+        -12
+      ],
+      "size": [
+        20,
+        25
+      ],
+      "sha256": "d8fbc0657859325d8dda8b02f7b3b41f23c8ffb9cb47aecd2865cc1a5f32154a"
+    },
+    {
+      "serial": 23165,
+      "row": 251740,
+      "origin": [
+        -46,
+        -12
+      ],
+      "size": [
+        88,
+        25
+      ],
+      "sha256": "ef66e35c88a989e12470ac594334df39ba0ec88a793948446d77e9f53a7b4e9f"
+    }
+  ],
+  "cell": [
+    96,
+    64
+  ],
+  "offsets": [
+    0,
+    34,
+    54,
+    66,
+    88,
+    108,
+    131,
+    152,
+    171,
+    0
+  ],
+  "order": [
+    0,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,
+    9
+  ],
+  "client_sha256": "8babbe4ad20e4e1e2a6992ecf086d47ef3527426879699f83fa2cebb1a476afe",
+  "layout_function": "0x41D800..0x41DAA8",
+  "motion_function": "0x41DAB0..0x41DD99",
+  "limits": [
+    "Original glyph pixels, origins, count selection, spacing and entry order are preserved.",
+    "World-space placement and the real-time joint-contact window are Goemon adaptations, not original turn-based battle recovery."
+  ]
+}

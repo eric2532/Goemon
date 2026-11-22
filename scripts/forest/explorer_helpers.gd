@@ -5,6 +5,7 @@ const KITS=[8,10,5,7,11]
 const COUNTS=[1,1,1,1,1]
 const COSTS=[120,60,60,150,80]
 const GUARD_RADIUS=140.0
+const AUTO_POST_SPACING=8.0
 const NAMES=["Dragoon","Ranger","Ninja","Knight","Explorer"]
 const HEALTH=[200,100,100,500,200]
 const HEROES=[1,13,28,31,32,33]
@@ -191,11 +192,13 @@ func request(slot:int,reward:bool=false)->bool:
   if slot<0 or slot>=KITS.size() or not game.playing or game.model.phase not in ["preparing","wave"]:return false
  elif not begin_placement(slot):return false
  cancel_placement(false)
- var point=castle_point(slot,reward)
+ var point=castle_point(slot,reward,1.4,AUTO_POST_SPACING)
+ # Keep hiring available when construction leaves only tight spots.
+ if not point.is_finite():point=castle_point(slot,reward)
  if point.is_finite():return purchase(slot,point,reward)
  game.toast("No clear space for five mercenaries · Choose another card" if reward else "No clear space near the castle");return false
-func castle_point(slot:int,reward:bool,spacing:float=1.4)->Vector3:
- var m=game.model;var home=m.center(m.shrine())
+func castle_point(slot:int,reward:bool,spacing:float=1.4,post_spacing:float=0.0)->Vector3:
+ var m=game.model;var home=m.fort_center()
  # Search outward only on recruitment; retain placement's terrain/body checks.
  for radius in range(1,16):
   for x in range(-radius,radius+1):
@@ -205,7 +208,7 @@ func castle_point(slot:int,reward:bool,spacing:float=1.4)->Vector3:
     if Vector2(point.x-game.player.position.x,point.z-game.player.position.z).length()<spacing:continue
     if spacing>1.4 and active_units().any(func(unit):return unit.position.distance_to(stand_point(point))<spacing):continue
     if legendary_heroes!=null and legendary_heroes.bodies.any(func(body):return body.leased and body.position.distance_to(stand_point(point))<maxf(spacing,clampf(body.model.scale.x*1.25,1.4,8.0))):continue
-    if placement_error(slot,point,0,reward).is_empty():return stand_point(point)
+    if placement_error(slot,point,0,reward,post_spacing).is_empty():return stand_point(point)
  return Vector3.INF
 func grant_hero(character:int)->bool:
  if character not in HEROES or not game.playing or game.model.phase not in ["preparing","wave"]:return false
@@ -235,10 +238,10 @@ func begin_placement(slot:int)->bool:
  game.toast("%s · %d ryo · Click clear ground to assign a guard post"%[NAMES[slot],COSTS[slot]])
  return true
 func guard_radius()->float:return GUARD_RADIUS*game.model.terrain_scale
-func guard_center()->Vector3:return game.model.center(game.model.shrine())
+func guard_center()->Vector3:return game.model.fort_center()
 func stand_point(point:Vector3)->Vector3:
  return Vector3(point.x,game.model.surface_height(point.x,point.z)+.12,point.z)
-func placement_error(slot:int,point:Vector3,exclude:int=0,reward:bool=false)->String:
+func placement_error(slot:int,point:Vector3,exclude:int=0,reward:bool=false,post_spacing:float=0.0)->String:
  if slot<0 or slot>=KITS.size():return "Choose an ally"
  if reward:
   if not game.playing or game.model.phase not in ["preparing","wave"]:return "Battle has ended"
@@ -259,6 +262,7 @@ func placement_error(slot:int,point:Vector3,exclude:int=0,reward:bool=false)->St
  for unit in active_units():
   if unit.gate_id==exclude:continue
   if unit.global_position.distance_to(stand)<1.4 or unit.guard_post.distance_to(stand)<1.4:return "Another ally guards this spot"
+  if post_spacing>0.0 and Vector2(unit.guard_post.x-stand.x,unit.guard_post.z-stand.z).length()<post_spacing:return "Another ally guards this spot"
  if legendary_heroes!=null:
   for body in legendary_heroes.bodies:
    if body.leased and body.global_position.distance_to(stand)<1.4:return "A hero occupies this spot"

@@ -1,0 +1,42 @@
+{
+  "serial": 12543,
+  "pack": "original",
+  "row": 9256,
+  "source_rgba_sha256": "ef38264e3fb6a2079428e3a74d9da6545974af2167c11786612f8098a403ce2e",
+  "crops": {
+    "cliff_stone": [
+      80,
+      330,
+      100,
+      350
+    ],
+    "cliff_moss": [
+      75,
+      290,
+      95,
+      315
+    ]
+  },
+  "method": "Native opaque crop; mirrored edges; no resampling or repainting.",
+  "cave_stone": {
+    "serial": 13355,
+    "pack": "original",
+    "row": 9976,
+    "source_rgba_sha256": "ef295ac560f6d683ba1a9da38380be17a3f5f561f1c657d9e205782116d60f22",
+    "crops": [
+      [
+        24,
+        18,
+        40,
+        34
+      ],
+      [
+        26,
+        94,
+        42,
+        110
+      ]
+    ],
+    "method": "Replace baked dark crevices (RGB sum <225) with nearest stone pixel from the same native crop; mirror/repeat without resampling."
+  }
+}

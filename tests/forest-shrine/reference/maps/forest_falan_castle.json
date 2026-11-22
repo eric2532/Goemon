@@ -1,0 +1,161 @@
+{
+  "format": "forest_shrine_map",
+  "schema": 1,
+  "title": "Falan Castle - Test",
+  "terrain_source": "wind_meadow",
+  "terrain_scale": 2,
+  "falan_area": "castle",
+  "buildings": [],
+  "deposits": [],
+  "portals": [],
+  "roads": [],
+  "trees": [
+    {
+      "x": -19,
+      "z": 6,
+      "scale": 1.07,
+      "rotation": 180
+    },
+    {
+      "x": -19,
+      "z": 4,
+      "scale": 0.9299999999999999,
+      "rotation": 180
+    },
+    {
+      "x": -19,
+      "z": -4,
+      "scale": 0.9299999999999999,
+      "rotation": 0
+    },
+    {
+      "x": -19,
+      "z": -6,
+      "scale": 0.86,
+      "rotation": 0
+    },
+    {
+      "x": -16,
+      "z": 8,
+      "scale": 1.07,
+      "rotation": 270
+    },
+    {
+      "x": -16,
+      "z": 2,
+      "scale": 1.07,
+      "rotation": 270
+    },
+    {
+      "x": -16,
+      "z": -2,
+      "scale": 1.1400000000000001,
+      "rotation": 90
+    },
+    {
+      "x": -16,
+      "z": -8,
+      "scale": 1.07,
+      "rotation": 90
+    },
+    {
+      "x": -14,
+      "z": 8,
+      "scale": 1.0,
+      "rotation": 270
+    },
+    {
+      "x": -14,
+      "z": 2,
+      "scale": 0.9299999999999999,
+      "rotation": 270
+    },
+    {
+      "x": -14,
+      "z": -2,
+      "scale": 1.0,
+      "rotation": 90
+    },
+    {
+      "x": -14,
+      "z": -8,
+      "scale": 0.9299999999999999,
+      "rotation": 90
+    },
+    {
+      "x": -12,
+      "z": 6,
+      "scale": 0.9299999999999999,
+      "rotation": 270
+    },
+    {
+      "x": -12,
+      "z": 4,
+      "scale": 0.86,
+      "rotation": 270
+    },
+    {
+      "x": -12,
+      "z": -4,
+      "scale": 0.9299999999999999,
+      "rotation": 90
+    },
+    {
+      "x": -12,
+      "z": -6,
+      "scale": 0.86,
+      "rotation": 90
+    },
+    {
+      "x": -8,
+      "z": -10,
+      "scale": 0.9299999999999999,
+      "rotation": 180
+    },
+    {
+      "x": -5,
+      "z": -10,
+      "scale": 0.86,
+      "rotation": 270
+    },
+    {
+      "x": 1,
+      "z": 8,
+      "scale": 1.1400000000000001,
+      "rotation": 0
+    },
+    {
+      "x": 4,
+      "z": 8,
+      "scale": 0.86,
+      "rotation": 90
+    },
+    {
+      "x": 6,
+      "z": -6,
+      "scale": 0.9299999999999999,
+      "rotation": 180
+    },
+    {
+      "x": 19,
+      "z": 3,
+      "scale": 0.9299999999999999,
+      "rotation": 90
+    },
+    {
+      "x": 19,
+      "z": -3,
+      "scale": 0.9299999999999999,
+      "rotation": 90
+    }
+  ],
+  "props": [
+    {
+      "kind": "falan_royal_keep",
+      "x": -6,
+      "z": 0,
+      "scale": 1.12,
+      "rotation": 90
+    }
+  ]
+}

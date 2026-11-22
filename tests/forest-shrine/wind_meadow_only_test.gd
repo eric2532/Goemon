@@ -19,11 +19,13 @@ func run():
 		check(not doc.has_method(method),"Retired preset loader is absent: "+method)
 	for path in [Document.WIND_MEADOW_PATH,Document.WIND_MEADOW_LARGE_PATH]:
 		check(doc.read_file(path).is_empty() and doc.data.terrain_source=="wind_meadow","Windmeadow size validates: "+path)
+		check(doc.play_error().is_empty(),"All four entrances reach the shrine: "+path)
 	var game=load("res://scenes/forest_shrine.tscn").instantiate()
 	var config_path="user://wind-meadow-only-%d.cfg"%OS.get_process_id()
 	game.settings_path=config_path;root.add_child(game);current_scene=game
 	for i in 4:await process_frame
 	check(game.model.terrain_source=="wind_meadow" and not game.model.enemy_camps_prototype,"Normal startup uses Windmeadow even with retired launch flags")
+	check_shrine(game)
 	check(game.forest_ui.find_child("PreparationCamps",true,false)==null,"Tools offer no alternate prototype map")
 	game.open_map_editor()
 	for i in 4:await process_frame
@@ -34,6 +36,7 @@ func run():
 	editor.load_wind_meadow_large()
 	for i in 4:await process_frame
 	check(game.model.terrain_source=="wind_meadow" and game.model.terrain_scale==3.0,"Large Windmeadow remains playable")
+	check_shrine(game)
 	editor.load_wind_meadow()
 	for i in 4:await process_frame
 	check(game.model.terrain_source=="wind_meadow" and game.model.terrain_scale==2.0,"Standard Windmeadow remains playable")
@@ -44,3 +47,9 @@ func run():
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(config_path))
 	print("WIND_MEADOW_ONLY_RESULT checks=",checks," failures=",failures)
 	quit(1 if failures else 0)
+
+func check_shrine(game):
+	var model=game.model
+	check(model.buildings.is_empty() and model.shrine().is_empty() and model.survival_run,"The arena starts in pure survival without a castle")
+	check(model.terrain_detail==model.Arena.ID and game.world.map_features.find_child("FalanSurvivalArena",true,false)!=null,"Both bundled sizes use the recovered Falan arena")
+	check(game.enemy_objectives.is_empty() and not model.has_enemy_castles(),"Four spawn sides have no castle objectives")

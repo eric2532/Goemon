@@ -31,6 +31,7 @@ func run():
  model.defenders[-1000].pos=Vector3(140,0,140);world.sync(.2)
  check(door.position.y<world.Profile.GATE_OPEN_Y,"The gate still closes after the ally leaves")
  # Isolate one gate to count exactly which residents it inspects.
+ model.workforce.recruit(true)
  var worker:Dictionary=model.workers.values()[0].duplicate(true)
  model.buildings={gate.id:gate};model.revision+=1;model.workers.clear();model.defenders.clear();model.hero_position=Vector3(100,0,100)
  for i in 2000:model.defenders[-1000-i]=Defender.new()
@@ -39,7 +40,7 @@ func run():
  check(Defender.hp_reads==1 and Defender.position_reads==1,"Finding the first nearby ally skips the remaining1999 residents")
  model.hero_position=first.point;Defender.hp_reads=0;world.sync(.2)
  check(Defender.hp_reads==0,"A nearby player opens the gate without any ally polling")
- model.hero_position=Vector3(100,0,100);worker.pos=first.point;worker.state="idle";model.workers[worker.id]=worker
+ model.hero_position=Vector3(100,0,100);worker.pos=first.point;worker.state="idle";model.workers[worker.id]=worker;model.revision+=1
  Defender.hp_reads=0;world.sync(.2)
  check(Defender.hp_reads==0,"A nearby worker opens the gate without any ally polling")
  worker.state="repair";first.health=0;Defender.hp_reads=0;Defender.position_reads=0;world.sync(.2)

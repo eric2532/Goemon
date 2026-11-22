@@ -89,13 +89,19 @@ func sync_skeleton() -> void:
 	pass
 
 func animate_spell(delta:float,spell:Node):
-	if not spell.spec.get("air_attack",false):
+	var combo=spell.spec.id==spell.Catalog.COMBO
+	if not spell.spec.get("air_attack",false) and not combo:
 		animate(delta,Vector2(combat.hero.velocity.x,combat.hero.velocity.z).length(),combat.hero.is_on_floor(),combat.hero.velocity.y,0,false,0,false);return
 	# Borrow the class's prepared attack pose; the spell alone owns damage/motion.
 	var pose=combat.player.duplicate()
 	var attack=combat.COMBO[2].duplicate() if class_id=="pirate" else combat.Actions.primary_config(combat,2)
 	attack.index=2;attack.weapon="cutlass";attack.angle=pose.angle
 	if class_id=="pirate":attack.style="sword"
+	if combo:
+		attack.time=0.0 if spell.controller.clip=="6" else qi_attack_time(spell.controller.combo_progress(),attack.contact,attack.duration)
+		pose.attack=attack;pose.grounded=combat.hero.is_on_floor();pose.vertical=combat.hero.velocity.y;pose.flip=-1.0
+		actor.animate_pose(pose,delta,combat.time,0)
+		return
 	var phase=spell.controller.finisher_phase
 	attack.time=attack.contact*.5 if phase=="hover" else attack.contact if phase=="drop" else attack.duration
 	pose.attack=attack;pose.grounded=combat.hero.is_on_floor();pose.vertical=combat.hero.velocity.y;pose.flip=-1.0
@@ -121,3 +127,15 @@ func hand_position(side: String = "R") -> Vector3:
 		var arm: Node3D = actor.joints["Arm_" + side].node
 		return arm.to_global(Vector3(0, -0.38, 0.2))
 	return global_position + Vector3.UP * 1.1
+
+func animate_qi_blast(delta:float,progress:float):
+	if is_instance_valid(actor.rom_thief):
+		actor.animate_pose({"qiPunch":progress},delta,combat.time,0)
+		return
+	actor.animate_pose({},delta,combat.time,0)
+	if progress<0:return
+	if actor.cosplay_rig!=null:
+		pose_qi_fist(actor.cosplay_rig.skeleton,progress)
+	elif actor.joints.has("Arm_R"):
+		var arm:Node3D=actor.joints["Arm_R"].node
+		arm.rotation.x-=sin(clampf(progress,0.0,2.0)*PI*.5)*1.4

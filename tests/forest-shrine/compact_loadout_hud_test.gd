@@ -21,12 +21,12 @@ func run():
 	check(row!=null and row.get_child_count()==5,"Portrait retains five numbered loadout slots")
 	if row==null:await finish();return
 	ui.loadout_slot_selected.connect(func(index):selected_events.append(index))
-	check(ui.hero_dock.size.x<=450 and ui.hero_portrait.size.x<=90,"Character strip remains compact")
-	check(row.get_global_rect().position.y>=ui.hero_portrait.get_global_rect().end.y,"Loadout stays below the portrait")
+	check(ui.hero_dock.size.x<=480 and ui.hero_portrait.size.x<=96,"Character strip remains compact")
+	check(ui.hero_dock.get_global_rect().encloses(row.get_global_rect()),"Loadout stays inside the character panel")
 	check(not row.get_global_rect().intersects(ui.bar_paper.get_global_rect()),"Loadout stays above building controls")
 	for i in 5:
 		var button=row.get_child(i)
-		check(button is Button and str(i+1) in button.text and button.disabled==(i==4),"Slot %d matches Ed’s four skills plus an empty slot"%(i+1))
+		check(button is Button and button.text.is_empty() and button.tooltip_text.begins_with("%d · "%[i+1]) and button.disabled==(i==4),"Slot %d matches Ed’s four skills plus an empty slot"%(i+1))
 		check(not ui.helper_portraits[i].visible,"Unused slot %d has no ally portrait"%(i+1))
 		await key(KEY_1+i)
 	check(selected_events.is_empty() and game.explorer_helpers.active_units().is_empty(),"Bare preparation number keys cannot summon allies")
@@ -46,7 +46,7 @@ func run():
 	for i in 5:await key(KEY_1+i)
 	check(game.explorer_helpers.active_units().is_empty() and selected_events.is_empty(),"Battle number keys cannot create unpaid allies")
 	check(ui.loadout_buttons[4].disabled,"Ed’s unassigned fifth battle slot stays blank")
-	check(not ui.guard_shop_button.visible,"Guards can only be hired during preparation")
+	check(ui.find_child("PreparationHireGuards",true,false)==null,"Mercenaries are absent from the map HUD")
 	game.player.select_character(18);await settle()
 	for i in 5:
 		await key(KEY_1+i)

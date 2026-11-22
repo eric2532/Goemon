@@ -1,0 +1,29 @@
+{
+  "method": "Reuse original back-view hip/arms for rear-right torso coil; approved head and original legs unchanged",
+  "sources": {
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/fixed-design-final/masters/3-2.png": "147462b644484bd32f9d0df50fdb086e3912dae5449bd87868affa9e68fc2375",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/fixed-design-final/masters/3-1.png": "6cd81fbe660e969641516472895b9fbc2b9a112561b1e921d93505eedf149e4f"
+  },
+  "frames": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "sha256": "8846fc53f6957b7c02b67f1231361bc36ff220bea8d5511d6f0e2c3d703c0cb3",
+  "preparer_sha256": "c64484122836a4357766c1268b2bdf8a82c6ae33ad029070d365cdbb31965424"
+}

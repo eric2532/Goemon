@@ -2,6 +2,7 @@ extends Ninja
 ## A lightweight combat target, deliberately outside the wave simulation.
 const Critical=preload("res://scripts/critical_hits.gd")
 const Contact=preload("res://scripts/forest/forest_enemy_contact.gd")
+signal landed
 var target_material: StandardMaterial3D
 var contact_shape: Dictionary
 func _ready():
@@ -50,9 +51,22 @@ func take_hit(damage: float,dir: Vector3,heavy: bool,ticket: Dictionary={}):
 	if game.player.get("spell_loadout")!=null:
 		damage=game.player.spell_loadout.damage_for_hit(self,damage,ticket)
 		game.player.spell_loadout.hit_effects(self,damage,ticket)
+	landed.emit()
 	recoil_age=0;recoil_direction=dir.normalized();recoil_strength=.16 if heavy else .08
+	if ticket.get("responsive_recoil",false):recoil_strength=.18
 	velocity=Vector3.ZERO
-	game.damage_number(global_position+Vector3.UP*2.5,int(damage),heavy,critical)
+	var feedback=game.crowd.army.presentation
+	if ticket.get("quiet_contact",false):
+		if critical:feedback.critical_burst(global_position+Vector3.UP*1.6,float(ticket.get("impact_scale",1.0)))
+		return
+	feedback.hit_feedback(self,global_position+Vector3.UP*1.6,float(ticket.get("impact_scale",1.0)),critical)
+	feedback.label_damage(global_position+Vector3.UP*.9,damage,heavy,critical)
+	if ticket.has("sure_strike_size"):
+		var anchor=preload("res://scripts/attack_chain.gd").effect_anchor(self)
+		feedback.sure_strike_burst(anchor.position,ticket.sure_strike_size,ticket.get("sure_strike_polearm",false),anchor.depth)
+	if ticket.has("combo_hit_size"):
+		var anchor=preload("res://scripts/attack_chain.gd").effect_anchor(self)
+		feedback.combo_burst(anchor.position,preload("res://scripts/character_proportions.gd").GOEMON_HEIGHT,ticket.get("combo_hit_shin",false),ticket.combo_hit_size,anchor.depth)
 func _physics_process(delta):
 	if not game.playing or game.paused:return
 	position=home;velocity=Vector3.ZERO

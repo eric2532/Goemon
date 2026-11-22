@@ -10,7 +10,7 @@ func capture(label: String):
 func run():
 	visual="--chain-visual" in OS.get_cmdline_user_args()
 	Input.use_accumulated_input=false
-	check(ProjectSettings.get_setting("application/config/name")=="Goemon","Game is named Goemon")
+	check(ProjectSettings.get_setting("application/config/name")=="Cross Gate","Game is named Cross Gate")
 	check(OS.get_user_data_dir().ends_with("Godot/app_userdata/Azure Ember"),"Rename retains the existing settings and recording directory")
 	await capture("01-title")
 	game.tuning=PrototypeTuning.DEFAULTS.duplicate();game.tuning.invincible=true;game.tuning.freeze_ai=true

@@ -50,17 +50,21 @@ func rim_height(p:Vector2,size_:float)->float:
   result*=smoothstep(18,30,distance)
   if horizontal_scale>=2.0:result*=smoothstep(70,100,distance*horizontal_scale)
  return result
+func uses_baked_geometry()->bool:return expansion==1.0 and not raised_castle
+func uses_baked_apron()->bool:return expansion==1.0
+func mesh_heights()->PackedFloat32Array:return heights
 func mesh()->ArrayMesh:
- if expansion==1.0 and not raised_castle:return load(asset_path("terrain.res",horizontal_scale))
+ if uses_baked_geometry():return load(asset_path("terrain.res",horizontal_scale))
  if expanded_mesh!=null:return expanded_mesh
+ var surface_heights=mesh_heights()
  var vertices=PackedVector3Array();var normals=PackedVector3Array();var indices=PackedInt32Array()
  vertices.resize(width*width);normals.resize(width*width)
  var extent=240*horizontal_scale*expansion
  for z in width:
   for x in width:
-   var i=z*width+x;vertices[i]=Vector3(x*spacing-extent,heights[i],z*spacing-extent)
-   var dx=heights[z*width+mini(x+1,width-1)]-heights[z*width+maxi(0,x-1)]
-   var dz=heights[mini(z+1,width-1)*width+x]-heights[maxi(0,z-1)*width+x]
+   var i=z*width+x;vertices[i]=Vector3(x*spacing-extent,surface_heights[i],z*spacing-extent)
+   var dx=surface_heights[z*width+mini(x+1,width-1)]-surface_heights[z*width+maxi(0,x-1)]
+   var dz=surface_heights[mini(z+1,width-1)*width+x]-surface_heights[maxi(0,z-1)*width+x]
    normals[i]=Vector3(-dx,spacing*2,-dz).normalized()
  indices.resize((width-1)*(width-1)*6)
  for z in width-1:
@@ -70,12 +74,12 @@ func mesh()->ArrayMesh:
    indices[at+3]=i+1;indices[at+4]=i+width+1;indices[at+5]=i+width
  var arrays=[];arrays.resize(Mesh.ARRAY_MAX);arrays[Mesh.ARRAY_VERTEX]=vertices;arrays[Mesh.ARRAY_NORMAL]=normals;arrays[Mesh.ARRAY_INDEX]=indices
  expanded_mesh=ArrayMesh.new();expanded_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
- if expansion==1.0:
+ if uses_baked_apron():
   var source=load(asset_path("terrain.res",horizontal_scale))
   expanded_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,source.surface_get_arrays(1))
  return expanded_mesh
 func collision()->ConcavePolygonShape3D:
- if expansion==1.0 and not raised_castle:return load(asset_path("collision.res",horizontal_scale))
+ if uses_baked_geometry():return load(asset_path("collision.res",horizontal_scale))
  if expanded_collision==null:
   var surface=ArrayMesh.new();surface.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,mesh().surface_get_arrays(0))
   expanded_collision=surface.create_trimesh_shape()

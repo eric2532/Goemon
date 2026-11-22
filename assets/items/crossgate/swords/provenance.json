@@ -1,0 +1,38 @@
+{
+  "SW016": {
+    "key": "original:13887",
+    "serial": 20015,
+    "rgba_sha256": "a85c8c87b1f4f52f8ef99eb47cb90c46b4140e6e1f06099ddd4e2f6497cc3359",
+    "file_sha256": "5f7347726849ab65249487ca53d929dc785f583b49eaf8e42236802fd9a8cad7"
+  },
+  "SW020": {
+    "key": "original:13891",
+    "serial": 20019,
+    "rgba_sha256": "b495a0b932366a361a5dbc101843ef2ee2afc0bb02c45ee92381dbbbe3137381",
+    "file_sha256": "f2002df7acf41d2d910ad3a40f38a5ed4642f5419720af369e5a3574734a1488"
+  },
+  "SW042": {
+    "key": "original:13913",
+    "serial": 20041,
+    "rgba_sha256": "98dc8bc080ba92aa65083abbe16520ba93c119734ef736527d2eb79aa1f1e590",
+    "file_sha256": "d3b8b85c77030966f2f5d2bfa7573efe5c8d5660147f42f0a03a519458508fa5"
+  },
+  "SW052": {
+    "key": "original:13923",
+    "serial": 20051,
+    "rgba_sha256": "408da48fd5bc5d0743948825b3ae695847ea09cee3af3a270f96116217451560",
+    "file_sha256": "1fe46d26930193b462bd11402e0bf2a50f7cd6646e069eba247efe316a4318eb"
+  },
+  "SW082": {
+    "key": "original:13953",
+    "serial": 20081,
+    "rgba_sha256": "769b67dccfd464a50c02d258f13d2bd5de829d7ad4b8aff322ac554d99740437",
+    "file_sha256": "aa4bb4eb6d16e70e063c09b8b9f89913cfd816358ec21419e31400a0bfc923d2"
+  },
+  "SW101": {
+    "key": "v3:17",
+    "serial": 20100,
+    "rgba_sha256": "10d7c39e3eddb2d83bfb59db48caa7bd356b71e7bfbe5d50d3b1b304dc29f010",
+    "file_sha256": "bad04736e56f8e21928278e992c02ea4cd290a935ba07a879e93f011207f52be"
+  }
+}

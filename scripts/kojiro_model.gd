@@ -149,10 +149,19 @@ func paint_sword_trail():
 		trail.sample_clock=trail.sample_interval
 		trail.advance(0,PackedVector3Array([segment[0],segment[0]+direction.rotated(axis,.12)]),true,false)
 
-func animate_spell(_delta:float,_spell:Node):pose(data().semantics.ready,0,false)
+func animate_spell(_delta:float,spell:Node):
+	if spell.spec.id==spell.Catalog.COMBO:
+		var attack:Dictionary=data().actions.slash
+		pose(data().semantics.ready if spell.controller.clip=="6" else attack.clip,0 if spell.controller.clip=="6" else qi_attack_time(spell.controller.combo_progress(),float(attack.contacts[0]),float(attack.ticks))/30.0,false)
+		return
+	pose(data().semantics.ready,0,false)
 func hand_position(_side:String="R")->Vector3:return parts[2].global_position
 func sync_skeleton():pass
 func set_cloak(_equipped:bool,_gold:bool):pass
 func combat_pose(_attack:float,_heavy:bool,_combo:int,_dodge:bool):pass
 func set_surge(_active:bool):pass
 func apply_skin(_id:String):pass
+
+func animate_qi_blast(_delta:float,progress:float):
+	if progress<0:pose(data().semantics.idle,0);return
+	pose(combat.SWORD_SECTIONS[0].clip,qi_attack_time(progress,9.0/30.0,17.0/30.0))

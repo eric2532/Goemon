@@ -1,0 +1,862 @@
+{
+  "generator": "built-in image_gen",
+  "portraits": [
+    {
+      "file": "skins/ayame-100224.png",
+      "character": 42,
+      "skin": 100224,
+      "label": "Blue-haired Ayame",
+      "source": "res://assets/characters/crossgate/fighters/emilia/100224/portrait.png",
+      "style": "emilia.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. The actual model is AYAME skin Blue-haired Ayame, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "62a790ccd51f3d8f08fe27d8d0793d122107780e1cf4734ad5591660cc7321e1",
+      "source_sha256": "ccf79f76bb042f31f254c0f49c8f41af1c7f011d9100f787aa37a7d1f5820c3f",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/emilia.png",
+        "assets/characters/crossgate/fighters/emilia/100224/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/ayame-100230.png",
+      "character": 42,
+      "skin": 100230,
+      "label": "Silver-haired Ayame",
+      "source": "res://assets/characters/crossgate/fighters/emilia/100230/portrait.png",
+      "style": "emilia.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. The actual model is AYAME skin Silver-haired Ayame, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "9a4fb728c12f2d4f99a91114d1b3505f8f734fd75b368bdadc6fcf684373fbf5",
+      "source_sha256": "718ca12a328f19601e643279b973347fee73096f3c8804879128dd4287021264",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/emilia.png",
+        "assets/characters/crossgate/fighters/emilia/100230/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/ayame-100774.png",
+      "character": 42,
+      "skin": 100774,
+      "label": "Dark Ayame",
+      "source": "res://assets/characters/crossgate/fighters/emilia/100774/portrait.png",
+      "style": "emilia.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. The actual model is AYAME skin Dark Ayame, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "18053eefd2037488fc9e5b25a144244f915a06f012daa12ccb6d5fb263cdf4f9",
+      "source_sha256": "1f385f85d39747daa081da1db8739bd4f1607b694de435164fab396b40365869",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/emilia.png",
+        "assets/characters/crossgate/fighters/emilia/100774/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/ayame-105430.png",
+      "character": 42,
+      "skin": 105430,
+      "label": "Snow Ayame",
+      "source": "res://assets/characters/crossgate/fighters/emilia/105430/portrait.png",
+      "style": "emilia.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. The actual model is AYAME skin Snow Ayame, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "a38f701a6997379c9774821115b6fac5136ba8e97fc8f244379645b3d0cf5aad",
+      "source_sha256": "6b4a684c130b53fd6e4b16fb43d99fd8bac53abe92a99b6639b0ee8cbb8888eb",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/emilia.png",
+        "assets/characters/crossgate/fighters/emilia/105430/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/ayame-105824.png",
+      "character": 42,
+      "skin": 105824,
+      "label": "Pink-haired Ayame",
+      "source": "res://assets/characters/crossgate/fighters/emilia/105824/portrait.png",
+      "style": "emilia.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. The actual model is AYAME skin Pink-haired Ayame, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "cb649a2bb8829ffa182528bd5ff95db4e73095ffa339e0bb0d5db689839b64b3",
+      "source_sha256": "49616f571afb8cfe7ac96a214994d0350225894fd1a4a396034c998445e9a51e",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/emilia.png",
+        "assets/characters/crossgate/fighters/emilia/105824/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/ayame-105830.png",
+      "character": 42,
+      "skin": 105830,
+      "label": "Blonde Ayame",
+      "source": "res://assets/characters/crossgate/fighters/emilia/105830/portrait.png",
+      "style": "emilia.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. The actual model is AYAME skin Blonde Ayame, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "48c22a58fcd71f28a78ba92171ba4f985f86feaa08a3de7375712cc29fcdc222",
+      "source_sha256": "3e929d33301cdfdba96ad239140fe582eff825ba06f6af0c6ec68c19f5084a14",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/emilia.png",
+        "assets/characters/crossgate/fighters/emilia/105830/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/ayame-105837.png",
+      "character": 42,
+      "skin": 105837,
+      "label": "Magenta Hair / Black",
+      "source": "res://assets/characters/crossgate/fighters/emilia/105837/portrait.png",
+      "style": "emilia.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. The actual model is AYAME skin Magenta Hair / Black, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "8b5f73e7451e59fc1ae1d2765d3105efef53e3892cd6fdaaed6f988869a4a79a",
+      "source_sha256": "ffe031b0757000ba60db93d56ea533f7dc37d858a298fd67208ba70e9ee47f27",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/emilia.png",
+        "assets/characters/crossgate/fighters/emilia/105837/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/ayame-106275.png",
+      "character": 42,
+      "skin": 106275,
+      "label": "Original Brown / Purple",
+      "source": "res://assets/characters/crossgate/fighters/emilia/106275/portrait.png",
+      "style": "emilia.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. The actual model is AYAME skin Original Brown / Purple, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "be9544132b7e0718bce8d9088610188be83e499e3773d3b5dd567ea704c585c8",
+      "source_sha256": "f5eeadad7b8eaf76521db7da570e662db9010fbe42b63ee57f10fb7c477f5f75",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/emilia.png",
+        "assets/characters/crossgate/fighters/emilia/106275/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/ayame-106281.png",
+      "character": 42,
+      "skin": 106281,
+      "label": "Original Black / Red",
+      "source": "res://assets/characters/crossgate/fighters/emilia/106281/portrait.png",
+      "style": "emilia.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. The actual model is AYAME skin Original Black / Red, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "505c5267f7b1fd7a72e38aa231213af50dd210baf0aad4edf57accb906c7c144",
+      "source_sha256": "d3c4757391862676f8024a1a529e9f9976517e9f5221954f9eb117752a6ca264",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/emilia.png",
+        "assets/characters/crossgate/fighters/emilia/106281/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/ayame-106287.png",
+      "character": 42,
+      "skin": 106287,
+      "label": "Original Red / Green",
+      "source": "res://assets/characters/crossgate/fighters/emilia/106287/portrait.png",
+      "style": "emilia.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. The actual model is AYAME skin Original Red / Green, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "0338810df5b45da78ca4fc1f36ebdc37f2d6f5f76078961d273118ed1af2ea1d",
+      "source_sha256": "c35df3d931db1cafcf122eb1dde32d5301fa8fdb038c86e0f665287ea2f12424",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/emilia.png",
+        "assets/characters/crossgate/fighters/emilia/106287/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/ayame-106293.png",
+      "character": 42,
+      "skin": 106293,
+      "label": "Original Gold / Pink",
+      "source": "res://assets/characters/crossgate/fighters/emilia/106293/portrait.png",
+      "style": "emilia.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. The actual model is AYAME skin Original Gold / Pink, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "49934631fe2cf9b34c3606a9df626af45bfcf711536578bac09bf2368b9828ee",
+      "source_sha256": "8629088f0a72b1405b6bb97587a47a66f2a97cc40078b061033ab453deafb0dc",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/emilia.png",
+        "assets/characters/crossgate/fighters/emilia/106293/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/ayame-106625.png",
+      "character": 42,
+      "skin": 106625,
+      "label": "Blonde / Dark Green",
+      "source": "res://assets/characters/crossgate/fighters/emilia/106625/portrait.png",
+      "style": "emilia.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. The actual model is AYAME skin Blonde / Dark Green, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "922fa94a317cbcce2e645b4f2856a350cecc72160621c35a1eaf9f006131f36e",
+      "source_sha256": "ffe4e860605fd74a22dc5effd2d4feb4e3b86423f79a49928e1b84ae892ad22c",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/emilia.png",
+        "assets/characters/crossgate/fighters/emilia/106625/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/ayame-111669.png",
+      "character": 42,
+      "skin": 111669,
+      "label": "Brown Hair / White",
+      "source": "res://assets/characters/crossgate/fighters/emilia/111669/portrait.png",
+      "style": "emilia.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. The actual model is AYAME skin Brown Hair / White, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "adfad5aa8fbbe668228e037d02aac636f3a3940043af9d2a929539e875258e7c",
+      "source_sha256": "726371794cf9814f0468ac5b1367d01a1e2240fe314a273f62504f58cf80dbb1",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/emilia.png",
+        "assets/characters/crossgate/fighters/emilia/111669/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/ayame-120322.png",
+      "character": 42,
+      "skin": 120322,
+      "label": "Sakura Ayame",
+      "source": "res://assets/characters/crossgate/fighters/emilia/120322/portrait.png",
+      "style": "emilia.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. The actual model is AYAME skin Sakura Ayame, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "74a0367eabe1c637543dfaf468501702c1146e110908eb0edaa313d26fc43852",
+      "source_sha256": "252a004434614845fad13204611c8069fba489a081599e40d3c1312c06c45feb",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/emilia.png",
+        "assets/characters/crossgate/fighters/emilia/120322/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/ayame-120484.png",
+      "character": 42,
+      "skin": 120484,
+      "label": "Fragrant Ayame",
+      "source": "res://assets/characters/crossgate/fighters/emilia/120484/portrait.png",
+      "style": "emilia.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. The actual model is AYAME skin Fragrant Ayame, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "de164d0cbf019edf6708bd426b671e6102993191bfe97c3d9d9676ddee6ee29a",
+      "source_sha256": "61c15834ea11e03f367d6bc7bc4bdf5f0f73bb5a8c537ebece634fde014a489e",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/emilia.png",
+        "assets/characters/crossgate/fighters/emilia/120484/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/ayame-120490.png",
+      "character": 42,
+      "skin": 120490,
+      "label": "Green Hair / White",
+      "source": "res://assets/characters/crossgate/fighters/emilia/120490/portrait.png",
+      "style": "emilia.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. The actual model is AYAME skin Green Hair / White, not Emilia's long-haired elf identity. Use ONLY the painted finish of the style image. Preserve this sprite's human female face, rounded HUMAN ears, actual short/shoulder-length hairstyle, fringe, hair colour, hair accessories if present, eye colour and skin tone. Do NOT copy Emilia's long silver hair, braid, flower ornament or pointed elf ears unless they actually appear in this specific sprite. Head and tiny bare neck only, no outfit, staff or pet. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "688e1424aeeb68b727dce3f52cf05a37203efb51d33cbefa0e5d1bb3f2a96eee",
+      "source_sha256": "c12742e711092bf6b32ba2c1f5b2f33a4e1207fb661eb7b6a4c91ca365418ad2",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/emilia.png",
+        "assets/characters/crossgate/fighters/emilia/120490/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/bog-dark.png",
+      "character": 40,
+      "skin": 100942,
+      "label": "Dark hair / black",
+      "source": "res://assets/characters/crossgate/fighters/bog/100942/portrait.png",
+      "style": "bog.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Same approved Bog face, crossed cheek scar, tall rectangular FLAT-TOP HAIR and confident grin as style image, but charcoal/black flat-top hair with clipped dark sides, matching this darker-haired sprite. Flat-top is hair, NOT a cap. Preserve tan skin. No shoulders or clothing. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "c676611c52feefa4b2f8b4ba4c44df16f5270b866edf2221c6384b373c91bc82",
+      "source_sha256": "01052ef24b992fbc337dc16cf3f39fa4df5334521f7e4d4e47e2a55dc4b2290e",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/bog.png",
+        "assets/characters/crossgate/fighters/bog/100942/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/kaz-blond-rose.png",
+      "character": 34,
+      "skin": 109890,
+      "label": "Blond / Rose",
+      "source": "res://assets/characters/crossgate/kazi/skins/109890/portrait.png",
+      "style": "kaz.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. This is the blond Kaz / Rose model: golden blond swept side-parted hair with the hairstyle actually seen in the sprite, warm fair skin, determined young male face. Preserve the original mask or mouth covering ONLY if visible in this sprite. No scarf or clothing. Aura version has the same physical head, so omit aura. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "61f22a3fa873dd6188ee332bb15afc8826ef3b70334b13fd58cfade391bc0c90",
+      "source_sha256": "f5525358253be1350e87c3bbcd34864ee7c52da6eab812f6cf26b03110b6e493",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/kaz.png",
+        "assets/characters/crossgate/kazi/skins/109890/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/kaz-yellow-mask.png",
+      "character": 34,
+      "skin": 109146,
+      "label": "Yellow / Red Sparks",
+      "source": "res://assets/characters/crossgate/kazi/skins/109146/portrait.png",
+      "style": "kaz.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Kaz Yellow / Red Sparks: very dark navy-black hair, yellow/gold face covering around the lower face as in the actual model, visible intense eyes. Preserve the model's hair silhouette and gold mask, not the unmasked default face. No sparks or clothing. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "97991c0bb62cb32535fd2c12fdab234af75f8cbc38b95c847e59b4c84e2ef479",
+      "source_sha256": "c1acd35156b120e3cc042df522b84b8590c0b226b93754fc3c3469dd82f3835d",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/kaz.png",
+        "assets/characters/crossgate/kazi/skins/109146/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/lancelot-105206-v2.png",
+      "character": 43,
+      "skin": 105206,
+      "label": "Black Lancelot",
+      "source": "res://assets/characters/crossgate/fighters/lancelot/105206/portrait.png",
+      "style": "lancelot.png",
+      "prompt": "Use case: precise-object-edit. Image 1 is the HEAD PORTRAIT TO CORRECT. Image 2 is the actual Lancelot skin model, identity authority. Remove ONLY the invented face covering/mask from image 1 and reveal the natural unobstructed human face and mouth. This sprite DOES NOT WEAR A FACE MASK; the dark sprite pixels are hair shadow and neck clothing. For the charcoal-haired variant REMOVE the ornate black/gold eye/cheek mask entirely. For the mint-haired variant REMOVE the lower face covering entirely. Keep the exact same hair colour, hair shape, eyes, skin tone, face proportions, calm expression, warm painted anime JRPG style, framing, alpha and all other details. Head and tiny bare neck only, no collar or torso. No new accessories, makeup, jewellery, masks, headbands, clothing, text or frame. Keep genuine alpha transparency. One corrected square portrait only, complete hair and ears visible.",
+      "sha256": "f03eac8b915f325fde61697ff11b38e0e662fc309977789f1269c8db0a788aad",
+      "source_sha256": "d325bc13ef104449102f1eca716f2e920ba00ebd3198724a3d92b41c67a8ab1c",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "build/Other Files/Asset Toolkit/Painted Portrait HUD/Candidates/lancelot-105206.png",
+        "assets/characters/crossgate/fighters/lancelot/105206/portrait.png"
+      ],
+      "edit_reference_sha256": "960a320cd698e1ab87505255698cb965dd85082f262426af31d7e9135b5de394"
+    },
+    {
+      "file": "skins/lancelot-105212.png",
+      "character": 43,
+      "skin": 105212,
+      "label": "Emerald / Black",
+      "source": "res://assets/characters/crossgate/fighters/lancelot/105212/portrait.png",
+      "style": "lancelot.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Use actual Lancelot skin Emerald / Black as palette authority. Preserve his elegant adult male face and long swept-back hair, but match this model's exact hair hue, skin tone, eye colour and any actual face/head accessory. Do not retain default blond/ivory colours when this skin differs. Head and tiny bare neck only, no armour, shoulders, bow or cloak. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "1b92d55c48ba84f962ebaf305b0b2e954279877e6ad77827db015d2e6c2a1dee",
+      "source_sha256": "e60fac529d51e1f5b61142e038adc7a1463528a165536abdff4edc297ec09481",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/lancelot.png",
+        "assets/characters/crossgate/fighters/lancelot/105212/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/lancelot-105907-v2.png",
+      "character": 43,
+      "skin": 105907,
+      "label": "Mint / Blue",
+      "source": "res://assets/characters/crossgate/fighters/lancelot/105907/portrait.png",
+      "style": "lancelot.png",
+      "prompt": "Use case: precise-object-edit. Image 1 is the HEAD PORTRAIT TO CORRECT. Image 2 is the actual Lancelot skin model, identity authority. Remove ONLY the invented face covering/mask from image 1 and reveal the natural unobstructed human face and mouth. This sprite DOES NOT WEAR A FACE MASK; the dark sprite pixels are hair shadow and neck clothing. For the charcoal-haired variant REMOVE the ornate black/gold eye/cheek mask entirely. For the mint-haired variant REMOVE the lower face covering entirely. Keep the exact same hair colour, hair shape, eyes, skin tone, face proportions, calm expression, warm painted anime JRPG style, framing, alpha and all other details. Head and tiny bare neck only, no collar or torso. No new accessories, makeup, jewellery, masks, headbands, clothing, text or frame. Keep genuine alpha transparency. One corrected square portrait only, complete hair and ears visible.",
+      "sha256": "b58a3a7a95c852e64b541a72a90e5e91d62424efba6d2d22bec0f27e38156fd3",
+      "source_sha256": "12c1609f8adad147153087dc71b592626687d7b31a718afbdc6e335b8a54ccd5",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "build/Other Files/Asset Toolkit/Painted Portrait HUD/Candidates/lancelot-105907.png",
+        "assets/characters/crossgate/fighters/lancelot/105907/portrait.png"
+      ],
+      "edit_reference_sha256": "414621f2aeb4f3c1bc58d29416f123c6c43c356036880251591e528c92be6b77"
+    },
+    {
+      "file": "skins/lancelot-106131.png",
+      "character": 43,
+      "skin": 106131,
+      "label": "Gold / Purple",
+      "source": "res://assets/characters/crossgate/fighters/lancelot/106131/portrait.png",
+      "style": "lancelot.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Use actual Lancelot skin Gold / Purple as palette authority. Preserve his elegant adult male face and long swept-back hair, but match this model's exact hair hue, skin tone, eye colour and any actual face/head accessory. Do not retain default blond/ivory colours when this skin differs. Head and tiny bare neck only, no armour, shoulders, bow or cloak. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "fb3037213f2867b849d10e64c70e037c80b197160ca8bbbd6987df36b9252331",
+      "source_sha256": "559ae5a31b7a24281667c61f2207d00a924bd298e0d3fbc8a2967f8cd078ff79",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/lancelot.png",
+        "assets/characters/crossgate/fighters/lancelot/106131/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/lancelot-106137.png",
+      "character": 43,
+      "skin": 106137,
+      "label": "Black / Red",
+      "source": "res://assets/characters/crossgate/fighters/lancelot/106137/portrait.png",
+      "style": "lancelot.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Use actual Lancelot skin Black / Red as palette authority. Preserve his elegant adult male face and long swept-back hair, but match this model's exact hair hue, skin tone, eye colour and any actual face/head accessory. Do not retain default blond/ivory colours when this skin differs. Head and tiny bare neck only, no armour, shoulders, bow or cloak. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "01c4e0212a45aa3a6219306b9f6aceb68085b685833ab75b58b35863b9ba1278",
+      "source_sha256": "887efb605ce015183d8961de5e2ab0623a759793991b287ff0fb3ae3f4c7e0f1",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/lancelot.png",
+        "assets/characters/crossgate/fighters/lancelot/106137/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/lancelot-106143.png",
+      "character": 43,
+      "skin": 106143,
+      "label": "Blue / Brown",
+      "source": "res://assets/characters/crossgate/fighters/lancelot/106143/portrait.png",
+      "style": "lancelot.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Use actual Lancelot skin Blue / Brown as palette authority. Preserve his elegant adult male face and long swept-back hair, but match this model's exact hair hue, skin tone, eye colour and any actual face/head accessory. Do not retain default blond/ivory colours when this skin differs. Head and tiny bare neck only, no armour, shoulders, bow or cloak. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "d1bd6fae739eab1cc6823b5696a9665b2b2fc58742666a29d9f6678211152f01",
+      "source_sha256": "0b2b1bfceaaf49ee94fbd5b9ab4c7e36b7819d6dc02229b3dfa780e4d9f5822a",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/lancelot.png",
+        "assets/characters/crossgate/fighters/lancelot/106143/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/lancelot-106550.png",
+      "character": 43,
+      "skin": 106550,
+      "label": "Silver / Green",
+      "source": "res://assets/characters/crossgate/fighters/lancelot/106550/portrait.png",
+      "style": "lancelot.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Use actual Lancelot skin Silver / Green as palette authority. Preserve his elegant adult male face and long swept-back hair, but match this model's exact hair hue, skin tone, eye colour and any actual face/head accessory. Do not retain default blond/ivory colours when this skin differs. Head and tiny bare neck only, no armour, shoulders, bow or cloak. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "97872abd8448a5699a76ad4e72ec54bb22f6159cc788d329a228a23fb154dd8b",
+      "source_sha256": "ddb1e50b98e3d97a50f9173e478c6f10ed527d50e104e397df4f74c307098566",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/lancelot.png",
+        "assets/characters/crossgate/fighters/lancelot/106550/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/saizo-105178.png",
+      "character": 39,
+      "skin": 105178,
+      "label": "Brown Hair",
+      "source": "res://assets/characters/crossgate/fighters/saizo/105178/portrait.png",
+      "style": "saizo.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Use the actual Saizo skin Brown Hair as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "a4ed383089b4be1a3ec0ea3a7120ece5918ba82517421070678d568d2513145e",
+      "source_sha256": "a5903a9c8f51a0987993cbead598ef8645d808ff291febad40faa75906d21a8b",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/saizo.png",
+        "assets/characters/crossgate/fighters/saizo/105178/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/saizo-105492.png",
+      "character": 39,
+      "skin": 105492,
+      "label": "Purple Hair",
+      "source": "res://assets/characters/crossgate/fighters/saizo/105492/portrait.png",
+      "style": "saizo.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Use the actual Saizo skin Purple Hair as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "667fdba88f9b6a57227aadcaf985175158148335e3cdc00779226eb4c6560adc",
+      "source_sha256": "89967e4d15ac6a6337ea057e119b4c653cd457e6d7e02317700d904dec7fb31f",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/saizo.png",
+        "assets/characters/crossgate/fighters/saizo/105492/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/saizo-105696.png",
+      "character": 39,
+      "skin": 105696,
+      "label": "Blond",
+      "source": "res://assets/characters/crossgate/fighters/saizo/105696/portrait.png",
+      "style": "saizo.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Use the actual Saizo skin Blond as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "b672bf11cac08bfd81afeac35d3fccded8a88a19b877137690c15cfbdaba446c",
+      "source_sha256": "643f1fafa728adcd306d0a50e54bb9ef24ca23e0404995a843ea9ca949d9b45d",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/saizo.png",
+        "assets/characters/crossgate/fighters/saizo/105696/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/saizo-106052.png",
+      "character": 39,
+      "skin": 106052,
+      "label": "Original Blue-Black",
+      "source": "res://assets/characters/crossgate/fighters/saizo/106052/portrait.png",
+      "style": "saizo.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Use the actual Saizo skin Original Blue-Black as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "be7066f1f94861bb7b2eb9a4c5cd38cddf3b81b7d5b35b3b1c6f3b5641de53b3",
+      "source_sha256": "c9f1e94eb8b590ac53d7627d4078cfecebb7bfa8743daf94d6bfa9dbfea00aaf",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/saizo.png",
+        "assets/characters/crossgate/fighters/saizo/106052/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/saizo-106064.png",
+      "character": 39,
+      "skin": 106064,
+      "label": "Blue & Tan",
+      "source": "res://assets/characters/crossgate/fighters/saizo/106064/portrait.png",
+      "style": "saizo.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Use the actual Saizo skin Blue & Tan as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "872b4e806c81b6d77ee8f50e08ec442c690ca5d6692a5bcbc68dd3e201ded00e",
+      "source_sha256": "05fe04e0675fe334d90e8954042535234cdbfc30cef28ad4f4bb973b5665f871",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/saizo.png",
+        "assets/characters/crossgate/fighters/saizo/106064/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/saizo-106070.png",
+      "character": 39,
+      "skin": 106070,
+      "label": "Red & Brown",
+      "source": "res://assets/characters/crossgate/fighters/saizo/106070/portrait.png",
+      "style": "saizo.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Use the actual Saizo skin Red & Brown as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "f62c69e0ee3ff6298eb27f0c3508571bbcb55764858ba02fea96cea4d17861ac",
+      "source_sha256": "45e6a89169fdacbdced1f0f2b5dd9cdafd8a6e7981f64b669629d3964a51081e",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/saizo.png",
+        "assets/characters/crossgate/fighters/saizo/106070/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/saizo-106182.png",
+      "character": 39,
+      "skin": 106182,
+      "label": "Pink Hair",
+      "source": "res://assets/characters/crossgate/fighters/saizo/106182/portrait.png",
+      "style": "saizo.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Use the actual Saizo skin Pink Hair as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "8d592ae44df37cfcdc20333d651100277a1ab525edb9bd7f8dfdc551136b00c1",
+      "source_sha256": "ef21ba905afddf2d0818bef2299559d47bd6c5511c5f74f46efbae117bc9a96f",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/saizo.png",
+        "assets/characters/crossgate/fighters/saizo/106182/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/saizo-106188.png",
+      "character": 39,
+      "skin": 106188,
+      "label": "Akamaru",
+      "source": "res://assets/characters/crossgate/fighters/saizo/106188/portrait.png",
+      "style": "saizo.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Use the actual Saizo skin Akamaru as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "2756781d48c9a3bdd6a6d53eccb777b08d78b140a4efd6622637c438de22c253",
+      "source_sha256": "bda18b849c7ffc685876d5d15fbd8d6162fdcfd004df067a69df3be2fe8f4d4e",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/saizo.png",
+        "assets/characters/crossgate/fighters/saizo/106188/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/saizo-gold.png",
+      "character": 39,
+      "skin": 106058,
+      "label": "Yellow & Green",
+      "source": "res://assets/characters/crossgate/fighters/saizo/106058/portrait.png",
+      "style": "saizo.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Use the actual Saizo skin Yellow & Green as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "c3934fa03f73e19bec6d1fd9f909df0157a2d4424f250f9994ac7ddd39b3e1b2",
+      "source_sha256": "0740798f409d8486f08c6c16cf56a12158d8b5bfec1332d9b7fb6344450ae8bf",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/saizo.png",
+        "assets/characters/crossgate/fighters/saizo/106058/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/saizo-white.png",
+      "character": 39,
+      "skin": 120234,
+      "label": "Winter Lion",
+      "source": "res://assets/characters/crossgate/fighters/saizo/120234/portrait.png",
+      "style": "saizo.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Use the actual Saizo skin Winter Lion as identity and palette authority. Preserve the enormous upswept spiky hair, exact hair hue, matching skin tone and eyes; do not keep the default blond hair if the sprite has another colour. ONLY head and tiny bare neck, NO clothing, shoulder armour, collar or props. The gold pair and white pair differ below the neck only, so their heads are shared. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "c70dc8fe04557164856a61770e870d7b6c16d17db9a5617daf8808b300838e25",
+      "source_sha256": "131db7d53928495ab34883adab37e3f533da2d1a7984a8d218fad52818f48e41",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/saizo.png",
+        "assets/characters/crossgate/fighters/saizo/120234/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/shin-all-white.png",
+      "character": 37,
+      "skin": 100978,
+      "label": "All White",
+      "source": "res://assets/characters/crossgate/shin/100978/portrait.png",
+      "style": "shin.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Preserve Shin's youthful male face and spiky hairstyle, but match this model's snow-white hair and unusually pale almost ivory-white skin, match the all-white model. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "36140b9279c1baec3deeff58f060c7ff41739a0a8e14683cf1f8dc333f0290eb",
+      "source_sha256": "a85bdd81a41197e28ed9a8f37716957c48ac6f25fa01b0417269af34e10f2635",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/shin.png",
+        "assets/characters/crossgate/shin/100978/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/shin-blond.png",
+      "character": 37,
+      "skin": 100056,
+      "label": "Blond / Green",
+      "source": "res://assets/characters/crossgate/shin/100056/portrait.png",
+      "style": "shin.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Preserve Shin's youthful male face and spiky hairstyle, but match this model's bright golden yellow hair. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "bfc46be5e99d8cb43bf9e85dbb185c7a0ad5eb5f18c5a979d77259cb293a0c9e",
+      "source_sha256": "f4663ae680e143ca94a78df95c92e6c2a1b73c1d126e9fac8b6b8ea6f820489e",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/shin.png",
+        "assets/characters/crossgate/shin/100056/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/shin-blue.png",
+      "character": 37,
+      "skin": 100068,
+      "label": "Blue Hair / Charcoal",
+      "source": "res://assets/characters/crossgate/shin/100068/portrait.png",
+      "style": "shin.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Preserve Shin's youthful male face and spiky hairstyle, but match this model's deep blue hair. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "9d6996a9ba723dc3a5961defd4ba29b4580c2bb39ba767bedc09197ed8bb6750",
+      "source_sha256": "fd3f07e9598f6acb36a20fba7ad090e3f408a2981f6d3b2824458652b1ab0ff2",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/shin.png",
+        "assets/characters/crossgate/shin/100068/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/shin-brown.png",
+      "character": 37,
+      "skin": 100062,
+      "label": "Brown Hair / Red",
+      "source": "res://assets/characters/crossgate/shin/100062/portrait.png",
+      "style": "shin.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Preserve Shin's youthful male face and spiky hairstyle, but match this model's warm brown hair. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "6efc83047ec882ce68d907d608a762068f75b707c4c771a5fd2aa43c291d9964",
+      "source_sha256": "49390479dc053eebac6e36e1cb4b5940deacaf7d82592349afe858bffc607c07",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/shin.png",
+        "assets/characters/crossgate/shin/100062/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/shin-dark.png",
+      "character": 37,
+      "skin": 105737,
+      "label": "Dark Hair / Teal",
+      "source": "res://assets/characters/crossgate/shin/105737/portrait.png",
+      "style": "shin.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Preserve Shin's youthful male face and spiky hairstyle, but match this model's very dark charcoal-brown hair. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "988b7d223e6065979242f66f553f0299a43832f36af5e23ab0f06fa30fcbdd72",
+      "source_sha256": "d13adf9c4e31e4ce00539bfe961ef212ec14761a15a390a0b968589bb937cc7a",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/shin.png",
+        "assets/characters/crossgate/shin/105737/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/shin-monochrome.png",
+      "character": 37,
+      "skin": 100200,
+      "label": "Monochrome",
+      "source": "res://assets/characters/crossgate/shin/100200/portrait.png",
+      "style": "shin.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Preserve Shin's youthful male face and spiky hairstyle, but match this model's entire head in grayscale: white hair, grey skin and charcoal shadows, no warm skin hues. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "59a44682c043bcf056677b16eeaeb32d0372a1b8ecd32299b220a591c092b4eb",
+      "source_sha256": "4ff3cf4008a4b32ab0217fb043473f2984510685ec82f2a752d2dbd7e80b4421",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/shin.png",
+        "assets/characters/crossgate/shin/100200/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/shin-pink.png",
+      "character": 37,
+      "skin": 105748,
+      "label": "Pink Hair / Navy",
+      "source": "res://assets/characters/crossgate/shin/105748/portrait.png",
+      "style": "shin.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Preserve Shin's youthful male face and spiky hairstyle, but match this model's vivid magenta-pink hair. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "3a1cfdf6f0967b85b0604526763d87bb549f4528e4869b1eeb4f7c84c8281a25",
+      "source_sha256": "9e5d9375a3be12dc2154c4422bd69d7d0a83c0accbbaac7b494d2738b376b13b",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/shin.png",
+        "assets/characters/crossgate/shin/105748/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/shin-red.png",
+      "character": 37,
+      "skin": 105573,
+      "label": "Red Hair / Charcoal",
+      "source": "res://assets/characters/crossgate/shin/105573/portrait.png",
+      "style": "shin.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Preserve Shin's youthful male face and spiky hairstyle, but match this model's bright red hair. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "a190370ec18c321fee663d0f19e30608ac7b6e91f968c0486bbcf7401c7dfe32",
+      "source_sha256": "fd4f55eac7870702db06bb404b13162e586acb782b79fe772e9e5191ca5ac9f0",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/shin.png",
+        "assets/characters/crossgate/shin/105573/portrait.png"
+      ]
+    },
+    {
+      "file": "skins/shin-white.png",
+      "character": 37,
+      "skin": 100181,
+      "label": "White Hair / Black and Red",
+      "source": "res://assets/characters/crossgate/shin/100181/portrait.png",
+      "style": "shin.png",
+      "prompt": "Use case: identity-preserve. Asset: one finished, painted HEAD-ONLY game HUD portrait for a specific selectable skin. Image 1 is the existing painted portrait, for consistent hand-painted anime JRPG finish, lighting and face family. Image 2 is the ACTUAL SELECTED MODEL: this is authoritative for visible head identity, hairstyle, hair colour, skin tone, face coverings and head accessories. Match that actual model rather than copying an incorrect default portrait. Preserve Shin's youthful male face and spiky hairstyle, but match this model's bright white hair, normal warm tan skin. ONLY HEAD and a tiny bare neck, absolutely NO scarf, collar, clothing, armour or effects. Different outfits with this same visible head will share this asset. Composition: a single large centred complete head and tiny bare neck, nearly frontal slight three-quarter view toward the viewer's right with both eyes visible where the model permits. Full hair silhouette intact, about 85% of square canvas with 5% clear margin on every side. Genuine alpha transparency. Warm painted edge light and soft dimensional shading, fine clean hair detail, distinct readable eyes at 90px. Absolutely NO shoulders, chest, arms, hands, weapons, aura, scenery, UI, medallion, circular mask, frame, labels, text or watermark. One head only, no contact sheet. Preserve any actual hat or headband present on the model, but never invent one.",
+      "sha256": "feb7478eb35226c61d041c07ac43ad3af4e63854022b46a003d27ab2581042ca",
+      "source_sha256": "a6997ca839b1fc5f33b213a068f5742583ba113ac2c747043baadc7cf4becce4",
+      "size": [
+        1254,
+        1254
+      ],
+      "input_images": [
+        "assets/ui/portraits/crossgate/shin.png",
+        "assets/characters/crossgate/shin/100181/portrait.png"
+      ]
+    }
+  ]
+}

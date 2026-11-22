@@ -258,6 +258,40 @@ func apply_skin(id: String):
 		sync_skeleton()
 	if is_instance_valid(ronin_scarf) and ronin_scarf.visible:ronin_scarf._process(0)
 
+func qi_blast_height()->float:
+	var proportions=preload("res://scripts/character_proportions.gd")
+	var height=proportions.GOEMON_HEIGHT
+	var caster=get_parent() as Hero
+	if caster.character_id==2:height=proportions.EDO_HEIGHT
+	elif caster.character_id==15:height=proportions.BEN_HEIGHT
+	return height*global_basis.y.length()
+
+func qi_blast_chest()->Vector3:
+	return global_position+Vector3.UP*qi_blast_height()*.55
+
+func animate_qi_blast(delta:float,progress:float):
+	var caster=get_parent() as Hero
+	animate(delta,0,caster.is_on_floor(),caster.velocity.y,0,false,0,false)
+	sync_skeleton()
+	if progress>=0 and is_instance_valid(skeleton):pose_qi_fist(skeleton,progress)
+
+func pose_qi_fist(rig:Skeleton3D,progress:float,names:Array=["Arm_R","Forearm_R","Hand_R"]):
+	var shoulder=rig.find_bone(names[0])
+	var elbow=rig.find_bone(names[1])
+	var hand=rig.find_bone(names[2])
+	if mini(shoulder,mini(elbow,hand))<0:return
+	var anchor=rig.get_bone_global_pose(shoulder).origin
+	var bend=rig.get_bone_global_pose(elbow).origin
+	var reach=anchor.distance_to(bend)+bend.distance_to(rig.get_bone_global_pose(hand).origin)
+	var direction=rig.global_basis.orthonormalized().inverse()*(-global_basis.z.normalized())
+	var extension=smoothstep(0.0,1.0,progress)
+	var fist=anchor+reach*(direction*lerpf(.24,.95,extension)+Vector3.DOWN*lerpf(.25,.08,extension))
+	var weight=smoothstep(0.0,.25,progress)*(1.0-smoothstep(1.0,2.0,progress))
+	preload("res://scripts/goemon_reference_strike.gd").arm(rig,"R",fist,weight,names)
+
+func qi_attack_time(progress:float,contact:float,end:float)->float:
+	return progress*contact if progress<=1.0 else lerpf(contact,end,progress-1.0)
+
 func hand_position(side: String)->Vector3:
 	if is_instance_valid(skeleton):
 		var bone=skeleton.find_bone("Hand_"+side)

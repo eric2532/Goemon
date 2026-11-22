@@ -6,3 +6,4 @@ reloadable = false
 [libraries]
 macos.debug.single = "res://native/terrain_math/bin/libgoemon_terrain_math.macos.universal.dylib"
 macos.release.single = "res://native/terrain_math/bin/libgoemon_terrain_math.macos.universal.dylib"
+web.wasm32.threads = "res://native/terrain_math/bin/goemon_terrain_math.wasm"

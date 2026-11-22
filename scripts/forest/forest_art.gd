@@ -76,6 +76,22 @@ static func building(b: Dictionary)->Node3D:
 			solid(root,Vector3(center_x,height*.5,0),Vector3(length_,height,Profile.WALL_CAP_THICKNESS))
 			solid(root,Vector3(center_x,.4,0),Vector3(length_,.8,Profile.WALL_BASE_THICKNESS))
 		"gate":
+			if b.get("freyja_arch",false):
+				var parts=load("res://scripts/forest/forest_falan_fort_parts.gd")
+				var original=parts.gate_spec(b)
+				if original.is_empty():StoneFort.freyja_arch(root)
+				else:
+					var node=Geo.mesh(root,parts.prepare(original[0]),Vector3.ZERO,null);node.transform=original[1]
+					root.set_meta("falan_gate_source_graphic",original[0])
+					var bounds:AABB=original[1]*node.mesh.get_aabb();solid(root,bounds.get_center(),bounds.size)
+					for joint:AABB in parts.gate_supports(b):
+						Geo.box(root,joint.get_center(),joint.size,parts.stone_paint).set_meta("falan_gate_shoulder",true)
+						solid(root,joint.get_center(),joint.size)
+				for side in [-1,1]:solid(root,Vector3(side*6.15,8.25,0),Vector3(2.7,16.5,4.5))
+				if original.is_empty():
+					solid(root,Vector3(0,12.2,0),Vector3(9.6,2.4,3.6));add_foundation(root,b)
+				root.rotation.y=b.rotation*PI*.5
+				return root
 			if meadow:Meadow.gate(root)
 			else:StoneFort.gate(root)
 			var damage=WallDamage.new();root.add_child(damage);damage.setup(b,Profile.GATE_DOOR_WIDTH)

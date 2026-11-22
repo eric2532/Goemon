@@ -1,11 +1,11 @@
-; Goemon — painterly action and defense game
+; Cross Gate — painterly action and defense game
 config_version=5
 
 [application]
-config/name="Goemon"
-config/name.painterly_preview="Goemon"
-config/name.crosshair_aim="Goemon Fire Siege Crosshair"
-config/name.fire_siege="Goemon Fire Siege"
+config/name="Cross Gate"
+config/name.painterly_preview="Cross Gate"
+config/name.crosshair_aim="Cross Gate"
+config/name.fire_siege="Cross Gate"
 config/custom_user_dir_name.crosshair_aim="Godot/app_userdata/Goemon Fire Siege Crosshair"
 config/custom_user_dir_name.fire_siege="Godot/app_userdata/Goemon Fire Siege"
 config/use_custom_user_dir=true
@@ -34,6 +34,7 @@ import/blender/enabled=false
 textures/vram_compression/import_etc2_astc=true
 renderer/rendering_method="forward_plus"
 renderer/rendering_method.mobile="mobile"
+renderer/rendering_method.web="gl_compatibility"
 rendering_device/driver.macos="metal"
 textures/default_filters/use_nearest_mipmap_filter=false
 anti_aliasing/quality/msaa_3d=2

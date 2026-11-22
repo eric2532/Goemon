@@ -1,0 +1,11 @@
+# Fixed approved Kazi artwork
+
+`jobs.json` selects all 56 prepared editable sheets. `source-jobs.json` freezes the original approved source recipe; `approved-heads.json` pins the eight source heads and hashes. East uses the preferred slashing reference; west reuses that same head mirrored. Head features/hair are reused as pixels, not independently regenerated. Only olive facial pigment is replaced with existing nearby skin colors; alpha and unrelated pixels are preserved. No new image generation was used for this revision.
+
+The saved `preparer-source.py` records the exact initial assembly code corresponding to per-master preparer hashes. The current tool reads the frozen source recipe, preventing the active runtime sheets from becoming a new identity reference. Existing masters are never overwritten. A changed preparation algorithm requires a fresh output revision; do not rewrite provenance hashes or overwrite user edits. The PNG masters selected by jobs.json remain authoritative editable sources for the normal atlas baker.
+
+Run frames reuse every pose once, ordered 0–8, 13–17, 9–12 so the opposite planted boot starts at half-cycle. The same head layer is scaled once per clip and follows its neck position. Cast, hurt and fall retain their existing authored poses with the face palette correction. Full sword/hip-ready motion comes from saved motion artwork; rejected full-character heads are excluded.
+
+`hip-aligned/masters/3-2.png` and `5-2.png` correct the rear-right left-hip carry by reusing existing back-view waist/arm and isolated blade pixels. Assertions preserve the approved head and feet. The attack correction affects ready/windup/settle only; cut/return/explosion frames stay intact. Exact source hashes, frames and preparation-code hashes are in sidecars, with the code snapshot alongside. `--correct-rear-hip` reproduces this preparation into a fresh output directory; it refuses to overwrite masters.
+
+Bake candidate assets using `prepare_crossgate_kazi_hd.bake(pilot=True, jobs=...)` with this recipe. Review all eight body sizes, hip placement, head/neck seams, the two horizontal cuts, explosion, contacts and loop seam before selecting the recipe in the root jobs.json. Run the existing desktop-launcher Kazi checks and foreground army test; no app export is needed.

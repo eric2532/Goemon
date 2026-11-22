@@ -498,7 +498,7 @@ Wave counts, scenery and other fighters retain their existing ownership.
 - Wind Walk gives 8 seconds of stealth, a translucent body and 50% faster movement.
   The first offensive attack ends stealth and carries double damage through the
   existing AttackChain ticket/hit filter. Cooldown: 12 seconds.
-- Mirror Image creates five copies of the current caster for 15 seconds. They
+- Mirror Image creates five copies of the current caster for 30 seconds. They
   spawn around the caster with wider spacing and approach a shared enemy from
   different sides within their existing attack reach. Blocked sides fall back
   to the normal approach; cramped spawn areas use the existing clearance search.

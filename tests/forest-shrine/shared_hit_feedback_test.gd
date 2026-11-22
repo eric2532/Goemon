@@ -3,10 +3,21 @@ const Effects=preload("res://assets/rogue/scripts/effects.gd")
 const INK=preload("res://assets/rogue/shaders/magic_ink_brush.gdshader")
 class QuietEffectParent extends Node3D:
  var settings={"reduced_flashes":true}
+class PresentationGame extends Node3D:
+ var model=preload("res://scripts/forest/forest_model.gd").new()
+ var actors={}
+ var settings={}
+ var paused=false
+ var transitioning=false
+ func forest_point_visible(_point:Vector3)->bool:return true
 class TracedPresentation extends "res://scripts/forest/crowd/army_presentation.gd":
  var spark_poses=[]
+ var gold_poses:Dictionary={}
+ var critical_poses=[]
  func show_rows(node:MultiMeshInstance3D,poses:Array,custom:Array):
   if node.name=="ArmyFX_spark":spark_poses=poses.duplicate()
+  if node.name.begins_with("ArmyFX_gold-hit"):gold_poses[node.name]=poses.duplicate()
+  if node.name=="ArmyFX_critical":critical_poses=poses.duplicate()
   super.show_rows(node,poses,custom)
 var checks=0
 var failures=0
@@ -56,19 +67,22 @@ func run():
  check(quiet_hit.scale==Vector3.ONE,"Reduced flashes retain Goemon's previous burst size")
  quiet.queue_free();await process_frame
  var view=Camera3D.new();root.add_child(view);view.position=Vector3(7,4,10);view.look_at(Vector3(0,1,0));view.current=true
- var army=TracedPresentation.new();root.add_child(army);army.configure(null)
+ var owner_=PresentationGame.new();root.add_child(owner_)
+ var army=TracedPresentation.new();root.add_child(army);army.configure(owner_)
  for repeat in 3:
   army.clear()
-  var sizes=[]
   for tier in 3:
-   army.present([{"kind":"damage","unit_kind":0,"position":Vector3(tier*3,1,0),"amount":10,"heavy":tier>0,"critical":tier==2}])
-   sizes.append(army.effects[-1].scale)
-  check(sizes==[3.0,3.8,4.6],"Normal, heavy and critical contacts are large enough to read beyond the enemy body")
-  check(army.effects.size()==3 and army.effects.all(func(row):return row.kind=="spark" and row.life==.18),"Each victim retains one spark with the existing lifetime")
+   army.present([{"kind":"damage","unit_kind":0,"position":Vector3(tier*3,1,0),"amount":10,"impact_scale":1.0+tier*.5,"heavy":tier>0,"critical":tier==2}])
+  var gold=army.effects.filter(func(row):return row.kind in army.GOLD_SPARKS)
+  check(gold.map(func(row):return row.scale)==[1.0,1.5,2.0],"Gold sparks scale with the attacker")
+  check(gold.map(func(row):return row.kind)==army.GOLD_SPARKS,"The three original spark variants cycle without combat RNG")
+  check(army.effects.size()==4 and army.effects[-1].kind=="critical" and army.effects[-1].position==gold[-1].position and is_equal_approx(army.effects[-1].scale,5.6),"Critical feedback adds the enlarged layer at the same contact")
   army.tick(.04)
-  check(army.spark_poses.size()==9,"Three contacts form three bounded six-point stars")
-  check(army.spark_poses.all(func(pose):return pose.basis.z.normalized().dot(view.global_basis.z)>.999),"Contact stars face the actual gameplay camera")
-  check(army.spark_poses[0].basis.x.length()>2.8 and army.spark_poses[3].basis.x.length()>army.spark_poses[0].basis.x.length() and army.spark_poses[6].basis.x.length()>army.spark_poses[3].basis.x.length(),"Visible emphasis reaches the submitted draw transforms")
+  var critical_origin:Vector3=army.critical_poses[0]*Vector3(0,(249.0/2-129)*.02,0)
+  check(critical_origin.distance_to(gold[-1].position+view.global_basis.z*.065)<.001,"The source critical origin stays centred on impact at enlarged size")
+  for key in army.GOLD_SPARKS:
+   var poses:Array=army.gold_poses.get("ArmyFX_"+key,[])
+   check(poses.size()==1 and poses[0].basis.z.normalized().dot(view.global_basis.z)>.999 and is_equal_approx(poses[0].basis.x.length(),gold[army.GOLD_SPARKS.find(key)].scale),"Each source spark draws once at the chosen size facing the camera")
   army.tick(1)
   check(army.effects.is_empty(),"Repeated native impacts expire")
  army.clear();army.present([{"kind":"muzzle","unit_kind":0,"position":Vector3.ZERO}]);army.tick(.02)
@@ -79,9 +93,18 @@ func run():
   for i in 500:army.present([{"kind":"damage","unit_kind":0,"position":Vector3.ZERO,"amount":10,"heavy":true,"critical":true}])
   check(army.effects.size()==army.effect_capacity,"Simultaneous impacts retain the native effect capacity")
   army.tick(.01)
-  check(army.spark_poses.size()==army.effect_capacity*3,"Contact geometry stays bounded within the existing shared draw batch")
+  var gold_count=0
+  for key in army.GOLD_SPARKS:gold_count+=army.batches[key].multimesh.visible_instance_count
+  check(gold_count*2==army.effect_capacity and army.batches.critical.multimesh.visible_instance_count==gold_count,"At capacity every admitted critical retains both layers")
   army.tick(1)
  check(army.get_child_count()==nodes and Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)==resources,"Five thousand native impacts reuse the prepared nodes and resources")
+ army.clear()
+ for i in 500:army.present([{"kind":"damage","position":Vector3.ZERO,"critical":true,"quiet_contact":true,"impact_scale":1.6}])
+ army.tick(.01)
+ check(army.effects.size()==army.effect_capacity and army.effects.all(func(row):return row.kind=="critical" and is_equal_approx(row.scale,4.48)),"Quiet criticals retain the enlarged attacker size and existing bounded pool")
+ check(army.batches.critical.multimesh.visible_instance_count==army.effect_capacity and army.counts().labels==0,"Quiet criticals draw without ordinary sparks or numbers")
+ army.tick(1)
+ check(army.effects.is_empty(),"Quiet criticals expire and release their slots")
  if DisplayServer.get_name()!="headless":
   fx.clear();await process_frame;fx.apply_quality(2);fx.reduced_flashes=false
   var camera=Camera3D.new();root.add_child(camera);camera.position=Vector3(3,5,15);camera.look_at(Vector3(0,2,0));camera.current=true
@@ -96,5 +119,5 @@ func run():
     caption.position=at+Vector3.DOWN*.35;caption.font_size=44;caption.pixel_size=.012;caption.billboard=BaseMaterial3D.BILLBOARD_ENABLED;root.add_child(caption)
   fx.tick(.045);await RenderingServer.frame_post_draw
   check(root.get_texture().get_image().save_png("res://build/Other Files/Asset Toolkit/Shared Hit Feedback Trial/impact-families.png")==OK,"Capture the existing painted effect families at contact")
- fx.queue_free();army.queue_free();await process_frame
+ fx.queue_free();army.queue_free();owner_.queue_free();await process_frame
  print("SHARED_HIT_FEEDBACK_RESULT checks=%d failures=%d"%[checks,failures]);quit(1 if failures else 0)

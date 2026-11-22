@@ -159,9 +159,6 @@ func run():
  for i in 120:workforce.tick_arrows(1.0/60)
  check(is_equal_approx(guard_target.hp,guard_hp-m.balance.tower_workers*m.balance.tower_damage),"Automatic guard arrows deliver unchanged damage exactly once")
 
- m.team_progression.ranks.tower_speed=1;m.team_progression.ranks.tower_damage=1
- check(is_equal_approx(workforce.attack_interval(cannon),2.0),"Existing speed card applies to Cannon Tower")
- m.team_progression.ranks.clear()
  game.camera_rig.camera.projection=Camera3D.PROJECTION_PERSPECTIVE
  game.camera_rig.camera.position=splash+Vector3(17,13,26);game.camera_rig.camera.look_at(splash+Vector3(3,1,0))
  view.audio.last_events.clear();view.impact({"to":splash,"direction":Vector3.DOWN,"cannon":true})

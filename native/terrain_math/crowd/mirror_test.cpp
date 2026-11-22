@@ -11,11 +11,64 @@ static KitData kits(){
  d.bullet_speed=8.64f;d.bullet_life=3.34f;d.bullet_tail=.576f;d.bullet_radius=.576f;return d;
 }
 int main(){
- {Crowd boundary;boundary.configure(8,8);
+ // Stationary shadows retain native targeting and never chase or follow the hero.
+ for(double dt:{1.0/20,1.0/30,1.0/60}){
+  Crowd shadow;shadow.configure(8,8);shadow.set_navigation(NavigationData{});
+  assert(shadow.combat.configure(kits()));
+  auto copy=shadow.spawn(-1,1,143,{0,0,0},100,.4);
+  assert(!shadow.set_mirror(copy,1,-1,40,{}));
+  assert(shadow.set_mirror(copy,1,0,120,{}));
+  auto enemy=shadow.spawn(1,0,0,{0,0,140},100000,.4);shadow.unit(enemy)->frozen=100;
+  for(int i=0;i<int(2/dt);++i){shadow.step(dt);assert(length(shadow.unit(copy)->position)<.001f);}
+  for(const auto& event:shadow.combat.events())assert(event.ticket_id!=copy);
+  shadow.set_pose(enemy,{0,0,96},0);shadow.combat.clear_events();
+  int volleys=0;
+  for(int i=0;i<int(2/dt);++i){
+   shadow.step(dt);assert(length(shadow.unit(copy)->position)<.001f);
+   for(const auto& event:shadow.combat.events())if(event.ticket_id==copy){assert(event.action_index==400);++volleys;}
+   shadow.combat.clear_events();
+  }
+  assert(volleys>=2);shadow.despawn(enemy);
+  for(int i=0;i<int(2/dt);++i){shadow.step(dt);assert(length(shadow.unit(copy)->position)<.001f);}
+ }
+ {Crowd boundary;boundary.configure(9,8);
   auto kazi=boundary.spawn(-1,1,134,{0,0,0},100,.4);
-  auto unknown=boundary.spawn(-2,1,135,{0,0,0},100,.4);
+  auto uru=boundary.spawn(-2,1,135,{0,0,0},100,.4);
+  auto maze=boundary.spawn(-3,1,136,{0,0,0},100,.4);
+  auto shin=boundary.spawn(-4,1,137,{0,0,0},100,.4);
+  auto saizo=boundary.spawn(-5,1,139,{0,0,0},100,.4);
+  auto retired=boundary.spawn(-6,1,141,{0,0,0},100,.4);
+  auto emilia=boundary.spawn(-7,1,142,{0,0,0},100,.4);
+  auto lancelot=boundary.spawn(-8,1,143,{0,0,0},100,.4);
   assert(boundary.set_mirror(kazi,2,7,3,{0,0,-1}));
-  assert(!boundary.set_mirror(unknown,2,7,3,{0,0,-1}));
+  assert(boundary.set_mirror(uru,7,7,3,{0,0,-1}));
+  assert(boundary.set_mirror(maze,2,7,3,{0,0,-1}));
+  assert(boundary.set_mirror(shin,2,7,3,{0,0,-1}));
+  assert(boundary.set_mirror(saizo,2,7,3,{0,0,-1}));
+  assert(!boundary.set_mirror(retired,2,7,3,{0,0,-1}));
+  assert(boundary.set_mirror(emilia,7,7,3,{0,0,-1}));
+  assert(boundary.set_mirror(lancelot,2,7,120,{}));
+  boundary.despawn(shin);
+  for(int kind:{138,140,144,145,146,147,148,149,150,151,152}){
+   auto copy=boundary.spawn(-4,1,kind,{0,0,0},100,.4);
+   assert(boundary.set_mirror(copy,2,7,3,{0,0,-1})==(kind!=152));
+   boundary.despawn(copy);
+  }
+ }
+ {Crowd ranged;ranged.configure(8,8);ranged.set_navigation(NavigationData{});
+  assert(ranged.combat.configure(kits()));
+  auto maze=ranged.spawn(-1,1,136,{0,0,0},100,.4);
+  auto enemy=ranged.spawn(1,0,0,{0,0,28},100000,.4);ranged.unit(enemy)->frozen=100;
+  assert(ranged.set_mirror(maze,2,7,120,{}));
+  int throws=0;
+  for(int i=0;i<120;++i){
+   ranged.step(1.0/60);
+   assert(length(ranged.unit(maze)->position)<.001f);
+   for(const auto& event:ranged.combat.events())
+    if(event.ticket_id==maze&&event.action_index>=400){assert(event.target_id==1);++throws;}
+   ranged.combat.clear_events();
+  }
+  assert(throws>=2);
  }
  Crowd c;c.configure(32,16);c.set_navigation(NavigationData{});assert(c.combat.configure(kits()));
  auto h=c.spawn(-1,1,131,{0,0,0},150,.4);auto e=c.spawn(1,0,0,{0,0,20},100000,.4);c.unit(e)->frozen=100;
@@ -42,7 +95,7 @@ int main(){
  c.unit(h)->mirror_busy=false;c.despawn(e);before=c.unit(h)->position;
  for(int i=0;i<120;++i)c.step(1.0/60);
  assert(!c.unit(h)->target_handle&&!c.unit(h)->has_goal&&length(c.unit(h)->position-before)<.001f);
- auto later=c.spawn(3,0,0,{8,0,0},100000,.4);c.unit(later)->frozen=100;c.step(1.0/60);
+ auto later=c.spawn(3,0,0,{8,0,0},100000,.4);c.unit(later)->frozen=100;for(int i=0;i<13;++i)c.step(1.0/60);
  assert(c.unit(h)->target_handle==later&&c.unit(h)->has_goal);
  c.despawn(h);assert(!c.set_mirror(h,3,7,3,{0,0,-1}));
  auto next=c.spawn(-1,1,132,{0,0,0},100,.4);assert(next!=h&&c.unit(next)->mirror_actions==0);
@@ -100,6 +153,23 @@ int main(){
  auto temporary=c.spawn(-2,1,131,{0,0,0},100,.4);
  assert(c.set_mirror(temporary,3,7,3,{0,0,-1}));c.step(1.0/60);
  assert(!c.unit(temporary)->target_handle&&!c.unit(temporary)->has_goal);
+ c.set_pose(e,{-65,0,0},0);
+ c.unit(temporary)->mirror_spell_reach=80;
+ bool offered_spell=false;
+ for(int i=0;i<60;++i){
+  c.step(1.0/60);
+  for(const auto& event:c.combat.events())if(event.ticket_id==temporary&&event.action_index>=400){
+   assert(event.amount==0&&event.target_id==2);offered_spell=true;
+  }
+  c.combat.clear_events();
+ }
+ assert(offered_spell&&c.unit(temporary)->target_handle==e&&c.unit(temporary)->position.x<0);
+ c.despawn(e);
+ ExternalTarget leader;leader.kind=0;leader.hp=100;leader.foot={12,0,0};leader.targetable=false;
+ c.combat.set_targets({leader});
+ auto follow_start=c.unit(temporary)->position.x;
+ for(int i=0;i<60;++i)c.step(1.0/60);
+ assert(!c.unit(temporary)->target_handle&&c.unit(temporary)->position.x>follow_start+2);
  // Hills and cover must allow pursuit without allowing attacks through a wall.
  NavigationData hill;hill.origin={-120,0,-120};hill.width=81;hill.spacing=3;
  hill.heights.resize(81*81);hill.covered.assign(81*81,1);

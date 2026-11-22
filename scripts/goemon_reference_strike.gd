@@ -73,9 +73,10 @@ static func two_hand_target(sk: Skeleton3D,target: Vector3,aim: Vector3)->Vector
 			if ray.length()>length*.94:target=shoulder+ray.normalized()*length*.94-offset
 	return target
 
-static func arm(sk: Skeleton3D,side: String,target: Vector3,weight: float):
+static func arm(sk: Skeleton3D,side: String,target: Vector3,weight: float,names:Array=[]):
 	if weight<=0:return
-	var upper=pose(sk,"Arm_"+side);var lower=pose(sk,"Forearm_"+side);var hand=pose(sk,"Hand_"+side)
+	if names.is_empty():names=["Arm_"+side,"Forearm_"+side,"Hand_"+side]
+	var upper=pose(sk,names[0]);var lower=pose(sk,names[1]);var hand=pose(sk,names[2])
 	var before=[upper,lower,hand]
 	var a=upper.origin.distance_to(lower.origin);var b=lower.origin.distance_to(hand.origin)
 	var ray=target-upper.origin;var axis=ray.normalized()
@@ -86,7 +87,7 @@ static func arm(sk: Skeleton3D,side: String,target: Vector3,weight: float):
 	var turn=Basis(Quaternion((hand.origin-lower.origin).normalized(),(wrist-elbow).normalized()))
 	upper.basis=Basis(Quaternion((lower.origin-upper.origin).normalized(),(elbow-upper.origin).normalized()))*upper.basis
 	lower.basis=turn*lower.basis;hand.basis=turn*hand.basis;lower.origin=elbow;hand.origin=wrist
-	write_chain(sk,["Arm_"+side,"Forearm_"+side,"Hand_"+side],before,[upper,lower,hand],weight)
+	write_chain(sk,names,before,[upper,lower,hand],weight)
 
 static func feet(sk: Skeleton3D,p: Dictionary,grounded: bool):
 	if p.weight<=0:return

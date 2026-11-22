@@ -36,7 +36,9 @@ func run():
   var trail
   if kind=="musashi":
    trail=musashi_script.new();root.add_child(trail)
-   for i in 16:trail.samples.append({"inner":Vector3.ZERO,"outer":Vector3(sin(i*.1),.4,cos(i*.1))*3})
+   for i in 16:
+    var tip=Vector3(sin(i*.1),.4,cos(i*.1))*3
+    trail.samples.append({"inner":Vector3.ZERO,"outer":tip,"wave_outer":tip})
   else:
    trail=leader_script.new();trail.additive=kind=="original";root.add_child(trail)
   exercise(trail,kind,300)

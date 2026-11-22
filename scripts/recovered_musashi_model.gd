@@ -249,3 +249,9 @@ func apply_skin(_id: String):pass
 func hand_position(side: String="R")->Vector3:
 	var index=skeleton.find_bone("Part_08_hand_b" if side=="R" else "Part_07_hand_a")
 	return skeleton.global_transform*skeleton.get_bone_global_pose(index).origin
+
+func animate_qi_blast(_delta:float,progress:float):
+	body.transform=Transform3D.IDENTITY
+	if progress<0:_sample(IDLE,0);return
+	var profile=preload("res://scripts/recovered_musashi_action_profile.gd")
+	_sample(profile.action("fusion_1").clip,qi_attack_time(progress,profile.window("fusion_1")[0],profile.duration("fusion_1")))

@@ -1,0 +1,9077 @@
+[
+  {
+    "key": "35",
+    "name": "Uru",
+    "label": "Original",
+    "manifest": "assets/characters/crossgate/ruby/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/atlas-0.png",
+    "source_frame": [
+      0,
+      258,
+      308,
+      43,
+      90,
+      -22,
+      -72
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -36
+    ],
+    "bounds": [
+      3,
+      11,
+      46,
+      47
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "8ed978aa0f6c34f3acac2f0611a6734247d65d5a90a25689dd80d126a62df4c7"
+  },
+  {
+    "key": "35:108921",
+    "name": "Uru",
+    "label": "Special \u00b7 Black Hair / Yellow",
+    "manifest": "assets/characters/crossgate/ruby/108921/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/108921/atlas-0.png",
+    "source_frame": [
+      0,
+      1868,
+      1333,
+      42,
+      93,
+      -23,
+      -71
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -33
+    ],
+    "bounds": [
+      5,
+      12,
+      44,
+      50
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "f7c0808e0bcbfdcf021bf048492da5489d6bd96821e86a1368f1a1b299c52b10"
+  },
+  {
+    "key": "35:109897",
+    "name": "Uru",
+    "label": "Special \u00b7 Gold",
+    "manifest": "assets/characters/crossgate/ruby/109897/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/109897/atlas-0.png",
+    "source_frame": [
+      0,
+      1105,
+      1480,
+      45,
+      92,
+      -23,
+      -73
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -36
+    ],
+    "bounds": [
+      2,
+      10,
+      47,
+      47
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "b8ead663a1da8ad48caa1a9df09a92a596afe93670cc4b233cac45438787e111"
+  },
+  {
+    "key": "35:109903",
+    "name": "Uru",
+    "label": "Special \u00b7 Gold Rune Circle",
+    "manifest": "assets/characters/crossgate/ruby/109903/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/109903/atlas-1.png",
+    "source_frame": [
+      1,
+      1378,
+      120,
+      69,
+      115,
+      -34,
+      -84
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -36
+    ],
+    "bounds": [
+      2,
+      0,
+      50,
+      47
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "6a05e422393e5832e466dc57a5deb1678c7072535e0939851b9f3df4eafbb4db"
+  },
+  {
+    "key": "35:109909",
+    "name": "Uru",
+    "label": "Special \u00b7 Gold Flame",
+    "manifest": "assets/characters/crossgate/ruby/109909/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/109909/atlas-0.png",
+    "source_frame": [
+      0,
+      132,
+      1875,
+      129,
+      140,
+      -60,
+      -94
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -36
+    ],
+    "bounds": [
+      2,
+      0,
+      50,
+      47
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "9d937d1560be77d804988d4d62f2d3c1c148367924eeed56709c7c1e23cffba7"
+  },
+  {
+    "key": "35:100250",
+    "name": "Uru",
+    "label": "Classic \u00b7 Red / Green",
+    "manifest": "assets/characters/crossgate/ruby/100250/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/100250/atlas-0.png",
+    "source_frame": [
+      0,
+      1000,
+      1451,
+      43,
+      90,
+      -22,
+      -72
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -36
+    ],
+    "bounds": [
+      3,
+      11,
+      46,
+      47
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "621d0bfea4406a6bbbdff0ef2b09594536009d462f3020a2f6b2e31536ac37d9"
+  },
+  {
+    "key": "35:100256",
+    "name": "Uru",
+    "label": "Classic \u00b7 Blue / White",
+    "manifest": "assets/characters/crossgate/ruby/100256/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/100256/atlas-0.png",
+    "source_frame": [
+      0,
+      1000,
+      1451,
+      43,
+      90,
+      -22,
+      -72
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -36
+    ],
+    "bounds": [
+      3,
+      11,
+      46,
+      47
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "4b5452ccf1847cdf162f58a8c9f7ab2fd2f3a563e9fdf6fff4cccbdf9e382f22"
+  },
+  {
+    "key": "35:100262",
+    "name": "Uru",
+    "label": "Classic \u00b7 Green / White",
+    "manifest": "assets/characters/crossgate/ruby/100262/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/100262/atlas-0.png",
+    "source_frame": [
+      0,
+      1050,
+      1451,
+      43,
+      90,
+      -22,
+      -72
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -36
+    ],
+    "bounds": [
+      3,
+      11,
+      46,
+      47
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "5d794c977ab59a75eff84c05465987a73bdcff9e176b86bfe8b6f9923f569eda"
+  },
+  {
+    "key": "35:100268",
+    "name": "Uru",
+    "label": "Classic \u00b7 Gold / Black",
+    "manifest": "assets/characters/crossgate/ruby/100268/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/100268/atlas-0.png",
+    "source_frame": [
+      0,
+      1000,
+      1451,
+      43,
+      90,
+      -22,
+      -72
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -36
+    ],
+    "bounds": [
+      3,
+      11,
+      46,
+      47
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "afb1c20cf5d0c6d979290c7923e9d6fe8d814bb92a6a403cf46c965d0c45c4f2"
+  },
+  {
+    "key": "35:105700",
+    "name": "Uru",
+    "label": "Classic \u00b7 Silver / Violet",
+    "manifest": "assets/characters/crossgate/ruby/105700/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/105700/atlas-0.png",
+    "source_frame": [
+      0,
+      1050,
+      1451,
+      43,
+      90,
+      -22,
+      -72
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -36
+    ],
+    "bounds": [
+      3,
+      11,
+      46,
+      47
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "af9741bfcf68364ce15589ff131c70c6c6aea3f136c8ec392fd6577769eda02a"
+  },
+  {
+    "key": "35:105706",
+    "name": "Uru",
+    "label": "Classic \u00b7 Black / Red",
+    "manifest": "assets/characters/crossgate/ruby/105706/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/105706/atlas-0.png",
+    "source_frame": [
+      0,
+      1050,
+      1451,
+      43,
+      90,
+      -22,
+      -72
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -36
+    ],
+    "bounds": [
+      3,
+      11,
+      46,
+      47
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "d45366136967b33ae732146c38ed0e66e7245c4cc0d58d3a230466c4361ab6e0"
+  },
+  {
+    "key": "35:105943",
+    "name": "Uru",
+    "label": "Classic \u00b7 Purple / White",
+    "manifest": "assets/characters/crossgate/ruby/105943/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/105943/atlas-0.png",
+    "source_frame": [
+      0,
+      1000,
+      1451,
+      43,
+      90,
+      -22,
+      -72
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -36
+    ],
+    "bounds": [
+      3,
+      11,
+      46,
+      47
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "a30cf04d6f67c87c3c92b42caeac014e18065f6d181fe67b298e632747785f8b"
+  },
+  {
+    "key": "35:105949",
+    "name": "Uru",
+    "label": "Classic \u00b7 Slate / Brown",
+    "manifest": "assets/characters/crossgate/ruby/105949/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/105949/atlas-0.png",
+    "source_frame": [
+      0,
+      1000,
+      1451,
+      43,
+      90,
+      -22,
+      -72
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -36
+    ],
+    "bounds": [
+      3,
+      11,
+      46,
+      47
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "f86950000675a98a0b950f1b42895ecbc4cc81cbb1aa2c99ea36a63b28f10f32"
+  },
+  {
+    "key": "35:119255",
+    "name": "Uru",
+    "label": "Classic \u00b7 Gray / Gold",
+    "manifest": "assets/characters/crossgate/ruby/119255/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/119255/atlas-0.png",
+    "source_frame": [
+      0,
+      1050,
+      1451,
+      43,
+      90,
+      -22,
+      -72
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -36
+    ],
+    "bounds": [
+      3,
+      11,
+      46,
+      47
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "6206b42753206e03306ad63b595f75d847322abf752b5f56e85536d96a5ba912"
+  },
+  {
+    "key": "35:120274",
+    "name": "Uru",
+    "label": "Classic \u00b7 Silver / Charcoal",
+    "manifest": "assets/characters/crossgate/ruby/120274/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/120274/atlas-0.png",
+    "source_frame": [
+      0,
+      1050,
+      1451,
+      43,
+      90,
+      -22,
+      -72
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -36
+    ],
+    "bounds": [
+      3,
+      11,
+      46,
+      47
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "04a24d077cfe0236ff5fc481d49b47a911722ca4241a0df05d9f5ee0bbada44a"
+  },
+  {
+    "key": "35:100656",
+    "name": "Uru",
+    "label": "Remodel \u00b7 Black / White",
+    "manifest": "assets/characters/crossgate/ruby/100656/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/100656/atlas-0.png",
+    "source_frame": [
+      0,
+      1868,
+      1333,
+      42,
+      93,
+      -23,
+      -71
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -33
+    ],
+    "bounds": [
+      5,
+      12,
+      44,
+      50
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "cd8ee0adfb1ad0b9304373db4799198dccf9ceb6c7a5b337f9e99ba02e05cb94"
+  },
+  {
+    "key": "35:100737",
+    "name": "Uru",
+    "label": "Remodel \u00b7 Silver / Blue",
+    "manifest": "assets/characters/crossgate/ruby/100737/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/100737/atlas-0.png",
+    "source_frame": [
+      0,
+      1868,
+      1333,
+      42,
+      93,
+      -23,
+      -71
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -33
+    ],
+    "bounds": [
+      5,
+      12,
+      44,
+      50
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "4f05cd400c9ebbca514b33d18e5878914b7684898aadd7b091c8b7a6e489170f"
+  },
+  {
+    "key": "35:100743",
+    "name": "Uru",
+    "label": "Remodel \u00b7 Silver / Red",
+    "manifest": "assets/characters/crossgate/ruby/100743/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/100743/atlas-0.png",
+    "source_frame": [
+      0,
+      1868,
+      1333,
+      42,
+      93,
+      -23,
+      -71
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -33
+    ],
+    "bounds": [
+      5,
+      12,
+      44,
+      50
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "7ee2aedaf1f81803ca774b0e5573b52630f989f555dea68d9425575dc988c76f"
+  },
+  {
+    "key": "35:105250",
+    "name": "Uru",
+    "label": "Remodel \u00b7 Red / White",
+    "manifest": "assets/characters/crossgate/ruby/105250/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/105250/atlas-0.png",
+    "source_frame": [
+      0,
+      1868,
+      1333,
+      42,
+      93,
+      -23,
+      -71
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -33
+    ],
+    "bounds": [
+      5,
+      12,
+      44,
+      50
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "9dabd34568e42a343f36930f6c3e07873d70c64fa8d267f00488f6560daa5052"
+  },
+  {
+    "key": "35:105256",
+    "name": "Uru",
+    "label": "Remodel \u00b7 Blue / White",
+    "manifest": "assets/characters/crossgate/ruby/105256/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/105256/atlas-0.png",
+    "source_frame": [
+      0,
+      1868,
+      1333,
+      42,
+      93,
+      -23,
+      -71
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -33
+    ],
+    "bounds": [
+      5,
+      12,
+      44,
+      50
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "dd0cebb7f81dfe11ff960cc03e2443b0ada0bf245413536393c6e20d330b4f79"
+  },
+  {
+    "key": "35:105262",
+    "name": "Uru",
+    "label": "Remodel \u00b7 Green / White",
+    "manifest": "assets/characters/crossgate/ruby/105262/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/105262/atlas-0.png",
+    "source_frame": [
+      0,
+      1868,
+      1333,
+      42,
+      93,
+      -23,
+      -71
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -33
+    ],
+    "bounds": [
+      5,
+      12,
+      44,
+      50
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "281a9cb0bdf95e90ec88c88d3c5a862b0fcc56e6f64c8bd8169c461c6cee4246"
+  },
+  {
+    "key": "35:105268",
+    "name": "Uru",
+    "label": "Remodel \u00b7 Gold / White",
+    "manifest": "assets/characters/crossgate/ruby/105268/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/105268/atlas-0.png",
+    "source_frame": [
+      0,
+      1868,
+      1333,
+      42,
+      93,
+      -23,
+      -71
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -33
+    ],
+    "bounds": [
+      5,
+      12,
+      44,
+      50
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "b4a6e7780b11698966a0f67522182daf3d07ef6e995a2f7f8743b3e4b5c4b20e"
+  },
+  {
+    "key": "35:105718",
+    "name": "Uru",
+    "label": "Remodel \u00b7 Gray / White",
+    "manifest": "assets/characters/crossgate/ruby/105718/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/105718/atlas-0.png",
+    "source_frame": [
+      0,
+      1868,
+      1333,
+      42,
+      93,
+      -23,
+      -71
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -33
+    ],
+    "bounds": [
+      5,
+      12,
+      44,
+      50
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "b37a79af8aeb5c9a52e13584c53c5e050183bcb822364eb7d92d050c7ad043fe"
+  },
+  {
+    "key": "35:105754",
+    "name": "Uru",
+    "label": "Remodel \u00b7 Pink / White",
+    "manifest": "assets/characters/crossgate/ruby/105754/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/105754/atlas-0.png",
+    "source_frame": [
+      0,
+      1868,
+      1333,
+      42,
+      93,
+      -23,
+      -71
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -33
+    ],
+    "bounds": [
+      5,
+      12,
+      44,
+      50
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "8c1e4474d1a046ddeba48268eb182710c7aa1668573dc4e5e79642e03807c52e"
+  },
+  {
+    "key": "35:105766",
+    "name": "Uru",
+    "label": "Special \u00b7 Ruby 2.0 / Purple",
+    "manifest": "assets/characters/crossgate/ruby/105766/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/105766/atlas-0.png",
+    "source_frame": [
+      0,
+      1868,
+      1333,
+      42,
+      93,
+      -23,
+      -71
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -33
+    ],
+    "bounds": [
+      5,
+      12,
+      44,
+      50
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "36bae050a75c3cedae7d13af858187f1d3344ed187346cba00321e15ddf2b4c5"
+  },
+  {
+    "key": "35:120256",
+    "name": "Uru",
+    "label": "Remodel \u00b7 Cyan / White",
+    "manifest": "assets/characters/crossgate/ruby/120256/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/120256/atlas-0.png",
+    "source_frame": [
+      0,
+      1868,
+      1333,
+      42,
+      93,
+      -23,
+      -71
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -33
+    ],
+    "bounds": [
+      5,
+      12,
+      44,
+      50
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "76b8471308a049f00c85e43e026304b474bbc5ea2dbb22339c2aa86138d5f5c6"
+  },
+  {
+    "key": "35:120262",
+    "name": "Uru",
+    "label": "Remodel \u00b7 Silver / Blue Trim",
+    "manifest": "assets/characters/crossgate/ruby/120262/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/120262/atlas-0.png",
+    "source_frame": [
+      0,
+      1868,
+      1333,
+      42,
+      93,
+      -23,
+      -71
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -33
+    ],
+    "bounds": [
+      5,
+      12,
+      44,
+      50
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "9f6e73ae7d906a4cec0bebebe6bc11fa6bdefad15dd63f661bcd0fcaa25e16e4"
+  },
+  {
+    "key": "35:120268",
+    "name": "Uru",
+    "label": "Remodel \u00b7 Orange / White",
+    "manifest": "assets/characters/crossgate/ruby/120268/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/120268/atlas-0.png",
+    "source_frame": [
+      0,
+      1868,
+      1333,
+      42,
+      93,
+      -23,
+      -71
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -33
+    ],
+    "bounds": [
+      5,
+      12,
+      44,
+      50
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "bbef9dc78813759e550d03f8b55494679327aad68520ef6196ff6bcc505fc838"
+  },
+  {
+    "key": "35:100650",
+    "name": "Uru",
+    "label": "Special \u00b7 Classic Ruby / Black",
+    "manifest": "assets/characters/crossgate/ruby/100650/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/100650/atlas-0.png",
+    "source_frame": [
+      0,
+      110,
+      1449,
+      43,
+      90,
+      -22,
+      -72
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -36
+    ],
+    "bounds": [
+      3,
+      11,
+      46,
+      47
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "a8ae13bbfe67d05074d3522cefac07ee0ce82620d3fa773ad223f41691fb65e1"
+  },
+  {
+    "key": "35:105760",
+    "name": "Uru",
+    "label": "Remodel \u00b7 Sage / Cream",
+    "manifest": "assets/characters/crossgate/ruby/105760/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/105760/atlas-0.png",
+    "source_frame": [
+      0,
+      1868,
+      1333,
+      42,
+      93,
+      -23,
+      -71
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -33
+    ],
+    "bounds": [
+      5,
+      12,
+      44,
+      50
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "4bc14d8d92b92b708aed0cb8349ec84238f35dbd16b852e971cedaa6536fff32"
+  },
+  {
+    "key": "35:105603",
+    "name": "Uru",
+    "label": "Special \u00b7 Pink / Green Classic",
+    "manifest": "assets/characters/crossgate/ruby/105603/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/105603/atlas-0.png",
+    "source_frame": [
+      0,
+      1000,
+      1451,
+      43,
+      90,
+      -22,
+      -72
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -36
+    ],
+    "bounds": [
+      3,
+      11,
+      46,
+      47
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "21b6096517a59e50d1b28d04cb73d2602ee452216406aea3feff405f6f060925"
+  },
+  {
+    "key": "35:111691",
+    "name": "Uru",
+    "label": "Special \u00b7 Pink Pet / Unarmed",
+    "manifest": "assets/characters/crossgate/ruby/111691/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/ruby/111691/atlas-0.png",
+    "source_frame": [
+      0,
+      1335,
+      259,
+      39,
+      77,
+      -20,
+      -71
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -33
+    ],
+    "bounds": [
+      5,
+      12,
+      44,
+      50
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "4826c304d83ebe3dedfec34b57d680e1164d87b334a95fa76ca6b4a436861b8e"
+  },
+  {
+    "key": "34:102488",
+    "name": "Kaz",
+    "label": "Original",
+    "manifest": "assets/characters/crossgate/kazi/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/kazi/atlas-4.png",
+    "source_frame": [
+      4,
+      1178,
+      1713,
+      80,
+      90,
+      -44,
+      -76
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -46
+    ],
+    "bounds": [
+      12,
+      9,
+      50,
+      39
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "aa72f1297414b69201d403a6ea071faa233007301d502d9949106d17a90bfe8f"
+  },
+  {
+    "key": "34:109890",
+    "name": "Kaz",
+    "label": "Blond / Rose",
+    "manifest": "assets/characters/crossgate/kazi/skins/109890/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/kazi/skins/109890/atlas-0.png",
+    "source_frame": [
+      0,
+      1370,
+      115,
+      43,
+      90,
+      -25,
+      -76
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -46
+    ],
+    "bounds": [
+      9,
+      9,
+      43,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "9945b877aeddb2f068d11702f9b95985605a9166fee4c6090455084accaec186"
+  },
+  {
+    "key": "34:109891",
+    "name": "Kaz",
+    "label": "Blond / Rose Aura",
+    "manifest": "assets/characters/crossgate/kazi/skins/109891/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/kazi/skins/109891/atlas-0.png",
+    "source_frame": [
+      0,
+      979,
+      1291,
+      106,
+      122,
+      -53,
+      -84
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -46
+    ],
+    "bounds": [
+      0,
+      1,
+      43,
+      39
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "2cd2dc48ce90497ea76db2a1053b1b7a052ef0a0cd4d05ef4990a6543352602d"
+  },
+  {
+    "key": "34:109146",
+    "name": "Kaz",
+    "label": "Yellow / Red Sparks",
+    "manifest": "assets/characters/crossgate/kazi/skins/109146/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/kazi/skins/109146/atlas-1.png",
+    "source_frame": [
+      1,
+      64,
+      1580,
+      75,
+      90,
+      -27,
+      -74
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -46
+    ],
+    "bounds": [
+      9,
+      9,
+      42,
+      37
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "9c330151f01031ff411f95a98298c4388aef126e40bf4e5e3b21bf8868ccb491"
+  },
+  {
+    "key": "34:100528",
+    "name": "Kaz",
+    "label": "Maze",
+    "manifest": "assets/characters/crossgate/maze/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/maze/atlas-0.png",
+    "source_frame": [
+      0,
+      1826,
+      115,
+      43,
+      90,
+      -25,
+      -76
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -46
+    ],
+    "bounds": [
+      9,
+      9,
+      43,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "f4fa8d0bf76c1c7d9962eb65fd6ab081eb83406c4117c8049678b13e0f2479a4"
+  },
+  {
+    "key": "34:100028",
+    "name": "Kaz",
+    "label": "Classic \u00b7 Brown / Teal",
+    "manifest": "assets/characters/crossgate/kazi/skins/100028/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/kazi/skins/100028/atlas-0.png",
+    "source_frame": [
+      0,
+      1384,
+      115,
+      43,
+      90,
+      -25,
+      -76
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -46
+    ],
+    "bounds": [
+      9,
+      9,
+      42,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "a967654584b2f7e00f7b2dc9af0d5e9c1fc2fca7d2aae8c3f3af8704c90746e0"
+  },
+  {
+    "key": "34:100034",
+    "name": "Kaz",
+    "label": "Classic \u00b7 Teal / Yellow and Red",
+    "manifest": "assets/characters/crossgate/kazi/skins/100034/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/kazi/skins/100034/atlas-0.png",
+    "source_frame": [
+      0,
+      1382,
+      115,
+      43,
+      90,
+      -25,
+      -76
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -46
+    ],
+    "bounds": [
+      9,
+      9,
+      42,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "27a5d6dd7379116badc274702b3ff67c01bb3686941a29115b696848a0114f24"
+  },
+  {
+    "key": "34:100040",
+    "name": "Kaz",
+    "label": "Classic \u00b7 Red / Navy",
+    "manifest": "assets/characters/crossgate/kazi/skins/100040/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/kazi/skins/100040/atlas-0.png",
+    "source_frame": [
+      0,
+      1385,
+      115,
+      43,
+      90,
+      -25,
+      -76
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -46
+    ],
+    "bounds": [
+      9,
+      9,
+      43,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "be69a3733ae0a0d0ba49b5d98c6232d684912617d1f010c365fdc60af1788723"
+  },
+  {
+    "key": "34:100046",
+    "name": "Kaz",
+    "label": "Classic \u00b7 Black / White and Red",
+    "manifest": "assets/characters/crossgate/kazi/skins/100046/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/kazi/skins/100046/atlas-0.png",
+    "source_frame": [
+      0,
+      1317,
+      115,
+      43,
+      90,
+      -25,
+      -76
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -46
+    ],
+    "bounds": [
+      9,
+      9,
+      42,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "09bf21b65ad8508bfa3aa1a1d37b9b5060c61dfd3ab17c0ef9ed941799193af1"
+  },
+  {
+    "key": "34:100049",
+    "name": "Kaz",
+    "label": "Classic \u00b7 Red / Silver",
+    "manifest": "assets/characters/crossgate/kazi/skins/100049/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/kazi/skins/100049/atlas-0.png",
+    "source_frame": [
+      0,
+      1382,
+      115,
+      43,
+      90,
+      -25,
+      -76
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -46
+    ],
+    "bounds": [
+      9,
+      9,
+      42,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "0cb10534d0961daa31a2e609afaf19f812351dea0937f0e8c63ce1fd12b8d961"
+  },
+  {
+    "key": "34:100891",
+    "name": "Kaz",
+    "label": "Black Hair / Black",
+    "manifest": "assets/characters/crossgate/kazi/skins/100891/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/kazi/skins/100891/atlas-0.png",
+    "source_frame": [
+      0,
+      1385,
+      115,
+      43,
+      90,
+      -25,
+      -76
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -46
+    ],
+    "bounds": [
+      9,
+      9,
+      43,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "c970df8b5506aa8993383ec24eb4a86395a8c5707eeda68b7f662fceec69b78f"
+  },
+  {
+    "key": "34:100918",
+    "name": "Kaz",
+    "label": "Blond / Black",
+    "manifest": "assets/characters/crossgate/kazi/skins/100918/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/kazi/skins/100918/atlas-0.png",
+    "source_frame": [
+      0,
+      1370,
+      115,
+      43,
+      90,
+      -25,
+      -76
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -46
+    ],
+    "bounds": [
+      9,
+      9,
+      43,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "200cca3c6bcc0b52efb6a2f2201ceee54e19414eb85357eb3f30ca6def0fad56"
+  },
+  {
+    "key": "34:100969",
+    "name": "Kaz",
+    "label": "Black Hair / Red",
+    "manifest": "assets/characters/crossgate/kazi/skins/100969/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/kazi/skins/100969/atlas-0.png",
+    "source_frame": [
+      0,
+      1317,
+      115,
+      43,
+      90,
+      -25,
+      -76
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -46
+    ],
+    "bounds": [
+      9,
+      9,
+      42,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "08d5fd5649eb4219d41ef786d2963ca6fea5f7b7bddd591f0a020d56c25ef212"
+  },
+  {
+    "key": "34:105564",
+    "name": "Kaz",
+    "label": "Black Hair / White",
+    "manifest": "assets/characters/crossgate/kazi/skins/105564/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/kazi/skins/105564/atlas-0.png",
+    "source_frame": [
+      0,
+      1317,
+      115,
+      43,
+      90,
+      -25,
+      -76
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -46
+    ],
+    "bounds": [
+      9,
+      9,
+      42,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "ae56d105e25eb2342413520c321b7fc02e364c0debf0d2483f5c4e579d9b7de8"
+  },
+  {
+    "key": "34:105570",
+    "name": "Kaz",
+    "label": "Black Hair / Blue and White",
+    "manifest": "assets/characters/crossgate/kazi/skins/105570/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/kazi/skins/105570/atlas-0.png",
+    "source_frame": [
+      0,
+      1317,
+      115,
+      43,
+      90,
+      -25,
+      -76
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -46
+    ],
+    "bounds": [
+      9,
+      9,
+      42,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "e782de06df0dafcfa6c4961dbe9dc208782d88ab653c362c2ab6ebcea839e26e"
+  },
+  {
+    "key": "34:105608",
+    "name": "Kaz",
+    "label": "Red Hair / Black",
+    "manifest": "assets/characters/crossgate/kazi/skins/105608/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/kazi/skins/105608/atlas-0.png",
+    "source_frame": [
+      0,
+      1385,
+      115,
+      43,
+      90,
+      -25,
+      -76
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -46
+    ],
+    "bounds": [
+      9,
+      9,
+      43,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "ede23933fd9b6c72eb14ce152199c7cdc48f8980713e279d258a548f6112f340"
+  },
+  {
+    "key": "36",
+    "name": "Maze",
+    "label": "Original",
+    "manifest": "assets/characters/crossgate/maze/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/maze/atlas-0.png",
+    "source_frame": [
+      0,
+      1826,
+      115,
+      43,
+      90,
+      -25,
+      -76
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -46
+    ],
+    "bounds": [
+      9,
+      9,
+      43,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "f4fa8d0bf76c1c7d9962eb65fd6ab081eb83406c4117c8049678b13e0f2479a4"
+  },
+  {
+    "key": "37:100050",
+    "name": "Shin",
+    "label": "Red Hair / Blue",
+    "manifest": "assets/characters/crossgate/shin/100050/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100050/atlas-0.png",
+    "source_frame": [
+      0,
+      649,
+      1387,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "a6028c84c853fb4cfa98ef84aa61369ab429ae9e154ca32a42f463c55aa8f4c0"
+  },
+  {
+    "key": "37:100056",
+    "name": "Shin",
+    "label": "Blond / Green",
+    "manifest": "assets/characters/crossgate/shin/100056/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100056/atlas-0.png",
+    "source_frame": [
+      0,
+      697,
+      1387,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "2b0abe58b997d5005476d65d08eab61c136c052a7241939617167dc7187d7ec4"
+  },
+  {
+    "key": "37:100062",
+    "name": "Shin",
+    "label": "Brown Hair / Red",
+    "manifest": "assets/characters/crossgate/shin/100062/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100062/atlas-0.png",
+    "source_frame": [
+      0,
+      697,
+      1387,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "eeb04fcc9e6d0b0310ccf75d318262e0db1008bc68a3d5c6e4635e22aa08446c"
+  },
+  {
+    "key": "37:100068",
+    "name": "Shin",
+    "label": "Blue Hair / Charcoal",
+    "manifest": "assets/characters/crossgate/shin/100068/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100068/atlas-0.png",
+    "source_frame": [
+      0,
+      697,
+      1387,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "0452ed72bada0a238dbadb1348f4cac943fe5b86337e5e76f62081971aa373cb"
+  },
+  {
+    "key": "37:100175",
+    "name": "Shin",
+    "label": "Blond / Black and Red",
+    "manifest": "assets/characters/crossgate/shin/100175/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100175/atlas-0.png",
+    "source_frame": [
+      0,
+      697,
+      1387,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "d2b51bae08a6fc06054ec6a3ccd6e9ea4ae8ec2e4791d7ffb1992ea9e4beaebd"
+  },
+  {
+    "key": "37:100181",
+    "name": "Shin",
+    "label": "White Hair / Black and Red",
+    "manifest": "assets/characters/crossgate/shin/100181/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100181/atlas-0.png",
+    "source_frame": [
+      0,
+      697,
+      1387,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "7f9167c66b19769bf711cae22a811b8b961e8c71466d44658e4ad365e0d61c93"
+  },
+  {
+    "key": "37:100187",
+    "name": "Shin",
+    "label": "Blond / Silver and Red",
+    "manifest": "assets/characters/crossgate/shin/100187/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100187/atlas-0.png",
+    "source_frame": [
+      0,
+      697,
+      1387,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "403358715dd743a314502a7efc549d6ed553baa234a9d063b4b11cf09f7af06c"
+  },
+  {
+    "key": "37:100193",
+    "name": "Shin",
+    "label": "White Hair / Silver and Red",
+    "manifest": "assets/characters/crossgate/shin/100193/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100193/atlas-0.png",
+    "source_frame": [
+      0,
+      697,
+      1387,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "1c8bc61722e7f6f743b1abd00e6702fa6af8fda7aaa9a0499a361ca32571a4d3"
+  },
+  {
+    "key": "37:100200",
+    "name": "Shin",
+    "label": "Monochrome",
+    "manifest": "assets/characters/crossgate/shin/100200/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100200/atlas-0.png",
+    "source_frame": [
+      0,
+      697,
+      1387,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "97913ca6ee1a98c73ad9114bd192afe3ab09fa5717ac7d5db362fcb762b7b3b5"
+  },
+  {
+    "key": "37:100206",
+    "name": "Shin",
+    "label": "White Hair / Red",
+    "manifest": "assets/characters/crossgate/shin/100206/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100206/atlas-0.png",
+    "source_frame": [
+      0,
+      697,
+      1387,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "9681ccff4f73b0877bce88cd7ea193eda4a15449488d101967300a663394338f"
+  },
+  {
+    "key": "37:100212",
+    "name": "Shin",
+    "label": "White Hair / Charcoal and Red",
+    "manifest": "assets/characters/crossgate/shin/100212/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100212/atlas-0.png",
+    "source_frame": [
+      0,
+      697,
+      1387,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "2776ab3cdabf1d942604701c0a3607e37de6a0c3cd2d566acaa9b88dc421062b"
+  },
+  {
+    "key": "37:100450",
+    "name": "Shin",
+    "label": "White Hair / Orange",
+    "manifest": "assets/characters/crossgate/shin/100450/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100450/atlas-0.png",
+    "source_frame": [
+      0,
+      685,
+      1626,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -88,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      7,
+      45,
+      44
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "5d862b893bdd1d978596aac2c9ae839c38a0dc14608e9a6b2551d729b30f3bd8"
+  },
+  {
+    "key": "37:100978",
+    "name": "Shin",
+    "label": "All White",
+    "manifest": "assets/characters/crossgate/shin/100978/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100978/atlas-0.png",
+    "source_frame": [
+      0,
+      685,
+      1626,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -88,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      7,
+      45,
+      44
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "f0538008f563c9d59b1779b3aa39add5fba7a784220cae7b044f02b54f190cfd"
+  },
+  {
+    "key": "37:105573",
+    "name": "Shin",
+    "label": "Red Hair / Charcoal",
+    "manifest": "assets/characters/crossgate/shin/105573/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/105573/atlas-0.png",
+    "source_frame": [
+      0,
+      649,
+      1387,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "041f7b2f9e223182556e3cc8965dd118d8b13d79a97a90df408389eab9de3910"
+  },
+  {
+    "key": "37:105610",
+    "name": "Shin",
+    "label": "White Hair / Violet",
+    "manifest": "assets/characters/crossgate/shin/105610/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/105610/atlas-0.png",
+    "source_frame": [
+      0,
+      685,
+      1626,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -88,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      7,
+      45,
+      44
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "07b25305e00aeee5d372e532bf8c30a07e9ccb169435fd8d6955405b1db75c66"
+  },
+  {
+    "key": "37:105616",
+    "name": "Shin",
+    "label": "White Hair / Yellow",
+    "manifest": "assets/characters/crossgate/shin/105616/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/105616/atlas-0.png",
+    "source_frame": [
+      0,
+      685,
+      1626,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -88,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      7,
+      45,
+      44
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "4236e25f638b4d76da03c91ff72973ffa72f024e3bc4ebd249fab93f872f4718"
+  },
+  {
+    "key": "37:105622",
+    "name": "Shin",
+    "label": "White Hair / Pink",
+    "manifest": "assets/characters/crossgate/shin/105622/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/105622/atlas-0.png",
+    "source_frame": [
+      0,
+      685,
+      1626,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -88,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      7,
+      45,
+      44
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "9476e7fb77a29f9a3fe430b65d7d648e69cf885133ebc91f1b843948a17659f2"
+  },
+  {
+    "key": "37:105628",
+    "name": "Shin",
+    "label": "White Hair / Cyan",
+    "manifest": "assets/characters/crossgate/shin/105628/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/105628/atlas-0.png",
+    "source_frame": [
+      0,
+      685,
+      1626,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -88,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      7,
+      45,
+      44
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "defdb73e0092434d75d8264fa7efb0eb4962843fb3380bee39689254d91c33b7"
+  },
+  {
+    "key": "37:105634",
+    "name": "Shin",
+    "label": "White Hair / Black",
+    "manifest": "assets/characters/crossgate/shin/105634/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/105634/atlas-0.png",
+    "source_frame": [
+      0,
+      685,
+      1626,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -88,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      7,
+      45,
+      44
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "2b8be5de41da304703655ea5487e620c24b265afaf07e987515ecfdc6ebfb894"
+  },
+  {
+    "key": "37:105737",
+    "name": "Shin",
+    "label": "Dark Hair / Teal",
+    "manifest": "assets/characters/crossgate/shin/105737/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/105737/atlas-0.png",
+    "source_frame": [
+      0,
+      649,
+      1387,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "cca6a4324999094c3d927122e2d4c0328fbe39daaed13e880a74c99935b03b8f"
+  },
+  {
+    "key": "37:105742",
+    "name": "Shin",
+    "label": "Blond / Violet",
+    "manifest": "assets/characters/crossgate/shin/105742/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/105742/atlas-0.png",
+    "source_frame": [
+      0,
+      697,
+      1387,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "c998f4167cee56406bf1ca8b985ea469984430c35b02b3fd16025cc09145e053"
+  },
+  {
+    "key": "37:105748",
+    "name": "Shin",
+    "label": "Pink Hair / Navy",
+    "manifest": "assets/characters/crossgate/shin/105748/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/105748/atlas-0.png",
+    "source_frame": [
+      0,
+      697,
+      1387,
+      40,
+      88,
+      -20,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "4657e251a9b5f0afb8bf2c65512f99c34d77104f4c7b96150a70aedece391815"
+  },
+  {
+    "key": "37:900050",
+    "name": "Shin",
+    "label": "\u6c34\u9f8dshin",
+    "manifest": "assets/characters/crossgate/shin/900050/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/900050/atlas-1.png",
+    "source_frame": [
+      1,
+      1264,
+      1388,
+      49,
+      99,
+      -29,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "68f8cc562aee55deb1e31c83334f96e0d65e98241b9dfd7eb4edd0b31cc7ceb5"
+  },
+  {
+    "key": "37:100462",
+    "name": "Shin",
+    "label": "Special \u00b7 Black Hair / Red",
+    "manifest": "assets/characters/crossgate/shin/100462/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100462/atlas-0.png",
+    "source_frame": [
+      0,
+      96,
+      128,
+      49,
+      109,
+      -29,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "b3fd03554755cb43ed797c2e802b9b0d0cac18719b047b5ac8b9ead1a40a8c8b"
+  },
+  {
+    "key": "37:108151",
+    "name": "Shin",
+    "label": "Special \u00b7 Black Hair / Charcoal",
+    "manifest": "assets/characters/crossgate/shin/108151/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/108151/atlas-0.png",
+    "source_frame": [
+      0,
+      96,
+      128,
+      49,
+      109,
+      -29,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "2a0789d3bd743a7df40bf0ccb78bdac1847e1b469dada9d73ffe5c5b47be18c9"
+  },
+  {
+    "key": "38:106707",
+    "name": "Shin Special",
+    "label": "Glowing Sword",
+    "manifest": "assets/characters/crossgate/shin/106707/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/106707/atlas-1.png",
+    "source_frame": [
+      1,
+      201,
+      1352,
+      49,
+      106,
+      -29,
+      -79
+    ],
+    "crop": [
+      -25,
+      -87,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      43
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "e504a8b06c8eb6986c377a1884621165418a9012b5927ce53cfa9f66a23fb5c8"
+  },
+  {
+    "key": "38:109140",
+    "name": "Shin Special",
+    "label": "Ember Shields",
+    "manifest": "assets/characters/crossgate/shin/109140/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/109140/atlas-1.png",
+    "source_frame": [
+      1,
+      1488,
+      1345,
+      116,
+      106,
+      -59,
+      -79
+    ],
+    "crop": [
+      -25,
+      -87,
+      25,
+      -44
+    ],
+    "bounds": [
+      0,
+      8,
+      50,
+      43
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "55ecec4ddba329cb35760dfbc8ba8e0affc86a3e7af778ada49722fa0df12851"
+  },
+  {
+    "key": "38:111624",
+    "name": "Shin Special",
+    "label": "Gold Runes",
+    "manifest": "assets/characters/crossgate/shin/111624/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/111624/atlas-0.png",
+    "source_frame": [
+      0,
+      1164,
+      1897,
+      117,
+      109,
+      -60,
+      -79
+    ],
+    "crop": [
+      -25,
+      -87,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      43
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "69b058f5d39edff44d26f4083ede954cef68931d3cf71293a88a085949a992a6"
+  },
+  {
+    "key": "38:111625",
+    "name": "Shin Special",
+    "label": "Gold Lightning",
+    "manifest": "assets/characters/crossgate/shin/111625/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/111625/atlas-1.png",
+    "source_frame": [
+      1,
+      1120,
+      1388,
+      101,
+      135,
+      -54,
+      -109
+    ],
+    "crop": [
+      -25,
+      -87,
+      25,
+      -44
+    ],
+    "bounds": [
+      0,
+      0,
+      50,
+      43
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "9035a3b871bc59702e7a0ff499e0ddb80d056fd62eec3c676f4dd244966332ee"
+  },
+  {
+    "key": "38:118986",
+    "name": "Shin Special",
+    "label": "Gold Crescents",
+    "manifest": "assets/characters/crossgate/shin/118986/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/118986/atlas-1.png",
+    "source_frame": [
+      1,
+      921,
+      1157,
+      182,
+      156,
+      -86,
+      -114
+    ],
+    "crop": [
+      -25,
+      -87,
+      25,
+      -44
+    ],
+    "bounds": [
+      6,
+      0,
+      50,
+      43
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "6bcf74097b2915037e5bab8237dcae27ee16de064c056e7fffb51692824a9292"
+  },
+  {
+    "key": "38:118987",
+    "name": "Shin Special",
+    "label": "Yellow Flame",
+    "manifest": "assets/characters/crossgate/shin/118987/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/118987/atlas-0.png",
+    "source_frame": [
+      0,
+      557,
+      1139,
+      137,
+      142,
+      -67,
+      -109
+    ],
+    "crop": [
+      -25,
+      -88,
+      25,
+      -44
+    ],
+    "bounds": [
+      0,
+      0,
+      50,
+      44
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "afc3b8ee6eb16e464910e79bbfdb040c57ca54ea290cfd83b5ce96570093c0ce"
+  },
+  {
+    "key": "38:118993",
+    "name": "Shin Special",
+    "label": "Red Lightning",
+    "manifest": "assets/characters/crossgate/shin/118993/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/118993/atlas-0.png",
+    "source_frame": [
+      0,
+      1694,
+      1129,
+      104,
+      121,
+      -53,
+      -89
+    ],
+    "crop": [
+      -25,
+      -88,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      0,
+      50,
+      44
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "39e7c976b0982037b2b7227e9d2034e2086a75736d779429ea1dfecf82a4c5ff"
+  },
+  {
+    "key": "38:108313",
+    "name": "Shin Special",
+    "label": "Gold Polearm",
+    "manifest": "assets/characters/crossgate/shin/108313/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/108313/atlas-0.png",
+    "source_frame": [
+      0,
+      403,
+      331,
+      49,
+      98,
+      -29,
+      -81
+    ],
+    "crop": [
+      -25,
+      -88,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      7,
+      45,
+      44
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "beec23e0bcb840a389200c6c87566f91be0b07e5bcd8d371eda6e0fa249fff79"
+  },
+  {
+    "key": "38:120440",
+    "name": "Shin Special",
+    "label": "All White / Red Weapons",
+    "manifest": "assets/characters/crossgate/shin/120440/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/120440/atlas-0.png",
+    "source_frame": [
+      0,
+      495,
+      128,
+      49,
+      109,
+      -29,
+      -81
+    ],
+    "crop": [
+      -25,
+      -88,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      7,
+      45,
+      44
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "b7c7df50a9a9ae4fdb2f7c8d86677eb952b049b0ca1f4eb993b9bbcc8af71b23"
+  },
+  {
+    "key": "38:100882",
+    "name": "Shin Special",
+    "label": "Special \u00b7 Shin 2.0 / Black / Blue",
+    "manifest": "assets/characters/crossgate/shin/100882/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100882/atlas-1.png",
+    "source_frame": [
+      1,
+      1602,
+      1737,
+      46,
+      85,
+      -23,
+      -77
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      6,
+      42,
+      44
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "5d599f0b3a1708560ab18fd3643fd33caef28d3b2db40b83a18b0d5b570ad717"
+  },
+  {
+    "key": "38:105050",
+    "name": "Shin Special",
+    "label": "Special \u00b7 Shin 2.0 / Red / Blue",
+    "manifest": "assets/characters/crossgate/shin/105050/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/105050/atlas-1.png",
+    "source_frame": [
+      1,
+      1602,
+      1737,
+      46,
+      85,
+      -23,
+      -77
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      6,
+      42,
+      44
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "69541290dae603c0213b64251e95800051cf66bea7e89a6829a3bcdd6d389eee"
+  },
+  {
+    "key": "38:105056",
+    "name": "Shin Special",
+    "label": "Special \u00b7 Shin 2.0 / Blond / Green",
+    "manifest": "assets/characters/crossgate/shin/105056/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/105056/atlas-1.png",
+    "source_frame": [
+      1,
+      1602,
+      1737,
+      46,
+      85,
+      -23,
+      -77
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      6,
+      42,
+      44
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "c288f477401a0853aff8a25873fb58d1c16e56f8fa9092909618ce11ffd79e2f"
+  },
+  {
+    "key": "38:105062",
+    "name": "Shin Special",
+    "label": "Special \u00b7 Shin 2.0 / Brown / Green",
+    "manifest": "assets/characters/crossgate/shin/105062/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/105062/atlas-1.png",
+    "source_frame": [
+      1,
+      1602,
+      1737,
+      46,
+      85,
+      -23,
+      -77
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      6,
+      42,
+      44
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "e7c3ea486660602ece7763f600632e936f928dd847d582661859cda92858880a"
+  },
+  {
+    "key": "38:105068",
+    "name": "Shin Special",
+    "label": "Special \u00b7 Shin 2.0 / Blue / Gray",
+    "manifest": "assets/characters/crossgate/shin/105068/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/105068/atlas-1.png",
+    "source_frame": [
+      1,
+      1602,
+      1737,
+      46,
+      85,
+      -23,
+      -77
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      6,
+      42,
+      44
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "c3076e3bda9fedca468237d3343ca7d83a5049e4fc06e60d89c006a378c3f9fb"
+  },
+  {
+    "key": "38:120346",
+    "name": "Shin Special",
+    "label": "Special \u00b7 Shin 2.0 / Silver / Gray",
+    "manifest": "assets/characters/crossgate/shin/120346/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/120346/atlas-1.png",
+    "source_frame": [
+      1,
+      1602,
+      1737,
+      46,
+      85,
+      -23,
+      -77
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      6,
+      42,
+      44
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "dbcab35acdefecf216eb444457a6d990d2e6eee4c5461d472efc39eced20532c"
+  },
+  {
+    "key": "38:120352",
+    "name": "Shin Special",
+    "label": "Special \u00b7 Shin 2.0 / Silver / Crimson",
+    "manifest": "assets/characters/crossgate/shin/120352/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/120352/atlas-1.png",
+    "source_frame": [
+      1,
+      1602,
+      1737,
+      46,
+      85,
+      -23,
+      -77
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      6,
+      42,
+      44
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "1cc3664da6f9c9520cac539e101edf2541c6600c2cd5cebd7fbf23683d79775d"
+  },
+  {
+    "key": "38:106756",
+    "name": "Shin Special",
+    "label": "Special \u00b7 Shin 2.0 / Blond / Crimson",
+    "manifest": "assets/characters/crossgate/shin/106756/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/106756/atlas-1.png",
+    "source_frame": [
+      1,
+      1602,
+      1737,
+      46,
+      85,
+      -23,
+      -77
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      6,
+      42,
+      44
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "1deaedf9f397b8a5a81d8a119341fd4d8687c06882e6436a456f26e72b26c8ab"
+  },
+  {
+    "key": "38:120418",
+    "name": "Shin Special",
+    "label": "Special \u00b7 Shin 2.0 / Black / Gold Weapons",
+    "manifest": "assets/characters/crossgate/shin/120418/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/120418/atlas-0.png",
+    "source_frame": [
+      0,
+      391,
+      1616,
+      46,
+      95,
+      -23,
+      -77
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      6,
+      43,
+      44
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "7fe2a6c76bca2d08eb9ea4aae32937ae4bc74558f5555baed1437a38c1859a32"
+  },
+  {
+    "key": "38:100299",
+    "name": "Shin Special",
+    "label": "Special \u00b7 Shin 2.0 / Black / Gold Sword",
+    "manifest": "assets/characters/crossgate/shin/100299/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100299/atlas-0.png",
+    "source_frame": [
+      0,
+      1539,
+      132,
+      62,
+      102,
+      -39,
+      -77
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      6,
+      42,
+      44
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "e4809ba71c719d0d5b2f2cac6ca078d206f1a2f20a89795900a11e1f4abeb53e"
+  },
+  {
+    "key": "38:108312",
+    "name": "Shin Special",
+    "label": "Special \u00b7 Shin 2.0 / Black / Crimson Polearm",
+    "manifest": "assets/characters/crossgate/shin/108312/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/108312/atlas-0.png",
+    "source_frame": [
+      0,
+      798,
+      367,
+      63,
+      103,
+      -40,
+      -77
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      6,
+      42,
+      44
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "7d6cca36c128b2717596da4496167d3b8d280ff19d7dd63e4a4eb59cd944a454"
+  },
+  {
+    "key": "38:120383",
+    "name": "Shin Special",
+    "label": "Special \u00b7 Shin 2.0 / Gray / Amber",
+    "manifest": "assets/characters/crossgate/shin/120383/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/120383/atlas-0.png",
+    "source_frame": [
+      0,
+      788,
+      280,
+      46,
+      85,
+      -23,
+      -77
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      6,
+      42,
+      44
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "6e3e983839391a692a8d6d8915e2234a15413c0c46f004dcb3e580c29eee9184"
+  },
+  {
+    "key": "38:120382",
+    "name": "Shin Special",
+    "label": "Special \u00b7 Shin 2.0 / Gray / Purple Wings",
+    "manifest": "assets/characters/crossgate/shin/120382/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/120382/atlas-0.png",
+    "source_frame": [
+      0,
+      1603,
+      754,
+      70,
+      85,
+      -25,
+      -77
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      6,
+      42,
+      44
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "6e3e983839391a692a8d6d8915e2234a15413c0c46f004dcb3e580c29eee9184"
+  },
+  {
+    "key": "38:120445",
+    "name": "Shin Special",
+    "label": "Special \u00b7 Shin 2.0 / Purple Rune Aura",
+    "manifest": "assets/characters/crossgate/shin/120445/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/120445/atlas-0.png",
+    "source_frame": [
+      0,
+      1,
+      132,
+      153,
+      121,
+      -75,
+      -77
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      6,
+      42,
+      44
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "7e7ee81c9b9c923c71fc8f5c1c90d6ed932808b7624fbb260cf01ab35c54686d"
+  },
+  {
+    "key": "39:106477",
+    "name": "Saizo",
+    "label": "Shigure",
+    "manifest": "assets/characters/crossgate/fighters/saizo/106477/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/saizo/106477/atlas-0.png",
+    "source_frame": [
+      0,
+      1534,
+      114,
+      38,
+      94,
+      -21,
+      -86
+    ],
+    "crop": [
+      -25,
+      -92,
+      25,
+      -38
+    ],
+    "bounds": [
+      4,
+      6,
+      41,
+      54
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "03d93f013ad73bc88c9ae74c4b3d33b6e5de65c8a78deed1467780c73af5f374"
+  },
+  {
+    "key": "39:106052",
+    "name": "Saizo",
+    "label": "Original Blue-Black",
+    "manifest": "assets/characters/crossgate/fighters/saizo/106052/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/saizo/106052/atlas-0.png",
+    "source_frame": [
+      0,
+      1495,
+      114,
+      38,
+      94,
+      -21,
+      -86
+    ],
+    "crop": [
+      -25,
+      -92,
+      25,
+      -38
+    ],
+    "bounds": [
+      4,
+      6,
+      41,
+      54
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "7ac72c7b7a0946e475292a105e89663174b1222c3b309c2ba56cd27d184616c6"
+  },
+  {
+    "key": "39:106058",
+    "name": "Saizo",
+    "label": "Yellow & Green",
+    "manifest": "assets/characters/crossgate/fighters/saizo/106058/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/saizo/106058/atlas-0.png",
+    "source_frame": [
+      0,
+      1534,
+      114,
+      38,
+      94,
+      -21,
+      -86
+    ],
+    "crop": [
+      -25,
+      -92,
+      25,
+      -38
+    ],
+    "bounds": [
+      4,
+      6,
+      41,
+      54
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "db46ff9d7ff611a4fdfd327af4296b0fce725e013a1afd94e84f0bff6889c6fc"
+  },
+  {
+    "key": "39:106064",
+    "name": "Saizo",
+    "label": "Blue & Tan",
+    "manifest": "assets/characters/crossgate/fighters/saizo/106064/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/saizo/106064/atlas-0.png",
+    "source_frame": [
+      0,
+      1495,
+      114,
+      38,
+      94,
+      -21,
+      -86
+    ],
+    "crop": [
+      -25,
+      -92,
+      25,
+      -38
+    ],
+    "bounds": [
+      4,
+      6,
+      41,
+      54
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "93f52021601d6664fc5e9c00caaa2841bcf3fe28c7e8aa7283ab772f90928609"
+  },
+  {
+    "key": "39:106070",
+    "name": "Saizo",
+    "label": "Red & Brown",
+    "manifest": "assets/characters/crossgate/fighters/saizo/106070/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/saizo/106070/atlas-0.png",
+    "source_frame": [
+      0,
+      1534,
+      114,
+      38,
+      94,
+      -21,
+      -86
+    ],
+    "crop": [
+      -25,
+      -92,
+      25,
+      -38
+    ],
+    "bounds": [
+      4,
+      6,
+      41,
+      54
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "c475675561f5f6c9e41d27ec97056d2f1bf1502e4d5b5c64cfccf1fbfa9f483e"
+  },
+  {
+    "key": "39:105696",
+    "name": "Saizo",
+    "label": "Blond",
+    "manifest": "assets/characters/crossgate/fighters/saizo/105696/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/saizo/105696/atlas-0.png",
+    "source_frame": [
+      0,
+      1534,
+      114,
+      38,
+      94,
+      -21,
+      -86
+    ],
+    "crop": [
+      -25,
+      -92,
+      25,
+      -38
+    ],
+    "bounds": [
+      4,
+      6,
+      41,
+      54
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "e6062a33a7f46943951d40e56de69c4e6c61842431922f8fe2d349ffcd8cb13d"
+  },
+  {
+    "key": "39:105492",
+    "name": "Saizo",
+    "label": "Purple Hair",
+    "manifest": "assets/characters/crossgate/fighters/saizo/105492/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/saizo/105492/atlas-0.png",
+    "source_frame": [
+      0,
+      1495,
+      114,
+      38,
+      94,
+      -21,
+      -86
+    ],
+    "crop": [
+      -25,
+      -92,
+      25,
+      -38
+    ],
+    "bounds": [
+      4,
+      6,
+      41,
+      54
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "6f54b9e513acf9d7e9cc17edbbad3c3b73ea1f080ebb44e6ff1bdd2449733b10"
+  },
+  {
+    "key": "39:105486",
+    "name": "Saizo",
+    "label": "Black & Yellow",
+    "manifest": "assets/characters/crossgate/fighters/saizo/105486/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/saizo/105486/atlas-0.png",
+    "source_frame": [
+      0,
+      1534,
+      114,
+      38,
+      94,
+      -21,
+      -86
+    ],
+    "crop": [
+      -25,
+      -92,
+      25,
+      -38
+    ],
+    "bounds": [
+      4,
+      6,
+      41,
+      54
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "a9b4be0312f252d885b12c02812c531430598b02ce18819816ac6d126b9c7084"
+  },
+  {
+    "key": "39:106188",
+    "name": "Saizo",
+    "label": "Akamaru",
+    "manifest": "assets/characters/crossgate/fighters/saizo/106188/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/saizo/106188/atlas-0.png",
+    "source_frame": [
+      0,
+      1534,
+      114,
+      38,
+      94,
+      -21,
+      -86
+    ],
+    "crop": [
+      -25,
+      -92,
+      25,
+      -38
+    ],
+    "bounds": [
+      4,
+      6,
+      41,
+      54
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "57e5afbf7809ab9a3de502bb317d0e763e09dcfcecd13954b9087301c393034f"
+  },
+  {
+    "key": "39:120234",
+    "name": "Saizo",
+    "label": "Winter Lion",
+    "manifest": "assets/characters/crossgate/fighters/saizo/120234/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/saizo/120234/atlas-0.png",
+    "source_frame": [
+      0,
+      1534,
+      114,
+      38,
+      94,
+      -21,
+      -86
+    ],
+    "crop": [
+      -25,
+      -92,
+      25,
+      -38
+    ],
+    "bounds": [
+      4,
+      6,
+      41,
+      54
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "90544a3e1e8bdd1c3a7bf5ca58e7578bfb5221aec59b31bc7ea98c69a3547be1"
+  },
+  {
+    "key": "39:105178",
+    "name": "Saizo",
+    "label": "Brown Hair",
+    "manifest": "assets/characters/crossgate/fighters/saizo/105178/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/saizo/105178/atlas-0.png",
+    "source_frame": [
+      0,
+      1495,
+      114,
+      38,
+      94,
+      -21,
+      -86
+    ],
+    "crop": [
+      -25,
+      -92,
+      25,
+      -38
+    ],
+    "bounds": [
+      4,
+      6,
+      41,
+      54
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "e6437ca6dded1ce2384380340c36a59c6d7436d025b38697d4e0d165e56d96ac"
+  },
+  {
+    "key": "39:106182",
+    "name": "Saizo",
+    "label": "Pink Hair",
+    "manifest": "assets/characters/crossgate/fighters/saizo/106182/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/saizo/106182/atlas-0.png",
+    "source_frame": [
+      0,
+      1534,
+      114,
+      38,
+      94,
+      -21,
+      -86
+    ],
+    "crop": [
+      -25,
+      -92,
+      25,
+      -38
+    ],
+    "bounds": [
+      4,
+      6,
+      41,
+      54
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "b5a0b61d0627145cdad3fedf376aa483723616c6493c68547085f0baac513f66"
+  },
+  {
+    "key": "39:119308",
+    "name": "Saizo",
+    "label": "White Hair Alternate",
+    "manifest": "assets/characters/crossgate/fighters/saizo/119308/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/saizo/119308/atlas-0.png",
+    "source_frame": [
+      0,
+      1534,
+      114,
+      38,
+      94,
+      -21,
+      -86
+    ],
+    "crop": [
+      -25,
+      -92,
+      25,
+      -38
+    ],
+    "bounds": [
+      4,
+      6,
+      41,
+      54
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "d4d57ef2468b885894c5212506104cfd2f1bf103f4a72d6044cdc74cfd56b21f"
+  },
+  {
+    "key": "40:100625",
+    "name": "Bog",
+    "label": "Gray hair / black",
+    "manifest": "assets/characters/crossgate/fighters/bog/100625/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bog/100625/atlas-0.png",
+    "source_frame": [
+      0,
+      1985,
+      140,
+      48,
+      104,
+      -23,
+      -85
+    ],
+    "crop": [
+      -25,
+      -96,
+      25,
+      -54
+    ],
+    "bounds": [
+      5,
+      11,
+      50,
+      42
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "cbea87ed787dbf38ff4fef6aaaa4c612b5e970d6fdfd8de1c451ae7b78d4efd0"
+  },
+  {
+    "key": "40:100942",
+    "name": "Bog",
+    "label": "Dark hair / black",
+    "manifest": "assets/characters/crossgate/fighters/bog/100942/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bog/100942/atlas-0.png",
+    "source_frame": [
+      0,
+      1985,
+      140,
+      48,
+      104,
+      -23,
+      -85
+    ],
+    "crop": [
+      -25,
+      -96,
+      25,
+      -54
+    ],
+    "bounds": [
+      5,
+      11,
+      50,
+      42
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "6a8d5dc0bb09616cdef311fb695b10e3df34360cb35f3d9267f812c53d55d4c9"
+  },
+  {
+    "key": "42:120387",
+    "name": "Emilia",
+    "label": "Emilia + Puck",
+    "manifest": "assets/characters/crossgate/fighters/emilia/120387/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/120387/atlas-2.png",
+    "source_frame": [
+      2,
+      867,
+      497,
+      83,
+      120,
+      -32,
+      -89
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -40
+    ],
+    "bounds": [
+      13,
+      8,
+      38,
+      42
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "00b4c2d48c841d351f916ec8f6912c50fa77fdb6abfe64fe4ce30d307a8982b1"
+  },
+  {
+    "key": "42:120388",
+    "name": "Emilia",
+    "label": "Emilia",
+    "manifest": "assets/characters/crossgate/fighters/emilia/120388/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/120388/atlas-1.png",
+    "source_frame": [
+      1,
+      720,
+      1056,
+      46,
+      105,
+      -32,
+      -74
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -40
+    ],
+    "bounds": [
+      13,
+      8,
+      38,
+      42
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "2c664e89d074e815bc8047f0838989bf8920aa5c66b3ca94c6f10aafbe39df20"
+  },
+  {
+    "key": "42:106275",
+    "name": "Emilia",
+    "label": "Original Brown / Purple",
+    "manifest": "assets/characters/crossgate/fighters/emilia/106275/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/106275/atlas-0.png",
+    "source_frame": [
+      0,
+      1340,
+      132,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -40
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      42
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "7a003a347c0a9cdb20f4341134d501821d7e33381026ab4d3530c59b27f5bdc8"
+  },
+  {
+    "key": "42:106281",
+    "name": "Emilia",
+    "label": "Original Black / Red",
+    "manifest": "assets/characters/crossgate/fighters/emilia/106281/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/106281/atlas-0.png",
+    "source_frame": [
+      0,
+      1340,
+      132,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -40
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      42
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "bcee57fc3e4626f17cf1845a67b0a332621802b74a11f0b2d9368aebae2e459c"
+  },
+  {
+    "key": "42:106287",
+    "name": "Emilia",
+    "label": "Original Red / Green",
+    "manifest": "assets/characters/crossgate/fighters/emilia/106287/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/106287/atlas-0.png",
+    "source_frame": [
+      0,
+      1340,
+      132,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -40
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      42
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "bf6271661531a47391fe3ae37c7c2f867699fc801803f5a2ef0e05a77b755c10"
+  },
+  {
+    "key": "42:106293",
+    "name": "Emilia",
+    "label": "Original Gold / Pink",
+    "manifest": "assets/characters/crossgate/fighters/emilia/106293/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/106293/atlas-0.png",
+    "source_frame": [
+      0,
+      1340,
+      132,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -40
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      42
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "1f5bfd94b69e9382bc7df533b9a9ee395109234bba85818b6366cc47eec20ea1"
+  },
+  {
+    "key": "42:100774",
+    "name": "Emilia",
+    "label": "Dark Ayame",
+    "manifest": "assets/characters/crossgate/fighters/emilia/100774/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/100774/atlas-0.png",
+    "source_frame": [
+      0,
+      1340,
+      132,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -41
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "460d76f166f439e614039abe9d97cc90a8ec3ff3f0a0746c83840ea22aceca47"
+  },
+  {
+    "key": "42:105430",
+    "name": "Emilia",
+    "label": "Snow Ayame",
+    "manifest": "assets/characters/crossgate/fighters/emilia/105430/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/105430/atlas-0.png",
+    "source_frame": [
+      0,
+      1340,
+      132,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -41
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "45dc845f6fde5b3485f750db291aaa03bec4d7b9aa2a4abfd9e04becd092c575"
+  },
+  {
+    "key": "42:105824",
+    "name": "Emilia",
+    "label": "Pink-haired Ayame",
+    "manifest": "assets/characters/crossgate/fighters/emilia/105824/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/105824/atlas-0.png",
+    "source_frame": [
+      0,
+      1340,
+      132,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -41
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "9bb095571f1af315dda093b7504748ccaa7e5ea147cdaabae3767821fe01b395"
+  },
+  {
+    "key": "42:105830",
+    "name": "Emilia",
+    "label": "Blonde Ayame",
+    "manifest": "assets/characters/crossgate/fighters/emilia/105830/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/105830/atlas-0.png",
+    "source_frame": [
+      0,
+      1340,
+      132,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -41
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "3661d9caf9c2cbe779611c92ef0e61eecc87e97f387d4679864c63bd3068ef65"
+  },
+  {
+    "key": "42:105837",
+    "name": "Emilia",
+    "label": "Magenta Hair / Black",
+    "manifest": "assets/characters/crossgate/fighters/emilia/105837/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/105837/atlas-0.png",
+    "source_frame": [
+      0,
+      1340,
+      132,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -41
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "817c3529238b3d6fe74e0cde3f0767932518bf7d263b62c2c4ce7afac5e934f0"
+  },
+  {
+    "key": "42:106625",
+    "name": "Emilia",
+    "label": "Blonde / Dark Green",
+    "manifest": "assets/characters/crossgate/fighters/emilia/106625/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/106625/atlas-0.png",
+    "source_frame": [
+      0,
+      1340,
+      132,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -41
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "9c36e868ff37249fa5a6800a36e6849ff83e74eba7bc4de54f655b204e91e971"
+  },
+  {
+    "key": "42:111669",
+    "name": "Emilia",
+    "label": "Brown Hair / White",
+    "manifest": "assets/characters/crossgate/fighters/emilia/111669/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/111669/atlas-0.png",
+    "source_frame": [
+      0,
+      1025,
+      599,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -41
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "3e70b2d25fce4fee30ec9f124d0ed2e03db101748848489bf58b951ce5a0fc06"
+  },
+  {
+    "key": "42:120322",
+    "name": "Emilia",
+    "label": "Sakura Ayame",
+    "manifest": "assets/characters/crossgate/fighters/emilia/120322/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/120322/atlas-0.png",
+    "source_frame": [
+      0,
+      1340,
+      132,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -41
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "064aeacbc647c4053cf7a003772588f835ae6582ab6b9f89c0aa374132ac618b"
+  },
+  {
+    "key": "42:120484",
+    "name": "Emilia",
+    "label": "Fragrant Ayame",
+    "manifest": "assets/characters/crossgate/fighters/emilia/120484/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/120484/atlas-0.png",
+    "source_frame": [
+      0,
+      1340,
+      132,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -41
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "87078b1031e34c349fd0872d22a875703a980b14a68f9fe22b7be308e73c69af"
+  },
+  {
+    "key": "42:120490",
+    "name": "Emilia",
+    "label": "Green Hair / White",
+    "manifest": "assets/characters/crossgate/fighters/emilia/120490/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/120490/atlas-0.png",
+    "source_frame": [
+      0,
+      1340,
+      132,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -41
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "921c74b694cc7807bd89e95a4ed2a18c0908b4f3d3afd8e28beba0a91f505f44"
+  },
+  {
+    "key": "42:100224",
+    "name": "Emilia",
+    "label": "Blue-haired Ayame",
+    "manifest": "assets/characters/crossgate/fighters/emilia/100224/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/100224/atlas-0.png",
+    "source_frame": [
+      0,
+      1340,
+      132,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -41
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "9293b021b52baf06716274fda6da60a267ae6696b6add9f5ae105a619c1fce7f"
+  },
+  {
+    "key": "42:100230",
+    "name": "Emilia",
+    "label": "Silver-haired Ayame",
+    "manifest": "assets/characters/crossgate/fighters/emilia/100230/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/100230/atlas-0.png",
+    "source_frame": [
+      0,
+      1340,
+      132,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -41
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "c9e5d7b54b92e72b262a42d8fd53803b8daa36859b1ba03b148ddb188483a7b4"
+  },
+  {
+    "key": "42:106706",
+    "name": "Emilia",
+    "label": "Special \u00b7 Pink Ayame",
+    "manifest": "assets/characters/crossgate/fighters/emilia/106706/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/106706/atlas-0.png",
+    "source_frame": [
+      0,
+      1996,
+      1,
+      46,
+      104,
+      -32,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -41
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "c8d4ace9833f7ddb4a6de9b06f5937f848d499229aafcffe799376589548f64b"
+  },
+  {
+    "key": "42:120389",
+    "name": "Emilia",
+    "label": "Special \u00b7 Red / Black Ayame",
+    "manifest": "assets/characters/crossgate/fighters/emilia/120389/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/emilia/120389/atlas-0.png",
+    "source_frame": [
+      0,
+      1611,
+      935,
+      41,
+      109,
+      -27,
+      -73
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -41
+    ],
+    "bounds": [
+      14,
+      9,
+      37,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "f110402f3733d4202a018acad0b6b118bd96a55582d938279f59560dac57a573"
+  },
+  {
+    "key": "43:106125",
+    "name": "Lancelot",
+    "label": "White / Silver",
+    "manifest": "assets/characters/crossgate/fighters/lancelot/106125/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/lancelot/106125/atlas-0.png",
+    "source_frame": [
+      0,
+      326,
+      762,
+      84,
+      95,
+      -42,
+      -80
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      0,
+      9,
+      41,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "740b9e3aea9cee640e71667838e1407a772995c433550dc7d560d0f64952f371"
+  },
+  {
+    "key": "43:106131",
+    "name": "Lancelot",
+    "label": "Gold / Purple",
+    "manifest": "assets/characters/crossgate/fighters/lancelot/106131/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/lancelot/106131/atlas-0.png",
+    "source_frame": [
+      0,
+      326,
+      762,
+      84,
+      95,
+      -42,
+      -80
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      0,
+      9,
+      41,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "06457e69d601bce4c4dd0b66ebaa8c32d92aab0ff2b0b78a58c2ba7d20cf47bd"
+  },
+  {
+    "key": "43:106137",
+    "name": "Lancelot",
+    "label": "Black / Red",
+    "manifest": "assets/characters/crossgate/fighters/lancelot/106137/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/lancelot/106137/atlas-0.png",
+    "source_frame": [
+      0,
+      251,
+      762,
+      84,
+      95,
+      -42,
+      -80
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      0,
+      9,
+      41,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "f4215f6eae7f5e906921968cadb6f1a0c2af787761a362334173f0ad64ea2483"
+  },
+  {
+    "key": "43:106143",
+    "name": "Lancelot",
+    "label": "Blue / Brown",
+    "manifest": "assets/characters/crossgate/fighters/lancelot/106143/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/lancelot/106143/atlas-0.png",
+    "source_frame": [
+      0,
+      326,
+      762,
+      84,
+      95,
+      -42,
+      -80
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      0,
+      9,
+      41,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "1f7c9418c92dff69b9b896876d41911c6e965f1068a2c049bed85ac8e23d981e"
+  },
+  {
+    "key": "43:106550",
+    "name": "Lancelot",
+    "label": "Silver / Green",
+    "manifest": "assets/characters/crossgate/fighters/lancelot/106550/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/lancelot/106550/atlas-0.png",
+    "source_frame": [
+      0,
+      326,
+      762,
+      84,
+      95,
+      -42,
+      -80
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      0,
+      9,
+      41,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "82d232b7f1efb04b9cd426f982c1f4aacfbfed30538a8ca266a62c40f23eadad"
+  },
+  {
+    "key": "43:105206",
+    "name": "Lancelot",
+    "label": "Black Lancelot",
+    "manifest": "assets/characters/crossgate/fighters/lancelot/105206/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/lancelot/105206/atlas-0.png",
+    "source_frame": [
+      0,
+      326,
+      762,
+      84,
+      95,
+      -42,
+      -80
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      0,
+      9,
+      41,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "c0a5942952fa42da6140e1baa4be85b7c39b1eebfc7076e7a191208caab13da7"
+  },
+  {
+    "key": "43:105212",
+    "name": "Lancelot",
+    "label": "Emerald / Black",
+    "manifest": "assets/characters/crossgate/fighters/lancelot/105212/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/lancelot/105212/atlas-0.png",
+    "source_frame": [
+      0,
+      326,
+      762,
+      84,
+      95,
+      -42,
+      -80
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      0,
+      9,
+      41,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "31a098e8e054c958945a038501aaf5118f0a148f24c8b7d8e9ebcf8156c0ed69"
+  },
+  {
+    "key": "43:105907",
+    "name": "Lancelot",
+    "label": "Mint / Blue",
+    "manifest": "assets/characters/crossgate/fighters/lancelot/105907/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/lancelot/105907/atlas-0.png",
+    "source_frame": [
+      0,
+      326,
+      762,
+      84,
+      95,
+      -42,
+      -80
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      0,
+      9,
+      41,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "1ef70b4dc3c81273b09fac167a48bb51eebc16ff5353ec480d7da5d70f4889ae"
+  },
+  {
+    "key": "44:106025",
+    "name": "Pete",
+    "label": "Original \u00b7 106025",
+    "manifest": "assets/characters/crossgate/fighters/pete/106025/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/106025/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "f8f9de5f07bae49622937b9dea1e8d171b56a1b9fd8c56b6b70b1400d2c13b68"
+  },
+  {
+    "key": "44:100731",
+    "name": "Pete",
+    "label": "Alternative \u00b7 100731",
+    "manifest": "assets/characters/crossgate/fighters/pete/100731/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/100731/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "df30e467448122c5c164e36dbba3eedaf0d7c26fcc377ad9ef045a5131b7e21f"
+  },
+  {
+    "key": "44:105194",
+    "name": "Pete",
+    "label": "Alternative \u00b7 105194",
+    "manifest": "assets/characters/crossgate/fighters/pete/105194/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/105194/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "b80dc3d33ab1b7ccbf642242e67322a7ae05d3930a9c4ac8a89b20a8dfbca986"
+  },
+  {
+    "key": "44:105800",
+    "name": "Pete",
+    "label": "Alternative \u00b7 105800",
+    "manifest": "assets/characters/crossgate/fighters/pete/105800/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/105800/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "0c2f72b64e5734bdf5c0c5677f72bbece5f1f4d2b84b934de0f206668c9e9934"
+  },
+  {
+    "key": "44:105806",
+    "name": "Pete",
+    "label": "Alternative \u00b7 105806",
+    "manifest": "assets/characters/crossgate/fighters/pete/105806/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/105806/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "8bd82ea13c476487a438801693c770813f8f15cc587ccee6fbf311cac15e80e7"
+  },
+  {
+    "key": "44:106031",
+    "name": "Pete",
+    "label": "Alternative \u00b7 106031",
+    "manifest": "assets/characters/crossgate/fighters/pete/106031/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/106031/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "202be8f0c420a623177173484970fe86f45dd20c0f925d06c7143a8c2db3d348"
+  },
+  {
+    "key": "44:106037",
+    "name": "Pete",
+    "label": "Alternative \u00b7 106037",
+    "manifest": "assets/characters/crossgate/fighters/pete/106037/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/106037/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "f2773dabf6086f6130bbefda753a883e35f61f1da4c85b1d96e456b0d4c8945e"
+  },
+  {
+    "key": "44:106043",
+    "name": "Pete",
+    "label": "Alternative \u00b7 106043",
+    "manifest": "assets/characters/crossgate/fighters/pete/106043/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/106043/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "789893e479c71d465c14fb4333be199134acd6ab4e4de9b34638203044a0dde5"
+  },
+  {
+    "key": "44:106228",
+    "name": "Pete",
+    "label": "Alternative \u00b7 106228",
+    "manifest": "assets/characters/crossgate/fighters/pete/106228/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/106228/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "2adea4f617034b154e8ade863230051b13796afe3a0a4c1d197a5e99bb5366a2"
+  },
+  {
+    "key": "44:106450",
+    "name": "Pete",
+    "label": "Alternative \u00b7 106450",
+    "manifest": "assets/characters/crossgate/fighters/pete/106450/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/106450/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "77310f0f3f03ab19de6e474dfe718039d454bee09cf9debd8c3bf38d21fe252a"
+  },
+  {
+    "key": "44:106762",
+    "name": "Pete",
+    "label": "Alternative \u00b7 106762",
+    "manifest": "assets/characters/crossgate/fighters/pete/106762/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/106762/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "419e6a31e28727bff1b3e086e0a3dd65c348f41b426f4d0a17878fbfcf3b0781"
+  },
+  {
+    "key": "44:119300",
+    "name": "Pete",
+    "label": "Alternative \u00b7 119300",
+    "manifest": "assets/characters/crossgate/fighters/pete/119300/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/119300/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "74198c52de7655e94f413dd19ac66ba6f6d22e58de2b76aaa047465e0c68c3e5"
+  },
+  {
+    "key": "44:120244",
+    "name": "Pete",
+    "label": "Alternative \u00b7 120244",
+    "manifest": "assets/characters/crossgate/fighters/pete/120244/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/120244/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "0c88559250224181c3cf62cc2ef00b59579a19535c66c6230cd3a4030d34124c"
+  },
+  {
+    "key": "44:120250",
+    "name": "Pete",
+    "label": "Alternative \u00b7 120250",
+    "manifest": "assets/characters/crossgate/fighters/pete/120250/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/120250/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "f00c894287336985cf35e40f283113a854d5e9bfb73f6341c9ce8d15ecda124d"
+  },
+  {
+    "key": "44:120466",
+    "name": "Pete",
+    "label": "Alternative \u00b7 120466",
+    "manifest": "assets/characters/crossgate/fighters/pete/120466/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/120466/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "66dd55060285c091d02a0106f707f05678750da1561866731ca934c03ed305b0"
+  },
+  {
+    "key": "44:120472",
+    "name": "Pete",
+    "label": "Alternative \u00b7 120472",
+    "manifest": "assets/characters/crossgate/fighters/pete/120472/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/120472/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "d19a03407286d79e6d6106519bdadac84a123fb38f821434afc76ab68f61f9a1"
+  },
+  {
+    "key": "44:120478",
+    "name": "Pete",
+    "label": "Alternative \u00b7 120478",
+    "manifest": "assets/characters/crossgate/fighters/pete/120478/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/pete/120478/atlas-0.png",
+    "source_frame": [
+      0,
+      1574,
+      321,
+      38,
+      81,
+      -22,
+      -67
+    ],
+    "crop": [
+      -25,
+      -75,
+      25,
+      -34
+    ],
+    "bounds": [
+      6,
+      8,
+      38,
+      41
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "5caefe797e389e79d6c1d170ac10af666776e31b6eaabae0fe2b172d43b498ce"
+  },
+  {
+    "key": "45:106375",
+    "name": "Grace",
+    "label": "Original \u00b7 106375",
+    "manifest": "assets/characters/crossgate/fighters/grace/106375/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/grace/106375/atlas-0.png",
+    "source_frame": [
+      0,
+      691,
+      305,
+      36,
+      90,
+      -20,
+      -79
+    ],
+    "crop": [
+      -25,
+      -87,
+      25,
+      -45
+    ],
+    "bounds": [
+      5,
+      8,
+      40,
+      42
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "4793de5fd76547bcf8db619edfc3c6c9e3351f125f57efff0027441fb64567c3"
+  },
+  {
+    "key": "45:100531",
+    "name": "Grace",
+    "label": "Alternative \u00b7 100531",
+    "manifest": "assets/characters/crossgate/fighters/grace/100531/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/grace/100531/atlas-0.png",
+    "source_frame": [
+      0,
+      691,
+      305,
+      36,
+      90,
+      -20,
+      -79
+    ],
+    "crop": [
+      -25,
+      -87,
+      25,
+      -45
+    ],
+    "bounds": [
+      5,
+      8,
+      40,
+      42
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "794ed49c769c674f0010c1fe394c7c0eed646352a6b1caf76b40b919e9777afa"
+  },
+  {
+    "key": "45:100537",
+    "name": "Grace",
+    "label": "Alternative \u00b7 100537",
+    "manifest": "assets/characters/crossgate/fighters/grace/100537/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/grace/100537/atlas-0.png",
+    "source_frame": [
+      0,
+      691,
+      305,
+      36,
+      90,
+      -20,
+      -79
+    ],
+    "crop": [
+      -25,
+      -87,
+      25,
+      -45
+    ],
+    "bounds": [
+      5,
+      8,
+      40,
+      42
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "9ae56c503b3eebc6dd02010ba8807c7014fd13d939bf36d8dfe05deb4f5280c3"
+  },
+  {
+    "key": "45:100543",
+    "name": "Grace",
+    "label": "Alternative \u00b7 100543",
+    "manifest": "assets/characters/crossgate/fighters/grace/100543/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/grace/100543/atlas-0.png",
+    "source_frame": [
+      0,
+      691,
+      305,
+      36,
+      90,
+      -20,
+      -79
+    ],
+    "crop": [
+      -25,
+      -87,
+      25,
+      -45
+    ],
+    "bounds": [
+      5,
+      8,
+      40,
+      42
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "f859bc7ed28491a823b2aef1cbe2cc6dc26755514fa425de694362069522d8bf"
+  },
+  {
+    "key": "45:100556",
+    "name": "Grace",
+    "label": "Alternative \u00b7 100556",
+    "manifest": "assets/characters/crossgate/fighters/grace/100556/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/grace/100556/atlas-0.png",
+    "source_frame": [
+      0,
+      691,
+      305,
+      36,
+      90,
+      -20,
+      -79
+    ],
+    "crop": [
+      -25,
+      -87,
+      25,
+      -45
+    ],
+    "bounds": [
+      5,
+      8,
+      40,
+      42
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "4d3996565435b4825385f6f2675db1f05ca00297c217afa845c0797febd73ace"
+  },
+  {
+    "key": "45:105200",
+    "name": "Grace",
+    "label": "Alternative \u00b7 105200",
+    "manifest": "assets/characters/crossgate/fighters/grace/105200/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/grace/105200/atlas-0.png",
+    "source_frame": [
+      0,
+      691,
+      305,
+      36,
+      90,
+      -20,
+      -79
+    ],
+    "crop": [
+      -25,
+      -87,
+      25,
+      -45
+    ],
+    "bounds": [
+      5,
+      8,
+      40,
+      42
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "be7ff8cedebe474c70aebae7dff14b3d680caef0791e67b68c775a32945771d4"
+  },
+  {
+    "key": "45:106234",
+    "name": "Grace",
+    "label": "Alternative \u00b7 106234",
+    "manifest": "assets/characters/crossgate/fighters/grace/106234/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/grace/106234/atlas-0.png",
+    "source_frame": [
+      0,
+      691,
+      305,
+      36,
+      90,
+      -20,
+      -79
+    ],
+    "crop": [
+      -25,
+      -87,
+      25,
+      -45
+    ],
+    "bounds": [
+      5,
+      8,
+      40,
+      42
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "8daf7af6be773772a097ee197d5c53d7b86bc015fdf0b616308ba9bf77c267fe"
+  },
+  {
+    "key": "45:106381",
+    "name": "Grace",
+    "label": "Alternative \u00b7 106381",
+    "manifest": "assets/characters/crossgate/fighters/grace/106381/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/grace/106381/atlas-0.png",
+    "source_frame": [
+      0,
+      691,
+      305,
+      36,
+      90,
+      -20,
+      -79
+    ],
+    "crop": [
+      -25,
+      -87,
+      25,
+      -45
+    ],
+    "bounds": [
+      5,
+      8,
+      40,
+      42
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "be7ff8cedebe474c70aebae7dff14b3d680caef0791e67b68c775a32945771d4"
+  },
+  {
+    "key": "45:106387",
+    "name": "Grace",
+    "label": "Alternative \u00b7 106387",
+    "manifest": "assets/characters/crossgate/fighters/grace/106387/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/grace/106387/atlas-0.png",
+    "source_frame": [
+      0,
+      691,
+      305,
+      36,
+      90,
+      -20,
+      -79
+    ],
+    "crop": [
+      -25,
+      -87,
+      25,
+      -45
+    ],
+    "bounds": [
+      5,
+      8,
+      40,
+      42
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "9d91afcf78c6c3b761097f8103ca624e44f735508cb70a9a97c19acba019bc11"
+  },
+  {
+    "key": "45:106393",
+    "name": "Grace",
+    "label": "Alternative \u00b7 106393",
+    "manifest": "assets/characters/crossgate/fighters/grace/106393/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/grace/106393/atlas-0.png",
+    "source_frame": [
+      0,
+      691,
+      305,
+      36,
+      90,
+      -20,
+      -79
+    ],
+    "crop": [
+      -25,
+      -87,
+      25,
+      -45
+    ],
+    "bounds": [
+      5,
+      8,
+      40,
+      42
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "c1a45d0818b8024a868acd5ffd6e62746b6e0d361438933d873089162ffff9c4"
+  },
+  {
+    "key": "45:106725",
+    "name": "Grace",
+    "label": "Alternative \u00b7 106725",
+    "manifest": "assets/characters/crossgate/fighters/grace/106725/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/grace/106725/atlas-0.png",
+    "source_frame": [
+      0,
+      691,
+      305,
+      36,
+      90,
+      -20,
+      -79
+    ],
+    "crop": [
+      -25,
+      -87,
+      25,
+      -45
+    ],
+    "bounds": [
+      5,
+      8,
+      40,
+      42
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "d88990d4c842992b7e176b875604dd6cef7499740507fb0359fa47d5c6898ec0"
+  },
+  {
+    "key": "46:105350",
+    "name": "Rei",
+    "label": "Original \u00b7 105350",
+    "manifest": "assets/characters/crossgate/fighters/rei/105350/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/105350/atlas-0.png",
+    "source_frame": [
+      0,
+      1250,
+      186,
+      37,
+      82,
+      -20,
+      -74
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      8,
+      41,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "3a62905e47a59274412345a310aee6bf46b6014550b70bddeb9389aab102362e"
+  },
+  {
+    "key": "46:100350",
+    "name": "Rei",
+    "label": "Alternative \u00b7 100350",
+    "manifest": "assets/characters/crossgate/fighters/rei/100350/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/100350/atlas-0.png",
+    "source_frame": [
+      0,
+      627,
+      192,
+      33,
+      85,
+      -16,
+      -78
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -39
+    ],
+    "bounds": [
+      9,
+      7,
+      42,
+      46
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "86c0f78c52e2968df05fa78308045a3f6c3c76d61b73ad84b502e2628f67cf5f"
+  },
+  {
+    "key": "46:100356",
+    "name": "Rei",
+    "label": "Alternative \u00b7 100356",
+    "manifest": "assets/characters/crossgate/fighters/rei/100356/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/100356/atlas-0.png",
+    "source_frame": [
+      0,
+      627,
+      192,
+      33,
+      85,
+      -16,
+      -78
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -39
+    ],
+    "bounds": [
+      9,
+      7,
+      42,
+      46
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "1e1e125d627d8478e6b1dc3212c5a402e44c19497dcd8ba4fc88db4bfc4d4554"
+  },
+  {
+    "key": "46:100362",
+    "name": "Rei",
+    "label": "Alternative \u00b7 100362",
+    "manifest": "assets/characters/crossgate/fighters/rei/100362/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/100362/atlas-0.png",
+    "source_frame": [
+      0,
+      627,
+      192,
+      33,
+      85,
+      -16,
+      -78
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -39
+    ],
+    "bounds": [
+      9,
+      7,
+      42,
+      46
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "5d2de0ef050610021a4b59e3819680c84b91a888056611084333bccf4d6387a5"
+  },
+  {
+    "key": "46:100368",
+    "name": "Rei",
+    "label": "Alternative \u00b7 100368",
+    "manifest": "assets/characters/crossgate/fighters/rei/100368/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/100368/atlas-0.png",
+    "source_frame": [
+      0,
+      585,
+      192,
+      32,
+      85,
+      -16,
+      -78
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -39
+    ],
+    "bounds": [
+      9,
+      7,
+      41,
+      46
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "5aeaffe8aee8e5711b0a2ba9bccc5ef0dea44d002a4a04210f87afe9c57e9397"
+  },
+  {
+    "key": "46:100792",
+    "name": "Rei",
+    "label": "Alternative \u00b7 100792",
+    "manifest": "assets/characters/crossgate/fighters/rei/100792/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/100792/atlas-0.png",
+    "source_frame": [
+      0,
+      1250,
+      186,
+      37,
+      82,
+      -20,
+      -74
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      8,
+      41,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "8bddd5fd3104d96655a8339e7566e714c0912899b2ca59856bed435e9699fe9c"
+  },
+  {
+    "key": "46:105356",
+    "name": "Rei",
+    "label": "Alternative \u00b7 105356",
+    "manifest": "assets/characters/crossgate/fighters/rei/105356/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/105356/atlas-0.png",
+    "source_frame": [
+      0,
+      1250,
+      186,
+      37,
+      82,
+      -20,
+      -74
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      8,
+      41,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "d7881ec8740cc707ab59a3799cf12c8f202b9fef92e9db32d01657a315a3558f"
+  },
+  {
+    "key": "46:105362",
+    "name": "Rei",
+    "label": "Alternative \u00b7 105362",
+    "manifest": "assets/characters/crossgate/fighters/rei/105362/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/105362/atlas-0.png",
+    "source_frame": [
+      0,
+      1250,
+      186,
+      37,
+      82,
+      -20,
+      -74
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      8,
+      41,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "8e22d6a4adee394380dad12c0cf3fbfdf9072f494a2e9cf0f8c7dcb3a8508d76"
+  },
+  {
+    "key": "46:105368",
+    "name": "Rei",
+    "label": "Alternative \u00b7 105368",
+    "manifest": "assets/characters/crossgate/fighters/rei/105368/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/105368/atlas-0.png",
+    "source_frame": [
+      0,
+      1250,
+      186,
+      37,
+      82,
+      -20,
+      -74
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      8,
+      41,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "e84aea0f8c0f8d7abf5bf37366be6395533e850ade1a63e18b87efbef5ef67d0"
+  },
+  {
+    "key": "46:105585",
+    "name": "Rei",
+    "label": "Alternative \u00b7 105585",
+    "manifest": "assets/characters/crossgate/fighters/rei/105585/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/105585/atlas-0.png",
+    "source_frame": [
+      0,
+      627,
+      192,
+      33,
+      85,
+      -16,
+      -78
+    ],
+    "crop": [
+      -25,
+      -85,
+      25,
+      -39
+    ],
+    "bounds": [
+      9,
+      7,
+      42,
+      46
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "6f00f27c97830f129b84c64f521f4ffb03f2dc86ad24060c1fdd478bffad54f6"
+  },
+  {
+    "key": "46:105901",
+    "name": "Rei",
+    "label": "Alternative \u00b7 105901",
+    "manifest": "assets/characters/crossgate/fighters/rei/105901/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/105901/atlas-0.png",
+    "source_frame": [
+      0,
+      1250,
+      186,
+      37,
+      82,
+      -20,
+      -74
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      8,
+      41,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "53a8777850597db9c763894200dac76b5854d6b186e417cb068ac917d74fab06"
+  },
+  {
+    "key": "46:120172",
+    "name": "Rei",
+    "label": "Alternative \u00b7 120172",
+    "manifest": "assets/characters/crossgate/fighters/rei/120172/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/120172/atlas-0.png",
+    "source_frame": [
+      0,
+      1250,
+      186,
+      37,
+      82,
+      -20,
+      -74
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      8,
+      41,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "801652e1dc1943cfc05ea31b7b80bd6034a213ba712b94b1de5034da3494ef5b"
+  },
+  {
+    "key": "46:120178",
+    "name": "Rei",
+    "label": "Alternative \u00b7 120178",
+    "manifest": "assets/characters/crossgate/fighters/rei/120178/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/120178/atlas-0.png",
+    "source_frame": [
+      0,
+      1250,
+      186,
+      37,
+      82,
+      -20,
+      -74
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -39
+    ],
+    "bounds": [
+      8,
+      8,
+      41,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "b0700ab4ba2d435789ae6ad37a2f9ae8244d6ebe205d7ed92191cc1d860c391d"
+  },
+  {
+    "key": "46:109912",
+    "name": "Rei",
+    "label": "Special \u00b7 Red / Gold Runes",
+    "manifest": "assets/characters/crossgate/fighters/rei/109912/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/109912/atlas-0.png",
+    "source_frame": [
+      0,
+      1,
+      1690,
+      135,
+      118,
+      -67,
+      -74
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -39
+    ],
+    "bounds": [
+      1,
+      8,
+      50,
+      43
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "1f4781f15251ceee0379c9910a9c91c58a4acb709b0cc6debc6b392f3f8b8809"
+  },
+  {
+    "key": "46:100700",
+    "name": "Rei",
+    "label": "Special \u00b7 Black / Gold Armor",
+    "manifest": "assets/characters/crossgate/fighters/rei/100700/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/100700/atlas-0.png",
+    "source_frame": [
+      0,
+      2010,
+      1956,
+      36,
+      86,
+      -20,
+      -78
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -39
+    ],
+    "bounds": [
+      9,
+      4,
+      41,
+      43
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "6305b41af8913efdd51441966698f432a59f6ecbaa493f70d186505b03b85f98"
+  },
+  {
+    "key": "46:100798",
+    "name": "Rei",
+    "label": "Special \u00b7 Ornate / Silver Weapons",
+    "manifest": "assets/characters/crossgate/fighters/rei/100798/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/100798/atlas-0.png",
+    "source_frame": [
+      0,
+      108,
+      1543,
+      39,
+      90,
+      -22,
+      -74
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -39
+    ],
+    "bounds": [
+      7,
+      8,
+      41,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "999d0e971d2a40975f89ace1b05eff78fd482448cfd3d794b92c45f6fa0f7d22"
+  },
+  {
+    "key": "46:120428",
+    "name": "Rei",
+    "label": "Special \u00b7 Ornate / Red Weapons",
+    "manifest": "assets/characters/crossgate/fighters/rei/120428/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/rei/120428/atlas-0.png",
+    "source_frame": [
+      0,
+      1,
+      1543,
+      39,
+      90,
+      -22,
+      -74
+    ],
+    "crop": [
+      -25,
+      -82,
+      25,
+      -39
+    ],
+    "bounds": [
+      7,
+      8,
+      41,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "ae05d6213cee598d8d573af2fcd41fb5c062273071fc24162563e09ef9b66d2f"
+  },
+  {
+    "key": "47:106000",
+    "name": "Cedi",
+    "label": "Original \u00b7 106000",
+    "manifest": "assets/characters/crossgate/fighters/cedi/106000/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/cedi/106000/atlas-0.png",
+    "source_frame": [
+      0,
+      1875,
+      90,
+      36,
+      75,
+      -18,
+      -67
+    ],
+    "crop": [
+      -25,
+      -73,
+      25,
+      -36
+    ],
+    "bounds": [
+      13,
+      6,
+      36,
+      37
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "30d6abc8e7a23f4d845bbd4d861f612ff1f704c66cc5ed5c3500d86f8fcc826f"
+  },
+  {
+    "key": "47:100924",
+    "name": "Cedi",
+    "label": "Alternative \u00b7 100924",
+    "manifest": "assets/characters/crossgate/fighters/cedi/100924/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/cedi/100924/atlas-0.png",
+    "source_frame": [
+      0,
+      1863,
+      90,
+      36,
+      75,
+      -18,
+      -67
+    ],
+    "crop": [
+      -25,
+      -73,
+      25,
+      -36
+    ],
+    "bounds": [
+      13,
+      6,
+      36,
+      37
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "10768ebab4123b09a88d0b9eee400c7caf3da5b6862ea5dc6f51f1a20720f525"
+  },
+  {
+    "key": "47:100930",
+    "name": "Cedi",
+    "label": "Alternative \u00b7 100930",
+    "manifest": "assets/characters/crossgate/fighters/cedi/100930/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/cedi/100930/atlas-0.png",
+    "source_frame": [
+      0,
+      1863,
+      90,
+      36,
+      75,
+      -18,
+      -67
+    ],
+    "crop": [
+      -25,
+      -73,
+      25,
+      -36
+    ],
+    "bounds": [
+      13,
+      6,
+      36,
+      37
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "e40afb480d9a2f9c2b683e1522da78977763511a85432d5afd49c7a226c71dd4"
+  },
+  {
+    "key": "47:105688",
+    "name": "Cedi",
+    "label": "Alternative \u00b7 105688",
+    "manifest": "assets/characters/crossgate/fighters/cedi/105688/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/cedi/105688/atlas-0.png",
+    "source_frame": [
+      0,
+      1875,
+      90,
+      35,
+      75,
+      -18,
+      -67
+    ],
+    "crop": [
+      -25,
+      -73,
+      25,
+      -36
+    ],
+    "bounds": [
+      13,
+      6,
+      36,
+      37
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "32f5a3e5a3fc9d04266ac5b6e6b8948084837de3619588728b632dd75c613fff"
+  },
+  {
+    "key": "47:106006",
+    "name": "Cedi",
+    "label": "Alternative \u00b7 106006",
+    "manifest": "assets/characters/crossgate/fighters/cedi/106006/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/cedi/106006/atlas-0.png",
+    "source_frame": [
+      0,
+      1864,
+      90,
+      36,
+      75,
+      -18,
+      -67
+    ],
+    "crop": [
+      -25,
+      -73,
+      25,
+      -36
+    ],
+    "bounds": [
+      13,
+      6,
+      36,
+      37
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "6692a007363fa973ac17a331331875bfa8d40f8a3d4b2edf91c1eebda17503c4"
+  },
+  {
+    "key": "47:106012",
+    "name": "Cedi",
+    "label": "Alternative \u00b7 106012",
+    "manifest": "assets/characters/crossgate/fighters/cedi/106012/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/cedi/106012/atlas-0.png",
+    "source_frame": [
+      0,
+      1875,
+      90,
+      35,
+      75,
+      -18,
+      -67
+    ],
+    "crop": [
+      -25,
+      -73,
+      25,
+      -36
+    ],
+    "bounds": [
+      13,
+      6,
+      36,
+      37
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "59f5efb1877cb4686a529c3398a36777cd78644aef41b038ebdf14f57923b53f"
+  },
+  {
+    "key": "47:106018",
+    "name": "Cedi",
+    "label": "Alternative \u00b7 106018",
+    "manifest": "assets/characters/crossgate/fighters/cedi/106018/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/cedi/106018/atlas-0.png",
+    "source_frame": [
+      0,
+      1863,
+      90,
+      36,
+      75,
+      -18,
+      -67
+    ],
+    "crop": [
+      -25,
+      -73,
+      25,
+      -36
+    ],
+    "bounds": [
+      13,
+      6,
+      36,
+      37
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "1b0aa76d696c75634e194d439f07658f33c3252ab5083388f6ce77cbdb50df6e"
+  },
+  {
+    "key": "47:106425",
+    "name": "Cedi",
+    "label": "Alternative \u00b7 106425",
+    "manifest": "assets/characters/crossgate/fighters/cedi/106425/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/cedi/106425/atlas-0.png",
+    "source_frame": [
+      0,
+      1861,
+      90,
+      36,
+      75,
+      -18,
+      -67
+    ],
+    "crop": [
+      -25,
+      -73,
+      25,
+      -36
+    ],
+    "bounds": [
+      13,
+      6,
+      36,
+      37
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "141853b5aab4408561e533e6492e897c9a4dabe7675074c192165a53fa849d0a"
+  },
+  {
+    "key": "47:111619",
+    "name": "Cedi",
+    "label": "Special \u00b7 Gold / Purple Effect",
+    "manifest": "assets/characters/crossgate/fighters/cedi/111619/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/cedi/111619/atlas-0.png",
+    "source_frame": [
+      0,
+      658,
+      1906,
+      36,
+      75,
+      -18,
+      -67
+    ],
+    "crop": [
+      -25,
+      -73,
+      25,
+      -36
+    ],
+    "bounds": [
+      13,
+      6,
+      36,
+      37
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "7e0756f3539b14dd2ae75019ceb517c1d86ca8ee7f87241209050a33919384b3"
+  },
+  {
+    "key": "47:120370",
+    "name": "Cedi",
+    "label": "Alternative \u00b7 120370",
+    "manifest": "assets/characters/crossgate/fighters/cedi/120370/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/cedi/120370/atlas-0.png",
+    "source_frame": [
+      0,
+      1863,
+      90,
+      36,
+      75,
+      -18,
+      -67
+    ],
+    "crop": [
+      -25,
+      -73,
+      25,
+      -36
+    ],
+    "bounds": [
+      13,
+      6,
+      36,
+      37
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "3fc767f22933de4ec2a6e82768af0c92d138f49ff834733a68774864c062cadc"
+  },
+  {
+    "key": "47:120376",
+    "name": "Cedi",
+    "label": "Alternative \u00b7 120376",
+    "manifest": "assets/characters/crossgate/fighters/cedi/120376/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/cedi/120376/atlas-0.png",
+    "source_frame": [
+      0,
+      1863,
+      90,
+      36,
+      75,
+      -18,
+      -67
+    ],
+    "crop": [
+      -25,
+      -73,
+      25,
+      -36
+    ],
+    "bounds": [
+      13,
+      6,
+      36,
+      37
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "5f51508e7a7646a42ad3c7cb497de48067e7e3107c31c1ba10c730bbc596a386"
+  },
+  {
+    "key": "47:111617",
+    "name": "Cedi",
+    "label": "Special \u00b7 Blond / Violet",
+    "manifest": "assets/characters/crossgate/fighters/cedi/111617/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/cedi/111617/atlas-0.png",
+    "source_frame": [
+      0,
+      665,
+      1,
+      35,
+      107,
+      -18,
+      -67
+    ],
+    "crop": [
+      -25,
+      -73,
+      25,
+      -36
+    ],
+    "bounds": [
+      13,
+      6,
+      36,
+      37
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "a4d36b3911ffa5089ebb983c9e34e2b0fd85c0cf3c4908c892047081bdc7d094"
+  },
+  {
+    "key": "47:111618",
+    "name": "Cedi",
+    "label": "Special \u00b7 \u7d2b\u591c",
+    "manifest": "assets/characters/crossgate/fighters/cedi/111618/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/cedi/111618/atlas-0.png",
+    "source_frame": [
+      0,
+      1599,
+      392,
+      35,
+      107,
+      -18,
+      -67
+    ],
+    "crop": [
+      -25,
+      -73,
+      25,
+      -36
+    ],
+    "bounds": [
+      13,
+      6,
+      36,
+      37
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "c747d490b934c65b795ad8263a07c58b01a8bc853cc42867b44d8c61c7539a87"
+  },
+  {
+    "key": "47:111683",
+    "name": "Cedi",
+    "label": "Special \u00b7 Silver / White",
+    "manifest": "assets/characters/crossgate/fighters/cedi/111683/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/cedi/111683/atlas-1.png",
+    "source_frame": [
+      1,
+      1940,
+      1312,
+      36,
+      107,
+      -18,
+      -67
+    ],
+    "crop": [
+      -25,
+      -73,
+      25,
+      -36
+    ],
+    "bounds": [
+      13,
+      6,
+      36,
+      37
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "eb937da4703f1bbd2fd95dd962125535c359cd997e5d06855bd9b18d2ec96155"
+  },
+  {
+    "key": "48:105125",
+    "name": "Bei",
+    "label": "Remodel \u00b7 Blue Hair / Silver",
+    "manifest": "assets/characters/crossgate/fighters/bei/105125/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/105125/atlas-1.png",
+    "source_frame": [
+      1,
+      275,
+      957,
+      39,
+      82,
+      -21,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -40
+    ],
+    "bounds": [
+      10,
+      5,
+      41,
+      38
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "a86f76c2fc2d6815ebcaa559e5d67ad3b98f29d643800690c87ec368a9f692c9"
+  },
+  {
+    "key": "48:100125",
+    "name": "Bei",
+    "label": "Classic \u00b7 Slate Hair / Silver",
+    "manifest": "assets/characters/crossgate/fighters/bei/100125/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/100125/atlas-1.png",
+    "source_frame": [
+      1,
+      39,
+      177,
+      37,
+      85,
+      -16,
+      -78
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -44
+    ],
+    "bounds": [
+      11,
+      5,
+      46,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "97c863594a60ffbcce19837b9850b44f2041873c2232fa1853d3d87b689a8c69"
+  },
+  {
+    "key": "48:100131",
+    "name": "Bei",
+    "label": "Classic \u00b7 Blond / Red",
+    "manifest": "assets/characters/crossgate/fighters/bei/100131/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/100131/atlas-1.png",
+    "source_frame": [
+      1,
+      76,
+      177,
+      37,
+      85,
+      -16,
+      -78
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -44
+    ],
+    "bounds": [
+      11,
+      5,
+      46,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "15b4be54e5e34cdf16937f67877e814d4f8a377e630b99a2686232c1d8e5f67b"
+  },
+  {
+    "key": "48:100137",
+    "name": "Bei",
+    "label": "Classic \u00b7 Green Hair / Blue",
+    "manifest": "assets/characters/crossgate/fighters/bei/100137/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/100137/atlas-1.png",
+    "source_frame": [
+      1,
+      164,
+      177,
+      37,
+      85,
+      -16,
+      -78
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -44
+    ],
+    "bounds": [
+      11,
+      5,
+      46,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "6f4d8fc2dd23ca5b6b775a118d194ab1eb272b898d707d78051cf6737605f924"
+  },
+  {
+    "key": "48:100143",
+    "name": "Bei",
+    "label": "Classic \u00b7 Brown Hair / Green",
+    "manifest": "assets/characters/crossgate/fighters/bei/100143/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/100143/atlas-1.png",
+    "source_frame": [
+      1,
+      164,
+      177,
+      37,
+      85,
+      -16,
+      -78
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -44
+    ],
+    "bounds": [
+      11,
+      5,
+      46,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "00f5bb1b6e94ab24aee99583b3ef2dc0f428727a71e0a6c2be08edc17a35d967"
+  },
+  {
+    "key": "48:100224",
+    "name": "Bei",
+    "label": "Classic \u00b7 Purple Hair / Blue",
+    "manifest": "assets/characters/crossgate/fighters/bei/100224/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/100224/atlas-1.png",
+    "source_frame": [
+      1,
+      164,
+      177,
+      37,
+      85,
+      -16,
+      -78
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -44
+    ],
+    "bounds": [
+      11,
+      5,
+      46,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "af662563e7040bb99b4bd89e5ee2958141248f278e7e2f5732750001f19e05de"
+  },
+  {
+    "key": "48:100600",
+    "name": "Bei",
+    "label": "Classic \u00b7 Slate Hair / Black",
+    "manifest": "assets/characters/crossgate/fighters/bei/100600/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/100600/atlas-1.png",
+    "source_frame": [
+      1,
+      39,
+      177,
+      37,
+      85,
+      -16,
+      -78
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -44
+    ],
+    "bounds": [
+      11,
+      5,
+      46,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "534156d6cef109db9ffd498293373eb9f377960c6f580f745186de09ff22476b"
+  },
+  {
+    "key": "48:105131",
+    "name": "Bei",
+    "label": "Remodel \u00b7 Blond / Red",
+    "manifest": "assets/characters/crossgate/fighters/bei/105131/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/105131/atlas-1.png",
+    "source_frame": [
+      1,
+      377,
+      957,
+      39,
+      82,
+      -21,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -40
+    ],
+    "bounds": [
+      10,
+      5,
+      41,
+      38
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "4295cfca34b53cf51e5ab376b525c654087db828483bed8a995096ab8079c8ef"
+  },
+  {
+    "key": "48:105137",
+    "name": "Bei",
+    "label": "Remodel \u00b7 Green Hair / Blue",
+    "manifest": "assets/characters/crossgate/fighters/bei/105137/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/105137/atlas-1.png",
+    "source_frame": [
+      1,
+      275,
+      957,
+      39,
+      82,
+      -21,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -40
+    ],
+    "bounds": [
+      10,
+      5,
+      41,
+      38
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "dee7077388d094d2231bb56e053e4d9a3b82c64724aeedab894159cbd8989955"
+  },
+  {
+    "key": "48:105143",
+    "name": "Bei",
+    "label": "Remodel \u00b7 Brown Hair / Green",
+    "manifest": "assets/characters/crossgate/fighters/bei/105143/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/105143/atlas-1.png",
+    "source_frame": [
+      1,
+      275,
+      957,
+      39,
+      82,
+      -21,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -40
+    ],
+    "bounds": [
+      10,
+      5,
+      41,
+      38
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "bcb52f3cf153ef6b8bb2daa26478975c93fdfd780111fbb6e9476f20c1f565f4"
+  },
+  {
+    "key": "48:105591",
+    "name": "Bei",
+    "label": "Remodel \u00b7 Green Hair / Black",
+    "manifest": "assets/characters/crossgate/fighters/bei/105591/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/105591/atlas-1.png",
+    "source_frame": [
+      1,
+      164,
+      177,
+      37,
+      85,
+      -16,
+      -78
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -44
+    ],
+    "bounds": [
+      11,
+      5,
+      46,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "9d34ebf549100c39bfdea2d259d3e3d59d2eb9a9bf15fd3ced66ef677d374006"
+  },
+  {
+    "key": "48:105818",
+    "name": "Bei",
+    "label": "Remodel \u00b7 Charcoal",
+    "manifest": "assets/characters/crossgate/fighters/bei/105818/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/105818/atlas-1.png",
+    "source_frame": [
+      1,
+      275,
+      957,
+      39,
+      82,
+      -21,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -40
+    ],
+    "bounds": [
+      10,
+      5,
+      41,
+      38
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "9db326d6d69bbf578183d8c00e688d38030132629577cc8afc9781ecb41a3ae4"
+  },
+  {
+    "key": "48:105850",
+    "name": "Bei",
+    "label": "Remodel \u00b7 Blond / Crimson",
+    "manifest": "assets/characters/crossgate/fighters/bei/105850/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/105850/atlas-1.png",
+    "source_frame": [
+      1,
+      275,
+      957,
+      39,
+      82,
+      -21,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -40
+    ],
+    "bounds": [
+      10,
+      5,
+      41,
+      38
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "269fd454167bf2a1d62624d5685be0e0db3718f1bf6941840bb27f962c54b15a"
+  },
+  {
+    "key": "48:105856",
+    "name": "Bei",
+    "label": "Remodel \u00b7 Silver / Black",
+    "manifest": "assets/characters/crossgate/fighters/bei/105856/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/105856/atlas-1.png",
+    "source_frame": [
+      1,
+      275,
+      957,
+      39,
+      82,
+      -21,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -40
+    ],
+    "bounds": [
+      10,
+      5,
+      41,
+      38
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "9494e91f1d2162e09f507c3739ddfc64200bda6813bdeb8d2a472a75eae7a77a"
+  },
+  {
+    "key": "48:100218",
+    "name": "Bei",
+    "label": "Classic \u00b7 Black Hair / Blue",
+    "manifest": "assets/characters/crossgate/fighters/bei/100218/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/100218/atlas-1.png",
+    "source_frame": [
+      1,
+      164,
+      177,
+      37,
+      85,
+      -16,
+      -78
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -44
+    ],
+    "bounds": [
+      11,
+      5,
+      46,
+      39
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "338194ff749296f7c676ef064a5ac32179401e8227a222eea42acb00ca5da116"
+  },
+  {
+    "key": "48:100481",
+    "name": "Bei",
+    "label": "Special \u00b7 Pirate / Green Hair / Steel",
+    "manifest": "assets/characters/crossgate/fighters/bei/100481/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/100481/atlas-1.png",
+    "source_frame": [
+      1,
+      275,
+      957,
+      39,
+      82,
+      -21,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -40
+    ],
+    "bounds": [
+      10,
+      5,
+      41,
+      38
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "5c6ced65a693b42a1ce6c2d9e73cd90dd48122990925eedaac786a877d46a361"
+  },
+  {
+    "key": "48:100487",
+    "name": "Bei",
+    "label": "Special \u00b7 Pirate / Cyan Hair / Steel",
+    "manifest": "assets/characters/crossgate/fighters/bei/100487/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/100487/atlas-1.png",
+    "source_frame": [
+      1,
+      275,
+      957,
+      39,
+      82,
+      -21,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -40
+    ],
+    "bounds": [
+      10,
+      5,
+      41,
+      38
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "aed3624b5b5236c40e33b265a341fb16f21156c20f8f089f2edfa8ba5eff6203"
+  },
+  {
+    "key": "48:100493",
+    "name": "Bei",
+    "label": "Special \u00b7 Pirate / Red Hair / Steel",
+    "manifest": "assets/characters/crossgate/fighters/bei/100493/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/100493/atlas-1.png",
+    "source_frame": [
+      1,
+      275,
+      957,
+      39,
+      82,
+      -21,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -40
+    ],
+    "bounds": [
+      10,
+      5,
+      41,
+      38
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "6d9e32db8bb327dabff2c8e37e91adae9ed87b12ae5231bc7b31adc08a9d754f"
+  },
+  {
+    "key": "48:100506",
+    "name": "Bei",
+    "label": "Special \u00b7 Pirate / Brown Hair",
+    "manifest": "assets/characters/crossgate/fighters/bei/100506/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/100506/atlas-1.png",
+    "source_frame": [
+      1,
+      1468,
+      518,
+      39,
+      82,
+      -21,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -40
+    ],
+    "bounds": [
+      10,
+      5,
+      41,
+      38
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "e3f2a7825f473e8cdd077617164c21be9e22eba579e90d4f3268312339936eaf"
+  },
+  {
+    "key": "48:100937",
+    "name": "Bei",
+    "label": "Special \u00b7 Pirate / Purple Hair",
+    "manifest": "assets/characters/crossgate/fighters/bei/100937/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/100937/atlas-1.png",
+    "source_frame": [
+      1,
+      275,
+      957,
+      39,
+      82,
+      -21,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -40
+    ],
+    "bounds": [
+      10,
+      5,
+      41,
+      38
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "a7dcf905ebcff169433f8402ffe350e7e1209f7d42cbbf403db7d7c104deead0"
+  },
+  {
+    "key": "48:100949",
+    "name": "Bei",
+    "label": "Special \u00b7 Pirate / Crimson Hair",
+    "manifest": "assets/characters/crossgate/fighters/bei/100949/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/100949/atlas-1.png",
+    "source_frame": [
+      1,
+      275,
+      957,
+      39,
+      82,
+      -21,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -40
+    ],
+    "bounds": [
+      10,
+      5,
+      41,
+      38
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "be0d97adc261ea8b9c5a05e99eea41994ac656fd150ca0a869e4bb66976dc2c7"
+  },
+  {
+    "key": "48:120386",
+    "name": "Bei",
+    "label": "Special \u00b7 Pirate Hat / Silver / Purple",
+    "manifest": "assets/characters/crossgate/fighters/bei/120386/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/120386/atlas-4.png",
+    "source_frame": [
+      4,
+      56,
+      122,
+      56,
+      116,
+      -29,
+      -89
+    ],
+    "crop": [
+      -31,
+      -98,
+      31,
+      -39
+    ],
+    "bounds": [
+      6,
+      9,
+      56,
+      59
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "5ae3ac11eca53a84dff9269f20d16f15df69df118e5d43625790819902a60698"
+  },
+  {
+    "key": "48:109876",
+    "name": "Bei",
+    "label": "Special \u00b7 Blue Flame Pet",
+    "manifest": "assets/characters/crossgate/fighters/bei/109876/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bei/109876/atlas-0.png",
+    "source_frame": [
+      0,
+      835,
+      498,
+      52,
+      88,
+      -26,
+      -78
+    ],
+    "crop": [
+      -25,
+      -83,
+      25,
+      -44
+    ],
+    "bounds": [
+      0,
+      5,
+      48,
+      39
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "6e1e60e06e8a789a07858ff0cd7307aa8cc1978774909baf1e185cc4fb53bf74"
+  },
+  {
+    "key": "49:105275",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Purple Hair / Red",
+    "manifest": "assets/characters/crossgate/fighters/moe/105275/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/105275/atlas-1.png",
+    "source_frame": [
+      1,
+      863,
+      345,
+      32,
+      82,
+      -16,
+      -75
+    ],
+    "crop": [
+      -25,
+      -80,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "ed4671f8f2d474e01e71c85c5381554d43d401f39e6f96a91c9aae4c4c892649"
+  },
+  {
+    "key": "49:100275",
+    "name": "Moe",
+    "label": "Classic \u00b7 Purple Hair / Red",
+    "manifest": "assets/characters/crossgate/fighters/moe/100275/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/100275/atlas-0.png",
+    "source_frame": [
+      0,
+      811,
+      1909,
+      32,
+      79,
+      -17,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "b32fe61e5f762507a3462b4fd8410b926109e3121290bf7d36746468492a7e50"
+  },
+  {
+    "key": "49:100281",
+    "name": "Moe",
+    "label": "Classic \u00b7 Blue Hair / Green",
+    "manifest": "assets/characters/crossgate/fighters/moe/100281/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/100281/atlas-0.png",
+    "source_frame": [
+      0,
+      713,
+      1909,
+      32,
+      79,
+      -17,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "2a51cf4194d081ebe64a25531098b5b269fbedb8a771cf81571c1bf594dd7d17"
+  },
+  {
+    "key": "49:100287",
+    "name": "Moe",
+    "label": "Classic \u00b7 Brown Hair / Yellow",
+    "manifest": "assets/characters/crossgate/fighters/moe/100287/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/100287/atlas-0.png",
+    "source_frame": [
+      0,
+      783,
+      1909,
+      32,
+      79,
+      -17,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "a859390f33a6841f4ee3717d62f692331602ccedf11a5684ee8597bc49def081"
+  },
+  {
+    "key": "49:100293",
+    "name": "Moe",
+    "label": "Classic \u00b7 Dark Hair / Gold",
+    "manifest": "assets/characters/crossgate/fighters/moe/100293/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/100293/atlas-0.png",
+    "source_frame": [
+      0,
+      2014,
+      1827,
+      32,
+      79,
+      -17,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "408a71473d6bd87343ce0979db0af9b1d9c3f73cd16f0e9a6641adb02fce8dbd"
+  },
+  {
+    "key": "49:100475",
+    "name": "Moe",
+    "label": "Classic \u00b7 Silver Hair / Red",
+    "manifest": "assets/characters/crossgate/fighters/moe/100475/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/100475/atlas-1.png",
+    "source_frame": [
+      1,
+      1999,
+      83,
+      32,
+      79,
+      -17,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "1ac11c78525f5d7b863ae877a99641e626b0926587ff51be81e474f2b8141503"
+  },
+  {
+    "key": "49:100984",
+    "name": "Moe",
+    "label": "Classic \u00b7 All White",
+    "manifest": "assets/characters/crossgate/fighters/moe/100984/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/100984/atlas-1.png",
+    "source_frame": [
+      1,
+      1999,
+      83,
+      32,
+      79,
+      -17,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "e55ec2fddfdab6551064cc0d1064c98340f84c5d96d1e1d0f126f71ca01f447e"
+  },
+  {
+    "key": "49:105281",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Slate Hair / Green",
+    "manifest": "assets/characters/crossgate/fighters/moe/105281/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/105281/atlas-1.png",
+    "source_frame": [
+      1,
+      863,
+      345,
+      32,
+      82,
+      -16,
+      -75
+    ],
+    "crop": [
+      -25,
+      -80,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "00b771411d715f35b15ca647dad5a36e79b7396fe9d856c0fc06e2d6dfa2d125"
+  },
+  {
+    "key": "49:105287",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Brown Hair / Gold",
+    "manifest": "assets/characters/crossgate/fighters/moe/105287/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/105287/atlas-1.png",
+    "source_frame": [
+      1,
+      863,
+      345,
+      32,
+      82,
+      -16,
+      -75
+    ],
+    "crop": [
+      -25,
+      -80,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "19d73c683ded78385e3328d5f8c77360643be63710550427bcdc8388c6dab713"
+  },
+  {
+    "key": "49:105293",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Dark Green",
+    "manifest": "assets/characters/crossgate/fighters/moe/105293/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/105293/atlas-1.png",
+    "source_frame": [
+      1,
+      622,
+      345,
+      32,
+      82,
+      -16,
+      -75
+    ],
+    "crop": [
+      -25,
+      -80,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "99a7feddb939d0d4158129c954d003d979296effd8bf7fc94ddaa2fdd173cbb7"
+  },
+  {
+    "key": "49:105640",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Silver / Purple",
+    "manifest": "assets/characters/crossgate/fighters/moe/105640/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/105640/atlas-1.png",
+    "source_frame": [
+      1,
+      1999,
+      83,
+      32,
+      79,
+      -17,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "dc51860b5fa10bcaba0b899003c0bfc5e5cbf3783f531ff08ffe4de0c6990375"
+  },
+  {
+    "key": "49:105646",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Silver / Yellow",
+    "manifest": "assets/characters/crossgate/fighters/moe/105646/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/105646/atlas-1.png",
+    "source_frame": [
+      1,
+      1999,
+      83,
+      32,
+      79,
+      -17,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "f02008d0d548bc6cbe465db1960735ec99addf76110e17675a5762c5c806f90c"
+  },
+  {
+    "key": "49:105652",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Silver / Pink",
+    "manifest": "assets/characters/crossgate/fighters/moe/105652/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/105652/atlas-1.png",
+    "source_frame": [
+      1,
+      1999,
+      83,
+      32,
+      79,
+      -17,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "92c43dcf459f176f1c835b4ace2253c5ce8e06e984b5aa404cdaf7514362ac06"
+  },
+  {
+    "key": "49:105658",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Silver / Cyan",
+    "manifest": "assets/characters/crossgate/fighters/moe/105658/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/105658/atlas-1.png",
+    "source_frame": [
+      1,
+      1999,
+      83,
+      32,
+      79,
+      -17,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "7567b1551377bdd19e213f3cb60a1e4ff1fb19720d756fe5b346cffbbda817ed"
+  },
+  {
+    "key": "49:105664",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Silver / Brown",
+    "manifest": "assets/characters/crossgate/fighters/moe/105664/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/105664/atlas-1.png",
+    "source_frame": [
+      1,
+      1999,
+      83,
+      32,
+      79,
+      -17,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "c36093221e79ed4956ed8f61c7ba0b60863d321775dc4957c8261c5dfb3c5661"
+  },
+  {
+    "key": "49:105725",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Purple / Violet",
+    "manifest": "assets/characters/crossgate/fighters/moe/105725/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/105725/atlas-1.png",
+    "source_frame": [
+      1,
+      863,
+      345,
+      32,
+      82,
+      -16,
+      -75
+    ],
+    "crop": [
+      -25,
+      -80,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "fd3b3c81c926a433ce56d8057ea029b109980b739747f2b41abf2abdcf9736e9"
+  },
+  {
+    "key": "49:105731",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Gray Hair / Red",
+    "manifest": "assets/characters/crossgate/fighters/moe/105731/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/105731/atlas-1.png",
+    "source_frame": [
+      1,
+      863,
+      345,
+      32,
+      82,
+      -16,
+      -75
+    ],
+    "crop": [
+      -25,
+      -80,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "9fe2a69fa398dc75b21462ca46bb0595c00615416a8ca0660959f94a6aac4adc"
+  },
+  {
+    "key": "49:105784",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Silver / Black",
+    "manifest": "assets/characters/crossgate/fighters/moe/105784/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/105784/atlas-1.png",
+    "source_frame": [
+      1,
+      863,
+      345,
+      32,
+      82,
+      -16,
+      -75
+    ],
+    "crop": [
+      -25,
+      -80,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "0c6681c9dbf219f0c1383b622e24ab620d8a8608c6f436e39612e8c6a1d2bd19"
+  },
+  {
+    "key": "49:105843",
+    "name": "Moe",
+    "label": "Special \u00b7 Pink Heart Trim",
+    "manifest": "assets/characters/crossgate/fighters/moe/105843/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/105843/atlas-1.png",
+    "source_frame": [
+      1,
+      863,
+      345,
+      32,
+      82,
+      -16,
+      -75
+    ],
+    "crop": [
+      -25,
+      -80,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "d31bbf6d81ba2c534af350f07ed28d721a22ef9067f5c82afb38ee34b03402df"
+  },
+  {
+    "key": "49:105955",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Pink Hair / Red",
+    "manifest": "assets/characters/crossgate/fighters/moe/105955/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/105955/atlas-0.png",
+    "source_frame": [
+      0,
+      811,
+      1909,
+      32,
+      79,
+      -17,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "2a7e85175bac16e83d6d2db8372fd877da70e0a6f6258e76f06080c5c09bc4c3"
+  },
+  {
+    "key": "49:105961",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Black Hair / Red",
+    "manifest": "assets/characters/crossgate/fighters/moe/105961/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/105961/atlas-0.png",
+    "source_frame": [
+      0,
+      811,
+      1909,
+      32,
+      79,
+      -17,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "1b74c292624016ccb68df50f64413f2901dd564840f242db9926cb1e6fa689b6"
+  },
+  {
+    "key": "49:120328",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Silver / Navy",
+    "manifest": "assets/characters/crossgate/fighters/moe/120328/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/120328/atlas-1.png",
+    "source_frame": [
+      1,
+      863,
+      345,
+      32,
+      82,
+      -16,
+      -75
+    ],
+    "crop": [
+      -25,
+      -80,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "69953c88e65c126d156602faee4c404986b4dd680ff5fee2146945f8f79678a4"
+  },
+  {
+    "key": "49:120334",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Blue / Navy",
+    "manifest": "assets/characters/crossgate/fighters/moe/120334/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/120334/atlas-1.png",
+    "source_frame": [
+      1,
+      863,
+      345,
+      32,
+      82,
+      -16,
+      -75
+    ],
+    "crop": [
+      -25,
+      -80,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "de921f50f8a693251b65bb667d25b5ac1b59da8d54faa765cd91609a6b0d6368"
+  },
+  {
+    "key": "49:120340",
+    "name": "Moe",
+    "label": "Remodel \u00b7 Orange / Navy",
+    "manifest": "assets/characters/crossgate/fighters/moe/120340/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/120340/atlas-1.png",
+    "source_frame": [
+      1,
+      863,
+      345,
+      32,
+      82,
+      -16,
+      -75
+    ],
+    "crop": [
+      -25,
+      -80,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "ced53051ccc5c7237cf8cb5451bdf7ec881f6cf25b547eabf084a1afaf814650"
+  },
+  {
+    "key": "49:100961",
+    "name": "Moe",
+    "label": "Special \u00b7 Pink Hair / Red Ribbon",
+    "manifest": "assets/characters/crossgate/fighters/moe/100961/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/100961/atlas-1.png",
+    "source_frame": [
+      1,
+      863,
+      345,
+      32,
+      82,
+      -16,
+      -75
+    ],
+    "crop": [
+      -25,
+      -80,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "dbc40bbc1f45502dae64cc96934b52f51e4e3a71a4fd037b93fd380b57933afc"
+  },
+  {
+    "key": "49:100997",
+    "name": "Moe",
+    "label": "Special \u00b7 Gray Hair / Purple Ribbon",
+    "manifest": "assets/characters/crossgate/fighters/moe/100997/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/100997/atlas-1.png",
+    "source_frame": [
+      1,
+      863,
+      345,
+      32,
+      82,
+      -16,
+      -75
+    ],
+    "crop": [
+      -25,
+      -80,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "ee3c7cf93693e96af005569bca171b2b9ec40f09632bc9d943815d4452aa79f2"
+  },
+  {
+    "key": "49:106708",
+    "name": "Moe",
+    "label": "Special \u00b7 Glowing Gold Sword",
+    "manifest": "assets/characters/crossgate/fighters/moe/106708/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/106708/atlas-0.png",
+    "source_frame": [
+      0,
+      241,
+      385,
+      62,
+      82,
+      -29,
+      -75
+    ],
+    "crop": [
+      -25,
+      -80,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "9cd2c11154cb4b5329e0a0f0761f112b17810c0b127f26c9d06ce5f6bb4b1e31"
+  },
+  {
+    "key": "49:120110",
+    "name": "Moe",
+    "label": "Special \u00b7 Silver / Gold Staff",
+    "manifest": "assets/characters/crossgate/fighters/moe/120110/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/moe/120110/atlas-0.png",
+    "source_frame": [
+      0,
+      1446,
+      1,
+      32,
+      94,
+      -16,
+      -75
+    ],
+    "crop": [
+      -25,
+      -80,
+      25,
+      -37
+    ],
+    "bounds": [
+      14,
+      5,
+      36,
+      43
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "7e711a64cc51ea283bd01e1e0aca5d6a3f231c65a1af855bb8b34b47d6a64342"
+  },
+  {
+    "key": "50:105300",
+    "name": "Ami",
+    "label": "Remodel \u00b7 Blond / Orange",
+    "manifest": "assets/characters/crossgate/fighters/ami/105300/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/105300/atlas-1.png",
+    "source_frame": [
+      1,
+      729,
+      1195,
+      39,
+      80,
+      -20,
+      -72
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -38
+    ],
+    "bounds": [
+      8,
+      6,
+      40,
+      40
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "36dc0222bddc92adbb657d7cf2d43c8e0d54a6342e7257f5091a81220a3a82d0"
+  },
+  {
+    "key": "50:100300",
+    "name": "Ami",
+    "label": "Classic \u00b7 Blond / Orange",
+    "manifest": "assets/characters/crossgate/fighters/ami/100300/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/100300/atlas-1.png",
+    "source_frame": [
+      1,
+      509,
+      167,
+      34,
+      80,
+      -16,
+      -73
+    ],
+    "crop": [
+      -25,
+      -79,
+      25,
+      -38
+    ],
+    "bounds": [
+      10,
+      6,
+      43,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "38557e6cdcaa8ca62d965a51a1195585aa75bcecc63ee66e94883e4186c7e69f"
+  },
+  {
+    "key": "50:100306",
+    "name": "Ami",
+    "label": "Classic \u00b7 Brown Hair / Yellow",
+    "manifest": "assets/characters/crossgate/fighters/ami/100306/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/100306/atlas-1.png",
+    "source_frame": [
+      1,
+      214,
+      84,
+      33,
+      80,
+      -16,
+      -73
+    ],
+    "crop": [
+      -25,
+      -79,
+      25,
+      -38
+    ],
+    "bounds": [
+      10,
+      6,
+      42,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "6a1e36f488375c6a2259dda9e903a054e2f9b22084a28f7a11684723dc43bf4a"
+  },
+  {
+    "key": "50:100312",
+    "name": "Ami",
+    "label": "Classic \u00b7 Red Hair / Green",
+    "manifest": "assets/characters/crossgate/fighters/ami/100312/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/100312/atlas-1.png",
+    "source_frame": [
+      1,
+      1540,
+      1,
+      34,
+      80,
+      -16,
+      -73
+    ],
+    "crop": [
+      -25,
+      -79,
+      25,
+      -38
+    ],
+    "bounds": [
+      10,
+      6,
+      43,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "b905a0289c6011e4332185ae725a7809875b43b873d48a153801b78991913c41"
+  },
+  {
+    "key": "50:100318",
+    "name": "Ami",
+    "label": "Classic \u00b7 Black Hair / Blue",
+    "manifest": "assets/characters/crossgate/fighters/ami/100318/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/100318/atlas-1.png",
+    "source_frame": [
+      1,
+      143,
+      84,
+      33,
+      80,
+      -16,
+      -73
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -38
+    ],
+    "bounds": [
+      10,
+      5,
+      42,
+      40
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "fa847bcdc2aa996794d0a98f968d1610120f481c4b7c83041a31fb4c67879c97"
+  },
+  {
+    "key": "50:100431",
+    "name": "Ami",
+    "label": "Classic \u00b7 Brown Hair / Charcoal",
+    "manifest": "assets/characters/crossgate/fighters/ami/100431/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/100431/atlas-1.png",
+    "source_frame": [
+      1,
+      1540,
+      1,
+      34,
+      80,
+      -16,
+      -73
+    ],
+    "crop": [
+      -25,
+      -79,
+      25,
+      -38
+    ],
+    "bounds": [
+      10,
+      6,
+      43,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "94dbff77e824dace778685eb8ca7d5b0ab2e8a6f5aee0b3b8d4aceeb2518fd82"
+  },
+  {
+    "key": "50:100500",
+    "name": "Ami",
+    "label": "Classic \u00b7 Silver Hair / Orange",
+    "manifest": "assets/characters/crossgate/fighters/ami/100500/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/100500/atlas-1.png",
+    "source_frame": [
+      1,
+      1231,
+      1,
+      34,
+      80,
+      -16,
+      -73
+    ],
+    "crop": [
+      -25,
+      -79,
+      25,
+      -38
+    ],
+    "bounds": [
+      10,
+      6,
+      43,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "075cf98f51238512112347880be3669bc38b4f42f50a62c99cc28885eb3325d9"
+  },
+  {
+    "key": "50:100990",
+    "name": "Ami",
+    "label": "Classic \u00b7 All White",
+    "manifest": "assets/characters/crossgate/fighters/ami/100990/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/100990/atlas-1.png",
+    "source_frame": [
+      1,
+      1231,
+      1,
+      34,
+      80,
+      -16,
+      -73
+    ],
+    "crop": [
+      -25,
+      -79,
+      25,
+      -38
+    ],
+    "bounds": [
+      10,
+      6,
+      43,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "a661202b6da04d6fe936280f00d9ac3ab3e13680b00e084d62d02ce5e6eb3c54"
+  },
+  {
+    "key": "50:105306",
+    "name": "Ami",
+    "label": "Remodel \u00b7 Brown Hair / Yellow",
+    "manifest": "assets/characters/crossgate/fighters/ami/105306/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/105306/atlas-1.png",
+    "source_frame": [
+      1,
+      729,
+      1194,
+      39,
+      80,
+      -20,
+      -72
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -38
+    ],
+    "bounds": [
+      8,
+      6,
+      40,
+      40
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "4f0db6e03180f34eb91ab27511584ec2da96de28ce615b32f41f98a4f51ac3a3"
+  },
+  {
+    "key": "50:105312",
+    "name": "Ami",
+    "label": "Remodel \u00b7 Orange Hair / Green",
+    "manifest": "assets/characters/crossgate/fighters/ami/105312/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/105312/atlas-1.png",
+    "source_frame": [
+      1,
+      869,
+      1195,
+      39,
+      80,
+      -20,
+      -72
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -38
+    ],
+    "bounds": [
+      8,
+      6,
+      40,
+      40
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "10948467e0f3fca1e97a52b537d4ccc2245a4e0cc95926b1f92d53c77f838a93"
+  },
+  {
+    "key": "50:105318",
+    "name": "Ami",
+    "label": "Remodel \u00b7 Slate Hair / Blue",
+    "manifest": "assets/characters/crossgate/fighters/ami/105318/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/105318/atlas-1.png",
+    "source_frame": [
+      1,
+      643,
+      1195,
+      39,
+      80,
+      -20,
+      -72
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -38
+    ],
+    "bounds": [
+      8,
+      6,
+      40,
+      40
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "1bb725e9fb5c3f09782a4355069c5a8e35dcbd6a8a328d4a84d05337616c658d"
+  },
+  {
+    "key": "50:105442",
+    "name": "Ami",
+    "label": "Remodel \u00b7 Gray Hair / Yellow",
+    "manifest": "assets/characters/crossgate/fighters/ami/105442/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/105442/atlas-1.png",
+    "source_frame": [
+      1,
+      869,
+      1195,
+      39,
+      80,
+      -20,
+      -72
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -38
+    ],
+    "bounds": [
+      8,
+      6,
+      40,
+      40
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "e46b9c3c3f80ae304f4e6492d0bc190e1d9901a0aa71340c9df30afddca23327"
+  },
+  {
+    "key": "50:105967",
+    "name": "Ami",
+    "label": "Remodel \u00b7 Red Hair / Black",
+    "manifest": "assets/characters/crossgate/fighters/ami/105967/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/105967/atlas-1.png",
+    "source_frame": [
+      1,
+      1540,
+      1,
+      34,
+      80,
+      -16,
+      -73
+    ],
+    "crop": [
+      -25,
+      -79,
+      25,
+      -38
+    ],
+    "bounds": [
+      10,
+      6,
+      43,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "9ae46c4a72f7782a94a1b61e1b881d04564719cabf09c6da5164abf1ebff94ac"
+  },
+  {
+    "key": "50:105973",
+    "name": "Ami",
+    "label": "Remodel \u00b7 Black / Gold",
+    "manifest": "assets/characters/crossgate/fighters/ami/105973/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/105973/atlas-1.png",
+    "source_frame": [
+      1,
+      1540,
+      1,
+      34,
+      80,
+      -16,
+      -73
+    ],
+    "crop": [
+      -25,
+      -79,
+      25,
+      -38
+    ],
+    "bounds": [
+      10,
+      6,
+      43,
+      41
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "2e907e68b521d70a2ed01ebad0889294618c4362e907a8c54a087420997155d9"
+  },
+  {
+    "key": "50:106781",
+    "name": "Ami",
+    "label": "Remodel \u00b7 Pink Hair / Purple",
+    "manifest": "assets/characters/crossgate/fighters/ami/106781/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/106781/atlas-1.png",
+    "source_frame": [
+      1,
+      869,
+      1195,
+      39,
+      80,
+      -20,
+      -72
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -38
+    ],
+    "bounds": [
+      8,
+      6,
+      40,
+      40
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "71345dfe0fbcc42e1a7323a71214bf115d65c3d655e3469564c0557d1117af1e"
+  },
+  {
+    "key": "50:120448",
+    "name": "Ami",
+    "label": "Special \u00b7 Silver / Blue Armor",
+    "manifest": "assets/characters/crossgate/fighters/ami/120448/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/120448/atlas-1.png",
+    "source_frame": [
+      1,
+      729,
+      1194,
+      39,
+      80,
+      -20,
+      -72
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -38
+    ],
+    "bounds": [
+      8,
+      6,
+      40,
+      40
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "8c7a13857b0301b35e0445efd3c98776182124a769b158ac554e741eb349c4f3"
+  },
+  {
+    "key": "50:120454",
+    "name": "Ami",
+    "label": "Special \u00b7 Green / Silver Armor",
+    "manifest": "assets/characters/crossgate/fighters/ami/120454/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/120454/atlas-1.png",
+    "source_frame": [
+      1,
+      869,
+      1195,
+      39,
+      80,
+      -20,
+      -72
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -38
+    ],
+    "bounds": [
+      8,
+      6,
+      40,
+      40
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "974a12aaff0a4a2125307d1d7dabc32b18f9821c06f264774c2c2173286797ac"
+  },
+  {
+    "key": "50:120460",
+    "name": "Ami",
+    "label": "Special \u00b7 Cyan / Silver Armor",
+    "manifest": "assets/characters/crossgate/fighters/ami/120460/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/120460/atlas-1.png",
+    "source_frame": [
+      1,
+      869,
+      1195,
+      39,
+      80,
+      -20,
+      -72
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -38
+    ],
+    "bounds": [
+      8,
+      6,
+      40,
+      40
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "5f6c86f0d09aa722905d3730d5f5f1bdf44e22a956ec18c13321ce2d972179ba"
+  },
+  {
+    "key": "50:105798",
+    "name": "Ami",
+    "label": "Special \u00b7 Blond / Blue and Green",
+    "manifest": "assets/characters/crossgate/fighters/ami/105798/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/105798/atlas-1.png",
+    "source_frame": [
+      1,
+      869,
+      1195,
+      39,
+      80,
+      -20,
+      -72
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -38
+    ],
+    "bounds": [
+      8,
+      6,
+      40,
+      40
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "bda0b99be17746416663379ae50d5194ac30a4b3ea955946776035e244725ac2"
+  },
+  {
+    "key": "50:106793",
+    "name": "Ami",
+    "label": "Special \u00b7 Pink Hair / Green Trim",
+    "manifest": "assets/characters/crossgate/fighters/ami/106793/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/106793/atlas-1.png",
+    "source_frame": [
+      1,
+      869,
+      1195,
+      39,
+      80,
+      -20,
+      -72
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -38
+    ],
+    "bounds": [
+      8,
+      6,
+      40,
+      40
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "76fd913c50461ed5856fac382a09467717d70da40006b93bf60eda7fd81e321d"
+  },
+  {
+    "key": "50:115258",
+    "name": "Ami",
+    "label": "Special \u00b7 Blue Hair / Crescent Sword Pet",
+    "manifest": "assets/characters/crossgate/fighters/ami/115258/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/ami/115258/atlas-2.png",
+    "source_frame": [
+      2,
+      1214,
+      436,
+      39,
+      80,
+      -20,
+      -71
+    ],
+    "crop": [
+      -25,
+      -78,
+      25,
+      -38
+    ],
+    "bounds": [
+      8,
+      7,
+      40,
+      40
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "8405e9ff1ffc585b33692995e5013b688fd9652db3e82da1435ed5474dd3c3d6"
+  },
+  {
+    "key": "51:100800",
+    "name": "\u718a\u54e5",
+    "label": "Original \u00b7 Red / Blue",
+    "manifest": "assets/characters/crossgate/fighters/kumago/100800/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/kumago/100800/atlas-2.png",
+    "source_frame": [
+      2,
+      1992,
+      597,
+      48,
+      93,
+      -23,
+      -84
+    ],
+    "crop": [
+      -17,
+      -88,
+      18,
+      -51
+    ],
+    "bounds": [
+      0,
+      4,
+      35,
+      37
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "b4683f35eebb141b93234643e2178d11e2f75176fe000f4fcd07c74f3398f53c"
+  },
+  {
+    "key": "51:120443",
+    "name": "\u718a\u54e5",
+    "label": "Special \u00b7 Dark Red / Black",
+    "manifest": "assets/characters/crossgate/fighters/kumago/120443/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/kumago/120443/atlas-0.png",
+    "source_frame": [
+      0,
+      478,
+      544,
+      48,
+      93,
+      -23,
+      -84
+    ],
+    "crop": [
+      -17,
+      -88,
+      18,
+      -51
+    ],
+    "bounds": [
+      0,
+      4,
+      35,
+      37
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "67a9aa9a8752e059bb49681d22eb67d734f26385075a9c7b11d7819452cec57e"
+  },
+  {
+    "key": "38:100053",
+    "name": "Shin Special",
+    "label": "Hidden classic",
+    "manifest": "assets/characters/crossgate/shin/100053/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100053/atlas-0.png",
+    "source_frame": [
+      0,
+      1023,
+      313,
+      44,
+      91,
+      -24,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "2054242c63008517eff80cde9b32ee140746849eee0446baad1586212b31a83a"
+  },
+  {
+    "key": "38:100055",
+    "name": "Shin Special",
+    "label": "Hidden classic",
+    "manifest": "assets/characters/crossgate/shin/100055/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/shin/100055/atlas-0.png",
+    "source_frame": [
+      0,
+      264,
+      331,
+      46,
+      98,
+      -26,
+      -81
+    ],
+    "crop": [
+      -25,
+      -89,
+      25,
+      -44
+    ],
+    "bounds": [
+      5,
+      8,
+      45,
+      45
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "de1ac3744f1952439662b008d6736fcc38312f5eda6fede769493b6221d81f58"
+  }
+]

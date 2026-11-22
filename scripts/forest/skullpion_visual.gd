@@ -2,6 +2,7 @@ extends Node3D
 ## Presentation only; the native army owns this boss's HP, movement and attacks.
 const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
 const SIZE=Roles.BOSS_SCALE
+const BODY_SIZE=SIZE*Roles.MAP_ENEMY_SCALE
 const MODEL=preload("res://assets/models/enemies/skullpion.glb")
 const SOUND_NAMES={0x55b:"sand_windup",0x55c:"sand_blast",0x55d:"tail_slam",0x55e:"tail_sweep",0x55f:"drill_windup",0x560:"ground_impact",0x561:"drill_release",0x562:"drill_emerge",0x564:"breakup",0x565:"defeat",0x566:"core_recover",0x627:"volley_release",0x628:"volley_bounce",0x629:"volley_expire",0xb08:"core_hit"}
 const CUES={101:[[.65,0x627]],102:[[.5,0x55d],[1.17,0x55d],[1.5,0x55e]],103:[[.67,0x55b],[2.33,0x55c]],104:[[1.65,0x560]],105:[[1.33,0x55f],[1.9,0x562],[2.8,0x562],[3.6,0x561],[3.7,0x562]],107:[[0.0,0x564]],108:[[.67,0x55b],[2.33,0x627]]}
@@ -29,11 +30,17 @@ var voice_cursor=0
 var audio_started=0
 var last_hit=-1.0
 var grounded_pose=[]
+var ice_material:ShaderMaterial
+var ice_parts:Array[MeshInstance3D]=[]
+var ice_visible=false
+var ice_frozen=false
 func _ready():
- body=MODEL.instantiate();body.scale*=2.4*SIZE;body.position.y=.17*SIZE;add_child(body)
+ body=MODEL.instantiate();body.scale*=2.4*BODY_SIZE;body.position.y=.17*BODY_SIZE;add_child(body)
  animations=body.find_child("AnimationPlayer",true,false)
+ ice_material=ShaderMaterial.new();ice_material.shader=preload("res://assets/materials/enemy_ice_overlay.gdshader")
+ ice_parts.assign(body.find_children("*","MeshInstance3D",true,false))
  if animations!=null:animations.callback_mode_process=AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
- title=Label3D.new();title.font_size=64;title.pixel_size=.015;title.outline_size=10;title.billboard=BaseMaterial3D.BILLBOARD_ENABLED;title.position.y=6.5*SIZE;add_child(title)
+ title=Label3D.new();title.font_size=64;title.pixel_size=.015;title.outline_size=10;title.billboard=BaseMaterial3D.BILLBOARD_ENABLED;title.position.y=6.5*BODY_SIZE;add_child(title)
  var circle=CylinderMesh.new();circle.top_radius=1;circle.bottom_radius=1;circle.height=.04;circle.radial_segments=48
  ring=MeshInstance3D.new();ring.mesh=circle;ring.material_override=material(Color(1,.25,.06,.32));ring.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;ring.hide();add_child(ring)
  effects=preload("res://scripts/forest/skullpion_effects.gd").new();add_child(effects)
@@ -53,13 +60,14 @@ func pose(address:String,time:float,loop:bool=true):
  var clip=address if address.begins_with("Castle_") else "Source__"+address
  if not animations.has_animation(clip):return
  var animation=animations.get_animation(clip)
- body.position.y=0 if address.begins_with("Castle_") else .17*SIZE
+ body.position.y=0 if address.begins_with("Castle_") else .17*BODY_SIZE
  if animations.assigned_animation!=clip:animations.play(clip);animations.pause()
  animations.seek(fposmod(time,animation.length) if loop else minf(time,animation.length),true)
 func cue(point:Vector3,duration:float):
  cue_point=point;cue_duration=maxf(.1,duration);cue_until=clock+cue_duration
 func sync(snapshot:Dictionary,index:int):
  global_position=snapshot.positions[index];rotation.y=snapshot.yaw[index]
+ if snapshot.has("dodge_offsets"):global_position+=snapshot.dodge_offsets[index]
  var action:int=snapshot.actions[index];var time:float=snapshot.action_time[index]
  var air_phase:int=snapshot.air_phase[index]
  var hp:float=snapshot.hp[index];var maximum:float=snapshot.max_hp[index]
@@ -67,6 +75,15 @@ func sync(snapshot:Dictionary,index:int):
  title.text="SKULLPION   %d%%\n%s"%[ceili(hp/maximum*100),NAMES.get(action,"")]
  if action==106:title.text="SKULLPION   %d%%\n%s"%[ceili(hp/maximum*100),{1:"APPROACHING CASTLE",2:"CLIMBING CASTLE",3:"ON CASTLE WALL",4:"FALLING",5:"JUMPING DOWN"}.get(air_phase,"WALL CLIMB")]
  title.modulate=Color("7fffd3") if action==107 else Color("ffd6b0")
+ var ice:float=snapshot.ice_visual[index] if snapshot.has("ice_visual") else 0.0
+ if ice_visible!=(ice!=0):
+  ice_visible=ice!=0
+  for part in ice_parts:part.material_overlay=ice_material if ice_visible else null
+ if ice_visible:ice_material.set_shader_parameter("ice_coat",ice)
+ ice_frozen=bool(snapshot.status[index]&1)
+ if ice_frozen:
+  pose("801ae2c4",snapshot.ice_time[index] if snapshot.has("ice_time") else 0.0,false)
+  return
  var clip:String="Castle_Idle" if action==100 else CLIPS.get(action,"801adc24")
  var sample_time=time
  if action==100 and snapshot.velocities[index].length()>0.1:clip="Castle_Walk";sample_time=snapshot.pose_time[index]*Roles.BOSS_MOVE_SPEED
@@ -121,20 +138,21 @@ func ground_body(action:int):
  body.rotation=Vector3.ZERO
  if action in [104,106,107]:return
  # The retail arena is flat; follow the local slope so the long tail stays visible.
- var front=global_position+global_basis.z*3*SIZE
- var back=global_position-global_basis.z*10*SIZE
- var right=global_position+global_basis.x*3*SIZE
- var left=global_position-global_basis.x*3*SIZE
+ var front=global_position+global_basis.z*3*BODY_SIZE
+ var back=global_position-global_basis.z*10*BODY_SIZE
+ var right=global_position+global_basis.x*3*BODY_SIZE
+ var left=global_position-global_basis.x*3*BODY_SIZE
  var front_y:float=game.model.surface_height(front.x,front.z)
  var back_y:float=game.model.surface_height(back.x,back.z)
- body.rotation.x=-atan2(front_y-back_y,13*SIZE)
- body.rotation.z=atan2(game.model.surface_height(right.x,right.z)-game.model.surface_height(left.x,left.z),6*SIZE)
+ body.rotation.x=-atan2(front_y-back_y,13*BODY_SIZE)
+ body.rotation.z=atan2(game.model.surface_height(right.x,right.z)-game.model.surface_height(left.x,left.z),6*BODY_SIZE)
 func retire():
  if dead_left>=0:return
  dead_left=2.8;title.text="SKULLPION DEFEATED";ring.hide();effects.stop()
  for voice in voices:voice.stop()
  play_sound(0x565,global_position);effects.burst(global_position,2,true)
 func _process(delta:float):
+ if ice_frozen and dead_left<0:return
  if game!=null and (game.transitioning or game.ordinary_pause or (game.paused and game.model.phase=="wave")):return
  clock+=delta;effects.tick(delta)
  if dead_left>=0:

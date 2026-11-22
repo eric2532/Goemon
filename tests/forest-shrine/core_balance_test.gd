@@ -21,19 +21,12 @@ func run():
 			await RenderingServer.frame_post_draw
 			root.get_texture().get_image().save_png("res://build/Other Files/Asset Toolkit/Wave Groups/growth-settings.png")
 		check(node("Core_starting_gold")!=null and node("Core_tower_health")!=null,"Core editor has economy and tower controls")
-		check(node("Core_card_silver_chance").value==10 and node("Core_card_gold_chance").value==4 and node("Core_card_diamond_chance").value==1 and node("Core_card_legendary_chance").value==.25,"Old saves retain default rarity percentages")
-		check(node("Core_card_normal_chance").text=="Normal cards: 84.75% (automatic)" and node("Core_card_legendary_chance").step==.01,"Normal chance is automatic and rare odds allow hundredths of a percent")
-		node("Core_card_silver_chance").value=20
-		node("Core_card_gold_chance").value=5
-		node("Core_card_diamond_chance").value=2
-		node("Core_card_legendary_chance").value=.77
-		check(node("Core_card_normal_chance").text=="Normal cards: 72.23% (automatic)","Editing rarity percentages refreshes the normal remainder")
-		node("Core_card_silver_chance").value=100
-		check(is_equal_approx(game.core_balance.card_silver_chance,92.23) and game.core_balance.card_legendary_chance==.77 and node("Core_card_normal_chance").text=="Normal cards: 0.00% (automatic)","Editor caps the edited chance without taking probability from other rarities")
-		node("Core_card_silver_chance").value=20
-		if "--capture" in OS.get_cmdline_user_args():
-			await RenderingServer.frame_post_draw
-			root.get_texture().get_image().save_png("res://build/Other Files/Team Leveling/Stronger Cards/rarity-settings.png")
+		check(node("SkillCardBag").text.ends_with("Silver 35% · Gold 45% · Diamond 20%"),"Core editor shows the exact skill-card bag weights")
+		check(node("Core_card_silver_chance")==null and node("Core_card_legendary_chance")==null,"Independent odds inputs are retired")
+		game.update_core_balance("card_silver_chance",20)
+		game.update_core_balance("card_gold_chance",5)
+		game.update_core_balance("card_diamond_chance",2)
+		game.update_core_balance("card_legendary_chance",.77)
 		check(node("Core_spawn_group_start").value==10 and node("Core_spawn_group_growth").value==1,"Existing saves default to groups of ten growing by one")
 		node("Core_spawn_group_start").value=7
 		node("Core_spawn_group_growth").value=2
@@ -70,18 +63,16 @@ func run():
 		node("Core_tower_health").value=1000
 		check(tower.max_hp==1000 and tower.hp==500,"Live tower health tuning preserves damage percentage")
 		node("Core_tower_health").value=800
-		game.show_title();game.begin_forest();game.choose_rogue_character(1)
+		game.show_title();game.begin_forest();game.choose_rogue_character(game.player.RogueRoster.KAZI_ID)
 		check(game.model.gold==321 and game.model.balance.waves==[[2,1,3,4,5,6,7,0,0,0],[0,0,0,0,0,0,0,0,0,0]],"Play from title immediately uses saved starting gold and waves")
 		check(game.model.balance.boss_health==12345 and game.model.balance.boss_speed==.75,"New runs snapshot all three edited portal boss settings")
 		check(game.model.balance.spawn_group_start==7 and game.model.balance.spawn_group_growth==2,"New runs snapshot custom group sizes")
-		check(game.model.team_progression.rarity_cutoffs==[7223,9223,9723,9923],"Play from title applies custom rarity chances to new offers")
+		check(game.model.team_progression.RARITY_MARBLES==[7,9,4],"Old configured odds do not alter the skill-card bag")
+		game.equipment_hub.enter_map()
 		game.show_pause();game.show_settings(true);game.show_core_balance(true);await settle()
 		var escape=InputEventKey.new();escape.physical_keycode=KEY_ESCAPE;escape.pressed=true;game._input(escape);await settle()
 		check(node("CharacterBalanceButton")!=null and game.ordinary_pause,"Escape returns from Core Balance to paused Settings")
 		game.show_core_balance(true);await settle()
-		node("Core_card_legendary_chance").value=10
-		check(game.model.team_progression.rarity_cutoffs==[7223,9223,9723,9923],"Paused rarity edits apply next run and preserve active card chances")
-		node("Core_card_legendary_chance").value=.77
 		node("Core_spawn_group_start").value=8
 		node("Core_spawn_group_growth").value=0
 		check(game.model.balance.spawn_group_start==7 and game.model.balance.spawn_group_growth==2,"Paused group edits leave the active run unchanged")
@@ -94,7 +85,7 @@ func run():
 		check(game.core_balance.starting_gold==321 and game.core_balance.waves==[[2,1,3,4,5,6,7,0,0,0],[0,0,0,0,0,0,0,0,0,0]],"Core settings round-trip through disk")
 		check(game.core_balance.boss_health==12345 and game.core_balance.boss_speed==.75,"Boss enable, health and fractional speed persist through disk")
 		check(game.core_balance.spawn_group_start==7 and game.core_balance.spawn_group_growth==2,"Group size and growth persist through disk")
-		check(game.core_balance.card_silver_chance==20 and game.core_balance.card_gold_chance==5 and game.core_balance.card_diamond_chance==2 and game.core_balance.card_legendary_chance==.77,"Every rarity chance round-trips through the settings file")
+		check(game.core_balance.card_silver_chance==20 and game.core_balance.card_gold_chance==5 and game.core_balance.card_diamond_chance==2 and game.core_balance.card_legendary_chance==.77,"Previous odds still round-trip through the settings file")
 		game.model.reset(42,game.core_balance)
 		var m=game.model
 		check(m.gold==321,"New run uses configured starting gold")
@@ -131,9 +122,11 @@ func run():
 		game.reset_core_balance()
 		check(game.core_balance.spawn_group_start==10 and game.core_balance.spawn_group_growth==1,"Reset restores ten enemies and growth of one")
 		check(game.core_balance.card_silver_chance==10 and game.core_balance.card_gold_chance==4 and game.core_balance.card_diamond_chance==1 and game.core_balance.card_legendary_chance==.25,"Reset restores the original rarity chances")
-	game.show_title();game.begin_forest();game.choose_rogue_character(1);game.start_wave();game.model.waves.spawn_clock=10000
+	game.show_title();game.begin_arena();game.choose_rogue_character(game.player.RogueRoster.KAZI_ID);game.equipment_hub.enter_map()
+	check(game.playing and game.model.phase=="wave" and not paused,"Movement checks start in the live arena")
+	game.model.waves.spawn_clock=10000
 	game.set_physics_process(false);game.player.smoke_mode=true;game.player.smoke_move=Vector2.ZERO
-	for fighter in range(1,13):
+	for fighter in game.player.RogueRoster.CROSSGATE:
 		game.player.select_character(fighter)
 		for point in [Vector3(175,.1,75),Vector3(-175,.1,75),Vector3(75,.1,175),Vector3(75,.1,-175)]:
 			game.player.position=point;game.player.velocity=Vector3.ZERO;var hp=game.player.hp

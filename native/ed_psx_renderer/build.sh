@@ -4,6 +4,13 @@ cd "${0:A:h}"
 mkdir -p bin
 stage="$(mktemp -d /tmp/ed-psx-renderer.XXXXXX)"
 trap 'rm -rf "$stage"' EXIT
+if [[ "${1:-}" == "--web" ]]; then
+  em++ -std=c++17 -O3 -fvisibility=hidden \
+    -pthread -sSIDE_MODULE=2 -sWASM_BIGINT -sSUPPORT_LONGJMP=wasm -Wl,--export=ed_psx_renderer_init \
+    binding.cpp rasterizer.cpp -o "$stage/ed_psx_renderer.wasm"
+  mv "$stage/ed_psx_renderer.wasm" bin/ed_psx_renderer.wasm
+  exit 0
+fi
 for arch in arm64 x86_64; do
   clang++ -std=c++17 -O3 -fvisibility=hidden -arch "$arch" -mmacosx-version-min=11.0 \
     -dynamiclib binding.cpp rasterizer.cpp -install_name @rpath/libed_psx_renderer.macos.universal.dylib \

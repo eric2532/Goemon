@@ -1,4 +1,300 @@
-# Team leveling
+# Character and pet leveling
+
+## 護衛 growth — 2026-11-23
+
+Plain 護衛 starts at 50% activation and no extra intercepted-hit defense at skill
+level 1. Each additional skill level adds one activation percentage point,
+reaching 79% at level 30, and reduces only the intercepted hit's damage by
+one percentage point, up to 29% at level 30. The player's or individual pet's
+own 護衛 level applies. This does not add permanent armor or reduce ordinary
+hits. The separate Tina NPC/teaching removal retains its own scope.
+
+Reuse the existing skill-point and individual-pet-level flows. Rest, recall and
+retained-run travel keep those levels; a fresh run retains the existing reset
+rules. A pending rescue keeps the damage bonus it had when activated. Upgrading
+changes that wearer's future shuffle-bag distribution. See
+`docs/crossgate-skill-rules.md` for formulas and examples.
+
+
+## 水龍 and 螳螂 family passives — 2026-11-22
+
+Each selected Dragon lizards (水龍) family pet grants the player +5 HP per
+second at passive level 1. Each selected Mantises (螳螂) family pet grants
++15 percentage points of player critical chance. All twenty variants in each
+family qualify, including XL and effect variants. Party bonuses stack while
+selected, following Bee Mirage's existing party rule, even before summoning.
+Total critical chance remains capped at 100%.
+
+In **Q → Equipment**, select the pet and press **+** beside its passive.
+One of that pet's level-up stat points buys one passive level: another +5
+HP/sec or +15 critical points. This shares its existing pet stat point budget;
+character points and active skill levels are unchanged. The mantis passive
+stops at level 7 (100% after clamping); further points cannot be spent on it.
+Dragon regeneration is bounded by the pet's earned points and level 99 cap.
+Bee Mirage remains a fixed +10 dodge points and cannot be upgraded here.
+
+Ranks belong to the stable pet appearance for the current run. Removing or
+replacing a party member removes its bonus immediately, while retaining its
+rank for reselection. Recall and retained-run travel preserve ranks; a new
+run clears them with other pet stats. These bonuses affect the controlled
+Cross Gate fighter; ordinary allied fighters and native pet stats stay separate.
+The player Stats display includes both effective bonuses. Existing attack
+tickets keep their committed critical-chance snapshot.
+
+## Pet participation and stat points — 2026-11-22
+
+Every selectable pet keeps its own level, XP and allocated stats by stable
+appearance key for the current run. Each level earns one **pet stat point**;
+character points and learned skill levels stay separate. In **Q → Equipment**,
+select a pet and use the + beside HP, MP, attack damage, attack speed, move
+speed, dodge or counter. Each point adds 30 maximum HP, 10 maximum MP, 10% of
+base normal/skill damage, 10% attack speed, 5% move speed, or one percentage
+point of dodge/counter respectively. Source contact counts and animation
+durations remain read-only; attack speed advances the existing native clock.
+
+A pet participates by dealing positive damage to an enemy or receiving
+positive damage from it. When that enemy dies, each participating appearance
+receives its full authored XP reward once, even if the character or another
+ally lands the final hit. Idle pets receive none. The character's XP reward
+is unchanged. Unfinished participation clears when an enemy despawns or the
+area/run is cleared. Native skill/projectile hits use the same damage events.
+
+The existing 16 × current level XP curve, level 99 cap and tapered natural
+HP/damage growth continue. A level-up completely heals a living summoned pet
+to its new maximum. It does not revive a defeated pet. Allocating HP increases
+current and maximum HP by the same amount; ordinary stat/profile refreshes
+keep existing wounds. Recall, replacement and retained-run travel keep pet
+XP and allocations; a fresh run clears them. Saved loadouts and user data are
+unchanged. These rules supersede the killing-blow-only and wound-preserving
+level-up behavior described below.
+
+## Character and pet XP — 2026-11-20
+
+The main character and each pet appearance use 16 × current level XP for the
+next level. The first three requirements are 16, 32 and 48 XP. The character
+receives the existing enemy defeat credit. A pet earns its own XP when its
+attack or skill lands the killing blow, keyed by its appearance's stable source
+ID. World enemies and slimes give one XP per level. Leveled cave bosses give
+five XP per level. Fresh arena slimes start at level 1 and gain a level each
+time they return after defeat.
+
+Hover over the character portrait's level for current XP, or select a pet in
+**Q → Equipment** to see its own level and XP. A pet's own level supplies its
+automatic HP and attack growth using the tapered formula below. Level-ups
+keep existing wounds and leave pet skill levels independent. Pet XP survives
+recall, death, equipment changes and retained-run travel. A fresh run resets
+it alongside the character's XP.
+
+## Skill cards — 2026-11-19
+
+Each character level awards a stat point and queues one skill card choice. Choose
+with a click or keys 1–3. Silver raises a skill by one level, Gold by three
+and Diamond by five, capped at level 30. A run draws the rarity of each
+displayed card from a shuffled bag of seven Silver, nine Gold and four
+Diamond, then refills the bag when empty. The bag carries across drafts.
+
+Offers use distinct equipped skill families. With eligible skills on both
+the character and a selected pet, the offer includes each. Pet levels stay
+with the selected companion. When equipped skills yield no candidates,
+the draft offers compatible character skills that can be equipped later.
+The panel opens only if there is a skill that can advance. Learned levels,
+unspent stat points and the bag survive retained-run travel and reset on a
+fresh run. Settings → Level-up Cards controls the new draft and defaults on.
+
+## Historical shared stat and skill points — 2026-11-13
+
+Each gained team level awards one point to the existing run-only point balance.
+Press **Q** for the combined **Equipment** page: stat cards are on the right,
+and equipped character/pet skills have upgrade buttons beneath them. A stat upgrade keeps its existing
+cost; one skill upgrade costs one point and raises the chosen skill by one level,
+up to 30. Spending either kind reduces the same balance. There is no separate
+skill-point currency. Automatic team stats and the optional card system remain.
+
+The Skills tab has six numbered slots matching the controlled player’s current
+1–6 skill bar, including weapon skills and equipped spells. Each slot shows its
+icon, name, level and upgrade button; hover over the button for current/next base
+values before modifiers. Empty slots stay visible and disabled. Skills without
+agreed numbers display “No upgrades.” Unequipped or stale skill requests cannot
+consume points. Qi colors and native/equipped aliases share their family level.
+The panel pauses play; empty-point and maximum-level requests cannot spend.
+Levels and points survive fighter switches and retained-run travel, and reset
+on a fresh run. Settings → Skill Balance remains a manual testing/tuning tool.
+See [the skill rulebook](crossgate-skill-rules.md) for formulas and modifier rules.
+
+## 親子丼 skill growth — 2026-11-13
+
+Each serving adds 5% of the starting visual dimensions and hit radius for the
+rest of the run: 1/4/20 servings give 1.05×/1.20×/2×. Growth is additive and
+uncapped. It applies to supported size/area controls on the controlled fighter's
+new skill tickets, including starting shines; damage and counts are separate.
+Allied/native enemy profiles and saved balance values remain unchanged. In-flight
+attacks retain their snapshots. Stacks belong to team run progression and survive
+fighter switches, respawn and walking between areas. Title/new run clears them;
+temporary-food expiry does not. The existing food HUD shows stacks and “Rest of run”.
+
+The corrected base for 乾坤, 諸刃 and each 連擊 impact is 10.8 m maximum
+visual dimension. Their starting shines use the same unit at the caster's chest,
+independent of body size. 氣功蛋/gold Qi use half that visual size (5.4 m)
+across Cross Gate casters, retaining their preceding hit radius; blue/red/gold
+palettes remain separate. 追月 keeps its narrower crest
+shape with a 10.8 m base length. Food scales supported visual and physical skill
+areas together; it changes neither the total damage nor the native contact count.
+
+Attack skills use the receiving Cross Gate fighter's normal attack animation
+and contact markers. Kaz and Bog have two contacts; regular Shin and Lancelot
+have one; Uru and Emilia's staff clip has five. Kunai uses its throw release.
+乾坤 and 諸刃 apply their new damage multiplier to each native contact. 連擊
+uses a total contact quota. 氣功蛋 releases its entire projectile quota on the
+first native contact, with at most 50 ms between the first and last orb. 追月
+divides one projectile quota across native releases. Elements divide one per-target damage budget across
+all releases and pulses, restricted to the cast's selected targets. Existing
+cooldowns, targeting, cover and projectile motion remain. 暗殺 keeps its
+blink/pass/return and kill-speed sequence, but now activates directly and rolls
+its level-based instant-kill chance once per attempt on confirmed contact.
+
+乾坤/諸刃 are empowered normal attacks: the caster's existing sword, axe or arrow
+contact decides damage. Their explosions are cosmetic confirmed-hit feedback,
+centred on each struck body's bounds, including lethal hits. There is no extra
+damaging explosion circle, no burst on a miss or wall, and no fixed one/two-burst
+quota. 親子丼 enlarges the actual empowered attack's area and its feedback.
+連擊 body bursts also come from native confirmed damage events. Other ranged
+skills retain their own physical areas, so different projectiles may still hit
+the same enemy. The caster's normal attack determines when and how often each
+skill releases; an impact sprite alone never adds another hit.
+
+Billboards share 連擊's body-centre anchor and view-ray depth correction. Shin's
+small sword-contact flash is separate from the body explosion and follows his
+recovered low blade midpoint. Self effects and summons remain attached to their
+caster rather than an enemy.
+
+Extra coverage/explosion upgrades remain deferred. The future coverage rule is
+shared ownership across overlapping extra areas so one contact cannot double-hit
+an enemy accidentally. This is separate from genuine later native strikes.
+Pets can equip three distinct shared attack skills in Q Equipment. Each native attack
+randomly chooses a ready equipped skill; independent five-second cooldowns leave
+ordinary attacks between casts. Ten attacks are available, with no heals, buffs
+or summons in the pet picker. Source animation contacts release each skill and
+share its cast damage, using existing allied tickets/projectiles and pet damage
+growth. 乾坤 feedback follows every confirmed native contact at the enemy's body.
+Death/recall cancels active leases; saved choices return when resummoned. Movement,
+orders, targeting and rendering remain owned by the native army.
+
+Pet skills have independent run-owned levels per stable pet key and skill family.
+They start at 1 rather than inheriting character levels. **I → Pets** shows the five
+selected pets and the chosen pet's three equipped skills; one shared point buys
+one level for that pet only, up to 30. Empty/unsupported skills and capped or
+unequipped requests cannot spend points. Selected pets can be trained before
+summoning. Death, recall, removing a pet, re-equipping a skill and retained-run
+travel preserve its levels; a fresh run clears them. The pet picker displays each
+pet's own levels. Ordinary/Gold Qi and native aliases share a family within that
+pet; they do not share levels with another pet or with the character.
+Existing shared level formulas drive damage, projectile/target counts and effects.
+乾坤 divides its level-rule damage across native contacts; 連擊 applies its
+level-rule damage and existing streak multiplier per hop, with a level-based hop
+limit. Level plus tuning counts use the existing 1–128 shared count bound. Native
+cooldowns and committed casts remain intact; new levels apply to subsequent casts.
+Run reset rebinds pets to the new run's progress. Spirit has no level rules yet.
+
+## Historical shared companion growth — 2026-11-12
+
+Hounds and mantises share the run's team level; there is no separate pet XP or
+persistent pet level. Their base is 3,000 HP and 60 damage per recovered contact.
+For `n = team level - 1`, automatic growth uses `n / (1 + n / 20)` effective levels:
++10% base damage and +8% base HP per effective level. Bonuses add to the existing
+pet-card bonuses, and work with cards disabled. Existing pets retain their wounds
+when maximum HP rises; replacements inherit the current level. Resetting the run
+resets this growth. The five-pet cap and source attack cadence are unchanged.
+The Pets picker shows the shared level, maximum HP and per-contact damage.
+
+Card limits and bonuses are unchanged at the user's request; testing this change
+establishes the no-card balance only. See `goemon-performance-guide.md` for the
+rejected linear curve, current combat evidence and remaining limitations.
+
+## Magic power — 2026-11-15
+
+Press Q → Equipment to spend the same shared points on **Magic power**. As an
+initial balance rule matching Attack, each rank adds 15% of baseline magic
+damage; each gained team level adds 3% to both damage channels.
+
+`physical stat multiplier = 1 + 0.03 × (level - 1) + 0.15 × Attack ranks`
+
+`magic stat multiplier = 1 + 0.03 × (level - 1) + 0.15 × Magic power ranks`
+
+Base magic damage starts at 50. Magic power and automatic level growth scale
+this stat. 精神衝擊波 and Fire, Ice, Wind and Meteor add it to each target's
+spell damage before splitting the total across contacts and pulses. For example,
+level-one Fire starts at 100 + 50 = 150 per target before other bonuses. Normal
+weapon attacks, physical skills, 氣功蛋 and 追月 use the physical multiplier.
+Common damage tuning, skill modifiers, critical hits and chain bonuses still
+apply through their existing owners. Pet spell damage keeps its own rules.
+
+The Stats tab shows Attack damage and Magic damage as whole numbers. Allocation
+follows the controlled fighter across character changes and retained-run travel,
+resets on a new run and does not write preferences. Native summoned fighter
+copies snapshot the damage factors used by both channels and apply their summon
+factor once. Permanent allied recruits retain their own baseline stats.
+
+## Magic defense — 2026-11-20
+
+The first Stats rows are Maximum health, Attack damage, Magic damage,
+Defense and Magic defense. Both defense stats start at zero and gain +2 per
+level. Each uses its own +10 upgrade for one shared point. The incoming damage
+multiplier is `100 / (100 + effective defense)`, using Magic defense for
+magical hits and Defense for physical hits. Defense food and the Double Edge
+penalty still apply to the defense used for the hit.
+
+## Stats presentation — 2026-11-18
+
+Q Equipment now includes dark/gold stat cards with colored icons instead of
+stat-name rows. The right panel shows the selected character or pet. Pet stats
+are read-only native health, normal damage, source attack contacts/duration,
+base movement speed and that pet's equipped skill levels. Character allocation
+controls hide while inspecting a pet. Pet selection uses an explicit target
+slot and Remove action; equipped catalog cards cannot toggle pets off.
+Pet selection and character/pet skill upgrades share this window;
+the separate I and Shift+P shortcuts are retired.
+Hover each icon or its plus button for the name and point effect. The
+allocations, effective values, caps, shared Stats/Skills/Pets points and saved
+loadouts keep their existing contracts. Editable symbols live under
+`assets/ui/crossgate/stats/`; original frame and skill artwork are preserved.
+
+A thin blue mana bar appears below HP. The controlled player starts at 100/100,
+keeps mana across character switches and refills on a new run or ordinary
+respawn where that mode permits it. Skill costs, mana regeneration and mana
+upgrades are not introduced by this presentation pass.
+
+## Current stat-point tuning — 2026-11-14
+
+Normal play awards +20 maximum HP, +3% baseline physical and magic damage, +2 defense and one
+spendable point per level. Attack speed and critical chance do not grow
+automatically with levels; attack-speed food and allocated points retain their bonuses. Automatic bonuses apply
+immediately, even with every point unspent. Cards are optional and disabled by
+default. Press I to allocate points. Each point
+now gives Vitality +100 HP and +1 HP/sec, Attack +15% baseline physical damage,
+Magic power +15% baseline magic damage, Attack Speed +10% baseline attack rate, Defense +10 defense, or Critical Chance
++5 percentage points (capped at 100% total chance). The critical plus button
+disables at 100%, preserving unspent points. It uses each fighter's baseline
+chance, applies to new attack tickets and retains in-flight snapshots. Ordinary
+allied copies keep their own baseline chance; Lancelot's stationary barrage
+shadows retain their existing rule of copying his current critical chance.
+Bonuses add per rank; incoming damage remains `100 / (100 + defense)` (automatic and allocated
+defense add together). Regeneration cannot heal beyond maximum HP or revive
+the player.
+The XP curve is now 15, 23, 31, 39… (roughly 20–25% less XP per level);
+the level cap stays 99.
+
+These stronger points replace the initial +50 HP / .1 HP/sec, +5% damage,
++3% attack rate and +2 defense values. They affect the controlled fighter,
+follow character switches and retained-run travel, and reset on a new run.
+Automatic growth is additive with allocated bonuses: at level 5 with no spent
+points, the player has +80 HP, +12% damage and +8 defense, with no automatic attack-speed or critical-chance bonus.
+Spending one Attack point then gives +27% physical damage in total; magic damage
+stays at +12% until a Magic power point is spent. Regeneration still
+comes from Vitality points.
+Saved character baselines and allied stats remain separate. This is a first
+balance pass responding to weak-feeling level rewards; late-run balance still
+needs play feedback. The older card-system description below is historical
+where it conflicts with this section (including its no-automatic-HP statement).
 
 Implemented for Goemon / Wind Meadow Valley on 2026-10-27; current catalog updated 2026-11-05.
 
@@ -20,9 +316,9 @@ height, or coin count.
   0.2 XP per group: 1.0, 1.2, 1.4… A death can count only once, and changing
   enemy form is not a defeat. Rewards belong to the enemy's spawn group.
 - Training dummies, damage without a kill, and character switching give no XP.
-- The first level needs 20 XP. Each subsequent level needs 10 more:
-  20, 30, 40, 50…; cap level 99. Fractional rewards accumulate exactly in
-  integer tenths; overflow carries forward. The label and gold bar include them.
+- The first level needs 15 XP. Each subsequent level needs 8 more:
+  15, 23, 31, 39…; cap level 99. Fractional rewards accumulate exactly in
+  integer tenths; overflow carries forward. The purple bar includes them; numeric XP is hidden.
 - Every earned level queues one choice. If several levels arrive together,
   present them in order without resuming combat between choices.
 - Changing characters, player death/respawn, pausing, and moving between waves
@@ -67,8 +363,8 @@ This curve is an initial balance choice and needs normal-play feedback.
 ## Choice presentation and controls
 
 Pause simulation when a choice opens. Release the mouse and place three large
-cards over a dimmed world. Reuse `preparation_skin.gd`'s maroon panel art, silver
-trim, silver category ribbons, and interface font. Cards show category, icon,
+cards over a dimmed world. Reuse `preparation_skin.gd`'s recovered Cross Gate ivory/slate panel art, ivory
+trim, ivory category ribbons, and interface font. Cards show category, icon,
 upgrade name, rarity and bonus multiplier, precise benefit, and the next rank. Silver,
 gold and diamond cards add a cool, warm or icy animated sheen and edge sparkles
 over the existing panel. Text and keyboard focus stay readable; the effect
@@ -81,8 +377,10 @@ pause/resume flow cannot dismiss an unspent choice. After the last choice,
 restore the current gameplay/preparation pause state and cursor. If the run ends
 before a choice can open, the victory/defeat screen takes priority.
 
-Show **TEAM LV N · current / required XP**, with a separate gold XP meter, directly below
-the castle/statue health bar. The team level and XP count sit beneath the gold bar. At level 99 show **MAX LEVEL**.
+Show **LV N** and a slim purple XP meter directly beneath
+the top-left character portrait and health display. At level 99 show **MAX LEVEL**
+with a full purple meter. Health uses green at normal health, retaining amber/red low-health warnings. The bottom XP/Stats/Pets panel is removed; Q Equipment contains stats,
+pet selection and character/pet skill upgrades. Statue health remains separate when a statue exists.
 
 Each earned team level plays Musashi's recovered `0xB2C` level-up cue, shared
 across all characters. Playback continues while the upgrade cards pause combat.
@@ -208,7 +506,10 @@ extend projectile travel. Mirror approach distance uses the body's own reach.
 
 Character damage includes spells through the shared outgoing damage multiplier;
 there is no separate spell-only card in this first version. Attack speed uses
-existing controller/native animation clocks. It does not reduce skill cooldowns,
+existing controller/native animation clocks. Total attack speed caps at 3× after
+all bonuses, including allocated stats, food, pickups, cards,
+run upgrades, hit chains and spell buffs. Stats displays this effective rate.
+It does not reduce skill cooldowns,
 add attack contacts, increase reach, or change spell duration/travel rules.
 Attacks/projectiles that already captured damage keep their existing snapshot
 semantics; the next attack receives the new value.

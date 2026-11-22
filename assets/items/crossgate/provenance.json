@@ -1,0 +1,122 @@
+{
+  "chest": {
+    "pack": "original",
+    "row": 15614,
+    "size": [
+      60,
+      62
+    ],
+    "rgba_sha256": "97a5e055d3aa47aada184097dac909fd2e19ec73e019c156c4c764e4c59fef80",
+    "png_sha256": "ad3655af688150dc4353b254cce471df3f54d5d8c1e10ac18b0a49274d311a1b"
+  },
+  "black-chest": {
+    "pack": "original",
+    "row": 15616,
+    "size": [
+      60,
+      62
+    ],
+    "rgba_sha256": "522d4ce4fb1aa2082204af2b879e21e4a44c23e9fb4e653a962a64568e379ab7",
+    "png_sha256": "1dbd8c7a2febeb67787fa1401957fcb7ba36c3717dd06bc0825d10f8d54bb91c"
+  },
+  "white-chest": {
+    "pack": "original",
+    "row": 15618,
+    "size": [
+      60,
+      62
+    ],
+    "rgba_sha256": "0ce94aba94e7672f6e5c7f5dd5e4853c97a39b97d76e118ea2812c911d12c9e6",
+    "png_sha256": "379cee886f2e1e5ff0efaa57be237d65dfcbedaed0a71491703e3043dd25b769"
+  },
+  "bread": {
+    "pack": "original",
+    "row": 14982,
+    "size": [
+      48,
+      39
+    ],
+    "rgba_sha256": "a0950a7a0bb8bf845df161e94faf8eaeb87f68d153d085a9004dda9481bed3ed",
+    "png_sha256": "9171caec04bd3455034ded534dd1b9dc61c03f995e6829aaf3bb3d196f4a1282"
+  },
+  "roast-chicken": {
+    "pack": "original",
+    "row": 15054,
+    "size": [
+      52,
+      45
+    ],
+    "rgba_sha256": "7a85d44b56eae0c58a00d524bc6fce0e3bd18867907fc24c2afcd9d4b1fcfaaa",
+    "png_sha256": "284e164787d20be7f2df5e3682462c76de655eaa0e761ab94aeeae1fc1a51860"
+  },
+  "bento": {
+    "pack": "original",
+    "row": 15012,
+    "size": [
+      52,
+      46
+    ],
+    "rgba_sha256": "4b4f20e90a1fc93dc5ebdb7c2f52fa39f4ec4bbf6c0d3df2cce563d514ee3cc2",
+    "png_sha256": "db48cb8731016697ee6992e908a3163e3d7df75288c5485ac30087095b3c879f"
+  },
+  "hot-pot": {
+    "pack": "original",
+    "row": 15076,
+    "size": [
+      56,
+      42
+    ],
+    "rgba_sha256": "c838dd0d1b047255d12044321f74e230a9911832a11750bd6ff887352e8cd7db",
+    "png_sha256": "0c274d8c4519bf28ba55777c925505eb402e36ec73d20b37d822967c1ed052e2"
+  },
+  "stew": {
+    "pack": "original",
+    "row": 15011,
+    "size": [
+      60,
+      38
+    ],
+    "rgba_sha256": "0492fc72a36a9973b03b197a6779b5937c7d57fa265c5c4afd518f9f7f3cb0e4",
+    "png_sha256": "6094ce4419a13c4155ceca4a6704d0bda7b615b11a2d312d69f23f39d17684a7"
+  },
+  "noodles": {
+    "pack": "original",
+    "row": 15014,
+    "size": [
+      56,
+      38
+    ],
+    "rgba_sha256": "7871c543816973a98d1da0bbbfd6ca6e327b3566b94a019258fe42fe683ddb69",
+    "png_sha256": "e5a468428a5d1de06516b5116eb161171782b125762e8804506f0434a667adb2"
+  },
+  "fruit-salad": {
+    "pack": "original",
+    "row": 14986,
+    "size": [
+      36,
+      37
+    ],
+    "rgba_sha256": "ae35d5e1e074e0e20756ab37a323a815f1f1753516cfd3d68dc15d195bbd9902",
+    "png_sha256": "d7188e8fda380ea13639e11cfe3dd83bd431bcdfea818ac25dc5eccbb6bcac0f"
+  },
+  "dumplings": {
+    "pack": "original",
+    "row": 15022,
+    "size": [
+      64,
+      40
+    ],
+    "rgba_sha256": "ce4b22c30ee1fb169f73c712cb5573d2ed93cae10886b6a26c47ec98504427d2",
+    "png_sha256": "5b17e144813f92fa689b5b3b4bae6057933b28b2ee2fcec1e44ba338e1d2afb6"
+  },
+  "oyakodon": {
+    "pack": "original",
+    "row": 15013,
+    "size": [
+      48,
+      36
+    ],
+    "rgba_sha256": "92ad834decdeb15f87de559c50ef1c591d96694003a750dabb21f5f3d275f7f1",
+    "png_sha256": "1c5125bc0648bccdbcd0472d377206cecfb3a60b521a13acb59458622930bd48"
+  }
+}

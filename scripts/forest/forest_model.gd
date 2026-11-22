@@ -8,8 +8,23 @@ var balance=Balance.defaults()
 const Ramparts=preload("res://scripts/forest/forest_ramparts.gd")
 const KaiTerrain=preload("res://scripts/forest/forest_kai_terrain.gd")
 const WindMeadowTerrain=preload("res://scripts/forest/forest_wind_meadow_terrain.gd")
+const Arena=preload("res://scripts/forest/forest_arena.gd")
+const FreyjaTerrain=preload("res://scripts/forest/forest_freyja_terrain.gd")
+const PalaceArt=preload("res://scripts/forest/forest_falan_palace_art.gd")
+const CellarArt=preload("res://scripts/forest/forest_falan_cellar_art.gd")
+const Courtyard=preload("res://scripts/forest/forest_falan_courtyard.gd")
+const FalanFrontier=preload("res://scripts/forest/forest_falan_frontier.gd")
+const CityFortifications=preload("res://scripts/forest/forest_falan_fortifications.gd")
+const CityGardens=preload("res://scripts/forest/forest_falan_gardens.gd")
+const CitySpecial=preload("res://scripts/forest/forest_falan_special_exteriors.gd")
+const CityMagicShop=preload("res://scripts/forest/forest_falan_magic_shop.gd")
+const CityWorkshop=preload("res://scripts/forest/forest_falan_workshop.gd")
+const CityArchitecture=preload("res://scripts/forest/forest_falan_architecture.gd")
+const CityHouses=preload("res://scripts/forest/forest_falan_houses.gd")
+const CivicExterior=preload("res://scripts/forest/forest_falan_civic_exterior.gd")
 const BloodGulchTerrain=preload("res://scripts/forest/forest_blood_gulch_terrain.gd")
 const Scenery=preload("res://scripts/forest/forest_scenery.gd")
+const FalkenArt=preload("res://scripts/forest/forest_falken_art.gd")
 const CELL=6.0
 const TRAINING_DUMMY_CELL=Vector2i(2,2)
 const STARTING_GOLD=1000000
@@ -20,8 +35,11 @@ const HP={"shrine":3000.0,"mine":350.0,"tower":500.0,"cannon_tower":500.0,"wall"
 const SIZES={"shrine":Vector2i(3,3),"mine":Vector2i(3,2),"tower":Vector2i(2,2),"cannon_tower":Vector2i(2,2),"wall":Vector2i(6,1),"gate":Vector2i(2,1),"barracks":Vector2i(3,3)}
 const SIGHT={"shrine":8,"mine":4,"tower":10,"cannon_tower":10,"wall":1,"gate":1,"barracks":5}
 var phase="preparing"
+var base_invulnerable=false
+var survival_run=false
 var gold=STARTING_GOLD
 var wave=0
+var aggro_kills=0
 var seed_value=42
 var revision=0
 var navigation_revision=0
@@ -52,6 +70,16 @@ var roads: Dictionary={}
 var ramparts: Array=[]
 var terrain=Ramparts.new()
 var terrain_source=""
+var terrain_detail=""
+const FALAN_SCALE=1.3
+const Dungeons=preload("res://scripts/forest/forest_freyja_dungeons.gd")
+var falan_scale=1.0
+var falan_area=""
+var falan_road=""
+var falan_floor=0
+var falan_areas:Dictionary={}
+var falan_garden_plan:Dictionary={}
+var falan_frontier_plan:Array=[]
 var terrain_scale=1.0
 var map_expansion=1.0
 var raised_castle=false
@@ -78,12 +106,14 @@ var gate_access_cache:Array=[]
 var _construction_batch=false
 
 func reset(value: int,config: Dictionary={},layout: Dictionary={},include_mines:bool=true):
+	aggro_kills=0
+	remove_meta("joined_village")
 	team_progression.reset();team_progression.rng.seed=value
 	balance=Balance.sanitized(config)
-	team_progression.rarity_cutoffs=Balance.rarity_cutoffs(balance)
+	balance.enemy_size_mult*=preload("res://scripts/forest/forest_enemy_roles.gd").MAP_ENEMY_SCALE
 	mines_enabled=include_mines
 	ryo=preload("res://scripts/forest/forest_ryo_economy.gd").new(self)
-	seed_value=value;phase="preparing";gold=balance.starting_gold;wave=0;next_id=1;hero_targetable=true
+	seed_value=value;phase="preparing";base_invulnerable=false;gold=balance.starting_gold;wave=0;next_id=1;hero_targetable=true
 	starting_food=10;fighter_count=0;fighter_posts.clear()
 	buildings.clear();workers.clear();defenders.clear();enemies.clear();deposits.clear();trees.clear();occupancy.clear()
 	tree_rotations.clear();rocks.clear();props.clear();scenery_heights.clear()
@@ -111,26 +141,47 @@ func reset(value: int,config: Dictionary={},layout: Dictionary={},include_mines:
 		for item in layout.get("roads",[]):roads[Vector2i(item.x,item.z)]=true
 	terrain_scale=float(layout.get("terrain_scale",1.0)) if terrain_source in ["blood_gulch","wind_meadow"] else 1.0
 	map_expansion=float(layout.get("map_expansion",1.0)) if terrain_source=="wind_meadow" else 1.0
+	terrain_detail=str(layout.get("terrain_detail",""))
 	if has_enemy_camps():
 		for camp in portals:initialize_enemy_camp(camp)
 	ramparts=layout.get("ramparts",[]).duplicate(true)
 	terrain_source=str(layout.get("terrain_source",""))
+	terrain_detail=str(layout.get("terrain_detail",""))
+	falan_area=str(layout.get("falan_area",""))
+	falan_floor=int(layout.get("falan_floor",0))
+	falan_areas=layout.get("falan_areas",{})
+	falan_scale=FALAN_SCALE if not falan_area.is_empty() or terrain_detail==FreyjaTerrain.ID else 1.0
 	navigation_region=region_for(terrain_source,terrain_scale*map_expansion)
+	if falan_area=="interior" and preload("res://scripts/forest/forest_original_maps.gd").owns(falan_floor):
+		var original_floor=preload("res://scripts/forest/forest_original_maps.gd").floor_info(falan_floor,seed_value)
+		var low=Vector2i(((original_floor[1]-Vector2.ONE*1.5)/CELL).floor())
+		var high=Vector2i(((original_floor[1]+Vector2(original_floor[0])*3.0)/CELL).ceil())
+		navigation_region=Rect2i(low,high-low)
 	raised_castle=terrain_source=="wind_meadow" and bool(layout.get("raised_castle",false))
-	terrain=create_terrain(terrain_source,terrain_scale,map_expansion,raised_castle)
+	terrain=create_terrain(terrain_source,terrain_scale,map_expansion,raised_castle,terrain_detail,falan_area)
+	falan_road=terrain.variant if terrain is FreyjaTerrain and FalanFrontier.FRAMES.has(terrain.variant) else ""
 	terrain.configure(ramparts)
+	if terrain is FreyjaTerrain and terrain.variant=="east_gate":
+		var bounds:Rect2=terrain.mask_bounds()
+		var low=Vector2i((bounds.position/6.0).floor())
+		navigation_region=Rect2i(low,Vector2i((bounds.end/6.0).ceil())-low)
 	hero_position=point(Vector2i(0,3))
-	_make_building("shrine",Vector2i(-1,-1),0)
-	# Give the opening workforce useful jobs without spending the testing treasury.
-	var starter_towers=[]
+	waves=load("res://scripts/forest/forest_waves.gd").new(self)
+	survival_run=uses_survival_rules(falan_area,terrain_detail)
+	if survival_run:next_id+=1 # Keep the reserved shrine ID out of the structure roster.
+	else:_make_building("shrine",Vector2i(-1,-1),0)
 	if layout.is_empty():
 		for deposit in deposits:_make_building("mine",deposit,0)
-		starter_towers=_make_starter_fort()
+		_make_starter_fort()
 	else:
 		for item in layout.buildings:
 			if item.kind=="mine" and not mines_enabled:continue
-			var b=_make_building(item.kind,Vector2i(item.x,item.z),int(item.rotation),int(item.get("span",0)))
-			if b.kind in ["tower","cannon_tower"]:starter_towers.append(b)
+			var building=_make_building(item.kind,Vector2i(item.x,item.z),int(item.rotation),int(item.get("span",0)))
+			if item.kind=="gate" and terrain is FreyjaTerrain and terrain.bridge_bounds().has_area():
+				building.freyja_arch=true
+				building.falan_gate_area=terrain.variant
+				building.breached=true
+				building.door_removed=true
 		for x in range(-7,10):
 			for z in range(-5,8):explored[Vector2i(x,z)]=true
 	if has_elevation():
@@ -140,17 +191,9 @@ func reset(value: int,config: Dictionary={},layout: Dictionary={},include_mines:
 	rebuild_navigation();revision+=1
 	if ResourceLoader.exists("res://scripts/forest/forest_workforce.gd"):
 		workforce=load("res://scripts/forest/forest_workforce.gd").new(self)
-		for i in range(6):workforce.recruit(true)
-		workforce.auto_assign()
-		# Preserve the starting workforce; automatic towers leave these workers free.
-		for tower in starter_towers:
-			if not workforce.recruit(true):break
-	starting_food=maxi(10,workers.size())
-	if ResourceLoader.exists("res://scripts/forest/forest_waves.gd"):
-		waves=load("res://scripts/forest/forest_waves.gd").new(self)
 	update_vision(hero_position)
 
-func _make_starter_fort()->Array:
+func _make_starter_fort():
 	# One closed perimeter around the shrine and both deposits. Corners belong
 	# to horizontal sections; vertical sections join them through wall extensions.
 	for x in range(-7,10):
@@ -161,7 +204,8 @@ func _make_starter_fort()->Array:
 	_make_building("gate",Vector2i(0,7),0)
 	for x in [-7,9]:
 		for z in range(-4,7,6):_make_building("wall",Vector2i(x,z),1,mini(6,7-z))
-	return [_make_building("tower",Vector2i(-4,4),2),_make_building("tower",Vector2i(3,4),2)]
+	_make_building("tower",Vector2i(-4,4),2)
+	_make_building("tower",Vector2i(3,4),2)
 
 func initialize_enemy_camp(camp:Dictionary):
 	camp.hp=balance.enemy_castle_health if has_enemy_castles() else 600.0;camp.max_hp=camp.hp
@@ -212,8 +256,8 @@ func place_enemy_castle(cell:Vector2i,rotation:int)->Dictionary:
 	rebuild_navigation();revision+=1
 	return camp
 
-func has_enemy_castles()->bool:return terrain_source=="wind_meadow" and terrain_scale in [2.0,3.0]
-func has_enemy_camps()->bool:return enemy_camps_prototype or terrain_source=="wind_meadow"
+func has_enemy_castles()->bool:return terrain_source=="wind_meadow" and terrain_detail!=Arena.ID and terrain_scale in [2.0,3.0]
+func has_enemy_camps()->bool:return enemy_camps_prototype or (terrain_source=="wind_meadow" and terrain_detail!=Arena.ID)
 func active_enemy_camps()->int:
 	var count=0
 	if has_enemy_camps():
@@ -238,7 +282,7 @@ func damage_enemy_objective(index:int,amount:float,section:int=-1):
 			for part in camp.get("sections",[]):part.hp=0.0
 		navigation_revision+=1;revision+=1
 		if has_enemy_castles():refresh_camp_grid()
-		if section<0 and (index<0 or (terrain_source=="wind_meadow" and active_enemy_camps()==0)):phase="victory";events.append({"kind":"victory"})
+		if section<0 and not survival_run and (index<0 or (terrain_source=="wind_meadow" and active_enemy_camps()==0)):phase="victory";events.append({"kind":"victory"})
 
 func cell_of(p: Vector3)->Vector2i:return Vector2i(roundi(p.x/CELL),roundi(p.z/CELL))
 func food_capacity()->int:
@@ -277,10 +321,12 @@ static func region_for(source:String,scale_:float=1.0)->Rect2i:
 	return Rect2i(-extent,-extent,extent*2,extent*2)
 static func building_region_for(source:String,scale_:float=1.0)->Rect2i:
 	return region_for(source,scale_).grow(-1)
-static func create_terrain(source:String,scale_:float=1.0,expansion:float=1.0,raised:bool=false)->RefCounted:
+static func create_terrain(source:String,scale_:float=1.0,expansion:float=1.0,raised:bool=false,detail:String="",area:String="")->RefCounted:
 	match source:
 		"wind_meadow":
-			var meadow=WindMeadowTerrain.new();meadow.horizontal_scale=scale_;meadow.expansion=expansion;meadow.raised_castle=raised;return meadow
+			var meadow=Arena.new() if detail==Arena.ID else FreyjaTerrain.new() if detail==FreyjaTerrain.ID or not area.is_empty() else WindMeadowTerrain.new()
+			if not area.is_empty():meadow.variant=area
+			meadow.horizontal_scale=scale_;meadow.expansion=expansion;meadow.raised_castle=raised;return meadow
 		"kai_highway":return KaiTerrain.new()
 		"blood_gulch":
 			var native=BloodGulchTerrain.new();native.horizontal_scale=scale_;return native
@@ -291,7 +337,18 @@ func navigation_bounds()->Rect2:
 	# Native corridor integrations use this name; share the world domain.
 	return world_bounds()
 func has_elevation()->bool:return terrain_source in ["kai_highway","blood_gulch","wind_meadow"] or not ramparts.is_empty()
-func surface_height(x: float,z: float)->float:return terrain.height(x,z)
+func surface_height(x: float,z: float)->float:
+	if falan_area=="interior":
+		if falan_floor==FalkenArt.Route.ROOM:return FalkenArt.Dais.height(x,z)
+		if falan_floor==1511:return PalaceArt.surface_height(falan_floor,x,z)
+		if falan_floor in CellarArt.RAISED_FLOORS:return CellarArt.surface_height(falan_floor,x,z)
+		if falan_floor in CivicExterior.Mansion.STAGES:return CivicExterior.Mansion.surface_height(falan_floor,x,z)
+		if falan_floor in CivicExterior.Arena.RAISED:return CivicExterior.Arena.surface_height(falan_floor,x,z)
+	return terrain.height(x,z)
+# The archive grid stays in source coordinates. Only the playable world is scaled.
+func world_height(x:float,z:float)->float:return surface_height(x/falan_scale,z/falan_scale)*falan_scale
+func world_point(at:Vector2,lift:float=0.0)->Vector3:
+	return Vector3(at.x,surface_height(at.x,at.y),at.y)*falan_scale+Vector3.UP*lift
 func point(c: Vector2i)->Vector3:return Vector3(c.x*CELL,surface_height(c.x*CELL,c.y*CELL),c.y*CELL)
 func dimensions(kind: String, rotation: int, span: int=0)->Vector2i:
 	var size_: Vector2i=SIZES.get(kind,Vector2i.ONE)
@@ -325,6 +382,11 @@ func entry(b: Dictionary)->Vector2i:
 	var entrances=[Vector2i(size_.x/2,size_.y),Vector2i(size_.x,size_.y/2),Vector2i(size_.x/2,-1),Vector2i(-1,size_.y/2)]
 	return b.cell+entrances[b.rotation%4]
 func shrine()->Dictionary:return buildings.get(1,{})
+static func uses_survival_rules(area:String,detail:String)->bool:
+	return not area.is_empty() or detail in [FreyjaTerrain.ID,Arena.ID] or uses_slime_waves()
+static func uses_slime_waves()->bool:
+	return OS.has_feature("crossgate_pet_test") or "--crossgate-pet-test" in OS.get_cmdline_user_args()
+func fort_center()->Vector3:return point(Vector2i.ZERO) if shrine().is_empty() else center(shrine())
 func shrine_entry()->Vector2i:return Vector2i(0,2)
 func _make_building(kind: String,c: Vector2i,rotation: int,span: int=0)->Dictionary:
 	var b={"id":next_id,"kind":kind,"cell":c,"rotation":rotation%4,"hp":HP[kind],"max_hp":HP[kind],"clock":0.0}
@@ -340,11 +402,15 @@ func _make_building(kind: String,c: Vector2i,rotation: int,span: int=0)->Diction
 	return b
 func load_scenery(layout:Dictionary):
 	trees.clear();tree_rotations.clear();rocks.clear();props.clear();scenery_heights.clear()
+	var city=layout.get("falan_area")=="city"
 	for item in layout.trees:
+		if city and CityGardens.is_legacy(item,CityGardens.Data.LEGACY_TREES):continue
 		var cell=Scenery.anchor(item);trees[cell]=float(item.scale)
 		if item.has("rotation") or item.get("height",0)!=0:tree_rotations[cell]=float(item.get("rotation",0))
 	for item in layout.get("rocks",[]):rocks[Scenery.anchor(item)]={"scale":float(item.scale),"rotation":float(item.rotation)}
-	for item in layout.get("props",[]):props[Scenery.anchor(item)]={"kind":str(item.kind),"scale":float(item.scale),"rotation":float(item.rotation)}
+	for item in layout.get("props",[]):
+		if city and (CityFortifications.is_legacy(item) or (item.kind=="shrub" and CityGardens.is_legacy(item,CityGardens.Data.LEGACY_SHRUBS))):continue
+		props[Scenery.anchor(item)]={"kind":str(item.kind),"scale":float(item.scale),"rotation":float(item.rotation)}
 	for group in Scenery.GROUPS:
 		for item in layout.get(group,[]):
 			if item.get("height",0)!=0:scenery_heights[Scenery.anchor(item)]=float(item.height)
@@ -407,18 +473,63 @@ func update_editor_buildings(layout:Dictionary):
 		enemy_grid.set_point_weight_scale(cell,(6.0 if b.kind in ["wall","gate"] else 12.0) if not b.is_empty() else 1.0)
 	navigation_revision+=1;sight_cache.clear();revision+=1
 func rebuild_scenery():
+	var workshop=falan_area=="city" and CityWorkshop.active(self)
+	var magic_shop=falan_area=="city" and CityMagicShop.active(self)
+	falan_garden_plan={}
+	falan_frontier_plan=[]
 	scenery_obstacles.clear();scenery_cells.clear();authored_scenery=not rocks.is_empty() or not tree_rotations.is_empty() or not props.is_empty()
 	var groups={"tree":trees,"rock":rocks,"props":props}
 	for group in groups:
 		for cell in groups[group]:
 			var kind:String=props[cell].kind if group=="props" else group
+			if falan_area=="castle" and Courtyard.replaces_saved_scenery(kind,Vector2(Scenery.cell(cell))*CELL):continue
 			var scale_:float=trees[cell] if group=="tree" else groups[group][cell].scale
 			var rotation:float=tree_rotations.get(cell,-1) if group=="tree" else groups[group][cell].rotation
+			if FalanFrontier.replaces_saved_scenery(falan_road,Scenery.cell(cell),kind,scale_,rotation,scenery_heights.get(cell,0)):continue
+			if group=="props" and falan_area=="city" and CitySpecial.retired(self,cell):continue
+			if group=="props" and workshop and cell is Vector2i and cell==Vector2i(-35,24):continue
 			var box=Scenery.bounds(kind,scale_,rotation)
+			if group=="props" and falan_area=="city":
+				var civic=CivicExterior.shell(cell,props[cell])
+				if not civic.is_empty():box=CivicExterior.collision_parts(cell,civic)[0]
+				if workshop and cell is Vector2i and cell==Vector2i(-38,26):box=CityWorkshop.bounds(cell)
+				if magic_shop and cell is Vector2i and cell==CityMagicShop.ANCHOR:box=CityMagicShop.bounds()
+				var special=CitySpecial.spec(self,cell)
+				if not special.is_empty():box=CitySpecial.bounds(cell,special)
+				if CityHouses.source_centered(self,cell):box=CityArchitecture.collision(CityHouses.ArchitectureData.BINDINGS[cell][0])
+				box.position+=CityHouses.offset(self,cell)
 			for tile in Scenery.footprint(Scenery.cell(cell),box):
 				if not scenery_cells.has(tile):scenery_cells[tile]=[]
 				scenery_cells[tile].append(cell)
 			box.position+=scenery_point(cell);scenery_obstacles[cell]=box
+	if terrain is FreyjaTerrain and (FalanFrontier.FRAMES.has(terrain.variant) or FreyjaTerrain.Regions.has_land(terrain.variant)):
+		falan_frontier_plan=FalanFrontier.outer_plan(self)
+		for index in falan_frontier_plan.size():register_archive_obstacle(falan_frontier_plan[index][2],index)
+		FalanFrontier.prepare_village(self)
+	if falan_area in ["castle","city"]:
+		var parts=Courtyard.obstacles() if falan_area=="castle" else CityFortifications.obstacles()
+		for index in parts.size():register_archive_obstacle(parts[index],index)
+		if falan_area=="city":
+			var civic_index=20000
+			for cell in props:
+				var civic=CivicExterior.shell(cell,props[cell])
+				if civic.is_empty():continue
+				var bodies=CivicExterior.collision_parts(cell,civic)
+				for i in range(1,bodies.size()):
+					var box:AABB=bodies[i];box.position+=scenery_point(cell)
+					register_archive_obstacle(box,civic_index);civic_index+=1
+			for i in CityArchitecture.Data.UNMARKED.size():register_archive_obstacle(CityArchitecture.unmarked_bounds(self,i),parts.size()+10000+i)
+			falan_garden_plan=CityGardens.plan(self)
+			for index in falan_garden_plan.obstacles.size():
+				register_archive_obstacle(falan_garden_plan.obstacles[index][0],parts.size()+index)
+func register_archive_obstacle(box:AABB,index:int):
+	var anchor=Vector3i(0,0,-1-index)
+	scenery_obstacles[anchor]=box
+	for tile in Scenery.footprint(Vector2i.ZERO,box):
+		# The 3 m archive can center a passage between 6 m route cells.
+		if not box.has_point(Vector3(tile.x*CELL,box.get_center().y,tile.y*CELL)):continue
+		if not scenery_cells.has(tile):scenery_cells[tile]=[]
+		scenery_cells[tile].append(anchor)
 func rebuild_navigation():
 	rebuild_scenery()
 	for grid in [allied_grid,enemy_grid]:
@@ -644,8 +755,8 @@ func close_repaired_gate(id:int)->bool:
 func damage_building(id: int,amount: float):
 	if phase!="wave" or not buildings.has(id):return
 	var b: Dictionary=buildings[id]
+	if b.kind=="shrine" and base_invulnerable:return
 	if b.kind=="wall" or b.get("breached",false) or amount<=0:return
-	if b.kind in ["tower","cannon_tower"]:amount/=team_progression.multiplier("tower_defense")
 	var previous_hp:float=b.hp;b.hp=maxf(0,b.hp-amount*(.5 if b.kind=="barracks" else 1.0))
 	if b.kind=="barracks" and b.hp<previous_hp:b.damage_serial=int(b.get("damage_serial",0))+1
 	if b.kind in ["wall","gate"] and b.hp<previous_hp:

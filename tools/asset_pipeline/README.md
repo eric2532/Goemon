@@ -13,7 +13,77 @@ python3 tools/goemon_assets.py compare --asset goldmine
 python3 tools/goemon_assets.py compare --asset musashi
 ```
 
+## Replace playable character or weapon sprites
+
+Place an optional `art.json` beside the existing `motions.json`. For a
+character, use the folder of the skin you are replacing. For a weapon with
+its own `root` in `assets/characters/crossgate/weapons/catalog.json`, use
+that weapon folder. For a weapon with a `native` index, edit the corresponding
+stance in the character's file. This keeps the current character, skin and
+equipment IDs and leaves the original art and motion files available.
+
+For a replacement that keeps the original sheet layout, point the page at the
+new image. For example, `{"pages":[null,"repaint.png"]}` keeps page 0, replaces
+page 1, and leaves the rest alone. The loader numbers `atlas-*` first, then any
+`cast-*` sheets. Page paths can be filenames relative to this folder or `res://`
+paths to existing textures. Add pages after the last existing page to keep the
+original sheets available while you try a few poses.
+
+For repacked art, add `stances`. Entry 0 is the default stance and entries 1 and
+up follow the `weapons` array in `motions.json`. Use `{}` to skip a stance. Each
+clip key maps to a full list of replacement frame records for that clip. For
+example, in Water Dragon Shin's three page folder, this puts a new guard pose
+for one facing on page 3 while retaining the original pose origin:
+
+```json
+{
+  "pages": [null, null, null, "new-guard.png"],
+  "stances": [{"9:0": [[3, 0, 0, 63, 80, -46, -75]]}]
+}
+```
+
+Each record is `[page, x, y, width, height, offset_x, offset_y]`. Keep the original
+frame count and order for each clip. A replacement can have a different crop or
+origin, but must put its visual contact or release at the same frame. The game
+uses the original durations, hit and release cues, audio and weapon behavior.
+Unknown clips, missing textures, wrong frame counts and out of bounds crops
+produce a warning and leave that profile on its original art.
+
+Restart Play Goemon after changing a file. Review all affected facings, planted
+feet, grips, and attack contact. Equipment previews and counters use the patched
+body frames. HUD heads, cosmetic attachments and separate guard, projectile and
+effect textures still use their own assets. When the head changes or moves to a
+new page/region, check the portrait and attachment placement separately. To undo
+a sprite override, remove `art.json` and restart.
+
 ## Audit
+
+For Cross Gate attack artwork, run
+`python3 tools/audit_crossgate_attack_art.py '../Magic Power'`. This read-only
+audit derives the current catalog from the shared audio manifest inventory,
+includes Qi attack preparations, and compares native attack/throw pixels and
+anchors against preserved source. It rejects added outline pixels, shifted
+anchors and transparent green-key pages with alpha-border correction disabled.
+The three fitted Emilia staff appearances are explicitly reported separately:
+verify them with `recover_crossgate_emilia.py '../Magic Power' --check` and
+`tests/forest-shrine/test_emilia_staff_outline.py`. The auditor's small tests
+are `python3 -m unittest discover -s tools -p test_audit_crossgate_attack_art.py`.
+Run `crossgate_attack_outline_test.gd` through Play Goemon and review its rendered
+contact sheets as well; source equality alone cannot establish good-looking
+motion. Reports go under `Cross Gate Attack Silhouettes/` in the toolkit folder.
+
+Player attack audio is checked alongside optimized assets by `check`. After
+adding/changing a Cross Gate character, appearance or weapon, run
+`python3 tools/prepare_crossgate_player_audio.py '../Magic Power'`, then repeat
+with `--check`. This prepares source cue identities against the existing attack
+clocks, reuses existing WAVs after original PCM verification, and keeps explicit
+silent markers. It does not rebake art or alter hit counts/timing. The generated
+`assets/audio/crossgate/player-attacks.json` is exported with the game; stale
+roster coverage, attack manifests or WAV data fail the ordinary asset check.
+Run `tests/forest-shrine/crossgate_player_audio_test.gd` through Play Goemon for
+the current Cross Gate roster/skin/weapon playback matrix; add `-- --visual` for
+rendered examples and a real SFX mixer recording. Evidence belongs under
+`build/Other Files/Asset Toolkit/Cross Gate Player Audio/`.
 
 Read-only for assets. Reports go to `build/Other Files/Asset Toolkit/audit.json`
 and `audit.html`; the HTML table supports sorting and filtering. `--out` selects

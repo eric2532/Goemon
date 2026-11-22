@@ -77,3 +77,10 @@ func set_cloak(_equipped:bool,_gold:bool):pass
 func combat_pose(_attack:float,_heavy:bool,_combo:int,_dodge:bool):pass
 func set_surge(_active:bool):pass
 func apply_skin(_id:String):pass
+
+func animate_qi_blast(_delta:float,progress:float):
+	ball.hide();rig_visual.show();update_visibility()
+	if progress<0:play("Sonic Stand",.5);return
+	play("Sonic Ground Throw (Overhand)")
+	animations.speed_scale=0
+	animations.seek(qi_attack_time(progress,.24,.44),true)

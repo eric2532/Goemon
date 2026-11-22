@@ -6,13 +6,16 @@ func check(ok:bool,label_:String):
  checks+=1
  if not ok:failures+=1;printerr("FAIL: ",label_)
 func run():
- var doc=preload("res://scripts/forest/forest_map_document.gd").new();doc.load_wind_meadow()
+ var doc=preload("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_valley()
  set_meta("forest_custom_layout",doc.data);set_meta("forest_painterly_preview",true)
  var game=load("res://scenes/forest_shrine.tscn").instantiate();game.settings_path="user://skullpion-spawn-%d.cfg"%OS.get_process_id();root.add_child(game);current_scene=game
  for i in 5:await process_frame
  game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false);game.explorer_helpers.set_process(false);game.army_runtime.set_process(false);game.camera_rig.set_process(false)
  game.start_wave();game.model.waves.spawn_clock=100000;game.model.waves.pending=999;game.ui.hide();AudioServer.set_bus_mute(0,true)
  var runtime=game.army_runtime;runtime.clear();runtime.refresh_kits();game.world.sync(0)
+ var roles=game.model.waves.Roles
+ var contact=preload("res://scripts/forest/forest_enemy_contact.gd")
+ check(contact.shapes(roles.BOSS)[0].bounds.size.is_equal_approx(roles.BOSS_SIZE*roles.MAP_ENEMY_SCALE),"Skullpion's fitted body uses the shared enemy scale")
  var nav=runtime.navigation_data(game.model);var collision=runtime.static_collision_data(game.world)
  nav.air_faces=collision.faces;nav.air_owner=collision.owners;runtime.set_navigation(999999,nav)
  var portals=game.model.portals.duplicate();var starts={}
@@ -26,7 +29,7 @@ func run():
  check(runtime.handles.size()==4,"Four bosses coexist in the same native owner")
  for id in runtime.handles:
   var point:Vector3=runtime.unit_state(runtime.handles[id]).position;starts[id]=point
-  check(game.model.waves.navigation.move_clear(point,18),"Admitted boss has clear spawn geometry")
+  check(game.model.waves.navigation.move_clear(point,roles.footprint_radius(roles.BOSS)),"Admitted boss clears its larger footprint")
  var context={"targets":runtime.external_targets()}
  var visual=DisplayServer.get_name()!="headless";var camera:Camera3D
  if visual:

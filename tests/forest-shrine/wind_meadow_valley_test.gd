@@ -7,7 +7,7 @@ func check(ok:bool,label_:String):
  if not ok:failures+=1;printerr("FAIL: ",label_)
 func _initialize():run.call_deferred()
 func run():
- var document=Document.new();var error=document.load_wind_meadow();check(error.is_empty(),"Bundled valley validates: "+error)
+ var document=Document.new();var error=document.load_valley();check(error.is_empty(),"Bundled valley validates: "+error)
  if not error.is_empty():quit(1);return
  var model=preload("res://scripts/forest/forest_model.gd").new();model.reset(42,{},document.data,false)
  check(model.terrain_source=="wind_meadow" and model.has_enemy_camps() and not model.enemy_camps_prototype,"Valley uses production terrain and camp contracts")
@@ -21,7 +21,7 @@ func run():
  check(Document.validate(old).is_empty(),"Earlier valley maps still validate")
  check(model.waves.active_cap()==240,"Normal native army cap stays unchanged")
  check(document.data.buildings.is_empty() and model.buildings.size()==1 and model.shrine().kind=="shrine","The bundled opening contains only the Goemon statue")
- check(model.center(model.shrine()).is_equal_approx(Vector3(0,preload("res://scripts/forest/forest_wind_meadow_layout.gd").CASTLE_HEIGHT,0)),"The statue remains centered on the raised courtyard")
+ check(model.center(model.shrine()).is_equal_approx(Vector3.ZERO),"The statue is centered on the valley floor")
  var field=preload("res://scripts/forest/crowd/army_runtime.gd").navigation_data(model)
  check(field.width==321 and field.origin==Vector3(-480,0,-480) and field.heights==model.terrain.heights,"Native armies borrow the same baked terrain")
  model.waves.navigation.terrain_corridors._refresh(model)
@@ -34,7 +34,7 @@ func run():
     check(model.terrain.disk_clear(Vector3(point.x,0,point.y),3.9),"Wide route has continuous traversable support at "+str(point))
  for i in 4:
   var camp:Dictionary=model.portals[i];var p=model.point(Vector2i(camp.x,camp.z))
-  check(Vector2(p.x,p.z)==Vector2(layout.clearings(model.terrain_scale)[i].x,layout.clearings(model.terrain_scale)[i].z) and is_equal_approx(Vector2(p.x,p.z).length(),372),"Each enemy castle sits twice as far from the central castle")
+  check(Vector2(p.x,p.z)==Vector2(layout.clearings(model.terrain_scale)[i].x,layout.clearings(model.terrain_scale)[i].z) and is_equal_approx(Vector2(p.x,p.z).length(),372),"Each enemy castle retains its clearing 372 metres from the shrine")
   check(is_equal_approx(p.y,layout.clearings(model.terrain_scale)[i].y),"Each castle sits on its distinct clearing height")
   for x in [-51,0,51]:
    for z in [-39,0,39]:
@@ -49,7 +49,7 @@ func run():
  var snapshot:Dictionary=runtime.snapshot()
  for i in handles.size():
   var at=snapshot.handles.find(handles[i]);var p:Vector3=snapshot.positions[at]
-  check(p.distance_to(goals[i])<6,"Native soldiers can route from barracks %d to its corresponding castle gate: %s"%[i,p])
+  check(p.distance_to(goals[i])<6,"Native soldiers can route from barracks %d to the shrine clearing: %s"%[i,p])
  runtime.clear();runtime.free()
  model.damage_enemy_objective(0,99999);check(model.portals[0].hp==6000,"Preparation cannot destroy objectives")
  model.waves.begin();check(model.waves.spawn_batch()>0 and model.waves.spawn_groups.size()==4 and model.waves.spawn_groups.values().all(func(group):return group.members.size()<=10),"Each cardinal camp begins its own group of ten native enemies")
@@ -57,6 +57,7 @@ func run():
  model.damage_enemy_objective(0,99999);check(model.active_enemy_camps()==3 and model.enemies.size()==alive,"Destruction stops a barracks without erasing living attackers")
  for i in range(1,4):model.damage_enemy_objective(i,99999)
  check(model.phase=="victory" and model.waves.spawn_batch()==0,"Destroying all four barracks wins and prevents more reinforcements")
+ set_meta("forest_custom_layout",document.data)
  set_meta("forest_fighter",1);set_meta("forest_painterly_preview",true)
  var game=preload("res://scripts/forest/forest_game.gd").new();game.settings_path="user://valley-test-%d.cfg"%OS.get_process_id();root.add_child(game);current_scene=game
  for i in 5:await process_frame
@@ -99,7 +100,7 @@ func run():
   cam.size=165;cam.global_position=Vector3(90,150,115);cam.look_at(Vector3(0,3,0))
   for i in 3:await process_frame
   await RenderingServer.frame_post_draw
-  root.get_texture().get_image().save_png("res://build/Other Files/Asset Toolkit/Wind Meadow/Castles/central-four-gates.png")
+  root.get_texture().get_image().save_png("res://build/Other Files/Asset Toolkit/Wind Meadow/Castles/shrine-clearing.png")
  var targets=game.enemy_objectives.duplicate();game.start_wave()
  game.model.waves.spawn_clock=100000;game.set_physics_process(false);game.player.set_physics_process(false)
  game.tuning.critical_chance=0;game.character_tuning={}
@@ -123,7 +124,7 @@ func run():
  var roundtrip=Document.new();check(roundtrip.decode(game.map_editor.document.encode()).is_empty() and roundtrip.data.terrain_source=="wind_meadow","Custom map round trip preserves the new terrain")
  preload("res://tests/forest-shrine/reference/map_document.gd").load_editor(game.map_editor,preload("res://tests/forest-shrine/reference/map_document.gd").BLOOD_GULCH_PATH);for i in 3:await process_frame
  check(game.model.terrain_source=="blood_gulch" and game.enemy_objectives.is_empty() and game.world.painterly_pilot.enabled,"Earlier map loads, restores its style and releases valley objectives")
- game.map_editor.load_wind_meadow();for i in 3:await process_frame
+ Document.load_editor(game.map_editor,Document.VALLEY_PATH);for i in 3:await process_frame
  check(game.model.terrain_source=="wind_meadow" and game.enemy_objectives.size()==4 and not game.world.painterly_pilot.enabled,"Valley preset restores all four barracks and their approved materials")
  game.map_editor.close_discard();for i in 3:await process_frame
  game.queue_free();for i in 3:await process_frame

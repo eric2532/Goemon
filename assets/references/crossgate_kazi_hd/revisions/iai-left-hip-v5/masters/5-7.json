@@ -1,0 +1,50 @@
+{
+  "tool": "technical Pillow frame assembly; creative poses from built-in image_gen",
+  "source": "assets/references/crossgate_kazi_hd/revisions/iai-left-hip-v4/masters/5-7.png",
+  "ready_source": "assets/references/crossgate_kazi_hd/revisions/iai-left-hip-v5/masters/ready-7.png",
+  "ready_prompt_sidecar": "assets/references/crossgate_kazi_hd/revisions/iai-left-hip-v5/masters/ready-7.json",
+  "unchanged_frames": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "replacements": [
+    {
+      "frame": 0,
+      "ready_pose": 0,
+      "uniform_scale": 0.4076923076923077,
+      "offset": [
+        12,
+        19
+      ]
+    },
+    {
+      "frame": 1,
+      "ready_pose": 1,
+      "uniform_scale": 0.4076923076923077,
+      "offset": [
+        61,
+        17
+      ]
+    },
+    {
+      "frame": 10,
+      "ready_pose": 0,
+      "uniform_scale": 0.4076923076923077,
+      "offset": [
+        12,
+        -15
+      ]
+    }
+  ],
+  "sha256": "fc847f5d97ed1aba5093ed7cbe98a7e59c499912497a67a72061dc4c71f5dff0",
+  "source_hashes": {
+    "assets/references/crossgate_kazi_hd/revisions/iai-left-hip-v4/masters/5-7.png": "e7d4fea443ed74bea1eaf21c245aba473c8fbd5cca1c239cfd11e083d1c6d045",
+    "assets/references/crossgate_kazi_hd/revisions/iai-left-hip-v5/masters/ready-7.png": "389647f46be9af5af13592567f385c4d7fdd246da5889e7f63a8eba0be295577"
+  }
+}

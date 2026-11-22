@@ -1,0 +1,1061 @@
+{
+  "source": "/Users/eric/Desktop/Projects_Codex/Magic Power",
+  "note": "Pack-qualified, visually reviewed source identities; pet artwork remains a character skin. Duplicate numeric IDs in different archives are not interchangeable.",
+  "skins": [
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 105125,
+      "label": "Remodel · Blue Hair / Silver",
+      "body_pixels": 75,
+      "weapons": {
+        "unarmed": "ex:122",
+        "axe": "ex:120",
+        "bow": "ex:121",
+        "sword": "ex:123",
+        "staff": "ex:124",
+        "polearm": "ex:125"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 100125,
+      "label": "Classic · Slate Hair / Silver",
+      "body_pixels": 81,
+      "weapons": {
+        "unarmed": "original:2497",
+        "axe": "original:2495",
+        "bow": "original:2496",
+        "sword": "original:2498",
+        "staff": "original:2499",
+        "polearm": "original:2500"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 100131,
+      "label": "Classic · Blond / Red",
+      "body_pixels": 81,
+      "weapons": {
+        "unarmed": "original:2503",
+        "axe": "original:2501",
+        "bow": "original:2502",
+        "sword": "original:2504",
+        "staff": "original:2505",
+        "polearm": "original:2506"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 100137,
+      "label": "Classic · Green Hair / Blue",
+      "body_pixels": 81,
+      "weapons": {
+        "unarmed": "original:2509",
+        "axe": "original:2507",
+        "bow": "original:2508",
+        "sword": "original:2510",
+        "staff": "original:2511",
+        "polearm": "original:2512"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 100143,
+      "label": "Classic · Brown Hair / Green",
+      "body_pixels": 81,
+      "weapons": {
+        "unarmed": "original:2515",
+        "axe": "original:2513",
+        "bow": "original:2514",
+        "sword": "original:2516",
+        "staff": "original:2517",
+        "polearm": "original:2518"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 100224,
+      "label": "Classic · Purple Hair / Blue",
+      "body_pixels": 81,
+      "weapons": {
+        "unarmed": "joy-ex:674",
+        "axe": "joy-ex:672",
+        "bow": "joy-ex:673",
+        "sword": "joy-ex:675",
+        "staff": "joy-ex:676",
+        "polearm": "joy-ex:677"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 100600,
+      "label": "Classic · Slate Hair / Black",
+      "body_pixels": 81,
+      "weapons": {
+        "unarmed": "joy:616",
+        "axe": "joy:614",
+        "bow": "joy:615",
+        "sword": "joy:617",
+        "staff": "joy:618",
+        "polearm": "joy:619"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 105131,
+      "label": "Remodel · Blond / Red",
+      "body_pixels": 75,
+      "weapons": {
+        "unarmed": "ex:128",
+        "axe": "ex:126",
+        "bow": "ex:127",
+        "sword": "ex:129",
+        "staff": "ex:130",
+        "polearm": "ex:131"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 105137,
+      "label": "Remodel · Green Hair / Blue",
+      "body_pixels": 75,
+      "weapons": {
+        "unarmed": "ex:134",
+        "axe": "ex:132",
+        "bow": "ex:133",
+        "sword": "ex:135",
+        "staff": "ex:136",
+        "polearm": "ex:137"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 105143,
+      "label": "Remodel · Brown Hair / Green",
+      "body_pixels": 75,
+      "weapons": {
+        "unarmed": "ex:140",
+        "axe": "ex:138",
+        "bow": "ex:139",
+        "sword": "ex:141",
+        "staff": "ex:142",
+        "polearm": "ex:143"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 105591,
+      "label": "Remodel · Green Hair / Black",
+      "body_pixels": 81,
+      "weapons": {
+        "unarmed": "joy-ex:462",
+        "axe": "joy-ex:460",
+        "bow": "joy-ex:461",
+        "sword": "joy-ex:463",
+        "staff": "joy-ex:464",
+        "polearm": "joy-ex:465"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 105818,
+      "label": "Remodel · Charcoal",
+      "body_pixels": 75,
+      "weapons": {
+        "unarmed": "puk3:465",
+        "axe": "puk3:463",
+        "bow": "puk3:464",
+        "sword": "puk3:466",
+        "staff": "puk3:467",
+        "polearm": "puk3:468"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 105850,
+      "label": "Remodel · Blond / Crimson",
+      "body_pixels": 75,
+      "weapons": {
+        "unarmed": "puk2:352",
+        "axe": "puk2:350",
+        "bow": "puk2:351",
+        "sword": "puk2:353",
+        "staff": "puk2:354",
+        "polearm": "puk2:355"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 105856,
+      "label": "Remodel · Silver / Black",
+      "body_pixels": 75,
+      "weapons": {
+        "unarmed": "puk2:358",
+        "axe": "puk2:356",
+        "bow": "puk2:357",
+        "sword": "puk2:359",
+        "staff": "puk2:360",
+        "polearm": "puk2:361"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 105275,
+      "label": "Remodel · Purple Hair / Red",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "ex:194",
+        "axe": "ex:192",
+        "bow": "ex:193",
+        "sword": "ex:195",
+        "staff": "ex:196",
+        "polearm": "ex:197"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 100275,
+      "label": "Classic · Purple Hair / Red",
+      "body_pixels": 74,
+      "weapons": {
+        "unarmed": "original:2569",
+        "axe": "original:2567",
+        "bow": "original:2568",
+        "sword": "original:2570",
+        "staff": "original:2571",
+        "polearm": "original:2572"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 100281,
+      "label": "Classic · Blue Hair / Green",
+      "body_pixels": 74,
+      "weapons": {
+        "unarmed": "original:2575",
+        "axe": "original:2573",
+        "bow": "original:2574",
+        "sword": "original:2576",
+        "staff": "original:2577",
+        "polearm": "original:2578"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 100287,
+      "label": "Classic · Brown Hair / Yellow",
+      "body_pixels": 74,
+      "weapons": {
+        "unarmed": "original:2581",
+        "axe": "original:2579",
+        "bow": "original:2580",
+        "sword": "original:2582",
+        "staff": "original:2583",
+        "polearm": "original:2584"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 100293,
+      "label": "Classic · Dark Hair / Gold",
+      "body_pixels": 74,
+      "weapons": {
+        "unarmed": "original:2587",
+        "axe": "original:2585",
+        "bow": "original:2586",
+        "sword": "original:2588",
+        "staff": "original:2589",
+        "polearm": "original:2590"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 100475,
+      "label": "Classic · Silver Hair / Red",
+      "body_pixels": 74,
+      "weapons": {
+        "unarmed": "joy:760",
+        "axe": "joy:758",
+        "bow": "joy:759",
+        "sword": "joy:761",
+        "staff": "joy:762",
+        "polearm": "joy:763"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 100984,
+      "label": "Classic · All White",
+      "body_pixels": 74,
+      "weapons": {
+        "unarmed": "v3:621",
+        "axe": "v3:508",
+        "bow": "v3:388",
+        "sword": "v3:574",
+        "staff": "v3:559",
+        "polearm": "v3:534"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 105281,
+      "label": "Remodel · Slate Hair / Green",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "ex:200",
+        "axe": "ex:198",
+        "bow": "ex:199",
+        "sword": "ex:201",
+        "staff": "ex:202",
+        "polearm": "ex:203"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 105287,
+      "label": "Remodel · Brown Hair / Gold",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "ex:206",
+        "axe": "ex:204",
+        "bow": "ex:205",
+        "sword": "ex:207",
+        "staff": "ex:208",
+        "polearm": "ex:209"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 105293,
+      "label": "Remodel · Dark Green",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "ex:212",
+        "axe": "ex:210",
+        "bow": "ex:211",
+        "sword": "ex:213",
+        "staff": "ex:214",
+        "polearm": "ex:215"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 105640,
+      "label": "Remodel · Silver / Purple",
+      "body_pixels": 74,
+      "weapons": {
+        "unarmed": "puk3:387",
+        "axe": "puk3:385",
+        "bow": "puk3:386",
+        "sword": "puk3:388",
+        "staff": "puk3:389",
+        "polearm": "puk3:390"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 105646,
+      "label": "Remodel · Silver / Yellow",
+      "body_pixels": 74,
+      "weapons": {
+        "unarmed": "puk3:393",
+        "axe": "puk3:391",
+        "bow": "puk3:392",
+        "sword": "puk3:394",
+        "staff": "puk3:395",
+        "polearm": "puk3:396"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 105652,
+      "label": "Remodel · Silver / Pink",
+      "body_pixels": 74,
+      "weapons": {
+        "unarmed": "puk3:399",
+        "axe": "puk3:397",
+        "bow": "puk3:398",
+        "sword": "puk3:400",
+        "staff": "puk3:401",
+        "polearm": "puk3:402"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 105658,
+      "label": "Remodel · Silver / Cyan",
+      "body_pixels": 74,
+      "weapons": {
+        "unarmed": "puk3:405",
+        "axe": "puk3:403",
+        "bow": "puk3:404",
+        "sword": "puk3:406",
+        "staff": "puk3:407",
+        "polearm": "puk3:408"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 105664,
+      "label": "Remodel · Silver / Brown",
+      "body_pixels": 74,
+      "weapons": {
+        "unarmed": "puk3:411",
+        "axe": "puk3:409",
+        "bow": "puk3:410",
+        "sword": "puk3:412",
+        "staff": "puk3:413",
+        "polearm": "puk3:414"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 105725,
+      "label": "Remodel · Purple / Violet",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "joy:901",
+        "axe": "joy:954",
+        "bow": "joy:803",
+        "sword": "joy:827",
+        "staff": "joy:828",
+        "polearm": "joy:854"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 105731,
+      "label": "Remodel · Gray Hair / Red",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "joy:886",
+        "axe": "joy:915",
+        "bow": "joy:959",
+        "sword": "joy:953",
+        "staff": "joy:937",
+        "polearm": "joy:948"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 105784,
+      "label": "Remodel · Silver / Black",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "puk3:519",
+        "axe": "puk3:517",
+        "bow": "puk3:518",
+        "sword": "puk3:520",
+        "staff": "puk3:521",
+        "polearm": "puk3:522"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 105843,
+      "label": "Special · Pink Heart Trim",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "puk2:345",
+        "axe": "puk2:343",
+        "bow": "puk2:344",
+        "sword": "puk2:346",
+        "staff": "puk2:347",
+        "polearm": "puk2:348"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 105955,
+      "label": "Remodel · Pink Hair / Red",
+      "body_pixels": 74,
+      "weapons": {
+        "unarmed": "joy-ex:492",
+        "axe": "joy-ex:490",
+        "bow": "joy-ex:491",
+        "sword": "joy-ex:493",
+        "staff": "joy-ex:494",
+        "polearm": "joy-ex:495"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 105961,
+      "label": "Remodel · Black Hair / Red",
+      "body_pixels": 74,
+      "weapons": {
+        "unarmed": "joy-ex:498",
+        "axe": "joy-ex:496",
+        "bow": "joy-ex:497",
+        "sword": "joy-ex:499",
+        "staff": "joy-ex:500",
+        "polearm": "joy-ex:501"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 120328,
+      "label": "Remodel · Silver / Navy",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "v3:961",
+        "axe": "v3:959",
+        "bow": "v3:960",
+        "sword": "v3:962",
+        "staff": "puk2:1180",
+        "polearm": "v3:964"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 120334,
+      "label": "Remodel · Blue / Navy",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "v3:967",
+        "axe": "v3:965",
+        "bow": "v3:966",
+        "sword": "v3:968",
+        "staff": "v3:969",
+        "polearm": "v3:970"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 120340,
+      "label": "Remodel · Orange / Navy",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "v3:973",
+        "axe": "v3:971",
+        "bow": "v3:972",
+        "sword": "v3:974",
+        "staff": "v3:975",
+        "polearm": "v3:976"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 105300,
+      "label": "Remodel · Blond / Orange",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "ex:218",
+        "axe": "ex:216",
+        "bow": "ex:217",
+        "sword": "ex:219",
+        "staff": "ex:220",
+        "polearm": "ex:221"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 100300,
+      "label": "Classic · Blond / Orange",
+      "body_pixels": 77,
+      "weapons": {
+        "unarmed": "original:2593",
+        "axe": "original:2591",
+        "bow": "original:2592",
+        "sword": "original:2594",
+        "staff": "original:2595",
+        "polearm": "original:2596"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 100306,
+      "label": "Classic · Brown Hair / Yellow",
+      "body_pixels": 77,
+      "weapons": {
+        "unarmed": "original:2599",
+        "axe": "original:2597",
+        "bow": "original:2598",
+        "sword": "original:2600",
+        "staff": "original:2601",
+        "polearm": "original:2602"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 100312,
+      "label": "Classic · Red Hair / Green",
+      "body_pixels": 77,
+      "weapons": {
+        "unarmed": "original:2605",
+        "axe": "original:2603",
+        "bow": "original:2604",
+        "sword": "original:2606",
+        "staff": "original:2607",
+        "polearm": "original:2608"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 100318,
+      "label": "Classic · Black Hair / Blue",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "original:2611",
+        "axe": "original:2609",
+        "bow": "original:2610",
+        "sword": "original:2612",
+        "staff": "original:2613",
+        "polearm": "original:2614"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 100431,
+      "label": "Classic · Brown Hair / Charcoal",
+      "body_pixels": 77,
+      "weapons": {
+        "unarmed": "joy-ex:698",
+        "axe": "joy-ex:696",
+        "bow": "joy-ex:697",
+        "sword": "joy-ex:699",
+        "staff": "joy-ex:700",
+        "polearm": "joy-ex:701"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 100500,
+      "label": "Classic · Silver Hair / Orange",
+      "body_pixels": 77,
+      "weapons": {
+        "unarmed": "joy:766",
+        "axe": "joy:764",
+        "bow": "joy:765",
+        "sword": "joy:767",
+        "staff": "joy:768",
+        "polearm": "joy:769"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 100990,
+      "label": "Classic · All White",
+      "body_pixels": 77,
+      "weapons": {
+        "unarmed": "v3:507",
+        "axe": "v3:433",
+        "bow": "v3:557",
+        "sword": "v3:376",
+        "staff": "v3:410",
+        "polearm": "v3:561"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 105306,
+      "label": "Remodel · Brown Hair / Yellow",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "ex:224",
+        "axe": "ex:222",
+        "bow": "ex:223",
+        "sword": "ex:225",
+        "staff": "ex:226",
+        "polearm": "ex:227"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 105312,
+      "label": "Remodel · Orange Hair / Green",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "ex:230",
+        "axe": "ex:228",
+        "bow": "ex:229",
+        "sword": "ex:231",
+        "staff": "ex:232",
+        "polearm": "ex:233"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 105318,
+      "label": "Remodel · Slate Hair / Blue",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "ex:236",
+        "axe": "ex:234",
+        "bow": "ex:235",
+        "sword": "ex:237",
+        "staff": "ex:238",
+        "polearm": "ex:239"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 105442,
+      "label": "Remodel · Gray Hair / Yellow",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "joy-ex:249",
+        "axe": "joy-ex:247",
+        "bow": "joy-ex:248",
+        "sword": "joy-ex:250",
+        "staff": "joy-ex:251",
+        "polearm": "joy-ex:252"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 105967,
+      "label": "Remodel · Red Hair / Black",
+      "body_pixels": 77,
+      "weapons": {
+        "unarmed": "joy-ex:504",
+        "axe": "joy-ex:502",
+        "bow": "joy-ex:503",
+        "sword": "joy-ex:505",
+        "staff": "joy-ex:506",
+        "polearm": "joy-ex:507"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 105973,
+      "label": "Remodel · Black / Gold",
+      "body_pixels": 77,
+      "weapons": {
+        "unarmed": "joy-ex:510",
+        "axe": "joy-ex:508",
+        "bow": "joy-ex:509",
+        "sword": "joy-ex:511",
+        "staff": "joy-ex:512",
+        "polearm": "joy-ex:513"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 106781,
+      "label": "Remodel · Pink Hair / Purple",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "joy-ex:81",
+        "axe": "joy-ex:79",
+        "bow": "joy-ex:80",
+        "sword": "joy-ex:82",
+        "staff": "joy-ex:83",
+        "polearm": "joy-ex:84"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 120448,
+      "label": "Special · Silver / Blue Armor",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "ch1:744",
+        "axe": "ch1:742",
+        "bow": "ch1:743",
+        "sword": "ch1:745",
+        "staff": "ch1:746",
+        "polearm": "ch1:747"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 120454,
+      "label": "Special · Green / Silver Armor",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "ch1:750",
+        "axe": "ch1:748",
+        "bow": "ch1:749",
+        "sword": "ch1:751",
+        "staff": "ch1:752",
+        "polearm": "ch1:753"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 120460,
+      "label": "Special · Cyan / Silver Armor",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "ch1:756",
+        "axe": "ch1:754",
+        "bow": "ch1:755",
+        "sword": "ch1:757",
+        "staff": "ch1:758",
+        "polearm": "ch1:759"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 100218,
+      "label": "Classic · Black Hair / Blue",
+      "body_pixels": 81,
+      "weapons": {
+        "unarmed": "joy-ex:668",
+        "axe": "joy-ex:666",
+        "bow": "joy-ex:667",
+        "sword": "joy-ex:669",
+        "staff": "joy-ex:670",
+        "polearm": "joy-ex:671"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 100481,
+      "label": "Special · Pirate / Green Hair / Steel",
+      "body_pixels": 75,
+      "weapons": {
+        "unarmed": "ch1:822",
+        "axe": "ch1:820",
+        "bow": "ch1:821",
+        "sword": "ch1:823",
+        "staff": "ch1:824",
+        "polearm": "ch1:825"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 100487,
+      "label": "Special · Pirate / Cyan Hair / Steel",
+      "body_pixels": 75,
+      "weapons": {
+        "unarmed": "ch1:828",
+        "axe": "ch1:826",
+        "bow": "ch1:827",
+        "sword": "ch1:829",
+        "staff": "ch1:830",
+        "polearm": "ch1:831"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 100493,
+      "label": "Special · Pirate / Red Hair / Steel",
+      "body_pixels": 75,
+      "weapons": {
+        "unarmed": "ch1:834",
+        "axe": "ch1:832",
+        "bow": "ch1:833",
+        "sword": "ch1:835",
+        "staff": "ch1:836",
+        "polearm": "ch1:837"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 100506,
+      "label": "Special · Pirate / Brown Hair",
+      "body_pixels": 75,
+      "weapons": {
+        "unarmed": "v3:1270",
+        "axe": "ch1:838",
+        "bow": "ch1:839",
+        "sword": "ch1:841",
+        "staff": "ch1:842",
+        "polearm": "ch1:843"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 100937,
+      "label": "Special · Pirate / Purple Hair",
+      "body_pixels": 75,
+      "weapons": {
+        "unarmed": "joy-ex:826",
+        "axe": "joy-ex:824",
+        "bow": "joy-ex:825",
+        "sword": "joy-ex:827",
+        "staff": "joy-ex:828",
+        "polearm": "joy-ex:829"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 100949,
+      "label": "Special · Pirate / Crimson Hair",
+      "body_pixels": 75,
+      "weapons": {
+        "unarmed": "joy-ex:832",
+        "axe": "joy-ex:830",
+        "bow": "joy-ex:831",
+        "sword": "joy-ex:833",
+        "staff": "joy-ex:834",
+        "polearm": "joy-ex:835"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 120386,
+      "label": "Special · Pirate Hat / Silver / Purple",
+      "body_pixels": 75,
+      "weapons": {
+        "sword": "update-ex:1915"
+      }
+    },
+    {
+      "character": 48,
+      "root": "fighters/bei",
+      "skin": 109876,
+      "label": "Special · Blue Flame Pet",
+      "body_pixels": 81,
+      "weapons": {
+        "unarmed": "puk3:819"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 100961,
+      "label": "Special · Pink Hair / Red Ribbon",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "joy-ex:838",
+        "axe": "joy-ex:836",
+        "bow": "joy-ex:837",
+        "sword": "joy-ex:839",
+        "staff": "joy-ex:840",
+        "polearm": "joy-ex:841"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 100997,
+      "label": "Special · Gray Hair / Purple Ribbon",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "joy-ex:844",
+        "axe": "joy-ex:842",
+        "bow": "joy-ex:843",
+        "sword": "joy-ex:845",
+        "staff": "joy-ex:846",
+        "polearm": "joy-ex:847"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 106708,
+      "label": "Special · Glowing Gold Sword",
+      "body_pixels": 76,
+      "weapons": {
+        "sword": "original:3224"
+      }
+    },
+    {
+      "character": 49,
+      "root": "fighters/moe",
+      "skin": 120110,
+      "label": "Special · Silver / Gold Staff",
+      "body_pixels": 76,
+      "weapons": {
+        "staff": "v3:1182"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 105798,
+      "label": "Special · Blond / Blue and Green",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "joy-ex:850",
+        "axe": "joy-ex:848",
+        "bow": "joy-ex:849",
+        "sword": "joy-ex:851",
+        "staff": "joy-ex:852",
+        "polearm": "joy-ex:853"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 106793,
+      "label": "Special · Pink Hair / Green Trim",
+      "body_pixels": 76,
+      "weapons": {
+        "unarmed": "joy-ex:63",
+        "axe": "joy-ex:61",
+        "bow": "joy-ex:62",
+        "sword": "joy-ex:64",
+        "staff": "joy-ex:65",
+        "polearm": "joy-ex:66"
+      }
+    },
+    {
+      "character": 50,
+      "root": "fighters/ami",
+      "skin": 115258,
+      "label": "Special · Blue Hair / Crescent Sword Pet",
+      "body_pixels": 76,
+      "weapons": {
+        "sword": "update-ex:1913"
+      }
+    }
+  ]
+}

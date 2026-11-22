@@ -302,3 +302,10 @@ func sync_skeleton():skeleton.force_update_all_bone_transforms()
 func set_cloak(_equipped: bool,_gold: bool):pass
 func set_surge(_active: bool):pass
 func apply_skin(_id: String):pass
+
+func animate_qi_blast(delta:float,progress:float):
+	body.transform=Transform3D.IDENTITY
+	if progress<0:_sample(motion("source_12" if character_id==15 else "source_00"),0,delta);return
+	var clip=motion("source_14" if character_id==15 else "Fireball")
+	var length=animation_player.get_animation(clip).length
+	_sample(clip,qi_attack_time(progress,length*.45,length*.75),delta)

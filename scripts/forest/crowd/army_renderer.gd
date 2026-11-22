@@ -1,6 +1,16 @@
 extends Node3D
 ## One packed upload per spatial batch; no actor or skeleton node per NPC.
 const Soldier=preload("res://scripts/forest/forest_thirstquencher_visual.gd")
+const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
+const Hound=preload("res://scripts/forest/crowd/hound_sprites.gd")
+const Pets=preload("res://scripts/forest/pet_catalog.gd")
+const Winter=preload("res://scripts/forest/forest_frostpass.gd")
+const Slime=preload("res://scripts/forest/crowd/slime_sprites.gd")
+const Zombie=preload("res://scripts/forest/crowd/zombie_sprites.gd")
+const Grave=preload("res://scripts/forest/crowd/grave_sprites.gd")
+const Ruby=preload("res://scripts/forest/crowd/ruby_boss_sprites.gd")
+const Falken=preload("res://scripts/forest/crowd/falken_sprites.gd")
+const Habaru=preload("res://scripts/forest/crowd/habaru_sprites.gd")
 const CELL=256.0
 const INSTANCE_CLIPS=["idle","walk","walk_back","primary0","primary1","primary2","primary3","primary4","primary5","primary0_walk","primary1_walk","primary2_walk","primary3_walk","primary4_walk","primary5_walk","primary0_back","primary1_back","primary2_back","primary3_back","primary4_back","primary5_back","shadow_cut","jump","fall","lance_leap","lance_landing","lance_sweep","guard","guard_walk","guard_back","shot","shot_walk","shot_back","ranger_fan","ranger_fan_walk","ranger_fan_back","hurt"]
 var game:Node
@@ -23,6 +33,9 @@ var native_profiles:Dictionary={}
 func configure(owner_:Node):
  game=owner_
  for kind in preload("res://scripts/forest/forest_enemy_roles.gd").RIGID_TYPES:meshes[kind]=Soldier.make_mesh(kind)
+ meshes[Roles.GATEKEEPER_HOUND]=Pets.make_mesh(Pets.sanitized(game.settings.forest_pet_loadout))
+ meshes[Roles.CAVE_BEAR]=preload("res://scripts/forest/crowd/habaru_sprites.gd").make_mesh()
+ if game.model.waves.crossgate_pet_test:meshes[Roles.SLIME]=Slime.make_mesh()
  for kind in [11,5,7,8,10,31]:
   var resource=load("res://assets/characters/ally_crowd/%d.res"%kind);resources[kind]=resource
   var profile:Dictionary=preload("res://scripts/warcraft_kit.gd").profile() if kind==31 else load("res://assets/crowd/army_kit_profiles.tres").get_meta("profiles")[kind]
@@ -50,6 +63,22 @@ func configure(owner_:Node):
  presentation=load("res://scripts/forest/crowd/army_presentation.gd").new();add_child(presentation);presentation.configure(game,meshes)
  use_native_buffers(game.army_runtime.native if game!=null and is_instance_valid(game.get("army_runtime")) else ClassDB.instantiate("GoemonCrowdRuntime"))
 func configure_profiles(data:Dictionary):
+ Pets.prepare(Pets.sanitized(game.settings.forest_pet_loadout)+Winter.creature_keys(game.model.falan_floor),presentation.corpses)
+ var cave_sprites:Script=data.get("cave_sprites")
+ if data.has("slime_attacks"):
+  var selected_mesh=(cave_sprites if cave_sprites!=null else Slime).make_mesh()
+  if meshes.get(Roles.SLIME)!=selected_mesh:
+   meshes[Roles.SLIME]=selected_mesh
+   if not presentation.corpse_batches.has(Roles.SLIME):
+    presentation.corpse_batches[Roles.SLIME]=presentation.make_batch(selected_mesh,"ArmySlimeCorpses",true)
+   else:presentation.corpse_batches[Roles.SLIME].multimesh.mesh=selected_mesh
+   for key in batches:
+    if key.x==Roles.SLIME:batches[key].multimesh.mesh=selected_mesh
+ presentation.cave_sprites=cave_sprites
+ if cave_sprites==preload("res://scripts/forest/crowd/undersea_sprites.gd"):presentation.prepare_undersea()
+ for node in batches.values()+presentation.corpse_batches.values()+presentation.batches.values():Hound.apply_world_scale(node,game.model)
+ if data.get("zombie_boss",false) or data.get("grave_boss",false) or data.get("ruby_boss",false) or data.get("habaru_bears",false):presentation.prepare_zombie_warning()
+ if data.get("ruby_boss",false) or data.get("falken_boss",false) or data.get("cursed_guardian",0)>0:presentation.prepare_zombie_warning();presentation.prepare_ruby()
  presentation.enemy_size=float(data.get("enemy_size",1.0))
  presentation.dragon_scale=float(data.dragoon[9])
  for kind in preload("res://scripts/forest/forest_enemy_roles.gd").RIGID_TYPES:
@@ -103,11 +132,34 @@ func batch(key:Vector3i)->MultiMeshInstance3D:
  if batches.has(key):return batches[key]
  var node=MultiMeshInstance3D.new();node.name="Army_%d_%d_%d"%[key.x,key.y,key.z]
  node.multimesh=MultiMesh.new();node.multimesh.transform_format=MultiMesh.TRANSFORM_3D;node.multimesh.use_custom_data=true;node.multimesh.mesh=meshes[key.x]
- node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(node);batches[key]=node;return node
+ node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(node);Hound.apply_world_scale(node,game.model)
+ if key.x==Roles.SLIME:node.set_instance_shader_parameter("map_enemy_scale",Roles.MAP_ENEMY_SCALE)
+ batches[key]=node;return node
 func pose_sample(s:Dictionary,index:int)->Color:
  var kind:int=s.kinds[index];var action:int=s.render_actions[index];var time:float=s.render_time[index]
+ var ice:float=s.ice_visual[index] if s.has("ice_visual") else 0.0
+ if ice==0 and s.status[index]&1:ice=1.0
+ if kind in [Roles.GATEKEEPER_HOUND,Roles.SLIME,Roles.CAVE_BEAR]:
+  var velocity:Vector3=s.pose_velocities[index]
+  var speed=Vector2(velocity.x,velocity.z).length()
+  var attacking=action in [1,Habaru.DOUBLE_EDGE] or (kind==Roles.SLIME and (action==Zombie.DRAIN or action==Zombie.CHARGE or action==Grave.EARTH_WARNING or Ruby.spell_action(action) or Falken.spell_action(action) or action==Habaru.COUNTER))
+  var clip=2 if attacking else 3 if action==6 else 0 if speed<=.1 else 5 if speed<2 else 1
+  var flash:float=s.flash_left[index]
+  var hurt_time=0.0
+  if kind==Roles.SLIME:
+   if clip!=2 and flash>0:clip=3
+   hurt_time=maxf(0,1-flash);flash=maxf(0,.115-hurt_time)
+  if kind==Roles.SLIME and presentation.cave_sprites==preload("res://scripts/forest/crowd/cursed_maze_sprites.gd") and s.pose_rows[index]>=2 and clip==1:clip=5
+  if action==780:clip=7
+  if action==13 or action==Habaru.BRACE:clip=6
+  if kind==Roles.GATEKEEPER_HOUND and action==Habaru.DOUBLE_EDGE:clip=7
+  if s.status[index]&1:clip=3;hurt_time=s.ice_time[index] if s.has("ice_time") else 0.0
+  var coating=(.25-ice*.125 if ice<0 else ice*.125) if ice!=0 else 0.0
+  var attack_clip=clip in [2,7]
+  var enemy_guard=clip==6 and (s.status[index]&16)!=0 and s.teams[index]==0
+  return Color(s.pose_rows[index],clip+(8 if s.status[index]&1 else 0)+(s.action_indices[index]*16 if attack_clip else 0)+(256 if enemy_guard else 0)+coating,time if attack_clip or enemy_guard else (hurt_time if clip==3 else s.pose_time[index]),flash)
  if Soldier.supports(kind):
-  if s.pose_rows[index]>=0:return Color(s.pose_rows[index],1.0 if s.status[index]&1 else 0.0,0,s.flash_left[index])
+  if s.pose_rows[index]>=0:return Color(s.pose_rows[index],ice,0,s.flash_left[index])
   var clip="";var source={"variant":kind,"soldier_tick":time*30,"soldier_pose_tick":s.pose_time[index]*30,"velocity":s.pose_velocities[index],"walk_phase":s.walk_phase[index]}
   if action in [1,2,3,4,5]:
    clip={1:"Source__801b0118",2:"Source__801afd28",3:"Source__801b01e0",4:"Source__801b0d50",5:"Source__801b0e48"}[action];source.soldier_action="attack";source.soldier_clip=clip
@@ -172,19 +224,23 @@ func present(snapshot:Dictionary,_events:Array):
  var groups={};var allies=PackedInt32Array();submitted=0
  for i in snapshot.handles.size():
   var kind:int=snapshot.kinds[i]
-  if not meshes.has(kind) or (snapshot.status[i]&64 and kind!=8):continue
+  if not meshes.has(kind) or (snapshot.status[i]&64 and kind!=8) or snapshot.render_actions[i]==784:continue
   var position_:Vector3=snapshot.positions[i];var key=Vector3i(kind,floori(position_.x/CELL),floori(position_.z/CELL))
   if not groups.has(key):groups[key]=PackedInt32Array()
   groups[key].append(i);submitted+=1
-  if snapshot.teams[i]==1:allies.append(i)
+  if snapshot.teams[i]==1 and kind not in [Roles.GATEKEEPER_HOUND,Roles.CAVE_BEAR]:allies.append(i)
  for key in batches:
   if not groups.has(key):batches[key].multimesh.visible_instance_count=0;batches[key].hide()
  for key in groups:
-  var indices:PackedInt32Array=groups[key];_buffer=PackedFloat32Array();_buffer.resize(indices.size()*16);var low=Vector3.INF;var high=-Vector3.INF
+  var indices:PackedInt32Array=groups[key];_buffer=PackedFloat32Array();_buffer.resize(indices.size()*16);var low=Vector3.INF;var high=-Vector3.INF;var maximum_scale=1.0
   for row in indices.size():
-   var i=indices[row];var position_:Vector3=snapshot.positions[i];low=low.min(position_);high=high.max(position_)
-   write_instance(row,Transform3D(Basis(Vector3.UP,snapshot.yaw[i]),position_),pose_sample(snapshot,i))
-  upload(batch(key),_buffer,AABB(low-Vector3(12,4,12),high-low+Vector3(24,20,24)))
+   var i=indices[row];var position_:Vector3=snapshot.positions[i]
+   if snapshot.has("dodge_offsets"):position_+=snapshot.dodge_offsets[i]
+   low=low.min(position_);high=high.max(position_)
+   var body_scale:float=snapshot.body_scales[i] if snapshot.has("body_scales") else 1.0
+   maximum_scale=maxf(maximum_scale,body_scale)
+   write_instance(row,Transform3D(Basis(Vector3.UP,snapshot.yaw[i]).scaled(Vector3.ONE*body_scale),position_),pose_sample(snapshot,i))
+  upload(batch(key),_buffer,AABB(low-Vector3(12,4,12)*maximum_scale,high-low+Vector3(24,20,24)*maximum_scale))
  _buffer=PackedFloat32Array();_buffer.resize(allies.size()*16)
  for row in allies.size():
   var i=allies[row];write_instance(row,Transform3D(Basis.IDENTITY,snapshot.positions[i]+Vector3.UP*3.0),Color(clampf(snapshot.hp[i]/snapshot.max_hp[i],0,1),1,0,0))
@@ -206,6 +262,10 @@ func present_skullpions(snapshot:Dictionary,events:Array):
    skullpions[event.source_id].cue(event.position,event.amount)
  for id in skullpions.keys():
   if living.has(id):continue
+  var actor=game.army_runtime.enemies.get(id)
+  if is_instance_valid(actor) and actor.sequence_defeated and actor.sequence_users>0:
+   skullpions[id].effects.stop();skullpions[id].ring.hide();skullpions[id].title.hide()
+   continue
   if is_instance_valid(skullpions[id]):skullpions[id].retire()
   skullpions.erase(id)
 

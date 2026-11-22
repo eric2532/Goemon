@@ -148,7 +148,14 @@ func animate(delta:float,speed:float,_grounded:bool,_vertical:float,_attack:floa
 		blade.trail.advance(delta,blade_segment(blade) if cutting else PackedVector3Array(),cutting,false)
 		blade.original.advance(delta,physical_blade_segment(blade) if cutting else PackedVector3Array(),cutting,false)
 
-func animate_spell(_delta:float,_spell:Node):pose("Spell" if character==32 else "Spell Throw" if character==33 else "Stand Ready",0)
+func animate_spell(_delta:float,spell:Node):
+	if spell.spec.id==spell.Catalog.COMBO:
+		if spell.controller.clip=="6":pose("Stand",0);return
+		var attack=combat.form_clip("Attack -1") if character==33 else "Attack Alternate" if combat.demon else "Attack"
+		var contact=.35 if character==33 else .26 if character==32 else .33
+		pose(attack,qi_attack_time(spell.controller.combo_progress(),contact,animation_player.get_animation(attack).length))
+		return
+	pose("Spell" if character==32 else "Spell Throw" if character==33 else "Stand Ready",0)
 func _process(delta:float):
 	if is_instance_valid(combat) and combat.active and combat.mode=="dead" and not combat.game.paused:
 		combat.elapsed+=delta;pose(combat.clip,combat.elapsed)
@@ -171,3 +178,11 @@ func face_glows():
 		var transform_=skeleton.get_bone_global_pose(entry.bone)
 		transform_.basis=((upright if entry.upright else facing)*entry.axes.inverse()).scaled(transform_.basis.get_scale())
 		skeleton.set_bone_global_pose_override(entry.bone,transform_,1.0,true)
+
+func animate_qi_blast(_delta:float,progress:float):
+	if progress<0:
+		pose("Stand Ready Alternate" if combat.demon else "Stand Ready",0)
+		return
+	var attack=combat.form_clip("Attack -1") if character==33 else "Attack Alternate" if combat.demon else "Attack"
+	var contact=.26 if character==32 else .33
+	pose(attack,qi_attack_time(progress,contact,contact+.16))

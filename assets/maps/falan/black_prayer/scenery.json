@@ -1,0 +1,1350 @@
+{
+  "sources": {
+    "16128": {
+      "pack": "original",
+      "row": 12756,
+      "rgba_sha256": "ee91ea4698d051ef6ab393f38a736480d5744ebb7ac17dbd19ed3a24645a71ac"
+    },
+    "16193": {
+      "pack": "original",
+      "row": 12821,
+      "rgba_sha256": "ba1206d4e669a8bd798f9b5ebcbcee79089a740e35c845e77c1ad7247b85fc1e"
+    },
+    "16130": {
+      "pack": "original",
+      "row": 12758,
+      "rgba_sha256": "46e32272dae2d777484f5f5fd0ab06ca4374a0956dffa757dce9178e050f21e2"
+    },
+    "16131": {
+      "pack": "original",
+      "row": 12759,
+      "rgba_sha256": "32b5b72f65c47b75ddce579d2cf886d00b48067e4b68c33c05af1bed49cae09c"
+    },
+    "16132": {
+      "pack": "original",
+      "row": 12760,
+      "rgba_sha256": "e71a4624ab375180b02901a33c1fd50c1037a1018e82854801b6de2c68a62544"
+    },
+    "16196": {
+      "pack": "original",
+      "row": 12824,
+      "rgba_sha256": "27985501aff018e98a26536e3775a0be6e59aa4b8a512cec82c1be7bdee9b08d"
+    },
+    "16140": {
+      "pack": "original",
+      "row": 12768,
+      "rgba_sha256": "b470d6b7f342f054f822b04382306d68b19e71cebc08f752a5f0a52e9f686f45"
+    },
+    "16204": {
+      "pack": "original",
+      "row": 12832,
+      "rgba_sha256": "9d4f7de0835f37d5320bb27ecba24ab210393475f7683f68bbd1adbc17ccd672"
+    },
+    "16205": {
+      "pack": "original",
+      "row": 12833,
+      "rgba_sha256": "ee0b52f3f309f2f5a26babba8343bb1c09d81c6f062426c896015f896f80538f"
+    },
+    "16143": {
+      "pack": "original",
+      "row": 12771,
+      "rgba_sha256": "02b43c0e88037c14ea6808b74037b27dd5aab7c081a2805588aadae0081ddfda"
+    },
+    "16079": {
+      "pack": "original",
+      "row": 12707,
+      "rgba_sha256": "d59f6bd9831648ec91c97b9222324e7166a17c5c166030c68ea60aa2384fc4ed"
+    },
+    "16080": {
+      "pack": "original",
+      "row": 12708,
+      "rgba_sha256": "6b66bfee58aaff077f83b4b7f5c9cfff6d6aaa390e6aa40d4a16c7ce8f248ab3"
+    },
+    "16464": {
+      "pack": "original",
+      "row": 12879,
+      "rgba_sha256": "129f4184725c35cb2a8ccd13f0acd7e5548da6595de3aebbcf63993a925ce0c3"
+    },
+    "16465": {
+      "pack": "original",
+      "row": 12880,
+      "rgba_sha256": "701aecbfe0e60bf1024e697e555a3f21798ea778fe114aa0ef2ee064e35d43de"
+    },
+    "16466": {
+      "pack": "original",
+      "row": 12881,
+      "rgba_sha256": "e6f8419f4e3fd5fadf7029058d5cf85139720195e9f29600efae9496dc1b9514"
+    },
+    "16218": {
+      "pack": "original",
+      "row": 12846,
+      "rgba_sha256": "9443e58057d216c09f62312bbf2b0dd5898af2f761a871c4d04ab7414bbcd894"
+    },
+    "16219": {
+      "pack": "original",
+      "row": 12847,
+      "rgba_sha256": "c2cc8dfb13739edc4a4696421619c54f26d784b5dba15b0f7be7a0ce8ccd3254"
+    },
+    "16223": {
+      "pack": "original",
+      "row": 12851,
+      "rgba_sha256": "0664871a30ff058cccf3bfe7a0604ff76d98e11a042d373873a56f33b012797c"
+    },
+    "16100": {
+      "pack": "original",
+      "row": 12728,
+      "rgba_sha256": "a51c1dd8651df4f714274337a00e690e3fe180f639ea10b5174fa810a29f9aa7"
+    },
+    "16232": {
+      "pack": "original",
+      "row": 12860,
+      "rgba_sha256": "4740f97309b47be6cf2801c63f727ae246ddad3d71796c61a7fad839da9bb075"
+    },
+    "16499": {
+      "pack": "original",
+      "row": 12914,
+      "rgba_sha256": "ebea6d0068f52982f8106481a463e66e43a4234cd4210f9c2136d0c89d5b3d3c"
+    },
+    "16115": {
+      "pack": "original",
+      "row": 12743,
+      "rgba_sha256": "a71d2cd9a891973718900b6377551f8231358e7ac56f639fe20d6934e3fbcb10"
+    },
+    "16124": {
+      "pack": "original",
+      "row": 12752,
+      "rgba_sha256": "f13b7022bed1538b2b8a0cc3d453d77cd9fdc1ea3e240f9f993534966f9e6fba"
+    }
+  },
+  "patches": {
+    "books_16079": [
+      16079,
+      [
+        [
+          41,
+          124
+        ],
+        [
+          142,
+          55
+        ],
+        [
+          142,
+          190
+        ],
+        [
+          41,
+          259
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "books_16080": [
+      16080,
+      [
+        [
+          41,
+          124
+        ],
+        [
+          142,
+          55
+        ],
+        [
+          142,
+          190
+        ],
+        [
+          41,
+          259
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "books_16143": [
+      16143,
+      [
+        [
+          41,
+          124
+        ],
+        [
+          153,
+          47
+        ],
+        [
+          153,
+          193
+        ],
+        [
+          41,
+          269
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "case_red": [
+      16080,
+      [
+        [
+          149,
+          52
+        ],
+        [
+          156,
+          47
+        ],
+        [
+          156,
+          155
+        ],
+        [
+          149,
+          160
+        ]
+      ],
+      false,
+      [
+        32,
+        96
+      ]
+    ],
+    "case_gilt": [
+      16080,
+      [
+        [
+          2,
+          103
+        ],
+        [
+          37,
+          127
+        ],
+        [
+          37,
+          138
+        ],
+        [
+          2,
+          114
+        ]
+      ],
+      false,
+      [
+        96,
+        32
+      ]
+    ],
+    "column_16464": [
+      16464,
+      [
+        [
+          4,
+          44
+        ],
+        [
+          31,
+          59
+        ],
+        [
+          31,
+          213
+        ],
+        [
+          4,
+          198
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "column_16499": [
+      16499,
+      [
+        [
+          3,
+          34
+        ],
+        [
+          30,
+          51
+        ],
+        [
+          30,
+          208
+        ],
+        [
+          3,
+          191
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "picture_16130": [
+      16130,
+      [
+        [
+          7,
+          15
+        ],
+        [
+          46,
+          42
+        ],
+        [
+          46,
+          87
+        ],
+        [
+          7,
+          60
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "picture_16131": [
+      16131,
+      [
+        [
+          6,
+          14
+        ],
+        [
+          39,
+          37
+        ],
+        [
+          39,
+          71
+        ],
+        [
+          6,
+          48
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "picture_16132": [
+      16132,
+      [
+        [
+          7,
+          15
+        ],
+        [
+          46,
+          42
+        ],
+        [
+          46,
+          87
+        ],
+        [
+          7,
+          60
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "picture_gilt": [
+      16130,
+      [
+        [
+          18,
+          18
+        ],
+        [
+          28,
+          25
+        ],
+        [
+          28,
+          26
+        ],
+        [
+          18,
+          19
+        ]
+      ],
+      false,
+      [
+        112,
+        24
+      ]
+    ],
+    "court_linen": [
+      16115,
+      [
+        [
+          5,
+          89
+        ],
+        [
+          94,
+          26
+        ],
+        [
+          121,
+          44
+        ],
+        [
+          31,
+          107
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "court_red": [
+      16140,
+      [
+        [
+          37,
+          29
+        ],
+        [
+          42,
+          26
+        ],
+        [
+          47,
+          30
+        ],
+        [
+          42,
+          33
+        ]
+      ],
+      false,
+      [
+        32,
+        32
+      ]
+    ],
+    "cabinet_face": [
+      16140,
+      [
+        [
+          25,
+          50
+        ],
+        [
+          71,
+          19
+        ],
+        [
+          71,
+          48
+        ],
+        [
+          25,
+          78
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "stool_red": [
+      16204,
+      [
+        [
+          17,
+          16
+        ],
+        [
+          30,
+          16
+        ],
+        [
+          30,
+          28
+        ],
+        [
+          17,
+          28
+        ]
+      ],
+      false,
+      [
+        32,
+        32
+      ]
+    ],
+    "stool_purple": [
+      16205,
+      [
+        [
+          17,
+          16
+        ],
+        [
+          30,
+          16
+        ],
+        [
+          30,
+          28
+        ],
+        [
+          17,
+          28
+        ]
+      ],
+      false,
+      [
+        32,
+        32
+      ]
+    ],
+    "vase_blue": [
+      16140,
+      [
+        [
+          18,
+          26
+        ],
+        [
+          26,
+          26
+        ],
+        [
+          26,
+          34
+        ],
+        [
+          18,
+          34
+        ]
+      ],
+      false,
+      [
+        32,
+        32
+      ]
+    ],
+    "chair_red": [
+      16124,
+      [
+        [
+          10,
+          38
+        ],
+        [
+          23,
+          30
+        ],
+        [
+          32,
+          36
+        ],
+        [
+          20,
+          44
+        ]
+      ],
+      false,
+      [
+        48,
+        48
+      ]
+    ],
+    "chair_ivory": [
+      16124,
+      [
+        [
+          28,
+          16
+        ],
+        [
+          29,
+          16
+        ],
+        [
+          29,
+          19
+        ],
+        [
+          28,
+          19
+        ]
+      ],
+      false,
+      [
+        24,
+        48
+      ]
+    ],
+    "plinth_green": [
+      16100,
+      [
+        [
+          9,
+          45
+        ],
+        [
+          18,
+          51
+        ],
+        [
+          18,
+          88
+        ],
+        [
+          9,
+          82
+        ]
+      ],
+      false,
+      [
+        32,
+        96
+      ]
+    ],
+    "plinth_gilt": [
+      16100,
+      [
+        [
+          6,
+          35
+        ],
+        [
+          20,
+          43
+        ],
+        [
+          20,
+          46
+        ],
+        [
+          6,
+          38
+        ]
+      ],
+      false,
+      [
+        64,
+        24
+      ]
+    ],
+    "curtain_16465": [
+      16465,
+      [
+        [
+          4,
+          137
+        ],
+        [
+          58,
+          106
+        ],
+        [
+          58,
+          230
+        ],
+        [
+          4,
+          251
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "curtain_16466": [
+      16466,
+      [
+        [
+          61,
+          174
+        ],
+        [
+          96,
+          151
+        ],
+        [
+          96,
+          284
+        ],
+        [
+          61,
+          309
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "curtain_side": [
+      16466,
+      [
+        [
+          29,
+          156
+        ],
+        [
+          59,
+          176
+        ],
+        [
+          59,
+          311
+        ],
+        [
+          29,
+          294
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "curtain_frieze_16465": [
+      16465,
+      [
+        [
+          2,
+          98
+        ],
+        [
+          83,
+          53
+        ],
+        [
+          83,
+          78
+        ],
+        [
+          2,
+          124
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "curtain_frieze_16466": [
+      16466,
+      [
+        [
+          63,
+          140
+        ],
+        [
+          154,
+          77
+        ],
+        [
+          154,
+          105
+        ],
+        [
+          63,
+          169
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "curtain_canopy": [
+      16466,
+      [
+        [
+          43,
+          108
+        ],
+        [
+          150,
+          35
+        ],
+        [
+          150,
+          60
+        ],
+        [
+          59,
+          126
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "armor_16193": [
+      16193,
+      [
+        [
+          52,
+          76
+        ],
+        [
+          112,
+          76
+        ],
+        [
+          112,
+          193
+        ],
+        [
+          52,
+          193
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "armor_16196": [
+      16196,
+      [
+        [
+          0,
+          135
+        ],
+        [
+          52,
+          135
+        ],
+        [
+          52,
+          252
+        ],
+        [
+          0,
+          252
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "pedestal_lacquer": [
+      16128,
+      [
+        [
+          16,
+          27
+        ],
+        [
+          18,
+          26
+        ],
+        [
+          18,
+          29
+        ],
+        [
+          16,
+          30
+        ]
+      ],
+      false,
+      [
+        24,
+        48
+      ]
+    ],
+    "pedestal_blue": [
+      16128,
+      [
+        [
+          10,
+          9
+        ],
+        [
+          14,
+          9
+        ],
+        [
+          14,
+          18
+        ],
+        [
+          10,
+          18
+        ]
+      ],
+      false,
+      [
+        32,
+        64
+      ]
+    ],
+    "pedestal_lip": [
+      16128,
+      [
+        [
+          12,
+          1
+        ],
+        [
+          15,
+          1
+        ],
+        [
+          15,
+          4
+        ],
+        [
+          12,
+          4
+        ]
+      ],
+      false,
+      [
+        24,
+        24
+      ]
+    ],
+    "mirror_glass": [
+      16223,
+      [
+        [
+          8,
+          32
+        ],
+        [
+          38,
+          12
+        ],
+        [
+          38,
+          63
+        ],
+        [
+          8,
+          83
+        ]
+      ],
+      true,
+      [
+        112,
+        112
+      ]
+    ],
+    "mirror_lacquer": [
+      16223,
+      [
+        [
+          46,
+          103
+        ],
+        [
+          49,
+          101
+        ],
+        [
+          49,
+          112
+        ],
+        [
+          46,
+          114
+        ]
+      ],
+      false,
+      [
+        32,
+        64
+      ]
+    ],
+    "mirror_vase": [
+      16223,
+      [
+        [
+          8,
+          106
+        ],
+        [
+          12,
+          104
+        ],
+        [
+          12,
+          115
+        ],
+        [
+          8,
+          117
+        ]
+      ],
+      false,
+      [
+        32,
+        64
+      ]
+    ],
+    "flower_pot_16218": [
+      16218,
+      [
+        [
+          19,
+          55
+        ],
+        [
+          24,
+          55
+        ],
+        [
+          24,
+          60
+        ],
+        [
+          19,
+          60
+        ]
+      ],
+      false,
+      [
+        48,
+        64
+      ]
+    ],
+    "flower_pot_16219": [
+      16219,
+      [
+        [
+          31,
+          51
+        ],
+        [
+          37,
+          51
+        ],
+        [
+          37,
+          57
+        ],
+        [
+          31,
+          57
+        ]
+      ],
+      false,
+      [
+        64,
+        48
+      ]
+    ],
+    "flower_pot_16232": [
+      16232,
+      [
+        [
+          34,
+          41
+        ],
+        [
+          39,
+          41
+        ],
+        [
+          39,
+          45
+        ],
+        [
+          34,
+          45
+        ]
+      ],
+      false,
+      [
+        64,
+        32
+      ]
+    ]
+  },
+  "colors": {
+    "chair_ivory": [
+      0.970857,
+      0.91216,
+      0.717681
+    ],
+    "picture_gilt": [
+      0.905971,
+      0.753589,
+      0.281807
+    ],
+    "chair_red": [
+      0.788579,
+      0.248683,
+      0.114859
+    ],
+    "armor_joint": [
+      0.093368,
+      0.101168,
+      0.070218
+    ],
+    "armor_plate": [
+      0.409041,
+      0.398667,
+      0.293007
+    ],
+    "armor_edge": [
+      0.753664,
+      0.76007,
+      0.664794
+    ],
+    "armor_shaft": [
+      0.253518,
+      0.126182,
+      0.079354
+    ],
+    "curtain_gold": [
+      0.883374,
+      0.690382,
+      0.216266
+    ]
+  },
+  "cords_rectified_pixels": {
+    "16465": [
+      [
+        64,
+        3
+      ],
+      [
+        65,
+        30
+      ],
+      [
+        67,
+        48
+      ],
+      [
+        74,
+        54
+      ],
+      [
+        82,
+        56
+      ],
+      [
+        92,
+        55
+      ],
+      [
+        104,
+        53
+      ],
+      [
+        111,
+        50
+      ]
+    ],
+    "16466": [
+      [
+        14,
+        8
+      ],
+      [
+        15,
+        30
+      ],
+      [
+        17,
+        43
+      ],
+      [
+        27,
+        49
+      ],
+      [
+        43,
+        51
+      ],
+      [
+        60,
+        52
+      ],
+      [
+        80,
+        52
+      ],
+      [
+        96,
+        50
+      ],
+      [
+        110,
+        47
+      ]
+    ]
+  },
+  "topper_crop": [
+    3,
+    0,
+    38,
+    34
+  ],
+  "bouquet_crops": {
+    "16218": [
+      [
+        0,
+        0,
+        44,
+        47
+      ]
+    ],
+    "16219": [
+      [
+        0,
+        0,
+        68,
+        47
+      ]
+    ],
+    "16232": [
+      [
+        0,
+        0,
+        64,
+        44
+      ]
+    ],
+    "16223": [
+      [
+        0,
+        70,
+        22,
+        104
+      ],
+      [
+        31,
+        68,
+        56,
+        94
+      ]
+    ]
+  },
+  "bouquet_palettes": {
+    "16218": {
+      "green": [
+        0.25233,
+        0.433284,
+        0.216544
+      ],
+      "ivory": [
+        0.930537,
+        0.880714,
+        0.622597
+      ],
+      "warm": [
+        0.664069,
+        0.318709,
+        0.199935
+      ],
+      "gold": [
+        0.762555,
+        0.63784,
+        0.341619
+      ]
+    },
+    "16219": {
+      "green": [
+        0.298776,
+        0.477982,
+        0.240345
+      ],
+      "ivory": [
+        0.861634,
+        0.835915,
+        0.723987
+      ],
+      "violet": [
+        0.583056,
+        0.382757,
+        0.877354
+      ],
+      "gold": [
+        0.698739,
+        0.579229,
+        0.304287
+      ]
+    },
+    "16232": {
+      "green": [
+        0.302973,
+        0.422696,
+        0.206557
+      ],
+      "ivory": [
+        0.888633,
+        0.761378,
+        0.67587
+      ],
+      "pink": [
+        0.874628,
+        0.547574,
+        0.471927
+      ]
+    },
+    "16223": {
+      "green": [
+        0.276759,
+        0.381401,
+        0.184429
+      ],
+      "ivory": [
+        0.921879,
+        0.865806,
+        0.693161
+      ]
+    }
+  },
+  "armor_paint": "Native body crops light the fitted solid plates; native palette materials separate ridges, fingers and articulated seams. Brown shaft pixels (R>1.4G and R>1.4B) are separated from the armor derivative before nearest native-color extension of transparent pixels. Retained opaque plate paint and archive masters stay intact. Unseen backs reuse the recovered view.",
+  "mirror_glass": "Native static reflection crop excludes the original attached flowers; the solid mirror keeps the painted reflection planar.",
+  "flowers": "Original sprite petal/leaf palettes and pot paint; 3D clusters reuse immutable Wind Meadow flower GLBs with owned vertex-color copies. Branch depth and unseen shapes are fitted.",
+  "method": "Native curtain cloth/canopy paint follows shared folded geometry; traced native cords wrap those same folds. Native friezes and small pedestal faces also supply separate bounded relief. Native column faces and framed picture art rectified without black tops; shared box/face geometry retains source placements. Native bookcase fronts rectified without black isometric tops; existing modular boxes and ledges supply depth. Blue pedestal ornaments retain original cropped pixels."
+}

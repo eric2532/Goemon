@@ -105,7 +105,7 @@ func run():
 	game.player.character_id=7;game.show_sound_studio(false)
 	var studio=game.menu.find_child("SoundStudio",true,false)
 	var picker=studio.find_child("SoundCharacter",true,false)
-	var visible_ids=lib.Roster.selection_ids()
+	var visible_ids=lib.Roster.sound_ids()
 	var actual_ids=[]
 	if picker:
 		for i in picker.item_count:actual_ids.append(picker.get_item_id(i))

@@ -1,5 +1,29 @@
 # Illustrated Kazi authoring masters
 
+The user canceled the illustrated upgrade on 2026-11-06 and requested the
+original source. Runtime Kazi and both portraits now use the untouched recovered
+assets in `assets/characters/crossgate/kazi/`. The HD runtime folder and these
+authoring masters are archived/excluded. Do not resume this workflow or select
+an illustrated revision without a new user request. The design notes below are
+historical, not authorization to reactivate the upgrade.
+
+The subsequent request for a little less pixelation authorizes only display
+smoothing of the original sprites. It does not reactivate this illustrated
+workflow or authorize another redesign.
+
+## Fixed design reference — user correction 2026-11-06
+
+Always start visual edits from the approved design, never a chain of generated
+drafts. The user's preferred slashing anatomy is preserved in
+`revisions/iai-left-hip/references/preferred-slash-proportions.png`.
+Keep its face shape, eyes, hair silhouette, coat tailoring and head/body/limb
+ratios. The user explicitly removed the green facial ink/marking; that is the
+only newly authorized design change. Sword length, left-hip carry, hand
+placement and action choreography are pose/equipment corrections, not permission
+to redesign Kazi. Rejected IAI drafts are not identity references or live assets.
+Compare every proposed sheet directly to the approved reference before packing;
+passing geometry/alpha/scale checks does not establish visual approval.
+
 The user explicitly selected the illustrated preview as the target across all
 animations. `identity-master.png` is that approved concept; `identity-long-blade.png`
 retains the requested longer, slim curved sword. `revisions/long-blade/masters/A-D.png`
@@ -38,10 +62,10 @@ original source timing/sound cues, packs shared textures and records master
 and derivative hashes. Portraits derive from the approved concept; update its
 fixed head crop if the identity master's framing changes. Review identity,
 handedness, loop seams, head/foot stability, all eight
-directions, effects and death/reaction poses. Refresh imports and test actual
+directions, effects and death/reaction poses. Test actual
 turning at identical animation phase, camera and distance; check all eight
 directions together against the shared body ruler, not just the runtime size constant.
-Refresh imports and test actual
+Refresh imports and test
 movement/attacks, cancellation, shared skills, five native allies, repeated
 use/resource growth and a rendered normal-army workload before activation.
 Do not change combat timing, damage, counts, terrain, art quality or native

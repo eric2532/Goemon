@@ -18,7 +18,7 @@ func _move_body(delta:float)->void:
  # Unchanged static ground needs no repeated CharacterBody shape casts.
  # Moving, jumping, attack impulses and changed construction use the complete
  # native controller immediately. Revalidate support at least five times/sec.
- if support_left>0 and support_position==hero.global_position and support_revision==game.model.navigation_revision and hero.is_on_floor() and hero.velocity==Vector3.ZERO and move_input==Vector3.ZERO and locomotion_velocity==Vector3.ZERO and player.vel==Vector3.ZERO and player.roll<=0 and hero.jump_buffer<=0 and not hero.can_fly() and _completed_hit_drift==Vector3.ZERO and (player.attack==null or not player.attack.get("hitDriftPending",false)) and not game.model.occupancy.has(game.model.cell_of(hero.global_position)) and absf(hero.global_position.y-game.model.surface_height(hero.global_position.x,hero.global_position.z))<.05:
+ if support_left>0 and support_position==hero.global_position and support_revision==game.model.navigation_revision and hero.is_on_floor() and hero.velocity==Vector3.ZERO and move_input==Vector3.ZERO and locomotion_velocity==Vector3.ZERO and player.vel==Vector3.ZERO and player.roll<=0 and hero.jump_buffer<=0 and not hero.can_fly() and _completed_hit_drift==Vector3.ZERO and (player.attack==null or not player.attack.get("hitDriftPending",false)) and not game.model.occupancy.has(game.model.cell_of(hero.global_position/game.model.falan_scale)) and absf(hero.global_position.y-game.world.surface_height_at(hero.global_position))<.05:
   support_left-=delta
   player.dragoonHovering=false;_restore_ranger_fall();hero.coyote=.13;hero.jumps_used=0;flip_time=-1
   return

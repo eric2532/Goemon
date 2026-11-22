@@ -81,7 +81,7 @@ func desktop_checks():
 			game.settings.forest_hud_scale=factor;ui.sync();await frames(3)
 			var rect:Rect2=ui.wave_countdown.get_global_rect()
 			check(absf(rect.get_center().x-ui.size.x*.5)<1 and rect.position.y==16,"Timer stays at the top center at %s, HUD %.2f"%[dimensions,factor])
-			check(not rect.intersects(ui.hero_dock.get_global_rect()) and not rect.intersects(ui.resource_hub.get_global_rect()),"Timer clears the character and resources at %s, HUD %.2f"%[dimensions,factor])
+			check(not rect.intersects(ui.hero_dock.get_global_rect()),"Timer clears the character at %s, HUD %.2f"%[dimensions,factor])
 			await capture("countdown-%dx%d-%.2f"%[dimensions.x,dimensions.y,factor])
 	root.size=Vector2i(1280,800);game.settings.forest_hud_scale=1.0
 	for index in range(1,5):

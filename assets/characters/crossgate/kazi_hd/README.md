@@ -1,4 +1,9 @@
-# Illustrated Kazi
+# Archived illustrated Kazi
+
+The user canceled this upgrade and restored the original Blue CG art on
+2026-11-06. The live character and portraits use `../kazi/`. This folder is
+excluded from imports/exports; do not reactivate it without a new user request.
+The notes below describe the retired illustrated implementation.
 
 Playable ID 34 uses the user's approved illustrated concept across stand, walk,
 run, attack, cast, hurt and fall in eight directions: NW, N, NE, E, SE, S, SW, W.

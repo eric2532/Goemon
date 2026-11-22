@@ -2,12 +2,14 @@ extends RefCounted
 ## Cached exported geometry shared by combat actors and model-owned arrows.
 
 const Soldier=preload("res://scripts/forest/forest_thirstquencher_visual.gd")
+const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
 static var soldier_cache: Dictionary={}
 static var cache: Dictionary={}
 static var block_cache: Dictionary={}
 static var crowd_script: Script
 static func shapes(variant: int,blocks: bool=false,size:float=1.0)->Array:
 	if Soldier.supports(variant):
+		size=Roles.size_multiplier(variant,size)
 		var key=Vector2(variant,size)
 		if not soldier_cache.has(key):
 			var bounds=Soldier.hurt_bounds(variant);bounds=AABB(bounds.position*size,bounds.size*size);var shape=BoxShape3D.new();shape.size=bounds.size
@@ -25,7 +27,7 @@ static func shapes(variant: int,blocks: bool=false,size:float=1.0)->Array:
 	if variant==4:
 		# Eight corners and six planes: rendering and every combat query share
 		# the same floor-anchored block, without loading an enemy model.
-		var size_=preload("res://scripts/forest/forest_enemy_roles.gd").BOSS_SIZE
+		var size_=Roles.BOSS_SIZE*Roles.MAP_ENEMY_SCALE
 		var bounds=AABB(Vector3(-size_.x*.5,0,-size_.z*.5),size_)
 		var points=PackedVector3Array()
 		for x in [-size_.x*.5,size_.x*.5]:

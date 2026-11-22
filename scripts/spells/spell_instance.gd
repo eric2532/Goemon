@@ -3,6 +3,8 @@ extends Node
 const Catalog=preload("res://scripts/spells/spell_catalog.gd")
 const RogueRuntime=preload("res://scripts/spells/rogue_spell_runtime.gd")
 const KnightLion=preload("res://scripts/knight_lion.gd")
+const Qigong=preload("res://scripts/qigong_combat.gd")
+const Recovery=preload("res://scripts/spells/uru_recovery.gd")
 const STATE_FIELDS=["attack_left","attack_duration","attack_heavy","attack_charged","attack_ticket","combo","hit_done","struck_targets","weapon_slot"]
 var hero:Hero
 var spec:Dictionary
@@ -15,8 +17,15 @@ var surge_owned=false
 
 func setup(caster:Hero,definition:Dictionary):
  hero=caster;spec=definition;source_id=int(spec.source)
- if spec.id=="knight/lion":
-  controller=KnightLion.new();controller.hero=hero;controller.game=hero.game;controller.spell_owner=self
+ if spec.id==Catalog.BEARS:pass
+ elif spec.id in [Catalog.RECOVERY,Catalog.SPIRIT,Catalog.MAZE_QI,"knight/lion"] or spec.source==34 and spec.method=="start_cast":
+  if spec.id==Catalog.RECOVERY:controller=Recovery.new()
+  else:controller=KnightLion.new() if spec.id=="knight/lion" else Qigong.new()
+  controller.hero=hero;controller.game=hero.game;controller.spell_owner=self
+  if controller is Qigong:
+   controller.spell_id=spec.id
+   controller.basic_attack=spec.get("basic_attack",false)
+   if spec.id not in [Qigong.ID,Qigong.MOON_ID,Qigong.SPIRIT_ID,Catalog.MAZE_QI]:controller.kind=spec.id.get_slice("/",1)
   add_child(controller);controller.active=true
  elif source_id>=3 and source_id<=12:
   controller=RogueRuntime.new();controller.spell_owner=self;add_child(controller)
@@ -35,6 +44,7 @@ func setup(caster:Hero,definition:Dictionary):
    hero.add_child(source_model)
    source_model.combat=controller
    hide_source_geometry()
+   if spec.id in [Catalog.COMBO,Catalog.BEE_FLURRY]:source_model.combo_glow.layers=1
   add_child(controller);controller.active=true
  hero_state=snapshot()
  hero_state.attack_left=0;hero_state.attack_ticket={};hero_state.struck_targets={}
@@ -48,9 +58,13 @@ func restore(values:Dictionary):
  for field in values:hero.set(field,values[field])
 
 func cast():
+ if not Catalog.weapon_compatible(spec,hero.model):return
+ if spec.id==Catalog.BEARS and (not can_cast() or not hero.spend_skill_mana(Catalog.BEARS)):return
+ if spec.id!=Catalog.COMBO:hero.attack_chain.kazi_combo_streak=0
  held=true
  var saved=snapshot();restore(hero_state);align_model()
  match spec.method:
+  "summon_cave_bears":hero.game.army_runtime.queue_cave_bears()
   "dash":hero.forward_dash.start()
   "sky":hero.sky_strike.request()
   "surge":hero.activate_surge();surge_owned=true
@@ -93,12 +107,14 @@ static func event(action:String,pressed:bool)->InputEventAction:
 
 func align_model():
  if not is_instance_valid(source_model):return
+ if spec.id in [Catalog.COMBO,Catalog.BEE_FLURRY]:source_model.scale=Vector3.ONE*hero.model.qi_blast_height()/(preload("res://scripts/character_proportions.gd").GOEMON_HEIGHT*hero.global_basis.y.length())
  source_model.position=Vector3.ZERO
  source_model.rotation=Vector3(0,atan2(-hero.facing.x,-hero.facing.z),0)
 
 func busy()->bool:
- if controller is KnightLion:return controller.is_attacking()
- if spec.method=="flight":return false
+ if spec.id==Catalog.BEARS:return false
+ if controller is KnightLion or controller is Qigong:return controller.is_attacking()
+ if spec.method=="flight" or controller is Recovery:return false
  if source_id==1:return hero.forward_dash.active if spec.method=="dash" else hero.sky_strike.active if spec.method=="sky" else false
  if controller is RogueRuntime:
   var p:Dictionary=controller.player
@@ -108,10 +124,14 @@ func busy()->bool:
  return controller.is_attacking()
 
 func step(delta:float)->bool:
+ if spec.id==Catalog.BEARS:return false
  if spec.method=="flight":return false
+ if controller is Recovery:
+  controller.tick(delta)
+  return false
  var saved=snapshot();restore(hero_state);align_model()
  var controlled=false
- if controller is KnightLion:
+ if controller is KnightLion or controller is Qigong:
   controller.tick(delta)
  elif controller is RogueRuntime:
   controlled=controller.step_spell(delta)
@@ -168,7 +188,7 @@ func strike(combat:Node):
  hero.strike(combat)
 
 func filter_damage(amount:float,direction:Vector3,projectile:bool)->float:
- if controller is KnightLion:return amount
+ if controller is KnightLion or controller is Qigong or controller is Recovery:return amount
  if controller is RogueRuntime or source_id==13:return controller.filter_damage(amount,direction,projectile)
  if source_id==17 and projectile and controller.blocks_projectile(direction):return 0
  if controller!=null and controller.protects_player():return 0
@@ -197,10 +217,14 @@ func hide_source_geometry():
  source_model.set_process(false)
 
 func can_cast()->bool:
+ if not Catalog.weapon_compatible(spec,hero.model):return false
+ if spec.id==Catalog.BEARS:return hero.hp>0 and hero.game.has_method("forest_enemy_visible") and is_instance_valid(hero.game.army_runtime) and not hero.game.army_runtime.blocked()
+ if spec.id in [Catalog.COMBO,Catalog.BEE_FLURRY]:return hero.hp>0 and hero.dodge_time<=0 and hero.is_on_floor() and not controller.is_attacking() and controller.combo_cooldown<=0
+ if controller is Recovery:return controller.cooldown<=.000001 and hero.hp>0
  if source_id==30 and spec.args[0] in [1,2,3,4] and controller.mode=="attack" and controller.move==spec.args[0]:return true
  if source_id==33:return (spec.method=="start_clap" or not controller.is_attacking()) and cooldown_remaining()<=0 and (spec.method!="start_clap" or hero.is_on_floor())
  if source_id in [31,32]:return spec.method=="toggle_immolation" or (not controller.is_attacking() and cooldown_remaining()<=0)
- if controller is KnightLion:return controller.can_cast()
+ if controller is KnightLion or controller is Qigong:return controller.can_cast()
  if source_id==19:return not controller.is_attacking() and (controller.can_homing() if spec.method=="start_homing" else hero.is_on_floor())
  if source_id in [14,15,16,17,28,29,30] and controller!=null and controller.is_attacking():return false
  if source_id==2 and spec.method not in ["activate_shield","teleport"] and not controller.available():return false
@@ -217,26 +241,33 @@ func can_cast()->bool:
  return true
 
 func cooldown_state()->Dictionary:
+ if spec.id in [Catalog.COMBO,Catalog.BEE_FLURRY]:return {"combo_cooldown":controller.combo_cooldown}
  if source_id==33:return {"bolt_cooldown":controller.bolt_cooldown,"clap_cooldown":controller.clap_cooldown}
  if source_id in [31,32]:return {"cooldown":controller.cooldown,"wind_cooldown":controller.wind_cooldown,"mirror_cooldown":controller.mirror_cooldown}
  if controller is KnightLion:return {"lion":controller.cooldown}
+ if controller is Qigong:return {"qigong":controller.cooldown}
+ if controller is Recovery:return {"recovery":controller.cooldown}
  if controller is RogueRuntime:return controller.player.cooldowns.duplicate()
  if source_id==2:return {"shield":controller.shield_cooldown}
  return {}
 
 func restore_cooldowns(values:Dictionary):
+ if spec.id in [Catalog.COMBO,Catalog.BEE_FLURRY]:controller.combo_cooldown=float(values.get("combo_cooldown",0))
  if source_id==33:
   for key in ["bolt_cooldown","clap_cooldown"]:controller.set(key,float(values.get(key,0)))
  if source_id in [31,32]:
   for key in ["cooldown","wind_cooldown","mirror_cooldown"]:controller.set(key,float(values.get(key,0)))
  if controller is KnightLion:controller.cooldown=float(values.get("lion",0))
+ elif controller is Qigong:controller.cooldown=float(values.get("qigong",0))
+ elif controller is Recovery:controller.cooldown=float(values.get("recovery",0))
  elif controller is RogueRuntime:controller.player.cooldowns.merge(values,true)
  elif source_id==2:controller.shield_cooldown=float(values.get("shield",0))
 
 func cooldown_remaining()->float:
+ if spec.id in [Catalog.COMBO,Catalog.BEE_FLURRY]:return controller.combo_cooldown
  if source_id==33:return controller.bolt_cooldown if spec.method=="start_bolt" else controller.clap_cooldown
  if source_id in [31,32]:return controller.wind_cooldown if spec.method=="start_wind" else controller.mirror_cooldown if spec.method=="start_mirrors" else controller.cooldown
- if controller is KnightLion:return controller.cooldown
+ if controller is KnightLion or controller is Qigong or controller is Recovery:return controller.cooldown
  if controller is RogueRuntime:
   var slot:String=spec.args[0] if spec.method=="action" else "cutlass"
   return float(controller.player.cooldowns.get(slot,0))

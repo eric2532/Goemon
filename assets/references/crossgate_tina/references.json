@@ -1,0 +1,258 @@
+[
+  {
+    "file": "04200_tina",
+    "path": "gmsv/data/map/04200_tina",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/04200_tina",
+    "git_blob": "e4868525d66a6f85cbc2ffd5cd4c97dc2605a189",
+    "sha256": "a3eccf776939c6c450f389d1466ca1edc56e5079afa0a2c8f8a0c97b8b042de5"
+  },
+  {
+    "file": "04201_nighttina",
+    "path": "gmsv/data/map/04201_nighttina",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/04201_nighttina",
+    "git_blob": "cd7aa9dfcab505eba3acfc8bd76477bbb7801977",
+    "sha256": "e255ae91c1c03b8b7094c567e6e7c6f53682881874517f3590b98cb27fe65a7f"
+  },
+  {
+    "file": "04206_syokuryou",
+    "path": "gmsv/data/map/04206_syokuryou",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/04206_syokuryou",
+    "git_blob": "c1f62fdacbfdd71e225cc774eb1d4091cdf3bef1",
+    "sha256": "4bd30ce1a49dc728997135791496a253ace227fbc0dcbda4e728e53b22804540"
+  },
+  {
+    "file": "04208_pub",
+    "path": "gmsv/data/map/04208_pub",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/04208_pub",
+    "git_blob": "2235d0ab0d22e78d04fb5b34db9956224df587b0",
+    "sha256": "1d074adc4d8887322e50fbcf68282672c4b72c0ff333439b7194188fff1a572e"
+  },
+  {
+    "file": "04209_pub",
+    "path": "gmsv/data/map/04209_pub",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/04209_pub",
+    "git_blob": "3c501905798e10d095803ca67bf4a36e31ba133a",
+    "sha256": "ad4fc422f6e6d6b17662c88dbd50dd4b504d32398b4ab0caba9ee12db7419dbf"
+  },
+  {
+    "file": "04210_hos",
+    "path": "gmsv/data/map/04210_hos",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/04210_hos",
+    "git_blob": "497d3ba9683d98bfe7793d7001748601c8571972",
+    "sha256": "d35bff587d854d41ad229e0f9490e984e22f201f7fe6439d6c5685021155ad36"
+  },
+  {
+    "file": "04211_hos",
+    "path": "gmsv/data/map/04211_hos",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/04211_hos",
+    "git_blob": "2cc75d94d194717329def696d363da59eed8dd6e",
+    "sha256": "214b0c27ad94a03e69e41ea3d56f7a9ce0afc9da61fac9bd70f9a35a0467a75e"
+  },
+  {
+    "file": "04212_sontyo",
+    "path": "gmsv/data/map/04212_sontyo",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/04212_sontyo",
+    "git_blob": "95455de7b2fa641086387ee7b64e64e50921db32",
+    "sha256": "6899277a5e79e199a82630650b225b96de68446b29e653210af57cbac4cc0258"
+  },
+  {
+    "file": "04213_sontyo",
+    "path": "gmsv/data/map/04213_sontyo",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/04213_sontyo",
+    "git_blob": "2d2fbaf81f080f4bdf475a9c93af02fd40817066",
+    "sha256": "c11b9b238114ed5d3e320d059c47ec95e037762f9d8de86fba0de25a9ee3b84d"
+  },
+  {
+    "file": "04214_sontyo",
+    "path": "gmsv/data/map/04214_sontyo",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/04214_sontyo",
+    "git_blob": "314ccad124a1a568a5cd28d1ef9b2a6d34afcdec",
+    "sha256": "39322fcca8c3a1c4b2dfde61c711aa7b2f7b3ac2f5c8cfa9c164b7fdf8f5550e"
+  },
+  {
+    "file": "04220_room",
+    "path": "gmsv/data/map/04220_room",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/04220_room",
+    "git_blob": "5dccdac26fa2ffe6cc727f4682856c400deed305",
+    "sha256": "6c97fa529004a7ec1ae0043c86f8a90a685e4b63b6e4e268fae536933a0a013d"
+  },
+  {
+    "file": "04221_room",
+    "path": "gmsv/data/map/04221_room",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/04221_room",
+    "git_blob": "4ed92fac2c97e16487546f2dde1d20c20787906d",
+    "sha256": "80cb683905a553a25a67233233cb33b9c4add5574c8335bb94d48b4e36074c13"
+  },
+  {
+    "file": "04222_room",
+    "path": "gmsv/data/map/04222_room",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/04222_room",
+    "git_blob": "c8a797960b5f5979b05b4a312d3e9a124ee95cb0",
+    "sha256": "cc1bf59c2d5ab9e6c86b856f86d3af3777242dd69ed6bac27548d22cf3715eb4"
+  },
+  {
+    "file": "04230_nightpub",
+    "path": "gmsv/data/map/04230_nightpub",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/04230_nightpub",
+    "git_blob": "821a35e06c96c7ceb6bc373dbca86edfd1650fc8",
+    "sha256": "2be6f18dcb88fa94c7dbee368571d745f58b8b31f02103ff872a2943b796ce75"
+  },
+  {
+    "file": "04232_nightgateroom",
+    "path": "gmsv/data/map/04232_nightgateroom",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/04232_nightgateroom",
+    "git_blob": "7ceab721c5b8b8fd84b2451cedd8f26af55c1ef5",
+    "sha256": "381bc5c9f980762cfd23503e0b3a68988bf109147b8ee3a384c5a020c475d000"
+  },
+  {
+    "file": "04299_gateroom",
+    "path": "gmsv/data/map/04299_gateroom",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/04299_gateroom",
+    "git_blob": "d7ba7bb872dbab0cc7b50d3fb8c35dc1d708dd25",
+    "sha256": "adadcf23dd5eb782ec7e9972796fa63f8f9355d111c26161f274ae918e03f1ce"
+  },
+  {
+    "file": "14017_viking2",
+    "path": "gmsv/data/map/14017_viking2",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/14017_viking2",
+    "git_blob": "60a2205532c44f929c6afd9422fd79c3bbb4d2ce",
+    "sha256": "44e9486b42de35e3b3d2c7a3e1d5a780a214b8538fb7d67fa7e76ae6f733beff",
+    "map_id": 14017
+  },
+  {
+    "file": "14018_vikingB6",
+    "path": "gmsv/data/map/14018_vikingB6",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/14018_vikingB6",
+    "git_blob": "616eb30ca9754c1ee87871975a813345799cee08",
+    "sha256": "886c7252bfeaadf76d5d1d546ff9db54eac6d7affbb68664262e12b6cc123220",
+    "map_id": 14018
+  },
+  {
+    "file": "14019_vikingB5",
+    "path": "gmsv/data/map/14019_vikingB5",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/14019_vikingB5",
+    "git_blob": "61e5cb1ff62c93e246c588c68b0ce311eacfdbd2",
+    "sha256": "3ce6a4bb5fdbaccb90e96ed874289838c5bd7d44bc6916f2f7fbe89fd57a8187",
+    "map_id": 14019
+  },
+  {
+    "file": "14020_vikingB4",
+    "path": "gmsv/data/map/14020_vikingB4",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/14020_vikingB4",
+    "git_blob": "c357b9e3cd0ea56939bb1c4a555a48e023787a15",
+    "sha256": "14ed1300757646278c11adc4319aff75ddb1ac8e623c210ed3bc2cb6a1144e4a",
+    "map_id": 14020
+  },
+  {
+    "file": "14021_vikingB3",
+    "path": "gmsv/data/map/14021_vikingB3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/14021_vikingB3",
+    "git_blob": "a97b58b8428ea48668b50969f06066cb3b36cc0f",
+    "sha256": "b1e77ca2a6a1098f31484b9a833adb1a8f7da133e355a05f53130624803d127b",
+    "map_id": 14021
+  },
+  {
+    "file": "14022_vikingB2",
+    "path": "gmsv/data/map/14022_vikingB2",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/14022_vikingB2",
+    "git_blob": "97138513757cf257ccfa8e596017a0050fca6b82",
+    "sha256": "e2cf1f107051c22d29c077b657691e3119b0f3ef50b3ae7e1be053359c7406bc",
+    "map_id": 14022
+  },
+  {
+    "file": "14023_vikingB1",
+    "path": "gmsv/data/map/14023_vikingB1",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/14023_vikingB1",
+    "git_blob": "0cda0cb3ed615435292894ac22fc738619d26bf1",
+    "sha256": "78d013b1345a48ef0bb01969c66aa1276eafcd04516c3a8ac8a31c5125d9e4d8",
+    "map_id": 14023
+  },
+  {
+    "file": "14024_vikingboss",
+    "path": "gmsv/data/map/14024_vikingboss",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/14024_vikingboss",
+    "git_blob": "f85ac89fc401cfc25e72527496f59062863d1c9a",
+    "sha256": "81104a460a8801a9f761bc070e86d9b7635602df781abfe00b2a68f492487575",
+    "map_id": 14024
+  },
+  {
+    "file": "14025_vikingF1",
+    "path": "gmsv/data/map/14025_vikingF1",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/14025_vikingF1",
+    "git_blob": "5f95e61e9253231653ce8d560c46d13ca6c8eef4",
+    "sha256": "65d502b9e12efb148383899a333c630acab99f3a40f067e874128a8c38ba1cdd",
+    "map_id": 14025
+  },
+  {
+    "file": "14036_vikingboss2",
+    "path": "gmsv/data/map/14036_vikingboss2",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/14036_vikingboss2",
+    "git_blob": "d538d4c27145dc181d77794212e2b3f41ea2e85c",
+    "sha256": "f5127f08055e8a02dc85a201440d012bc7eaa85e94f96225bbd49fe889fb6b71",
+    "map_id": 14036
+  },
+  {
+    "file": "14037_vikingboss3",
+    "path": "gmsv/data/map/14037_vikingboss3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/14037_vikingboss3",
+    "git_blob": "568a541895bd1489ada2d10622db8f8afe9e8304",
+    "sha256": "31a33404b606ec1d9b6ab51f99a93ceb166e37f861002052e146a2db602fd64f",
+    "map_id": 14037
+  },
+  {
+    "file": "14038_vikingboss4",
+    "path": "gmsv/data/map/14038_vikingboss4",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/14038_vikingboss4",
+    "git_blob": "e897ca61e133004f08315a63679e5ecd2b1e0d0c",
+    "sha256": "d66fc26edded926c91b1c8393578e93ebdc3a56149d8f5ac8759f01f18ef1ee2",
+    "map_id": 14038
+  },
+  {
+    "file": "14039_viking",
+    "path": "gmsv/data/map/14039_viking",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/14039_viking",
+    "git_blob": "9ebe39fdf151cc41d4ef34fc931b0935377c80f0",
+    "sha256": "a49970b7d2f86468751dcf4303e0223f2c5e34384860e0bb865c6864b1e87b94",
+    "map_id": 14039
+  },
+  {
+    "file": "32181_tw",
+    "path": "gmsv/data/map/tw_32181",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/tw_32181",
+    "git_blob": "90375a8aa83d6332ee1dde432e0ccf608c69518a",
+    "sha256": "1f877b470fdb767672c89b7fe2a3ea75d94904d541dd2df2d46e829b20a5a93f",
+    "map_id": 32181
+  },
+  {
+    "file": "32183_tw",
+    "path": "gmsv/data/map/tw_32183",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/tw_32183",
+    "git_blob": "9588c22ca49b1cb92c6b9458494e79d6481f3b86",
+    "sha256": "8dd911318655527eb4118d5660847cb29f44d8613852f8ac8a71c9bac226a2ac",
+    "map_id": 32183
+  },
+  {
+    "file": "32193_tw",
+    "path": "gmsv/data/map/tw_32193",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/tw_32193",
+    "git_blob": "fa413cdfcb55d6592ea04d655f57bee48c306f76",
+    "sha256": "e8cb022d533f3619dffcf066d742ffa17326af59f19a773562dd35cbabdca682",
+    "map_id": 32193
+  },
+  {
+    "file": "32194_tw",
+    "path": "gmsv/data/map/tw_32194",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/tw_32194",
+    "git_blob": "7c1c2b0e444e13f2517de221313061d57ab4f835",
+    "sha256": "ca6ecead1db5bbd7186a7f4c51c4f2f6022927bba62f9db24b56389ee1a642df",
+    "map_id": 32194
+  },
+  {
+    "file": "01850_apartment_A",
+    "map_id": 1850,
+    "path": "gmsv/data/map/01850_apartment_A",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/01850_apartment_A",
+    "git_blob": "e3928ef2b0126b0f3000209057f31093901c9b50",
+    "sha256": "fb9f306d5d428e608c821f4ff6894562d83dbc855ef2e8d21187c0aeaf67ad52"
+  }
+]

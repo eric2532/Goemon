@@ -19,20 +19,22 @@ func run():
 	var m=game.model;var p=game.player
 	check(m.buildings.values().all(func(b):return b.kind!="mine") and m.deposits.is_empty(),"Playable saved maps contain no gold mines or deposits")
 	check(not game.forest_ui.build_bar.get_children().any(func(b):return "Gold mine" in b.text),"The build menu does not offer mines")
-	check("kills pay automatically" in game.forest_ui.gold_count.tooltip_text,"The treasury tooltip describes automatic rewards")
 	check(m.get("ryo")!=null,"The live run owns the bounty ledger")
 	if m.get("ryo")==null:await finish();return
 	game.start_wave();m.waves.spawn_clock=10000;game.set_physics_process(false);p.set_physics_process(false)
 	p.position=Vector3(0,.15,60)
 	var gold=m.gold
 	var victim=m.waves.spawn_enemy(0,Vector3(0,0,68))
+	game.sync_enemies()
 	m.damage_enemy(victim.id,100000)
 	check(m.gold==gold+12 and m.ryo.drops.is_empty(),"A real model kill immediately credits twelve ryo without loot")
 	game.sync_enemies();await frames()
 	check(m.gold==gold+12,"Actor synchronization cannot duplicate the kill bounty")
 	for i in range(20):game._tick_ryo(.05)
 	check(m.gold==gold+12 and m.ryo.pending_bounty_total==0,"HUD feedback drains without paying twice")
-	var distant=m.waves.spawn_enemy(3,Vector3(100,0,100));m.damage_enemy(distant.id,100000)
+	var distant=m.waves.spawn_enemy(3,Vector3(100,0,100))
+	game.sync_enemies()
+	m.damage_enemy(distant.id,100000)
 	check(m.gold==gold+24,"Distant kills pay immediately without a collector")
 	game.show_pause();game._tick_ryo(1)
 	check(m.gold==gold+24,"Pause preserves the paid balance")
@@ -42,7 +44,7 @@ func run():
 	# A lingering player projectile still rewards the kill without reviving the player.
 	var target=m.waves.spawn_enemy(0,Vector3(0,0,68));game.sync_enemies();await frames()
 	p.invuln=0;p.hp=1;game.tuning.invincible=false;p.take_hit(100000,Vector3.RIGHT)
-	game.actors[target.id].take_hit(100000,Vector3.FORWARD,false,{})
+	game.actors[target.id].take_hit(100000,Vector3.FORWARD,false,{"projectile":true})
 	check(p.hp<=0 and game.respawn_left>0,"A kill during respawn cannot heal the dead player back to life")
 	check(m.gold==gold+36 and m.ryo.drops.is_empty(),"Player-attributed damage credits exactly one bounty during respawn")
 	game._tick_ryo(1)

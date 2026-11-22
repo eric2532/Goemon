@@ -4,6 +4,7 @@
 #include <cmath>
 #include <cstring>
 #include <iostream>
+#include <limits>
 #include <queue>
 #include <random>
 namespace army {
@@ -14,6 +15,7 @@ struct NavigationCacheTest {
     assert(x.heights.size()==y.heights.size()&&!std::memcmp(x.heights.data(),y.heights.data(),x.heights.size()*sizeof(float)));
  }
  static Vec3 actual(Terrain& t,Vec3 from,Vec3 goal,float radius,int layer){return t.waypoint(from,goal,radius,layer);}
+ static bool direct_first(Terrain& t,Vec3 from,Vec3 goal,float radius,int layer){return t.reachable(from,goal,radius,layer,false);}
  static bool exact_segment(Terrain& t,Vec3 from,Vec3 goal,float radius){
     auto spans=std::move(t.field_spans_);bool result=t.segment(from,goal,radius,0);t.field_spans_=std::move(spans);return result;
  }
@@ -30,7 +32,7 @@ struct NavigationCacheTest {
     for(int z=std::max(0,gz-2);z<=std::min(grid.nz-1,gz+2);++z)for(int x=std::max(0,gx-2);x<=std::min(grid.nx-1,gx+2);++x){
         int i=z*grid.nx+x;if(!grid.open[i])continue;
         Vec3 p{t.minimum_.x+x*STEP,grid.heights[i],t.minimum_.z+z*STEP};float distance=length(p-goal);
-        if(distance*distance<nearest&&t.segment(p,goal,radius,layer)&&t.reachable(from,p,radius,layer)){nearest=distance*distance;target=i;}
+        if(distance*distance<nearest&&t.segment(p,goal,radius,layer)&&direct_first(t,from,p,radius,layer)){nearest=distance*distance;target=i;}
     }
     if(target<0)return {NAN,0,0};
     uint32_t bits;std::memcpy(&bits,&radius,sizeof(bits));int64_t topology_id=int64_t((uint64_t(layer)<<32)|bits);
@@ -74,9 +76,31 @@ int main(){
  d.pieces={-36,30,1,0,6,24,0,24,2,7};
  Terrain t;t.configure(d);t.navigation_profile.enabled=true;
  int checks=0;auto equal=[&](Vec3 a,Vec3 b){assert((!finite(a)&&!finite(b))||(a.x==b.x&&a.y==b.y&&a.z==b.z));++checks;};
+ {
+  Terrain prepared,reference;auto map=d;
+  for(int revision=0;revision<2;++revision){
+   if(revision){map.obstacle_min.push_back({-24,-2,-24});map.obstacle_max.push_back({-12,20,24});}
+   prepared.configure(map);reference.configure(map);prepared.navigation_profile={true};
+   assert(!prepared.prepare_routes({.4f,std::numeric_limits<float>::quiet_NaN()})&&!prepared.prepare_routes({0})&&!prepared.prepare_routes({-1}));++checks;
+   assert(prepared.navigation_profile.topology_builds==0);++checks;
+   assert(prepared.prepare_routes({.4f,3.9f,7.8f}));++checks;
+   assert(prepared.navigation_profile.topology_builds==(revision?0:3));++checks;
+   prepared.navigation_profile={true};
+   assert(prepared.prepare_routes({.4f,3.9f,7.8f,.4f}));++checks;
+   for(float radius:{.4f,3.9f,7.8f}){
+    NavigationCacheTest::same_grid(prepared,reference,radius,0);++checks;
+    for(float z:{-30.f,0.f,30.f}){
+     Vec3 from{-48,float(prepared.height(-48,z)),z},goal{48,float(prepared.height(48,z)),z};
+     assert(prepared.reachable(from,goal,radius,0)==reference.reachable(from,goal,radius,0));++checks;
+     equal(NavigationCacheTest::actual(prepared,from,goal,radius,0),NavigationCacheTest::actual(reference,from,goal,radius,0));
+    }
+   }
+   assert(prepared.navigation_profile.topology_builds==0);++checks;
+  }
+ }
  auto query=[&](Vec3 from,Vec3 goal,float radius,int layer){auto expected=NavigationCacheTest::reference(t,from,goal,radius,layer);equal(NavigationCacheTest::actual(t,from,goal,radius,layer),expected);equal(NavigationCacheTest::actual(t,from,goal,radius,layer),expected);};
  std::mt19937 rng(71022);std::uniform_real_distribution<float> pos(-54,54);
- for(int i=0;i<1600;++i){int layer=i%7==0?1:0;float radius=i%2?.4f:3.9f;Vec3 from{pos(rng),0,pos(rng)},goal{pos(rng),0,pos(rng)};from.y=float(t.height(from.x,from.z,layer));goal.y=float(t.height(goal.x,goal.z,layer));if(!finite(from)||!finite(goal))continue;query(from,goal,radius,layer);}
+ for(int i=0;i<1600;++i){int layer=i%7==0?1:0;float radius=i%2?.4f:3.9f;Vec3 from{pos(rng),0,pos(rng)},goal{pos(rng),0,pos(rng)};from.y=float(t.height(from.x,from.z,layer));goal.y=float(t.height(goal.x,goal.z,layer));if(!finite(from)||!finite(goal))continue;assert(t.reachable(from,goal,radius,layer)==NavigationCacheTest::direct_first(t,from,goal,radius,layer));++checks;query(from,goal,radius,layer);}
  // Adjacent representable roots, radii, support layers and goal cells are distinct.
  for(int layer:{0,1})for(float radius:{.4f,3.9f})for(float x:{-24.0f,std::nextafter(-24.0f,0.0f),-23.99f})for(float gx:{24.0f,24.01f,30.0f})query({x,float(t.height(x,-12,layer)),-12},{gx,float(t.height(gx,12,layer)),12},radius,layer);
  for(int i=0;i<1100;++i)query({-48,0,-48},{-42,0,-48},.4f,0);
@@ -104,7 +128,7 @@ int main(){
   if(update==5){d.covered[18*41+18]=0;d.heights[19*41+19]+=3;}
   t.configure(d);Terrain rebuilt;rebuilt.configure(d);
   for(float radius:{.4f,3.9f,12.0f,12.096f})for(int layer:{0,1}){NavigationCacheTest::same_grid(t,rebuilt,radius,layer);++checks;}
-  for(int i=0;i<30;++i){Vec3 from{pos(rng),0,pos(rng)},goal{pos(rng),0,pos(rng)};from.y=float(t.height(from.x,from.z));goal.y=float(t.height(goal.x,goal.z));if(finite(from)&&finite(goal))equal(NavigationCacheTest::actual(t,from,goal,3.9f,0),NavigationCacheTest::reference(rebuilt,from,goal,3.9f,0));}
+  for(int i=0;i<30;++i){Vec3 from{pos(rng),0,pos(rng)},goal{pos(rng),0,pos(rng)};from.y=float(t.height(from.x,from.z));goal.y=float(t.height(goal.x,goal.z));if(finite(from)&&finite(goal)){assert(t.reachable(from,goal,3.9f,0)==NavigationCacheTest::direct_first(rebuilt,from,goal,3.9f,0));++checks;equal(NavigationCacheTest::actual(t,from,goal,3.9f,0),NavigationCacheTest::reference(rebuilt,from,goal,3.9f,0));}}
  }
  // Reconfiguration covers wall collapse, replacement and terrain revisions.
  d.obstacle_min.clear();d.obstacle_max.clear();d.heights.assign(41*41,4);d.pieces.clear();t.configure(d);
@@ -134,9 +158,20 @@ int main(){
  auto before_segments=reference_goal.navigation_profile.segments,after_segments=ordered_goal.navigation_profile.segments;
  auto before_heights=reference_goal.navigation_profile.heights,after_heights=ordered_goal.navigation_profile.heights;
  equal(NavigationCacheTest::reference(reference_goal,{1,0,1},{49,0,49},.4f,0),NavigationCacheTest::actual(ordered_goal,{1,0,1},{49,0,49},.4f,0));
- assert(ordered_goal.navigation_profile.segments-after_segments<reference_goal.navigation_profile.segments-before_segments);
+ // Short local connections may outnumber the long segments they replace.
  assert(ordered_goal.navigation_profile.heights-after_heights<reference_goal.navigation_profile.heights-before_heights);
  std::cout<<"GOAL_CONNECTOR_WORK reference_segments="<<reference_goal.navigation_profile.segments-before_segments<<" ordered_segments="<<ordered_goal.navigation_profile.segments-after_segments<<" reference_heights="<<reference_goal.navigation_profile.heights-before_heights<<" ordered_heights="<<ordered_goal.navigation_profile.heights-after_heights<<"\n";
+ // Moving roots miss the exact route cache but can prove the same long route locally.
+ Vec3 far_goal{48,0,48};
+ assert(finite(NavigationCacheTest::actual(t,{-48,0,-48},far_goal,3.9f,0)));
+ auto work=t.navigation_profile.heights;
+ for(int i=0;i<60;++i)assert(NavigationCacheTest::direct_first(t,{-48+i*.05f,0,-48},far_goal,3.9f,0));
+ auto direct_work=t.navigation_profile.heights-work;
+ work=t.navigation_profile.heights;
+ for(int i=0;i<60;++i)assert(t.reachable({-48+i*.05f,0,-48},far_goal,3.9f,0));
+ auto local_work=t.navigation_profile.heights-work;
+ std::cout<<"LONG_ROUTE_HEIGHTS direct="<<direct_work<<" local="<<local_work<<"\n";
+ assert(local_work*3<direct_work);++checks;
  // Slow troops must make progress up a supported slope instead of revisiting its last waypoint.
  NavigationData slope=flat;
  for(int z=0;z<41;++z)for(int x=0;x<41;++x)slope.heights[z*41+x]=x*.9f;
@@ -177,6 +212,7 @@ int main(){
   for(int i=0;i<1000;++i){
    Vec3 a{pos(rng),0,pos(rng)},b{pos(rng),0,pos(rng)};a.y=float(t.height(a.x,a.z));b.y=float(t.height(b.x,b.z));float radius=.3f+float(i%70)*.1f;
    assert(t.segment(a,b,radius,0)==NavigationCacheTest::exact_segment(t,a,b,radius));++checks;
+   assert(t.reachable(a,b,radius,0)==NavigationCacheTest::direct_first(t,a,b,radius,0));++checks;
   }
  }
  // Ordinary 3.9-metre army bodies fit the certified neighbourhood too.

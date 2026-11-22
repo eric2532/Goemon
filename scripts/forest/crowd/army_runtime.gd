@@ -1,6 +1,14 @@
 extends Node
+const Prayer=preload("res://scripts/forest/forest_black_prayer.gd")
 ## One owner for native NPC state. The playable Hero never enters this runtime.
 const NO_TICKET={}
+const ZombieMoves=preload("res://scripts/forest/crowd/zombie_sprites.gd")
+const Captain=preload("res://scripts/forest/crowd/captain_sprites.gd")
+const Grave=preload("res://scripts/forest/crowd/grave_sprites.gd")
+const Ruby=preload("res://scripts/forest/crowd/ruby_boss_sprites.gd")
+const Freyja=preload("res://assets/maps/falan/freyja_destinations_data.gd")
+const Habaru=preload("res://scripts/forest/crowd/habaru_sprites.gd")
+const Undersea=preload("res://scripts/forest/crowd/undersea_sprites.gd")
 var native:Object
 var game_ref:WeakRef
 var actor_root:Node3D
@@ -15,6 +23,7 @@ var enemies:Dictionary={}
 var allies:Dictionary={}
 var query_actors:Dictionary={}
 var enemy_size=1.0
+var pet_geometry=PackedFloat32Array()
 var query_padding=0.0
 var query_kinds:Dictionary={}
 var tickets:Dictionary={}
@@ -63,6 +72,7 @@ func despawn(handle:int)->void:
   handles.erase(id)
   if data.team==0:_enemy_retired(id)
 func _enemy_retired(_id:int)->void:pass
+func record_pet_participation(_event:Dictionary):pass
 func valid(handle:int)->bool:return native.valid(handle)
 func snapshot()->Dictionary:return native.snapshot()
 func render_snapshot()->Dictionary:return native.render_snapshot()
@@ -134,8 +144,10 @@ func static_collision_data(world:Node)->Dictionary:
    ancestor=ancestor.get_parent()
   var transform_:Transform3D=node.global_transform
   if cached.is_empty() or cached.node.get_ref()!=node or cached.local_faces!=faces or cached.transform!=transform_ or cached.owner!=owner_id:
-   var transformed=PackedVector3Array();transformed.resize(faces.size())
-   for i in faces.size():transformed[i]=transform_*faces[i]
+   var transformed=faces
+   if transform_!=Transform3D.IDENTITY:
+    transformed=PackedVector3Array();transformed.resize(faces.size())
+    for i in faces.size():transformed[i]=transform_*faces[i]
    var owner_rows=PackedInt64Array();owner_rows.resize(faces.size()/3);owner_rows.fill(owner_id)
    cached={"node":weakref(node),"local_faces":faces,"transform":transform_,"owner":owner_id,"faces":transformed,"owners":owner_rows}
    if node.shape is BoxShape3D:cached.box_size=node.shape.size
@@ -158,17 +170,46 @@ func configure_kits(data:Dictionary)->void:
  assert(native.configure_kits(data),"Invalid NPC combat profile data")
  if enemy_size!=float(data.get("enemy_size",1.0)):query_kinds.clear();query_padding=0.0
  enemy_size=float(data.get("enemy_size",1.0))
+ pet_geometry=data.get("pet_geometry",PackedFloat32Array())
 func unit_state(handle:int)->Dictionary:return native.unit_state(handle)
 func set_pose(handle:int,point:Vector3,yaw:float)->void:native.set_pose(handle,point,yaw)
 func enemy_target(id:int)->Ninja:
  if is_instance_valid(enemies.get(id)):
+  if enemies[id].dead and enemies[id].sequence_users>0:return null
   if enemies[id].handle==handles.get(id,0):return enemies[id]
   query_actors.erase(enemies[id].handle);enemies[id].mark_dead();enemies[id].queue_free();enemies.erase(id)
  var h:int=handles.get(id,0);var data:Dictionary=unit_state(h)
  var game:Node=game_ref.get_ref() if game_ref!=null else null
  if data.is_empty() or data.team!=0 or game==null:return null
  var actor=load("res://scripts/forest/crowd/army_enemy_target.gd").new();actor.runtime=self;actor.game=game;actor.handle=h;actor.forest_id=id;actor.variant=data.kind
- actor_root.add_child(actor);actor.sync(data);enemies[id]=actor;register_actor_facade(actor,game.model.enemies.get(id,{}));return actor
+ var row:Dictionary=game.model.enemies.get(id,{})
+ if row.has("habaru_slot"):
+  actor.body_override=Habaru.CHAMBER_BODY
+  actor.body_override.size.y=float(Habaru.motions().variants[row.skin].standing_height)
+ elif row.has("habaru_slime_slot"):
+  actor.body_override=Habaru.SLIME_BODY
+ elif row.has("venoa_bear_slot"):
+  actor.body_override=Habaru.VENOA_BOSS_BODY if row.get("skin")==Habaru.VENOA_BOSS_SKIN else Habaru.BODY
+ elif row.has("zombie_slot"):
+  actor.body_override=ZombieMoves.BODY
+ elif row.has("captain_slot"):
+  actor.body_override=Captain.BODY
+ elif row.has("grave_slot"):
+  actor.body_override=Grave.FINAL_BODY if row.skin==2 else Grave.BODY
+ elif row.has("black_prayer_slot"):
+  actor.body_override=Ruby.ESCORT_BODY
+ elif row.has("ruby_slot"):
+  actor.body_override=Ruby.BODY if row.ruby_slot==0 else Ruby.ESCORT_BODY
+ elif row.has("undersea_slot"):
+  actor.body_override=Undersea.BOSS_BODY if row.undersea_slot==0 else Undersea.BODY
+ elif row.has("frontier_patrol"):
+  var patrols=game.model.waves.patrol_source
+  actor.body_override=patrols.TREE_BODY if patrols.tree(row.skin) else patrols.BODY
+ if not pet_geometry.is_empty() and actor.variant in [19,20,21]:
+  actor.body_override=preload("res://scripts/forest/crowd/pet_dimensions.gd").bounds(pet_geometry,actor.variant,int(data.pose_row))
+ if row.has("body_scale"):
+  actor.body_override=AABB(actor.body_override.position*row.body_scale,actor.body_override.size*row.body_scale)
+ actor_root.add_child(actor);actor.sync(data);enemies[id]=actor;register_actor_facade(actor,row);return actor
 func ally_target(id:int)->Node3D:
  if is_instance_valid(allies.get(id)):
   if allies[id].handle==handles.get(id,0):return allies[id]
@@ -183,6 +224,10 @@ func ally_target(id:int)->Node3D:
 func register_actor_facade(actor:Node3D,row:Dictionary={})->bool:
  if actor is Ninja:
   query_actors[actor.handle]=actor
+  if actor.body_override.has_volume():
+   var box:AABB=actor.body_override
+   for x in [box.position.x,box.end.x]:
+    for z in [box.position.z,box.end.z]:query_padding=maxf(query_padding,Vector2(x,z).length())
   if not query_kinds.has(actor.variant):
    query_kinds[actor.variant]=true
    for item in preload("res://scripts/forest/forest_enemy_contact.gd").shapes(actor.variant,false,enemy_size):
@@ -223,7 +268,7 @@ func apply_hit(handle:int,hit:Dictionary)->Dictionary:
   var actor=table.get(before.logical_id)
   if is_instance_valid(actor):
    actor.hp=result.hp
-   if result.dead:actor.mark_dead()
+   if result.dead:actor.mark_dead(true) if actor.has_method("retain_sequence") else actor.mark_dead()
  if game_ref!=null:dispatch_events()
  return result
 func hit_target(handle:int,hit:Dictionary,ticket:Dictionary)->Dictionary:
@@ -245,9 +290,41 @@ func dispatch_events()->void:
    if collect_stats:
     event_gaps+=maxi(0,event.serial-last_event_serial-1);observed_counts[kind]=int(observed_counts.get(kind,0))+1
    last_event_serial=event.serial
+   if kind=="status" and int(event.get("action_index",0)) in [6010,6011]:
+    var moving_id=int(event.source_id) if event.action_index==6010 else int(event.target_id)
+    if moving_id==0:
+     if event.action_index==6010:game.player.timed_dodge.begin_rescue(event)
+     else:
+      game.player.move_and_collide(event.direction-game.player.global_position)
+    elif event.action_index==6010:
+     var pet_owner=get("pet_skills")
+     if pet_owner!=null:
+      for caster in pet_owner.casters.values():
+       if caster.gate_id!=moving_id:continue
+       caster.finish_cast()
+       for controller in caster.controllers.values():controller.cancel()
    if kind=="attack_started":game.model.waves.enemy_started_attack(int(event.source_id))
+   if kind=="status" and int(event.get("action_index",0)) in range(790,796) and event.get("external_kind",-1)==0:game.player.apply_cursed_affliction(int(event.action_index)-790,float(event.amount),int(event.source_id))
+   if kind=="status" and event.get("action_index")==782:game.model.waves.reinforce_decree(event.source_id)
+   if kind=="status" and event.get("action_index")==775:game.model.waves.reinforce_falken(event.source_id,int(event.amount))
    if kind=="status" and int(event.get("unit_kind",-1))==17 and int(event.get("action_index",0))==210 and game.player.combat_hold_source==int(event.source_id):game.player.combat_hold_left=maxf(game.player.combat_hold_left,float(event.amount))
-   if kind=="status" and int(event.get("action_index",0))>=400 and int(event.get("unit_kind",0))>=101:mirror_action.emit(event)
+   if kind=="status" and int(event.get("action_index",0))>=400 and int(event.get("action_index",0))!=6000 and int(event.get("action_index",0)) not in range(790,796) and int(event.get("unit_kind",0))>=101:mirror_action.emit(event)
+   if kind=="status" and event.get("unit_kind") in [ZombieMoves.ROLE,19] and event.get("action_index")==ZombieMoves.HEAL and event.get("amount",0)>0:
+    var healed=enemies.get(event.source_id)
+    if is_instance_valid(healed):healed.hp=event.hp
+    if game.model.enemies.has(event.source_id):game.model.enemies[event.source_id].hp=event.hp
+   if kind=="status" and event.get("unit_kind")==ZombieMoves.ROLE and event.get("action_index")==Grave.MAGIC_SEAL:
+    game.player.spell_loadout.seal_for(event.amount)
+    game.toast("魔封攻擊" if game.model.falan_floor==51030 else "Parukes's Ghost · Magic Seal")
+   if kind=="status" and event.get("unit_kind")==ZombieMoves.ROLE and event.get("action_index")==Ruby.CONFUSED and event.get("external_kind",-1)==0:
+    if game.player.hp<=0 or game.player.invuln>0 or game.player.crossgate_combo_protected():continue
+    if game.player.character_id==33 and game.player.active_ability.spell_immune():continue
+    game.player.confusion_left=maxf(game.player.confusion_left,event.amount)
+   if kind in ["pet_skill_started","pet_skill_contact","pet_skill_move"]:
+    var pet_owner=get("pet_skills")
+    if pet_owner!=null:pet_owner.receive(event)
+    if record_events:event_log.append(event)
+    continue
    # Most events only feed pooled visuals/audio; they need no actor or ticket.
    if kind!="damage" and kind!="death" and kind!="external_damage":
     presentation_events.append(event)
@@ -256,29 +333,114 @@ func dispatch_events()->void:
    var gameplay=kind=="damage" or kind=="death"
    var actor=(enemies.get(event.target_id) if event.team==0 else allies.get(event.target_id)) if gameplay else null
    var ticket:Dictionary=tickets.get(event.ticket_id,NO_TICKET) if gameplay else NO_TICKET
+   var quiet_contact:bool=ticket.get("quiet_contact",false)
+   if quiet_contact:event.quiet_contact=true
    match kind:
     "damage":
+     record_pet_participation(event)
      event.critical=event.get("critical",false) or ticket.get("critical",false)
+     if ticket.has("impact_scale"):event.impact_scale=ticket.impact_scale
+     if ticket.get("shin_area_impact",false):event.shin_area_impact=true
+     if ticket.has("impact_point"):event.impact_point=ticket.impact_point
+     if ticket.has("sure_strike_effect"):event.sure_strike_effect=ticket.sure_strike_effect
+     if ticket.has("combo_hit_effect"):event.combo_hit_effect=ticket.combo_hit_effect
+     if ticket.get("guard_break_ex",false):event.guard_break_ex=true
+     if ticket.has("guard_break_scale"):event.guard_break_scale=ticket.guard_break_scale
      if event.team==0 and is_instance_valid(actor):actor.set_enemy_kind(int(event.unit_kind))
      if is_instance_valid(actor):
       var data=unit_state(actor.handle)
       if data.is_empty():actor.hp=event.hp
       else:actor.sync(data)
+      if event.team==0 and event.get("action_index",0)==722:
+       event.guard_break_head=actor.combat_head()
+       event.guard_break_target=weakref(actor)
      if game.model.enemies.has(event.target_id) and event.team==0:game.model.enemies[event.target_id].hp=event.hp;game.model.enemies[event.target_id].variant=event.unit_kind
-     if not pooled_presentation and event.team==0 and event.source_id>=0 and (not ticket.get("tower",false) or ticket.get("tower_feedback",false)):
+     if not quiet_contact and not pooled_presentation and event.team==0 and event.source_id>=0 and (not ticket.get("tower",false) or ticket.get("tower_feedback",false)):
       game.damage_number(event.position,int(event.amount),event.heavy,event.critical)
     "death":
-     if is_instance_valid(actor):actor.mark_dead()
+     var pet_owner=get("pet_skills")
+     if event.team==1 and pet_owner!=null:pet_owner.retire(int(handles.get(event.target_id,0)))
+     if is_instance_valid(actor):actor.mark_dead(true) if actor.has_method("retain_sequence") else actor.mark_dead()
+     if is_instance_valid(actor) and actor.get("sequence_users")!=null and actor.sequence_users>0:event.overkill_target=weakref(actor)
      handles.erase(event.target_id)
      if event.team==0:
       _enemy_retired(event.target_id)
-      game.model.waves.enemy_defeated()
+      var row:Dictionary=game.model.enemies.get(event.target_id,{"id":event.target_id,"pos":event.position,"variant":event.unit_kind})
+      game.model.waves.enemy_defeated(row)
       preload("res://scripts/forest/forest_soldier_audio.gd").soldier_died(game,event.position,event.unit_kind)
       game.kills+=1
-      var row:Dictionary=game.model.enemies.get(event.target_id,{"id":event.target_id,"pos":event.position,"variant":event.unit_kind})
+      game.model.aggro_kills+=1
+      if row.has("habaru_slot"):
+       var tree:SceneTree=game.get_tree()
+       var slain:Dictionary=tree.get_meta("habaru_slain",{})
+       slain[row.habaru_slot]=true
+       tree.set_meta("habaru_slain",slain)
+       if slain.size()==10:game.toast("Habaru Cave cleared")
+      if row.has("habaru_slime_slot"):
+       var tree:SceneTree=game.get_tree()
+       var slain:Dictionary=tree.get_meta(Habaru.SLIME_SLAIN,{})
+       slain[row.habaru_slime_slot]=true
+       tree.set_meta(Habaru.SLIME_SLAIN,slain)
+      if row.has("venoa_bear_slot"):
+       var tree:SceneTree=game.get_tree()
+       var slain:Dictionary=tree.get_meta(Habaru.VENOA_SLAIN,{})
+       slain[row.venoa_bear_slot]=true
+       tree.set_meta(Habaru.VENOA_SLAIN,slain)
+       if row.skin==Habaru.VENOA_BOSS_SKIN:game.toast(Habaru.VENOA_BOSS_NAME+" defeated")
+      if row.has("undersea_slot"):
+       var tree:SceneTree=game.get_tree()
+       var slain:Dictionary=tree.get_meta(Undersea.SLAIN,{})
+       slain[row.undersea_slot]=true
+       tree.set_meta(Undersea.SLAIN,slain)
+       if row.undersea_slot==0:game.toast(Undersea.BOSS_NAME+" defeated")
+      if row.has("frostpass_slot"):
+       var route=preload("res://scripts/forest/forest_frostpass.gd")
+       var slain:Dictionary=get_tree().get_meta(route.SLAIN,{})
+       slain[row.frostpass_slot]=true
+       get_tree().set_meta(route.SLAIN,slain)
+      if row.has("falken_slot"):
+       var route=preload("res://scripts/forest/forest_falken_route.gd")
+       var slain:Dictionary=get_tree().get_meta(route.SLAIN,{})
+       slain[row.falken_slot]=true
+       get_tree().set_meta(route.SLAIN,slain)
+       if row.skin==0:game.toast("法爾肯已擊敗 · 可沿原路返回索奇亞")
+      if row.has("map_patrol_slot"):
+       var tree:SceneTree=game.get_tree()
+       var slain:Dictionary=tree.get_meta("map_patrol_slain",{})
+       slain[row.map_patrol_slot]=true
+       tree.set_meta("map_patrol_slain",slain)
+      if row.has("zombie_slot"):
+       var tree:SceneTree=game.get_tree()
+       var slain:Dictionary=tree.get_meta("zombie_slain",{})
+       slain[row.zombie_slot]=true
+       tree.set_meta("zombie_slain",slain)
+       if row.zombie_slot==0:game.toast("Modified Zombie defeated · Exit open")
+      if row.has("captain_slot"):
+       var tree:SceneTree=game.get_tree()
+       var slain:Dictionary=tree.get_meta(Captain.SLAIN,{})
+       slain[row.captain_slot]=true
+       tree.set_meta(Captain.SLAIN,slain)
+       if slain.size()==Freyja.CAPTAIN_FORMATION.size():game.toast("Crew defeated · Memorial open")
+      if row.get("grave_slot",-1)>=0:
+       var tree=game.get_tree()
+       var slain:Dictionary=tree.get_meta(Grave.SLAIN,{})
+       slain[row.grave_slot]=true
+       tree.set_meta(Grave.SLAIN,slain)
+       if row.grave_slot==3:game.toast("Parukes defeated · Return to Ghana")
+      if row.has("black_prayer_slot"):
+       var tree=game.get_tree()
+       var slain:Dictionary=tree.get_meta(Prayer.SLAIN,{})
+       slain[row.black_prayer_slot]=true
+       tree.set_meta(Prayer.SLAIN,slain)
+      if row.has("ruby_slot"):
+       var tree=game.get_tree()
+       var slain:Dictionary=tree.get_meta(Ruby.SLAIN,{})
+       slain[row.ruby_slot]=true
+       tree.set_meta(Ruby.SLAIN,slain)
+       if slain.size()==Freyja.RUBY_FORMATION.size():game.toast("Black Prayer cleared · Way to Fengnu's House open")
       row.hp=event.hp;game.model.ryo.award_enemy_bounty(row)
       if is_instance_valid(actor):game.remember_defeat(actor)
-      if game.has_method("award_team_kill"):game.award_team_kill(int(row.get("xp_reward_tenths",10)))
+      if game.has_method("award_team_kill"):game.award_team_kill(int(row.get("xp_reward_tenths",10)),int(event.source_id),int(event.target_id))
       if event.source_id==0 and not ticket.get("tower",false) and not ticket.get("allied",false):
        if not game.has_method("award_team_kill"):game.player.award_kill()
        if game.player.hp>0:game.player.hp=minf(game.player.max_hp,game.player.hp+9)
@@ -286,12 +448,20 @@ func dispatch_events()->void:
      match int(event.external_kind):
       0:
        var before:float=game.player.hp
-       if int(event.get("unit_kind",-1))==18 and int(event.get("action_index",0))==301 and event.amount<=0 and game.player.invuln<=0 and before>0 and not game.tuning.invincible:
-        game.player.velocity+=event.direction*24
-        if game.player.is_rogue_character():game.player.active_ability.receive_knockback(event.direction,24)
-       var magical=int(event.get("unit_kind",-1))==18 or (int(event.get("unit_kind",-1))==17 and event.projectile) or (int(event.get("unit_kind",-1))==4 and int(event.get("action_index",0)) in [103,105])
+       if int(event.get("unit_kind",-1))==18 and int(event.get("action_index",0))==301 and event.amount<=0 and game.player.invuln<=0 and before>0 and not game.tuning.invincible and not game.player.crossgate_combo_protected():
+        if not (Hero.RogueRoster.has_crossgate_throws(game.player.character_id) and game.player.active_ability.assassinating()) and not game.player.try_kagerou_dodge(event.direction):
+         game.player.velocity+=event.direction*24
+         if game.player.is_rogue_character():game.player.active_ability.receive_knockback(event.direction,24)
+       var magical=event.get("magical",false) or int(event.get("unit_kind",-1))==18 or (int(event.get("unit_kind",-1))==17 and event.projectile) or (int(event.get("unit_kind",-1))==4 and int(event.get("action_index",0)) in [103,105]) or (int(event.get("unit_kind",-1))==ZombieMoves.ROLE and (Ruby.magic_attack(int(event.get("action_index",0))) or int(event.get("action_index",0)) in [770,771,780,783]))
        if magical and game.player.character_id==33 and game.player.active_ability.spell_immune():continue
-       game.player.take_hit(event.amount,event.direction if int(event.get("unit_kind",-1))==18 and int(event.get("action_index",0))==301 else (game.player.position-event.position).normalized(),event.projectile)
+       var action:int=event.get("action_index",0)
+       if event.get("intercepted",false) and game.player.timed_dodge.rescue_left>0:game.player.timed_dodge.tick_rescue(game.player.timed_dodge.rescue_left)
+       game.player.take_hit_from(event.amount,event.direction if int(event.get("unit_kind",-1))==18 and action==301 else (game.player.position-event.position).normalized(),event.projectile,int(event.source_id),action==718 or event.get("intercepted",false),action==722,magical,action==783,event.get("intercepted",false))
+       if action==722:
+        if game.player.hp>=before:continue
+        event.position=game.player.global_position+Vector3.UP*game.player.model.standing_height()*.55
+       if event.unit_kind==ZombieMoves.ROLE and event.action_index in [ZombieMoves.DRAIN,770] and game.player.hp<before:
+        native.confirm_zombie_drain(event.ticket_id,before-game.player.hp)
        if int(event.get("unit_kind",-1))==18 and int(event.get("action_index",0))==301 and game.player.hp<before:
         game.player.velocity+=event.direction*17
         if game.player.is_rogue_character():game.player.active_ability.receive_knockback(event.direction,17)
@@ -322,11 +492,28 @@ static func navigation_data(model:RefCounted,include_obstacles:bool=true)->Dicti
   data.width=terrain.width;data.spacing=terrain.spacing;data.heights=terrain.heights;data.covered=terrain.covered
   var origin:Vector2=-terrain.coordinate(0,0)*terrain.spacing
   data.origin=Vector3(origin.x,0,origin.y)
+ var recovery=preload("res://scripts/forest/forest_original_maps.gd")
+ if model.get("falan_area")=="interior" and recovery.owns(model.falan_floor):
+  var floor_=recovery.floor_info(model.falan_floor,model.seed_value)
+  data.width=maxi(floor_[0].x,floor_[0].y)+1
+  data.origin=Vector3(floor_[1].x,0,floor_[1].y);data.spacing=3.0;data.route_spacing=3.0
+  data.heights.resize(data.width*data.width);data.covered.resize(data.width*data.width);data.covered.fill(1)
+ if model.get("falan_area")=="interior" and model.get("falan_floor")==model.FalkenArt.Route.ROOM:
+  preload("res://scripts/forest/forest_falken_dais.gd").add_navigation(data)
  # Preserve authored rampart formulae instead of rasterizing decks/ramp edges.
  for piece in terrain.pieces:
   data.pieces.append_array(PackedFloat32Array([piece.a.x,piece.a.y,piece.along.x,piece.along.y,piece.half,piece.length,piece.start,piece.end,piece.h0,piece.h1]))
  data.friendly_navigation=true;data.friendly_obstacle_min=PackedVector3Array();data.friendly_obstacle_max=PackedVector3Array()
  if include_obstacles:
+  if not model.falan_road.is_empty():
+   # Keep native enemy movement beyond the approach, including when allies draw aggro.
+   data.obstacle_min.append(Vector3(data.bounds_min.x,-100,data.bounds_min.z))
+   data.obstacle_max.append(Vector3(data.bounds_max.x,1000,model.FalanFrontier.ENEMY_EDGE))
+  if model.has_meta("cave_combat_walls"):
+   for box:AABB in model.get_meta("cave_combat_walls"):
+    data.obstacle_min.append(box.position);data.obstacle_max.append(box.end)
+    data.friendly_obstacle_min.append(box.position);data.friendly_obstacle_max.append(box.end)
+    data.ray_min.append(box.position);data.ray_max.append(box.end);data.ray_owner.append(-1)
   var profile=preload("res://scripts/forest/forest_structure_profile.gd")
   for building in model.buildings.values():
    if building.hp<=0:continue
@@ -361,4 +548,20 @@ static func navigation_data(model:RefCounted,include_obstacles:bool=true)->Dicti
    data.ray_min.append(box.position);data.ray_max.append(box.end);data.ray_owner.append(-1)
    data.obstacle_min.append(box.position);data.obstacle_max.append(box.end)
    data.friendly_obstacle_min.append(box.position);data.friendly_obstacle_max.append(box.end)
+ var scale_value=model.get("falan_scale")
+ var map_scale:float=1.0 if scale_value==null else scale_value
+ if map_scale!=1.0:
+  data.spacing*=map_scale
+  if data.has("route_spacing"):data.route_spacing*=map_scale
+  data.origin*=map_scale
+  data.bounds_min*=map_scale
+  data.bounds_max*=map_scale
+  var heights:PackedFloat32Array=data.heights.duplicate()
+  for i in heights.size():heights[i]*=map_scale
+  data.heights=heights
+  for i in range(0,data.pieces.size(),10):
+   for j in [0,1,4,5,6,7,8,9]:data.pieces[i+j]*=map_scale
+  var transform_=Transform3D(Basis.from_scale(Vector3.ONE*map_scale),Vector3.ZERO)
+  for key in ["obstacle_min","obstacle_max","friendly_obstacle_min","friendly_obstacle_max","layer_min","layer_max","ray_min","ray_max"]:
+   data[key]=transform_*data[key]
  return data

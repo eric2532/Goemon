@@ -56,8 +56,10 @@ func run():
  var serial=game.explorer_helpers.summon_serial
  for character in Catalog.Roster.PLAYABLE_IDS:
   p.select_character(character);reset_fighter();ui.sync()
-  check(loadout.numbered_slots.size()==5 and ui.loadout_buttons.size()==5,"Fighter %d has exactly five slots"%character)
-  for number in range(1,6):
+  var count=6 if Catalog.Roster.uses_crossgate_spells(character) else 5
+  var visible_count=3 if character==Catalog.Roster.SHIN_ID and p.model.shin_has_skills() else count
+  check(loadout.numbered_slots.size()==count and ui.loadout_buttons.filter(func(button):return button.visible).size()==visible_count,"Fighter %d shows %d slots"%[character,visible_count])
+  for number in range(1,count+1):
    reset_fighter();var slot:Array=loadout.numbered_slots[number-1]
    if character==19 and number==2:
     p.position.y+=5;p.velocity=Vector3.UP;p.move_and_slide()
@@ -69,10 +71,11 @@ func run():
     if p.is_rogue_character():active=active or p.active_ability.player.roll>0 or p.active_ability.player.buffTime>0 or p.active_ability.player.drink>0 or p.active_ability.player.cooldowns.roll>0
     if character==2:active=active or p.active_ability.blocks_movement() or p.active_ability.shield_left>0 or p.active_ability.beam_held
     if character==31:active=active or p.active_ability.wind_left>0
+    if character==Catalog.Roster.KAZI_ID:active=active or p.active_ability.kagerou_enabled
     if character==32:active=active or p.active_ability.immolating
     if character==18:active=p.master_chief_combat.weapon_slot==number
     check(active,"Fighter %d key %d actually starts its native ability"%[character,number])
-    check(ui.spell_summary.text.contains(slot[0]) and not ui.loadout_buttons[number-1].disabled,"Fighter %d names skill %d in the visible HUD"%[character,number])
+    check(ui.loadout_buttons[number-1].tooltip_text.contains(slot[0]) and not ui.loadout_buttons[number-1].disabled,"Fighter %d names skill %d in the slot tooltip"%[character,number])
    key(number,false,true)
    check(not loadout.held_numbers.has(number),"Fighter %d key %d releases even after Shift changes"%[character,number])
   await frames(1)
@@ -127,6 +130,10 @@ func run():
  game.show_rogue_roster()
  var picker=load("res://scripts/spells/spell_picker.gd").new();picker.game=game;game.menu.add_child(picker)
  check(picker.choices.size()==5,"Equipment exposes five editable slots")
+ for index in picker.fighter.item_count:
+  if picker.fighter.get_item_id(index)==Catalog.Roster.RUBY_ID:
+   picker.fighter.select(index);picker.refresh();break
+ check(picker.sixth_row.visible and picker.sixth_skill.text==Catalog.all()[Catalog.RECOVERY].name,"Uru's sixth spell appears as a fixed skill in equipment")
  await frames(3)
  var footer=picker.get_child(0).get_child(1)
  check(picker.get_global_rect().encloses(footer.get_global_rect()),"Equipment keeps Done and Restore fully visible")

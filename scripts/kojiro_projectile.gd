@@ -23,18 +23,21 @@ static var wind_mesh:Mesh
 static var quad_meshes={}
 static var materials:Dictionary={}
 
+static func prepared_wind_mesh()->Mesh:
+	if wind_mesh==null:
+		var source=load(ROOT+"wind.glb").instantiate()
+		var mesh=source.find_children("*","MeshInstance3D",true,false)[0].mesh
+		var arrays=mesh.surface_get_arrays(0)
+		var uv:PackedVector2Array=arrays[Mesh.ARRAY_TEX_UV]
+		for i in uv.size():uv[i]=(uv[i]-Vector2(.25,.25))*4
+		arrays[Mesh.ARRAY_TEX_UV]=uv
+		wind_mesh=ArrayMesh.new();wind_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays);source.free()
+	return wind_mesh
+
 func _ready():
 	visual=MeshInstance3D.new();add_child(visual)
 	if kind=="wind":
-		if wind_mesh==null:
-			var source=load(ROOT+"wind.glb").instantiate()
-			var mesh=source.find_children("*","MeshInstance3D",true,false)[0].mesh
-			var arrays=mesh.surface_get_arrays(0)
-			var uv:PackedVector2Array=arrays[Mesh.ARRAY_TEX_UV]
-			for i in uv.size():uv[i]=(uv[i]-Vector2(.25,.25))*4
-			arrays[Mesh.ARRAY_TEX_UV]=uv
-			wind_mesh=ArrayMesh.new();wind_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays);source.free()
-		visual.mesh=wind_mesh
+		visual.mesh=prepared_wind_mesh()
 	else:
 		if not quad_meshes.has(kind):
 			var quad=QuadMesh.new();quad.size=Vector2(80,64) if kind=="wave" else Vector2.ONE*(16 if kind=="spark" else 32)

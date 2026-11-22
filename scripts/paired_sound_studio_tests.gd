@@ -34,7 +34,7 @@ func run():
 	check(lib.take==null and studio.slot==move.weapon,"Changing recording layer cannot save a pending take into the wrong layer")
 	check(lib.mic==null and not lib.recording,"Browsing and adjusting paired controls keeps microphone closed")
 	var all_paired=true
-	for id in lib.Roster.selection_ids():
+	for id in lib.Roster.sound_ids():
 		if lib.moves_for(id).is_empty():continue
 		var index=studio.characters.get_item_index(id)
 		studio.characters.select(index);studio.characters.item_selected.emit(index)

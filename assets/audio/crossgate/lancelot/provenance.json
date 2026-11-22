@@ -1,0 +1,44 @@
+{
+  "sounds": {
+    "114": {
+      "file": "cgply06b1.wav",
+      "source": "/Users/eric/Desktop/Projects_Codex/Magic Power/data/crossgate/source/BlueCrossgate/bin/se/cgply06b1.wav",
+      "sha256": "73c6cd15cdf51bfc99809ae87ee6be02b6a80a7e20cb9af5070d61e006f9c8d1"
+    },
+    "116": {
+      "file": "cgply06b2.wav",
+      "source": "/Users/eric/Desktop/Projects_Codex/Magic Power/data/crossgate/source/BlueCrossgate/bin/se/cgply06b2.wav",
+      "sha256": "8ca384351e5b2ff0542d9f294a089ba0f99ff49223d41e167a19ecbfc68427dc"
+    },
+    "142": {
+      "file": "cgply16.wav",
+      "source": "/Users/eric/Desktop/Projects_Codex/Magic Power/data/crossgate/source/BlueCrossgate/bin/se/cgply16.wav",
+      "sha256": "20b6eaadb110a7381bc7dbc12a85bfe05471bf75cea2201002cf9ee2d17689c9"
+    }
+  },
+  "draw": "Original 114 at frame 5",
+  "release": "Original 10116 marker at frame 11",
+  "impact": "Prepared Cross Gate arrow contact sample 142",
+  "arrow": {
+    "pack": "original",
+    "serials": [
+      22050,
+      22051,
+      22052,
+      22053,
+      22054,
+      22055,
+      22056,
+      22057,
+      22058,
+      22059,
+      22060,
+      22061,
+      22062,
+      22063,
+      22064,
+      22065
+    ],
+    "graphic": 19119
+  }
+}

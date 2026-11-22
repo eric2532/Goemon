@@ -1,0 +1,17 @@
+{
+  "master": "revisions/iai-left-hip-v2/masters/3-3.png",
+  "stance_frames": [
+    0,
+    3
+  ],
+  "stance_sole_center_x": [
+    231,
+    166
+  ],
+  "authoring_units": 2.4819277108433737,
+  "stance_travel_meters": 1.0162145752427185,
+  "stance_phase": 0.16666666666666666,
+  "full_stride_meters": 6.097287451456311,
+  "rounded_runtime_stride": 6.1,
+  "method": "Median neutral opaque pixels in lowest five body rows; shared 166-pixel upright run reference, actual GOEMON_HEIGHT=3.2206185m. One full cycle for all views; drawn foreshortening and discrete frames approximate contact."
+}

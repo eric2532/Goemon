@@ -1,0 +1,59 @@
+{
+  "size": [
+    64,
+    116,
+    64
+  ],
+  "step": 0.1,
+  "origin": [
+    -3.2,
+    0,
+    -3.2
+  ],
+  "voxels": 33882,
+  "faces": 16160,
+  "bytes": 64640,
+  "views": {
+    "16193": 0,
+    "16194": 1.5707963267948966,
+    "16195": -1.5707963267948966,
+    "16196": 3.141592653589793
+  },
+  "method": "Largest connected intersection of all four original armor silhouettes; source-pixel relief retains the selected lance, crest and pose.",
+  "crest_anchors": {
+    "16193": {
+      "offset": -1.0076271631908307,
+      "samples": 124
+    },
+    "16194": {
+      "offset": -0.936916485072175,
+      "samples": 110
+    },
+    "16195": {
+      "offset": -0.8662058069535209,
+      "samples": 128
+    },
+    "16196": {
+      "offset": -0.7778174593052009,
+      "samples": 132
+    }
+  },
+  "grip_anchors": {
+    "16193": {
+      "offset": -0.6540737725975562,
+      "samples": 140
+    },
+    "16194": {
+      "offset": -0.7954951288348647,
+      "samples": 201
+    },
+    "16195": {
+      "offset": -0.3712310601229388,
+      "samples": 254
+    },
+    "16196": {
+      "offset": -0.35355339059327295,
+      "samples": 236
+    }
+  }
+}

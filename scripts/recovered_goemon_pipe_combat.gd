@@ -8,6 +8,7 @@ var vertices=PackedVector3Array()
 var previous_root=Transform3D.IDENTITY
 var previous_scale=1.15
 var environment_done=false
+var excluded_rids:Array[RID]=[]
 var shape=ConvexPolygonShape3D.new()
 var query=PhysicsShapeQueryParameters3D.new()
 func _init(owner_:Hero):
@@ -15,6 +16,8 @@ func _init(owner_:Hero):
 func begin():
  previous_root=hero.model.rig_visual.global_transform
  previous_scale=hero.model.pipe_visual_scale;environment_done=false
+ excluded_rids.assign([hero.get_rid()])
+ hero.attack_ticket["pipe_impact_paused"]=false
  if vertices.is_empty():
   var mesh:MeshInstance3D=hero.model.pipe.get_node("GoldPipe")
   var unique={}
@@ -88,7 +91,7 @@ func tick(from:float,until:float):
    for sample_points in [old_points,points]:
     for point in sample_points:
      for axis in PADDING_AXES:hull.append(point-origin+axis*padding)
-   shape.points=hull;query.transform=Transform3D(Basis.IDENTITY,origin);query.exclude=[hero.get_rid()]
+   shape.points=hull;query.transform=Transform3D(Basis.IDENTITY,origin);query.exclude=excluded_rids
    query.collision_mask=4
    var space=hero.get_world_3d().direct_space_state
    for hit in space.intersect_shape(query,maxi(256,hero.game.enemies.size()*25)):
@@ -98,6 +101,7 @@ func tick(from:float,until:float):
     if not _clear(point):continue
     _first_contact()
     hero.struck_targets[enemy.get_instance_id()]=true
+    excluded_rids.append(enemy.get_rid())
     var direction=(point-hero.global_position).normalized()
     var amount=(48 if hero.attack_heavy else (30 if stage==3 else 22))*hero.damage_multiplier()
     enemy.take_hit(amount,direction,hero.attack_heavy or stage==3,hero.attack_ticket)

@@ -68,8 +68,32 @@ int main(int argc,char** argv){
     bool crossed=false;
     for(const auto& u:c.snapshot())if(u.position.z<0)crossed=true;
     assert(crossed);
+    setup(c);c.set_navigation({});hero.foot={0,0,0};c.combat.set_targets({hero});
+    auto clear_runner=c.spawn(1,0,0,{8,0,8},192,1.3f);
+    c.spawn(2,0,0,{0,0,8},192,1.3f);
+    auto blocked_runner=c.spawn(3,0,0,{0,0,8.9f},192,1.3f);
+    ticks(c,1);
+    const auto clear_speed=length(c.unit(clear_runner)->velocity);
+    const auto lateral_speed=std::abs(c.unit(blocked_runner)->velocity.x);
+    std::cout<<"SIDESTEP clear_speed="<<clear_speed<<" crowded_lateral_speed="<<lateral_speed<<std::endl;
+    assert(std::abs(clear_speed-4.32f)<.001f);
+    assert(lateral_speed>clear_speed && "Only the crowded runner should get a quick lateral step");
+    // A crowded charge should spread around a player and still land real hits.
+    setup(c);c.set_navigation({});hero.foot={0,0,0};c.combat.set_targets({hero});
+    for(int i=0;i<20;++i)c.spawn(i+1,0,0,{0,0,6+i*.9f},192,1.3f);
+    hits=attackers(c,1200,0);
+    const auto settled=c.snapshot();
+    int overlaps=0;
+    for(size_t i=0;i<settled.size();++i)for(size_t j=0;j<i;++j)
+        if(length(settled[i].position-settled[j].position)<1.3f)++overlaps;
+    std::cout<<"PLAYER_CHARGE attackers="<<hits.size()<<" deep_overlaps="<<overlaps<<std::endl;
+    assert(hits.size()==20);
+    assert(overlaps<=95 && "A crowded charge must avoid at least half the possible deep overlaps");
     // Both lane shoulders must yield at a narrow corridor, without new flows.
     Terrain t;NavigationData narrow;narrow.origin={-30,0,-30};narrow.obstacle_min={{-30,0,-25},{2,0,-25}};narrow.obstacle_max={{-2,10,25},{30,10,25}};t.configure(narrow);
+    int layer=0;bool routing=false;
+    Vec3 safe=t.move({0,0,20},{0,0,-20},4,1.f/60,1.3f,layer,routing,{},0,{60,0,0});
+    assert(safe.x==0&&safe.z<20&&t.clear(safe,1.3f,layer));
     for(float lane:{-3.0f,3.0f}){Vec3 p{0,0,20};int layer=0;bool routing=false;
         for(int i=0;i<1200;++i){p=t.move(p,{0,0,-20},4,1.0f/60,1.3f,layer,routing,{},lane);assert(t.clear(p,1.3f,layer));}
         assert(p.z<-19 && "Lane preference must not jam a narrow passage");

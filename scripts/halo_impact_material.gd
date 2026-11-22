@@ -26,7 +26,7 @@ static func resolve(hit:Dictionary,target:Ninja=null)->String:
   if node.has_meta("halo_ground_model") and hit.get("position") is Vector3:
    var model=node.get_meta("halo_ground_model")
    if is_instance_valid(model):
-    var p:Vector3=hit.position
+    var p:Vector3=hit.position/model.falan_scale
     if model.terrain.has_method("bridge_at") and model.terrain.bridge_at(p.x,p.z):return "wood"
     if model.roads.has(model.cell_of(p)):return "dirt"
   var face_index=int(hit.get("face_index",-1))

@@ -1,0 +1,305 @@
+{
+  "graphics": {
+    "10413": {
+      "pack": "original",
+      "row": 7560,
+      "rgba_sha256": "023bf9c34757ba63f043a33f1ca618ef6e553646ac1b79bf0c98f42c5598281a"
+    },
+    "10415": {
+      "pack": "original",
+      "row": 7562,
+      "rgba_sha256": "8acdfb244a0081bb66955de73986500aed438fba51b27ff69b6997d0cf85acad"
+    },
+    "10416": {
+      "pack": "original",
+      "row": 7563,
+      "rgba_sha256": "0f040d6b4c66d5c166e087a59aa37b0263573c4acc2849f0d01450d63e759a85"
+    },
+    "10417": {
+      "pack": "original",
+      "row": 7625,
+      "rgba_sha256": "8fc5e0fc6d1f0dc762e62e7aa61f09a88bda9378d4b6a379efef55b1dfe393f7"
+    },
+    "10419": {
+      "pack": "original",
+      "row": 7564,
+      "rgba_sha256": "6458a214e45e49eaa24f2e01a951c23f26e63e78a86d893e6625e9d0907c5c02"
+    },
+    "11496": {
+      "pack": "original",
+      "row": 8225,
+      "rgba_sha256": "b81ea92395c8bfd8ff75e41a2d2ea8e00464baa34752cdc31202eae9b43ae685"
+    },
+    "11497": {
+      "pack": "original",
+      "row": 8226,
+      "rgba_sha256": "f46904fda5d35ff706e9054e6961ae59794cf96a2643e0f7503fd102b955af24"
+    },
+    "10426": {
+      "pack": "original",
+      "row": 7629,
+      "rgba_sha256": "27e8e3f59186d0c3ab2a2025df6ea9f19dbcbc185e9707687ea21baf43bec41e"
+    },
+    "10427": {
+      "pack": "original",
+      "row": 7630,
+      "rgba_sha256": "46024a3955134b22caf12caefe551e44629c6e2aa8fe35396c3861a19fa5c044"
+    },
+    "10452": {
+      "pack": "original",
+      "row": 7653,
+      "rgba_sha256": "7e16e96fcf5f435e120b4b0750fd0c3c4887616f2d1c94527839c77ce746cbbd"
+    },
+    "10453": {
+      "pack": "original",
+      "row": 7654,
+      "rgba_sha256": "4d52d0de58057824f6cb898e9ea866eb526fc2f8ab1c706d9d414ce6ed9fe6b9"
+    }
+  },
+  "patches": {
+    "notice_10413": [
+      10413,
+      [
+        [
+          0,
+          14
+        ],
+        [
+          29,
+          31
+        ],
+        [
+          29,
+          49
+        ],
+        [
+          0,
+          32
+        ]
+      ],
+      true,
+      [
+        112,
+        65
+      ]
+    ],
+    "notice_10415": [
+      10415,
+      [
+        [
+          7,
+          14
+        ],
+        [
+          31,
+          29
+        ],
+        [
+          31,
+          62
+        ],
+        [
+          7,
+          48
+        ]
+      ],
+      true,
+      [
+        70,
+        110
+      ]
+    ],
+    "notice_10416": [
+      10416,
+      [
+        [
+          8,
+          31
+        ],
+        [
+          32,
+          16
+        ],
+        [
+          32,
+          48
+        ],
+        [
+          8,
+          63
+        ]
+      ],
+      true,
+      [
+        70,
+        110
+      ]
+    ],
+    "notice_11496": [
+      11496,
+      [
+        [
+          0,
+          -10
+        ],
+        [
+          64,
+          30
+        ],
+        [
+          64,
+          58
+        ],
+        [
+          0,
+          18
+        ]
+      ],
+      true,
+      [
+        112,
+        42
+      ]
+    ],
+    "notice_11497": [
+      11497,
+      [
+        [
+          0,
+          29
+        ],
+        [
+          60,
+          -9
+        ],
+        [
+          60,
+          18
+        ],
+        [
+          0,
+          56
+        ]
+      ],
+      true,
+      [
+        112,
+        42
+      ]
+    ],
+    "stone": [
+      10426,
+      [
+        [
+          8,
+          44
+        ],
+        [
+          20,
+          51
+        ],
+        [
+          20,
+          59
+        ],
+        [
+          8,
+          52
+        ]
+      ],
+      false,
+      [
+        44,
+        30
+      ]
+    ]
+  },
+  "planters": {
+    "10426": [
+      [
+        [
+          2,
+          57
+        ],
+        [
+          22,
+          71
+        ],
+        [
+          52,
+          49
+        ],
+        [
+          32,
+          35
+        ]
+      ],
+      26
+    ],
+    "10427": [
+      [
+        [
+          2,
+          45
+        ],
+        [
+          22,
+          59
+        ],
+        [
+          52,
+          37
+        ],
+        [
+          32,
+          23
+        ]
+      ],
+      14
+    ],
+    "10452": [
+      [
+        [
+          2,
+          48
+        ],
+        [
+          33,
+          70
+        ],
+        [
+          53,
+          55
+        ],
+        [
+          22,
+          33
+        ]
+      ],
+      26
+    ],
+    "10453": [
+      [
+        [
+          2,
+          36
+        ],
+        [
+          33,
+          58
+        ],
+        [
+          53,
+          43
+        ],
+        [
+          22,
+          21
+        ]
+      ],
+      14
+    ]
+  },
+  "foliage_mask": "Native green/cyan pixels; RGB values preserved; no repainted leaves",
+  "method": "Rectified native faces on solid 3D props; no translated or repainted lettering."
+}

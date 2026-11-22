@@ -1,0 +1,900 @@
+{
+  "snapshot_sha256": "8babbe4ad20e4e1e2a6992ecf086d47ef3527426879699f83fa2cebb1a476afe",
+  "level": 5,
+  "clips": {
+    "110054": {
+      "frames": 11,
+      "columns": 8,
+      "width": 120,
+      "height": 214,
+      "duration": 650,
+      "bounds": [
+        -57,
+        -102,
+        63,
+        112
+      ],
+      "sha256": "319372e16e348479c4fead7ed75e7d9b96c967b9d0e6b648fed83089f78a5c04",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110054.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110026": {
+      "frames": 15,
+      "columns": 8,
+      "width": 96,
+      "height": 162,
+      "duration": 510,
+      "bounds": [
+        -48,
+        -116,
+        48,
+        46
+      ],
+      "sha256": "fe4c91f0fd420dac8569f6fa827bf5063209ac4e22b8f0ab329f0a6fe2b4a93f",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110026.png",
+      "hit_ms": [
+        340.0
+      ],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 264
+        },
+        {
+          "at_ms": 204.0,
+          "id": 115
+        },
+        {
+          "at_ms": 340.0,
+          "id": 116
+        }
+      ]
+    },
+    "110038": {
+      "frames": 11,
+      "columns": 8,
+      "width": 69,
+      "height": 68,
+      "duration": 374,
+      "bounds": [
+        -31,
+        -39,
+        38,
+        29
+      ],
+      "sha256": "3e327bcb1e3c2b339df84a0e9af66afd0e48dc1b022a717183c31a2b0f417f41",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110038.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110039": {
+      "frames": 11,
+      "columns": 8,
+      "width": 52,
+      "height": 56,
+      "duration": 374,
+      "bounds": [
+        -24,
+        -26,
+        28,
+        30
+      ],
+      "sha256": "37e4e932fcd52939583f6fa3340b9af0426b6c89e194ea9ad1315e07ddbbfbcd",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110039.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110040": {
+      "frames": 11,
+      "columns": 8,
+      "width": 62,
+      "height": 59,
+      "duration": 374,
+      "bounds": [
+        -31,
+        -29,
+        31,
+        30
+      ],
+      "sha256": "7a52dc6758149c0d596549059bc3086e4fa1b4ee5359dcbf8979ff930231f33b",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110040.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110083": {
+      "frames": 7,
+      "columns": 7,
+      "width": 44,
+      "height": 167,
+      "duration": 357,
+      "bounds": [
+        -19,
+        -154,
+        25,
+        13
+      ],
+      "sha256": "0634c7fa047ae9347c12ce786823fc71c6f6e33f7837d94ff992e9cd719670e8",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110083.png",
+      "hit_ms": [],
+      "sounds": []
+    },
+    "110087": {
+      "frames": 46,
+      "columns": 8,
+      "width": 69,
+      "height": 155,
+      "duration": 1598,
+      "bounds": [
+        -33,
+        -139,
+        36,
+        16
+      ],
+      "sha256": "d35267baa60dbd1b02018f25b4ded4b19fc272a9475157d4fdad3739e3ae17e4",
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/110087.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 278
+        }
+      ]
+    },
+    "110178": {
+      "frames": 20,
+      "columns": 8,
+      "width": 75,
+      "height": 71,
+      "duration": 680,
+      "bounds": [
+        -36,
+        -37,
+        39,
+        34
+      ],
+      "sha256": "975e500e4c9eacf1db7118139d147af53a11d49985f8fffd4783de4bab565e9d",
+      "runtime_path": "res://assets/characters/crossgate/skill_tiers/110178.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 291
+        }
+      ]
+    },
+    "110109": {
+      "frames": 7,
+      "columns": 7,
+      "width": 89,
+      "height": 110,
+      "duration": 833,
+      "bounds": [
+        -44,
+        -60,
+        45,
+        50
+      ],
+      "sha256": "0c5b5e14b29285618d0a8cfb690badc3196997db85168bda659c01dfce85d9a4",
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/110109.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 285
+        }
+      ]
+    },
+    "110113": {
+      "frames": 7,
+      "columns": 7,
+      "width": 89,
+      "height": 110,
+      "duration": 833,
+      "bounds": [
+        -44,
+        -60,
+        45,
+        50
+      ],
+      "sha256": "3788f547b8e3691b81d3a5c7095ac243cb7575dc0c18a1c5551f275d998469be",
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/110113.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 285
+        }
+      ]
+    },
+    "110117": {
+      "frames": 14,
+      "columns": 8,
+      "width": 144,
+      "height": 148,
+      "duration": 476,
+      "bounds": [
+        -73,
+        -76,
+        71,
+        72
+      ],
+      "sha256": "1f145c5fc2619e0b44d8342d719e3d16c0d91daca83d004f0a8dc4cc141f29f0",
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/110117.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 271
+        }
+      ]
+    },
+    "110121": {
+      "frames": 14,
+      "columns": 8,
+      "width": 144,
+      "height": 148,
+      "duration": 476,
+      "bounds": [
+        -73,
+        -76,
+        71,
+        72
+      ],
+      "sha256": "1313f87fc1a74e3ae6c912e6977b102aecf214125a866e3034143b5673d9775c",
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/110121.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 271
+        }
+      ]
+    },
+    "110125": {
+      "frames": 10,
+      "columns": 8,
+      "width": 80,
+      "height": 113,
+      "duration": 510,
+      "bounds": [
+        -39,
+        -58,
+        41,
+        55
+      ],
+      "sha256": "1fd0a6e9182a8f63197fe9fff3063eedd220a6fc270e63c3abea9324bb122f59",
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/110125.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 286
+        }
+      ]
+    },
+    "110129": {
+      "frames": 10,
+      "columns": 8,
+      "width": 80,
+      "height": 113,
+      "duration": 510,
+      "bounds": [
+        -39,
+        -58,
+        41,
+        55
+      ],
+      "sha256": "d5e3e933cb4aceb1525ae714a3758ccce29e59d2b9b42f55ee13dbf3233d0de1",
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/110129.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 286
+        }
+      ]
+    },
+    "110163": {
+      "frames": 6,
+      "columns": 6,
+      "width": 76,
+      "height": 71,
+      "duration": 918,
+      "bounds": [
+        -36,
+        -78,
+        40,
+        -7
+      ],
+      "sha256": "6082051ba87cbf928c10aae7cf94c7812a3c305b625642906a6e765d7e0ac227",
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/110163.png",
+      "hit_ms": [],
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 276
+        }
+      ]
+    },
+    "110098": {
+      "frames": 4,
+      "columns": 4,
+      "width": 104,
+      "height": 114,
+      "duration": 400,
+      "bounds": [
+        -52,
+        -57,
+        52,
+        57
+      ],
+      "sha256": "3caaa755f490e5335f66caf3eb1b07bb6f31b65085dce2df76216a0a5acbe668",
+      "reference_body_pixels": 85,
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/110098.png",
+      "hit_ms": [],
+      "sounds": []
+    }
+  },
+  "sounds": {
+    "264": {
+      "runtime_path": "res://assets/audio/crossgate/kazi/cgefc13.wav",
+      "sha256": "dc1c5f234d300ab24867a7eb835b70ca7dea589bbd00750bb0bf07c291e18bb4"
+    },
+    "115": {
+      "runtime_path": "res://assets/audio/crossgate/special_skins/cgply06a2.wav",
+      "sha256": "b2cca14878e0be8ee336366ae3b4594ece49af23d332b315e4a94691c36c766a"
+    },
+    "116": {
+      "runtime_path": "res://assets/audio/crossgate/lancelot/cgply06b2.wav",
+      "sha256": "8ca384351e5b2ff0542d9f294a089ba0f99ff49223d41e167a19ecbfc68427dc"
+    },
+    "278": {
+      "runtime_path": "res://assets/audio/crossgate/ruby/cgefc27.wav",
+      "sha256": "633459b895c4ca6594fd520ea0861888d431fbc9276af97066ac1d7e45276d5f"
+    },
+    "291": {
+      "runtime_path": "res://assets/audio/crossgate/ruby/cgefc38.wav",
+      "sha256": "55eec01b79911be07214fddd97367cd9bd850c7756372e983dc98578d501831a"
+    },
+    "285": {
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/cgefc34.wav",
+      "sha256": "56bb231e900d7e20fe61bf50dc0bfde8b0e061c69d1d6b2b5d83a3a84b688074"
+    },
+    "271": {
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/cgefc20.wav",
+      "sha256": "bfac39cf274c495d7b9e574056649afac4f994e528e3bfbb5470f0baaf95a806"
+    },
+    "286": {
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/cgefc35.wav",
+      "sha256": "3fdb1af333ff88021c23008da9273ef6cbd1336d119c1b23d62360054ce6d5a4"
+    },
+    "276": {
+      "runtime_path": "res://assets/characters/crossgate/black_prayer/spells/cgefc25.wav",
+      "sha256": "e4f7c30f422b032e282eae130054d38b749201a5f661ac438b07927690346365"
+    },
+    "131": {
+      "runtime_path": "res://assets/audio/crossgate/kazi/cgply10a.wav",
+      "sha256": "732704efc243e1719059d2690958dda57218831799407f2b3d0407f1806d11f6"
+    },
+    "132": {
+      "runtime_path": "res://assets/audio/crossgate/kazi/cgply10b.wav",
+      "sha256": "50d6db3e270e7c737ee37ea827580b965c9e46c790a03d942808c1ff9027a09e"
+    },
+    "261": {
+      "runtime_path": "res://assets/audio/crossgate/ruby/cgefc10.wav",
+      "sha256": "b534a6c9d73fbf1f884f5c19a4ca9980a30e94b53c31ccaca63733c6ffda5cd9"
+    },
+    "262": {
+      "runtime_path": "res://assets/audio/crossgate/kazi/cgefc11.wav",
+      "sha256": "b2602f997a97680e8bb9edd54bff34a2e11e1355f5c5799d25c63d127e8e16d0"
+    }
+  },
+  "tech_rows": {
+    "850": "圣盾E1\tTECH_SpecialGuard\tAS:0,RS:50,RE:100,\t850\t100830\t8\t50\t1\t72\t\t\t0\t0\t\t",
+    "2704": "超强陨石魔法LV5\tTECH_Attack_Magic\tAR:147,\t2704\t130027\t27\t5\t1\t317\t\t\t200\t1\t\t",
+    "2804": "超强冰冻魔法LV5\tTECH_Attack_Magic\tAR:147,\t2804\t130028\t28\t5\t1\t317\t\t\t200\t1\t\t",
+    "4804": "超强混乱魔法LV5\tTECH_StatusChange\tSR:26,CH:4,\t4804\t130048\t48\t5\t1\t317\t\t\t200\t1\t\t",
+    "5504": "攻击反弹LV5\tTECH_Reflection_Physics\tD1:3,D2:5,RS:0,RE:0,\t5504\t130055\t55\t5\t1\t93\t\t\t120\t1\t\t",
+    "5604": "魔法反弹LV5\tTECH_Reflection_Magic\tD1:3,D2:5,RS:0,RE:0,\t5604\t130056\t56\t5\t1\t93\t\t\t120\t1\t\t",
+    "5704": "攻击吸收LV5\tTECH_Absorb_Physics\tD1:3,D2:5,RS:0,RE:0,\t5704\t130057\t57\t5\t1\t93\t\t\t120\t1\t\t",
+    "5804": "魔法吸收LV5\tTECH_Absorb_Magic\tD1:3,D2:5,RS:0,RE:0,\t5804\t130058\t58\t5\t1\t93\t\t\t120\t1\t\t",
+    "5904": "攻击无效LV5\tTECH_Ineffective_Physics\tD1:3,D2:5,CH:2,\t5904\t130059\t59\t5\t1\t93\t\t\t120\t1\t\t",
+    "6004": "魔法无效LV5\tTECH_Ineffective_Magic\tD1:3,D2:5,CH:2,\t6004\t130060\t60\t5\t1\t93\t\t\t120\t1\t\t",
+    "6104": "补血魔法LV5\tTECH_Heal_Magic\tAR:300,\t6104\t130061\t61\t5\t1\t93\t\t\t150\t1\t\t",
+    "6204": "强力补血魔法LV5\tTECH_Heal_Magic\tAR:180,\t6204\t130062\t62\t5\t1\t157\t\t\t180\t1\t\t",
+    "6404": "恢复魔法LV5\tTECH_LpRecovery\tRR:100,CH:6,\t6404\t130064\t64\t5\t1\t93\t\t\t150\t1\t\t",
+    "6550": "强力恢复魔法E1\tTECH_LpRecovery\tRR:50,CH:10,\t6550\t130065\t65\t50\t1\t157\t\t\t180\t0\t\t"
+  },
+  "enemy_rows": {
+    "enemy.txt": "露比\tat:10;1;1|gu:1|es:1|wa:0;0;0;0;0;0;0;\t260092\t3002\t50\t50\t1\t1\t11017\t0\t-1\t0\t0\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1\t1\t0\t0\t0",
+    "enemybase.txt": "露比\t3002\t50\t5\t9\t100\t10\t10\t50\t150\t100\t2\t100\t10\t10\t50\t50\t50\t50\t100\t100\t100\t100\t100\t100\t0\t3\t10\t10\t10\t100654\t100\t0\t\t\t0\t7300\t7400\t7830\t\t\t\t\t\t\t",
+    "enemyai.txt": "11017\t8\t26\t26\t26\t0\t0\t0\t0\t\t0\t0\t2\t2\t2\t41\t43\t43\t43\t\t0\t6204\t4804\t2704\t2804\t6550\t5704\t5904\t5504\t\t850\t80\t50\t50\t50\t50\t40\t50\t60\t\t100"
+  },
+  "ward_contacts": {
+    "754": "110117",
+    "755": "110121",
+    "756": "110109",
+    "757": "110113",
+    "758": "110125",
+    "759": "110129"
+  },
+  "confusion": "110163",
+  "holy_shield": "110098",
+  "holy_factory_sha256": "20de1d7360b42cff18361603a8083590a8d67819c4552374c667ce5c1c774fbe",
+  "effect_factory_sha256": "9cac75801cfcc6880d0edd1c2bd9e4978514482d424cf6a165c660ccf0781cb5",
+  "native_clips": {
+    "110109": {
+      "key": "original:3089",
+      "frames": [
+        [
+          17165,
+          0,
+          0,
+          285
+        ],
+        [
+          17166,
+          0,
+          0,
+          0
+        ],
+        [
+          17167,
+          0,
+          0,
+          0
+        ],
+        [
+          17168,
+          0,
+          0,
+          0
+        ],
+        [
+          17169,
+          0,
+          0,
+          0
+        ],
+        [
+          17170,
+          0,
+          0,
+          0
+        ],
+        [
+          17171,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110113": {
+      "key": "original:3093",
+      "frames": [
+        [
+          15867,
+          0,
+          0,
+          285
+        ],
+        [
+          15868,
+          0,
+          0,
+          0
+        ],
+        [
+          15869,
+          0,
+          0,
+          0
+        ],
+        [
+          15870,
+          0,
+          0,
+          0
+        ],
+        [
+          15872,
+          0,
+          0,
+          0
+        ],
+        [
+          15871,
+          0,
+          0,
+          0
+        ],
+        [
+          15873,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110117": {
+      "key": "original:3097",
+      "frames": [
+        [
+          17462,
+          0,
+          0,
+          271
+        ],
+        [
+          17462,
+          0,
+          0,
+          0
+        ],
+        [
+          17463,
+          0,
+          0,
+          0
+        ],
+        [
+          17463,
+          0,
+          0,
+          0
+        ],
+        [
+          17464,
+          0,
+          0,
+          0
+        ],
+        [
+          17464,
+          0,
+          0,
+          0
+        ],
+        [
+          17465,
+          0,
+          0,
+          0
+        ],
+        [
+          17465,
+          0,
+          0,
+          0
+        ],
+        [
+          17466,
+          0,
+          0,
+          0
+        ],
+        [
+          17466,
+          0,
+          0,
+          0
+        ],
+        [
+          17467,
+          0,
+          0,
+          0
+        ],
+        [
+          17467,
+          0,
+          0,
+          0
+        ],
+        [
+          17468,
+          0,
+          0,
+          0
+        ],
+        [
+          17468,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110121": {
+      "key": "original:3101",
+      "frames": [
+        [
+          17469,
+          0,
+          0,
+          271
+        ],
+        [
+          17469,
+          0,
+          0,
+          0
+        ],
+        [
+          17470,
+          0,
+          0,
+          0
+        ],
+        [
+          17470,
+          0,
+          0,
+          0
+        ],
+        [
+          17471,
+          0,
+          0,
+          0
+        ],
+        [
+          17471,
+          0,
+          0,
+          0
+        ],
+        [
+          17472,
+          0,
+          0,
+          0
+        ],
+        [
+          17472,
+          0,
+          0,
+          0
+        ],
+        [
+          17473,
+          0,
+          0,
+          0
+        ],
+        [
+          17473,
+          0,
+          0,
+          0
+        ],
+        [
+          17474,
+          0,
+          0,
+          0
+        ],
+        [
+          17474,
+          0,
+          0,
+          0
+        ],
+        [
+          17475,
+          0,
+          0,
+          0
+        ],
+        [
+          17475,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110125": {
+      "key": "original:3105",
+      "frames": [
+        [
+          17294,
+          0,
+          0,
+          286
+        ],
+        [
+          17295,
+          0,
+          0,
+          0
+        ],
+        [
+          17296,
+          0,
+          0,
+          0
+        ],
+        [
+          17297,
+          0,
+          0,
+          0
+        ],
+        [
+          17298,
+          0,
+          0,
+          0
+        ],
+        [
+          17299,
+          0,
+          0,
+          0
+        ],
+        [
+          17300,
+          0,
+          0,
+          0
+        ],
+        [
+          17301,
+          0,
+          0,
+          0
+        ],
+        [
+          17302,
+          0,
+          0,
+          0
+        ],
+        [
+          17303,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110129": {
+      "key": "original:3109",
+      "frames": [
+        [
+          17304,
+          0,
+          0,
+          286
+        ],
+        [
+          17305,
+          0,
+          0,
+          0
+        ],
+        [
+          17306,
+          0,
+          0,
+          0
+        ],
+        [
+          17307,
+          0,
+          0,
+          0
+        ],
+        [
+          17308,
+          0,
+          0,
+          0
+        ],
+        [
+          17309,
+          0,
+          0,
+          0
+        ],
+        [
+          17300,
+          0,
+          0,
+          0
+        ],
+        [
+          17301,
+          0,
+          0,
+          0
+        ],
+        [
+          17302,
+          0,
+          0,
+          0
+        ],
+        [
+          17303,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110163": {
+      "key": "original:3143",
+      "frames": [
+        [
+          15874,
+          0,
+          0,
+          276
+        ],
+        [
+          15875,
+          0,
+          0,
+          0
+        ],
+        [
+          15876,
+          0,
+          0,
+          0
+        ],
+        [
+          15877,
+          0,
+          0,
+          0
+        ],
+        [
+          15878,
+          0,
+          0,
+          0
+        ],
+        [
+          15879,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "110098": {
+      "key": "original:3078",
+      "frames": [
+        [
+          17202,
+          0,
+          0,
+          0
+        ],
+        [
+          17203,
+          0,
+          0,
+          0
+        ],
+        [
+          17204,
+          0,
+          0,
+          0
+        ],
+        [
+          17205,
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  }
+}

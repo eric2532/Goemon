@@ -1,0 +1,50 @@
+{
+  "snapshot_sha256": "8babbe4ad20e4e1e2a6992ecf086d47ef3527426879699f83fa2cebb1a476afe",
+  "source_rules_sha256": "54b5e1d9993a192c54eea0f5a154f322f167c6027392d790682857939a02e652",
+  "clips": {
+    "110065": {
+      "frames": 27,
+      "columns": 8,
+      "width": 44,
+      "height": 74,
+      "duration": 1000,
+      "bounds": [
+        -20,
+        -66,
+        24,
+        8
+      ],
+      "sha256": "ed4e9000dad961704a05ffa0862a2004b694d02e413684b9582f392f837ad6bc",
+      "runtime_path": "res://assets/characters/crossgate/falken/spells/110065.png",
+      "sounds": [
+        {
+          "at_ms": 0.0,
+          "id": 270
+        }
+      ]
+    }
+  },
+  "sounds": {
+    "270": {
+      "runtime_path": "res://assets/characters/crossgate/falken/spells/cgefc19.wav",
+      "sha256": "ee7b4c6de21df047f71dbfc9c2effbd7efc5d0e989e930b0734a617842f4c1d0"
+    }
+  },
+  "skills": {
+    "drain": {
+      "protocolType": 31,
+      "sublevel": 4,
+      "cast": "110054",
+      "targets": [
+        "110065"
+      ],
+      "targetResource": 110065,
+      "mode": "drain",
+      "glowFamily": 4,
+      "targetAlpha": 128
+    }
+  },
+  "limits": [
+    "Original Holy Shield/reflect/recovery art reuses the shared Ruby spell pool. Instant death uses the original common cast and victim death gesture; its unique target artwork is unverified. Real-time cadence and maze generation are fitted."
+  ]
+}

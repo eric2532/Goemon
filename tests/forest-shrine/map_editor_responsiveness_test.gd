@@ -168,6 +168,7 @@ func document_checks():
  var staffed=Model.new();staffed.reset(42,{},tower_doc.data,false)
  var tower_id=staffed.occupancy[Vector2i(20,20)];var guard=staffed.workers.values().filter(func(w):return w.job==tower_id)
  check(guard.is_empty(),"An editor tower starts autonomous without consuming a worker")
+ staffed.workforce.recruit(true)
  var old_guard:Dictionary=staffed.workers.values()[0];staffed.workforce.release_job(old_guard)
  old_guard.job=tower_id;old_guard.state="garrison";old_guard.pos=staffed.center(staffed.buildings[tower_id])
  staffed.update_editor_buildings(doc.data)

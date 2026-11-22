@@ -68,7 +68,8 @@ func run():
 	check(p.is_on_floor(),"Shared player movement grounds Kojiro")
 	game.forest_ui.sync()
 	check(game.forest_ui.hero_name.text=="Kojiro" and game.forest_ui.hero_portrait.texture==p.RogueRoster.portrait(28),"HUD shows Kojiro’s own name and portrait")
-	check(game.forest_ui.spell_summary.text.contains("Homing") and game.forest_ui.spell_summary.text.contains("Wind"),"Default skills are visible in the shared HUD")
+	var slot_tips=game.forest_ui.loadout_buttons.map(func(button):return button.tooltip_text)
+	check(slot_tips.any(func(tip):return "Homing" in tip) and slot_tips.any(func(tip):return "Wind" in tip),"Numbered slots retain the default skill tooltips")
 	await capture("idle")
 	model.clock=100;model.move_clock=0
 	model.animate(.1,7,true,0,0,false,0,false)

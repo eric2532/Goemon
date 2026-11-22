@@ -30,6 +30,9 @@ class ChargedActionsTest(unittest.TestCase):
             self.assertEqual(normal['ribbon_descriptor'], 8)
             self.assertEqual(normal['sound_id'], '0x450')
             self.assertEqual(counter['body']['source_address'], '0x800d552c')
+            self.assertEqual([(e['tick'], e['word']) for e in counter['body']['events']
+                              if e['word'] in ('0x12', '0x13')],
+                             [(0, '0x13'), (1, '0x12'), (19, '0x13')])
             self.assertEqual(counter['counter_window_source_ticks'], 8)
             self.assertEqual(counter['effect_spawn_tick'], 11)
             self.assertEqual(counter['ribbon_descriptor'], 7)

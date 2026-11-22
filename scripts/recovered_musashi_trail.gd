@@ -82,15 +82,22 @@ func advance_model(delta:float,model,combat):
   var sample_time=maxf(0,combat.elapsed-source_clock/30.0)
   var pair=pose_segment(key,sample_time,model.rig_visual.global_transform)
   var effect_scale=preload("res://scripts/weapon_proportions.gd").RECOVERED_SKILL_SCALE if key in ["rotation","rotation_end","counter"] else 1.0
+  effect_scale*=combat.skill_factor("size")
   if pair.size()==2:pair[0]=pair[1]+(pair[0]-pair[1])*effect_scale
-  source_tick(pair,model.rig_visual.global_basis.get_scale().x*.01*effect_scale,combat.is_attacking())
-func source_tick(pair:PackedVector3Array,source_unit:float,owner_active:bool=true):
+  source_tick(pair,model.rig_visual.global_basis.get_scale().x*.01*effect_scale,combat.is_attacking(),combat.hero.global_position,combat.blade_reach(combat.hero.attack_heavy)*combat.skill_factor("size"))
+static func wave_segment(pair:PackedVector3Array,origin:Vector3,reach:float)->PackedVector3Array:
+ if pair.size()!=2:return pair
+ var segment=preload("res://scripts/recovered_leader_trail.gd").extend_to_reach(PackedVector3Array([pair[1],pair[0]]),origin,reach)
+ return PackedVector3Array([segment[1],segment[0]])
+func sample(outer:Vector3,inner:Vector3,origin:Vector3,reach:float)->Dictionary:
+ return {"outer":outer,"inner":inner,"wave_outer":wave_segment(PackedVector3Array([outer,inner]),origin,reach)[0]}
+func source_tick(pair:PackedVector3Array,source_unit:float,owner_active:bool=true,origin:Vector3=Vector3.ZERO,reach:float=0.0):
  if action.is_empty():return
  if not owner_active:fading=true
  if not seeded and fading:_clear_current();return
  if not seeded:
   delay_ticks-=1
-  if delay_ticks<=0 and pair.size()==2:samples.append({'outer':pair[0],'inner':pair[1]});seeded=true
+  if delay_ticks<=0 and pair.size()==2:samples.append(sample(pair[0],pair[1],origin,reach));seeded=true
   return
  if not fading:
   record_ticks-=1
@@ -99,7 +106,7 @@ func source_tick(pair:PackedVector3Array,source_unit:float,owner_active:bool=tru
    var old=samples.back();var inner=(old.inner+pair[1])*.5
    var outer=(old.outer+pair[0])*.5
    outer=inner+(outer-inner).normalized()*(4096.0/length_divisor)*source_unit
-   samples.append({'outer':outer,'inner':inner});samples.append({'outer':pair[0],'inner':pair[1]})
+   samples.append(sample(outer,inner,origin,reach));samples.append(sample(pair[0],pair[1],origin,reach))
    while samples.size()>16:samples.pop_front()
  if fading:
   brightness-=16
@@ -132,7 +139,7 @@ func _draw():
  original_trail.material_override.set_shader_parameter("energy",.42 if is_instance_valid(actor) and actor.game.settings.get("reduced_flashes",false) else 1.0)
  var poses=[]
  for age in samples.size():
-  var sample=samples[samples.size()-1-age];poses.append([sample.inner,sample.outer])
+  var sample=samples[samples.size()-1-age];poses.append([sample.inner,sample.wave_outer])
  var arrays=preload("res://assets/rogue/scripts/magic_sword_brush.gd").surface_arrays(poses)
  var colors=PackedColorArray()
  for uv in arrays[Mesh.ARRAY_TEX_UV]:colors.append(palette[floori(uv.x*(samples.size()-1))][0])

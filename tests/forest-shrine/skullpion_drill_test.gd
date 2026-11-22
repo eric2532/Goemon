@@ -25,7 +25,7 @@ func run():
  DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(DRILL_OUT))
  var hashes={}
  for path in INPUTS:hashes[path]=FileAccess.get_sha256("res://"+path)
- var map=preload("res://scripts/forest/forest_map_document.gd").new();map.load_wind_meadow()
+ var map=preload("res://tests/forest-shrine/reference/map_document.gd").new();map.load_valley()
  await setup_fixture(map.data)
  if DisplayServer.get_name()!="headless":
   DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_ALWAYS_ON_TOP,true);DisplayServer.window_move_to_foreground()

@@ -1,0 +1,1 @@
+These pilots were superseded by the user correction: iaijutsu cut right from the LEFT hip, then pull/slash right-to-left; sword held at LEFT hip throughout running. The attack pilot is retained only as the user-preferred anatomy reference. Neither pilot was activated.

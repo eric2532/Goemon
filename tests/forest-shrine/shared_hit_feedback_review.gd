@@ -39,16 +39,20 @@ func run():
  runtime=game.army_runtime
  driver=load("res://tests/forest-shrine/physics_step_driver.gd").new();root.add_child(driver)
  game.ui.hide()
- game.camera_rig.camera.position=ORIGIN+Vector3(0,3,8)
- game.camera_rig.camera.look_at(ORIGIN+Vector3(0,1,-4))
+ game.camera_rig.camera.position=ORIGIN+Vector3(6,3,7)
+ game.camera_rig.camera.look_at(ORIGIN+Vector3(0,1,-2))
  game.impact_confirmed.connect(func(_victim,_strength,_duration):damage_events+=1)
  var cases=[]
- for id in [1,5,7,8,9,10]:
+ for spec in [[1,1.0,0],[1,1.0,100],[1,1.6,100],[5,1.0,0],[7,1.0,0],[8,1.0,0],[9,1.0,0],[10,1.0,0]]:
+  var id:int=spec[0]
   game.player.select_character(id);fresh()
+  game.update_character_tuning(id,"critical_chance",spec[2])
+  game.update_character_tuning(id,"model_scale",spec[1])
   runtime.clear();runtime.set_navigation(7000+id,{"width":0});game.actors.clear();game.enemies.clear();game.model.enemies.clear()
   game.crowd.army.presentation.clear()
-  for i in 12:
-   var row=game.model.waves.spawn_enemy(0,ORIGIN+Vector3((i%4-1.5)*.8,0,-2-floori(i/4)*2.0))
+  for i in (1 if id==1 else 12):
+   var offset=Vector3(0,0,-2) if id==1 else Vector3((i%4-1.5)*.8,0,-2-floori(i/4)*2.0)
+   var row=game.model.waves.spawn_enemy(0,ORIGIN+offset)
    row.hp=100000;row.max_hp=100000
   runtime.import_arrivals();runtime.sync_targets();game.model.update_vision(ORIGIN)
   await advance(2)
@@ -57,20 +61,24 @@ func run():
   for i in 120:
    await advance(1)
    if first_contact<0 and damage_events>before:first_contact=i
-   if not photographed and first_contact>=0 and i>=first_contact+2 and DisplayServer.get_name()!="headless":
-    if id==1:
-     var presentation=game.crowd.army.presentation
-     check(presentation.effects.any(func(row):return row.get("contact",false) and row.position.z>ORIGIN.z-1),"Goemon's impact sits on the visible hurtbox surface")
+   if not photographed and first_contact>=0 and i>=first_contact+6:
+    var fx=game.crowd.army.presentation
+    var gold=fx.effects.filter(func(row):return row.kind in fx.GOLD_SPARKS)
+    var crit=fx.effects.filter(func(row):return row.kind=="critical")
+    check(not gold.is_empty() and gold.all(func(row):return is_equal_approx(row.scale,game.player.hit_effect_scale())),"Native hits keep the fighter's current size for %d at %s×"%[id,spec[1]])
+    check(crit.size()==(gold.size() if spec[2]==100 else 0) and crit.all(func(row):return gold.any(func(spark):return spark.position==row.position and is_equal_approx(row.scale,spark.scale*2.8))),"Only forced criticals layer enlarged blue-white on gold")
+    if DisplayServer.get_name()!="headless" and not gold.is_empty():
+     var batch=fx.batches[gold[0].kind].multimesh
      var saved_flashes=game.settings.get("reduced_flashes",false)
-     var before_alpha=presentation.batches.spark.multimesh.get_instance_custom_data(0).g
-     game.settings.reduced_flashes=true;presentation.draw_effects()
-     check(is_equal_approx(presentation.batches.spark.multimesh.get_instance_custom_data(0).g,before_alpha*.35),"Reduced flashes attenuate the submitted contact burst")
-     game.settings.reduced_flashes=saved_flashes;presentation.draw_effects()
-    await RenderingServer.frame_post_draw
-    check(root.get_texture().get_image().save_png(OUT+label+"/fighter-%d.png"%id)==OK,"Save actual native enemy contact for fighter %d"%id)
+     var before_alpha=batch.get_instance_custom_data(0).g
+     game.settings.reduced_flashes=true;fx.draw_effects()
+     check(before_alpha>0 and is_equal_approx(batch.get_instance_custom_data(0).g,before_alpha*.35),"Reduced Flashes dims the gold layer")
+     game.settings.reduced_flashes=saved_flashes;fx.draw_effects()
+     await RenderingServer.frame_post_draw
+     check(root.get_texture().get_image().save_png(OUT+label+"/fighter-%d-size-%s-crit-%d.png"%[id,spec[1],spec[2]])==OK,"Save native contact for fighter %d"%id)
     photographed=true
   check(damage_events>before,"Fighter %d retains real native enemy damage"%id)
-  cases.append({"fighter":id,"confirmed_contacts":damage_events-before})
+  cases.append({"fighter":id,"size":spec[1],"critical_chance":spec[2],"confirmed_contacts":damage_events-before})
   await advance(30)
  var presentation=game.crowd.army.presentation
  await advance(60)

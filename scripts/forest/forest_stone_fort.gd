@@ -23,6 +23,47 @@ static func gate(parent:Node3D):
 	Geo.box(parent,Vector3(0,Profile.GATE_HEADER_Y,0),Vector3(Profile.GATE_WIDTH,Profile.GATE_HEADER_HEIGHT,Profile.GATE_FRAME_DEPTH),material())
 	Geo.box(parent,Vector3(0,Profile.GATE_HEIGHT-.35,0),Vector3(Profile.GATE_WIDTH,.7,4),material(Color("b0b4a2"),false))
 	var door=Geo.box(parent,Vector3(0,Profile.GATE_CLOSED_Y,0),Vector3(Profile.GATE_DOOR_WIDTH,Profile.GATE_DOOR_HEIGHT,Profile.GATE_DOOR_THICKNESS),material(Color("727f78")));door.name="GateDoor"
+static func freyja_arch(parent:Node3D):
+	var boxes=preload("res://scripts/forest/forest_static_boxes.gd").new()
+	var limestone=material(Color("bab8a3"))
+	var coping=material(Color("d5c9a9"),false)
+	var brick=material(Color("91694f"),false)
+	var recess=material(Color("4d5046"),false)
+	boxes.add(Vector3(0,12.2,0),Vector3(9.6,2.4,3.6),limestone)
+	boxes.add(Vector3(0,13.5,0),Vector3(9.6,.35,4.0),coping)
+	for side in [-1,1]:
+		var x=side*6.15
+		boxes.add(Vector3(x,8.25,0),Vector3(2.7,16.5,4.5),limestone)
+		boxes.add(Vector3(x,.60,0),Vector3(2.9,1.2,4.7),limestone)
+		boxes.add(Vector3(x,16.25,0),Vector3(3.0,.55,4.8),coping)
+		for face in [-1,1]:
+			var z=face*2.26
+			boxes.add(Vector3(x,13.1,z),Vector3(.41,2.7,.06),recess)
+			boxes.add(Vector3(x,7.6,z),Vector3(.22,2.2,.06),recess)
+			for edge in [-1,1]:
+				for level in 13:
+					var shift=.18 if level%2==0 else .08
+					boxes.add(Vector3(x+edge*(1.17-shift),.8+level*1.15,z),Vector3(.35+shift,.43,.08),brick)
+			for edge in [-1,0,1]:
+				boxes.add(Vector3(x+edge*1.04,17.0,face*2.02),Vector3(.64,1.0,.70),coping)
+	for x in [-3.9,-2.34,-.78,.78,2.34,3.9]:
+		for z in [-1.65,1.65]:boxes.add(Vector3(x,13.95,z),Vector3(.85,.65,.6),coping)
+	boxes.build(parent)
+static func freyja_wall_segment(parent:Node3D,pose:Transform3D):
+	var root=Node3D.new();root.transform=pose;parent.add_child(root)
+	var boxes=preload("res://scripts/forest/forest_static_boxes.gd").new()
+	var limestone=material(Color("bab8a3"))
+	var coping=material(Color("d5c9a9"),false)
+	var recess=material(Color("4d5046"),false)
+	boxes.add(Vector3(0,6.65,0),Vector3(6,13.3,4.5),limestone)
+	boxes.add(Vector3(0,1.05,0),Vector3(6,2.1,4.8),material(Color("8e8e74")))
+	boxes.add(Vector3(0,13.32,0),Vector3(6,.46,4.85),coping)
+	for side in [-1,1]:
+		for x in [-2.4,-1.2,0,1.2,2.4]:
+			boxes.add(Vector3(x,9.35,side*2.256),Vector3(.20,2.75,.07),recess)
+		for x in [-2,0,2]:
+			boxes.add(Vector3(x,13.9,side*2.04),Vector3(.87,.83,.82),coping)
+	boxes.build(root)
 static func tower(parent:Node3D):
 	# Keep the occupied landing above the wall while retaining the compact footprint.
 	var deck=Profile.TOWER_DECK_HEIGHT

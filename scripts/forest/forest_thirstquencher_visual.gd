@@ -6,12 +6,15 @@ const ROLE_TO_TYPE={0:1,1:2,3:3}
 const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
 const DIR="res://assets/characters/thirstquencher/"
 static var resources={}
-static func supports(role:int)->bool:return role in Roles.RIGID_TYPES
+static func supports(role:int)->bool:return role==Roles.SLIME or role in Roles.NATIVE_TYPES
 static func data(role:int)->Resource:
  if not resources.has(role):
   resources[role]=load("res://assets/characters/recovered_monsters/"+Roles.RECOVERED[role]+"_runtime.res") if Roles.RECOVERED.has(role) else load(DIR+"soldier_%d_runtime.res"%ROLE_TO_TYPE[role])
  return resources[role]
 static func hurt_bounds(role:int=0)->AABB:
+ if role==Roles.CAVE_BEAR:return preload("res://scripts/forest/crowd/habaru_sprites.gd").BODY
+ if role==Roles.SLIME:return AABB(Vector3(-.84,0,-.84)*Roles.SLIME_SCALE,Vector3(1.68,1.8,1.68)*Roles.SLIME_SCALE)
+ if role==Roles.GATEKEEPER_HOUND:return AABB(Vector3(-.8,0,-1.15)*Roles.HOUND_SCALE,Vector3(1.6,2.7,2.5)*Roles.HOUND_SCALE)
  if role==Roles.DARK_LUMINA_3:return AABB(Vector3(-.55,0,-.5)*Roles.DARK_LUMINA_3_SCALE,Vector3(1.1,2.5,1)*Roles.DARK_LUMINA_3_SCALE)
  if role==Roles.DARK_LUMINA_2:return AABB(Vector3(-224,0,-160)*.018*Roles.Dark.SCALE,Vector3(448,288,272)*.018*Roles.Dark.SCALE)
  if role==Roles.VAMBEE_TORSO:return AABB(Vector3(-.28,0,-.64)*SCALE,Vector3(.56,.64,.96)*SCALE)

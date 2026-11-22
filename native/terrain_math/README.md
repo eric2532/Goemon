@@ -48,6 +48,14 @@ by navigation configuration. The nearest-first goal connector preserves the
 original strict-distance and row-order selection. `crowd/navigation_cache_test.cpp`
 compares it with the uncached selector, including blocked repeats and map changes.
 
+Long target-reachability queries use those same topology components and exact
+local entry/exit checks before trying the direct corridor. Short queries retain
+the direct check first, and a failed component proof still tries the exact direct
+path. This preserves narrow paths that the coarse grid cannot represent.
+`crowd/navigation_cache_test.cpp` compares both orders across terrain revisions,
+obstacles, support layers, slopes, stairs and body sizes; its moving-root check
+also measures avoided terrain samples.
+
 Covered terrain corridor certificates include ordinary army bodies when their
 radius plus the next .7 m sample fits inside two grid cells, with a rounding
 margin. This reuses the existing neighbourhood bounds; terrain/obstacle contact
@@ -74,6 +82,18 @@ Unknown/custom populations keep the script's conservative source-list path.
 `army_rigid_sweep_test.gd` compares the rigid-proxy fast path against the original
 prepared contact solver, including exact hit times and points.
 
+Normal Cross Gate player melee marks `Hit.joint_attack` at the GDScript boundary;
+native normal escort/bear delivery supplies the internal `joint_pet` flag.
+The existing hit owner groups these on each victim for a fixed 0.35 seconds,
+requires the player and counts at most ten distinct sources. After defenses,
+total damage is the accumulated normal damage times `1 + 0.1 * participants`;
+the current hit settles only the unpaid difference. Skills, counters and
+projectiles do not join. DAMAGE events optionally carry `joint_count` and
+`joint_total` for the existing presentation owner. State is fixed per unit,
+expires on the shared simulation clock and resets on unit reuse; no target
+selection or extra simulation owner is involved. `crowd/joint_attack_test.cpp`
+covers order, expiry, defense, exclusions, native pet delivery and lethal reuse.
+
 From the project root:
 
 ```sh
@@ -82,3 +102,14 @@ From the project root:
 ```
 
 The first verifies method registration, zero-length/flat samples, trees, roads, and wall decisions. The second compares every Vector3 component for 1,000 seeded sampled paths on a triangulated field against the GDScript arithmetic, using horizontal and full 3D sampling. These are math checks, not graphics or gameplay performance benchmarks.
+
+
+Falken's `falken_boss` kit flag extends the existing native ward/cast owner.
+`crowd/falken_spells_test.cpp` verifies the recovered conditional spell set,
+matching-channel reflection, confirmed life-drain healing, half-HP recovery,
+Holy Shield, exactly one death success per ten shuffled attempts and both
+summon families. The original AI/tech evidence is pinned in
+`assets/references/falken/original.json`. The source cast weights are adapted to
+compact bags; real-time cadence remains fitted. Keep `ruby_spells_test.cpp`
+passing when changing shared ward/cast behavior, and check the rendered full
+tower through Play Goemon using `tests/forest-shrine/falken_route_test.gd`.

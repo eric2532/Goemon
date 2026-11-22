@@ -51,10 +51,10 @@ func _ready():
 	name="ForestMapEditor";process_mode=Node.PROCESS_MODE_ALWAYS;mouse_filter=Control.MOUSE_FILTER_IGNORE
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var heading=Label.new();heading.text="MAP EDITOR";heading.position=Vector2(24,20);heading.add_theme_font_size_override("font_size",28);heading.add_theme_color_override("font_color",Color("f4d38b"));heading.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(heading)
-	var note=Label.new();note.text="Wind Meadow Valley · Base stays fixed";note.position=Vector2(24,58);note.add_theme_font_size_override("font_size",17);note.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(note)
+	var note=Label.new();note.text="Falan Arena · Four-sided survival";note.position=Vector2(24,58);note.add_theme_font_size_override("font_size",17);note.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(note)
 	var palette_panel=PanelContainer.new();palette_panel.name="MapAssetPalette";add_child(palette_panel);palette_panel.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	palette_panel.offset_left=-430;palette_panel.offset_right=-16;palette_panel.offset_top=16;palette_panel.offset_bottom=240
-	var palette_style=StyleBoxFlat.new();palette_style.bg_color=Color(.16,.045,.09,.95);palette_style.set_corner_radius_all(9)
+	var palette_style=StyleBoxFlat.new();palette_style.bg_color=Color(.145,.204,.235,.66);palette_style.set_corner_radius_all(9)
 	for side in [SIDE_LEFT,SIDE_TOP,SIDE_RIGHT,SIDE_BOTTOM]:palette_style.set_content_margin(side,10)
 	palette_panel.add_theme_stylebox_override("panel",palette_style)
 	var palette_rows=VBoxContainer.new();palette_rows.add_theme_constant_override("separation",6);palette_panel.add_child(palette_rows)
@@ -69,7 +69,7 @@ func _ready():
 	palette_previous.tooltip_text="Previous asset page · [ or Page Up";palette_next.tooltip_text="Next asset page · ] or Page Down"
 	var toolbar=PanelContainer.new();toolbar.name="MapEditorToolbar";add_child(toolbar);toolbar.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	toolbar.offset_left=16;toolbar.offset_right=-16;toolbar.offset_top=-292;toolbar.offset_bottom=-16
-	var box=StyleBoxFlat.new();box.bg_color=Color(.16,.045,.09,.95);box.border_color=Color("c9c5d2");box.set_border_width_all(1);box.set_corner_radius_all(9)
+	var box=StyleBoxFlat.new();box.bg_color=Color(.145,.204,.235,.66);box.border_color=Color("e5ddbf");box.set_border_width_all(1);box.set_corner_radius_all(9)
 	for side in [SIDE_LEFT,SIDE_TOP,SIDE_RIGHT,SIDE_BOTTOM]:box.set_content_margin(side,14)
 	toolbar.add_theme_stylebox_override("panel",box)
 	var rows=VBoxContainer.new();rows.add_theme_constant_override("separation",9);toolbar.add_child(rows)
@@ -81,7 +81,7 @@ func _ready():
 	button(files,"Load",load_selected,"LoadForestMap",85)
 	dirty_label=Label.new();dirty_label.custom_minimum_size.x=120;dirty_label.add_theme_color_override("font_color",Color("edcf87"));files.add_child(dirty_label)
 	var presets=HBoxContainer.new();presets.add_theme_constant_override("separation",8);rows.add_child(presets)
-	button(presets,"Wind Meadow",load_wind_meadow,"WindMeadowForestMap",165)
+	button(presets,"Falan Arena",load_wind_meadow,"WindMeadowForestMap",165)
 	var properties=HBoxContainer.new();properties.add_theme_constant_override("separation",8);rows.add_child(properties)
 	var size_label=Label.new();size_label.text="Scenery size";properties.add_child(size_label)
 	size_field=SpinBox.new();size_field.name="ScenerySize";size_field.min_value=Document.Scenery.MIN_SCALE;size_field.max_value=Document.Scenery.MAX_SCALE;size_field.step=.1;size_field.value=1;size_field.suffix="×";size_field.custom_minimum_size=Vector2(120,40);properties.add_child(size_field)
@@ -153,7 +153,7 @@ func open():
 	document.capture(previous_model)
 	var selected=game.get_tree().get_meta("forest_custom_layout",{})
 	if not selected.is_empty():document.data.title=selected.title;document.saved_text=document.encode()
-	elif previous_model.terrain_source=="wind_meadow":document.data.title="Wind Meadow Valley";document.saved_text=document.encode()
+	elif previous_model.terrain_source=="wind_meadow":document.data.title=("Falan Arena" if previous_model.terrain_detail==Document.Model.Arena.ID else "Wind Meadow Valley");document.saved_text=document.encode()
 	elif previous_model.terrain_source=="blood_gulch":document.data.title="Blood Gulch Castle";document.saved_text=document.encode()
 	elif previous_model.terrain_source=="kai_highway":document.data.title="Kai Highway Castle";document.saved_text=document.encode()
 	elif not previous_model.ramparts.is_empty():document.data.title="Four Gates" if previous_model.portals.size()==8 else "Twin Ramparts";document.saved_text=document.encode()
@@ -169,7 +169,7 @@ func refresh_document(scenery_only:bool=false,reuse_world:bool=false):
 	var terrain_changed=false
 	if not preview_layout.is_empty():
 		scenery_only=true
-		for key in ["terrain_source","terrain_scale","map_expansion","raised_castle","deposits","portals","roads"]:
+		for key in ["terrain_source","terrain_detail","falan_area","terrain_scale","map_expansion","raised_castle","deposits","portals","roads"]:
 			if preview_layout.get(key)!=document.data.get(key):scenery_only=false;break
 		terrain_changed=preview_layout.get("ramparts")!=document.data.get("ramparts")
 		if terrain_changed and game.model.terrain_source!="wind_meadow":scenery_only=false
@@ -230,7 +230,7 @@ func choose_piece(kind: String):
 	tool=kind;selection={};last_preview="";game.world.preview.hide()
 	if Document.Kit.is_module(kind):
 		terrain_auto_height=true
-		terrain_ground=Document.Model.create_terrain(game.model.terrain_source,game.model.terrain_scale,game.model.map_expansion,game.model.raised_castle);terrain_ground.configure([])
+		terrain_ground=Document.Model.create_terrain(game.model.terrain_source,game.model.terrain_scale,game.model.map_expansion,game.model.raised_castle,game.model.terrain_detail,game.model.falan_area);terrain_ground.configure([])
 	if not kind.is_empty() and kind not in palette_kinds.slice(palette_page*9,palette_page*9+9):palette_page=palette_kinds.find(kind)/9
 	if Document.Kit.is_module(kind):set_status("Place %s · R turns 90° · 3m snap · Height sets the base elevation"%piece_label(kind))
 	elif Document.Scenery.is_piece(kind):set_status("Place %s · Click a piece to stack · Select edits Size, Rotation and Height"%piece_label(kind))
@@ -298,14 +298,14 @@ func load_wind_meadow_large():
 		if not error.is_empty():set_status(error);return
 		name_field.text=document.data.title;choose_piece("");refresh_document()
 		var frame=game.preparation_map_frame();game.pan=frame.pan;game.preparation_size=frame.size;game.update_preparation_camera()
-		set_status("Large Wind Meadow · 2.25× the area · Play map starts a fresh run. Save to keep a custom layout; Back restores your current run."))
+		set_status("Large Falan Arena · 2.25× the area · Play map starts a fresh run. Save to keep a custom layout; Back restores your current run."))
 func load_wind_meadow():
 	request_replace(func():
 		var error=document.load_wind_meadow()
 		if not error.is_empty():set_status(error);return
 		name_field.text=document.data.title;choose_piece("");refresh_document()
 		var frame=game.preparation_map_frame();game.pan=frame.pan;game.preparation_size=frame.size;game.update_preparation_camera()
-		set_status("Wind Meadow Valley loaded · Destroy the four cardinal farms and defend the central castle."))
+		set_status("Falan Arena loaded · Survive enemies arriving from four sides."))
 func back_to_building():request_replace(close_discard)
 func close_discard():
 	var preview=game.model;var reuse=game.world.can_reuse_map(previous_model)
@@ -319,7 +319,11 @@ func play_map():
 	commit_scenery_field()
 	var error=document.play_error()
 	if not error.is_empty():set_status(error);return
-	game.get_tree().set_meta("forest_custom_layout",document.data.duplicate(true))
+	var layout=document.data.duplicate(true)
+	var tree=get_tree()
+	tree.set_meta("forest_custom_layout",layout)
+	if layout.has("falan_areas"):tree.set_meta("falan_venture",layout)
+	else:tree.remove_meta("falan_venture")
 	active=false;hide();previous_model=null;game.player.position=Vector3(0,.15,18)
 	game.preview_forest_map(document.data,false);game.forest_ui.show();game.toast("%s · Fresh run ready. Start a wave when ready."%document.data.title)
 func text_focused()->bool:return get_viewport().gui_get_focus_owner() is LineEdit
@@ -332,26 +336,27 @@ func map_cell(screen:Vector2,pick_scenery:bool=false)->Vector2i:
 		var hit=game.world.get_world_3d().direct_space_state.intersect_ray(query)
 		if hit.is_empty():break
 		var body=hit.collider
+		var authored:Vector3=hit.position/game.model.falan_scale
 		if pick_scenery and body.has_meta("map_terrain_index"):
-			picked_terrain=int(body.get_meta("map_terrain_index"));return game.model.cell_of(hit.position)
+			picked_terrain=int(body.get_meta("map_terrain_index"));return game.model.cell_of(authored)
 		if Document.Kit.is_module(tool) and body is StaticBody3D and game.world.is_ancestor_of(body):
-			terrain_cell=(Vector2(hit.position.x,hit.position.z)/3).round()*.5
+			terrain_cell=(Vector2(authored.x,authored.z)/3).round()*.5
 			if terrain_auto_height:terrain_height=maxf(0,terrain_ground.height(terrain_cell.x*6,terrain_cell.y*6))
-			return game.model.cell_of(hit.position)
+			return game.model.cell_of(authored)
 		if body.has_meta("map_scenery_cell") and (pick_scenery or Document.Scenery.is_piece(tool)):
 			picked_anchor=body.get_meta("map_scenery_cell");var cell=Document.Scenery.cell(picked_anchor)
 			placement_height=maxf(0,game.model.scenery_obstacles[picked_anchor].end.y-game.model.point(cell).y)
 			return cell
-		if body.has_meta("halo_ground_model") or body.get_meta("forest_terrain",false):return game.model.cell_of(hit.position)
+		if body.has_meta("halo_ground_model") or body.get_meta("forest_terrain",false):return game.model.cell_of(authored)
 		if Document.Scenery.is_piece(tool) and body is StaticBody3D and game.world.is_ancestor_of(body):
-			var cell=game.model.cell_of(hit.position)
-			placement_height=maxf(0,hit.position.y-game.model.point(cell).y)
+			var cell=game.model.cell_of(authored)
+			placement_height=maxf(0,authored.y-game.model.point(cell).y)
 			var building:Dictionary=game.model.buildings.get(game.model.occupancy.get(cell,-1),{})
 			if not building.is_empty():placement_height=maxf(placement_height,game.model.center(building).y+preload("res://scripts/forest/forest_structure_profile.gd").height(building.kind)-game.model.point(cell).y)
 			return cell
 		# Placement follows terrain; a tall roof must not shift the clicked grid cell.
 		excluded.append(hit.rid);query.exclude=excluded
-	return game.model.cell_of(origin+direction*(-origin.y/direction.y)) if absf(direction.y)>.001 else Vector2i.ZERO
+	return game.model.cell_of((origin+direction*(-origin.y/direction.y))/game.model.falan_scale) if absf(direction.y)>.001 else Vector2i.ZERO
 func global_input(event):
 	if confirmation.visible:return
 	if not road_stroke.is_empty() and event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_LEFT and not event.pressed:
@@ -395,7 +400,8 @@ func handle_input(event):
 		elif event.button_index==MOUSE_BUTTON_LEFT:
 			var cell=map_cell(event.position,tool.is_empty())
 			if tool=="road":road_stroke=[cell];road_last_cell=cell;extend_stroke(cell)
-			elif tool.is_empty():selection=document.object_at(cell,picked_anchor,picked_terrain);show_selection();refresh_controls(false)
+			elif tool.is_empty():
+				selection=document.object_at(cell,picked_anchor,picked_terrain,not game.model.shrine().is_empty());show_selection();refresh_controls(false)
 			else:
 				var position_=terrain_cell if Document.Kit.is_module(tool) else Vector2(cell)
 				var height_=terrain_height if Document.Kit.is_module(tool) else placement_height

@@ -1,6 +1,7 @@
 # Godot-generated cache and local exports.
 .godot/
 /build/
+/native/*/bin/*.wasm
 /backups/
 .DS_Store
 
@@ -24,7 +25,14 @@ __pycache__/
 /tests/**/*.mp4
 /tests/**/*.import
 /tests/**/*.json
+!/tests/forest-shrine/reference/maps/forest_wind_meadow_valley.json
+!/tests/forest-shrine/reference/maps/forest_wind_meadow_large_valley.json
 !/tests/forest-shrine/reference/maps/forest_modular_kit.json
+!/tests/forest-shrine/reference/maps/forest_freyja_west_gate.json
+!/tests/forest-shrine/reference/maps/forest_freyja_east_gate.json
+!/tests/forest-shrine/reference/maps/forest_freyja_south_gate.json
+!/tests/forest-shrine/reference/maps/forest_falan_city.json
+!/tests/forest-shrine/reference/maps/forest_falan_castle.json
 /tests/**/*.txt
 
 # Generated prior-commit world for town visual comparison.

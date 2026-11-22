@@ -15,6 +15,7 @@ static func layout()->Dictionary:
 		"portals":[{"x":-19,"z":14,"rotation":1},{"x":19,"z":14,"rotation":3},{"x":0,"z":24,"rotation":0}]}
 
 static func obstacles(model:RefCounted)->Array:
+	if not model.has_enemy_camps() or not model.falan_road.is_empty():return []
 	if model.camp_obstacle_revision==model.navigation_revision:return model.camp_obstacles
 	model.camp_obstacle_revision=model.navigation_revision;model.camp_obstacles=[]
 	var boxes:Array=model.camp_obstacles

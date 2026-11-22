@@ -1,0 +1,1 @@
+Rejected by user on 2026-11-06: face, hair, coat and anatomy drifted into an ugly/creepy redesign. ready-7.png and assembled 5-7.png must not be activated or used as identity references. Neither this revision nor the staged IAI candidate was activated. Restart identity from iai-left-hip/references/preferred-slash-proportions.png; correct only arm/weapon placement.

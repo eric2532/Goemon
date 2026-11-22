@@ -1,0 +1,189 @@
+{
+  "note": "Visually reviewed Shin 2.0 artwork, grouped by appearance rather than flawed source family labels. Exact pack-qualified source keys; fixed pet/effect weapons stay fixed.",
+  "skins": [
+    {
+      "character": 38,
+      "root": "shin",
+      "skin": 100882,
+      "label": "Special · Shin 2.0 / Black / Blue",
+      "body_pixels": 80,
+      "weapons": {
+        "unarmed": "joy:772",
+        "axe": "joy:770",
+        "bow": "joy:771",
+        "sword": "joy:773",
+        "staff": "joy:774",
+        "polearm": "joy:775"
+      }
+    },
+    {
+      "character": 38,
+      "root": "shin",
+      "skin": 105050,
+      "label": "Special · Shin 2.0 / Red / Blue",
+      "body_pixels": 80,
+      "weapons": {
+        "unarmed": "ex:50",
+        "axe": "ex:48",
+        "bow": "ex:49",
+        "sword": "ex:51",
+        "staff": "ex:52",
+        "polearm": "ex:53"
+      }
+    },
+    {
+      "character": 38,
+      "root": "shin",
+      "skin": 105056,
+      "label": "Special · Shin 2.0 / Blond / Green",
+      "body_pixels": 80,
+      "weapons": {
+        "unarmed": "ex:56",
+        "axe": "ex:54",
+        "bow": "ex:55",
+        "sword": "ex:57",
+        "staff": "ex:58",
+        "polearm": "ex:59"
+      }
+    },
+    {
+      "character": 38,
+      "root": "shin",
+      "skin": 105062,
+      "label": "Special · Shin 2.0 / Brown / Green",
+      "body_pixels": 80,
+      "weapons": {
+        "unarmed": "ex:62",
+        "axe": "ex:60",
+        "bow": "ex:61",
+        "sword": "ex:63",
+        "staff": "ex:64",
+        "polearm": "ex:65"
+      }
+    },
+    {
+      "character": 38,
+      "root": "shin",
+      "skin": 105068,
+      "label": "Special · Shin 2.0 / Blue / Gray",
+      "body_pixels": 80,
+      "weapons": {
+        "unarmed": "ex:68",
+        "axe": "ex:66",
+        "bow": "ex:67",
+        "sword": "ex:69",
+        "staff": "ex:70",
+        "polearm": "ex:71"
+      }
+    },
+    {
+      "character": 38,
+      "root": "shin",
+      "skin": 120346,
+      "label": "Special · Shin 2.0 / Silver / Gray",
+      "body_pixels": 80,
+      "weapons": {
+        "unarmed": "v3:979",
+        "axe": "v3:977",
+        "bow": "v3:978",
+        "sword": "v3:980",
+        "staff": "v3:981",
+        "polearm": "v3:982"
+      }
+    },
+    {
+      "character": 38,
+      "root": "shin",
+      "skin": 120352,
+      "label": "Special · Shin 2.0 / Silver / Crimson",
+      "body_pixels": 80,
+      "weapons": {
+        "unarmed": "v3:985",
+        "axe": "v3:983",
+        "bow": "v3:984",
+        "sword": "v3:986",
+        "staff": "v3:987",
+        "polearm": "v3:988"
+      }
+    },
+    {
+      "character": 38,
+      "root": "shin",
+      "skin": 106756,
+      "label": "Special · Shin 2.0 / Blond / Crimson",
+      "body_pixels": 80,
+      "weapons": {
+        "unarmed": "v3:554",
+        "axe": "v3:391",
+        "bow": "v3:484",
+        "sword": "v3:522",
+        "staff": "v3:558",
+        "polearm": "v3:590"
+      }
+    },
+    {
+      "character": 38,
+      "root": "shin",
+      "skin": 120418,
+      "label": "Special · Shin 2.0 / Black / Gold Weapons",
+      "body_pixels": 80,
+      "weapons": {
+        "unarmed": "ch1:649",
+        "axe": "ch1:648",
+        "sword": "ch1:650",
+        "staff": "ch1:651",
+        "polearm": "ch1:652"
+      }
+    },
+    {
+      "character": 38,
+      "root": "shin",
+      "skin": 100299,
+      "label": "Special · Shin 2.0 / Black / Gold Sword",
+      "body_pixels": 80,
+      "weapons": {
+        "sword": "ch1:708"
+      }
+    },
+    {
+      "character": 38,
+      "root": "shin",
+      "skin": 108312,
+      "label": "Special · Shin 2.0 / Black / Crimson Polearm",
+      "body_pixels": 80,
+      "weapons": {
+        "polearm": "puk2:785"
+      }
+    },
+    {
+      "character": 38,
+      "root": "shin",
+      "skin": 120383,
+      "label": "Special · Shin 2.0 / Gray / Amber",
+      "body_pixels": 80,
+      "weapons": {
+        "unarmed": "puk3:1003"
+      }
+    },
+    {
+      "character": 38,
+      "root": "shin",
+      "skin": 120382,
+      "label": "Special · Shin 2.0 / Gray / Purple Wings",
+      "body_pixels": 80,
+      "weapons": {
+        "unarmed": "puk3:1004"
+      }
+    },
+    {
+      "character": 38,
+      "root": "shin",
+      "skin": 120445,
+      "label": "Special · Shin 2.0 / Purple Rune Aura",
+      "body_pixels": 80,
+      "weapons": {
+        "sword": "ch1:732"
+      }
+    }
+  ]
+}

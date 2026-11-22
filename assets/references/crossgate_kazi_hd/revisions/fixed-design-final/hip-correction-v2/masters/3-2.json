@@ -1,0 +1,29 @@
+{
+  "method": "Reuse back-view left-hip torso/arms with rear-right head/legs; assert unchanged head/feet",
+  "sources": {
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/fixed-design-final/masters/3-2.png": "147462b644484bd32f9d0df50fdb086e3912dae5449bd87868affa9e68fc2375",
+    "/Users/eric/Desktop/Projects_Codex/Sonic/assets/references/crossgate_kazi_hd/revisions/fixed-design-final/masters/3-1.png": "6cd81fbe660e969641516472895b9fbc2b9a112561b1e921d93505eedf149e4f"
+  },
+  "frames": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "sha256": "8e01652d85fb37d817e8de4f9f8c9c02ec08af6dbcd08b7dcbe9f87f972b21f8",
+  "preparer_sha256": "7cb856e1a43be2249aebcffa73f16defaf82c63febb3f06f9364a209297aa4cf"
+}

@@ -1,0 +1,7 @@
+{
+  "source_graphic": 11393,
+  "source_rgba_sha256": "ed128dcb9695f5a7ae172dbd66ccdd06b6125c4072ca5e207ac09aa1d249de6c",
+  "reconstructed_pixels": 995,
+  "method": "Occluding timber inside the stone region is replaced by nearest unobscured paint on the same row; original sprite and alpha are preserved.",
+  "output_rgba_sha256": "63dc10d9bce68febf77b9104f5e2dc4da9b8a3f075e54bc265766e15c8085bef"
+}

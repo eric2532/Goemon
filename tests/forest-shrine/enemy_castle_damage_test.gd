@@ -8,8 +8,8 @@ var timings={}
 func run():
 	root.size=Vector2i(1280,800)
 	set_meta("forest_fighter",1);set_meta("forest_painterly_preview",true)
-	var doc=preload("res://scripts/forest/forest_map_document.gd").new();doc.load_wind_meadow()
-	if "--large" in OS.get_cmdline_user_args():doc.load_wind_meadow_large();OUT+="Large/"
+	var doc=preload("res://tests/forest-shrine/reference/map_document.gd").new();doc.load_valley()
+	if "--large" in OS.get_cmdline_user_args():doc.load_valley_large();OUT+="Large/"
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUT))
 	set_meta("forest_custom_layout",doc.data)
 	game=Battle.new();game.settings_path="user://castle-damage-%d.cfg"%OS.get_process_id()
@@ -108,7 +108,7 @@ func run():
 	check(castle.hp==6000 and not castle.dead and game.model.active_enemy_camps()==4,"A breach keeps the castle and all four reinforcement sources alive")
 	check(game.model.enemies.has(row.id) and game.model.waves.spawn_batch()>0,"Living soldiers survive and the breached castle can still reinforce")
 	check(game.model.navigation_revision>revision and game.model.waves.navigation.move_clear(castle.position+center,1.3),"Native navigation updates to permit the breach")
-	var saved=preload("res://scripts/forest/forest_map_document.gd").new();saved.capture(game.model)
+	var saved=preload("res://tests/forest-shrine/reference/map_document.gd").new();saved.capture(game.model)
 	check(saved.data.portals.all(func(p):return p.keys().size()==3 and not p.has("sections")),"Saved map layouts exclude transient damage and panel state")
 	check(not player.test_move(walk,-outward*16),"The actual player collider can move through the broken panel")
 	if DisplayServer.get_name()!="headless":

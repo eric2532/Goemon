@@ -119,7 +119,9 @@ func run():
  check(melees>0 and enemy.hp<50000,"Copies deal damage through their shared character attacks")
  check(p.impact_pause==0,"Copy impacts do not pause the caster")
  await advance(500,true)
- check(c.mirrors.handles.is_empty() and first.all(func(h):return not owner.valid(h)),"All mirrors expire at fifteen seconds")
+ check(first.size()==5 and first.all(func(h):return owner.valid(h)),"All mirrors stay active past fifteen seconds")
+ await advance(900,true)
+ check(c.mirrors.handles.is_empty() and first.all(func(h):return not owner.valid(h)),"All mirrors expire at thirty seconds")
  # Compare settled casts; immediate attacks can leave short-lived impact effects.
  await advance(180,true)
  var count=Performance.get_monitor(Performance.OBJECT_NODE_COUNT);var resources=Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)

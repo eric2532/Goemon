@@ -17,15 +17,12 @@ func run():
 	await process_frame;await process_frame
 	game.set_process(false)
 	game.forest_ui.sync()
-	check(game.forest_ui.gold_count.text=="1,000,000","The real HUD displays the testing treasury")
-	check(game.forest_ui.gold_count.get_global_rect().end.x<=root.get_visible_rect().size.x,"The larger treasury fits inside the window")
+	check(game.model.gold==1000000,"The run starts with the testing treasury")
 	check(game.model.buildings.values().filter(func(b):return b.kind=="mine" and game.world.structure_nodes.has(b.id)).size()==2,"Both starter mines appear in the battlefield")
-	var origins={}
-	for w in game.model.workers.values():origins[w.id]=w.pos
+	check(game.model.workers.is_empty(),"The opening settlement has no workers")
 	await capture("starting-settlement")
-	for i in range(120):game.model.tick(.1,game.player.position)
-	game.world.sync(.1)
-	check(game.model.workers.values().all(func(w):return w.pos!=origins[w.id] and w.state=="mine"),"All workers reach their automatic starting jobs")
+	game.recruit_worker()
+	check(game.model.workers.size()==1,"The opening settlement supports paid worker recruitment")
 	for x in range(-8,-2):game.model.explored[Vector2i(x,7)]=true
 	var wall=game.model.build("wall",Vector2i(-8,7),0)
 	check(not wall.is_empty(),"A six-cell wall can be bought through the live model")

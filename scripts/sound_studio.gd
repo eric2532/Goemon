@@ -30,13 +30,13 @@ var paired_preview: Button
 func _ready():
 	process_mode=Node.PROCESS_MODE_ALWAYS
 	library=game.sound_library
-	if library.character_id not in library.Roster.selection_ids():library.select_character(1)
+	if library.character_id not in library.Roster.sound_ids():library.select_character(library.Roster.KAZI_ID)
 	var panel=Panel.new();panel.position=Vector2(45,58);panel.size=Vector2(1220,785);panel.mouse_filter=Control.MOUSE_FILTER_IGNORE
-	var style=StyleBoxFlat.new();style.bg_color=Color(.16,.045,.10,.94);style.border_color=Color("c9c5d2");style.set_border_width_all(1);style.set_corner_radius_all(12);panel.add_theme_stylebox_override("panel",style);add_child(panel)
+	var style=StyleBoxFlat.new();style.bg_color=Color(.145,.204,.235,.66);style.border_color=Color("e5ddbf");style.set_border_width_all(1);style.set_corner_radius_all(12);panel.add_theme_stylebox_override("panel",style);add_child(panel)
 	game.label_at(self,"SOUND STUDIO",Vector2(80,95),42)
 	hub_title=game.label_at(self,"",Vector2(82,154),20,Color("dfc384"))
 	characters=OptionButton.new();characters.name="SoundCharacter";characters.position=Vector2(80,205);characters.size=Vector2(330,42);add_child(characters)
-	for id in library.Roster.selection_ids():characters.add_item(library.character_name(id),id)
+	for id in library.Roster.sound_ids():characters.add_item(library.character_name(id),id)
 	characters.select(characters.get_item_index(library.character_id))
 	characters.item_selected.connect(func(index):
 		library.select_character(characters.get_item_id(index));search.clear();refresh_slots();refresh())
@@ -71,7 +71,7 @@ func _ready():
 
 func make_layer(key: String,x: float,title: String):
 	var card=Panel.new();card.position=Vector2(x,357);card.size=Vector2(360,328);card.mouse_filter=Control.MOUSE_FILTER_IGNORE
-	var style=StyleBoxFlat.new();style.bg_color=Color(.16,.045,.09,.95);style.border_color=Color("c9c5d2");style.set_border_width_all(1);style.set_corner_radius_all(8);card.add_theme_stylebox_override("panel",style);add_child(card)
+	var style=StyleBoxFlat.new();style.bg_color=Color(.145,.204,.235,.66);style.border_color=Color("e5ddbf");style.set_border_width_all(1);style.set_corner_radius_all(8);card.add_theme_stylebox_override("panel",style);add_child(card)
 	var controls={}
 	controls.title=game.label_at(self,title,Vector2(x+18,370),24,Color("dfc384"))
 	controls.state=game.label_at(self,"",Vector2(x+18,410),16);controls.state.size=Vector2(324,40);controls.state.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART

@@ -2,6 +2,7 @@ extends MeshInstance3D
 ## One bounded ribbon per swing, sampled AFTER the authored weapon pose.
 const MAX_SAMPLES = 18
 const SUBDIVISIONS = 3
+static var ribbon_layouts:Dictionary={}
 var samples: Array = []
 var histories: Array = []
 var original_brush:MeshInstance3D
@@ -38,9 +39,23 @@ func _surface() -> void:
 
 static func surface_arrays(poses:Array) -> Array:
  var vertices = PackedVector3Array()
- var uvs = PackedVector2Array()
- var indices = PackedInt32Array()
  var points = (poses.size()-1)*SUBDIVISIONS+1
+ var layout=ribbon_layouts.get(points)
+ if layout==null:
+  var uvs=PackedVector2Array()
+  var indices=PackedInt32Array()
+  var widths=PackedFloat64Array()
+  for i in range(points):
+   var u=float(i)/float(points-1)
+   widths.append(.76*pow(maxf(0,sin(PI*u)),.55))
+   uvs.append(Vector2(u,0));uvs.append(Vector2(u,1))
+   if i>0:
+    var n=i*2
+    indices.append_array(PackedInt32Array([n-2,n-1,n,n-1,n+1,n]))
+  layout=[uvs,indices,widths]
+  if poses.size()<=MAX_SAMPLES:ribbon_layouts[points]=layout
+ var widths:PackedFloat64Array=layout[2]
+ vertices.resize(points*2)
  for i in range(points):
   var segment = mini(i/SUBDIVISIONS,poses.size()-2)
   var t = float(i-segment*SUBDIVISIONS)/SUBDIVISIONS
@@ -50,19 +65,13 @@ static func surface_arrays(poses:Array) -> Array:
   var d: Array = poses[mini(poses.size()-1,segment+2)]
   var curve_base: Vector3 = _curve(a[0],b[0],c[0],d[0],t)
   var curve_tip: Vector3 = _curve(a[1],b[1],c[1],d[1],t)
-  var u = float(i)/float(points-1)
-  var width = .76*pow(maxf(0,sin(PI*u)),.55)
   # Smooth the recorded path into a pointed crescent, keeping its leading tip
   # exactly on the current sword. Never predict future weapon positions.
-  vertices.append(curve_tip.lerp(curve_base,width))
-  vertices.append(curve_tip)
-  uvs.append(Vector2(u,0));uvs.append(Vector2(u,1))
-  if i>0:
-   var n = i*2
-   indices.append_array(PackedInt32Array([n-2,n-1,n,n-1,n+1,n]))
+  vertices[i*2]=curve_tip.lerp(curve_base,widths[i])
+  vertices[i*2+1]=curve_tip
  var arrays: Array = []
  arrays.resize(Mesh.ARRAY_MAX)
- arrays[Mesh.ARRAY_VERTEX]=vertices;arrays[Mesh.ARRAY_TEX_UV]=uvs;arrays[Mesh.ARRAY_INDEX]=indices
+ arrays[Mesh.ARRAY_VERTEX]=vertices;arrays[Mesh.ARRAY_TEX_UV]=layout[0];arrays[Mesh.ARRAY_INDEX]=layout[1]
  return arrays
 
 static func _curve(a: Vector3,b: Vector3,c: Vector3,d: Vector3,t: float) -> Vector3:

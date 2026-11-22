@@ -118,7 +118,10 @@ func _draw():
 		if p.character_id==30:number_actions="1 Wind · 2 Water · 3 Fire · 4 Earth · 5 Sky";primary="LMB · Kojiro’s Wind wave → Two piercing energy blades"
 		text(Vector2(32,h-108),("1 Volley · 2 Giant fireball · 3 Meteors · Q Switch" if p.attack_chain.unleashed() else "E D O · FIRECASTER · Q Choose hero" if game.rogue_roster_mode else "E D O · FIRECASTER · Q Switch character") if p.character_id==2 else number_actions,15,gold)
 		text(Vector2(32,h-80),primary,15)
-		text(Vector2(32,h-53),"WASD   CTRL Walk   SPACE ×2 Jump   R Guard" if p.character_id==13 else ("WASD Fly   HOLD SPACE Ascend   SHIFT Boost" if p.can_fly() else "WASD   CTRL Walk   SHIFT Sprint   SPACE ×%d Jump   C Evade" % p.maximum_jumps()),13)
+		if p.RogueRoster.is_crossgate_fighter(p.character_id):
+			text(Vector2(32,h-53),"WASD Move   SHIFT Sprint   SPACE Timed Dodge   SHIFT + SPACE Jump",13)
+		else:
+			text(Vector2(32,h-53),"WASD   CTRL Walk   SPACE ×2 Jump   R Guard" if p.character_id==13 else ("WASD Fly   HOLD SPACE Ascend   SHIFT Boost" if p.can_fly() else "WASD   CTRL Walk   SHIFT Sprint   SPACE ×%d Jump   C Evade" % p.maximum_jumps()),13)
 		var mode_control=("F Upgrade" if game.defense_beta else "F Build cannon") if game.tower_defense_mode else "Y New map"
 		var goemon_controls="E Dash   R Surge   T Sky strike   "+("Q Fighters   " if game.rogue_roster_mode else "Q Switch   ")
 		if p.character_id==28:goemon_controls="E Homing   R Wind   T Wave   Q Fighters   "
@@ -230,7 +233,7 @@ func _draw():
 		var heading=atan2(diff.x,-diff.z)+game.camera_rig.yaw
 		var marker=Vector2(w*.5,110 if game.boss_active else 65)
 		draw_colored_polygon(Transform2D(heading,marker)*PackedVector2Array([Vector2(0,-10),Vector2(7,6),Vector2(0,3),Vector2(-7,6)]),Color("79ffe0"))
-		text(Vector2(w*.5-110,marker.y+33),"ENERGY PORTAL · %dm · F to enter" % int(diff.length()),14,Color("a3ffe6"))
+		text(Vector2(w*.5-110,marker.y+33),"ENERGY PORTAL · %dm" % int(diff.length()),14,Color("a3ffe6"))
 		break
 	if game.portal_hint!="":
 		var prompt_width=font.get_string_size(game.portal_hint,HORIZONTAL_ALIGNMENT_LEFT,-1,18).x

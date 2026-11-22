@@ -78,6 +78,7 @@ func run():
  world.show_preview("barracks",cell+Vector2i(4,0),1,true)
  check(art(world.ghost_art.get_node("WindMeadowAsset")).mesh==art(farm_node.get_node("WindMeadowAsset")).mesh,"Farm placement ghost shares the real exported art")
  world.preview.hide();world.sight_ring.hide()
+ m.workforce.recruit(true)
  var worker:Dictionary=m.workers.values()[0];m.workforce.release_job(worker)
  farm.hp-=100;var hp:float=farm.hp;money=m.gold
  check(m.workforce._assign(worker,farm),"Farm accepts the existing interior repair job")

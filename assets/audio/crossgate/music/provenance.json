@@ -1,0 +1,96 @@
+{
+  "preparation": "ffmpeg -i SOURCE.wav -c:a libmp3lame -q:a 2 OUTPUT.mp3; original 22050 Hz stereo; decoded frame count matches source; no trims or normalization",
+  "tracks": {
+    "cgbgm_m0": {
+      "source": "BlueCrossgate/bin/bgm/cgbgm_m0.wav",
+      "source_sha256": "2cb761e3ea675c2627f20445b5d13e92c625357bebf67b9bb97fcf168e9e9585",
+      "runtime_sha256": "4ecca28aa6e38852b0f2cf82f9cac7c604027986fa37cbbf3a5c48cd049273c3",
+      "duration": 97.77006802721088,
+      "decoded_frames": 2155830
+    },
+    "cgbgm_m1": {
+      "source": "BlueCrossgate/bin/bgm/cgbgm_m1.wav",
+      "source_sha256": "1df98e50e544a4550a3852702857f762ccfda6ace8bc314947a2f7585e76fb07",
+      "runtime_sha256": "a175937c35c45b6b218ee54b8169b1c2bc794b1f69fb2b2180137f070b7d7069",
+      "duration": 112.66172335600908,
+      "decoded_frames": 2484191
+    },
+    "cgbgm_m2": {
+      "source": "BlueCrossgate/bin/bgm/cgbgm_m2.wav",
+      "source_sha256": "f349f56fb7191dbc09ccefdf4d550ac82f4308f050a2928fd98e020bd451ffea",
+      "runtime_sha256": "11258b9ec26f1c71b4a24141a7288bf46b65147af87abb4e72a147bc9d7343a1",
+      "duration": 136.43337868480725,
+      "decoded_frames": 3008356
+    },
+    "cgbgm_m3": {
+      "source": "BlueCrossgate/bin/bgm/cgbgm_m3.wav",
+      "source_sha256": "0fce66f444eab5b0c1f5c96249e71122d984cc92e187437ca71a4db123abcfd5",
+      "runtime_sha256": "22388061359b663d873c86d6399c5543c395e0df4bff7d7ffd8c4aa02a1f41c2",
+      "duration": 133.99115646258502,
+      "decoded_frames": 2954505
+    },
+    "cgbgm_m4": {
+      "source": "BlueCrossgate/bin/bgm/cgbgm_m4.wav",
+      "source_sha256": "557553659d3b349b9cfc74ef16ec36c926a62286334b89b86027d5becd6d9a39",
+      "runtime_sha256": "814c6ce33fffc3adcc99dd82dc3ba7663fe05cb572bb3fc9039b12a7bed25c8f",
+      "duration": 106.99655328798185,
+      "decoded_frames": 2359274
+    },
+    "cgbgm_f0": {
+      "source": "BlueCrossgate/bin/bgm/cgbgm_f0.wav",
+      "source_sha256": "1c309e0ef0d4b560f6b27f0de18c3c0ed0665d60cae5f8a165dbf460f0731ae2",
+      "runtime_sha256": "7b296d49a977d9f398fc751954ebc67395f45c50dd79abdd1e55b740d85a3287",
+      "duration": 109.95845804988662,
+      "decoded_frames": 2424584
+    },
+    "cgbgm_f1": {
+      "source": "BlueCrossgate/bin/bgm/cgbgm_f1.wav",
+      "source_sha256": "44531b0cabecde43233384e45de7b10b1b33ca7774c926b49da094bff3b48619",
+      "runtime_sha256": "acb461f8c33d4e2661e4f852c3039ae5bfa1e2b6cbd473b81da8db1300c10fc1",
+      "duration": 99.94086167800454,
+      "decoded_frames": 2203696
+    },
+    "cgbgm_f2": {
+      "source": "BlueCrossgate/bin/bgm/cgbgm_f2.wav",
+      "source_sha256": "d19c481f15816ce50e6a3745d2263dacbae18d17acb6727db82861b4dd9b1040",
+      "runtime_sha256": "93764419d5867f08d8f41e38955efdc44059a0abc691b786439703b97aec1772",
+      "duration": 96.07709750566893,
+      "decoded_frames": 2118500
+    },
+    "cgbgm_d0": {
+      "source": "BlueCrossgate/bin/bgm/cgbgm_d0.wav",
+      "source_sha256": "0cdc8537bd4ef8817c5598ec0b3b38394c30a0f6ebba37840f437baf1f453a5b",
+      "runtime_sha256": "b49d6b83d1e80a7d493502e512b905cc7d60c356a66b7515310461b8f3360b2b",
+      "duration": 82.48526077097506,
+      "decoded_frames": 1818800
+    },
+    "cgbgm_d1": {
+      "source": "BlueCrossgate/bin/bgm/cgbgm_d1.wav",
+      "source_sha256": "1fe62bee5ddbcbd912712e87592897b26faf7071ba873b7bbb605faf75591476",
+      "runtime_sha256": "47f0483512768ca15f78fdb835d00ab66f4c06ee150eebad6b223852744dab7a",
+      "duration": 78.50839002267574,
+      "decoded_frames": 1731110
+    },
+    "cgbgm_d2": {
+      "source": "BlueCrossgate/bin/bgm/cgbgm_d2.wav",
+      "source_sha256": "361a6ae7d3a9240db6b3ae0ed7e1656c70e5f55fcf1e1dad0048d2d27b0abc62",
+      "runtime_sha256": "94ba5bf105e367223b822e718f825f852d66e2e919ef03ae9dbb2a741eb2faf5",
+      "duration": 82.88013605442177,
+      "decoded_frames": 1827507
+    },
+    "cgbgm_d3": {
+      "source": "BlueCrossgate/bin/bgm/cgbgm_d3.wav",
+      "source_sha256": "1e3048bfbabd5993526494d5252857e59329484b9c5a599198900883046474c8",
+      "runtime_sha256": "ba6f1b819ba7ac5d2a26926eb6418fa0bdb02c6258223ab79f66628cc2eb03ec",
+      "duration": 93.76657596371882,
+      "decoded_frames": 2067553
+    },
+    "cgbgm_d4": {
+      "source": "BlueCrossgate/bin/bgm/cgbgm_d4.wav",
+      "source_sha256": "af59dc25da17ed6901590f23672234deb093e652c3924869229f272242aeebe1",
+      "runtime_sha256": "53d0d9486d583b98a64560e6c83767993130083bf17513a61703d94ebd5e3708",
+      "duration": 103.9843537414966,
+      "decoded_frames": 2292855
+    }
+  }
+}
